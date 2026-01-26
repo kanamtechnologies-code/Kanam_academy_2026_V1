@@ -266,21 +266,21 @@ print("Hello! I am " + name)`}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex min-h-0 flex-1 flex-col gap-3">
-        <div className="relative min-h-0 flex-1">
-          <div className="pointer-events-none absolute left-3 top-2 z-10 flex items-center gap-2 text-xs font-semibold text-slate-500">
-            <span className="rounded-full bg-amber-200 px-2 py-0.5 text-amber-950">
-              Type code here
-            </span>
-            <span className="hidden sm:inline">👇</span>
-          </div>
-          <Textarea
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            spellCheck={false}
-            aria-label="Python code editor"
-            className="min-h-0 flex-1 resize-none border-2 border-amber-300 bg-amber-50 pt-9 shadow-sm focus-visible:ring-4 focus-visible:ring-amber-200 dark:border-amber-600/60 dark:bg-amber-950/20 dark:focus-visible:ring-amber-500/30"
-          />
-        </div>
+        <Textarea
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          spellCheck={false}
+          aria-label="Python code editor"
+          placeholder={'# Try typing:\n# print("Hello! I am " + name)\n'}
+          className={[
+            "min-h-0 flex-1 resize-none border-2 bg-white shadow-sm",
+            "focus-visible:ring-4",
+            submitted
+              ? "border-[var(--brand)] focus-visible:ring-[var(--brand)]/25"
+              : "border-[var(--accent)] focus-visible:ring-[var(--accent)]/25",
+            "dark:bg-slate-950",
+          ].join(" ")}
+        />
         <div className="mt-auto rounded-md border border-slate-200 bg-white p-3">
           <div className="flex flex-wrap items-center gap-2">
             <Button onClick={onRun} variant="secondary">
