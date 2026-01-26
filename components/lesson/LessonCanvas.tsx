@@ -69,7 +69,11 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
 
   const readyToSubmit = lesson.isSubmissionValid(code);
   const progressPercent = React.useMemo(
-    () => lesson.computeProgressPercent(code, submitted),
+    () => {
+      // If the learner hasn't changed anything yet, start at 0%.
+      if (!submitted && code.trim() === lesson.starterCode.trim()) return 0;
+      return lesson.computeProgressPercent(code, submitted);
+    },
     [code, submitted, lesson]
   );
 
