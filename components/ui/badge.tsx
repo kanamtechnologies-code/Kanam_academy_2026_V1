@@ -11,10 +11,10 @@ const badgeVariants = cva(
         default:
           "border-transparent bg-[var(--brand)] text-white",
         secondary:
-          "border-transparent bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-50",
-        outline: "text-slate-950 dark:text-slate-50",
+          "border-transparent bg-slate-100 text-slate-900",
+        outline: "text-slate-950",
         success:
-          "border-transparent bg-emerald-600 text-white dark:bg-emerald-500 dark:text-emerald-950",
+          "border-transparent bg-emerald-600 text-white",
       },
     },
     defaultVariants: {

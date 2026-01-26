@@ -14,11 +14,11 @@ export function WelcomeShell({
   return (
     <div className={["w-full max-w-3xl", containerClassName ?? ""].join(" ")}>
       <div className="text-center">
-        <h1 className="text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl">
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
           {title}
         </h1>
         {subtitle ? (
-          <p className="mt-3 text-base text-slate-300 sm:text-lg">{subtitle}</p>
+          <p className="mt-3 text-base text-slate-700 sm:text-lg">{subtitle}</p>
         ) : null}
       </div>
       <div className="mt-8">{children}</div>

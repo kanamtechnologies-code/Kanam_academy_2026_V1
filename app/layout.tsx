@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} min-h-dvh bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-50`}
+        className={`${inter.variable} min-h-dvh bg-slate-50 text-slate-900 antialiased`}
       >
         <header className="sticky top-0 z-50 overflow-hidden border-b border-slate-200/70 bg-[var(--background)]/80 backdrop-blur">
           {/* Subtle video texture (kept very low-contrast so it isn't distracting) */}

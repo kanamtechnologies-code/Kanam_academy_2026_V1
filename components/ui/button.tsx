@@ -10,12 +10,12 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-[var(--brand)] text-white hover:bg-[var(--brand-2)] focus-visible:ring-[var(--brand)] dark:text-slate-950",
+          "bg-[var(--brand)] text-white hover:bg-[var(--brand-2)] focus-visible:ring-[var(--brand)]",
         secondary:
-          "bg-slate-100 text-slate-900 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-700",
+          "bg-slate-100 text-slate-900 hover:bg-slate-200",
         outline:
-          "border border-slate-200 bg-white hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-900",
-        ghost: "hover:bg-slate-100 dark:hover:bg-slate-800",
+          "border border-slate-200 bg-white hover:bg-slate-50",
+        ghost: "hover:bg-slate-100",
       },
       size: {
         default: "h-10 px-4 py-2",

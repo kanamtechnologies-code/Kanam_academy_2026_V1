@@ -57,12 +57,12 @@ export default function WelcomeChoosePage() {
           subtitle="Choose what you want to do next."
         >
           <div className="grid gap-4 md:grid-cols-2">
-            <Card className="border-white/20 bg-black/35 backdrop-blur-sm">
+            <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-slate-50">
+                <CardTitle className="flex items-center gap-2 text-slate-900">
                   <span aria-hidden>⚡️</span> Pick up where I left off
                 </CardTitle>
-                <CardDescription className="text-slate-300">
+                <CardDescription className="text-slate-600">
                   Go straight back to your active lesson.
                 </CardDescription>
               </CardHeader>
@@ -79,12 +79,12 @@ export default function WelcomeChoosePage() {
               </CardContent>
             </Card>
 
-            <Card className="border-white/20 bg-black/35 backdrop-blur-sm">
+            <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-slate-50">
+                <CardTitle className="flex items-center gap-2 text-slate-900">
                   <span aria-hidden>👋</span> I&apos;m new here!
                 </CardTitle>
-                <CardDescription className="text-slate-300">
+                <CardDescription className="text-slate-600">
                   See how Kanam works and get a quick tour.
                 </CardDescription>
               </CardHeader>

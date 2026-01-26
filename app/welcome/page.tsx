@@ -59,13 +59,13 @@ export default function WelcomePage() {
           }
           subtitle="I'm your AI teaching assistant. What should I call you?"
         >
-          <Card className="border-white/20 bg-black/35 backdrop-blur-sm">
+          <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
             <CardContent className="space-y-4 pt-6">
               <Input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name..."
-                className="h-12 border-2 border-white/25 bg-white/10 text-base text-slate-50 placeholder:text-slate-300 focus-visible:ring-[var(--brand)]/30"
+                className="h-12 border-2 border-slate-200 bg-white text-base text-slate-900 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
               />
               <Button
                 className="h-12 w-full bg-emerald-500 text-emerald-950 hover:bg-emerald-400"

@@ -16,12 +16,7 @@
   --font-sans: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #020617; /* slate-950 */
-    --foreground: #f8fafc; /* slate-50 */
-  }
-}
+/* Light-only UI: do not auto-switch to dark mode. */
 
 body {
   background: var(--background);

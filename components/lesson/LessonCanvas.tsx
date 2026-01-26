@@ -332,7 +332,6 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             submitted
               ? "border-[var(--brand)] focus-visible:ring-[var(--brand)]/25"
               : "border-[var(--accent)] focus-visible:ring-[var(--accent)]/25",
-            "dark:bg-slate-950",
           ].join(" ")}
         />
         {lesson.runtimeInput ? (
@@ -401,7 +400,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
         <CardDescription>Looks like a terminal.</CardDescription>
       </CardHeader>
       <CardContent className="flex-1">
-        <div className="h-full min-h-[220px] overflow-y-auto rounded-md bg-black p-3 font-mono text-sm text-emerald-400 shadow-inner">
+        <div className="h-full min-h-[220px] overflow-y-auto rounded-md border border-slate-200 bg-slate-50 p-3 font-mono text-sm text-slate-900 shadow-inner">
           <pre className="whitespace-pre-wrap">{output}</pre>
         </div>
       </CardContent>
@@ -434,14 +433,14 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
         <CardContent className="space-y-3 pt-6">
           <div className="flex items-center justify-between gap-4">
             <div className="min-w-0">
-              <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              <p className="text-sm font-medium text-slate-700">
                 Progress
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
+              <p className="text-xs text-slate-500">
                 Based on your code (MVP checks)
               </p>
             </div>
-            <div className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+            <div className="text-sm font-semibold text-slate-900">
               {progressPercent}%
             </div>
           </div>
