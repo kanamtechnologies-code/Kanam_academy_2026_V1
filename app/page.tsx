@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   CheckCircle2,
   Lock,
@@ -16,6 +17,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 
 const COMPLETED_LESSONS_KEY = "kanam.completedLessonIds";
+const USER_NAME_KEY = "kanam.userName";
 
 function loadCompletedLessonIdsOrNull(): string[] | null {
   try {
@@ -82,11 +84,24 @@ const lessons: LessonRow[] = [
 ];
 
 export default function Home() {
-  const [studentName] = React.useState<string>("Kanam");
+  const router = useRouter();
+  const [studentName, setStudentName] = React.useState<string>("Student");
   const [completedIds, setCompletedIds] = React.useState<string[]>([]);
   const [hasSavedProgress, setHasSavedProgress] = React.useState<boolean>(false);
 
   React.useEffect(() => {
+    // If we don't know the user's name yet, send them through onboarding.
+    try {
+      const storedName = window.localStorage.getItem(USER_NAME_KEY);
+      if (!storedName) {
+        router.replace("/welcome");
+        return;
+      }
+      setStudentName(storedName);
+    } catch {
+      // ignore
+    }
+
     const saved = loadCompletedLessonIdsOrNull();
     // If there's no saved progress yet, start with Lesson 1 completed (demo-friendly)
     if (saved === null) {
@@ -96,7 +111,7 @@ export default function Home() {
     }
     setHasSavedProgress(true);
     setCompletedIds(saved);
-  }, []);
+  }, [router]);
 
   const completedCount = lessons.filter((l) => completedIds.includes(l.id)).length;
   const totalCount = lessons.length;
