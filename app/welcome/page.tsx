@@ -34,13 +34,15 @@ function ScreenShell({
   title,
   subtitle,
   children,
+  containerClassName,
 }: {
   title: React.ReactNode;
   subtitle?: React.ReactNode;
   children: React.ReactNode;
+  containerClassName?: string;
 }) {
   return (
-    <div className="w-full max-w-3xl">
+    <div className={["w-full max-w-3xl", containerClassName ?? ""].join(" ")}>
       <div className="text-center">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl">
           {title}
@@ -186,60 +188,68 @@ export default function WelcomePage() {
           <ScreenShell
             title="The Kanam Development Framework"
             subtitle="A three-stage pedagogical approach designed to bridge the gap between abstract logic and functional Python engineering."
+            containerClassName="max-w-6xl"
           >
             <Card className="border-white/20 bg-black/35 backdrop-blur-sm">
               <CardContent className="pt-6">
-                <div className="grid gap-8 md:grid-cols-[320px_1fr]">
-                  {/* Timeline */}
-                  <div className="relative">
+                <div className="space-y-6">
+                  {/* Timeline (horizontal) */}
+                  <div>
                     <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
                       Protocol Timeline
                     </p>
-                    <div className="mt-4 border-l border-white/10 pl-4">
-                      <div className="pb-5">
+                    <div className="mt-3 grid gap-3 md:grid-cols-3">
+                      <div className="rounded-xl border border-white/20 bg-black/20 p-4">
                         <div className="flex items-center gap-2">
                           <Zap className="h-4 w-4 text-[var(--accent)]" />
                           <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">
                             Stage 01
                           </span>
                         </div>
-                        <p className="mt-1 text-sm font-semibold text-slate-50">
+                        <p className="mt-2 text-sm font-semibold text-slate-50">
                           Conceptual Architecture
                         </p>
+                        <p className="mt-1 text-xs text-slate-300">
+                          Mental model mapping
+                        </p>
                       </div>
-                      <div className="pb-5">
+                      <div className="rounded-xl border border-white/20 bg-black/20 p-4">
                         <div className="flex items-center gap-2">
                           <Terminal className="h-4 w-4 text-[var(--accent)]" />
                           <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">
                             Stage 02
                           </span>
                         </div>
-                        <p className="mt-1 text-sm font-semibold text-slate-50">
+                        <p className="mt-2 text-sm font-semibold text-slate-50">
                           Integrated Execution
                         </p>
+                        <p className="mt-1 text-xs text-slate-300">
+                          Code + console
+                        </p>
                       </div>
-                      <div>
+                      <div className="rounded-xl border border-white/20 bg-black/20 p-4">
                         <div className="flex items-center gap-2">
                           <Activity className="h-4 w-4 text-[var(--accent)]" />
                           <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">
                             Stage 03
                           </span>
                         </div>
-                        <p className="mt-1 text-sm font-semibold text-slate-50">
+                        <p className="mt-2 text-sm font-semibold text-slate-50">
                           Logic Validation
+                        </p>
+                        <p className="mt-1 text-xs text-slate-300">
+                          CFU + challenges
                         </p>
                       </div>
                     </div>
                   </div>
 
-                  {/* Module Overviews */}
+                  {/* Places for you to add visuals later */}
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-                      Module Overviews
+                      Visual Assets (placeholders)
                     </p>
-
-                    {/* Places for you to add visuals later */}
-                    <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                    <div className="mt-3 grid gap-3 md:grid-cols-3">
                       <div className="rounded-xl border border-dashed border-white/25 bg-white/5 p-3">
                         <div className="aspect-video rounded-lg bg-black/30" />
                         <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-slate-300">
@@ -268,8 +278,15 @@ export default function WelcomePage() {
                         </p>
                       </div>
                     </div>
+                  </div>
 
-                    <div className="mt-6 space-y-6">
+                  {/* Module Overviews */}
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                      Module Overviews
+                    </p>
+
+                    <div className="mt-3 grid gap-4 lg:grid-cols-3">
                       {/* Stage 01 */}
                       <Card
                         className={[
