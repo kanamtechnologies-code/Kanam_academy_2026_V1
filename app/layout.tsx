@@ -36,7 +36,6 @@ export default function RootLayout({
               src="/video/8733062-uhd_3840_2160_30fps.mp4"
               playbackRate={0.35}
             />
-            <div className="absolute inset-0 bg-[var(--background)]/75" />
           </div>
 
           <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 md:px-6">
