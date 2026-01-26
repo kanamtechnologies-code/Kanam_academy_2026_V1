@@ -55,6 +55,14 @@ const lesson = {
       question: "What happens if you remove the + sign?",
       answer: "You get an error (Python can’t combine them like that).",
     },
+    {
+      question: 'What does this do?  name = "Kanam"',
+      answer: 'It puts the text "Kanam" inside a variable (a labeled box) called name.',
+    },
+    {
+      question: "What does print(...) do?",
+      answer: "It shows words on the screen (in the Output).",
+    },
   ],
   tryThis: [
     'Change "Kanam" to your name.',
@@ -99,6 +107,9 @@ export default function LessonDemoPage() {
     asTerminal("Press Run to see output here.")
   );
   const [submitted, setSubmitted] = React.useState<boolean>(false);
+  const [revealedCfu, setRevealedCfu] = React.useState<boolean[]>(
+    Array.from({ length: lesson.cfu.length }, () => false)
+  );
 
   const hasPrint = code.includes("print(");
   const progressPercent = React.useMemo(
@@ -114,6 +125,7 @@ export default function LessonDemoPage() {
     setCode(lesson.starterCode);
     setOutput(asTerminal("Press Run to see output here."));
     setSubmitted(false);
+    setRevealedCfu(Array.from({ length: lesson.cfu.length }, () => false));
   };
 
   const onSubmit = () => {
@@ -225,17 +237,53 @@ print("Hello! I am " + name)`}
         <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Check for Understanding (CFU)
         </p>
+        <p className="mt-1 text-sm text-slate-600">
+          Try to answer first. Then tap <span className="font-semibold">Show answer</span>{" "}
+          to check yourself.
+        </p>
         <div className="mt-3 space-y-3">
-          {lesson.cfu.map((item) => (
+          {lesson.cfu.map((item, idx) => (
             <div key={item.question} className="rounded-md bg-slate-50 p-3">
-              <p className="text-sm font-medium text-slate-900">
-                Q: {item.question}
-              </p>
-              <p className="mt-1 text-sm text-slate-700">
-                <span className="font-semibold">A:</span> {item.answer}
-              </p>
+              <div className="flex items-start justify-between gap-3">
+                <p className="text-sm font-medium text-slate-900">
+                  {idx + 1}. {item.question}
+                </p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    setRevealedCfu((prev) =>
+                      prev.map((v, i) => (i === idx ? !v : v))
+                    )
+                  }
+                >
+                  {revealedCfu[idx] ? "Hide" : "Show"} answer
+                </Button>
+              </div>
+              {revealedCfu[idx] ? (
+                <div className="mt-2 rounded-md border border-slate-200 bg-white p-2 text-sm text-slate-700">
+                  <span className="font-semibold">Answer:</span> {item.answer}
+                </div>
+              ) : (
+                <div className="mt-2 rounded-md border border-dashed border-slate-300 bg-white/40 p-2 text-sm text-slate-500">
+                  (Answer hidden — try it in your brain first!)
+                </div>
+              )}
             </div>
           ))}
+        </div>
+        <div className="mt-3 flex justify-end">
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            onClick={() =>
+              setRevealedCfu(Array.from({ length: lesson.cfu.length }, () => false))
+            }
+          >
+            Reset quiz
+          </Button>
         </div>
       </div>
 
