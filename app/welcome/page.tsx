@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Sparkles, Zap } from "lucide-react";
+import { Activity, ArrowRight, Sparkles, Terminal, Zap } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -173,57 +173,202 @@ export default function WelcomePage() {
 
         {step === "explainer" ? (
           <ScreenShell
-            title="How Kanam Works"
-            subtitle="Three simple steps to level up fast."
+            title="The Kanam Development Framework"
+            subtitle="A three-stage pedagogical approach designed to bridge the gap between abstract logic and functional Python engineering."
           >
-            <div className="grid gap-4 md:grid-cols-3">
-              <Card className="border-slate-700/60 bg-white/5">
-                <CardHeader>
-                  <CardTitle className="text-slate-50">
-                    <span aria-hidden>📖</span> Read & Learn
-                  </CardTitle>
-                  <CardDescription className="text-slate-300">
-                    Every lesson starts with a Coach&apos;s Note and a Quick Explainer.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-              <Card className="border-slate-700/60 bg-white/5">
-                <CardHeader>
-                  <CardTitle className="text-slate-50">
-                    <span aria-hidden>⌨️</span> Code & Run
-                  </CardTitle>
-                  <CardDescription className="text-slate-300">
-                    You write Python in the editor. Press Run to see it come to life.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-              <Card className="border-slate-700/60 bg-white/5">
-                <CardHeader>
-                  <CardTitle className="text-slate-50">
-                    <span aria-hidden>🏆</span> Level Up
-                  </CardTitle>
-                  <CardDescription className="text-slate-300">
-                    Complete challenges to earn XP and unlock AI Badges.
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </div>
+            <Card className="border-slate-700/60 bg-white/5">
+              <CardContent className="pt-6">
+                <div className="grid gap-8 md:grid-cols-[320px_1fr]">
+                  {/* Timeline */}
+                  <div className="relative">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                      Protocol Timeline
+                    </p>
+                    <div className="mt-4 border-l border-white/10 pl-4">
+                      <div className="pb-5">
+                        <div className="flex items-center gap-2">
+                          <Zap className="h-4 w-4 text-[var(--accent)]" />
+                          <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+                            Stage 01
+                          </span>
+                        </div>
+                        <p className="mt-1 text-sm font-semibold text-slate-50">
+                          Conceptual Architecture
+                        </p>
+                      </div>
+                      <div className="pb-5">
+                        <div className="flex items-center gap-2">
+                          <Terminal className="h-4 w-4 text-[var(--accent)]" />
+                          <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+                            Stage 02
+                          </span>
+                        </div>
+                        <p className="mt-1 text-sm font-semibold text-slate-50">
+                          Integrated Execution
+                        </p>
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <Activity className="h-4 w-4 text-[var(--accent)]" />
+                          <span className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+                            Stage 03
+                          </span>
+                        </div>
+                        <p className="mt-1 text-sm font-semibold text-slate-50">
+                          Logic Validation
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
-              <Button
-                className="h-12 bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
-                asChild
-              >
-                <Link href="/learn/1">Start Lesson 1: My First AI Helper</Link>
-              </Button>
-              <Button
-                className="h-12"
-                variant="outline"
-                onClick={() => go("branch")}
-              >
-                Back
-              </Button>
-            </div>
+                  {/* Module Overviews */}
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                      Module Overviews
+                    </p>
+
+                    <div className="mt-4 space-y-6">
+                      <section>
+                        <div className="flex items-center gap-2">
+                          <Zap className="h-5 w-5 text-[var(--accent)]" />
+                          <div>
+                            <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+                              Stage 01
+                            </p>
+                            <h3 className="text-lg font-semibold text-slate-50">
+                              Phase 1: Mental Model Mapping
+                            </h3>
+                          </div>
+                        </div>
+                        <p className="mt-3 leading-relaxed text-slate-300">
+                          Before writing a single line of syntax, we establish the “why.”
+                          Every lesson begins with a high-level conceptual breakdown. You
+                          will learn to visualize variables as memory-allocation units
+                          (Boxes) and logic gates as decision-making trees. We prioritize
+                          understanding the architecture of AI over rote memorization of
+                          commands.
+                        </p>
+                        <p className="mt-3 text-sm font-semibold text-slate-200">
+                          Technical Focus:
+                          <span className="font-normal text-slate-300">
+                            {" "}
+                            Memory Persistence, Data Types, and Logic Flow.
+                          </span>
+                        </p>
+                      </section>
+
+                      <hr className="border-t border-white/10" />
+
+                      <section>
+                        <div className="flex items-center gap-2">
+                          <Terminal className="h-5 w-5 text-[var(--accent)]" />
+                          <div>
+                            <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+                              Stage 02
+                            </p>
+                            <h3 className="text-lg font-semibold text-slate-50">
+                              Phase 2: Real-Time Scripting &amp; Compilation
+                            </h3>
+                          </div>
+                        </div>
+                        <p className="mt-3 leading-relaxed text-slate-300">
+                          Theory is useless without application. Kanam provides a
+                          sandboxed Python 3 environment where you will translate
+                          concepts into code. You will interact with a standard virtual
+                          terminal (Console) to view output, debug errors in real-time,
+                          and observe how a computer processes instructions sequentially
+                          from top to bottom.
+                        </p>
+                        <p className="mt-3 text-sm font-semibold text-slate-200">
+                          Technical Focus:
+                          <span className="font-normal text-slate-300">
+                            {" "}
+                            Syntax Precision, Console I/O, and Error Handling.
+                          </span>
+                        </p>
+                      </section>
+
+                      <hr className="border-t border-white/10" />
+
+                      <section>
+                        <div className="flex items-center gap-2">
+                          <Activity className="h-5 w-5 text-[var(--accent)]" />
+                          <div>
+                            <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+                              Stage 03
+                            </p>
+                            <h3 className="text-lg font-semibold text-slate-50">
+                              Phase 3: Optimization &amp; Troubleshooting
+                            </h3>
+                          </div>
+                        </div>
+                        <p className="mt-3 leading-relaxed text-slate-300">
+                          The final stage of the Kanam Protocol is validation. You are
+                          tasked with “Check for Understanding” (CFU) modules that test
+                          your theoretical knowledge, followed by “Try This” challenges.
+                          These challenges force you to refactor and optimize your code,
+                          ensuring you haven’t just copied syntax, but have mastered the
+                          underlying logic.
+                        </p>
+                        <p className="mt-3 text-sm font-semibold text-slate-200">
+                          Technical Focus:
+                          <span className="font-normal text-slate-300">
+                            {" "}
+                            Code Refactoring, Logical Edge-Cases, and Achievement Tracking.
+                          </span>
+                        </p>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Start protocol */}
+                <div className="mt-8">
+                  <Card className="border-slate-700/60 bg-black/20">
+                    <CardHeader>
+                      <CardTitle className="text-slate-50">
+                        The “Start” Protocol
+                      </CardTitle>
+                      <CardDescription className="text-slate-300">
+                        You are currently enrolled in: <span className="font-semibold text-slate-200">AI + Python Starter Pack</span>
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid gap-2 sm:grid-cols-2">
+                        <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                            Estimated Completion
+                          </p>
+                          <p className="mt-1 text-sm font-semibold text-slate-50">
+                            60 Minutes
+                          </p>
+                        </div>
+                        <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                            Certification Path
+                          </p>
+                          <p className="mt-1 text-sm font-semibold text-slate-50">
+                            Junior AI Logic Badge
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <Button
+                          className="h-12 bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
+                          asChild
+                        >
+                          <Link href="/learn/1">Initialize Lesson 1: My First AI Helper</Link>
+                        </Button>
+                        <Button className="h-12" variant="outline" onClick={() => go("branch")}>
+                          Back
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </CardContent>
+            </Card>
           </ScreenShell>
         ) : null}
       </div>
