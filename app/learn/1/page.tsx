@@ -70,6 +70,8 @@ const lesson1: LessonConfig = {
     "Remember: AI doesn't have feelings, it's just very good at following patterns!",
   editorPlaceholder: '# Try typing:\n# print("Hello! I am " + name)\n',
   terminalPrompt: TERMINAL_PROMPT,
+  prevHref: "/",
+  nextHref: "/learn/2",
 
   getRunOutput: (code) => {
     if (code.includes("print(")) {

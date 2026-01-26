@@ -71,6 +71,8 @@ const lesson2: LessonConfig = {
     "Remember: AI can sound confident even when it’s wrong. Always test your code and double-check important facts!",
   editorPlaceholder: '# Try typing:\n# print(f"Hello! I am {name}")\n',
   terminalPrompt: TERMINAL_PROMPT,
+  prevHref: "/learn/1",
+  nextHref: undefined,
 
   getRunOutput: (code) => {
     const hasPrint = code.includes("print(");
