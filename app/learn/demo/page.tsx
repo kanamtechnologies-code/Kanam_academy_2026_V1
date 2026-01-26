@@ -228,7 +228,7 @@ export default function LessonDemoPage() {
         <CardDescription>Looks like a terminal.</CardDescription>
       </CardHeader>
       <CardContent className="min-h-0 flex-1">
-        <div className="h-full min-h-[220px] rounded-md bg-black p-3 font-mono text-sm text-emerald-400 shadow-inner">
+        <div className="h-full min-h-[220px] overflow-y-auto rounded-md bg-black p-3 font-mono text-sm text-emerald-400 shadow-inner">
           <pre className="whitespace-pre-wrap">{output}</pre>
         </div>
       </CardContent>
@@ -311,7 +311,7 @@ export default function LessonDemoPage() {
               </div>
             </div>
             <div className="col-span-3 border-l border-slate-200 bg-white">
-              <div className="h-full min-h-0 p-6">
+              <div className="h-full min-h-0 overflow-y-auto p-6">
                 {CodingLab}
               </div>
             </div>
