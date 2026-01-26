@@ -270,96 +270,128 @@ export default function WelcomePage() {
                     </div>
 
                     <div className="mt-6 space-y-6">
-                      <section>
-                        <div className="flex items-center gap-2">
-                          <Zap className="h-5 w-5 text-[var(--accent)]" />
-                          <div>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">
-                              Stage 01
-                            </p>
-                            <h3 className="text-lg font-semibold text-slate-50">
-                              Phase 1: Mental Model Mapping
-                            </h3>
+                      {/* Stage 01 */}
+                      <Card
+                        className={[
+                          "border-white/20 bg-black/25 backdrop-blur-sm",
+                          "transition-all duration-500 ease-out",
+                          animateIn
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-0 -translate-x-6",
+                        ].join(" ")}
+                        style={{ transitionDelay: "40ms" }}
+                      >
+                        <CardContent className="pt-6">
+                          <div className="flex items-center gap-2">
+                            <Zap className="h-5 w-5 text-[var(--accent)]" />
+                            <div>
+                              <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+                                Stage 01
+                              </p>
+                              <h3 className="text-lg font-semibold text-slate-50">
+                                Phase 1: Mental Model Mapping
+                              </h3>
+                            </div>
                           </div>
-                        </div>
-                        <p className="mt-3 leading-relaxed text-slate-300">
-                          Before writing a single line of syntax, we establish the “why.”
-                          Every lesson begins with a high-level conceptual breakdown. You
-                          will learn to visualize variables as memory-allocation units
-                          (Boxes) and logic gates as decision-making trees. We prioritize
-                          understanding the architecture of AI over rote memorization of
-                          commands.
-                        </p>
-                        <p className="mt-3 text-sm font-semibold text-slate-200">
-                          Technical Focus:
-                          <span className="font-normal text-slate-300">
-                            {" "}
-                            Memory Persistence, Data Types, and Logic Flow.
-                          </span>
-                        </p>
-                      </section>
+                          <p className="mt-3 leading-relaxed text-slate-300">
+                            Before writing a single line of syntax, we establish the “why.”
+                            Every lesson begins with a high-level conceptual breakdown. You
+                            will learn to visualize variables as memory-allocation units
+                            (Boxes) and logic gates as decision-making trees. We prioritize
+                            understanding the architecture of AI over rote memorization of
+                            commands.
+                          </p>
+                          <p className="mt-3 text-sm font-semibold text-slate-200">
+                            Technical Focus:
+                            <span className="font-normal text-slate-300">
+                              {" "}
+                              Memory Persistence, Data Types, and Logic Flow.
+                            </span>
+                          </p>
+                        </CardContent>
+                      </Card>
 
-                      <hr className="border-t border-white/10" />
-
-                      <section>
-                        <div className="flex items-center gap-2">
-                          <Terminal className="h-5 w-5 text-[var(--accent)]" />
-                          <div>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">
-                              Stage 02
-                            </p>
-                            <h3 className="text-lg font-semibold text-slate-50">
-                              Phase 2: Real-Time Scripting &amp; Compilation
-                            </h3>
+                      {/* Stage 02 */}
+                      <Card
+                        className={[
+                          "border-white/20 bg-black/25 backdrop-blur-sm",
+                          "transition-all duration-500 ease-out",
+                          animateIn
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-0 translate-x-6",
+                        ].join(" ")}
+                        style={{ transitionDelay: "140ms" }}
+                      >
+                        <CardContent className="pt-6">
+                          <div className="flex items-center gap-2">
+                            <Terminal className="h-5 w-5 text-[var(--accent)]" />
+                            <div>
+                              <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+                                Stage 02
+                              </p>
+                              <h3 className="text-lg font-semibold text-slate-50">
+                                Phase 2: Real-Time Scripting &amp; Compilation
+                              </h3>
+                            </div>
                           </div>
-                        </div>
-                        <p className="mt-3 leading-relaxed text-slate-300">
-                          Theory is useless without application. Kanam provides a
-                          sandboxed Python 3 environment where you will translate
-                          concepts into code. You will interact with a standard virtual
-                          terminal (Console) to view output, debug errors in real-time,
-                          and observe how a computer processes instructions sequentially
-                          from top to bottom.
-                        </p>
-                        <p className="mt-3 text-sm font-semibold text-slate-200">
-                          Technical Focus:
-                          <span className="font-normal text-slate-300">
-                            {" "}
-                            Syntax Precision, Console I/O, and Error Handling.
-                          </span>
-                        </p>
-                      </section>
+                          <p className="mt-3 leading-relaxed text-slate-300">
+                            Theory is useless without application. Kanam provides a
+                            sandboxed Python 3 environment where you will translate
+                            concepts into code. You will interact with a standard virtual
+                            terminal (Console) to view output, debug errors in real-time,
+                            and observe how a computer processes instructions sequentially
+                            from top to bottom.
+                          </p>
+                          <p className="mt-3 text-sm font-semibold text-slate-200">
+                            Technical Focus:
+                            <span className="font-normal text-slate-300">
+                              {" "}
+                              Syntax Precision, Console I/O, and Error Handling.
+                            </span>
+                          </p>
+                        </CardContent>
+                      </Card>
 
-                      <hr className="border-t border-white/10" />
-
-                      <section>
-                        <div className="flex items-center gap-2">
-                          <Activity className="h-5 w-5 text-[var(--accent)]" />
-                          <div>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">
-                              Stage 03
-                            </p>
-                            <h3 className="text-lg font-semibold text-slate-50">
-                              Phase 3: Optimization &amp; Troubleshooting
-                            </h3>
+                      {/* Stage 03 */}
+                      <Card
+                        className={[
+                          "border-white/20 bg-black/25 backdrop-blur-sm",
+                          "transition-all duration-500 ease-out",
+                          animateIn
+                            ? "opacity-100 translate-x-0"
+                            : "opacity-0 -translate-x-6",
+                        ].join(" ")}
+                        style={{ transitionDelay: "240ms" }}
+                      >
+                        <CardContent className="pt-6">
+                          <div className="flex items-center gap-2">
+                            <Activity className="h-5 w-5 text-[var(--accent)]" />
+                            <div>
+                              <p className="text-xs font-semibold uppercase tracking-widest text-slate-300">
+                                Stage 03
+                              </p>
+                              <h3 className="text-lg font-semibold text-slate-50">
+                                Phase 3: Optimization &amp; Troubleshooting
+                              </h3>
+                            </div>
                           </div>
-                        </div>
-                        <p className="mt-3 leading-relaxed text-slate-300">
-                          The final stage of the Kanam Protocol is validation. You are
-                          tasked with “Check for Understanding” (CFU) modules that test
-                          your theoretical knowledge, followed by “Try This” challenges.
-                          These challenges force you to refactor and optimize your code,
-                          ensuring you haven’t just copied syntax, but have mastered the
-                          underlying logic.
-                        </p>
-                        <p className="mt-3 text-sm font-semibold text-slate-200">
-                          Technical Focus:
-                          <span className="font-normal text-slate-300">
-                            {" "}
-                            Code Refactoring, Logical Edge-Cases, and Achievement Tracking.
-                          </span>
-                        </p>
-                      </section>
+                          <p className="mt-3 leading-relaxed text-slate-300">
+                            The final stage of the Kanam Protocol is validation. You are
+                            tasked with “Check for Understanding” (CFU) modules that test
+                            your theoretical knowledge, followed by “Try This” challenges.
+                            These challenges force you to refactor and optimize your code,
+                            ensuring you haven’t just copied syntax, but have mastered the
+                            underlying logic.
+                          </p>
+                          <p className="mt-3 text-sm font-semibold text-slate-200">
+                            Technical Focus:
+                            <span className="font-normal text-slate-300">
+                              {" "}
+                              Code Refactoring, Logical Edge-Cases, and Achievement Tracking.
+                            </span>
+                          </p>
+                        </CardContent>
+                      </Card>
                     </div>
                   </div>
                 </div>
