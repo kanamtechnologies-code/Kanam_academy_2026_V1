@@ -17,10 +17,10 @@ import { Progress } from "@/components/ui/progress";
 
 const COMPLETED_LESSONS_KEY = "kanam.completedLessonIds";
 
-function loadCompletedLessonIds(): string[] {
+function loadCompletedLessonIdsOrNull(): string[] | null {
   try {
     const raw = window.localStorage.getItem(COMPLETED_LESSONS_KEY);
-    if (!raw) return [];
+    if (raw === null) return null; // not set yet
     const parsed = JSON.parse(raw) as unknown;
     if (!Array.isArray(parsed)) return [];
     return parsed.filter((x): x is string => typeof x === "string");
@@ -84,11 +84,18 @@ const lessons: LessonRow[] = [
 export default function Home() {
   const [studentName] = React.useState<string>("Kanam");
   const [completedIds, setCompletedIds] = React.useState<string[]>([]);
+  const [hasSavedProgress, setHasSavedProgress] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    const saved = loadCompletedLessonIds();
+    const saved = loadCompletedLessonIdsOrNull();
     // If there's no saved progress yet, start with Lesson 1 completed (demo-friendly)
-    setCompletedIds(saved.length ? saved : ["lesson-1"]);
+    if (saved === null) {
+      setHasSavedProgress(false);
+      setCompletedIds(["lesson-1"]);
+      return;
+    }
+    setHasSavedProgress(true);
+    setCompletedIds(saved);
   }, []);
 
   const completedCount = lessons.filter((l) => completedIds.includes(l.id)).length;
@@ -112,10 +119,31 @@ export default function Home() {
               Welcome back, {studentName}!
             </h1>
           </div>
-          <Badge className="w-fit bg-white/10 text-slate-50">
-            <Sparkles className="mr-1 h-4 w-4 text-[var(--accent)]" />
-            {totalXp || 150} XP
-          </Badge>
+          <div className="flex items-center gap-2">
+            <Badge className="w-fit bg-white/10 text-slate-50">
+              <Sparkles className="mr-1 h-4 w-4 text-[var(--accent)]" />
+              {hasSavedProgress ? totalXp : 150} XP
+            </Badge>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                try {
+                  window.localStorage.setItem(
+                    COMPLETED_LESSONS_KEY,
+                    JSON.stringify([])
+                  );
+                } catch {
+                  // ignore
+                }
+                setHasSavedProgress(true);
+                setCompletedIds([]);
+              }}
+            >
+              Reset progress
+            </Button>
+          </div>
         </div>
 
         <Card className="border-slate-700/60 bg-white/5">
