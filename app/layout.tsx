@@ -27,8 +27,23 @@ export default function RootLayout({
       <body
         className={`${inter.variable} min-h-dvh bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-50`}
       >
-        <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-[var(--background)]/80 backdrop-blur">
-          <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 md:px-6">
+        <header className="sticky top-0 z-50 overflow-hidden border-b border-slate-200/70 bg-[var(--background)]/80 backdrop-blur">
+          {/* Subtle video texture (kept very low-contrast so it isn't distracting) */}
+          <div className="pointer-events-none absolute inset-0 hidden md:block">
+            <video
+              className="h-full w-full object-cover opacity-[0.12] saturate-0"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+            >
+              <source src="/video/16735004-uhd_3840_2160_30fps.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-[var(--background)]/75" />
+          </div>
+
+          <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 md:px-6">
             <Link href="/" className="flex items-center gap-1">
               <Image
                 src="/images/Logo.png"
