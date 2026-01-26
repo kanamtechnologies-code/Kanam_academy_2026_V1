@@ -109,18 +109,18 @@ export default function Home() {
   const nextLesson = activeIndex >= 0 ? lessons[activeIndex] : undefined;
 
   return (
-    <div className="min-h-dvh bg-[#0b0f19] px-4 py-6 text-slate-100 md:px-8">
+    <div className="min-h-dvh bg-slate-50 px-4 py-6 text-slate-900 md:px-6">
       <div className="mx-auto w-full max-w-6xl space-y-6">
         {/* Dashboard Header */}
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="text-sm text-slate-300">AI + Python Starter Pack</p>
+            <p className="text-sm text-slate-600">AI + Python Starter Pack</p>
             <h1 className="mt-1 text-2xl font-semibold tracking-tight md:text-3xl">
               Welcome back, {studentName}!
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <Badge className="w-fit bg-white/10 text-slate-50">
+            <Badge className="w-fit bg-[var(--brand)] text-white">
               <Sparkles className="mr-1 h-4 w-4 text-[var(--accent)]" />
               {hasSavedProgress ? totalXp : 150} XP
             </Badge>
@@ -146,22 +146,22 @@ export default function Home() {
           </div>
         </div>
 
-        <Card className="border-slate-700/60 bg-white/5">
+        <Card>
           <CardContent className="space-y-3 pt-6">
             <div className="flex items-center justify-between gap-4">
               <div className="min-w-0">
-                <p className="text-sm font-medium text-slate-200">
+                <p className="text-sm font-medium text-slate-700">
                   Starter Pack Progress
                 </p>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-500">
                   {completedCount} out of {totalCount} lessons complete
                 </p>
               </div>
-              <div className="text-sm font-semibold text-slate-100">
+              <div className="text-sm font-semibold text-slate-900">
                 {starterPackPercent}%
               </div>
             </div>
-            <Progress value={starterPackPercent} className="bg-white/10" />
+            <Progress value={starterPackPercent} />
           </CardContent>
         </Card>
 
@@ -183,13 +183,13 @@ export default function Home() {
                   <Card
                     key={lesson.id}
                     className={[
-                      "border bg-white/5",
+                      "border",
                       completed
-                        ? "border-[var(--brand)]/60 bg-[var(--brand)]/10"
+                        ? "border-[var(--brand)]/60 bg-[var(--brand)]/5"
                         : isActive
-                          ? "border-[var(--brand)] shadow-[0_0_0_1px_rgba(24,161,109,0.35),0_0_24px_rgba(24,161,109,0.18)]"
-                          : "border-slate-700/60",
-                      locked ? "opacity-50 grayscale" : "",
+                          ? "border-[var(--brand)] shadow-[0_0_0_1px_rgba(24,161,109,0.25),0_0_24px_rgba(24,161,109,0.10)]"
+                          : "border-slate-200",
+                      locked ? "opacity-60 grayscale" : "",
                     ].join(" ")}
                   >
                     <CardContent className="flex items-center justify-between gap-4 p-5">
@@ -198,24 +198,24 @@ export default function Home() {
                           {completed ? (
                             <CheckCircle2 className="h-5 w-5 text-[var(--brand)]" />
                           ) : locked ? (
-                            <Lock className="h-5 w-5 text-slate-400" />
+                            <Lock className="h-5 w-5 text-slate-500" />
                           ) : (
                             <Play className="h-5 w-5 text-[var(--accent)]" />
                           )}
                         </div>
                         <div>
-                          <p className="text-xs text-slate-400">
+                          <p className="text-xs text-slate-500">
                             Lesson {idx + 1}
                             {isActive ? (
-                              <span className="ml-2 rounded-full bg-[var(--brand)]/20 px-2 py-0.5 text-[10px] font-semibold text-[var(--brand)]">
+                              <span className="ml-2 rounded-full bg-[var(--brand)]/15 px-2 py-0.5 text-[10px] font-semibold text-[var(--brand)]">
                                 Next lesson
                               </span>
                             ) : null}
                           </p>
-                          <p className="mt-1 font-semibold text-slate-100">
+                          <p className="mt-1 font-semibold text-slate-900">
                             {lesson.title}
                           </p>
-                          <p className="mt-1 text-xs text-slate-400">
+                          <p className="mt-1 text-xs text-slate-500">
                             +{lesson.xp} XP • Badge: {lesson.badgeIcon} {lesson.badgeName}
                           </p>
                         </div>
@@ -239,14 +239,14 @@ export default function Home() {
             </div>
 
             {nextLesson?.href ? (
-              <div className="text-sm text-slate-300">
+              <div className="text-sm text-slate-600">
                 Next step:{" "}
-                <Link href={nextLesson.href} className="font-semibold text-slate-50 underline">
+                <Link href={nextLesson.href} className="font-semibold text-slate-900 underline">
                   Start {nextLesson.title}
                 </Link>
               </div>
             ) : (
-              <div className="text-sm text-slate-300">
+              <div className="text-sm text-slate-600">
                 Next step: keep going — more lessons coming soon.
               </div>
             )}
@@ -262,16 +262,16 @@ export default function Home() {
                   <Card
                     key={l.id}
                     className={[
-                      "border bg-white/5",
-                      unlocked ? "border-[var(--accent)]/50" : "border-slate-700/60 opacity-60",
+                      "border",
+                      unlocked ? "border-[var(--accent)]/50" : "border-slate-200 opacity-70",
                     ].join(" ")}
                   >
                     <CardContent className="p-4">
                       <div className="text-2xl">{l.badgeIcon}</div>
-                      <p className="mt-2 text-sm font-semibold text-slate-100">
+                      <p className="mt-2 text-sm font-semibold text-slate-900">
                         {l.badgeName}
                       </p>
-                      <p className="mt-1 text-xs text-slate-400">
+                      <p className="mt-1 text-xs text-slate-500">
                         {unlocked ? "Unlocked" : "Locked"}
                       </p>
                     </CardContent>
@@ -283,10 +283,10 @@ export default function Home() {
         </div>
 
         {/* AI Safety Moment */}
-        <Card className="border-slate-700/60 bg-white/5">
+        <Card>
           <CardHeader>
             <CardTitle className="text-base">AI Safety Moment</CardTitle>
-            <CardDescription className="text-slate-400">
+            <CardDescription className="text-slate-600">
               Safety Tip: AI is smart, but it doesn't have feelings or a heart. Never share your home address or passwords with a bot!
             </CardDescription>
           </CardHeader>
