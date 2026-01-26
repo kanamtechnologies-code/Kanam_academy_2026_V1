@@ -34,7 +34,7 @@ export default function RootLayout({
             <HeaderVideo
               className="h-full w-full object-cover opacity-[0.12] saturate-0"
               src="/video/16735004-uhd_3840_2160_30fps.mp4"
-              playbackRate={0.6}
+              playbackRate={0.35}
             />
             <div className="absolute inset-0 bg-[var(--background)]/75" />
           </div>
