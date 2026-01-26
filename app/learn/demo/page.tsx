@@ -18,9 +18,32 @@ const lesson = {
   starterCode: '# Write your code below\nname = "Kanam"\n',
   instructorScript:
     "Think of a variable like a labeled box. We're putting a name inside so our AI remembers who it’s talking to.",
+  kidExplain: [
+    {
+      title: "What is a variable?",
+      text:
+        'A **variable** is like a labeled box that holds something. The label is the variable name (like `name`). Inside the box is the value (like `"Kanam"`).',
+    },
+    {
+      title: 'What do quotes "" mean?',
+      text:
+        'Quotes tell Python: “This is **text**.” Text is also called a **string**. So `"Kanam"` is a string.',
+    },
+    {
+      title: "What does print(...) do?",
+      text:
+        "`print(...)` tells Python to show something on the screen (in the Output panel). It’s like your computer speaking out loud!",
+    },
+    {
+      title: "Why do we use + here?",
+      text:
+        'The `+` joins (connects) pieces of text together. So `"Hello! I am " + name` becomes one message.',
+    },
+  ],
   steps: [
-    'Create: name = "Kanam".',
-    'Type: print("Hello! I am " + name).',
+    'Create a variable: `name = "Kanam"`',
+    'Print a message: `print("Hello! I am " + name)`',
+    "Press Run to see what happens.",
   ],
   cfu: [
     {
@@ -35,6 +58,7 @@ const lesson = {
   tryThis: [
     'Change "Kanam" to your name.',
     'Try printing: "Hello!" on one line and your name on the next line.',
+    'Try: print("Nice to meet you, " + name)',
   ],
   aiSafetyMoment:
     "Remember: AI doesn't have feelings, it's just very good at following patterns!",
@@ -115,6 +139,27 @@ export default function LessonDemoPage() {
           Coach’s Note
         </p>
         <p className="mt-2 leading-relaxed">{lesson.instructorScript}</p>
+        <p className="mt-2 leading-relaxed">
+          Today you will teach your computer to introduce itself. You’ll store a
+          name in a variable, then use <span className="font-mono">print(...)</span>{" "}
+          to show the message in the Output.
+        </p>
+      </div>
+
+      <div className="rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-700">
+        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          Quick Explainer
+        </p>
+        <div className="mt-3 space-y-3">
+          {lesson.kidExplain.map((item) => (
+            <div key={item.title} className="rounded-md bg-slate-50 p-3">
+              <p className="text-sm font-semibold text-slate-900">{item.title}</p>
+              <p className="mt-1 text-sm leading-relaxed text-slate-700">
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
@@ -135,6 +180,13 @@ export default function LessonDemoPage() {
             </li>
           ))}
         </ol>
+        <div className="mt-3 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+          <p className="font-semibold text-slate-900">Copy/paste example</p>
+          <pre className="mt-2 whitespace-pre-wrap rounded bg-black p-2 font-mono text-xs text-emerald-300">
+{`name = "Kanam"
+print("Hello! I am " + name)`}
+          </pre>
+        </div>
       </div>
     </div>
   );
