@@ -71,6 +71,21 @@ function asTerminal(body: string) {
   return `${TERMINAL_PROMPT} python main.py\n${body}\n${TERMINAL_PROMPT}`;
 }
 
+function computeProgressPercent(code: string, submitted: boolean) {
+  // Super simple checks for MVP (kid-friendly + forgiving)
+  const hasName =
+    /\bname\s*=\s*["'][^"']+["']/.test(code) || /\bname\s*=/.test(code);
+  const hasPrint = code.includes("print(");
+  const hasHelloMessage =
+    /print\(\s*["'].*hello/i.test(code) && (code.includes("+") || code.includes("name"));
+
+  const checks = [hasName, hasPrint, hasHelloMessage];
+  const completed = checks.filter(Boolean).length;
+
+  const percent = Math.round((completed / checks.length) * 100);
+  return submitted ? 100 : percent;
+}
+
 function getHardcodedOutput(code: string) {
   if (code.includes("print(")) {
     return asTerminal('Hello! I am Kanam\n\n(MVP note: output is hardcoded when your code contains print().)');
@@ -86,6 +101,10 @@ export default function LessonDemoPage() {
   const [submitted, setSubmitted] = React.useState<boolean>(false);
 
   const hasPrint = code.includes("print(");
+  const progressPercent = React.useMemo(
+    () => computeProgressPercent(code, submitted),
+    [code, submitted]
+  );
 
   const onRun = () => {
     setOutput(getHardcodedOutput(code));
@@ -326,14 +345,14 @@ print("Hello! I am " + name)`}
                 Progress
               </p>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Lesson canvas MVP (hardcoded)
+                Based on your code (MVP checks)
               </p>
             </div>
             <div className="text-sm font-semibold text-slate-900 dark:text-slate-50">
-              20%
+              {progressPercent}%
             </div>
           </div>
-          <Progress value={20} />
+          <Progress value={progressPercent} />
         </CardContent>
       </Card>
 
