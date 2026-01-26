@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Activity, ArrowRight, Sparkles, Terminal, Zap } from "lucide-react";
 
+import { HeaderVideo } from "@/components/layout/HeaderVideo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -75,7 +76,17 @@ export default function WelcomePage() {
   const go = (next: Step) => setStep(next);
 
   return (
-    <div className="min-h-dvh bg-[#0b0f19] px-4 py-10 text-slate-100 md:px-6">
+    <div className="relative min-h-dvh px-4 py-10 text-slate-100 md:px-6">
+      {/* Full-screen video background (no heavy overlay) */}
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <HeaderVideo
+          src="/video/8733062-uhd_3840_2160_30fps.mp4"
+          playbackRate={0.35}
+          className="h-full w-full object-cover opacity-60"
+        />
+        {/* soft readability gradient (kept light so video stays visible) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/20 to-black/35" />
+      </div>
       <div
         className={[
           "mx-auto flex min-h-[calc(100dvh-160px)] w-full items-center justify-center",
@@ -92,13 +103,13 @@ export default function WelcomePage() {
             }
             subtitle="I'm your AI teaching assistant. What should I call you?"
           >
-            <Card className="border-slate-700/60 bg-white/5">
+            <Card className="border-white/20 bg-black/35 backdrop-blur-sm">
               <CardContent className="space-y-4 pt-6">
                 <Input
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Enter your name..."
-                  className="h-12 border-2 border-slate-600 bg-white/10 text-base text-slate-50 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
+                  className="h-12 border-2 border-white/25 bg-white/10 text-base text-slate-50 placeholder:text-slate-300 focus-visible:ring-[var(--brand)]/30"
                 />
                 <Button
                   className="h-12 w-full bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
@@ -130,7 +141,7 @@ export default function WelcomePage() {
             subtitle="Choose what you want to do next."
           >
             <div className="grid gap-4 md:grid-cols-2">
-              <Card className="border-slate-700/60 bg-white/5">
+              <Card className="border-white/20 bg-black/35 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-slate-50">
                     <span aria-hidden>⚡️</span> Pick up where I left off
@@ -149,7 +160,7 @@ export default function WelcomePage() {
                 </CardContent>
               </Card>
 
-              <Card className="border-slate-700/60 bg-white/5">
+              <Card className="border-white/20 bg-black/35 backdrop-blur-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-slate-50">
                     <span aria-hidden>👋</span> I&apos;m new here!
@@ -176,7 +187,7 @@ export default function WelcomePage() {
             title="The Kanam Development Framework"
             subtitle="A three-stage pedagogical approach designed to bridge the gap between abstract logic and functional Python engineering."
           >
-            <Card className="border-slate-700/60 bg-white/5">
+            <Card className="border-white/20 bg-black/35 backdrop-blur-sm">
               <CardContent className="pt-6">
                 <div className="grid gap-8 md:grid-cols-[320px_1fr]">
                   {/* Timeline */}
@@ -227,7 +238,38 @@ export default function WelcomePage() {
                       Module Overviews
                     </p>
 
-                    <div className="mt-4 space-y-6">
+                    {/* Places for you to add visuals later */}
+                    <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                      <div className="rounded-xl border border-dashed border-white/25 bg-white/5 p-3">
+                        <div className="aspect-video rounded-lg bg-black/30" />
+                        <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-slate-300">
+                          Add Image
+                        </p>
+                        <p className="mt-1 text-xs text-slate-300">
+                          Concept diagram / “Boxes”
+                        </p>
+                      </div>
+                      <div className="rounded-xl border border-dashed border-white/25 bg-white/5 p-3">
+                        <div className="aspect-video rounded-lg bg-black/30" />
+                        <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-slate-300">
+                          Add Image
+                        </p>
+                        <p className="mt-1 text-xs text-slate-300">
+                          Terminal / output screenshot
+                        </p>
+                      </div>
+                      <div className="rounded-xl border border-dashed border-white/25 bg-white/5 p-3">
+                        <div className="aspect-video rounded-lg bg-black/30" />
+                        <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-slate-300">
+                          Add Image
+                        </p>
+                        <p className="mt-1 text-xs text-slate-300">
+                          Badges / reward graphic
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 space-y-6">
                       <section>
                         <div className="flex items-center gap-2">
                           <Zap className="h-5 w-5 text-[var(--accent)]" />
@@ -324,7 +366,7 @@ export default function WelcomePage() {
 
                 {/* Start protocol */}
                 <div className="mt-8">
-                  <Card className="border-slate-700/60 bg-black/20">
+                  <Card className="border-white/20 bg-black/35 backdrop-blur-sm">
                     <CardHeader>
                       <CardTitle className="text-slate-50">
                         The “Start” Protocol
