@@ -1,38 +1,12 @@
 "use client";
 
-import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-
-const USER_NAME_KEY = "kanam.userName";
-
-function hasUserName(): boolean {
-  try {
-    return !!window.localStorage.getItem(USER_NAME_KEY);
-  } catch {
-    return false;
-  }
-}
 
 export function HeaderBrand() {
-  const pathname = usePathname();
-  const [ready, setReady] = React.useState(false);
-  const [hasName, setHasName] = React.useState(false);
-
-  React.useEffect(() => {
-    setHasName(hasUserName());
-    setReady(true);
-  }, []);
-
-  const isWelcome = pathname?.startsWith("/welcome");
-
-  // While loading, default to dashboard.
-  const href = !ready
-    ? "/"
-    : isWelcome || !hasName
-      ? "/welcome?step=greeting"
-      : "/";
+  // Always return to the welcome flow when clicking the brand.
+  // (Keeps behavior predictable: "Kanam Academy" = onboarding/home base.)
+  const href = "/welcome";
 
   return (
     <Link href={href} className="flex items-center gap-1">
