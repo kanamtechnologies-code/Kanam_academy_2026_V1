@@ -8,6 +8,7 @@ import { CheckCircle2, Code2, Play, RotateCcw, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
@@ -39,11 +40,20 @@ export type LessonConfig = {
   terminalPrompt?: string;
   prevHref?: string;
   nextHref?: string;
+  runtimeInput?: {
+    label: string;
+    placeholder?: string;
+    defaultValue?: string;
+  };
 
-  getRunOutput: (code: string) => string;
-  computeProgressPercent: (code: string, submitted: boolean) => number;
-  isSubmissionValid: (code: string) => boolean;
-  getSubmitOutput: (ok: boolean) => string;
+  getRunOutput: (code: string, runtimeInput?: string) => string;
+  computeProgressPercent: (
+    code: string,
+    submitted: boolean,
+    runtimeInput?: string
+  ) => number;
+  isSubmissionValid: (code: string, runtimeInput?: string) => boolean;
+  getSubmitOutput: (ok: boolean, runtimeInput?: string) => string;
 };
 
 function asTerminal(prompt: string, body: string) {
@@ -59,6 +69,9 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   );
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [hasRun, setHasRun] = React.useState<boolean>(false);
+  const [runtimeInput, setRuntimeInput] = React.useState<string>(
+    lesson.runtimeInput?.defaultValue ?? ""
+  );
   const [revealedCfu, setRevealedCfu] = React.useState<boolean[]>(
     Array.from({ length: lesson.cfu.length }, () => false)
   );
@@ -68,20 +81,20 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     setRevealedCfu(Array.from({ length: lesson.cfu.length }, () => false));
   }, [lesson.cfu.length]);
 
-  const readyToSubmit = lesson.isSubmissionValid(code);
+  const readyToSubmit = lesson.isSubmissionValid(code, runtimeInput);
   const progressPercent = React.useMemo(
     () => {
       // If the learner hasn't changed anything yet, start at 0%.
       // This keeps progress at 0% on initial load even if starter code is "complete".
       if (!submitted && !hasRun && code.trim() === lesson.starterCode.trim()) return 0;
-      return lesson.computeProgressPercent(code, submitted);
+      return lesson.computeProgressPercent(code, submitted, runtimeInput);
     },
-    [code, submitted, hasRun, lesson]
+    [code, submitted, hasRun, runtimeInput, lesson]
   );
 
   const onRun = () => {
     setHasRun(true);
-    setOutput(lesson.getRunOutput(code));
+    setOutput(lesson.getRunOutput(code, runtimeInput));
   };
 
   const onReset = () => {
@@ -89,13 +102,14 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     setOutput(asTerminal(terminalPrompt, "Press Run to see output here."));
     setSubmitted(false);
     setHasRun(false);
+    setRuntimeInput(lesson.runtimeInput?.defaultValue ?? "");
     setRevealedCfu(Array.from({ length: lesson.cfu.length }, () => false));
   };
 
   const onSubmit = () => {
-    const ok = lesson.isSubmissionValid(code);
+    const ok = lesson.isSubmissionValid(code, runtimeInput);
     setSubmitted(ok);
-    setOutput(lesson.getSubmitOutput(ok));
+    setOutput(lesson.getSubmitOutput(ok, runtimeInput));
   };
 
   const LessonHeader = (
@@ -291,6 +305,32 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             "dark:bg-slate-950",
           ].join(" ")}
         />
+        {lesson.runtimeInput ? (
+          <div className="rounded-md border border-slate-200 bg-white p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              Simulated input()
+            </p>
+            <div className="mt-2 grid gap-2 sm:grid-cols-[200px_1fr] sm:items-center">
+              <label className="text-sm font-medium text-slate-900">
+                {lesson.runtimeInput.label}
+              </label>
+              <Input
+                value={runtimeInput}
+                onChange={(e) => setRuntimeInput(e.target.value)}
+                placeholder={lesson.runtimeInput.placeholder}
+                className={[
+                  "border-2",
+                  submitted
+                    ? "border-[var(--brand)] focus-visible:ring-[var(--brand)]/25"
+                    : "border-[var(--accent)] focus-visible:ring-[var(--accent)]/25",
+                ].join(" ")}
+              />
+            </div>
+            <p className="mt-2 text-xs text-slate-500">
+              This MVP doesn’t run real Python — we use your “input” here to simulate what the bot would say.
+            </p>
+          </div>
+        ) : null}
         <div className="mt-auto rounded-md border border-slate-200 bg-white p-3">
           <div className="flex flex-wrap items-center gap-2">
             <Button onClick={onRun} variant="secondary">

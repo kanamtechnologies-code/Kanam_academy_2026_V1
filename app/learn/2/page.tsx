@@ -9,110 +9,154 @@ function asTerminal(body: string) {
 }
 
 const lesson2: LessonConfig = {
-  title: "2. Magic Sentences (f-strings)",
-  goal: "Make Python mix words + variables using a superpower called an f-string!",
-  xpReward: 60,
-  badge: "String Wizard",
-  starterCode: '# Write your code below\nname = "Kanam"\n',
+  title: "2. Smart Choices Bot",
+  goal: "Make your bot listen, think, and choose what to say!",
+  xpReward: 100,
+  badge: "🧠 Logic Master",
+  starterCode: `# 1. Ask the user a question and save the answer
+status = input("Are you tired? (yes/no): ")
+
+# 2. The Fork in the Road
+if status == "yes":
+    # This only runs if they typed 'yes'
+    print("AI says: Go grab a glass of water and rest!")
+else:
+    # This runs for any other answer
+    print("AI says: Awesome! Let's keep building.")
+`,
   instructorScript:
-    "In Lesson 1 you used + to join text. Now we’ll learn an even easier way: an f-string. It’s like a magic sentence where you can drop a variable right into the middle!",
+    "An AI that only talks at you isn't very smart. To make a bot feel alive, it needs to listen! Today, we’re using the input() command to ask a question. Then, we’ll use an if statement to give our AI a 'fork in the road'—making it say different things based on your answer.",
   kidExplain: [
     {
-      title: "What is an f-string?",
+      title: "What is input()?",
       text:
-        'An **f-string** starts with the letter **f** before the quotes, like `f"Hello {name}"`. It lets you put variables inside curly braces `{ }`.',
+        "This command pauses the program and waits for the user to type something. Whatever they type gets saved into a variable (your bot’s “memory box”).",
     },
     {
-      title: "What do the curly braces { } do?",
+      title: 'The "Fork in the Road" (if)',
       text:
-        "Curly braces tell Python: “Put the variable’s value here.” So `{name}` becomes whatever is inside the variable `name`.",
+        "An if statement checks a condition. If the condition is True, Python runs the code indented underneath it.",
     },
     {
-      title: "Why is this helpful?",
+      title: "The Double Equals (==)",
       text:
-        "It’s easier to read than using +, and it helps you build messages like a pro.",
+        "In Python, `=` puts something in a box, but `==` asks a question: “Is this equal to that?” Always use `==` inside an if statement!",
     },
     {
-      title: "Remember",
+      title: "The Colon (:) and Indent",
       text:
-        "You still need `print(...)` to show the message in the Output.",
+        "The colon at the end of if and else is like a START signal. Everything pushed to the right (indented) belongs to that choice.",
     },
   ],
   steps: [
-    'Make sure you have: `name = "Kanam"`',
-    'Write an f-string print: `print(f"Hello! I am {name}")`',
-    "Press Run to see it in the Output.",
-    "Press Submit when you see it working.",
+    'Ask a Question: Use `status = input("Are you tired? (yes/no): ")` to get the user’s mood.',
+    'Set the If Condition: Write `if status == "yes":` (don’t forget the colon!).',
+    "Add the Reaction: On the next line (indented!), use print() to give advice for being tired.",
+    'The Catch-All (else): Use `else:` to tell the AI what to say if the user says anything other than "yes."',
+    "Common mistake: If you get an IndentationError, make sure your print() lines are pushed to the right using the Tab key!",
   ],
   cfu: [
     {
-      question: 'What does the "f" do in f"Hello {name}"?',
-      answer: "It turns the string into an f-string so { } will work.",
+      question: 'What happens if the user types "YES" instead of "yes"?',
+      answer:
+        'Python is case-sensitive! It will jump to the else section because "YES" does not equal "yes".',
     },
     {
-      question: "What do the braces { } mean?",
-      answer: "They tell Python to insert a variable’s value there.",
+      question: "Why do we need the : at the end of the if line?",
+      answer: "It tells Python that a block of 'choice' code is about to start.",
     },
     {
-      question: 'What will print(f"Hi {name}") show if name = "Kanam"?',
-      answer: "It will show: Hi Kanam",
-    },
-    {
-      question: "What happens if you forget print(...) ?",
-      answer: "Nothing shows up in Output (because you didn’t tell Python to print).",
+      question: "What does input() do to the program?",
+      answer: "It pauses the code and waits for the user to press Enter.",
     },
   ],
   tryThis: [
-    'Change the message to: print(f"Welcome, {name}!")',
-    "Add an emoji: print(f\"Hello {name} 🙂\")",
-    "Make a second variable: age = 10, then print(f\"I am {age} years old\")",
+    'Pizza Choice: Change the question to "Do you like pizza?" and update the responses.',
+    'The Middle Ground: Try adding an `elif status == "maybe":` line between the if and the else.',
+    "The Secret Code: Make an if statement that only triggers if the user types a secret password!",
   ],
   aiSafetyMoment:
     "Remember: AI can sound confident even when it’s wrong. Always test your code and double-check important facts!",
-  editorPlaceholder: '# Try typing:\n# print(f"Hello! I am {name}")\n',
+  editorPlaceholder:
+    '# Try typing:\n# status = input("Are you tired? (yes/no): ")\n# if status == "yes":\n#     print("...")\n',
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/1",
   nextHref: undefined,
+  runtimeInput: {
+    label: 'Answer for input("Are you tired?")',
+    placeholder: "yes or no",
+    defaultValue: "yes",
+  },
 
-  getRunOutput: (code) => {
-    const hasPrint = code.includes("print(");
-    if (!hasPrint) return asTerminal("(no output)\nTip: add print(...) to see output.");
-
-    const usesFString =
-      /print\(\s*f["']/.test(code) && /\{\s*name\s*\}/.test(code);
-
-    if (usesFString) {
+  getRunOutput: (code, runtimeInput) => {
+    if (code.includes("Print(")) {
       return asTerminal(
-        "Hello! I am Kanam\n\n(MVP note: output is hardcoded, but you unlocked f-strings!)"
+        "❌ Common mistake: Python needs lowercase print(...), not Print(...)."
       );
     }
 
-    return asTerminal(
-      "Nice! I see print(...).\nNow try an f-string like: print(f\"Hello! I am {name}\")"
-    );
+    const answerRaw = (runtimeInput ?? "").trim();
+    if (!answerRaw) {
+      return asTerminal('Type "yes" or "no" in the input box, then press Run.');
+    }
+    const answer = answerRaw.toLowerCase();
+
+    const hasInput = /\bstatus\s*=\s*input\(/.test(code);
+    const hasIf = /\bif\s+status\s*==\s*["']yes["']\s*:/.test(code);
+    const hasElse = /\nelse\s*:/.test(code);
+
+    if (!hasInput) {
+      return asTerminal('Add: status = input("Are you tired? (yes/no): ")');
+    }
+    if (!hasIf) {
+      return asTerminal('Add: if status == "yes":   (don’t forget the colon!)');
+    }
+    if (!hasElse) {
+      return asTerminal("Add an else: so your bot has a second path.");
+    }
+
+    if (answer === "yes") {
+      return asTerminal("AI says: Go grab a glass of water and rest!");
+    }
+    return asTerminal("AI says: Awesome! Let's keep building.");
   },
 
   computeProgressPercent: (code, submitted) => {
-    const hasName =
-      /\bname\s*=\s*["'][^"']+["']/.test(code) || /\bname\s*=/.test(code);
-    const hasPrint = code.includes("print(");
-    const usesFString =
-      /print\(\s*f["']/.test(code) && /\{\s*name\s*\}/.test(code);
+    const hasInput = /\bstatus\s*=\s*input\(/.test(code);
+    const hasIfYes = /\bif\s+status\s*==\s*["']yes["']\s*:/.test(code);
+    const hasElse = /\nelse\s*:/.test(code);
+    const hasIndentedPrintIf =
+      /\bif\s+status\s*==\s*["']yes["']\s*:[^\n]*\n[ \t]+print\(/.test(code);
+    const hasIndentedPrintElse =
+      /\nelse\s*:[^\n]*\n[ \t]+print\(/.test(code);
+    const usesDoubleEquals = /\bif\s+status\s*==/.test(code);
 
-    const checks = [hasName, hasPrint, usesFString];
+    const checks = [
+      hasInput,
+      usesDoubleEquals,
+      hasIfYes,
+      hasIndentedPrintIf,
+      hasElse,
+      hasIndentedPrintElse,
+    ];
     const completed = checks.filter(Boolean).length;
     const percent = Math.round((completed / checks.length) * 100);
     return submitted ? 100 : percent;
   },
 
   isSubmissionValid: (code) =>
-    /print\(\s*f["']/.test(code) && /\{\s*name\s*\}/.test(code),
+    /\bstatus\s*=\s*input\(/.test(code) &&
+    /\bif\s+status\s*==\s*["']yes["']\s*:/.test(code) &&
+    /\nelse\s*:/.test(code) &&
+    /\bif\s+status\s*==\s*["']yes["']\s*:[^\n]*\n[ \t]+print\(/.test(code) &&
+    /\nelse\s*:[^\n]*\n[ \t]+print\(/.test(code) &&
+    !code.includes("Print("),
 
   getSubmitOutput: (ok) =>
     ok
-      ? asTerminal("✅ Submitted! You used an f-string with {name}. Amazing!")
+      ? asTerminal("✅ Submitted! Your bot can listen and make a smart choice. 🎉")
       : asTerminal(
-          '❌ Almost! Use an f-string like: print(f"Hello! I am {name}")'
+          "❌ Almost! Make sure you have input(), an if status == \"yes\": line with a colon, an else:, and indented print() lines. Also check print is lowercase."
         ),
 };
 
