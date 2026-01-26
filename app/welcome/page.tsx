@@ -251,9 +251,27 @@ export default function WelcomePage() {
                     </p>
                     <div className="mt-3 grid gap-3 md:grid-cols-3">
                       <div className="rounded-xl border border-dashed border-white/25 bg-white/5 p-3">
-                        <div className="aspect-video rounded-lg bg-black/30" />
+                        <div className="relative aspect-video overflow-hidden rounded-lg bg-black/30">
+                          <video
+                            className="h-full w-full object-cover opacity-70"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            preload="metadata"
+                          >
+                            <source
+                              src="/video/istockphoto-1077299832-640_adpp_is.mp4"
+                              type="video/mp4"
+                            />
+                          </video>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+                          <div className="absolute bottom-2 left-2 rounded-full bg-black/50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-slate-100">
+                            Orientation Reel
+                          </div>
+                        </div>
                         <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-slate-300">
-                          Add Image
+                          Add Image / Video
                         </p>
                         <p className="mt-1 text-xs text-slate-300">
                           Concept diagram / “Boxes”
