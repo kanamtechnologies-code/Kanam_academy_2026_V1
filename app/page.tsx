@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Zap } from "lucide-react";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +10,13 @@ export default function Home() {
       <Card className="w-full max-w-xl">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-amber-500" />
+            <Image
+              src="/images/Logo.png"
+              alt="Kanam Academy logo"
+              width={28}
+              height={28}
+              priority
+            />
             <CardTitle>Kanam Academy</CardTitle>
           </div>
           <CardDescription>

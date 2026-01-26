@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { CheckCircle2, Code2, Play, RotateCcw, Zap } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -109,9 +110,17 @@ export default function LessonDemoPage() {
   const LessonHeader = (
     <div className="flex items-start justify-between gap-3">
       <div className="min-w-0">
-        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-          Lesson
-        </p>
+        <div className="flex items-center gap-2">
+          <Image
+            src="/images/Logo.png"
+            alt="Kanam Academy logo"
+            width={18}
+            height={18}
+          />
+          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            Lesson
+          </p>
+        </div>
         <h1 className="mt-1 truncate text-xl font-semibold text-slate-900">
           {lesson.title}
         </h1>
@@ -119,7 +128,7 @@ export default function LessonDemoPage() {
       </div>
       <div className="flex items-center gap-2">
         <Badge variant="secondary" className="shrink-0">
-          <Zap className="mr-1 h-3.5 w-3.5 text-amber-500" />
+          <Zap className="mr-1 h-3.5 w-3.5 text-[var(--accent)]" />
           {lesson.xpReward} XP
         </Badge>
         <Badge

@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand palette (from Logo.png) */
+  --brand: #18a16d; /* green */
+  --brand-2: #0f6e57; /* deep teal */
+  --accent: #d8c07a; /* warm gold */
+
+  --background: #f8fafc; /* slate-50 */
+  --foreground: #0f172a; /* slate-900 */
 }
 
 @theme inline {
@@ -13,8 +18,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #020617; /* slate-950 */
+    --foreground: #f8fafc; /* slate-50 */
   }
 }
 
