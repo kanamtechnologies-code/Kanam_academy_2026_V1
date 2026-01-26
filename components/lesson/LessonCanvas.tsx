@@ -58,6 +58,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     asTerminal(terminalPrompt, "Press Run to see output here.")
   );
   const [submitted, setSubmitted] = React.useState<boolean>(false);
+  const [hasRun, setHasRun] = React.useState<boolean>(false);
   const [revealedCfu, setRevealedCfu] = React.useState<boolean[]>(
     Array.from({ length: lesson.cfu.length }, () => false)
   );
@@ -71,13 +72,15 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const progressPercent = React.useMemo(
     () => {
       // If the learner hasn't changed anything yet, start at 0%.
-      if (!submitted && code.trim() === lesson.starterCode.trim()) return 0;
+      // This keeps progress at 0% on initial load even if starter code is "complete".
+      if (!submitted && !hasRun && code.trim() === lesson.starterCode.trim()) return 0;
       return lesson.computeProgressPercent(code, submitted);
     },
-    [code, submitted, lesson]
+    [code, submitted, hasRun, lesson]
   );
 
   const onRun = () => {
+    setHasRun(true);
     setOutput(lesson.getRunOutput(code));
   };
 
@@ -85,6 +88,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     setCode(lesson.starterCode);
     setOutput(asTerminal(terminalPrompt, "Press Run to see output here."));
     setSubmitted(false);
+    setHasRun(false);
     setRevealedCfu(Array.from({ length: lesson.cfu.length }, () => false));
   };
 
