@@ -255,7 +255,7 @@ print("Hello! I am " + name)`}
   );
 
   const Editor = (
-    <Card className="flex h-full min-h-0 flex-col">
+    <Card className="flex min-h-[420px] flex-col">
       <CardHeader>
         <div className="flex items-center gap-2">
           <Code2 className="h-5 w-5 text-slate-700" />
@@ -265,7 +265,7 @@ print("Hello! I am " + name)`}
           Click inside the big box below and type. Then press <span className="font-medium">Run</span>.
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex min-h-0 flex-1 flex-col gap-3">
+      <CardContent className="flex flex-1 flex-col gap-3">
         <Textarea
           value={code}
           onChange={(e) => setCode(e.target.value)}
@@ -273,7 +273,7 @@ print("Hello! I am " + name)`}
           aria-label="Python code editor"
           placeholder={'# Try typing:\n# print("Hello! I am " + name)\n'}
           className={[
-            "min-h-0 flex-1 resize-none border-2 bg-white shadow-sm",
+            "min-h-[260px] flex-1 resize-none border-2 bg-white shadow-sm",
             "focus-visible:ring-4",
             submitted
               ? "border-[var(--brand)] focus-visible:ring-[var(--brand)]/25"
@@ -315,12 +315,12 @@ print("Hello! I am " + name)`}
   );
 
   const Output = (
-    <Card className="flex h-full min-h-0 flex-col">
+    <Card className="flex min-h-[320px] flex-col">
       <CardHeader>
         <CardTitle>Console Output</CardTitle>
         <CardDescription>Looks like a terminal.</CardDescription>
       </CardHeader>
-      <CardContent className="min-h-0 flex-1">
+      <CardContent className="flex-1">
         <div className="h-full min-h-[220px] overflow-y-auto rounded-md bg-black p-3 font-mono text-sm text-emerald-400 shadow-inner">
           <pre className="whitespace-pre-wrap">{output}</pre>
         </div>
@@ -329,9 +329,9 @@ print("Hello! I am " + name)`}
   );
 
   const CodingLab = (
-    <div className="flex h-full min-h-0 flex-col gap-4">
-      <div className="min-h-0 flex-1">{Editor}</div>
-      <div className="min-h-0 flex-1">{Output}</div>
+    <div className="flex flex-col gap-4">
+      {Editor}
+      {Output}
     </div>
   );
 
