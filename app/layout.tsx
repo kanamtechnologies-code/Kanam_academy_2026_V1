@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { HeaderVideo } from "@/components/layout/HeaderVideo";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,16 +31,11 @@ export default function RootLayout({
         <header className="sticky top-0 z-50 overflow-hidden border-b border-slate-200/70 bg-[var(--background)]/80 backdrop-blur">
           {/* Subtle video texture (kept very low-contrast so it isn't distracting) */}
           <div className="pointer-events-none absolute inset-0 hidden md:block">
-            <video
+            <HeaderVideo
               className="h-full w-full object-cover opacity-[0.12] saturate-0"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-            >
-              <source src="/video/16735004-uhd_3840_2160_30fps.mp4" type="video/mp4" />
-            </video>
+              src="/video/16735004-uhd_3840_2160_30fps.mp4"
+              playbackRate={0.6}
+            />
             <div className="absolute inset-0 bg-[var(--background)]/75" />
           </div>
 
