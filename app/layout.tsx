@@ -29,20 +29,21 @@ export default function RootLayout({
       >
         <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-[var(--background)]/80 backdrop-blur">
           <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 md:px-6">
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-1">
               <Image
                 src="/images/Logo.png"
                 alt="Kanam Academy logo"
                 width={44}
                 height={44}
+                className="relative -top-0.5"
                 priority
               />
               <span className="text-base font-semibold tracking-tight sm:text-lg">
                 <span className="sr-only">K</span>
-                <span aria-hidden className="text-slate-400">
-                  anam{" "}
-                </span>
-                <span>Academy</span>
+                <span aria-hidden className="text-slate-900">
+                  anam
+                </span>{" "}
+                <span className="text-slate-900">Academy</span>
               </span>
             </Link>
             <span className="text-xs text-slate-500">Lesson Canvas MVP</span>
