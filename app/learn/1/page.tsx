@@ -9,6 +9,7 @@ function asTerminal(body: string) {
 }
 
 const lesson1: LessonConfig = {
+  id: "lesson-1",
   title: "1. My First AI Helper",
   goal: "Teach your computer to introduce itself using Python!",
   xpReward: 50,

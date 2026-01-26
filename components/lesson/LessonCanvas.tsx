@@ -24,6 +24,7 @@ export type LessonExplainItem = {
 };
 
 export type LessonConfig = {
+  id: string;
   title: string;
   goal: string;
   xpReward: number;
@@ -58,6 +59,28 @@ export type LessonConfig = {
 
 function asTerminal(prompt: string, body: string) {
   return `${prompt} python main.py\n${body}\n${prompt}`;
+}
+
+const COMPLETED_LESSONS_KEY = "kanam.completedLessonIds";
+
+function loadCompletedLessonIds(): string[] {
+  try {
+    const raw = window.localStorage.getItem(COMPLETED_LESSONS_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return [];
+    return parsed.filter((x): x is string => typeof x === "string");
+  } catch {
+    return [];
+  }
+}
+
+function saveCompletedLessonIds(ids: string[]) {
+  try {
+    window.localStorage.setItem(COMPLETED_LESSONS_KEY, JSON.stringify(ids));
+  } catch {
+    // ignore
+  }
 }
 
 export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
@@ -110,6 +133,13 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     const ok = lesson.isSubmissionValid(code, runtimeInput);
     setSubmitted(ok);
     setOutput(lesson.getSubmitOutput(ok, runtimeInput));
+
+    if (ok) {
+      const completed = loadCompletedLessonIds();
+      if (!completed.includes(lesson.id)) {
+        saveCompletedLessonIds([...completed, lesson.id]);
+      }
+    }
   };
 
   const LessonHeader = (

@@ -9,6 +9,7 @@ function asTerminal(body: string) {
 }
 
 const lesson2: LessonConfig = {
+  id: "lesson-2",
   title: "2. Smart Choices Bot",
   goal: "Make your bot listen, think, and choose what to say!",
   xpReward: 100,
