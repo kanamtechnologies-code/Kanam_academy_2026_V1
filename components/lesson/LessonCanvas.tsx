@@ -351,7 +351,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   );
 
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-4 p-4 md:p-6">
+    <div className="w-full space-y-4 p-4 md:p-6">
       <Card>
         <CardContent className="space-y-3 pt-6">
           <div className="flex items-center justify-between gap-4">
