@@ -33,12 +33,16 @@ export default function RootLayout({
               <Image
                 src="/images/Logo.png"
                 alt="Kanam Academy logo"
-                width={28}
-                height={28}
+                width={44}
+                height={44}
                 priority
               />
-              <span className="text-sm font-semibold tracking-tight">
-                Kanam Academy
+              <span className="text-base font-semibold tracking-tight sm:text-lg">
+                <span className="sr-only">K</span>
+                <span aria-hidden className="text-slate-400">
+                  anam{" "}
+                </span>
+                <span>Academy</span>
               </span>
             </Link>
             <span className="text-xs text-slate-500">Lesson Canvas MVP</span>
