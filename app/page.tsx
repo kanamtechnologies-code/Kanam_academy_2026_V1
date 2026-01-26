@@ -109,7 +109,7 @@ export default function Home() {
   const nextLesson = activeIndex >= 0 ? lessons[activeIndex] : undefined;
 
   return (
-    <div className="min-h-dvh bg-black px-4 py-6 text-slate-100 md:px-8">
+    <div className="min-h-dvh bg-[#0b0f19] px-4 py-6 text-slate-100 md:px-8">
       <div className="mx-auto w-full max-w-6xl space-y-6">
         {/* Dashboard Header */}
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
