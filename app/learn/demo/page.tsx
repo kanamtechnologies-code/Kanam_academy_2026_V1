@@ -393,9 +393,9 @@ print("Hello! I am " + name)`}
       {/* Desktop: 40% lesson / 60% interactivity */}
       <div className="hidden md:block">
         <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-          <div className="grid h-[calc(100dvh-220px)] grid-cols-5">
+          <div className="grid grid-cols-5">
             <div className="col-span-2 bg-slate-50">
-              <div className="h-full overflow-y-auto p-6">
+              <div className="max-h-[calc(100dvh-220px)] overflow-y-auto p-6">
                 <div className="space-y-4">
                   {LessonHeader}
                   {LearnContent}
@@ -404,7 +404,7 @@ print("Hello! I am " + name)`}
               </div>
             </div>
             <div className="col-span-3 border-l border-slate-200 bg-white">
-              <div className="h-full min-h-0 overflow-y-auto p-6">
+              <div className="max-h-[calc(100dvh-220px)] overflow-y-auto p-6">
                 {CodingLab}
               </div>
             </div>
