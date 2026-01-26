@@ -68,6 +68,19 @@ export default function WelcomePage() {
   }, []);
 
   React.useEffect(() => {
+    // Read query params client-side without Next's useSearchParams (avoids prerender suspense requirement).
+    try {
+      const qs = new URLSearchParams(window.location.search);
+      const qsStep = qs.get("step");
+      if (qsStep === "greeting" || qsStep === "branch" || qsStep === "explainer") {
+        setStep(qsStep);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  React.useEffect(() => {
     setAnimateIn(false);
     const t = window.setTimeout(() => setAnimateIn(true), 10);
     return () => window.clearTimeout(t);

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Image from "next/image";
-import Link from "next/link";
 import { HeaderVideo } from "@/components/layout/HeaderVideo";
+import { HeaderBrand } from "@/components/layout/HeaderBrand";
 import "./globals.css";
 
 const inter = Inter({
@@ -39,23 +38,7 @@ export default function RootLayout({
           </div>
 
           <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 md:px-6">
-            <Link href="/" className="flex items-center gap-1">
-              <Image
-                src="/images/Logo.png"
-                alt="Kanam Academy logo"
-                width={44}
-                height={44}
-                className="relative -top-0.5"
-                priority
-              />
-              <span className="text-base font-semibold tracking-tight sm:text-lg">
-                <span className="sr-only">K</span>
-                <span aria-hidden className="text-slate-900">
-                  anam
-                </span>{" "}
-                <span className="text-slate-900">Academy</span>
-              </span>
-            </Link>
+            <HeaderBrand />
             <span className="text-xs text-slate-500">Lesson Canvas MVP</span>
           </div>
         </header>
