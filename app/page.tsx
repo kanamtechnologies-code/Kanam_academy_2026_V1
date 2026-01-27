@@ -14,6 +14,14 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 
 const COMPLETED_LESSONS_KEY = "kanam.completedLessonIds";
@@ -88,17 +96,22 @@ export default function Home() {
   const [studentName, setStudentName] = React.useState<string>("Student");
   const [completedIds, setCompletedIds] = React.useState<string[]>([]);
   const [hasSavedProgress, setHasSavedProgress] = React.useState<boolean>(false);
+  const [resetOpen, setResetOpen] = React.useState<boolean>(false);
+  const [resetStep, setResetStep] = React.useState<1 | 2 | 3>(1);
 
-  const confirmResetProgress = () => {
-    if (typeof window === "undefined") return false;
-    const ok1 = window.confirm("Are you sure you want to reset your progress?");
-    if (!ok1) return false;
-    const ok2 = window.confirm("Are you REALLY REALLY sure?");
-    if (!ok2) return false;
-    const ok3 = window.confirm(
-      "Final warning: this cannot be undone. Reset progress now?"
-    );
-    return ok3;
+  const resetProgress = () => {
+    try {
+      window.localStorage.setItem(COMPLETED_LESSONS_KEY, JSON.stringify([]));
+    } catch {
+      // ignore
+    }
+    setHasSavedProgress(true);
+    setCompletedIds([]);
+  };
+
+  const openResetModal = () => {
+    setResetStep(1);
+    setResetOpen(true);
   };
 
   React.useEffect(() => {
@@ -171,23 +184,87 @@ export default function Home() {
               variant="outline"
               size="sm"
               onClick={() => {
-                if (!confirmResetProgress()) return;
-                try {
-                  window.localStorage.setItem(
-                    COMPLETED_LESSONS_KEY,
-                    JSON.stringify([])
-                  );
-                } catch {
-                  // ignore
-                }
-                setHasSavedProgress(true);
-                setCompletedIds([]);
+                openResetModal();
               }}
             >
               Reset progress
             </Button>
           </div>
         </div>
+
+        <Dialog
+          open={resetOpen}
+          onOpenChange={(open) => {
+            setResetOpen(open);
+            if (!open) setResetStep(1);
+          }}
+        >
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>
+                {resetStep === 1
+                  ? "Reset progress?"
+                  : resetStep === 2
+                    ? "Are you REALLY REALLY sure?"
+                    : "Last warning"}
+              </DialogTitle>
+              <DialogDescription>
+                {resetStep === 1
+                  ? "This will clear your completed lessons on this device."
+                  : resetStep === 2
+                    ? "You’re about to erase your Starter Pack progress."
+                    : "This action cannot be undone."}
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+              {resetStep === 1 ? (
+                <p>
+                  You’ll go back to the beginning, and lessons will lock again until you
+                  complete them.
+                </p>
+              ) : resetStep === 2 ? (
+                <p>
+                  For real: your badges and XP on this device will reset. (We’ll add accounts later.)
+                </p>
+              ) : (
+                <p className="font-semibold text-slate-900">
+                  Final warning: this cannot be redone.
+                </p>
+              )}
+            </div>
+
+            <DialogFooter className="mt-6">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setResetOpen(false);
+                  setResetStep(1);
+                }}
+              >
+                Cancel
+              </Button>
+              {resetStep < 3 ? (
+                <Button type="button" onClick={() => setResetStep((s) => (s + 1) as 2 | 3)}>
+                  {resetStep === 1 ? "Yes, continue" : "Yes, continue"}
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  className="bg-red-600 text-white hover:bg-red-500 focus-visible:ring-red-600/30"
+                  onClick={() => {
+                    resetProgress();
+                    setResetOpen(false);
+                    setResetStep(1);
+                  }}
+                >
+                  Reset forever
+                </Button>
+              )}
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         <Card>
           <CardContent className="space-y-3 pt-6">
