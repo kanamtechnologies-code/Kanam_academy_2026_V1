@@ -99,13 +99,7 @@ export default function WelcomePage() {
             {/* Video panel */}
             <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
               <CardContent className="pt-6">
-                <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                  Quick Tour
-                </p>
-                <p className="mt-1 text-sm text-slate-700">
-                  A short vibe reel while you get set up.
-                </p>
-                <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm">
+                <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm">
                   <div className="relative aspect-video">
                     <WelcomeVideoFader
                       sources={[
@@ -120,10 +114,6 @@ export default function WelcomePage() {
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/55 via-transparent to-white/10" />
                   </div>
-                </div>
-                <div className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white/70 px-3 py-2 text-xs text-slate-600">
-                  <span className="font-semibold text-slate-900">Kanam Academy</span>
-                  <span className="text-slate-500">Orientation preview</span>
                 </div>
               </CardContent>
             </Card>
