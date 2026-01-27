@@ -48,58 +48,56 @@ export default function WelcomeProtocolPage() {
         ].join(" ")}
       >
         <WelcomeShell
-          title="The Kanam Development Framework"
-          subtitle="A three-stage pedagogical approach designed to bridge the gap between abstract logic and functional Python engineering."
+          title="How Kanam works (the simple version)"
+          subtitle="You’re not here to memorize — you’re here to build real stuff."
         >
           <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
             <CardContent className="pt-6">
               <div className="space-y-6">
                 {/* Timeline (horizontal) */}
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                    Protocol Timeline
-                  </p>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">The flow</p>
                   <div className="mt-3 grid gap-3 md:grid-cols-3">
                     <div className="rounded-xl border border-slate-200 bg-white/80 p-4">
                       <div className="flex items-center gap-2">
                         <Zap className="h-4 w-4 text-[var(--accent)]" />
                         <span className="text-xs font-semibold uppercase tracking-widest text-slate-700">
-                          Stage 01
+                          Step 1
                         </span>
                       </div>
                       <p className="mt-2 text-sm font-semibold text-slate-900">
-                        Conceptual Architecture
+                        Get the idea
                       </p>
                       <p className="mt-1 text-xs text-slate-600">
-                        Mental model mapping
+                        Learn the “why” in plain English
                       </p>
                     </div>
                     <div className="rounded-xl border border-slate-200 bg-white/80 p-4">
                       <div className="flex items-center gap-2">
                         <Terminal className="h-4 w-4 text-[var(--accent)]" />
                         <span className="text-xs font-semibold uppercase tracking-widest text-slate-700">
-                          Stage 02
+                          Step 2
                         </span>
                       </div>
                       <p className="mt-2 text-sm font-semibold text-slate-900">
-                        Integrated Execution
+                        Build it
                       </p>
                       <p className="mt-1 text-xs text-slate-600">
-                        Code + console
+                        Write Python and see it run
                       </p>
                     </div>
                     <div className="rounded-xl border border-slate-200 bg-white/80 p-4">
                       <div className="flex items-center gap-2">
                         <Activity className="h-4 w-4 text-[var(--accent)]" />
                         <span className="text-xs font-semibold uppercase tracking-widest text-slate-700">
-                          Stage 03
+                          Step 3
                         </span>
                       </div>
                       <p className="mt-2 text-sm font-semibold text-slate-900">
-                        Logic Validation
+                        Prove it
                       </p>
                       <p className="mt-1 text-xs text-slate-600">
-                        CFU + challenges
+                        Quick quiz + challenges
                       </p>
                     </div>
                   </div>
@@ -108,7 +106,7 @@ export default function WelcomeProtocolPage() {
                 {/* Visual assets */}
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                    Visual Assets (placeholders)
+                    Spots you can fill later
                   </p>
                   <div className="mt-3 grid gap-3 md:grid-cols-3">
                     <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3">
@@ -127,34 +125,13 @@ export default function WelcomeProtocolPage() {
                           />
                         </video>
                         <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-white/10" />
-                        <div className="absolute bottom-2 left-2 rounded-full bg-white/75 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-slate-900">
-                          Orientation Reel
-                        </div>
                       </div>
-                      <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-slate-700">
-                        Add Image / Video
-                      </p>
-                      <p className="mt-1 text-xs text-slate-600">
-                        Concept diagram / “Boxes”
-                      </p>
                     </div>
                     <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3">
                       <div className="aspect-video rounded-lg bg-slate-100" />
-                      <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-slate-700">
-                        Add Image
-                      </p>
-                      <p className="mt-1 text-xs text-slate-600">
-                        Terminal / output screenshot
-                      </p>
                     </div>
                     <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3">
                       <div className="aspect-video rounded-lg bg-slate-100" />
-                      <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-slate-700">
-                        Add Image
-                      </p>
-                      <p className="mt-1 text-xs text-slate-600">
-                        Badges / reward graphic
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -162,7 +139,7 @@ export default function WelcomeProtocolPage() {
                 {/* Module Overviews */}
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                    Module Overviews
+                    The 3 parts (teen-friendly)
                   </p>
 
                   <div className="mt-3 grid gap-4 lg:grid-cols-3">
@@ -180,28 +157,23 @@ export default function WelcomeProtocolPage() {
                           <Zap className="h-5 w-5 text-[var(--accent)]" />
                           <div>
                             <p className="text-xs font-semibold uppercase tracking-widest text-slate-700">
-                              Stage 01
+                              Step 1
                             </p>
                             <h3 className="text-lg font-semibold text-slate-900">
-                              Phase 1: Mental Model Mapping
+                              Understand it
                             </h3>
                           </div>
                         </div>
                         <p className="mt-3 leading-relaxed text-slate-700">
-                          Before writing a single line of syntax, we establish the “why.”
-                          Every lesson begins with a high-level conceptual breakdown. You
-                          will learn to visualize variables as memory-allocation units
-                          (Boxes) and logic gates as decision-making trees. We prioritize
-                          understanding the architecture of AI over rote memorization of
-                          commands.
+                          We explain the idea first, so you’re not just copying code.
+                          You’ll learn what variables and logic actually mean (in normal
+                          words), then you’ll use that idea right away.
                         </p>
-                        <p className="mt-3 text-sm font-semibold text-slate-900">
-                          Technical Focus:
-                          <span className="font-normal text-slate-700">
-                            {" "}
-                            Memory Persistence, Data Types, and Logic Flow.
-                          </span>
-                        </p>
+                        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
+                          <li>Think in “boxes” (variables)</li>
+                          <li>Think in “choices” (if/elif/else)</li>
+                          <li>Understand what the code is doing</li>
+                        </ul>
                       </CardContent>
                     </Card>
 
@@ -219,28 +191,23 @@ export default function WelcomeProtocolPage() {
                           <Terminal className="h-5 w-5 text-[var(--accent)]" />
                           <div>
                             <p className="text-xs font-semibold uppercase tracking-widest text-slate-700">
-                              Stage 02
+                              Step 2
                             </p>
                             <h3 className="text-lg font-semibold text-slate-900">
-                              Phase 2: Real-Time Scripting &amp; Compilation
+                              Build it
                             </h3>
                           </div>
                         </div>
                         <p className="mt-3 leading-relaxed text-slate-700">
-                          Theory is useless without application. Kanam provides a
-                          sandboxed Python 3 environment where you will translate
-                          concepts into code. You will interact with a standard virtual
-                          terminal (Console) to view output, debug errors in real-time,
-                          and observe how a computer processes instructions sequentially
-                          from top to bottom.
+                          You’ll type real Python in the editor and press Run to see the
+                          output instantly. Mess up? That’s good — we’ll show you how to
+                          debug and fix it.
                         </p>
-                        <p className="mt-3 text-sm font-semibold text-slate-900">
-                          Technical Focus:
-                          <span className="font-normal text-slate-700">
-                            {" "}
-                            Syntax Precision, Console I/O, and Error Handling.
-                          </span>
-                        </p>
+                        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
+                          <li>Write code</li>
+                          <li>Run it</li>
+                          <li>Fix errors like a real developer</li>
+                        </ul>
                       </CardContent>
                     </Card>
 
@@ -258,28 +225,22 @@ export default function WelcomeProtocolPage() {
                           <Activity className="h-5 w-5 text-[var(--accent)]" />
                           <div>
                             <p className="text-xs font-semibold uppercase tracking-widest text-slate-700">
-                              Stage 03
+                              Step 3
                             </p>
                             <h3 className="text-lg font-semibold text-slate-900">
-                              Phase 3: Optimization &amp; Troubleshooting
+                              Prove it
                             </h3>
                           </div>
                         </div>
                         <p className="mt-3 leading-relaxed text-slate-700">
-                          The final stage of the Kanam Protocol is validation. You are
-                          tasked with “Check for Understanding” (CFU) modules that test
-                          your theoretical knowledge, followed by “Try This” challenges.
-                          These challenges force you to refactor and optimize your code,
-                          ensuring you haven’t just copied syntax, but have mastered the
-                          underlying logic.
+                          After you build it, you’ll do a quick check to prove you really
+                          get it. Then you’ll try challenges that level you up.
                         </p>
-                        <p className="mt-3 text-sm font-semibold text-slate-900">
-                          Technical Focus:
-                          <span className="font-normal text-slate-700">
-                            {" "}
-                            Code Refactoring, Logical Edge-Cases, and Achievement Tracking.
-                          </span>
-                        </p>
+                        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
+                          <li>CFU = quick quiz</li>
+                          <li>Try This = extra challenges</li>
+                          <li>Earn XP + badges</li>
+                        </ul>
                       </CardContent>
                     </Card>
                   </div>
@@ -290,32 +251,21 @@ export default function WelcomeProtocolPage() {
               <div className="mt-8">
                 <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
                   <CardHeader>
-                    <CardTitle className="text-slate-900">The “Start” Protocol</CardTitle>
+                    <CardTitle className="text-slate-900">Ready to start?</CardTitle>
                     <CardDescription className="text-slate-600">
-                      You are currently enrolled in:{" "}
-                      <span className="font-semibold text-slate-900">
-                        AI + Python Starter Pack
-                      </span>
+                      Start with Lesson 1 — you’ll build a tiny AI helper in minutes.
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="grid gap-2 sm:grid-cols-2">
-                      <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
-                        <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                          Estimated Completion
-                        </p>
-                        <p className="mt-1 text-sm font-semibold text-slate-900">
-                          60 Minutes
-                        </p>
-                      </div>
-                      <div className="rounded-lg border border-slate-200 bg-slate-50 p-3">
-                        <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                          Certification Path
-                        </p>
-                        <p className="mt-1 text-sm font-semibold text-slate-900">
-                          Junior AI Logic Badge
-                        </p>
-                      </div>
+                    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                      <p className="font-semibold text-slate-900">What you’ll make:</p>
+                      <ul className="mt-2 list-disc space-y-1 pl-5">
+                        <li>A bot that introduces itself</li>
+                        <li>A bot that makes choices</li>
+                        <li>A mood coach bot</li>
+                        <li>A quiz bot with a score</li>
+                        <li>A chat bot that stays “on” in a loop</li>
+                      </ul>
                     </div>
 
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -324,7 +274,7 @@ export default function WelcomeProtocolPage() {
                         asChild
                       >
                         <Link href="/learn/1">
-                          Initialize Lesson 1: My First AI Helper
+                          Start Lesson 1: My First AI Helper
                         </Link>
                       </Button>
                       <Button className="h-12" variant="outline" onClick={() => router.push("/welcome/choose")}>
