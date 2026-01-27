@@ -62,27 +62,12 @@ export default function WelcomeChoosePage() {
             {/* Left: Info + placeholders */}
             <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle className="text-slate-900">Student Snapshot</CardTitle>
+                <CardTitle className="text-slate-900">Getting Started</CardTitle>
                 <CardDescription className="text-slate-600">
-                  A quick “at a glance” panel.
+                  Quick context, safety, and space you can fill in later.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-5">
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-lg border border-slate-200 bg-white/70 p-3">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                      Student
-                    </p>
-                    <p className="mt-1 text-sm font-semibold text-slate-900">{name || "Friend"}</p>
-                  </div>
-                  <div className="rounded-lg border border-slate-200 bg-white/70 p-3">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                      Status
-                    </p>
-                    <p className="mt-1 text-sm font-semibold text-slate-900">Getting started</p>
-                  </div>
-                </div>
-
                 <div className="rounded-lg border border-slate-200 bg-white/70 p-4">
                   <div className="flex items-center gap-2">
                     <BookOpen className="h-4 w-4 text-[var(--accent)]" />
