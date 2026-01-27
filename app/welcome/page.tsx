@@ -114,7 +114,7 @@ export default function WelcomePage() {
                       playsInline
                       preload="metadata"
                     >
-                      <source src="/video/8733062-uhd_3840_2160_30fps.mp4" type="video/mp4" />
+                      <source src="/video/12893579-uhd_2160_3840_24fps.mp4" type="video/mp4" />
                     </video>
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/55 via-transparent to-white/10" />
                   </div>
