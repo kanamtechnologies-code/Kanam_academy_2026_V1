@@ -134,11 +134,26 @@ export default function Home() {
               Welcome back, {studentName}!
             </h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
             <Badge className="w-fit bg-[var(--brand)] text-white">
               <Sparkles className="mr-1 h-4 w-4 text-[var(--accent)]" />
               {hasSavedProgress ? totalXp : 150} XP
             </Badge>
+
+            {nextLesson?.href ? (
+              <Button asChild size="lg" className="shadow-sm">
+                <Link href={nextLesson.href}>
+                  <Play className="h-4 w-4" />
+                  Next step: Start {nextLesson.title}
+                </Link>
+              </Button>
+            ) : (
+              <Button size="lg" disabled className="shadow-sm">
+                <Play className="h-4 w-4" />
+                Next step: coming soon
+              </Button>
+            )}
+
             <Button
               type="button"
               variant="outline"
@@ -253,18 +268,6 @@ export default function Home() {
               })}
             </div>
 
-            {nextLesson?.href ? (
-              <div className="text-sm text-slate-600">
-                Next step:{" "}
-                <Link href={nextLesson.href} className="font-semibold text-slate-900 underline">
-                  Start {nextLesson.title}
-                </Link>
-              </div>
-            ) : (
-              <div className="text-sm text-slate-600">
-                Next step: keep going — more lessons coming soon.
-              </div>
-            )}
           </div>
 
           {/* Badge Case */}
