@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, Image as ImageIcon, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import { BookOpen, ShieldCheck, Sparkles, Zap } from "lucide-react";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { WelcomeShell } from "@/components/welcome/WelcomeShell";
@@ -56,7 +56,7 @@ export default function WelcomeChoosePage() {
               Nice to meet you, {name || "friend"}!
             </>
           }
-          subtitle="Choose what you want to do next — and here’s a quick preview of how Kanam works."
+          subtitle="Choose what you want to do next."
         >
           <div className="grid w-full gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
             {/* Left: Info + placeholders */}
@@ -64,11 +64,11 @@ export default function WelcomeChoosePage() {
               <CardHeader>
                 <CardTitle className="text-slate-900">Student Snapshot</CardTitle>
                 <CardDescription className="text-slate-600">
-                  A quick “at a glance” panel — plus space for images.
+                  A quick “at a glance” panel.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-5">
-                <div className="grid gap-3 sm:grid-cols-3">
+                <div className="grid gap-3 sm:grid-cols-2">
                   <div className="rounded-lg border border-slate-200 bg-white/70 p-3">
                     <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
                       Student
@@ -77,17 +77,9 @@ export default function WelcomeChoosePage() {
                   </div>
                   <div className="rounded-lg border border-slate-200 bg-white/70 p-3">
                     <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                      Track
+                      Status
                     </p>
-                    <p className="mt-1 text-sm font-semibold text-slate-900">
-                      AI + Python Starter Pack
-                    </p>
-                  </div>
-                  <div className="rounded-lg border border-slate-200 bg-white/70 p-3">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                      Time
-                    </p>
-                    <p className="mt-1 text-sm font-semibold text-slate-900">~60 minutes</p>
+                    <p className="mt-1 text-sm font-semibold text-slate-900">Getting started</p>
                   </div>
                 </div>
 
@@ -127,35 +119,10 @@ export default function WelcomeChoosePage() {
                   </p>
                 </div>
 
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                      Image slots (placeholders)
-                    </p>
-                    <p className="text-xs text-slate-500">Drop screenshots/graphics later</p>
-                  </div>
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/50 p-3">
-                      <div className="flex items-center gap-2 text-slate-600">
-                        <ImageIcon className="h-4 w-4" />
-                        <p className="text-xs font-semibold uppercase tracking-widest">
-                          Add image
-                        </p>
-                      </div>
-                      <div className="mt-2 aspect-video rounded-lg bg-slate-100" />
-                      <p className="mt-2 text-xs text-slate-500">Lesson screenshot / “boxes” diagram</p>
-                    </div>
-                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/50 p-3">
-                      <div className="flex items-center gap-2 text-slate-600">
-                        <ImageIcon className="h-4 w-4" />
-                        <p className="text-xs font-semibold uppercase tracking-widest">
-                          Add image
-                        </p>
-                      </div>
-                      <div className="mt-2 aspect-video rounded-lg bg-slate-100" />
-                      <p className="mt-2 text-xs text-slate-500">Badges / roadmap / mascot art</p>
-                    </div>
-                  </div>
+                {/* Blank content slots (leave empty for later) */}
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="h-40 rounded-xl border border-dashed border-slate-300 bg-white/40" />
+                  <div className="h-40 rounded-xl border border-dashed border-slate-300 bg-white/40" />
                 </div>
               </CardContent>
             </Card>
