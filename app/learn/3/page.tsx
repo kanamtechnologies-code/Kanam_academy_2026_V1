@@ -94,7 +94,7 @@ else:
     '# Tip: try adding .lower()\n# mood = input("...").lower()\n',
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/2",
-  nextHref: undefined,
+  nextHref: "/learn/4",
   runtimeInputs: [
     { key: "name", label: "Answer for input(\"What's your name?\")", placeholder: "Alex", defaultValue: "Alex" },
     { key: "mood", label: 'Answer for input("happy/sad/tired")', placeholder: "happy", defaultValue: "happy" },

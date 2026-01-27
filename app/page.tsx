@@ -68,10 +68,10 @@ const lessons: LessonRow[] = [
   {
     id: "lesson-4",
     title: "Mini Quiz Bot",
-    href: undefined,
-    xp: 130,
-    badgeName: "Data Cruncher",
-    badgeIcon: "📊",
+    href: "/learn/4",
+    xp: 800,
+    badgeName: "Quiz Master",
+    badgeIcon: "🎓",
   },
   {
     id: "lesson-5",
