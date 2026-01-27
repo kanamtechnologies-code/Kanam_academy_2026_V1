@@ -89,6 +89,18 @@ export default function Home() {
   const [completedIds, setCompletedIds] = React.useState<string[]>([]);
   const [hasSavedProgress, setHasSavedProgress] = React.useState<boolean>(false);
 
+  const confirmResetProgress = () => {
+    if (typeof window === "undefined") return false;
+    const ok1 = window.confirm("Are you sure you want to reset your progress?");
+    if (!ok1) return false;
+    const ok2 = window.confirm("Are you REALLY REALLY sure?");
+    if (!ok2) return false;
+    const ok3 = window.confirm(
+      "Final warning: this cannot be undone. Reset progress now?"
+    );
+    return ok3;
+  };
+
   React.useEffect(() => {
     // If we don't know the user's name yet, send them through onboarding.
     try {
@@ -159,6 +171,7 @@ export default function Home() {
               variant="outline"
               size="sm"
               onClick={() => {
+                if (!confirmResetProgress()) return;
                 try {
                   window.localStorage.setItem(
                     COMPLETED_LESSONS_KEY,
