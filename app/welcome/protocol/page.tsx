@@ -24,17 +24,19 @@ export default function WelcomeProtocolPage() {
   const router = useRouter();
   const [animateIn, setAnimateIn] = React.useState(false);
   const [name, setName] = React.useState("");
+  const [ready, setReady] = React.useState(false);
 
   React.useEffect(() => {
     setName(loadUserName());
+    setReady(true);
     setAnimateIn(false);
     const t = window.setTimeout(() => setAnimateIn(true), 10);
     return () => window.clearTimeout(t);
   }, []);
 
   React.useEffect(() => {
-    if (!name) router.replace("/welcome");
-  }, [name, router]);
+    if (ready && !name) router.replace("/welcome");
+  }, [name, ready, router]);
 
   return (
     <WelcomeBackground>

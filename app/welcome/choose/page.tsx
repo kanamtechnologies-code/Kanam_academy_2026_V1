@@ -22,10 +22,12 @@ function loadUserName(): string {
 export default function WelcomeChoosePage() {
   const router = useRouter();
   const [name, setName] = React.useState<string>("");
+  const [ready, setReady] = React.useState<boolean>(false);
   const [animateIn, setAnimateIn] = React.useState(false);
 
   React.useEffect(() => {
     setName(loadUserName());
+    setReady(true);
   }, []);
 
   React.useEffect(() => {
@@ -36,8 +38,8 @@ export default function WelcomeChoosePage() {
 
   React.useEffect(() => {
     // If they haven't provided a name yet, send them back to greeting.
-    if (!name) router.replace("/welcome");
-  }, [name, router]);
+    if (ready && !name) router.replace("/welcome");
+  }, [name, ready, router]);
 
   return (
     <WelcomeBackground>
