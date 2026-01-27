@@ -41,6 +41,8 @@ export type LessonConfig = {
   terminalPrompt?: string;
   prevHref?: string;
   nextHref?: string;
+  runOutputMode?: "replace" | "append";
+  initialOutputBody?: string;
   runtimeInputs?: Array<{
     key: string;
     label: string;
@@ -49,6 +51,11 @@ export type LessonConfig = {
   }>;
 
   getRunOutput: (code: string, runtime?: Record<string, string>) => string;
+  getRunBody?: (
+    code: string,
+    runtime?: Record<string, string>,
+    ctx?: { prevOutput: string }
+  ) => string;
   computeProgressPercent: (
     code: string,
     submitted: boolean,
@@ -60,6 +67,15 @@ export type LessonConfig = {
 
 function asTerminal(prompt: string, body: string) {
   return `${prompt} python main.py\n${body}\n${prompt}`;
+}
+
+function appendToTerminal(prev: string, prompt: string, additionBody: string) {
+  const needle = `\n${prompt}`;
+  const idx = prev.lastIndexOf(needle);
+  const base = idx >= 0 ? prev.slice(0, idx) : prev;
+  const trimmedAddition = additionBody.trim();
+  const addition = trimmedAddition ? `\n${trimmedAddition}` : "";
+  return `${base}${addition}\n${prompt}`;
 }
 
 const COMPLETED_LESSONS_KEY = "kanam.completedLessonIds";
@@ -96,7 +112,10 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
 
   const [code, setCode] = React.useState<string>(lesson.starterCode);
   const [output, setOutput] = React.useState<string>(
-    asTerminal(terminalPrompt, "Press Run to see output here.")
+    asTerminal(
+      terminalPrompt,
+      lesson.initialOutputBody ?? "Press Run to see output here."
+    )
   );
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [hasRun, setHasRun] = React.useState<boolean>(false);
@@ -125,12 +144,21 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
 
   const onRun = () => {
     setHasRun(true);
+    if (lesson.runOutputMode === "append" && lesson.getRunBody) {
+      setOutput((prev) => {
+        const body = lesson.getRunBody?.(code, runtime, { prevOutput: prev }) ?? "";
+        return appendToTerminal(prev, terminalPrompt, body);
+      });
+      return;
+    }
     setOutput(lesson.getRunOutput(code, runtime));
   };
 
   const onReset = () => {
     setCode(lesson.starterCode);
-    setOutput(asTerminal(terminalPrompt, "Press Run to see output here."));
+    setOutput(
+      asTerminal(terminalPrompt, lesson.initialOutputBody ?? "Press Run to see output here.")
+    );
     setSubmitted(false);
     setHasRun(false);
     setRuntime(runtimeDefaultValues);

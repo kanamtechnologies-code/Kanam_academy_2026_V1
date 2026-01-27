@@ -107,7 +107,7 @@ print("Game Over! Your final score is: " + str(score) + "/2")
     "# Tip: score is a number (int)\n# Use str(score) when you print it with words\n",
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/3",
-  nextHref: undefined,
+  nextHref: "/learn/5",
   runtimeInputs: [
     {
       key: "q1",

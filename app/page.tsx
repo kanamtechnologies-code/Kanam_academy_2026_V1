@@ -76,10 +76,10 @@ const lessons: LessonRow[] = [
   {
     id: "lesson-5",
     title: "KanamBot Chat Loop",
-    href: undefined,
-    xp: 150,
-    badgeName: "Full Stack Bot-Builder",
-    badgeIcon: "🧩",
+    href: "/learn/5",
+    xp: 1000,
+    badgeName: "Python Pioneer",
+    badgeIcon: "🏆",
   },
 ];
 
