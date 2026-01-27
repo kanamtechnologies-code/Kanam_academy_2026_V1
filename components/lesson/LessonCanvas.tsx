@@ -167,23 +167,28 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       <div className="flex flex-col items-end gap-2">
         <div className="flex items-center gap-2">
           <Button asChild variant="outline" size="sm">
-            <Link href="/">Home</Link>
+            <Link href="/">Dashboard</Link>
           </Button>
-          <Button
-            asChild
-            variant="secondary"
-            size="sm"
-            disabled={!lesson.prevHref}
-          >
-            <Link href={lesson.prevHref ?? "#"} aria-disabled={!lesson.prevHref}>
+
+          {lesson.prevHref ? (
+            <Button asChild variant="secondary" size="sm">
+              <Link href={lesson.prevHref}>Prev</Link>
+            </Button>
+          ) : (
+            <Button variant="secondary" size="sm" disabled>
               Prev
-            </Link>
-          </Button>
-          <Button asChild size="sm" disabled={!lesson.nextHref}>
-            <Link href={lesson.nextHref ?? "#"} aria-disabled={!lesson.nextHref}>
+            </Button>
+          )}
+
+          {lesson.nextHref ? (
+            <Button asChild size="sm">
+              <Link href={lesson.nextHref}>Next</Link>
+            </Button>
+          ) : (
+            <Button size="sm" disabled>
               Next
-            </Link>
-          </Button>
+            </Button>
+          )}
         </div>
         <Badge variant="secondary" className="shrink-0">
           <Zap className="mr-1 h-3.5 w-3.5 text-[var(--accent)]" />
