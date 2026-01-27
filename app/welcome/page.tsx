@@ -32,6 +32,8 @@ function loadUserName(): string {
 export default function WelcomePage() {
   const router = useRouter();
   const [name, setName] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [schoolCode, setSchoolCode] = React.useState<string>("");
   const [animateIn, setAnimateIn] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -55,7 +57,7 @@ export default function WelcomePage() {
         <WelcomeShell
           title={
             <>
-              Welcome to Kanam Academy <span aria-hidden>🚀</span>
+              Welcome to Kanam Academy
             </>
           }
           subtitle="I'm your AI teaching assistant. What should I call you?"
@@ -69,15 +71,50 @@ export default function WelcomePage() {
                     Sign in
                   </p>
                   <p className="text-sm text-slate-700">
-                    Enter a name to save your progress on this device.
+                    Enter your info to save progress on this device. (We’ll add real accounts later.)
                   </p>
                 </div>
-                <Input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Enter your name..."
-                  className="h-12 border-2 border-slate-200 bg-white text-base text-slate-900 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
-                />
+
+                <div className="space-y-3">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold uppercase tracking-widest text-slate-600">
+                      Student name
+                    </label>
+                    <Input
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Enter your name..."
+                      className="h-12 border-2 border-slate-200 bg-white text-base text-slate-900 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
+                    />
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold uppercase tracking-widest text-slate-600">
+                        Password
+                      </label>
+                      <Input
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="(Not used yet)"
+                        type="password"
+                        className="h-12 border-2 border-slate-200 bg-white text-base text-slate-900 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-semibold uppercase tracking-widest text-slate-600">
+                        School code
+                      </label>
+                      <Input
+                        value={schoolCode}
+                        onChange={(e) => setSchoolCode(e.target.value)}
+                        placeholder="KANAM-123"
+                        className="h-12 border-2 border-slate-200 bg-white text-base text-slate-900 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 <Button
                   className="h-12 w-full bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
                   disabled={!name.trim()}
@@ -85,6 +122,8 @@ export default function WelcomePage() {
                     const trimmed = name.trim();
                     saveUserName(trimmed);
                     setName(trimmed);
+                    // Password and school code are collected for future use.
+                    // TODO: Send password + schoolCode to backend auth / roster lookup.
                     router.push("/welcome/choose");
                   }}
                 >
