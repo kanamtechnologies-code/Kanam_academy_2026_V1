@@ -12,8 +12,8 @@ export function WelcomeShell({
   containerClassName?: string;
 }) {
   return (
-    <div className={["w-full max-w-3xl", containerClassName ?? ""].join(" ")}>
-      <div className="text-center">
+    <div className={["w-full", containerClassName ?? ""].join(" ")}>
+      <div className="text-center md:text-left">
         <h1 className="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
           {title}
         </h1>

@@ -124,8 +124,8 @@ export default function Home() {
   const nextLesson = activeIndex >= 0 ? lessons[activeIndex] : undefined;
 
   return (
-    <div className="min-h-dvh bg-slate-50 px-4 py-6 text-slate-900 md:px-6">
-      <div className="mx-auto w-full max-w-6xl space-y-6">
+    <div className="min-h-dvh bg-slate-50 px-4 py-6 text-slate-900 md:px-10">
+      <div className="w-full space-y-6">
         {/* Dashboard Header */}
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div>

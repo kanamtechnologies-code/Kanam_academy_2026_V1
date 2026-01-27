@@ -37,7 +37,7 @@ export default function RootLayout({
             />
           </div>
 
-          <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 md:px-6">
+          <div className="relative flex w-full items-center justify-between px-4 py-3 md:px-10">
             <HeaderBrand />
             <span className="text-xs text-slate-500">Lesson Canvas MVP</span>
           </div>

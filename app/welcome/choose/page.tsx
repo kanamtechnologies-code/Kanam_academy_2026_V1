@@ -45,7 +45,7 @@ export default function WelcomeChoosePage() {
     <WelcomeBackground>
       <div
         className={[
-          "mx-auto flex min-h-[calc(100dvh-160px)] w-full items-center justify-center",
+          "flex min-h-[calc(100dvh-160px)] w-full items-center justify-start px-4 md:px-10",
           "transition-all duration-300 ease-out",
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
         ].join(" ")}

@@ -46,7 +46,7 @@ export default function WelcomePage() {
     <WelcomeBackground>
       <div
         className={[
-          "mx-auto flex min-h-[calc(100dvh-160px)] w-full items-center justify-center",
+          "flex min-h-[calc(100dvh-160px)] w-full items-center justify-start px-4 md:px-10",
           "transition-all duration-300 ease-out",
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
         ].join(" ")}
@@ -79,7 +79,7 @@ export default function WelcomePage() {
               >
                 Next <ArrowRight className="h-4 w-4" />
               </Button>
-              <p className="text-center text-xs text-slate-400">
+              <p className="text-center md:text-left text-xs text-slate-400">
                 You can change your name later (we’ll add a profile page soon).
               </p>
             </CardContent>
