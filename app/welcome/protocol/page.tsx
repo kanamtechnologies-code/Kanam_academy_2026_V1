@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Activity, Terminal, Zap } from "lucide-react";
+import { Activity, Sparkles, Terminal, Zap } from "lucide-react";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { WelcomeShell } from "@/components/welcome/WelcomeShell";
@@ -54,14 +54,30 @@ export default function WelcomeProtocolPage() {
           <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
             <CardContent className="pt-6">
               <div className="space-y-6">
+                {/* Teen-friendly highlight strip */}
+                <div className="rounded-xl border border-[var(--accent)]/35 bg-gradient-to-r from-[var(--accent)]/12 via-white/70 to-[var(--brand)]/10 p-4">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-[var(--accent)]" />
+                    <p className="text-sm font-semibold text-slate-900">
+                      Quick promise
+                    </p>
+                  </div>
+                  <p className="mt-2 text-sm text-slate-700">
+                    Every lesson is: <span className="font-semibold text-slate-900">learn</span> →{" "}
+                    <span className="font-semibold text-slate-900">code</span> →{" "}
+                    <span className="font-semibold text-slate-900">see it work</span>.
+                    You’ll build a real bot each time.
+                  </p>
+                </div>
+
                 {/* Timeline (horizontal) */}
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">The flow</p>
                   <div className="mt-3 grid gap-3 md:grid-cols-3">
-                    <div className="rounded-xl border border-slate-200 bg-white/80 p-4">
+                    <div className="rounded-xl border border-[var(--accent)]/25 bg-gradient-to-b from-[var(--accent)]/10 to-white/80 p-4">
                       <div className="flex items-center gap-2">
                         <Zap className="h-4 w-4 text-[var(--accent)]" />
-                        <span className="text-xs font-semibold uppercase tracking-widest text-slate-700">
+                        <span className="text-xs font-semibold uppercase tracking-widest text-[var(--brand)]">
                           Step 1
                         </span>
                       </div>
@@ -72,10 +88,10 @@ export default function WelcomeProtocolPage() {
                         Learn the “why” in plain English
                       </p>
                     </div>
-                    <div className="rounded-xl border border-slate-200 bg-white/80 p-4">
+                    <div className="rounded-xl border border-[var(--brand)]/25 bg-gradient-to-b from-[var(--brand)]/10 to-white/80 p-4">
                       <div className="flex items-center gap-2">
-                        <Terminal className="h-4 w-4 text-[var(--accent)]" />
-                        <span className="text-xs font-semibold uppercase tracking-widest text-slate-700">
+                        <Terminal className="h-4 w-4 text-[var(--brand)]" />
+                        <span className="text-xs font-semibold uppercase tracking-widest text-[var(--brand)]">
                           Step 2
                         </span>
                       </div>
@@ -86,7 +102,7 @@ export default function WelcomeProtocolPage() {
                         Write Python and see it run
                       </p>
                     </div>
-                    <div className="rounded-xl border border-slate-200 bg-white/80 p-4">
+                    <div className="rounded-xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white/80 p-4">
                       <div className="flex items-center gap-2">
                         <Activity className="h-4 w-4 text-[var(--accent)]" />
                         <span className="text-xs font-semibold uppercase tracking-widest text-slate-700">
@@ -109,7 +125,7 @@ export default function WelcomeProtocolPage() {
                     Spots you can fill later
                   </p>
                   <div className="mt-3 grid gap-3 md:grid-cols-3">
-                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3">
+                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3 shadow-sm">
                       <div className="relative aspect-video overflow-hidden rounded-lg bg-slate-100">
                         <video
                           className="h-full w-full object-cover opacity-70"
@@ -127,10 +143,10 @@ export default function WelcomeProtocolPage() {
                         <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-white/10" />
                       </div>
                     </div>
-                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3">
+                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3 shadow-sm">
                       <div className="aspect-video rounded-lg bg-slate-100" />
                     </div>
-                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3">
+                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3 shadow-sm">
                       <div className="aspect-video rounded-lg bg-slate-100" />
                     </div>
                   </div>
@@ -146,7 +162,7 @@ export default function WelcomeProtocolPage() {
                     {/* Stage 01 */}
                     <Card
                       className={[
-                        "border-slate-200 bg-white/80 backdrop-blur-sm",
+                        "border-[var(--accent)]/30 bg-gradient-to-b from-[var(--accent)]/10 to-white/80 backdrop-blur-sm",
                         "transition-all duration-500 ease-out",
                         animateIn ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6",
                       ].join(" ")}
@@ -180,7 +196,7 @@ export default function WelcomeProtocolPage() {
                     {/* Stage 02 */}
                     <Card
                       className={[
-                        "border-slate-200 bg-white/80 backdrop-blur-sm",
+                        "border-[var(--brand)]/30 bg-gradient-to-b from-[var(--brand)]/10 to-white/80 backdrop-blur-sm",
                         "transition-all duration-500 ease-out",
                         animateIn ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6",
                       ].join(" ")}
@@ -214,7 +230,7 @@ export default function WelcomeProtocolPage() {
                     {/* Stage 03 */}
                     <Card
                       className={[
-                        "border-slate-200 bg-white/80 backdrop-blur-sm",
+                        "border-slate-200 bg-gradient-to-b from-slate-50 to-white/80 backdrop-blur-sm",
                         "transition-all duration-500 ease-out",
                         animateIn ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6",
                       ].join(" ")}
@@ -249,7 +265,7 @@ export default function WelcomeProtocolPage() {
 
               {/* Start protocol */}
               <div className="mt-8">
-                <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
+                <Card className="border-[var(--brand)]/35 bg-gradient-to-r from-[var(--brand)]/10 via-white/80 to-[var(--accent)]/12 backdrop-blur-sm">
                   <CardHeader>
                     <CardTitle className="text-slate-900">Ready to start?</CardTitle>
                     <CardDescription className="text-slate-600">
@@ -257,7 +273,7 @@ export default function WelcomeProtocolPage() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                    <div className="rounded-lg border border-slate-200 bg-white/70 p-4 text-sm text-slate-700 shadow-sm">
                       <p className="font-semibold text-slate-900">What you’ll make:</p>
                       <ul className="mt-2 list-disc space-y-1 pl-5">
                         <li>A bot that introduces itself</li>
