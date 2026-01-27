@@ -114,14 +114,15 @@ export default function WelcomePage() {
                       playsInline
                       preload="metadata"
                     >
-                      <source src="/video/101252-video-1080_LMnQVowS.mp4" type="video/mp4" />
+                      <source src="/video/8733062-uhd_3840_2160_30fps.mp4" type="video/mp4" />
                     </video>
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/55 via-transparent to-white/10" />
                   </div>
                 </div>
-                <p className="mt-3 text-xs text-slate-500">
-                  Tip: Use headphones if you add audio later.
-                </p>
+                <div className="mt-3 flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-white/70 px-3 py-2 text-xs text-slate-600">
+                  <span className="font-semibold text-slate-900">Kanam Academy</span>
+                  <span className="text-slate-500">Orientation preview</span>
+                </div>
               </CardContent>
             </Card>
           </div>
