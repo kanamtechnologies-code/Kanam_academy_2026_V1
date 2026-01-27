@@ -59,31 +59,72 @@ export default function WelcomePage() {
           }
           subtitle="I'm your AI teaching assistant. What should I call you?"
         >
-          <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
-            <CardContent className="space-y-4 pt-6">
-              <Input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter your name..."
-                className="h-12 border-2 border-slate-200 bg-white text-base text-slate-900 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
-              />
-              <Button
-                className="h-12 w-full bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
-                disabled={!name.trim()}
-                onClick={() => {
-                  const trimmed = name.trim();
-                  saveUserName(trimmed);
-                  setName(trimmed);
-                  router.push("/welcome/choose");
-                }}
-              >
-                Next <ArrowRight className="h-4 w-4" />
-              </Button>
-              <p className="text-center md:text-left text-xs text-slate-400">
-                You can change your name later (we’ll add a profile page soon).
-              </p>
-            </CardContent>
-          </Card>
+          <div className="grid w-full gap-6 md:grid-cols-2 md:items-stretch">
+            {/* Name / Login */}
+            <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
+              <CardContent className="space-y-4 pt-6">
+                <div className="space-y-1">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
+                    Sign in
+                  </p>
+                  <p className="text-sm text-slate-700">
+                    Enter a name to save your progress on this device.
+                  </p>
+                </div>
+                <Input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your name..."
+                  className="h-12 border-2 border-slate-200 bg-white text-base text-slate-900 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
+                />
+                <Button
+                  className="h-12 w-full bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
+                  disabled={!name.trim()}
+                  onClick={() => {
+                    const trimmed = name.trim();
+                    saveUserName(trimmed);
+                    setName(trimmed);
+                    router.push("/welcome/choose");
+                  }}
+                >
+                  Next <ArrowRight className="h-4 w-4" />
+                </Button>
+                <p className="text-center md:text-left text-xs text-slate-400">
+                  You can change your name later (we’ll add a profile page soon).
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Video panel */}
+            <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
+              <CardContent className="pt-6">
+                <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
+                  Quick Tour
+                </p>
+                <p className="mt-1 text-sm text-slate-700">
+                  A short vibe reel while you get set up.
+                </p>
+                <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm">
+                  <div className="relative aspect-video">
+                    <video
+                      className="h-full w-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                    >
+                      <source src="/video/101252-video-1080_LMnQVowS.mp4" type="video/mp4" />
+                    </video>
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/55 via-transparent to-white/10" />
+                  </div>
+                </div>
+                <p className="mt-3 text-xs text-slate-500">
+                  Tip: Use headphones if you add audio later.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </WelcomeShell>
       </div>
     </WelcomeBackground>
