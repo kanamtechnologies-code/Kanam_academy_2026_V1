@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Activity, Sparkles, Terminal, Zap } from "lucide-react";
+import { Activity, Terminal, Zap } from "lucide-react";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { WelcomeShell } from "@/components/welcome/WelcomeShell";
@@ -54,22 +54,6 @@ export default function WelcomeProtocolPage() {
           <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
             <CardContent className="pt-6">
               <div className="space-y-6">
-                {/* Teen-friendly highlight strip */}
-                <div className="rounded-xl border border-[var(--accent)]/35 bg-gradient-to-r from-[var(--accent)]/12 via-white/70 to-[var(--brand)]/10 p-4">
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="h-4 w-4 text-[var(--accent)]" />
-                    <p className="text-sm font-semibold text-slate-900">
-                      Quick promise
-                    </p>
-                  </div>
-                  <p className="mt-2 text-sm text-slate-700">
-                    Every lesson is: <span className="font-semibold text-slate-900">learn</span> →{" "}
-                    <span className="font-semibold text-slate-900">code</span> →{" "}
-                    <span className="font-semibold text-slate-900">see it work</span>.
-                    You’ll build a real bot each time.
-                  </p>
-                </div>
-
                 {/* Timeline (horizontal) */}
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">The flow</p>
