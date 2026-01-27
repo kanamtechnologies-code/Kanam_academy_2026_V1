@@ -109,9 +109,11 @@ export default function WelcomePage() {
                   <div className="relative aspect-video">
                     <WelcomeVideoFader
                       sources={[
-                        "/video/4874628-hd_1066_1920_25fps.mp4",
-                        "/video/6985333-uhd_3840_2160_25fps.mp4",
-                        "/video/12893579-uhd_2160_3840_24fps.mp4",
+                        "/video/4918239-hd_1080_1920_25fps.mp4",
+                        "/video/7310259-uhd_2160_4096_25fps.mp4",
+                        "/video/5495790-uhd_2560_1080_30fps.mp4",
+                        "/video/4497367-uhd_3840_2160_25fps.mp4",
+                        "/video/4495343-uhd_3840_2160_25fps.mp4",
                       ]}
                       intervalMs={9000}
                       fadeMs={900}
