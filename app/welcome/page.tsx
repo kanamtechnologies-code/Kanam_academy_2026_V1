@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { WelcomeShell } from "@/components/welcome/WelcomeShell";
+import { WelcomeVideoFader } from "@/components/welcome/WelcomeVideoFader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -106,16 +107,15 @@ export default function WelcomePage() {
                 </p>
                 <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm">
                   <div className="relative aspect-video">
-                    <video
-                      className="h-full w-full object-cover"
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="metadata"
-                    >
-                      <source src="/video/12893579-uhd_2160_3840_24fps.mp4" type="video/mp4" />
-                    </video>
+                    <WelcomeVideoFader
+                      sources={[
+                        "/video/4874628-hd_1066_1920_25fps.mp4",
+                        "/video/6985333-uhd_3840_2160_25fps.mp4",
+                        "/video/12893579-uhd_2160_3840_24fps.mp4",
+                      ]}
+                      intervalMs={9000}
+                      fadeMs={900}
+                    />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/55 via-transparent to-white/10" />
                   </div>
                 </div>
