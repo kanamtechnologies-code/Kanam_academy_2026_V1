@@ -60,10 +60,10 @@ const lessons: LessonRow[] = [
   {
     id: "lesson-3",
     title: "Mood Coach Bot",
-    href: undefined,
-    xp: 120,
-    badgeName: "Empathy Architect",
-    badgeIcon: "💚",
+    href: "/learn/3",
+    xp: 600,
+    badgeName: "Empathy Engineer",
+    badgeIcon: "🧠",
   },
   {
     id: "lesson-4",

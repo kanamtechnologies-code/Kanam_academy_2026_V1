@@ -82,21 +82,24 @@ else:
     '# Try typing:\n# status = input("Are you tired? (yes/no): ")\n# if status == "yes":\n#     print("...")\n',
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/1",
-  nextHref: undefined,
-  runtimeInput: {
-    label: 'Answer for input("Are you tired?")',
-    placeholder: "yes or no",
-    defaultValue: "yes",
-  },
+  nextHref: "/learn/3",
+  runtimeInputs: [
+    {
+      key: "status",
+      label: 'Answer for input("Are you tired?")',
+      placeholder: "yes or no",
+      defaultValue: "yes",
+    },
+  ],
 
-  getRunOutput: (code, runtimeInput) => {
+  getRunOutput: (code, runtime) => {
     if (code.includes("Print(")) {
       return asTerminal(
         "❌ Common mistake: Python needs lowercase print(...), not Print(...)."
       );
     }
 
-    const answerRaw = (runtimeInput ?? "").trim();
+    const answerRaw = (runtime?.status ?? "").trim();
     if (!answerRaw) {
       return asTerminal('Type "yes" or "no" in the input box, then press Run.');
     }
