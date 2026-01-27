@@ -259,13 +259,47 @@ export default function WelcomeProtocolPage() {
                   <CardContent className="space-y-4">
                     <div className="rounded-lg border border-slate-200 bg-white/70 p-4 text-sm text-slate-700 shadow-sm">
                       <p className="font-semibold text-slate-900">What you’ll make:</p>
-                      <ul className="mt-2 list-disc space-y-1 pl-5">
-                        <li>A bot that introduces itself</li>
-                        <li>A bot that makes choices</li>
-                        <li>A mood coach bot</li>
-                        <li>A quiz bot with a score</li>
-                        <li>A chat bot that stays “on” in a loop</li>
-                      </ul>
+                      <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="rounded-lg border border-slate-200 bg-white/80 p-3">
+                          <p className="text-sm font-semibold text-slate-900">AI Helper</p>
+                          <p className="mt-1 text-xs text-slate-600">
+                            Make a bot introduce itself using variables + print.
+                          </p>
+                        </div>
+                        <div className="rounded-lg border border-slate-200 bg-white/80 p-3">
+                          <p className="text-sm font-semibold text-slate-900">Smart Choices Bot</p>
+                          <p className="mt-1 text-xs text-slate-600">
+                            Ask a question, then use if/else to respond differently.
+                          </p>
+                        </div>
+                        <div className="rounded-lg border border-slate-200 bg-white/80 p-3">
+                          <p className="text-sm font-semibold text-slate-900">Mood Coach</p>
+                          <p className="mt-1 text-xs text-slate-600">
+                            Use if/elif/else to react to different feelings.
+                          </p>
+                        </div>
+                        <div className="rounded-lg border border-slate-200 bg-white/80 p-3">
+                          <p className="text-sm font-semibold text-slate-900">Mini Quiz Bot</p>
+                          <p className="mt-1 text-xs text-slate-600">
+                            Keep score with real math: score = score + 1.
+                          </p>
+                        </div>
+                        <div className="rounded-lg border border-slate-200 bg-white/80 p-3">
+                          <p className="text-sm font-semibold text-slate-900">KanamBot Chat Loop</p>
+                          <p className="mt-1 text-xs text-slate-600">
+                            Keep a bot “alive” with a while loop + a quit switch.
+                          </p>
+                        </div>
+                        <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-3">
+                          <p className="text-sm font-semibold text-slate-900">Your upgrade</p>
+                          <p className="mt-1 text-xs text-slate-600">
+                            Add your own commands, jokes, and secret features.
+                          </p>
+                        </div>
+                      </div>
+                      <p className="mt-3 text-xs text-slate-500">
+                        Each project is small on purpose — you’ll finish it, feel the win, then level up.
+                      </p>
                     </div>
 
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
