@@ -14,15 +14,21 @@ const lesson1: LessonConfig = {
   goal: "Teach your computer to introduce itself using Python!",
   xpReward: 50,
   badge: "🤖 The Awakener",
-  starterCode: `# 1. Create the 'memory box' (Variable)
-name = "Kanam"
-
-# 2. Make the AI introduce itself 
-# Remember: Python needs a space ' ' inside the quotes to separate words!
-print("Hello! I am " + name)
+  assignmentTitle: "Your mission",
+  assignmentBody:
+    "In the scratch box, rebuild your program so the console prints ONE sentence that includes YOUR name.",
+  assignmentChecklist: [
+    'Create a variable like: name = "Alex" (quotes included).',
+    'Print using the variable: print("Hello! I am " + name)',
+    "Make sure there’s a space after “am ” inside the quotes.",
+    "Use lowercase print (not Print).",
+  ],
+  starterCode: `# Fill in the blanks 👇
+name = "____"            # put your name
+print("Hello! I am " + ____)  # use the variable
 `,
   instructorScript:
-    "Think of a variable like a labeled box. We're putting a name inside so our AI remembers who it’s talking to. To start, we need to give our computer its very first memory. Read the steps, write your code on the right, then press Run to see the output!",
+    "Coach’s note:\nToday you’re giving your bot its **first memory**.\n\nA **variable** is like a labeled box. When you write:\nname = \"Alex\"\nYou are putting the word Alex into the box called name.\n\nThen we make the bot speak using print(...). This is the part where your code turns into words on the screen.\n\nHere’s how to think like a coder:\n- First, fill in the blanks so your program has a name.\n- Then, make sure your print line uses the variable (the box), not the blank.\n- Press Run and read the console like it’s your bot talking.\n\nTwo super common mistakes (and how to fix them):\n- Quotes: If you forget quotes, Python thinks you’re naming another variable.\n- Spaces: Python is **literal** (it does exactly what you typed). If you want a space after \"am\", you must include it inside the quotes.\n\nMini goal: make the console show one clean sentence that includes YOUR name.",
   kidExplain: [
     {
       title: "What is a Variable?",
@@ -77,7 +83,7 @@ print("Hello! I am " + name)
   aiSafetyMoment:
     "Remember: AI doesn't have feelings, it's just very good at following patterns!",
   editorPlaceholder:
-    '# Try typing:\n# name = "Alex"\n# print("Hello! I am " + name)\n',
+    '# From scratch idea:\n# name = "Alex"\n# print("Hello! I am " + name)\n',
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/",
   nextHref: "/learn/2",

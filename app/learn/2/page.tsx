@@ -14,19 +14,26 @@ const lesson2: LessonConfig = {
   goal: "Make your bot listen, think, and choose what to say!",
   xpReward: 100,
   badge: "🧠 Logic Master",
-  starterCode: `# 1. Ask the user a question and save the answer
-status = input("Are you tired? (yes/no): ")
+  assignmentTitle: "Your mission",
+  assignmentBody:
+    "In the scratch box, build a bot that asks a yes/no question and says different things based on the answer.",
+  assignmentChecklist: [
+    'Use input(): status = input("... (yes/no): ")',
+    'Use an if check: if status == "yes":',
+    "Add an else: for anything that isn’t yes.",
+    "Put print(...) lines INSIDE the if/else (indented).",
+    'Test it twice: once with "yes" and once with "no".',
+  ],
+  starterCode: `# Fill in the blanks 👇
+status = input("____ (yes/no): ")
 
-# 2. The Fork in the Road
-if status == "yes":
-    # This only runs if they typed 'yes'
-    print("AI says: Go grab a glass of water and rest!")
+if status == "____":
+    print("AI says: ____")
 else:
-    # This runs for any other answer
-    print("AI says: Awesome! Let's keep building.")
+    print("AI says: ____")
 `,
   instructorScript:
-    "An AI that only talks at you isn't very smart. To make a bot feel alive, it needs to listen! Today, we’re using the input() command to ask a question. Then, we’ll use an if statement to give our AI a 'fork in the road'—making it say different things based on your answer.",
+    "Coach’s note:\nToday your bot upgrades from “talking at you” to **actually listening**.\n\nWe do that with input(). Think of input() like a pause button:\n- Your program stops.\n- The user types something.\n- When they press Enter, that answer gets saved in a variable.\n\nThen we add the bot’s brain: if / else.\nIt’s like giving your bot two doors:\n- If the answer matches what you’re looking for, go through Door A.\n- Otherwise, go through Door B.\n\nBig idea: Python checks your if line as a True/False question. If it’s True, it runs the indented lines under it and skips the else.\n\nTwo things to watch for:\n- `==` vs `=`: `=` puts a value in a box. `==` asks “are these the same?”\n- Indent: the lines under if/else must be pushed to the right so Python knows what belongs to what.\n\nHow to test like a pro:\nRun it once with “yes”, then run it again with “no” and make sure you see two different outputs.",
   kidExplain: [
     {
       title: "What is input()?",
@@ -79,14 +86,14 @@ else:
   aiSafetyMoment:
     "Remember: AI can sound confident even when it’s wrong. Always test your code and double-check important facts!",
   editorPlaceholder:
-    '# Try typing:\n# status = input("Are you tired? (yes/no): ")\n# if status == "yes":\n#     print("...")\n',
+    '# From scratch idea:\n# status = input("Are you tired? (yes/no): ")\n# if status == "yes":\n#     print("...")\n# else:\n#     print("...")\n',
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/1",
   nextHref: "/learn/3",
   runtimeInputs: [
     {
       key: "status",
-      label: 'Answer for input("Are you tired?")',
+      label: 'Pretend you typed for: input("Are you tired?")',
       placeholder: "yes or no",
       defaultValue: "yes",
     },

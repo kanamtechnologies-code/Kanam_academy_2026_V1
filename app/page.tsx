@@ -158,6 +158,11 @@ export default function Home() {
             <h1 className="mt-1 text-2xl font-semibold tracking-tight md:text-3xl">
               Welcome back, {studentName}!
             </h1>
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <Button asChild variant="outline" size="sm">
+                <Link href="/how-to">How to use lessons</Link>
+              </Button>
+            </div>
           </div>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
             <Badge className="w-fit bg-[var(--brand)] text-white">
@@ -395,7 +400,7 @@ export default function Home() {
           <CardHeader>
             <CardTitle className="text-base">AI Safety Moment</CardTitle>
             <CardDescription className="text-slate-600">
-              Safety Tip: AI is smart, but it doesn't have feelings or a heart. Never share your home address or passwords with a bot!
+              Safety Tip: AI is smart, but it doesn’t have feelings or a heart. Never share your home address or passwords with a bot!
             </CardDescription>
           </CardHeader>
         </Card>

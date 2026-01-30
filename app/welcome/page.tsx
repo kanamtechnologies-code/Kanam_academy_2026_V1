@@ -2,42 +2,19 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles, Zap } from "lucide-react";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { WelcomeShell } from "@/components/welcome/WelcomeShell";
 import { WelcomeVideoFader } from "@/components/welcome/WelcomeVideoFader";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-
-const USER_NAME_KEY = "kanam.userName";
-
-function saveUserName(name: string) {
-  try {
-    window.localStorage.setItem(USER_NAME_KEY, name);
-  } catch {
-    // ignore
-  }
-}
-
-function loadUserName(): string {
-  try {
-    return window.localStorage.getItem(USER_NAME_KEY) ?? "";
-  } catch {
-    return "";
-  }
-}
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function WelcomePage() {
   const router = useRouter();
-  const [name, setName] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
-  const [schoolCode, setSchoolCode] = React.useState<string>("");
   const [animateIn, setAnimateIn] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    setName(loadUserName());
     setAnimateIn(false);
     const t = window.setTimeout(() => setAnimateIn(true), 10);
     return () => window.clearTimeout(t);
@@ -60,83 +37,46 @@ export default function WelcomePage() {
               Welcome to Kanam Academy
             </>
           }
-          subtitle="I'm your AI teaching assistant. What should I call you?"
+          subtitle="Choose your path: new learner setup or returning learner."
         >
-          <div className="grid w-full gap-6 md:grid-cols-2 md:items-stretch">
-            {/* Name / Login */}
-            <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
-              <CardContent className="space-y-4 pt-6">
-                <div className="space-y-1">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                    Sign in
-                  </p>
-                  <p className="text-sm text-slate-700">
-                    Enter your info to save progress on this device. (We’ll add real accounts later.)
-                  </p>
+          <div className="grid w-full gap-6 lg:grid-cols-3 lg:items-stretch">
+            {/* Left: New learner */}
+            <Card className="kanam-glow-card flex h-full flex-col">
+              <CardHeader>
+                <CardTitle className="text-white">I’m new here</CardTitle>
+                <CardDescription className="text-white/90">
+                  Create your profile once, then your progress saves automatically.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex flex-1 flex-col gap-4">
+                <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white/90">
+                  <p className="text-sm font-extrabold text-white">You’ll set up:</p>
+                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
+                    <li>Your name + grade</li>
+                    <li>School (optional)</li>
+                    <li>Parent/guardian info (optional)</li>
+                  </ul>
                 </div>
-
-                <div className="space-y-3">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                      Student name
-                    </label>
-                    <Input
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Enter your name..."
-                      className="h-12 border-2 border-slate-200 bg-white text-base text-slate-900 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
-                    />
-                  </div>
-
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                        Password
-                      </label>
-                      <Input
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="(Not used yet)"
-                        type="password"
-                        className="h-12 border-2 border-slate-200 bg-white text-base text-slate-900 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                        School code
-                      </label>
-                      <Input
-                        value={schoolCode}
-                        onChange={(e) => setSchoolCode(e.target.value)}
-                        placeholder="KANAM-123"
-                        className="h-12 border-2 border-slate-200 bg-white text-base text-slate-900 placeholder:text-slate-400 focus-visible:ring-[var(--brand)]/30"
-                      />
-                    </div>
-                  </div>
+                <div className="mt-auto">
+                  <Button
+                    size="lg"
+                    className={[
+                      "h-14 w-full rounded-2xl px-6 text-base font-extrabold tracking-tight",
+                      "shadow-xl shadow-emerald-900/25",
+                      "bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700",
+                      "text-white hover:brightness-[1.04]",
+                      "focus-visible:ring-4 focus-visible:ring-white/20",
+                    ].join(" ")}
+                    onClick={() => router.push("/welcome/profile")}
+                  >
+                    Create profile <ArrowRight className="h-4 w-4" />
+                  </Button>
                 </div>
-
-                <Button
-                  className="h-12 w-full bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
-                  disabled={!name.trim()}
-                  onClick={() => {
-                    const trimmed = name.trim();
-                    saveUserName(trimmed);
-                    setName(trimmed);
-                    // Password and school code are collected for future use.
-                    // TODO: Send password + schoolCode to backend auth / roster lookup.
-                    router.push("/welcome/choose");
-                  }}
-                >
-                  Next <ArrowRight className="h-4 w-4" />
-                </Button>
-                <p className="text-center md:text-left text-xs text-slate-400">
-                  You can change your name later (we’ll add a profile page soon).
-                </p>
               </CardContent>
             </Card>
 
-            {/* Video panel */}
-            <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
+            {/* Middle: Video */}
+            <Card className="kanam-glow-card flex h-full flex-col">
               <CardContent className="pt-6">
                 <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm">
                   <div className="relative aspect-video">
@@ -152,7 +92,57 @@ export default function WelcomePage() {
                       fadeMs={900}
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/55 via-transparent to-white/10" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 p-4">
+                      <div className="max-w-[34rem] rounded-2xl border border-white/65 bg-slate-950/75 p-5 text-white shadow-xl">
+                        <p className="text-xs font-extrabold uppercase tracking-widest text-white/85">
+                          Kanam Academy
+                        </p>
+                        <p className="mt-1 text-2xl font-black tracking-tight">
+                          Real Skills. Real Instructors. Real Results.
+                        </p>
+                      </div>
+                    </div>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Right: Returning learner */}
+            <Card className="kanam-glow-card flex h-full flex-col">
+              <CardHeader>
+                <CardTitle className="text-white">I’m returning</CardTitle>
+                <CardDescription className="text-white/90">
+                  Already used Kanam on this device? Jump back in.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex flex-1 flex-col gap-4">
+                <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white/90">
+                  <p className="text-sm font-extrabold text-white">Fast path:</p>
+                  <p className="mt-1 text-sm">
+                    Enter your name and continue where you left off.
+                  </p>
+                </div>
+                <div className="mt-auto">
+                  <Button
+                    size="lg"
+                    className={[
+                      "h-14 w-full rounded-2xl px-6 text-base font-extrabold tracking-tight",
+                      "shadow-xl shadow-amber-900/25",
+                      "bg-gradient-to-r from-[rgb(var(--accent-rgb)/0.98)] via-[rgb(var(--accent-rgb)/0.84)] to-[rgb(var(--accent-rgb)/0.98)]",
+                      "text-slate-950 hover:brightness-[1.03]",
+                      "focus-visible:ring-4 focus-visible:ring-white/20",
+                    ].join(" ")}
+                    onClick={() => router.push("/welcome/returning")}
+                  >
+                    Returning learner <Zap className="h-5 w-5" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="mt-2 h-12 w-full border-white/30 bg-white/10 text-white hover:bg-white/15"
+                    onClick={() => router.push("/welcome/choose")}
+                  >
+                    Skip (if you already set your name) <Sparkles className="h-4 w-4" />
+                  </Button>
                 </div>
               </CardContent>
             </Card>

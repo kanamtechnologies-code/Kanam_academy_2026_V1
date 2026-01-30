@@ -20,25 +20,31 @@ const lesson3: LessonConfig = {
   goal: "Use if / elif / else to build an AI that reacts to 3 different emotions.",
   xpReward: 600,
   badge: "🧠 Empathy Engineer",
-  starterCode: `# Step 1: Greeting
-name = input("Hi! I'm Kanam Mood Coach. What's your name? ")
-print("Great to see you, " + name + "!")
+  assignmentTitle: "Your mission",
+  assignmentBody:
+    "In the scratch box, build a Mood Coach that asks for a name + mood, then prints different advice for happy, sad, and tired.",
+  assignmentChecklist: [
+    "Ask for name and mood using input().",
+    'Write one if + two elif + one else (in that order).',
+    "Each block prints a different message.",
+    "Optional power-up: use .lower() so HAPPY/Happy/happy all work.",
+    'Test 4 moods: "happy", "sad", "tired", and something random (like "bored").',
+  ],
+  starterCode: `# Fill in the blanks 👇
+name = input("____: ")
+mood = input("Mood (happy/sad/tired): ")
 
-# Step 2: The Mood Input
-mood = input("Tell me, are you feeling happy, sad, or tired? ")
-
-# Step 3: The Emotional Brain
-if mood == "happy":
-    print("That's what I like to hear! Go share that smile with someone.")
-elif mood == "sad":
-    print("It's okay to feel down sometimes. Maybe a quick walk outside would help?")
-elif mood == "tired":
-    print("Your brain needs a break! Try closing your eyes for 5 minutes.")
+if mood == "____":
+    print("____")
+elif mood == "____":
+    print("____")
+elif mood == "____":
+    print("____")
 else:
-    print("I don't know that feeling yet, but I'm here for you anyway!")
+    print("____")
 `,
   instructorScript:
-    "Welcome back, AI Architects! Last time, we gave our bots a basic 'Yes/No' brain. But humans aren't just 'Yes' or 'No'—we have tons of feelings! Today, we’re upgrading your bot’s EQ (Emotional Intelligence). We’re building a Mood Coach. Instead of just two paths, we’re using a new tool called elif. Think of it like a multi-way fork in the road. If the user is sad, go left; if they’re tired, go right; if they’re happy, go straight! By the end of this, you’ll have a bot that can actually 'listen' and offer advice based on how a person is feeling. Let's get coding!",
+    "Coach’s note:\nToday we’re giving your bot more than two choices — we’re building a **multi-feeling brain**.\n\nLast lesson was basically: yes/no.\nThis lesson is: happy/sad/tired/anything-else.\nThat’s what `elif` is for.\n\nHow Python “thinks” through your code:\n- It reads from the top.\n- It checks the first if.\n- If that is True, it runs that block and **stops** (it does NOT keep checking).\n- If it’s False, it tries the next elif… and so on… until else.\n\nYour job today:\n- Ask for a name (so the bot feels personal).\n- Ask for a mood.\n- Write one if + two elif + one else.\n\nCommon bug to expect (and it’s normal):\n- Case sensitivity: \"Happy\" is not the same as \"happy\". If you want your bot to handle all caps, try `.lower()`.\n\nHow to test like a real instructor:\nRun it 3 times with 3 moods (happy, sad, tired). You should get 3 different replies. Then try a random mood (like \"bored\") to make sure your else message shows up.",
   kidExplain: [
     {
       title: "AI Superpower: Sentiment Analysis",
@@ -91,13 +97,23 @@ else:
   aiSafetyMoment:
     "Safety Tip: AI can guess emotions from words, but it can’t truly feel them. If someone is really struggling, talk to a trusted adult.",
   editorPlaceholder:
-    '# Tip: try adding .lower()\n# mood = input("...").lower()\n',
+    '# From scratch idea:\n# name = input("Name: ")\n# mood = input("Mood: ").lower()\n# if mood == "happy":\n#     print("...")\n',
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/2",
   nextHref: "/learn/4",
   runtimeInputs: [
-    { key: "name", label: "Answer for input(\"What's your name?\")", placeholder: "Alex", defaultValue: "Alex" },
-    { key: "mood", label: 'Answer for input("happy/sad/tired")', placeholder: "happy", defaultValue: "happy" },
+    {
+      key: "name",
+      label: 'Pretend you typed for: input("Name:")',
+      placeholder: "Alex",
+      defaultValue: "Alex",
+    },
+    {
+      key: "mood",
+      label: "Pretend you typed for: input(\"Mood (happy/sad/tired):\")",
+      placeholder: "happy",
+      defaultValue: "happy",
+    },
   ],
 
   getRunOutput: (code, runtime) => {

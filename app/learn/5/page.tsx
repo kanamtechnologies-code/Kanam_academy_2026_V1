@@ -22,29 +22,34 @@ const lesson5: LessonConfig = {
   goal: "Use a while loop to keep your bot running until you type 'quit'.",
   xpReward: 1000,
   badge: "🏆 Python Pioneer",
-  starterCode: `# Step 1: Flip the switch to ON
-running = True
-print("--- KanamBot 3000: ONLINE ---")
+  assignmentTitle: "Your mission",
+  assignmentBody:
+    "In the scratch box, build a chat bot that keeps chatting in a loop until the user types quit.",
+  assignmentChecklist: [
+    "Create running = True at the top.",
+    "Make a while loop that repeats while running is True.",
+    'Inside the loop: message = input("You: ")',
+    'Exit door: if message == "quit": set running = False and print a goodbye.',
+    "Add at least one elif command (hello / joke / help) plus an else.",
+    'Test: hello → joke → quit (it should stop).',
+  ],
+  starterCode: `# Fill in the blanks 👇
+running = ____
+print("KanamBot: ____")
 
-# Step 2: Start the loop
-while running == True:
-    message = input("You: ")
-    
-    # Step 3: Check for the Exit Door
-    if message == "quit":
-        running = False
-        print("KanamBot: System shutting down. Bye!")
-    
-    # Step 4: Add some personality
-    elif message == "hello":
-        print("KanamBot: Hi there! I'm your AI friend.")
-    elif message == "joke":
-        print("KanamBot: Why did the computer show up late? It had a hard drive!")
+while running == ____:
+    message = input("____")
+
+    if message == "____":
+        running = ____
+        print("KanamBot: ____")
+    elif message == "____":
+        print("KanamBot: ____")
     else:
-        print("KanamBot: That's interesting! Tell me more, or type 'quit' to stop.")
+        print("KanamBot: ____")
 `,
   instructorScript:
-    "Welcome to the Grand Finale, Developers! Up until now, your bots have been 'one-hit wonders'—they ask a question, give an answer, and then they disappear. But real apps don't just vanish! Today, we are learning the secret to making your code stay alive.\n\nWe’re using the while loop. It’s like a record player that keeps spinning until you lift the needle. We’re going to build KanamBot, a chat assistant that will keep talking to you as long as you want. But be careful—if you don't build an 'Exit Door,' your bot might stay awake forever! Let’s build a chat loop.",
+    "Coach’s note:\nBoss level time: we’re making a bot that feels like a real chat app.\n\nSo far your programs ran once and stopped.\nA chat app doesn’t do that — it keeps listening.\nThat “keep listening” power is a **while loop**.\n\nHere’s the loop idea in kid-language:\n- You have an ON/OFF switch called running.\n- While running is True, keep repeating the chat steps.\n- When the user types \"quit\", flip the switch to False.\n- Once the switch is False, the loop ends and the program stops.\n\nYour job today:\n- Put running = True at the top.\n- Write a while line.\n- Put message = input(\"You: \") INSIDE the loop (so it asks every time).\n- Add an exit door: if message == \"quit\": running = False\n- Add at least one fun command (hello / joke / help) and an else for everything else.\n\nCommon mistake (and how to fix it):\n- If your bot “won’t stop,” it usually means you never flipped running to False.\n\nHow to test like a real instructor:\nSay hello, ask for a joke, then type quit. You should see your bot respond each time, and then shut down safely.",
   kidExplain: [
     {
       title: "AI Concept: The \"Always On\" Assistant",
@@ -100,7 +105,7 @@ while running == True:
   aiSafetyMoment:
     "Truth Check: Sometimes AI can sound 100% sure but still be wrong. That’s called a hallucination. Always verify facts — even when a computer says them confidently!",
   editorPlaceholder:
-    "# Tip: everything inside the loop must be indented\n# Add an exit door: if message == \"quit\": running = False\n",
+    "# From scratch idea:\n# running = True\n# while running == True:\n#     message = input(\"You: \")\n#     if message == \"quit\":\n#         running = False\n",
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/4",
   nextHref: undefined,
@@ -110,7 +115,7 @@ while running == True:
   runtimeInputs: [
     {
       key: "message",
-      label: 'Next message for input("You: ")',
+      label: 'Pretend you typed for: input("You: ")',
       placeholder: "hello",
       defaultValue: "hello",
     },
@@ -190,7 +195,7 @@ while running == True:
 
   computeProgressPercent: (code, submitted) => {
     const hasRunning = /\brunning\s*=\s*True\b/.test(code);
-    const hasBanner = /\bprint\(\s*["']---\s*KanamBot\s*3000:\s*ONLINE\s*---["']\s*\)/.test(code);
+    const hasBanner = /\bprint\s*\(/.test(code);
     const hasWhile =
       /\bwhile\s+running\s*==\s*True\s*:\s*/.test(code) ||
       /\bwhile\s+running\s*:\s*/.test(code);

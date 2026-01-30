@@ -22,31 +22,37 @@ const lesson4: LessonConfig = {
   goal: "Make a quiz game that keeps score using math (score = score + 1).",
   xpReward: 800,
   badge: "🎓 Quiz Master",
-  starterCode: `# Step 1: Set the score to zero
-score = 0
-print("Welcome to the Kanam Tech Quiz!")
+  assignmentTitle: "Your mission",
+  assignmentBody:
+    "In the scratch box, build a 2-question quiz that keeps score and prints a final score like 2/2.",
+  assignmentChecklist: [
+    "Start with score = 0 at the top.",
+    "Ask Q1 and Q2 using input().",
+    "If the answer is right, add a point: score = score + 1",
+    "Print a final score using str(score).",
+    "Test 2 runs: one all-correct, one with a wrong answer.",
+  ],
+  starterCode: `# Fill in the blanks 👇
+score = ____
 
-# Step 2: Question One
-q1 = input("What is the name of the language we are learning? ")
-if q1 == "Python":
-    print("Correct! High five!")
-    score = score + 1
+q1 = input("Q1) ____ ")
+if q1 == "____":
+    print("____")
+    score = score + ____
 else:
-    print("Not quite! We are learning Python.")
+    print("____")
 
-# Step 3: Question Two
-q2 = input("True or False: AI can think exactly like a human? ")
-if q2 == "False":
-    print("Nice job! You know your AI facts.")
-    score = score + 1
+q2 = input("Q2) ____ ")
+if q2 == "____":
+    print("____")
+    score = score + ____
 else:
-    print("Actually, that's False! AI just follows code.")
+    print("____")
 
-# Step 4: Final Result
-print("Game Over! Your final score is: " + str(score) + "/2")
+print("Final score: " + str(score) + "/2")
 `,
   instructorScript:
-    "Alright, team! Today we are shifting from 'Mood Coaches' to 'Game Designers.' We’re building a Mini Quiz Bot. The big challenge today isn't just asking questions; it's giving your bot a memory. We’re going to create a variable called score. Every time the user gets a question right, we’re going to tell the computer: 'Hey, take the old score and add one to it!' By the end, your bot will be able to give a final grade. Ready to keep score?",
+    "Coach’s note:\nToday is a big level-up: your bot will **remember points** and do **math**.\n\nUp until now, your bot mostly used words.\nNow we add a number variable called score.\n\nThe key idea is this line:\nscore = score + 1\nIt looks weird at first, but here’s what it means:\n- Python calculates the RIGHT side first (old score + 1)\n- Then it stores the new number back into the score box\n\nYour checklist today:\n- Start with score = 0 at the top (before any questions)\n- Ask Q1, then if they’re right: add 1 point\n- Ask Q2, then if they’re right: add 1 point\n- At the end, print the final score\n\nTwo super common “why is this broken?” moments:\n- If you accidentally write score = 1, you erase your old score. You want score = score + 1.\n- If you see a message about mixing text + numbers, use str(score) in your final print.\n\nHow to test like a teacher:\nTry one run where you get both answers right (score should be 2), and one run where you miss one (score should be 1).",
   kidExplain: [
     {
       title: "AI Concept: Data Tracking & Scoring",
@@ -104,20 +110,20 @@ print("Game Over! Your final score is: " + str(score) + "/2")
   aiSafetyMoment:
     "Truth Check: Sometimes AI can sound 100% sure but still be wrong. That’s called a hallucination. Always verify facts — even when a computer says them confidently!",
   editorPlaceholder:
-    "# Tip: score is a number (int)\n# Use str(score) when you print it with words\n",
+    "# From scratch idea:\n# score = 0\n# q1 = input(\"...\")\n# if q1 == \"Python\":\n#     score = score + 1\n",
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/3",
   nextHref: "/learn/5",
   runtimeInputs: [
     {
       key: "q1",
-      label: 'Answer for input("language we are learning")',
+      label: 'Pretend you typed for Q1 (language):',
       placeholder: "Python",
       defaultValue: "Python",
     },
     {
       key: "q2",
-      label: 'Answer for input("True or False")',
+      label: "Pretend you typed for Q2 (True/False):",
       placeholder: "False",
       defaultValue: "False",
     },
@@ -201,7 +207,6 @@ print("Game Over! Your final score is: " + str(score) + "/2")
 
   computeProgressPercent: (code, submitted) => {
     const hasScoreInit = /^\s*score\s*=\s*0\b/m.test(code);
-    const hasWelcome = /\bprint\s*\(\s*["']Welcome to the Kanam Tech Quiz!["']\s*\)/.test(code);
     const hasQ1Input = /\bq1\s*=\s*input\(/.test(code);
     const hasIfQ1 = /\bif\s+q1\s*==\s*["']Python["']\s*:/.test(code) || /\bif\s+q1\s*==\s*["']python["']\s*:/.test(code);
     const hasElseQ1 = /if\s+q1[\s\S]*?\nelse\s*:/m.test(code);
@@ -213,7 +218,6 @@ print("Game Over! Your final score is: " + str(score) + "/2")
 
     const checks = [
       hasScoreInit,
-      hasWelcome,
       hasQ1Input,
       hasIfQ1,
       hasElseQ1,

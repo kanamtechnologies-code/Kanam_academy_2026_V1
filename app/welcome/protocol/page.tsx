@@ -3,8 +3,18 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Activity, Terminal, Zap } from "lucide-react";
+import {
+  Activity,
+  ArrowRight,
+  CheckCircle2,
+  LayoutGrid,
+  PlayCircle,
+  Sparkles,
+  Terminal,
+  Zap,
+} from "lucide-react";
 
+import { HeaderVideo } from "@/components/layout/HeaderVideo";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { WelcomeShell } from "@/components/welcome/WelcomeShell";
 import { Button } from "@/components/ui/button";
@@ -48,275 +58,249 @@ export default function WelcomeProtocolPage() {
         ].join(" ")}
       >
         <WelcomeShell
-          title="How Kanam works (the simple version)"
-          subtitle="You’re not here to memorize — you’re here to build real stuff."
+          title={
+            <>
+              Code Isn’t Watched. <span className="text-[var(--brand)]">It’s Built.</span>
+            </>
+          }
+          subtitle="A quick tour of how lessons work (made for ages 10–14)."
         >
-          <Card className="border-slate-200 bg-white/85 backdrop-blur-sm">
-            <CardContent className="pt-6">
-              <div className="space-y-6">
-                {/* Timeline (horizontal) */}
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">The flow</p>
-                  <div className="mt-3 grid gap-3 md:grid-cols-3">
-                    <div className="rounded-xl border border-[var(--accent)]/25 bg-gradient-to-b from-[var(--accent)]/10 to-white/80 p-4">
-                      <div className="flex items-center gap-2">
-                        <Zap className="h-4 w-4 text-[var(--accent)]" />
-                        <span className="text-xs font-semibold uppercase tracking-widest text-[var(--brand)]">
-                          Step 1
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm font-semibold text-slate-900">
-                        Get the idea
+          <div className="grid w-full gap-6 lg:grid-cols-3 lg:items-stretch">
+            {/* Left: Hero / vibe */}
+            <Card className="kanam-glow-card flex h-full flex-col lg:col-span-2">
+              <CardHeader>
+                <CardTitle className="text-slate-900">What you’re doing here</CardTitle>
+                <CardDescription className="text-slate-700">
+                  You learn by <span className="font-semibold">building</span>, not by watching.
+                  Tiny projects. Fast feedback. Real progress.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="flex flex-1 flex-col gap-4">
+                <div className="relative aspect-video overflow-hidden rounded-xl border border-slate-200 bg-white/90">
+                  <HeaderVideo
+                    src="/video/istockphoto-1077299832-640_adpp_is.mp4"
+                    playbackRate={0.8}
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/35 via-transparent to-transparent" />
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 p-4">
+                    <div className="max-w-[38rem] rounded-2xl border border-white/60 bg-slate-950/55 p-4 text-white shadow-lg">
+                      <p className="text-xs font-semibold uppercase tracking-widest text-white/80">
+                        The Kanam promise
                       </p>
-                      <p className="mt-1 text-xs text-slate-600">
-                        Learn the “why” in plain English
+                      <p className="mt-1 text-xl font-black tracking-tight">
+                        Code Isn’t Watched. It’s Built.
                       </p>
-                    </div>
-                    <div className="rounded-xl border border-[var(--brand)]/25 bg-gradient-to-b from-[var(--brand)]/10 to-white/80 p-4">
-                      <div className="flex items-center gap-2">
-                        <Terminal className="h-4 w-4 text-[var(--brand)]" />
-                        <span className="text-xs font-semibold uppercase tracking-widest text-[var(--brand)]">
-                          Step 2
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm font-semibold text-slate-900">
-                        Build it
-                      </p>
-                      <p className="mt-1 text-xs text-slate-600">
-                        Write Python and see it run
-                      </p>
-                    </div>
-                    <div className="rounded-xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white/80 p-4">
-                      <div className="flex items-center gap-2">
-                        <Activity className="h-4 w-4 text-[var(--accent)]" />
-                        <span className="text-xs font-semibold uppercase tracking-widest text-slate-700">
-                          Step 3
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm font-semibold text-slate-900">
-                        Prove it
-                      </p>
-                      <p className="mt-1 text-xs text-slate-600">
-                        Quick quiz + challenges
+                      <p className="mt-1 text-sm leading-relaxed text-white/90">
+                        You’ll type real Python, run it, and fix it like a real developer.
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Visual assets */}
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                    Spots you can fill later
-                  </p>
-                  <div className="mt-3 grid gap-3 md:grid-cols-3">
-                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3 shadow-sm">
-                      <div className="relative aspect-video overflow-hidden rounded-lg bg-slate-100">
-                        <video
-                          className="h-full w-full object-cover opacity-70"
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          preload="metadata"
-                        >
-                          <source
-                            src="/video/istockphoto-1077299832-640_adpp_is.mp4"
-                            type="video/mp4"
-                          />
-                        </video>
-                        <div className="absolute inset-0 bg-gradient-to-t from-white/60 via-transparent to-white/10" />
-                      </div>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-2xl border border-slate-200 bg-white/90 p-4">
+                    <div className="flex items-center gap-2">
+                      <Zap className="h-4 w-4 text-[var(--accent)]" />
+                      <p className="text-sm font-extrabold tracking-tight text-slate-900">Learn</p>
                     </div>
-                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3 shadow-sm">
-                      <div className="aspect-video rounded-lg bg-slate-100" />
+                    <p className="mt-1 text-sm text-slate-700">Short explanation. No fluff.</p>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-white/90 p-4">
+                    <div className="flex items-center gap-2">
+                      <Terminal className="h-4 w-4 text-[var(--brand)]" />
+                      <p className="text-sm font-extrabold tracking-tight text-slate-900">Build</p>
                     </div>
-                    <div className="rounded-xl border border-dashed border-slate-300 bg-white/70 p-3 shadow-sm">
-                      <div className="aspect-video rounded-lg bg-slate-100" />
+                    <p className="mt-1 text-sm text-slate-700">Type code and press Run.</p>
+                  </div>
+                  <div className="rounded-2xl border border-slate-200 bg-white/90 p-4">
+                    <div className="flex items-center gap-2">
+                      <Activity className="h-4 w-4 text-[var(--accent)]" />
+                      <p className="text-sm font-extrabold tracking-tight text-slate-900">Prove</p>
+                    </div>
+                    <p className="mt-1 text-sm text-slate-700">Submit + CFU + Bonus.</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Right: “What happens in a lesson?” */}
+            <Card className="kanam-glow-card flex h-full flex-col">
+              <CardHeader>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <CardTitle className="text-slate-900">What happens in a lesson</CardTitle>
+                    <CardDescription className="text-slate-700">
+                      Follow this order and you’ll fly.
+                    </CardDescription>
+                  </div>
+                  <div className="grid h-10 w-10 place-items-center rounded-2xl bg-[var(--accent)]/10 ring-1 ring-[var(--accent)]/15">
+                    <LayoutGrid className="h-5 w-5 text-[var(--accent)]" />
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="flex flex-1 flex-col gap-4">
+                <div className="rounded-2xl border border-slate-200 bg-white/90 p-4">
+                  <p className="text-sm font-extrabold tracking-tight text-slate-900">Inside the Lesson Hub</p>
+                  <ul className="mt-2 space-y-2 text-sm text-slate-700">
+                    <li className="flex gap-2">
+                      <span className="mt-0.5 inline-block h-5 w-5 rounded-full bg-[var(--accent)]/15 text-center text-xs font-extrabold leading-5 text-slate-900">
+                        1
+                      </span>
+                      <span>
+                        Read the <span className="font-semibold text-slate-900">Coach-style explanation</span> (it’s short).
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-0.5 inline-block h-5 w-5 rounded-full bg-[var(--accent)]/15 text-center text-xs font-extrabold leading-5 text-slate-900">
+                        2
+                      </span>
+                      <span>
+                        Do <span className="font-semibold text-slate-900">Fill in the blanks</span> first.
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-0.5 inline-block h-5 w-5 rounded-full bg-[var(--accent)]/15 text-center text-xs font-extrabold leading-5 text-slate-900">
+                        3
+                      </span>
+                      <span>
+                        Press <span className="font-semibold text-slate-900">Run</span> and check your <span className="font-semibold text-slate-900">Console output</span>.
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-0.5 inline-block h-5 w-5 rounded-full bg-[var(--accent)]/15 text-center text-xs font-extrabold leading-5 text-slate-900">
+                        4
+                      </span>
+                      <span>
+                        Read the <span className="font-semibold text-slate-900">Console explanation</span> if something looks off.
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-0.5 inline-block h-5 w-5 rounded-full bg-[var(--accent)]/15 text-center text-xs font-extrabold leading-5 text-slate-900">
+                        5
+                      </span>
+                      <span>
+                        Press <span className="font-semibold text-slate-900">Submit</span> to earn Success.
+                      </span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="mt-0.5 inline-block h-5 w-5 rounded-full bg-[var(--accent)]/15 text-center text-xs font-extrabold leading-5 text-slate-900">
+                        6
+                      </span>
+                      <span>
+                        Do the <span className="font-semibold text-slate-900">Check for Understanding</span> (bonus progress!).
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-[var(--brand)]/10 via-white/80 to-[var(--accent)]/12 p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="grid h-10 w-10 place-items-center rounded-2xl bg-white/90 ring-1 ring-slate-200">
+                      <CheckCircle2 className="h-5 w-5 text-[var(--brand)]" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-extrabold tracking-tight text-slate-900">
+                        Mistakes are part of it
+                      </p>
+                      <p className="mt-1 text-sm text-slate-700">
+                        If you get an error, don’t panic. Read the console, change one thing, and run again.
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Module Overviews */}
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
-                    The 3 parts (teen-friendly)
+                <div className="mt-auto grid gap-2">
+                  <Button
+                    className="h-12 w-full bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
+                    asChild
+                  >
+                    <Link href="/dashboard">
+                      Go to Dashboard <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Button
+                    className="h-12 w-full"
+                    variant="outline"
+                    onClick={() => router.push("/welcome/choose")}
+                  >
+                    Back to Choose
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Bottom: Quick “what you’ll build” */}
+          <Card className="kanam-glow-card mt-6">
+            <CardHeader>
+              <div className="flex items-center justify-between gap-2">
+                <div className="min-w-0">
+                  <CardTitle className="text-slate-900">What you’ll build</CardTitle>
+                  <CardDescription className="text-slate-700">
+                    Mini projects that get harder slowly (so you don’t get stuck).
+                  </CardDescription>
+                </div>
+                <div className="grid h-10 w-10 place-items-center rounded-2xl bg-[var(--accent)]/10 ring-1 ring-[var(--accent)]/15">
+                  <PlayCircle className="h-5 w-5 text-[var(--accent)]" />
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="rounded-2xl border border-slate-200 bg-white/90 p-4">
+                  <p className="text-sm font-extrabold tracking-tight text-slate-900">AI Helper</p>
+                  <p className="mt-1 text-sm text-slate-700">
+                    Your first program that introduces itself with variables + print.
                   </p>
-
-                  <div className="mt-3 grid gap-4 lg:grid-cols-3">
-                    {/* Stage 01 */}
-                    <Card
-                      className={[
-                        "border-[var(--accent)]/30 bg-gradient-to-b from-[var(--accent)]/10 to-white/80 backdrop-blur-sm",
-                        "transition-all duration-500 ease-out",
-                        animateIn ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6",
-                      ].join(" ")}
-                      style={{ transitionDelay: "40ms" }}
-                    >
-                      <CardContent className="pt-6">
-                        <div className="flex items-center gap-2">
-                          <Zap className="h-5 w-5 text-[var(--accent)]" />
-                          <div>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-slate-700">
-                              Step 1
-                            </p>
-                            <h3 className="text-lg font-semibold text-slate-900">
-                              Understand it
-                            </h3>
-                          </div>
-                        </div>
-                        <p className="mt-3 leading-relaxed text-slate-700">
-                          We explain the idea first, so you’re not just copying code.
-                          You’ll learn what variables and logic actually mean (in normal
-                          words), then you’ll use that idea right away.
-                        </p>
-                        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
-                          <li>Think in “boxes” (variables)</li>
-                          <li>Think in “choices” (if/elif/else)</li>
-                          <li>Understand what the code is doing</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-
-                    {/* Stage 02 */}
-                    <Card
-                      className={[
-                        "border-[var(--brand)]/30 bg-gradient-to-b from-[var(--brand)]/10 to-white/80 backdrop-blur-sm",
-                        "transition-all duration-500 ease-out",
-                        animateIn ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6",
-                      ].join(" ")}
-                      style={{ transitionDelay: "140ms" }}
-                    >
-                      <CardContent className="pt-6">
-                        <div className="flex items-center gap-2">
-                          <Terminal className="h-5 w-5 text-[var(--accent)]" />
-                          <div>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-slate-700">
-                              Step 2
-                            </p>
-                            <h3 className="text-lg font-semibold text-slate-900">
-                              Build it
-                            </h3>
-                          </div>
-                        </div>
-                        <p className="mt-3 leading-relaxed text-slate-700">
-                          You’ll type real Python in the editor and press Run to see the
-                          output instantly. Mess up? That’s good — we’ll show you how to
-                          debug and fix it.
-                        </p>
-                        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
-                          <li>Write code</li>
-                          <li>Run it</li>
-                          <li>Fix errors like a real developer</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
-
-                    {/* Stage 03 */}
-                    <Card
-                      className={[
-                        "border-slate-200 bg-gradient-to-b from-slate-50 to-white/80 backdrop-blur-sm",
-                        "transition-all duration-500 ease-out",
-                        animateIn ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6",
-                      ].join(" ")}
-                      style={{ transitionDelay: "240ms" }}
-                    >
-                      <CardContent className="pt-6">
-                        <div className="flex items-center gap-2">
-                          <Activity className="h-5 w-5 text-[var(--accent)]" />
-                          <div>
-                            <p className="text-xs font-semibold uppercase tracking-widest text-slate-700">
-                              Step 3
-                            </p>
-                            <h3 className="text-lg font-semibold text-slate-900">
-                              Prove it
-                            </h3>
-                          </div>
-                        </div>
-                        <p className="mt-3 leading-relaxed text-slate-700">
-                          After you build it, you’ll do a quick check to prove you really
-                          get it. Then you’ll try challenges that level you up.
-                        </p>
-                        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
-                          <li>CFU = quick quiz</li>
-                          <li>Try This = extra challenges</li>
-                          <li>Earn XP + badges</li>
-                        </ul>
-                      </CardContent>
-                    </Card>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white/90 p-4">
+                  <p className="text-sm font-extrabold tracking-tight text-slate-900">Smart Choices Bot</p>
+                  <p className="mt-1 text-sm text-slate-700">
+                    Ask a question, then respond using if/else.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white/90 p-4">
+                  <p className="text-sm font-extrabold tracking-tight text-slate-900">Mini Quiz Bot</p>
+                  <p className="mt-1 text-sm text-slate-700">
+                    Track points with real math: <span className="font-semibold">score = score + 1</span>.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white/90 p-4">
+                  <p className="text-sm font-extrabold tracking-tight text-slate-900">Looping Chat Bot</p>
+                  <p className="mt-1 text-sm text-slate-700">
+                    Keep your bot “alive” with a loop (and a quit word).
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-white/90 p-4">
+                  <p className="text-sm font-extrabold tracking-tight text-slate-900">Your upgrades</p>
+                  <p className="mt-1 text-sm text-slate-700">
+                    Add jokes, secret commands, and your own features.
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-slate-200 bg-gradient-to-r from-[var(--accent)]/12 via-white/80 to-[var(--brand)]/10 p-4">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-[var(--accent)]" />
+                    <p className="text-sm font-extrabold tracking-tight text-slate-900">Bonus</p>
                   </div>
+                  <p className="mt-1 text-sm text-slate-700">
+                    Extra challenges when you’re feeling brave.
+                  </p>
                 </div>
               </div>
 
-              {/* Start protocol */}
-              <div className="mt-8">
-                <Card className="border-[var(--brand)]/35 bg-gradient-to-r from-[var(--brand)]/10 via-white/80 to-[var(--accent)]/12 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle className="text-slate-900">Ready to start?</CardTitle>
-                    <CardDescription className="text-slate-600">
-                      Start with Lesson 1 — you’ll build a tiny AI helper in minutes.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="rounded-lg border border-slate-200 bg-white/70 p-4 text-sm text-slate-700 shadow-sm">
-                      <p className="font-semibold text-slate-900">What you’ll make:</p>
-                      <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                        <div className="rounded-lg border border-slate-200 bg-white/80 p-3">
-                          <p className="text-sm font-semibold text-slate-900">AI Helper</p>
-                          <p className="mt-1 text-xs text-slate-600">
-                            Make a bot introduce itself using variables + print.
-                          </p>
-                        </div>
-                        <div className="rounded-lg border border-slate-200 bg-white/80 p-3">
-                          <p className="text-sm font-semibold text-slate-900">Smart Choices Bot</p>
-                          <p className="mt-1 text-xs text-slate-600">
-                            Ask a question, then use if/else to respond differently.
-                          </p>
-                        </div>
-                        <div className="rounded-lg border border-slate-200 bg-white/80 p-3">
-                          <p className="text-sm font-semibold text-slate-900">Mood Coach</p>
-                          <p className="mt-1 text-xs text-slate-600">
-                            Use if/elif/else to react to different feelings.
-                          </p>
-                        </div>
-                        <div className="rounded-lg border border-slate-200 bg-white/80 p-3">
-                          <p className="text-sm font-semibold text-slate-900">Mini Quiz Bot</p>
-                          <p className="mt-1 text-xs text-slate-600">
-                            Keep score with real math: score = score + 1.
-                          </p>
-                        </div>
-                        <div className="rounded-lg border border-slate-200 bg-white/80 p-3">
-                          <p className="text-sm font-semibold text-slate-900">KanamBot Chat Loop</p>
-                          <p className="mt-1 text-xs text-slate-600">
-                            Keep a bot “alive” with a while loop + a quit switch.
-                          </p>
-                        </div>
-                        <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-3">
-                          <p className="text-sm font-semibold text-slate-900">Your upgrade</p>
-                          <p className="mt-1 text-xs text-slate-600">
-                            Add your own commands, jokes, and secret features.
-                          </p>
-                        </div>
-                      </div>
-                      <p className="mt-3 text-xs text-slate-500">
-                        Each project is small on purpose — you’ll finish it, feel the win, then level up.
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                      <Button
-                        className="h-12 bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
-                        asChild
-                      >
-                        <Link href="/learn/1">
-                          Start Lesson 1: My First AI Helper
-                        </Link>
-                      </Button>
-                      <Button className="h-12" variant="outline" onClick={() => router.push("/welcome/choose")}>
-                        Back
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <Button className="h-12" variant="outline" asChild>
+                  <Link href="/how-to">Read the full How-To</Link>
+                </Button>
+                <Button
+                  className="h-12 bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
+                  asChild
+                >
+                  <Link href="/dashboard">
+                    Go to Dashboard <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </Button>
               </div>
             </CardContent>
           </Card>

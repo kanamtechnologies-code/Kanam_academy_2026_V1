@@ -5,6 +5,9 @@
   --brand: #18a16d; /* green */
   --brand-2: #0f6e57; /* deep teal */
   --accent: #d8c07a; /* warm gold */
+  --brand-rgb: 24 161 109;
+  --brand-2-rgb: 15 110 87;
+  --accent-rgb: 216 192 122;
 
   --background: #f8fafc; /* slate-50 */
   --foreground: #0f172a; /* slate-900 */
@@ -22,4 +25,156 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  font-feature-settings: "kern", "liga", "calt";
+}
+
+/* Brand “nav glow” style for cards (green + gold, subtle but visible) */
+.kanam-glow-card {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgb(var(--accent-rgb) / 0.95);
+  border-radius: 0.75rem; /* matches Card */
+  background: linear-gradient(
+    120deg,
+    rgb(var(--brand-2-rgb) / 0.98),
+    rgb(var(--brand-rgb) / 0.90),
+    rgb(var(--accent-rgb) / 0.86)
+  ) !important;
+  box-shadow:
+    0 0 0 1px rgba(216, 192, 122, 0.34),
+    0 18px 34px rgba(15, 23, 42, 0.12),
+    0 0 46px rgba(216, 192, 122, 0.26),
+    0 0 42px rgba(24, 161, 109, 0.26);
+}
+
+.kanam-glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at top,
+    rgba(255, 255, 255, 0.22),
+    transparent 52%
+  );
+}
+
+.kanam-glow-card::after {
+  display: none;
+}
+
+/* Lesson Hub rail: green glass (no texture) */
+.kanam-hub-rail,
+.kanam-hex-card {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgb(var(--accent-rgb) / 0.65);
+  border-radius: 1.25rem;
+  background: linear-gradient(
+    140deg,
+    rgb(var(--brand-2-rgb) / 0.96),
+    rgb(var(--brand-rgb) / 0.88),
+    rgb(var(--accent-rgb) / 0.40)
+  );
+  box-shadow:
+    0 0 0 1px rgba(216, 192, 122, 0.26),
+    0 18px 34px rgba(15, 23, 42, 0.14),
+    0 0 40px rgba(24, 161, 109, 0.24),
+    0 0 32px rgba(216, 192, 122, 0.22);
+}
+
+.kanam-hub-rail::after,
+.kanam-hex-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.16), transparent 58%),
+    radial-gradient(circle at bottom, rgba(216, 192, 122, 0.22), transparent 52%),
+    linear-gradient(
+      90deg,
+      rgb(var(--brand-2-rgb) / 0.22),
+      rgb(255 255 255 / 0.16),
+      rgb(var(--accent-rgb) / 0.26)
+    );
+}
+
+@keyframes kanamShimmer {
+  0% {
+    background-position: 0% 50%;
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.15);
+  }
+  100% {
+    background-position: 200% 50%;
+    filter: brightness(1);
+  }
+}
+
+@keyframes kanamPop {
+  0% {
+    transform: scaleY(1);
+    filter: brightness(1);
+  }
+  40% {
+    transform: scaleY(1.35);
+    filter: brightness(1.25);
+  }
+  100% {
+    transform: scaleY(1);
+    filter: brightness(1);
+  }
+}
+
+@keyframes kanamTourPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.22), 0 0 34px rgba(16, 185, 129, 0.2);
+  }
+  60% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0), 0 0 46px rgba(16, 185, 129, 0.32);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0), 0 0 34px rgba(16, 185, 129, 0.2);
+  }
+}
+
+@keyframes kanamSpotlightPulse {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(255, 255, 255, 0.65),
+      0 0 0 6px rgba(24, 161, 109, 0.22),
+      0 0 34px rgba(24, 161, 109, 0.28);
+    filter: brightness(1);
+  }
+  50% {
+    box-shadow:
+      0 0 0 4px rgba(255, 255, 255, 0.85),
+      0 0 0 12px rgba(24, 161, 109, 0.32),
+      0 0 44px rgba(24, 161, 109, 0.38);
+    filter: brightness(1.08);
+  }
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(255, 255, 255, 0.65),
+      0 0 0 6px rgba(24, 161, 109, 0.22),
+      0 0 34px rgba(24, 161, 109, 0.28);
+    filter: brightness(1);
+  }
+}
+
+@keyframes kanamTourBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
 }
