@@ -984,28 +984,6 @@ function analyzeScratch(code: string, runtime: Record<string, string>) {
   return { env, vars, printed, summary, tips };
 }
 
-const COMPLETED_LESSONS_KEY = "kanam.completedLessonIds";
-
-function loadCompletedLessonIds(): string[] {
-  try {
-    const raw = window.localStorage.getItem(COMPLETED_LESSONS_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as unknown;
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter((x): x is string => typeof x === "string");
-  } catch {
-    return [];
-  }
-}
-
-function saveCompletedLessonIds(ids: string[]) {
-  try {
-    window.localStorage.setItem(COMPLETED_LESSONS_KEY, JSON.stringify(ids));
-  } catch {
-    // ignore
-  }
-}
-
 export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const tourRef = React.useRef<SpotlightTourHandle | null>(null);
   const hubScrollRef = React.useRef<HTMLDivElement | null>(null);
@@ -1089,7 +1067,8 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           .eq("user_id", uid)
           .maybeSingle();
         if (student?.id) setStudentDbId(student.id);
-        if (student?.display_name) setStudentName(student.display_name);
+        const fallback = (student as any)?.display_name as string | undefined;
+        if (fallback) setStudentName(fallback);
       } catch {
         // ignore
       }
@@ -1342,12 +1321,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       setOutput(injectBeforePrompt(base, terminalPrompt, extra));
     }
 
-    if (ok) {
-      const completed = loadCompletedLessonIds();
-      if (!completed.includes(lesson.id)) {
-        saveCompletedLessonIds([...completed, lesson.id]);
-      }
-    }
+    // Completion is tracked in Supabase (`lesson_progress.success`) per authenticated user.
   };
 
   const LessonHeader = (

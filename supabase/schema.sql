@@ -31,6 +31,8 @@ create table if not exists public.students (
   -- Device identifier (allows multiple students on the same device).
   device_id text not null,
   display_name text not null,
+  first_name text,
+  last_name text,
   grade text,
 
   -- Optional: org linkage
@@ -174,6 +176,19 @@ create policy lesson_progress_update_own
     )
   );
 
+drop policy if exists lesson_progress_delete_own on public.lesson_progress;
+create policy lesson_progress_delete_own
+  on public.lesson_progress for delete
+  to authenticated
+  using (
+    exists (
+      select 1
+      from public.students s
+      where s.id = lesson_progress.student_id
+        and s.user_id = auth.uid()
+    )
+  );
+
 drop policy if exists progress_events_select_own on public.progress_events;
 create policy progress_events_select_own
   on public.progress_events for select
@@ -192,6 +207,19 @@ create policy progress_events_insert_own
   on public.progress_events for insert
   to authenticated
   with check (
+    exists (
+      select 1
+      from public.students s
+      where s.id = progress_events.student_id
+        and s.user_id = auth.uid()
+    )
+  );
+
+drop policy if exists progress_events_delete_own on public.progress_events;
+create policy progress_events_delete_own
+  on public.progress_events for delete
+  to authenticated
+  using (
     exists (
       select 1
       from public.students s

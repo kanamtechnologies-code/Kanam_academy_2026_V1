@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import { normalizeUsername, usernameToEmail } from "@/lib/auth";
 
 const USER_NAME_KEY = "kanam.userName";
 
@@ -22,8 +21,9 @@ export default function WelcomeProfilePage() {
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
-  const [displayName, setDisplayName] = React.useState("");
-  const [username, setUsername] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [grade, setGrade] = React.useState<string>("");
   const [schoolName, setSchoolName] = React.useState("");
   const [parentName, setParentName] = React.useState("");
@@ -69,29 +69,39 @@ export default function WelcomeProfilePage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Student name
+                      First name
                     </label>
                     <Input
-                      value={displayName}
-                      onChange={(e) => setDisplayName(e.target.value)}
-                      placeholder="First name or nickname"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      placeholder="First name"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Username
+                      Last name
                     </label>
                     <Input
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      placeholder="e.g. kanamkid7"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      placeholder="Last name"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
-                    <p className="text-xs font-medium text-white/80">
-                      Letters + numbers only. This is what you’ll use to sign in.
-                    </p>
+                  </div>
+
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
+                      Email address
+                    </label>
+                    <Input
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder='e.g. tory123@kanam.local'
+                      type="email"
+                      className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
+                    />
                   </div>
 
                   <div className="space-y-1.5">
@@ -195,7 +205,7 @@ export default function WelcomeProfilePage() {
                   </Button>
                   <Button
                     size="lg"
-                    disabled={saving || !displayName.trim() || !username.trim()}
+                    disabled={saving || !firstName.trim() || !lastName.trim() || !email.trim()}
                     className={[
                       "h-14 rounded-2xl px-7 text-base font-extrabold tracking-tight",
                       "shadow-xl shadow-emerald-900/25",
@@ -205,14 +215,19 @@ export default function WelcomeProfilePage() {
                     ].join(" ")}
                     onClick={async () => {
                       setError(null);
-                      const trimmedName = displayName.trim();
-                      const normalized = normalizeUsername(username);
-                      if (!trimmedName) {
-                        setError("Please enter a student name.");
+                      const trimmedFirst = firstName.trim();
+                      const trimmedLast = lastName.trim();
+                      const trimmedEmail = email.trim();
+                      if (!trimmedFirst) {
+                        setError("Please enter your first name.");
                         return;
                       }
-                      if (!normalized || normalized.length < 3) {
-                        setError("Please choose a username (at least 3 characters).");
+                      if (!trimmedLast) {
+                        setError("Please enter your last name.");
+                        return;
+                      }
+                      if (!trimmedEmail || !trimmedEmail.includes("@")) {
+                        setError("Please enter a valid email address.");
                         return;
                       }
                       if (!password || password.length < 4) {
@@ -226,47 +241,51 @@ export default function WelcomeProfilePage() {
                       setSaving(true);
                       try {
                         const supabase = createSupabaseBrowserClient();
-                        const email = usernameToEmail(normalized);
-
-                        const { data: signUpData, error: signUpErr } =
-                          await supabase.auth.signUp({
-                            email,
+                        // Create user server-side (auto-confirm; avoids Supabase email rate limits),
+                        // then sign in normally to establish a real session in the browser.
+                        const res = await fetch("/api/auth/signup", {
+                          method: "POST",
+                          headers: { "content-type": "application/json" },
+                          body: JSON.stringify({
+                            email: trimmedEmail,
                             password,
-                            options: {
-                              data: { display_name: trimmedName, username: normalized },
-                            },
-                          });
+                            firstName: trimmedFirst,
+                            lastName: trimmedLast,
+                            grade: grade || undefined,
+                            schoolName: schoolName.trim() || undefined,
+                            parentName: parentName.trim() || undefined,
+                            parentEmail: parentEmail.trim() || undefined,
+                            parentPhone: parentPhone.trim() || undefined,
+                          }),
+                        });
+                        const json = (await res.json()) as any;
+                        if (!res.ok || !json?.ok) {
+                          throw new Error(json?.error || "Could not create account.");
+                        }
 
-                        if (signUpErr) throw new Error(signUpErr.message);
-                        const userId = signUpData.user?.id;
-                        if (!userId) {
+                        const { error: signInErr } = await supabase.auth.signInWithPassword({
+                          email: trimmedEmail,
+                          password,
+                        });
+                        if (signInErr) throw new Error(signInErr.message);
+
+                        // Ensure profile exists (creates minimal row if needed).
+                        const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+                        const ensureJson = (await ensureRes.json()) as any;
+                        if (!ensureRes.ok || !ensureJson?.ok) {
                           throw new Error(
-                            "Signup succeeded but no session was created. In Supabase Auth settings, disable email confirmations for this username-style login."
+                            ensureJson?.error ||
+                              "Account created, but could not create/load your student profile."
                           );
                         }
 
-                        // Create the student profile row (protected by RLS: user_id must match auth.uid()).
-                        const { error: insertErr } = await supabase.from("students").insert({
-                          user_id: userId,
-                          display_name: trimmedName,
-                          grade: grade || null,
-                          parent_name: parentName.trim() || null,
-                          parent_email: parentEmail.trim() || null,
-                          parent_phone: parentPhone.trim() || null,
-                          // Keep these legacy columns empty in the production auth model:
-                          device_id: "auth",
-                          password_hash: null,
-                          school_id: null,
-                        });
-
-                        if (insertErr) throw new Error(insertErr.message);
-
                         try {
-                          window.localStorage.setItem(USER_NAME_KEY, trimmedName);
+                          // App greets by first name only
+                          window.localStorage.setItem(USER_NAME_KEY, trimmedFirst);
                         } catch {
                           // ignore
                         }
-                        router.push("/welcome/choose");
+                        router.push("/dashboard");
                       } catch (e: any) {
                         setError(e?.message ?? "Something went wrong.");
                       } finally {

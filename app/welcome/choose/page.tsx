@@ -65,9 +65,21 @@ export default function WelcomeChoosePage() {
         } catch {
           // ignore
         }
-      } else if (!name) {
-        // If they're logged in but haven't created a profile row yet, send them to profile creation.
-        router.replace("/welcome/profile");
+      } else {
+        // If they're logged in but don't have a student row yet, auto-create it (real app behavior).
+        const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+        const ensureJson = (await ensureRes.json()) as any;
+        if (ensureRes.ok && ensureJson?.ok) {
+          const nm = String(ensureJson?.student?.display_name ?? "");
+          if (nm) {
+            setName(nm);
+            try {
+              window.localStorage.setItem(USER_NAME_KEY, nm);
+            } catch {
+              // ignore
+            }
+          }
+        }
       }
     })();
   }, [name, ready, router]);

@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import { normalizeUsername, usernameToEmail } from "@/lib/auth";
 
 const USER_NAME_KEY = "kanam.userName";
 
@@ -33,7 +32,7 @@ function loadUserName(): string {
 
 export default function WelcomeReturningPage() {
   const router = useRouter();
-  const [username, setUsername] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [animateIn, setAnimateIn] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
@@ -55,7 +54,7 @@ export default function WelcomeReturningPage() {
       >
         <WelcomeShell
           title="Welcome back"
-          subtitle="Sign in with your username and password."
+          subtitle="Sign in with your email and password."
         >
           <div className="grid w-full gap-6 md:grid-cols-2 md:items-stretch">
             <Card className="kanam-glow-card">
@@ -65,7 +64,7 @@ export default function WelcomeReturningPage() {
                     Returning learner
                   </p>
                   <p className="text-base font-medium text-white/90">
-                    Enter your username to continue.
+                    Enter your email to continue.
                   </p>
                 </div>
 
@@ -78,12 +77,13 @@ export default function WelcomeReturningPage() {
                 <div className="space-y-3">
                   <div className="space-y-1.5">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Username
+                      Email
                     </label>
                     <Input
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      placeholder="e.g. kanamkid7"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder='e.g. tory123@kanam.local'
+                      type="email"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/20"
                     />
                   </div>
@@ -111,19 +111,26 @@ export default function WelcomeReturningPage() {
                     "text-white hover:brightness-[1.04]",
                     "focus-visible:ring-4 focus-visible:ring-emerald-500/30",
                   ].join(" ")}
-                  disabled={!username.trim() || !password.trim()}
+                  disabled={!email.trim() || !password.trim()}
                   onClick={async () => {
                     setError(null);
                     try {
-                      const u = normalizeUsername(username);
-                      if (!u) throw new Error("Please enter a valid username.");
                       const supabase = createSupabaseBrowserClient();
-                      const email = usernameToEmail(u);
                       const { error: signInErr } = await supabase.auth.signInWithPassword({
-                        email,
+                        email: email.trim(),
                         password,
                       });
                       if (signInErr) throw new Error(signInErr.message);
+
+                      // Ensure a student profile row exists for this auth user (so we can save progress).
+                      const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+                      const ensureJson = (await ensureRes.json()) as any;
+                      if (!ensureRes.ok || !ensureJson?.ok) {
+                        throw new Error(
+                          ensureJson?.error ||
+                            "Signed in, but could not create/load your student profile."
+                        );
+                      }
 
                       // Load profile name for greeting (optional)
                       const { data: me } = await supabase.auth.getUser();
@@ -135,14 +142,15 @@ export default function WelcomeReturningPage() {
                           .select("display_name")
                           .eq("user_id", userId)
                           .maybeSingle();
-                        if (student?.display_name) displayName = student.display_name;
+                        const fallback = (student as any)?.display_name as string | undefined;
+                        if (fallback) displayName = fallback;
                       }
                       try {
                         saveUserName(displayName);
                       } catch {
                         // ignore
                       }
-                      router.push("/welcome/choose");
+                      router.push("/dashboard");
                     } catch (e: any) {
                       setError(e?.message ?? "Something went wrong.");
                     }

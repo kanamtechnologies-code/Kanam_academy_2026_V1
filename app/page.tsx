@@ -23,21 +23,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
+import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
-const COMPLETED_LESSONS_KEY = "kanam.completedLessonIds";
 const USER_NAME_KEY = "kanam.userName";
-
-function loadCompletedLessonIdsOrNull(): string[] | null {
-  try {
-    const raw = window.localStorage.getItem(COMPLETED_LESSONS_KEY);
-    if (raw === null) return null; // not set yet
-    const parsed = JSON.parse(raw) as unknown;
-    if (!Array.isArray(parsed)) return [];
-    return parsed.filter((x): x is string => typeof x === "string");
-  } catch {
-    return [];
-  }
-}
 
 type LessonRow = {
   id: string;
@@ -96,12 +84,17 @@ export default function Home() {
   const [studentName, setStudentName] = React.useState<string>("Student");
   const [completedIds, setCompletedIds] = React.useState<string[]>([]);
   const [hasSavedProgress, setHasSavedProgress] = React.useState<boolean>(false);
+  const [studentDbId, setStudentDbId] = React.useState<string>("");
   const [resetOpen, setResetOpen] = React.useState<boolean>(false);
   const [resetStep, setResetStep] = React.useState<1 | 2 | 3>(1);
 
-  const resetProgress = () => {
+  const resetProgress = async () => {
+    if (!studentDbId) return;
     try {
-      window.localStorage.setItem(COMPLETED_LESSONS_KEY, JSON.stringify([]));
+      const supabase = createSupabaseBrowserClient();
+      // Requires RLS delete policies on lesson_progress / progress_events.
+      await supabase.from("lesson_progress").delete().eq("student_id", studentDbId);
+      await supabase.from("progress_events").delete().eq("student_id", studentDbId);
     } catch {
       // ignore
     }
@@ -115,27 +108,47 @@ export default function Home() {
   };
 
   React.useEffect(() => {
-    // If we don't know the user's name yet, send them through onboarding.
-    try {
-      const storedName = window.localStorage.getItem(USER_NAME_KEY);
-      if (!storedName) {
+    (async () => {
+      const supabase = createSupabaseBrowserClient();
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) {
         router.replace("/welcome");
         return;
       }
-      setStudentName(storedName);
-    } catch {
-      // ignore
-    }
 
-    const saved = loadCompletedLessonIdsOrNull();
-    // If there's no saved progress yet, start with Lesson 1 completed (demo-friendly)
-    if (saved === null) {
-      setHasSavedProgress(false);
-      setCompletedIds(["lesson-1"]);
-      return;
-    }
-    setHasSavedProgress(true);
-    setCompletedIds(saved);
+      // Ensure a student profile exists and use it for progress.
+      const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+      const ensureJson = (await ensureRes.json()) as any;
+      const studentId = String(ensureJson?.student?.id ?? "");
+      const displayName = String(ensureJson?.student?.display_name ?? "");
+      if (studentId) setStudentDbId(studentId);
+      if (displayName) {
+        setStudentName(displayName);
+        try {
+          window.localStorage.setItem(USER_NAME_KEY, displayName);
+        } catch {
+          // ignore
+        }
+      }
+
+      // Load progress from Supabase (per authenticated user).
+      if (studentId) {
+        const { data: rows } = await supabase
+          .from("lesson_progress")
+          .select("lesson_id, success")
+          .eq("student_id", studentId);
+        const completed =
+          (rows ?? [])
+            .filter((r: any) => Boolean(r?.success))
+            .map((r: any) => String(r?.lesson_id))
+            .filter(Boolean) ?? [];
+        setCompletedIds(completed);
+        setHasSavedProgress(true);
+      } else {
+        setHasSavedProgress(false);
+        setCompletedIds([]);
+      }
+    })();
   }, [router]);
 
   const completedCount = lessons.filter((l) => completedIds.includes(l.id)).length;

@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 
 export function createSupabaseBrowserClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -10,6 +10,7 @@ export function createSupabaseBrowserClient() {
     );
   }
 
-  return createClient(url, anonKey);
+  // Use the SSR helper so auth persists via cookies (server routes can read the session).
+  return createBrowserClient(url, anonKey);
 }
 
