@@ -1162,15 +1162,44 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const readyToSubmitScratch = lesson.isSubmissionValid(scratchCode, runtime);
   const guidedTouched = guidedCode.trim() !== lesson.starterCode.trim();
   const scratchTouched = scratchCode.trim() !== "";
-  const progressPercent = React.useMemo(
-    () => {
-      // Progress is ALWAYS based on "Try it from scratch" (the one that counts).
-      if (!scratchCode.trim() && !submitted) return 0;
-      const pct = lesson.computeProgressPercent(scratchCode, submitted, runtime);
-      return Math.max(0, Math.min(100, pct));
-    },
-    [scratchCode, submitted, runtime, lesson]
-  );
+
+  const guidedFillPercent = React.useMemo(() => {
+    // Guided progress is based on how many ____ blanks are filled in (from starterCode → current guidedCode).
+    const totalBlanks = (lesson.starterCode.match(/____/g) ?? []).length;
+    if (totalBlanks === 0) return guidedTouched ? 100 : 0;
+    const remaining = (guidedCode.match(/____/g) ?? []).length;
+    const done = Math.max(0, Math.min(totalBlanks, totalBlanks - remaining));
+    return Math.round((done / totalBlanks) * 100);
+  }, [guidedCode, guidedTouched, lesson.starterCode]);
+
+  const scratchProgressPercent = React.useMemo(() => {
+    if (!scratchCode.trim() && !submitted) return 0;
+    const pct = lesson.computeProgressPercent(scratchCode, submitted, runtime);
+    return Math.max(0, Math.min(100, pct));
+  }, [scratchCode, submitted, runtime, lesson]);
+
+  const progressPercent = React.useMemo(() => {
+    // Overall progress = blend of Guided fill progress + Scratch progress.
+    // This makes the bar move as learners work through both sections.
+    if (submitted) return 100;
+
+    const guidedActive = guidedFillPercent > 0 || guidedTouched;
+    const scratchActive = scratchTouched || scratchProgressPercent > 0;
+
+    const GW = guidedActive ? 0.4 : 0;
+    const SW = scratchActive ? 0.6 : 0;
+    const denom = GW + SW;
+    if (denom === 0) return 0;
+
+    const blended = (guidedFillPercent * GW + scratchProgressPercent * SW) / denom;
+    return Math.round(Math.max(0, Math.min(100, blended)));
+  }, [
+    submitted,
+    guidedFillPercent,
+    guidedTouched,
+    scratchTouched,
+    scratchProgressPercent,
+  ]);
   const cfuBonusPercent = React.useMemo(() => {
     const total = lesson.cfu.length;
     if (!total) return 0;
@@ -1325,21 +1354,42 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   };
 
   const LessonHeader = (
-    <div className="flex items-start justify-between gap-3">
-      <div className="min-w-0">
-        <div className="flex items-center gap-2">
-          <Image src="/images/Logo.png" alt="Kanam Academy logo" width={18} height={18} />
-          <p className="text-xs font-semibold uppercase tracking-widest text-slate-600">
+    <div className="w-full">
+      {/* Top row: brand + chips + actions */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <Image
+            src="/images/Logo.png"
+            alt="Kanam Academy logo"
+            width={30}
+            height={30}
+            className="drop-shadow-sm"
+          />
+          <p className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-slate-600">
             Lesson Hub
           </p>
         </div>
-        <h1 className="mt-1 truncate text-xl font-semibold tracking-tight text-slate-900 md:text-2xl">
-          {lesson.title}
-        </h1>
-        <p className="mt-1 text-sm text-slate-600">{lesson.goal}</p>
-      </div>
-      <div className="flex flex-col items-end gap-2">
-        <div className="flex items-center gap-2">
+
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          <Badge
+            variant="secondary"
+            className="border border-slate-200 bg-white px-3 py-1 shadow-sm"
+          >
+            <Zap className="mr-1 h-4 w-4 text-[var(--accent)]" />
+            {lesson.xpReward} XP
+          </Badge>
+          <Badge
+            variant={submitted ? "success" : "outline"}
+            className={[
+              "border border-slate-200 bg-white px-3 py-1 shadow-sm",
+              submitted ? "animate-pulse" : "",
+            ].join(" ")}
+          >
+            {lesson.badge}
+          </Badge>
+
+          <div className="mx-1 hidden h-6 w-px bg-slate-200/70 sm:block" />
+
           <Button asChild variant="outline" size="sm">
             <Link href="/dashboard">Dashboard</Link>
           </Button>
@@ -1377,16 +1427,16 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             </Button>
           )}
         </div>
-        <Badge variant="secondary" className="shrink-0">
-          <Zap className="mr-1 h-3.5 w-3.5 text-[var(--accent)]" />
-          {lesson.xpReward} XP
-        </Badge>
-        <Badge
-          variant={submitted ? "success" : "outline"}
-          className={submitted ? "animate-pulse" : ""}
-        >
-          {lesson.badge}
-        </Badge>
+      </div>
+
+      {/* Title row: full width */}
+      <div className="mt-3">
+        <h1 className="text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
+          {lesson.title}
+        </h1>
+        <p className="mt-2 max-w-4xl text-base leading-relaxed text-slate-600 md:text-lg">
+          {lesson.goal}
+        </p>
       </div>
     </div>
   );
