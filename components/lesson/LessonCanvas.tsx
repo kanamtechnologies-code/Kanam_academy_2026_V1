@@ -113,7 +113,19 @@ function injectBeforePrompt(terminal: string, prompt: string, injectionBody: str
   return `${before}\n${injectionBody}${after}`;
 }
 
-type MiniValue = string | number | boolean;
+type MiniValue = string | number | boolean | MiniList | MiniDict;
+
+// Use interfaces here (instead of type aliases) to allow recursive types without TS circular alias errors.
+interface MiniList extends Array<MiniValue> {}
+interface MiniDict {
+  [key: string]: MiniValue;
+}
+
+function miniToString(v: MiniValue): string {
+  if (Array.isArray(v)) return JSON.stringify(v);
+  if (v && typeof v === "object") return JSON.stringify(v);
+  return String(v);
+}
 
 function cn(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -155,6 +167,28 @@ const COACH_HIGHLIGHT: Record<
   elif: { variant: "yellow" },
   else: { variant: "yellow" },
   while: { variant: "yellow" },
+  for: { variant: "yellow" },
+  "range()": { variant: "yellow" },
+  indentation: { variant: "yellow" },
+  loop: { variant: "yellow" },
+  pattern: { variant: "yellow" },
+  predict: { variant: "yellow" },
+  condition: { variant: "yellow" },
+  iteration: { variant: "yellow" },
+  list: { variant: "yellow" },
+  memory: { variant: "yellow" },
+  append: { variant: "yellow" },
+  remove: { variant: "yellow" },
+  dictionary: { variant: "yellow" },
+  function: { variant: "yellow" },
+  def: { variant: "yellow" },
+  call: { variant: "yellow" },
+  reuse: { variant: "yellow" },
+  key: { variant: "yellow" },
+  keys: { variant: "yellow" },
+  value: { variant: "yellow" },
+  values: { variant: "yellow" },
+  "organized memory": { variant: "yellow" },
   True: { variant: "yellow" },
   False: { variant: "yellow" },
   variable: { variant: "yellow" },
@@ -239,7 +273,7 @@ function renderCoachInline(text: string): React.ReactNode[] {
 
     // Second pass: auto-highlight known tokens inside plain text.
     const autoRe =
-      /\bcase-sensitive\b|\bvariable\b|\bliteral\b|\bSubmit\b|\bRun\b|\btest\b|\bif\b|\belif\b|\belse\b|\bwhile\b|\bTrue\b|\bFalse\b|input\(\)|print\(\)/g;
+      /\bcase-sensitive\b|\bvariable\b|\bliteral\b|\bSubmit\b|\bRun\b|\btest\b|\bindentation\b|\bloop\b|\bpattern\b|\bpredict\b|\bcondition\b|\biteration\b|\blist\b|\bmemory\b|\bappend\b|\bremove\b|\bdictionary\b|\bkey\b|\bkeys\b|\bvalue\b|\bvalues\b|\borganized memory\b|\bfunction\b|\bdef\b|\bcall\b|\breuse\b|\bif\b|\belif\b|\belse\b|\bwhile\b|\bfor\b|\bTrue\b|\bFalse\b|input\(\)|print\(\)|range\(\)/g;
 
     let last = 0;
     let m: RegExpExecArray | null;
@@ -271,19 +305,63 @@ function renderCoachInline(text: string): React.ReactNode[] {
 
 function renderCoachNote(text: string) {
   const lines = text.split("\n");
-  return (
-    <div className="space-y-2">
-      {lines.map((line, idx) => {
-        const isBlank = line.trim().length === 0;
-        if (isBlank) return <div key={`sp-${idx}`} className="h-2" />;
-        return (
-          <p key={`ln-${idx}`} className="leading-relaxed">
-            {renderCoachInline(line)}
-          </p>
-        );
-      })}
-    </div>
-  );
+  const out: React.ReactNode[] = [];
+
+  let inCode = false;
+  let codeLines: string[] = [];
+  let key = 0;
+
+  const flushCode = () => {
+    if (!codeLines.length) return;
+    out.push(
+      <div
+        key={`code-${key++}`}
+        className="rounded-xl border border-slate-200 bg-slate-50/80 p-3 font-mono text-xs text-slate-900 shadow-inner"
+      >
+        <pre className="whitespace-pre-wrap">{codeLines.join("\n")}</pre>
+      </div>
+    );
+    codeLines = [];
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    // Simple fenced code blocks for coach notes:
+    // ```
+    // code here
+    // ```
+    if (trimmed === "```") {
+      if (inCode) {
+        inCode = false;
+        flushCode();
+      } else {
+        inCode = true;
+      }
+      continue;
+    }
+
+    if (inCode) {
+      codeLines.push(line);
+      continue;
+    }
+
+    if (trimmed.length === 0) {
+      out.push(<div key={`sp-${key++}`} className="h-2" />);
+      continue;
+    }
+
+    out.push(
+      <p key={`ln-${key++}`} className="leading-relaxed">
+        {renderCoachInline(line)}
+      </p>
+    );
+  }
+
+  // If they forgot to close a fence, render what we have.
+  flushCode();
+
+  return <div className="space-y-2">{out}</div>;
 }
 
 const WORD_HELP: Array<{
@@ -589,7 +667,7 @@ function evalMiniExpr(expr: string, env: Record<string, MiniValue>): string | nu
   const strCall = t.match(/^str\s*\(\s*([A-Za-z_]\w*)\s*\)$/);
   if (strCall) {
     const v = env[strCall[1]];
-    return v === undefined ? "" : String(v);
+    return v === undefined ? "" : miniToString(v);
   }
 
   if (/^(True|False)$/.test(t)) return t === "True" ? "True" : "False";
@@ -598,7 +676,16 @@ function evalMiniExpr(expr: string, env: Record<string, MiniValue>): string | nu
 
   if (/^[A-Za-z_]\w*$/.test(t)) {
     const v = env[t];
-    return v === undefined ? "" : String(v);
+    return v === undefined ? "" : miniToString(v);
+  }
+
+  const dictGet = t.match(/^([A-Za-z_]\w*)\[\s*(["'][^"']+["'])\s*\]\s*$/);
+  if (dictGet) {
+    const obj = env[dictGet[1]];
+    if (!obj || typeof obj !== "object" || Array.isArray(obj)) return "";
+    const key = unquote(dictGet[2]);
+    const v = (obj as MiniDict)[key];
+    return v === undefined ? "" : miniToString(v);
   }
 
   const parts = splitTopLevelPlus(t);
@@ -632,8 +719,13 @@ type MiniLine = { indent: number; text: string; raw: string; lineNo: number };
 type MiniStmt =
   | { kind: "assign"; name: string; expr: string; lineNo: number }
   | { kind: "print"; expr: string; lineNo: number }
+  | { kind: "list_call"; name: string; method: "append" | "remove" | "pop"; arg?: string; lineNo: number }
+  | { kind: "dict_set"; name: string; key: string; expr: string; lineNo: number }
+  | { kind: "def"; name: string; body: MiniStmt[]; lineNo: number }
+  | { kind: "call"; name: string; lineNo: number }
   | { kind: "if"; branches: Array<{ test?: string; body: MiniStmt[] }>; lineNo: number }
-  | { kind: "while"; test: string; body: MiniStmt[]; lineNo: number };
+  | { kind: "while"; test: string; body: MiniStmt[]; lineNo: number }
+  | { kind: "for"; varName: string; rangeExpr: string; body: MiniStmt[]; lineNo: number };
 
 function stripInlineComment(s: string) {
   // Keep it simple: strip '#' when not inside quotes.
@@ -686,6 +778,8 @@ function parseBlock(lines: MiniLine[], startIdx: number, indent: number): { body
     const txt = line.text;
     const ifMatch = txt.match(/^if\s+(.+)\s*:\s*$/);
     const whileMatch = txt.match(/^while\s+(.+)\s*:\s*$/);
+    const forMatch = txt.match(/^for\s+([A-Za-z_]\w*)\s+in\s+range\s*\(\s*(.+?)\s*\)\s*:\s*$/);
+    const defMatch = txt.match(/^def\s+([A-Za-z_]\w*)\s*\(\s*\)\s*:\s*$/);
     if (ifMatch) {
       const branches: Array<{ test?: string; body: MiniStmt[] }> = [];
       const test = ifMatch[1].trim();
@@ -724,11 +818,64 @@ function parseBlock(lines: MiniLine[], startIdx: number, indent: number): { body
       continue;
     }
 
+    if (forMatch) {
+      const varName = forMatch[1].trim();
+      const rangeExpr = forMatch[2].trim();
+      const parsedBody = parseBlock(lines, i + 1, indent + 4);
+      body.push({ kind: "for", varName, rangeExpr, body: parsedBody.body, lineNo: line.lineNo });
+      i = parsedBody.nextIdx;
+      continue;
+    }
+
+    if (defMatch) {
+      const name = defMatch[1].trim();
+      const parsedBody = parseBlock(lines, i + 1, indent + 4);
+      body.push({ kind: "def", name, body: parsedBody.body, lineNo: line.lineNo });
+      i = parsedBody.nextIdx;
+      continue;
+    }
+
     const printMatch = txt.match(/^print\s*\(\s*(.*)\s*\)\s*$/);
     if (printMatch) {
       body.push({ kind: "print", expr: printMatch[1], lineNo: line.lineNo });
       i += 1;
       continue;
+    }
+
+    const listCallMatch = txt.match(
+      /^([A-Za-z_]\w*)\.(append|remove|pop)\(\s*(.*?)\s*\)\s*$/
+    );
+    if (listCallMatch) {
+      const name = listCallMatch[1];
+      const method = listCallMatch[2] as "append" | "remove" | "pop";
+      const argRaw = (listCallMatch[3] ?? "").trim();
+      const arg = argRaw.length ? argRaw : undefined;
+      body.push({ kind: "list_call", name, method, arg, lineNo: line.lineNo });
+      i += 1;
+      continue;
+    }
+
+    const dictSetMatch = txt.match(
+      /^([A-Za-z_]\w*)\[\s*(["'][^"']+["'])\s*\]\s*=\s*(.+)$/
+    );
+    if (dictSetMatch) {
+      const name = dictSetMatch[1];
+      const key = unquote(dictSetMatch[2]);
+      const expr = dictSetMatch[3].trim();
+      body.push({ kind: "dict_set", name, key, expr, lineNo: line.lineNo });
+      i += 1;
+      continue;
+    }
+
+    const callMatch = txt.match(/^([A-Za-z_]\w*)\s*\(\s*\)\s*$/);
+    if (callMatch) {
+      const name = callMatch[1].trim();
+      // Avoid treating built-ins as calls; only allow calling user-defined functions.
+      if (name !== "print" && name !== "input" && name !== "str" && name !== "range") {
+        body.push({ kind: "call", name, lineNo: line.lineNo });
+        i += 1;
+        continue;
+      }
     }
 
     const assignMatch = txt.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/);
@@ -751,6 +898,8 @@ function parseBlock(lines: MiniLine[], startIdx: number, indent: number): { body
 function evalMiniValue(expr: string, env: Record<string, MiniValue>): MiniValue {
   const t = expr.trim();
   if (!t) return "";
+  if (t === "[]") return [];
+  if (t === "{}") return {};
   if (isQuoted(t)) return unquote(t);
   if (/^(True|False)$/.test(t)) return t === "True";
   if (/^-?\d+$/.test(t)) return Number(t);
@@ -760,7 +909,7 @@ function evalMiniValue(expr: string, env: Record<string, MiniValue>): MiniValue 
   if (strCall) {
     const v = env[strCall[1]];
     if (v === undefined) throw new Error(`NameError: name '${strCall[1]}' is not defined`);
-    return String(v);
+    return miniToString(v);
   }
 
   // input("prompt") or input("prompt").lower()
@@ -801,6 +950,18 @@ function evalMiniValue(expr: string, env: Record<string, MiniValue>): MiniValue 
     return v;
   }
 
+  const dictGet = t.match(/^([A-Za-z_]\w*)\[\s*(["'][^"']+["'])\s*\]\s*$/);
+  if (dictGet) {
+    const obj = env[dictGet[1]];
+    if (!obj || typeof obj !== "object" || Array.isArray(obj)) {
+      throw new Error(`TypeError: '${dictGet[1]}' is not a dictionary`);
+    }
+    const key = unquote(dictGet[2]);
+    const v = (obj as MiniDict)[key];
+    if (v === undefined) throw new Error(`KeyError: '${key}'`);
+    return v;
+  }
+
   // x - 1 / x + 1 (common scoring)
   const math = t.match(/^([A-Za-z_]\w*)\s*([+-])\s*(\d+)\s*$/);
   if (math) {
@@ -836,6 +997,7 @@ function evalCondition(test: string, env: Record<string, MiniValue>): boolean {
 function runMiniPython(code: string, runtime: Record<string, string>, opts?: { maxSteps?: number }): MiniRunResult {
   const env: Record<string, MiniValue> = {};
   const stdout: string[] = [];
+  const functions: Record<string, MiniStmt[]> = {};
   const maxSteps = opts?.maxSteps ?? 500;
   let steps = 0;
 
@@ -879,7 +1041,71 @@ function runMiniPython(code: string, runtime: Record<string, string>, opts?: { m
 
     if (stmt.kind === "print") {
       const v = evalMiniValue(stmt.expr, env);
-      stdout.push(typeof v === "string" ? v : String(v));
+      stdout.push(typeof v === "string" ? v : miniToString(v));
+      return;
+    }
+
+    if (stmt.kind === "list_call") {
+      const cur = env[stmt.name];
+      if (!Array.isArray(cur)) {
+        throw new Error(
+          `TypeError on line ${stmt.lineNo}: '${stmt.name}' is not a list (did you forget: ${stmt.name} = [] ?) `
+        );
+      }
+
+      if (stmt.method === "append") {
+        if (!stmt.arg) throw new Error(`SyntaxError on line ${stmt.lineNo}: append() needs an argument`);
+        const v = evalMiniValue(stmt.arg, env);
+        cur.push(v);
+        return;
+      }
+
+      if (stmt.method === "remove") {
+        if (!stmt.arg) throw new Error(`SyntaxError on line ${stmt.lineNo}: remove() needs an argument`);
+        const v = evalMiniValue(stmt.arg, env);
+        const idx = cur.findIndex((x) => miniToString(x) === miniToString(v));
+        if (idx < 0) throw new Error(`ValueError on line ${stmt.lineNo}: item not found in list`);
+        cur.splice(idx, 1);
+        return;
+      }
+
+      // pop()
+      const idxRaw = stmt.arg ? evalMiniValue(stmt.arg, env) : undefined;
+      const idxNum =
+        idxRaw === undefined
+          ? cur.length - 1
+          : typeof idxRaw === "number"
+            ? Math.floor(idxRaw)
+            : Number.NaN;
+      if (!Number.isFinite(idxNum)) throw new Error(`TypeError on line ${stmt.lineNo}: pop() index must be a number`);
+      if (idxNum < 0 || idxNum >= cur.length)
+        throw new Error(`IndexError on line ${stmt.lineNo}: pop index out of range`);
+      cur.splice(idxNum, 1);
+      return;
+    }
+
+    if (stmt.kind === "dict_set") {
+      const cur = env[stmt.name];
+      if (!cur || typeof cur !== "object" || Array.isArray(cur)) {
+        throw new Error(
+          `TypeError on line ${stmt.lineNo}: '${stmt.name}' is not a dictionary (did you forget: ${stmt.name} = {} ?) `
+        );
+      }
+      (cur as MiniDict)[stmt.key] = evalMiniValue(stmt.expr, env);
+      return;
+    }
+
+    if (stmt.kind === "def") {
+      functions[stmt.name] = stmt.body;
+      return;
+    }
+
+    if (stmt.kind === "call") {
+      const body = functions[stmt.name];
+      if (!body) {
+        throw new Error(`NameError on line ${stmt.lineNo}: function '${stmt.name}' is not defined`);
+      }
+      for (const s of body) execStmt(s);
       return;
     }
 
@@ -905,6 +1131,21 @@ function runMiniPython(code: string, runtime: Record<string, string>, opts?: { m
         for (const s of stmt.body) execStmt(s);
         // If the loop uses input(), our lessons expect one “turn” per Run.
         if (/\binput\s*\(/.test(code)) break;
+      }
+      return;
+    }
+
+    if (stmt.kind === "for") {
+      const m = stmt.rangeExpr.match(/^(\d+)$|^([A-Za-z_]\w*)$/);
+      if (!m) throw new Error(`SyntaxError on line ${stmt.lineNo}: range(...) must be a number or a variable`);
+      const rangeVal = m[1] ? Number(m[1]) : env[m[2] ?? ""];
+      if (typeof rangeVal !== "number") {
+        throw new Error(`TypeError on line ${stmt.lineNo}: range(...) needs a number`);
+      }
+      const n = Math.max(0, Math.min(50, Math.floor(rangeVal)));
+      for (let idx = 0; idx < n; idx++) {
+        env[stmt.varName] = idx;
+        for (const s of stmt.body) execStmt(s);
       }
       return;
     }
@@ -956,6 +1197,7 @@ function analyzeScratch(code: string, runtime: Record<string, string>) {
     .map(([k, v]) => ({ key: k, value: v }));
 
   const hasWhile = /\bwhile\b/.test(code);
+  const hasFor = /\bfor\b/.test(code);
   const hasIf = /\bif\b/.test(code);
   const hasElif = /\belif\b/.test(code);
   const hasElse = /\belse\s*:/.test(code);
@@ -967,6 +1209,7 @@ function analyzeScratch(code: string, runtime: Record<string, string>) {
   if (vars.length) summaryBits.push("You saved info into memory boxes (variables).");
   if (hasIf || hasElif || hasElse) summaryBits.push("You used choices (if/elif/else).");
   if (hasWhile) summaryBits.push("You used a loop (while), so parts can repeat.");
+  if (hasFor) summaryBits.push("You used a loop (for), so parts can repeat.");
   if (hasPrint) summaryBits.push("You printed messages to the console.");
 
   const summary =
@@ -980,6 +1223,8 @@ function analyzeScratch(code: string, runtime: Record<string, string>) {
     tips.push("Tip: save input into a variable like name = input(\"...\").");
   if (hasWhile)
     tips.push("Heads up: loops can print multiple times — your output may repeat while it runs.");
+  if (hasFor)
+    tips.push("Heads up: loops can print multiple times — your output may repeat for each loop turn.");
 
   return { env, vars, printed, summary, tips };
 }
@@ -2052,7 +2297,11 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
                       <div key={key} className="flex items-start justify-between gap-3">
                         <span className="font-semibold">{key}</span>
                         <span className="font-mono text-xs text-slate-700">
-                          {typeof value === "string" ? `"${value}"` : String(value)}
+                          {Array.isArray(value)
+                            ? JSON.stringify(value)
+                            : typeof value === "string"
+                              ? `"${value}"`
+                              : String(value)}
                         </span>
                       </div>
                     ))
