@@ -11,29 +11,30 @@ function asTerminal(body: string) {
 const lesson1: LessonConfig = {
   id: "lesson-1",
   title: "1. My First AI Helper",
-  goal: "Teach your computer to introduce itself using Python!",
+  goal: "Write your first Python program: use a variable + print() to introduce your AI helper.",
   xpReward: 50,
   badge: "🤖 The Awakener",
   assignmentTitle: "Your mission",
   assignmentBody:
-    "In the scratch box, rebuild your program so the console prints ONE sentence that includes YOUR name.",
+    "In the scratch box, rebuild your program so the console prints ONE sentence that includes your name.",
   assignmentChecklist: [
     'Create a variable like: name = "Alex" (quotes included).',
     'Print using the variable: print("Hello! I am " + name)',
-    "Make sure there’s a space after “am ” inside the quotes.",
+    'Make sure there’s a space after "am " inside the quotes.',
     "Use lowercase print (not Print).",
+    "Run it and confirm your output includes your name.",
   ],
   starterCode: `# Fill in the blanks 👇
 name = "____"            # put your name
 print("Hello! I am " + ____)  # use the variable
 `,
   instructorScript:
-    "Coach’s note:\nToday you’re giving your bot its **first memory**.\n\nA **variable** is like a labeled box. When you write:\nname = \"Alex\"\nYou are putting the word Alex into the box called name.\n\nThen we make the bot speak using print(...). This is the part where your code turns into words on the screen.\n\nHere’s how to think like a coder:\n- First, fill in the blanks so your program has a name.\n- Then, make sure your print line uses the variable (the box), not the blank.\n- Press Run and read the console like it’s your bot talking.\n\nTwo super common mistakes (and how to fix them):\n- Quotes: If you forget quotes, Python thinks you’re naming another variable.\n- Spaces: Python is **literal** (it does exactly what you typed). If you want a space after \"am\", you must include it inside the quotes.\n\nMini goal: make the console show one clean sentence that includes YOUR name.",
+    "Coach’s note:\nWelcome to Kanam Academy.\nToday, you’re going to teach a computer how to introduce itself.\n\nBig idea (this is also a core AI idea):\n- Computers (and AI systems) do NOT guess.\n- They follow instructions exactly.\n\nWhat you’re building:\n- A **variable** that stores text (your name).\n- A **print()** line that displays a full sentence.\n\nHere’s the program you’re aiming for:\nname = \"Alex\"\nprint(\"Hello! I am \" + name)\n\nTwo super common mistakes (and how to fix them):\n- Quotes: If you forget quotes, Python thinks you mean a variable.\n- Spaces: Python will NOT add spaces for you. Put the space inside the quotes: \"I am \"\n\nSuccess today = your scratch code runs without errors AND prints one sentence that includes your name.",
   kidExplain: [
     {
-      title: "What is a Variable?",
+      title: "Variables = labeled containers",
       text:
-        'A **variable** is a labeled box that holds information. In `name = "Kanam"`, the label is `name` and the value inside is `"Kanam"`.',
+        'A **variable** is a labeled box that stores information. In `name = "Alex"`, the label is `name` and the value inside is `"Alex"`.',
     },
     {
       title: "The Assignment Operator (=)",
@@ -50,38 +51,43 @@ print("Hello! I am " + ____)  # use the variable
       text:
         'The `+` joins pieces of text together. `"Hello! I am " + name` creates one single message. Note: Python doesn’t add spaces for you — you must put the space inside the quotes!',
     },
+    {
+      title: "AI idea: instructions → behavior",
+      text:
+        "Your AI helper will only do what you tell it. If the output is wrong, it means the instructions (code) need to be clearer.",
+    },
   ],
   steps: [
-    'Assign a Value: Create a variable called `name` and set it equal to your name in quotes (e.g., `name = "Alex"`).',
-    'Combine and Print: Use `print()` to combine the text `"Hello! I am "` with your `name` variable using a `+`.',
-    "Run: Press the Run button to see your AI speak in the console.",
-    "Common mistake: `print` must be lowercase. `Print` with a capital P will cause an error!",
+    'Create a variable: `name = "Alex"` (use YOUR name inside quotes).',
+    'Print a sentence using +: `print("Hello! I am " + name)`',
+    "Run your code and read the console output.",
+    "Fix common mistakes: missing quotes, missing spaces inside strings, or Print vs print.",
   ],
   cfu: [
     {
-      question: 'Why do we need a space inside the quotes like "Hello! "?',
+      question: 'Why do spaces inside quotation marks matter (like "I am ")?',
       answer:
-        "Python is literal. Without the space, it would look like: Hello!Kanam",
+        'Python is literal. If you don’t put the space in the quotes, the output will mash words together like "I amAlex".',
     },
     {
       question:
-        'What happens if you try to print name without quotes? What if you print "name" with quotes?',
+        'What is the difference between the variable name (name) and the string "name"?',
       answer:
-        "Without quotes, it prints the value inside the box. With quotes, it prints the word name.",
+        "`name` is a variable that holds a value. \"name\" is just the letters n-a-m-e (text).",
     },
     {
-      question: 'Can a variable name have a space, like "my name"?',
+      question: "What are valid variable naming rules in Python?",
       answer:
-        "No. Use an underscore instead, like my_name.",
+        "Use letters, numbers, and underscores (no spaces). It can’t start with a number. Example: my_name, name2.",
     },
   ],
   tryThis: [
-    'The Swap: Change "Kanam" to your favorite superhero’s name.',
-    'The Mood Bot: Create a new variable `mood = "happy"` and add a line to print it!',
-    "Bonus: Try to print one sentence using TWO variables at once (like name and mood).",
+    "Change the greeting (Easy): Make the message say something new (still include your name).",
+    'Add a second variable (Medium): add `mood = "happy"` or `color = "blue"` and print a longer sentence.',
+    "Print multiple lines (Bonus): use two print() lines to introduce your helper in 2 sentences.",
   ],
   aiSafetyMoment:
-    "Remember: AI doesn't have feelings, it's just very good at following patterns!",
+    "Responsible AI: AI tools can help explain code, but they can’t learn for you. You’re responsible for the instructions you write and what your program outputs.",
   editorPlaceholder:
     '# From scratch idea:\n# name = "Alex"\n# print("Hello! I am " + name)\n',
   terminalPrompt: TERMINAL_PROMPT,
@@ -100,7 +106,7 @@ print("Hello! I am " + ____)  # use the variable
 
     if (code.includes("print(")) {
       return asTerminal(
-        `Hello! I am ${nameValue}\n\n(MVP note: output is hardcoded, but it will reflect your name.)`
+        `Hello! I am ${nameValue}\n\nTip: If your words look squished, add spaces inside your quotes.`
       );
     }
     return asTerminal("(no output)\nTip: add print(...) to see output.");

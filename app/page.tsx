@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   CheckCircle2,
-  Lock,
   Play,
   Sparkles,
   Trophy,
@@ -36,6 +35,12 @@ type LessonRow = {
   badgeIcon: string;
 };
 
+function weekSessionLabelFromIndex(idx: number) {
+  const week = Math.floor(idx / 2) + 1;
+  const session = (idx % 2) + 1;
+  return `Week ${week} · Session ${session}`;
+}
+
 const lessons: LessonRow[] = [
   {
     id: "lesson-1",
@@ -47,35 +52,75 @@ const lessons: LessonRow[] = [
   },
   {
     id: "lesson-2",
-    title: "Smart Choices Bot",
+    title: "My AI Helper Listens",
     href: "/learn/2",
     xp: 100,
-    badgeName: "Logic Master",
-    badgeIcon: "🧠",
+    badgeName: "Listener",
+    badgeIcon: "👂",
   },
   {
     id: "lesson-3",
-    title: "Mood Coach Bot",
+    title: "My AI Makes Choices",
     href: "/learn/3",
-    xp: 600,
-    badgeName: "Empathy Engineer",
+    xp: 150,
+    badgeName: "Decision Maker",
     badgeIcon: "🧠",
   },
   {
     id: "lesson-4",
-    title: "Mini Quiz Bot",
+    title: "Smarter AI Rules",
     href: "/learn/4",
-    xp: 800,
-    badgeName: "Quiz Master",
-    badgeIcon: "🎓",
+    xp: 250,
+    badgeName: "Rule Builder",
+    badgeIcon: "🧠",
   },
   {
     id: "lesson-5",
-    title: "KanamBot Chat Loop",
+    title: "AI Repeats Tasks",
     href: "/learn/5",
-    xp: 1000,
-    badgeName: "Python Pioneer",
-    badgeIcon: "🏆",
+    xp: 300,
+    badgeName: "Loop Starter",
+    badgeIcon: "🔁",
+  },
+  {
+    id: "lesson-6",
+    title: "Patterns and Predictions",
+    href: "/learn/6",
+    xp: 350,
+    badgeName: "Pattern Finder",
+    badgeIcon: "🔍",
+  },
+  {
+    id: "lesson-7",
+    title: "AI Notices Patterns",
+    href: "/learn/7",
+    xp: 400,
+    badgeName: "Pattern Spotter",
+    badgeIcon: "🧠",
+  },
+  {
+    id: "lesson-8",
+    title: "AI Remembers Choices",
+    href: "/learn/8",
+    xp: 450,
+    badgeName: "Memory Builder",
+    badgeIcon: "🧺",
+  },
+  {
+    id: "lesson-9",
+    title: "Organizing Memory",
+    href: "/learn/9",
+    xp: 500,
+    badgeName: "Memory Organizer",
+    badgeIcon: "🗂️",
+  },
+  {
+    id: "lesson-10",
+    title: "Teaching the Bot Skills (Functions)",
+    href: "/learn/10",
+    xp: 550,
+    badgeName: "Skill Builder",
+    badgeIcon: "🧩",
   },
 ];
 
@@ -187,7 +232,10 @@ export default function Home() {
               <Button asChild size="lg" className="shadow-sm">
                 <Link href={nextLesson.href}>
                   <Play className="h-4 w-4" />
-                  Next step: Start {nextLesson.title}
+                  Next step: Start {nextLesson.title}{" "}
+                  <span className="text-white/80">
+                    ({weekSessionLabelFromIndex(Math.max(0, activeIndex))})
+                  </span>
                 </Link>
               </Button>
             ) : (
@@ -315,7 +363,6 @@ export default function Home() {
               {lessons.map((lesson, idx) => {
                 const completed = completedIds.includes(lesson.id);
                 const isActive = idx === activeIndex && !completed;
-                const locked = !completed && idx > activeIndex;
 
                 return (
                   <Card
@@ -327,7 +374,6 @@ export default function Home() {
                         : isActive
                           ? "border-[var(--brand)] shadow-[0_0_0_1px_rgba(24,161,109,0.25),0_0_24px_rgba(24,161,109,0.10)]"
                           : "border-slate-200",
-                      locked ? "opacity-60 grayscale" : "",
                     ].join(" ")}
                   >
                     <CardContent className="flex items-center justify-between gap-4 p-5">
@@ -335,15 +381,13 @@ export default function Home() {
                         <div className="mt-0.5">
                           {completed ? (
                             <CheckCircle2 className="h-5 w-5 text-[var(--brand)]" />
-                          ) : locked ? (
-                            <Lock className="h-5 w-5 text-slate-500" />
                           ) : (
                             <Play className="h-5 w-5 text-[var(--accent)]" />
                           )}
                         </div>
                         <div>
                           <p className="text-xs text-slate-500">
-                            Lesson {idx + 1}
+                            {weekSessionLabelFromIndex(idx)}
                             {isActive ? (
                               <span className="ml-2 rounded-full bg-[var(--brand)]/15 px-2 py-0.5 text-[10px] font-semibold text-[var(--brand)]">
                                 Next lesson
@@ -364,7 +408,7 @@ export default function Home() {
                           <Button asChild variant="secondary">
                             <Link href={lesson.href}>Review</Link>
                           </Button>
-                        ) : isActive && lesson.href ? (
+                        ) : lesson.href ? (
                           <Button asChild className="px-6">
                             <Link href={lesson.href}>Start</Link>
                           </Button>

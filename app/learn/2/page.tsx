@@ -10,30 +10,25 @@ function asTerminal(body: string) {
 
 const lesson2: LessonConfig = {
   id: "lesson-2",
-  title: "2. Smart Choices Bot",
-  goal: "Make your bot listen, think, and choose what to say!",
+  title: "2. My AI Helper Listens",
+  goal: "Use input() to collect information and respond using the user’s input.",
   xpReward: 100,
-  badge: "🧠 Logic Master",
+  badge: "👂 Listener",
   assignmentTitle: "Your mission",
   assignmentBody:
-    "In the scratch box, build a bot that asks a yes/no question and says different things based on the answer.",
+    "In the scratch box, build an AI helper that asks for a name and then responds using that name.",
   assignmentChecklist: [
-    'Use input(): status = input("... (yes/no): ")',
-    'Use an if check: if status == "yes":',
-    "Add an else: for anything that isn’t yes.",
-    "Put print(...) lines INSIDE the if/else (indented).",
-    'Test it twice: once with "yes" and once with "no".',
+    'Use input(): name = input("What is your name? ")',
+    "Store the answer in a variable called name.",
+    'Print a response using +: print("Nice to meet you, " + name)',
+    "Test it with different names and confirm the output changes.",
   ],
   starterCode: `# Fill in the blanks 👇
-status = input("____ (yes/no): ")
-
-if status == "____":
-    print("AI says: ____")
-else:
-    print("AI says: ____")
+name = input("What is your name? ")
+print("Nice to meet you, " + ____)
 `,
   instructorScript:
-    "Coach’s note:\nToday your bot upgrades from “talking at you” to **actually listening**.\n\nWe do that with input(). Think of input() like a pause button:\n- Your program stops.\n- The user types something.\n- When they press Enter, that answer gets saved in a variable.\n\nThen we add the bot’s brain: if / else.\nIt’s like giving your bot two doors:\n- If the answer matches what you’re looking for, go through Door A.\n- Otherwise, go through Door B.\n\nBig idea: Python checks your if line as a True/False question. If it’s True, it runs the indented lines under it and skips the else.\n\nTwo things to watch for:\n- `==` vs `=`: `=` puts a value in a box. `==` asks “are these the same?”\n- Indent: the lines under if/else must be pushed to the right so Python knows what belongs to what.\n\nHow to test like a pro:\nRun it once with “yes”, then run it again with “no” and make sure you see two different outputs.",
+    "Coach’s note:\nLast time, our AI helper could talk.\nToday, we’re going to teach it how to **listen**.\n\nWe do that with input(). Think of input() like a pause button:\n- Your program stops.\n- The user types something.\n- When they press Enter, that answer becomes a value.\n\nImportant AI idea:\n- AI systems respond to input, but they do NOT think or choose answers on their own.\n- Different input can create different output, but the behavior still follows rules written by humans.\n\nKey reminder:\n- input() always returns text (a string).\n- If you want to use the input later, store it in a variable.\n\nHow to test like a pro:\nRun it with two different names and watch how the output changes.",
   kidExplain: [
     {
       title: "What is input()?",
@@ -41,133 +36,108 @@ else:
         "This command pauses the program and waits for the user to type something. Whatever they type gets saved into a variable (your bot’s “memory box”).",
     },
     {
-      title: 'The "Fork in the Road" (if)',
+      title: "Input is always text",
       text:
-        "An if statement checks a condition. If the condition is True, Python runs the code indented underneath it.",
+        "Even if you type numbers, input() gives your program text (a string). That’s why we often store it in a variable first.",
     },
     {
-      title: "The Double Equals (==)",
+      title: "Store input in a variable",
       text:
-        "In Python, `=` puts something in a box, but `==` asks a question: “Is this equal to that?” Always use `==` inside an if statement!",
+        "We save the user’s answer in a variable like name so we can reuse it later in our print() message.",
     },
     {
-      title: "The Colon (:) and Indent",
+      title: "Output uses the input",
       text:
-        "The colon at the end of if and else is like a START signal. Everything pushed to the right (indented) belongs to that choice.",
+        "When you print using the variable, the program’s output changes based on what the user typed.",
     },
   ],
   steps: [
-    'Ask a Question: Use `status = input("Are you tired? (yes/no): ")` to get the user’s mood.',
-    'Set the If Condition: Write `if status == "yes":` (don’t forget the colon!).',
-    "Add the Reaction: On the next line (indented!), use print() to give advice for being tired.",
-    'The Catch-All (else): Use `else:` to tell the AI what to say if the user says anything other than "yes."',
-    "Common mistake: If you get an IndentationError, make sure your print() lines are pushed to the right using the Tab key!",
+    'Ask the question: `name = input("What is your name? ")`',
+    "Store the input in a variable called name.",
+    'Print a response that uses the variable: `print("Nice to meet you, " + name)`',
+    "Run it with different inputs to confirm different names produce different output.",
   ],
   cfu: [
     {
-      question: 'What happens if the user types "YES" instead of "yes"?',
+      question: "Why does input() always return text?",
       answer:
-        'Python is case-sensitive! It will jump to the else section because "YES" does not equal "yes".',
+        "Because input() reads what the user typed as characters. In Python, that’s a string (text).",
     },
     {
-      question: "Why do we need the : at the end of the if line?",
-      answer: "It tells Python that a block of 'choice' code is about to start.",
+      question: "What happens if you use input() but don’t store it in a variable?",
+      answer:
+        "You can’t reuse the answer later. The program will read it once, but you won’t have a named box to refer to.",
     },
     {
-      question: "What does input() do to the program?",
-      answer: "It pauses the code and waits for the user to press Enter.",
+      question: "How does changing the input change the output in this program?",
+      answer:
+        "The variable (like name) holds whatever the user typed, so the printed message changes when the input changes.",
     },
   ],
   tryThis: [
-    'Pizza Choice: Change the question to "Do you like pizza?" and update the responses.',
-    'The Middle Ground: Try adding an `elif status == "maybe":` line between the if and the else.',
-    "The Secret Code: Make an if statement that only triggers if the user types a secret password!",
+    "Ask two questions (Easy): Ask for a name AND a favorite color.",
+    "Change the response (Medium): Make your helper say something new using the name.",
+    "Use two inputs together (Bonus): Print one sentence that includes both answers.",
   ],
   aiSafetyMoment:
-    "Remember: AI can sound confident even when it’s wrong. Always test your code and double-check important facts!",
+    "Responsible AI: AI can respond to input, but it doesn’t understand like a human. Humans write the rules and are responsible for the outcomes.",
   editorPlaceholder:
-    '# From scratch idea:\n# status = input("Are you tired? (yes/no): ")\n# if status == "yes":\n#     print("...")\n# else:\n#     print("...")\n',
+    '# From scratch idea:\n# name = input("What is your name? ")\n# print("Nice to meet you, " + name)\n',
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/1",
   nextHref: "/learn/3",
   runtimeInputs: [
     {
-      key: "status",
-      label: 'Pretend you typed for: input("Are you tired?")',
-      placeholder: "yes or no",
-      defaultValue: "yes",
+      key: "name",
+      label: 'Pretend you typed for: input("What is your name? ")',
+      placeholder: "Alex",
+      defaultValue: "Alex",
     },
   ],
 
   getRunOutput: (code, runtime) => {
     if (code.includes("Print(")) {
-      return asTerminal(
-        "❌ Common mistake: Python needs lowercase print(...), not Print(...)."
-      );
+      return asTerminal("❌ Common mistake: Python needs lowercase print(...), not Print(...).");
     }
 
-    const answerRaw = (runtime?.status ?? "").trim();
-    if (!answerRaw) {
-      return asTerminal('Type "yes" or "no" in the input box, then press Run.');
-    }
-    const answer = answerRaw.toLowerCase();
-
-    const hasInput = /\bstatus\s*=\s*input\(/.test(code);
-    const hasIf = /\bif\s+status\s*==\s*["']yes["']\s*:/.test(code);
-    const hasElse = /\nelse\s*:/.test(code);
-
-    if (!hasInput) {
-      return asTerminal('Add: status = input("Are you tired? (yes/no): ")');
-    }
-    if (!hasIf) {
-      return asTerminal('Add: if status == "yes":   (don’t forget the colon!)');
-    }
-    if (!hasElse) {
-      return asTerminal("Add an else: so your bot has a second path.");
+    const nameRaw = (runtime?.name ?? "").trim();
+    if (!nameRaw) {
+      return asTerminal('Type a name (like "Alex") in the input box, then press Run.');
     }
 
-    if (answer === "yes") {
-      return asTerminal("AI says: Go grab a glass of water and rest!");
-    }
-    return asTerminal("AI says: Awesome! Let's keep building.");
+    const hasInput = /\bname\s*=\s*input\(/.test(code);
+    const hasPrint = /\bprint\s*\(/.test(code);
+    const printsWithName = /\bprint\s*\([\s\S]*\bname\b[\s\S]*\)\s*/.test(code);
+
+    if (!hasInput) return asTerminal('Add: name = input("What is your name? ")');
+    if (!hasPrint) return asTerminal("Add a print(...) line so your helper can respond.");
+    if (!printsWithName) return asTerminal('Make sure your print uses the name variable (example: print("Nice to meet you, " + name)).');
+
+    return asTerminal(`What is your name? ${nameRaw}\nNice to meet you, ${nameRaw}`);
   },
 
   computeProgressPercent: (code, submitted) => {
-    const hasInput = /\bstatus\s*=\s*input\(/.test(code);
-    const hasIfYes = /\bif\s+status\s*==\s*["']yes["']\s*:/.test(code);
-    const hasElse = /\nelse\s*:/.test(code);
-    const hasIndentedPrintIf =
-      /\bif\s+status\s*==\s*["']yes["']\s*:[^\n]*\n[ \t]+print\(/.test(code);
-    const hasIndentedPrintElse =
-      /\nelse\s*:[^\n]*\n[ \t]+print\(/.test(code);
-    const usesDoubleEquals = /\bif\s+status\s*==/.test(code);
+    const hasInput = /\bname\s*=\s*input\(/.test(code);
+    const hasPrint = /\bprint\s*\(/.test(code);
+    const usesName = /\bname\b/.test(code);
+    const usesGluePlus = code.includes("+");
 
-    const checks = [
-      hasInput,
-      usesDoubleEquals,
-      hasIfYes,
-      hasIndentedPrintIf,
-      hasElse,
-      hasIndentedPrintElse,
-    ];
+    const checks = [hasInput, hasPrint, usesName, usesGluePlus];
     const completed = checks.filter(Boolean).length;
     const percent = Math.round((completed / checks.length) * 100);
     return submitted ? 100 : percent;
   },
 
   isSubmissionValid: (code) =>
-    /\bstatus\s*=\s*input\(/.test(code) &&
-    /\bif\s+status\s*==\s*["']yes["']\s*:/.test(code) &&
-    /\nelse\s*:/.test(code) &&
-    /\bif\s+status\s*==\s*["']yes["']\s*:[^\n]*\n[ \t]+print\(/.test(code) &&
-    /\nelse\s*:[^\n]*\n[ \t]+print\(/.test(code) &&
+    /\bname\s*=\s*input\(/.test(code) &&
+    /\bprint\s*\(\s*["'][^"']*["']\s*\+\s*name\s*\)/.test(code) &&
     !code.includes("Print("),
 
   getSubmitOutput: (ok) =>
     ok
-      ? asTerminal("✅ Submitted! Your bot can listen and make a smart choice. 🎉")
+      ? asTerminal("✅ Submitted! Your AI helper listened and responded. 🎉")
       : asTerminal(
-          "❌ Almost! Make sure you have input(), an if status == \"yes\": line with a colon, an else:, and indented print() lines. Also check print is lowercase."
+          "❌ Almost! Make sure you have name = input(...), then print(\"Nice to meet you, \" + name). Also check print is lowercase."
         ),
 };
 

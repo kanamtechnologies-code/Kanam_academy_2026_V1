@@ -8,111 +8,100 @@ function asTerminal(body: string) {
   return `${TERMINAL_PROMPT} python main.py\n${body}\n${TERMINAL_PROMPT}`;
 }
 
-function normalizeIfLowerUsed(code: string, s: string) {
-  // Bonus: if they used .lower() on the mood input line, we simulate that behavior.
-  const usesLower = /mood\s*=\s*input\([^)]*\)\.lower\(\)/.test(code);
-  return usesLower ? s.toLowerCase() : s;
-}
-
 const lesson3: LessonConfig = {
   id: "lesson-3",
-  title: "3. Mood Coach Bot",
-  goal: "Use if / elif / else to build an AI that reacts to 3 different emotions.",
-  xpReward: 600,
-  badge: "🧠 Empathy Engineer",
+  title: "3. My AI Makes Choices",
+  goal: "Use if / else to make your AI respond differently based on input.",
+  xpReward: 150,
+  badge: "🧠 Decision Maker",
   assignmentTitle: "Your mission",
   assignmentBody:
-    "In the scratch box, build a Mood Coach that asks for a name + mood, then prints different advice for happy, sad, and tired.",
+    "In the scratch box, build an AI helper that asks for a name, then says a special message for Alex and a different message for everyone else.",
   assignmentChecklist: [
-    "Ask for name and mood using input().",
-    'Write one if + two elif + one else (in that order).',
-    "Each block prints a different message.",
-    "Optional power-up: use .lower() so HAPPY/Happy/happy all work.",
-    'Test 4 moods: "happy", "sad", "tired", and something random (like "bored").',
+    'Ask for a name using input("What is your name? ").',
+    'Write an if check using == : if name == "Alex":',
+    "Add an else: for everyone who isn’t Alex.",
+    "Put print(...) lines INSIDE the if/else (indented).",
+    'Test it twice: once with "Alex" and once with a different name.',
   ],
   starterCode: `# Fill in the blanks 👇
-name = input("____: ")
-mood = input("Mood (happy/sad/tired): ")
+name = input("What is your name? ")
 
-if mood == "____":
-    print("____")
-elif mood == "____":
-    print("____")
-elif mood == "____":
+if name == "____":
     print("____")
 else:
     print("____")
 `,
   instructorScript:
-    "Coach’s note:\nToday we’re giving your bot more than two choices — we’re building a **multi-feeling brain**.\n\nLast lesson was basically: yes/no.\nThis lesson is: happy/sad/tired/anything-else.\nThat’s what `elif` is for.\n\nHow Python “thinks” through your code:\n- It reads from the top.\n- It checks the first if.\n- If that is True, it runs that block and **stops** (it does NOT keep checking).\n- If it’s False, it tries the next elif… and so on… until else.\n\nYour job today:\n- Ask for a name (so the bot feels personal).\n- Ask for a mood.\n- Write one if + two elif + one else.\n\nCommon bug to expect (and it’s normal):\n- Case sensitivity: \"Happy\" is not the same as \"happy\". If you want your bot to handle all caps, try `.lower()`.\n\nHow to test like a real instructor:\nRun it 3 times with 3 moods (happy, sad, tired). You should get 3 different replies. Then try a random mood (like \"bored\") to make sure your else message shows up.",
+    "Coach’s note:\nLast week, our AI helper learned how to **listen**.\nToday, we’re going to teach it how to **make choices**.\n\nBig idea (very important):\n- The computer does NOT guess.\n- It checks your rule.\n- If the rule is True, it runs that block.\n- Otherwise, it runs the else block.\n\nThis is what many early AI systems look like:\n**rule-based decision making**.\nA human writes the rules. The program follows them exactly.\n\nTwo super common mistakes (watch for these):\n- `=` vs `==`: `=` assigns (puts a value in a box). `==` compares (asks a question).\n- Indentation: the lines under if/else MUST be indented so Python knows what belongs to each choice.\n\nHow to test like a teacher:\nRun it once with Alex (you should get the special message), then run it again with a different name (you should get the other message).",
   kidExplain: [
     {
-      title: "AI Superpower: Sentiment Analysis",
+      title: "AI Concept: Rules control behavior",
       text:
-        'AI can scan your words for **keywords** (like "happy" or "sad") to guess your mood. That’s called **Sentiment Analysis**. Today, we’re building the bot’s “emotional brain” using if/elif/else.',
+        "Many AI systems start as **rule-based systems**. That means a human writes rules, and the computer follows those rules exactly. Today your AI helper will follow one simple rule to decide what to say.",
     },
     {
-      title: "What is elif?",
+      title: "What is an if statement?",
       text:
-        '`elif` is short for **"else if"**. It lets your code check **more than two choices**. Python reads top-to-bottom and stops at the first match.',
+        "An `if` statement checks a condition. If the condition is True, Python runs the indented code under it.",
     },
     {
-      title: "String matching",
+      title: "else = the other path",
       text:
-        'We compare what the user typed to a word like `"happy"`. Matching is picky: `"Happy"` and `"happy"` are different unless you use `.lower()`.',
+        "An `else` block runs when the if condition is False. It’s your “plan B” so your program always has something to do.",
     },
     {
-      title: "Logical flow",
+      title: "Compare vs assign (== vs =)",
       text:
-        "Python checks your if first. If it’s True, it runs that block and skips the rest. If not, it tries elif, elif, and finally else.",
+        "`=` assigns (stores a value). `==` compares (checks if two values are equal). Inside an if, you almost always want `==`.",
+    },
+    {
+      title: "Indentation matters",
+      text:
+        "Indentation (spaces) tells Python which lines belong inside the if or else. If it’s not indented, Python can’t tell what you meant.",
     },
   ],
   steps: [
-    "Initialize the Conversation: Ask for the user’s name so the bot feels personal.",
-    'Capture the Mood: Use input() to ask: "How are you feeling today?" and save it in a variable called mood.',
-    'The First Check (if): If mood == "happy", print a high-energy response.',
-    'Middle Checks (elif): Add elif for "sad" and elif for "tired" with coach tips.',
-    "The Catch-All (else): For unknown feelings, print a kind message anyway.",
+    "Ask for the user’s name using input().",
+    'Write the rule: if name == "Alex":',
+    "Inside the if block, print a special message for Alex.",
+    "Add else: for everyone else.",
+    "Inside else, print a friendly message for any other name.",
   ],
   cfu: [
     {
+      question: "Symbols: What is the difference between = and == in Python?",
+      answer: "`=` assigns (stores a value). `==` compares (checks if two values are equal).",
+    },
+    {
+      question: "Structure: Why do the print lines need to be indented under if and else?",
+      answer:
+        "Because indentation tells Python which lines belong to each block. Without it, Python can’t tell what should run for each choice.",
+    },
+    {
       question:
-        'Logic: If the user types "happy," does Python even look at the "sad" or "tired" sections?',
-      answer: "No. It stops after the first True match!",
-    },
-    {
-      question: "Syntax: Why do we use == in the if line instead of just = ?",
-      answer: "`=` assigns (puts in a box). `==` compares (asks a question).",
-    },
-    {
-      question: "Structure: What happens if we forget to indent the print statements?",
-      answer: "Python will throw an IndentationError because the blocks aren’t clear.",
+        "Logic: If the name is Alex and the if condition is True, does Python run the else too?",
+      answer: "No. Only one path runs: if runs when True, else runs when False.",
     },
   ],
   tryThis: [
-    'The "Angry" Upgrade (Easy): Add elif mood == "angry": and print advice (like "Take 3 deep breaths").',
-    'The Activity Suggester (Medium): After advice, ask: input("Would you like to try that? (yes/no)")',
-    'The Caps-Lock Fix (Bonus): Try mood = input("...").lower() so "HAPPY" and "happy" both work!',
+    "Swap the special name (Easy): Change Alex to your own name.",
+    'Reverse it (Medium): Make the special message happen when the name is NOT Alex.',
+    'Add a second rule (Bonus): Add another if to check for a second special name (like "Sam").',
   ],
   aiSafetyMoment:
-    "Safety Tip: AI can guess emotions from words, but it can’t truly feel them. If someone is really struggling, talk to a trusted adult.",
+    "Responsible AI: Your AI helper is only following rules you wrote. If it behaves badly, the responsibility belongs to the human who wrote the rules.",
   editorPlaceholder:
-    '# From scratch idea:\n# name = input("Name: ")\n# mood = input("Mood: ").lower()\n# if mood == "happy":\n#     print("...")\n',
+    '# From scratch idea:\n# name = input("What is your name? ")\n# if name == "Alex":\n#     print("Welcome back, Alex!")\n# else:\n#     print("Hello there!")\n',
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/2",
   nextHref: "/learn/4",
   runtimeInputs: [
     {
       key: "name",
-      label: 'Pretend you typed for: input("Name:")',
+      label: 'Pretend you typed for: input("What is your name? ")',
       placeholder: "Alex",
       defaultValue: "Alex",
-    },
-    {
-      key: "mood",
-      label: "Pretend you typed for: input(\"Mood (happy/sad/tired):\")",
-      placeholder: "happy",
-      defaultValue: "happy",
     },
   ],
 
@@ -121,75 +110,42 @@ else:
       return asTerminal("❌ Common mistake: print must be lowercase (print).");
     }
 
-    const nameRaw = (runtime?.name ?? "").trim() || "friend";
-    const moodRaw = (runtime?.mood ?? "").trim();
-    if (!moodRaw) {
-      return asTerminal('Type a mood (happy/sad/tired) in the input box, then press Run.');
+    const nameRaw = (runtime?.name ?? "").trim();
+    if (!nameRaw) {
+      return asTerminal('Type a name (like "Alex") in the input box, then press Run.');
     }
 
-    const mood = normalizeIfLowerUsed(code, moodRaw);
-
     const hasNameInput = /\bname\s*=\s*input\(/.test(code);
-    const hasMoodInput = /\bmood\s*=\s*input\(/.test(code);
-    const hasIfHappy = /\bif\s+mood\s*==\s*["']happy["']\s*:/.test(code);
-    const hasElifSad = /\belif\s+mood\s*==\s*["']sad["']\s*:/.test(code);
-    const hasElifTired = /\belif\s+mood\s*==\s*["']tired["']\s*:/.test(code);
+    const hasIfAlex = /\bif\s+name\s*==\s*["']Alex["']\s*:/.test(code);
     const hasElse = /\nelse\s*:/.test(code);
 
     if (!hasNameInput) return asTerminal("Add Step 1: name = input(...)");
-    if (!hasMoodInput) return asTerminal("Add Step 2: mood = input(...)");
-    if (!hasIfHappy) return asTerminal('Add: if mood == "happy":  (don’t forget the colon!)');
-    if (!hasElifSad) return asTerminal('Add: elif mood == "sad":');
-    if (!hasElifTired) return asTerminal('Add: elif mood == "tired":');
-    if (!hasElse) return asTerminal("Add an else: for any other feeling.");
+    if (!hasIfAlex) return asTerminal('Add: if name == "Alex":  (don’t forget the colon!)');
+    if (!hasElse) return asTerminal("Add an else: for everyone who isn’t Alex.");
 
-    // Simulated conversation output
     const lines: string[] = [];
-    lines.push(`Hi! I'm Kanam Mood Coach. What's your name? ${nameRaw}`);
-    lines.push(`Great to see you, ${nameRaw}!`);
-    lines.push(`Tell me, are you feeling happy, sad, or tired? ${moodRaw}`);
-
-    if (mood === "happy") {
-      lines.push("That's what I like to hear! Go share that smile with someone.");
-    } else if (mood === "sad") {
-      lines.push("It's okay to feel down sometimes. Maybe a quick walk outside would help?");
-    } else if (mood === "tired") {
-      lines.push("Your brain needs a break! Try closing your eyes for 5 minutes.");
-    } else {
-      lines.push("I don't know that feeling yet, but I'm here for you anyway!");
-    }
-
-    if (!/\.lower\(\)/.test(code) && moodRaw !== moodRaw.toLowerCase()) {
-      lines.push(
-        "\nTip: Your code is case-sensitive. Try mood = input(...).lower() to handle HAPPY / Happy / happy."
-      );
-    }
+    lines.push(`What is your name? ${nameRaw}`);
+    if (nameRaw === "Alex") lines.push("Welcome back, Alex!");
+    else lines.push("Hello there!");
 
     return asTerminal(lines.join("\n"));
   },
 
   computeProgressPercent: (code, submitted) => {
     const hasNameInput = /\bname\s*=\s*input\(/.test(code);
-    const hasMoodInput = /\bmood\s*=\s*input\(/.test(code);
-    const usesIf = /\bif\s+mood\s*==/.test(code);
-    const hasIfHappy = /\bif\s+mood\s*==\s*["']happy["']\s*:/.test(code);
-    const hasElifSad = /\belif\s+mood\s*==\s*["']sad["']\s*:/.test(code);
-    const hasElifTired = /\belif\s+mood\s*==\s*["']tired["']\s*:/.test(code);
+    const usesIf = /\bif\s+name\s*==/.test(code);
+    const hasIfAlex = /\bif\s+name\s*==\s*["']Alex["']\s*:/.test(code);
     const hasElse = /\nelse\s*:/.test(code);
-    const hasIndentedPrints =
-      /\bif\s+mood\s*==[\s\S]*?\n[ \t]+print\(/.test(code) &&
-      /\belif\s+mood\s*==[\s\S]*?\n[ \t]+print\(/.test(code) &&
-      /\nelse\s*:[^\n]*\n[ \t]+print\(/.test(code);
+    const hasIndentedPrintIf = /\bif\s+name\s*==[\s\S]*?\n[ \t]+print\(/.test(code);
+    const hasIndentedPrintElse = /\nelse\s*:[^\n]*\n[ \t]+print\(/.test(code);
 
     const checks = [
       hasNameInput,
-      hasMoodInput,
       usesIf,
-      hasIfHappy,
-      hasElifSad,
-      hasElifTired,
+      hasIfAlex,
       hasElse,
-      hasIndentedPrints,
+      hasIndentedPrintIf,
+      hasIndentedPrintElse,
     ];
     const completed = checks.filter(Boolean).length;
     const percent = Math.round((completed / checks.length) * 100);
@@ -198,21 +154,17 @@ else:
 
   isSubmissionValid: (code) =>
     /\bname\s*=\s*input\(/.test(code) &&
-    /\bmood\s*=\s*input\(/.test(code) &&
-    /\bif\s+mood\s*==\s*["']happy["']\s*:/.test(code) &&
-    /\belif\s+mood\s*==\s*["']sad["']\s*:/.test(code) &&
-    /\belif\s+mood\s*==\s*["']tired["']\s*:/.test(code) &&
+    /\bif\s+name\s*==\s*["']Alex["']\s*:/.test(code) &&
     /\nelse\s*:/.test(code) &&
-    /\bif\s+mood\s*==[\s\S]*?\n[ \t]+print\(/.test(code) &&
-    /\belif\s+mood\s*==[\s\S]*?\n[ \t]+print\(/.test(code) &&
+    /\bif\s+name\s*==[\s\S]*?\n[ \t]+print\(/.test(code) &&
     /\nelse\s*:[^\n]*\n[ \t]+print\(/.test(code) &&
     !code.includes("Print("),
 
   getSubmitOutput: (ok) =>
     ok
-      ? asTerminal("✅ Submitted! Your Mood Coach can handle multiple feelings. 🌟")
+      ? asTerminal("✅ Submitted! Your AI makes choices using rules. 🎉")
       : asTerminal(
-          "❌ Almost! Make sure you have name input(), mood input(), if/elif/elif/else with colons, and indented print() lines. Also check print is lowercase."
+          '❌ Almost! Make sure you have name = input(...), an if name == "Alex": line with a colon, an else:, and indented print() lines. Also check print is lowercase.'
         ),
 };
 
