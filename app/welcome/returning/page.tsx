@@ -39,6 +39,13 @@ export default function WelcomeReturningPage() {
 
   React.useEffect(() => {
     setAnimateIn(false);
+    try {
+      const url = new URL(window.location.href);
+      const seeded = url.searchParams.get("email");
+      if (seeded) setEmail(seeded);
+    } catch {
+      // ignore
+    }
     const t = window.setTimeout(() => setAnimateIn(true), 10);
     return () => window.clearTimeout(t);
   }, []);

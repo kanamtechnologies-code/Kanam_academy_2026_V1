@@ -2,150 +2,199 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, GraduationCap, Loader2, Mail, Sparkles, UserRound, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { WelcomeShell } from "@/components/welcome/WelcomeShell";
-import { WelcomeVideoFader } from "@/components/welcome/WelcomeVideoFader";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 export default function WelcomePage() {
   const router = useRouter();
-  const [animateIn, setAnimateIn] = React.useState<boolean>(false);
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [loadingNew, setLoadingNew] = React.useState(false);
+  const [loadingReturning, setLoadingReturning] = React.useState(false);
+  const [returningError, setReturningError] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
-    setAnimateIn(false);
-    const t = window.setTimeout(() => setAnimateIn(true), 10);
-    return () => window.clearTimeout(t);
-  }, []);
+  const cardEnter = (delay: number) => ({
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { type: "spring" as const, stiffness: 260, damping: 22, delay },
+  });
 
-  // TODO: Check if user has a saved progress index.
+  const glassCardBase =
+    "rounded-[32px] bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out";
 
   return (
     <WelcomeBackground>
-      <div
-        className={[
-          "flex min-h-[calc(100dvh-160px)] w-full items-center justify-start px-4 md:px-10",
-          "transition-all duration-300 ease-out",
-          animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
-        ].join(" ")}
-      >
+      <div className="flex min-h-[calc(100dvh-160px)] w-full items-center justify-center">
         <WelcomeShell
+          containerClassName="mx-auto w-full max-w-[1100px]"
           title={
-            <>
-              Welcome to Kanam Academy
-            </>
+            <span className="inline-flex items-center gap-4">
+              <span>Welcome to Kanam Academy</span>
+            </span>
           }
-          subtitle="Choose your path: new learner setup or returning learner."
+          subtitle="Pick a path. We’ll save your progress and bring you right back where you left off."
         >
-          <div className="grid w-full gap-6 lg:grid-cols-3 lg:items-stretch">
-            {/* Left: New learner */}
-            <Card className="kanam-glow-card flex h-full flex-col">
-              <CardHeader>
-                <CardTitle className="text-white">I’m new here</CardTitle>
-                <CardDescription className="text-white/90">
-                  Create your profile once, then your progress saves automatically.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-1 flex-col gap-4">
-                <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white/90">
-                  <p className="text-sm font-extrabold text-white">You’ll set up:</p>
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
-                    <li>Your name + grade</li>
-                    <li>School (optional)</li>
-                    <li>Parent/guardian info (optional)</li>
-                  </ul>
-                </div>
-                <div className="mt-auto">
-                  <Button
-                    size="lg"
-                    className={[
-                      "h-14 w-full rounded-2xl px-6 text-base font-extrabold tracking-tight",
-                      "shadow-xl shadow-emerald-900/25",
-                      "bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700",
-                      "text-white hover:brightness-[1.04]",
-                      "focus-visible:ring-4 focus-visible:ring-white/20",
-                    ].join(" ")}
-                    onClick={() => router.push("/welcome/profile")}
-                  >
-                    Create profile <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+          <div className="mx-auto w-full max-w-[1000px]">
+            <div className="grid gap-12 md:grid-cols-2">
+              {/* New learner (priority) */}
+              <motion.div
+                {...cardEnter(0.0)}
+                whileHover={{ y: -8 }}
+                className={[glassCardBase, "p-10"].join(" ")}
+              >
+                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-600">
+                  New learner
+                </p>
+                <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-900">
+                  Create your profile
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  Set it up once. Then Kanam saves your progress automatically.
+                </p>
 
-            {/* Middle: Video */}
-            <Card className="kanam-glow-card flex h-full flex-col">
-              <CardContent className="pt-6">
-                <div className="overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm">
-                  <div className="relative aspect-video">
-                    <WelcomeVideoFader
-                      sources={[
-                        "/video/12893579-uhd_2160_3840_24fps.mp4",
-                        "/video/5495790-uhd_2560_1080_30fps.mp4",
-                        "/video/4497367-uhd_3840_2160_25fps.mp4",
-                        "/video/4495343-uhd_3840_2160_25fps.mp4",
-                        "/video/8733062-uhd_3840_2160_30fps.mp4",
-                      ]}
-                      intervalMs={9000}
-                      fadeMs={900}
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/55 via-transparent to-white/10" />
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 p-4">
-                      <div className="max-w-[34rem] rounded-2xl border border-white/65 bg-slate-950/75 p-5 text-white shadow-xl">
-                        <p className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                          Kanam Academy
-                        </p>
-                        <p className="mt-1 text-2xl font-black tracking-tight">
-                          Real Skills. Real Instructors. Real Results.
-                        </p>
-                      </div>
-                    </div>
+                <div className="mt-6 grid gap-2 rounded-2xl border border-white/50 bg-white/40 p-4">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                    <UserRound className="h-4 w-4 text-emerald-600" />
+                    First + last name
+                  </div>
+                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                    <Mail className="h-4 w-4 text-emerald-600" />
+                    Email + password
+                  </div>
+                  <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                    <GraduationCap className="h-4 w-4 text-emerald-600" />
+                    Grade + school (optional)
                   </div>
                 </div>
-              </CardContent>
-            </Card>
 
-            {/* Right: Returning learner */}
-            <Card className="kanam-glow-card flex h-full flex-col">
-              <CardHeader>
-                <CardTitle className="text-white">I’m returning</CardTitle>
-                <CardDescription className="text-white/90">
-                  Already used Kanam on this device? Jump back in.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-1 flex-col gap-4">
-                <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-white/90">
-                  <p className="text-sm font-extrabold text-white">Fast path:</p>
-                  <p className="mt-1 text-sm">
-                    Enter your name and continue where you left off.
-                  </p>
-                </div>
-                <div className="mt-auto">
+                <div className="mt-8">
                   <Button
-                    size="lg"
+                    disabled={loadingNew}
+                    aria-busy={loadingNew}
                     className={[
-                      "h-14 w-full rounded-2xl px-6 text-base font-extrabold tracking-tight",
-                      "shadow-xl shadow-amber-900/25",
-                      "bg-gradient-to-r from-[rgb(var(--accent-rgb)/0.98)] via-[rgb(var(--accent-rgb)/0.84)] to-[rgb(var(--accent-rgb)/0.98)]",
-                      "text-slate-950 hover:brightness-[1.03]",
-                      "focus-visible:ring-4 focus-visible:ring-white/20",
+                      "h-16 w-full rounded-xl px-6 text-base font-semibold",
+                      "transition-all duration-300 ease-out",
+                      "active:scale-95",
+                      "bg-gradient-to-r from-emerald-600 via-emerald-400 to-emerald-300",
+                      "text-white shadow-lg shadow-emerald-100 hover:brightness-110",
+                      "focus-visible:ring-4 focus-visible:ring-emerald-500/25",
                     ].join(" ")}
-                    onClick={() => router.push("/welcome/returning")}
+                    onClick={() => {
+                      setLoadingNew(true);
+                      router.push("/welcome/profile");
+                    }}
                   >
-                    Returning learner <Zap className="h-5 w-5" />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="mt-2 h-12 w-full border-white/30 bg-white/10 text-white hover:bg-white/15"
-                    onClick={() => router.push("/welcome/choose")}
-                  >
-                    Skip (if you already set your name) <Sparkles className="h-4 w-4" />
+                    {loadingNew ? (
+                      <>
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        Loading…
+                      </>
+                    ) : (
+                      <>
+                        Create profile <ArrowRight className="h-4 w-4" />
+                      </>
+                    )}
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
+              </motion.div>
+
+              {/* Returning learner */}
+              <motion.div
+                {...cardEnter(0.1)}
+                whileHover={{ y: -8 }}
+                className={[glassCardBase, "p-10"].join(" ")}
+              >
+                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-600">
+                  Returning learner
+                </p>
+                <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-900">
+                  Sign in fast
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  Enter your email and jump right back to your dashboard.
+                </p>
+
+                {returningError ? (
+                  <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-800">
+                    {returningError}
+                  </div>
+                ) : null}
+
+                <div className="mt-6 rounded-2xl border border-white/50 bg-white/40 p-4">
+                  <div className="space-y-3">
+                    <Input
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder='e.g. tory123@kanam.local'
+                      type="email"
+                      className="h-14 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
+                    />
+                    <Input
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Password"
+                      type="password"
+                      className="h-14 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
+                    />
+                    <Button
+                      disabled={loadingReturning}
+                      aria-busy={loadingReturning}
+                      className={[
+                        "h-16 w-full rounded-xl px-6 text-base font-semibold",
+                        "transition-all duration-300 ease-out",
+                        "active:scale-95",
+                        "bg-[#E9D5A3] text-amber-950 hover:brightness-110",
+                        "shadow-[0_20px_50px_rgba(0,0,0,0.04)]",
+                        "focus-visible:ring-4 focus-visible:ring-emerald-500/25",
+                      ].join(" ")}
+                      onClick={async () => {
+                        setReturningError(null);
+                        setLoadingReturning(true);
+                        try {
+                          const supabase = createSupabaseBrowserClient();
+                          const { error } = await supabase.auth.signInWithPassword({
+                            email: email.trim(),
+                            password,
+                          });
+                          if (error) throw new Error(error.message);
+
+                          const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+                          const ensureJson = (await ensureRes.json()) as any;
+                          if (!ensureRes.ok || !ensureJson?.ok) {
+                            throw new Error(
+                              ensureJson?.error || "Signed in, but could not load your profile."
+                            );
+                          }
+
+                          router.push("/dashboard");
+                        } catch (e: any) {
+                          setReturningError(e?.message ?? "Sign-in failed.");
+                        } finally {
+                          setLoadingReturning(false);
+                        }
+                      }}
+                    >
+                      {loadingReturning ? (
+                        <>
+                          <Loader2 className="h-5 w-5 animate-spin" />
+                          Loading…
+                        </>
+                      ) : (
+                        <>
+                          Returning learner <Zap className="h-5 w-5" />
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </WelcomeShell>
       </div>

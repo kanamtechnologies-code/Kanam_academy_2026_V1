@@ -67,6 +67,18 @@ body {
   display: none;
 }
 
+/* Premium Light Glass: subtle hex pattern overlay */
+.kanam-hex-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='48' viewBox='0 0 56 48'%3E%3Cg fill='none' stroke='rgba(15,110,87,0.18)' stroke-width='1'%3E%3Cpath d='M14 1 L28 9 L28 25 L14 33 L0 25 L0 9 Z'/%3E%3Cpath d='M42 1 L56 9 L56 25 L42 33 L28 25 L28 9 Z'/%3E%3Cpath d='M28 25 L42 33 L42 47 L28 55 L14 47 L14 33 Z' transform='translate(0,-8)'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 56px 48px;
+}
+
+/* Make hex strongest in the center, fade toward edges */
+.kanam-hex-mask-center {
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.35) 80%, rgba(0,0,0,0) 100%);
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.35) 80%, rgba(0,0,0,0) 100%);
+}
+
 /* Lesson Hub rail: green glass (no texture) */
 .kanam-hub-rail,
 .kanam-hex-card {
