@@ -5,6 +5,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 export const runtime = "nodejs";
 
 type Body = {
+  classCode?: string;
   email: string;
   password: string;
   firstName: string;
@@ -66,6 +67,7 @@ export async function POST(req: Request) {
   const password = s(body.password);
   const firstName = s(body.firstName);
   const lastName = s(body.lastName);
+  const classCode = s(body.classCode) || null;
 
   const grade = s(body.grade) || null;
   const schoolName = s(body.schoolName);
@@ -96,7 +98,11 @@ export async function POST(req: Request) {
     email,
     password,
     email_confirm: true,
-    user_metadata: { first_name: firstName, last_name: lastName },
+    user_metadata: {
+      first_name: firstName,
+      last_name: lastName,
+      class_code: classCode,
+    },
   });
 
   if (createErr) {

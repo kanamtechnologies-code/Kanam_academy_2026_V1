@@ -15,12 +15,22 @@ import {
   ShieldCheck,
   Sparkles,
   Terminal,
+  Video,
   Zap,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { SpotlightTour, type SpotlightTourHandle } from "@/components/ui/SpotlightTour";
@@ -28,6 +38,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { DesignModePanel } from "@/components/lesson/DesignModePanel";
+import { NpcChallengeMode } from "@/components/lesson/NpcChallengeMode";
+import { CodeTextarea } from "@/components/lesson/CodeTextarea";
+import {
+  defaultDesignState,
+  generatePythonStarterCode,
+  type DesignState,
+} from "@/lib/designMode";
 
 export type LessonCfuItem = {
   question: string;
@@ -58,6 +76,15 @@ export type LessonConfig = {
   assignmentBody?: string;
   assignmentChecklist?: string[];
 
+  // Optional: Week 7+ "Design Mode" (generate starter code from a plan).
+  designMode?: boolean;
+  designModePromptVersion?: string; // for migrations
+  scratchTemplateCode?: string; // used by "Reset to Template"
+
+  // Optional: Week 7+ "NPC Challenge Mode" (guided game-like practice).
+  npcChallengeMode?: boolean;
+  npcChallengePromptVersion?: string; // for migrations
+
   editorPlaceholder?: string;
   terminalPrompt?: string;
   prevHref?: string;
@@ -70,6 +97,23 @@ export type LessonConfig = {
     placeholder?: string;
     defaultValue?: string;
   }>;
+
+  // Optional: lightweight "Instructor" panel for live classes.
+  // Zoom meetings often cannot be embedded due to X-Frame-Options; use joinUrl as the primary path.
+  instructorLive?: {
+    label?: string;
+    joinUrl?: string;
+    embedUrl?: string;
+    mode?: "link_only" | "iframe" | "zoom_sdk_preview" | "zoom_sdk_pip_preview";
+    corner?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+    note?: string;
+  };
+
+  // Optional: Spotlight tutorial behavior (useful for /learn/demo).
+  tourRemember?: boolean;
+  tourFadeMs?: number;
+  tourMoveMs?: number;
+  tourRecomputeDelayMs?: number;
 
   getRunOutput: (code: string, runtime?: Record<string, string>) => string;
   getRunBody?: (
@@ -273,7 +317,7 @@ function renderCoachInline(text: string): React.ReactNode[] {
 
     // Second pass: auto-highlight known tokens inside plain text.
     const autoRe =
-      /\bcase-sensitive\b|\bvariable\b|\bliteral\b|\bSubmit\b|\bRun\b|\btest\b|\bindentation\b|\bloop\b|\bpattern\b|\bpredict\b|\bcondition\b|\biteration\b|\blist\b|\bmemory\b|\bappend\b|\bremove\b|\bdictionary\b|\bkey\b|\bkeys\b|\bvalue\b|\bvalues\b|\borganized memory\b|\bfunction\b|\bdef\b|\bcall\b|\breuse\b|\bif\b|\belif\b|\belse\b|\bwhile\b|\bfor\b|\bTrue\b|\bFalse\b|input\(\)|print\(\)|range\(\)/g;
+      /\bcase-sensitive\b|\bvariable\b|\bliteral\b|\bSubmit\b|\bRun\b|\btest\b|\bindentation\b|\bloop\b|\bpattern\b|\bpredict\b|\bcondition\b|\biteration\b|\blist\b|\bmemory\b|\bappend\b|\bremove\b|\bdictionary\b|\bkey\b|\bkeys\b|\bvalue\b|\bvalues\b|\borganized memory\b|\bfunction\b|\bparameter\b|\bparameters\b|\bargument\b|\barguments\b|\bplaceholder\b|\boutput\b|\bdef\b|\bcall\b|\breuse\b|\bif\b|\belif\b|\belse\b|\bwhile\b|\bfor\b|\bTrue\b|\bFalse\b|input\(\)|print\(\)|range\(\)/g;
 
     let last = 0;
     let m: RegExpExecArray | null;
@@ -721,8 +765,8 @@ type MiniStmt =
   | { kind: "print"; expr: string; lineNo: number }
   | { kind: "list_call"; name: string; method: "append" | "remove" | "pop"; arg?: string; lineNo: number }
   | { kind: "dict_set"; name: string; key: string; expr: string; lineNo: number }
-  | { kind: "def"; name: string; body: MiniStmt[]; lineNo: number }
-  | { kind: "call"; name: string; lineNo: number }
+  | { kind: "def"; name: string; params: string[]; body: MiniStmt[]; lineNo: number }
+  | { kind: "call"; name: string; args: string[]; lineNo: number }
   | { kind: "if"; branches: Array<{ test?: string; body: MiniStmt[] }>; lineNo: number }
   | { kind: "while"; test: string; body: MiniStmt[]; lineNo: number }
   | { kind: "for"; varName: string; rangeExpr: string; body: MiniStmt[]; lineNo: number };
@@ -779,7 +823,7 @@ function parseBlock(lines: MiniLine[], startIdx: number, indent: number): { body
     const ifMatch = txt.match(/^if\s+(.+)\s*:\s*$/);
     const whileMatch = txt.match(/^while\s+(.+)\s*:\s*$/);
     const forMatch = txt.match(/^for\s+([A-Za-z_]\w*)\s+in\s+range\s*\(\s*(.+?)\s*\)\s*:\s*$/);
-    const defMatch = txt.match(/^def\s+([A-Za-z_]\w*)\s*\(\s*\)\s*:\s*$/);
+    const defMatch = txt.match(/^def\s+([A-Za-z_]\w*)\s*\(\s*([A-Za-z_]\w*)?\s*\)\s*:\s*$/);
     if (ifMatch) {
       const branches: Array<{ test?: string; body: MiniStmt[] }> = [];
       const test = ifMatch[1].trim();
@@ -829,8 +873,10 @@ function parseBlock(lines: MiniLine[], startIdx: number, indent: number): { body
 
     if (defMatch) {
       const name = defMatch[1].trim();
+      const param = (defMatch[2] ?? "").trim();
+      const params = param ? [param] : [];
       const parsedBody = parseBlock(lines, i + 1, indent + 4);
-      body.push({ kind: "def", name, body: parsedBody.body, lineNo: line.lineNo });
+      body.push({ kind: "def", name, params, body: parsedBody.body, lineNo: line.lineNo });
       i = parsedBody.nextIdx;
       continue;
     }
@@ -867,12 +913,14 @@ function parseBlock(lines: MiniLine[], startIdx: number, indent: number): { body
       continue;
     }
 
-    const callMatch = txt.match(/^([A-Za-z_]\w*)\s*\(\s*\)\s*$/);
+    const callMatch = txt.match(/^([A-Za-z_]\w*)\s*\(\s*(.*?)\s*\)\s*$/);
     if (callMatch) {
       const name = callMatch[1].trim();
+      const argsRaw = (callMatch[2] ?? "").trim();
+      const args = argsRaw.length ? [argsRaw] : [];
       // Avoid treating built-ins as calls; only allow calling user-defined functions.
       if (name !== "print" && name !== "input" && name !== "str" && name !== "range") {
-        body.push({ kind: "call", name, lineNo: line.lineNo });
+        body.push({ kind: "call", name, args, lineNo: line.lineNo });
         i += 1;
         continue;
       }
@@ -903,6 +951,95 @@ function evalMiniValue(expr: string, env: Record<string, MiniValue>): MiniValue 
   if (isQuoted(t)) return unquote(t);
   if (/^(True|False)$/.test(t)) return t === "True";
   if (/^-?\d+$/.test(t)) return Number(t);
+
+  // {"key": "value", "n": 1} (dictionary literal; string keys only)
+  if (t.startsWith("{") && t.endsWith("}") && t !== "{}") {
+    const inner = t.slice(1, -1).trim();
+    const out: MiniDict = {};
+    if (!inner) return out;
+
+    const splitTopLevelCommas = (s: string) => {
+      const parts: string[] = [];
+      let cur = "";
+      let depth = 0;
+      let quote: "'" | '"' | null = null;
+      let esc = false;
+      for (const ch of s) {
+        if (esc) {
+          cur += ch;
+          esc = false;
+          continue;
+        }
+        if (quote) {
+          if (ch === "\\") {
+            esc = true;
+            cur += ch;
+            continue;
+          }
+          if (ch === quote) quote = null;
+          cur += ch;
+          continue;
+        }
+        if (ch === "'" || ch === '"') {
+          quote = ch;
+          cur += ch;
+          continue;
+        }
+        if (ch === "(" || ch === "[" || ch === "{") depth += 1;
+        if (ch === ")" || ch === "]" || ch === "}") depth = Math.max(0, depth - 1);
+        if (ch === "," && depth === 0) {
+          const trimmed = cur.trim();
+          if (trimmed) parts.push(trimmed);
+          cur = "";
+          continue;
+        }
+        cur += ch;
+      }
+      const trimmed = cur.trim();
+      if (trimmed) parts.push(trimmed);
+      return parts;
+    };
+
+    const findTopLevelColon = (s: string) => {
+      let depth = 0;
+      let quote: "'" | '"' | null = null;
+      let esc = false;
+      for (let i = 0; i < s.length; i++) {
+        const ch = s[i];
+        if (esc) {
+          esc = false;
+          continue;
+        }
+        if (quote) {
+          if (ch === "\\") {
+            esc = true;
+            continue;
+          }
+          if (ch === quote) quote = null;
+          continue;
+        }
+        if (ch === "'" || ch === '"') {
+          quote = ch;
+          continue;
+        }
+        if (ch === "(" || ch === "[" || ch === "{") depth += 1;
+        if (ch === ")" || ch === "]" || ch === "}") depth = Math.max(0, depth - 1);
+        if (ch === ":" && depth === 0) return i;
+      }
+      return -1;
+    };
+
+    for (const item of splitTopLevelCommas(inner)) {
+      const colon = findTopLevelColon(item);
+      if (colon < 0) throw new Error(`SyntaxError: invalid dict entry: ${item}`);
+      const keyExpr = item.slice(0, colon).trim();
+      const valExpr = item.slice(colon + 1).trim();
+      if (!isQuoted(keyExpr)) throw new Error("SyntaxError: dictionary keys must be quoted strings");
+      const key = unquote(keyExpr);
+      out[key] = evalMiniValue(valExpr, env);
+    }
+    return out;
+  }
 
   // str(x)
   const strCall = t.match(/^str\s*\(\s*([A-Za-z_]\w*)\s*\)$/);
@@ -978,6 +1115,33 @@ function evalCondition(test: string, env: Record<string, MiniValue>): boolean {
   const t = test.trim();
   if (!t) return false;
 
+  // "hello" in player_input.lower()
+  const inMatch = t.match(/^["']([^"']+)["']\s+in\s+([A-Za-z_]\w*)(?:\.(lower|strip)\(\))?\s*$/);
+  if (inMatch) {
+    const needle = (inMatch[1] ?? "").toString();
+    const varName = inMatch[2];
+    const fn = inMatch[3] as "lower" | "strip" | undefined;
+    const v = env[varName];
+    if (v === undefined) throw new Error(`NameError: name '${varName}' is not defined`);
+    if (typeof v !== "string") throw new Error(`TypeError: '${varName}' must be a string`);
+    const hay = fn === "lower" ? v.toLowerCase() : fn === "strip" ? v.trim() : v;
+    const ndl = fn === "lower" ? needle.toLowerCase() : needle;
+    return hay.includes(ndl);
+  }
+
+  // len(user_input) < 10   (also supports .strip())
+  const lenMatch = t.match(/^len\(\s*([A-Za-z_]\w*)(?:\.(strip)\(\))?\s*\)\s*<\s*(\d+)\s*$/);
+  if (lenMatch) {
+    const varName = lenMatch[1];
+    const fn = lenMatch[2] as "strip" | undefined;
+    const n = Number(lenMatch[3]);
+    const v = env[varName];
+    if (v === undefined) throw new Error(`NameError: name '${varName}' is not defined`);
+    if (typeof v !== "string") throw new Error(`TypeError: '${varName}' must be a string`);
+    const s = fn === "strip" ? v.trim() : v;
+    return s.length < n;
+  }
+
   // while running   (truthy)
   if (/^[A-Za-z_]\w*$/.test(t)) {
     const v = env[t];
@@ -997,7 +1161,7 @@ function evalCondition(test: string, env: Record<string, MiniValue>): boolean {
 function runMiniPython(code: string, runtime: Record<string, string>, opts?: { maxSteps?: number }): MiniRunResult {
   const env: Record<string, MiniValue> = {};
   const stdout: string[] = [];
-  const functions: Record<string, MiniStmt[]> = {};
+  const functions: Record<string, { params: string[]; body: MiniStmt[] }> = {};
   const maxSteps = opts?.maxSteps ?? 500;
   let steps = 0;
 
@@ -1096,16 +1260,34 @@ function runMiniPython(code: string, runtime: Record<string, string>, opts?: { m
     }
 
     if (stmt.kind === "def") {
-      functions[stmt.name] = stmt.body;
+      functions[stmt.name] = { params: stmt.params, body: stmt.body };
       return;
     }
 
     if (stmt.kind === "call") {
-      const body = functions[stmt.name];
-      if (!body) {
+      const fn = functions[stmt.name];
+      if (!fn) {
         throw new Error(`NameError on line ${stmt.lineNo}: function '${stmt.name}' is not defined`);
       }
-      for (const s of body) execStmt(s);
+      if (fn.params.length !== stmt.args.length) {
+        throw new Error(
+          `TypeError on line ${stmt.lineNo}: ${stmt.name}() takes ${fn.params.length} argument(s) but ${stmt.args.length} were given`
+        );
+      }
+
+      // Very small "local scope": bind params temporarily in env, run body, then restore.
+      const restore: Record<string, MiniValue | undefined> = {};
+      for (let idx = 0; idx < fn.params.length; idx++) {
+        const p = fn.params[idx];
+        restore[p] = env[p];
+        env[p] = evalMiniValue(stmt.args[idx], env);
+      }
+      for (const s of fn.body) execStmt(s);
+      for (const p of fn.params) {
+        const prev = restore[p];
+        if (prev === undefined) delete env[p];
+        else env[p] = prev;
+      }
       return;
     }
 
@@ -1255,6 +1437,12 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   );
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [hasRun, setHasRun] = React.useState<boolean>(false);
+  const [lastRunForExplanation, setLastRunForExplanation] = React.useState<{
+    editor: "guided" | "scratch";
+    code: string;
+    runtime: Record<string, string>;
+    run: MiniRunResult;
+  } | null>(null);
   const [runtime, setRuntime] = React.useState<Record<string, string>>(
     runtimeDefaultValues
   );
@@ -1277,6 +1465,101 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const [animateIn, setAnimateIn] = React.useState(false);
   const [successBurst, setSuccessBurst] = React.useState(false);
   const [cfuBurst, setCfuBurst] = React.useState(false);
+  const [instructorOpen, setInstructorOpen] = React.useState(false);
+  const [pipHidden, setPipHidden] = React.useState(false);
+  const [pipMode, setPipMode] = React.useState<"min" | "expanded">("min");
+  const [pipPos, setPipPos] = React.useState<{ x: number; y: number } | null>(null);
+  const [pipDragging, setPipDragging] = React.useState(false);
+  const pipDragOffset = React.useRef<{ dx: number; dy: number } | null>(null);
+  const [zoomPreviewChatOpen, setZoomPreviewChatOpen] = React.useState(false);
+  const [zoomPreviewParticipantsOpen, setZoomPreviewParticipantsOpen] = React.useState(false);
+  const [zoomPreviewMuted, setZoomPreviewMuted] = React.useState(true);
+  const [zoomPreviewCamOff, setZoomPreviewCamOff] = React.useState(false);
+  const [isInstructorView, setIsInstructorView] = React.useState(false);
+
+  const designEnabled = Boolean(lesson.designMode);
+  const [design, setDesign] = React.useState<DesignState>(defaultDesignState());
+  const [designToast, setDesignToast] = React.useState<string | null>(null);
+  const [designLoadedKey, setDesignLoadedKey] = React.useState<string>("");
+
+  const npcEnabled = Boolean(lesson.npcChallengeMode);
+
+  const showInstructorPip = lesson.instructorLive?.mode === "zoom_sdk_pip_preview" && !pipHidden;
+  const pipCorner = lesson.instructorLive?.corner ?? "bottom-left";
+
+  const pipMinSize = { w: 320, h: 240 }; // includes header + controls; video is aspect-video
+  const pipExpandedSize = React.useMemo(() => {
+    if (typeof window === "undefined") return { w: 720, h: 420 };
+    const w = Math.max(520, Math.min(Math.floor(window.innerWidth * 0.5), 980));
+    const h = Math.max(360, Math.min(Math.floor(window.innerHeight * 0.5), 640));
+    return { w, h };
+  }, []);
+
+  const activePipSize = pipMode === "expanded" ? pipExpandedSize : pipMinSize;
+
+  const clampPipPos = React.useCallback(
+    (pos: { x: number; y: number }, size: { w: number; h: number }) => {
+      if (typeof window === "undefined") return pos;
+      const maxX = Math.max(8, window.innerWidth - size.w - 8);
+      const maxY = Math.max(8, window.innerHeight - size.h - 8);
+      return {
+        x: Math.max(8, Math.min(maxX, pos.x)),
+        y: Math.max(8, Math.min(maxY, pos.y)),
+      };
+    },
+    []
+  );
+
+  // Initialize PiP position (bottom-left by default) and keep it clamped on resize.
+  React.useEffect(() => {
+    if (!showInstructorPip) return;
+    if (typeof window === "undefined") return;
+    if (pipPos) return;
+    const pad = 12;
+    const size = activePipSize;
+    const initial =
+      pipCorner === "bottom-right"
+        ? { x: window.innerWidth - size.w - pad, y: window.innerHeight - size.h - pad }
+        : pipCorner === "top-left"
+          ? { x: pad, y: 80 }
+          : pipCorner === "top-right"
+            ? { x: window.innerWidth - size.w - pad, y: 80 }
+            : { x: pad, y: window.innerHeight - size.h - pad };
+    setPipPos(clampPipPos(initial, size));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showInstructorPip]);
+
+  React.useEffect(() => {
+    if (!showInstructorPip) return;
+    const onResize = () => {
+      setPipPos((p) => {
+        if (!p) return p;
+        return clampPipPos(p, activePipSize);
+      });
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [showInstructorPip, activePipSize, clampPipPos]);
+
+  const beginPipDrag = (e: React.PointerEvent) => {
+    if (!pipPos) return;
+    const target = e.target as HTMLElement | null;
+    if (target?.closest("button,a,input,textarea")) return;
+    setPipDragging(true);
+    pipDragOffset.current = { dx: e.clientX - pipPos.x, dy: e.clientY - pipPos.y };
+    (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+  };
+
+  const onPipPointerMove = (e: React.PointerEvent) => {
+    if (!pipDragging || !pipDragOffset.current) return;
+    const next = { x: e.clientX - pipDragOffset.current.dx, y: e.clientY - pipDragOffset.current.dy };
+    setPipPos(clampPipPos(next, activePipSize));
+  };
+
+  const endPipDrag = () => {
+    setPipDragging(false);
+    pipDragOffset.current = null;
+  };
 
   React.useEffect(() => {
     setAnimateIn(false);
@@ -1293,6 +1576,17 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       if (!existing) window.localStorage.setItem(key, id);
       setDeviceId(id);
       setStudentName(window.localStorage.getItem("kanam.userName") ?? "");
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  React.useEffect(() => {
+    try {
+      const qs = new URLSearchParams(window.location.search);
+      const fromQuery = qs.get("instructor") === "1";
+      const fromStorage = window.localStorage.getItem("kanam.instructorView") === "1";
+      setIsInstructorView(fromQuery || fromStorage);
     } catch {
       // ignore
     }
@@ -1319,6 +1613,67 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       }
     })();
   }, []);
+
+  const designStorageKey = React.useMemo(() => {
+    if (!designEnabled) return "";
+    const uid = userId || deviceId || "anon";
+    const v = lesson.designModePromptVersion ?? "v1";
+    return `kanam.designDraft:${v}:${lesson.id}:${uid}`;
+  }, [designEnabled, lesson.designModePromptVersion, lesson.id, userId, deviceId]);
+
+  const npcUserKey = React.useMemo(() => {
+    return userId || deviceId || "anon";
+  }, [userId, deviceId]);
+
+  const runNpcChallengeCode = React.useCallback(
+    (code: string, runtime: Record<string, string>) => {
+      const run = runMiniPython(code, runtime);
+      const body = run.error
+        ? `❌ ${run.error}`
+        : run.stdout.length
+          ? run.stdout.join("\n")
+          : "(no output)\nTip: add print(...) to see output.";
+      return { ok: !run.error, output: asTerminal(terminalPrompt, body) };
+    },
+    [terminalPrompt]
+  );
+
+  React.useEffect(() => {
+    if (!designEnabled) return;
+    if (!designStorageKey) return;
+    if (designLoadedKey === designStorageKey) return;
+    setDesignLoadedKey(designStorageKey);
+    try {
+      const raw = window.localStorage.getItem(designStorageKey);
+      if (!raw) {
+        setDesign(defaultDesignState());
+        return;
+      }
+      const parsed = JSON.parse(raw) as Partial<DesignState>;
+      setDesign({
+        ...defaultDesignState(),
+        ...parsed,
+        inputsNeeded: Array.isArray(parsed.inputsNeeded) ? parsed.inputsNeeded : [],
+        memoryToStore: Array.isArray(parsed.memoryToStore) ? parsed.memoryToStore : [],
+      });
+    } catch {
+      setDesign(defaultDesignState());
+    }
+  }, [designEnabled, designStorageKey, designLoadedKey]);
+
+  React.useEffect(() => {
+    if (!designEnabled) return;
+    if (!designStorageKey) return;
+    if (designLoadedKey !== designStorageKey) return;
+    const t = window.setTimeout(() => {
+      try {
+        window.localStorage.setItem(designStorageKey, JSON.stringify(design));
+      } catch {
+        // ignore
+      }
+    }, 450);
+    return () => window.clearTimeout(t);
+  }, [designEnabled, designStorageKey, designLoadedKey, design]);
 
   const trackProgress = React.useCallback(
     async (eventType: string, payload?: unknown) => {
@@ -1520,6 +1875,12 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       return;
     }
     const run = runMiniPython(activeCode, runtime);
+    setLastRunForExplanation({
+      editor: activeEditor,
+      code: activeCode,
+      runtime: { ...(runtime ?? {}) },
+      run,
+    });
     const body = run.error
       ? `❌ ${run.error}`
       : run.stdout.length
@@ -1539,6 +1900,22 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     setHasRun(false);
     setRuntime(runtimeDefaultValues);
     setRevealedCfu(Array.from({ length: lesson.cfu.length }, () => false));
+  };
+
+  const onGenerateFromDesign = () => {
+    const code = generatePythonStarterCode(design);
+    setScratchCode(code);
+    setActiveEditor("scratch");
+    setDesignToast("Starter code added!");
+    window.setTimeout(() => setDesignToast(null), 2200);
+  };
+
+  const onResetScratchToTemplate = () => {
+    const template = lesson.scratchTemplateCode ?? "";
+    setScratchCode(template);
+    setActiveEditor("scratch");
+    setDesignToast("Template restored.");
+    window.setTimeout(() => setDesignToast(null), 2200);
   };
 
   const onSubmit = () => {
@@ -1814,6 +2191,19 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           </p>
         </CardContent>
       </Card>
+
+      {npcEnabled ? (
+        <NpcChallengeMode
+          hubId="hub-npc"
+          hubDataId="npc"
+          lessonId={lesson.id}
+          userKey={npcUserKey}
+          promptVersion={lesson.npcChallengePromptVersion ?? "v1"}
+          isInstructorView={isInstructorView}
+          onTrackEvent={(eventType, payload) => trackProgress(eventType, payload)}
+          onRunCode={runNpcChallengeCode}
+        />
+      ) : null}
 
       <Card
         id="hub-explainer"
@@ -2119,21 +2509,23 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             <p className="mt-1 text-xs text-slate-500">
               Edit this version first. Then try writing it again below without help.
             </p>
-            <Textarea
+            <CodeTextarea
               value={guidedCode}
-              onChange={(e) => setGuidedCode(e.target.value)}
+              onChange={setGuidedCode}
               onFocus={() => setActiveEditor("guided")}
-              spellCheck={false}
-              aria-label="Guided Python code editor"
+              ariaLabel="Guided Python code editor"
               data-tour="guided-editor"
+              showLineNumbers
+              minHeightPx={220}
+              maxHeightPx={560}
               className={[
-                "mt-2 min-h-[220px] w-full resize-none border-2 bg-white shadow-sm",
-                "focus-visible:ring-4",
+                "mt-2 min-h-[220px] w-full border-2 bg-white shadow-sm",
+                "focus-within:ring-4",
                 activeEditor === "guided"
                   ? submitted
-                    ? "border-[var(--brand)] focus-visible:ring-[var(--brand)]/25"
-                    : "border-[var(--accent)] focus-visible:ring-[var(--accent)]/25"
-                  : "border-slate-200 focus-visible:ring-slate-200/25",
+                    ? "border-[var(--brand)] focus-within:ring-[var(--brand)]/25"
+                    : "border-[var(--accent)] focus-within:ring-[var(--accent)]/25"
+                  : "border-slate-200 focus-within:ring-slate-200/25",
               ].join(" ")}
             />
           </div>
@@ -2156,25 +2548,68 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             <p className="mt-2 text-xs text-slate-600">
               <span className="font-semibold">Submit checks this box.</span> (Guided is for practice.)
             </p>
-            <Textarea
+
+            {designEnabled ? (
+              <div className="mt-3 space-y-3">
+                {isInstructorView ? (
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    <p className="text-xs font-extrabold tracking-tight text-slate-900">
+                      Design Summary (Instructor view)
+                    </p>
+                    <div className="mt-2 space-y-1 text-xs text-slate-700">
+                      <p>
+                        <span className="font-semibold">Purpose:</span>{" "}
+                        {design.purpose?.trim() ? design.purpose.trim() : "—"}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Target user:</span> {design.targetUser}
+                      </p>
+                      <p className="mt-2 font-semibold">Rules (top 3):</p>
+                      <ul className="list-disc space-y-1 pl-5">
+                        {(design.rulesPlainEnglish ?? "")
+                          .split(/\r?\n/g)
+                          .map((x) => x.trim())
+                          .filter(Boolean)
+                          .slice(0, 3)
+                          .map((r) => (
+                            <li key={r}>{r}</li>
+                          ))}
+                        {!design.rulesPlainEnglish?.trim() ? <li className="text-slate-500">—</li> : null}
+                      </ul>
+                    </div>
+                    <p className="mt-2 text-[11px] text-slate-500">
+                      Tip: Add <span className="font-semibold">?instructor=1</span> to the URL to show this block.
+                    </p>
+                  </div>
+                ) : null}
+
+                <DesignModePanel
+                  design={design}
+                  onChange={(patch) => setDesign((d) => ({ ...d, ...patch }))}
+                  onGenerateStarterCode={onGenerateFromDesign}
+                  onResetToTemplate={onResetScratchToTemplate}
+                  generatedToast={designToast}
+                />
+              </div>
+            ) : null}
+
+            <CodeTextarea
               value={scratchCode}
-              onChange={(e) => setScratchCode(e.target.value)}
+              onChange={setScratchCode}
               onFocus={() => setActiveEditor("scratch")}
-              spellCheck={false}
-              aria-label="From-scratch Python code editor"
+              ariaLabel="From-scratch Python code editor"
               data-tour="scratch-editor"
-              placeholder={
-                lesson.editorPlaceholder ??
-                '# Start here:\n# print("Hello!")\n'
-              }
+              placeholder={lesson.editorPlaceholder ?? '# Start here:\n# print("Hello!")\n'}
+              minHeightPx={220}
+              maxHeightPx={560}
               className={[
-                "mt-2 min-h-[220px] w-full resize-none border-2 bg-white shadow-sm",
-                "focus-visible:ring-4",
+                "mt-2 min-h-[220px] w-full border-2 bg-white shadow-sm",
+                "focus-within:ring-4",
                 activeEditor === "scratch"
                   ? submitted
-                    ? "border-[var(--brand)] focus-visible:ring-[var(--brand)]/25"
-                    : "border-[var(--accent)] focus-visible:ring-[var(--accent)]/25"
-                  : "border-slate-200 focus-visible:ring-slate-200/25",
+                    ? "border-[var(--brand)] focus-within:ring-[var(--brand)]/25"
+                    : "border-[var(--accent)] focus-within:ring-[var(--accent)]/25"
+                  : "border-slate-200 focus-within:ring-slate-200/25",
               ].join(" ")}
             />
           </div>
@@ -2182,6 +2617,195 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
         {/* Removed: "What would you type?" panel. Inputs are currently auto-filled using lesson defaults. */}
         <div className="mt-auto rounded-md border border-slate-200 bg-white p-3">
           <div className="flex flex-wrap items-center gap-2">
+            {lesson.instructorLive ? (
+              <Dialog open={instructorOpen} onOpenChange={setInstructorOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline">
+                    <Video className="h-4 w-4" />
+                    {lesson.instructorLive.label ?? "Instructor"}
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>{lesson.instructorLive.label ?? "Instructor"}</DialogTitle>
+                    <DialogDescription>
+                      Join the live instructor while you code in the Lesson Canvas.
+                    </DialogDescription>
+                  </DialogHeader>
+
+                  <p className="text-sm text-slate-600">
+                    {lesson.instructorLive.note ??
+                      "If the video doesn’t appear embedded, click Join Zoom (Zoom often blocks embedding)."}
+                  </p>
+
+                  {lesson.instructorLive.mode === "zoom_sdk_preview" ? (
+                    <div className="mt-3 overflow-hidden rounded-2xl border border-slate-200 bg-slate-950">
+                      <div className="relative aspect-video w-full">
+                        {/* Fake video canvas */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-black" />
+                        <div className="absolute left-3 top-3 flex items-center gap-2">
+                          <span className="rounded-full bg-red-600 px-2.5 py-1 text-xs font-semibold text-white">
+                            LIVE
+                          </span>
+                          <span className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium text-white/90">
+                            Zoom SDK preview
+                          </span>
+                        </div>
+
+                        <div className="absolute bottom-3 left-3 rounded-xl bg-white/10 px-3 py-2 text-sm text-white/90 backdrop-blur">
+                          <div className="font-semibold">Instructor</div>
+                          <div className="text-xs text-white/70">
+                            {zoomPreviewMuted ? "Muted" : "Unmuted"} ·{" "}
+                            {zoomPreviewCamOff ? "Camera off" : "Camera on"}
+                          </div>
+                        </div>
+
+                        {/* Right-side panels (preview) */}
+                        {zoomPreviewParticipantsOpen ? (
+                          <div className="absolute right-3 top-3 h-[calc(100%-5.25rem)] w-[260px] overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur">
+                            <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
+                              <p className="text-xs font-semibold text-white/90">Participants</p>
+                              <button
+                                type="button"
+                                className="text-xs text-white/70 hover:text-white"
+                                onClick={() => setZoomPreviewParticipantsOpen(false)}
+                              >
+                                Close
+                              </button>
+                            </div>
+                            <div className="space-y-2 p-3 text-xs text-white/85">
+                              <div className="flex items-center justify-between">
+                                <span>Instructor (Host)</span>
+                                <span className="text-white/60">🎤</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span>You</span>
+                                <span className="text-white/60">🎧</span>
+                              </div>
+                              <div className="flex items-center justify-between">
+                                <span>Kanam TA</span>
+                                <span className="text-white/60">🎧</span>
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+
+                        {zoomPreviewChatOpen ? (
+                          <div className="absolute right-3 top-3 h-[calc(100%-5.25rem)] w-[320px] overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur">
+                            <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
+                              <p className="text-xs font-semibold text-white/90">Chat</p>
+                              <button
+                                type="button"
+                                className="text-xs text-white/70 hover:text-white"
+                                onClick={() => setZoomPreviewChatOpen(false)}
+                              >
+                                Close
+                              </button>
+                            </div>
+                            <div className="flex h-full flex-col">
+                              <div className="flex-1 space-y-2 overflow-auto p-3 text-xs text-white/85">
+                                <div className="rounded-lg bg-white/5 p-2">
+                                  <span className="font-semibold">Instructor:</span>{" "}
+                                  Today we’re learning parameters — same skill, new details.
+                                </div>
+                                <div className="rounded-lg bg-white/5 p-2">
+                                  <span className="font-semibold">You:</span> Got it!
+                                </div>
+                              </div>
+                              <div className="border-t border-white/10 p-2">
+                                <div className="rounded-lg bg-white/5 px-2 py-2 text-white/60">
+                                  Type message… (preview)
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : null}
+
+                        {/* Bottom controls */}
+                        <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-2 rounded-2xl border border-white/10 bg-black/40 p-2 backdrop-blur">
+                          <button
+                            type="button"
+                            onClick={() => setZoomPreviewMuted((v) => !v)}
+                            className={[
+                              "rounded-xl px-3 py-2 text-xs font-semibold",
+                              zoomPreviewMuted
+                                ? "bg-white/10 text-white hover:bg-white/15"
+                                : "bg-emerald-500/90 text-slate-950 hover:bg-emerald-500",
+                            ].join(" ")}
+                          >
+                            {zoomPreviewMuted ? "Unmute" : "Mute"}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setZoomPreviewCamOff((v) => !v)}
+                            className={[
+                              "rounded-xl px-3 py-2 text-xs font-semibold",
+                              zoomPreviewCamOff
+                                ? "bg-white/10 text-white hover:bg-white/15"
+                                : "bg-emerald-500/90 text-slate-950 hover:bg-emerald-500",
+                            ].join(" ")}
+                          >
+                            {zoomPreviewCamOff ? "Start video" : "Stop video"}
+                          </button>
+                          <button
+                            type="button"
+                            className="rounded-xl bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/15"
+                            onClick={() => {
+                              setZoomPreviewParticipantsOpen((v) => !v);
+                              setZoomPreviewChatOpen(false);
+                            }}
+                          >
+                            Participants
+                          </button>
+                          <button
+                            type="button"
+                            className="rounded-xl bg-white/10 px-3 py-2 text-xs font-semibold text-white hover:bg-white/15"
+                            onClick={() => {
+                              setZoomPreviewChatOpen((v) => !v);
+                              setZoomPreviewParticipantsOpen(false);
+                            }}
+                          >
+                            Chat
+                          </button>
+                          <button
+                            type="button"
+                            className="rounded-xl bg-red-600 px-3 py-2 text-xs font-semibold text-white hover:bg-red-500"
+                            onClick={() => setInstructorOpen(false)}
+                          >
+                            Leave
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ) : lesson.instructorLive.embedUrl ? (
+                    <div className="mt-3 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                      <div className="aspect-video w-full">
+                        <iframe
+                          title="Instructor live"
+                          src={lesson.instructorLive.embedUrl}
+                          className="h-full w-full"
+                          allow="camera; microphone; fullscreen; display-capture"
+                        />
+                      </div>
+                    </div>
+                  ) : null}
+
+                  <DialogFooter>
+                    {lesson.instructorLive.joinUrl ? (
+                      <Button asChild>
+                        <a href={lesson.instructorLive.joinUrl} target="_blank" rel="noreferrer">
+                          Join Zoom
+                        </a>
+                      </Button>
+                    ) : (
+                      <Button disabled title="Set NEXT_PUBLIC_ZOOM_JOIN_URL to enable">
+                        Join Zoom (not configured)
+                      </Button>
+                    )}
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            ) : null}
             <Button data-tour="run-button" onClick={onRun} variant="secondary">
               <Play className="h-4 w-4" />
               Run
@@ -2227,25 +2851,26 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     </Card>
   );
 
-  const activeAnalysis = React.useMemo(() => {
-    if (!activeCode.trim()) return null;
-    const run = runMiniPython(activeCode, runtime);
+  const scratchRunAnalysis = React.useMemo(() => {
+    if (!lastRunForExplanation) return null;
+    if (lastRunForExplanation.editor !== "scratch") return null;
+    if (!lastRunForExplanation.code.trim()) return null;
+    const run = lastRunForExplanation.run;
     const vars = Object.entries(run.env)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([key, value]) => ({ key, value }));
     return {
-      editor: activeEditor,
-      code: activeCode,
+      code: lastRunForExplanation.code,
       vars,
       printed: run.error ? [`❌ ${run.error}`] : run.stdout,
       summary: run.error
-        ? "Your code hit an error. Fix it and press Run again."
-        : "This is the exact output your code printed (best-effort Python runner).",
+        ? "Your scratch code hit an error. Fix it and press Run again."
+        : "This explains the output from your last Scratch Run (best-effort Python runner).",
       tips: run.error
         ? ["Check colons (:), indentation, and spelling of variable names."]
         : [],
     };
-  }, [activeCode, activeEditor, runtime]);
+  }, [lastRunForExplanation]);
 
   const OutputExplanation = (
     <Card className="border-[rgb(var(--accent-rgb)/0.55)] bg-white shadow-md">
@@ -2253,24 +2878,24 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
         <SectionHeader
           icon={<Terminal className="h-5 w-5 text-[var(--accent)]" />}
           title="Console output explanation"
-          subtitle={`This explains the output from the editor you’re using right now: ${
-            activeEditor === "guided" ? "Fill in the blanks" : "Try it from scratch"
-          }.`}
+          subtitle="This only explains output after you press Run from the Scratch editor."
         />
       </CardHeader>
       <CardContent className="space-y-3">
-        {!activeCode.trim() ? (
+        {!scratchRunAnalysis ? (
           <div className="rounded-xl border border-dashed border-slate-300 bg-white/90 p-3 text-sm text-slate-600">
-            Write something in the editor, then press Run. This box will explain your output.
+            Press <span className="font-semibold">Run</span> while you’re in{" "}
+            <span className="font-semibold">Try it from scratch</span>. Then this box will explain what printed
+            and what your variables were.
           </div>
         ) : (
           <>
             <div className="rounded-xl border border-[rgb(var(--accent-rgb)/0.55)] bg-white/90 p-3">
               <p className="text-sm font-semibold text-slate-900">What your code did:</p>
-              <p className="mt-1 text-sm text-slate-700">{activeAnalysis?.summary}</p>
-              {activeAnalysis?.tips?.length ? (
+              <p className="mt-1 text-sm text-slate-700">{scratchRunAnalysis.summary}</p>
+              {scratchRunAnalysis.tips?.length ? (
                 <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-600">
-                  {activeAnalysis.tips.map((t) => (
+                  {scratchRunAnalysis.tips.map((t) => (
                     <li key={t}>{t}</li>
                   ))}
                 </ul>
@@ -2280,10 +2905,10 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             <div className="grid gap-3 lg:grid-cols-2">
               <div className="rounded-xl border border-[rgb(var(--accent-rgb)/0.55)] bg-white/90 p-3">
                 <p className="text-sm font-extrabold tracking-tight text-slate-900">
-                  Your code (current editor)
+                  Your code (from Scratch Run)
                 </p>
                 <div className="mt-2 max-h-56 overflow-y-auto rounded-lg border border-slate-200 bg-slate-50/80 p-2 font-mono text-xs text-slate-900">
-                  <pre className="whitespace-pre-wrap">{activeCode.trim()}</pre>
+                  <pre className="whitespace-pre-wrap">{scratchRunAnalysis.code.trim()}</pre>
                 </div>
               </div>
 
@@ -2292,8 +2917,8 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
                   Memory boxes (variables)
                 </p>
                 <div className="mt-2 space-y-1 text-sm text-slate-800">
-                  {activeAnalysis?.vars?.length ? (
-                    activeAnalysis.vars.map(({ key, value }) => (
+                  {scratchRunAnalysis.vars?.length ? (
+                    scratchRunAnalysis.vars.map(({ key, value }) => (
                       <div key={key} className="flex items-start justify-between gap-3">
                         <span className="font-semibold">{key}</span>
                         <span className="font-mono text-xs text-slate-700">
@@ -2323,8 +2948,8 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               </p>
               <div className="mt-2 rounded-lg border border-slate-200 bg-slate-50/80 p-2 font-mono text-xs text-slate-900">
                 <pre className="whitespace-pre-wrap">
-                  {(activeAnalysis?.printed?.length
-                    ? activeAnalysis.printed.join("\n")
+                  {(scratchRunAnalysis.printed?.length
+                    ? scratchRunAnalysis.printed.join("\n")
                     : "(no print output yet)")}
                 </pre>
               </div>
@@ -2361,6 +2986,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     const items: Array<{ id: string; label: string }> = [
       { id: "flow", label: "Do this in order" },
       { id: "coach", label: "Coach’s note" },
+      ...(npcEnabled ? [{ id: "npc", label: "NPC Challenge Mode" }] : []),
       { id: "explainer", label: "Quick explainer" },
       ...(hasWordHelp ? [{ id: "words", label: "Word help" }] : []),
       { id: "safety", label: "AI safety" },
@@ -2488,7 +3114,10 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       <SpotlightTour
         ref={tourRef}
         storageKey={`kanam_tour_lesson_${lesson.id}_v2_done`}
-        remember={false}
+        remember={lesson.tourRemember ?? false}
+        fadeMs={lesson.tourFadeMs ?? 220}
+        moveMs={lesson.tourMoveMs ?? 180}
+        recomputeDelayMs={lesson.tourRecomputeDelayMs ?? 250}
         steps={[
           {
             id: "order",
@@ -2548,6 +3177,193 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           },
         ]}
       />
+
+      {/* Instructor video (PiP preview): shown under the header corner (Lesson-config controlled) */}
+      {showInstructorPip ? (
+        <div
+          className={[
+            "fixed z-40 hidden md:block",
+          ].join(" ")}
+          style={{
+            left: pipPos?.x ?? 12,
+            top: pipPos?.y ?? 12,
+            width: activePipSize.w,
+          }}
+          onPointerMove={onPipPointerMove}
+          onPointerUp={endPipDrag}
+          onPointerCancel={endPipDrag}
+        >
+          <div
+            className={[
+              "overflow-hidden rounded-2xl border border-white/20 bg-slate-950 shadow-2xl",
+              pipDragging ? "ring-2 ring-white/20" : "",
+            ].join(" ")}
+          >
+            <div
+              className="flex cursor-move items-center justify-between gap-2 border-b border-white/10 bg-black/40 px-3 py-2"
+              onPointerDown={beginPipDrag}
+            >
+              <p className="text-xs font-semibold text-white/90">
+                {lesson.instructorLive?.label ?? "Instructor"}
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  className="rounded-md bg-white/10 px-2 py-1 text-[11px] font-semibold text-white/90 hover:bg-white/15"
+                  onClick={() => setPipMode((m) => (m === "min" ? "expanded" : "min"))}
+                >
+                  {pipMode === "min" ? "Expand" : "Shrink"}
+                </button>
+                <button
+                  type="button"
+                  className="rounded-md bg-white/10 px-2 py-1 text-[11px] font-semibold text-white/90 hover:bg-white/15"
+                  onClick={() => setPipHidden(true)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+
+            <div className="relative w-full" style={{ height: pipMode === "expanded" ? activePipSize.h - 84 : 180 }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-950 to-black" />
+              <div className="absolute left-2 top-2 flex items-center gap-2">
+                <span className="rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-semibold text-white">
+                  LIVE
+                </span>
+                <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/80">
+                  Zoom SDK preview
+                </span>
+              </div>
+              <div className="absolute bottom-2 left-2 rounded-lg bg-white/10 px-2 py-1 text-[11px] text-white/90 backdrop-blur">
+                Instructor · {zoomPreviewMuted ? "Muted" : "Unmuted"} ·{" "}
+                {zoomPreviewCamOff ? "Cam off" : "Cam on"}
+              </div>
+
+              {pipMode === "expanded" ? (
+                <div className="absolute right-2 top-2 flex items-center gap-2">
+                  <button
+                    type="button"
+                    className="rounded-md bg-white/10 px-2 py-1 text-[11px] font-semibold text-white/90 hover:bg-white/15"
+                    onClick={() => {
+                      setZoomPreviewParticipantsOpen((v) => !v);
+                      setZoomPreviewChatOpen(false);
+                    }}
+                  >
+                    Participants
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-md bg-white/10 px-2 py-1 text-[11px] font-semibold text-white/90 hover:bg-white/15"
+                    onClick={() => {
+                      setZoomPreviewChatOpen((v) => !v);
+                      setZoomPreviewParticipantsOpen(false);
+                    }}
+                  >
+                    Chat
+                  </button>
+                  {lesson.instructorLive?.joinUrl ? (
+                    <a
+                      className="rounded-md bg-emerald-500/90 px-2 py-1 text-[11px] font-semibold text-slate-950 hover:bg-emerald-500"
+                      href={lesson.instructorLive.joinUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Join
+                    </a>
+                  ) : null}
+                </div>
+              ) : null}
+
+              {pipMode === "expanded" && zoomPreviewParticipantsOpen ? (
+                <div className="absolute right-2 top-10 h-[calc(100%-3rem)] w-[260px] overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur">
+                  <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
+                    <p className="text-xs font-semibold text-white/90">Participants</p>
+                    <button
+                      type="button"
+                      className="text-xs text-white/70 hover:text-white"
+                      onClick={() => setZoomPreviewParticipantsOpen(false)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                  <div className="space-y-2 p-3 text-xs text-white/85">
+                    <div className="flex items-center justify-between">
+                      <span>Instructor (Host)</span>
+                      <span className="text-white/60">🎤</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>You</span>
+                      <span className="text-white/60">🎧</span>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+
+              {pipMode === "expanded" && zoomPreviewChatOpen ? (
+                <div className="absolute right-2 top-10 h-[calc(100%-3rem)] w-[320px] overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur">
+                  <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
+                    <p className="text-xs font-semibold text-white/90">Chat</p>
+                    <button
+                      type="button"
+                      className="text-xs text-white/70 hover:text-white"
+                      onClick={() => setZoomPreviewChatOpen(false)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                  <div className="flex h-full flex-col">
+                    <div className="flex-1 space-y-2 overflow-auto p-3 text-xs text-white/85">
+                      <div className="rounded-lg bg-white/5 p-2">
+                        <span className="font-semibold">Instructor:</span>{" "}
+                        Same skill. Different info. Different output.
+                      </div>
+                    </div>
+                    <div className="border-t border-white/10 p-2">
+                      <div className="rounded-lg bg-white/5 px-2 py-2 text-white/60">
+                        Type message… (preview)
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
+            <div className="flex items-center justify-between gap-2 border-t border-white/10 bg-black/30 px-3 py-2">
+              <button
+                type="button"
+                onClick={() => setZoomPreviewMuted((v) => !v)}
+                className={[
+                  "rounded-lg px-2 py-1 text-[11px] font-semibold",
+                  zoomPreviewMuted
+                    ? "bg-white/10 text-white hover:bg-white/15"
+                    : "bg-emerald-500/90 text-slate-950 hover:bg-emerald-500",
+                ].join(" ")}
+              >
+                {zoomPreviewMuted ? "Unmute" : "Mute"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setZoomPreviewCamOff((v) => !v)}
+                className={[
+                  "rounded-lg px-2 py-1 text-[11px] font-semibold",
+                  zoomPreviewCamOff
+                    ? "bg-white/10 text-white hover:bg-white/15"
+                    : "bg-emerald-500/90 text-slate-950 hover:bg-emerald-500",
+                ].join(" ")}
+              >
+                {zoomPreviewCamOff ? "Start video" : "Stop video"}
+              </button>
+              <button
+                type="button"
+                className="rounded-lg bg-red-600 px-2 py-1 text-[11px] font-semibold text-white hover:bg-red-500"
+                onClick={() => setPipHidden(true)}
+              >
+                Leave
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
       <div
         className={[
           "flex min-h-[calc(100dvh-160px)] w-full items-start justify-start px-4 md:px-10",

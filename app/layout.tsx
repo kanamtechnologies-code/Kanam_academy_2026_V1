@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { HeaderVideo } from "@/components/layout/HeaderVideo";
 import { HeaderBrand } from "@/components/layout/HeaderBrand";
-import { AuthActions } from "@/components/layout/AuthActions";
 import "./globals.css";
 
 const inter = Inter({
@@ -44,12 +43,7 @@ export default function RootLayout({
 
           <div className="relative flex w-full items-center justify-between px-4 py-3 md:px-10">
             <HeaderBrand />
-            <div className="flex items-center gap-2">
-              <span className="hidden sm:inline-flex rounded-full border border-[rgb(var(--accent-rgb)/0.98)] bg-white/95 px-2.5 py-1 text-xs font-semibold text-[rgb(var(--brand-2-rgb)/1)] shadow-md">
-                Lesson Canvas MVP
-              </span>
-              <AuthActions />
-            </div>
+            <div />
           </div>
         </header>
         {children}

@@ -21,6 +21,7 @@ export default function WelcomeProfilePage() {
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
 
+  const [classCode, setClassCode] = React.useState("");
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -38,6 +39,29 @@ export default function WelcomeProfilePage() {
     return () => window.clearTimeout(t);
   }, []);
 
+  React.useEffect(() => {
+    // Prefill from /welcome (query params) or localStorage (best-effort).
+    let qpEmail = "";
+    let qpClass = "";
+    try {
+      const sp = new URLSearchParams(window.location.search);
+      qpEmail = (sp.get("email") ?? "").trim();
+      qpClass = (sp.get("classCode") ?? "").trim();
+    } catch {
+      // ignore
+    }
+    if (qpEmail) setEmail(qpEmail);
+    if (qpClass) setClassCode(qpClass);
+    if (!qpEmail || !qpClass) {
+      try {
+        if (!qpEmail) setEmail(window.localStorage.getItem("kanam.onboardingEmail") ?? "");
+        if (!qpClass) setClassCode(window.localStorage.getItem("kanam.classCode") ?? "");
+      } catch {
+        // ignore
+      }
+    }
+  }, []);
+
   return (
     <WelcomeBackground>
       <div
@@ -48,8 +72,8 @@ export default function WelcomeProfilePage() {
         ].join(" ")}
       >
         <WelcomeShell
-          title="Create your student profile"
-          subtitle="This helps Kanam save your progress and keep you on the right path."
+          title="Finish setup"
+          subtitle="Enter your details so Kanam can save your progress."
         >
           <div className="grid w-full gap-6 lg:grid-cols-3 lg:items-stretch">
             <Card className="kanam-glow-card lg:col-span-2">
@@ -65,6 +89,23 @@ export default function WelcomeProfilePage() {
                     {error}
                   </div>
                 ) : null}
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
+                      Class code
+                    </label>
+                    <Input
+                      value={classCode}
+                      onChange={(e) => setClassCode(e.target.value)}
+                      placeholder="Enter your class code"
+                      className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
+                    />
+                    <p className="mt-1 text-xs text-white/85">
+                      Check your email for your class code.
+                    </p>
+                  </div>
+                </div>
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
@@ -205,7 +246,13 @@ export default function WelcomeProfilePage() {
                   </Button>
                   <Button
                     size="lg"
-                    disabled={saving || !firstName.trim() || !lastName.trim() || !email.trim()}
+                    disabled={
+                      saving ||
+                      !classCode.trim() ||
+                      !firstName.trim() ||
+                      !lastName.trim() ||
+                      !email.trim()
+                    }
                     className={[
                       "h-14 rounded-2xl px-7 text-base font-extrabold tracking-tight",
                       "shadow-xl shadow-emerald-900/25",
@@ -215,9 +262,14 @@ export default function WelcomeProfilePage() {
                     ].join(" ")}
                     onClick={async () => {
                       setError(null);
+                      const cc = classCode.trim();
                       const trimmedFirst = firstName.trim();
                       const trimmedLast = lastName.trim();
                       const trimmedEmail = email.trim();
+                      if (!cc || cc.length < 3) {
+                        setError("Please enter your class code.");
+                        return;
+                      }
                       if (!trimmedFirst) {
                         setError("Please enter your first name.");
                         return;
@@ -247,6 +299,7 @@ export default function WelcomeProfilePage() {
                           method: "POST",
                           headers: { "content-type": "application/json" },
                           body: JSON.stringify({
+                            classCode: cc,
                             email: trimmedEmail,
                             password,
                             firstName: trimmedFirst,

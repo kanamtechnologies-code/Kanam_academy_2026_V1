@@ -122,6 +122,30 @@ const lessons: LessonRow[] = [
     badgeName: "Skill Builder",
     badgeIcon: "🧩",
   },
+  {
+    id: "lesson-11",
+    title: "Giving Functions Better Information (Parameters)",
+    href: "/learn/11",
+    xp: 600,
+    badgeName: "Parameter Pro",
+    badgeIcon: "🎮",
+  },
+  {
+    id: "lesson-12",
+    title: "Guiding AI with Rules",
+    href: "/learn/12",
+    xp: 650,
+    badgeName: "Rule Guide",
+    badgeIcon: "🛡️",
+  },
+  {
+    id: "lesson-13",
+    title: "Build Your AI NPC",
+    href: "/learn/13",
+    xp: 700,
+    badgeName: "Designer",
+    badgeIcon: "🎨",
+  },
 ];
 
 export default function Home() {
@@ -215,7 +239,7 @@ export default function Home() {
             <p className="text-sm text-slate-600">AI + Python Starter Pack</p>
             <h1 className="mt-1 text-2xl font-semibold tracking-tight md:text-3xl">
               Welcome back, {studentName}!
-            </h1>
+          </h1>
             <div className="mt-2 flex flex-wrap items-center gap-2">
               <Button asChild variant="outline" size="sm">
                 <Link href="/how-to">How to use lessons</Link>
@@ -341,8 +365,8 @@ export default function Home() {
                 </p>
                 <p className="text-xs text-slate-500">
                   {completedCount} out of {totalCount} lessons complete
-                </p>
-              </div>
+          </p>
+        </div>
               <div className="text-sm font-semibold text-slate-900">
                 {starterPackPercent}%
               </div>

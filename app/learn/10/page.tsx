@@ -20,22 +20,22 @@ const lesson10: LessonConfig = {
     "In the scratch box, define a function that makes your bot speak, then call it more than once.",
   assignmentChecklist: [
     "Define a function using `def`.",
-    "Give the function a clear name (example: jump).",
+    "Give the function a clear name (example: greet).",
     "Inside the function, print a bot message (indented).",
     "Call the function so it runs.",
     "Call the function again without rewriting the code.",
   ],
 
   starterCode: `# Fill in the blanks 👇
-def ____():
-    print("KanamBot: ____")
+def greet():
+    print("Hi! ____")
 
-____()
-____()
+greet()
+greet()
 `,
 
   instructorScript:
-    "Coach’s note:\nThink about a video game controller.\n\nWhen you press the jump button, the character jumps.\nYou don’t rebuild the jump button every time — it already exists.\n\nThat button is like a ==function==.\n\nA function is a named action in your program.\n\nInstead of copying the same instructions everywhere, you define the skill once and reuse it.\nHere’s a diff-style example:\n```\n- print(\"KanamBot: JUMP!\")\n- print(\"KanamBot: JUMP!\")\n- print(\"KanamBot: JUMP!\")\n+\n+ def jump():\n+     print(\"KanamBot: JUMP!\")\n+\n+ jump()\n+ jump()\n+ jump()\n```\n\nNotice:\n- `def jump():` creates the skill.\n- Calling `jump()` runs it.\n\nMini goal:\nCreate a function that makes your bot speak, then use it more than once.\n\nRead the steps, follow them in order, then press [[Run]].",
+    "**Coach’s note**\nRead this first — it explains the goal + how to think about the code.\n**Coach’s note**:\nThink about a video game controller.\nWhen you press the jump button, the character jumps.\nYou don’t rebuild the jump button every time — it already exists.\nThat button is like a function.\nA function is a named action in your program.\nInstead of rewriting the same instructions over and over, you:\n- teach the computer the action once\n- use it whenever you want\n\nHere’s what that looks like in code:\n```\ndef greet():\n    print(\"Hi! Nice to meet you!\")\n```\n\nThis creates a skill, but it doesn’t run yet.\nTo use the skill, you call it:\n```\ngreet()\n```\n\nNow the bot speaks.\nIf you call it again, the bot speaks again — without rewriting the message.\nThat’s how real AI systems reuse behavior.\n**Mini goal**:\nCreate a function that makes your bot speak, then use it more than once.\nRead the steps, follow them in order, then press [[Run]].",
 
   kidExplain: [
     {
@@ -85,11 +85,11 @@ ____()
     "AI safety: Functions help prevent mistakes. If behavior is copied everywhere, errors are harder to fix. Responsible AI uses clear, reusable actions with human-controlled execution.",
 
   editorPlaceholder:
-    '# From scratch idea:\n# def jump():\n#     print("KanamBot: JUMP!")\n# jump()\n# jump()\n',
+    '# Try it from scratch 👇\n# 1) Define a function\n# def greet():\n#     print("Hi! Nice to meet you!")\n#\n# 2) Call it more than once\n# greet()\n# greet()\n',
 
   terminalPrompt: TERMINAL_PROMPT,
   prevHref: "/learn/9",
-  nextHref: undefined,
+  nextHref: "/learn/11",
 
   getRunOutput: () => asTerminal("Press Run to execute your function calls."),
 

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
+import { MousePointerClick } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
@@ -10,7 +11,11 @@ export type SpotlightTourStep = {
   selector: string; // CSS selector for the element to spotlight
   title: string;
   body: string;
-  emoji?: string; // e.g. "👇" "✨"
+  /**
+   * @deprecated Avoid emojis in UI. Kept for backwards compatibility but no longer rendered.
+   */
+  emoji?: string;
+  icon?: React.ReactNode;
   padding?: number; // extra padding around the highlighted element
 };
 
@@ -71,6 +76,8 @@ export const SpotlightTour = React.forwardRef<
     interactive?: boolean; // if true, don't block clicks (pure visual highlight)
     autoCloseMs?: number; // optional auto-close timer
     fadeMs?: number; // fade-out duration in ms
+    moveMs?: number; // spotlight movement duration in ms (between steps)
+    recomputeDelayMs?: number; // wait before measuring spotlight (lets scroll/layout settle)
   }
 >(function SpotlightTour(
   {
@@ -82,6 +89,8 @@ export const SpotlightTour = React.forwardRef<
   interactive = false,
   autoCloseMs,
   fadeMs = 220,
+  moveMs = 180,
+  recomputeDelayMs = 250,
   },
   ref
 ) {
@@ -96,6 +105,8 @@ export const SpotlightTour = React.forwardRef<
       interactive={interactive}
       autoCloseMs={autoCloseMs}
       fadeMs={fadeMs}
+      moveMs={moveMs}
+      recomputeDelayMs={recomputeDelayMs}
     />
   );
 });
@@ -109,6 +120,8 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
   interactive?: boolean;
   autoCloseMs?: number;
   fadeMs?: number;
+  moveMs?: number;
+  recomputeDelayMs?: number;
 }>(function SpotlightTourInner(
   {
     steps,
@@ -119,6 +132,8 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
     interactive = false,
     autoCloseMs,
     fadeMs = 220,
+    moveMs = 180,
+    recomputeDelayMs = 250,
   },
   ref
 ) {
@@ -217,9 +232,9 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
       // Scroll it into view (works for nested scroll containers too).
       el.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
     }
-    const t = window.setTimeout(() => recompute(), 250);
+    const t = window.setTimeout(() => recompute(), recomputeDelayMs);
     return () => window.clearTimeout(t);
-  }, [open, idx, step, recompute]);
+  }, [open, idx, step, recompute, recomputeDelayMs]);
 
   React.useEffect(() => {
     if (!open) return;
@@ -269,34 +284,41 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
       {rect ? (
         <>
           <div
-            className={`fixed left-0 right-0 top-0 ${scrim}`}
-            style={{ height: rect.top }}
+            className={`fixed left-0 right-0 top-0 ${scrim} transition-all ease-out`}
+            style={{ height: rect.top, transitionDuration: `${moveMs}ms` }}
           />
           <div
-            className={`fixed left-0 ${scrim}`}
-            style={{ top: rect.top, height: rect.height, width: rect.left }}
+            className={`fixed left-0 ${scrim} transition-all ease-out`}
+            style={{
+              top: rect.top,
+              height: rect.height,
+              width: rect.left,
+              transitionDuration: `${moveMs}ms`,
+            }}
           />
           <div
-            className={`fixed right-0 ${scrim}`}
+            className={`fixed right-0 ${scrim} transition-all ease-out`}
             style={{
               top: rect.top,
               height: rect.height,
               width: Math.max(0, window.innerWidth - rect.right),
+              transitionDuration: `${moveMs}ms`,
             }}
           />
           <div
-            className={`fixed left-0 right-0 bottom-0 ${scrim}`}
-            style={{ top: rect.bottom }}
+            className={`fixed left-0 right-0 bottom-0 ${scrim} transition-all ease-out`}
+            style={{ top: rect.bottom, transitionDuration: `${moveMs}ms` }}
           />
 
           {/* Spotlight outline (non-blocking) */}
           <div
-            className="pointer-events-none fixed rounded-2xl border-2 border-white/70 animate-[kanamSpotlightPulse_1.1s_ease-in-out_infinite]"
+            className="pointer-events-none fixed rounded-2xl border-2 border-white/70 transition-all ease-out animate-[kanamSpotlightPulse_1.1s_ease-in-out_infinite]"
             style={{
               top: rect.top,
               left: rect.left,
               width: rect.width,
               height: rect.height,
+              transitionDuration: `${moveMs}ms`,
             }}
           />
         </>
@@ -309,8 +331,8 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
           <div className="pointer-events-auto rounded-2xl border border-slate-200 bg-white shadow-xl">
             <div className="flex items-start gap-3 p-4">
               <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--accent)]/12 ring-1 ring-[var(--accent)]/20">
-                <div className="text-xl animate-[kanamTourBounce_900ms_ease-in-out_infinite]">
-                  {step.emoji ?? "👇"}
+                <div className="animate-[kanamTourBounce_900ms_ease-in-out_infinite] text-slate-900">
+                  {step.icon ?? <MousePointerClick className="h-5 w-5" />}
                 </div>
               </div>
               <div className="min-w-0">
