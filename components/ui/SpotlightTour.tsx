@@ -61,8 +61,7 @@ function findVisibleTarget(selector: string): HTMLElement | null {
   for (const el of all) {
     if (isActuallyVisible(el)) return el;
   }
-  // fallback to first match (might be hidden, but better than null)
-  return all[0] ?? null;
+  return null;
 }
 
 export const SpotlightTour = React.forwardRef<
@@ -216,10 +215,9 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
   const recompute = React.useCallback(() => {
     if (!open) return;
     const el = step ? findVisibleTarget(step.selector) : null;
-    if (!el) {
-      setRect(null);
-      return;
-    }
+    // Avoid flicker during responsive/layout transitions: if we can't find the next target,
+    // keep the last rect instead of momentarily collapsing to "no spotlight".
+    if (!el) return;
     const pad = step.padding ?? 10;
     const r = el.getBoundingClientRect();
     setRect(safeRect(r, pad));
@@ -250,7 +248,7 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
   const visible = open || closing;
   if (!mounted || !visible || !step) return null;
 
-  const scrim = "bg-slate-950/65 backdrop-blur-[1px]";
+  const scrimColor = "rgba(2, 6, 23, 0.62)"; // slate-950 w/ alpha
   const z = "z-[9999]";
 
   const tooltipMaxW = 360;
@@ -280,50 +278,22 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
         pointerEvents: interactive ? "none" : open ? "auto" : "none",
       }}
     >
-      {/* Dim regions (click-blocking) */}
+      {/* Spotlight (single element): box-shadow dims OUTSIDE the rectangle.
+          This avoids the distorted multi-panel animation during step transitions. */}
       {rect ? (
-        <>
-          <div
-            className={`fixed left-0 right-0 top-0 ${scrim} transition-all ease-out`}
-            style={{ height: rect.top, transitionDuration: `${moveMs}ms` }}
-          />
-          <div
-            className={`fixed left-0 ${scrim} transition-all ease-out`}
-            style={{
-              top: rect.top,
-              height: rect.height,
-              width: rect.left,
-              transitionDuration: `${moveMs}ms`,
-            }}
-          />
-          <div
-            className={`fixed right-0 ${scrim} transition-all ease-out`}
-            style={{
-              top: rect.top,
-              height: rect.height,
-              width: Math.max(0, window.innerWidth - rect.right),
-              transitionDuration: `${moveMs}ms`,
-            }}
-          />
-          <div
-            className={`fixed left-0 right-0 bottom-0 ${scrim} transition-all ease-out`}
-            style={{ top: rect.bottom, transitionDuration: `${moveMs}ms` }}
-          />
-
-          {/* Spotlight outline (non-blocking) */}
-          <div
-            className="pointer-events-none fixed rounded-2xl border-2 border-white/70 transition-all ease-out animate-[kanamSpotlightPulse_1.1s_ease-in-out_infinite]"
-            style={{
-              top: rect.top,
-              left: rect.left,
-              width: rect.width,
-              height: rect.height,
-              transitionDuration: `${moveMs}ms`,
-            }}
-          />
-        </>
+        <div
+          className="pointer-events-none fixed rounded-2xl border-2 border-white/70 animate-[kanamSpotlightPulse_1.1s_ease-in-out_infinite] transition-[top,left,width,height] ease-out"
+          style={{
+            top: rect.top,
+            left: rect.left,
+            width: rect.width,
+            height: rect.height,
+            transitionDuration: `${moveMs}ms`,
+            boxShadow: `0 0 0 9999px ${scrimColor}`,
+          }}
+        />
       ) : (
-        <div className={`fixed inset-0 ${scrim}`} />
+        <div className="fixed inset-0" style={{ background: scrimColor }} />
       )}
 
       {showTooltip ? (

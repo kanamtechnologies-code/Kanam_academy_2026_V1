@@ -115,6 +115,10 @@ export type LessonConfig = {
   tourMoveMs?: number;
   tourRecomputeDelayMs?: number;
 
+  // Optional: Coach's note accountability gate (timed "I read it" checkpoint).
+  coachNoteGateEnabled?: boolean;
+  coachNoteGateSeconds?: number;
+
   getRunOutput: (code: string, runtime?: Record<string, string>) => string;
   getRunBody?: (
     code: string,
@@ -1414,6 +1418,7 @@ function analyzeScratch(code: string, runtime: Record<string, string>) {
 export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const tourRef = React.useRef<SpotlightTourHandle | null>(null);
   const hubScrollRef = React.useRef<HTMLDivElement | null>(null);
+  const coachNoteRef = React.useRef<HTMLDivElement | null>(null);
   const [activeHubSection, setActiveHubSection] = React.useState<string>("flow");
   const terminalPrompt = lesson.terminalPrompt ?? "kanam-bot@python ~$";
 
@@ -1437,6 +1442,18 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   );
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [hasRun, setHasRun] = React.useState<boolean>(false);
+  const [guidedHasRun, setGuidedHasRun] = React.useState<boolean>(false);
+  const [guidedOutput, setGuidedOutput] = React.useState<string>(
+    asTerminal(terminalPrompt, "Press Run (guided) to see output here.")
+  );
+
+  const coachGateEnabled = lesson.coachNoteGateEnabled ?? true;
+  const coachGateSeconds = Math.max(0, Math.min(60, lesson.coachNoteGateSeconds ?? 8));
+  const [coachGateStartedAt, setCoachGateStartedAt] = React.useState<number | null>(null);
+  const [coachGateRemainingMs, setCoachGateRemainingMs] = React.useState<number>(
+    coachGateSeconds * 1000
+  );
+  const [coachConfirmed, setCoachConfirmed] = React.useState<boolean>(false);
   const [lastRunForExplanation, setLastRunForExplanation] = React.useState<{
     editor: "guided" | "scratch";
     code: string;
@@ -1476,6 +1493,64 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const [zoomPreviewMuted, setZoomPreviewMuted] = React.useState(true);
   const [zoomPreviewCamOff, setZoomPreviewCamOff] = React.useState(false);
   const [isInstructorView, setIsInstructorView] = React.useState(false);
+
+  const coachConfirmStorageKey = React.useMemo(() => {
+    const id = userId || deviceId || "anon";
+    return `kanam.coachRead:v1:${lesson.id}:${id}`;
+  }, [lesson.id, userId, deviceId]);
+
+  React.useEffect(() => {
+    if (!coachGateEnabled) return;
+    try {
+      const ok = window.localStorage.getItem(coachConfirmStorageKey) === "1";
+      if (ok) setCoachConfirmed(true);
+    } catch {
+      // ignore
+    }
+  }, [coachGateEnabled, coachConfirmStorageKey]);
+
+  // Start the timer only after the Coach's note section is actually visible.
+  React.useEffect(() => {
+    if (!coachGateEnabled) return;
+    if (coachConfirmed) return;
+    if (coachGateSeconds <= 0) {
+      setCoachGateRemainingMs(0);
+      return;
+    }
+    const el = coachNoteRef.current;
+    if (!el) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const e = entries[0];
+        if (!e) return;
+        if (e.isIntersecting && (e.intersectionRatio ?? 0) >= 0.45) {
+          setCoachGateStartedAt((prev) => prev ?? Date.now());
+        }
+      },
+      { threshold: [0, 0.25, 0.45, 0.65, 1] }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [coachGateEnabled, coachConfirmed, coachGateSeconds]);
+
+  React.useEffect(() => {
+    if (!coachGateEnabled) return;
+    if (coachConfirmed) return;
+    if (coachGateSeconds <= 0) {
+      setCoachGateRemainingMs(0);
+      return;
+    }
+    if (!coachGateStartedAt) return;
+    const tick = () => {
+      const elapsed = Date.now() - coachGateStartedAt;
+      const remaining = Math.max(0, coachGateSeconds * 1000 - elapsed);
+      setCoachGateRemainingMs(remaining);
+    };
+    tick();
+    const t = window.setInterval(tick, 200);
+    return () => window.clearInterval(t);
+  }, [coachGateEnabled, coachConfirmed, coachGateSeconds, coachGateStartedAt]);
 
   const designEnabled = Boolean(lesson.designMode);
   const [design, setDesign] = React.useState<DesignState>(defaultDesignState());
@@ -1813,7 +1888,10 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     if (submitted) {
       return lesson.nextHref ? "Success! When you’re ready, click Next Lesson." : "Success!";
     }
-    if (!guidedTouched && !scratchTouched && !hasRun) {
+    if (coachGateEnabled && !coachConfirmed) {
+      return "Start at the top: read Coach’s note (then click I read it).";
+    }
+    if (!guidedTouched && !scratchTouched && !hasRun && !guidedHasRun) {
       return "Start at the top: read Coach’s note + Quick explainer.";
     }
     if (!hasRun) {
@@ -1823,7 +1901,16 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       return "Check the Console Output + explanation, then try it again from scratch (no hints).";
     }
     return "Submit from scratch to earn Success.";
-  }, [guidedTouched, scratchTouched, hasRun, submitted, lesson.nextHref]);
+  }, [
+    coachGateEnabled,
+    coachConfirmed,
+    guidedTouched,
+    scratchTouched,
+    hasRun,
+    guidedHasRun,
+    submitted,
+    lesson.nextHref,
+  ]);
 
   const FlowRow = ({
     num,
@@ -1889,6 +1976,18 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     setOutput(asTerminal(terminalPrompt, body));
   };
 
+  const onRunGuided = () => {
+    setGuidedHasRun(true);
+    trackProgress("guided_run");
+    const run = runMiniPython(guidedCode, runtime);
+    const body = run.error
+      ? `❌ ${run.error}`
+      : run.stdout.length
+        ? run.stdout.join("\n")
+        : "(no output)\nTip: add print(...) to see output.";
+    setGuidedOutput(asTerminal(terminalPrompt, body));
+  };
+
   const onReset = () => {
     setGuidedCode(lesson.starterCode);
     setScratchCode("");
@@ -1898,6 +1997,8 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     );
     setSubmitted(false);
     setHasRun(false);
+    setGuidedHasRun(false);
+    setGuidedOutput(asTerminal(terminalPrompt, "Press Run (guided) to see output here."));
     setRuntime(runtimeDefaultValues);
     setRevealedCfu(Array.from({ length: lesson.cfu.length }, () => false));
   };
@@ -2015,9 +2116,6 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           <Button asChild variant="outline" size="sm">
             <Link href="/dashboard">Dashboard</Link>
           </Button>
-          <Button asChild variant="outline" size="sm">
-            <Link href="/how-to">How to</Link>
-          </Button>
           <Button
             type="button"
             size="sm"
@@ -2078,10 +2176,10 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             </div>
             <div className="min-w-0">
               <p className="text-base font-extrabold tracking-tight text-slate-900 md:text-lg">
-                Do this in order
+                Learning path
               </p>
               <p className="mt-0.5 text-sm text-slate-600">
-                Follow these steps and you’ll know exactly what to do next.
+                Follow these steps and you’ll always know what to do next.
               </p>
             </div>
           </div>
@@ -2095,21 +2193,29 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             <FlowRow
               num={1}
               label="Read Coach’s note"
-              done={guidedTouched || scratchTouched || hasRun || submitted}
-              active={!guidedTouched && !scratchTouched && !hasRun && !submitted}
+              done={
+                coachGateEnabled
+                  ? coachConfirmed || submitted
+                  : guidedTouched || scratchTouched || hasRun || guidedHasRun || submitted
+              }
+              active={
+                coachGateEnabled
+                  ? !coachConfirmed && !submitted
+                  : !guidedTouched && !scratchTouched && !hasRun && !guidedHasRun && !submitted
+              }
               hint="This tells you the goal and the vibe."
             />
             <FlowRow
               num={2}
               label="Read the Quick explainer"
-              done={guidedTouched || scratchTouched || hasRun || submitted}
-              active={!guidedTouched && !scratchTouched && !hasRun && !submitted}
+              done={guidedTouched || scratchTouched || hasRun || guidedHasRun || submitted}
+              active={!guidedTouched && !scratchTouched && !hasRun && !guidedHasRun && !submitted}
               hint="Learn the idea before you code."
             />
             <FlowRow
               num={3}
               label="Fill in the blanks (guided)"
-              done={hasRun || submitted}
+              done={guidedHasRun || hasRun || submitted}
               active={!hasRun && (guidedTouched || activeEditor === "guided")}
               hint="Practice with hints first."
             />
@@ -2175,6 +2281,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
         data-tour="coach-note"
         data-hub="coach"
         className="scroll-mt-24 border-[rgb(var(--accent-rgb)/0.55)] bg-white shadow-md"
+        ref={coachNoteRef as any}
       >
         <CardHeader className="pb-4">
           <SectionHeader
@@ -2185,6 +2292,45 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
         </CardHeader>
         <CardContent className="pt-0 text-sm text-slate-700">
           {renderCoachNote(lesson.instructorScript)}
+
+          {coachGateEnabled ? (
+            <div className="mt-4 rounded-xl border border-[rgb(var(--accent-rgb)/0.55)] bg-gradient-to-r from-[rgb(var(--brand-rgb)/0.10)] via-white/70 to-[rgb(var(--accent-rgb)/0.14)] p-4">
+              <p className="text-sm font-extrabold tracking-tight text-slate-900">
+                Coach’s note checkpoint
+              </p>
+              <p className="mt-1 text-sm text-slate-700">
+                Take a moment to read. When the timer finishes, click{" "}
+                <span className="font-semibold">I read it</span>.
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  className="h-11 px-4 text-sm font-extrabold tracking-tight"
+                  disabled={coachConfirmed || coachGateRemainingMs > 0}
+                  onClick={() => {
+                    setCoachConfirmed(true);
+                    trackProgress("coach_note_confirmed", { seconds: coachGateSeconds });
+                    try {
+                      window.localStorage.setItem(coachConfirmStorageKey, "1");
+                    } catch {
+                      // ignore
+                    }
+                  }}
+                >
+                  {coachConfirmed
+                    ? "Done"
+                    : coachGateRemainingMs > 0
+                      ? `Reading… ${Math.ceil(coachGateRemainingMs / 1000)}s`
+                      : "I read it"}
+                </Button>
+                <p className="text-xs text-slate-600">
+                  This helps us make sure everyone starts on the same page.
+                </p>
+              </div>
+            </div>
+          ) : null}
+
           <p className="mt-3 leading-relaxed text-slate-600">
             Read the steps, fill the blanks, then press{" "}
             <span className="font-semibold text-slate-900">Run</span>.
@@ -2469,33 +2615,26 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-3">
-        <div className="rounded-xl border border-[rgb(var(--accent-rgb)/0.55)] bg-gradient-to-r from-[rgb(var(--brand-rgb)/0.14)] via-white/70 to-[rgb(var(--accent-rgb)/0.18)] p-4">
-          <p className="text-sm font-extrabold tracking-tight text-slate-900">
-            {lesson.assignmentTitle ?? "Your mission"}
-          </p>
-          <p className="mt-1 text-sm leading-relaxed text-slate-700">
-            {lesson.assignmentBody ?? `Build this from scratch: ${lesson.goal}`}
-          </p>
-          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
-            {(lesson.assignmentChecklist?.length
-              ? lesson.assignmentChecklist
-              : [
-                  "Use the guided box first if you want help.",
-                  "Then rebuild it in the scratch box (that’s the one that counts).",
-                  "Press Run to test, then Submit when it works.",
-                ]
-            ).map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-          <p className="mt-3 text-xs text-slate-600">
-            Tip: <span className="font-semibold">Submit</span> checks your{" "}
-            <span className="font-semibold">scratch</span> box, not the guided one.
-          </p>
-        </div>
-
         <div className="space-y-3">
           <div className="rounded-md border border-slate-200 bg-white p-3">
+            <div className="rounded-xl border border-[rgb(var(--accent-rgb)/0.55)] bg-gradient-to-r from-[rgb(var(--brand-rgb)/0.14)] via-white/70 to-[rgb(var(--accent-rgb)/0.18)] p-4">
+              <p className="text-sm font-extrabold tracking-tight text-slate-900">
+                Your mission (guided)
+              </p>
+              <p className="mt-1 text-sm leading-relaxed text-slate-700">
+                Fill in the blanks, then press <span className="font-semibold">Run</span> to see the output.
+              </p>
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
+                {[
+                  `Replace the ____ blanks (there are ${(lesson.starterCode.match(/____/g) ?? []).length || 0}).`,
+                  "Press Run and read the console.",
+                  "If something breaks, fix one blank at a time.",
+                ].map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-semibold text-slate-900">
                 Fill in the blanks (guided)
@@ -2528,9 +2667,54 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
                   : "border-slate-200 focus-within:ring-slate-200/25",
               ].join(" ")}
             />
+
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={onRunGuided}
+                className="h-11 px-4 text-sm font-extrabold tracking-tight"
+              >
+                Run (guided)
+              </Button>
+              <p className="text-xs text-slate-600">
+                This runs the guided box only.
+              </p>
+            </div>
+
+            {guidedHasRun ? (
+              <pre className="mt-3 max-h-[220px] overflow-auto rounded-xl border border-slate-200 bg-slate-950 p-3 text-xs text-slate-50 kanam-hide-scrollbar">
+{guidedOutput}
+              </pre>
+            ) : null}
           </div>
 
           <div className="rounded-md border border-slate-200 bg-white p-3">
+            <div className="rounded-xl border border-[rgb(var(--accent-rgb)/0.55)] bg-gradient-to-r from-[rgb(var(--brand-rgb)/0.14)] via-white/70 to-[rgb(var(--accent-rgb)/0.18)] p-4">
+              <p className="text-sm font-extrabold tracking-tight text-slate-900">
+                {lesson.assignmentTitle ?? "Your mission"}
+              </p>
+              <p className="mt-1 text-sm leading-relaxed text-slate-700">
+                {lesson.assignmentBody ?? `Build this from scratch: ${lesson.goal}`}
+              </p>
+              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
+                {(lesson.assignmentChecklist?.length
+                  ? lesson.assignmentChecklist
+                  : [
+                      "Use the guided box first if you want help.",
+                      "Then rebuild it in the scratch box (that’s the one that counts).",
+                      "Press Run to test, then Submit when it works.",
+                    ]
+                ).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <p className="mt-3 text-xs text-slate-600">
+                Tip: <span className="font-semibold">Submit</span> checks your{" "}
+                <span className="font-semibold">scratch</span> box, not the guided one.
+              </p>
+            </div>
+
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-semibold text-slate-900">
                 Try it from scratch (no hints)
@@ -2984,7 +3168,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const hubNavItems = React.useMemo(() => {
     const hasWordHelp = WORD_HELP.some((w) => w.match.test(collectLessonText(lesson)));
     const items: Array<{ id: string; label: string }> = [
-      { id: "flow", label: "Do this in order" },
+      { id: "flow", label: "Learning path" },
       { id: "coach", label: "Coach’s note" },
       ...(npcEnabled ? [{ id: "npc", label: "NPC Challenge Mode" }] : []),
       { id: "explainer", label: "Quick explainer" },
@@ -3122,16 +3306,16 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           {
             id: "order",
             selector: '[data-tour="lesson-flow"]',
-            title: "Read: Do this in order",
-            body: "This checklist is your map. The tour will follow these exact steps. If you feel stuck later, come back to this box.",
+            title: "Welcome — I’m here with you",
+            body: "Your instructor will be with you the whole time. Use this Learning Path like a checklist. Do it in order, and you’ll always know what to do next.",
             emoji: "👀",
             padding: 12,
           },
           {
             id: "coach",
             selector: '[data-tour="coach-note"]',
-            title: "Step 1: Coach’s note",
-            body: "Skim this first. It tells you what you’re building, what it should do, and the #1 mistake to avoid.",
+            title: "Step 1: Coach’s note (read first)",
+            body: "This is where your instructor explains the goal and the biggest mistake to avoid. Take your time — then click the checkpoint when it unlocks.",
             emoji: "✨",
             padding: 12,
           },
@@ -3139,15 +3323,15 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             id: "explain",
             selector: '[data-tour="quick-explainer"]',
             title: "Step 2: Quick explainer",
-            body: "Learn the idea in plain English first (then the code will make way more sense).",
+            body: "Quick, clear explanation — so the code feels easier when you start typing.",
             emoji: "📚",
             padding: 10,
           },
           {
             id: "guided",
             selector: '[data-tour="guided-editor"]',
-            title: "Step 3: Fill in the blanks (guided)",
-            body: "Start here to practice. Fix the ____ blanks, then you’ll be ready to test it.",
+            title: "Step 3: Fill in the blanks",
+            body: "Start here with hints. Fix the ____ blanks one by one. You can run the guided box to check your work.",
             emoji: "🧩",
             padding: 12,
           },
@@ -3155,7 +3339,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             id: "run",
             selector: '[data-tour="run-button"]',
             title: "Step 4: Press Run",
-            body: "Run = test. Look at the console output to see what your code actually printed.",
+            body: "Run means test. The console shows what your code printed — that’s how you know what actually happened.",
             emoji: "▶️",
             padding: 10,
           },
@@ -3163,15 +3347,15 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             id: "scratch",
             selector: '[data-tour="scratch-editor"]',
             title: "Step 5: Try it from scratch",
-            body: "This is the real skill-builder. Success is checked from THIS box (no hints).",
+            body: "Now rebuild it without hints. This is the one that counts for Submit.",
             emoji: "🧠",
             padding: 12,
           },
           {
             id: "submit",
             selector: '[data-tour="submit-button"]',
-            title: "Step 6: Submit (from scratch)",
-            body: "When your scratch code works and prints the right message, hit Submit to earn Success (and light up the bar).",
+            title: "Step 6: Submit",
+            body: "When your scratch code works, hit Submit. If it doesn’t work yet, that’s normal — adjust your code and test again.",
             emoji: "🏁",
             padding: 10,
           },

@@ -290,9 +290,6 @@ export default function WelcomeProtocolPage() {
               </div>
 
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <Button className="h-12" variant="outline" asChild>
-                  <Link href="/how-to">Read the full How-To</Link>
-                </Button>
                 <Button
                   className="h-12 bg-emerald-500 text-emerald-950 hover:bg-emerald-400"
                   asChild

@@ -392,13 +392,6 @@ export default function WelcomeChoosePage() {
                     </Button>
                   </div>
                   <Button
-                    onClick={() => router.push("/how-to")}
-                    variant="outline"
-                    className="h-12 w-full"
-                  >
-                    Read the full How-To
-                  </Button>
-                  <Button
                     className="h-12 w-full"
                     variant="outline"
                     onClick={() => router.push("/welcome")}

@@ -10,28 +10,26 @@ function asTerminal(body: string) {
   return `${TERMINAL_PROMPT} python main.py\n${body}\n${TERMINAL_PROMPT}`;
 }
 
-const DEFAULT_GUIDED = `# Fill in the blanks 👇
-# Goal: make a tiny “game AI” that follows rules.
+const DEFAULT_GUIDED = `# Welcome to Kanam 👋
+# This is a quick “Day 0” demo before class starts.
+# Goal: learn the canvas — edit code, press Run, read the output.
 
-player_name = "____"
-player_text = "____"
+# 1) Put your name in quotes:
+name = "____"
 
-def npc(player_input):
-    # Rule 1
-    if "hello" in player_input.lower():
-        print("Hey traveler " + player_name + "!")
-    # Rule 2
-    elif "quest" in player_input.lower():
-        print("A quest! Tell me your mission.")
-    # Fallback rule
-    else:
-        print("I don't understand yet. Tell me more.")
+# 2) This prints a message in the console:
+print("Move forward, " + name + "!")
 
-npc(player_text)
+# 3) Add ONE more print line below (no blanks needed):
+print("I know how to press Run and read the output.")
 `;
 
 const DEFAULT_SCRATCH_TEMPLATE = `# Try it from scratch (no hints) 👇
-# Tip: write your rules inside a function, then call it.
+# Goal: print 2 lines using a variable.
+#
+# name = "Alex"
+# print("Move forward, " + name + "!")
+# print("I can run my code.")
 
 `;
 
@@ -39,43 +37,49 @@ export default function DemoPage() {
   const lesson: LessonConfig = React.useMemo(() => {
     return {
       id: "demo-lesson",
-      title: "Demo Lesson: Build a Rule-Based NPC",
-      goal: "Try the Kanam canvas: rules + code + console + submit.",
+      title: "Demo: How to Use the Lesson Canvas",
+      goal: "Edit code, press Run, and read the output — before your first class.",
       xpReward: 0,
       badge: "✨ Demo",
 
       assignmentTitle: "Your mission",
       assignmentBody:
-        "In the scratch box, write your own `npc(...)` function with at least 2 rules (if/elif) plus a fallback `else`, then call it.",
+        "In the scratch box, make Python print 2 lines using a variable (your name). Then press Run.",
       assignmentChecklist: [
-        "Define `def npc(player_input):`",
-        "Use `if` and `elif` rules (at least 2).",
-        "Add a fallback `else` message.",
-        "Call `npc(...)` at least once.",
+        'Create a variable like: `name = "Alex"`',
+        "Print one line that uses the variable.",
+        "Print a second line.",
+        "Press Run and check the console.",
       ],
 
       starterCode: DEFAULT_GUIDED,
       scratchTemplateCode: DEFAULT_SCRATCH_TEMPLATE,
 
       instructorScript:
-        "**Coach’s note**:\nThis is the **demo**. Your goal is to see how the canvas works end-to-end.\n\nBig idea: the computer does not guess. It checks your rules top-to-bottom.\n\nWhen you click **Start Demo**, you’ll get:\n- a Fill-in-the-blanks editor\n- a Scratch editor\n- a Run button + console\n- a Zoom preview (PiP)\n- a step-by-step tutorial\n",
+        "**Coach’s note**\nThis is the **demo** — it’s here so you feel confident before class starts.\n\nToday’s goal is simple:\n- Type in the code boxes\n- Press [[Run]]\n- Read the console output\n\nImportant: the computer does exactly what you write. It won’t guess.\n\n**Mini goal**:\nMake your program print 2 lines using a variable (your name).\n",
       kidExplain: [
-        { title: "Rules → behavior", text: "Your NPC will only do what your rules tell it to do." },
-        { title: "Fallback", text: "A good NPC always has something to say (that’s the `else`)." },
+        {
+          title: "Two boxes, one goal",
+          text: "Use the guided box to practice, then try the scratch box without hints.",
+        },
+        {
+          title: "Run → output",
+          text: "When you press Run, the console shows exactly what your code printed.",
+        },
       ],
       steps: [
-        "Start in the guided box and fill in the ____ blanks.",
+        "Start in the guided box and fill in the ____ blank.",
         "Press Run and read the console output.",
         "Try rewriting it from scratch (no hints).",
-        "Submit when your scratch version works.",
+        "Optional: press Submit when your scratch version prints two lines.",
       ],
       cfu: [],
       tryThis: [
-        'Add a new rule for "my name is ...".',
-        "Make the fallback message more helpful.",
+        "Change the message to something you would want your helper to say.",
+        "Make your second print line funny.",
       ],
       aiSafetyMoment:
-        "AI safety: predictable behavior comes from clear rules. Missing rules can cause confusing outputs.",
+        "AI safety: computers follow instructions exactly. Clear instructions help you stay in control of what the program does.",
 
       editorPlaceholder: DEFAULT_SCRATCH_TEMPLATE,
       terminalPrompt: TERMINAL_PROMPT,
@@ -97,32 +101,25 @@ export default function DemoPage() {
       tourMoveMs: 760,
       tourRecomputeDelayMs: 650,
 
-      getRunOutput: () => asTerminal("Demo ready. Press Run to execute your scratch code."),
+      getRunOutput: () => asTerminal("Ready! Press Run to execute your scratch code."),
       computeProgressPercent: (code, submitted) => {
         if (submitted) return 100;
-        const checks = [
-          /\bdef\s+npc\s*\(\s*player_input\s*\)\s*:/.test(code),
-          /\bif\b/.test(code) && /\belif\b/.test(code),
-          /\belse\s*:/.test(code),
-          /\bnpc\s*\(/.test(code),
-        ];
+        const hasName = /\bname\s*=\s*["'][^"']+["']/.test(code);
+        const printCount = (code.match(/\bprint\s*\(/g) ?? []).length;
+        const checks = [hasName, printCount >= 2];
         const done = checks.filter(Boolean).length;
         return Math.round((done / checks.length) * 100);
       },
       isSubmissionValid: (code) => {
-        return (
-          /\bdef\s+npc\s*\(\s*player_input\s*\)\s*:/.test(code) &&
-          /\bif\b/.test(code) &&
-          /\belif\b/.test(code) &&
-          /\belse\s*:/.test(code) &&
-          /\bnpc\s*\(/.test(code)
-        );
+        const hasName = /\bname\s*=\s*["'][^"']+["']/.test(code);
+        const printCount = (code.match(/\bprint\s*\(/g) ?? []).length;
+        return hasName && printCount >= 2;
       },
       getSubmitOutput: (ok) =>
         ok
-          ? asTerminal("✅ Demo complete! You built a rule-based NPC and submitted from scratch.")
+          ? asTerminal("✅ Nice! You’re ready for class. You wrote code, pressed Run, and checked output.")
           : asTerminal(
-              "❌ Almost! Make sure your scratch code has `def npc(player_input):`, at least one `elif`, a fallback `else`, and a call to `npc(...)`."
+              '❌ Almost! In scratch, create `name = "..."` and write at least 2 `print(...)` lines. Then press Run.'
             ),
     };
   }, []);
