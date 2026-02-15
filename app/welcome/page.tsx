@@ -173,9 +173,9 @@ export default function WelcomePage() {
                       "h-12 w-full rounded-xl px-6 text-base font-semibold",
                       "transition-all duration-300 ease-out",
                       "active:scale-95",
-                      "bg-gradient-to-r from-emerald-600 via-emerald-400 to-emerald-300",
-                      "text-white shadow-lg shadow-emerald-100 hover:brightness-110",
-                      "focus-visible:ring-4 focus-visible:ring-emerald-500/25",
+                      "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
+                      "text-[var(--accent)] shadow-lg shadow-emerald-900/20 hover:brightness-[1.06]",
+                      "focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)]",
                     ].join(" ")}
                     onClick={() => {
                       setNewError(null);
@@ -370,7 +370,7 @@ export default function WelcomePage() {
                       "h-12 w-full rounded-xl px-6 text-base font-semibold",
                       "transition-all duration-300 ease-out",
                       "active:scale-95",
-                      "bg-[#E9D5A3] text-amber-950 hover:brightness-110",
+                      "bg-[#E9D5A3] text-[var(--brand-2)] hover:brightness-110",
                       "shadow-[0_20px_50px_rgba(0,0,0,0.04)]",
                       "focus-visible:ring-4 focus-visible:ring-emerald-500/25",
                     ].join(" ")}

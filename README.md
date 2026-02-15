@@ -1,48 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kanam Academy — Lesson Canvas (MVP)
 
-## Getting Started
+![Kanam Academy logo](public/images/Logo.png)
 
-First, run the development server:
+Kanam Academy is a **middle-school friendly coding canvas** for live, instructor-led lessons (Zoom-style delivery) where learners practice Python concepts through:
+- **Fill-in-the-blanks (guided)**
+- **Try it from scratch (scratch editor)**
+- **Run + output console**
+- **Check-for-understanding (CFU) prompts**
+- **Demo mode** for first-time visitors
+
+The UX is designed for grades **6–8**: clear steps, big buttons, minimal “form” overload, and game-style language where appropriate.
+
+---
+
+## Quick start (local dev)
+
+### 1) Install + run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 2) Supabase setup (recommended for real progress tracking)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This app uses Supabase for **Auth** + **Postgres** progress tracking.
 
-## Supabase (backend)
+1) Create `.env.local` in the repo root and copy values from `config/env.example`:
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- (optional, server-only) `SUPABASE_SERVICE_ROLE_KEY`
+- (optional) `NEXT_PUBLIC_KANAM_SLOGAN`
 
-This project is being wired up for a Supabase backend (Auth + Postgres).
+2) Apply the database schema in Supabase:
+- Open Supabase → **SQL Editor**
+- Run `supabase/schema.sql`
 
-- **Env vars**: copy `config/env.example` into your local environment and fill in values:
-  - `NEXT_PUBLIC_SUPABASE_URL`
-  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-
-Helper clients:
+Supabase helpers live here:
 - `lib/supabase/browser.ts`
 - `lib/supabase/server.ts`
+- `lib/supabase/admin.ts` (server-only)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Where to click (key routes)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Welcome / entry**: `GET /welcome`
+- **Demo dashboard (tutorial-only)**: `GET /demo`
+- **Interactive demo lesson**: `GET /learn/demo`
+- **Demo completion page**: `GET /demo/complete`
+- **Lessons**: `GET /learn/1` → `GET /learn/13`
+- **Dashboard (currently reuses the home dashboard page)**: `GET /dashboard`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Instructor / teacher notes (MVP)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Instructor view toggle**: add `?instructor=1` to a lesson URL to show extra instructor-only blocks (MVP).
+- **Zoom preview (testing)**: some lessons can render an instructor live block / preview in the canvas (see `LessonCanvas`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Screenshots / images
+
+Want the README to show the real UI? Add screenshots into `public/images/` and link them like this:
+
+```md
+![Lesson Canvas screenshot](public/images/lesson-canvas.png)
+```
+
+---
+
+## Build / production
+
+```bash
+npm run build
+npm run start
+```
+
+---
+
+## What this repo is (high level)
+
+- **Next.js App Router** UI with a custom **Lesson Canvas** experience
+- **Mini Python runner** for beginner-friendly execution (safe subset)
+- **Supabase** for authentication + tracking progress events and rollups
+
+If you’re new here: start by opening `components/lesson/LessonCanvas.tsx` and any lesson page under `app/learn/*/page.tsx`.

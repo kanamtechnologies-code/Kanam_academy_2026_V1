@@ -41,6 +41,7 @@ export default function DemoPage() {
       goal: "Edit code, press Run, and read the output — before your first class.",
       xpReward: 0,
       badge: "✨ Demo",
+      dashboardHref: "/demo",
 
       assignmentTitle: "Your mission",
       assignmentBody:
@@ -121,6 +122,7 @@ export default function DemoPage() {
           : asTerminal(
               '❌ Almost! In scratch, create `name = "..."` and write at least 2 `print(...)` lines. Then press Run.'
             ),
+      completionRedirectHref: "/demo/complete",
     };
   }, []);
 

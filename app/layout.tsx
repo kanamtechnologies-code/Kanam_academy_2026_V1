@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} min-h-dvh bg-slate-50 text-slate-900 antialiased`}
+        className={`${inter.variable} min-h-dvh overflow-x-hidden bg-slate-50 text-slate-900 antialiased`}
       >
         <header className="sticky top-0 z-50 overflow-hidden border-b-2 border-[rgb(var(--accent-rgb)/0.98)] bg-gradient-to-r from-[rgb(var(--brand-2-rgb)/0.98)] via-[rgb(var(--brand-rgb)/0.92)] to-[rgb(var(--accent-rgb)/0.86)] shadow-xl">
           {/* Thin highlight line for extra “brand” pop */}

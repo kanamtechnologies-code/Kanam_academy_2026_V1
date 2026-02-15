@@ -13,7 +13,7 @@ export function HeaderBrand() {
     <Link
       href={href}
       className={[
-        "group flex items-center gap-2 rounded-2xl border border-[rgb(var(--accent-rgb)/0.95)] bg-white/95 px-3 py-2",
+        "group flex min-w-0 items-center gap-2 rounded-2xl border border-[rgb(var(--accent-rgb)/0.95)] bg-white/95 px-3 py-2",
         "shadow-lg shadow-slate-950/10",
         "transform-gpu transition-all duration-200 ease-out motion-reduce:transition-none",
         "hover:-translate-y-[1px] hover:shadow-xl hover:shadow-slate-950/15 hover:bg-white",
@@ -29,7 +29,7 @@ export function HeaderBrand() {
         className="relative -top-0.5 drop-shadow-[0_10px_14px_rgba(0,0,0,0.12)]"
         priority
       />
-      <span className="flex flex-col leading-[1.05]">
+      <span className="flex min-w-0 flex-col leading-[1.05]">
         <span className="text-base font-semibold tracking-tight sm:text-lg">
           <span className="sr-only">Kanam Academy</span>
           <span
@@ -51,6 +51,7 @@ export function HeaderBrand() {
             "text-[rgb(var(--accent-rgb)/0.95)]",
             "kanam-text-pop",
             "opacity-90 group-hover:opacity-100",
+            "max-w-[180px] truncate whitespace-nowrap sm:max-w-none",
           ].join(" ")}
         >
           {slogan}

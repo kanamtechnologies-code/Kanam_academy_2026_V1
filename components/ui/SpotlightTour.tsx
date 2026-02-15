@@ -298,7 +298,17 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
 
       {showTooltip ? (
         <div className="fixed" style={{ top: tooltip.top, left: tooltip.left, width: tooltipW }}>
-          <div className="pointer-events-auto rounded-2xl border border-slate-200 bg-white shadow-xl">
+          <div
+            className={[
+              "pointer-events-auto rounded-2xl border bg-white shadow-2xl",
+              // Stronger “pop” against the dim overlay
+              "border-[rgb(var(--accent-rgb)/0.55)]",
+              "ring-1 ring-[rgb(var(--accent-rgb)/0.35)]",
+              "shadow-[0_28px_70px_rgba(2,6,23,0.30),0_0_40px_rgba(216,192,122,0.18),0_0_34px_rgba(24,161,109,0.12)]",
+              // Subtle premium tint so it feels branded (still readable)
+              "bg-gradient-to-br from-white via-white to-[rgb(var(--accent-rgb)/0.10)]",
+            ].join(" ")}
+          >
             <div className="flex items-start gap-3 p-4">
               <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--accent)]/12 ring-1 ring-[var(--accent)]/20">
                 <div className="animate-[kanamTourBounce_900ms_ease-in-out_infinite] text-slate-900">
@@ -316,7 +326,13 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
                 Step {idx + 1} / {steps.length}
               </p>
               <div className="flex items-center gap-2">
-                <Button type="button" variant="outline" size="sm" onClick={markDoneAndClose}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={markDoneAndClose}
+                  className="border-[rgb(var(--accent-rgb)/0.55)] bg-[rgb(var(--accent-rgb)/0.22)] text-amber-950 hover:bg-[rgb(var(--accent-rgb)/0.30)] focus-visible:ring-[rgb(var(--accent-rgb)/0.35)]"
+                >
                   Skip
                 </Button>
                 <Button

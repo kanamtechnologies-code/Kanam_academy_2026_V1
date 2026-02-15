@@ -3,6 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   BadgeCheck,
   BookOpen,
@@ -118,6 +119,20 @@ export type LessonConfig = {
   // Optional: Coach's note accountability gate (timed "I read it" checkpoint).
   coachNoteGateEnabled?: boolean;
   coachNoteGateSeconds?: number;
+
+  // Optional: show a success CTA card after a successful Submit (useful for /learn/demo).
+  completionCta?: {
+    title: string;
+    body: string;
+    primary: { label: string; href: string };
+    secondary?: { label: string; href: string };
+  };
+
+  // Optional: redirect after a successful Submit (useful for /learn/demo).
+  completionRedirectHref?: string;
+
+  // Optional: override the "Dashboard" button destination (useful for demo mode).
+  dashboardHref?: string;
 
   getRunOutput: (code: string, runtime?: Record<string, string>) => string;
   getRunBody?: (
@@ -1416,6 +1431,7 @@ function analyzeScratch(code: string, runtime: Record<string, string>) {
 }
 
 export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
+  const router = useRouter();
   const tourRef = React.useRef<SpotlightTourHandle | null>(null);
   const hubScrollRef = React.useRef<HTMLDivElement | null>(null);
   const coachNoteRef = React.useRef<HTMLDivElement | null>(null);
@@ -2059,6 +2075,10 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     const base = lesson.getSubmitOutput(ok, runtime);
     if (ok) {
       setOutput(base);
+      if (lesson.completionRedirectHref) {
+        // Let UI paint the success state, then redirect.
+        window.setTimeout(() => router.push(lesson.completionRedirectHref!), 350);
+      }
     } else {
       const reasons: string[] = [];
       if (hasPlaceholders) reasons.push("Fill in every ____ blank.");
@@ -2114,7 +2134,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           <div className="mx-1 hidden h-6 w-px bg-slate-200/70 sm:block" />
 
           <Button asChild variant="outline" size="sm">
-            <Link href="/dashboard">Dashboard</Link>
+            <Link href={lesson.dashboardHref ?? "/dashboard"}>Dashboard</Link>
           </Button>
           <Button
             type="button"
@@ -3016,6 +3036,31 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               </Badge>
             )}
           </div>
+
+          {submitted && lesson.completionCta ? (
+            <div className="mt-4 rounded-2xl border border-[rgb(var(--accent-rgb)/0.55)] bg-gradient-to-r from-[rgb(var(--brand-rgb)/0.12)] via-white/80 to-[rgb(var(--accent-rgb)/0.16)] p-4">
+              <p className="text-sm font-extrabold tracking-tight text-slate-900">
+                {lesson.completionCta.title}
+              </p>
+              <p className="mt-1 text-sm leading-relaxed text-slate-700">
+                {lesson.completionCta.body}
+              </p>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <Button asChild className="h-11 px-4 text-sm font-extrabold tracking-tight">
+                  <Link href={lesson.completionCta.primary.href}>
+                    {lesson.completionCta.primary.label}
+                  </Link>
+                </Button>
+                {lesson.completionCta.secondary ? (
+                  <Button asChild variant="outline" className="h-11 px-4 text-sm font-semibold">
+                    <Link href={lesson.completionCta.secondary.href}>
+                      {lesson.completionCta.secondary.label}
+                    </Link>
+                  </Button>
+                ) : null}
+              </div>
+            </div>
+          ) : null}
         </div>
       </CardContent>
     </Card>
