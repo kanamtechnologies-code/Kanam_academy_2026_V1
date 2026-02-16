@@ -33,6 +33,7 @@ This app uses Supabase for **Auth** + **Postgres** progress tracking.
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - (optional, server-only) `SUPABASE_SERVICE_ROLE_KEY`
 - (optional) `NEXT_PUBLIC_KANAM_SLOGAN`
+- (optional, server-only) `INSTRUCTOR_INVITE_CODE` (required only if you want to create instructors from `/welcome`)
 
 2) Apply the database schema in Supabase:
 - Open Supabase → **SQL Editor**
@@ -60,6 +61,10 @@ Supabase helpers live here:
 
 - **Instructor view toggle**: add `?instructor=1` to a lesson URL to show extra instructor-only blocks (MVP).
 - **Zoom preview (testing)**: some lessons can render an instructor live block / preview in the canvas (see `LessonCanvas`).
+- **Instructor dashboard**: `GET /instructor`
+- **Create an instructor account (staff-only)**:
+  - Set `SUPABASE_SERVICE_ROLE_KEY` and `INSTRUCTOR_INVITE_CODE` in `.env.local`
+  - Go to `GET /welcome` → “Create instructor account”
 
 ---
 

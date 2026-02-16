@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ArrowRight, Hash, Loader2, Mail, Sparkles, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -27,7 +28,9 @@ export default function WelcomePage() {
   const [classCode, setClassCode] = React.useState("");
   const [loadingNew, setLoadingNew] = React.useState(false);
   const [loadingReturning, setLoadingReturning] = React.useState(false);
+  const [loadingInstructor, setLoadingInstructor] = React.useState(false);
   const [returningError, setReturningError] = React.useState<string | null>(null);
+  const [instructorError, setInstructorError] = React.useState<string | null>(null);
   const [newError, setNewError] = React.useState<string | null>(null);
   const [forgotOpen, setForgotOpen] = React.useState(false);
   const [forgotEmail, setForgotEmail] = React.useState("");
@@ -35,6 +38,17 @@ export default function WelcomePage() {
     "idle"
   );
   const [forgotError, setForgotError] = React.useState<string | null>(null);
+
+  const [instrCreateOpen, setInstrCreateOpen] = React.useState(false);
+  const [instrInviteCode, setInstrInviteCode] = React.useState("");
+  const [instrFirstName, setInstrFirstName] = React.useState("");
+  const [instrLastName, setInstrLastName] = React.useState("");
+  const [instrEmail, setInstrEmail] = React.useState("");
+  const [instrPassword, setInstrPassword] = React.useState("");
+  const [instrCreateStatus, setInstrCreateStatus] = React.useState<
+    "idle" | "creating" | "created" | "error"
+  >("idle");
+  const [instrCreateError, setInstrCreateError] = React.useState<string | null>(null);
 
   const cardEnter = (delay: number) => ({
     initial: { opacity: 0, y: 30 },
@@ -44,6 +58,76 @@ export default function WelcomePage() {
 
   const glassCardBase =
     "rounded-[32px] bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out";
+
+  const signInWith = React.useCallback(
+    async (mode: "learner" | "instructor", creds?: { email?: string; password?: string }) => {
+      setReturningError(null);
+      setInstructorError(null);
+
+      const em = (creds?.email ?? email).trim();
+      const pw = creds?.password ?? password;
+
+      if (!em || !em.includes("@")) {
+        const msg = "Enter your email.";
+        mode === "instructor" ? setInstructorError(msg) : setReturningError(msg);
+        return;
+      }
+      if (!pw) {
+        const msg = "Enter your password.";
+        mode === "instructor" ? setInstructorError(msg) : setReturningError(msg);
+        return;
+      }
+
+      mode === "instructor" ? setLoadingInstructor(true) : setLoadingReturning(true);
+
+      try {
+        const supabase = createSupabaseBrowserClient();
+        const { error } = await supabase.auth.signInWithPassword({
+          email: em,
+          password: pw,
+        });
+        if (error) throw new Error(error.message);
+
+        if (mode === "learner") {
+          const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+          const ensureJson = (await ensureRes.json()) as any;
+          if (!ensureRes.ok || !ensureJson?.ok) {
+            throw new Error(ensureJson?.error || "Signed in, but could not load your profile.");
+          }
+          router.push("/dashboard");
+          return;
+        }
+
+        // Instructor mode: verify role from auth metadata.
+        const { data } = await supabase.auth.getUser();
+        const user = data.user as any;
+        const role =
+          user?.user_metadata?.role ||
+          user?.app_metadata?.role ||
+          user?.user_metadata?.user_role ||
+          user?.app_metadata?.user_role;
+
+        if (role !== "instructor" && role !== "teacher") {
+          throw new Error(
+            "This account isn’t set up as an instructor yet. Ask your admin to set role = instructor."
+          );
+        }
+
+        router.push("/instructor");
+      } catch (e: any) {
+        const msg = e?.message ?? "Sign-in failed.";
+        mode === "instructor" ? setInstructorError(msg) : setReturningError(msg);
+      } finally {
+        mode === "instructor" ? setLoadingInstructor(false) : setLoadingReturning(false);
+      }
+    },
+    [email, password, router]
+  );
+
+  const signIn = React.useCallback(
+    (mode: "learner" | "instructor") => signInWith(mode),
+    [signInWith]
+  );
 
   return (
     <WelcomeBackground>
@@ -213,6 +297,20 @@ export default function WelcomePage() {
                     )}
                   </Button>
                 </div>
+
+                <div className="mt-4 rounded-2xl border border-white/50 bg-white/40 p-4">
+                  <p className="text-sm font-extrabold tracking-tight text-slate-900">Need help?</p>
+                  <p className="mt-1 text-sm text-slate-700">
+                    If your class code isn’t working, check your email first — then use{" "}
+                    <Link
+                      className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
+                      href="/help"
+                    >
+                      Help
+                    </Link>
+                    .
+                  </p>
+                </div>
               </motion.div>
 
               {/* Returning learner */}
@@ -231,9 +329,9 @@ export default function WelcomePage() {
                   Enter your email and jump right back to your dashboard.
                 </p>
 
-                {returningError ? (
+                {returningError || instructorError ? (
                   <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-800">
-                    {returningError}
+                    {returningError || instructorError}
                   </div>
                 ) : null}
 
@@ -374,32 +472,7 @@ export default function WelcomePage() {
                       "shadow-[0_20px_50px_rgba(0,0,0,0.04)]",
                       "focus-visible:ring-4 focus-visible:ring-emerald-500/25",
                     ].join(" ")}
-                    onClick={async () => {
-                      setReturningError(null);
-                      setLoadingReturning(true);
-                      try {
-                        const supabase = createSupabaseBrowserClient();
-                        const { error } = await supabase.auth.signInWithPassword({
-                          email: email.trim(),
-                          password,
-                        });
-                        if (error) throw new Error(error.message);
-
-                        const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
-                        const ensureJson = (await ensureRes.json()) as any;
-                        if (!ensureRes.ok || !ensureJson?.ok) {
-                          throw new Error(
-                            ensureJson?.error || "Signed in, but could not load your profile."
-                          );
-                        }
-
-                        router.push("/dashboard");
-                      } catch (e: any) {
-                        setReturningError(e?.message ?? "Sign-in failed.");
-                      } finally {
-                        setLoadingReturning(false);
-                      }
-                    }}
+                    onClick={() => signIn("learner")}
                   >
                     {loadingReturning ? (
                       <>
@@ -413,12 +486,212 @@ export default function WelcomePage() {
                     )}
                   </Button>
 
+                  <Button
+                    disabled={loadingInstructor}
+                    aria-busy={loadingInstructor}
+                    variant="outline"
+                    className={[
+                      "h-12 w-full rounded-xl px-6 text-base font-extrabold",
+                      "border-[rgb(var(--accent-rgb)/0.55)] bg-[rgb(var(--accent-rgb)/0.22)] text-amber-950",
+                      "hover:bg-[rgb(var(--accent-rgb)/0.30)]",
+                      "focus-visible:ring-4 focus-visible:ring-[rgb(var(--accent-rgb)/0.30)]",
+                    ].join(" ")}
+                    onClick={() => signIn("instructor")}
+                  >
+                    {loadingInstructor ? (
+                      <>
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                        Loading…
+                      </>
+                    ) : (
+                      <>Instructor sign in</>
+                    )}
+                  </Button>
+
+                  <Dialog
+                    open={instrCreateOpen}
+                    onOpenChange={(o) => {
+                      setInstrCreateOpen(o);
+                      if (!o) return;
+                      setInstrCreateStatus("idle");
+                      setInstrCreateError(null);
+                      setInstrInviteCode("");
+                      setInstrFirstName("");
+                      setInstrLastName("");
+                      setInstrEmail(email.trim() || instrEmail);
+                      setInstrPassword("");
+                    }}
+                  >
+                    <DialogTrigger asChild>
+                      <button
+                        type="button"
+                        className="w-full text-xs font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-900"
+                      >
+                        Create instructor account
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-lg">
+                      <DialogHeader>
+                        <DialogTitle>Create an instructor account</DialogTitle>
+                        <DialogDescription>
+                          This is staff-only. You’ll need the instructor invite code.
+                        </DialogDescription>
+                      </DialogHeader>
+
+                      {instrCreateError ? (
+                        <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+                          {instrCreateError}
+                        </div>
+                      ) : null}
+
+                      {instrCreateStatus === "created" ? (
+                        <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-950">
+                          Instructor account created. Press “Sign in as instructor”.
+                        </div>
+                      ) : null}
+
+                      <div className="grid gap-3">
+                        <div className="space-y-1.5">
+                          <p className="text-xs font-semibold text-slate-700">Instructor invite code</p>
+                          <Input
+                            value={instrInviteCode}
+                            onChange={(e) => setInstrInviteCode(e.target.value)}
+                            placeholder="Invite code"
+                            className="h-12"
+                          />
+                        </div>
+
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          <div className="space-y-1.5">
+                            <p className="text-xs font-semibold text-slate-700">First name</p>
+                            <Input
+                              value={instrFirstName}
+                              onChange={(e) => setInstrFirstName(e.target.value)}
+                              placeholder="First name"
+                              className="h-12"
+                            />
+                          </div>
+                          <div className="space-y-1.5">
+                            <p className="text-xs font-semibold text-slate-700">Last name</p>
+                            <Input
+                              value={instrLastName}
+                              onChange={(e) => setInstrLastName(e.target.value)}
+                              placeholder="Last name"
+                              className="h-12"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <p className="text-xs font-semibold text-slate-700">Email</p>
+                          <Input
+                            value={instrEmail}
+                            onChange={(e) => setInstrEmail(e.target.value)}
+                            placeholder="you@school.org"
+                            type="email"
+                            className="h-12"
+                          />
+                        </div>
+
+                        <div className="space-y-1.5">
+                          <p className="text-xs font-semibold text-slate-700">Password</p>
+                          <Input
+                            value={instrPassword}
+                            onChange={(e) => setInstrPassword(e.target.value)}
+                            placeholder="At least 8 characters"
+                            type="password"
+                            className="h-12"
+                          />
+                        </div>
+                      </div>
+
+                      <DialogFooter className="gap-2 sm:gap-0">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="h-11"
+                          onClick={() => setInstrCreateOpen(false)}
+                        >
+                          Close
+                        </Button>
+                        <Button
+                          type="button"
+                          className="h-11"
+                          disabled={instrCreateStatus === "creating"}
+                          onClick={async () => {
+                            setInstrCreateError(null);
+                            setInstrCreateStatus("creating");
+                            try {
+                              const res = await fetch("/api/admin/create-instructor", {
+                                method: "POST",
+                                headers: { "content-type": "application/json" },
+                                body: JSON.stringify({
+                                  inviteCode: instrInviteCode.trim(),
+                                  email: instrEmail.trim(),
+                                  password: instrPassword,
+                                  firstName: instrFirstName.trim(),
+                                  lastName: instrLastName.trim(),
+                                }),
+                              });
+                              const json = (await res.json()) as any;
+                              if (!res.ok || json?.ok === false) {
+                                throw new Error(json?.error || "Could not create instructor.");
+                              }
+                              setInstrCreateStatus("created");
+                              // Pre-fill returning sign-in box for convenience.
+                              setEmail(instrEmail.trim());
+                              setPassword(instrPassword);
+                            } catch (e: any) {
+                              setInstrCreateStatus("error");
+                              setInstrCreateError(e?.message ?? "Could not create instructor.");
+                            }
+                          }}
+                        >
+                          {instrCreateStatus === "creating" ? (
+                            <>
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                              Creating…
+                            </>
+                          ) : (
+                            "Create instructor"
+                          )}
+                        </Button>
+                      </DialogFooter>
+
+                      <div className="pt-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="h-11 w-full"
+                          onClick={() =>
+                            signInWith("instructor", {
+                              email: instrEmail.trim() || email.trim(),
+                              password: instrPassword || password,
+                            })
+                          }
+                        >
+                          Sign in as instructor
+                        </Button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+
                   <div className="rounded-2xl border border-white/50 bg-white/40 p-4">
                     <p className="text-sm font-extrabold tracking-tight text-slate-900">
                       What happens next
                     </p>
                     <p className="mt-1 text-sm text-slate-700">
                       You’ll go straight to your dashboard and continue where you left off.
+                    </p>
+                    <p className="mt-2 text-xs text-slate-600">
+                      Trouble signing in?{" "}
+                      <Link
+                        className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
+                        href="/help"
+                      >
+                        Open Help
+                      </Link>
+                      .
                     </p>
                   </div>
                 </div>

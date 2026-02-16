@@ -163,6 +163,37 @@ export async function POST(req: Request) {
     }
   }
 
+  // Best-effort: enroll into a class if a class code was provided.
+  // (If the classes/enrollments tables aren't deployed yet, ignore and continue.)
+  if (classCode) {
+    try {
+      const code = classCode.toUpperCase();
+
+      const { data: klass, error: classErr } = await supabase
+        .from("classes")
+        .select("id")
+        .eq("code", code)
+        .maybeSingle();
+
+      if (!classErr && klass?.id) {
+        // Find the student's row id (just created above).
+        const { data: studentRow } = await supabase
+          .from("students")
+          .select("id")
+          .eq("user_id", userId)
+          .maybeSingle();
+
+        if (studentRow?.id) {
+          await supabase
+            .from("class_enrollments")
+            .upsert({ class_id: klass.id, student_id: studentRow.id }, { onConflict: "class_id,student_id" });
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+
   return NextResponse.json({ ok: true, userId }, { status: 200 });
 }
 

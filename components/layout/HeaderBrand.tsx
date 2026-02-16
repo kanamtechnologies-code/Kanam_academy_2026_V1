@@ -49,7 +49,6 @@ export function HeaderBrand() {
             "font-extrabold uppercase",
             "tracking-[0.26em]",
             "text-[rgb(var(--accent-rgb)/0.95)]",
-            "kanam-text-pop",
             "opacity-90 group-hover:opacity-100",
             "max-w-[180px] truncate whitespace-nowrap sm:max-w-none",
           ].join(" ")}
