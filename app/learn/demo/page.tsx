@@ -19,9 +19,6 @@ name = "____"
 
 # 2) This prints a message in the console:
 print("Move forward, " + name + "!")
-
-# 3) Add ONE more print line below (no blanks needed):
-print("I know how to press Run and read the output.")
 `;
 
 const DEFAULT_SCRATCH_TEMPLATE = `# Try it from scratch (no hints) 👇
@@ -60,12 +57,16 @@ export default function DemoPage() {
         "**Coach's note (today's mini lesson)**\nToday is about [[how coding works]], not being perfect.\n\nBefore you start, know these 3 ideas:\n- A [[variable]] is a labeled memory box that stores information.\n- [[print()]] shows your message in the [[console output]].\n- The + symbol can join text pieces together.\n\nExample in fill-in-the-blank style (example only):\n\n```\nname = \"____\"\nprint(\"Welcome, \" + name + \"!\")\n```\n\nHow it works:\n- You replace \"____\" with your own text.\n- Python stores that text in the variable (`name`).\n- Then print() builds one message and shows it in output.\n\n**How to win this demo:**\n1. Fill in blanks carefully.\n2. Press [[Run]] and read the output.\n3. Fix small mistakes and run again.\n4. Then try writing it from scratch.\n\n**Important:** Python does exactly what you type, so tiny changes can change the result.\n",
       kidExplain: [
         {
-          title: "Two boxes, one goal",
-          text: "Use the guided box to practice, then try the scratch box without hints.",
+          title: "What is a variable?",
+          text: "A variable is like a labeled memory box. You can store text in it, like your name, and use it later in your code.",
         },
         {
-          title: "Run → output",
-          text: "When you press Run, the console shows exactly what your code printed.",
+          title: "What does + mean?",
+          text: "The + sign can join pieces of text together. It helps you build one full message from smaller parts.",
+        },
+        {
+          title: "What is print()?",
+          text: "print() tells Python to show a message in the console. The part inside the parentheses is what Python will show, like print(\"Hi\") or print(\"Welcome, \" + name).",
         },
       ],
       steps: [

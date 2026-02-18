@@ -1468,6 +1468,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const [hasRun, setHasRun] = React.useState<boolean>(false);
   const [guidedHasRun, setGuidedHasRun] = React.useState<boolean>(false);
   const [guidedRunSuccessful, setGuidedRunSuccessful] = React.useState<boolean>(false);
+  const [scratchRunSuccessful, setScratchRunSuccessful] = React.useState<boolean>(false);
   const [guidedOutput, setGuidedOutput] = React.useState<string>(
     asTerminal(terminalPrompt, "Press Run (guided) to see output here.")
   );
@@ -1873,6 +1874,15 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     setCfuFeedback(Array.from({ length: lesson.cfu.length }, () => null));
   }, [lesson.cfu.length]);
 
+  // If learners change code after a successful run, require another successful run.
+  React.useEffect(() => {
+    setGuidedRunSuccessful(false);
+  }, [guidedCode]);
+
+  React.useEffect(() => {
+    setScratchRunSuccessful(false);
+  }, [scratchCode]);
+
   const activeCode = activeEditor === "guided" ? guidedCode : scratchCode;
   const readyToSubmitScratch = lesson.isSubmissionValid(scratchCode, runtime);
   const guidedTouched = guidedCode.trim() !== lesson.starterCode.trim();
@@ -1881,41 +1891,32 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const scratchEditorLocked = !guidedRunSuccessful;
   const coachCheckpointReady = !coachConfirmed && coachGateRemainingMs <= 0;
 
-  const guidedFillPercent = React.useMemo(() => {
-    // Guided progress is based on how many ____ blanks are filled in (from starterCode → current guidedCode).
-    const totalBlanks = (lesson.starterCode.match(/____/g) ?? []).length;
-    if (totalBlanks === 0) return guidedTouched ? 100 : 0;
-    const remaining = (guidedCode.match(/____/g) ?? []).length;
-    const done = Math.max(0, Math.min(totalBlanks, totalBlanks - remaining));
-    return Math.round((done / totalBlanks) * 100);
-  }, [guidedCode, guidedTouched, lesson.starterCode]);
-
   const scratchProgressPercent = React.useMemo(() => {
-    if (!scratchCode.trim() && !submitted) return 0;
-    const pct = lesson.computeProgressPercent(scratchCode, submitted, runtime);
-    return Math.max(0, Math.min(100, pct));
-  }, [scratchCode, submitted, runtime, lesson]);
+    return scratchRunSuccessful ? 100 : 0;
+  }, [scratchRunSuccessful]);
+
+  const coachProgressPercent = React.useMemo(() => {
+    // If the coach gate is enabled, this third completes when learner confirms the note.
+    // If it is disabled for a lesson, treat this third as already complete.
+    if (!coachGateEnabled) return 100;
+    return coachConfirmed ? 100 : 0;
+  }, [coachGateEnabled, coachConfirmed]);
+
+  const guidedProgressPercent = React.useMemo(() => {
+    // Guided third only completes after a successful guided Run.
+    return guidedRunSuccessful ? 100 : 0;
+  }, [guidedRunSuccessful]);
 
   const progressPercent = React.useMemo(() => {
-    // Overall progress = blend of Guided fill progress + Scratch progress.
-    // This makes the bar move as learners work through both sections.
+    // Overall progress is split equally across three core tasks:
+    // 1) Coach note confirmation, 2) guided fill/run, 3) from-scratch work.
     if (submitted) return 100;
-
-    const guidedActive = guidedFillPercent > 0 || guidedTouched;
-    const scratchActive = scratchTouched || scratchProgressPercent > 0;
-
-    const GW = guidedActive ? 0.4 : 0;
-    const SW = scratchActive ? 0.6 : 0;
-    const denom = GW + SW;
-    if (denom === 0) return 0;
-
-    const blended = (guidedFillPercent * GW + scratchProgressPercent * SW) / denom;
+    const blended = (coachProgressPercent + guidedProgressPercent + scratchProgressPercent) / 3;
     return Math.round(Math.max(0, Math.min(100, blended)));
   }, [
     submitted,
-    guidedFillPercent,
-    guidedTouched,
-    scratchTouched,
+    coachProgressPercent,
+    guidedProgressPercent,
     scratchProgressPercent,
   ]);
   const cfuBonusPercent = React.useMemo(() => {
@@ -2005,6 +2006,24 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       return;
     }
     const run = runMiniPython(activeCode, runtime);
+    const outputOk = lesson.isOutputCorrect
+      ? lesson.isOutputCorrect(run.stdout, run.env, runtime)
+      : true;
+    if (activeEditor === "guided") {
+      const guidedOk =
+        !run.error &&
+        !guidedCode.includes("____") &&
+        lesson.isSubmissionValid(guidedCode, runtime) &&
+        outputOk;
+      setGuidedRunSuccessful(guidedOk);
+    } else {
+      const scratchOk =
+        !run.error &&
+        !scratchCode.includes("____") &&
+        lesson.isSubmissionValid(scratchCode, runtime) &&
+        outputOk;
+      setScratchRunSuccessful(scratchOk);
+    }
     setLastRunForExplanation({
       editor: activeEditor,
       code: activeCode,
@@ -2051,6 +2070,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     setHasRun(false);
     setGuidedHasRun(false);
     setGuidedRunSuccessful(false);
+    setScratchRunSuccessful(false);
     setGuidedOutput(asTerminal(terminalPrompt, "Press Run (guided) to see output here."));
     setRuntime(runtimeDefaultValues);
     setRevealedCfu(Array.from({ length: lesson.cfu.length }, () => false));
