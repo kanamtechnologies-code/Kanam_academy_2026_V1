@@ -43,6 +43,7 @@ export function CodeTextarea({
   value,
   onChange,
   onFocus,
+  disabled = false,
   placeholder,
   ariaLabel,
   minHeightPx = 220,
@@ -54,6 +55,7 @@ export function CodeTextarea({
   value: string;
   onChange: (next: string) => void;
   onFocus?: () => void;
+  disabled?: boolean;
   placeholder?: string;
   ariaLabel: string;
   minHeightPx?: number;
@@ -154,6 +156,7 @@ export function CodeTextarea({
         onChange={(e) => onChange(e.target.value)}
         onFocus={onFocus}
         onScroll={syncScroll}
+        disabled={disabled}
         spellCheck={false}
         aria-label={ariaLabel}
         data-tour={dataTour}
@@ -167,6 +170,7 @@ export function CodeTextarea({
           "text-transparent caret-slate-900",
           "selection:bg-[var(--accent)]/25",
           "focus-visible:outline-none",
+          disabled ? "cursor-not-allowed" : "",
         ].join(" ")}
         style={{
           height: `${heightPx}px`,

@@ -115,8 +115,9 @@ export type LessonConfig = {
   tourFadeMs?: number;
   tourMoveMs?: number;
   tourRecomputeDelayMs?: number;
+  localStatePersistence?: boolean;
 
-  // Optional: Coach's note accountability gate (timed "I read it" checkpoint).
+  // Optional: Coach's note accountability gate (timed confirmation checkpoint).
   coachNoteGateEnabled?: boolean;
   coachNoteGateSeconds?: number;
 
@@ -725,6 +726,13 @@ function evalMiniExpr(expr: string, env: Record<string, MiniValue>): string | nu
   const t = expr.trim();
   if (!t) return "";
 
+  const parts = splitTopLevelPlus(t);
+  if (parts.length > 1) {
+    const evaluated = parts.map((p) => evalMiniExpr(p, env));
+    if (evaluated.some((x) => x === null)) return null;
+    return evaluated.join("");
+  }
+
   if (isQuoted(t)) return unquote(t);
 
   const strCall = t.match(/^str\s*\(\s*([A-Za-z_]\w*)\s*\)$/);
@@ -749,13 +757,6 @@ function evalMiniExpr(expr: string, env: Record<string, MiniValue>): string | nu
     const key = unquote(dictGet[2]);
     const v = (obj as MiniDict)[key];
     return v === undefined ? "" : miniToString(v);
-  }
-
-  const parts = splitTopLevelPlus(t);
-  if (parts.length > 1) {
-    const evaluated = parts.map((p) => evalMiniExpr(p, env));
-    if (evaluated.some((x) => x === null)) return null;
-    return evaluated.join("");
   }
 
   return null;
@@ -967,7 +968,6 @@ function evalMiniValue(expr: string, env: Record<string, MiniValue>): MiniValue 
   if (!t) return "";
   if (t === "[]") return [];
   if (t === "{}") return {};
-  if (isQuoted(t)) return unquote(t);
   if (/^(True|False)$/.test(t)) return t === "True";
   if (/^-?\d+$/.test(t)) return Number(t);
 
@@ -1098,6 +1098,8 @@ function evalMiniValue(expr: string, env: Record<string, MiniValue>): MiniValue 
     }
     return acc ?? "";
   }
+
+  if (isQuoted(t)) return unquote(t);
 
   // variable name
   if (/^[A-Za-z_]\w*$/.test(t)) {
@@ -1437,6 +1439,12 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const coachNoteRef = React.useRef<HTMLDivElement | null>(null);
   const [activeHubSection, setActiveHubSection] = React.useState<string>("flow");
   const terminalPrompt = lesson.terminalPrompt ?? "kanam-bot@python ~$";
+  const lessonTourStorageKey = React.useMemo(
+    () => `kanam_tour_lesson_${lesson.id}_v2_done`,
+    [lesson.id]
+  );
+  const localStatePersistence = lesson.localStatePersistence ?? true;
+  const tourRemember = lesson.tourRemember ?? false;
 
   const runtimeDefaultValues = React.useMemo(() => {
     const entries =
@@ -1459,6 +1467,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const [submitted, setSubmitted] = React.useState<boolean>(false);
   const [hasRun, setHasRun] = React.useState<boolean>(false);
   const [guidedHasRun, setGuidedHasRun] = React.useState<boolean>(false);
+  const [guidedRunSuccessful, setGuidedRunSuccessful] = React.useState<boolean>(false);
   const [guidedOutput, setGuidedOutput] = React.useState<string>(
     asTerminal(terminalPrompt, "Press Run (guided) to see output here.")
   );
@@ -1509,6 +1518,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const [zoomPreviewMuted, setZoomPreviewMuted] = React.useState(true);
   const [zoomPreviewCamOff, setZoomPreviewCamOff] = React.useState(false);
   const [isInstructorView, setIsInstructorView] = React.useState(false);
+  const [tutorialDone, setTutorialDone] = React.useState<boolean>(false);
 
   const coachConfirmStorageKey = React.useMemo(() => {
     const id = userId || deviceId || "anon";
@@ -1516,19 +1526,33 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   }, [lesson.id, userId, deviceId]);
 
   React.useEffect(() => {
-    if (!coachGateEnabled) return;
+    if (!tourRemember || !localStatePersistence) {
+      setTutorialDone(false);
+      return;
+    }
+    try {
+      const done = window.localStorage.getItem(lessonTourStorageKey) === "1";
+      setTutorialDone(done);
+    } catch {
+      setTutorialDone(false);
+    }
+  }, [tourRemember, localStatePersistence, lessonTourStorageKey]);
+
+  React.useEffect(() => {
+    if (!coachGateEnabled || !localStatePersistence) return;
     try {
       const ok = window.localStorage.getItem(coachConfirmStorageKey) === "1";
       if (ok) setCoachConfirmed(true);
     } catch {
       // ignore
     }
-  }, [coachGateEnabled, coachConfirmStorageKey]);
+  }, [coachGateEnabled, localStatePersistence, coachConfirmStorageKey]);
 
-  // Start the timer only after the Coach's note section is actually visible.
+  // Start the timer only after tutorial is complete and Coach's note is visible.
   React.useEffect(() => {
     if (!coachGateEnabled) return;
     if (coachConfirmed) return;
+    if (!tutorialDone) return;
     if (coachGateSeconds <= 0) {
       setCoachGateRemainingMs(0);
       return;
@@ -1548,7 +1572,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     );
     obs.observe(el);
     return () => obs.disconnect();
-  }, [coachGateEnabled, coachConfirmed, coachGateSeconds]);
+  }, [coachGateEnabled, coachConfirmed, tutorialDone, coachGateSeconds]);
 
   React.useEffect(() => {
     if (!coachGateEnabled) return;
@@ -1706,11 +1730,11 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   }, []);
 
   const designStorageKey = React.useMemo(() => {
-    if (!designEnabled) return "";
+    if (!designEnabled || !localStatePersistence) return "";
     const uid = userId || deviceId || "anon";
     const v = lesson.designModePromptVersion ?? "v1";
     return `kanam.designDraft:${v}:${lesson.id}:${uid}`;
-  }, [designEnabled, lesson.designModePromptVersion, lesson.id, userId, deviceId]);
+  }, [designEnabled, localStatePersistence, lesson.designModePromptVersion, lesson.id, userId, deviceId]);
 
   const npcUserKey = React.useMemo(() => {
     return userId || deviceId || "anon";
@@ -1853,6 +1877,9 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   const readyToSubmitScratch = lesson.isSubmissionValid(scratchCode, runtime);
   const guidedTouched = guidedCode.trim() !== lesson.starterCode.trim();
   const scratchTouched = scratchCode.trim() !== "";
+  const guidedEditorLocked = coachGateEnabled && !coachConfirmed;
+  const scratchEditorLocked = !guidedRunSuccessful;
+  const coachCheckpointReady = !coachConfirmed && coachGateRemainingMs <= 0;
 
   const guidedFillPercent = React.useMemo(() => {
     // Guided progress is based on how many ____ blanks are filled in (from starterCode → current guidedCode).
@@ -1905,7 +1932,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       return lesson.nextHref ? "Success! When you’re ready, click Next Lesson." : "Success!";
     }
     if (coachGateEnabled && !coachConfirmed) {
-      return "Start at the top: read Coach’s note (then click I read it).";
+      return "Start at the top: read Coach’s note (then click Got it, let's go!).";
     }
     if (!guidedTouched && !scratchTouched && !hasRun && !guidedHasRun) {
       return "Start at the top: read Coach’s note + Quick explainer.";
@@ -1996,6 +2023,15 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     setGuidedHasRun(true);
     trackProgress("guided_run");
     const run = runMiniPython(guidedCode, runtime);
+    const guidedOutputOk = lesson.isOutputCorrect
+      ? lesson.isOutputCorrect(run.stdout, run.env, runtime)
+      : true;
+    const guidedOk =
+      !run.error &&
+      !guidedCode.includes("____") &&
+      lesson.isSubmissionValid(guidedCode, runtime) &&
+      guidedOutputOk;
+    setGuidedRunSuccessful(guidedOk);
     const body = run.error
       ? `❌ ${run.error}`
       : run.stdout.length
@@ -2014,6 +2050,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     setSubmitted(false);
     setHasRun(false);
     setGuidedHasRun(false);
+    setGuidedRunSuccessful(false);
     setGuidedOutput(asTerminal(terminalPrompt, "Press Run (guided) to see output here."));
     setRuntime(runtimeDefaultValues);
     setRevealedCfu(Array.from({ length: lesson.cfu.length }, () => false));
@@ -2185,12 +2222,11 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     <div className="space-y-4">
       <Card
         id="hub-flow"
-        data-tour="lesson-flow"
         data-hub="flow"
         className="scroll-mt-24 border-[rgb(var(--accent-rgb)/0.55)] bg-white shadow-md"
       >
         <CardHeader className="pb-4">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3" data-tour="lesson-flow">
             <div className="grid h-9 w-9 place-items-center rounded-xl bg-[var(--accent)]/10 ring-1 ring-[var(--accent)]/15">
               <ListOrdered className="h-5 w-5 text-[var(--accent)]" />
             </div>
@@ -2236,8 +2272,12 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               num={3}
               label="Fill in the blanks (guided)"
               done={guidedHasRun || hasRun || submitted}
-              active={!hasRun && (guidedTouched || activeEditor === "guided")}
-              hint="Practice with hints first."
+              active={!guidedEditorLocked && !hasRun && (guidedTouched || activeEditor === "guided")}
+              hint={
+                guidedEditorLocked
+                  ? "Locked until you read Coach’s note and click “Got it, let's go!”"
+                  : "Practice with hints first."
+              }
             />
             <FlowRow
               num={4}
@@ -2274,20 +2314,24 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               active={scratchTouched && !submitted}
               hint="Success only checks your from-scratch box."
             />
-            <FlowRow
-              num={9}
-              label="Check for Understanding (CFU)"
-              done={hasRevealedAnyCfu}
-              active={submitted && !hasRevealedAnyCfu}
-              hint="Try to answer first, then reveal to check yourself."
-            />
-            <FlowRow
-              num={10}
-              label="Bonus: expand your knowledge (optional)"
-              done={cfuBonusComplete}
-              active={submitted && hasRevealedAnyCfu && !cfuBonusComplete}
-              hint="Reveal all CFU answers (bonus bar), then try the “Try This” challenges."
-            />
+            {false ? (
+              <>
+                <FlowRow
+                  num={9}
+                  label="Check for Understanding (CFU)"
+                  done={hasRevealedAnyCfu}
+                  active={submitted && !hasRevealedAnyCfu}
+                  hint="Try to answer first, then reveal to check yourself."
+                />
+                <FlowRow
+                  num={10}
+                  label="Bonus: expand your knowledge (optional)"
+                  done={cfuBonusComplete}
+                  active={submitted && hasRevealedAnyCfu && !cfuBonusComplete}
+                  hint="Reveal all CFU answers (bonus bar), then try the “Try This” challenges."
+                />
+              </>
+            ) : null}
           </div>
           <p className="mt-3 text-xs text-slate-500">
             Tip: You can always switch between the two editors — guided is practice, scratch is the
@@ -2310,31 +2354,40 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             subtitle="Read this first — it explains the goal + how to think about the code."
           />
         </CardHeader>
-        <CardContent className="pt-0 text-sm text-slate-700">
+        <CardContent className="pt-0 text-base text-slate-700">
           {renderCoachNote(lesson.instructorScript)}
 
           {coachGateEnabled ? (
             <div className="mt-4 rounded-xl border border-[rgb(var(--accent-rgb)/0.55)] bg-gradient-to-r from-[rgb(var(--brand-rgb)/0.10)] via-white/70 to-[rgb(var(--accent-rgb)/0.14)] p-4">
-              <p className="text-sm font-extrabold tracking-tight text-slate-900">
+              <p className="text-base font-extrabold tracking-tight text-slate-900">
                 Coach’s note checkpoint
               </p>
-              <p className="mt-1 text-sm text-slate-700">
+              <p className="mt-1 text-base text-slate-700">
                 Take a moment to read. When the timer finishes, click{" "}
-                <span className="font-semibold">I read it</span>.
+                <span className="font-semibold">Got it, let's go!</span>.
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-3">
                 <Button
                   type="button"
-                  variant="secondary"
-                  className="h-11 px-4 text-sm font-extrabold tracking-tight"
+                  variant="default"
+                  className={cn(
+                    "h-12 px-5 text-base font-black tracking-tight ring-2 transition-all",
+                    coachConfirmed
+                      ? "bg-emerald-600 text-white ring-emerald-500"
+                      : coachCheckpointReady
+                        ? "bg-emerald-600 text-white ring-emerald-500 shadow-lg shadow-emerald-500/40 hover:bg-emerald-700 animate-pulse"
+                        : "bg-slate-200 text-slate-600 ring-slate-300"
+                  )}
                   disabled={coachConfirmed || coachGateRemainingMs > 0}
                   onClick={() => {
                     setCoachConfirmed(true);
                     trackProgress("coach_note_confirmed", { seconds: coachGateSeconds });
-                    try {
-                      window.localStorage.setItem(coachConfirmStorageKey, "1");
-                    } catch {
-                      // ignore
+                    if (localStatePersistence) {
+                      try {
+                        window.localStorage.setItem(coachConfirmStorageKey, "1");
+                      } catch {
+                        // ignore
+                      }
                     }
                   }}
                 >
@@ -2342,9 +2395,9 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
                     ? "Done"
                     : coachGateRemainingMs > 0
                       ? `Reading… ${Math.ceil(coachGateRemainingMs / 1000)}s`
-                      : "I read it"}
+                      : "Got it, let's go!"}
                 </Button>
-                <p className="text-xs text-slate-600">
+                <p className="text-sm text-slate-600">
                   This helps us make sure everyone starts on the same page.
                 </p>
               </div>
@@ -2477,6 +2530,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
 
   const ReviewContent = (
     <div className="space-y-4">
+      {false ? (
       <Card
         id="hub-cfu"
         data-hub="cfu"
@@ -2597,6 +2651,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           </div>
         </CardContent>
       </Card>
+      ) : null}
 
       <Card
         id="hub-try"
@@ -2659,34 +2714,64 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               <p className="text-sm font-semibold text-slate-900">
                 Fill in the blanks (guided)
               </p>
-              {activeEditor === "guided" ? (
+              {guidedEditorLocked ? (
+                <Badge variant="outline" className="border-slate-300 text-slate-500">
+                  Locked
+                </Badge>
+              ) : activeEditor === "guided" ? (
                 <Badge variant="secondary">Using this</Badge>
               ) : (
                 <Badge variant="outline">Click to use</Badge>
               )}
             </div>
-            <p className="mt-1 text-xs text-slate-500">
-              Edit this version first. Then try writing it again below without help.
-            </p>
-            <CodeTextarea
-              value={guidedCode}
-              onChange={setGuidedCode}
-              onFocus={() => setActiveEditor("guided")}
-              ariaLabel="Guided Python code editor"
-              data-tour="guided-editor"
-              showLineNumbers
-              minHeightPx={220}
-              maxHeightPx={560}
-              className={[
-                "mt-2 min-h-[220px] w-full border-2 bg-white shadow-sm",
-                "focus-within:ring-4",
-                activeEditor === "guided"
-                  ? submitted
-                    ? "border-[var(--brand)] focus-within:ring-[var(--brand)]/25"
-                    : "border-[var(--accent)] focus-within:ring-[var(--accent)]/25"
-                  : "border-slate-200 focus-within:ring-slate-200/25",
-              ].join(" ")}
-            />
+            {guidedEditorLocked ? (
+              <p className="mt-1 text-xs font-semibold text-slate-600">
+                Read Coach’s note and click{" "}
+                <span className="font-extrabold">Got it, let's go!</span> to unlock this section.
+              </p>
+            ) : (
+              <p className="mt-1 text-xs text-slate-500">
+                Edit this version first. Then try writing it again below without help.
+              </p>
+            )}
+            <div className="relative mt-2">
+              <CodeTextarea
+                value={guidedCode}
+                onChange={setGuidedCode}
+                onFocus={() => {
+                  if (!guidedEditorLocked) setActiveEditor("guided");
+                }}
+                disabled={guidedEditorLocked}
+                ariaLabel="Guided Python code editor"
+                data-tour="guided-editor"
+                showLineNumbers
+                minHeightPx={220}
+                maxHeightPx={560}
+                className={[
+                  "min-h-[220px] w-full border-2 shadow-sm",
+                  "focus-within:ring-4",
+                  guidedEditorLocked ? "border-slate-200 bg-slate-100/80 opacity-70" : "bg-white",
+                  activeEditor === "guided"
+                    ? submitted
+                      ? "border-[var(--brand)] focus-within:ring-[var(--brand)]/25"
+                      : "border-[var(--accent)] focus-within:ring-[var(--accent)]/25"
+                    : "border-slate-200 focus-within:ring-slate-200/25",
+                ].join(" ")}
+              />
+              {guidedEditorLocked ? (
+                <div className="pointer-events-none absolute inset-0 grid place-items-center rounded-md bg-white/75">
+                  <div className="rounded-xl border border-emerald-200 bg-white px-4 py-3 text-center shadow-sm">
+                    <p className="text-sm font-extrabold text-slate-900">
+                      Have you read the Coach’s note?
+                    </p>
+                    <p className="mt-1 text-xs font-semibold text-slate-700">
+                      Click <span className="text-emerald-700">“Got it, let’s go!”</span> to unlock
+                      this section.
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+            </div>
 
             <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
               <Button
@@ -2694,11 +2779,14 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
                 variant="secondary"
                 onClick={onRunGuided}
                 className="h-11 px-4 text-sm font-extrabold tracking-tight"
+                disabled={guidedEditorLocked}
               >
                 Run (guided)
               </Button>
               <p className="text-xs text-slate-600">
-                This runs the guided box only.
+                {guidedEditorLocked
+                  ? "Read Coach’s note and click “Got it, let's go!” to unlock guided practice."
+                  : "This runs the guided box only."}
               </p>
             </div>
 
@@ -2739,16 +2827,26 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               <p className="text-sm font-semibold text-slate-900">
                 Try it from scratch (no hints)
               </p>
-              {activeEditor === "scratch" ? (
+              {scratchEditorLocked ? (
+                <Badge variant="outline" className="border-slate-300 text-slate-500">
+                  Locked
+                </Badge>
+              ) : activeEditor === "scratch" ? (
                 <Badge variant="secondary">Using this</Badge>
               ) : (
                 <Badge variant="outline">Click to use</Badge>
               )}
             </div>
-            <p className="mt-1 text-xs text-slate-500">
-              Start with a blank page. If you get stuck, click back into the guided
-              version.
-            </p>
+            {scratchEditorLocked ? (
+              <p className="mt-1 text-xs font-semibold text-slate-600">
+                Run the guided box successfully first to unlock this section.
+              </p>
+            ) : (
+              <p className="mt-1 text-xs text-slate-500">
+                Start with a blank page. If you get stuck, click back into the guided
+                version.
+              </p>
+            )}
             <p className="mt-2 text-xs text-slate-600">
               <span className="font-semibold">Submit checks this box.</span> (Guided is for practice.)
             </p>
@@ -2797,25 +2895,43 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               </div>
             ) : null}
 
-            <CodeTextarea
-              value={scratchCode}
-              onChange={setScratchCode}
-              onFocus={() => setActiveEditor("scratch")}
-              ariaLabel="From-scratch Python code editor"
-              data-tour="scratch-editor"
-              placeholder={lesson.editorPlaceholder ?? '# Start here:\n# print("Hello!")\n'}
-              minHeightPx={220}
-              maxHeightPx={560}
-              className={[
-                "mt-2 min-h-[220px] w-full border-2 bg-white shadow-sm",
-                "focus-within:ring-4",
-                activeEditor === "scratch"
-                  ? submitted
-                    ? "border-[var(--brand)] focus-within:ring-[var(--brand)]/25"
-                    : "border-[var(--accent)] focus-within:ring-[var(--accent)]/25"
-                  : "border-slate-200 focus-within:ring-slate-200/25",
-              ].join(" ")}
-            />
+            <div className="relative mt-2">
+              <CodeTextarea
+                value={scratchCode}
+                onChange={setScratchCode}
+                onFocus={() => {
+                  if (!scratchEditorLocked) setActiveEditor("scratch");
+                }}
+                disabled={scratchEditorLocked}
+                ariaLabel="From-scratch Python code editor"
+                data-tour="scratch-editor"
+                placeholder={lesson.editorPlaceholder ?? '# Start here:\n# print("Hello!")\n'}
+                minHeightPx={220}
+                maxHeightPx={560}
+                className={[
+                  "min-h-[220px] w-full border-2 bg-white shadow-sm",
+                  "focus-within:ring-4",
+                  scratchEditorLocked ? "border-slate-200 bg-slate-100/80 opacity-70" : "",
+                  activeEditor === "scratch"
+                    ? submitted
+                      ? "border-[var(--brand)] focus-within:ring-[var(--brand)]/25"
+                      : "border-[var(--accent)] focus-within:ring-[var(--accent)]/25"
+                    : "border-slate-200 focus-within:ring-slate-200/25",
+                ].join(" ")}
+              />
+              {scratchEditorLocked ? (
+                <div className="pointer-events-none absolute inset-0 grid place-items-center rounded-md bg-white/75">
+                  <div className="rounded-xl border border-emerald-200 bg-white px-4 py-3 text-center shadow-sm">
+                    <p className="text-sm font-extrabold text-slate-900">
+                      Have you passed the guided run?
+                    </p>
+                    <p className="mt-1 text-xs font-semibold text-slate-700">
+                      Run your fill-in-the-blanks code successfully to unlock scratch mode.
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
         {/* Removed: "What would you type?" panel. Inputs are currently auto-filled using lesson defaults. */}
@@ -3220,7 +3336,6 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       ...(hasWordHelp ? [{ id: "words", label: "Word help" }] : []),
       { id: "safety", label: "AI safety" },
       { id: "steps", label: "Steps" },
-      ...(lesson.cfu.length ? [{ id: "cfu", label: "CFU" }] : []),
       ...(lesson.tryThis.length ? [{ id: "try", label: "Try This" }] : []),
     ];
     return items;
@@ -3279,7 +3394,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             />
           </div>
 
-          {lesson.cfu.length ? (
+          {false ? (
             <div className="mt-3">
               <div className="flex items-center justify-between gap-2">
                 <p className="text-xs font-semibold text-slate-700">Bonus (CFU)</p>
@@ -3342,11 +3457,12 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     <WelcomeBackground>
       <SpotlightTour
         ref={tourRef}
-        storageKey={`kanam_tour_lesson_${lesson.id}_v2_done`}
-        remember={lesson.tourRemember ?? false}
+        storageKey={lessonTourStorageKey}
+        remember={tourRemember && localStatePersistence}
         fadeMs={lesson.tourFadeMs ?? 220}
-        moveMs={lesson.tourMoveMs ?? 180}
-        recomputeDelayMs={lesson.tourRecomputeDelayMs ?? 250}
+        moveMs={Math.min(lesson.tourMoveMs ?? 120, 140)}
+        recomputeDelayMs={Math.min(lesson.tourRecomputeDelayMs ?? 120, 160)}
+        onDone={() => setTutorialDone(true)}
         steps={[
           {
             id: "order",
@@ -3354,7 +3470,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             title: "Welcome — I’m here with you",
             body: "Your instructor will be with you the whole time. Use this Learning Path like a checklist. Do it in order, and you’ll always know what to do next.",
             emoji: "👀",
-            padding: 12,
+            padding: 8,
           },
           {
             id: "coach",
@@ -3600,7 +3716,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
         ].join(" ")}
       >
-        <div className="w-full space-y-4 py-2 md:py-4">
+        <div className="w-full space-y-4 py-2 md:py-4 [&_.text-xs]:text-sm [&_.text-sm]:text-[15px]">
           {/* Mobile / Tablet: Tabs */}
           <div className="md:hidden">
             <Tabs defaultValue="learn">

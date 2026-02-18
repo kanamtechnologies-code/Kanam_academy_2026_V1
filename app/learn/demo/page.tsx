@@ -57,7 +57,7 @@ export default function DemoPage() {
       scratchTemplateCode: DEFAULT_SCRATCH_TEMPLATE,
 
       instructorScript:
-        "**Coach’s note**\nThis is the **demo** — it’s here so you feel confident before class starts.\n\nToday’s goal is simple:\n- Type in the code boxes\n- Press [[Run]]\n- Read the console output\n\nImportant: the computer does exactly what you write. It won’t guess.\n\n**Mini goal**:\nMake your program print 2 lines using a variable (your name).\n",
+        "**Coach's note (today's mini lesson)**\nToday is about [[how coding works]], not being perfect.\n\nBefore you start, know these 3 ideas:\n- A [[variable]] is a labeled memory box that stores information.\n- [[print()]] shows your message in the [[console output]].\n- The + symbol can join text pieces together.\n\nExample in fill-in-the-blank style (example only):\n\n```\nname = \"____\"\nprint(\"Welcome, \" + name + \"!\")\n```\n\nHow it works:\n- You replace \"____\" with your own text.\n- Python stores that text in the variable (`name`).\n- Then print() builds one message and shows it in output.\n\n**How to win this demo:**\n1. Fill in blanks carefully.\n2. Press [[Run]] and read the output.\n3. Fix small mistakes and run again.\n4. Then try writing it from scratch.\n\n**Important:** Python does exactly what you type, so tiny changes can change the result.\n",
       kidExplain: [
         {
           title: "Two boxes, one goal",
@@ -98,6 +98,7 @@ export default function DemoPage() {
 
       // Demo: make tutorial transitions slower.
       tourRemember: false,
+      localStatePersistence: false,
       tourFadeMs: 420,
       tourMoveMs: 760,
       tourRecomputeDelayMs: 650,

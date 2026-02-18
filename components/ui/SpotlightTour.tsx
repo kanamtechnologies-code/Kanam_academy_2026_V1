@@ -77,6 +77,7 @@ export const SpotlightTour = React.forwardRef<
     fadeMs?: number; // fade-out duration in ms
     moveMs?: number; // spotlight movement duration in ms (between steps)
     recomputeDelayMs?: number; // wait before measuring spotlight (lets scroll/layout settle)
+    onDone?: () => void;
   }
 >(function SpotlightTour(
   {
@@ -90,6 +91,7 @@ export const SpotlightTour = React.forwardRef<
   fadeMs = 220,
   moveMs = 180,
   recomputeDelayMs = 250,
+  onDone,
   },
   ref
 ) {
@@ -106,6 +108,7 @@ export const SpotlightTour = React.forwardRef<
       fadeMs={fadeMs}
       moveMs={moveMs}
       recomputeDelayMs={recomputeDelayMs}
+      onDone={onDone}
     />
   );
 });
@@ -121,6 +124,7 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
   fadeMs?: number;
   moveMs?: number;
   recomputeDelayMs?: number;
+  onDone?: () => void;
 }>(function SpotlightTourInner(
   {
     steps,
@@ -133,6 +137,7 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
     fadeMs = 220,
     moveMs = 180,
     recomputeDelayMs = 250,
+    onDone,
   },
   ref
 ) {
@@ -209,14 +214,14 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
         // ignore
       }
     }
+    onDone?.();
     startClose();
-  }, [storageKey, remember, startClose]);
+  }, [storageKey, remember, onDone, startClose]);
 
   const recompute = React.useCallback(() => {
     if (!open) return;
     const el = step ? findVisibleTarget(step.selector) : null;
-    // Avoid flicker during responsive/layout transitions: if we can't find the next target,
-    // keep the last rect instead of momentarily collapsing to "no spotlight".
+    // Keep prior rect if target is temporarily unavailable to avoid full-screen flash.
     if (!el) return;
     const pad = step.padding ?? 10;
     const r = el.getBoundingClientRect();
