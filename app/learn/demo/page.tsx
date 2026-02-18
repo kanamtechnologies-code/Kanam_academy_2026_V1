@@ -124,7 +124,7 @@ export default function DemoPage() {
           : asTerminal(
               '❌ Almost! In scratch, create `name = "..."` and write at least 2 `print(...)` lines. Then press Run.'
             ),
-      completionRedirectHref: "/demo/complete",
+      completionRedirectHref: "https://kanam-marketing-r8kh.vercel.app/",
     };
   }, []);
 
