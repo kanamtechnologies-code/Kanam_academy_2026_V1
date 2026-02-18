@@ -2010,10 +2010,11 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       ? lesson.isOutputCorrect(run.stdout, run.env, runtime)
       : true;
     if (activeEditor === "guided") {
+      // Guided completion should reflect "filled blanks + successful run",
+      // not full scratch-level submission constraints.
       const guidedOk =
         !run.error &&
         !guidedCode.includes("____") &&
-        lesson.isSubmissionValid(guidedCode, runtime) &&
         outputOk;
       setGuidedRunSuccessful(guidedOk);
     } else {
@@ -2045,10 +2046,11 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     const guidedOutputOk = lesson.isOutputCorrect
       ? lesson.isOutputCorrect(run.stdout, run.env, runtime)
       : true;
+    // Guided completion should reflect "filled blanks + successful run",
+    // not full scratch-level submission constraints.
     const guidedOk =
       !run.error &&
       !guidedCode.includes("____") &&
-      lesson.isSubmissionValid(guidedCode, runtime) &&
       guidedOutputOk;
     setGuidedRunSuccessful(guidedOk);
     const body = run.error
