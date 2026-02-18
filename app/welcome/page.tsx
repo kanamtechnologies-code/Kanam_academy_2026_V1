@@ -677,13 +677,7 @@ export default function WelcomePage() {
                   </Dialog>
 
                   <div className="rounded-2xl border border-white/50 bg-white/40 p-4">
-                    <p className="text-sm font-extrabold tracking-tight text-slate-900">
-                      What happens next
-                    </p>
-                    <p className="mt-1 text-sm text-slate-700">
-                      You’ll go straight to your dashboard and continue where you left off.
-                    </p>
-                    <p className="mt-2 text-xs text-slate-600">
+                    <p className="text-xs text-slate-600">
                       Trouble signing in?{" "}
                       <Link
                         className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
