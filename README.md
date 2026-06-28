@@ -1,96 +1,162 @@
-# Kanam Academy — Lesson Canvas (MVP)
+<div align="center">
 
-![Kanam Academy logo](public/images/Logo.png)
+<img src="public/images/Logo.png" alt="Kanam Academy" width="180" />
 
-Kanam Academy is a **middle-school friendly coding canvas** for live, instructor-led lessons (Zoom-style delivery) where learners practice Python concepts through:
-- **Fill-in-the-blanks (guided)**
-- **Try it from scratch (scratch editor)**
-- **Run + output console**
-- **Check-for-understanding (CFU) prompts**
-- **Demo mode** for first-time visitors
+# Kanam Academy
 
-The UX is designed for grades **6–8**: clear steps, big buttons, minimal “form” overload, and game-style language where appropriate.
+### Live, instructor-led coding classes for middle schoolers — with a game-style Lesson Canvas, a real Python runner, and an in-browser SQL engine.
+
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-Auth_+_Postgres-3FCF8E?logo=supabase&logoColor=white)](https://supabase.com/)
+[![sql.js](https://img.shields.io/badge/sql.js-WASM_SQLite-003B57?logo=sqlite&logoColor=white)](https://sql.js.org/)
+
+</div>
 
 ---
 
-## Quick start (local dev)
+Kanam Academy is a **middle-school–friendly coding platform** built for live, Zoom-style instruction (grades **6–8**). Learners write and run real code in the browser, follow a guided "Learning Path," and earn XP and badges as they progress through two structured tracks: **AI + Python** and **Data Analyst (SQL)**.
 
-### 1) Install + run
+The UX is designed for young learners: clear steps, big buttons, plain-English explainers, and game-style language — with an optional **Demo mode** so parents, educators, and first-time visitors can preview everything without signing in.
+
+## Highlights
+
+- **Interactive Lesson Canvas** — guided fill-in-the-blanks plus a from-scratch editor, a live console, check-for-understanding prompts, and an instructor video panel.
+- **Two learning tracks** — a 13-lesson AI + Python path and a 10-lesson Data Analyst (SQL) path, each with XP and collectible badges.
+- **Runs entirely in the browser** — a beginner-safe Python runner and a real SQLite engine (`sql.js` / WASM) power the exercises with no backend round-trips.
+- **Tell the story with charts** — later SQL lessons turn query results into visualizations with Recharts.
+- **Demo mode** — explore the dashboard and a full interactive lesson with zero sign-up.
+- **Progress that sticks** — Supabase Auth + Postgres track completions, XP, and badges per student.
+
+## Screenshots
+
+|  |  |
+| :---: | :---: |
+| <img src="public/images/screenshots/welcome.png" alt="Welcome screen" /><br/>**Welcome** — new students, returning learners, and demo mode | <img src="public/images/screenshots/demo-dashboard.png" alt="Dashboard" /><br/>**Dashboard** — tracks, progress, XP, and next steps |
+| <img src="public/images/screenshots/lesson-canvas.png" alt="Lesson Canvas" /><br/>**Lesson Canvas** — guided editor, learning path, live instructor video | <img src="public/images/screenshots/data-lesson.png" alt="Data Analyst lesson" /><br/>**Data Analyst track** — premium lesson hero with sample data |
+| <img src="public/images/screenshots/sql-workspace.png" alt="SQL workspace" /><br/>**SQL workspace** — write queries, run, and get instant feedback | |
+
+## Tech stack
+
+| Area | Technology |
+| --- | --- |
+| Framework | [Next.js 16](https://nextjs.org/) (App Router, Turbopack) |
+| UI | [React 19](https://react.dev/), [TypeScript 5](https://www.typescriptlang.org/) |
+| Styling | [Tailwind CSS 4](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/), [Framer Motion](https://www.framer.com/motion/), [Lucide](https://lucide.dev/) icons |
+| Data viz | [Recharts](https://recharts.org/) |
+| In-browser SQL | [sql.js](https://sql.js.org/) (SQLite compiled to WebAssembly) |
+| Python | Custom beginner-safe runner (`lib/pythonRunner.ts`) |
+| Auth & DB | [Supabase](https://supabase.com/) (SSR Auth + Postgres) |
+
+## Quick start
+
+### 1. Install and run
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`.
+Open [http://localhost:3000](http://localhost:3000).
 
-### 2) Supabase setup (recommended for real progress tracking)
+> Want to look around immediately? Visit **`/demo`** for the dashboard tour and **`/learn/demo`** for a fully interactive lesson — no account required.
+
+### 2. Configure environment variables
+
+Create a `.env.local` in the repo root using `config/env.example` as a guide:
+
+| Variable | Required | Description |
+| --- | :---: | --- |
+| `NEXT_PUBLIC_SUPABASE_URL` | ✅ | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✅ | Supabase anon public key |
+| `NEXT_PUBLIC_KANAM_SLOGAN` | — | Marketing copy shown on the Welcome screen |
+| `NEXT_PUBLIC_DATA_ANALYST_UNLOCK_FOR_TESTING` | — | Set to `true` to unlock the Data Analyst track for demos (locked behind Python prerequisites by default) |
+| `SUPABASE_SERVICE_ROLE_KEY` | — | Server-only; required for admin actions |
+| `INSTRUCTOR_INVITE_CODE` | — | Server-only; gate for creating instructor accounts |
+
+### 3. Set up the database
 
 This app uses Supabase for **Auth** + **Postgres** progress tracking.
 
-1) Create `.env.local` in the repo root and copy values from `config/env.example`:
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- (optional, server-only) `SUPABASE_SERVICE_ROLE_KEY`
-- (optional) `NEXT_PUBLIC_KANAM_SLOGAN`
-- (optional, server-only) `INSTRUCTOR_INVITE_CODE` (required only if you want to create instructors from `/welcome`)
+1. In Supabase, open **SQL Editor**.
+2. Run [`supabase/schema.sql`](supabase/schema.sql).
 
-2) Apply the database schema in Supabase:
-- Open Supabase → **SQL Editor**
-- Run `supabase/schema.sql`
+Supabase helpers live in `lib/supabase/` — `browser.ts`, `server.ts`, and `admin.ts` (server-only).
 
-Supabase helpers live here:
-- `lib/supabase/browser.ts`
-- `lib/supabase/server.ts`
-- `lib/supabase/admin.ts` (server-only)
+## Learning tracks
 
----
+### 🤖 AI + Python Starter Pack — 13 lessons
 
-## Where to click (key routes)
+Build your first AI helper with Python: variables, input, conditionals, loops, patterns, lists, functions, parameters, and a final "Build Your AI NPC" capstone (50 → 700 XP).
 
-- **Welcome / entry**: `GET /welcome`
-- **Demo dashboard (tutorial-only)**: `GET /demo`
-- **Interactive demo lesson**: `GET /learn/demo`
-- **Demo completion page**: `GET /demo/complete`
-- **Lessons**: `GET /learn/1` → `GET /learn/13`
-- **Dashboard (currently reuses the home dashboard page)**: `GET /dashboard`
+### 📊 Data Analyst Track — 10 lessons
 
----
+Learn SQL from `SELECT` to a final data project — columns, `WHERE`, `ORDER BY`, `GROUP BY`, `JOIN`, `HAVING`, and turning results into charts (50 → 500 XP). Unlocked after the first three Python lessons (or via the demo flag above).
 
-## Instructor / teacher notes (MVP)
+## Key routes
 
-- **Instructor view toggle**: add `?instructor=1` to a lesson URL to show extra instructor-only blocks (MVP).
-- **Zoom preview (testing)**: some lessons can render an instructor live block / preview in the canvas (see `LessonCanvas`).
-- **Instructor dashboard**: `GET /instructor`
-- **Create an instructor account (staff-only)**:
-  - Set `SUPABASE_SERVICE_ROLE_KEY` and `INSTRUCTOR_INVITE_CODE` in `.env.local`
-  - Go to `GET /welcome` → “Create instructor account”
+| Route | Description |
+| --- | --- |
+| `/welcome` | Entry point — sign in, sign up, or demo |
+| `/demo` | Dashboard preview (tutorial only, no sign-in) |
+| `/learn/demo` | Interactive demo lesson |
+| `/learn/1` … `/learn/13` | AI + Python lessons |
+| `/learn/data/1` … `/learn/data/10` | Data Analyst (SQL) lessons |
+| `/dashboard` | Student dashboard (tracks + progress) |
+| `/instructor` | Instructor dashboard |
 
----
+## Project structure
 
-## Screenshots / images
-
-Want the README to show the real UI? Add screenshots into `public/images/` and link them like this:
-
-```md
-![Lesson Canvas screenshot](public/images/lesson-canvas.png)
+```text
+app/                 # Next.js App Router pages
+  welcome/           # Auth + onboarding flows
+  learn/             # Python lessons (1–13) + demo
+  learn/data/        # Data Analyst SQL lessons (1–10)
+  demo/              # No-login dashboard preview
+  instructor/        # Instructor view
+  api/               # Auth + health API routes
+components/
+  lesson/            # Python Lesson Canvas
+  data/              # SQL canvas, result table, chart panel
+  python/            # Python editor + lesson canvas
+  dashboard/         # Track roadmap
+  ui/                # Shared UI primitives
+lib/
+  pythonRunner.ts    # In-browser Python execution
+  pythonLessons/     # Lesson content (1–13)
+  sqlRunner.ts       # sql.js / SQLite engine
+  dataLessonHelpers.ts  # Seed data + answer validation
+  tracks.ts          # Track + lesson definitions
+  supabase/          # Auth + DB clients
+supabase/schema.sql  # Database schema
+public/              # Logo, images, screenshots, sql-wasm.wasm
 ```
 
+## Instructor notes
+
+- **Instructor view toggle:** append `?instructor=1` to a lesson URL to reveal instructor-only blocks.
+- **Instructor dashboard:** `/instructor`.
+- **Create an instructor account (staff-only):** set `SUPABASE_SERVICE_ROLE_KEY` and `INSTRUCTOR_INVITE_CODE`, then go to `/welcome` → "Create instructor account."
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the dev server (Turbopack) |
+| `npm run build` | Production build |
+| `npm run start` | Run the production build |
+| `npm run lint` | Lint with ESLint |
+
+## Deployment
+
+The app deploys cleanly to any Next.js-compatible host (e.g. [Vercel](https://vercel.com/)). Set the environment variables above in your host's dashboard, run `supabase/schema.sql` against your production database, and ship.
+
 ---
 
-## Build / production
+<div align="center">
 
-```bash
-npm run build
-npm run start
-```
+**Kanam Academy** · Move forward.
 
----
-
-## What this repo is (high level)
-
-- **Next.js App Router** UI with a custom **Lesson Canvas** experience
-- **Mini Python runner** for beginner-friendly execution (safe subset)
-- **Supabase** for authentication + tracking progress events and rollups
-
-If you’re new here: start by opening `components/lesson/LessonCanvas.tsx` and any lesson page under `app/learn/*/page.tsx`.
+</div>
