@@ -21,6 +21,11 @@ function s(x: unknown) {
   return typeof x === "string" ? x.trim() : "";
 }
 
+function errorMessage(error: unknown, fallback: string) {
+  if (error instanceof Error && error.message) return error.message;
+  return fallback;
+}
+
 async function getOrCreateSchoolId(supabase: ReturnType<typeof createSupabaseAdminClient>, name: string) {
   const schoolName = name.trim();
   if (!schoolName) return null;
@@ -119,8 +124,11 @@ export async function POST(req: Request) {
   let schoolId: string | null = null;
   try {
     schoolId = schoolName ? await getOrCreateSchoolId(supabase, schoolName) : null;
-  } catch (e: any) {
-    return NextResponse.json({ ok: false, error: e?.message ?? "School upsert failed." }, { status: 500 });
+  } catch (error: unknown) {
+    return NextResponse.json(
+      { ok: false, error: errorMessage(error, "School upsert failed.") },
+      { status: 500 }
+    );
   }
 
   const { error: studentErr } = await supabase.from("students").insert({

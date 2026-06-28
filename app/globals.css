@@ -95,6 +95,93 @@ body {
   display: none;
 }
 
+/* Premium lesson hero with stronger contrast/readability */
+.kanam-lesson-hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.24);
+  background:
+    radial-gradient(1200px 420px at 10% -10%, rgb(255 255 255 / 0.2), transparent 45%),
+    linear-gradient(125deg, #0a6f5b 0%, #0f8b73 44%, #d8c07a 100%);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.2) inset,
+    0 18px 50px rgb(2 6 23 / 0.24);
+}
+
+.kanam-lesson-hero-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(0 0 0 / 0.1), rgb(0 0 0 / 0.2));
+}
+
+.kanam-hero-chip {
+  border: 1px solid rgb(255 255 255 / 0.34);
+  background: rgb(255 255 255 / 0.18);
+  color: white;
+  font-weight: 700;
+  padding: 0.4rem 0.7rem;
+  backdrop-filter: blur(6px);
+}
+
+.kanam-hero-chip svg {
+  color: rgb(var(--accent-rgb) / 1);
+}
+
+.kanam-hero-cta {
+  background: rgb(255 255 255 / 0.95);
+  color: #0f513f;
+  font-weight: 800;
+}
+
+.kanam-hero-cta:hover {
+  background: rgb(255 255 255 / 1);
+}
+
+/* Dashboard premium shell */
+.kanam-dashboard-shell {
+  background:
+    radial-gradient(1100px 520px at 8% -10%, rgb(var(--brand-rgb) / 0.12), transparent 55%),
+    radial-gradient(980px 480px at 95% -20%, rgb(var(--accent-rgb) / 0.14), transparent 58%),
+    #f8fafc;
+}
+
+.kanam-dashboard-hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.28);
+  background:
+    radial-gradient(980px 360px at 0% -10%, rgb(255 255 255 / 0.28), transparent 52%),
+    linear-gradient(130deg, #0a6f5b 0%, #0f8b73 48%, #d8c07a 100%);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.24) inset,
+    0 20px 50px rgb(15 23 42 / 0.2);
+}
+
+.kanam-dashboard-hero-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(0 0 0 / 0.08), rgb(0 0 0 / 0.24));
+}
+
+.kanam-dashboard-stat {
+  border: 1px solid rgb(255 255 255 / 0.28);
+  background: rgb(255 255 255 / 0.14);
+  backdrop-filter: blur(6px);
+}
+
+.kanam-track-tabs {
+  border: 1px solid rgb(148 163 184 / 0.28);
+  background: rgb(255 255 255 / 0.85);
+  box-shadow: 0 8px 22px rgb(15 23 42 / 0.06);
+}
+
+.kanam-track-tabs [data-state="active"] {
+  background: rgb(var(--brand-rgb) / 0.95);
+  color: white;
+}
+
 /* Premium Light Glass: subtle hex pattern overlay */
 .kanam-hex-pattern {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='48' viewBox='0 0 56 48'%3E%3Cg fill='none' stroke='rgba(15,110,87,0.18)' stroke-width='1'%3E%3Cpath d='M14 1 L28 9 L28 25 L14 33 L0 25 L0 9 Z'/%3E%3Cpath d='M42 1 L56 9 L56 25 L42 33 L28 25 L28 9 Z'/%3E%3Cpath d='M28 25 L42 33 L42 47 L28 55 L14 47 L14 33 Z' transform='translate(0,-8)'/%3E%3C/g%3E%3C/svg%3E");
@@ -216,5 +303,241 @@ body {
   }
   50% {
     transform: translateY(-3px);
+  }
+}
+
+/* SQL editor — pulsing green slot where learners type */
+@keyframes kanamSqlGapPulse {
+  0%,
+  100% {
+    background-color: rgb(var(--brand-rgb) / 0.28);
+    box-shadow: 0 0 0 0 rgb(var(--brand-rgb) / 0.35);
+  }
+  50% {
+    background-color: rgb(var(--brand-rgb) / 0.52);
+    box-shadow: 0 0 0 3px rgb(var(--brand-rgb) / 0.18);
+  }
+}
+
+@keyframes kanamSqlGapShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.kanam-sql-typing-gap {
+  display: inline-block;
+  vertical-align: baseline;
+  border-radius: 3px;
+  padding: 0 0.15em;
+  min-width: 1.35em;
+  animation: kanamSqlGapPulse 1.4s ease-in-out infinite;
+  border: 1px solid rgb(var(--brand-rgb) / 0.45);
+}
+
+.kanam-sql-typing-gap-inner {
+  display: inline-block;
+  min-width: 0.65em;
+  background: linear-gradient(
+    90deg,
+    rgb(var(--brand-rgb) / 0.15),
+    rgb(var(--accent-rgb) / 0.35),
+    rgb(var(--brand-rgb) / 0.15)
+  );
+  background-size: 200% 100%;
+  animation: kanamSqlGapShimmer 2.2s linear infinite;
+  border-radius: 2px;
+}
+
+.kanam-sql-editor-wrap:focus-within .kanam-sql-typing-gap {
+  border-color: rgb(var(--brand-rgb) / 0.75);
+}
+
+/* Data analyst — success celebrations */
+@keyframes kanamDataSuccessPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  55% {
+    transform: scale(1.03) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes kanamDataSuccessGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgb(var(--brand-rgb) / 0.45),
+      0 8px 24px rgb(var(--brand-rgb) / 0.18);
+  }
+  50% {
+    box-shadow:
+      0 0 0 6px rgb(var(--brand-rgb) / 0.12),
+      0 12px 32px rgb(var(--brand-rgb) / 0.28);
+  }
+}
+
+@keyframes kanamDataSuccessIcon {
+  0% {
+    transform: scale(0.5) rotate(-12deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15) rotate(4deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes kanamDataSuccessShimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes kanamDataLessonComplete {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.kanam-data-success-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem 1.15rem;
+  border-radius: 1rem;
+  border: 2px solid rgb(var(--brand-rgb) / 0.55);
+  background: linear-gradient(
+    135deg,
+    rgb(var(--brand-rgb) / 0.2),
+    rgb(var(--accent-rgb) / 0.22),
+    rgb(var(--brand-rgb) / 0.14)
+  );
+  background-size: 200% 200%;
+  animation:
+    kanamDataSuccessPop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both,
+    kanamDataSuccessGlow 1.8s ease-in-out infinite 0.55s,
+    kanamDataSuccessShimmer 3s linear infinite;
+  color: var(--brand-2);
+}
+
+.kanam-data-success-icon {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  color: var(--brand);
+  animation: kanamDataSuccessIcon 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.kanam-data-success-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--brand-2);
+}
+
+.kanam-data-success-body {
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: rgb(15 80 55);
+}
+
+.kanam-data-terminal-success {
+  border: 2px solid rgb(var(--brand-rgb) / 0.45);
+  background: linear-gradient(180deg, rgb(6 40 28) 0%, rgb(8 52 36) 100%);
+  animation: kanamDataSuccessGlow 2s ease-in-out infinite;
+}
+
+.kanam-data-lesson-complete {
+  animation: kanamDataLessonComplete 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  border: 2px solid rgb(var(--accent-rgb) / 0.65);
+  background: linear-gradient(
+    145deg,
+    rgb(var(--brand-rgb) / 0.14),
+    rgb(var(--accent-rgb) / 0.2),
+    rgb(var(--brand-rgb) / 0.1)
+  );
+  box-shadow: 0 12px 40px rgb(var(--brand-rgb) / 0.22);
+}
+
+.kanam-data-lesson-complete-emoji {
+  display: inline-block;
+  font-size: 2.75rem;
+  animation: kanamDataSuccessIcon 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes kanamDataNextExercisePop {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px) scale(0.88);
+  }
+  65% {
+    transform: translateX(2px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes kanamDataNextExercisePulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0 rgb(var(--brand-rgb) / 0.55),
+      0 4px 14px rgb(var(--brand-rgb) / 0.35);
+  }
+  50% {
+    box-shadow:
+      0 0 0 10px rgb(var(--brand-rgb) / 0),
+      0 6px 22px rgb(var(--brand-rgb) / 0.45);
+  }
+}
+
+@keyframes kanamDataNextChevron {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+.kanam-data-next-exercise-btn {
+  animation:
+    kanamDataNextExercisePop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both,
+    kanamDataNextExercisePulse 1.5s ease-in-out infinite 0.55s;
+}
+
+.kanam-data-next-exercise-btn .kanam-data-next-chevron {
+  animation: kanamDataNextChevron 0.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kanam-data-next-exercise-btn,
+  .kanam-data-next-exercise-btn .kanam-data-next-chevron {
+    animation: none;
   }
 }

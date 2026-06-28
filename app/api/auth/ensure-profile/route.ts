@@ -4,6 +4,11 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
+type UserMetadata = {
+  first_name?: string;
+  display_name?: string;
+};
+
 function firstNameFromEmail(email: string) {
   const local = (email.split("@")[0] ?? "").trim();
   if (!local) return "Student";
@@ -37,9 +42,10 @@ export async function POST() {
   }
 
   // Create minimal profile row. Note: some DBs require device_id; keep it non-empty.
+  const userMetadata = (user.user_metadata ?? {}) as UserMetadata;
   const first =
-    (user.user_metadata as any)?.first_name ||
-    (user.user_metadata as any)?.display_name ||
+    (userMetadata.first_name && String(userMetadata.first_name).trim()) ||
+    (userMetadata.display_name && String(userMetadata.display_name).trim()) ||
     firstNameFromEmail(user.email ?? "");
 
   const { data: inserted, error: insertErr } = await supabase

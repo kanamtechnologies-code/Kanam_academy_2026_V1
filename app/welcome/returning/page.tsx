@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 const USER_NAME_KEY = "kanam.userName";
+type EnsureProfileResponse = { ok?: boolean; error?: string };
+type StudentNameRow = { display_name?: string | null };
 
 function saveUserName(name: string) {
   try {
@@ -28,6 +30,11 @@ function loadUserName(): string {
   } catch {
     return "";
   }
+}
+
+function errorMessage(error: unknown, fallback: string) {
+  if (error instanceof Error && error.message) return error.message;
+  return fallback;
 }
 
 export default function WelcomeReturningPage() {
@@ -131,7 +138,7 @@ export default function WelcomeReturningPage() {
 
                       // Ensure a student profile row exists for this auth user (so we can save progress).
                       const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
-                      const ensureJson = (await ensureRes.json()) as any;
+                      const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
                       if (!ensureRes.ok || !ensureJson?.ok) {
                         throw new Error(
                           ensureJson?.error ||
@@ -148,8 +155,8 @@ export default function WelcomeReturningPage() {
                           .from("students")
                           .select("display_name")
                           .eq("user_id", userId)
-                          .maybeSingle();
-                        const fallback = (student as any)?.display_name as string | undefined;
+                          .maybeSingle<StudentNameRow>();
+                        const fallback = student?.display_name ?? undefined;
                         if (fallback) displayName = fallback;
                       }
                       try {
@@ -158,8 +165,8 @@ export default function WelcomeReturningPage() {
                         // ignore
                       }
                       router.push("/dashboard");
-                    } catch (e: any) {
-                      setError(e?.message ?? "Something went wrong.");
+                    } catch (error: unknown) {
+                      setError(errorMessage(error, "Something went wrong."));
                     }
                   }}
                 >

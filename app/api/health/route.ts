@@ -14,9 +14,10 @@ export async function GET() {
       );
     }
     return NextResponse.json({ ok: true, studentsSample: data ?? [] }, { status: 200 });
-  } catch (e: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "unknown error";
     return NextResponse.json(
-      { ok: false, where: "server", error: e?.message ?? "unknown error" },
+      { ok: false, where: "server", error: message },
       { status: 500 }
     );
   }

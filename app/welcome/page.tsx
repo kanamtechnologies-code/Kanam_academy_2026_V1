@@ -20,6 +20,38 @@ import {
 import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
+type EnsureProfileResponse = {
+  ok?: boolean;
+  error?: string;
+  student?: { id?: string; display_name?: string };
+};
+
+type CreateInstructorResponse = {
+  ok?: boolean;
+  error?: string;
+};
+
+function errorMessage(error: unknown, fallback: string) {
+  if (error instanceof Error && error.message) return error.message;
+  return fallback;
+}
+
+function readRoleFromMetadata(
+  user: { user_metadata?: unknown; app_metadata?: unknown } | null | undefined
+) {
+  const userMeta =
+    user?.user_metadata && typeof user.user_metadata === "object"
+      ? (user.user_metadata as Record<string, unknown>)
+      : {};
+  const appMeta =
+    user?.app_metadata && typeof user.app_metadata === "object"
+      ? (user.app_metadata as Record<string, unknown>)
+      : {};
+  const role =
+    userMeta.role ?? appMeta.role ?? userMeta.user_role ?? appMeta.user_role;
+  return typeof role === "string" ? role : undefined;
+}
+
 export default function WelcomePage() {
   const router = useRouter();
   const [email, setEmail] = React.useState("");
@@ -69,16 +101,28 @@ export default function WelcomePage() {
 
       if (!em || !em.includes("@")) {
         const msg = "Enter your email.";
-        mode === "instructor" ? setInstructorError(msg) : setReturningError(msg);
+        if (mode === "instructor") {
+          setInstructorError(msg);
+        } else {
+          setReturningError(msg);
+        }
         return;
       }
       if (!pw) {
         const msg = "Enter your password.";
-        mode === "instructor" ? setInstructorError(msg) : setReturningError(msg);
+        if (mode === "instructor") {
+          setInstructorError(msg);
+        } else {
+          setReturningError(msg);
+        }
         return;
       }
 
-      mode === "instructor" ? setLoadingInstructor(true) : setLoadingReturning(true);
+      if (mode === "instructor") {
+        setLoadingInstructor(true);
+      } else {
+        setLoadingReturning(true);
+      }
 
       try {
         const supabase = createSupabaseBrowserClient();
@@ -90,7 +134,7 @@ export default function WelcomePage() {
 
         if (mode === "learner") {
           const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
-          const ensureJson = (await ensureRes.json()) as any;
+          const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
           if (!ensureRes.ok || !ensureJson?.ok) {
             throw new Error(ensureJson?.error || "Signed in, but could not load your profile.");
           }
@@ -100,12 +144,7 @@ export default function WelcomePage() {
 
         // Instructor mode: verify role from auth metadata.
         const { data } = await supabase.auth.getUser();
-        const user = data.user as any;
-        const role =
-          user?.user_metadata?.role ||
-          user?.app_metadata?.role ||
-          user?.user_metadata?.user_role ||
-          user?.app_metadata?.user_role;
+        const role = readRoleFromMetadata(data.user);
 
         if (role !== "instructor" && role !== "teacher") {
           throw new Error(
@@ -114,11 +153,19 @@ export default function WelcomePage() {
         }
 
         router.push("/instructor");
-      } catch (e: any) {
-        const msg = e?.message ?? "Sign-in failed.";
-        mode === "instructor" ? setInstructorError(msg) : setReturningError(msg);
+      } catch (error: unknown) {
+        const msg = errorMessage(error, "Sign-in failed.");
+        if (mode === "instructor") {
+          setInstructorError(msg);
+        } else {
+          setReturningError(msg);
+        }
       } finally {
-        mode === "instructor" ? setLoadingInstructor(false) : setLoadingReturning(false);
+        if (mode === "instructor") {
+          setLoadingInstructor(false);
+        } else {
+          setLoadingReturning(false);
+        }
       }
     },
     [email, password, router]
@@ -445,9 +492,11 @@ export default function WelcomePage() {
                                   });
                                   if (error) throw new Error(error.message);
                                   setForgotStatus("sent");
-                                } catch (e: any) {
+                                } catch (error: unknown) {
                                   setForgotStatus("error");
-                                  setForgotError(e?.message ?? "Could not send reset email.");
+                                  setForgotError(
+                                    errorMessage(error, "Could not send reset email.")
+                                  );
                                 }
                               }}
                             >
@@ -633,7 +682,7 @@ export default function WelcomePage() {
                                   lastName: instrLastName.trim(),
                                 }),
                               });
-                              const json = (await res.json()) as any;
+                              const json = (await res.json()) as CreateInstructorResponse;
                               if (!res.ok || json?.ok === false) {
                                 throw new Error(json?.error || "Could not create instructor.");
                               }
@@ -641,9 +690,11 @@ export default function WelcomePage() {
                               // Pre-fill returning sign-in box for convenience.
                               setEmail(instrEmail.trim());
                               setPassword(instrPassword);
-                            } catch (e: any) {
+                            } catch (error: unknown) {
                               setInstrCreateStatus("error");
-                              setInstrCreateError(e?.message ?? "Could not create instructor.");
+                              setInstrCreateError(
+                                errorMessage(error, "Could not create instructor.")
+                              );
                             }
                           }}
                         >

@@ -12,8 +12,15 @@ import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 const USER_NAME_KEY = "kanam.userName";
+type SignupResponse = { ok?: boolean; error?: string };
+type EnsureProfileResponse = { ok?: boolean; error?: string };
 
 const GRADES = ["5", "6", "7", "8", "9", "10", "11", "12", "Other"] as const;
+
+function errorMessage(error: unknown, fallback: string) {
+  if (error instanceof Error && error.message) return error.message;
+  return fallback;
+}
 
 export default function WelcomeProfilePage() {
   const router = useRouter();
@@ -311,7 +318,7 @@ export default function WelcomeProfilePage() {
                             parentPhone: parentPhone.trim() || undefined,
                           }),
                         });
-                        const json = (await res.json()) as any;
+                        const json = (await res.json()) as SignupResponse;
                         if (!res.ok || !json?.ok) {
                           throw new Error(json?.error || "Could not create account.");
                         }
@@ -324,7 +331,7 @@ export default function WelcomeProfilePage() {
 
                         // Ensure profile exists (creates minimal row if needed).
                         const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
-                        const ensureJson = (await ensureRes.json()) as any;
+                        const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
                         if (!ensureRes.ok || !ensureJson?.ok) {
                           throw new Error(
                             ensureJson?.error ||
@@ -339,8 +346,8 @@ export default function WelcomeProfilePage() {
                           // ignore
                         }
                         router.push("/dashboard");
-                      } catch (e: any) {
-                        setError(e?.message ?? "Something went wrong.");
+                      } catch (error: unknown) {
+                        setError(errorMessage(error, "Something went wrong."));
                       } finally {
                         setSaving(false);
                       }

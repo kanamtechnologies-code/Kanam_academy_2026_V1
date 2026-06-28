@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, BookOpen, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Sparkles, Zap } from "lucide-react";
 
 import { HeaderVideo } from "@/components/layout/HeaderVideo";
 import { SpotlightTour } from "@/components/ui/SpotlightTour";
@@ -14,6 +14,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 const USER_NAME_KEY = "kanam.userName";
+type EnsureProfileResponse = {
+  ok?: boolean;
+  student?: { display_name?: string };
+};
 
 function loadUserName(): string {
   try {
@@ -68,7 +72,7 @@ export default function WelcomeChoosePage() {
       } else {
         // If they're logged in but don't have a student row yet, auto-create it (real app behavior).
         const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
-        const ensureJson = (await ensureRes.json()) as any;
+        const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
         if (ensureRes.ok && ensureJson?.ok) {
           const nm = String(ensureJson?.student?.display_name ?? "");
           if (nm) {

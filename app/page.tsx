@@ -3,16 +3,11 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {
-  CheckCircle2,
-  Play,
-  Sparkles,
-  Trophy,
-} from "lucide-react";
+import { BookOpenCheck, Flame, Sparkles, Trophy } from "lucide-react";
 
+import { TrackRoadmap } from "@/components/dashboard/TrackRoadmap";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -21,132 +16,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import {
+  DATA_ANALYST_PREREQUISITES,
+  isDataAnalystTrackUnlocked,
+  trackProgress,
+  totalXpAcrossTracks,
+  TRACKS,
+  weekSessionLabelFromIndex,
+} from "@/lib/tracks";
 
 const USER_NAME_KEY = "kanam.userName";
-
-type LessonRow = {
-  id: string;
-  title: string;
-  href?: string;
-  xp: number;
-  badgeName: string;
-  badgeIcon: string;
-};
-
-function weekSessionLabelFromIndex(idx: number) {
-  const week = Math.floor(idx / 2) + 1;
-  const session = (idx % 2) + 1;
-  return `Week ${week} · Session ${session}`;
-}
-
-const lessons: LessonRow[] = [
-  {
-    id: "lesson-1",
-    title: "My First AI Helper",
-    href: "/learn/1",
-    xp: 50,
-    badgeName: "The Awakener",
-    badgeIcon: "🤖",
-  },
-  {
-    id: "lesson-2",
-    title: "My AI Helper Listens",
-    href: "/learn/2",
-    xp: 100,
-    badgeName: "Listener",
-    badgeIcon: "👂",
-  },
-  {
-    id: "lesson-3",
-    title: "My AI Makes Choices",
-    href: "/learn/3",
-    xp: 150,
-    badgeName: "Decision Maker",
-    badgeIcon: "🧠",
-  },
-  {
-    id: "lesson-4",
-    title: "Smarter AI Rules",
-    href: "/learn/4",
-    xp: 250,
-    badgeName: "Rule Builder",
-    badgeIcon: "🧠",
-  },
-  {
-    id: "lesson-5",
-    title: "AI Repeats Tasks",
-    href: "/learn/5",
-    xp: 300,
-    badgeName: "Loop Starter",
-    badgeIcon: "🔁",
-  },
-  {
-    id: "lesson-6",
-    title: "Patterns and Predictions",
-    href: "/learn/6",
-    xp: 350,
-    badgeName: "Pattern Finder",
-    badgeIcon: "🔍",
-  },
-  {
-    id: "lesson-7",
-    title: "AI Notices Patterns",
-    href: "/learn/7",
-    xp: 400,
-    badgeName: "Pattern Spotter",
-    badgeIcon: "🧠",
-  },
-  {
-    id: "lesson-8",
-    title: "AI Remembers Choices",
-    href: "/learn/8",
-    xp: 450,
-    badgeName: "Memory Builder",
-    badgeIcon: "🧺",
-  },
-  {
-    id: "lesson-9",
-    title: "Organizing Memory",
-    href: "/learn/9",
-    xp: 500,
-    badgeName: "Memory Organizer",
-    badgeIcon: "🗂️",
-  },
-  {
-    id: "lesson-10",
-    title: "Teaching the Bot Skills (Functions)",
-    href: "/learn/10",
-    xp: 550,
-    badgeName: "Skill Builder",
-    badgeIcon: "🧩",
-  },
-  {
-    id: "lesson-11",
-    title: "Giving Functions Better Information (Parameters)",
-    href: "/learn/11",
-    xp: 600,
-    badgeName: "Parameter Pro",
-    badgeIcon: "🎮",
-  },
-  {
-    id: "lesson-12",
-    title: "Guiding AI with Rules",
-    href: "/learn/12",
-    xp: 650,
-    badgeName: "Rule Guide",
-    badgeIcon: "🛡️",
-  },
-  {
-    id: "lesson-13",
-    title: "Build Your AI NPC",
-    href: "/learn/13",
-    xp: 700,
-    badgeName: "Designer",
-    badgeIcon: "🎨",
-  },
-];
 
 export default function Home() {
   const router = useRouter();
@@ -156,12 +37,24 @@ export default function Home() {
   const [studentDbId, setStudentDbId] = React.useState<string>("");
   const [resetOpen, setResetOpen] = React.useState<boolean>(false);
   const [resetStep, setResetStep] = React.useState<1 | 2 | 3>(1);
+  const [activeTab, setActiveTab] = React.useState<string>("python-starter");
+
+  const pythonTrack = TRACKS.find((t) => t.id === "python-starter")!;
+  const dataTrack = TRACKS.find((t) => t.id === "data-analyst")!;
+  const dataUnlocked = isDataAnalystTrackUnlocked(completedIds);
+  const totalXp = totalXpAcrossTracks(completedIds);
+  const activeTrack = activeTab === "data-analyst" ? dataTrack : pythonTrack;
+  const activeTrackProgress = trackProgress(completedIds, activeTrack.lessons);
+  const completedLessonCount = TRACKS.reduce(
+    (sum, track) => sum + track.lessons.filter((l) => completedIds.includes(l.id)).length,
+    0
+  );
+  const totalLessonCount = TRACKS.reduce((sum, track) => sum + track.lessons.length, 0);
 
   const resetProgress = async () => {
     if (!studentDbId) return;
     try {
       const supabase = createSupabaseBrowserClient();
-      // Requires RLS delete policies on lesson_progress / progress_events.
       await supabase.from("lesson_progress").delete().eq("student_id", studentDbId);
       await supabase.from("progress_events").delete().eq("student_id", studentDbId);
     } catch {
@@ -169,11 +62,6 @@ export default function Home() {
     }
     setHasSavedProgress(true);
     setCompletedIds([]);
-  };
-
-  const openResetModal = () => {
-    setResetStep(1);
-    setResetOpen(true);
   };
 
   React.useEffect(() => {
@@ -185,9 +73,10 @@ export default function Home() {
         return;
       }
 
-      // Ensure a student profile exists and use it for progress.
       const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
-      const ensureJson = (await ensureRes.json()) as any;
+      const ensureJson = (await ensureRes.json()) as {
+        student?: { id?: string; display_name?: string };
+      };
       const studentId = String(ensureJson?.student?.id ?? "");
       const displayName = String(ensureJson?.student?.display_name ?? "");
       if (studentId) setStudentDbId(studentId);
@@ -200,7 +89,6 @@ export default function Home() {
         }
       }
 
-      // Load progress from Supabase (per authenticated user).
       if (studentId) {
         const { data: rows } = await supabase
           .from("lesson_progress")
@@ -208,8 +96,8 @@ export default function Home() {
           .eq("student_id", studentId);
         const completed =
           (rows ?? [])
-            .filter((r: any) => Boolean(r?.success))
-            .map((r: any) => String(r?.lesson_id))
+            .filter((r) => Boolean(r?.success))
+            .map((r) => String(r?.lesson_id))
             .filter(Boolean) ?? [];
         setCompletedIds(completed);
         setHasSavedProgress(true);
@@ -220,62 +108,92 @@ export default function Home() {
     })();
   }, [router]);
 
-  const completedCount = lessons.filter((l) => completedIds.includes(l.id)).length;
-  const totalCount = lessons.length;
-  const starterPackPercent = Math.round((completedCount / totalCount) * 100);
-  const totalXp = lessons
-    .filter((l) => completedIds.includes(l.id))
-    .reduce((sum, l) => sum + l.xp, 0);
-
-  const activeIndex = lessons.findIndex((l) => !completedIds.includes(l.id));
-  const nextLesson = activeIndex >= 0 ? lessons[activeIndex] : undefined;
+  const prereqLabels = DATA_ANALYST_PREREQUISITES.map((id) => {
+    const lesson = pythonTrack.lessons.find((l) => l.id === id);
+    return lesson?.title ?? id;
+  });
 
   return (
-    <div className="min-h-dvh bg-slate-50 px-4 py-6 text-slate-900 md:px-10">
-      <div className="w-full space-y-6">
-        {/* Dashboard Header */}
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm text-slate-600">AI + Python Starter Pack</p>
-            <h1 className="mt-1 text-2xl font-semibold tracking-tight md:text-3xl">
-              Welcome back, {studentName}!
-          </h1>
-          </div>
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
-            <Badge className="w-fit bg-[var(--brand)] text-white">
-              <Sparkles className="mr-1 h-4 w-4 text-[var(--accent)]" />
-              {hasSavedProgress ? totalXp : 150} XP
-            </Badge>
-
-            {nextLesson?.href ? (
-              <Button asChild size="lg" className="shadow-sm">
-                <Link href={nextLesson.href}>
-                  <Play className="h-4 w-4" />
-                  Next step: Start {nextLesson.title}{" "}
-                  <span className="text-white/80">
-                    ({weekSessionLabelFromIndex(Math.max(0, activeIndex))})
-                  </span>
-                </Link>
+    <div className="kanam-dashboard-shell min-h-dvh px-4 py-6 text-slate-900 md:px-10">
+      <div className="mx-auto w-full max-w-[1320px] space-y-6">
+        <section className="kanam-dashboard-hero rounded-[30px] p-6 md:p-8">
+          <div className="kanam-dashboard-hero-overlay" />
+          <div className="relative z-10 space-y-5">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.24em] text-white/85">
+                  Kanam Academy · Learning hub
+                </p>
+                <h1 className="mt-2 text-3xl font-black tracking-tight text-white md:text-5xl">
+                  Welcome back, {studentName}!
+                </h1>
+                <p className="mt-2 max-w-2xl text-sm font-medium text-white/85 md:text-base">
+                  Pick up where you left off, track your streak, and jump into your next lesson
+                  faster.
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="border-white/40 bg-white/10 text-white hover:bg-white/20"
+                onClick={() => setResetOpen(true)}
+              >
+                Reset progress
               </Button>
-            ) : (
-              <Button size="lg" disabled className="shadow-sm">
-                <Play className="h-4 w-4" />
-                Next step: coming soon
-              </Button>
-            )}
+            </div>
 
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                openResetModal();
-              }}
-            >
-              Reset progress
-            </Button>
+            <div className="grid gap-3 md:grid-cols-3">
+              <div className="kanam-dashboard-stat rounded-2xl p-4">
+                <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/75">
+                  Total XP
+                </p>
+                <p className="mt-1 flex items-center gap-2 text-2xl font-black text-white">
+                  <Sparkles className="h-5 w-5 text-[var(--accent)]" />
+                  {hasSavedProgress ? totalXp : 0}
+                </p>
+              </div>
+              <div className="kanam-dashboard-stat rounded-2xl p-4">
+                <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/75">
+                  Lessons complete
+                </p>
+                <p className="mt-1 flex items-center gap-2 text-2xl font-black text-white">
+                  <BookOpenCheck className="h-5 w-5 text-white/90" />
+                  {completedLessonCount}/{totalLessonCount}
+                </p>
+              </div>
+              <div className="kanam-dashboard-stat rounded-2xl p-4">
+                <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/75">
+                  Active track
+                </p>
+                <p className="mt-1 flex items-center gap-2 text-lg font-black text-white">
+                  <Trophy className="h-5 w-5 text-[var(--accent)]" />
+                  {activeTrack.title}
+                </p>
+                <p className="mt-1 text-xs font-semibold text-white/80">
+                  {activeTrackProgress.percent}% complete
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {activeTrackProgress.nextLesson?.href && !activeTrackProgress.nextLesson.comingSoon ? (
+                <Button asChild className="bg-white text-[var(--brand-2)] hover:bg-white/95">
+                  <Link href={activeTrackProgress.nextLesson.href}>
+                    <Flame className="h-4 w-4" />
+                    Continue: {activeTrackProgress.nextLesson.title}
+                    <span className="text-xs text-[var(--brand)]/80">
+                      ({weekSessionLabelFromIndex(Math.max(0, activeTrackProgress.activeIndex))})
+                    </span>
+                  </Link>
+                </Button>
+              ) : null}
+              <Badge className="border border-white/35 bg-white/15 px-3 py-1 text-white">
+                {activeTrack.icon} {activeTrack.subtitle}
+              </Badge>
+            </div>
           </div>
-        </div>
+        </section>
 
         <Dialog
           open={resetOpen}
@@ -288,56 +206,31 @@ export default function Home() {
             <DialogHeader>
               <DialogTitle>
                 {resetStep === 1
-                  ? "Reset progress?"
+                  ? "Reset all progress?"
                   : resetStep === 2
-                    ? "Are you REALLY REALLY sure?"
+                    ? "Are you REALLY sure?"
                     : "Last warning"}
               </DialogTitle>
               <DialogDescription>
                 {resetStep === 1
-                  ? "This will clear your completed lessons on this device."
+                  ? "This clears completed lessons across all tracks."
                   : resetStep === 2
-                    ? "You’re about to erase your Starter Pack progress."
+                    ? "All badges and XP will reset."
                     : "This action cannot be undone."}
               </DialogDescription>
             </DialogHeader>
-
-            <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-              {resetStep === 1 ? (
-                <p>
-                  You’ll go back to the beginning, and lessons will lock again until you
-                  complete them.
-                </p>
-              ) : resetStep === 2 ? (
-                <p>
-                  For real: your badges and XP on this device will reset. (We’ll add accounts later.)
-                </p>
-              ) : (
-                <p className="font-semibold text-slate-900">
-                  Final warning: this cannot be redone.
-                </p>
-              )}
-            </div>
-
             <DialogFooter className="mt-6">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => {
-                  setResetOpen(false);
-                  setResetStep(1);
-                }}
-              >
+              <Button type="button" variant="outline" onClick={() => setResetOpen(false)}>
                 Cancel
               </Button>
               {resetStep < 3 ? (
                 <Button type="button" onClick={() => setResetStep((s) => (s + 1) as 2 | 3)}>
-                  {resetStep === 1 ? "Yes, continue" : "Yes, continue"}
+                  Yes, continue
                 </Button>
               ) : (
                 <Button
                   type="button"
-                  className="bg-red-600 text-white hover:bg-red-500 focus-visible:ring-red-600/30"
+                  className="bg-red-600 text-white hover:bg-red-500"
                   onClick={() => {
                     resetProgress();
                     setResetOpen(false);
@@ -351,135 +244,38 @@ export default function Home() {
           </DialogContent>
         </Dialog>
 
-        <Card>
-          <CardContent className="space-y-3 pt-6">
-            <div className="flex items-center justify-between gap-4">
-              <div className="min-w-0">
-                <p className="text-sm font-medium text-slate-700">
-                  Starter Pack Progress
-                </p>
-                <p className="text-xs text-slate-500">
-                  {completedCount} out of {totalCount} lessons complete
-          </p>
-        </div>
-              <div className="text-sm font-semibold text-slate-900">
-                {starterPackPercent}%
-              </div>
-            </div>
-            <Progress value={starterPackPercent} />
-          </CardContent>
-        </Card>
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className="kanam-track-tabs h-auto w-full flex-wrap gap-2 p-2 md:w-auto">
+            <TabsTrigger value="python-starter" className="gap-2 px-5 py-2.5">
+              <span>{pythonTrack.icon}</span>
+              {pythonTrack.title}
+            </TabsTrigger>
+            <TabsTrigger value="data-analyst" className="gap-2 px-5 py-2.5">
+              <span>{dataTrack.icon}</span>
+              {dataTrack.title}
+              {!dataUnlocked ? (
+                <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
+                  Locked
+                </span>
+              ) : null}
+            </TabsTrigger>
+          </TabsList>
 
-        <div className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
-          {/* Learning Path */}
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <Trophy className="h-5 w-5 text-[var(--accent)]" />
-              <h2 className="text-lg font-semibold">Your Learning Path</h2>
-            </div>
+          <TabsContent value="python-starter">
+            <TrackRoadmap track={pythonTrack} completedIds={completedIds} />
+          </TabsContent>
 
-            <div className="space-y-3">
-              {lessons.map((lesson, idx) => {
-                const completed = completedIds.includes(lesson.id);
-                const isActive = idx === activeIndex && !completed;
-
-                return (
-                  <Card
-                    key={lesson.id}
-                    className={[
-                      "border",
-                      completed
-                        ? "border-[var(--brand)]/60 bg-[var(--brand)]/5"
-                        : isActive
-                          ? "border-[var(--brand)] shadow-[0_0_0_1px_rgba(24,161,109,0.25),0_0_24px_rgba(24,161,109,0.10)]"
-                          : "border-slate-200",
-                    ].join(" ")}
-                  >
-                    <CardContent className="flex items-center justify-between gap-4 p-5">
-                      <div className="flex items-start gap-3">
-                        <div className="mt-0.5">
-                          {completed ? (
-                            <CheckCircle2 className="h-5 w-5 text-[var(--brand)]" />
-                          ) : (
-                            <Play className="h-5 w-5 text-[var(--accent)]" />
-                          )}
-                        </div>
-                        <div>
-                          <p className="text-xs text-slate-500">
-                            {weekSessionLabelFromIndex(idx)}
-                            {isActive ? (
-                              <span className="ml-2 rounded-full bg-[var(--brand)]/15 px-2 py-0.5 text-[10px] font-semibold text-[var(--brand)]">
-                                Next lesson
-                              </span>
-                            ) : null}
-                          </p>
-                          <p className="mt-1 font-semibold text-slate-900">
-                            {lesson.title}
-                          </p>
-                          <p className="mt-1 text-xs text-slate-500">
-                            +{lesson.xp} XP • Badge: {lesson.badgeIcon} {lesson.badgeName}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="shrink-0">
-                        {completed && lesson.href ? (
-                          <Button asChild variant="secondary">
-                            <Link href={lesson.href}>Review</Link>
-                          </Button>
-                        ) : lesson.href ? (
-                          <Button asChild className="px-6">
-                            <Link href={lesson.href}>Start</Link>
-                          </Button>
-                        ) : null}
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-
-          </div>
-
-          {/* Badge Case */}
-          <div className="space-y-3">
-            <h2 className="text-lg font-semibold">Your AI Badges</h2>
-            <div className="grid grid-cols-2 gap-3">
-              {lessons.map((l) => {
-                const unlocked = completedIds.includes(l.id);
-                return (
-                  <Card
-                    key={l.id}
-                    className={[
-                      "border",
-                      unlocked ? "border-[var(--accent)]/50" : "border-slate-200 opacity-70",
-                    ].join(" ")}
-                  >
-                    <CardContent className="p-4">
-                      <div className="text-2xl">{l.badgeIcon}</div>
-                      <p className="mt-2 text-sm font-semibold text-slate-900">
-                        {l.badgeName}
-                      </p>
-                      <p className="mt-1 text-xs text-slate-500">
-                        {unlocked ? "Unlocked" : "Locked"}
-                      </p>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-
-        {/* AI Safety Moment */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">AI Safety Moment</CardTitle>
-            <CardDescription className="text-slate-600">
-              Safety Tip: AI is smart, but it doesn’t have feelings or a heart. Never share your home address or passwords with a bot!
-            </CardDescription>
-          </CardHeader>
-        </Card>
+          <TabsContent value="data-analyst">
+            <TrackRoadmap
+              track={dataTrack}
+              completedIds={completedIds}
+              locked={!dataUnlocked}
+              lockMessage={`Complete these Python lessons first: ${prereqLabels.join(", ")}.`}
+              lockCtaHref="/learn/1"
+              lockCtaLabel="Start Python lesson 1"
+            />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

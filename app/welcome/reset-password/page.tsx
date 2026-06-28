@@ -25,6 +25,11 @@ function readHashTokens(): { access_token: string; refresh_token: string; type: 
   }
 }
 
+function errorMessage(error: unknown, fallback: string) {
+  if (error instanceof Error && error.message) return error.message;
+  return fallback;
+}
+
 export default function ResetPasswordPage() {
   const router = useRouter();
   const [ready, setReady] = React.useState(false);
@@ -171,8 +176,8 @@ export default function ResetPasswordPage() {
                           } catch {
                             // ignore
                           }
-                        } catch (e: any) {
-                          setError(e?.message ?? "Could not update password.");
+                        } catch (error: unknown) {
+                          setError(errorMessage(error, "Could not update password."));
                         } finally {
                           setSaving(false);
                         }
