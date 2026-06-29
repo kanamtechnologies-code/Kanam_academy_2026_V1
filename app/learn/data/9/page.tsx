@@ -32,7 +32,12 @@ A chart needs two things from your query:
 
 When your results have columns named **item** and **order_count**, a bar chart appears under your results automatically.
 
-Watch how **sorting** changes the story the chart tells.`,
+**Pick the right chart for the question:**
+- **Bar** → compare separate categories (which item is most popular?). *This lesson.*
+- **Line** → show change over time (orders each day this week).
+- **Pie** → show parts of one whole (each item's share of all orders).
+
+Watch how **sorting** changes the story the chart tells — and remember that *design choices* (sorting, cropping the axis, or showing only the top few) can make the same data tell very different stories.`,
   commandReference: [
     {
       command: "Chart shape",
@@ -58,6 +63,18 @@ Watch how **sorting** changes the story the chart tells.`,
         "Sorting reorders the bars — a sorted chart reads like a ranking.",
       example: "ORDER BY order_count DESC",
     },
+    {
+      command: "Choosing a chart",
+      summary:
+        "Bar = compare categories. Line = change over time. Pie = parts of one whole. Match the chart to the question.",
+      example: "Bar chart → most popular item",
+    },
+    {
+      command: "Read it honestly",
+      summary:
+        "Always check the axis labels and where the scale starts. Cropping the y-axis or hiding rows can make a small difference look huge.",
+      example: "Y-axis should usually start at 0",
+    },
   ],
   kidExplain: [
     {
@@ -72,6 +89,14 @@ Watch how **sorting** changes the story the chart tells.`,
       title: "Sorting tells a story",
       text: "Sorting the number column turns a plain chart into a clear ranking.",
     },
+    {
+      title: "Match the chart to the question",
+      text: "Use a bar chart to compare categories, a line chart for change over time, and a pie chart for parts of one whole. The right chart makes the answer obvious.",
+    },
+    {
+      title: "Charts can mislead",
+      text: "The same numbers can tell different stories. Cropping the y-axis, sorting, or showing only the top few rows changes what people notice — so read axes and labels carefully.",
+    },
   ],
   steps: [
     "Build a chartable query: item + order_count.",
@@ -83,6 +108,8 @@ Watch how **sorting** changes the story the chart tells.`,
   tryThis: [
     "Change DESC to ASC and watch the bars flip.",
     "Try grouping by something else to chart a different story.",
+    "Show only the top 3 with LIMIT, then remove it. How does hiding rows change the story the chart tells?",
+    "Would this data be clearer as a pie chart (each item's share of all orders)? Why or why not?",
   ],
   dataEthicsMoment:
     "Charts persuade. Truncating an axis or cherry-picking bars can mislead — show the full, honest picture.",
