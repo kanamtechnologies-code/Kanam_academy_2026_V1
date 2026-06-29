@@ -7,7 +7,7 @@ This checklist tracks launch-critical work for Kanam Academy.
 - [x] Add baseline CI pipeline for lint + build (`.github/workflows/ci.yml`)
 - [x] Make Data Analyst unlock behavior production-safe by default (`lib/tracks.ts`)
 - [x] Document launch/testing env toggle (`config/env.example`)
-- [ ] Resolve remaining repo lint/type errors so CI passes end-to-end
+- [x] Resolve remaining repo lint/type errors so CI passes end-to-end
 - [ ] Security review of API routes + role checks (student/instructor/admin)
 - [ ] Add rate limiting for auth/admin endpoints
 - [ ] Complete Supabase RLS validation for all student/instructor tables
@@ -26,4 +26,4 @@ This checklist tracks launch-critical work for Kanam Academy.
 ## Notes
 
 - Dashboard and data lesson hero UI have already been upgraded for readability and polish.
-- CI currently exists but will fail until the remaining lint/type errors are fixed.
+- Lint and `next build` both pass with zero errors/warnings, so CI is green end-to-end.

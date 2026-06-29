@@ -1,17 +1,9 @@
 import { NextResponse } from "next/server";
 
+import { isInstructorRole } from "@/lib/roles";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
-
-function isInstructor(user: any) {
-  const role =
-    (user?.user_metadata as any)?.role ||
-    (user?.app_metadata as any)?.role ||
-    (user?.user_metadata as any)?.user_role ||
-    (user?.app_metadata as any)?.user_role;
-  return role === "instructor" || role === "teacher";
-}
 
 export async function GET(
   _req: Request,
@@ -24,7 +16,7 @@ export async function GET(
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 401 });
   const user = data.user;
   if (!user) return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  if (!isInstructor(user)) {
+  if (!isInstructorRole(user)) {
     return NextResponse.json({ ok: false, error: "Instructor access only." }, { status: 403 });
   }
 
@@ -37,13 +29,21 @@ export async function GET(
 
   if (qErr) return NextResponse.json({ ok: false, error: qErr.message }, { status: 500 });
 
-  const learners =
-    (rows ?? []).map((r: any) => ({
-      id: r.student?.id as string,
-      displayName: r.student?.display_name as string,
-      grade: (r.student?.grade as string) ?? null,
-      schoolName: r.student?.school?.name ?? null,
-    })) ?? [];
+  const enrollmentRows = (rows ?? []) as unknown as Array<{
+    student?: {
+      id?: string;
+      display_name?: string;
+      grade?: string | null;
+      school?: { name?: string | null } | null;
+    } | null;
+  }>;
+
+  const learners = enrollmentRows.map((r) => ({
+    id: r.student?.id as string,
+    displayName: r.student?.display_name as string,
+    grade: r.student?.grade ?? null,
+    schoolName: r.student?.school?.name ?? null,
+  }));
 
   return NextResponse.json({ ok: true, learners }, { status: 200 });
 }

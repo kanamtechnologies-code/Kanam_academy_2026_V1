@@ -43,7 +43,7 @@ function safeRect(
 function isActuallyVisible(el: HTMLElement) {
   // Fast checks for hidden/inert elements (common with Tabs / responsive layouts)
   if (!el.isConnected) return false;
-  if ((el as any).hidden) return false;
+  if (el.hidden) return false;
   const style = window.getComputedStyle(el);
   if (style.display === "none" || style.visibility === "hidden" || style.opacity === "0")
     return false;

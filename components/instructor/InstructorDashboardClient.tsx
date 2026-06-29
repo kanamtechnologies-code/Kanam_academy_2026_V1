@@ -15,6 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { readUserRole } from "@/lib/roles";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 type ClassSummary = {
@@ -34,11 +35,15 @@ type LearnerRow = {
 };
 
 async function j<T>(res: Response): Promise<T> {
-  const json = (await res.json()) as any;
+  const json = (await res.json()) as { ok?: boolean; error?: string };
   if (!res.ok || json?.ok === false) {
     throw new Error(json?.error || "Request failed.");
   }
-  return json as T;
+  return json as unknown as T;
+}
+
+function errorMessage(error: unknown, fallback: string): string {
+  return error instanceof Error && error.message ? error.message : fallback;
 }
 
 export function InstructorDashboardClient() {
@@ -64,8 +69,8 @@ export function InstructorDashboardClient() {
       const res = await fetch("/api/instructor/classes", { method: "GET" });
       const json = await j<{ ok: true; classes: ClassSummary[] }>(res);
       setClasses(json.classes ?? []);
-    } catch (e: any) {
-      setError(e?.message ?? "Could not load classes.");
+    } catch (e: unknown) {
+      setError(errorMessage(e, "Could not load classes."));
     } finally {
       setLoading(false);
     }
@@ -81,14 +86,8 @@ export function InstructorDashboardClient() {
       supabase.auth
         .getUser()
         .then(({ data }) => {
-          const user: any = data.user;
-          const role =
-            user?.user_metadata?.role ||
-            user?.app_metadata?.role ||
-            user?.user_metadata?.user_role ||
-            user?.app_metadata?.user_role ||
-            null;
-          setWho({ email: user?.email ?? null, role });
+          const user = data.user;
+          setWho({ email: user?.email ?? null, role: readUserRole(user) });
         })
         .catch(() => {
           setWho(null);
@@ -119,8 +118,8 @@ export function InstructorDashboardClient() {
       setCreateName("");
       setCreateSchool("");
       await load();
-    } catch (e: any) {
-      setCreateError(e?.message ?? "Could not create class.");
+    } catch (e: unknown) {
+      setCreateError(errorMessage(e, "Could not create class."));
     } finally {
       setCreateLoading(false);
     }

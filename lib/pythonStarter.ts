@@ -25,7 +25,6 @@ export function findTypingZonesForExercise(code: string, starterCode: string): T
 
   const zones: TypingZone[] = [];
   for (const start of blankOffsets) {
-    const lineStart = code.lastIndexOf("\n", Math.max(0, start - 1)) + 1;
     const lineEndRaw = code.indexOf("\n", start);
     const lineEnd = lineEndRaw === -1 ? code.length : lineEndRaw;
     let end = lineEnd;

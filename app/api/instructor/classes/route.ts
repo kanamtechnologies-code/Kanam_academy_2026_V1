@@ -1,17 +1,9 @@
 import { NextResponse } from "next/server";
 
+import { isInstructorRole } from "@/lib/roles";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
-
-function isInstructor(user: any) {
-  const role =
-    (user?.user_metadata as any)?.role ||
-    (user?.app_metadata as any)?.role ||
-    (user?.user_metadata as any)?.user_role ||
-    (user?.app_metadata as any)?.user_role;
-  return role === "instructor" || role === "teacher";
-}
 
 function randomClassCode() {
   // Avoid confusing characters (O/0, I/1).
@@ -29,7 +21,7 @@ export async function GET() {
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 401 });
   const user = data.user;
   if (!user) return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  if (!isInstructor(user)) {
+  if (!isInstructorRole(user)) {
     return NextResponse.json({ ok: false, error: "Instructor access only." }, { status: 403 });
   }
 
@@ -40,8 +32,17 @@ export async function GET() {
 
   if (qErr) return NextResponse.json({ ok: false, error: qErr.message }, { status: 500 });
 
+  const classRows = (rows ?? []) as unknown as Array<{
+    id: string;
+    name: string;
+    code: string;
+    created_at: string;
+    school?: { name?: string | null } | null;
+    class_enrollments?: Array<{ count?: number }> | null;
+  }>;
+
   const classes =
-    (rows ?? []).map((r: any) => {
+    classRows.map((r) => {
       const count = Array.isArray(r.class_enrollments) ? r.class_enrollments[0]?.count : undefined;
       return {
         id: r.id as string,
@@ -62,13 +63,13 @@ export async function POST(req: Request) {
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 401 });
   const user = data.user;
   if (!user) return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  if (!isInstructor(user)) {
+  if (!isInstructorRole(user)) {
     return NextResponse.json({ ok: false, error: "Instructor access only." }, { status: 403 });
   }
 
   let body: { name?: string; schoolName?: string };
   try {
-    body = (await req.json()) as any;
+    body = (await req.json()) as { name?: string; schoolName?: string };
   } catch {
     return NextResponse.json({ ok: false, error: "Invalid JSON." }, { status: 400 });
   }
@@ -85,7 +86,7 @@ export async function POST(req: Request) {
       .select("id")
       .single();
     if (sErr) return NextResponse.json({ ok: false, error: sErr.message }, { status: 500 });
-    schoolId = (school as any)?.id ?? null;
+    schoolId = (school as { id?: string } | null)?.id ?? null;
   }
 
   // Create a class with a unique code. Retry if we collide.
@@ -112,7 +113,8 @@ export async function POST(req: Request) {
             name: inserted.name as string,
             code: inserted.code as string,
             createdAt: inserted.created_at as string,
-            schoolName: (inserted as any)?.school?.name ?? null,
+            schoolName:
+              (inserted as { school?: { name?: string | null } | null } | null)?.school?.name ?? null,
           },
         },
         { status: 200 }

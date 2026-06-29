@@ -119,9 +119,9 @@ export function NpcChallengeMode({
           ...d,
           ...parsed,
           completed: {
-            c1: Boolean((parsed as any)?.completed?.c1),
-            c2: Boolean((parsed as any)?.completed?.c2),
-            c3: Boolean((parsed as any)?.completed?.c3),
+            c1: Boolean(parsed.completed?.c1),
+            c2: Boolean(parsed.completed?.c2),
+            c3: Boolean(parsed.completed?.c3),
           },
           lastRun: parsed.lastRun ?? null,
         }));
@@ -223,7 +223,7 @@ export function NpcChallengeMode({
     return () => window.clearTimeout(t);
   }, [draft.completed.c3, draft.reflection, onTrackEvent]);
 
-  const Instruction = () => {
+  const renderInstruction = () => {
     if (current === 1) {
       return (
         <div className="space-y-2">
@@ -235,7 +235,7 @@ export function NpcChallengeMode({
           </p>
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
             <p className="font-semibold">Hint</p>
-            <p className="mt-1">Check if the message includes <span className="font-semibold">"my name is"</span>.</p>
+            <p className="mt-1">Check if the message includes <span className="font-semibold">&quot;my name is&quot;</span>.</p>
             <p className="mt-2 text-xs text-slate-500">
               Success: you add an <span className="font-semibold">elif</span>, and the output changes for{" "}
               <span className="font-semibold">my name is ...</span>
@@ -257,8 +257,8 @@ export function NpcChallengeMode({
             <p className="font-semibold">Hints</p>
             <ul className="mt-1 list-disc space-y-1 pl-5 text-sm">
               <li>Use the <span className="font-semibold">npc_memory</span> dictionary</li>
-              <li>Store something using the key <span className="font-semibold">"name"</span></li>
-              <li>Tip: use <span className="font-semibold">name = input(...)</span>, then <span className="font-semibold">npc_memory["name"] = name</span></li>
+              <li>Store something using the key <span className="font-semibold">&quot;name&quot;</span></li>
+              <li>Tip: use <span className="font-semibold">name = input(...)</span>, then <span className="font-semibold">npc_memory[&quot;name&quot;] = name</span></li>
             </ul>
             <p className="mt-2 text-xs text-slate-500">
               Success: memory stores a name, and the NPC prints the name (we’ll test with “Alex”).
@@ -337,7 +337,7 @@ export function NpcChallengeMode({
               <Badge variant={draft.completed.c2 ? "secondary" : "outline"}>C2 {draft.completed.c2 ? "done" : "missing"}</Badge>
               <Badge variant={draft.completed.c3 ? "secondary" : "outline"}>C3 {draft.completed.c3 ? "done" : "missing"}</Badge>
               {instructorHints.missingMemory ? (
-                <Badge variant="outline">⚠ missing npc_memory["name"]</Badge>
+                <Badge variant="outline">⚠ missing npc_memory[&quot;name&quot;]</Badge>
               ) : null}
               {instructorHints.fallbackUnchanged ? (
                 <Badge variant="outline">⚠ fallback not improved</Badge>
@@ -354,7 +354,7 @@ export function NpcChallengeMode({
 
         <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <Instruction />
+            {renderInstruction()}
             <div className="mt-3 space-y-2">
               <p className="text-xs font-semibold text-slate-700">Test message</p>
               <Input

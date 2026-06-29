@@ -32,7 +32,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { SpotlightTour, type SpotlightTourHandle } from "@/components/ui/SpotlightTour";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -47,7 +46,7 @@ import {
   generatePythonStarterCode,
   type DesignState,
 } from "@/lib/designMode";
-import { analyzeScratch, runMiniPython, type MiniRunResult, type MiniValue } from "@/lib/pythonRunner";
+import { runMiniPython, type MiniRunResult, type MiniValue } from "@/lib/pythonRunner";
 
 export type LessonCfuItem = {
   question: string;
@@ -728,12 +727,12 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
     Array.from({ length: lesson.cfu.length }, () => null)
   );
   const [deviceId, setDeviceId] = React.useState<string>("");
-  const [studentName, setStudentName] = React.useState<string>("");
+  const [, setStudentName] = React.useState<string>("");
   const [userId, setUserId] = React.useState<string>("");
   const [studentDbId, setStudentDbId] = React.useState<string>("");
   const [animateIn, setAnimateIn] = React.useState(false);
-  const [successBurst, setSuccessBurst] = React.useState(false);
-  const [cfuBurst, setCfuBurst] = React.useState(false);
+  const [, setSuccessBurst] = React.useState(false);
+  const [, setCfuBurst] = React.useState(false);
   const [instructorOpen, setInstructorOpen] = React.useState(false);
   const [pipHidden, setPipHidden] = React.useState(false);
   const [pipMode, setPipMode] = React.useState<"min" | "expanded">("min");
@@ -948,7 +947,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           .eq("user_id", uid)
           .maybeSingle();
         if (student?.id) setStudentDbId(student.id);
-        const fallback = (student as any)?.display_name as string | undefined;
+        const fallback = (student as { display_name?: string } | null)?.display_name;
         if (fallback) setStudentName(fallback);
       } catch {
         // ignore
@@ -1030,7 +1029,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           device_id: deviceId,
           lesson_id: lesson.id,
           event_type: eventType,
-          payload: (payload ?? {}) as any,
+          payload: (payload ?? {}) as Record<string, unknown>,
         });
 
         // Best-effort rollup (same logic as API route, but enforced by RLS)
@@ -1048,11 +1047,11 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           patch.success_at = now;
         }
         if (eventType === "cfu_reveal") {
-          const p: any = payload as any;
-          if (typeof p?.revealedCount === "number") patch.cfu_revealed_count = p.revealedCount;
-          if (typeof p?.total === "number") patch.cfu_total = p.total;
+          const p = (payload ?? {}) as { revealedCount?: number; total?: number };
+          if (typeof p.revealedCount === "number") patch.cfu_revealed_count = p.revealedCount;
+          if (typeof p.total === "number") patch.cfu_total = p.total;
         }
-        await supabase.from("lesson_progress").upsert(patch as any, {
+        await supabase.from("lesson_progress").upsert(patch, {
           onConflict: "student_id,lesson_id",
         });
       } catch {
@@ -1593,7 +1592,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
         data-tour="coach-note"
         data-hub="coach"
         className="scroll-mt-24 border-[rgb(var(--accent-rgb)/0.55)] bg-white shadow-md"
-        ref={coachNoteRef as any}
+        ref={coachNoteRef as React.RefObject<HTMLDivElement>}
       >
         <CardHeader className="pb-4">
           <SectionHeader
@@ -1612,7 +1611,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               </p>
               <p className="mt-1 text-base text-slate-700">
                 Take a moment to read. When the timer finishes, click{" "}
-                <span className="font-semibold">Got it, let's go!</span>.
+                <span className="font-semibold">Got it, let&apos;s go!</span>.
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-3">
                 <Button
@@ -1975,7 +1974,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             {guidedEditorLocked ? (
               <p className="mt-1 text-xs font-semibold text-slate-600">
                 Read Coach’s note and click{" "}
-                <span className="font-extrabold">Got it, let's go!</span> to unlock this section.
+                <span className="font-extrabold">Got it, let&apos;s go!</span> to unlock this section.
               </p>
             ) : (
               <p className="mt-1 text-xs text-slate-500">
@@ -2587,7 +2586,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       ...(lesson.tryThis.length ? [{ id: "try", label: "Try This" }] : []),
     ];
     return items;
-  }, [lesson]);
+  }, [lesson, npcEnabled]);
 
   React.useEffect(() => {
     const root = hubScrollRef.current;

@@ -103,7 +103,6 @@ export function SqlTextarea({
       ta.setSelectionRange(cursor, cursor);
     }
     syncScroll();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, minHeightPx, maxHeightPx]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

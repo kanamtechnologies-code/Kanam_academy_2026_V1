@@ -1,19 +1,11 @@
 import Link from "next/link";
 
 import { InstructorDashboardClient } from "@/components/instructor/InstructorDashboardClient";
+import { isInstructorRole } from "@/lib/roles";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 
 export const dynamic = "force-dynamic";
-
-function isInstructor(user: any) {
-  const role =
-    (user?.user_metadata as any)?.role ||
-    (user?.app_metadata as any)?.role ||
-    (user?.user_metadata as any)?.user_role ||
-    (user?.app_metadata as any)?.user_role;
-  return role === "instructor" || role === "teacher";
-}
 
 export default async function InstructorPage() {
   const hasSupabaseEnv =
@@ -78,7 +70,7 @@ export default async function InstructorPage() {
     );
   }
 
-  if (!isInstructor(user)) {
+  if (!isInstructorRole(user)) {
     return (
       <main className="mx-auto w-full max-w-4xl px-4 py-10 md:px-10">
         <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm md:p-8">

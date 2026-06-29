@@ -110,7 +110,6 @@ export function CodeTextarea({
 
     // Ensure scroll positions stay in sync after resize.
     syncScroll();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, minHeightPx, maxHeightPx]);
 
   const overflowClass = needsScroll ? "overflow-auto" : "overflow-hidden";
@@ -175,7 +174,7 @@ export function CodeTextarea({
         style={{
           height: `${heightPx}px`,
           paddingLeft: contentPaddingLeft,
-          WebkitTextFillColor: "transparent" as any,
+          WebkitTextFillColor: "transparent",
         }}
       />
     </div>

@@ -2,7 +2,7 @@
 
 export type MiniValue = string | number | boolean | MiniList | MiniDict;
 
-interface MiniList extends Array<MiniValue> {}
+type MiniList = MiniValue[];
 export interface MiniDict {
   [key: string]: MiniValue;
 }
@@ -162,9 +162,6 @@ function preprocessLines(code: string): MiniLine[] {
   for (let i = 0; i < rawLines.length; i++) {
     const raw = rawLines[i];
     const indent = parseIndent(raw);
-    const text = stripInlineComment(raw.slice(Math.min(raw.length, raw.search(/[^\s]/) === -1 ? raw.length : 0)) || raw)
-      .trim();
-    // Use raw indent slice safely (trim() above loses indentation; we need original non-comment content)
     const cleaned = stripInlineComment(raw).trim();
     if (!cleaned) continue;
     lines.push({ indent, text: cleaned, raw, lineNo: i + 1 });
