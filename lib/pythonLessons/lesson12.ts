@@ -91,34 +91,58 @@ export const lesson12: PythonLessonConfig = {
   aiSafetyMoment:
     "AI safety: AI systems can act fast — but only based on their rules. If rules are missing or poorly written, AI can behave incorrectly or cause harm. Responsible AI means setting clear limits, thinking about consequences, and testing rules carefully.",
   lessonModule: {
-    durationLabel: "~5 min lesson",
+    durationLabel: "~8 min lesson",
     sections: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `You can build skills (functions) and feed them details (parameters). Today you'll give your skills the power to make **decisions** — to do different things depending on the situation.\n\nHere's your roadmap for this lesson:\n\n• **Rules** — using \`if\` / \`else\` to make a function behave differently.\n• Checking a value with \`==\`.\n• How rules combine with the parameters you already know.\n• Why clear rules are what keep AI safe and predictable.\n\nDecision-making is what turns a simple program into something that feels responsive and smart.`,
+        image: "/images/lessons/py-12-guardrails.png",
+        imageAlt: "A robot following guardrails along a safe path",
+        callout: {
+          label: "Why it matters",
+          text: "Apps make decisions about you constantly: *if* you're old enough, show this; *if* your password matches, log you in; *if* a message has banned words, block it. Those decisions are `if`/`else` rules — exactly what you're about to write.",
+        },
+      },
       {
         id: "why",
         kicker: "The big idea",
         title: "Put rules inside your skill",
-        body: `You can make functions (skills) and pass them details (parameters). Now you'll combine that with rules — so a function behaves **differently depending on the value it's given**.\n\nThink of a game enemy: *if the player is close → attack, else → wait.* The function follows your rules exactly — it never guesses. This is exactly how AI guardrails work.`,
-        image: "/images/lessons/py-12-guardrails.png",
-        imageAlt: "A robot following guardrails along a safe path",
+        body: `You can already build skills (functions) and feed them details (parameters). Now you'll add **rules** so a function can react *differently* depending on the value it's given.\n\nThink of a game enemy. A good game doesn't attack mindlessly — it follows rules: *if the player is close, attack; otherwise, wait.* The enemy isn't "thinking" — it's following instructions you wrote.\n\nThat's exactly how AI **guardrails** work. The function checks a condition and chooses what to do — and it never guesses.`,
         callout: {
-          label: "Where you see it",
-          text: "\"If the message contains banned words, block it.\" \"If the user is under 13, hide this feature.\" Rules inside functions keep software safe and predictable.",
+          label: "Common misconception",
+          text: "Rules don't make a program 'smart' or give it opinions. `if`/`else` just compares values and follows the path you laid out — every time, exactly the same way.",
         },
       },
       {
         id: "rule",
-        kicker: "Building block",
+        kicker: "Building block #1",
         title: "if / else inside a function",
-        body: `Inside the function, check the **parameter** with an \`if\`. Each branch gets its own indented \`print\`. Same function, same parameter — but **different behavior** thanks to the rule.`,
+        body: `Inside a function, an \`if\` statement checks a **condition** — something that's either true or false. If it's true, the indented lines under the \`if\` run. If it's false, the lines under \`else\` run instead.\n\nNotice the structure: \`if\` and \`else\` are indented *inside* the function, and each one has its own indented \`print\`. Only one branch runs per call.\n\nSame function, same parameter — but the output changes because of the rule.`,
         code: `def attack(enemy):\n    if enemy == "dragon":\n        print("This enemy is too strong! Run!")\n    else:\n        print("You attack the " + enemy + "!")`,
         codeCaption: "A rule decides what the skill does",
         output: `attack("goblin")  ->  You attack the goblin!\nattack("dragon")  ->  This enemy is too strong! Run!`,
+        callout: {
+          label: "Watch out",
+          text: "Both the `if` and `else` lines end with a colon `:`, and the code inside each must be indented further. Forgetting a colon or the indentation is the classic `if`/`else` error.",
+        },
+      },
+      {
+        id: "compare",
+        kicker: "Building block #2",
+        title: "Checking with ==",
+        body: `The double equals \`==\` asks a question: *"are these two things the same?"* It's very different from a single \`=\`, which **stores** a value.\n\n• \`enemy = "dragon"\` *puts* the text dragon into \`enemy\`.\n• \`enemy == "dragon"\` *checks* whether \`enemy\` already holds dragon, and answers \`True\` or \`False\`.\n\nThat True/False answer is what your \`if\` uses to decide which branch to run.`,
+        callout: {
+          label: "Common misconception",
+          text: "Using one `=` instead of `==` inside an `if` is a super common bug. Remember: one equals *assigns*, two equals *compares*.",
+        },
       },
       {
         id: "design",
         kicker: "Think like a coder",
         title: "Parameters inform, rules decide",
-        body: `Keep the roles clear in your head:\n\n• The **parameter** brings in information.\n• The **rule** decides what to do with it.\n• The function follows the rule exactly — no guessing.`,
+        body: `Keep the two roles crystal clear in your head:\n\n• The **parameter** brings information *into* the function.\n• The **rule** (\`if\`/\`else\`) decides what to *do* with that information.\n• The function follows the rule exactly — no guessing, no improvising.\n\nWhen something behaves wrong, check the rule first: is the condition checking the right value? Is the right branch printing the right message?`,
         bullets: [
           "Indent the `if`/`else` **inside** the function, and the `print` inside each branch.",
           "Add more cases with `elif` (e.g. a special message for `\"boss\"`).",
@@ -130,10 +154,23 @@ export const lesson12: PythonLessonConfig = {
         },
       },
       {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Build a rule-driven skill, step by step",
+        body: `Let's build a rule-driven skill from scratch.\n\n**Step 1 — Define with a parameter.** Create \`attack(enemy)\` so a value can flow in.\n\n**Step 2 — Add the rule.** Use \`if enemy == "dragon":\` to handle the dangerous case, and \`else:\` for everything else. Give each branch its own \`print\`.\n\n**Step 3 — Test both paths.** Call the function twice — once with the special value, once with a normal one — and predict each result before you run.`,
+        code: `# Steps 1 & 2: a skill with a rule inside\ndef attack(enemy):\n    if enemy == "dragon":\n        print("This enemy is too strong! Run!")\n    else:\n        print("You attack the " + enemy + "!")\n\n# Step 3: test both branches\nattack("dragon")\nattack("goblin")`,
+        codeCaption: "The full program, with comments explaining each step",
+        output: `This enemy is too strong! Run!\nYou attack the goblin!`,
+        callout: {
+          label: "Pro tip",
+          text: "Before pressing Run, predict which branch each call will take. Checking your prediction against the real output is how coders catch bugs early.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
-        title: "Guide your bot with rules",
-        body: `In the exercises you'll add \`if\`/\`else\` rules inside a function, then call it with different values and predict the output each time.\n\nClick **Start the exercises** when you're ready.`,
+        title: "Now it's your turn",
+        body: `You've combined three powers: a **function** (the skill), a **parameter** (the detail), and a **rule** (\`if\`/\`else\`) that decides what to do.\n\nIn the exercises you'll add \`if\`/\`else\` rules inside a function, then call it with different values and predict the output each time.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

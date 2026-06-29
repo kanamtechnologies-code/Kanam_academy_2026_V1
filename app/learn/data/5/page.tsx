@@ -15,25 +15,25 @@ const daLesson5: DataLessonConfig = {
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
-    durationLabel: "~5 min lesson",
+    durationLabel: "~8 min lesson",
     sections: [
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "Put your data in order",
-        body: `Filtering tells you *which* rows. **Sorting** tells you which come *first*. \`ORDER BY\` arranges your results — smallest to largest, A to Z, oldest to newest.\n\nCombine sorting with \`LIMIT\` and you can answer "top" questions: the **most** expensive, the **highest** score, the **best** seller.`,
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `Filtering tells you *which* rows you get. **Sorting** decides which ones come *first*. Today you'll learn \`ORDER BY\` — and unlock the ability to answer every "top" and "best" question.\n\nHere's the plan:\n\n• Sort rows with \`ORDER BY\` (smallest to largest by default).\n• Flip the direction with \`DESC\` to put the biggest on top.\n• Combine \`ORDER BY\` with \`LIMIT\` to build a "Top N" leaderboard.\n\nThis is the magic behind every leaderboard you've ever seen: the high-score table in a game, the "Top 50" chart on a music app, "trending" videos, or "sort by price: low to high" when you shop. All of it is \`ORDER BY\` quietly arranging the rows.`,
         image: "/images/lessons/da-5-sort.png",
         imageAlt: "Bars being arranged from shortest to tallest, like a ranking",
         callout: {
-          label: "Where you see it",
-          text: "Leaderboards, \"top 10\" lists, \"sort by price: low to high,\" and \"newest first\" are all ORDER BY in action.",
+          label: "Why it matters",
+          text: "Ranking turns raw data into a story: who's winning, what's most popular, what costs the most. Leaderboards, \"top 10\" lists, \"newest first,\" and \"best sellers\" are all ORDER BY in action.",
         },
       },
       {
         id: "orderby",
         kicker: "Sort it",
         title: "ORDER BY arranges the rows",
-        body: `Add \`ORDER BY\` and the column to sort on. By default it goes **ascending** (smallest first). Here the cheapest lunch floats to the top.`,
+        body: `Add \`ORDER BY\` after your table (and after any \`WHERE\`), then name the column to sort on. By default SQL sorts **ascending** — smallest number first, or A-to-Z for text.\n\nThink of lining up a deck of cards from lowest to highest, or arranging your contacts alphabetically. \`ORDER BY\` does that to your rows automatically.\n\nIn the query below we sort by \`price\`, so the cheapest lunch (the Fruit cup at $2.75) floats right to the top.`,
         code: `SELECT student_name, item, price\nFROM lunch_orders\nORDER BY price;`,
         codeCaption: "Cheapest first",
         table: {
@@ -46,12 +46,16 @@ const daLesson5: DataLessonConfig = {
           ],
           rowCount: 4,
         },
+        callout: {
+          label: "Common misconception",
+          text: "`ORDER BY` only **rearranges** rows — it never removes any. That's different from `WHERE`, which filters rows out. Sorting keeps all 8 orders; it just changes the order they're listed in.",
+        },
       },
       {
         id: "desc",
         kicker: "Find the top",
         title: "DESC + LIMIT = top results",
-        body: `Add \`DESC\` to flip the order (largest first), then \`LIMIT\` to keep just the top few. This is the classic recipe for a "top 3" list.`,
+        body: `To answer "most" or "highest" questions, flip the sort with \`DESC\` (short for *descending* — largest first). Then add \`LIMIT\` to keep just the top few. \`ORDER BY ... DESC\` followed by \`LIMIT N\` is the classic recipe for a "Top N" list.\n\nIt's exactly how a game builds its high-score board: sort everyone's score from highest to lowest, then show only the top 3 (or 10, or 100).\n\nBelow we sort by \`price DESC\` and \`LIMIT 3\` to crown the three most expensive orders.`,
         code: `SELECT student_name, item, price\nFROM lunch_orders\nORDER BY price DESC\nLIMIT 3;`,
         codeCaption: "The 3 most expensive orders",
         table: {
@@ -68,12 +72,37 @@ const daLesson5: DataLessonConfig = {
           "`ORDER BY price DESC` → descending (large → small).",
           "`ORDER BY` then `LIMIT` → the top (or bottom) N.",
         ],
+        callout: {
+          label: "Common misconception",
+          text: "`LIMIT 3` alone does **not** give you the \"top 3\" — it just grabs the first 3 rows in whatever order they happen to be. You only get a real Top 3 when you `ORDER BY` *first*, then `LIMIT`.",
+        },
+      },
+      {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Build a Top 3 leaderboard, step by step",
+        body: `Let's answer: *"What are the three most expensive lunch orders?"*\n\n**Step 1 — Pick the columns.** Show who, what, and how much: \`SELECT student_name, item, price\`.\n\n**Step 2 — Name the table.** \`FROM lunch_orders\`.\n\n**Step 3 — Sort biggest first.** Most expensive means descending: \`ORDER BY price DESC\`.\n\n**Step 4 — Keep the top few.** Cap it at three: \`LIMIT 3\`, then a semicolon.\n\nThe result is a tidy leaderboard with the priciest order ($5.25 Chicken wrap) proudly on top.`,
+        code: `-- Step 1: columns -> name, item, price\n-- Step 2: table   -> lunch_orders\n-- Step 3: sort    -> price, biggest first (DESC)\n-- Step 4: keep    -> only the top 3\nSELECT student_name, item, price\nFROM lunch_orders\nORDER BY price DESC\nLIMIT 3;`,
+        codeCaption: "The Top 3 priciest orders, built four steps at a time",
+        table: {
+          columns: ["student_name", "item", "price"],
+          values: [
+            ["Sam", "Chicken wrap", 5.25],
+            ["Taylor", "Burger", 4.75],
+            ["Jordan", "Salad", 4.0],
+          ],
+          rowCount: 3,
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Want the single winner instead of a top 3? Keep the same `ORDER BY ... DESC` and just change `LIMIT 3` to `LIMIT 1`. Want the *cheapest* instead? Drop `DESC` so it sorts ascending.",
+        },
       },
       {
         id: "ready",
         kicker: "Ready",
-        title: "Now you try it",
-        body: `In the exercises you'll sort rows, flip the direction with \`DESC\`, and combine with \`LIMIT\` to find top results.\n\nClick **Start the exercises** when you're ready.`,
+        title: "Now it's your turn",
+        body: `You can now rank your data: sort with \`ORDER BY\`, flip it with \`DESC\`, and combine with \`LIMIT\` to build a "Top N" leaderboard.\n\nIn the exercises you'll sort low-to-high, then high-to-low, grab the top 3, and finally crown the single most expensive order with its student's name — just like the worked example.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

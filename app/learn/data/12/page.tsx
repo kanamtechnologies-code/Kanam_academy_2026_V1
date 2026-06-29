@@ -24,25 +24,35 @@ const daLesson12: DataLessonConfig = {
     title: "How quiz scores are spread out",
   },
   lessonModule: {
-    durationLabel: "~4 min lesson",
+    durationLabel: "~8 min lesson",
     sections: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `So far your charts have compared things or tracked change. Today you'll learn the chart that reveals the *shape* of a pile of numbers — the **histogram** — and finally see the difference between it and its look-alike, the bar chart.\n\nHere's your roadmap:\n\n• **What a histogram shows** — how a set of numbers is spread out.\n• **How to read** bins and clusters.\n• **Histogram vs. bar chart** — they look identical but answer different questions.\n• A **worked example** building a histogram in your head from raw scores.\n\nEvery time a teacher posts a "grade curve," shows whether the class clustered around a B or spread all over, that's a histogram. Same idea behind the age breakdown of a population, or how long people watch a video before clicking away. It answers: *where do most of the numbers land?*`,
+        image: "/images/lessons/lesson-histogram.png",
+        imageAlt: "A histogram of test scores, with most students clustered in the middle ranges",
+        callout: {
+          label: "Why it matters",
+          text: "Test-score curves, the age breakdown of a population, and how long videos get watched are all shown with histograms — anywhere you want to see the spread of one set of numbers.",
+        },
+      },
       {
         id: "why",
         kicker: "The big idea",
         title: "A histogram shows how numbers are spread out",
-        body: `A **histogram** takes one big pile of numbers and shows their **shape** — where most values land, and how far they spread from low to high.\n\nIt looks like a bar chart, but it answers a different question: not *"compare these categories"* but *"how are these numbers distributed?"*`,
-        image: "/images/lessons/lesson-histogram.png",
-        imageAlt: "A histogram of test scores, with most students clustered in the middle ranges",
+        body: `A **histogram** takes one big pile of numbers and shows their **shape** — where most values land, and how far they stretch from low to high.\n\nPicture sorting a deck of test papers into labeled trays: a 50s tray, a 60s tray, a 70s tray, and so on. After sorting, you don't even read the scores — you just look at which trays are *fullest*. The tall stacks show where the class clustered; the empty trays show ranges nobody hit. A histogram is exactly that, drawn as bars.\n\nIt looks like a bar chart, but it answers a different question: not *"compare these named categories"* but *"how is this one set of numbers distributed?"* That's a subtle but huge difference.`,
         callout: {
-          label: "Where you see it",
-          text: "Test-score curves, the age breakdown of a population, and how long videos are watched are all shown with histograms.",
+          label: "Common misconception",
+          text: "A histogram is not a bar chart with numbers on the bottom. A bar chart compares *separate things* (pizza vs. salad). A histogram chops *one number line* into ranges and counts how many values fall in each. Different question, different chart.",
         },
       },
       {
         id: "anatomy",
         kicker: "How to read it",
         title: "Numbers get sorted into bins",
-        body: `Here's the histogram you'll build from 16 quiz scores. Notice:\n\n• The x-axis is split into equal ranges called **bins** (every 10 points).\n• Each bar's **height** is **how many** scores fall in that bin.\n• The bars **touch**, because the ranges are continuous — there's no gap between 70–80 and 80–90.\n\nThe tall bars show where scores **cluster**.`,
+        body: `Here's the histogram you'll build from 16 quiz scores. Read it in three parts:\n\n• The x-axis is split into equal ranges called **bins** (every 10 points: 50–60, 60–70, …).\n• Each bar's **height** is **how many** scores fall in that bin.\n• The bars **touch**, because the ranges are continuous — there's no gap between 70–80 and 80–90.\n\nThe tall bars show where scores **cluster** (here, the 70s and 80s), while the short bars at the edges show the few very low and very high scores. The whole *shape* tells you the class story at a glance.`,
         chart: {
           config: { type: "histogram", valueKey: "score", binSize: 10, title: "How quiz scores are spread out" },
           result: {
@@ -59,22 +69,22 @@ const daLesson12: DataLessonConfig = {
         id: "when",
         kicker: "Choose wisely",
         title: "Histogram vs. bar chart",
-        body: `They look alike, so this is the part people get wrong.`,
+        body: `These two charts look like twins, so this is the part people get wrong most often. The trick is to ask what's on the x-axis: *separate names* or *ranges of one number?*`,
         bullets: [
           "**Use a histogram** for one column of numbers, to see its spread and clusters.",
           "**Use a bar chart** to compare separate, named categories.",
           "Histogram bars **touch**; bar-chart bars have **gaps** between categories.",
         ],
         callout: {
-          label: "Charts can mislead",
-          text: "Bin size changes the picture. Very wide bins hide real differences; very narrow bins make random noise look like a pattern.",
+          label: "Common misconception",
+          text: "There's no single \"correct\" histogram — bin size changes the whole picture. Very wide bins blur real differences together; very narrow bins make random noise look like a pattern. Always try a sensible bin width before trusting the shape.",
         },
       },
       {
         id: "data",
         kicker: "Your dataset",
         title: "The data you'll use: quiz_scores",
-        body: `The **quiz_scores** table has one row per student with a single number, **score**. You'll just return the **score** column — the chart sorts the values into bins for you.`,
+        body: `The **quiz_scores** table has one row per student with a single number, **score** (sample rows below). There are 16 students in all, with scores from 58 up to 100.\n\nThe good news: you don't group or count anything yourself. You just return the **score** column, and the chart sorts the values into bins automatically. Your job is to read the resulting shape.`,
         table: {
           columns: ["student_name", "score"],
           values: [
@@ -87,10 +97,30 @@ const daLesson12: DataLessonConfig = {
         },
       },
       {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Build a histogram in your head",
+        body: `Let's bin some numbers by hand so the chart makes sense. Imagine eight quiz scores: **62, 68, 71, 74, 77, 79, 85, 93**. We'll use bins of 10.\n\n**Step 1 — make the trays:** 60–70, 70–80, 80–90, 90–100. **Step 2 — drop each score in:** 62 and 68 go in 60–70 (that's 2). 71, 74, 77, 79 all land in 70–80 (that's 4). 85 goes in 80–90 (1). 93 goes in 90–100 (1). **Step 3 — the heights are the counts**, shown in the table below.\n\nReading it: the tallest bar is 70–80, so most students clustered there. The spread runs from the 60s to the 90s. That count table *is* the histogram — each row is one bar.`,
+        table: {
+          columns: ["bin", "students"],
+          values: [
+            ["60–70", 2],
+            ["70–80", 4],
+            ["80–90", 1],
+            ["90–100", 1],
+          ],
+          rowCount: 4,
+        },
+        callout: {
+          label: "Pro tip",
+          text: "A histogram's bars must add up to the total count. Here 2 + 4 + 1 + 1 = 8, the number of scores. If your bars don't sum to your row count, a value got dropped or double-counted.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
-        title: "Now you try it",
-        body: `In the exercises you'll return the scores to see the distribution, then measure the spread with the highest score.\n\nClick **Start the exercises** when you're ready.`,
+        title: "Now it's your turn",
+        body: `You now know a histogram shows the **spread** of one set of numbers, how to read its bins and clusters, and how it differs from a bar chart. You also know the easy part: just return the number column and let the chart bin it.\n\nIn the exercises you'll return the scores to see the distribution, then measure the spread with the highest score.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

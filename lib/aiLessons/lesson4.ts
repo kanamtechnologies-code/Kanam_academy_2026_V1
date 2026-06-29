@@ -13,22 +13,32 @@ export const aiLesson4: AILessonConfig = {
     durationLabel: "~7 min lesson",
     sections: [
       {
-        id: "representation",
-        kicker: "Big Idea: Representation",
-        title: "AI can only reason about things it can represent as data",
-        body: `Last lesson, images and sound became numbers. But what about **words, choices, and ideas**? To work with those, AI needs a way to **represent** them as data too.\n\n**Representation** is how we encode a piece of the world so a computer can store and reason about it. Choosing a good representation is one of the most important parts of building AI.`,
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `Last lesson you saw photos and sound turn into numbers. But how does an AI handle a *word* like "pizza," or a decision like "apple or orange?" You can't point a microphone at an idea. Today you'll learn the clever move that lets AI work with almost anything.\n\nOur roadmap:\n\n• Meet the Big Idea of **Representation** — encoding the world as data.\n• See how text becomes **tokens**, then numbers (this is step one inside every chatbot).\n• See how choices become **features** in a spreadsheet of numbers.\n• Learn why a bad representation can quietly cause unfair results.\n\nThis matters because every chatbot, recommender, and image generator starts by representing *your* input as numbers. And when AI gets something unfair or weird, the representation is often where it went wrong.`,
         image: "/images/lessons/ai-4-data.png",
         imageAlt: "Words and objects being converted into rows of numbers",
         callout: {
+          label: "Why it matters",
+          text: "The very first thing a chatbot does with your message is turn it into numbers. Understanding representation is like seeing the gears turn the instant before AI 'reads' anything you type.",
+        },
+      },
+      {
+        id: "representation",
+        kicker: "Big Idea: Representation",
+        title: "AI can only reason about things it can represent as data",
+        body: `Last lesson, images and sound became numbers. But what about **words, choices, and ideas**? To work with those, AI needs a way to **represent** them as data too.\n\n**Representation** is how we encode a piece of the world so a computer can store and reason about it. Think of it like packing for a trip: you can't bring your whole bedroom, so you choose what fits in the suitcase. A representation is the "suitcase" version of something real — only the parts we chose to pack as data.\n\nChoosing a *good* representation is one of the most important parts of building AI. Pack the right details and the AI can reason brilliantly. Leave out something important and it's working with a flawed picture from the start.`,
+        callout: {
           label: "Key insight",
-          text: "If something can be turned into data, AI can work with it. If it can't be represented well, AI struggles — like trying to teach 'fairness' or 'beauty'.",
+          text: "If something can be turned into useful data, AI can work with it. If it can't be represented well, AI struggles — which is why fuzzy human ideas like 'fairness' or 'beauty' are so hard to teach a machine.",
         },
       },
       {
         id: "tokens",
         kicker: "Words → numbers",
         title: "Text gets split into tokens, then numbers",
-        body: `Computers can't do math on the word "dog". So AI breaks text into small pieces called **tokens** (often words or word-parts) and gives each one a number.\n\nThe sentence below might become a list of token-numbers. Once text is numbers, the AI can find patterns: which words appear together, what usually comes next, and so on.`,
+        body: `Computers can't do math on the word "dog" — to a computer it's not even a word, just shapes. So before AI can use text, it breaks the text into small pieces called **tokens** (often whole words, but sometimes word-parts like "play" + "ing"), and gives each token a number from a giant lookup table.\n\nThink of it like a coat check at an event. You hand over your coat (a word) and get a numbered ticket back. The system doesn't care what the coat looks like — it just tracks the number. Later it can match tickets to coats perfectly.\n\nThe sentence below might become a short list of token-numbers. Once text is numbers, the AI can finally do its thing: find patterns in which tokens appear together and what usually comes next.`,
         code: `"I love pizza"  →  tokens: ["I", "love", "pizza"]  →  [40, 1842, 7405]`,
         codeCaption: "Words become tokens, tokens become numbers",
         bullets: [
@@ -41,7 +51,7 @@ export const aiLesson4: AILessonConfig = {
         id: "categories",
         kicker: "Choices → numbers",
         title: "Categories and features become columns",
-        body: `Real decisions use **features** — measurable facts about something. To predict if a fruit is an apple or orange, an AI might use features like color, weight, and bumpiness, each stored as a number.\n\nThink of it as a spreadsheet: each row is one example, each column is one feature. Most "decision-making" AI is really finding patterns across these number columns.`,
+        body: `Words aren't the only thing we represent. Real decisions use **features** — measurable facts about something. To predict whether a fruit is an apple or an orange, an AI might use features like color, weight, and bumpiness, each stored as a number.\n\nPicture a spreadsheet: each **row** is one example (one fruit), and each **column** is one **feature** (one fact about it). The AI learns patterns across the columns — like "bumpy + orange-colored + lighter usually means orange."\n\nMost "decision-making" AI is really just this: finding patterns across rows and columns of numbers. It looks like judgment, but underneath it's spreadsheet math.`,
         table: {
           columns: ["fruit", "color (0=green,1=orange)", "weight (g)", "bumpy? (0/1)"],
           values: [
@@ -51,12 +61,32 @@ export const aiLesson4: AILessonConfig = {
           ],
           rowCount: 3,
         },
+        callout: {
+          label: "Common misconception",
+          text: "When an AI 'decides' something, it isn't weighing right and wrong like a person. It's spotting patterns in columns of numbers — only as fair and complete as the features it was given.",
+        },
+      },
+      {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Representing a student as data — and what gets lost",
+        body: `Imagine a school wants an AI to flag students who might "need help." First, someone has to represent each student as data. Watch what gets packed into the suitcase — and what gets left behind.\n\n**Step 1 — Pick features.** The team chooses what's easy to measure: test scores, attendance, and assignments turned in. Each becomes a number column.\n\n**Step 2 — Build the rows.** Every student becomes one row of numbers, like \`[score: 72, attendance: 95%, turned_in: 80%]\`.\n\n**Step 3 — Spot the gaps.** Notice what's *missing*: a student dealing with a tough home situation, someone who's curious and creative but a poor test-taker, a kid who helps classmates constantly. None of that is in the numbers.\n\n**Step 4 — See the risk.** If the AI only sees the columns we packed, a struggling-but-bright student might look "fine," while a great student having one bad week might get flagged. The AI isn't being cruel — it can only reason about what the representation captured.`,
+        callout: {
+          label: "Pro tip",
+          text: "Whenever you see an AI judgment about people, ask the power question: *What did this data leave out?* The missing columns often matter more than the ones that made it in.",
+        },
       },
       {
         id: "limits",
         kicker: "The catch",
         title: "Garbage representation, garbage results",
-        body: `A representation always **leaves things out**. A photo loses smell and depth; turning a student into "test scores" loses creativity and effort.\n\nWhen AI makes unfair or weird decisions, it's often because the **representation** missed something important — or measured the wrong thing. Always ask: *what did this data leave out?*`,
+        body: `A representation **always leaves things out** — that's the whole point of fitting reality into a suitcase. A photo loses smell and depth. Turning a student into "test scores" loses creativity, kindness, and effort. Turning a song into a waveform loses the memory it gives you.\n\nUsually that's fine. The danger is when the part left out is the part that *mattered most*.\n\nSo when AI makes an unfair or weird decision, it's often because the **representation** missed something important — or measured the wrong thing entirely. Get into the habit of asking: *what did this data leave out, and does it matter here?*`,
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Now it's your turn",
+        body: `Lock these in: **Representation** is how the world gets encoded as data an AI can use. Text becomes **tokens**, then numbers, so AI can find language patterns. Choices become **features** in columns. And every representation **leaves things out** — which can cause mistakes or unfairness.\n\nThis is the hidden first step inside every AI you'll meet for the rest of the course.\n\nWhen you're ready, switch to the **Knowledge check**, then reflect on what numbers might miss when representing "a good student."`,
       },
     ],
   },

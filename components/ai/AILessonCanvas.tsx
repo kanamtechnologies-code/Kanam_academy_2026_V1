@@ -87,7 +87,13 @@ function renderInline(text: string) {
   });
 }
 
-export function AILessonCanvas({ lesson }: { lesson: AILessonConfig }) {
+export function AILessonCanvas({
+  lesson,
+  hubLabel = "AI Literacy Hub",
+}: {
+  lesson: AILessonConfig;
+  hubLabel?: string;
+}) {
   const [animateIn, setAnimateIn] = React.useState(false);
   const [view, setView] = React.useState<"lesson" | "quiz">("lesson");
 
@@ -239,39 +245,49 @@ export function AILessonCanvas({ lesson }: { lesson: AILessonConfig }) {
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         )}
       >
-        <div className="kanam-glow-card mb-6 rounded-[28px] p-6 md:p-8">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <Image src="/images/Logo.png" alt="Kanam Academy" width={30} height={30} />
-              <p className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-slate-600">
-                AI Literacy Hub
+        <div className="kanam-lesson-hero mb-8 rounded-[28px] p-6 md:p-8">
+          <div className="kanam-lesson-hero-overlay" />
+          <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
+            <div className="min-w-0">
+              <div className="flex items-center gap-3.5">
+                <div className="kanam-hero-brand-tile grid h-14 w-14 shrink-0 place-items-center rounded-2xl">
+                  <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} />
+                </div>
+                <div className="leading-tight">
+                  <p className="kanam-hero-kicker text-base font-black uppercase tracking-[0.16em] text-white md:text-lg">
+                    {hubLabel}
+                  </p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/75">
+                    Kanam Academy
+                  </p>
+                </div>
+              </div>
+              <h1 className="kanam-hero-title mt-5 text-3xl font-black tracking-tight text-white md:text-5xl">
+                {lesson.title}
+              </h1>
+              <p className="mt-2.5 max-w-3xl text-base font-medium text-white/90 md:text-lg">
+                {lesson.goal}
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <Badge variant="secondary" className="border border-slate-200 bg-white px-3 py-1">
-                <Zap className="mr-1 h-4 w-4 text-[var(--accent)]" />
+              <Badge className="kanam-hero-chip">
+                <Zap className="mr-1.5 h-4 w-4" />
                 {lesson.xpReward} XP
               </Badge>
-              <Badge variant={lessonComplete ? "success" : "outline"} className="px-3 py-1">
-                {lesson.badge}
-              </Badge>
-              <Button asChild variant="outline" size="sm">
+              <Badge className="kanam-hero-chip">{lesson.badge}</Badge>
+              <Button asChild className="kanam-hero-cta" size="sm">
                 <Link href={lesson.dashboardHref ?? "/dashboard"}>Dashboard</Link>
               </Button>
             </div>
           </div>
-          <h1 className="mt-4 text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
-            {lesson.title}
-          </h1>
-          <p className="mt-2 max-w-3xl text-base text-slate-600 md:text-lg">{lesson.goal}</p>
-          <div className="mt-4">
-            <div className="mb-1 flex justify-between text-xs font-medium text-slate-600">
+          <div className="relative z-10 mt-6">
+            <div className="mb-2 flex justify-between text-sm font-semibold text-white/90">
               <span>
                 Knowledge check: {correctIds.size} / {totalQuestions}
               </span>
               <span>{progressPercent}%</span>
             </div>
-            <Progress value={progressPercent} />
+            <Progress value={progressPercent} className="h-2.5 bg-white/25" indicatorClassName="bg-white" />
           </div>
         </div>
 

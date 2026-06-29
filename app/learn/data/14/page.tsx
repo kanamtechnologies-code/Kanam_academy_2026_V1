@@ -15,36 +15,73 @@ const daLesson14: DataLessonConfig = {
   previewTable: "orders",
   seedData: SCHOOL_DB_SEED,
   lessonModule: {
-    durationLabel: "~6 min lesson",
+    durationLabel: "~8 min lesson",
     sections: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `This is the finale of the whole Data Analyst track. Today you stop learning commands one at a time and start using them *together*, the way a real analyst does — to answer a genuine question from start to finish.\n\nHere's your roadmap:\n\n• **Plan** an investigation before touching the keyboard.\n• **Join** two tables so the data makes sense.\n• **Summarize and rank** to pull the answer out.\n• **Visualize** the result and state a clear conclusion.\n\nThe question we'll crack: **Which student spent the most on lunch?** This is exactly the kind of thing analysts get paid to figure out — on a sports team it might be "which player scores most per minute?", at a game studio "which level makes players quit?" Different data, same detective work.`,
+        image: "/images/lessons/da-14-project.png",
+        imageAlt: "An analyst reviewing a dashboard with a chart and a clear conclusion",
+        callout: {
+          label: "Why it matters",
+          text: "This is what analysts do at sports teams, hospitals, game studios, and stores every day: take a real question, dig through tables, and report a clear, honest answer. Today you do the whole job.",
+        },
+      },
       {
         id: "why",
         kicker: "The capstone",
         title: "Run a real investigation",
-        body: `This is the finale. You'll act like a working data analyst: take a real question and answer it end-to-end using **every** skill from this track — explore, filter, join, summarize, sort, and visualize.\n\nThe question: **Which student spent the most on lunch?**`,
-        image: "/images/lessons/da-14-project.png",
-        imageAlt: "An analyst reviewing a dashboard with a chart and a clear conclusion",
+        body: `Up to now, each lesson handed you one tool. Real analysis is different: nobody tells you which tool to use, so you have to *think*. You take a fuzzy question and break it into steps, then pick the right command for each step.\n\nThink of it like being a detective. You don't solve a case with one clue — you gather evidence (explore the data), connect the pieces (join the tables), add it all up (summarize), and name the suspect (rank). Each skill from this track is one move in that bigger investigation.\n\nOur case: **Which student spent the most on lunch?** It sounds simple, but the answer is hiding across two separate tables. Let's plan how to dig it out.`,
         callout: {
-          label: "Where you see it",
-          text: "This is exactly what analysts do at sports teams, hospitals, game studios, and stores every day: take a question, dig through tables, and report a clear answer.",
+          label: "Common misconception",
+          text: "Beginners often jump straight to typing one giant query. Pros do the opposite: they plan the steps first, then build the query one clause at a time, checking each result. Planning is the real skill — the SQL is just how you carry it out.",
         },
       },
       {
         id: "plan",
         kicker: "Think first",
         title: "Plan your investigation",
-        body: `Great analysts plan before they type. Our data is split across two tables (\`students\` and \`orders\`), so the plan is:\n\n1. **Join** orders to students on \`student_id\` (to get names).\n2. **Group** by student and **SUM** their prices.\n3. **Sort** highest-first to crown the top spender.\n4. **Visualize** it as a bar chart and write a one-sentence conclusion.`,
+        body: `Great analysts plan before they type. Our data is split across two tables: \`students\` (who they are) and \`orders\` (what they bought). The price lives in \`orders\`, but the name lives in \`students\` — so we'll need to connect them. Here's the plan:\n\n1. **Join** orders to students on \`student_id\` (to attach names to prices).\n2. **Group** by student and **SUM** their prices (one total per person).\n3. **Sort** highest-first to crown the top spender.\n4. **Visualize** it as a bar chart and write a one-sentence conclusion.`,
         bullets: [
           "Explore the tables first so you know what's there.",
           "Join → Group → Summarize → Sort: the analyst's recipe.",
           "End with a clear, honest sentence that answers the question.",
         ],
+        callout: {
+          label: "Pro tip",
+          text: "A JOIN needs a shared key — a column both tables have in common. Here it's `student_id`. Find the matching key first, and the join almost writes itself.",
+        },
+      },
+      {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Watch the pipeline come together",
+        body: `Let's walk the recipe one stage at a time so you can see the data transform.\n\n**Step 1 — Join.** Orders only store a \`student_id\`, not a name. Joining on \`student_id\` attaches each order to the right person. Now every order row shows *who* bought it (5 rows, below left).\n\n**Step 2 — Group + SUM.** Bundle those joined rows by student and add up their prices. Alex ordered twice (3.50 + 2.75 = 6.25), so the five order rows collapse into four student totals.\n\n**Step 3 — Sort.** Order the totals high to low, and the top row is your answer. Reading the result: **Alex spent the most, at \\$6.25.**`,
+        code: `-- Step 1: join orders to students to get names\nSELECT students.student_name, orders.item, orders.price\nFROM students\nJOIN orders ON students.student_id = orders.student_id;`,
+        codeCaption: "Step 1 — the joined rows (5 orders, now with names)",
+        table: {
+          columns: ["student_name", "item", "price"],
+          values: [
+            ["Alex", "Pizza slice", 3.5],
+            ["Jordan", "Salad", 4.0],
+            ["Sam", "Chicken wrap", 5.25],
+            ["Alex", "Fruit cup", 2.75],
+            ["Riley", "Burger", 4.75],
+          ],
+          rowCount: 5,
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Build it incrementally: run the JOIN alone first and eyeball the names, THEN add GROUP BY and SUM, THEN ORDER BY. If a step looks wrong, you know exactly which clause to fix.",
+        },
       },
       {
         id: "query",
         kicker: "The payoff",
         title: "One query, a full answer",
-        body: `Here's the kind of query you'll build. It joins both tables, totals each student's spending, and ranks them — turning raw rows into a real answer.`,
+        body: `Stacking all three steps into one query gives the finished investigation. It joins both tables, totals each student's spending, and ranks them — turning raw rows into a real answer. The grouped, sorted result is below.`,
         code: `SELECT students.student_name,\n       SUM(orders.price) AS total_spent\nFROM students\nJOIN orders\n  ON students.student_id = orders.student_id\nGROUP BY students.student_name\nORDER BY total_spent DESC;`,
         codeCaption: "Who spent the most?",
         table: {
@@ -61,8 +98,8 @@ const daLesson14: DataLessonConfig = {
       {
         id: "ready",
         kicker: "Ready",
-        title: "Become a Data Analyst",
-        body: `In the exercises you'll build this investigation step by step, see it as a chart, and earn your **Data Analyst** badge. This is everything you've learned, working together.\n\nClick **Start the exercises** to begin your project.`,
+        title: "Now it's your turn — become a Data Analyst",
+        body: `You've seen the whole detective process: plan, join, summarize, rank, and conclude. That's not just a SQL trick — it's how real investigations work.\n\nIn the exercises you'll build this investigation step by step, see it as a chart, and earn your **Data Analyst** badge. This is everything you've learned across the track, working together.\n\nClick **Start the exercises** to begin your project.`,
       },
     ],
   },

@@ -15,25 +15,25 @@ const daLesson7: DataLessonConfig = {
   previewTable: "orders",
   seedData: SCHOOL_DB_SEED,
   lessonModule: {
-    durationLabel: "~6 min lesson",
+    durationLabel: "~9 min lesson",
     sections: [
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "Connect two tables together",
-        body: `Real data is usually split across **several** tables so nothing is repeated. One table lists **students**, another lists **orders**. Neither tells the whole story alone.\n\n\`JOIN\` stitches them together using a shared **key** — so you can ask "*who* ordered *what*?"`,
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `Here's a secret about real data: it's almost never stored in one giant table. It's split across **several** smaller tables so nothing has to be repeated. Today you'll learn \`JOIN\` — the command that stitches those tables back together. This is the skill that makes you feel like a real data analyst.\n\nHere's the plan:\n\n• Understand **why** data is split into separate tables.\n• Find the **shared key** that links two tables.\n• Use \`JOIN ... ON\` to combine them, then pick columns from each.\n\nThink of a video game: one table holds **players** (username, level, country) and another holds **matches** (who played, score, date). To show "DragonSlayer scored 4,200 in Tokyo," the game has to \`JOIN\` those two tables on the player. Social apps, online stores, and streaming services all work exactly this way.`,
         image: "/images/lessons/da-7-join.png",
         imageAlt: "Two tables linked together by a connecting key",
         callout: {
-          label: "Where you see it",
-          text: "An online store keeps customers in one table and orders in another, then JOINs them to print \"Maria ordered a backpack.\" Almost every app works this way.",
+          label: "Why it matters",
+          text: "An online store keeps customers in one table and orders in another, then JOINs them to say \"Maria ordered a backpack.\" Without JOIN, you'd be stuck staring at ID numbers with no idea who or what they mean. JOIN is how separate facts become a full story.",
         },
       },
       {
         id: "split",
         kicker: "Why split data?",
         title: "Two tables, one shared key",
-        body: `The \`students\` table has a \`student_id\`. The \`orders\` table also has a \`student_id\` — that's the **shared key** that links a row in one table to a row in the other.\n\nStoring the name once (in students) instead of on every order keeps data tidy and avoids mistakes.`,
+        body: `Our data lives in two tables. The \`students\` table (below) holds each student's \`student_id\`, \`student_name\`, and \`grade\`. The \`orders\` table holds each order's \`order_id\`, \`item\`, \`price\`, and — crucially — a \`student_id\` too.\n\nThat repeated \`student_id\` is the **shared key**: a column both tables have in common that links a row in one to a row in the other. It's like the player ID printed on a game match record that points back to the player's profile.\n\nWhy split it up? So each fact is stored **once**. If Alex changes their name, you fix it in a single place instead of on every order. Tidy data means fewer mistakes — a habit pros call "don't repeat yourself."`,
         table: {
           columns: ["student_id", "student_name", "grade"],
           values: [
@@ -44,12 +44,16 @@ const daLesson7: DataLessonConfig = {
           ],
           rowCount: 4,
         },
+        callout: {
+          label: "Common misconception",
+          text: "The shared key isn't magic — it's just a column with the **same meaning** in both tables. `students.student_id` and `orders.student_id` both refer to the same person, which is exactly why we can match rows on them.",
+        },
       },
       {
         id: "join",
         kicker: "Stitch them",
         title: "JOIN ... ON the shared key",
-        body: `\`JOIN\` the second table and tell SQL how to match rows with \`ON\`. Here we match each order to its student by their \`student_id\`. Now you can show the **name** next to the **item**.`,
+        body: `To combine the tables, name the second one after \`JOIN\`, then tell SQL **how** to match rows using \`ON\`. The \`ON\` part is the matching rule: "line up rows where the student_ids are equal."\n\nBecause both tables have a \`student_id\` column, you write \`table.column\` (like \`students.student_id\`) so SQL knows exactly which one you mean. It's like saying "Alex from Room 1" when there might be two Alexes.\n\nThe query below matches each order to the student who placed it, so you can finally show the **name** right next to the **item** — all 5 orders, now with real names attached.`,
         code: `SELECT students.student_name, orders.item\nFROM students\nJOIN orders\n  ON students.student_id = orders.student_id;`,
         codeCaption: "Match each order to its student",
         table: {
@@ -68,12 +72,37 @@ const daLesson7: DataLessonConfig = {
           "`ON tableA.key = tableB.key` says how rows match.",
           "Use `table.column` to be clear which table a column comes from.",
         ],
+        callout: {
+          label: "Common misconception",
+          text: "Never forget the `ON` part! A `JOIN` *without* `ON` doesn't link the tables — it pairs **every** student with **every** order, creating a giant, meaningless mess. The `ON` rule is what keeps each order matched to its *correct* student.",
+        },
+      },
+      {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Join then filter, step by step",
+        body: `Let's answer: *"What did the grade 6 students order?"* This needs both tables — the grade lives in \`students\`, the item lives in \`orders\`.\n\n**Step 1 — Pick the columns.** Name, item, and grade: \`SELECT student_name, item, grade\`.\n\n**Step 2 — Join the tables.** Start \`FROM orders\`, then \`JOIN students ON orders.student_id = students.student_id\`.\n\n**Step 3 — Filter the combined rows.** A \`WHERE\` works on the joined result too: \`WHERE students.grade = 6\`, then a semicolon.\n\nOnly Alex (grade 6) and Riley (grade 6) qualify. Alex placed two orders and Riley placed one, so we get **3** rows.`,
+        code: `-- Step 1: columns -> name, item, grade\n-- Step 2: join    -> orders to students on the shared key\n-- Step 3: filter  -> keep only grade 6\nSELECT student_name, item, grade\nFROM orders\nJOIN students ON orders.student_id = students.student_id\nWHERE students.grade = 6;`,
+        codeCaption: "Grade 6 students and what they ordered",
+        table: {
+          columns: ["student_name", "item", "grade"],
+          values: [
+            ["Alex", "Pizza slice", 6],
+            ["Alex", "Fruit cup", 6],
+            ["Riley", "Burger", 6],
+          ],
+          rowCount: 3,
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Everything you've already learned still works *after* a JOIN. You can add `WHERE` to filter, `ORDER BY` to sort, and `LIMIT` to take the top few — all on the combined rows. JOIN just gives you a bigger, richer table to ask questions about.",
+        },
       },
       {
         id: "ready",
         kicker: "Ready",
-        title: "Now you try it",
-        body: `In the exercises you'll join \`students\` and \`orders\` on their shared key, then choose which columns from each table to show.\n\nClick **Start the exercises** when you're ready.`,
+        title: "Now it's your turn",
+        body: `You've reached the analyst's superpower: combining tables. You can spot a **shared key**, \`JOIN ... ON\` to stitch two tables together, use \`table.column\` to stay clear, and then filter and sort the result.\n\nIn the exercises you'll run your first JOIN, choose name + item from the combined tables, filter to grade 6 students, and finally find the priciest order *with* the student's name — just like the worked example.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

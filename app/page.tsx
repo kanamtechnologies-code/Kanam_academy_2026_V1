@@ -40,6 +40,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = React.useState<string>("ai-literacy");
 
   const aiTrack = TRACKS.find((t) => t.id === "ai-literacy")!;
+  const digitalTrack = TRACKS.find((t) => t.id === "digital-literacy")!;
   const pythonTrack = TRACKS.find((t) => t.id === "python-starter")!;
   const dataTrack = TRACKS.find((t) => t.id === "data-analyst")!;
   const dataUnlocked = isDataAnalystTrackUnlocked(completedIds);
@@ -255,9 +256,23 @@ export default function Home() {
                 </span>
               ) : null}
             </TabsTrigger>
+            <TabsTrigger value="digital-literacy" className="gap-2 px-5 py-2.5">
+              <span>{digitalTrack.icon}</span>
+              {digitalTrack.title}
+              {digitalTrack.lessons.some((l) => l.hasLesson) ? (
+                <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
+                  📖 Guided lessons
+                </span>
+              ) : null}
+            </TabsTrigger>
             <TabsTrigger value="python-starter" className="gap-2 px-5 py-2.5">
               <span>{pythonTrack.icon}</span>
               {pythonTrack.title}
+              {pythonTrack.lessons.some((l) => l.hasLesson) ? (
+                <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
+                  📖 Guided lessons
+                </span>
+              ) : null}
             </TabsTrigger>
             <TabsTrigger value="data-analyst" className="gap-2 px-5 py-2.5">
               <span>{dataTrack.icon}</span>
@@ -276,6 +291,10 @@ export default function Home() {
 
           <TabsContent value="ai-literacy">
             <TrackRoadmap track={aiTrack} completedIds={completedIds} />
+          </TabsContent>
+
+          <TabsContent value="digital-literacy">
+            <TrackRoadmap track={digitalTrack} completedIds={completedIds} />
           </TabsContent>
 
           <TabsContent value="python-starter">

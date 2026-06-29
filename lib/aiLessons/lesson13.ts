@@ -10,15 +10,25 @@ export const aiLesson13: AILessonConfig = {
   prevHref: "/learn/ai/12",
   nextHref: "/learn/ai/14",
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~9 min lesson",
     sections: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `AI decides which videos you're recommended, can help screen job applications, and even assists in medical and legal tools. So when AI is unfair, it affects real people's real lives. Today you'll learn how that unfairness — **AI bias** — happens, and how it can be reduced.\n\nRoadmap:\n\n• Why AI learns our patterns, *including* our biases.\n• The exact ways bias sneaks in through data.\n• What actually makes AI fairer — and why "computers are neutral" is a myth.\n\nThis is part of the big idea of **Societal Impact**: AI doesn't just answer questions, it shapes opportunities.`,
+        image: "/images/lessons/ai-13-bias.png",
+        imageAlt: "A scale showing balanced versus skewed training data",
+        callout: {
+          label: "Why it matters",
+          text: "Biased AI can quietly affect who gets seen, hired, or trusted. Knowing how bias works lets you question 'objective' AI decisions instead of accepting them blindly.",
+        },
+      },
       {
         id: "why",
         kicker: "Big Idea: Societal Impact",
         title: "AI learns our patterns — including our biases",
-        body: `Remember: AI learns from data made by humans. If that data reflects unfair patterns from the real world, the AI **learns those patterns too** — and can repeat them at massive scale.\n\nThis is **AI bias**: when a system produces unfair results for certain groups of people. It usually isn't intentional. It's baked in through the data and choices behind the model.`,
-        image: "/images/lessons/ai-13-bias.png",
-        imageAlt: "A scale showing balanced versus skewed training data",
+        body: `Remember the golden rule of machine learning: AI learns from **data made by humans**. If that data reflects unfair patterns from the real world, the AI **learns those patterns too** — and can repeat them at massive scale, to millions of people at once.\n\nThis is **AI bias**: when a system produces systematically unfair results for certain groups of people. It usually isn't intentional — nobody types "be unfair." It gets baked in through the data and the choices behind the model.\n\nThink of AI like a mirror, not a judge. It reflects whatever we show it. Hand it a skewed picture of the world, and it gives a skewed picture back — just faster and bigger.`,
         callout: {
           label: "Key insight",
           text: "AI doesn't invent bias from nowhere — it mirrors and amplifies patterns in its training data.",
@@ -28,7 +38,7 @@ export const aiLesson13: AILessonConfig = {
         id: "how",
         kicker: "How bias sneaks in",
         title: "Skewed data, skewed AI",
-        body: `Bias often enters through the **training data**:\n\n• **Unrepresentative data** — a face system trained mostly on one skin tone works worse on others.\n• **Historical bias** — if past hiring favored one group, an AI trained on it may copy that unfairness.\n• **Missing groups** — if some people barely appear in the data, the AI performs poorly for them.\n\nThe AI isn't 'prejudiced' — it's faithfully reflecting flawed data.`,
+        body: `Bias usually enters through the **training data** — the examples the AI learned from. Three common ways:\n\n• **Unrepresentative data** — a face system trained mostly on one skin tone works worse on others.\n• **Historical bias** — if past hiring favored one group, an AI trained on those records may copy that unfairness as if it were the "right" answer.\n• **Missing groups** — if some people barely appear in the data, the AI performs poorly for them.\n\nNotice the AI isn't "prejudiced" in a human sense — it's faithfully reflecting flawed data. That's why what gets *left out* of the data matters as much as what's put in.`,
         bullets: [
           "Unrepresentative data → worse results for underrepresented groups.",
           "Historical bias in data → AI repeats past unfairness.",
@@ -39,17 +49,31 @@ export const aiLesson13: AILessonConfig = {
         id: "fix",
         kicker: "What helps",
         title: "Fairness takes deliberate effort",
-        body: `Bias can be reduced, but only on purpose:\n\n• Collect **diverse, representative** data.\n• **Test** the AI separately across different groups, not just overall accuracy.\n• Keep **humans in the loop** for high-stakes decisions (jobs, loans, justice).\n• Be **transparent** about limits.\n\nAs a user, your job is to stay skeptical: ask who an AI might be unfair to, and don't assume "the computer" is automatically objective.`,
+        body: `Here's the hopeful part: bias can be reduced — but only on purpose. It never fixes itself.\n\n• Collect **diverse, representative** data that includes everyone the AI will affect.\n• **Test** the AI separately across different groups, not just its overall accuracy (a model can look "95% accurate" while failing one group badly).\n• Keep **humans in the loop** for high-stakes decisions like jobs, loans, and justice.\n• Be **transparent** about the system's limits.\n\nAs a user, your job is to stay skeptical: ask *who might this AI be unfair to?* and never assume "the computer" is automatically objective.`,
         callout: {
           label: "Myth buster",
           text: "'Computers are neutral' is false. An AI is only as fair as the data and choices behind it.",
         },
       },
       {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Trace where bias enters a hiring AI",
+        body: `Imagine a company builds an AI to screen résumés, hoping to save time. Follow how bias creeps in, step by step.\n\n**Step 1 — The training data.** They feed it 10 years of past résumés labeled "hired" or "not hired." But over those 10 years, the company mostly hired men for tech roles.\n\n**Step 2 — The AI finds the pattern.** It notices "hired" résumés often share certain words, schools, even hobbies — and that they rarely came from women. It learns: *this pattern = good candidate.*\n\n**Step 3 — The unfair result.** Now it quietly down-ranks qualified women, not because they're less able, but because the *past data* was unfair. The AI didn't invent the bias — it inherited and amplified it.\n\n**Step 4 — The fix.** Test the tool's results by group, retrain on fairer data, and keep a human reviewing decisions. (This is a real category of problem — companies have scrapped biased hiring tools for exactly this reason.)`,
+        code: `Unfair past hiring  →  training data  →  AI learns "pattern of success"
+        ↳ that pattern secretly includes "mostly men"
+        ↳ AI down-ranks women  →  old bias amplified at scale`,
+        codeCaption: "Bias in → bias out, but faster and bigger",
+        callout: {
+          label: "Pro tip",
+          text: "When you hear 'the algorithm decided,' ask what data it learned from. The data is usually where fairness is won or lost.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
-        title: "Fairness is a human responsibility",
-        body: `Because AI affects real decisions about real people, fairness isn't optional — it's a core part of building and using AI responsibly.\n\nNext we cover privacy and deepfakes. Take the knowledge check, then reflect on where biased AI could do harm.`,
+        title: "Now it's your turn",
+        body: `Because AI affects real decisions about real people, fairness isn't optional — it's a core part of building and using AI responsibly. Your power as a user is to question, not just accept.\n\nNext we cover privacy and deepfakes. First, lock in today's ideas.\n\nWhen you're ready, switch to the **Knowledge check**.`,
       },
     ],
   },

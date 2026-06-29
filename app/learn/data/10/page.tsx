@@ -24,25 +24,35 @@ const daLesson10: DataLessonConfig = {
     title: "Each item's share of all orders",
   },
   lessonModule: {
-    durationLabel: "~4 min lesson",
+    durationLabel: "~8 min lesson",
     sections: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `Last lesson you compared categories with a bar chart. Today you'll answer a *different* kind of question with a **pie chart**: not "which is biggest?" but **"how is the whole thing split up?"**\n\nHere's your roadmap:\n\n• **What a pie chart really shows** — parts of one whole.\n• **How to read** slices as shares of 100%.\n• **When a pie helps** and the surprisingly common cases where it lies.\n• A **worked example** reading a real pie before you build your own.\n\nThink about your phone's screen-time report: it slices your day into TikTok, games, messages, and more. You're not asking "which app has the most minutes in the universe?" — you're asking "what share of *my* day went where?" That's the pie chart's exact job.`,
+        image: "/images/lessons/lesson-pie.png",
+        imageAlt: "A laptop showing a pie chart of quarterly sales contribution split into four slices",
+        callout: {
+          label: "Why it matters",
+          text: "Budgets (where your money goes), phone screen-time breakdowns, battery usage, and election seat shares are all pie charts — anywhere one whole gets divided into shares.",
+        },
+      },
       {
         id: "why",
         kicker: "The big idea",
         title: "A pie chart shows parts of one whole",
-        body: `A **pie chart** is a circle cut into slices. The whole circle is **100%** of something, and each slice is one part's **share** of that whole.\n\nUse a pie when you want to answer: *"Out of everything, how much is each piece?"* — like how a budget is split, or what share of all lunch orders each item makes up.`,
-        image: "/images/lessons/lesson-pie.png",
-        imageAlt: "A laptop showing a pie chart of quarterly sales contribution split into four slices",
+        body: `A **pie chart** is a circle cut into slices. The whole circle is **100%** of something, and each slice is one part's **share** of that whole.\n\nThe perfect mental picture is an actual pizza. The whole pizza is everything; each slice is a fraction of it; and all the slices together always add back up to one complete pizza. If your data doesn't work like that — if the parts don't sum to a meaningful whole — a pie is the wrong tool.\n\nUse a pie when you want to answer: *"Out of everything, how much is each piece?"* Examples: how a budget is split, or what share of all lunch orders each item makes up. The question is about **proportion**, not raw comparison.`,
         callout: {
-          label: "Where you see it",
-          text: "Budgets (where your money goes), phone screen-time breakdowns, battery usage, and election seat shares are all pie charts.",
+          label: "Common misconception",
+          text: "A pie chart is *not* just a round bar chart. It only makes sense when every slice is part of the same whole. If your numbers don't add up to one total (like temperatures or test scores), a pie will mislead — use a bar chart.",
         },
       },
       {
         id: "anatomy",
         kicker: "How to read it",
         title: "Slices add up to the whole",
-        body: `This is the pie you'll build. Notice:\n\n• Each **slice** is one **item** (the label).\n• The **size** of the slice is that item's **count** (the number).\n• All the slices together make **one whole** — every order is in there exactly once.\n\nA bigger slice means a bigger share.`,
+        body: `This is the pie you'll build from \`lunch_orders\`. Read it in three parts:\n\n• Each **slice** is one **item** (the label).\n• The **size** of the slice is that item's **count** (the number).\n• All the slices together make **one whole** — every order appears in exactly one slice.\n\nA bigger slice means a bigger share. Here Pizza slice and Salad each take a wider wedge (2 orders out of 8 = 25% each), while the single-order items take thin slices. Your eye reads "share of the total" automatically.`,
         chart: {
           config: { type: "pie", xKey: "item", yKey: "order_count", title: "Each item's share of all orders" },
           result: {
@@ -63,22 +73,22 @@ const daLesson10: DataLessonConfig = {
         id: "when",
         kicker: "Choose wisely",
         title: "When a pie works — and when it lies",
-        body: `Pie charts are easy to misuse. Use them carefully.`,
+        body: `Pie charts are the most *misused* chart there is, so use them carefully. The trouble is that human eyes are bad at comparing the sizes of wedges — we're much better at comparing bar heights.`,
         bullets: [
           "**Use a pie** for 2–6 parts that add up to one whole (shares of a total).",
           "**Avoid a pie** when slices don't add up to a whole — use a bar chart to compare instead.",
           "**Avoid a pie** with many tiny slices — they're impossible to compare by eye.",
         ],
         callout: {
-          label: "Charts can mislead",
-          text: "Too many slices, or a 3-D tilt that makes the front slice look bigger, can fool the reader. Keep pies flat and simple.",
+          label: "Common misconception",
+          text: "More slices does *not* mean a better pie. With 8+ near-equal wedges, nobody can tell which is biggest — a sorted bar chart would be clearer. And a 3-D tilt that puffs up the front slice is a classic way charts fool people. Keep pies flat, simple, and few.",
         },
       },
       {
         id: "data",
         kicker: "Your dataset",
         title: "The data you'll use: lunch_orders",
-        body: `You'll use the same **lunch_orders** table. You'll **COUNT** orders **GROUP BY item** (a label + a number), then check the **whole** with one more count. Knowing the total lets you read each slice as a share.`,
+        body: `You'll use the same **lunch_orders** table (sample rows below). The pie-ready query is the same shape as a bar query: **COUNT** orders **GROUP BY item**, giving a label + a number.\n\nThe extra move for a pie is checking the **whole** with one more count of every order. Knowing the total (8 orders) lets you read each slice as a real share — 2 out of 8 is one quarter of the pie.`,
         table: {
           columns: ["student_name", "item", "price"],
           values: [
@@ -91,10 +101,31 @@ const daLesson10: DataLessonConfig = {
         },
       },
       {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Read a pie before you build one",
+        body: `Let's read a finished pie together. Imagine you tracked how you spent one **24-hour day**, and the counts below are hours. Because the parts add up to a whole day, a pie is the right call.\n\n**Step 1 — confirm it's a whole:** 8 + 7 + 4 + 3 + 2 = 24 hours. Good, the slices sum to the full day. **Step 2 — find the biggest share:** Sleep at 8 hours is the largest wedge — exactly one-third of the circle. **Step 3 — read a small share:** Gaming at 2 hours is a thin slice, about 8% of the day.\n\nThat's the whole skill: a slice's size *is* its share of the total. To build this pie from a query, you'd produce the same two columns — a label (activity) and a number (hours).`,
+        table: {
+          columns: ["activity", "hours"],
+          values: [
+            ["Sleep", 8],
+            ["School", 7],
+            ["Free time", 4],
+            ["Homework", 3],
+            ["Gaming", 2],
+          ],
+          rowCount: 5,
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Before choosing a pie, add up your numbers. If the total is a meaningful whole (a full day, all orders, the entire budget), a pie fits. If not, reach for a bar chart.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
-        title: "Now you try it",
-        body: `In the exercises you'll build the pie-ready query, find the whole, and decide when a pie is the honest choice.\n\nClick **Start the exercises** when you're ready.`,
+        title: "Now it's your turn",
+        body: `You now know a pie shows **parts of one whole**, how to read slices as shares, and the traps that make pies mislead. You also know the query shape: a label + a number, plus a check on the total.\n\nIn the exercises you'll build the pie-ready query, find the whole, and decide when a pie is the honest choice.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

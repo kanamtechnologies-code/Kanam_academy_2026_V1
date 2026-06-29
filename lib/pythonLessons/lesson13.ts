@@ -105,34 +105,58 @@ export const lesson13: PythonLessonConfig = {
   aiSafetyMoment:
     "AI safety: Rules are limits. Clear rules help prevent unsafe behavior. Store only necessary memory, avoid sensitive info, and test your rules with different inputs.",
   lessonModule: {
-    durationLabel: "~6 min lesson",
+    durationLabel: "~9 min lesson",
     sections: [
       {
-        id: "why",
-        kicker: "The capstone",
-        title: "Build your own AI game character",
-        body: `This is where everything comes together. You'll build an **NPC** (a non-player character) for an adventure game — using *every* skill from this track: variables, input, rules, loops, lists, dictionaries, and functions.\n\nYour NPC isn't "smart" on its own. It follows the **rules you write** and uses **memory** you give it. You're the designer.`,
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll build today",
+        body: `This is the capstone — the project where *everything* you've learned comes together. You'll build an **NPC** (a non-player character) for an adventure game: a character the computer controls and that talks back to the player.\n\nHere's your roadmap for this lesson:\n\n• Combining **everything**: variables, input, dictionaries, functions, and rules.\n• Building an NPC with a memory profile (\`npc_memory\`).\n• Using \`if\` / \`elif\` / \`else\` to react to what the player says.\n• Reading memory back to give your NPC real personality.\n\nBy the end, you won't just be writing code — you'll be *designing behavior*.`,
         image: "/images/lessons/py-13-npc.png",
         imageAlt: "A friendly game character (NPC) standing in a fantasy adventure scene",
         callout: {
-          label: "Where you see it",
-          text: "Every shopkeeper, quest-giver, and companion in a video game is an NPC driven by rules and memory — exactly what you're about to build.",
+          label: "Why it matters",
+          text: "Every shopkeeper, quest-giver, and sidekick in a video game is an NPC — driven entirely by rules and memory a designer wrote. By the end of this lesson, *you're* that designer.",
+        },
+      },
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "Your NPC isn't magic — it's rules",
+        body: `An **NPC** is a game character the computer controls: the blacksmith who sells you armor, the wizard who hands you a quest, the villager who waves as you pass.\n\nHere's the secret: your NPC isn't actually "smart." It follows the **rules you write** and uses the **memory you give it**. When it greets a player by name or offers a quest, that's your code running — not magic.\n\nYou'll build it using *every* skill from this track: variables, input, rules, dictionaries, and functions. You're the designer.`,
+        callout: {
+          label: "Common misconception",
+          text: "An NPC doesn't understand language the way you do. It scans the player's words for keywords it was told to look for, then runs the matching rule. Clever rules make it *feel* smart.",
         },
       },
       {
         id: "loop",
         kicker: "The design",
         title: "Input → Rules → Memory → Output",
-        body: `Every NPC follows the same loop:\n\n• **Input** — what the player says.\n• **Rules** — \`if\` / \`elif\` / \`else\` decide how to react.\n• **Memory** — a dictionary (\`npc_memory\`) holds the character's profile.\n• **Output** — what the NPC says back.\n\nToday you'll test by changing a variable like \`player_text = "hello"\` instead of using \`input()\`.`,
+        body: `Almost every NPC — and every chatbot — follows the same four-step loop:\n\n• **Input** — what the player says.\n• **Rules** — \`if\` / \`elif\` / \`else\` decide how to react.\n• **Memory** — a dictionary (\`npc_memory\`) holds the character's profile.\n• **Output** — what the NPC says back.\n\nToday you'll test by setting a variable like \`player_text = "hello"\` instead of using \`input()\`, so you can try different messages quickly.`,
         code: `npc_memory = {"name": "Sir Alex", "class": "knight"}\n\ndef npc(player_input):\n    if "hello" in player_input.lower():\n        print("Greetings! I am " + npc_memory["name"] + ".")\n    elif "quest" in player_input.lower():\n        print("Seek the lost crown in the northern caves!")\n    else:\n        print("I do not understand, traveler.")`,
         codeCaption: "An NPC brain: memory + rules",
         output: `npc("hello")  ->  Greetings! I am Sir Alex.\nnpc("any quest?")  ->  Seek the lost crown in the northern caves!`,
+        callout: {
+          label: "Watch out",
+          text: "The rules run **top to bottom**. The first matching branch wins and the rest are skipped — so put your most specific rules first and your `else` fallback last.",
+        },
+      },
+      {
+        id: "keywords",
+        kicker: "Building block",
+        title: "Match keywords with in and .lower()",
+        body: `How does the NPC tell what the player wants? It looks for **keywords**. The phrase \`"hello" in player_input.lower()\` asks: *does the player's message contain the word hello?*\n\nTwo helpers make this reliable:\n\n• \`in\` checks whether one piece of text appears inside another.\n• \`.lower()\` converts the message to all-lowercase first, so \`"HELLO"\`, \`"Hello"\`, and \`"hello"\` all match.\n\nWithout \`.lower()\`, a player who types \`"Hello"\` with a capital H might slip right past a rule looking for \`"hello"\`.`,
+        callout: {
+          label: "Pro tip",
+          text: "Always lowercase the player's input before checking keywords. Players type in all kinds of ways, and `.lower()` makes your rules forgiving.",
+        },
       },
       {
         id: "memory",
         kicker: "Personalize it",
         title: "Use memory in your messages",
-        body: `Because the profile lives in \`npc_memory\`, your NPC can speak with personality — using its stored name, class, or home town inside its lines. Read a value back with its **key**.`,
+        body: `Because the character's profile lives in \`npc_memory\`, your NPC can speak with real personality — dropping its stored name, class, or home town right into its lines.\n\nYou read a value back with its **key**, exactly like you learned with dictionaries: \`npc_memory["name"]\` gives you the stored name. Join it into a sentence with \`+\` and your NPC sounds alive.\n\nKeep the profile small and purposeful — store only what the character actually needs.`,
         bullets: [
           "Store the profile in a dictionary: `npc_memory[\"name\"]`.",
           "Use `elif` to add more special responses.",
@@ -141,10 +165,23 @@ export const lesson13: PythonLessonConfig = {
         ],
       },
       {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Assemble an NPC brain, step by step",
+        body: `Let's assemble a complete NPC brain, piece by piece.\n\n**Step 1 — Build memory.** Store the character's profile in \`npc_memory\` with keys like \`name\` and \`class\`.\n\n**Step 2 — Define the NPC.** Make a function \`npc(player_input)\` that takes what the player says.\n\n**Step 3 — Add rules.** Use \`if\` / \`elif\` / \`else\` to react to keywords, pulling from memory for personality.\n\n**Step 4 — Test it.** Set \`player_text\` to a message and call \`npc()\` to see which rule runs.`,
+        code: `# Step 1: the character's memory\nnpc_memory = {"name": "Sir Alex", "class": "knight"}\n\n# Steps 2 & 3: the NPC brain with rules\ndef npc(player_input):\n    if "hello" in player_input.lower():\n        print("Greetings! I am " + npc_memory["name"] + ".")\n    elif "quest" in player_input.lower():\n        print("Seek the lost crown in the northern caves!")\n    else:\n        print("I do not understand, traveler.")\n\n# Step 4: test a message\nplayer_text = "hello"\nnpc(player_text)`,
+        codeCaption: "The full NPC, with comments explaining each step",
+        output: `Greetings! I am Sir Alex.`,
+        callout: {
+          label: "Pro tip",
+          text: "When you test, always ask: **which rule ran, and why?** Being able to explain that is what separates a real AI builder from someone just guessing.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
-        title: "Design, test, and explain",
-        body: `In the exercises you'll fill in a guided NPC, test it with different messages, then rebuild your own from scratch — adding memory and a helpful fallback. Real AI builders can always explain which rule ran and why.\n\nClick **Start the exercises** to build your NPC.`,
+        title: "Now it's your turn",
+        body: `You're ready to build. You'll combine **memory** (\`npc_memory\`), a **function** (\`npc\`), and **rules** (\`if\` / \`elif\` / \`else\`) — every tool from this track in one project.\n\nIn the exercises you'll fill in a guided NPC, test it with different messages, then rebuild your own from scratch — adding memory and a helpful fallback. Real AI builders can always explain which rule ran and why.\n\nClick **Start the exercises** to build your NPC.`,
         callout: {
           label: "Responsible AI",
           text: "Rules are limits that keep behavior safe. Store only necessary memory, avoid sensitive info, and test your rules with many different inputs.",

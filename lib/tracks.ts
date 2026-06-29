@@ -24,7 +24,7 @@ export type WeekPlan = {
 };
 
 export type Track = {
-  id: "python-starter" | "data-analyst" | "ai-literacy";
+  id: "python-starter" | "data-analyst" | "ai-literacy" | "digital-literacy";
   title: string;
   subtitle: string;
   icon: string;
@@ -92,6 +92,17 @@ export const AI_LITERACY_WEEKS: WeekPlan[] = [
   { week: 8, theme: "Your Future With AI", focus: "Jobs and creativity, plus a capstone to become an AI-smart citizen." },
 ];
 
+export const DIGITAL_LITERACY_WEEKS: WeekPlan[] = [
+  { week: 1, theme: "Digital Foundations", focus: "How devices, software, and the internet actually work — and how to manage your files." },
+  { week: 2, theme: "Finding & Judging Information", focus: "Search smart, then tell reliable information from misinformation." },
+  { week: 3, theme: "Communicating & Collaborating", focus: "Communicate clearly and kindly online and work together in the cloud." },
+  { week: 4, theme: "Digital Identity & Citizenship", focus: "Your digital footprint, reputation, and being a positive digital citizen." },
+  { week: 5, theme: "Creating Digital Content", focus: "Make and edit content, and use it legally with proper credit." },
+  { week: 6, theme: "Staying Safe & Secure", focus: "Strong security habits and protecting your privacy and personal data." },
+  { week: 7, theme: "Wellbeing & Problem-Solving", focus: "Healthy tech habits, plus troubleshooting tech problems like a pro." },
+  { week: 8, theme: "Digital Skills for the Real World", focus: "Workplace-ready digital skills and your personal digital toolkit." },
+];
+
 export const DATA_ANALYST_WEEKS: WeekPlan[] = [
   { week: 1, theme: "What Data Is", focus: "Rows, columns, and your first SELECT queries." },
   { week: 2, theme: "Choosing & Filtering", focus: "Pick the columns you need and filter rows with WHERE." },
@@ -155,6 +166,25 @@ const AI_LITERACY_LESSONS: LessonRow[] = [
   { id: "ai-16", title: "Capstone: Be an AI-Smart Citizen", href: "/learn/ai/16", xp: 800, badgeName: "AI-Smart Citizen", badgeIcon: "🎓", week: 8, session: 2, hasLesson: true },
 ];
 
+const DIGITAL_LITERACY_LESSONS: LessonRow[] = [
+  { id: "dl-1", title: "How Computers & the Internet Work", href: "/learn/digital/1", xp: 50, badgeName: "Tech Foundations", badgeIcon: "🖥️", week: 1, session: 1, hasLesson: true },
+  { id: "dl-2", title: "Files, Folders & the Cloud", href: "/learn/digital/2", xp: 100, badgeName: "File Wrangler", badgeIcon: "🗂️", week: 1, session: 2, hasLesson: true },
+  { id: "dl-3", title: "Search Like a Pro", href: "/learn/digital/3", xp: 150, badgeName: "Search Sleuth", badgeIcon: "🔎", week: 2, session: 1, hasLesson: true },
+  { id: "dl-4", title: "Is It True? Spotting Misinformation", href: "/learn/digital/4", xp: 200, badgeName: "Truth Seeker", badgeIcon: "🕵️", week: 2, session: 2, hasLesson: true },
+  { id: "dl-5", title: "Communicate Clearly & Kindly Online", href: "/learn/digital/5", xp: 250, badgeName: "Clear Communicator", badgeIcon: "💬", week: 3, session: 1, hasLesson: true },
+  { id: "dl-6", title: "Collaborate in the Cloud", href: "/learn/digital/6", xp: 300, badgeName: "Team Player", badgeIcon: "🤝", week: 3, session: 2, hasLesson: true },
+  { id: "dl-7", title: "Your Digital Footprint & Reputation", href: "/learn/digital/7", xp: 350, badgeName: "Footprint Keeper", badgeIcon: "👣", week: 4, session: 1, hasLesson: true },
+  { id: "dl-8", title: "Being a Good Digital Citizen", href: "/learn/digital/8", xp: 400, badgeName: "Digital Citizen", badgeIcon: "🌐", week: 4, session: 2, hasLesson: true },
+  { id: "dl-9", title: "Create & Edit Digital Content", href: "/learn/digital/9", xp: 450, badgeName: "Content Creator", badgeIcon: "🎨", week: 5, session: 1, hasLesson: true },
+  { id: "dl-10", title: "Copyright, Licensing & Giving Credit", href: "/learn/digital/10", xp: 500, badgeName: "Credit Giver", badgeIcon: "📜", week: 5, session: 2, hasLesson: true },
+  { id: "dl-11", title: "Passwords, Scams & Account Security", href: "/learn/digital/11", xp: 550, badgeName: "Security Guard", badgeIcon: "🔒", week: 6, session: 1, hasLesson: true },
+  { id: "dl-12", title: "Protect Your Privacy & Data", href: "/learn/digital/12", xp: 600, badgeName: "Privacy Protector", badgeIcon: "🛡️", week: 6, session: 2, hasLesson: true },
+  { id: "dl-13", title: "Healthy Tech Habits & Digital Wellbeing", href: "/learn/digital/13", xp: 650, badgeName: "Balance Keeper", badgeIcon: "🧘", week: 7, session: 1, hasLesson: true },
+  { id: "dl-14", title: "Troubleshoot Like a Tech Pro", href: "/learn/digital/14", xp: 700, badgeName: "Problem Solver", badgeIcon: "🔧", week: 7, session: 2, hasLesson: true },
+  { id: "dl-15", title: "Digital Skills for Work & Career", href: "/learn/digital/15", xp: 750, badgeName: "Career Ready", badgeIcon: "💼", week: 8, session: 1, hasLesson: true },
+  { id: "dl-16", title: "Capstone: Your Digital Toolkit", href: "/learn/digital/16", xp: 800, badgeName: "Digitally Fluent", badgeIcon: "🎓", week: 8, session: 2, hasLesson: true },
+];
+
 export const TRACKS: Track[] = [
   {
     id: "ai-literacy",
@@ -162,6 +192,13 @@ export const TRACKS: Track[] = [
     subtitle: "What AI is, how it works, and how to use it wisely",
     icon: "🧠",
     lessons: AI_LITERACY_LESSONS,
+  },
+  {
+    id: "digital-literacy",
+    title: "Digital Literacy",
+    subtitle: "Use technology safely, smartly, and ready for work",
+    icon: "🌐",
+    lessons: DIGITAL_LITERACY_LESSONS,
   },
   {
     id: "python-starter",
@@ -187,6 +224,7 @@ export function getTrack(id: Track["id"]): Track | undefined {
 export function weeksForTrack(id: Track["id"]): WeekPlan[] {
   if (id === "python-starter") return PYTHON_WEEKS;
   if (id === "data-analyst") return DATA_ANALYST_WEEKS;
+  if (id === "digital-literacy") return DIGITAL_LITERACY_WEEKS;
   return AI_LITERACY_WEEKS;
 }
 

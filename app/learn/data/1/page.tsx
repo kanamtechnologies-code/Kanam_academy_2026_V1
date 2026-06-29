@@ -15,25 +15,35 @@ const daLesson1: DataLessonConfig = {
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
-    durationLabel: "~5 min lesson",
+    durationLabel: "~8 min lesson",
     sections: [
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "Data is organized information",
-        body: `Welcome to the Data Analyst Track! A data analyst's job is to **ask questions** of information and find real answers.\n\nMost data lives in **tables** — neat grids of **rows** and **columns**, just like a spreadsheet. Today's table is a list of school lunch orders.`,
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `Welcome to the **Data Analyst Track**! Today you'll meet the building blocks of *every* data question and write your very first lines of **SQL** — the language that powers almost every app you use.\n\nHere's the plan:\n\n• What **data** really is, and why it's stored in **tables**.\n• How to read a table by its **rows** and **columns**.\n• Your first three SQL words — \`SELECT\`, \`FROM\`, and \`LIMIT\` — and how to combine them into a real query.\n\nThink about your favorite video game's leaderboard, the "Top 50" playlist on a music app, or your school's grade portal. Behind every one of those screens is a giant table of data, and someone wrote a query to pull out exactly what you see. By the end of this lesson, *you* will be that someone.`,
         image: "/images/lessons/da-1-table.png",
         imageAlt: "A clean spreadsheet-style table of rows and columns",
         callout: {
+          label: "Why it matters",
+          text: "When a sports app shows \"points per game\" or your phone suggests the next song, a program asked a data table a question and got an answer back. Learning SQL means learning to ask those questions yourself — a skill used by scientists, game studios, hospitals, and every big company on earth.",
+        },
+      },
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "Data is just organized information",
+        body: `A **data analyst's** job is to **ask questions** of information and find real, trustworthy answers. The first step is realizing that almost all useful information is stored in a tidy, organized way.\n\nMost data lives in **tables** — neat grids of **rows** and **columns**, just like a spreadsheet. Think of a table like the stats screen for a sports team: every player gets one line, and every line has the same boxes (games played, points, assists).\n\nToday's table is a list of school **lunch orders**. It's small enough to read at a glance, but it works *exactly* the same way as a table with ten million rows. The skills you learn on this tiny table scale up to the biggest databases in the world.`,
+        callout: {
           label: "Where you see it",
-          text: "A class roster, a sports stats sheet, an online store's order history, your music library — all of these are tables of data waiting to be questioned.",
+          text: "A class roster, an NBA stats sheet, an online store's order history, your music library — all of these are tables of data just waiting to be questioned.",
         },
       },
       {
         id: "anatomy",
         kicker: "How to read a table",
         title: "Rows are records, columns are fields",
-        body: `Here's our \`lunch_orders\` table. Look at how it's built:\n\n• Each **row** is one record — a single lunch order.\n• Each **column** is one field — \`order_id\`, \`student_name\`, \`item\`, \`price\`.\n• Every row has the **same** columns, which is what makes a table tidy and searchable.`,
+        body: `Here's our \`lunch_orders\` table. Every table is built the same two ways, and once you see the pattern you'll spot it everywhere.\n\n• Each **row** is one **record** — a single lunch order placed by one student.\n• Each **column** is one **field** — \`order_id\`, \`student_name\`, \`item\`, and \`price\`.\n• Every row has the **same** columns, which is exactly what makes a table tidy, predictable, and searchable.\n\nA handy way to remember it: rows go **across** (one thing each), columns go **down** (one fact about every thing). In a video game leaderboard, each *row* is a player and each *column* is a stat like rank, score, or username.`,
         table: {
           columns: ["order_id", "student_name", "item", "price"],
           values: [
@@ -44,12 +54,16 @@ const daLesson1: DataLessonConfig = {
           ],
           rowCount: 4,
         },
+        callout: {
+          label: "Common misconception",
+          text: "Rows and columns are easy to mix up. Remember: a **row** is one whole record (one order), while a **column** is a single field shared by every record (every order has a price). Rows = things, columns = facts about those things.",
+        },
       },
       {
         id: "sql",
         kicker: "The tool",
         title: "SQL is how you ask the table questions",
-        body: `**SQL** (say it "sequel") is the language for talking to data tables. You write a short question and the database answers with a table of results. Your first three words:\n\n• \`SELECT\` — *which columns* you want.\n• \`FROM\` — *which table* to read.\n• \`LIMIT\` — *how many rows* to return.`,
+        body: `**SQL** (most people say it like the word "sequel") stands for *Structured Query Language*. It's the language you use to talk to data tables: you write a short, clear question, and the database answers with a brand-new table of results.\n\nImagine texting a super-organized librarian: "Show me the first three orders." That sentence has three parts — *what* you want, *where* to look, and *how much*. SQL works the same way with three starter words:\n\n• \`SELECT\` — *which columns* you want (use \`*\` to mean "all of them").\n• \`FROM\` — *which table* to read.\n• \`LIMIT\` — *how many rows* to return.\n\nNotice the query ends with a semicolon \`;\` — that's how you tell SQL "I'm done, go run it."`,
         code: `SELECT *\nFROM lunch_orders\nLIMIT 3;`,
         codeCaption: "Ask for the first 3 rows, all columns",
         table: {
@@ -61,12 +75,36 @@ const daLesson1: DataLessonConfig = {
           ],
           rowCount: 3,
         },
+        callout: {
+          label: "Common misconception",
+          text: "The `*` in `SELECT *` is a shortcut for \"every column,\" not a typo. It's like saying \"give me the whole row.\" Later you'll often list just the columns you care about instead.",
+        },
+      },
+      {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Let's build a query step by step",
+        body: `Watch how the three words snap together into one working question. We'll build it the way a real analyst does — one piece at a time.\n\n**Step 1 — Pick the columns.** We want everything, so we start with \`SELECT *\`.\n\n**Step 2 — Name the table.** The data lives in \`lunch_orders\`, so we add \`FROM lunch_orders\`.\n\n**Step 3 — Limit the rows.** We only want a quick peek, so we cap it with \`LIMIT 2\` and finish with a semicolon.\n\nSQL reads these from top to bottom and hands back a small result table — just the first two orders, every column included.`,
+        code: `-- Step 1: which columns?  ->  all of them\n-- Step 2: which table?    ->  lunch_orders\n-- Step 3: how many rows?   ->  just 2\nSELECT *\nFROM lunch_orders\nLIMIT 2;`,
+        codeCaption: "The finished query, built three steps at a time",
+        table: {
+          columns: ["order_id", "student_name", "item", "price"],
+          values: [
+            [1, "Alex", "Pizza slice", 3.5],
+            [2, "Jordan", "Salad", 4.0],
+          ],
+          rowCount: 2,
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Lines that start with `--` are SQL **comments** — notes for humans that the database skips. Pros use them to explain *why* a query does something.",
+        },
       },
       {
         id: "ready",
         kicker: "Ready",
-        title: "Now you try it",
-        body: `In the exercises you'll practice \`SELECT\`, \`FROM\`, and \`LIMIT\` one at a time, then combine them into your very first complete query.\n\nClick **Start the exercises** when you're ready.`,
+        title: "Now it's your turn",
+        body: `You've met the three words behind every basic data question: \`SELECT\` (which columns), \`FROM\` (which table), and \`LIMIT\` (how many rows).\n\nIn the exercises you'll practice each one on its own, then combine all three into your very first complete query — exactly like the worked example above. Take it one blank at a time and read the results table after each run.\n\nClick **Start the exercises** when you're ready.`,
         callout: {
           label: "Data ethics",
           text: "These student names are fake. Never put real people's private information in a dataset unless you have permission.",

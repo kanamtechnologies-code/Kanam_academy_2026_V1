@@ -20,25 +20,25 @@ const daLesson6: DataLessonConfig = {
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
-    durationLabel: "~5 min lesson",
+    durationLabel: "~8 min lesson",
     sections: [
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "Turn many rows into one answer",
-        body: `Often you don't want the rows — you want the **summary**. "How many orders?" "What did we make in total?" "What's the average price?"\n\nThese are **aggregate** questions: they squeeze a whole column down to a single number. Then \`GROUP BY\` lets you get that number *per category*.`,
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `Until now every query handed you back **rows**. But often you don't want the rows — you want the **summary**. "How many orders?" "How much money total?" "What's the average price?" Today you'll teach SQL to do the math for you.\n\nHere's the plan:\n\n• Count rows with \`COUNT(*)\`.\n• Add up a column with \`SUM\`, and average one with \`AVG\`.\n• Use \`GROUP BY\` to get those numbers **per category** instead of for the whole table.\n\nThis is how every stats screen you've ever seen gets built: "1,204 total sales," "average rating 4.6," "posts per user," your overall grade average, a player's points-per-game. Each of those is a pile of rows squeezed down into one meaningful number.`,
         image: "/images/lessons/da-6-count.png",
         imageAlt: "Many rows collapsing into a single summary number",
         callout: {
-          label: "Where you see it",
-          text: "\"1,204 total sales,\" \"average rating 4.6,\" \"posts per user\" — every dashboard stat is an aggregate like COUNT, SUM, or AVG.",
+          label: "Why it matters",
+          text: "Summaries turn raw data into headlines. Nobody scrolls a million sales records — they read \"$2.3M in sales this month.\" Aggregates like COUNT, SUM, and AVG are how dashboards, report cards, and sports stats get made.",
         },
       },
       {
         id: "aggregate",
         kicker: "The summary functions",
         title: "COUNT, SUM, and AVG",
-        body: `Three workhorses: \`COUNT(*)\` counts rows, \`SUM(price)\` adds a number column, and \`AVG(price)\` averages it. Each returns **one** value for the whole table.`,
+        body: `These are called **aggregate functions** — "aggregate" just means "combine many things into one." Each one takes a whole column and squeezes it down to a **single** number for the entire table.\n\nThe three workhorses:\n\n• \`COUNT(*)\` — *how many* rows there are.\n• \`SUM(price)\` — *add up* every value in a number column.\n• \`AVG(price)\` — the *average* (mean) of a number column.\n\nThink of a teacher with a stack of quizzes: \`COUNT\` is "how many students turned one in," \`SUM\` is "all the points added together," and \`AVG\` is "the class average." The \`AS\` keyword renames each result so the answer reads nicely.`,
         code: `SELECT COUNT(*) AS orders,\n       SUM(price) AS total,\n       AVG(price) AS avg_price\nFROM lunch_orders;`,
         codeCaption: "Summarize the whole table",
         table: {
@@ -46,14 +46,18 @@ const daLesson6: DataLessonConfig = {
           values: [[8, 30.75, 3.84]],
           rowCount: 1,
         },
+        callout: {
+          label: "Common misconception",
+          text: "`COUNT` and `SUM` are not the same! `COUNT(*)` tells you **how many rows** (8 orders), while `SUM(price)` **adds up the values** inside a column ($30.75). One counts records, the other totals dollars.",
+        },
       },
       {
         id: "groupby",
         kicker: "Break it down",
         title: "GROUP BY summarizes per category",
-        body: `\`GROUP BY\` splits the rows into groups and runs the summary on **each group**. Group by \`item\` and count, and you learn how popular each menu item is — a label column and a number column (perfect for a chart later!).`,
+        body: `A single grand total is useful, but the real power comes from breaking it down **per category**. \`GROUP BY\` splits the rows into groups that share a value, then runs your aggregate on **each group** separately.\n\nImagine sorting a pile of orders into labeled bins — one bin per menu item — then counting how many are in each bin. \`GROUP BY item\` with \`COUNT(*)\` does exactly that, telling you how popular each item is.\n\nThe result has a **label column** (the category) and a **number column** (the summary) — the perfect shape for a bar chart later. Below is a preview; the full result has one row per unique item.`,
         code: `SELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item;`,
-        codeCaption: "Orders per item",
+        codeCaption: "Orders per item (preview of the groups)",
         table: {
           columns: ["item", "order_count"],
           values: [
@@ -69,12 +73,40 @@ const daLesson6: DataLessonConfig = {
           "`AS` renames the result column so it's readable.",
           "`GROUP BY x` → one summary row per value of `x`.",
         ],
+        callout: {
+          label: "Common misconception",
+          text: "When you mix a normal column with an aggregate — like `SELECT item, COUNT(*)` — that normal column has to appear in `GROUP BY`. Forgetting `GROUP BY item` is the #1 beginner mistake here, and SQL will complain or give a confusing answer.",
+        },
+      },
+      {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Rank the menu, step by step",
+        body: `Let's answer: *"Which lunch items are most popular?"* — counting orders per item and putting the favorite on top.\n\n**Step 1 — Pick the label + the summary.** \`SELECT item, COUNT(*) AS order_count\`.\n\n**Step 2 — Name the table.** \`FROM lunch_orders\`.\n\n**Step 3 — Make the groups.** One bin per item: \`GROUP BY item\`.\n\n**Step 4 — Rank them.** Most popular first: \`ORDER BY order_count DESC\`, then a semicolon.\n\nThe 8 orders collapse into 6 item groups, sorted so Pizza slice and Salad (2 orders each) lead the menu.`,
+        code: `-- Step 1: label + summary -> item, COUNT(*)\n-- Step 2: table           -> lunch_orders\n-- Step 3: one bin per item -> GROUP BY item\n-- Step 4: most popular top -> ORDER BY ... DESC\nSELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item\nORDER BY order_count DESC;`,
+        codeCaption: "Orders per item, most popular first",
+        table: {
+          columns: ["item", "order_count"],
+          values: [
+            ["Pizza slice", 2],
+            ["Salad", 2],
+            ["Chicken wrap", 1],
+            ["Fruit cup", 1],
+            ["Yogurt parfait", 1],
+            ["Burger", 1],
+          ],
+          rowCount: 6,
+        },
+        callout: {
+          label: "Pro tip",
+          text: "You can `ORDER BY` the renamed aggregate column (`order_count`) just like any other column. Combining `GROUP BY` with `ORDER BY ... DESC` is the standard recipe for \"most popular,\" \"top sellers,\" and \"busiest day.\"",
+        },
       },
       {
         id: "ready",
         kicker: "Ready",
-        title: "Now you try it",
-        body: `In the exercises you'll count, total, and average — then break the numbers down by group with \`GROUP BY\`.\n\nClick **Start the exercises** when you're ready.`,
+        title: "Now it's your turn",
+        body: `You can now summarize data instead of just listing it: count rows with \`COUNT(*)\`, total a column with \`SUM\`, average one with \`AVG\`, and break any of them down **per category** with \`GROUP BY\`.\n\nIn the exercises you'll count all the orders, add up the total spent, count orders per item, and finally rank the menu from most to fewest — just like the worked example.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

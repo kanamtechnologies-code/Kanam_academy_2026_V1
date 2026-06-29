@@ -24,25 +24,35 @@ const daLesson9: DataLessonConfig = {
     title: "Orders per item",
   },
   lessonModule: {
-    durationLabel: "~4 min lesson",
+    durationLabel: "~8 min lesson",
     sections: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `You can already pull numbers out of a database. Today you'll make those numbers *talk* — by turning them into a **bar chart**, the most common and most useful chart in the world.\n\nHere's your roadmap:\n\n• **Why** a chart beats a wall of numbers.\n• **How to read** a bar chart's two parts: the labels and the bars.\n• **When** a bar chart is the right pick — and when a line or pie chart wins instead.\n• A **worked example** where we read a real chart together before you build your own.\n\nPicture a video-game leaderboard, or the standings in your favorite sport. Your eye finds the longest bar or the top name *instantly* — way faster than reading a list of scores. That speed is the superpower of a good chart, and you're about to build one from a SQL query.`,
+        image: "/images/lessons/lesson-bar.png",
+        imageAlt: "A tablet showing a bar chart of quarterly sales, with one bar taller than the rest",
+        callout: {
+          label: "Why it matters",
+          text: "Sports standings, app store rankings, YouTube view counts, and election results are all bar charts. Anywhere people compare amounts across categories, a bar chart is doing the work.",
+        },
+      },
       {
         id: "why",
         kicker: "The big idea",
         title: "A bar chart compares things side by side",
-        body: `A table full of numbers is hard to read quickly. A **bar chart** turns those numbers into bars, so the tallest bar instantly shows the **biggest** value.\n\nUse a bar chart when you want to **compare separate categories** — like which lunch item is most popular, which game has the most players, or which month had the most rain.`,
-        image: "/images/lessons/lesson-bar.png",
-        imageAlt: "A tablet showing a bar chart of quarterly sales, with one bar taller than the rest",
+        body: `A table full of numbers is accurate but slow to read — your brain has to compare each value to every other value, one by one. A **bar chart** does that comparison *for* you by turning each number into a bar. The tallest bar is the biggest value, no math required.\n\nThink of bars as runners lined up at a finish line. One glance tells you who's ahead, who's behind, and by how much. That's why bar charts are everywhere: they convert "compare these amounts" into "just look."\n\nUse a bar chart whenever you want to **compare separate categories** — which lunch item is most popular, which game has the most players, which month had the most rain. Each category gets its own bar.`,
         callout: {
-          label: "Where you see it",
-          text: "Sports standings, app store rankings, YouTube view counts, and election results are all bar charts — anywhere you compare amounts across categories.",
+          label: "Common misconception",
+          text: "A bar chart compares *separate categories*, not steps in time. If your x-axis is days or months in order, you usually want a line chart instead — bars side by side hide the up-and-down trend.",
         },
       },
       {
         id: "anatomy",
         kicker: "How to read it",
         title: "Every bar chart has a label and a value",
-        body: `Here's the exact chart you'll build in this lesson. Look at the two parts:\n\n• The **labels** along the bottom (the **x-axis**) name each category — here, the **item**.\n• The **height** of each bar (the **y-axis**) shows the **number** — here, how many orders.\n\nTaller bar = bigger number. That's the whole idea.`,
+        body: `Here's the exact chart you'll build in this lesson. Every bar chart is made of just two parts, and once you see them you can read any bar chart ever made.\n\n• The **labels** along the bottom (the **x-axis**) name each category — here, the **item**.\n• The **height** of each bar (the **y-axis**) shows the **number** — here, how many orders.\n\nTaller bar = bigger number. That's the whole idea. Notice the two tallest bars (Pizza slice and Salad) jump out immediately — that's the comparison happening automatically.`,
         chart: {
           config: { type: "bar", xKey: "item", yKey: "order_count", title: "Orders per item" },
           result: {
@@ -63,22 +73,22 @@ const daLesson9: DataLessonConfig = {
         id: "when",
         kicker: "Choose wisely",
         title: "When to use a bar chart (and when not to)",
-        body: `Picking the right chart is half the skill of a data analyst.`,
+        body: `Picking the right chart is half the skill of a data analyst. The wrong chart can hide the answer or even mislead people. Here's the cheat sheet:`,
         bullets: [
           "**Use a bar chart** to compare separate categories (most popular item, top scorer).",
           "**Use a line chart** instead when your x-axis is time (orders each day).",
           "**Use a pie chart** instead when you're showing parts of one whole (each item's share of all orders).",
         ],
         callout: {
-          label: "Charts can mislead",
-          text: "If a bar chart's y-axis doesn't start at zero, small differences can look huge. Always check the bottom of the scale before you trust the picture.",
+          label: "Common misconception",
+          text: "A bar chart's bars look honest, but if the y-axis doesn't start at zero, a tiny difference can look enormous. Before you trust (or share) a bar chart, always check where the bottom of the scale begins.",
         },
       },
       {
         id: "data",
         kicker: "Your dataset",
         title: "The data you'll use: lunch_orders",
-        body: `You'll work with the **lunch_orders** table — one row per order. To build the chart, you'll **GROUP BY item** and **COUNT** the orders, which produces a **label** column (item) and a **number** column (order_count).`,
+        body: `You'll work with the **lunch_orders** table — one row per order, like the four sample rows below. Raw, it's just a list; a bar chart needs it summarized.\n\nTo get there, you'll **GROUP BY item** and **COUNT** the orders. That produces exactly two columns: a **label** column (item) and a **number** column (order_count) — the recipe every chart needs.`,
         table: {
           columns: ["student_name", "item", "price"],
           values: [
@@ -91,10 +101,30 @@ const daLesson9: DataLessonConfig = {
         },
       },
       {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Read a chart before you build one",
+        body: `Before you write any SQL, let's practice *reading* a finished chart — because that's the skill that makes you trustworthy with data. Imagine a different question: **"How many players are on each esports team?"**\n\nHere are the numbers behind the chart. **Step 1 — find the tallest bar:** Comets at 9 players is the biggest. **Step 2 — find the shortest:** Bolts at 4. **Step 3 — compare:** the Comets have more than double the Bolts. In one glance, the chart answers "who's biggest, who's smallest, and by how much."\n\nNow flip it around: to *build* this chart from a query, you'd need exactly these two columns — a label (team) and a number (players). That's the same shape you'll create from \`lunch_orders\`.`,
+        table: {
+          columns: ["team", "players"],
+          values: [
+            ["Comets", 9],
+            ["Dragons", 7],
+            ["Falcons", 6],
+            ["Bolts", 4],
+          ],
+          rowCount: 4,
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Sorting the bars from tallest to shortest turns a plain chart into a ranking. A sorted bar chart reads like a top-10 list — the story jumps right out.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
-        title: "Now you try it",
-        body: `In the exercises you'll write the query that shapes this data into a bar chart, then watch the chart appear under your results. Remember the recipe: **a label column + a number column**.\n\nClick **Start the exercises** when you're ready.`,
+        title: "Now it's your turn",
+        body: `You now know what a bar chart is for (comparing categories), how to read it (label + height), and when *not* to use it. Best of all, you know the recipe every chart needs: **a label column + a number column**.\n\nIn the exercises you'll write the query that shapes \`lunch_orders\` into a bar chart, then watch the chart appear under your results.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

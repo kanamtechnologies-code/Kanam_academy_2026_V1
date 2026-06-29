@@ -24,25 +24,35 @@ const daLesson11: DataLessonConfig = {
     title: "Orders per day this week",
   },
   lessonModule: {
-    durationLabel: "~4 min lesson",
+    durationLabel: "~8 min lesson",
     sections: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `Bar charts compare categories. Pie charts split a whole. Today you'll master the chart that shows **change** — the **line chart** — and learn to read a story that moves through time.\n\nHere's your roadmap:\n\n• **What a line chart shows** — a number rising and falling over time.\n• **How to read** trends, peaks, and dips by following the line.\n• **When** a line is the right choice (hint: it's all about the x-axis).\n• A **worked example** reading a real weekly trend before you build your own.\n\nThink of the graph in a weather app showing this week's temperatures, or your fitness tracker's daily-steps line, or the view count climbing on a video that's going viral. All of those are line charts, and they all answer the same question: *which way is this heading?*`,
+        image: "/images/lessons/lesson-line.png",
+        imageAlt: "A tablet showing a line chart of sales rising then dipping across four quarters",
+        callout: {
+          label: "Why it matters",
+          text: "Weather apps (temperature this week), fitness trackers (steps per day), and stock and video-view graphs are all line charts — anywhere you track how something changes over time.",
+        },
+      },
       {
         id: "why",
         kicker: "The big idea",
         title: "A line chart shows change over time",
-        body: `A **line chart** connects dots in order to show how a number **goes up and down over time**.\n\nUse it whenever your x-axis is **time** — days, weeks, months, years. The line lets you spot the **trend**: is it rising, falling, or bouncing around?`,
-        image: "/images/lessons/lesson-line.png",
-        imageAlt: "A tablet showing a line chart of sales rising then dipping across four quarters",
+        body: `A **line chart** connects dots in order to show how a number **goes up and down over time**.\n\nThe connecting line is the secret sauce. With separate bars, your eye has to hop from one to the next; with a line, the *slope* does the work — a steep upward line screams "growing fast," a downward slope says "dropping." You read direction instantly, the way you'd read a hiking trail going uphill or down.\n\nUse a line chart whenever your x-axis is **time** — days, weeks, months, years. It lets you spot the **trend**: is the number rising, falling, or bouncing around? That's a question a bar chart simply can't answer as clearly.`,
         callout: {
-          label: "Where you see it",
-          text: "Weather apps (temperature this week), fitness trackers (steps per day), and stock and video-view graphs are all line charts.",
+          label: "Common misconception",
+          text: "A line chart is only honest when the x-axis is *ordered* — usually time. Don't connect dots across unordered categories like \"pizza, salad, burger\"; the rising-and-falling line would imply a trend that doesn't exist. For unordered categories, use a bar chart.",
         },
       },
       {
         id: "anatomy",
         kicker: "How to read it",
         title: "Time runs left to right",
-        body: `Here's the line you'll build — one week of cafeteria orders. Notice:\n\n• The **x-axis** (bottom) is **time**: Monday → Sunday, in order.\n• The **y-axis** shows the **number** of orders.\n• The line **rises** toward Friday's **peak**, then **dips** on the weekend.\n\nFollowing the line tells the story at a glance.`,
+        body: `Here's the line you'll build — one week of cafeteria orders. Read it in three parts:\n\n• The **x-axis** (bottom) is **time**: Monday → Sunday, always in order.\n• The **y-axis** shows the **number** of orders.\n• The **shape of the line** is the story: it climbs steadily to Friday's **peak** (80 orders), then **drops** hard over the weekend.\n\nFollowing the line, you instantly see the school-week build-up and the weekend slump — no number-crunching needed. That's the power of plotting time left to right.`,
         chart: {
           config: { type: "line", xKey: "weekday", yKey: "orders", title: "Orders per day this week" },
           result: {
@@ -64,22 +74,22 @@ const daLesson11: DataLessonConfig = {
         id: "when",
         kicker: "Choose wisely",
         title: "When to use a line chart",
-        body: `The key question: *is my x-axis time?*`,
+        body: `The key question is simple: *is my x-axis time?* If yes, a line chart is almost always your best friend. If no, reach for something else.`,
         bullets: [
           "**Use a line** when the x-axis is time and you care about the trend.",
           "**Use a bar** instead for separate categories that aren't in time order.",
           "**Always sort by time** (`ORDER BY day_num`) so the line reads left to right.",
         ],
         callout: {
-          label: "Charts can mislead",
-          text: "If the days are out of order, or the y-axis is stretched, a tiny change can look like a huge spike. Keep time in order and check the scale.",
+          label: "Common misconception",
+          text: "People assume any line chart is trustworthy. But if the days are out of order, or the y-axis is stretched (or doesn't start at zero), a tiny change can look like a giant spike. Keep time in order and always check the scale.",
         },
       },
       {
         id: "data",
         kicker: "Your dataset",
         title: "The data you'll use: daily_orders",
-        body: `The **daily_orders** table has one row per day. **day_num** keeps the days in order (Mon = 1 … Sun = 7), **weekday** is the label, and **orders** is the number the line follows.`,
+        body: `The **daily_orders** table has one row per day (sample rows below). Three columns matter:\n\n• **day_num** — a number (Mon = 1 … Sun = 7) that keeps the days in the *correct* order. This is the unsung hero: sorting by it guarantees an honest line.\n• **weekday** — the label shown on the x-axis.\n• **orders** — the number the line follows up and down.`,
         table: {
           columns: ["day_num", "weekday", "orders"],
           values: [
@@ -92,10 +102,31 @@ const daLesson11: DataLessonConfig = {
         },
       },
       {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Read a trend before you build one",
+        body: `Let's read a real line together. Imagine you tracked the **daily views** on a video you posted, for five days after it went live.\n\n**Step 1 — read left to right (in time order):** views climb 120 → 340 → 900, then keep rising. **Step 2 — spot the trend:** the line goes up every single day — this video is *gaining momentum*. **Step 3 — find the steepest jump:** from Day 2 to Day 3 (340 → 900) is the biggest leap, the moment it started catching on.\n\nNotice how the *slope* told the story instantly. To build this chart from a query, you'd return a time label (day) and a number (views), sorted by day so the line never zig-zags backward.`,
+        table: {
+          columns: ["day", "views"],
+          values: [
+            ["Day 1", 120],
+            ["Day 2", 340],
+            ["Day 3", 900],
+            ["Day 4", 1500],
+            ["Day 5", 2100],
+          ],
+          rowCount: 5,
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Always sort by the time column, not the label's alphabet. Sorting weekdays alphabetically would put Fri before Mon and scramble the trend into nonsense — `ORDER BY day_num` keeps time honest.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
-        title: "Now you try it",
-        body: `In the exercises you'll order the days by time to draw an honest trend line, then find the busiest day.\n\nClick **Start the exercises** when you're ready.`,
+        title: "Now it's your turn",
+        body: `You now know a line chart shows **change over time**, how to read its slope for the trend, and the golden rule: keep time in order. The line is only as honest as its sorting.\n\nIn the exercises you'll order the days by time to draw an accurate trend line, then find the busiest day.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

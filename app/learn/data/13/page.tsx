@@ -24,25 +24,35 @@ const daLesson13: DataLessonConfig = {
     title: "Study time vs. quiz score",
   },
   lessonModule: {
-    durationLabel: "~4 min lesson",
+    durationLabel: "~8 min lesson",
     sections: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `Your charts so far have each looked at *one* number per item. Today you'll level up to the **scatter plot** — the chart that compares *two* numbers at once to reveal whether they're connected.\n\nHere's your roadmap:\n\n• **What a scatter plot answers** — do two numbers move together?\n• **How to read** dots, trends, and outliers.\n• **The golden rule**: correlation is not causation.\n• A **worked example** reading a real relationship before you build your own.\n\nThis is the chart scientists, doctors, and sports analysts reach for. Does more practice go with better free-throw percentage? Does more sleep go with faster reaction time? Today's question is the classic: *does more studying go with higher test scores?* A scatter plot can show you.`,
+        image: "/images/lessons/lesson-scatter.png",
+        imageAlt: "A scatter plot of study time versus test score, with dots trending upward",
+        callout: {
+          label: "Why it matters",
+          text: "Scientists, doctors, and sports analysts use scatter plots to spot relationships — height vs. shoe size, practice vs. performance, temperature vs. ice-cream sales.",
+        },
+      },
       {
         id: "why",
         kicker: "The big idea",
         title: "A scatter plot shows if two things are related",
-        body: `A **scatter plot** asks a powerful question: *do two numbers move together?* Each dot is one record, placed by **two** values at once.\n\nIf the dots trend **up and to the right**, the two things tend to grow together — like study time and test scores.`,
-        image: "/images/lessons/lesson-scatter.png",
-        imageAlt: "A scatter plot of study time versus test score, with dots trending upward",
+        body: `A **scatter plot** asks a powerful question: *do two numbers move together?* Every other chart so far used one number per item; a scatter plot uses **two**, placing each dot by both values at once.\n\nThink of plotting your friends by height *and* shoe size. Each friend is one dot — across for height, up for shoe size. If taller friends generally have bigger feet, the cloud of dots will tilt **up and to the right**. You're not reading any single dot; you're reading the *pattern* the whole cloud makes.\n\nThat tilt is the answer. If the dots climb up to the right, the two things tend to grow together — like study time and test scores. If they slope down, one rises as the other falls. If it's a shapeless blob, there's probably no relationship at all.`,
         callout: {
-          label: "Where you see it",
-          text: "Scientists, doctors, and sports analysts use scatter plots to spot relationships — height vs. shoe size, practice vs. performance, temperature vs. ice-cream sales.",
+          label: "Common misconception",
+          text: "Don't judge a relationship from one or two dots — read the whole cloud. A single high-scoring student who barely studied doesn't break the trend; it's just one point. The pattern of *all* the dots is what matters.",
         },
       },
       {
         id: "anatomy",
         kicker: "How to read it",
         title: "Two numbers, one dot",
-        body: `Here's the scatter plot you'll build. Notice:\n\n• The **x-axis** is one number — **study_minutes**.\n• The **y-axis** is another number — **score**.\n• Each **dot** is one student, placed by *both* of their numbers.\n\nThe dots climb from bottom-left to top-right: more studying tends to go with higher scores.`,
+        body: `Here's the scatter plot you'll build from \`study_log\`. Read it in three parts:\n\n• The **x-axis** is one number — **study_minutes** (how long they studied).\n• The **y-axis** is another number — **score** (how they did).\n• Each **dot** is one student, placed by *both* of their numbers at once.\n\nThe dots climb from bottom-left to top-right: students who studied longer tended to score higher. That upward tilt is called a **positive relationship**. Following the cloud, the story is clear before you read a single exact value.`,
         chart: {
           config: { type: "scatter", xKey: "study_minutes", yKey: "score", title: "Study time vs. quiz score" },
           result: {
@@ -59,7 +69,7 @@ const daLesson13: DataLessonConfig = {
         id: "when",
         kicker: "Choose wisely",
         title: "Reading relationships honestly",
-        body: `A scatter plot is a clue-finder, not a proof machine.`,
+        body: `A scatter plot is a clue-finder, not a proof machine. It points you toward relationships worth investigating — but reading it honestly takes care.`,
         bullets: [
           "**Use a scatter plot** when you have two numbers per record and want to see if they're related.",
           "Dots up to the right = **positive** relationship; down to the right = **negative**; no pattern = **no** relationship.",
@@ -67,14 +77,14 @@ const daLesson13: DataLessonConfig = {
         ],
         callout: {
           label: "Correlation is not causation",
-          text: "Two things moving together doesn't prove one causes the other. More studying might raise scores — or maybe motivated students both study more and score higher. Stay curious.",
+          text: "Two things moving together does NOT prove one causes the other. More studying might raise scores — or maybe motivated students both study more AND score higher, so a hidden third thing drives both. A scatter plot shows a link, never a cause. Stay curious.",
         },
       },
       {
         id: "data",
         kicker: "Your dataset",
         title: "The data you'll use: study_log",
-        body: `The **study_log** table has two numbers per student: **study_minutes** and **score**. You'll return **both** number columns, and each student becomes a dot on the plot.`,
+        body: `The **study_log** table has two numbers per student: **study_minutes** and **score** (sample rows below). There are 12 students in all.\n\nTo build the plot, you'll return **both** number columns. The first becomes the x position, the second the y position, and each student turns into one dot. No grouping or counting — the relationship is already in the raw rows.`,
         table: {
           columns: ["student_name", "study_minutes", "score"],
           values: [
@@ -87,10 +97,31 @@ const daLesson13: DataLessonConfig = {
         },
       },
       {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Read a relationship before you build one",
+        body: `Let's read a different scatter plot together — one about basketball. Imagine you tracked five players' **practice hours per week** and their **free-throw percentage**.\n\n**Step 1 — place a couple of dots:** the player with 2 hours sits low-left (55%); the player with 10 hours sits high-right (88%). **Step 2 — read the cloud:** as practice hours go up, the percentage climbs too — the dots trend up and to the right, a **positive relationship**. **Step 3 — pause on causation:** does practice *cause* better shooting? Maybe — or maybe the most talented players also choose to practice more. The plot shows a link, not a reason.\n\nTo build this chart from a query, you'd return the two number columns (hours and percent); each player becomes one dot.`,
+        table: {
+          columns: ["practice_hours", "free_throw_pct"],
+          values: [
+            [2, 55],
+            [4, 64],
+            [6, 72],
+            [8, 80],
+            [10, 88],
+          ],
+          rowCount: 5,
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Before claiming \"X causes Y,\" ask: could a third thing cause both? Could the cause run the other way? Good analysts report what the dots *show* and stay honest about what they can't prove.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
-        title: "Now you try it",
-        body: `In the exercises you'll plot the relationship, read the trend, and find who studied the most.\n\nClick **Start the exercises** when you're ready.`,
+        title: "Now it's your turn",
+        body: `You now know a scatter plot reveals whether **two numbers move together**, how to read the cloud's tilt, and the most important rule in all of data: correlation is not causation.\n\nIn the exercises you'll plot the relationship, read the trend, and find who studied the most.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

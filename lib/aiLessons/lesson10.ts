@@ -10,25 +10,35 @@ export const aiLesson10: AILessonConfig = {
   prevHref: "/learn/ai/9",
   nextHref: "/learn/ai/11",
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~9 min lesson",
     sections: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `Last lesson you learned to write a clear first prompt. Now you'll learn what the pros do *after* the first answer — because the real skill isn't a perfect opening line, it's the **back-and-forth**.\n\nToday's roadmap:\n\n• Treat AI like a conversation you steer, not a vending machine.\n• **Few-shot prompting** — show an example and the AI copies the pattern.\n• Ask for **step-by-step** reasoning to make tricky answers more reliable.\n\nThese moves are how people get AI to write better essays, study guides, and project ideas — and they take seconds to learn.`,
+        image: "/images/lessons/ai-10-better-prompt.png",
+        imageAlt: "A back-and-forth chat refining an AI answer step by step",
+        callout: {
+          label: "Why it matters",
+          text: "Whether you're polishing an essay, planning an event, or designing a poster, the magic is in the follow-ups. Knowing how to steer turns an okay answer into exactly what you pictured.",
+        },
+      },
       {
         id: "iterate",
         kicker: "The big idea",
         title: "Treat it as a conversation, not a vending machine",
-        body: `Beginners type one prompt, get an okay answer, and give up. Pros **iterate** — they refine. Don't expect perfection on the first try; instead, react to what you get: "shorter", "add an example", "make it funnier", "explain step 2 more".\n\nBecause the AI keeps the conversation in its context window, each follow-up builds on the last. Refining is where the magic happens.`,
-        image: "/images/lessons/ai-10-better-prompt.png",
-        imageAlt: "A back-and-forth chat refining an AI answer step by step",
+        body: `Beginners type one prompt, get an okay answer, and stop. Pros **iterate** — they react to what they got and ask for changes: "shorter", "add an example", "make step 2 clearer", "give me three options".\n\nThink of it like sculpting. You don't carve a statue in one swing; you rough out the shape, then refine. The first answer is your rough block of clay — the follow-ups shape it.\n\nThis works because the AI keeps the whole chat in its **context window** (its short-term memory of the conversation). Each follow-up builds on what came before, so you can zero in without re-explaining everything.`,
         callout: {
           label: "Mindset shift",
-          text: "Your first prompt is a starting point, not a final order. Steer the answer with follow-ups.",
+          text: "Your first prompt is a starting point, not a final order. Steer the answer with follow-ups until it's right.",
         },
       },
       {
         id: "examples",
         kicker: "Technique 1",
         title: "Show an example (few-shot prompting)",
-        body: `One of the most powerful tricks is to **show, don't just tell**. Give the AI an example of the style or format you want, and it will copy the pattern. This is called **few-shot prompting**.\n\nWant titles in a certain style? Show one. Want answers formatted a certain way? Demonstrate it once. The AI is a champion pattern-matcher — feed it the pattern.`,
+        body: `One of the most powerful tricks is to **show, don't just tell**. Give the AI an example of the style or format you want, and it copies the pattern. This is called **few-shot prompting** ("few-shot" = you gave it a few examples first).\n\nWhy does it work? Remember, an LLM is a champion **pattern-matcher**. A clear example is a pattern it can lock onto — far more precise than trying to describe the style in words.\n\nReal example: instead of "make these titles catchy" (the AI has to guess what catchy means to you), show one title you love turned catchy. Now it matches *your* taste.`,
         code: `"Rewrite each title to be catchy. Example:
 'Dogs are loyal' → 'Why Dogs Are Your Most Loyal Friend'
 
@@ -40,7 +50,7 @@ Now do this one:
         id: "stepwise",
         kicker: "Technique 2",
         title: "Ask for step-by-step thinking",
-        body: `For anything with reasoning — math, planning, logic — asking the AI to **work step by step** often improves accuracy. Phrases like "explain your reasoning step by step" or "let's break this into steps" push it to slow down instead of blurting a guess.\n\nYou can also ask it to **check its own answer** afterward, which catches some mistakes.`,
+        body: `For anything that needs reasoning — math, logic puzzles, planning — asking the AI to **work step by step** often improves accuracy. Phrases like "explain your reasoning step by step" or "let's break this into steps" push it to slow down instead of blurting the first thing it predicts.\n\nThink about a hard math problem in class. If you rush to the answer, you make careless mistakes; if you show your work line by line, you catch them. The AI behaves similarly — laying out steps gives it room to "reason" instead of guessing.\n\nYou can also ask it to **double-check its own answer** afterward, which catches some errors before they reach you.`,
         bullets: [
           "Add 'think step by step' for reasoning tasks.",
           "Ask it to 'show your work' so you can spot errors.",
@@ -48,10 +58,25 @@ Now do this one:
         ],
       },
       {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Refine an answer in real time",
+        body: `Say you ask: "Give me ideas for a science fair project." You get a generic list. Here's how a pro steers it home.\n\n**Step 1 — React, don't restart.** Instead of a brand-new prompt, build on the answer: "I like #3, the plant one. Make it doable in two weeks with cheap materials."\n\n**Step 2 — Add a few-shot example.** "Format each idea like this: **Title** — the question it answers — what I'd measure."\n\n**Step 3 — Ask for reasoning.** "Now walk me through the steps to actually run the plant experiment, in order."\n\nThree quick follow-ups turned a vague list into a personalized, step-by-step plan — without ever retyping your whole request.`,
+        code: `1) "Give me science fair ideas."                          → generic list
+2) "I like #3. Make it doable in 2 weeks, cheap stuff."   → focused
+3) "Format: Title — question — what I'd measure."         → few-shot
+4) "Now list the steps to run it, in order."              → step-by-step`,
+        codeCaption: "Each follow-up steers the answer closer",
+        callout: {
+          label: "Pro tip",
+          text: "When an answer is close but not perfect, name *exactly* what to change ('tighter', 'add a hook', 'three options'). Specific feedback beats starting over.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
-        title: "Direct the AI like a creative partner",
-        body: `Great prompting = clear first prompt + examples when helpful + step-by-step for reasoning + follow-ups to refine. With practice it becomes second nature.\n\nBut even a perfect prompt can produce confident errors — so next we tackle verifying AI output. Take the knowledge check first.`,
+        title: "Now it's your turn",
+        body: `Great prompting = a clear first prompt + examples when helpful + step-by-step for reasoning + follow-ups to refine. With a little practice it becomes second nature.\n\nBut here's the catch: even a perfectly steered answer can be confidently *wrong*. Next lesson tackles how to verify AI output. First, lock in today's ideas.\n\nWhen you're ready, switch to the **Knowledge check**.`,
       },
     ],
   },

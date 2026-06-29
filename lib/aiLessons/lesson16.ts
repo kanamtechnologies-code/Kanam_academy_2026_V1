@@ -9,15 +9,25 @@ export const aiLesson16: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/ai/15",
   lessonModule: {
-    durationLabel: "~9 min capstone",
+    durationLabel: "~10 min capstone",
     sections: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "What you'll learn today",
+        body: `This is it — the capstone that ties your whole AI literacy journey together. You've gone from "what even *is* AI?" to understanding how it learns, how to prompt it, how to verify it, and how to use it ethically and safely. Today you turn all of that into something you'll keep for life.\n\nRoadmap for your capstone:\n\n• A fast recap of everything you now know.\n• The **AI-Smart Citizen checklist** — five habits for any AI interaction.\n• A real task: evaluate an AI tool *you* actually use, the way an expert would.\n\nThis is where knowledge becomes a skill you carry into every app, classroom, and job ahead.`,
+        image: "/images/lessons/ai-16-capstone.png",
+        imageAlt: "A graduate surrounded by the key ideas of the AI literacy course",
+        callout: {
+          label: "Why it matters",
+          text: "New AI tools will keep appearing your whole life. The ability to size up *any* of them — what it does, where it fails, how to use it wisely — never goes out of date.",
+        },
+      },
       {
         id: "recap",
         kicker: "Capstone",
         title: "Everything you now know about AI",
-        body: `You've come a long way. You can now explain what AI is, how it senses and represents the world, how it learns, how generative AI and LLMs work, how to prompt them, how to verify their output, and how to handle bias, privacy, and the future of work.\n\nThis final lesson ties it together and turns knowledge into a personal **action plan**.`,
-        image: "/images/lessons/ai-16-capstone.png",
-        imageAlt: "A graduate surrounded by the key ideas of the AI literacy course",
+        body: `Look how far you've come. You can now explain what AI is, how it senses and represents the world, and how it **learns** from data. You understand how generative AI and **LLMs** work — predicting plausible text, not looking up guaranteed truth.\n\nYou can **prompt** with Task, Context, Role, and Format, then refine with follow-ups. You know to **verify** output because confident AI can still be wrong. And you can reason clearly about **bias**, **privacy**, **deepfakes**, academic **integrity**, and the **future of work**.\n\nThat's not trivia — that's a genuine mental model of one of the most important technologies of your lifetime.`,
         callout: {
           label: "You can now",
           text: "Define AI, explain how it learns, prompt it well, verify its answers, and use it ethically and safely. That's real AI literacy.",
@@ -27,7 +37,7 @@ export const aiLesson16: AILessonConfig = {
         id: "framework",
         kicker: "Your toolkit",
         title: "The AI-Smart Citizen checklist",
-        body: `Carry these five habits into every AI interaction:\n\n1. **Understand** — it's a pattern tool, not a mind.\n2. **Direct** — write clear prompts; refine with follow-ups.\n3. **Verify** — don't trust facts, quotes, or sources without checking.\n4. **Protect** — guard your privacy and stay skeptical of deepfakes.\n5. **Act ethically** — be honest at school, and think about fairness and impact.`,
+        body: `Boil the whole course down to five habits you can carry into every AI interaction:\n\n1. **Understand** — it's a pattern tool, not a mind. It predicts; it doesn't *know*.\n2. **Direct** — write clear prompts and refine with follow-ups.\n3. **Verify** — don't trust facts, quotes, or sources without checking.\n4. **Protect** — guard your privacy and stay skeptical of deepfakes.\n5. **Act ethically** — be honest at school, and think about fairness and impact.\n\nMemorize these five and you have a compass for any AI situation — even ones that don't exist yet.`,
         bullets: [
           "Understand what AI really is.",
           "Direct it with good prompts.",
@@ -40,17 +50,33 @@ export const aiLesson16: AILessonConfig = {
         id: "evaluate",
         kicker: "Capstone task",
         title: "Evaluate a real AI tool",
-        body: `For your capstone, pick **one AI tool you actually use** (a chatbot, a recommendation feed, a photo editor, a study app) and analyze it using this course:\n\n• What task is it a specialist at? What does it predict or generate?\n• What data does it likely use — and what might that leave out or bias?\n• Where could it be wrong, unfair, or risky to your privacy?\n• What are *your* rules for using it wisely?\n\nYou'll capture this in the reflection after the knowledge check.`,
+        body: `For your capstone, pick **one AI tool you actually use** — a chatbot, a recommendation feed (YouTube, TikTok, Spotify), a photo editor, or a study app — and analyze it using everything from this course:\n\n• What task is it a specialist at? What does it predict or generate?\n• What data does it likely use — and what might that leave out or bias?\n• Where could it be wrong, unfair, or risky to your privacy?\n• What are *your* personal rules for using it wisely?\n\nYou'll capture this in the reflection after the knowledge check.`,
         callout: {
           label: "Make it real",
           text: "The goal isn't a perfect essay — it's proving you can look at any AI tool and think clearly about it. That's the skill that lasts.",
         },
       },
       {
+        id: "worked",
+        kicker: "Worked example",
+        title: "Size up a tool: a video recommendation feed",
+        body: `Let's model the capstone with a tool you almost certainly use: the **recommendation feed** that picks your next video.\n\n**1 — What's it a specialist at?** Predicting which video will keep *you* watching, based on patterns in what you (and people like you) clicked before.\n\n**2 — What data, and what's left out?** Your watch time, likes, pauses, and searches. What it can't see: whether the content is *good for you*, true, or balanced — only whether it holds attention.\n\n**3 — Risks?** It can create a bubble (more of the same), amplify sensational or biased content because it gets clicks, and quietly track a lot about you.\n\n**4 — Your rules.** Maybe: take breaks, search on purpose instead of only scrolling, and verify shocking videos before believing them.\n\nThat's the whole course in action — and you can run this same four-step analysis on *any* AI tool.`,
+        code: `Tool: video recommendation feed
+1 Specialist at: predicting what keeps YOU watching
+2 Data: clicks, watch time, likes  →  leaves out: is it true / good for me?
+3 Risks: filter bubble, sensational content, tracking
+4 My rules: search on purpose, take breaks, verify before believing`,
+        codeCaption: "The four-step analysis on a tool you use daily",
+        callout: {
+          label: "Pro tip",
+          text: "Use these same four questions — specialty, data, risks, your rules — on any new AI tool you meet. It even works for tools that haven't been invented yet.",
+        },
+      },
+      {
         id: "ready",
-        kicker: "Final step",
-        title: "Earn your AI-Smart Citizen badge",
-        body: `Take the final knowledge check — it pulls from the whole course — then complete your capstone reflection. Finish it to earn your 🎓 AI-Smart Citizen badge.\n\nCongratulations on becoming someone who understands, directs, and questions AI. That makes you exactly the kind of person the future needs.`,
+        kicker: "Ready",
+        title: "Now it's your turn — finish strong",
+        body: `This is the finish line of the whole AI Literacy track. You started by asking what AI is; now you can understand it, direct it, verify it, protect yourself from its risks, and use it ethically. That's real AI literacy — the kind most adults don't have yet.\n\nTake the final knowledge check (it pulls from the entire course), then complete your capstone reflection to earn your 🎓 **AI-Smart Citizen** badge.\n\nWhen you're ready, switch to the **Knowledge check**. Congratulations — you've become exactly the kind of thoughtful, AI-smart person the future needs.`,
       },
     ],
   },

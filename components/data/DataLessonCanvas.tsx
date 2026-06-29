@@ -418,18 +418,23 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
           <div className="kanam-lesson-hero-overlay" />
           <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
             <div className="min-w-0">
-              <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/20 ring-1 ring-white/35 backdrop-blur">
-                  <Image src="/images/Logo.png" alt="Kanam Academy" width={24} height={24} />
+              <div className="flex items-center gap-3.5">
+                <div className="kanam-hero-brand-tile grid h-14 w-14 shrink-0 place-items-center rounded-2xl">
+                  <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} />
                 </div>
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-white/92">
-                  Data Analyst Hub
-                </p>
+                <div className="leading-tight">
+                  <p className="kanam-hero-kicker text-base font-black uppercase tracking-[0.16em] text-white md:text-lg">
+                    Data Analyst Hub
+                  </p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/75">
+                    Kanam Academy
+                  </p>
+                </div>
               </div>
-              <h1 className="mt-4 text-3xl font-black tracking-tight text-white md:text-5xl">
+              <h1 className="kanam-hero-title mt-5 text-3xl font-black tracking-tight text-white md:text-5xl">
                 {lesson.title}
               </h1>
-              <p className="mt-2 max-w-3xl text-base font-medium text-white/88 md:text-lg">
+              <p className="mt-2.5 max-w-3xl text-base font-medium text-white/90 md:text-lg">
                 {lesson.goal}
               </p>
             </div>
@@ -444,14 +449,14 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
               </Button>
             </div>
           </div>
-          <div className="relative z-10 mt-5">
-            <div className="mb-2 flex justify-between text-sm font-semibold text-white/88">
+          <div className="relative z-10 mt-6">
+            <div className="mb-2 flex justify-between text-sm font-semibold text-white/90">
               <span>
                 Exercises complete: {completedIds.size} / {lesson.exercises.length}
               </span>
               <span>{progressPercent}%</span>
             </div>
-            <Progress value={progressPercent} className="h-2.5 bg-white/25" />
+            <Progress value={progressPercent} className="h-2.5 bg-white/25" indicatorClassName="bg-white" />
           </div>
         </div>
 
