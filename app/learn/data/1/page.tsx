@@ -14,6 +14,66 @@ const daLesson1: DataLessonConfig = {
   badge: "📊 Data Spotter",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
+  lessonModule: {
+    durationLabel: "~5 min lesson",
+    sections: [
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "Data is organized information",
+        body: `Welcome to the Data Analyst Track! A data analyst's job is to **ask questions** of information and find real answers.\n\nMost data lives in **tables** — neat grids of **rows** and **columns**, just like a spreadsheet. Today's table is a list of school lunch orders.`,
+        image: "/images/lessons/da-1-table.png",
+        imageAlt: "A clean spreadsheet-style table of rows and columns",
+        callout: {
+          label: "Where you see it",
+          text: "A class roster, a sports stats sheet, an online store's order history, your music library — all of these are tables of data waiting to be questioned.",
+        },
+      },
+      {
+        id: "anatomy",
+        kicker: "How to read a table",
+        title: "Rows are records, columns are fields",
+        body: `Here's our \`lunch_orders\` table. Look at how it's built:\n\n• Each **row** is one record — a single lunch order.\n• Each **column** is one field — \`order_id\`, \`student_name\`, \`item\`, \`price\`.\n• Every row has the **same** columns, which is what makes a table tidy and searchable.`,
+        table: {
+          columns: ["order_id", "student_name", "item", "price"],
+          values: [
+            [1, "Alex", "Pizza slice", 3.5],
+            [2, "Jordan", "Salad", 4.0],
+            [3, "Sam", "Chicken wrap", 5.25],
+            [4, "Riley", "Fruit cup", 2.75],
+          ],
+          rowCount: 4,
+        },
+      },
+      {
+        id: "sql",
+        kicker: "The tool",
+        title: "SQL is how you ask the table questions",
+        body: `**SQL** (say it "sequel") is the language for talking to data tables. You write a short question and the database answers with a table of results. Your first three words:\n\n• \`SELECT\` — *which columns* you want.\n• \`FROM\` — *which table* to read.\n• \`LIMIT\` — *how many rows* to return.`,
+        code: `SELECT *\nFROM lunch_orders\nLIMIT 3;`,
+        codeCaption: "Ask for the first 3 rows, all columns",
+        table: {
+          columns: ["order_id", "student_name", "item", "price"],
+          values: [
+            [1, "Alex", "Pizza slice", 3.5],
+            [2, "Jordan", "Salad", 4.0],
+            [3, "Sam", "Chicken wrap", 5.25],
+          ],
+          rowCount: 3,
+        },
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Now you try it",
+        body: `In the exercises you'll practice \`SELECT\`, \`FROM\`, and \`LIMIT\` one at a time, then combine them into your very first complete query.\n\nClick **Start the exercises** when you're ready.`,
+        callout: {
+          label: "Data ethics",
+          text: "These student names are fake. Never put real people's private information in a dataset unless you have permission.",
+        },
+      },
+    ],
+  },
   instructorScript: `**Coach's note**:
 Welcome to the Data Analyst Track!
 

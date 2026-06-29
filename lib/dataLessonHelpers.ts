@@ -60,6 +60,82 @@ export const SCHOOL_DB_SEED: SeedTable[] = [
   },
 ];
 
+/** One week of cafeteria orders for line / time-series charts. `day_num` sorts chronologically. */
+export const WEEKLY_ORDERS_SEED: SeedTable[] = [
+  {
+    name: "daily_orders",
+    columns: [
+      { name: "day_num", type: "INTEGER" },
+      { name: "weekday", type: "TEXT" },
+      { name: "orders", type: "INTEGER" },
+    ],
+    rows: [
+      { day_num: 1, weekday: "Mon", orders: 42 },
+      { day_num: 2, weekday: "Tue", orders: 55 },
+      { day_num: 3, weekday: "Wed", orders: 48 },
+      { day_num: 4, weekday: "Thu", orders: 63 },
+      { day_num: 5, weekday: "Fri", orders: 80 },
+      { day_num: 6, weekday: "Sat", orders: 30 },
+      { day_num: 7, weekday: "Sun", orders: 25 },
+    ],
+  },
+];
+
+/** Quiz scores for histogram / distribution charts (16 rows, scores 58–100). */
+export const QUIZ_SCORES_SEED: SeedTable[] = [
+  {
+    name: "quiz_scores",
+    columns: [
+      { name: "student_name", type: "TEXT" },
+      { name: "score", type: "INTEGER" },
+    ],
+    rows: [
+      { student_name: "Alex", score: 72 },
+      { student_name: "Jordan", score: 85 },
+      { student_name: "Sam", score: 90 },
+      { student_name: "Riley", score: 68 },
+      { student_name: "Casey", score: 95 },
+      { student_name: "Morgan", score: 88 },
+      { student_name: "Taylor", score: 76 },
+      { student_name: "Jamie", score: 81 },
+      { student_name: "Quinn", score: 100 },
+      { student_name: "Devon", score: 64 },
+      { student_name: "Harper", score: 79 },
+      { student_name: "Rowan", score: 92 },
+      { student_name: "Sage", score: 58 },
+      { student_name: "Avery", score: 84 },
+      { student_name: "Reese", score: 73 },
+      { student_name: "Skyler", score: 89 },
+    ],
+  },
+];
+
+/** Study time vs. score for scatter / relationship charts (12 rows, positive association). */
+export const STUDY_SCORE_SEED: SeedTable[] = [
+  {
+    name: "study_log",
+    columns: [
+      { name: "student_name", type: "TEXT" },
+      { name: "study_minutes", type: "INTEGER" },
+      { name: "score", type: "INTEGER" },
+    ],
+    rows: [
+      { student_name: "Alex", study_minutes: 20, score: 65 },
+      { student_name: "Jordan", study_minutes: 35, score: 72 },
+      { student_name: "Sam", study_minutes: 50, score: 80 },
+      { student_name: "Riley", study_minutes: 15, score: 60 },
+      { student_name: "Casey", study_minutes: 60, score: 85 },
+      { student_name: "Morgan", study_minutes: 45, score: 78 },
+      { student_name: "Taylor", study_minutes: 70, score: 90 },
+      { student_name: "Jamie", study_minutes: 30, score: 70 },
+      { student_name: "Quinn", study_minutes: 80, score: 95 },
+      { student_name: "Devon", study_minutes: 25, score: 68 },
+      { student_name: "Harper", study_minutes: 55, score: 82 },
+      { student_name: "Rowan", study_minutes: 40, score: 75 },
+    ],
+  },
+];
+
 export function normSql(sql: string) {
   return sql.replace(/\s+/g, " ").trim().toLowerCase();
 }

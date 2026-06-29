@@ -4,9 +4,11 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  BookOpen,
   CheckCircle2,
   ChevronRight,
   Database,
+  ListChecks,
   Loader2,
   PartyPopper,
   Play,
@@ -17,6 +19,7 @@ import {
 } from "lucide-react";
 
 import { ChartPanel, type ChartConfig } from "@/components/data/ChartPanel";
+import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { ResultTable } from "@/components/data/ResultTable";
 import { SqlTextarea } from "@/components/data/SqlTextarea";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
@@ -73,6 +76,7 @@ export type DataLessonConfig = {
   dataEthicsMoment: string;
   seedData: SeedTable[];
   previewTable?: string;
+  lessonModule?: LessonModuleData;
   chartConfig?: ChartConfig;
   terminalPrompt?: string;
   prevHref?: string;
@@ -120,6 +124,17 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
   const gateSeconds = lesson.coachNoteGateSeconds ?? 0;
 
   const [animateIn, setAnimateIn] = React.useState(false);
+  const [view, setView] = React.useState<"lesson" | "exercises">(
+    lesson.lessonModule ? "lesson" : "exercises"
+  );
+
+  React.useEffect(() => {
+    if (!lesson.lessonModule) return;
+    const requested = new URLSearchParams(window.location.search).get("view");
+    if (requested === "exercises" || requested === "lesson") {
+      setView(requested);
+    }
+  }, [lesson.lessonModule]);
   const [db, setDb] = React.useState<SqlDatabase | null>(null);
   const [dbLoading, setDbLoading] = React.useState(true);
   const [dbError, setDbError] = React.useState<string | null>(null);
@@ -438,6 +453,40 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
           </div>
         </div>
 
+        {lesson.lessonModule ? (
+          <div className="mb-6 inline-flex items-center gap-1 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
+            <button
+              type="button"
+              onClick={() => setView("lesson")}
+              className={cn(
+                "flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-colors",
+                view === "lesson"
+                  ? "bg-[var(--brand)] text-white shadow-sm"
+                  : "text-slate-600 hover:bg-slate-100"
+              )}
+            >
+              <BookOpen className="h-4 w-4" />
+              Lesson
+            </button>
+            <button
+              type="button"
+              onClick={() => setView("exercises")}
+              className={cn(
+                "flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-colors",
+                view === "exercises"
+                  ? "bg-[var(--brand)] text-white shadow-sm"
+                  : "text-slate-600 hover:bg-slate-100"
+              )}
+            >
+              <ListChecks className="h-4 w-4" />
+              Exercises
+            </button>
+          </div>
+        ) : null}
+
+        {lesson.lessonModule && view === "lesson" ? (
+          <LessonModule module={lesson.lessonModule} onStart={() => setView("exercises")} />
+        ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
           <div className="space-y-4">
             <Card className="border-[rgb(var(--accent-rgb)/0.55)] shadow-md">
@@ -738,6 +787,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
             )}
           </div>
         </div>
+        )}
       </div>
     </WelcomeBackground>
   );

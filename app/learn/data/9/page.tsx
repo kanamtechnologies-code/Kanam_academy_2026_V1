@@ -23,6 +23,81 @@ const daLesson9: DataLessonConfig = {
     yKey: "order_count",
     title: "Orders per item",
   },
+  lessonModule: {
+    durationLabel: "~4 min lesson",
+    sections: [
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "A bar chart compares things side by side",
+        body: `A table full of numbers is hard to read quickly. A **bar chart** turns those numbers into bars, so the tallest bar instantly shows the **biggest** value.\n\nUse a bar chart when you want to **compare separate categories** — like which lunch item is most popular, which game has the most players, or which month had the most rain.`,
+        image: "/images/lessons/lesson-bar.png",
+        imageAlt: "A tablet showing a bar chart of quarterly sales, with one bar taller than the rest",
+        callout: {
+          label: "Where you see it",
+          text: "Sports standings, app store rankings, YouTube view counts, and election results are all bar charts — anywhere you compare amounts across categories.",
+        },
+      },
+      {
+        id: "anatomy",
+        kicker: "How to read it",
+        title: "Every bar chart has a label and a value",
+        body: `Here's the exact chart you'll build in this lesson. Look at the two parts:\n\n• The **labels** along the bottom (the **x-axis**) name each category — here, the **item**.\n• The **height** of each bar (the **y-axis**) shows the **number** — here, how many orders.\n\nTaller bar = bigger number. That's the whole idea.`,
+        chart: {
+          config: { type: "bar", xKey: "item", yKey: "order_count", title: "Orders per item" },
+          result: {
+            columns: ["item", "order_count"],
+            values: [
+              ["Pizza slice", 2],
+              ["Salad", 2],
+              ["Burger", 1],
+              ["Chicken wrap", 1],
+              ["Fruit cup", 1],
+              ["Yogurt parfait", 1],
+            ],
+            rowCount: 6,
+          },
+        },
+      },
+      {
+        id: "when",
+        kicker: "Choose wisely",
+        title: "When to use a bar chart (and when not to)",
+        body: `Picking the right chart is half the skill of a data analyst.`,
+        bullets: [
+          "**Use a bar chart** to compare separate categories (most popular item, top scorer).",
+          "**Use a line chart** instead when your x-axis is time (orders each day).",
+          "**Use a pie chart** instead when you're showing parts of one whole (each item's share of all orders).",
+        ],
+        callout: {
+          label: "Charts can mislead",
+          text: "If a bar chart's y-axis doesn't start at zero, small differences can look huge. Always check the bottom of the scale before you trust the picture.",
+        },
+      },
+      {
+        id: "data",
+        kicker: "Your dataset",
+        title: "The data you'll use: lunch_orders",
+        body: `You'll work with the **lunch_orders** table — one row per order. To build the chart, you'll **GROUP BY item** and **COUNT** the orders, which produces a **label** column (item) and a **number** column (order_count).`,
+        table: {
+          columns: ["student_name", "item", "price"],
+          values: [
+            ["Alex", "Pizza slice", 3.5],
+            ["Jordan", "Salad", 4.0],
+            ["Sam", "Chicken wrap", 5.25],
+            ["Casey", "Pizza slice", 3.5],
+          ],
+          rowCount: 4,
+        },
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Now you try it",
+        body: `In the exercises you'll write the query that shapes this data into a bar chart, then watch the chart appear under your results. Remember the recipe: **a label column + a number column**.\n\nClick **Start the exercises** when you're ready.`,
+      },
+    ],
+  },
   instructorScript: `**Coach's note**:
 Numbers in a table are useful — but a **chart** makes the story obvious at a glance.
 

@@ -82,6 +82,49 @@ export const lesson9: PythonLessonConfig = {
   ],
   aiSafetyMoment:
     "AI safety: Organized memory makes AI systems more powerful. Mistakes in labels or data can cause problems. Responsible AI means choosing labels carefully, checking stored information, and not saving things that shouldn't be saved.",
+  lessonModule: {
+    durationLabel: "~5 min lesson",
+    sections: [
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "Organize your AI's memory with labels",
+        body: `A list remembers many things — but it doesn't know what each item *means*. It's like a backpack full of stuff with no labels.\n\nToday you'll use a **dictionary**: memory with **labels**. Think of a set of labeled drawers — one drawer \`"name"\`, one \`"age"\`, one \`"favorite_color"\` — where each label points straight to the right information.`,
+        image: "/images/lessons/py-9-dictionary.png",
+        imageAlt: "A cabinet of labeled drawers, each holding a different item",
+        callout: {
+          label: "Where you see it",
+          text: "A contact card (name, phone, email), a game character's stats (health, level, score), and your account profile are all dictionaries — labeled values.",
+        },
+      },
+      {
+        id: "keyvalue",
+        kicker: "Building block",
+        title: "Keys and values",
+        body: `A dictionary uses **curly braces** \`{}\`. Each entry is a **key** (the label) paired with a **value** (the information). You store a value by its key, and read it back by the same key.`,
+        code: `profile = {}\nprofile["name"] = "Alex"\nprofile["favorite_color"] = "blue"\nprint("Name: " + profile["name"])`,
+        codeCaption: "Labeled memory in action",
+        output: `Name: Alex`,
+      },
+      {
+        id: "exact",
+        kicker: "Gotcha",
+        title: "Keys must match exactly",
+        body: `Python is **literal**. To read a value you must spell the key *exactly* the same — same letters, same quotes. \`profile["Name"]\` is not the same as \`profile["name"]\`.\n\nA wrong or missing key causes a **KeyError**.`,
+        bullets: [
+          "`{}` makes an empty dictionary.",
+          "`profile[\"key\"] = value` stores a labeled value.",
+          "`profile[\"key\"]` reads it back — spelling and quotes must match.",
+        ],
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Build an organized profile",
+        body: `In the exercises you'll create a dictionary, store at least two labeled values, then use one inside a sentence your bot prints.\n\nClick **Start the exercises** when you're ready.`,
+      },
+    ],
+  },
   exercises: [
     {
       id: "ex-empty-dict",

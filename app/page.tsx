@@ -24,7 +24,7 @@ import {
   trackProgress,
   totalXpAcrossTracks,
   TRACKS,
-  weekSessionLabelFromIndex,
+  weekSessionLabel,
 } from "@/lib/tracks";
 
 const USER_NAME_KEY = "kanam.userName";
@@ -45,11 +45,6 @@ export default function Home() {
   const totalXp = totalXpAcrossTracks(completedIds);
   const activeTrack = activeTab === "data-analyst" ? dataTrack : pythonTrack;
   const activeTrackProgress = trackProgress(completedIds, activeTrack.lessons);
-  const completedLessonCount = TRACKS.reduce(
-    (sum, track) => sum + track.lessons.filter((l) => completedIds.includes(l.id)).length,
-    0
-  );
-  const totalLessonCount = TRACKS.reduce((sum, track) => sum + track.lessons.length, 0);
 
   const resetProgress = async () => {
     if (!studentDbId) return;
@@ -159,7 +154,11 @@ export default function Home() {
                 </p>
                 <p className="mt-1 flex items-center gap-2 text-2xl font-black text-white">
                   <BookOpenCheck className="h-5 w-5 text-white/90" />
-                  {completedLessonCount}/{totalLessonCount}
+                  {hasSavedProgress ? activeTrackProgress.completedCount : 0}/
+                  {activeTrackProgress.totalCount}
+                </p>
+                <p className="mt-1 text-xs font-semibold text-white/80">
+                  in {activeTrack.title}
                 </p>
               </div>
               <div className="kanam-dashboard-stat rounded-2xl p-4">
@@ -183,7 +182,7 @@ export default function Home() {
                     <Flame className="h-4 w-4" />
                     Continue: {activeTrackProgress.nextLesson.title}
                     <span className="text-xs text-[var(--brand)]/80">
-                      ({weekSessionLabelFromIndex(Math.max(0, activeTrackProgress.activeIndex))})
+                      ({weekSessionLabel(activeTrackProgress.nextLesson)})
                     </span>
                   </Link>
                 </Button>
@@ -256,6 +255,10 @@ export default function Home() {
               {!dataUnlocked ? (
                 <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
                   Locked
+                </span>
+              ) : dataTrack.lessons.some((l) => l.hasLesson) ? (
+                <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
+                  📖 Guided lessons
                 </span>
               ) : null}
             </TabsTrigger>

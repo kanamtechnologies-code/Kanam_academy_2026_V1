@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { CheckCircle2, Lock, Play, Trophy } from "lucide-react";
+import { BookOpen, CheckCircle2, ListChecks, Lock, Play, Trophy } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
   type Track,
-  weekSessionLabelFromIndex,
+  weekSessionLabel,
+  weeksForTrack,
   trackProgress,
 } from "@/lib/tracks";
 
@@ -92,7 +93,7 @@ export function TrackRoadmap({
                 <Play className="h-4 w-4" />
                 Next step: {nextLesson.title}{" "}
                 <span className="text-white/80">
-                  ({weekSessionLabelFromIndex(Math.max(0, activeIndex))})
+                  ({weekSessionLabel(nextLesson)})
                 </span>
               </Link>
             </Button>
@@ -155,83 +156,154 @@ function TrackRoadmapContent({
       </Card>
 
       <div className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
-        <div className="space-y-3">
+        <div className="space-y-4">
           <div className="flex items-center gap-2">
             <Trophy className="h-5 w-5 text-[var(--accent)]" />
-            <h2 className="text-lg font-black tracking-tight text-slate-900">Learning path</h2>
+            <h2 className="text-lg font-black tracking-tight text-slate-900">
+              Learning path · 8-week program
+            </h2>
           </div>
-          <div className="space-y-3">
-            {track.lessons.map((lesson, idx) => {
-              const completed = completedIds.includes(lesson.id);
-              const isActive = idx === activeIndex && !completed && !lesson.comingSoon;
-              const canStart = lesson.href && !lesson.comingSoon && !disableActions;
+          {weeksForTrack(track.id).map((wk) => {
+            const weekLessons = track.lessons.filter((l) => l.week === wk.week);
+            if (weekLessons.length === 0) return null;
+            const weekDone = weekLessons.every((l) => completedIds.includes(l.id));
+            return (
+              <div key={wk.week} className="space-y-3">
+                <div className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                  <div
+                    className={[
+                      "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-xs font-black",
+                      weekDone
+                        ? "bg-[var(--brand)] text-white"
+                        : "bg-white text-slate-700 ring-1 ring-slate-200",
+                    ].join(" ")}
+                  >
+                    W{wk.week}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-black tracking-tight text-slate-900">
+                      Week {wk.week} — {wk.theme}
+                    </p>
+                    <p className="text-xs font-medium text-slate-500">{wk.focus}</p>
+                  </div>
+                </div>
 
-              return (
-                <Card
-                  key={lesson.id}
-                  className={[
-                    "border shadow-sm transition-all",
-                    completed
-                      ? "border-[var(--brand)]/60 bg-[var(--brand)]/5"
-                      : isActive
-                        ? "border-[var(--brand)] bg-white shadow-[0_0_0_1px_rgba(24,161,109,0.25)]"
-                        : "border-slate-200",
-                    lesson.comingSoon ? "opacity-80" : "",
-                  ].join(" ")}
-                >
-                  <CardContent className="flex items-center justify-between gap-4 p-5">
-                    <div className="flex items-start gap-3">
-                      <div className="mt-0.5">
-                        {completed ? (
-                          <CheckCircle2 className="h-5 w-5 text-[var(--brand)]" />
-                        ) : lesson.comingSoon ? (
-                          <Lock className="h-5 w-5 text-slate-400" />
-                        ) : (
-                          <Play className="h-5 w-5 text-[var(--accent)]" />
-                        )}
-                      </div>
-                      <div>
-                        <p className="text-xs text-slate-500">
-                          {weekSessionLabelFromIndex(idx)}
-                          {isActive ? (
-                            <span className="ml-2 rounded-full bg-[var(--brand)]/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--brand)]">
-                              Next lesson
-                            </span>
+                {weekLessons.map((lesson) => {
+                  const idx = track.lessons.indexOf(lesson);
+                  const completed = completedIds.includes(lesson.id);
+                  const isActive = idx === activeIndex && !completed && !lesson.comingSoon;
+                  const canStart = lesson.href && !lesson.comingSoon && !disableActions;
+
+                  return (
+                    <Card
+                      key={lesson.id}
+                      className={[
+                        "ml-3 border shadow-sm transition-all",
+                        completed
+                          ? "border-[var(--brand)]/60 bg-[var(--brand)]/5"
+                          : isActive
+                            ? "border-[var(--brand)] bg-white shadow-[0_0_0_1px_rgba(24,161,109,0.25)]"
+                            : "border-slate-200",
+                        lesson.comingSoon ? "opacity-80" : "",
+                      ].join(" ")}
+                    >
+                      <CardContent className="p-5">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-start gap-3">
+                            <div className="mt-0.5">
+                              {completed ? (
+                                <CheckCircle2 className="h-5 w-5 text-[var(--brand)]" />
+                              ) : lesson.comingSoon ? (
+                                <Lock className="h-5 w-5 text-slate-400" />
+                              ) : (
+                                <Play className="h-5 w-5 text-[var(--accent)]" />
+                              )}
+                            </div>
+                            <div>
+                              <p className="text-xs text-slate-500">
+                                {weekSessionLabel(lesson)}
+                                {isActive ? (
+                                  <span className="ml-2 rounded-full bg-[var(--brand)]/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--brand)]">
+                                    Next lesson
+                                  </span>
+                                ) : null}
+                                {lesson.comingSoon ? (
+                                  <span className="ml-2 rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-600">
+                                    Coming soon
+                                  </span>
+                                ) : null}
+                              </p>
+                              <p className="mt-1 text-base font-black tracking-tight text-slate-900">
+                                {lesson.title}
+                              </p>
+                              <p className="mt-1 text-xs font-semibold text-slate-500">
+                                +{lesson.xp} XP · {lesson.badgeIcon} {lesson.badgeName}
+                              </p>
+                            </div>
+                          </div>
+                          {!lesson.hasLesson ? (
+                            <div className="shrink-0">
+                              {completed && canStart ? (
+                                <Button asChild variant="secondary">
+                                  <Link href={lesson.href!}>Review</Link>
+                                </Button>
+                              ) : canStart ? (
+                                <Button asChild className="px-6 font-bold">
+                                  <Link href={lesson.href!}>Start</Link>
+                                </Button>
+                              ) : lesson.comingSoon ? (
+                                <Button disabled variant="secondary">
+                                  Soon
+                                </Button>
+                              ) : null}
+                            </div>
                           ) : null}
-                          {lesson.comingSoon ? (
-                            <span className="ml-2 rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-600">
-                              Coming soon
-                            </span>
-                          ) : null}
-                        </p>
-                        <p className="mt-1 text-base font-black tracking-tight text-slate-900">
-                          {lesson.title}
-                        </p>
-                        <p className="mt-1 text-xs font-semibold text-slate-500">
-                          +{lesson.xp} XP · {lesson.badgeIcon} {lesson.badgeName}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="shrink-0">
-                      {completed && canStart ? (
-                        <Button asChild variant="secondary">
-                          <Link href={lesson.href!}>Review</Link>
-                        </Button>
-                      ) : canStart ? (
-                        <Button asChild className="px-6 font-bold">
-                          <Link href={lesson.href!}>Start</Link>
-                        </Button>
-                      ) : lesson.comingSoon ? (
-                        <Button disabled variant="secondary">
-                          Soon
-                        </Button>
-                      ) : null}
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                        </div>
+
+                        {lesson.hasLesson && canStart ? (
+                          <div className="mt-4 grid gap-3 border-t border-slate-100 pt-4 sm:grid-cols-2">
+                            <Button
+                              asChild
+                              size="lg"
+                              className="h-auto justify-start gap-3 py-3"
+                            >
+                              <Link href={`${lesson.href}?view=lesson`}>
+                                <BookOpen className="h-5 w-5 shrink-0" />
+                                <span className="flex flex-col items-start leading-tight">
+                                  <span className="text-[10px] font-bold uppercase tracking-wide text-white/80">
+                                    Step 1 · Learn it
+                                  </span>
+                                  <span className="text-sm font-black">Open the Lesson</span>
+                                </span>
+                              </Link>
+                            </Button>
+                            <Button
+                              asChild
+                              size="lg"
+                              variant="outline"
+                              className="h-auto justify-start gap-3 border-[var(--brand)]/40 py-3 text-[var(--brand-2)] hover:bg-[var(--brand)]/5"
+                            >
+                              <Link href={`${lesson.href}?view=exercises`}>
+                                <ListChecks className="h-5 w-5 shrink-0" />
+                                <span className="flex flex-col items-start leading-tight">
+                                  <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
+                                    Step 2 · Practice
+                                  </span>
+                                  <span className="text-sm font-black">
+                                    {completed ? "Review the Activity" : "Do the Activity"}
+                                  </span>
+                                </span>
+                              </Link>
+                            </Button>
+                          </div>
+                        ) : null}
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            );
+          })}
         </div>
 
         <div className="space-y-3">

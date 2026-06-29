@@ -6,6 +6,21 @@ export type LessonRow = {
   badgeName: string;
   badgeIcon: string;
   comingSoon?: boolean;
+  /** 1–8: which week of the 8-week program this lesson belongs to. */
+  week: number;
+  /** Session number within the week (1 = first session, 2 = second). */
+  session: number;
+  /**
+   * When true, this lesson opens with a guided teaching module ("Lesson") before
+   * the hands-on activity. The dashboard surfaces a separate Lesson + Activity entry.
+   */
+  hasLesson?: boolean;
+};
+
+export type WeekPlan = {
+  week: number;
+  theme: string;
+  focus: string;
 };
 
 export type Track = {
@@ -31,6 +46,12 @@ export function isDataAnalystTrackUnlocked(_completedIds: string[]): boolean {
   return DATA_ANALYST_PREREQUISITES.every((id) => _completedIds.includes(id));
 }
 
+/** Human label for a lesson's place in the 8-week program. */
+export function weekSessionLabel(lesson: Pick<LessonRow, "week" | "session">) {
+  return `Week ${lesson.week} · Session ${lesson.session}`;
+}
+
+/** @deprecated Use {@link weekSessionLabel} with the lesson's explicit week/session. */
 export function weekSessionLabelFromIndex(idx: number) {
   const week = Math.floor(idx / 2) + 1;
   const session = (idx % 2) + 1;
@@ -49,33 +70,59 @@ export function trackProgress(completedIds: string[], lessons: LessonRow[]) {
   return { completedCount, totalCount, percent, totalXp, activeIndex, nextLesson };
 }
 
+export const PYTHON_WEEKS: WeekPlan[] = [
+  { week: 1, theme: "Meet Your AI Helper", focus: "Output, variables, and input — your AI says hello and listens." },
+  { week: 2, theme: "Teaching AI to Decide", focus: "Conditionals: if / else and chained if / elif / else rules." },
+  { week: 3, theme: "Repeating Work", focus: "for loops and combining a loop with a rule to make patterns." },
+  { week: 4, theme: "Patterns & State", focus: "Loops that build up a value (counters/accumulators) + a checkpoint review." },
+  { week: 5, theme: "Giving AI a Memory", focus: "Lists and dictionaries — storing many values and looking them up by name." },
+  { week: 6, theme: "Reusable Skills", focus: "Functions and parameters — package a skill once, reuse it everywhere." },
+  { week: 7, theme: "Smart, Rule-Driven AI", focus: "Rules inside functions, then plan your capstone NPC." },
+  { week: 8, theme: "Capstone: Build Your AI NPC", focus: "Combine everything into one project, test it, and reflect." },
+];
+
+export const DATA_ANALYST_WEEKS: WeekPlan[] = [
+  { week: 1, theme: "What Data Is", focus: "Rows, columns, and your first SELECT queries." },
+  { week: 2, theme: "Choosing & Filtering", focus: "Pick the columns you need and filter rows with WHERE." },
+  { week: 3, theme: "Sorting & Summarizing", focus: "ORDER BY for ranking, then COUNT / SUM / AVG with GROUP BY." },
+  { week: 4, theme: "Connecting & Sharpening", focus: "JOIN two tables, then layer WHERE + GROUP BY + HAVING." },
+  { week: 5, theme: "Comparing with Charts", focus: "Bar charts (compare categories) and pie charts (parts of a whole)." },
+  { week: 6, theme: "Trends & Spread", focus: "Line charts (change over time) and histograms (distributions)." },
+  { week: 7, theme: "Relationships & Planning", focus: "Scatter plots (are two numbers related?) + plan your capstone." },
+  { week: 8, theme: "Capstone: Your Data Project", focus: "Run a full investigation: explore → join → summarize → visualize → conclude." },
+];
+
 const PYTHON_LESSONS: LessonRow[] = [
-  { id: "lesson-1", title: "My First AI Helper", href: "/learn/1", xp: 50, badgeName: "The Awakener", badgeIcon: "🤖" },
-  { id: "lesson-2", title: "My AI Helper Listens", href: "/learn/2", xp: 100, badgeName: "Listener", badgeIcon: "👂" },
-  { id: "lesson-3", title: "My AI Makes Choices", href: "/learn/3", xp: 150, badgeName: "Decision Maker", badgeIcon: "🧠" },
-  { id: "lesson-4", title: "Smarter AI Rules", href: "/learn/4", xp: 250, badgeName: "Rule Builder", badgeIcon: "🧠" },
-  { id: "lesson-5", title: "AI Repeats Tasks", href: "/learn/5", xp: 300, badgeName: "Loop Starter", badgeIcon: "🔁" },
-  { id: "lesson-6", title: "Patterns and Predictions", href: "/learn/6", xp: 350, badgeName: "Pattern Finder", badgeIcon: "🔍" },
-  { id: "lesson-7", title: "AI Notices Patterns", href: "/learn/7", xp: 400, badgeName: "Pattern Spotter", badgeIcon: "🧠" },
-  { id: "lesson-8", title: "AI Remembers Choices", href: "/learn/8", xp: 450, badgeName: "Memory Builder", badgeIcon: "🧺" },
-  { id: "lesson-9", title: "Organizing Memory", href: "/learn/9", xp: 500, badgeName: "Memory Organizer", badgeIcon: "🗂️" },
-  { id: "lesson-10", title: "Teaching the Bot Skills (Functions)", href: "/learn/10", xp: 550, badgeName: "Skill Builder", badgeIcon: "🧩" },
-  { id: "lesson-11", title: "Giving Functions Better Information (Parameters)", href: "/learn/11", xp: 600, badgeName: "Parameter Pro", badgeIcon: "🎮" },
-  { id: "lesson-12", title: "Guiding AI with Rules", href: "/learn/12", xp: 650, badgeName: "Rule Guide", badgeIcon: "🛡️" },
-  { id: "lesson-13", title: "Build Your AI NPC", href: "/learn/13", xp: 700, badgeName: "Designer", badgeIcon: "🎨" },
+  { id: "lesson-1", title: "My First AI Helper", href: "/learn/1", xp: 50, badgeName: "The Awakener", badgeIcon: "🤖", week: 1, session: 1, hasLesson: true },
+  { id: "lesson-2", title: "My AI Helper Listens", href: "/learn/2", xp: 100, badgeName: "Listener", badgeIcon: "👂", week: 1, session: 2, hasLesson: true },
+  { id: "lesson-3", title: "My AI Makes Choices", href: "/learn/3", xp: 150, badgeName: "Decision Maker", badgeIcon: "🧠", week: 2, session: 1, hasLesson: true },
+  { id: "lesson-4", title: "Smarter AI Rules", href: "/learn/4", xp: 250, badgeName: "Rule Builder", badgeIcon: "🧠", week: 2, session: 2, hasLesson: true },
+  { id: "lesson-5", title: "AI Repeats Tasks", href: "/learn/5", xp: 300, badgeName: "Loop Starter", badgeIcon: "🔁", week: 3, session: 1, hasLesson: true },
+  { id: "lesson-6", title: "Patterns and Predictions", href: "/learn/6", xp: 350, badgeName: "Pattern Finder", badgeIcon: "🔍", week: 3, session: 2, hasLesson: true },
+  { id: "lesson-7", title: "AI Notices Patterns", href: "/learn/7", xp: 400, badgeName: "Pattern Spotter", badgeIcon: "🧠", week: 4, session: 1, hasLesson: true },
+  { id: "lesson-8", title: "AI Remembers Choices", href: "/learn/8", xp: 450, badgeName: "Memory Builder", badgeIcon: "🧺", week: 5, session: 1, hasLesson: true },
+  { id: "lesson-9", title: "Organizing Memory", href: "/learn/9", xp: 500, badgeName: "Memory Organizer", badgeIcon: "🗂️", week: 5, session: 2, hasLesson: true },
+  { id: "lesson-10", title: "Teaching the Bot Skills (Functions)", href: "/learn/10", xp: 550, badgeName: "Skill Builder", badgeIcon: "🧩", week: 6, session: 1, hasLesson: true },
+  { id: "lesson-11", title: "Giving Functions Better Information (Parameters)", href: "/learn/11", xp: 600, badgeName: "Parameter Pro", badgeIcon: "🎮", week: 6, session: 2, hasLesson: true },
+  { id: "lesson-12", title: "Guiding AI with Rules", href: "/learn/12", xp: 650, badgeName: "Rule Guide", badgeIcon: "🛡️", week: 7, session: 1, hasLesson: true },
+  { id: "lesson-13", title: "Build Your AI NPC", href: "/learn/13", xp: 700, badgeName: "Designer", badgeIcon: "🎨", week: 8, session: 1, hasLesson: true },
 ];
 
 const DATA_ANALYST_LESSONS: LessonRow[] = [
-  { id: "da-1", title: "What Is Data?", href: "/learn/data/1", xp: 50, badgeName: "Data Spotter", badgeIcon: "📊" },
-  { id: "da-2", title: "Your First Query", href: "/learn/data/2", xp: 100, badgeName: "Query Starter", badgeIcon: "🔎" },
-  { id: "da-3", title: "Pick the Columns You Need", href: "/learn/data/3", xp: 150, badgeName: "Column Picker", badgeIcon: "📋" },
-  { id: "da-4", title: "Find What You're Looking For", href: "/learn/data/4", xp: 200, badgeName: "Filter Finder", badgeIcon: "🎯" },
-  { id: "da-5", title: "Sort and Rank", href: "/learn/data/5", xp: 250, badgeName: "Rank Master", badgeIcon: "🏆" },
-  { id: "da-6", title: "Count and Summarize", href: "/learn/data/6", xp: 300, badgeName: "Summary Pro", badgeIcon: "🧮" },
-  { id: "da-7", title: "Combine Tables", href: "/learn/data/7", xp: 350, badgeName: "Table Joiner", badgeIcon: "🔗" },
-  { id: "da-8", title: "Ask Better Questions", href: "/learn/data/8", xp: 400, badgeName: "Question Asker", badgeIcon: "💡" },
-  { id: "da-9", title: "Tell the Story with Charts", href: "/learn/data/9", xp: 450, badgeName: "Chart Maker", badgeIcon: "📈" },
-  { id: "da-10", title: "Your Data Project", href: "/learn/data/10", xp: 500, badgeName: "Data Analyst", badgeIcon: "🎓" },
+  { id: "da-1", title: "What Is Data?", href: "/learn/data/1", xp: 50, badgeName: "Data Spotter", badgeIcon: "📊", week: 1, session: 1, hasLesson: true },
+  { id: "da-2", title: "Your First Query", href: "/learn/data/2", xp: 100, badgeName: "Query Starter", badgeIcon: "🔎", week: 1, session: 2, hasLesson: true },
+  { id: "da-3", title: "Pick the Columns You Need", href: "/learn/data/3", xp: 150, badgeName: "Column Picker", badgeIcon: "📋", week: 2, session: 1, hasLesson: true },
+  { id: "da-4", title: "Find What You're Looking For", href: "/learn/data/4", xp: 200, badgeName: "Filter Finder", badgeIcon: "🎯", week: 2, session: 2, hasLesson: true },
+  { id: "da-5", title: "Sort and Rank", href: "/learn/data/5", xp: 250, badgeName: "Rank Master", badgeIcon: "🏆", week: 3, session: 1, hasLesson: true },
+  { id: "da-6", title: "Count and Summarize", href: "/learn/data/6", xp: 300, badgeName: "Summary Pro", badgeIcon: "🧮", week: 3, session: 2, hasLesson: true },
+  { id: "da-7", title: "Combine Tables", href: "/learn/data/7", xp: 350, badgeName: "Table Joiner", badgeIcon: "🔗", week: 4, session: 1, hasLesson: true },
+  { id: "da-8", title: "Ask Better Questions", href: "/learn/data/8", xp: 400, badgeName: "Question Asker", badgeIcon: "💡", week: 4, session: 2, hasLesson: true },
+  { id: "da-9", title: "Tell the Story with Charts", href: "/learn/data/9", xp: 450, badgeName: "Chart Maker", badgeIcon: "📈", week: 5, session: 1, hasLesson: true },
+  { id: "da-10", title: "Parts of a Whole", href: "/learn/data/10", xp: 500, badgeName: "Slice Master", badgeIcon: "🥧", week: 5, session: 2, hasLesson: true },
+  { id: "da-11", title: "Change Over Time", href: "/learn/data/11", xp: 550, badgeName: "Trend Spotter", badgeIcon: "📉", week: 6, session: 1, hasLesson: true },
+  { id: "da-12", title: "Distributions", href: "/learn/data/12", xp: 600, badgeName: "Distribution Detective", badgeIcon: "📊", week: 6, session: 2, hasLesson: true },
+  { id: "da-13", title: "Relationships", href: "/learn/data/13", xp: 650, badgeName: "Relationship Finder", badgeIcon: "🔬", week: 7, session: 1, hasLesson: true },
+  { id: "da-14", title: "Your Data Project", href: "/learn/data/14", xp: 700, badgeName: "Data Analyst", badgeIcon: "🎓", week: 8, session: 1, hasLesson: true },
 ];
 
 export const TRACKS: Track[] = [
@@ -97,6 +144,11 @@ export const TRACKS: Track[] = [
 
 export function getTrack(id: Track["id"]): Track | undefined {
   return TRACKS.find((t) => t.id === id);
+}
+
+/** The 8-week plan for a track. */
+export function weeksForTrack(id: Track["id"]): WeekPlan[] {
+  return id === "python-starter" ? PYTHON_WEEKS : DATA_ANALYST_WEEKS;
 }
 
 export function totalXpAcrossTracks(completedIds: string[]): number {

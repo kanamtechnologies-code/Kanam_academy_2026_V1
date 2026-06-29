@@ -3,8 +3,11 @@
 This folder is the **authoritative curriculum documentation** for Kanam Academy. It is written
 to support **accreditation review** and adoption by schools, districts, and pilot partners.
 
-- [Python & AI Foundations Track](python-track.md) — 13 lessons (fundamentals focus)
-- [Data Analyst Track](data-analyst-track.md) — 10 lessons (data-visualization focus)
+Both tracks are structured as **8-week programs** (two sessions per week) designed to be completed
+**self-paced or with light assistance** — no subject-matter expertise required from a supporting adult.
+
+- [Python & AI Foundations Track](python-track.md) — **8 weeks**, 13 interactive lessons (fundamentals focus)
+- [Data Analyst Track](data-analyst-track.md) — **8 weeks**, 14 interactive lessons (data-visualization focus)
 - [Master Standards Alignment Matrix](standards-alignment.md) — accreditation crosswalk
 
 ---
@@ -64,7 +67,23 @@ This curriculum is intentionally weighted toward two pillars:
 
 ## 4. Instructional model
 
-Every lesson uses the same research-based structure, delivered live (Zoom-style) or self-paced:
+### 8-week structure (both tracks)
+
+Each track is paced over **8 weeks** with **two sessions per week**. Weeks are themed units that build
+in a deliberate sequence, with **checkpoint** and **planning** sessions placed to prevent the gaps where
+self-paced learners typically stall (combining concepts; the pre-capstone cliff). The dashboard mirrors
+this structure with grouped **"Week _ · Session _"** labels.
+
+Three ways to run it, no adult expertise required:
+
+- **Self-paced** — the learner follows the weeks; every lesson explains, checks, and corrects itself.
+- **With light assistance** — a mentor runs the weekly **Warm-up** and **Talk-about-it** prompts and
+  watches the **checkpoint**, stepping in only when a learner is stuck.
+- **Live cohort** — each week is one longer + one shorter live session.
+
+### Lesson structure
+
+Every interactive lesson uses the same research-based structure:
 
 1. **Coach's note** — the goal and the "big idea," in plain language.
 2. **Quick explainer + Word help** — vocabulary and concept primers (supports multilingual / mixed-readiness learners).
@@ -74,8 +93,9 @@ Every lesson uses the same research-based structure, delivered live (Zoom-style)
 6. **Try This** — extension tasks that push toward Level 3A depth.
 7. **Ethics moment** — an AI-ethics or data-ethics reflection (CSTA Impacts of Computing).
 
-Auto-graded exercises validate both the **method** (the code/SQL written) and the **result**, so
-mastery is demonstrated, not just attempted.
+Each week then adds **Do-it-yourself** (self-paced practice), **With-some-help** (mentor prompts), and a
+one-sentence **reflection** that logs the week's badge/XP. Auto-graded exercises validate both the
+**method** (the code/SQL written) and the **result**, so mastery is demonstrated, not just attempted.
 
 ## 5. Assessment & evidence of mastery
 
@@ -84,12 +104,14 @@ mastery is demonstrated, not just attempted.
 | Formative checks (CFU) | Each lesson | Communicating about computing (P7) |
 | Auto-graded guided + scratch exercises | Each lesson | Testing & refining (P6) |
 | XP + badges per lesson | Dashboard | Motivation / progress tracking |
-| Capstone projects | Python L13, Data L10 | Creating computational artifacts (P5) |
+| Capstone projects | Python L13 (Week 8), Data L14 (Week 8) | Creating computational artifacts (P5) |
 | Progress events (opened/run/success, CFU reveals) | Supabase rollups | Teacher visibility / standards-based grading inputs |
 
 ## 6. How to read the track docs
 
-Each lesson entry lists:
+Each track doc opens with a **"How to use this program"** guide and the **weekly rhythm**, then lays out
+the **8 weeks** in order. Each week has a theme, a week goal, its 1–2 lesson sessions, and self-paced /
+assisted activities. Each lesson entry lists:
 
 - **Goal** (student-facing objective)
 - **Learning objectives** (teacher-facing, measurable)

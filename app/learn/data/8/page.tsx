@@ -14,6 +14,56 @@ const daLesson8: DataLessonConfig = {
   badge: "💡 Question Asker",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
+  lessonModule: {
+    durationLabel: "~6 min lesson",
+    sections: [
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "Stack clauses to ask sharper questions",
+        body: `You now know the building blocks: \`SELECT\`, \`WHERE\`, \`GROUP BY\`, \`ORDER BY\`. Real analysis comes from **combining** them in one query.\n\nThis lesson adds the last piece — \`HAVING\` — which filters **groups** after you've summarized them.`,
+        image: "/images/lessons/da-8-questions.png",
+        imageAlt: "Stacked query clauses forming a precise question",
+        callout: {
+          label: "Where you see it",
+          text: "\"Which products sold more than 100 units?\" \"Which users posted at least 5 times?\" Those need HAVING — a filter on grouped totals.",
+        },
+      },
+      {
+        id: "where-vs-having",
+        kicker: "The key distinction",
+        title: "WHERE filters rows, HAVING filters groups",
+        body: `This is the heart of the lesson:\n\n• \`WHERE\` runs **before** grouping — it filters individual **rows**.\n• \`HAVING\` runs **after** grouping — it filters the **summary results**.\n\nYou can't use \`COUNT(*)\` in a \`WHERE\` (the count doesn't exist yet) — that's exactly what \`HAVING\` is for.`,
+        bullets: [
+          "`WHERE price > 4` → keeps expensive *rows* (before grouping).",
+          "`HAVING COUNT(*) > 1` → keeps *groups* that appear more than once.",
+          "Clause order: `SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY`.",
+        ],
+      },
+      {
+        id: "having",
+        kicker: "Filter the groups",
+        title: "Find items ordered more than once",
+        body: `Group by item, count each group, then use \`HAVING\` to keep only the groups whose count is greater than 1 — the **repeat favorites**.`,
+        code: `SELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item\nHAVING COUNT(*) > 1\nORDER BY order_count DESC;`,
+        codeCaption: "Only items ordered more than once",
+        table: {
+          columns: ["item", "order_count"],
+          values: [
+            ["Pizza slice", 2],
+            ["Salad", 2],
+          ],
+          rowCount: 2,
+        },
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Now you try it",
+        body: `In the exercises you'll stack \`WHERE\`, \`GROUP BY\`, \`HAVING\`, and \`ORDER BY\` to answer sharper, more precise questions.\n\nClick **Start the exercises** when you're ready.`,
+      },
+    ],
+  },
   prevHref: "/learn/data/7",
   nextHref: "/learn/data/9",
   dashboardHref: "/dashboard",

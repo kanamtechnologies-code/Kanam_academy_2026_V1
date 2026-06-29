@@ -90,6 +90,53 @@ export const lesson12: PythonLessonConfig = {
   ],
   aiSafetyMoment:
     "AI safety: AI systems can act fast — but only based on their rules. If rules are missing or poorly written, AI can behave incorrectly or cause harm. Responsible AI means setting clear limits, thinking about consequences, and testing rules carefully.",
+  lessonModule: {
+    durationLabel: "~5 min lesson",
+    sections: [
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "Put rules inside your skill",
+        body: `You can make functions (skills) and pass them details (parameters). Now you'll combine that with rules — so a function behaves **differently depending on the value it's given**.\n\nThink of a game enemy: *if the player is close → attack, else → wait.* The function follows your rules exactly — it never guesses. This is exactly how AI guardrails work.`,
+        image: "/images/lessons/py-12-guardrails.png",
+        imageAlt: "A robot following guardrails along a safe path",
+        callout: {
+          label: "Where you see it",
+          text: "\"If the message contains banned words, block it.\" \"If the user is under 13, hide this feature.\" Rules inside functions keep software safe and predictable.",
+        },
+      },
+      {
+        id: "rule",
+        kicker: "Building block",
+        title: "if / else inside a function",
+        body: `Inside the function, check the **parameter** with an \`if\`. Each branch gets its own indented \`print\`. Same function, same parameter — but **different behavior** thanks to the rule.`,
+        code: `def attack(enemy):\n    if enemy == "dragon":\n        print("This enemy is too strong! Run!")\n    else:\n        print("You attack the " + enemy + "!")`,
+        codeCaption: "A rule decides what the skill does",
+        output: `attack("goblin")  ->  You attack the goblin!\nattack("dragon")  ->  This enemy is too strong! Run!`,
+      },
+      {
+        id: "design",
+        kicker: "Think like a coder",
+        title: "Parameters inform, rules decide",
+        body: `Keep the roles clear in your head:\n\n• The **parameter** brings in information.\n• The **rule** decides what to do with it.\n• The function follows the rule exactly — no guessing.`,
+        bullets: [
+          "Indent the `if`/`else` **inside** the function, and the `print` inside each branch.",
+          "Add more cases with `elif` (e.g. a special message for `\"boss\"`).",
+          "Predict which branch runs **before** you press Run.",
+        ],
+        callout: {
+          label: "Responsible AI",
+          text: "AI acts fast, but only on its rules. Missing or careless rules can cause harm. Set clear limits, think about consequences, and test every branch.",
+        },
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Guide your bot with rules",
+        body: `In the exercises you'll add \`if\`/\`else\` rules inside a function, then call it with different values and predict the output each time.\n\nClick **Start the exercises** when you're ready.`,
+      },
+    ],
+  },
   exercises: [
     {
       id: "ex-fn-param",

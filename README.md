@@ -24,7 +24,7 @@ The UX is designed for young learners: clear steps, big buttons, plain-English e
 ## Highlights
 
 - **Interactive Lesson Canvas** — guided fill-in-the-blanks plus a from-scratch editor, a live console, check-for-understanding prompts, and an instructor video panel.
-- **Two learning tracks** — a 13-lesson AI + Python path and a 10-lesson Data Analyst (SQL) path, each with XP and collectible badges.
+- **Two 8-week learning tracks** — a 13-lesson AI + Python path and a 14-lesson Data Analyst (SQL) path, each paced over 8 weeks (two sessions/week) with XP and collectible badges.
 - **Runs entirely in the browser** — a beginner-safe Python runner and a real SQLite engine (`sql.js` / WASM) power the exercises with no backend round-trips.
 - **Tell the story with charts** — later SQL lessons turn query results into visualizations with Recharts.
 - **Demo mode** — explore the dashboard and a full interactive lesson with zero sign-up.
@@ -87,13 +87,15 @@ Supabase helpers live in `lib/supabase/` — `browser.ts`, `server.ts`, and `adm
 
 ## Learning tracks
 
-### 🤖 AI + Python Starter Pack — 13 lessons
+Both tracks are paced as **8-week programs** (two sessions per week), built to be done **self-paced or with light assistance** — every lesson explains, checks, and corrects itself. See the [curriculum docs](docs/curriculum/) for the full week-by-week plan and standards alignment.
 
-Build your first AI helper with Python: variables, input, conditionals, loops, patterns, lists, functions, parameters, and a final "Build Your AI NPC" capstone (50 → 700 XP).
+### 🤖 AI + Python Starter Pack — 8 weeks · 13 lessons
 
-### 📊 Data Analyst Track — 10 lessons
+Build your first AI helper with Python: variables, input, conditionals, loops, patterns, lists, functions, parameters, and a final "Build Your AI NPC" capstone (50 → 700 XP). Includes a Week 4 checkpoint/debugging lab and Week 7 capstone planning so nothing is left as a gap.
 
-Learn SQL from `SELECT` to a final data project — columns, `WHERE`, `ORDER BY`, `GROUP BY`, `JOIN`, `HAVING`, and turning results into charts (50 → 500 XP). Unlocked after the first three Python lessons (or via the demo flag above).
+### 📊 Data Analyst Track — 8 weeks · 14 lessons
+
+Learn SQL from `SELECT` to a final data project — columns, `WHERE`, `ORDER BY`, `GROUP BY`, `JOIN`, `HAVING`, then a full data-visualization strand (bar, pie, line, histogram, scatter) before the capstone (50 → 700 XP). Unlocked after the first three Python lessons (or via the demo flag above).
 
 ## Key routes
 
@@ -103,7 +105,7 @@ Learn SQL from `SELECT` to a final data project — columns, `WHERE`, `ORDER BY`
 | `/demo` | Dashboard preview (tutorial only, no sign-in) |
 | `/learn/demo` | Interactive demo lesson |
 | `/learn/1` … `/learn/13` | AI + Python lessons |
-| `/learn/data/1` … `/learn/data/10` | Data Analyst (SQL) lessons |
+| `/learn/data/1` … `/learn/data/14` | Data Analyst (SQL) lessons |
 | `/dashboard` | Student dashboard (tracks + progress) |
 | `/instructor` | Instructor dashboard |
 

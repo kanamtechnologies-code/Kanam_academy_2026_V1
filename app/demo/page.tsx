@@ -151,7 +151,7 @@ export default function DemoDashboardPage() {
                   Next step (preview)
                 </p>
                 <p className="mt-2 text-sm font-semibold text-slate-900">
-                  Week 2 · Session 1 — My AI Helper Listens
+                  Week 2 · Session 1 — My AI Makes Choices
                 </p>
                 <Button disabled className="mt-3 h-11 w-full">
                   Continue (disabled in demo)

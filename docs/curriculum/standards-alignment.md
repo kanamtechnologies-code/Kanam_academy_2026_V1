@@ -1,7 +1,7 @@
 # Master Standards Alignment Matrix
 
 This crosswalk maps Kanam Academy lessons to recognized national standards for **accreditation review**.
-Lesson codes: `P1–P13` = Python & AI Foundations track; `D1–D10` = Data Analyst track.
+Lesson codes: `P1–P13` = Python & AI Foundations track; `D1–D14` = Data Analyst track.
 
 - Primary framework: **CSTA K-12 Computer Science Standards, Revised 2017** (Levels 2 and 3A).
 - Cross-curricular: **Common Core State Standards — Mathematics** (Statistics & Probability).
@@ -38,11 +38,11 @@ Lesson codes: `P1–P13` = Python & AI Foundations track; `D1–D10` = Data Anal
 | 1B-DA-06 | Present collected data visually to support a claim | 1B (bridge) | D1, D9, D10 |
 | 1B-DA-07 | Use data to highlight relationships / predict | 1B (bridge) | D5 |
 | 2-DA-07 | Represent data using multiple encoding schemes / formats | 2 | D1; P9 |
-| 2-DA-08 | Collect data with tools and **transform** it to be useful | 2 | D2–D9 |
-| 2-DA-09 | Refine models/analysis based on generated data | 2 | D8, D10 |
+| 2-DA-08 | Collect data with tools and **transform** it to be useful | 2 | D2–D13 |
+| 2-DA-09 | Refine models/analysis based on generated data | 2 | D8, D14 |
 | 3A-DA-10 | Evaluate tradeoffs in how data is organized/stored | 3A | D3, D7 |
-| 3A-DA-11 | **Create data visualizations** with software tools | 3A | D9, D10 |
-| 3A-DA-12 | Represent relationships among data elements | 3A | D7, D10 |
+| 3A-DA-11 | **Create data visualizations** with software tools | 3A | D9, D10, D11, D12, D13, D14 |
+| 3A-DA-12 | Represent relationships among data elements | 3A | D7, D13, D14 |
 
 ## 3. CSTA 2017 — Impacts of Computing
 
@@ -62,12 +62,12 @@ Lesson codes: `P1–P13` = Python & AI Foundations track; `D1–D10` = Data Anal
 
 | Code | Standard (abbrev.) | Lessons |
 | --- | --- | --- |
-| 6.SP.B.4 | Display numerical data in plots (dot plots, histograms, box plots) | D9 (charts); D-track roadmap (histograms) |
-| 6.SP.B.5 | Summarize numerical data sets (count, measures of center) | D6 |
+| 6.SP.B.4 | Display numerical data in plots (dot plots, histograms, box plots) | D9, D10; D12 (histograms) |
+| 6.SP.B.5 | Summarize numerical data sets (count, measures of center) | D6, D12 |
 | 7.SP.B | Draw comparative inferences about populations | D8 |
-| 8.SP.A.1 | Construct/interpret scatter plots; patterns of association | D-track roadmap (scatter) |
-| HS S-ID.A.1 | Represent data with plots on the real number line | D-track roadmap |
-| HS S-ID.B.6 | Represent data on two variables on a scatter plot | D-track roadmap |
+| 8.SP.A.1 | Construct/interpret scatter plots; patterns of association | D11, D13 |
+| HS S-ID.A.1 | Represent data with plots on the real number line | D12 (distribution/spread); roadmap: box plots |
+| HS S-ID.B.6 | Represent data on two variables on a scatter plot | D13; roadmap: line of best fit |
 
 ## 5. ISTE Standards for Students (2016)
 
@@ -75,7 +75,7 @@ Lesson codes: `P1–P13` = Python & AI Foundations track; `D1–D10` = Data Anal
 | --- | --- | --- |
 | 1.5 Computational Thinker | Formulate problems, collect/analyze data, use algorithmic thinking | Both tracks |
 | 1.3 Knowledge Constructor | Curate & make sense of information / data | Data track |
-| 1.6 Creative Communicator | Communicate with data visualizations & artifacts | D9, D10; P13 |
+| 1.6 Creative Communicator | Communicate with data visualizations & artifacts | D9–D14; P13 |
 
 ## 6. Forward-compatibility — CSTA PK-12 Standards, Draft 3.0 (summer 2026)
 
@@ -87,8 +87,8 @@ through the next national revision:
 | --- | --- | --- |
 | MS-DAA-22 | Explain how data + metadata answer questions | D1, D8 |
 | MS-DAA-23 | Use a tool to sort, filter, group, aggregate, transform data | D3–D8 |
-| MS-DAA-26 | Create visualizations showing how design choices impact interpretation | D9 (enriched) |
-| MS-DAA-27 | Summarize a data investigation (question, methods, biases, evidence) | D10 |
+| MS-DAA-26 | Create visualizations showing how design choices impact interpretation | D9–D13 |
+| MS-DAA-27 | Summarize a data investigation (question, methods, biases, evidence) | D14 |
 | HS-DAA-23/24 | Data dictionary; clean & organize data | D3, D7 (roadmap: cleaning) |
 
 ---

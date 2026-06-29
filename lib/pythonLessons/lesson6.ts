@@ -94,6 +94,53 @@ export const lesson6: PythonLessonConfig = {
       example: 'message = "pong"',
     },
   ],
+  lessonModule: {
+    durationLabel: "~5 min lesson",
+    sections: [
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "Loop + rule = a pattern",
+        body: `You can already **repeat** with a loop and **decide** with a rule. Today you combine them — and that combination is where **patterns** come from.\n\nThe loop controls *how many times* something happens. The rule controls *what* happens each time. Put a rule **inside** a loop and you get a repeating, predictable pattern.`,
+        image: "/images/lessons/py-6-pattern.png",
+        imageAlt: "A repeating pattern of alternating shapes",
+        callout: {
+          label: "Where you see it",
+          text: "Striped table rows (every other row shaded), \"every 3rd customer wins,\" and fizz-buzz style games are all loop-plus-rule patterns. AI also learns by finding patterns in data.",
+        },
+      },
+      {
+        id: "nest",
+        kicker: "Building block",
+        title: "Put an if inside a for",
+        body: `When an \`if\` lives **inside** a loop, the rule gets checked **every single turn**. Notice the indentation: the \`if\` is indented under the \`for\`, and the \`print\` is indented again under the \`if\`.`,
+        code: `for i in range(5):\n    if i == 2:\n        print("Special turn!")\n    else:\n        print("Turn " + str(i))`,
+        codeCaption: "A rule that runs every loop turn",
+        output: `Turn 0\nTurn 1\nSpecial turn!\nTurn 3\nTurn 4`,
+      },
+      {
+        id: "predict",
+        kicker: "Think like a coder",
+        title: "Predict before you run",
+        body: `Strong programmers don't just hit Run and hope. They **predict** the output first, then compare. It's the fastest way to truly understand your code.\n\nBefore running, ask yourself: *how many turns? which turn is special? what prints each time?*`,
+        bullets: [
+          "Rule **inside** the loop → it repeats and forms a pattern.",
+          "Rule **outside** the loop → it only runs once (no pattern).",
+          "Indent twice for code inside an `if` that's inside a `for`.",
+        ],
+        callout: {
+          label: "AI connection",
+          text: "AI makes predictions by finding patterns in data. If the pattern it learns is biased or incomplete, its predictions will be too — so humans must choose patterns carefully.",
+        },
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Build your own pattern",
+        body: `In the exercises you'll place a rule inside a loop and create a pattern of changing messages. Try to predict each line of output before you run it.\n\nClick **Start the exercises** when you're ready.`,
+      },
+    ],
+  },
   prevHref: "/learn/5",
   nextHref: "/learn/7",
   dashboardHref: "/dashboard",

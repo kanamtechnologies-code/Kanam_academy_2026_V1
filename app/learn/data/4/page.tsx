@@ -14,6 +14,66 @@ const daLesson4: DataLessonConfig = {
   badge: "🎯 Filter Finder",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
+  lessonModule: {
+    durationLabel: "~5 min lesson",
+    sections: [
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "Filter down to the rows you want",
+        body: `So far you've controlled *columns*. Now you'll control *rows* with \`WHERE\` — keeping only the rows that match a condition.\n\nFiltering is the heart of data analysis: "show me only the salads," "only orders over $4," "only 8th graders."`,
+        image: "/images/lessons/da-4-filter.png",
+        imageAlt: "A funnel filtering many rows down to a few matching ones",
+        callout: {
+          label: "Where you see it",
+          text: "Every search bar and \"filter\" button — flights under $300, 4-star-and-up reviews, in-stock items — is a WHERE clause behind the scenes.",
+        },
+      },
+      {
+        id: "match",
+        kicker: "Match text",
+        title: "WHERE keeps matching rows",
+        body: `Add \`WHERE\` after the table, then a condition. To match **text**, wrap it in **single quotes** and use a single \`=\`.`,
+        code: `SELECT *\nFROM lunch_orders\nWHERE item = 'Salad';`,
+        codeCaption: "Only the salad orders",
+        table: {
+          columns: ["order_id", "student_name", "item", "price"],
+          values: [
+            [2, "Jordan", "Salad", 4.0],
+            [8, "Jamie", "Salad", 4.0],
+          ],
+          rowCount: 2,
+        },
+      },
+      {
+        id: "compare",
+        kicker: "Compare & combine",
+        title: "Numbers, AND, and OR",
+        body: `For **numbers**, no quotes are needed, and you can compare with \`>\`, \`<\`, \`>=\`, \`<=\`. Combine conditions with \`AND\` (both must be true) or \`OR\` (either can be true).`,
+        code: `SELECT *\nFROM lunch_orders\nWHERE price > 4;`,
+        codeCaption: "Orders more expensive than $4",
+        table: {
+          columns: ["order_id", "student_name", "item", "price"],
+          values: [
+            [3, "Sam", "Chicken wrap", 5.25],
+            [7, "Taylor", "Burger", 4.75],
+          ],
+          rowCount: 2,
+        },
+        bullets: [
+          "**Text** needs single quotes: `WHERE item = 'Salad'`.",
+          "**Numbers** don't: `WHERE price > 4`.",
+          "`AND` = both true; `OR` = at least one true.",
+        ],
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Now you try it",
+        body: `In the exercises you'll filter by text, compare numbers, and combine conditions with \`AND\` / \`OR\` to answer real questions.\n\nClick **Start the exercises** when you're ready.`,
+      },
+    ],
+  },
   prevHref: "/learn/data/3",
   nextHref: "/learn/data/5",
   dashboardHref: "/dashboard",

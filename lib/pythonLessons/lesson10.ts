@@ -81,6 +81,51 @@ export const lesson10: PythonLessonConfig = {
   ],
   aiSafetyMoment:
     "AI safety: Functions help prevent mistakes. If behavior is copied everywhere, errors are harder to fix. Responsible AI uses clear, reusable actions with human-controlled execution.",
+  lessonModule: {
+    durationLabel: "~5 min lesson",
+    sections: [
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "Teach your bot a reusable skill",
+        body: `Think about a game controller. When you press the jump button, the character jumps — you don't rebuild the jump button every time. That button is like a **function**: a named action you teach the computer **once** and **reuse** whenever you want.\n\nInstead of rewriting the same lines over and over, you package them into a skill and call it by name.`,
+        image: "/images/lessons/py-10-function.png",
+        imageAlt: "A machine labeled with a button that performs an action when pressed",
+        callout: {
+          label: "Where you see it",
+          text: "\"Share,\" \"Like,\" and \"Save\" buttons each run the same packaged action every time you tap them. Reusing behavior like this is everywhere in real software.",
+        },
+      },
+      {
+        id: "define",
+        kicker: "Building block",
+        title: "def creates the skill",
+        body: `\`def\` **defines** a function. You give it a name, end the line with a colon \`:\`, and **indent** the instructions that belong to it. Defining a skill does **not** run it yet — it just teaches it.`,
+        code: `def greet():\n    print("Hi! Nice to meet you!")`,
+        codeCaption: "Define a skill called greet",
+      },
+      {
+        id: "call",
+        kicker: "Use it",
+        title: "Call the skill to run it",
+        body: `To actually run the function, you **call** it by writing its name followed by parentheses. The best part: you can call it as many times as you like without rewriting the message.`,
+        code: `def greet():\n    print("Hi! Nice to meet you!")\n\ngreet()\ngreet()`,
+        codeCaption: "Define once, call twice",
+        output: `Hi! Nice to meet you!\nHi! Nice to meet you!`,
+        bullets: [
+          "`def name():` defines the skill (with indented code).",
+          "`name()` calls (runs) the skill.",
+          "If nothing prints, you probably **defined** it but forgot to **call** it.",
+        ],
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Make a skill, then use it",
+        body: `In the exercises you'll define a function that makes your bot speak, then call it more than once — the same way real AI systems reuse behavior.\n\nClick **Start the exercises** when you're ready.`,
+      },
+    ],
+  },
   exercises: [
     {
       id: "ex-define",

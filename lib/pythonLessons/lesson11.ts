@@ -83,6 +83,51 @@ export const lesson11: PythonLessonConfig = {
   ],
   aiSafetyMoment:
     "AI safety: AI systems respond to the information they are given. If details are missing or unclear, output can be wrong. Responsible AI means giving clear information, checking results, and remembering AI does not guess your intent.",
+  lessonModule: {
+    durationLabel: "~5 min lesson",
+    sections: [
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "One skill, many details",
+        body: `Last lesson your function always did the *exact same thing*. But what if you want one "attack" skill that works on **any** enemy?\n\nYou don't build a new button for every enemy — you press the same button and tell the game *who* to attack. That extra information is a **parameter**: a value you hand to a function so it knows what to do *this* time.`,
+        image: "/images/lessons/py-11-parameter.png",
+        imageAlt: "A machine with a slot where different inputs can be inserted",
+        callout: {
+          label: "Where you see it",
+          text: "A \"send message\" function takes *who* and *what text*. A \"play song\" function takes *which song*. Same skill, different details each time.",
+        },
+      },
+      {
+        id: "param",
+        kicker: "Building block",
+        title: "A parameter is a blank to fill in",
+        body: `Put a name inside the function's parentheses — that's the **parameter**. Inside the function it behaves like a variable. The function **waits** for you to give it a value.`,
+        code: `def attack(enemy):\n    print("You attack the " + enemy + "!")`,
+        codeCaption: "enemy is a blank waiting for a value",
+      },
+      {
+        id: "pass",
+        kicker: "Use it",
+        title: "Pass a value when you call",
+        body: `When you call the function, put a value in the parentheses. That value fills the parameter — so the **same** skill produces **different** output each time.`,
+        code: `attack("goblin")\nattack("dragon")\nattack("boss")`,
+        codeCaption: "Same skill, three different details",
+        output: `You attack the goblin!\nYou attack the dragon!\nYou attack the boss!`,
+        bullets: [
+          "The name in `def attack(enemy):` is the **parameter**.",
+          "The value in `attack(\"goblin\")` is the **argument** you pass in.",
+          "The function never guesses — **you** choose the value.",
+        ],
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Make a flexible skill",
+        body: `In the exercises you'll add a parameter to a function, use it inside the message, then call the function with different values and watch the output change.\n\nClick **Start the exercises** when you're ready.`,
+      },
+    ],
+  },
   exercises: [
     {
       id: "ex-param-def",

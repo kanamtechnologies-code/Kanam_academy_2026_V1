@@ -4,9 +4,11 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
+  BookOpen,
   CheckCircle2,
   ChevronRight,
   Code2,
+  ListChecks,
   Loader2,
   PartyPopper,
   Play,
@@ -16,6 +18,7 @@ import {
   Zap,
 } from "lucide-react";
 
+import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { CoachNoteContent } from "@/components/python/CoachNoteContent";
 import { PythonExerciseEditor } from "@/components/python/PythonExerciseEditor";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
@@ -80,6 +83,7 @@ export type PythonLessonConfig = {
   aiSafetyMoment: string;
   commandReference: PythonCommandReference[];
   exercises: PythonExercise[];
+  lessonModule?: LessonModuleData;
   terminalPrompt?: string;
   prevHref?: string;
   nextHref?: string;
@@ -92,6 +96,9 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
   const gateSeconds = lesson.coachNoteGateSeconds ?? 8;
 
   const [animateIn, setAnimateIn] = React.useState(false);
+  const [view, setView] = React.useState<"lesson" | "exercises">(
+    lesson.lessonModule ? "lesson" : "exercises"
+  );
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [codeByExercise, setCodeByExercise] = React.useState<Record<string, string>>(() =>
     Object.fromEntries(
@@ -138,6 +145,14 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
     const t = window.setTimeout(() => setAnimateIn(true), 10);
     return () => window.clearTimeout(t);
   }, [lesson.id]);
+
+  React.useEffect(() => {
+    if (!lesson.lessonModule) return;
+    const requested = new URLSearchParams(window.location.search).get("view");
+    if (requested === "exercises" || requested === "lesson") {
+      setView(requested);
+    }
+  }, [lesson.lessonModule]);
 
   React.useEffect(() => {
     try {
@@ -348,7 +363,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
     return findTypingZonesForExercise(activeCode, activeExercise.starterCode);
   }, [activeExercise, activeCode, currentDone]);
 
-  const workspaceLocked = !coachConfirmed && gateSeconds > 0;
+  const workspaceLocked = !coachConfirmed && gateSeconds > 0 && !lesson.lessonModule;
 
   React.useEffect(() => {
     if (workspaceLocked || lessonComplete) return;
@@ -409,6 +424,40 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
           </div>
         </div>
 
+        {lesson.lessonModule ? (
+          <div className="mb-6 inline-flex items-center gap-1 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
+            <button
+              type="button"
+              onClick={() => setView("lesson")}
+              className={cn(
+                "flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-colors",
+                view === "lesson"
+                  ? "bg-[var(--brand)] text-white shadow-sm"
+                  : "text-slate-600 hover:bg-slate-100"
+              )}
+            >
+              <BookOpen className="h-4 w-4" />
+              Lesson
+            </button>
+            <button
+              type="button"
+              onClick={() => setView("exercises")}
+              className={cn(
+                "flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-colors",
+                view === "exercises"
+                  ? "bg-[var(--brand)] text-white shadow-sm"
+                  : "text-slate-600 hover:bg-slate-100"
+              )}
+            >
+              <ListChecks className="h-4 w-4" />
+              Exercises
+            </button>
+          </div>
+        ) : null}
+
+        {lesson.lessonModule && view === "lesson" ? (
+          <LessonModule module={lesson.lessonModule} onStart={() => setView("exercises")} />
+        ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
           <div className="space-y-4">
             <Card className="border-[rgb(var(--accent-rgb)/0.55)] shadow-md">
@@ -715,6 +764,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
             )}
           </div>
         </div>
+        )}
       </div>
     </WelcomeBackground>
   );

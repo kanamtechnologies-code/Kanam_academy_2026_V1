@@ -87,6 +87,53 @@ export const lesson7: PythonLessonConfig = {
       example: "ping → pong → ping → ...",
     },
   ],
+  lessonModule: {
+    durationLabel: "~5 min lesson",
+    sections: [
+      {
+        id: "why",
+        kicker: "The big idea",
+        title: "Patterns that change as they go",
+        body: `Last lesson your pattern depended on the loop counter. Today you'll build a pattern that **flips back and forth** — like \`ping → pong → ping → pong\` — by **changing a variable** while the loop runs.\n\nThe secret: the loop remembers a value between turns. Update that value each turn, and the next turn behaves differently.`,
+        image: "/images/lessons/py-7-pingpong.png",
+        imageAlt: "A ping-pong ball bouncing back and forth between two paddles",
+        callout: {
+          label: "Where you see it",
+          text: "Turn-taking in a game (Player 1, Player 2, Player 1…), alternating colors, and \"toggle\" switches all work by flipping a stored value each round.",
+        },
+      },
+      {
+        id: "state",
+        kicker: "Building block",
+        title: "Keep a value, then change it",
+        body: `Set a **starting value** *before* the loop. Inside the loop, check it with a rule, print the right message, then **update** the value so the next turn flips.\n\nThis stored value is called the program's **state** — and changing state over time is at the heart of how programs (and AIs) behave.`,
+        code: `message = "ping"\nfor i in range(4):\n    print(message)\n    if message == "ping":\n        message = "pong"\n    else:\n        message = "ping"`,
+        codeCaption: "Flip between ping and pong",
+        output: `ping\npong\nping\npong`,
+      },
+      {
+        id: "trace",
+        kicker: "Think like a coder",
+        title: "Trace one turn at a time",
+        body: `To understand changing state, walk through it slowly: print the current value, *then* flip it, *then* loop again with the new value.`,
+        bullets: [
+          "**One iteration** = one full turn through the loop.",
+          "Set the starting value **before** the loop, not inside it.",
+          "Update the variable **inside** the loop so each turn can differ.",
+        ],
+        callout: {
+          label: "AI connection",
+          text: "Pattern-based systems can look clever, but they only repeat patterns they were given. A wrong or biased pattern produces wrong output — perfectly, every time.",
+        },
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Make it bounce",
+        body: `In the exercises you'll set a starting value, loop, check a rule, and update the value to keep the pattern bouncing. Predict the first three lines before you run!\n\nClick **Start the exercises** when you're ready.`,
+      },
+    ],
+  },
   prevHref: "/learn/6",
   nextHref: "/learn/8",
   dashboardHref: "/dashboard",
