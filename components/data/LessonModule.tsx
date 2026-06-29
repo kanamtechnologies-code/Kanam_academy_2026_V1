@@ -128,91 +128,116 @@ export function LessonModule({
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div>
-            {section.kicker ? (
-              <span className="inline-block rounded-full bg-[var(--brand)]/10 px-3 py-1 text-xs font-black uppercase tracking-wide text-[var(--brand-2)]">
-                {section.kicker}
-              </span>
-            ) : null}
-            <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
-              {section.title}
-            </h2>
-          </div>
-
-          {section.image ? (
-            <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-              <Image
-                src={section.image}
-                alt={section.imageAlt ?? section.title}
-                width={1024}
-                height={683}
-                className="h-auto w-full"
-              />
-            </div>
-          ) : null}
-
-          {section.chart ? (
-            <ChartPanel result={section.chart.result} config={section.chart.config} />
-          ) : null}
-
-          {section.table ? (
-            <div className="rounded-xl border border-slate-200 bg-white p-3">
-              <ResultTable result={section.table} />
-            </div>
-          ) : null}
-
-          <div className="space-y-2 text-[15px]">{renderRichText(section.body)}</div>
-
-          {section.code ? (
-            <div className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-sm">
-              {section.codeCaption ? (
-                <div className="flex items-center gap-2 border-b border-slate-700/70 bg-slate-800/80 px-4 py-2 text-xs font-bold text-slate-300">
-                  <BookOpen className="h-3.5 w-3.5" />
-                  {section.codeCaption}
+        {(() => {
+          const media = (
+            <>
+              {section.image ? (
+                <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+                  <Image
+                    src={section.image}
+                    alt={section.imageAlt ?? section.title}
+                    width={1024}
+                    height={683}
+                    className="h-auto w-full"
+                  />
                 </div>
               ) : null}
-              <pre className="overflow-x-auto px-4 py-3 font-mono text-[13px] leading-relaxed text-emerald-100">
-                {section.code}
-              </pre>
-            </div>
-          ) : null}
 
-          {section.output ? (
-            <div>
-              <p className="mb-1 flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wide text-slate-500">
-                <TerminalSquare className="h-3.5 w-3.5" />
-                What it prints
-              </p>
-              <pre className="overflow-x-auto rounded-xl bg-slate-950 px-4 py-3 font-mono text-[13px] leading-relaxed text-sky-200">
-                {section.output}
-              </pre>
-            </div>
-          ) : null}
+              {section.chart ? (
+                <ChartPanel result={section.chart.result} config={section.chart.config} />
+              ) : null}
 
-          {section.bullets && section.bullets.length > 0 ? (
-            <ul className="space-y-2">
-              {section.bullets.map((b, i) => (
-                <li key={i} className="flex items-start gap-2 text-[15px] text-slate-700">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
-                  <span>{renderInline(b)}</span>
-                </li>
-              ))}
-            </ul>
-          ) : null}
+              {section.table ? (
+                <div className="rounded-xl border border-slate-200 bg-white p-3">
+                  <ResultTable result={section.table} />
+                </div>
+              ) : null}
 
-          {section.callout ? (
-            <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
-              <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+              {section.code ? (
+                <div className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-sm">
+                  {section.codeCaption ? (
+                    <div className="flex items-center gap-2 border-b border-slate-700/70 bg-slate-800/80 px-4 py-2 text-xs font-bold text-slate-300">
+                      <BookOpen className="h-3.5 w-3.5" />
+                      {section.codeCaption}
+                    </div>
+                  ) : null}
+                  <pre className="overflow-x-auto px-4 py-3 font-mono text-[13px] leading-relaxed text-emerald-100">
+                    {section.code}
+                  </pre>
+                </div>
+              ) : null}
+
+              {section.output ? (
+                <div>
+                  <p className="mb-1 flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wide text-slate-500">
+                    <TerminalSquare className="h-3.5 w-3.5" />
+                    What it prints
+                  </p>
+                  <pre className="overflow-x-auto rounded-xl bg-slate-950 px-4 py-3 font-mono text-[13px] leading-relaxed text-sky-200">
+                    {section.output}
+                  </pre>
+                </div>
+              ) : null}
+            </>
+          );
+
+          const prose = (
+            <>
+              <div className="space-y-2 text-[15px]">{renderRichText(section.body)}</div>
+
+              {section.bullets && section.bullets.length > 0 ? (
+                <ul className="space-y-2">
+                  {section.bullets.map((b, i) => (
+                    <li key={i} className="flex items-start gap-2 text-[15px] text-slate-700">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
+                      <span>{renderInline(b)}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+
+              {section.callout ? (
+                <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
+                  <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-wide text-amber-800">
+                      {section.callout.label}
+                    </p>
+                    <p className="mt-1 text-sm text-amber-900">{renderInline(section.callout.text)}</p>
+                  </div>
+                </div>
+              ) : null}
+            </>
+          );
+
+          const hasMedia = Boolean(
+            section.image || section.chart || section.table || section.code || section.output
+          );
+
+          return (
+            <div className="space-y-6">
               <div>
-                <p className="text-xs font-black uppercase tracking-wide text-amber-800">
-                  {section.callout.label}
-                </p>
-                <p className="mt-1 text-sm text-amber-900">{renderInline(section.callout.text)}</p>
+                {section.kicker ? (
+                  <span className="inline-block rounded-full bg-[var(--brand)]/10 px-3 py-1 text-xs font-black uppercase tracking-wide text-[var(--brand-2)]">
+                    {section.kicker}
+                  </span>
+                ) : null}
+                <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
+                  {section.title}
+                </h2>
               </div>
+
+              {hasMedia ? (
+                <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
+                  <div className="space-y-4 lg:order-1">{prose}</div>
+                  <div className="space-y-4 lg:order-2 lg:sticky lg:top-6">{media}</div>
+                </div>
+              ) : (
+                <div className="mx-auto max-w-3xl space-y-4">{prose}</div>
+              )}
             </div>
-          ) : null}
-        </div>
+          );
+        })()}
 
         <div className="flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
           <Button

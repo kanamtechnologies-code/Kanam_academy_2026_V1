@@ -328,6 +328,8 @@ body {
   }
 }
 
+/* Legend chip ("Type in the green highlighted area") — decorative only,
+   sized by the utility classes on the element, so layout width is fine here. */
 .kanam-sql-typing-gap {
   display: inline-block;
   vertical-align: baseline;
@@ -354,6 +356,49 @@ body {
 
 .kanam-sql-editor-wrap:focus-within .kanam-sql-typing-gap {
   border-color: rgb(var(--brand-rgb) / 0.75);
+}
+
+/* In-editor highlight overlay zone.
+   CRITICAL: this is rendered in a <pre> that sits exactly on top of a
+   transparent <textarea>. It MUST NOT add any layout width (no padding,
+   no border, no min-width) or the highlighted text drifts out of sync
+   with the real text in the textarea — which makes clicks land the caret
+   outside the green area. We use background + box-shadow only (neither
+   affects layout). */
+.kanam-typing-zone {
+  border-radius: 3px;
+  background-color: rgb(var(--brand-rgb) / 0.28);
+  box-shadow: 0 0 0 1px rgb(var(--brand-rgb) / 0.5);
+  animation: kanamSqlGapPulse 1.4s ease-in-out infinite;
+}
+
+/* An empty blank has zero text width, so the span itself stays zero-width
+   (keeping alignment) and we paint a visible target with an absolutely
+   positioned marker that does not participate in layout. */
+.kanam-typing-zone--empty {
+  position: relative;
+  background-color: transparent;
+  box-shadow: none;
+  animation: none;
+}
+
+.kanam-typing-zone--empty::after {
+  content: "";
+  position: absolute;
+  top: -0.05em;
+  bottom: -0.05em;
+  left: 0;
+  width: 0.7em;
+  transform: translateX(-0.12em);
+  border-radius: 3px;
+  background-color: rgb(var(--accent-rgb) / 0.32);
+  box-shadow: 0 0 0 1px rgb(var(--brand-rgb) / 0.5);
+  animation: kanamSqlGapPulse 1.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.kanam-sql-editor-wrap:focus-within .kanam-typing-zone {
+  box-shadow: 0 0 0 1px rgb(var(--brand-rgb) / 0.8);
 }
 
 /* Data analyst — success celebrations */

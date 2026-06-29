@@ -24,7 +24,7 @@ export type WeekPlan = {
 };
 
 export type Track = {
-  id: "python-starter" | "data-analyst";
+  id: "python-starter" | "data-analyst" | "ai-literacy";
   title: string;
   subtitle: string;
   icon: string;
@@ -81,6 +81,17 @@ export const PYTHON_WEEKS: WeekPlan[] = [
   { week: 8, theme: "Capstone: Build Your AI NPC", focus: "Combine everything into one project, test it, and reflect." },
 ];
 
+export const AI_LITERACY_WEEKS: WeekPlan[] = [
+  { week: 1, theme: "What AI Really Is", focus: "Define artificial intelligence and spot where it already shapes your day." },
+  { week: 2, theme: "How Machines Sense & Represent", focus: "Perception (seeing/hearing) and turning the messy world into data." },
+  { week: 3, theme: "How AI Learns", focus: "Machine learning from examples, training vs. testing, and why AI gets things wrong." },
+  { week: 4, theme: "Generative AI & LLMs", focus: "How tools like ChatGPT and image generators create new text and pictures." },
+  { week: 5, theme: "Talking to AI: Prompting", focus: "Write clear prompts, add context, and refine answers like a pro." },
+  { week: 6, theme: "Using AI Well", focus: "Fact-check AI output and use it honestly for schoolwork." },
+  { week: 7, theme: "AI, Society & Ethics", focus: "Bias and fairness, then privacy, deepfakes, and misinformation." },
+  { week: 8, theme: "Your Future With AI", focus: "Jobs and creativity, plus a capstone to become an AI-smart citizen." },
+];
+
 export const DATA_ANALYST_WEEKS: WeekPlan[] = [
   { week: 1, theme: "What Data Is", focus: "Rows, columns, and your first SELECT queries." },
   { week: 2, theme: "Choosing & Filtering", focus: "Pick the columns you need and filter rows with WHERE." },
@@ -125,7 +136,33 @@ const DATA_ANALYST_LESSONS: LessonRow[] = [
   { id: "da-14", title: "Your Data Project", href: "/learn/data/14", xp: 700, badgeName: "Data Analyst", badgeIcon: "🎓", week: 8, session: 1, hasLesson: true },
 ];
 
+const AI_LITERACY_LESSONS: LessonRow[] = [
+  { id: "ai-1", title: "What Is AI, Really?", href: "/learn/ai/1", xp: 50, badgeName: "AI Explorer", badgeIcon: "🤖", week: 1, session: 1, hasLesson: true },
+  { id: "ai-2", title: "AI Is All Around You", href: "/learn/ai/2", xp: 100, badgeName: "AI Spotter", badgeIcon: "👀", week: 1, session: 2, hasLesson: true },
+  { id: "ai-3", title: "How Computers See and Hear", href: "/learn/ai/3", xp: 150, badgeName: "Sense Maker", badgeIcon: "📷", week: 2, session: 1, hasLesson: true },
+  { id: "ai-4", title: "Turning the World Into Data", href: "/learn/ai/4", xp: 200, badgeName: "Data Translator", badgeIcon: "🔢", week: 2, session: 2, hasLesson: true },
+  { id: "ai-5", title: "How AI Learns From Examples", href: "/learn/ai/5", xp: 250, badgeName: "Pattern Learner", badgeIcon: "🧠", week: 3, session: 1, hasLesson: true },
+  { id: "ai-6", title: "Training, Testing, and Mistakes", href: "/learn/ai/6", xp: 300, badgeName: "Model Tester", badgeIcon: "🎯", week: 3, session: 2, hasLesson: true },
+  { id: "ai-7", title: "What Is Generative AI?", href: "/learn/ai/7", xp: 350, badgeName: "Creator's Apprentice", badgeIcon: "✨", week: 4, session: 1, hasLesson: true },
+  { id: "ai-8", title: "Inside a Large Language Model", href: "/learn/ai/8", xp: 400, badgeName: "LLM Insider", badgeIcon: "💬", week: 4, session: 2, hasLesson: true },
+  { id: "ai-9", title: "How to Talk to AI (Prompting)", href: "/learn/ai/9", xp: 450, badgeName: "Prompt Starter", badgeIcon: "🗝️", week: 5, session: 1, hasLesson: true },
+  { id: "ai-10", title: "Better Prompts, Better Answers", href: "/learn/ai/10", xp: 500, badgeName: "Prompt Pro", badgeIcon: "🎨", week: 5, session: 2, hasLesson: true },
+  { id: "ai-11", title: "Don't Trust — Verify", href: "/learn/ai/11", xp: 550, badgeName: "Fact Checker", badgeIcon: "🔍", week: 6, session: 1, hasLesson: true },
+  { id: "ai-12", title: "AI at School: Help vs. Cheating", href: "/learn/ai/12", xp: 600, badgeName: "Honest Scholar", badgeIcon: "📚", week: 6, session: 2, hasLesson: true },
+  { id: "ai-13", title: "Bias, Fairness, and Data", href: "/learn/ai/13", xp: 650, badgeName: "Fairness Guardian", badgeIcon: "⚖️", week: 7, session: 1, hasLesson: true },
+  { id: "ai-14", title: "Privacy, Deepfakes, and Your Footprint", href: "/learn/ai/14", xp: 700, badgeName: "Privacy Defender", badgeIcon: "🛡️", week: 7, session: 2, hasLesson: true },
+  { id: "ai-15", title: "AI and the Future of Work", href: "/learn/ai/15", xp: 750, badgeName: "Future Ready", badgeIcon: "🚀", week: 8, session: 1, hasLesson: true },
+  { id: "ai-16", title: "Capstone: Be an AI-Smart Citizen", href: "/learn/ai/16", xp: 800, badgeName: "AI-Smart Citizen", badgeIcon: "🎓", week: 8, session: 2, hasLesson: true },
+];
+
 export const TRACKS: Track[] = [
+  {
+    id: "ai-literacy",
+    title: "AI Literacy",
+    subtitle: "What AI is, how it works, and how to use it wisely",
+    icon: "🧠",
+    lessons: AI_LITERACY_LESSONS,
+  },
   {
     id: "python-starter",
     title: "AI + Python Starter Pack",
@@ -148,7 +185,9 @@ export function getTrack(id: Track["id"]): Track | undefined {
 
 /** The 8-week plan for a track. */
 export function weeksForTrack(id: Track["id"]): WeekPlan[] {
-  return id === "python-starter" ? PYTHON_WEEKS : DATA_ANALYST_WEEKS;
+  if (id === "python-starter") return PYTHON_WEEKS;
+  if (id === "data-analyst") return DATA_ANALYST_WEEKS;
+  return AI_LITERACY_WEEKS;
 }
 
 export function totalXpAcrossTracks(completedIds: string[]): number {

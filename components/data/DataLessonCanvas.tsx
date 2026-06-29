@@ -8,6 +8,7 @@ import {
   CheckCircle2,
   ChevronRight,
   Database,
+  Lightbulb,
   ListChecks,
   Loader2,
   PartyPopper,
@@ -20,6 +21,7 @@ import {
 
 import { ChartPanel, type ChartConfig } from "@/components/data/ChartPanel";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
+import { LessonAside } from "@/components/lesson/LessonAside";
 import { ResultTable } from "@/components/data/ResultTable";
 import { SqlTextarea } from "@/components/data/SqlTextarea";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
@@ -488,15 +490,14 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
           <LessonModule module={lesson.lessonModule} onStart={() => setView("exercises")} />
         ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-          <div className="space-y-4">
-            <Card className="border-[rgb(var(--accent-rgb)/0.55)] shadow-md">
-              <CardHeader className="pb-2">
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <Sparkles className="h-5 w-5 text-[var(--accent)]" />
-                  Coach&apos;s note
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 text-sm">
+          <div className="space-y-3 lg:sticky lg:top-6 lg:self-start">
+            <LessonAside
+              title="Coach's note"
+              defaultOpen={!lesson.lessonModule}
+              icon={<Sparkles className="h-5 w-5 text-[var(--accent)]" />}
+              className="border-[rgb(var(--accent-rgb)/0.55)]"
+            >
+              <div className="space-y-3 text-sm">
                 {renderCoachNote(lesson.instructorScript)}
                 {!coachConfirmed && gateSeconds > 0 ? (
                   <Button
@@ -509,14 +510,16 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                     Got it {coachSecondsLeft > 0 ? `(${coachSecondsLeft}s)` : ""}
                   </Button>
                 ) : null}
-              </CardContent>
-            </Card>
+              </div>
+            </LessonAside>
 
-            <Card className="border-[var(--brand)]/30 bg-[var(--brand)]/5">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">SQL command guide</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
+            <LessonAside
+              title="SQL command guide"
+              defaultOpen
+              icon={<Database className="h-5 w-5 text-[var(--brand)]" />}
+              className="border-[var(--brand)]/30 bg-[var(--brand)]/5"
+            >
+              <div className="space-y-3">
                 {lesson.commandReference.map((cmd) => (
                   <div
                     key={cmd.command}
@@ -527,24 +530,32 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                     <p className="mt-2 font-mono text-xs text-slate-500">Example: {cmd.example}</p>
                   </div>
                 ))}
-              </CardContent>
-            </Card>
+              </div>
+            </LessonAside>
 
-            {lesson.kidExplain.map((item) => (
-              <Card key={item.title}>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base">{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-slate-700">{item.text}</CardContent>
-              </Card>
-            ))}
+            {lesson.kidExplain.length > 0 ? (
+              <LessonAside title="Key ideas" icon={<Lightbulb className="h-5 w-5 text-amber-500" />}>
+                <div className="space-y-3">
+                  {lesson.kidExplain.map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-xl border border-slate-100 bg-slate-50 p-3"
+                    >
+                      <p className="text-sm font-bold text-slate-900">{item.title}</p>
+                      <p className="mt-1 text-sm text-slate-600">{item.text}</p>
+                    </div>
+                  ))}
+                </div>
+              </LessonAside>
+            ) : null}
 
-            <Card className="border-sky-200 bg-sky-50/50">
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">Data ethics moment</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-slate-700">{lesson.dataEthicsMoment}</CardContent>
-            </Card>
+            <LessonAside
+              title="Data ethics moment"
+              icon={<Sparkles className="h-5 w-5 text-sky-500" />}
+              className="border-sky-200 bg-sky-50/50"
+            >
+              <p className="text-sm text-slate-700">{lesson.dataEthicsMoment}</p>
+            </LessonAside>
           </div>
 
           <div className="space-y-4">

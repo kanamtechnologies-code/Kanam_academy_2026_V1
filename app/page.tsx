@@ -37,13 +37,14 @@ export default function Home() {
   const [studentDbId, setStudentDbId] = React.useState<string>("");
   const [resetOpen, setResetOpen] = React.useState<boolean>(false);
   const [resetStep, setResetStep] = React.useState<1 | 2 | 3>(1);
-  const [activeTab, setActiveTab] = React.useState<string>("python-starter");
+  const [activeTab, setActiveTab] = React.useState<string>("ai-literacy");
 
+  const aiTrack = TRACKS.find((t) => t.id === "ai-literacy")!;
   const pythonTrack = TRACKS.find((t) => t.id === "python-starter")!;
   const dataTrack = TRACKS.find((t) => t.id === "data-analyst")!;
   const dataUnlocked = isDataAnalystTrackUnlocked(completedIds);
   const totalXp = totalXpAcrossTracks(completedIds);
-  const activeTrack = activeTab === "data-analyst" ? dataTrack : pythonTrack;
+  const activeTrack = TRACKS.find((t) => t.id === activeTab) ?? aiTrack;
   const activeTrackProgress = trackProgress(completedIds, activeTrack.lessons);
 
   const resetProgress = async () => {
@@ -245,6 +246,15 @@ export default function Home() {
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="kanam-track-tabs h-auto w-full flex-wrap gap-2 p-2 md:w-auto">
+            <TabsTrigger value="ai-literacy" className="gap-2 px-5 py-2.5">
+              <span>{aiTrack.icon}</span>
+              {aiTrack.title}
+              {aiTrack.lessons.some((l) => l.hasLesson) ? (
+                <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
+                  📖 Guided lessons
+                </span>
+              ) : null}
+            </TabsTrigger>
             <TabsTrigger value="python-starter" className="gap-2 px-5 py-2.5">
               <span>{pythonTrack.icon}</span>
               {pythonTrack.title}
@@ -263,6 +273,10 @@ export default function Home() {
               ) : null}
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="ai-literacy">
+            <TrackRoadmap track={aiTrack} completedIds={completedIds} />
+          </TabsContent>
 
           <TabsContent value="python-starter">
             <TrackRoadmap track={pythonTrack} completedIds={completedIds} />

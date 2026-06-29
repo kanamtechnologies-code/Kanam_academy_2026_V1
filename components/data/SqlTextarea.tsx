@@ -29,10 +29,9 @@ function sqlToHighlightedHtml(sql: string, zones: TypingZone[]) {
     out += escapeHtml(sql.slice(cursor, zone.start));
     const inner = sql.slice(zone.start, zone.end);
     if (inner.length === 0) {
-      out +=
-        '<span class="kanam-sql-typing-gap"><span class="kanam-sql-typing-gap-inner">&nbsp;</span></span>';
+      out += '<span class="kanam-typing-zone kanam-typing-zone--empty"></span>';
     } else {
-      out += `<span class="kanam-sql-typing-gap">${escapeHtml(inner)}</span>`;
+      out += `<span class="kanam-typing-zone">${escapeHtml(inner)}</span>`;
     }
     cursor = Math.max(cursor, zone.end);
   }
@@ -110,6 +109,28 @@ export function SqlTextarea({
     onChange(e.target.value);
   };
 
+  // If a click lands the caret outside every green zone, snap it to the
+  // nearest zone so typing always happens inside the highlighted area.
+  const snapCaretIntoZone = React.useCallback(() => {
+    const ta = textareaRef.current;
+    if (!ta || !showZones || typingZones.length === 0) return;
+    if (ta.selectionStart !== ta.selectionEnd) return;
+    const pos = ta.selectionStart;
+    const inside = typingZones.some((z) => pos >= z.start && pos <= z.end);
+    if (inside) return;
+    let target = typingZones[0].start;
+    let bestDist = Infinity;
+    for (const z of typingZones) {
+      const candidate = pos < z.start ? z.start : z.end;
+      const dist = Math.abs(candidate - pos);
+      if (dist < bestDist) {
+        bestDist = dist;
+        target = candidate;
+      }
+    }
+    ta.setSelectionRange(target, target);
+  }, [showZones, typingZones]);
+
   const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     const el = e.currentTarget;
     let sql = el.value;
@@ -158,6 +179,7 @@ export function SqlTextarea({
           value={value}
           onChange={handleChange}
           onFocus={handleFocus}
+          onClick={snapCaretIntoZone}
           onScroll={syncScroll}
           readOnly={readOnly}
           placeholder={placeholder}
