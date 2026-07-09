@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { LogOut, UserRound, Users } from "lucide-react";
 
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
@@ -12,19 +12,38 @@ import { USER_NAME_KEY, isGuestMode, setGuestMode } from "@/lib/guestProgress";
 const chipBase =
   "inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 py-2 text-xs font-extrabold tracking-tight focus:outline-none focus-visible:ring-4 sm:gap-2 sm:px-3.5";
 
+function isWelcomePath(pathname: string | null) {
+  if (!pathname) return false;
+  return pathname === "/welcome" || pathname.startsWith("/welcome/");
+}
+
 export function AuthActions() {
   const router = useRouter();
+  const pathname = usePathname();
   const [loading, setLoading] = React.useState(true);
   const [signedIn, setSignedIn] = React.useState(false);
   const [guest, setGuest] = React.useState(false);
   const [instructor, setInstructor] = React.useState(false);
 
   React.useEffect(() => {
-    if (isGuestMode()) {
+    // Welcome is the exit destination — clear leftover guest mode so "Exit demo" never shows here.
+    if (isWelcomePath(pathname) && isGuestMode()) {
+      setGuestMode(false);
+      try {
+        window.localStorage.removeItem(USER_NAME_KEY);
+      } catch {
+        // ignore
+      }
+      setGuest(false);
+    }
+
+    if (isGuestMode() && !isWelcomePath(pathname)) {
       setGuest(true);
       setLoading(false);
       return;
     }
+
+    setGuest(false);
 
     const supabase = createSupabaseBrowserClient();
     if (!supabase) {
@@ -63,11 +82,11 @@ export function AuthActions() {
       mounted = false;
       sub.subscription.unsubscribe();
     };
-  }, []);
+  }, [pathname]);
 
   if (loading) return null;
 
-  if (guest) {
+  if (guest && !isWelcomePath(pathname)) {
     return (
       <button
         type="button"
@@ -91,6 +110,8 @@ export function AuthActions() {
   }
 
   if (!signedIn) {
+    // Welcome already has sign-in forms — don't duplicate in the header.
+    if (isWelcomePath(pathname)) return null;
     return (
       <Link
         href="/welcome/returning"

@@ -85,7 +85,9 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
           </p>
         ) : null}
         <Button asChild className="mt-2">
-          <Link href="/dashboard">Back to dashboard</Link>
+          <Link href={isGuestMode() ? "/demo" : "/dashboard"}>
+            {isGuestMode() ? "Back to demo" : "Back to dashboard"}
+          </Link>
         </Button>
       </div>
     );

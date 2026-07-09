@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { BookOpenCheck, Flame, Sparkles, Trophy } from "lucide-react";
 
 import { TrackRoadmap } from "@/components/dashboard/TrackRoadmap";
-import { GuestDashboardTour } from "@/components/demo/GuestDashboardTour";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,11 +20,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole } from "@/lib/roles";
 import {
-  GUEST_PROGRESS_EVENT,
-  getGuestCompletedIds,
-  getGuestName,
   isGuestMode,
-  resetGuestProgress,
 } from "@/lib/guestProgress";
 import {
   DATA_ANALYST_PREREQUISITES,
@@ -56,9 +51,10 @@ export default function Home() {
   });
 
   React.useEffect(() => {
-    if (!isGuestMode()) return;
-    setActiveTab("python-starter");
-  }, []);
+    if (isGuestMode()) {
+      router.replace("/demo");
+    }
+  }, [router]);
 
   const openLessonIds = React.useMemo(() => {
     if (!lessonAccess.classRestricted || lessonAccess.enabledLessonIds == null) return null;
@@ -79,12 +75,6 @@ export default function Home() {
   });
 
   const resetProgress = async () => {
-    if (isGuestMode()) {
-      resetGuestProgress();
-      setHasSavedProgress(true);
-      setCompletedIds([]);
-      return;
-    }
     if (!studentDbId) return;
     try {
       const supabase = createSupabaseBrowserClient();
@@ -100,25 +90,8 @@ export default function Home() {
   };
 
   React.useEffect(() => {
-    if (!isGuestMode()) return;
-    const refresh = () => setCompletedIds(getGuestCompletedIds());
-    window.addEventListener(GUEST_PROGRESS_EVENT, refresh);
-    window.addEventListener("focus", refresh);
-    return () => {
-      window.removeEventListener(GUEST_PROGRESS_EVENT, refresh);
-      window.removeEventListener("focus", refresh);
-    };
-  }, []);
-
-  React.useEffect(() => {
     (async () => {
-      // Guest / demo mode: everything lives in local storage, no Supabase.
-      if (isGuestMode()) {
-        setStudentName(getGuestName());
-        setCompletedIds(getGuestCompletedIds());
-        setHasSavedProgress(true);
-        return;
-      }
+      if (isGuestMode()) return;
 
       const supabase = createSupabaseBrowserClient();
       if (!supabase) {
@@ -191,10 +164,8 @@ export default function Home() {
 
   return (
     <div className="kanam-dashboard-shell min-h-dvh px-3 py-4 text-slate-900 sm:px-4 sm:py-6 md:px-10">
-      <GuestDashboardTour />
       <div className="mx-auto w-full max-w-[1320px] space-y-4 sm:space-y-6">
         <section
-          data-tour="dash-hero"
           className="kanam-dashboard-hero rounded-[22px] p-4 sm:rounded-[30px] sm:p-6 md:p-8"
         >
           <div className="kanam-dashboard-hero-overlay" />
@@ -203,27 +174,15 @@ export default function Home() {
               <div className="min-w-0">
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/85 sm:text-xs sm:tracking-[0.24em]">
                   Kanam Academy · Learning hub
-                  {isGuestMode() ? " · Demo" : ""}
                 </p>
                 <h1 className="mt-2 break-words text-2xl font-black tracking-tight text-white sm:text-3xl md:text-5xl">
                   Welcome back, {studentName}!
                 </h1>
                 <p className="mt-2 max-w-2xl text-sm font-medium text-white/85 md:text-base">
-                  {isGuestMode()
-                    ? "You're exploring in demo mode — progress saves on this device. Pick a track and try a lesson."
-                    : "Pick up where you left off, track your streak, and jump into your next lesson faster."}
+                  Pick up where you left off, track your streak, and jump into your next lesson faster.
                 </p>
               </div>
               <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
-                {isGuestMode() ? (
-                  <Button
-                    asChild
-                    data-tour="dash-try-lesson"
-                    className="min-h-11 w-full bg-white text-[var(--brand-2)] hover:bg-white/95 sm:w-auto"
-                  >
-                    <Link href="/learn/demo?view=lesson">Try a lesson</Link>
-                  </Button>
-                ) : null}
                 <Button
                   type="button"
                   variant="outline"
@@ -235,7 +194,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div data-tour="dash-stats" className="grid gap-2 sm:gap-3 sm:grid-cols-3">
+            <div className="grid gap-2 sm:gap-3 sm:grid-cols-3">
               <div className="kanam-dashboard-stat rounded-2xl p-4">
                 <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/75">
                   Total XP
@@ -365,7 +324,6 @@ export default function Home() {
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList
-            data-tour="dash-tracks"
             className="kanam-track-tabs h-auto w-full max-w-full flex-wrap justify-start gap-1.5 overflow-x-auto p-1.5 sm:gap-2 sm:p-2 md:w-auto"
           >
             <TabsTrigger

@@ -16,9 +16,10 @@ export const demoLesson: PythonLessonConfig = {
   goal: "In two short exercises, create a variable and print a greeting — the same skills students use in class.",
   xpReward: 50,
   badge: "🤖 The Awakener",
-  dashboardHref: "/dashboard",
+  dashboardHref: "/welcome",
   nextHref: "/demo/complete",
   coachNoteGateSeconds: 4,
+  guidedTour: true,
   instructorScript: `**Coach's note**:
 Welcome to Kanam Academy.
 
@@ -123,6 +124,8 @@ print("____" + name + "!")
         kicker: "Demo",
         title: "What you'll try",
         body: `This is a real Kanam lesson canvas — the same layout students use in class.\n\nYou'll:\n\n• Read a short coach note\n• Fill in blanks in Python\n• Press **Run** and see the console\n• Earn XP when you finish\n\nNo account needed. Progress saves on this device.`,
+        image: "/images/lessons/py-1-hello.png",
+        imageAlt: "A friendly robot waving hello — your first AI helper",
         callout: {
           label: "Tip",
           text: "Tiny typos matter. If something fails, check quotes, spaces, and lowercase print().",
@@ -132,7 +135,17 @@ print("____" + name + "!")
         id: "how",
         kicker: "How class works",
         title: "Learn, then practice",
-        body: `Every Kanam lesson has two steps:\n\n1. **Lesson** — short teaching (what you're reading now)\n2. **Activity** — hands-on exercises with Run & check\n\nWhen you're ready, switch to **Activity** and start Exercise 1.`,
+        body: `Every Kanam lesson has two steps:\n\n1. **Lesson** — short teaching (what you're reading now)\n2. **Activity** — hands-on exercises with Run & check\n\nWhen you're ready, tap **Start the exercises** and begin Exercise 1.`,
+        image: "/images/screenshots/lesson-canvas.png",
+        imageAlt: "Screenshot of the Kanam lesson canvas with coach note and code workspace",
+        code: `name = "Alex"
+print("Hello, " + name + "!")`,
+        codeCaption: "What you'll build",
+        output: "Hello, Alex!",
+        callout: {
+          label: "Your turn next",
+          text: "You'll fill in the blanks yourself — the tour will point to each part of the workspace.",
+        },
       },
     ],
   },

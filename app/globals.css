@@ -304,26 +304,10 @@ body {
 }
 
 @keyframes kanamSpotlightPulse {
-  0% {
-    box-shadow:
-      0 0 0 0 rgba(255, 255, 255, 0.65),
-      0 0 0 6px rgba(24, 161, 109, 0.22),
-      0 0 34px rgba(24, 161, 109, 0.28);
-    filter: brightness(1);
-  }
-  50% {
-    box-shadow:
-      0 0 0 4px rgba(255, 255, 255, 0.85),
-      0 0 0 12px rgba(24, 161, 109, 0.32),
-      0 0 44px rgba(24, 161, 109, 0.38);
-    filter: brightness(1.08);
-  }
+  /* Kept for backwards compatibility; tour no longer uses continuous pulse. */
+  0%,
   100% {
-    box-shadow:
-      0 0 0 0 rgba(255, 255, 255, 0.65),
-      0 0 0 6px rgba(24, 161, 109, 0.22),
-      0 0 34px rgba(24, 161, 109, 0.28);
-    filter: brightness(1);
+    opacity: 1;
   }
 }
 
@@ -334,6 +318,17 @@ body {
   }
   50% {
     transform: translateY(-3px);
+  }
+}
+
+@keyframes kanamTourTooltipIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

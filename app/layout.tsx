@@ -1,11 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import Link from "next/link";
 import { Inter } from "next/font/google";
-import { HelpCircle } from "lucide-react";
 import { HeaderVideo } from "@/components/layout/HeaderVideo";
 import { HeaderBrand } from "@/components/layout/HeaderBrand";
 import { AuthActions } from "@/components/layout/AuthActions";
-import { Button } from "@/components/ui/button";
+import { HeaderHelp } from "@/components/layout/HeaderHelp";
 import "./globals.css";
 
 const inter = Inter({
@@ -56,16 +54,7 @@ export default function RootLayout({
             <HeaderBrand />
             <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
               <AuthActions />
-              <Button
-                asChild
-                variant="outline"
-                className="min-h-11 border-white/60 bg-white/90 px-3 text-[color:var(--brand-2)] hover:bg-white sm:px-4"
-              >
-                <Link href="/help" aria-label="Help">
-                  <HelpCircle className="h-4 w-4 sm:hidden" />
-                  <span className="hidden sm:inline">Help</span>
-                </Link>
-              </Button>
+              <HeaderHelp />
             </div>
           </div>
         </header>

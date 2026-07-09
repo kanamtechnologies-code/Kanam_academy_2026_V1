@@ -3,7 +3,6 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   CheckCircle2,
@@ -15,6 +14,7 @@ import { motion } from "framer-motion";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
+import { DEMO_LESSON_TOUR_FLAG } from "@/components/demo/GuestLessonTour";
 import {
   getGuestCompletedIds,
   isGuestMode,
@@ -24,7 +24,6 @@ import {
 import { totalXpAcrossTracks } from "@/lib/tracks";
 
 export default function DemoCompletePage() {
-  const router = useRouter();
   const [xp, setXp] = React.useState(0);
   const [completed, setCompleted] = React.useState(0);
 
@@ -96,7 +95,7 @@ export default function DemoCompletePage() {
                 {[
                   "You can follow a coach note and start an activity.",
                   "You can edit Python, press Run, and read the console.",
-                  "You can earn XP that shows up on the learning hub.",
+                  "You can earn XP in a real Kanam lesson flow.",
                 ].map((line) => (
                   <li key={line} className="flex items-start gap-3 text-sm text-slate-700">
                     <span className="mt-0.5 grid h-6 w-6 place-items-center rounded-full bg-emerald-100 text-emerald-800">
@@ -109,15 +108,13 @@ export default function DemoCompletePage() {
 
               <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:flex-wrap">
                 <Button
+                  asChild
                   size="lg"
                   className="h-12 w-full rounded-2xl px-6 font-extrabold sm:w-auto"
-                  onClick={() => {
-                    setGuestMode(true);
-                    setGuestName("Guest");
-                    router.push("/dashboard");
-                  }}
                 >
-                  Keep exploring <ArrowRight className="h-4 w-4" />
+                  <Link href="/welcome">
+                    Create an account <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </Button>
                 <Button
                   asChild
@@ -125,7 +122,18 @@ export default function DemoCompletePage() {
                   variant="outline"
                   className="h-12 w-full rounded-2xl font-extrabold sm:w-auto"
                 >
-                  <Link href="/welcome">Create an account</Link>
+                  <Link
+                    href="/learn/demo?view=lesson"
+                    onClick={() => {
+                      try {
+                        window.localStorage.setItem(DEMO_LESSON_TOUR_FLAG, "1");
+                      } catch {
+                        // ignore
+                      }
+                    }}
+                  >
+                    Replay guided lesson
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -133,7 +141,7 @@ export default function DemoCompletePage() {
             <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-5">
               <p className="text-sm font-extrabold text-slate-900">Next for schools & parents</p>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Students can join with a class code. Instructors create classes, assign lessons, and
+                Students join with a class code. Instructors create classes, assign lessons, and
                 track progress from the instructor dashboard.
               </p>
               <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
@@ -151,7 +159,7 @@ export default function DemoCompletePage() {
                   variant="outline"
                   className="h-11 w-full rounded-xl font-extrabold sm:w-auto"
                 >
-                  <Link href="/learn/demo">Replay quickstart</Link>
+                  <Link href="/welcome">Back to Welcome</Link>
                 </Button>
               </div>
             </div>

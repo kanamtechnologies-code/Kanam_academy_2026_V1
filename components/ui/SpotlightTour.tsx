@@ -41,16 +41,13 @@ function safeRect(
 }
 
 function isActuallyVisible(el: HTMLElement) {
-  // Fast checks for hidden/inert elements (common with Tabs / responsive layouts)
   if (!el.isConnected) return false;
   if (el.hidden) return false;
   const style = window.getComputedStyle(el);
   if (style.display === "none" || style.visibility === "hidden" || style.opacity === "0")
     return false;
-  // If any ancestor is hidden, treat as invisible
   const hiddenAncestor = el.closest("[hidden], [aria-hidden='true']");
   if (hiddenAncestor) return false;
-  // Layout box check
   const r = el.getBoundingClientRect();
   if (r.width <= 1 || r.height <= 1) return false;
   return true;
@@ -72,26 +69,28 @@ export const SpotlightTour = React.forwardRef<
     defaultOpen?: boolean;
     remember?: boolean;
     showTooltip?: boolean;
-    interactive?: boolean; // if true, don't block clicks (pure visual highlight)
-    autoCloseMs?: number; // optional auto-close timer
-    fadeMs?: number; // fade-out duration in ms
-    moveMs?: number; // spotlight movement duration in ms (between steps)
-    recomputeDelayMs?: number; // wait before measuring spotlight (lets scroll/layout settle)
+    interactive?: boolean;
+    autoCloseMs?: number;
+    fadeMs?: number;
+    /** @deprecated Kept for API compatibility; spotlight no longer morphs between steps. */
+    moveMs?: number;
+    recomputeDelayMs?: number;
     onDone?: () => void;
+    onStepChange?: (step: SpotlightTourStep, index: number) => void;
   }
 >(function SpotlightTour(
   {
-  steps,
-  storageKey,
-  defaultOpen = true,
-  remember = true,
-  showTooltip = true,
-  interactive = false,
-  autoCloseMs,
-  fadeMs = 220,
-  moveMs = 180,
-  recomputeDelayMs = 250,
-  onDone,
+    steps,
+    storageKey,
+    defaultOpen = true,
+    remember = true,
+    showTooltip = true,
+    interactive = false,
+    autoCloseMs,
+    fadeMs = 180,
+    recomputeDelayMs = 120,
+    onDone,
+    onStepChange,
   },
   ref
 ) {
@@ -106,26 +105,29 @@ export const SpotlightTour = React.forwardRef<
       interactive={interactive}
       autoCloseMs={autoCloseMs}
       fadeMs={fadeMs}
-      moveMs={moveMs}
       recomputeDelayMs={recomputeDelayMs}
       onDone={onDone}
+      onStepChange={onStepChange}
     />
   );
 });
 
-const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
-  steps: SpotlightTourStep[];
-  storageKey: string;
-  defaultOpen?: boolean;
-  remember?: boolean;
-  showTooltip?: boolean;
-  interactive?: boolean;
-  autoCloseMs?: number;
-  fadeMs?: number;
-  moveMs?: number;
-  recomputeDelayMs?: number;
-  onDone?: () => void;
-}>(function SpotlightTourInner(
+const SpotlightTourInner = React.forwardRef<
+  SpotlightTourHandle,
+  {
+    steps: SpotlightTourStep[];
+    storageKey: string;
+    defaultOpen?: boolean;
+    remember?: boolean;
+    showTooltip?: boolean;
+    interactive?: boolean;
+    autoCloseMs?: number;
+    fadeMs?: number;
+    recomputeDelayMs?: number;
+    onDone?: () => void;
+    onStepChange?: (step: SpotlightTourStep, index: number) => void;
+  }
+>(function SpotlightTourInner(
   {
     steps,
     storageKey,
@@ -134,10 +136,10 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
     showTooltip = true,
     interactive = false,
     autoCloseMs,
-    fadeMs = 220,
-    moveMs = 180,
-    recomputeDelayMs = 250,
+    fadeMs = 180,
+    recomputeDelayMs = 120,
     onDone,
+    onStepChange,
   },
   ref
 ) {
@@ -155,6 +157,11 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
   } | null>(null);
 
   const step = steps[idx];
+
+  React.useEffect(() => {
+    if (!open || !step) return;
+    onStepChange?.(step, idx);
+  }, [open, idx, step, onStepChange]);
 
   const startClose = React.useCallback(() => {
     if (!fadeMs) {
@@ -221,9 +228,8 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
   const recompute = React.useCallback(() => {
     if (!open) return;
     const el = step ? findVisibleTarget(step.selector) : null;
-    // Keep prior rect if target is temporarily unavailable to avoid full-screen flash.
     if (!el) return;
-    const pad = step.padding ?? 10;
+    const pad = step.padding ?? 8;
     const r = el.getBoundingClientRect();
     setRect(safeRect(r, pad));
   }, [open, step]);
@@ -232,8 +238,8 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
     if (!open) return;
     const el = step ? findVisibleTarget(step.selector) : null;
     if (el) {
-      // Scroll it into view (works for nested scroll containers too).
-      el.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+      // Instant scroll — smooth scroll + remount delay felt laggy between steps.
+      el.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
     }
     const t = window.setTimeout(() => recompute(), recomputeDelayMs);
     return () => window.clearTimeout(t);
@@ -253,22 +259,15 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
   const visible = open || closing;
   if (!mounted || !visible || !step) return null;
 
-  const scrimColor = "rgba(2, 6, 23, 0.62)"; // slate-950 w/ alpha
+  const scrimColor = "rgba(2, 6, 23, 0.55)";
   const z = "z-[9999]";
 
   const tooltipMaxW = 360;
-  const tooltipW = Math.min(
-    tooltipMaxW,
-    Math.max(280, Math.floor(window.innerWidth - 24))
-  );
+  const tooltipW = Math.min(tooltipMaxW, Math.max(280, Math.floor(window.innerWidth - 24)));
 
   const tooltip = (() => {
     if (!rect) {
-      return {
-        top: 24,
-        left: 12,
-        placement: "floating",
-      } as const;
+      return { top: 24, left: 12, placement: "floating" } as const;
     }
     const margin = 12;
     const preferBelow = rect.bottom + margin + 200 < window.innerHeight;
@@ -286,17 +285,15 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
         pointerEvents: interactive ? "none" : open ? "auto" : "none",
       }}
     >
-      {/* Spotlight (single element): box-shadow dims OUTSIDE the rectangle.
-          This avoids the distorted multi-panel animation during step transitions. */}
+      {/* Static spotlight hole: dim via one box-shadow, no continuous pulse/morph. */}
       {rect ? (
         <div
-          className="pointer-events-none fixed rounded-2xl border-2 border-white/70 animate-[kanamSpotlightPulse_1.1s_ease-in-out_infinite] transition-[top,left,width,height] ease-out"
+          className="pointer-events-none fixed rounded-2xl border-2 border-[rgb(var(--accent-rgb)/0.95)] ring-2 ring-white/80"
           style={{
             top: rect.top,
             left: rect.left,
             width: rect.width,
             height: rect.height,
-            transitionDuration: `${moveMs}ms`,
             boxShadow: `0 0 0 9999px ${scrimColor}`,
           }}
         />
@@ -305,21 +302,22 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
       )}
 
       {showTooltip ? (
-        <div className="fixed" style={{ top: tooltip.top, left: tooltip.left, width: tooltipW }}>
+        <div
+          key={step.id}
+          className="fixed animate-[kanamTourTooltipIn_160ms_ease-out]"
+          style={{ top: tooltip.top, left: tooltip.left, width: tooltipW }}
+        >
           <div
             className={[
-              "pointer-events-auto rounded-2xl border bg-white shadow-2xl",
-              // Stronger “pop” against the dim overlay
+              "pointer-events-auto rounded-2xl border bg-white shadow-xl",
               "border-[rgb(var(--accent-rgb)/0.55)]",
-              "ring-1 ring-[rgb(var(--accent-rgb)/0.35)]",
-              "shadow-[0_28px_70px_rgba(2,6,23,0.30),0_0_40px_rgba(216,192,122,0.18),0_0_34px_rgba(24,161,109,0.12)]",
-              // Subtle premium tint so it feels branded (still readable)
-              "bg-gradient-to-br from-white via-white to-[rgb(var(--accent-rgb)/0.10)]",
+              "ring-1 ring-[rgb(var(--accent-rgb)/0.25)]",
+              "bg-gradient-to-br from-white via-white to-[rgb(var(--accent-rgb)/0.08)]",
             ].join(" ")}
           >
             <div className="flex items-start gap-3 p-4">
               <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[var(--accent)]/12 ring-1 ring-[var(--accent)]/20">
-                <div className="animate-[kanamTourBounce_900ms_ease-in-out_infinite] text-slate-900">
+                <div className="text-slate-900">
                   {step.icon ?? <MousePointerClick className="h-5 w-5" />}
                 </div>
               </div>
@@ -381,4 +379,3 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
 SpotlightTourInner.displayName = "SpotlightTourInner";
 
 SpotlightTour.displayName = "SpotlightTour";
-

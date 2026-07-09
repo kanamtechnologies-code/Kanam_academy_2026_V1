@@ -5,47 +5,36 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  ArrowRight,
   BookOpen,
+  Code2,
   Flame,
   Play,
   Sparkles,
   Trophy,
-  Zap,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DEMO_LESSON_TOUR_FLAG } from "@/components/demo/GuestLessonTour";
 import { setGuestMode, setGuestName, resetGuestProgress } from "@/lib/guestProgress";
-import { TRACKS, totalXpAcrossTracks } from "@/lib/tracks";
-
-const DEMO_TOUR_FLAG = "kanam.demo.tourPending";
 
 export default function DemoEntryPage() {
   const router = useRouter();
-  const [starting, setStarting] = React.useState<"tour" | "lesson" | "explore" | null>(null);
+  const [starting, setStarting] = React.useState(false);
 
-  const startGuest = React.useCallback(
-    (destination: "/dashboard" | "/learn/demo", withTour: boolean) => {
-      setStarting(destination === "/learn/demo" ? "lesson" : withTour ? "tour" : "explore");
-      setGuestMode(true);
-      setGuestName("Guest");
-      if (withTour) {
-        try {
-          window.localStorage.setItem(DEMO_TOUR_FLAG, "1");
-        } catch {
-          // ignore
-        }
-      }
-      router.push(destination);
-    },
-    [router]
-  );
-
-  const trackCount = TRACKS.length;
-  const lessonCount = TRACKS.reduce((n, t) => n + t.lessons.length, 0);
+  const startGuidedLesson = React.useCallback(() => {
+    setStarting(true);
+    setGuestMode(true);
+    setGuestName("Guest");
+    try {
+      window.localStorage.setItem(DEMO_LESSON_TOUR_FLAG, "1");
+    } catch {
+      // ignore
+    }
+    router.push("/learn/demo?view=lesson");
+  }, [router]);
 
   return (
     <WelcomeBackground>
@@ -60,76 +49,51 @@ export default function DemoEntryPage() {
               Interactive demo
             </p>
             <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
-              Try Kanam Academy
-              <span className="block text-[color:var(--brand)]">the way students do</span>
+              Try a real Kanam lesson
+              <span className="block text-[color:var(--brand)]">guided, step by step</span>
             </h1>
             <p className="mt-4 max-w-xl text-base font-medium leading-relaxed text-slate-700 md:text-lg">
-              Explore the real learning hub, open a live lesson canvas, run Python, and earn XP —
-              all on this device. No account required.
+              A short tour walks you through the lesson canvas — coach note, Python blanks, Run &amp;
+              check, and XP. No account required. About 3 minutes.
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
               <Badge className="border border-emerald-200 bg-emerald-50 text-emerald-900">
-                {trackCount} tracks
+                Live Python canvas
               </Badge>
               <Badge className="border border-amber-200 bg-amber-50 text-amber-950">
-                {lessonCount}+ lessons
+                Guided tour
               </Badge>
               <Badge variant="outline" className="border-slate-300 bg-white/80">
                 Progress saves locally
               </Badge>
             </div>
 
-            <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="mt-8">
               <Button
                 size="lg"
-                disabled={starting !== null}
+                disabled={starting}
                 className={[
                   "h-14 w-full rounded-2xl px-7 text-base font-extrabold sm:w-auto",
                   "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
                   "text-[var(--accent)] shadow-lg shadow-emerald-900/20 hover:brightness-[1.05]",
                 ].join(" ")}
-                onClick={() => startGuest("/dashboard", true)}
+                onClick={startGuidedLesson}
               >
-                {starting === "tour" ? (
+                {starting ? (
                   "Opening…"
                 ) : (
                   <>
-                    Guided tour <Play className="h-5 w-5" />
-                  </>
-                )}
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                disabled={starting !== null}
-                className="h-14 w-full rounded-2xl border-2 border-[var(--brand)]/40 bg-white/90 px-7 text-base font-extrabold text-[var(--brand-2)] hover:bg-emerald-50 sm:w-auto"
-                onClick={() => startGuest("/learn/demo", false)}
-              >
-                {starting === "lesson" ? (
-                  "Opening…"
-                ) : (
-                  <>
-                    Jump into a lesson <Zap className="h-5 w-5" />
+                    Start guided lesson <Play className="h-5 w-5" />
                   </>
                 )}
               </Button>
             </div>
 
-            <p className="mt-4 flex flex-col gap-2 text-sm text-slate-600 sm:block">
-              <span className="sm:inline">Prefer to browse freely? </span>
-              <button
-                type="button"
-                className="inline-flex min-h-11 items-center font-extrabold text-emerald-800 underline underline-offset-2 hover:text-emerald-950 sm:min-h-0 sm:inline"
-                disabled={starting !== null}
-                onClick={() => startGuest("/dashboard", false)}
-              >
-                Explore the full app
-              </button>
-              <span className="hidden sm:inline">{" · "}</span>
+            <p className="mt-4">
               <Link
                 href="/welcome"
-                className="inline-flex min-h-11 items-center font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-900 sm:min-h-0 sm:inline"
+                className="inline-flex min-h-11 items-center text-sm font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-900"
               >
                 Back to Welcome
               </Link>
@@ -151,16 +115,16 @@ export default function DemoEntryPage() {
                   </div>
                   <div>
                     <p className="text-xs font-black uppercase tracking-[0.2em] text-white/80">
-                      Learning hub preview
+                      Lesson canvas preview
                     </p>
-                    <p className="text-lg font-black text-white">Welcome back, Guest!</p>
+                    <p className="text-lg font-black text-white">Quickstart: Meet Your AI Helper</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { label: "XP", value: String(totalXpAcrossTracks([])), icon: Sparkles },
-                    { label: "Tracks", value: String(trackCount), icon: BookOpen },
-                    { label: "Next", value: "Lesson 1", icon: Flame },
+                    { label: "XP", value: "50", icon: Sparkles },
+                    { label: "Steps", value: "2", icon: BookOpen },
+                    { label: "Time", value: "~3 min", icon: Flame },
                   ].map((stat) => (
                     <div key={stat.label} className="kanam-dashboard-stat rounded-2xl p-3">
                       <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-white/70">
@@ -178,24 +142,24 @@ export default function DemoEntryPage() {
 
             <div className="rounded-[28px] border border-white/60 bg-white/75 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.04)] backdrop-blur-2xl">
               <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-slate-500">
-                What you&apos;ll see
+                What you&apos;ll do
               </p>
               <ul className="mt-3 space-y-3">
                 {[
                   {
-                    icon: Trophy,
-                    title: "Real dashboard",
-                    body: "Four tracks, XP, badges, and an 8-week roadmap.",
-                  },
-                  {
                     icon: BookOpen,
-                    title: "Lesson → Activity",
-                    body: "Read the coach note, then run code with live feedback.",
+                    title: "Read a short lesson",
+                    body: "Pictures + coach tips — same layout students use in class.",
                   },
                   {
-                    icon: ArrowRight,
-                    title: "Keep exploring",
-                    body: "Finish the quickstart, then open any track you want.",
+                    icon: Code2,
+                    title: "Write a little Python",
+                    body: "Fill in blanks, press Run, and read the console.",
+                  },
+                  {
+                    icon: Trophy,
+                    title: "Earn XP",
+                    body: "Finish both exercises and see your progress celebrate.",
                   },
                 ].map((item) => (
                   <li key={item.title} className="flex gap-3">

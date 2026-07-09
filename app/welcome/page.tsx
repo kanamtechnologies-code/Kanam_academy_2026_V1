@@ -20,7 +20,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, postSignInPath } from "@/lib/roles";
-import { setGuestMode, setGuestName } from "@/lib/guestProgress";
 
 type EnsureProfileResponse = {
   ok?: boolean;
@@ -208,7 +207,7 @@ export default function WelcomePage() {
                   </span>
                   : sign in.
                 </p>
-                <p>Parents and educators: use Demo mode to preview what students see.</p>
+                <p>Parents and educators: try the guided lesson demo to preview what students see.</p>
               </div>
             </div>
 
@@ -217,39 +216,27 @@ export default function WelcomePage() {
                 Demo mode
               </p>
               <p className="mt-2 text-base font-black tracking-tight text-slate-900">
-                Just testing? Explore the full app without signing in.
+                Just testing? Try a guided lesson — no account needed.
               </p>
               <p className="mt-1 text-sm text-slate-600">
-                Browse every track, open real lessons, and earn XP — your progress saves on this
-                device. No account needed.
+                A short tour walks you through a real Python lesson: coach note, code blanks, Run
+                &amp; check, and XP. Progress saves on this device.
               </p>
 
-              <div className="mt-4 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
+              <div className="mt-4">
                 <Button
                   type="button"
                   className={[
-                    "h-12 w-full rounded-2xl px-6 text-sm font-extrabold tracking-tight sm:w-auto",
+                    "h-12 w-full rounded-2xl px-6 text-sm font-extrabold tracking-tight",
                     "shadow-lg shadow-emerald-700/15",
                     "bg-gradient-to-r from-[rgb(var(--accent-rgb)/0.95)] via-[rgb(var(--brand-rgb)/0.92)] to-[rgb(var(--accent-rgb)/0.95)]",
                     "[background-size:200%_200%] animate-[kanamShimmer_1.6s_linear_infinite]",
                     "text-slate-950 hover:brightness-[1.03]",
                     "focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)]",
                   ].join(" ")}
-                  onClick={() => {
-                    setGuestMode(true);
-                    setGuestName("Guest");
-                    router.push("/dashboard");
-                  }}
-                >
-                  Explore the full app <Sparkles className="h-5 w-5" />
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="h-12 w-full rounded-2xl px-5 text-sm font-extrabold tracking-tight sm:w-auto"
                   onClick={() => router.push("/demo")}
                 >
-                  Interactive demo
+                  Try the guided lesson <Sparkles className="h-5 w-5" />
                 </Button>
               </div>
             </div>
