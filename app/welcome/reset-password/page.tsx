@@ -45,6 +45,11 @@ export default function ResetPasswordPage() {
     (async () => {
       setError(null);
       const supabase = createSupabaseBrowserClient();
+      if (!supabase) {
+        setError("Password reset is unavailable in demo mode.");
+        setReady(true);
+        return;
+      }
 
       const tokens = readHashTokens();
       if (!tokens || tokens.type !== "recovery") {
@@ -167,6 +172,7 @@ export default function ResetPasswordPage() {
                         setSaving(true);
                         try {
                           const supabase = createSupabaseBrowserClient();
+                          if (!supabase) throw new Error("Password reset is unavailable in demo mode.");
                           const { error: upErr } = await supabase.auth.updateUser({ password: pw });
                           if (upErr) throw new Error(upErr.message);
                           setDone(true);

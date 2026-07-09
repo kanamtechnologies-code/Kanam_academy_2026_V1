@@ -22,6 +22,7 @@ import {
 import { ChartPanel, type ChartConfig } from "@/components/data/ChartPanel";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
+import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
 import { ResultTable } from "@/components/data/ResultTable";
 import { SqlTextarea } from "@/components/data/SqlTextarea";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
@@ -38,6 +39,7 @@ import {
   type SqlRunResult,
 } from "@/lib/sqlRunner";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
 import { prepareExerciseSql, cursorForIncompleteSql, findTypingZonesForExercise } from "@/lib/sqlStarter";
 import { cn } from "@/lib/utils";
 import type { Database as SqlDatabase } from "sql.js";
@@ -210,9 +212,11 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
   }, []);
 
   React.useEffect(() => {
+    if (isGuestMode()) return;
     (async () => {
       try {
         const supabase = createSupabaseBrowserClient();
+        if (!supabase) return;
         const { data } = await supabase.auth.getUser();
         const uid = data.user?.id ?? "";
         setUserId(uid);
@@ -255,9 +259,14 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
 
   const trackProgress = React.useCallback(
     async (eventType: string, payload?: unknown) => {
+      if (isGuestMode()) {
+        if (eventType === "lesson_success") markGuestLessonComplete(lesson.id);
+        return;
+      }
       if (!deviceId || !userId || !studentDbId) return;
       try {
         const supabase = createSupabaseBrowserClient();
+        if (!supabase) return;
         const now = new Date().toISOString();
         await supabase.from("progress_events").insert({
           student_id: studentDbId,
@@ -407,6 +416,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
   }, [activeIndex, dbLoading, dbError, lessonComplete]);
 
   return (
+    <LessonAccessGate lessonId={lesson.id}>
     <WelcomeBackground>
       <div
         className={cn(
@@ -806,5 +816,6 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
         )}
       </div>
     </WelcomeBackground>
+    </LessonAccessGate>
   );
 }

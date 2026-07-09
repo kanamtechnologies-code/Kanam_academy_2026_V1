@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Inter } from "next/font/google";
 import { HeaderVideo } from "@/components/layout/HeaderVideo";
 import { HeaderBrand } from "@/components/layout/HeaderBrand";
+import { AuthActions } from "@/components/layout/AuthActions";
 import { Button } from "@/components/ui/button";
 import "./globals.css";
 
@@ -46,6 +47,7 @@ export default function RootLayout({
           <div className="relative flex w-full items-center justify-between px-4 py-3 md:px-10">
             <HeaderBrand />
             <div className="flex items-center gap-2">
+              <AuthActions />
               <Button
                 asChild
                 size="sm"

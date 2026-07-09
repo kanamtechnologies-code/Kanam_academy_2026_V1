@@ -1,7 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { Check, Clipboard, Loader2, Plus, Users } from "lucide-react";
+import { Check, Clipboard, Loader2, Plus, Settings2, Users } from "lucide-react";
+
+import { ClassAssignmentsDialog } from "@/components/instructor/ClassAssignmentsDialog";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,6 +34,11 @@ type LearnerRow = {
   displayName: string;
   grade: string | null;
   schoolName: string | null;
+  completedLessons: number;
+  totalLessons: number;
+  progressPercent: number;
+  totalXp: number;
+  lastActiveAt: string | null;
 };
 
 async function j<T>(res: Response): Promise<T> {
@@ -44,6 +51,19 @@ async function j<T>(res: Response): Promise<T> {
 
 function errorMessage(error: unknown, fallback: string): string {
   return error instanceof Error && error.message ? error.message : fallback;
+}
+
+function formatLastActive(iso: string | null) {
+  if (!iso) return "No activity yet";
+  try {
+    return new Date(iso).toLocaleDateString(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  } catch {
+    return "Recently active";
+  }
 }
 
 export function InstructorDashboardClient() {
@@ -61,6 +81,7 @@ export function InstructorDashboardClient() {
   const [rosterByClass, setRosterByClass] = React.useState<Record<string, LearnerRow[] | undefined>>({});
   const [rosterLoading, setRosterLoading] = React.useState<Record<string, boolean | undefined>>({});
   const [copiedCode, setCopiedCode] = React.useState<string | null>(null);
+  const [assignmentsClass, setAssignmentsClass] = React.useState<ClassSummary | null>(null);
 
   const load = React.useCallback(async () => {
     setError(null);
@@ -83,6 +104,10 @@ export function InstructorDashboardClient() {
   React.useEffect(() => {
     try {
       const supabase = createSupabaseBrowserClient();
+      if (!supabase) {
+        setWho(null);
+        return;
+      }
       supabase.auth
         .getUser()
         .then(({ data }) => {
@@ -166,7 +191,7 @@ export function InstructorDashboardClient() {
             Your classes
           </h1>
           <p className="mt-1 text-sm text-slate-700">
-            Create a class, share the code, and track who’s enrolled.
+            Create a class, share the code, and see learner rosters with lesson progress.
           </p>
         </div>
 
@@ -331,6 +356,15 @@ export function InstructorDashboardClient() {
                         type="button"
                         variant="outline"
                         className="h-10 rounded-xl"
+                        onClick={() => setAssignmentsClass(c)}
+                      >
+                        <Settings2 className="h-4 w-4" />
+                        Assignments
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="h-10 rounded-xl"
                         onClick={() => loadRoster(c.id)}
                         disabled={isLoadingRoster}
                       >
@@ -353,18 +387,38 @@ export function InstructorDashboardClient() {
                             {roster.map((s) => (
                               <div
                                 key={s.id}
-                                className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/60 bg-white p-3"
+                                className="flex flex-col gap-2 rounded-xl border border-white/60 bg-white p-3"
                               >
-                                <div className="min-w-0">
-                                  <p className="truncate text-sm font-extrabold text-slate-900">
-                                    {s.displayName}
-                                  </p>
-                                  <p className="truncate text-xs text-slate-600">
-                                    {s.schoolName ? s.schoolName : "School: (not set)"}
-                                  </p>
+                                <div className="flex flex-wrap items-center justify-between gap-2">
+                                  <div className="min-w-0">
+                                    <p className="truncate text-sm font-extrabold text-slate-900">
+                                      {s.displayName}
+                                    </p>
+                                    <p className="truncate text-xs text-slate-600">
+                                      {s.schoolName ? s.schoolName : "School: (not set)"}
+                                      {s.grade ? ` • Grade ${s.grade}` : ""}
+                                    </p>
+                                  </div>
+                                  <div className="text-right text-xs font-bold text-slate-700">
+                                    <p>{s.totalXp} XP</p>
+                                    <p className="font-semibold text-slate-500">
+                                      {formatLastActive(s.lastActiveAt)}
+                                    </p>
+                                  </div>
                                 </div>
-                                <div className="text-xs font-bold text-slate-700">
-                                  {s.grade ? `Grade ${s.grade}` : "Grade: —"}
+                                <div>
+                                  <div className="mb-1 flex items-center justify-between text-xs font-semibold text-slate-600">
+                                    <span>
+                                      {s.completedLessons} of {s.totalLessons} lessons
+                                    </span>
+                                    <span>{s.progressPercent}%</span>
+                                  </div>
+                                  <div className="h-2 overflow-hidden rounded-full bg-slate-200">
+                                    <div
+                                      className="h-full rounded-full bg-gradient-to-r from-emerald-600 to-emerald-500"
+                                      style={{ width: `${Math.min(100, s.progressPercent)}%` }}
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             ))}
@@ -379,6 +433,16 @@ export function InstructorDashboardClient() {
           })}
         </div>
       )}
+      {assignmentsClass ? (
+        <ClassAssignmentsDialog
+          classId={assignmentsClass.id}
+          className={assignmentsClass.name}
+          open={Boolean(assignmentsClass)}
+          onOpenChange={(open) => {
+            if (!open) setAssignmentsClass(null);
+          }}
+        />
+      ) : null}
     </div>
   );
 }

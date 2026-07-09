@@ -21,6 +21,7 @@ import {
 
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
+import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
 import { CoachNoteContent } from "@/components/python/CoachNoteContent";
 import { PythonExerciseEditor } from "@/components/python/PythonExerciseEditor";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
@@ -38,6 +39,7 @@ import {
 } from "@/lib/pythonStarter";
 import { formatPythonTerminal, PYTHON_TERMINAL_PROMPT } from "@/lib/pythonTerminal";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
 import { cn } from "@/lib/utils";
 
 export type PythonExplainItem = { title: string; text: string };
@@ -169,9 +171,11 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
   }, []);
 
   React.useEffect(() => {
+    if (isGuestMode()) return;
     (async () => {
       try {
         const supabase = createSupabaseBrowserClient();
+        if (!supabase) return;
         const { data } = await supabase.auth.getUser();
         const uid = data.user?.id ?? "";
         setUserId(uid);
@@ -214,9 +218,14 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
 
   const trackProgress = React.useCallback(
     async (eventType: string, payload?: unknown) => {
+      if (isGuestMode()) {
+        if (eventType === "lesson_success") markGuestLessonComplete(lesson.id);
+        return;
+      }
       if (!deviceId || !userId || !studentDbId) return;
       try {
         const supabase = createSupabaseBrowserClient();
+        if (!supabase) return;
         const now = new Date().toISOString();
         await supabase.from("progress_events").insert({
           student_id: studentDbId,
@@ -383,6 +392,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
   }, [activeIndex, workspaceLocked, lessonComplete, activeExercise?.starterCode]);
 
   return (
+    <LessonAccessGate lessonId={lesson.id}>
     <WelcomeBackground>
       <div
         className={cn(
@@ -788,5 +798,6 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
         )}
       </div>
     </WelcomeBackground>
+    </LessonAccessGate>
   );
 }

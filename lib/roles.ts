@@ -28,3 +28,8 @@ export function isInstructorRole(user: UserWithRole): boolean {
   const role = readUserRole(user);
   return role === "instructor" || role === "teacher";
 }
+
+/** Where to send a user immediately after sign-in. */
+export function postSignInPath(user: UserWithRole): "/instructor" | "/dashboard" {
+  return isInstructorRole(user) ? "/instructor" : "/dashboard";
+}

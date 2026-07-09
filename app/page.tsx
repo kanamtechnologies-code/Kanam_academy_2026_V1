@@ -18,14 +18,24 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { isInstructorRole } from "@/lib/roles";
+import {
+  GUEST_PROGRESS_EVENT,
+  getGuestCompletedIds,
+  getGuestName,
+  isGuestMode,
+  resetGuestProgress,
+} from "@/lib/guestProgress";
 import {
   DATA_ANALYST_PREREQUISITES,
   isDataAnalystTrackUnlocked,
+  isLessonOpenForStudent,
   trackProgress,
   totalXpAcrossTracks,
   TRACKS,
   weekSessionLabel,
 } from "@/lib/tracks";
+import type { StudentLessonAccess } from "@/lib/classAssignments";
 
 const USER_NAME_KEY = "kanam.userName";
 
@@ -38,6 +48,18 @@ export default function Home() {
   const [resetOpen, setResetOpen] = React.useState<boolean>(false);
   const [resetStep, setResetStep] = React.useState<1 | 2 | 3>(1);
   const [activeTab, setActiveTab] = React.useState<string>("ai-literacy");
+  const [lessonAccess, setLessonAccess] = React.useState<StudentLessonAccess>({
+    classRestricted: false,
+    enabledLessonIds: null,
+    classIds: [],
+  });
+
+  const openLessonIds = React.useMemo(() => {
+    if (!lessonAccess.classRestricted || lessonAccess.enabledLessonIds == null) return null;
+    const set = new Set(lessonAccess.enabledLessonIds);
+    for (const id of completedIds) set.add(id);
+    return set;
+  }, [lessonAccess, completedIds]);
 
   const aiTrack = TRACKS.find((t) => t.id === "ai-literacy")!;
   const digitalTrack = TRACKS.find((t) => t.id === "digital-literacy")!;
@@ -46,14 +68,24 @@ export default function Home() {
   const dataUnlocked = isDataAnalystTrackUnlocked(completedIds);
   const totalXp = totalXpAcrossTracks(completedIds);
   const activeTrack = TRACKS.find((t) => t.id === activeTab) ?? aiTrack;
-  const activeTrackProgress = trackProgress(completedIds, activeTrack.lessons);
+  const activeTrackProgress = trackProgress(completedIds, activeTrack.lessons, {
+    openLessonIds,
+  });
 
   const resetProgress = async () => {
+    if (isGuestMode()) {
+      resetGuestProgress();
+      setHasSavedProgress(true);
+      setCompletedIds([]);
+      return;
+    }
     if (!studentDbId) return;
     try {
       const supabase = createSupabaseBrowserClient();
-      await supabase.from("lesson_progress").delete().eq("student_id", studentDbId);
-      await supabase.from("progress_events").delete().eq("student_id", studentDbId);
+      if (supabase) {
+        await supabase.from("lesson_progress").delete().eq("student_id", studentDbId);
+        await supabase.from("progress_events").delete().eq("student_id", studentDbId);
+      }
     } catch {
       // ignore
     }
@@ -62,11 +94,40 @@ export default function Home() {
   };
 
   React.useEffect(() => {
+    if (!isGuestMode()) return;
+    const refresh = () => setCompletedIds(getGuestCompletedIds());
+    window.addEventListener(GUEST_PROGRESS_EVENT, refresh);
+    window.addEventListener("focus", refresh);
+    return () => {
+      window.removeEventListener(GUEST_PROGRESS_EVENT, refresh);
+      window.removeEventListener("focus", refresh);
+    };
+  }, []);
+
+  React.useEffect(() => {
     (async () => {
+      // Guest / demo mode: everything lives in local storage, no Supabase.
+      if (isGuestMode()) {
+        setStudentName(getGuestName());
+        setCompletedIds(getGuestCompletedIds());
+        setHasSavedProgress(true);
+        return;
+      }
+
       const supabase = createSupabaseBrowserClient();
+      if (!supabase) {
+        router.replace("/welcome");
+        return;
+      }
       const { data } = await supabase.auth.getSession();
       if (!data.session) {
         router.replace("/welcome");
+        return;
+      }
+
+      const { data: userData } = await supabase.auth.getUser();
+      if (isInstructorRole(userData.user)) {
+        router.replace("/instructor");
         return;
       }
 
@@ -101,6 +162,18 @@ export default function Home() {
       } else {
         setHasSavedProgress(false);
         setCompletedIds([]);
+      }
+
+      try {
+        const accessRes = await fetch("/api/student/lesson-access");
+        const accessJson = (await accessRes.json()) as {
+          access?: StudentLessonAccess;
+        };
+        if (accessRes.ok && accessJson.access) {
+          setLessonAccess(accessJson.access);
+        }
+      } catch {
+        // ignore
       }
     })();
   }, [router]);
@@ -178,7 +251,14 @@ export default function Home() {
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              {activeTrackProgress.nextLesson?.href && !activeTrackProgress.nextLesson.comingSoon ? (
+              {activeTrackProgress.nextLesson?.href &&
+              !activeTrackProgress.nextLesson.comingSoon &&
+              isLessonOpenForStudent(
+                activeTrackProgress.nextLesson.id,
+                lessonAccess.classRestricted,
+                lessonAccess.enabledLessonIds,
+                completedIds
+              ) ? (
                 <Button asChild className="bg-white text-[var(--brand-2)] hover:bg-white/95">
                   <Link href={activeTrackProgress.nextLesson.href}>
                     <Flame className="h-4 w-4" />
@@ -245,6 +325,13 @@ export default function Home() {
           </DialogContent>
         </Dialog>
 
+        {lessonAccess.classRestricted ? (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+            You&apos;re in a class — your instructor controls which lessons are open. Locked lessons
+            show as <span className="font-bold">Not assigned</span>.
+          </div>
+        ) : null}
+
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="kanam-track-tabs h-auto w-full flex-wrap gap-2 p-2 md:w-auto">
             <TabsTrigger value="ai-literacy" className="gap-2 px-5 py-2.5">
@@ -290,15 +377,30 @@ export default function Home() {
           </TabsList>
 
           <TabsContent value="ai-literacy">
-            <TrackRoadmap track={aiTrack} completedIds={completedIds} />
+            <TrackRoadmap
+              track={aiTrack}
+              completedIds={completedIds}
+              classRestricted={lessonAccess.classRestricted}
+              enabledLessonIds={lessonAccess.enabledLessonIds}
+            />
           </TabsContent>
 
           <TabsContent value="digital-literacy">
-            <TrackRoadmap track={digitalTrack} completedIds={completedIds} />
+            <TrackRoadmap
+              track={digitalTrack}
+              completedIds={completedIds}
+              classRestricted={lessonAccess.classRestricted}
+              enabledLessonIds={lessonAccess.enabledLessonIds}
+            />
           </TabsContent>
 
           <TabsContent value="python-starter">
-            <TrackRoadmap track={pythonTrack} completedIds={completedIds} />
+            <TrackRoadmap
+              track={pythonTrack}
+              completedIds={completedIds}
+              classRestricted={lessonAccess.classRestricted}
+              enabledLessonIds={lessonAccess.enabledLessonIds}
+            />
           </TabsContent>
 
           <TabsContent value="data-analyst">
@@ -309,6 +411,8 @@ export default function Home() {
               lockMessage={`Complete these Python lessons first: ${prereqLabels.join(", ")}.`}
               lockCtaHref="/learn/1"
               lockCtaLabel="Start Python lesson 1"
+              classRestricted={lessonAccess.classRestricted}
+              enabledLessonIds={lessonAccess.enabledLessonIds}
             />
           </TabsContent>
         </Tabs>

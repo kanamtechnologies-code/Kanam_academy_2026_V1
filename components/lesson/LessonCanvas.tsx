@@ -38,6 +38,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
 import { DesignModePanel } from "@/components/lesson/DesignModePanel";
 import { NpcChallengeMode } from "@/components/lesson/NpcChallengeMode";
 import { CodeTextarea } from "@/components/lesson/CodeTextarea";
@@ -934,9 +935,11 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
   }, []);
 
   React.useEffect(() => {
+    if (isGuestMode()) return;
     (async () => {
       try {
         const supabase = createSupabaseBrowserClient();
+        if (!supabase) return;
         const { data } = await supabase.auth.getUser();
         const uid = data.user?.id ?? "";
         setUserId(uid);
@@ -1018,9 +1021,14 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
 
   const trackProgress = React.useCallback(
     async (eventType: string, payload?: unknown) => {
+      if (isGuestMode()) {
+        if (eventType === "lesson_success") markGuestLessonComplete(lesson.id);
+        return;
+      }
       if (!deviceId || !userId || !studentDbId) return;
       try {
         const supabase = createSupabaseBrowserClient();
+        if (!supabase) return;
         const now = new Date().toISOString();
 
         // Always write event log

@@ -58,16 +58,51 @@ export function weekSessionLabelFromIndex(idx: number) {
   return `Week ${week} · Session ${session}`;
 }
 
-export function trackProgress(completedIds: string[], lessons: LessonRow[]) {
-  const completedCount = lessons.filter((l) => completedIds.includes(l.id)).length;
-  const totalCount = lessons.length;
+export function trackProgress(
+  completedIds: string[],
+  lessons: LessonRow[],
+  options?: { openLessonIds?: Set<string> | null }
+) {
+  const openLessonIds = options?.openLessonIds;
+  const availableLessons =
+    openLessonIds == null
+      ? lessons
+      : lessons.filter((l) => openLessonIds.has(l.id) || completedIds.includes(l.id));
+
+  const completedCount = availableLessons.filter((l) => completedIds.includes(l.id)).length;
+  const totalCount = availableLessons.length;
   const percent = totalCount ? Math.round((completedCount / totalCount) * 100) : 0;
-  const totalXp = lessons
+  const totalXp = availableLessons
     .filter((l) => completedIds.includes(l.id))
     .reduce((sum, l) => sum + l.xp, 0);
-  const activeIndex = lessons.findIndex((l) => !completedIds.includes(l.id));
-  const nextLesson = activeIndex >= 0 ? lessons[activeIndex] : undefined;
+  const activeIndex = availableLessons.findIndex(
+    (l) => !completedIds.includes(l.id) && !l.comingSoon
+  );
+  const nextLesson = activeIndex >= 0 ? availableLessons[activeIndex] : undefined;
   return { completedCount, totalCount, percent, totalXp, activeIndex, nextLesson };
+}
+
+/** Flat catalog of every lesson across all tracks. */
+export function allCatalogLessons(): Array<LessonRow & { trackId: Track["id"]; trackTitle: string }> {
+  return TRACKS.flatMap((track) =>
+    track.lessons.map((lesson) => ({
+      ...lesson,
+      trackId: track.id,
+      trackTitle: track.title,
+    }))
+  );
+}
+
+/** True when a lesson is open for this student (not class-restricted, or explicitly assigned). */
+export function isLessonOpenForStudent(
+  lessonId: string,
+  classRestricted: boolean,
+  enabledLessonIds: string[] | null,
+  completedIds: string[]
+): boolean {
+  if (!classRestricted || enabledLessonIds == null) return true;
+  if (completedIds.includes(lessonId)) return true;
+  return enabledLessonIds.includes(lessonId);
 }
 
 export const PYTHON_WEEKS: WeekPlan[] = [

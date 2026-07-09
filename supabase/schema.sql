@@ -103,11 +103,56 @@ create index if not exists idx_progress_events_student_created
 create index if not exists idx_progress_events_device_created
   on public.progress_events (device_id, created_at desc);
 
+-- Classes + enrollments (Instructor dashboard MVP)
+create table if not exists public.classes (
+  id uuid primary key default gen_random_uuid(),
+  teacher_user_id uuid not null references auth.users(id) on delete cascade,
+  school_id uuid references public.schools(id) on delete set null,
+  name text not null,
+  -- Human-shareable code students enter during onboarding (case-insensitive in the app; store uppercase).
+  code text not null,
+  created_at timestamptz not null default now()
+);
+
+create unique index if not exists idx_classes_code_unique on public.classes (code);
+create index if not exists idx_classes_teacher_user_id on public.classes (teacher_user_id);
+
+create table if not exists public.class_enrollments (
+  class_id uuid not null references public.classes(id) on delete cascade,
+  student_id uuid not null references public.students(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  primary key (class_id, student_id)
+);
+
+create index if not exists idx_class_enrollments_class on public.class_enrollments (class_id);
+create index if not exists idx_class_enrollments_student on public.class_enrollments (student_id);
+
+-- Per-class lesson assignments (instructor turns lessons on/off for enrolled students)
+create table if not exists public.class_lesson_assignments (
+  class_id uuid not null references public.classes(id) on delete cascade,
+  lesson_id text not null,
+  enabled boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  primary key (class_id, lesson_id)
+);
+
+create index if not exists idx_class_lesson_assignments_class on public.class_lesson_assignments (class_id);
+create index if not exists idx_class_lesson_assignments_lesson on public.class_lesson_assignments (lesson_id);
+
+drop trigger if exists trg_class_lesson_assignments_updated_at on public.class_lesson_assignments;
+create trigger trg_class_lesson_assignments_updated_at
+before update on public.class_lesson_assignments
+for each row execute function public.set_updated_at();
+
 -- RLS: enable now; for MVP we’ll write/read via server endpoints using the service role key.
 alter table public.schools enable row level security;
 alter table public.students enable row level security;
 alter table public.lesson_progress enable row level security;
 alter table public.progress_events enable row level security;
+alter table public.classes enable row level security;
+alter table public.class_enrollments enable row level security;
+alter table public.class_lesson_assignments enable row level security;
 
 -- Schools: safe to list for authenticated users (used for instructor dashboards / class display)
 drop policy if exists schools_select_all_authenticated on public.schools;
@@ -257,36 +302,6 @@ create policy progress_events_delete_own
     )
   );
 
--- ============================
--- Classes + enrollments (Instructor dashboard MVP)
--- ============================
-
-create table if not exists public.classes (
-  id uuid primary key default gen_random_uuid(),
-  teacher_user_id uuid not null references auth.users(id) on delete cascade,
-  school_id uuid references public.schools(id) on delete set null,
-  name text not null,
-  -- Human-shareable code students enter during onboarding (case-insensitive in the app; store uppercase).
-  code text not null,
-  created_at timestamptz not null default now()
-);
-
-create unique index if not exists idx_classes_code_unique on public.classes (code);
-create index if not exists idx_classes_teacher_user_id on public.classes (teacher_user_id);
-
-create table if not exists public.class_enrollments (
-  class_id uuid not null references public.classes(id) on delete cascade,
-  student_id uuid not null references public.students(id) on delete cascade,
-  created_at timestamptz not null default now(),
-  primary key (class_id, student_id)
-);
-
-create index if not exists idx_class_enrollments_class on public.class_enrollments (class_id);
-create index if not exists idx_class_enrollments_student on public.class_enrollments (student_id);
-
-alter table public.classes enable row level security;
-alter table public.class_enrollments enable row level security;
-
 -- Instructors: read/write only their own classes
 drop policy if exists classes_select_own on public.classes;
 create policy classes_select_own
@@ -352,3 +367,86 @@ create policy class_enrollments_delete_for_own_classes
         and c.teacher_user_id = auth.uid()
     )
   );
+
+-- Assignments: instructors manage lessons for their own classes.
+drop policy if exists class_lesson_assignments_select_own_classes on public.class_lesson_assignments;
+create policy class_lesson_assignments_select_own_classes
+  on public.class_lesson_assignments for select
+  to authenticated
+  using (
+    exists (
+      select 1
+      from public.classes c
+      where c.id = class_lesson_assignments.class_id
+        and c.teacher_user_id = auth.uid()
+    )
+  );
+
+drop policy if exists class_lesson_assignments_insert_own_classes on public.class_lesson_assignments;
+create policy class_lesson_assignments_insert_own_classes
+  on public.class_lesson_assignments for insert
+  to authenticated
+  with check (
+    exists (
+      select 1
+      from public.classes c
+      where c.id = class_lesson_assignments.class_id
+        and c.teacher_user_id = auth.uid()
+    )
+  );
+
+drop policy if exists class_lesson_assignments_update_own_classes on public.class_lesson_assignments;
+create policy class_lesson_assignments_update_own_classes
+  on public.class_lesson_assignments for update
+  to authenticated
+  using (
+    exists (
+      select 1
+      from public.classes c
+      where c.id = class_lesson_assignments.class_id
+        and c.teacher_user_id = auth.uid()
+    )
+  )
+  with check (
+    exists (
+      select 1
+      from public.classes c
+      where c.id = class_lesson_assignments.class_id
+        and c.teacher_user_id = auth.uid()
+    )
+  );
+
+drop policy if exists class_lesson_assignments_delete_own_classes on public.class_lesson_assignments;
+create policy class_lesson_assignments_delete_own_classes
+  on public.class_lesson_assignments for delete
+  to authenticated
+  using (
+    exists (
+      select 1
+      from public.classes c
+      where c.id = class_lesson_assignments.class_id
+        and c.teacher_user_id = auth.uid()
+    )
+  );
+
+-- Students can read assignments for classes they are enrolled in.
+drop policy if exists class_lesson_assignments_select_enrolled on public.class_lesson_assignments;
+create policy class_lesson_assignments_select_enrolled
+  on public.class_lesson_assignments for select
+  to authenticated
+  using (
+    exists (
+      select 1
+      from public.class_enrollments ce
+      join public.students s on s.id = ce.student_id
+      where ce.class_id = class_lesson_assignments.class_id
+        and s.user_id = auth.uid()
+    )
+  );
+
+-- Refresh PostgREST schema cache (so API routes see new tables immediately).
+notify pgrst, 'reload schema';
+
+-- Quick verification (optional — run separately after apply):
+-- select tablename from pg_tables where schemaname = 'public' order by tablename;
+-- Expected: class_enrollments, class_lesson_assignments, classes, lesson_progress, progress_events, schools, students

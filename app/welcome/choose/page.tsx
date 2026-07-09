@@ -48,6 +48,10 @@ export default function WelcomeChoosePage() {
     (async () => {
       if (!ready) return;
       const supabase = createSupabaseBrowserClient();
+      if (!supabase) {
+        router.replace("/welcome");
+        return;
+      }
       const { data } = await supabase.auth.getSession();
       if (!data.session) {
         router.replace("/welcome");

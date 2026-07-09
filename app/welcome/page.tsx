@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Hash, Loader2, Mail, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, Hash, Loader2, Mail, Sparkles, Users, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { isInstructorRole, postSignInPath } from "@/lib/roles";
+import { setGuestMode, setGuestName } from "@/lib/guestProgress";
 
 type EnsureProfileResponse = {
   ok?: boolean;
@@ -36,26 +38,10 @@ function errorMessage(error: unknown, fallback: string) {
   return fallback;
 }
 
-function readRoleFromMetadata(
-  user: { user_metadata?: unknown; app_metadata?: unknown } | null | undefined
-) {
-  const userMeta =
-    user?.user_metadata && typeof user.user_metadata === "object"
-      ? (user.user_metadata as Record<string, unknown>)
-      : {};
-  const appMeta =
-    user?.app_metadata && typeof user.app_metadata === "object"
-      ? (user.app_metadata as Record<string, unknown>)
-      : {};
-  const role =
-    userMeta.role ?? appMeta.role ?? userMeta.user_role ?? appMeta.user_role;
-  return typeof role === "string" ? role : undefined;
-}
-
 export default function WelcomePage() {
   const router = useRouter();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [returningEmail, setReturningEmail] = React.useState("");
+  const [returningPassword, setReturningPassword] = React.useState("");
   const [newEmail, setNewEmail] = React.useState("");
   const [classCode, setClassCode] = React.useState("");
   const [loadingNew, setLoadingNew] = React.useState(false);
@@ -70,6 +56,10 @@ export default function WelcomePage() {
     "idle"
   );
   const [forgotError, setForgotError] = React.useState<string | null>(null);
+
+  const [instructorSignInOpen, setInstructorSignInOpen] = React.useState(false);
+  const [instructorSignInEmail, setInstructorSignInEmail] = React.useState("");
+  const [instructorSignInPassword, setInstructorSignInPassword] = React.useState("");
 
   const [instrCreateOpen, setInstrCreateOpen] = React.useState(false);
   const [instrInviteCode, setInstrInviteCode] = React.useState("");
@@ -92,45 +82,52 @@ export default function WelcomePage() {
     "rounded-[32px] bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out";
 
   const signInWith = React.useCallback(
-    async (mode: "learner" | "instructor", creds?: { email?: string; password?: string }) => {
-      setReturningError(null);
-      setInstructorError(null);
+    async (mode: "learner" | "instructor", creds: { email: string; password: string }) => {
+      if (mode === "learner") setReturningError(null);
+      if (mode === "instructor") setInstructorError(null);
 
-      const em = (creds?.email ?? email).trim();
-      const pw = creds?.password ?? password;
+      const em = creds.email.trim();
+      const pw = creds.password;
 
       if (!em || !em.includes("@")) {
         const msg = "Enter your email.";
-        if (mode === "instructor") {
-          setInstructorError(msg);
-        } else {
-          setReturningError(msg);
-        }
+        if (mode === "instructor") setInstructorError(msg);
+        else setReturningError(msg);
         return;
       }
       if (!pw) {
         const msg = "Enter your password.";
-        if (mode === "instructor") {
-          setInstructorError(msg);
-        } else {
-          setReturningError(msg);
-        }
+        if (mode === "instructor") setInstructorError(msg);
+        else setReturningError(msg);
         return;
       }
 
-      if (mode === "instructor") {
-        setLoadingInstructor(true);
-      } else {
-        setLoadingReturning(true);
-      }
+      if (mode === "instructor") setLoadingInstructor(true);
+      else setLoadingReturning(true);
 
       try {
         const supabase = createSupabaseBrowserClient();
+        if (!supabase) throw new Error("Sign-in is unavailable in demo mode.");
         const { error } = await supabase.auth.signInWithPassword({
           email: em,
           password: pw,
         });
         if (error) throw new Error(error.message);
+
+        const { data } = await supabase.auth.getUser();
+        const user = data.user;
+
+        if (mode === "instructor" && !isInstructorRole(user)) {
+          throw new Error(
+            "This account isn’t set up as an instructor yet. Ask your admin to set role = instructor."
+          );
+        }
+
+        if (isInstructorRole(user)) {
+          setInstructorSignInOpen(false);
+          router.push(postSignInPath(user));
+          return;
+        }
 
         if (mode === "learner") {
           const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
@@ -142,39 +139,48 @@ export default function WelcomePage() {
           return;
         }
 
-        // Instructor mode: verify role from auth metadata.
-        const { data } = await supabase.auth.getUser();
-        const role = readRoleFromMetadata(data.user);
-
-        if (role !== "instructor" && role !== "teacher") {
-          throw new Error(
-            "This account isn’t set up as an instructor yet. Ask your admin to set role = instructor."
-          );
-        }
-
-        router.push("/instructor");
+        router.push("/dashboard");
       } catch (error: unknown) {
         const msg = errorMessage(error, "Sign-in failed.");
-        if (mode === "instructor") {
-          setInstructorError(msg);
-        } else {
-          setReturningError(msg);
-        }
+        if (mode === "instructor") setInstructorError(msg);
+        else setReturningError(msg);
       } finally {
-        if (mode === "instructor") {
-          setLoadingInstructor(false);
-        } else {
-          setLoadingReturning(false);
-        }
+        if (mode === "instructor") setLoadingInstructor(false);
+        else setLoadingReturning(false);
       }
     },
-    [email, password, router]
+    [router]
   );
 
-  const signIn = React.useCallback(
-    (mode: "learner" | "instructor") => signInWith(mode),
-    [signInWith]
-  );
+  const signInLearner = React.useCallback(() => {
+    signInWith("learner", {
+      email: returningEmail,
+      password: returningPassword,
+    });
+  }, [returningEmail, returningPassword, signInWith]);
+
+  const signInInstructor = React.useCallback(() => {
+    signInWith("instructor", {
+      email: instructorSignInEmail,
+      password: instructorSignInPassword,
+    });
+  }, [instructorSignInEmail, instructorSignInPassword, signInWith]);
+
+  const openInstructorSignIn = React.useCallback(() => {
+    setInstructorError(null);
+    setInstructorSignInOpen(true);
+  }, []);
+
+  const openInstructorCreate = React.useCallback(() => {
+    setInstrCreateStatus("idle");
+    setInstrCreateError(null);
+    setInstrInviteCode("");
+    setInstrFirstName("");
+    setInstrLastName("");
+    if (instructorSignInEmail.trim()) setInstrEmail(instructorSignInEmail.trim());
+    setInstrPassword("");
+    setInstrCreateOpen(true);
+  }, [instructorSignInEmail]);
 
   return (
     <WelcomeBackground>
@@ -194,8 +200,7 @@ export default function WelcomePage() {
                   <span className="kanam-text-pop-strong font-extrabold text-[color:var(--brand)]">
                     New student
                   </span>
-                  : enter
-                  your class code and email to get started.
+                  : enter your email to get started (class code optional).
                 </p>
                 <p>
                   <span className="kanam-text-pop-strong font-extrabold text-[color:var(--accent)]">
@@ -212,10 +217,11 @@ export default function WelcomePage() {
                 Demo mode
               </p>
               <p className="mt-2 text-base font-black tracking-tight text-slate-900">
-                Just testing? Try the app without signing in.
+                Just testing? Explore the full app without signing in.
               </p>
               <p className="mt-1 text-sm text-slate-600">
-                Preview the dashboard tutorial, then launch the interactive Lesson Canvas demo.
+                Browse every track, open real lessons, and earn XP — your progress saves on this
+                device. No account needed.
               </p>
 
               <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
@@ -229,9 +235,21 @@ export default function WelcomePage() {
                     "text-slate-950 hover:brightness-[1.03]",
                     "focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)]",
                   ].join(" ")}
+                  onClick={() => {
+                    setGuestMode(true);
+                    setGuestName("Guest");
+                    router.push("/");
+                  }}
+                >
+                  Explore the full app <Sparkles className="h-5 w-5" />
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="h-12 rounded-2xl px-5 text-sm font-extrabold tracking-tight"
                   onClick={() => router.push("/demo")}
                 >
-                  Try the demo <Sparkles className="h-5 w-5" />
+                  Guided tour
                 </Button>
               </div>
             </div>
@@ -252,7 +270,8 @@ export default function WelcomePage() {
                   I’m a new student
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Enter your class code and email to get started.
+                  Enter your email to create your account. Have a class code? Add it to join your
+                  teacher&apos;s class.
                 </p>
 
                 {newError ? (
@@ -265,16 +284,16 @@ export default function WelcomePage() {
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
                       <Hash className="h-4 w-4 text-emerald-600" />
-                      Class code
+                      Class code <span className="font-normal text-slate-500">(optional)</span>
                     </div>
                     <Input
                       value={classCode}
                       onChange={(e) => setClassCode(e.target.value)}
-                      placeholder="e.g. KANAM-7B"
+                      placeholder="e.g. KANAM-7B2K9"
                       className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
                     />
                     <p className="text-xs text-slate-600">
-                      Check your email for your class code.
+                      Have a class code? Enter it to join your teacher&apos;s class.
                     </p>
                   </div>
 
@@ -288,6 +307,8 @@ export default function WelcomePage() {
                       onChange={(e) => setNewEmail(e.target.value)}
                       placeholder='e.g. student@school.org'
                       type="email"
+                      name="kanam-new-student-email"
+                      autoComplete="off"
                       className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
                     />
                     <p className="text-xs text-slate-600">
@@ -312,24 +333,21 @@ export default function WelcomePage() {
                       setNewError(null);
                       const cc = classCode.trim();
                       const em = newEmail.trim();
-                      if (!cc || cc.length < 3) {
-                        setNewError("Enter your class code.");
-                        return;
-                      }
                       if (!em || !em.includes("@")) {
                         setNewError("Enter a valid email.");
                         return;
                       }
                       try {
-                        window.localStorage.setItem("kanam.classCode", cc);
+                        if (cc) window.localStorage.setItem("kanam.classCode", cc);
+                        else window.localStorage.removeItem("kanam.classCode");
                         window.localStorage.setItem("kanam.onboardingEmail", em);
                       } catch {
                         // ignore
                       }
                       setLoadingNew(true);
-                      router.push(
-                        `/welcome/profile?classCode=${encodeURIComponent(cc)}&email=${encodeURIComponent(em)}`
-                      );
+                      const params = new URLSearchParams({ email: em });
+                      if (cc) params.set("classCode", cc);
+                      router.push(`/welcome/profile?${params.toString()}`);
                     }}
                   >
                     {loadingNew ? (
@@ -348,7 +366,7 @@ export default function WelcomePage() {
                 <div className="mt-4 rounded-2xl border border-white/50 bg-white/40 p-4">
                   <p className="text-sm font-extrabold tracking-tight text-slate-900">Need help?</p>
                   <p className="mt-1 text-sm text-slate-700">
-                    If your class code isn’t working, check your email first — then use{" "}
+                    Class codes are optional. If yours isn&apos;t working, check your email or use{" "}
                     <Link
                       className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
                       href="/help"
@@ -376,9 +394,9 @@ export default function WelcomePage() {
                   Enter your email and jump right back to your dashboard.
                 </p>
 
-                {returningError || instructorError ? (
+                {returningError ? (
                   <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-800">
-                    {returningError || instructorError}
+                    {returningError}
                   </div>
                 ) : null}
 
@@ -389,10 +407,12 @@ export default function WelcomePage() {
                       Email
                     </div>
                     <Input
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      value={returningEmail}
+                      onChange={(e) => setReturningEmail(e.target.value)}
                       placeholder='e.g. student@school.org'
                       type="email"
+                      name="kanam-returning-email"
+                      autoComplete="username"
                       className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
                     />
                     <p className="text-xs text-slate-600">Use the same email you used before.</p>
@@ -406,10 +426,12 @@ export default function WelcomePage() {
                       Password
                     </div>
                     <Input
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      value={returningPassword}
+                      onChange={(e) => setReturningPassword(e.target.value)}
                       placeholder="Password"
                       type="password"
+                      name="kanam-returning-password"
+                      autoComplete="current-password"
                       className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
                     />
                     <div className="flex flex-wrap items-center justify-between gap-2">
@@ -421,7 +443,7 @@ export default function WelcomePage() {
                           if (!o) return;
                           setForgotError(null);
                           setForgotStatus("idle");
-                          setForgotEmail(email.trim() || forgotEmail);
+                          setForgotEmail(returningEmail.trim() || forgotEmail);
                         }}
                       >
                         <DialogTrigger asChild>
@@ -486,6 +508,7 @@ export default function WelcomePage() {
                                 setForgotStatus("sending");
                                 try {
                                   const supabase = createSupabaseBrowserClient();
+                                  if (!supabase) throw new Error("Password reset is unavailable in demo mode.");
                                   const redirectTo = `${window.location.origin}/welcome/reset-password`;
                                   const { error } = await supabase.auth.resetPasswordForEmail(em, {
                                     redirectTo,
@@ -521,7 +544,7 @@ export default function WelcomePage() {
                       "shadow-[0_20px_50px_rgba(0,0,0,0.04)]",
                       "focus-visible:ring-4 focus-visible:ring-emerald-500/25",
                     ].join(" ")}
-                    onClick={() => signIn("learner")}
+                    onClick={signInLearner}
                   >
                     {loadingReturning ? (
                       <>
@@ -535,50 +558,123 @@ export default function WelcomePage() {
                     )}
                   </Button>
 
-                  <Button
-                    disabled={loadingInstructor}
-                    aria-busy={loadingInstructor}
-                    variant="outline"
-                    className={[
-                      "h-12 w-full rounded-xl px-6 text-base font-extrabold",
-                      "border-[rgb(var(--accent-rgb)/0.55)] bg-[rgb(var(--accent-rgb)/0.22)] text-amber-950",
-                      "hover:bg-[rgb(var(--accent-rgb)/0.30)]",
-                      "focus-visible:ring-4 focus-visible:ring-[rgb(var(--accent-rgb)/0.30)]",
-                    ].join(" ")}
-                    onClick={() => signIn("instructor")}
+                  <div className="rounded-2xl border border-amber-200/80 bg-amber-50/80 p-4">
+                    <p className="text-sm font-extrabold tracking-tight text-amber-950">
+                      Educator or instructor?
+                    </p>
+                    <p className="mt-1 text-xs text-amber-900/80">
+                      Use a separate sign-in for your instructor dashboard.
+                    </p>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className={[
+                        "mt-3 h-11 w-full rounded-xl px-5 text-sm font-extrabold",
+                        "border-amber-300 bg-white text-amber-950 hover:bg-amber-100/60",
+                      ].join(" ")}
+                      onClick={openInstructorSignIn}
+                    >
+                      <Users className="h-4 w-4" />
+                      Instructor sign in
+                    </Button>
+                  </div>
+
+                  <button
+                    type="button"
+                    className="w-full text-xs font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-900"
+                    onClick={openInstructorCreate}
                   >
-                    {loadingInstructor ? (
-                      <>
-                        <Loader2 className="h-5 w-5 animate-spin" />
-                        Loading…
-                      </>
-                    ) : (
-                      <>Instructor sign in</>
-                    )}
-                  </Button>
+                    Create instructor account
+                  </button>
+
+                  <Dialog
+                    open={instructorSignInOpen}
+                    onOpenChange={(open) => {
+                      setInstructorSignInOpen(open);
+                      if (!open) setInstructorError(null);
+                    }}
+                  >
+                    <DialogContent className="max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>Instructor sign in</DialogTitle>
+                        <DialogDescription>
+                          Access your classes, class codes, and learner progress.
+                        </DialogDescription>
+                      </DialogHeader>
+
+                      {instructorError ? (
+                        <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+                          {instructorError}
+                        </div>
+                      ) : null}
+
+                      <div className="grid gap-3">
+                        <div className="space-y-1.5">
+                          <p className="text-xs font-semibold text-slate-700">Instructor email</p>
+                          <Input
+                            value={instructorSignInEmail}
+                            onChange={(e) => setInstructorSignInEmail(e.target.value)}
+                            placeholder="you@school.org"
+                            type="email"
+                            name="kanam-instructor-email"
+                            autoComplete="off"
+                            className="h-12"
+                          />
+                        </div>
+                        <div className="space-y-1.5">
+                          <p className="text-xs font-semibold text-slate-700">Password</p>
+                          <Input
+                            value={instructorSignInPassword}
+                            onChange={(e) => setInstructorSignInPassword(e.target.value)}
+                            placeholder="Your instructor password"
+                            type="password"
+                            name="kanam-instructor-password"
+                            autoComplete="new-password"
+                            className="h-12"
+                          />
+                        </div>
+                      </div>
+
+                      <DialogFooter className="flex-col gap-2 sm:flex-col sm:space-x-0">
+                        <Button
+                          type="button"
+                          className="h-11 w-full"
+                          disabled={loadingInstructor}
+                          onClick={signInInstructor}
+                        >
+                          {loadingInstructor ? (
+                            <>
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                              Signing in…
+                            </>
+                          ) : (
+                            "Sign in as instructor"
+                          )}
+                        </Button>
+                        <button
+                          type="button"
+                          className="text-xs font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900"
+                          onClick={() => {
+                            setInstructorSignInOpen(false);
+                            openInstructorCreate();
+                          }}
+                        >
+                          Create instructor account
+                        </button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
 
                   <Dialog
                     open={instrCreateOpen}
                     onOpenChange={(o) => {
                       setInstrCreateOpen(o);
-                      if (!o) return;
-                      setInstrCreateStatus("idle");
-                      setInstrCreateError(null);
-                      setInstrInviteCode("");
-                      setInstrFirstName("");
-                      setInstrLastName("");
-                      setInstrEmail(email.trim() || instrEmail);
-                      setInstrPassword("");
+                      if (!o) {
+                        setInstrCreateStatus("idle");
+                        setInstrCreateError(null);
+                      }
                     }}
                   >
-                    <DialogTrigger asChild>
-                      <button
-                        type="button"
-                        className="w-full text-xs font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-900"
-                      >
-                        Create instructor account
-                      </button>
-                    </DialogTrigger>
                     <DialogContent className="max-w-lg">
                       <DialogHeader>
                         <DialogTitle>Create an instructor account</DialogTitle>
@@ -595,7 +691,7 @@ export default function WelcomePage() {
 
                       {instrCreateStatus === "created" ? (
                         <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-950">
-                          Instructor account created. Press “Sign in as instructor”.
+                          Instructor account created. Use the instructor sign-in window to continue.
                         </div>
                       ) : null}
 
@@ -638,6 +734,8 @@ export default function WelcomePage() {
                             onChange={(e) => setInstrEmail(e.target.value)}
                             placeholder="you@school.org"
                             type="email"
+                            name="kanam-instructor-create-email"
+                            autoComplete="off"
                             className="h-12"
                           />
                         </div>
@@ -687,9 +785,10 @@ export default function WelcomePage() {
                                 throw new Error(json?.error || "Could not create instructor.");
                               }
                               setInstrCreateStatus("created");
-                              // Pre-fill returning sign-in box for convenience.
-                              setEmail(instrEmail.trim());
-                              setPassword(instrPassword);
+                              setInstructorSignInEmail(instrEmail.trim());
+                              setInstructorSignInPassword(instrPassword);
+                              setInstrCreateOpen(false);
+                              setInstructorSignInOpen(true);
                             } catch (error: unknown) {
                               setInstrCreateStatus("error");
                               setInstrCreateError(
@@ -714,14 +813,14 @@ export default function WelcomePage() {
                           type="button"
                           variant="outline"
                           className="h-11 w-full"
-                          onClick={() =>
-                            signInWith("instructor", {
-                              email: instrEmail.trim() || email.trim(),
-                              password: instrPassword || password,
-                            })
-                          }
+                          onClick={() => {
+                            setInstrCreateOpen(false);
+                            setInstructorSignInEmail(instrEmail.trim() || instructorSignInEmail);
+                            setInstructorSignInPassword(instrPassword || instructorSignInPassword);
+                            setInstructorSignInOpen(true);
+                          }}
                         >
-                          Sign in as instructor
+                          Go to instructor sign in
                         </Button>
                       </div>
                     </DialogContent>

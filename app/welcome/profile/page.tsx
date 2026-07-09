@@ -100,16 +100,16 @@ export default function WelcomeProfilePage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5 sm:col-span-2">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Class code
+                      Class code <span className="normal-case tracking-normal text-white/70">(optional)</span>
                     </label>
                     <Input
                       value={classCode}
                       onChange={(e) => setClassCode(e.target.value)}
-                      placeholder="Enter your class code"
+                      placeholder="e.g. KANAM-7B2K9"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                     <p className="mt-1 text-xs text-white/85">
-                      Check your email for your class code.
+                      Have a class code? Enter it to join your teacher&apos;s class.
                     </p>
                   </div>
                 </div>
@@ -255,7 +255,6 @@ export default function WelcomeProfilePage() {
                     size="lg"
                     disabled={
                       saving ||
-                      !classCode.trim() ||
                       !firstName.trim() ||
                       !lastName.trim() ||
                       !email.trim()
@@ -273,10 +272,6 @@ export default function WelcomeProfilePage() {
                       const trimmedFirst = firstName.trim();
                       const trimmedLast = lastName.trim();
                       const trimmedEmail = email.trim();
-                      if (!cc || cc.length < 3) {
-                        setError("Please enter your class code.");
-                        return;
-                      }
                       if (!trimmedFirst) {
                         setError("Please enter your first name.");
                         return;
@@ -300,13 +295,14 @@ export default function WelcomeProfilePage() {
                       setSaving(true);
                       try {
                         const supabase = createSupabaseBrowserClient();
+                        if (!supabase) throw new Error("Account creation is unavailable in demo mode.");
                         // Create user server-side (auto-confirm; avoids Supabase email rate limits),
                         // then sign in normally to establish a real session in the browser.
                         const res = await fetch("/api/auth/signup", {
                           method: "POST",
                           headers: { "content-type": "application/json" },
                           body: JSON.stringify({
-                            classCode: cc,
+                            classCode: cc || undefined,
                             email: trimmedEmail,
                             password,
                             firstName: trimmedFirst,

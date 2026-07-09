@@ -80,13 +80,26 @@ export async function POST(req: Request) {
 
   let schoolId: string | null = null;
   if (schoolName) {
-    const { data: school, error: sErr } = await supabase
+    const { data: existing, error: findErr } = await supabase
       .from("schools")
-      .upsert({ name: schoolName }, { onConflict: "name" })
       .select("id")
-      .single();
-    if (sErr) return NextResponse.json({ ok: false, error: sErr.message }, { status: 500 });
-    schoolId = (school as { id?: string } | null)?.id ?? null;
+      .eq("name", schoolName)
+      .maybeSingle();
+    if (findErr) return NextResponse.json({ ok: false, error: findErr.message }, { status: 500 });
+
+    if (existing?.id) {
+      schoolId = existing.id as string;
+    } else {
+      const { data: inserted, error: insertErr } = await supabase
+        .from("schools")
+        .insert({ name: schoolName })
+        .select("id")
+        .single();
+      if (insertErr) {
+        return NextResponse.json({ ok: false, error: insertErr.message }, { status: 500 });
+      }
+      schoolId = (inserted as { id?: string } | null)?.id ?? null;
+    }
   }
 
   // Create a class with a unique code. Retry if we collide.

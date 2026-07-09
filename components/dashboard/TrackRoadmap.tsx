@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import Link from "next/link";
 import { BookOpen, CheckCircle2, ListChecks, Lock, Play, Trophy } from "lucide-react";
 
@@ -9,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import {
   type Track,
+  isLessonOpenForStudent,
   weekSessionLabel,
   weeksForTrack,
   trackProgress,
@@ -21,6 +23,8 @@ export function TrackRoadmap({
   lockMessage,
   lockCtaHref,
   lockCtaLabel,
+  classRestricted = false,
+  enabledLessonIds = null,
 }: {
   track: Track;
   completedIds: string[];
@@ -28,9 +32,19 @@ export function TrackRoadmap({
   lockMessage?: string;
   lockCtaHref?: string;
   lockCtaLabel?: string;
+  /** When true, only instructor-assigned lessons are open (class enrollees). */
+  classRestricted?: boolean;
+  enabledLessonIds?: string[] | null;
 }) {
-  const { completedCount, totalCount, percent, totalXp, activeIndex, nextLesson } =
-    trackProgress(completedIds, track.lessons);
+  const openLessonIds = React.useMemo(() => {
+    if (!classRestricted || enabledLessonIds == null) return null;
+    const set = new Set(enabledLessonIds);
+    for (const id of completedIds) set.add(id);
+    return set;
+  }, [classRestricted, enabledLessonIds, completedIds]);
+
+  const { completedCount, totalCount, percent, totalXp, nextLesson } =
+    trackProgress(completedIds, track.lessons, { openLessonIds });
 
   if (locked) {
     return (
@@ -64,8 +78,10 @@ export function TrackRoadmap({
             completedCount={completedCount}
             totalCount={totalCount}
             percent={percent}
-            activeIndex={activeIndex}
+            nextLesson={nextLesson}
             disableActions
+            classRestricted={classRestricted}
+            enabledLessonIds={enabledLessonIds}
           />
         </div>
       </div>
@@ -115,7 +131,9 @@ export function TrackRoadmap({
         completedCount={completedCount}
         totalCount={totalCount}
         percent={percent}
-        activeIndex={activeIndex}
+        nextLesson={nextLesson}
+        classRestricted={classRestricted}
+        enabledLessonIds={enabledLessonIds}
       />
     </div>
   );
@@ -127,16 +145,20 @@ function TrackRoadmapContent({
   completedCount,
   totalCount,
   percent,
-  activeIndex,
+  nextLesson,
   disableActions = false,
+  classRestricted = false,
+  enabledLessonIds = null,
 }: {
   track: Track;
   completedIds: string[];
   completedCount: number;
   totalCount: number;
   percent: number;
-  activeIndex: number;
+  nextLesson?: Track["lessons"][number];
   disableActions?: boolean;
+  classRestricted?: boolean;
+  enabledLessonIds?: string[] | null;
 }) {
   return (
     <>
@@ -189,10 +211,19 @@ function TrackRoadmapContent({
                 </div>
 
                 {weekLessons.map((lesson) => {
-                  const idx = track.lessons.indexOf(lesson);
                   const completed = completedIds.includes(lesson.id);
-                  const isActive = idx === activeIndex && !completed && !lesson.comingSoon;
-                  const canStart = lesson.href && !lesson.comingSoon && !disableActions;
+                  const assignmentLocked =
+                    classRestricted &&
+                    !isLessonOpenForStudent(
+                      lesson.id,
+                      classRestricted,
+                      enabledLessonIds,
+                      completedIds
+                    );
+                  const isActive =
+                    nextLesson?.id === lesson.id && !completed && !lesson.comingSoon && !assignmentLocked;
+                  const canStart =
+                    lesson.href && !lesson.comingSoon && !assignmentLocked && !disableActions;
 
                   return (
                     <Card
@@ -204,7 +235,7 @@ function TrackRoadmapContent({
                           : isActive
                             ? "border-[var(--brand)] bg-white shadow-[0_0_0_1px_rgba(24,161,109,0.25)]"
                             : "border-slate-200",
-                        lesson.comingSoon ? "opacity-80" : "",
+                        lesson.comingSoon || assignmentLocked ? "opacity-80" : "",
                       ].join(" ")}
                     >
                       <CardContent className="p-5">
@@ -213,7 +244,7 @@ function TrackRoadmapContent({
                             <div className="mt-0.5">
                               {completed ? (
                                 <CheckCircle2 className="h-5 w-5 text-[var(--brand)]" />
-                              ) : lesson.comingSoon ? (
+                              ) : lesson.comingSoon || assignmentLocked ? (
                                 <Lock className="h-5 w-5 text-slate-400" />
                               ) : (
                                 <Play className="h-5 w-5 text-[var(--accent)]" />
@@ -230,6 +261,11 @@ function TrackRoadmapContent({
                                 {lesson.comingSoon ? (
                                   <span className="ml-2 rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-600">
                                     Coming soon
+                                  </span>
+                                ) : null}
+                                {assignmentLocked ? (
+                                  <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-800">
+                                    Not assigned
                                   </span>
                                 ) : null}
                               </p>
@@ -254,6 +290,10 @@ function TrackRoadmapContent({
                               ) : lesson.comingSoon ? (
                                 <Button disabled variant="secondary">
                                   Soon
+                                </Button>
+                              ) : assignmentLocked ? (
+                                <Button disabled variant="secondary">
+                                  Locked
                                 </Button>
                               ) : null}
                             </div>

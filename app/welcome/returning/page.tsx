@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { isInstructorRole, postSignInPath } from "@/lib/roles";
 
 const USER_NAME_KEY = "kanam.userName";
 type EnsureProfileResponse = { ok?: boolean; error?: string };
@@ -130,11 +131,19 @@ export default function WelcomeReturningPage() {
                     setError(null);
                     try {
                       const supabase = createSupabaseBrowserClient();
+                      if (!supabase) throw new Error("Sign-in is unavailable in demo mode.");
                       const { error: signInErr } = await supabase.auth.signInWithPassword({
                         email: email.trim(),
                         password,
                       });
                       if (signInErr) throw new Error(signInErr.message);
+
+                      const { data: me } = await supabase.auth.getUser();
+                      const user = me.user;
+                      if (isInstructorRole(user)) {
+                        router.push(postSignInPath(user));
+                        return;
+                      }
 
                       // Ensure a student profile row exists for this auth user (so we can save progress).
                       const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
@@ -147,8 +156,7 @@ export default function WelcomeReturningPage() {
                       }
 
                       // Load profile name for greeting (optional)
-                      const { data: me } = await supabase.auth.getUser();
-                      const userId = me.user?.id;
+                      const userId = user?.id;
                       let displayName = loadUserName();
                       if (userId) {
                         const { data: student } = await supabase

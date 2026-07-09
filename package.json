@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "one-pager:pdf": "node scripts/generate-one-pager-pdf.mjs",
+    "one-pager:email-pdf": "node scripts/generate-one-pager-email-pdf.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
@@ -34,6 +36,7 @@
     "@types/sql.js": "^1.4.11",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
+    "puppeteer": "^24.43.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

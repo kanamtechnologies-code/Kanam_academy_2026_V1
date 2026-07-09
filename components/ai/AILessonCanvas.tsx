@@ -21,12 +21,14 @@ import {
 
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
+import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
 import { cn } from "@/lib/utils";
 
 export type AIQuizQuestion = {
@@ -144,9 +146,11 @@ export function AILessonCanvas({
   }, [lesson.id]);
 
   React.useEffect(() => {
+    if (isGuestMode()) return;
     (async () => {
       try {
         const supabase = createSupabaseBrowserClient();
+        if (!supabase) return;
         const { data } = await supabase.auth.getUser();
         const uid = data.user?.id ?? "";
         setUserId(uid);
@@ -168,6 +172,7 @@ export function AILessonCanvas({
       if (!deviceId || !userId || !studentDbId) return;
       try {
         const supabase = createSupabaseBrowserClient();
+        if (!supabase) return;
         const now = new Date().toISOString();
         await supabase.from("progress_events").insert({
           student_id: studentDbId,
@@ -230,6 +235,10 @@ export function AILessonCanvas({
     } catch {
       // ignore
     }
+    if (isGuestMode()) {
+      markGuestLessonComplete(lesson.id);
+      return;
+    }
     trackProgress("lesson_success", { reflectionLength: reflection.trim().length });
   };
 
@@ -238,6 +247,7 @@ export function AILessonCanvas({
     : Math.round((correctIds.size / Math.max(1, totalQuestions)) * 100);
 
   return (
+    <LessonAccessGate lessonId={lesson.id}>
     <WelcomeBackground>
       <div
         className={cn(
@@ -589,5 +599,6 @@ export function AILessonCanvas({
         )}
       </div>
     </WelcomeBackground>
+    </LessonAccessGate>
   );
 }

@@ -17,7 +17,7 @@ function s(x: unknown) {
 }
 
 export async function POST(req: Request) {
-  const expected = process.env.INSTRUCTOR_INVITE_CODE;
+  const expected = s(process.env.INSTRUCTOR_INVITE_CODE);
   if (!expected) {
     return NextResponse.json(
       { ok: false, error: "Missing INSTRUCTOR_INVITE_CODE env var." },
