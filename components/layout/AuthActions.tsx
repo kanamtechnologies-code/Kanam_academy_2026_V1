@@ -9,6 +9,9 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole } from "@/lib/roles";
 import { USER_NAME_KEY, isGuestMode, setGuestMode } from "@/lib/guestProgress";
 
+const chipBase =
+  "inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 py-2 text-xs font-extrabold tracking-tight focus:outline-none focus-visible:ring-4 sm:gap-2 sm:px-3.5";
+
 export function AuthActions() {
   const router = useRouter();
   const [loading, setLoading] = React.useState(true);
@@ -77,11 +80,12 @@ export function AuthActions() {
           }
           router.push("/welcome");
         }}
-        className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-extrabold tracking-tight text-white hover:bg-white/15 focus:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
+        className={`${chipBase} border border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-white/20`}
         aria-label="Exit demo"
       >
         <LogOut className="h-4 w-4" />
-        Exit demo
+        <span className="hidden sm:inline">Exit demo</span>
+        <span className="sm:hidden">Exit</span>
       </button>
     );
   }
@@ -90,7 +94,7 @@ export function AuthActions() {
     return (
       <Link
         href="/welcome/returning"
-        className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-extrabold tracking-tight text-white hover:bg-white/15 focus:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
+        className={`${chipBase} border border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-white/20`}
       >
         <UserRound className="h-4 w-4" />
         Sign in
@@ -99,14 +103,15 @@ export function AuthActions() {
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1.5 sm:gap-2">
       {instructor ? (
         <Link
           href="/instructor"
-          className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-extrabold tracking-tight text-white hover:bg-white/15 focus:outline-none focus-visible:ring-4 focus-visible:ring-white/20"
+          className={`${chipBase} border border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-white/20`}
+          aria-label="Instructor dashboard"
         >
           <Users className="h-4 w-4" />
-          Instructor
+          <span className="hidden md:inline">Instructor</span>
         </Link>
       ) : null}
       <button
@@ -121,11 +126,11 @@ export function AuthActions() {
           }
           router.push("/welcome");
         }}
-        className="inline-flex items-center gap-2 rounded-full border border-[rgb(var(--accent-rgb)/0.85)] bg-[rgb(var(--accent-rgb)/0.92)] px-3 py-1.5 text-xs font-extrabold tracking-tight text-slate-950 shadow-sm hover:brightness-[1.03] focus:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--accent-rgb)/0.35)]"
+        className={`${chipBase} border border-[rgb(var(--accent-rgb)/0.85)] bg-[rgb(var(--accent-rgb)/0.92)] text-slate-950 shadow-sm hover:brightness-[1.03] focus-visible:ring-[rgb(var(--accent-rgb)/0.35)]`}
         aria-label="Log out"
       >
         <LogOut className="h-4 w-4" />
-        Log out
+        <span className="hidden sm:inline">Log out</span>
       </button>
     </div>
   );

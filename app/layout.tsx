@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { Inter } from "next/font/google";
+import { HelpCircle } from "lucide-react";
 import { HeaderVideo } from "@/components/layout/HeaderVideo";
 import { HeaderBrand } from "@/components/layout/HeaderBrand";
 import { AuthActions } from "@/components/layout/AuthActions";
@@ -20,6 +21,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,12 +38,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} min-h-dvh overflow-x-hidden bg-slate-50 text-slate-900 antialiased`}
       >
-        <header className="sticky top-0 z-50 overflow-hidden border-b-2 border-[rgb(var(--accent-rgb)/0.98)] bg-gradient-to-r from-[rgb(var(--brand-2-rgb)/0.98)] via-[rgb(var(--brand-rgb)/0.92)] to-[rgb(var(--accent-rgb)/0.86)] shadow-xl">
-          {/* Thin highlight line for extra “brand” pop */}
+        <header
+          className="sticky top-0 z-50 border-b-2 border-[rgb(var(--accent-rgb)/0.98)] bg-gradient-to-r from-[rgb(var(--brand-2-rgb)/0.98)] via-[rgb(var(--brand-rgb)/0.92)] to-[rgb(var(--accent-rgb)/0.86)] shadow-xl"
+          style={{ ["--kanam-header-height" as string]: "4.75rem" }}
+        >
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-[rgb(var(--accent-rgb)/0.92)] via-[rgb(var(--brand-rgb)/0.92)] to-[rgb(var(--accent-rgb)/0.92)]" />
-          {/* Soft inner glow */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.16),transparent_55%)]" />
-          {/* Subtle video texture (kept very low-contrast so it isn't distracting) */}
           <div className="pointer-events-none absolute inset-0 hidden md:block">
             <HeaderVideo
               className="h-full w-full object-cover opacity-[0.06] saturate-0"
@@ -44,17 +52,19 @@ export default function RootLayout({
             />
           </div>
 
-          <div className="relative flex w-full items-center justify-between px-4 py-3 md:px-10">
+          <div className="relative flex w-full items-center justify-between gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:px-10">
             <HeaderBrand />
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
               <AuthActions />
               <Button
                 asChild
-                size="sm"
                 variant="outline"
-                className="border-white/60 bg-white/90 text-[color:var(--brand-2)] hover:bg-white"
+                className="min-h-11 border-white/60 bg-white/90 px-3 text-[color:var(--brand-2)] hover:bg-white sm:px-4"
               >
-                <Link href="/help">Help</Link>
+                <Link href="/help" aria-label="Help">
+                  <HelpCircle className="h-4 w-4 sm:hidden" />
+                  <span className="hidden sm:inline">Help</span>
+                </Link>
               </Button>
             </div>
           </div>

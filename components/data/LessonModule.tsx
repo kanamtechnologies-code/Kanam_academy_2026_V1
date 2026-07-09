@@ -230,7 +230,7 @@ export function LessonModule({
               {hasMedia ? (
                 <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
                   <div className="space-y-4 lg:order-1">{prose}</div>
-                  <div className="space-y-4 lg:order-2 lg:sticky lg:top-6">{media}</div>
+                  <div className="space-y-4 lg:order-2 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto">{media}</div>
                 </div>
               ) : (
                 <div className="mx-auto max-w-3xl space-y-4">{prose}</div>
@@ -239,10 +239,11 @@ export function LessonModule({
           );
         })()}
 
-        <div className="flex items-center justify-between gap-3 border-t border-slate-100 pt-4">
+        <div className="flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
           <Button
             type="button"
             variant="outline"
+            className="min-h-11 w-full sm:w-auto"
             onClick={() => goTo(index - 1)}
             disabled={isFirst}
           >
@@ -250,17 +251,21 @@ export function LessonModule({
             Back
           </Button>
 
-          <p className="text-xs font-semibold text-slate-500">
+          <p className="order-first text-center text-xs font-semibold text-slate-500 sm:order-none">
             Section {index + 1} of {sections.length}
           </p>
 
           {isLast ? (
-            <Button type="button" className="shadow-sm" onClick={onStart}>
+            <Button type="button" className="min-h-11 w-full shadow-sm sm:w-auto" onClick={onStart}>
               <Rocket className="h-4 w-4" />
               Start the exercises
             </Button>
           ) : (
-            <Button type="button" className="shadow-sm" onClick={() => goTo(index + 1)}>
+            <Button
+              type="button"
+              className="min-h-11 w-full shadow-sm sm:w-auto"
+              onClick={() => goTo(index + 1)}
+            >
               Next
               <ArrowRight className="h-4 w-4" />
             </Button>

@@ -2966,23 +2966,23 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       ) : null}
       <div
         className={[
-          "flex min-h-[calc(100dvh-160px)] w-full items-start justify-start px-4 md:px-10",
+          "flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full items-start justify-start px-3 py-3 sm:px-4 sm:py-4 md:px-10",
           "transition-all duration-300 ease-out",
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
         ].join(" ")}
       >
-        <div className="w-full space-y-4 py-2 md:py-4 [&_.text-xs]:text-sm [&_.text-sm]:text-[15px]">
-          {/* Mobile / Tablet: Tabs */}
-          <div className="md:hidden">
+        <div className="w-full space-y-4 [&_.text-xs]:text-sm [&_.text-sm]:text-[15px]">
+          {/* Phone + tablet portrait: Tabs */}
+          <div className="lg:hidden">
             <Tabs defaultValue="learn">
-              <TabsList className="w-full bg-white shadow-sm">
-                <TabsTrigger value="learn" className="flex-1">
+              <TabsList className="h-auto w-full gap-1 bg-white p-1.5 shadow-sm">
+                <TabsTrigger value="learn" className="min-h-11 flex-1 text-xs sm:text-sm">
                   Lesson Hub
                 </TabsTrigger>
-                <TabsTrigger value="code" className="flex-1">
+                <TabsTrigger value="code" className="min-h-11 flex-1 text-xs sm:text-sm">
                   Code
                 </TabsTrigger>
-                <TabsTrigger value="review" className="flex-1">
+                <TabsTrigger value="review" className="min-h-11 flex-1 text-xs sm:text-sm">
                   Review
                 </TabsTrigger>
               </TabsList>
@@ -3006,24 +3006,24 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             </Tabs>
           </div>
 
-          {/* Desktop: 40% lesson / 60% interactivity */}
-          <div className="hidden md:block">
-            <div className="grid gap-4 lg:grid-cols-[300px_1fr] lg:items-start">
+          {/* Desktop / large tablet landscape: 40% lesson / 60% interactivity */}
+          <div className="hidden lg:block">
+            <div className="grid gap-4 lg:grid-cols-[280px_1fr] xl:grid-cols-[300px_1fr] lg:items-start">
               {/* Separate, styled Hub rail */}
-              <div className="sticky top-6 self-start">
-                <div className="max-h-[calc(100dvh-220px)] overflow-y-auto pr-1">
+              <div className="sticky top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] self-start">
+                <div className="max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-2rem)] overflow-y-auto pr-1">
                   {HubNav}
                 </div>
               </div>
 
               {/* Main lesson surface */}
             <div className="overflow-hidden rounded-2xl border border-[rgb(var(--accent-rgb)/0.65)] bg-white shadow-xl">
-                <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+                <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
                   {/* Hub content */}
                   <div className="bg-white/92">
                     <div
                       ref={hubScrollRef}
-                      className="max-h-[calc(100dvh-220px)] overflow-y-auto p-6"
+                      className="max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-2rem)] overflow-y-auto p-4 xl:p-6"
                     >
                       <div className="space-y-4">
                         {LessonHeader}
@@ -3034,8 +3034,8 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
                   </div>
 
                   {/* Coding lab */}
-                  <div className="border-l border-slate-200 bg-white/92">
-                    <div className="max-h-[calc(100dvh-220px)] overflow-y-auto p-6">
+                  <div className="border-t border-slate-200 bg-white/92 xl:border-l xl:border-t-0">
+                    <div className="max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-2rem)] overflow-y-auto p-4 xl:p-6">
                       {CodingLab}
                     </div>
                   </div>

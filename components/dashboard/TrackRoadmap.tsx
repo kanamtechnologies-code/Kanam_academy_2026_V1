@@ -104,21 +104,27 @@ export function TrackRoadmap({
         </div>
         <div className="mt-4">
           {nextLesson?.href && !nextLesson.comingSoon ? (
-            <Button asChild size="lg" className="shadow-sm">
-              <Link href={nextLesson.href}>
-                <Play className="h-4 w-4" />
-                Next step: {nextLesson.title}{" "}
-                <span className="text-white/80">
-                  ({weekSessionLabel(nextLesson)})
+            <Button
+              asChild
+              size="lg"
+              className="mt-2 h-auto min-h-11 w-full whitespace-normal px-4 py-3 text-left shadow-sm sm:w-auto"
+            >
+              <Link href={nextLesson.href} className="flex items-start gap-2">
+                <Play className="mt-0.5 h-4 w-4 shrink-0" />
+                <span className="min-w-0">
+                  <span className="line-clamp-2 font-extrabold">Next step: {nextLesson.title}</span>
+                  <span className="mt-0.5 block text-xs text-white/80">
+                    ({weekSessionLabel(nextLesson)})
+                  </span>
                 </span>
               </Link>
             </Button>
           ) : nextLesson?.comingSoon ? (
-            <Button size="lg" disabled className="mt-2 shadow-sm">
+            <Button size="lg" disabled className="mt-2 min-h-11 w-full shadow-sm sm:w-auto">
               Next lesson coming soon
             </Button>
           ) : (
-            <Button size="lg" disabled className="shadow-sm">
+            <Button size="lg" disabled className="min-h-11 w-full shadow-sm sm:w-auto">
               Track complete!
             </Button>
           )}
@@ -238,10 +244,10 @@ function TrackRoadmapContent({
                         lesson.comingSoon || assignmentLocked ? "opacity-80" : "",
                       ].join(" ")}
                     >
-                      <CardContent className="p-5">
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="flex items-start gap-3">
-                            <div className="mt-0.5">
+                      <CardContent className="p-4 sm:p-5">
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                          <div className="flex min-w-0 items-start gap-3">
+                            <div className="mt-0.5 shrink-0">
                               {completed ? (
                                 <CheckCircle2 className="h-5 w-5 text-[var(--brand)]" />
                               ) : lesson.comingSoon || assignmentLocked ? (
@@ -250,7 +256,7 @@ function TrackRoadmapContent({
                                 <Play className="h-5 w-5 text-[var(--accent)]" />
                               )}
                             </div>
-                            <div>
+                            <div className="min-w-0">
                               <p className="text-xs text-slate-500">
                                 {weekSessionLabel(lesson)}
                                 {isActive ? (
@@ -269,7 +275,7 @@ function TrackRoadmapContent({
                                   </span>
                                 ) : null}
                               </p>
-                              <p className="mt-1 text-base font-black tracking-tight text-slate-900">
+                              <p className="mt-1 break-words text-base font-black tracking-tight text-slate-900">
                                 {lesson.title}
                               </p>
                               <p className="mt-1 text-xs font-semibold text-slate-500">
@@ -278,21 +284,21 @@ function TrackRoadmapContent({
                             </div>
                           </div>
                           {!lesson.hasLesson ? (
-                            <div className="shrink-0">
+                            <div className="w-full shrink-0 sm:w-auto">
                               {completed && canStart ? (
-                                <Button asChild variant="secondary">
+                                <Button asChild variant="secondary" className="min-h-11 w-full sm:w-auto">
                                   <Link href={lesson.href!}>Review</Link>
                                 </Button>
                               ) : canStart ? (
-                                <Button asChild className="px-6 font-bold">
+                                <Button asChild className="min-h-11 w-full px-6 font-bold sm:w-auto">
                                   <Link href={lesson.href!}>Start</Link>
                                 </Button>
                               ) : lesson.comingSoon ? (
-                                <Button disabled variant="secondary">
+                                <Button disabled variant="secondary" className="min-h-11 w-full sm:w-auto">
                                   Soon
                                 </Button>
                               ) : assignmentLocked ? (
-                                <Button disabled variant="secondary">
+                                <Button disabled variant="secondary" className="min-h-11 w-full sm:w-auto">
                                   Locked
                                 </Button>
                               ) : null}
@@ -301,11 +307,11 @@ function TrackRoadmapContent({
                         </div>
 
                         {lesson.hasLesson && canStart ? (
-                          <div className="mt-4 grid gap-3 border-t border-slate-100 pt-4 sm:grid-cols-2">
+                          <div className="mt-4 grid gap-3 border-t border-slate-100 pt-4 md:grid-cols-2">
                             <Button
                               asChild
                               size="lg"
-                              className="h-auto justify-start gap-3 py-3"
+                              className="h-auto min-h-11 justify-start gap-3 py-3"
                             >
                               <Link href={`${lesson.href}?view=lesson`}>
                                 <BookOpen className="h-5 w-5 shrink-0" />
@@ -321,7 +327,7 @@ function TrackRoadmapContent({
                               asChild
                               size="lg"
                               variant="outline"
-                              className="h-auto justify-start gap-3 border-[var(--brand)]/40 py-3 text-[var(--brand-2)] hover:bg-[var(--brand)]/5"
+                              className="h-auto min-h-11 justify-start gap-3 border-[var(--brand)]/40 py-3 text-[var(--brand-2)] hover:bg-[var(--brand)]/5"
                             >
                               <Link href={`${lesson.href}?view=exercises`}>
                                 <ListChecks className="h-5 w-5 shrink-0" />

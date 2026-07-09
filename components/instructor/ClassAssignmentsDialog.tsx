@@ -106,7 +106,7 @@ export function ClassAssignmentsDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[85vh] max-w-2xl overflow-y-auto">
+      <DialogContent className="max-h-[min(85dvh,calc(100dvh-2rem))] max-w-2xl overflow-y-auto p-4 sm:p-6">
         <DialogHeader>
           <DialogTitle>Lesson assignments</DialogTitle>
           <DialogDescription>
@@ -134,8 +134,8 @@ export function ClassAssignmentsDialog({
             {TRACKS.map((track) => {
               const trackEnabledCount = track.lessons.filter((l) => enabled[l.id]).length;
               return (
-                <div key={track.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
+                <div key={track.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-3 sm:p-4">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                     <div>
                       <p className="text-sm font-black text-slate-900">
                         {track.icon} {track.title}
@@ -144,12 +144,12 @@ export function ClassAssignmentsDialog({
                         {trackEnabledCount} of {track.lessons.length} on
                       </p>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="grid grid-cols-2 gap-2 sm:flex">
                       <Button
                         type="button"
                         size="sm"
                         variant="outline"
-                        className="h-8"
+                        className="min-h-11 sm:min-h-9 sm:h-8"
                         onClick={() => setTrack(track.id, true)}
                       >
                         Enable all
@@ -158,7 +158,7 @@ export function ClassAssignmentsDialog({
                         type="button"
                         size="sm"
                         variant="outline"
-                        className="h-8"
+                        className="min-h-11 sm:min-h-9 sm:h-8"
                         onClick={() => setTrack(track.id, false)}
                       >
                         Disable all
@@ -169,11 +169,11 @@ export function ClassAssignmentsDialog({
                     {track.lessons.map((lesson) => (
                       <label
                         key={lesson.id}
-                        className="flex cursor-pointer items-start gap-3 rounded-xl border border-white bg-white p-3"
+                        className="flex min-h-11 cursor-pointer items-start gap-3 rounded-xl border border-white bg-white p-3"
                       >
                         <input
                           type="checkbox"
-                          className="mt-1 h-4 w-4 rounded border-slate-300"
+                          className="mt-1 h-5 w-5 rounded border-slate-300"
                           checked={Boolean(enabled[lesson.id])}
                           onChange={(e) =>
                             setEnabled((prev) => ({ ...prev, [lesson.id]: e.target.checked }))
@@ -197,10 +197,10 @@ export function ClassAssignmentsDialog({
         )}
 
         <DialogFooter className="gap-2 sm:gap-0">
-          <Button type="button" variant="outline" className="h-11" onClick={() => onOpenChange(false)}>
+          <Button type="button" variant="outline" className="h-11 w-full sm:w-auto" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>
-          <Button type="button" className="h-11" disabled={saving || loading} onClick={save}>
+          <Button type="button" className="h-11 w-full sm:w-auto" disabled={saving || loading} onClick={save}>
             {saving ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />

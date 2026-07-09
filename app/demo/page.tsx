@@ -1,226 +1,229 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { BookOpen, Play, Sparkles, Trophy } from "lucide-react";
+import { useRouter } from "next/navigation";
+import {
+  ArrowRight,
+  BookOpen,
+  Flame,
+  Play,
+  Sparkles,
+  Trophy,
+  Zap,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
-import { SpotlightTour } from "@/components/ui/SpotlightTour";
+import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
+import { setGuestMode, setGuestName, resetGuestProgress } from "@/lib/guestProgress";
+import { TRACKS, totalXpAcrossTracks } from "@/lib/tracks";
 
-function weekSessionLabelFromIndex(idx: number) {
-  const week = Math.floor(idx / 2) + 1;
-  const session = (idx % 2) + 1;
-  return `Week ${week} · Session ${session}`;
-}
+const DEMO_TOUR_FLAG = "kanam.demo.tourPending";
 
-const demoLessons = [
-  { title: "My First AI Helper", badge: "🤖", xp: 50 },
-  { title: "My AI Helper Listens", badge: "👂", xp: 100 },
-  { title: "My AI Makes Choices", badge: "🧠", xp: 150 },
-  { title: "Smarter AI Rules", badge: "🧠", xp: 250 },
-  { title: "AI Repeats Tasks", badge: "🔁", xp: 300 },
-  { title: "Patterns and Predictions", badge: "🔍", xp: 350 },
-];
+export default function DemoEntryPage() {
+  const router = useRouter();
+  const [starting, setStarting] = React.useState<"tour" | "lesson" | "explore" | null>(null);
 
-export default function DemoDashboardPage() {
-  const completedCount = 2;
-  const totalCount = demoLessons.length;
-  const percent = Math.round((completedCount / totalCount) * 100);
+  const startGuest = React.useCallback(
+    (destination: "/dashboard" | "/learn/demo", withTour: boolean) => {
+      setStarting(destination === "/learn/demo" ? "lesson" : withTour ? "tour" : "explore");
+      setGuestMode(true);
+      setGuestName("Guest");
+      if (withTour) {
+        try {
+          window.localStorage.setItem(DEMO_TOUR_FLAG, "1");
+        } catch {
+          // ignore
+        }
+      }
+      router.push(destination);
+    },
+    [router]
+  );
+
+  const trackCount = TRACKS.length;
+  const lessonCount = TRACKS.reduce((n, t) => n + t.lessons.length, 0);
 
   return (
     <WelcomeBackground>
-      <SpotlightTour
-        storageKey="kanam_tour_demo_dashboard_v1_done"
-        remember={false}
-        fadeMs={420}
-        moveMs={760}
-        recomputeDelayMs={650}
-        steps={[
-          {
-            id: "top",
-            selector: '[data-tour="demo-hero"]',
-            title: "This is a demo dashboard",
-            body: "Nothing here saves to a profile and nothing writes to the database. It’s just a guided preview.",
-            emoji: "👀",
-            padding: 14,
-          },
-          {
-            id: "progress",
-            selector: '[data-tour="demo-progress"]',
-            title: "Progress (preview)",
-            body: "In the real app, this would update when a student submits a lesson. In demo mode, it’s just a pretend example.",
-            emoji: "📈",
-            padding: 12,
-          },
-          {
-            id: "lessons",
-            selector: '[data-tour="demo-lessons"]',
-            title: "Lesson list (preview)",
-            body: "Normally these would unlock + show completions. In the demo they don’t do anything.",
-            emoji: "📚",
-            padding: 12,
-          },
-          {
-            id: "start",
-            selector: '[data-tour="demo-start"]',
-            title: "Try the canvas",
-            body: "This button opens the interactive demo lesson builder (still no database).",
-            emoji: "▶️",
-            padding: 14,
-          },
-        ]}
-      />
+      <div className="mx-auto flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full max-w-[1200px] flex-col justify-center px-4 py-6 sm:py-8 md:px-10">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 260, damping: 24 }}
+          >
+            <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-[color:var(--brand-2)]">
+              Interactive demo
+            </p>
+            <h1 className="mt-3 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
+              Try Kanam Academy
+              <span className="block text-[color:var(--brand)]">the way students do</span>
+            </h1>
+            <p className="mt-4 max-w-xl text-base font-medium leading-relaxed text-slate-700 md:text-lg">
+              Explore the real learning hub, open a live lesson canvas, run Python, and earn XP —
+              all on this device. No account required.
+            </p>
 
-      <div className="mx-auto w-full max-w-[1200px] px-4 py-8 md:px-10">
-        <div
-          data-tour="demo-hero"
-          className="kanam-glow-card rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-xl md:p-8"
-        >
-          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-            <div className="min-w-0">
-              <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-700">
-                Demo mode
-              </p>
-              <h1 className="mt-2 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
-                Dashboard preview (tutorial only)
-              </h1>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-700">
-                This page is intentionally <span className="font-semibold">not functional</span>. It
-                doesn’t connect to any profile and it doesn’t write anything to the database. It’s
-                just a guided walkthrough of what the real dashboard UI looks like.
-              </p>
-              <div className="mt-3 flex flex-wrap items-center gap-2">
-                <Badge variant="secondary">No sign-in required</Badge>
-                <Badge variant="outline">No database</Badge>
-                <Badge variant="outline">Tutorial only</Badge>
-              </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <Badge className="border border-emerald-200 bg-emerald-50 text-emerald-900">
+                {trackCount} tracks
+              </Badge>
+              <Badge className="border border-amber-200 bg-amber-50 text-amber-950">
+                {lessonCount}+ lessons
+              </Badge>
+              <Badge variant="outline" className="border-slate-300 bg-white/80">
+                Progress saves locally
+              </Badge>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2">
-              <Button asChild data-tour="demo-start" className="h-12 px-5 text-base font-extrabold">
-                <Link href="/learn/demo">
-                  <Play className="h-5 w-5" />
-                  Start interactive demo
-                </Link>
+            <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Button
+                size="lg"
+                disabled={starting !== null}
+                className={[
+                  "h-14 w-full rounded-2xl px-7 text-base font-extrabold sm:w-auto",
+                  "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
+                  "text-[var(--accent)] shadow-lg shadow-emerald-900/20 hover:brightness-[1.05]",
+                ].join(" ")}
+                onClick={() => startGuest("/dashboard", true)}
+              >
+                {starting === "tour" ? (
+                  "Opening…"
+                ) : (
+                  <>
+                    Guided tour <Play className="h-5 w-5" />
+                  </>
+                )}
               </Button>
-              <Button asChild variant="outline" className="h-12">
-                <Link href="/welcome">
-                  <Sparkles className="h-4 w-4" />
-                  Back to Welcome
-                </Link>
+              <Button
+                size="lg"
+                variant="outline"
+                disabled={starting !== null}
+                className="h-14 w-full rounded-2xl border-2 border-[var(--brand)]/40 bg-white/90 px-7 text-base font-extrabold text-[var(--brand-2)] hover:bg-emerald-50 sm:w-auto"
+                onClick={() => startGuest("/learn/demo", false)}
+              >
+                {starting === "lesson" ? (
+                  "Opening…"
+                ) : (
+                  <>
+                    Jump into a lesson <Zap className="h-5 w-5" />
+                  </>
+                )}
               </Button>
             </div>
-          </div>
-        </div>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-3 lg:items-stretch">
-          <Card data-tour="demo-progress" className="kanam-glow-card">
-            <CardHeader>
-              <div className="flex items-center gap-2">
-                <div className="grid h-9 w-9 place-items-center rounded-xl bg-[var(--accent)]/10 ring-1 ring-[var(--accent)]/15">
-                  <Trophy className="h-5 w-5 text-[var(--accent)]" />
-                </div>
-                <div className="min-w-0">
-                  <CardTitle className="text-slate-900">Progress preview</CardTitle>
-                  <CardDescription className="text-slate-700">
-                    Demo example (not saved)
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="rounded-2xl border border-slate-200 bg-white/85 p-4">
-                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-600">
-                  Starter pack
-                </p>
-                <p className="mt-2 text-sm font-semibold text-slate-900">
-                  {completedCount} / {totalCount} lessons completed
-                </p>
-                <Progress value={percent} className="mt-3 h-3" />
-                <p className="mt-2 text-xs text-slate-600">
-                  In the real app, this updates as students submit lessons.
-                </p>
-              </div>
+            <p className="mt-4 flex flex-col gap-2 text-sm text-slate-600 sm:block">
+              <span className="sm:inline">Prefer to browse freely? </span>
+              <button
+                type="button"
+                className="inline-flex min-h-11 items-center font-extrabold text-emerald-800 underline underline-offset-2 hover:text-emerald-950 sm:min-h-0 sm:inline"
+                disabled={starting !== null}
+                onClick={() => startGuest("/dashboard", false)}
+              >
+                Explore the full app
+              </button>
+              <span className="hidden sm:inline">{" · "}</span>
+              <Link
+                href="/welcome"
+                className="inline-flex min-h-11 items-center font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-900 sm:min-h-0 sm:inline"
+              >
+                Back to Welcome
+              </Link>
+            </p>
+          </motion.div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white/85 p-4">
-                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-600">
-                  Next step (preview)
-                </p>
-                <p className="mt-2 text-sm font-semibold text-slate-900">
-                  Week 2 · Session 1 — My AI Makes Choices
-                </p>
-                <Button disabled className="mt-3 h-11 w-full">
-                  Continue (disabled in demo)
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card data-tour="demo-lessons" className="kanam-glow-card lg:col-span-2">
-            <CardHeader>
-              <div className="flex items-center gap-2">
-                <div className="grid h-9 w-9 place-items-center rounded-xl bg-[var(--accent)]/10 ring-1 ring-[var(--accent)]/15">
-                  <BookOpen className="h-5 w-5 text-[var(--accent)]" />
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 240, damping: 22, delay: 0.08 }}
+            className="space-y-4"
+          >
+            <div className="kanam-dashboard-hero overflow-hidden rounded-[28px] p-6 shadow-xl">
+              <div className="kanam-dashboard-hero-overlay" />
+              <div className="relative z-10 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="kanam-hero-brand-tile grid h-12 w-12 place-items-center rounded-2xl">
+                    <Image src="/images/Logo.png" alt="Kanam Academy" width={32} height={32} />
+                  </div>
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-white/80">
+                      Learning hub preview
+                    </p>
+                    <p className="text-lg font-black text-white">Welcome back, Guest!</p>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <CardTitle className="text-slate-900">Lessons preview</CardTitle>
-                  <CardDescription className="text-slate-700">
-                    Preview list (buttons are off in demo)
-                  </CardDescription>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-3 md:grid-cols-2">
-                {demoLessons.map((l, idx) => {
-                  const done = idx < completedCount;
-                  return (
-                    <div
-                      key={`${l.title}-${idx}`}
-                      className="rounded-2xl border border-slate-200 bg-white/85 p-4"
-                    >
-                      <div className="flex items-start justify-between gap-3">
-                        <div className="min-w-0">
-                          <p className="text-xs font-semibold text-slate-600">
-                            {weekSessionLabelFromIndex(idx)}
-                          </p>
-                          <p className="mt-1 text-sm font-extrabold tracking-tight text-slate-900">
-                            {l.title}
-                          </p>
-                          <p className="mt-1 text-xs text-slate-600">{l.xp} XP</p>
-                        </div>
-                        <div className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-[var(--accent)]/10 ring-1 ring-[var(--accent)]/15">
-                          <span className="text-lg">{l.badge}</span>
-                        </div>
-                      </div>
-                      <div className="mt-3 flex items-center justify-between gap-2">
-                        <Badge variant={done ? "secondary" : "outline"}>
-                          {done ? "Completed (example)" : "Locked (example)"}
-                        </Badge>
-                        <Button disabled size="sm" variant="outline">
-                          Open
-                        </Button>
-                      </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { label: "XP", value: String(totalXpAcrossTracks([])), icon: Sparkles },
+                    { label: "Tracks", value: String(trackCount), icon: BookOpen },
+                    { label: "Next", value: "Lesson 1", icon: Flame },
+                  ].map((stat) => (
+                    <div key={stat.label} className="kanam-dashboard-stat rounded-2xl p-3">
+                      <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-white/70">
+                        {stat.label}
+                      </p>
+                      <p className="mt-1 flex items-center gap-1.5 text-sm font-black text-white">
+                        <stat.icon className="h-3.5 w-3.5 text-[var(--accent)]" />
+                        {stat.value}
+                      </p>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
               </div>
-              <p className="mt-4 text-xs text-slate-600">
-                Want to actually try the editors + console? Use{" "}
-                <Link href="/learn/demo" className="font-semibold underline">
-                  Start interactive demo
-                </Link>
-                .
+            </div>
+
+            <div className="rounded-[28px] border border-white/60 bg-white/75 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.04)] backdrop-blur-2xl">
+              <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-slate-500">
+                What you&apos;ll see
               </p>
-            </CardContent>
-          </Card>
+              <ul className="mt-3 space-y-3">
+                {[
+                  {
+                    icon: Trophy,
+                    title: "Real dashboard",
+                    body: "Four tracks, XP, badges, and an 8-week roadmap.",
+                  },
+                  {
+                    icon: BookOpen,
+                    title: "Lesson → Activity",
+                    body: "Read the coach note, then run code with live feedback.",
+                  },
+                  {
+                    icon: ArrowRight,
+                    title: "Keep exploring",
+                    body: "Finish the quickstart, then open any track you want.",
+                  },
+                ].map((item) => (
+                  <li key={item.title} className="flex gap-3">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-emerald-50 text-emerald-800 ring-1 ring-emerald-100">
+                      <item.icon className="h-5 w-5" />
+                    </span>
+                    <span>
+                      <span className="block text-sm font-extrabold text-slate-900">
+                        {item.title}
+                      </span>
+                      <span className="text-sm text-slate-600">{item.body}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                type="button"
+                className="mt-4 inline-flex min-h-11 items-center text-xs font-semibold text-slate-500 underline underline-offset-2 hover:text-slate-800"
+                onClick={() => {
+                  resetGuestProgress();
+                }}
+              >
+                Clear previous demo progress on this device
+              </button>
+            </div>
+          </motion.div>
         </div>
       </div>
     </WelcomeBackground>
   );
 }
-

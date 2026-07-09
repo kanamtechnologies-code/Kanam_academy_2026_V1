@@ -167,7 +167,7 @@ export function PythonExerciseEditor({
         <pre
           ref={preRef}
           aria-hidden
-          className="kanam-hide-scrollbar pointer-events-none absolute inset-0 m-0 overflow-auto whitespace-pre-wrap break-words p-3 font-mono text-sm leading-6 text-slate-900"
+          className="kanam-hide-scrollbar pointer-events-none absolute inset-0 m-0 overflow-auto whitespace-pre-wrap break-words p-3 font-mono text-base leading-6 text-slate-900 sm:text-sm"
           style={{ height: `${heightPx}px` }}
           dangerouslySetInnerHTML={{ __html: html + "\n" }}
         />
@@ -187,7 +187,7 @@ export function PythonExerciseEditor({
           autoCapitalize="off"
           className={cn(
             "kanam-hide-scrollbar relative z-10 w-full resize-none bg-transparent p-3",
-            "font-mono text-sm leading-6 text-transparent caret-[var(--brand)]",
+            "font-mono text-base leading-6 text-transparent caret-[var(--brand)] sm:text-sm",
             "selection:bg-[var(--brand)]/25 placeholder:text-slate-400",
             "focus-visible:outline-none",
             readOnly ? "cursor-default" : "cursor-text"

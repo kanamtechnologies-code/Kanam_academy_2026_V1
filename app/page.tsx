@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { BookOpenCheck, Flame, Sparkles, Trophy } from "lucide-react";
 
 import { TrackRoadmap } from "@/components/dashboard/TrackRoadmap";
+import { GuestDashboardTour } from "@/components/demo/GuestDashboardTour";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -53,6 +54,11 @@ export default function Home() {
     enabledLessonIds: null,
     classIds: [],
   });
+
+  React.useEffect(() => {
+    if (!isGuestMode()) return;
+    setActiveTab("python-starter");
+  }, []);
 
   const openLessonIds = React.useMemo(() => {
     if (!lessonAccess.classRestricted || lessonAccess.enabledLessonIds == null) return null;
@@ -184,36 +190,52 @@ export default function Home() {
   });
 
   return (
-    <div className="kanam-dashboard-shell min-h-dvh px-4 py-6 text-slate-900 md:px-10">
-      <div className="mx-auto w-full max-w-[1320px] space-y-6">
-        <section className="kanam-dashboard-hero rounded-[30px] p-6 md:p-8">
+    <div className="kanam-dashboard-shell min-h-dvh px-3 py-4 text-slate-900 sm:px-4 sm:py-6 md:px-10">
+      <GuestDashboardTour />
+      <div className="mx-auto w-full max-w-[1320px] space-y-4 sm:space-y-6">
+        <section
+          data-tour="dash-hero"
+          className="kanam-dashboard-hero rounded-[22px] p-4 sm:rounded-[30px] sm:p-6 md:p-8"
+        >
           <div className="kanam-dashboard-hero-overlay" />
-          <div className="relative z-10 space-y-5">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.24em] text-white/85">
+          <div className="relative z-10 space-y-4 sm:space-y-5">
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
+              <div className="min-w-0">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/85 sm:text-xs sm:tracking-[0.24em]">
                   Kanam Academy · Learning hub
+                  {isGuestMode() ? " · Demo" : ""}
                 </p>
-                <h1 className="mt-2 text-3xl font-black tracking-tight text-white md:text-5xl">
+                <h1 className="mt-2 break-words text-2xl font-black tracking-tight text-white sm:text-3xl md:text-5xl">
                   Welcome back, {studentName}!
                 </h1>
                 <p className="mt-2 max-w-2xl text-sm font-medium text-white/85 md:text-base">
-                  Pick up where you left off, track your streak, and jump into your next lesson
-                  faster.
+                  {isGuestMode()
+                    ? "You're exploring in demo mode — progress saves on this device. Pick a track and try a lesson."
+                    : "Pick up where you left off, track your streak, and jump into your next lesson faster."}
                 </p>
               </div>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                className="border-white/40 bg-white/10 text-white hover:bg-white/20"
-                onClick={() => setResetOpen(true)}
-              >
-                Reset progress
-              </Button>
+              <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+                {isGuestMode() ? (
+                  <Button
+                    asChild
+                    data-tour="dash-try-lesson"
+                    className="min-h-11 w-full bg-white text-[var(--brand-2)] hover:bg-white/95 sm:w-auto"
+                  >
+                    <Link href="/learn/demo?view=lesson">Try a lesson</Link>
+                  </Button>
+                ) : null}
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="min-h-11 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 sm:w-auto"
+                  onClick={() => setResetOpen(true)}
+                >
+                  Reset progress
+                </Button>
+              </div>
             </div>
 
-            <div className="grid gap-3 md:grid-cols-3">
+            <div data-tour="dash-stats" className="grid gap-2 sm:gap-3 sm:grid-cols-3">
               <div className="kanam-dashboard-stat rounded-2xl p-4">
                 <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/75">
                   Total XP
@@ -250,7 +272,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
               {activeTrackProgress.nextLesson?.href &&
               !activeTrackProgress.nextLesson.comingSoon &&
               isLessonOpenForStudent(
@@ -259,18 +281,27 @@ export default function Home() {
                 lessonAccess.enabledLessonIds,
                 completedIds
               ) ? (
-                <Button asChild className="bg-white text-[var(--brand-2)] hover:bg-white/95">
-                  <Link href={activeTrackProgress.nextLesson.href}>
-                    <Flame className="h-4 w-4" />
-                    Continue: {activeTrackProgress.nextLesson.title}
-                    <span className="text-xs text-[var(--brand)]/80">
-                      ({weekSessionLabel(activeTrackProgress.nextLesson)})
+                <Button
+                  asChild
+                  className="h-auto min-h-11 w-full whitespace-normal bg-white px-4 py-3 text-left text-[var(--brand-2)] hover:bg-white/95 sm:w-auto"
+                >
+                  <Link href={activeTrackProgress.nextLesson.href} className="flex items-start gap-2">
+                    <Flame className="mt-0.5 h-4 w-4 shrink-0" />
+                    <span className="min-w-0">
+                      <span className="line-clamp-2 font-extrabold">
+                        Continue: {activeTrackProgress.nextLesson.title}
+                      </span>
+                      <span className="mt-0.5 block text-xs text-[var(--brand)]/80">
+                        ({weekSessionLabel(activeTrackProgress.nextLesson)})
+                      </span>
                     </span>
                   </Link>
                 </Button>
               ) : null}
-              <Badge className="border border-white/35 bg-white/15 px-3 py-1 text-white">
-                {activeTrack.icon} {activeTrack.subtitle}
+              <Badge className="w-fit border border-white/35 bg-white/15 px-3 py-1.5 text-white">
+                {activeTrack.icon}{" "}
+                <span className="hidden sm:inline">{activeTrack.subtitle}</span>
+                <span className="sm:hidden">{activeTrack.title}</span>
               </Badge>
             </div>
           </div>
@@ -333,44 +364,63 @@ export default function Home() {
         ) : null}
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="kanam-track-tabs h-auto w-full flex-wrap gap-2 p-2 md:w-auto">
-            <TabsTrigger value="ai-literacy" className="gap-2 px-5 py-2.5">
+          <TabsList
+            data-tour="dash-tracks"
+            className="kanam-track-tabs h-auto w-full max-w-full flex-wrap justify-start gap-1.5 overflow-x-auto p-1.5 sm:gap-2 sm:p-2 md:w-auto"
+          >
+            <TabsTrigger
+              value="ai-literacy"
+              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
+            >
               <span>{aiTrack.icon}</span>
-              {aiTrack.title}
+              <span className="sm:hidden">AI</span>
+              <span className="hidden sm:inline">{aiTrack.title}</span>
               {aiTrack.lessons.some((l) => l.hasLesson) ? (
-                <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
-                  📖 Guided lessons
+                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
+                  Guided
                 </span>
               ) : null}
             </TabsTrigger>
-            <TabsTrigger value="digital-literacy" className="gap-2 px-5 py-2.5">
+            <TabsTrigger
+              value="digital-literacy"
+              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
+            >
               <span>{digitalTrack.icon}</span>
-              {digitalTrack.title}
+              <span className="sm:hidden">Digital</span>
+              <span className="hidden sm:inline">{digitalTrack.title}</span>
               {digitalTrack.lessons.some((l) => l.hasLesson) ? (
-                <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
-                  📖 Guided lessons
+                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
+                  Guided
                 </span>
               ) : null}
             </TabsTrigger>
-            <TabsTrigger value="python-starter" className="gap-2 px-5 py-2.5">
+            <TabsTrigger
+              value="python-starter"
+              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
+            >
               <span>{pythonTrack.icon}</span>
-              {pythonTrack.title}
+              <span className="sm:hidden">Python</span>
+              <span className="hidden sm:inline">{pythonTrack.title}</span>
               {pythonTrack.lessons.some((l) => l.hasLesson) ? (
-                <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
-                  📖 Guided lessons
+                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
+                  Guided
                 </span>
               ) : null}
             </TabsTrigger>
-            <TabsTrigger value="data-analyst" className="gap-2 px-5 py-2.5">
+            <TabsTrigger
+              value="data-analyst"
+              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
+            >
               <span>{dataTrack.icon}</span>
-              {dataTrack.title}
+              <span className="sm:hidden">Data</span>
+              <span className="hidden sm:inline">{dataTrack.title}</span>
               {!dataUnlocked ? (
                 <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
                   Locked
                 </span>
               ) : dataTrack.lessons.some((l) => l.hasLesson) ? (
-                <span className="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800">
-                  📖 Guided lessons
+                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
+                  Guided
                 </span>
               ) : null}
             </TabsTrigger>

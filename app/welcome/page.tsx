@@ -184,12 +184,12 @@ export default function WelcomePage() {
 
   return (
     <WelcomeBackground>
-      <div className="flex min-h-[calc(100dvh-120px)] w-full items-center justify-center px-4 py-5 md:px-10">
+      <div className="flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full items-center justify-center px-4 py-5 sm:py-6 md:px-10">
         <div className="mx-auto w-full max-w-[1400px]">
           {/* Top row: welcome message + demo mode (side-by-side on large screens) */}
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
-            <div className="text-center md:text-left">
-              <h1 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl leading-[1.06]">
+            <div className="text-center lg:text-left">
+              <h1 className="text-[1.65rem] font-black leading-[1.08] tracking-tight text-slate-900 sm:text-4xl">
                 <span className="inline-flex items-center gap-4">
                   <span>Welcome to Kanam Academy</span>
                 </span>
@@ -224,11 +224,11 @@ export default function WelcomePage() {
                 device. No account needed.
               </p>
 
-              <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+              <div className="mt-4 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-center lg:justify-start">
                 <Button
                   type="button"
                   className={[
-                    "h-12 rounded-2xl px-6 text-sm font-extrabold tracking-tight",
+                    "h-12 w-full rounded-2xl px-6 text-sm font-extrabold tracking-tight sm:w-auto",
                     "shadow-lg shadow-emerald-700/15",
                     "bg-gradient-to-r from-[rgb(var(--accent-rgb)/0.95)] via-[rgb(var(--brand-rgb)/0.92)] to-[rgb(var(--accent-rgb)/0.95)]",
                     "[background-size:200%_200%] animate-[kanamShimmer_1.6s_linear_infinite]",
@@ -238,7 +238,7 @@ export default function WelcomePage() {
                   onClick={() => {
                     setGuestMode(true);
                     setGuestName("Guest");
-                    router.push("/");
+                    router.push("/dashboard");
                   }}
                 >
                   Explore the full app <Sparkles className="h-5 w-5" />
@@ -246,22 +246,22 @@ export default function WelcomePage() {
                 <Button
                   type="button"
                   variant="outline"
-                  className="h-12 rounded-2xl px-5 text-sm font-extrabold tracking-tight"
+                  className="h-12 w-full rounded-2xl px-5 text-sm font-extrabold tracking-tight sm:w-auto"
                   onClick={() => router.push("/demo")}
                 >
-                  Guided tour
+                  Interactive demo
                 </Button>
               </div>
             </div>
           </div>
 
           {/* Main cards */}
-          <div className="mt-4 grid gap-6 md:grid-cols-2 xl:gap-8">
+          <div className="mt-4 grid gap-6 lg:grid-cols-2 xl:gap-8">
               {/* New learner (priority) */}
               <motion.div
                 {...cardEnter(0.0)}
                 whileHover={{ y: -8 }}
-                className={[glassCardBase, "p-6 md:p-8"].join(" ")}
+                className={[glassCardBase, "p-5 sm:p-6 md:p-8"].join(" ")}
               >
                 <p className="kanam-text-pop-strong text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--brand-2)]">
                   New student
@@ -382,7 +382,7 @@ export default function WelcomePage() {
               <motion.div
                 {...cardEnter(0.1)}
                 whileHover={{ y: -8 }}
-                className={[glassCardBase, "p-6 md:p-8"].join(" ")}
+                className={[glassCardBase, "p-5 sm:p-6 md:p-8"].join(" ")}
               >
                 <p className="kanam-text-pop-strong text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--accent)]">
                   Returning learner
@@ -449,7 +449,7 @@ export default function WelcomePage() {
                         <DialogTrigger asChild>
                           <button
                             type="button"
-                            className="text-xs font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
+                            className="inline-flex min-h-11 items-center text-xs font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900 sm:min-h-0"
                           >
                             Forgot password?
                           </button>

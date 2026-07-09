@@ -424,7 +424,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         )}
       >
-        <div className="kanam-lesson-hero mb-8 rounded-[28px] p-6 md:p-8">
+        <div className="kanam-lesson-hero mb-6 rounded-[22px] p-4 sm:mb-8 sm:rounded-[28px] sm:p-6 md:p-8">
           <div className="kanam-lesson-hero-overlay" />
           <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
             <div className="min-w-0">
@@ -441,7 +441,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                   </p>
                 </div>
               </div>
-              <h1 className="kanam-hero-title mt-5 text-3xl font-black tracking-tight text-white md:text-5xl">
+              <h1 className="kanam-hero-title mt-4 break-words text-2xl font-black tracking-tight text-white sm:mt-5 sm:text-3xl md:text-5xl">
                 {lesson.title}
               </h1>
               <p className="mt-2.5 max-w-3xl text-base font-medium text-white/90 md:text-lg">
@@ -476,7 +476,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
               type="button"
               onClick={() => setView("lesson")}
               className={cn(
-                "flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-colors",
+                "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
                 view === "lesson"
                   ? "bg-[var(--brand)] text-white shadow-sm"
                   : "text-slate-600 hover:bg-slate-100"
@@ -489,7 +489,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
               type="button"
               onClick={() => setView("exercises")}
               className={cn(
-                "flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold transition-colors",
+                "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
                 view === "exercises"
                   ? "bg-[var(--brand)] text-white shadow-sm"
                   : "text-slate-600 hover:bg-slate-100"
@@ -505,7 +505,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
           <LessonModule module={lesson.lessonModule} onStart={() => setView("exercises")} />
         ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-          <div className="space-y-3 lg:sticky lg:top-6 lg:self-start">
+          <div className="space-y-3 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
             <LessonAside
               title="Coach's note"
               defaultOpen={!lesson.lessonModule}
@@ -629,7 +629,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                               if (!locked) setActiveIndex(idx);
                             }}
                             className={cn(
-                              "flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors",
+                              "flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors sm:min-h-0 sm:py-1.5",
                               active
                                 ? "border-[var(--brand)] bg-[var(--brand)] text-white"
                                 : done
@@ -680,9 +680,10 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                           readOnly={lessonComplete}
                         />
 
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex w-full flex-col gap-2 sm:flex-row sm:flex-wrap">
                           <Button
                             type="button"
+                            className="min-h-11 w-full sm:w-auto"
                             onClick={handleRunExercise}
                             disabled={lessonComplete || dbLoading}
                           >
@@ -694,7 +695,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                               key={`next-${activeExercise.id}`}
                               type="button"
                               size="lg"
-                              className="kanam-data-next-exercise-btn shadow-md"
+                              className="kanam-data-next-exercise-btn min-h-11 w-full shadow-md sm:w-auto"
                               onClick={goToNextExercise}
                             >
                               Next exercise
@@ -704,6 +705,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                           <Button
                             type="button"
                             variant="outline"
+                            className="min-h-11 w-full sm:w-auto"
                             onClick={() =>
                               setActiveSql(prepareExerciseSql(activeExercise.starterSql))
                             }

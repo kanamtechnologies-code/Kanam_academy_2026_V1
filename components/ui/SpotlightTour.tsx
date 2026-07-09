@@ -257,19 +257,22 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
   const z = "z-[9999]";
 
   const tooltipMaxW = 360;
-  const tooltipW = Math.min(tooltipMaxW, Math.max(260, Math.floor(window.innerWidth * 0.34)));
+  const tooltipW = Math.min(
+    tooltipMaxW,
+    Math.max(280, Math.floor(window.innerWidth - 24))
+  );
 
   const tooltip = (() => {
     if (!rect) {
       return {
         top: 24,
-        left: 24,
+        left: 12,
         placement: "floating",
       } as const;
     }
     const margin = 12;
-    const preferBelow = rect.bottom + margin + 180 < window.innerHeight;
-    const top = preferBelow ? rect.bottom + margin : Math.max(margin, rect.top - margin - 180);
+    const preferBelow = rect.bottom + margin + 200 < window.innerHeight;
+    const top = preferBelow ? rect.bottom + margin : Math.max(margin, rect.top - margin - 200);
     const left = clamp(rect.left, margin, window.innerWidth - tooltipW - margin);
     return { top, left, placement: preferBelow ? "below" : "above" } as const;
   })();
@@ -326,17 +329,17 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 px-4 py-3">
+            <div className="flex flex-col gap-3 border-t border-slate-200 px-4 py-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-2">
               <p className="text-xs font-medium text-slate-500">
                 Step {idx + 1} / {steps.length}
               </p>
-              <div className="flex items-center gap-2">
+              <div className="grid grid-cols-3 gap-2 sm:flex sm:items-center">
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={markDoneAndClose}
-                  className="border-[rgb(var(--accent-rgb)/0.55)] bg-[rgb(var(--accent-rgb)/0.22)] text-amber-950 hover:bg-[rgb(var(--accent-rgb)/0.30)] focus-visible:ring-[rgb(var(--accent-rgb)/0.35)]"
+                  className="min-h-11 border-[rgb(var(--accent-rgb)/0.55)] bg-[rgb(var(--accent-rgb)/0.22)] text-amber-950 hover:bg-[rgb(var(--accent-rgb)/0.30)] focus-visible:ring-[rgb(var(--accent-rgb)/0.35)] sm:min-h-9"
                 >
                   Skip
                 </Button>
@@ -346,12 +349,14 @@ const SpotlightTourInner = React.forwardRef<SpotlightTourHandle, {
                   size="sm"
                   onClick={() => setIdx((v) => Math.max(0, v - 1))}
                   disabled={idx === 0}
+                  className="min-h-11 sm:min-h-9"
                 >
                   Back
                 </Button>
                 <Button
                   type="button"
                   size="sm"
+                  className="min-h-11 sm:min-h-9"
                   onClick={() => {
                     if (idx >= steps.length - 1) {
                       markDoneAndClose();

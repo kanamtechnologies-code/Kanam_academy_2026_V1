@@ -181,13 +181,13 @@ export function InstructorDashboardClient() {
   );
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 md:px-10">
+    <div className="mx-auto w-full max-w-6xl px-3 py-6 sm:px-4 sm:py-8 md:px-10">
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-600">
             Instructor view
           </p>
-          <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+          <h1 className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
             Your classes
           </h1>
           <p className="mt-1 text-sm text-slate-700">
@@ -343,7 +343,7 @@ export function InstructorDashboardClient() {
                       <Button
                         type="button"
                         variant="outline"
-                        className="h-10 rounded-xl"
+                        className="h-11 min-w-11 shrink-0 rounded-xl"
                         onClick={() => copy(c.code)}
                       >
                         {copiedCode === c.code ? <Check className="h-4 w-4" /> : <Clipboard className="h-4 w-4" />}
@@ -351,11 +351,11 @@ export function InstructorDashboardClient() {
                       </Button>
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex w-full flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
                       <Button
                         type="button"
                         variant="outline"
-                        className="h-10 rounded-xl"
+                        className="h-11 w-full rounded-xl sm:w-auto"
                         onClick={() => setAssignmentsClass(c)}
                       >
                         <Settings2 className="h-4 w-4" />
@@ -364,14 +364,19 @@ export function InstructorDashboardClient() {
                       <Button
                         type="button"
                         variant="outline"
-                        className="h-10 rounded-xl"
+                        className="h-11 w-full rounded-xl sm:w-auto"
                         onClick={() => loadRoster(c.id)}
                         disabled={isLoadingRoster}
                       >
                         {isLoadingRoster ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                         View roster
                       </Button>
-                      <Button type="button" variant="ghost" className="h-10 rounded-xl" onClick={load}>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="h-11 w-full rounded-xl sm:w-auto"
+                        onClick={load}
+                      >
                         Refresh
                       </Button>
                     </div>
