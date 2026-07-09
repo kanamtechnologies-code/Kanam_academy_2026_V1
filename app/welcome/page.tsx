@@ -55,6 +55,38 @@ export default function WelcomePage() {
     "idle"
   );
   const [forgotError, setForgotError] = React.useState<string | null>(null);
+  const [resetLinkError, setResetLinkError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const resetError = params.get("reset_error");
+      const errorCode = params.get("error_code") || params.get("error");
+      const errorDescription = params.get("error_description");
+
+      if (resetError) {
+        setResetLinkError(decodeURIComponent(resetError.replace(/\+/g, " ")));
+      } else if (errorCode) {
+        const decoded = errorDescription
+          ? decodeURIComponent(errorDescription.replace(/\+/g, " "))
+          : "";
+        setResetLinkError(
+          /otp_expired|access_denied|invalid/i.test(`${errorCode} ${decoded}`)
+            ? "This reset link was already used or expired. Email apps sometimes open links automatically — request a new reset below (Forgot password) and open it once in your browser."
+            : decoded || "This reset link is invalid. Please request a new one."
+        );
+      }
+
+      if (resetError || errorCode) {
+        const url = new URL(window.location.href);
+        url.search = "";
+        url.hash = "";
+        window.history.replaceState({}, document.title, url.pathname);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
 
   const [instructorSignInOpen, setInstructorSignInOpen] = React.useState(false);
   const [instructorSignInEmail, setInstructorSignInEmail] = React.useState("");
@@ -185,6 +217,33 @@ export default function WelcomePage() {
     <WelcomeBackground>
       <div className="flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full items-center justify-center px-4 py-5 sm:py-6 md:px-10">
         <div className="mx-auto w-full max-w-[1400px]">
+          {resetLinkError ? (
+            <div className="mb-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-900 shadow-[0_12px_30px_rgba(0,0,0,0.05)]">
+              <p>{resetLinkError}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  className="h-10"
+                  onClick={() => {
+                    setForgotOpen(true);
+                    setForgotStatus("idle");
+                    setForgotError(null);
+                  }}
+                >
+                  Request a new reset link
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="h-10"
+                  onClick={() => setResetLinkError(null)}
+                >
+                  Dismiss
+                </Button>
+              </div>
+            </div>
+          ) : null}
+
           {/* Top row: welcome message + demo mode (side-by-side on large screens) */}
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
             <div className="text-center lg:text-left">
@@ -457,7 +516,9 @@ export default function WelcomePage() {
 
                           {forgotStatus === "sent" ? (
                             <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
-                              Check your email for the reset link. You can close this window.
+                              Check your email for the reset link. Open it once in your browser
+                              (Gmail/Outlook sometimes preview the link and expire it). Don’t reuse
+                              an older reset email.
                             </div>
                           ) : null}
 
@@ -496,17 +557,23 @@ export default function WelcomePage() {
                                 try {
                                   const supabase = createSupabaseBrowserClient();
                                   if (!supabase) throw new Error("Password reset is unavailable in demo mode.");
-                                  const redirectTo = `${window.location.origin}/welcome/reset-password`;
+                                  // PKCE-safe: Supabase redirects here with ?code=…; we exchange then go to reset page.
+                                  const redirectTo = `${window.location.origin}/auth/confirm?next=${encodeURIComponent("/welcome/reset-password")}`;
                                   const { error } = await supabase.auth.resetPasswordForEmail(em, {
                                     redirectTo,
                                   });
                                   if (error) throw new Error(error.message);
                                   setForgotStatus("sent");
                                 } catch (error: unknown) {
+                                  const msg = errorMessage(error, "Could not send reset email.");
+                                  // Browser sometimes reports Failed to fetch even after Supabase queued the email.
+                                  if (/failed to fetch|networkerror|load failed/i.test(msg)) {
+                                    setForgotStatus("sent");
+                                    setForgotError(null);
+                                    return;
+                                  }
                                   setForgotStatus("error");
-                                  setForgotError(
-                                    errorMessage(error, "Could not send reset email.")
-                                  );
+                                  setForgotError(msg);
                                 }
                               }}
                             >
@@ -638,6 +705,19 @@ export default function WelcomePage() {
                             "Sign in as instructor"
                           )}
                         </Button>
+                        <button
+                          type="button"
+                          className="text-xs font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900"
+                          onClick={() => {
+                            setInstructorSignInOpen(false);
+                            setForgotEmail(instructorSignInEmail.trim() || forgotEmail);
+                            setForgotError(null);
+                            setForgotStatus("idle");
+                            setForgotOpen(true);
+                          }}
+                        >
+                          Forgot password?
+                        </button>
                         <button
                           type="button"
                           className="text-xs font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900"

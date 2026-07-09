@@ -36,7 +36,19 @@ curl http://localhost:3000/api/health
 
 Expected: `{"ok":true,"studentsSample":[]}`
 
-## 3) Safety note
+## 3) Auth URL configuration (password reset)
+
+In Supabase → **Authentication → URL Configuration**:
+
+1. **Site URL** = your live app origin (e.g. `https://kanam-academy-2026-v1.vercel.app`), not `http://localhost:3000`.
+2. **Redirect URLs** must allow (wildcards are fine):
+   - `https://kanam-academy-2026-v1.vercel.app/**`
+   - `http://localhost:3000/**` (local only)
+3. The app sends reset emails with redirect:
+   - `/auth/confirm?next=/welcome/reset-password`
+4. Open each reset link **once** in a real browser tab. Some email apps prefetch links and burn the one-time token (`otp_expired`).
+
+## 4) Safety note
 
 If a service role key is ever shared publicly, rotate it in Supabase immediately.
 

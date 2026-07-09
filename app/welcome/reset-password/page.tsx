@@ -51,31 +51,88 @@ export default function ResetPasswordPage() {
         return;
       }
 
+      const params = new URLSearchParams(window.location.search);
+      const errorCode = params.get("error_code") || params.get("error");
+      const errorDescription = params.get("error_description");
+      if (errorCode) {
+        const decoded = errorDescription
+          ? decodeURIComponent(errorDescription.replace(/\+/g, " "))
+          : "";
+        setError(
+          /otp_expired|access_denied|invalid/i.test(`${errorCode} ${decoded}`)
+            ? "This reset link was already used or expired. Email apps often open links automatically — request a new reset and open it once in Chrome/Safari (not from a preview)."
+            : decoded || "This reset link is invalid. Please request a new one."
+        );
+        setReady(true);
+        return;
+      }
+
+      // PKCE flow: ?code=...
+      const code = params.get("code");
+      if (code) {
+        const { error: exchErr } = await supabase.auth.exchangeCodeForSession(code);
+        if (exchErr) {
+          setError(
+            /expired|invalid/i.test(exchErr.message)
+              ? "This reset link was already used or expired. Request a new one and open it once in your browser."
+              : exchErr.message
+          );
+          setReady(true);
+          return;
+        }
+        try {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        } catch {
+          // ignore
+        }
+        setSessionOk(true);
+        setReady(true);
+        return;
+      }
+
+      // Legacy / implicit flow: #access_token=...&type=recovery
       const tokens = readHashTokens();
-      if (!tokens || tokens.type !== "recovery") {
-        setError("This reset link is missing info. Please request a new reset email.");
+      if (tokens) {
+        if (tokens.type && tokens.type !== "recovery") {
+          setError("This link is not a password reset link. Request a new reset email.");
+          setReady(true);
+          return;
+        }
+        const { error: sessErr } = await supabase.auth.setSession({
+          access_token: tokens.access_token,
+          refresh_token: tokens.refresh_token,
+        });
+        if (sessErr) {
+          setError("This reset link expired. Please request a new reset email.");
+          setReady(true);
+          return;
+        }
+        try {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        } catch {
+          // ignore
+        }
+        setSessionOk(true);
         setReady(true);
         return;
       }
 
-      const { error: sessErr } = await supabase.auth.setSession({
-        access_token: tokens.access_token,
-        refresh_token: tokens.refresh_token,
-      });
-      if (sessErr) {
-        setError("This reset link expired. Please request a new reset email.");
+      // Already signed in from /auth/confirm cookie exchange
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        setSessionOk(true);
         setReady(true);
         return;
       }
 
-      setSessionOk(true);
+      setError("This reset link is missing info. Please request a new reset email from Welcome.");
       setReady(true);
     })();
   }, []);
 
   return (
     <WelcomeBackground>
-      <div className="flex min-h-[calc(100dvh-120px)] w-full items-center justify-center px-4 py-8 md:px-10">
+      <div className="flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full items-center justify-center px-4 py-8 md:px-10">
         <WelcomeShell
           containerClassName="mx-auto w-full max-w-[960px]"
           title="Reset your password"
@@ -99,6 +156,11 @@ export default function ResetPasswordPage() {
               {error ? (
                 <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-800">
                   {error}
+                  <div className="mt-4">
+                    <Button onClick={() => router.push("/welcome")} className="h-11">
+                      Back to Welcome
+                    </Button>
+                  </div>
                 </div>
               ) : null}
 
@@ -161,8 +223,8 @@ export default function ResetPasswordPage() {
                       disabled={saving}
                       onClick={async () => {
                         setError(null);
-                        if (!pw || pw.length < 4) {
-                          setError("Password must be at least 4 characters.");
+                        if (!pw || pw.length < 8) {
+                          setError("Password must be at least 8 characters.");
                           return;
                         }
                         if (pw !== pw2) {
@@ -176,7 +238,6 @@ export default function ResetPasswordPage() {
                           const { error: upErr } = await supabase.auth.updateUser({ password: pw });
                           if (upErr) throw new Error(upErr.message);
                           setDone(true);
-                          // Clean up the hash so refreshing doesn't re-run recovery.
                           try {
                             window.history.replaceState({}, document.title, window.location.pathname);
                           } catch {
@@ -208,4 +269,3 @@ export default function ResetPasswordPage() {
     </WelcomeBackground>
   );
 }
-
