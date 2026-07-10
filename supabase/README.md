@@ -45,8 +45,28 @@ In Supabase → **Authentication → URL Configuration**:
    - `https://kanam-academy-2026-v1.vercel.app/**`
    - `http://localhost:3000/**` (local only)
 3. The app sends reset emails with redirect:
-   - `/auth/confirm?next=/welcome/reset-password`
+   - `/welcome/reset-password`
 4. Open each reset link **once** in a real browser tab. Some email apps prefetch links and burn the one-time token (`otp_expired`).
+
+### Reset password email template (recommended — works across devices)
+
+Default Supabase reset links use **PKCE** (`?code=…`). That only works in the **same browser** that clicked “Forgot password.” Opening Gmail on a phone, or an in-app browser, causes:
+
+> PKCE code verifier not found in storage
+
+Fix: Supabase → **Authentication → Email Templates → Reset password**. Replace the link with a **TokenHash** URL (no PKCE verifier needed):
+
+```html
+<h2>Reset password</h2>
+<p>Follow this link to reset the password for your Kanam Academy account:</p>
+<p>
+  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery&next=/welcome/reset-password">
+    Reset password
+  </a>
+</p>
+```
+
+Save the template, then request a **new** reset email (old links still use the previous format).
 
 ## 4) Safety note
 

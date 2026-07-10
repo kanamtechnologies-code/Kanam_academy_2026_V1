@@ -67,15 +67,18 @@ export default function ResetPasswordPage() {
         return;
       }
 
-      // PKCE flow: ?code=...
+      // PKCE flow: ?code=... (must run in the same browser that requested the reset)
       const code = params.get("code");
       if (code) {
         const { error: exchErr } = await supabase.auth.exchangeCodeForSession(code);
         if (exchErr) {
+          const raw = exchErr.message || "";
           setError(
-            /expired|invalid/i.test(exchErr.message)
-              ? "This reset link was already used or expired. Request a new one and open it once in your browser."
-              : exchErr.message
+            /verifier|pkce|storage/i.test(raw)
+              ? "This reset link must be opened in the same browser where you clicked “Forgot password” (storage was cleared or a different browser/app opened the email). Request a new reset and open the newest email in that same browser — or ask us to switch the email template to TokenHash for cross-device resets."
+              : /expired|invalid/i.test(raw)
+                ? "This reset link was already used or expired. Request a new one and open it once in your browser."
+                : raw
           );
           setReady(true);
           return;

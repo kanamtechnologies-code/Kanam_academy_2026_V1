@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, Clipboard, Loader2, Plus, Settings2, Users } from "lucide-react";
+import { Check, Clipboard, Loader2, Plus, Settings2, Trash2, Users } from "lucide-react";
 
 import { ClassAssignmentsDialog } from "@/components/instructor/ClassAssignmentsDialog";
 
@@ -82,6 +82,9 @@ export function InstructorDashboardClient() {
   const [rosterLoading, setRosterLoading] = React.useState<Record<string, boolean | undefined>>({});
   const [copiedCode, setCopiedCode] = React.useState<string | null>(null);
   const [assignmentsClass, setAssignmentsClass] = React.useState<ClassSummary | null>(null);
+  const [deleteClass, setDeleteClass] = React.useState<ClassSummary | null>(null);
+  const [deleteLoading, setDeleteLoading] = React.useState(false);
+  const [deleteError, setDeleteError] = React.useState<string | null>(null);
 
   const load = React.useCallback(async () => {
     setError(null);
@@ -172,6 +175,29 @@ export function InstructorDashboardClient() {
       window.setTimeout(() => setCopiedCode((c) => (c === text ? null : c)), 1100);
     } catch {
       // ignore
+    }
+  }
+
+  async function confirmDeleteClass() {
+    if (!deleteClass) return;
+    setDeleteError(null);
+    setDeleteLoading(true);
+    try {
+      const res = await fetch(`/api/instructor/classes/${encodeURIComponent(deleteClass.id)}`, {
+        method: "DELETE",
+      });
+      await j(res);
+      setRosterByClass((s) => {
+        const next = { ...s };
+        delete next[deleteClass.id];
+        return next;
+      });
+      setDeleteClass(null);
+      await load();
+    } catch (e: unknown) {
+      setDeleteError(errorMessage(e, "Could not delete class."));
+    } finally {
+      setDeleteLoading(false);
     }
   }
 
@@ -379,6 +405,18 @@ export function InstructorDashboardClient() {
                       >
                         Refresh
                       </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="h-11 w-full rounded-xl border-red-200 text-red-700 hover:bg-red-50 hover:text-red-800 sm:w-auto"
+                        onClick={() => {
+                          setDeleteError(null);
+                          setDeleteClass(c);
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                        Delete
+                      </Button>
                     </div>
 
                     {roster ? (
@@ -448,6 +486,66 @@ export function InstructorDashboardClient() {
           }}
         />
       ) : null}
+
+      <Dialog
+        open={Boolean(deleteClass)}
+        onOpenChange={(open) => {
+          if (!open && !deleteLoading) {
+            setDeleteClass(null);
+            setDeleteError(null);
+          }
+        }}
+      >
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Delete this class?</DialogTitle>
+            <DialogDescription>
+              {deleteClass
+                ? `“${deleteClass.name}” and its enrollments/assignments will be removed. Learner accounts and their lesson progress stay intact.`
+                : "This cannot be undone."}
+            </DialogDescription>
+          </DialogHeader>
+
+          {deleteError ? (
+            <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+              {deleteError}
+            </div>
+          ) : null}
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button
+              type="button"
+              variant="outline"
+              className="h-11"
+              disabled={deleteLoading}
+              onClick={() => {
+                setDeleteClass(null);
+                setDeleteError(null);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              className="h-11 bg-red-600 text-white hover:bg-red-700"
+              disabled={deleteLoading}
+              onClick={confirmDeleteClass}
+            >
+              {deleteLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Deleting…
+                </>
+              ) : (
+                <>
+                  <Trash2 className="h-4 w-4" />
+                  Delete class
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

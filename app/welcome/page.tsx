@@ -557,8 +557,9 @@ export default function WelcomePage() {
                                 try {
                                   const supabase = createSupabaseBrowserClient();
                                   if (!supabase) throw new Error("Password reset is unavailable in demo mode.");
-                                  // PKCE-safe: Supabase redirects here with ?code=…; we exchange then go to reset page.
-                                  const redirectTo = `${window.location.origin}/auth/confirm?next=${encodeURIComponent("/welcome/reset-password")}`;
+                                  // Client exchanges ?code=… (PKCE verifier is in this browser).
+                                  // Cross-device resets need the TokenHash email template (see supabase/README.md).
+                                  const redirectTo = `${window.location.origin}/welcome/reset-password`;
                                   const { error } = await supabase.auth.resetPasswordForEmail(em, {
                                     redirectTo,
                                   });

@@ -15,10 +15,12 @@ function failRedirect(origin: string, message: string) {
 }
 
 /**
- * Completes email OTP / recovery links, then redirects.
- * Supports:
- * - token_hash + type (email template {{ .TokenHash }} flow)
- * - code (PKCE redirect from Supabase verify → redirectTo)
+ * Completes recovery / email confirmation links.
+ *
+ * - token_hash + type: verified on the server (works across browsers/devices).
+ *   Prefer this in the Supabase "Reset password" email template.
+ * - code (PKCE): forwarded to the client page. The PKCE code verifier lives in
+ *   browser storage/cookies from resetPasswordForEmail — the server cannot use it.
  */
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -37,35 +39,30 @@ export async function GET(request: NextRequest) {
     return failRedirect(origin, msg);
   }
 
-  try {
-    const supabase = await createSupabaseServerClient();
+  // PKCE: hand the code to the browser that started the reset (has the verifier).
+  if (code) {
+    const url = new URL(next, origin);
+    url.searchParams.set("code", code);
+    return NextResponse.redirect(url);
+  }
 
-    if (code) {
-      const { error } = await supabase.auth.exchangeCodeForSession(code);
-      if (error) {
-        const msg = /expired|invalid/i.test(error.message)
-          ? "This reset link was already used or expired. Request a new one and open it once in your browser."
-          : error.message;
-        return failRedirect(origin, msg);
-      }
-      return NextResponse.redirect(new URL(next, origin));
-    }
-
-    if (token_hash && type) {
+  if (token_hash && type) {
+    try {
+      const supabase = await createSupabaseServerClient();
       const { error } = await supabase.auth.verifyOtp({ type, token_hash });
       if (error) {
-        const msg = /expired|invalid/i.test(error.message)
-          ? "This reset link was already used or expired. Request a new one and open it once in your browser."
+        const msg = /expired|invalid|verifier/i.test(error.message)
+          ? "This reset link was already used or expired. Request a new one and open it once in the same browser you used to request it."
           : error.message;
         return failRedirect(origin, msg);
       }
       return NextResponse.redirect(new URL(next, origin));
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Could not verify the reset link.";
+      return failRedirect(origin, message);
     }
-
-    return failRedirect(origin, "Reset link is missing info. Request a new password reset.");
-  } catch (error: unknown) {
-    const message =
-      error instanceof Error ? error.message : "Could not verify the reset link.";
-    return failRedirect(origin, message);
   }
+
+  return failRedirect(origin, "Reset link is missing info. Request a new password reset.");
 }

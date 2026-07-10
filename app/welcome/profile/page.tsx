@@ -117,37 +117,40 @@ export default function WelcomeProfilePage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      First name
+                      First name <span className="text-amber-200">*</span>
                     </label>
                     <Input
                       value={firstName}
                       onChange={(e) => setFirstName(e.target.value)}
                       placeholder="First name"
+                      autoComplete="given-name"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                   </div>
 
                   <div className="space-y-1.5">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Last name
+                      Last name <span className="text-amber-200">*</span>
                     </label>
                     <Input
                       value={lastName}
                       onChange={(e) => setLastName(e.target.value)}
                       placeholder="Last name"
+                      autoComplete="family-name"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                   </div>
 
                   <div className="space-y-1.5 sm:col-span-2">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Email address
+                      Email address <span className="text-amber-200">*</span>
                     </label>
                     <Input
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder='e.g. tory123@kanam.local'
                       type="email"
+                      autoComplete="email"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                   </div>
@@ -174,25 +177,27 @@ export default function WelcomeProfilePage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Password
+                      Password <span className="text-amber-200">*</span>
                     </label>
                     <Input
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Choose a password"
+                      placeholder="At least 8 characters"
                       type="password"
+                      autoComplete="new-password"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Confirm password
+                      Confirm password <span className="text-amber-200">*</span>
                     </label>
                     <Input
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       placeholder="Type it again"
                       type="password"
+                      autoComplete="new-password"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                   </div>
@@ -253,12 +258,7 @@ export default function WelcomeProfilePage() {
                   </Button>
                   <Button
                     size="lg"
-                    disabled={
-                      saving ||
-                      !firstName.trim() ||
-                      !lastName.trim() ||
-                      !email.trim()
-                    }
+                    disabled={saving}
                     className={[
                       "h-14 rounded-2xl px-7 text-base font-extrabold tracking-tight",
                       "shadow-xl shadow-emerald-900/25",
@@ -284,8 +284,8 @@ export default function WelcomeProfilePage() {
                         setError("Please enter a valid email address.");
                         return;
                       }
-                      if (!password || password.length < 4) {
-                        setError("Password must be at least 4 characters.");
+                      if (!password || password.length < 8) {
+                        setError("Password must be at least 8 characters.");
                         return;
                       }
                       if (password !== confirmPassword) {
