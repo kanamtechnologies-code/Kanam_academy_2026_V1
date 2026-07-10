@@ -23,8 +23,6 @@ import {
   isGuestMode,
 } from "@/lib/guestProgress";
 import {
-  DATA_ANALYST_PREREQUISITES,
-  isDataAnalystTrackUnlocked,
   isLessonOpenForStudent,
   trackProgress,
   totalXpAcrossTracks,
@@ -67,7 +65,6 @@ export default function Home() {
   const digitalTrack = TRACKS.find((t) => t.id === "digital-literacy")!;
   const pythonTrack = TRACKS.find((t) => t.id === "python-starter")!;
   const dataTrack = TRACKS.find((t) => t.id === "data-analyst")!;
-  const dataUnlocked = isDataAnalystTrackUnlocked(completedIds);
   const totalXp = totalXpAcrossTracks(completedIds);
   const activeTrack = TRACKS.find((t) => t.id === activeTab) ?? aiTrack;
   const activeTrackProgress = trackProgress(completedIds, activeTrack.lessons, {
@@ -156,11 +153,6 @@ export default function Home() {
       }
     })();
   }, [router]);
-
-  const prereqLabels = DATA_ANALYST_PREREQUISITES.map((id) => {
-    const lesson = pythonTrack.lessons.find((l) => l.id === id);
-    return lesson?.title ?? id;
-  });
 
   return (
     <div className="kanam-dashboard-shell min-h-dvh px-3 py-4 text-slate-900 sm:px-4 sm:py-6 md:px-10">
@@ -372,11 +364,7 @@ export default function Home() {
               <span>{dataTrack.icon}</span>
               <span className="sm:hidden">Data</span>
               <span className="hidden sm:inline">{dataTrack.title}</span>
-              {!dataUnlocked ? (
-                <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
-                  Locked
-                </span>
-              ) : dataTrack.lessons.some((l) => l.hasLesson) ? (
+              {dataTrack.lessons.some((l) => l.hasLesson) ? (
                 <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
                   Guided
                 </span>
@@ -415,10 +403,6 @@ export default function Home() {
             <TrackRoadmap
               track={dataTrack}
               completedIds={completedIds}
-              locked={!dataUnlocked}
-              lockMessage={`Complete these Python lessons first: ${prereqLabels.join(", ")}.`}
-              lockCtaHref="/learn/1"
-              lockCtaLabel="Start Python lesson 1"
               classRestricted={lessonAccess.classRestricted}
               enabledLessonIds={lessonAccess.enabledLessonIds}
             />

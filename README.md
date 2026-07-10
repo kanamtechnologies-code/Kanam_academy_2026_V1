@@ -72,7 +72,7 @@ Create a `.env.local` in the repo root using `config/env.example` as a guide:
 | `NEXT_PUBLIC_SUPABASE_URL` | ✅ | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | ✅ | Supabase anon public key |
 | `NEXT_PUBLIC_KANAM_SLOGAN` | — | Marketing copy shown on the Welcome screen |
-| `NEXT_PUBLIC_DATA_ANALYST_UNLOCK_FOR_TESTING` | — | Set to `true` to unlock the Data Analyst track for demos (locked behind Python prerequisites by default) |
+| `NEXT_PUBLIC_DATA_ANALYST_UNLOCK_FOR_TESTING` | — | Legacy / unused (Data Analyst is unlocked for everyone) |
 | `SUPABASE_SERVICE_ROLE_KEY` | — | Server-only; required for admin actions |
 | `INSTRUCTOR_INVITE_CODE` | — | Server-only; gate for creating instructor accounts |
 
@@ -95,7 +95,7 @@ Build your first AI helper with Python: variables, input, conditionals, loops, p
 
 ### 📊 Data Analyst Track — 8 weeks · 14 lessons
 
-Learn SQL from `SELECT` to a final data project — columns, `WHERE`, `ORDER BY`, `GROUP BY`, `JOIN`, `HAVING`, then a full data-visualization strand (bar, pie, line, histogram, scatter) before the capstone (50 → 700 XP). Unlocked after the first three Python lessons (or via the demo flag above).
+Learn SQL from `SELECT` to a final data project — columns, `WHERE`, `ORDER BY`, `GROUP BY`, `JOIN`, `HAVING`, then a full data-visualization strand (bar, pie, line, histogram, scatter) before the capstone (50 → 700 XP). Available alongside the other tracks (no Python prerequisite gate).
 
 ## Key routes
 

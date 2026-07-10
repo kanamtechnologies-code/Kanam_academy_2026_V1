@@ -5,8 +5,8 @@ This checklist tracks launch-critical work for Kanam Academy.
 ## P0 - Must Complete Before External Launch
 
 - [x] Add baseline CI pipeline for lint + build (`.github/workflows/ci.yml`)
-- [x] Make Data Analyst unlock behavior production-safe by default (`lib/tracks.ts`)
-- [x] Document launch/testing env toggle (`config/env.example`)
+- [x] Data Analyst track available without Python prerequisite gate (`lib/tracks.ts`)
+- [x] Document env vars (`config/env.example`)
 - [x] Resolve remaining repo lint/type errors so CI passes end-to-end
 - [ ] Security review of API routes + role checks (student/instructor/admin)
 - [ ] Add rate limiting for auth/admin endpoints

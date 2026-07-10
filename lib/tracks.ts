@@ -31,19 +31,19 @@ export type Track = {
   lessons: LessonRow[];
 };
 
-/** Complete Python lessons 1–3 before the Data Analyst track unlocks. */
+/** Previously required before Data Analyst unlocked; kept for docs/reference only. */
 export const DATA_ANALYST_PREREQUISITES = ["lesson-1", "lesson-2", "lesson-3"] as const;
 
 /**
- * Production-safe default: locked until prerequisites are complete.
- * Set NEXT_PUBLIC_DATA_ANALYST_UNLOCK_FOR_TESTING=true only for demos/testing.
+ * Data Analyst is open to everyone (no Python prerequisite gate).
+ * @deprecated Env flag no longer gates the track; always treated as unlocked.
  */
 export const DATA_ANALYST_UNLOCK_FOR_TESTING =
   process.env.NEXT_PUBLIC_DATA_ANALYST_UNLOCK_FOR_TESTING === "true";
 
+/** Data Analyst track is always available. */
 export function isDataAnalystTrackUnlocked(_completedIds: string[]): boolean {
-  if (DATA_ANALYST_UNLOCK_FOR_TESTING) return true;
-  return DATA_ANALYST_PREREQUISITES.every((id) => _completedIds.includes(id));
+  return true;
 }
 
 /** Human label for a lesson's place in the 8-week program. */
