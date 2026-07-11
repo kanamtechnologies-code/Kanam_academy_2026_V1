@@ -109,7 +109,7 @@ export default function WelcomeProfilePage() {
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                     <p className="mt-1 text-xs text-white/85">
-                      Required. Self-paced learners use the shared code emailed from the welcome
+                      Required. Use your teacher&apos;s code, or get a self-paced code on the welcome
                       screen.
                     </p>
                   </div>
@@ -275,7 +275,7 @@ export default function WelcomeProfilePage() {
                       const trimmedEmail = email.trim();
                       if (!cc) {
                         setError(
-                          "A class code is required. Go back and request the self-paced code by email if you do not have a teacher code."
+                          "A class code is required. Go back and tap “Get a self-paced code” if you do not have a teacher code."
                         );
                         return;
                       }
@@ -379,8 +379,8 @@ export default function WelcomeProfilePage() {
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
                   <p className="text-sm font-extrabold tracking-tight text-white">Joins your cohort</p>
                   <p className="mt-1 text-sm">
-                    Your class code places you with your teacher&apos;s class — or the shared
-                    self-paced group if you&apos;re learning on your own.
+                    Your class code places you with your class so progress and assignments stay
+                    organized.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-4">

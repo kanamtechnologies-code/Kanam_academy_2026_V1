@@ -320,8 +320,8 @@ export default function Home() {
           </div>
         ) : lessonAccess.isAsyncCohort ? (
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-950">
-            You&apos;re in the <span className="font-bold">self-paced cohort</span> — all lessons are
-            open. Learn at your own speed; your progress stays with this shared group.
+            You&apos;re learning <span className="font-bold">self-paced</span> — all lessons are open.
+            Go at your own speed.
           </div>
         ) : null}
 

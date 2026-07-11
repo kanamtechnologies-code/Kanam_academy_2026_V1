@@ -318,8 +318,8 @@ export default function WelcomePage() {
                   I’m a new student
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Every student needs a class code. Use your teacher&apos;s code, or request the
-                  self-paced code by email — all self-paced learners share one group.
+                  Every student needs a class code. Use your teacher&apos;s code, or get a
+                  self-paced code below.
                 </p>
 
                 {newError ? (
@@ -363,7 +363,7 @@ export default function WelcomePage() {
                     />
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                       <p className="text-xs text-slate-600">
-                        Learning on your own? We&apos;ll email you the shared self-paced code.
+                        Learning on your own? Get a self-paced code.
                       </p>
                       <Button
                         type="button"
@@ -374,27 +374,20 @@ export default function WelcomePage() {
                         onClick={async () => {
                           setNewError(null);
                           setRequestCodeMsg(null);
-                          const em = newEmail.trim();
-                          if (!em || !em.includes("@")) {
-                            setNewError("Enter your email first, then request a class code.");
-                            return;
-                          }
                           setRequestingCode(true);
                           try {
                             const res = await fetch("/api/student/request-class-code", {
                               method: "POST",
                               headers: { "content-type": "application/json" },
-                              body: JSON.stringify({ email: em }),
                             });
                             const json = (await res.json()) as {
                               ok?: boolean;
                               error?: string;
                               message?: string;
                               classCode?: string;
-                              emailed?: boolean;
                             };
                             if (!res.ok || !json.ok) {
-                              throw new Error(json.error || "Could not send a class code.");
+                              throw new Error(json.error || "Could not get a class code.");
                             }
                             if (json.classCode) {
                               setClassCode(json.classCode);
@@ -405,15 +398,13 @@ export default function WelcomePage() {
                               }
                             }
                             setRequestCodeMsg(
-                              json.emailed
-                                ? "Check your email for the self-paced class code, then paste it above."
-                                : json.message ||
-                                    (json.classCode
-                                      ? `Your self-paced code is ${json.classCode}. We filled it in for you.`
-                                      : "Class code sent.")
+                              json.message ||
+                                (json.classCode
+                                  ? `Your self-paced code is ${json.classCode}. We filled it in for you.`
+                                  : "Class code ready.")
                             );
                           } catch (error: unknown) {
-                            setNewError(errorMessage(error, "Could not request a class code."));
+                            setNewError(errorMessage(error, "Could not get a class code."));
                           } finally {
                             setRequestingCode(false);
                           }
@@ -422,10 +413,10 @@ export default function WelcomePage() {
                         {requestingCode ? (
                           <>
                             <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                            Sending…
+                            Getting code…
                           </>
                         ) : (
-                          "Email me a self-paced code"
+                          "Get a self-paced code"
                         )}
                       </Button>
                     </div>
@@ -454,7 +445,7 @@ export default function WelcomePage() {
                       }
                       if (!cc) {
                         setNewError(
-                          "Enter a class code, or tap “Email me a self-paced code” first."
+                          "Enter a class code, or tap “Get a self-paced code” first."
                         );
                         return;
                       }
@@ -485,8 +476,7 @@ export default function WelcomePage() {
                 <div className="mt-4 rounded-2xl border border-white/50 bg-white/40 p-4">
                   <p className="text-sm font-extrabold tracking-tight text-slate-900">Need help?</p>
                   <p className="mt-1 text-sm text-slate-700">
-                    Need a code? Tap “Email me a self-paced code,” or if a teacher code isn&apos;t
-                    working, check your email or use{" "}
+                    Stuck? Open{" "}
                     <Link
                       className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
                       href="/help"

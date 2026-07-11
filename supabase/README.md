@@ -35,10 +35,9 @@ All solo learners share **one** class code (default `KANAM-ASYNC`) so they batch
 1. Create an instructor account (or use an existing one).
 2. Copy that instructor's Auth user UUID into `.env.local` as `KANAM_ASYNC_OWNER_USER_ID`.
 3. Optionally set `KANAM_ASYNC_CLASS_CODE` / `KANAM_ASYNC_CLASS_NAME`.
-4. Set `RESEND_API_KEY` + `KANAM_EMAIL_FROM` so “Email me a self-paced code” actually sends mail.
-5. Re-run `supabase/schema.sql` (adds `classes.is_async` if missing).
+4. Re-run `supabase/schema.sql` (adds `classes.is_async` if missing).
 
-The first successful request creates the shared class row automatically.
+The first “Get a self-paced code” click creates the class row in Supabase and returns the code to the welcome form (no separate email provider).
 
 Then verify the app (with `npm run dev` running):
 
