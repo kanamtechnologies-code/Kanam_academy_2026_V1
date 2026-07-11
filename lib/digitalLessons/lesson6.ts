@@ -5,20 +5,20 @@ export const digitalLesson6: AILessonConfig = {
   title: "6. Collaborate in the Cloud",
   goal: "Work together effectively using shared documents, comments, version history, and video meetings — the way modern schools and workplaces operate.",
   xpReward: 300,
-  badge: "🤝 Team Player",
+  badge: "Team Player",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/5",
   nextHref: "/learn/digital/7",
   lessonModule: {
-    durationLabel: "~7 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Group projects used to mean huddling around one laptop or emailing files back and forth until nobody knew which copy was real. Today, schools and workplaces run on the **cloud** — shared documents that live online, where a whole team can work at the same time from anywhere.\n\nHere's our roadmap:\n\n• **Real-time collaboration** — many people editing one living document.\n• **Permissions** — who can view, comment, or edit, and why "least access" is smart.\n• **Comments and suggestions** — disagreeing without deleting someone's work.\n• **Version history** — seeing who changed what, and undoing mistakes.\n• **Meeting and teamwork etiquette** — video calls, shared drives, and task boards.\n\nThis is exactly how remote teams build real products. Learn it now and you'll walk into your first job already knowing how the work actually happens.`,
+        body: `Group projects used to mean huddling around one laptop or emailing files back and forth until nobody knew which copy was real. Today, schools and workplaces run on the **cloud** — shared documents that live online, where a whole team can work at the same time from anywhere.\n\nHere's our roadmap:\n\n• **Real-time collaboration** — many people editing one living document.\n• **Permissions** — who can view, comment, or edit, and why "least access" is smart.\n• **Comments and suggestions** — disagreeing without deleting someone's work.\n• **Version history** — seeing who changed what, and undoing mistakes.\n• **Meeting etiquette + a kickoff checklist** — so group work (and internships) don't melt down.\n\nThis is exactly how remote teams build real products. Learn it now and you'll walk into your first job or internship already knowing how the work actually happens.`,
         image: "/images/lessons/dl-6.png",
-        imageAlt: "Several cursors with different names editing the same online document at once",
+        imageAlt: "Laptop showing a shared Google Doc with multiple named cursors editing live; phone with a video meeting thumbnail",
         callout: {
           label: "Why it matters",
           text: "Most modern jobs involve people in different rooms — or different countries — working on the same files. Knowing how to collaborate in the cloud is a baseline skill employers expect.",
@@ -60,7 +60,7 @@ export const digitalLesson6: AILessonConfig = {
         title: "Permissions: view, comment, or edit",
         body: `When you share a document, you choose what other people are allowed to do. These are called **permissions**, and there are usually three levels:\n\n• **View** — the person can read it but not change anything.\n• **Comment** — the person can leave notes and suggestions but not edit the text directly.\n• **Edit** — the person can change the document however they want.\n\nA smart habit (used in real workplaces) is to grant the **least access someone needs** to do their job. If a classmate just needs to read your draft, give them "view," not "edit." If a teammate is helping revise, "comment" or "edit" makes sense. Less access means fewer accidental deletions and better security.\n\nYou can also share with specific people or with "anyone with the link." Sharing a link publicly is convenient but riskier — anyone who finds it gets in.`,
         image: "/images/lessons/dl-6-2.png",
-        imageAlt: "A shared document with three permission badges around it — an eye for view, a speech bubble for comment, and a pencil for edit",
+        imageAlt: "Laptop share dialog showing View, Comment, and Edit permission options for a cloud document",
         bullets: [
           "**View** = read only.",
           "**Comment** = leave notes, can't change the text.",
@@ -109,12 +109,28 @@ export const digitalLesson6: AILessonConfig = {
         },
       },
       {
+        id: "kickoff",
+        kicker: "Decision framework",
+        title: "Group-project kickoff: five decisions before anyone types",
+        body: `Most group chaos isn't about writing — it's about skipping setup. Before the first paragraph, agree on these five things (same checklist works for school *and* internship teams):\n\n**1. One home base** — one shared folder + one main doc (or slide deck). No parallel "my copy."\n**2. Roles** — who owns which section; who merges final formatting.\n**3. Permissions** — editors for teammates; comment for teacher/mentor; view for anyone who only needs to read.\n**4. Feedback rules** — comments/suggestions for disagreements; no silent deletes.\n**5. Deadlines on a board** — To do / Doing / Done with real dates, not vibes.\n\n**Conflict shortcut:** If two people rewrite the same paragraph, stop editing and leave comments. Resolve in chat or a 5-minute call, then update the shared doc once. Parallel silent edits create resentment and lost work.\n\n**Workplace note:** Internships and remote jobs expect this exact workflow. Showing up already fluent in shared docs, comments, and version history is a quiet advantage.`,
+        bullets: [
+          "Agree on one shared home before drafting.",
+          "Assign section owners to reduce collisions.",
+          "Match permissions to the person's real job.",
+          "Use comments for conflict; version history for accidents.",
+        ],
+        callout: {
+          label: "Try this week",
+          text: "On your next group assignment (or club project), spend the first five minutes on the kickoff checklist. Screenshot the shared folder link into the group chat so nobody is hunting for 'the real file.'",
+        },
+      },
+      {
         id: "worked",
         kicker: "Worked example",
         title: "Running a group project the cloud way",
         body: `You and three classmates are writing a report together. Watch how the cloud tools keep it smooth, step by step.\n\n**Step 1 — Create one shared doc and set permissions.** You make a single Google Doc and share it. Your three teammates get **edit** access. Your teacher gets **comment** access so she can give feedback without changing your text.\n\n**Step 2 — Work at the same time.** Everyone writes their section live. You can see Maria's cursor in the intro and Sam typing the conclusion. No emailing, one true version.\n\n**Step 3 — Disagree with a suggestion, not a delete.** You think Sam's last sentence is off-topic. Instead of deleting it, you switch to **suggesting mode** and propose a change. Sam sees it and accepts it.\n\n**Step 4 — Recover from a mistake.** Someone accidentally deletes the whole intro. No panic — you open **version history**, find the version from ten minutes ago, and **restore** it. The intro is back, exactly as it was.\n\nThat's a real team workflow — the same one used at companies every day.`,
         image: "/images/lessons/dl-6-3.png",
-        imageAlt: "Four classmates' avatars editing one shared document together, with a comment note, a suggestion, and a version-history clock icon around it",
+        imageAlt: "Laptop with four teammate avatars editing one shared document; comment sidebar and version history clock visible",
         callout: {
           label: "Pro tip",
           text: "Agree as a group on who owns which section before you start typing. Clear ownership plus comments for feedback prevents almost every group-project meltdown.",
@@ -124,7 +140,7 @@ export const digitalLesson6: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've learned the modern way teams work: one **shared document** with the right **permissions**, **comments and suggestions** instead of overwriting, and **version history** to undo any mistake. Add good meeting etiquette and a shared task board, and you can run a remote team like a pro.\n\nThese habits end the "who has the latest version?" chaos forever — and they're exactly what employers mean when they ask if you can "collaborate."\n\nWhen you're ready, head to the **Knowledge check**, then reflect on a group project that would've gone better with these tools.`,
+        body: `You've learned the modern way teams work: one **shared document** with the right **permissions**, **comments and suggestions** instead of overwriting, and **version history** to undo any mistake. Add good meeting etiquette, a shared task board, and a five-decision kickoff, and you can run a remote team like a pro.\n\nThese habits end the "who has the latest version?" chaos forever — and they're exactly what employers mean when they ask if you can "collaborate."\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on a group project that would've gone better with these tools.`,
       },
     ],
   },
@@ -146,7 +162,7 @@ export const digitalLesson6: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "Why is one shared document better than emailing files named 'report_v2_final' back and forth?",
+      question: "Your group keeps emailing 'report_v2_final' files and nobody knows which is newest. Why is one shared document better?",
       choices: [
         "Email is more expensive",
         "A shared doc keeps one true, always-current version and avoids version chaos",
@@ -172,7 +188,7 @@ export const digitalLesson6: AILessonConfig = {
     },
     {
       id: "q3",
-      question: "You disagree with a sentence a teammate wrote. What's the best move?",
+      question: "You disagree with a sentence a teammate wrote in the shared report. What's the best move?",
       choices: [
         "Delete it and type your own version",
         "Leave a comment or use suggesting mode so they can respond",
@@ -185,7 +201,7 @@ export const digitalLesson6: AILessonConfig = {
     },
     {
       id: "q4",
-      question: "Someone accidentally deleted a whole section of your shared doc. What saves you?",
+      question: "Someone accidentally deleted a whole section of your shared internship proposal. What saves you?",
       choices: [
         "Nothing — it's gone forever",
         "Version history, which lets you restore an earlier version",
@@ -198,7 +214,7 @@ export const digitalLesson6: AILessonConfig = {
     },
     {
       id: "q5",
-      question: "Which is good video-meeting etiquette?",
+      question: "You're on a video call for a group project (or remote first-job training). Which is good etiquette?",
       choices: [
         "Stay unmuted so people hear your room",
         "Talk over others to be heard",

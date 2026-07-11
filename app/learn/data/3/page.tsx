@@ -11,7 +11,7 @@ const daLesson3: DataLessonConfig = {
   title: "3. Pick the Columns You Need",
   goal: "Choose exactly the columns you want, control their order, and use DISTINCT to remove duplicates.",
   xpReward: 150,
-  badge: "📋 Column Picker",
+  badge: "Column Picker",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {

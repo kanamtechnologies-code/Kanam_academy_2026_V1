@@ -5,20 +5,20 @@ export const digitalLesson3: AILessonConfig = {
   title: "3. Search Like a Pro",
   goal: "Find reliable information quickly using strong keywords, search operators, and filters — and know why the top result isn't always the best.",
   xpReward: 150,
-  badge: "🔎 Search Sleuth",
+  badge: "Search Sleuth",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/2",
   nextHref: "/learn/digital/4",
   lessonModule: {
-    durationLabel: "~9 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Everyone can type words into a search box. But there's a huge gap between *searching* and *searching like a pro* — the difference between scrolling through junk for ten minutes and finding the exact answer in ten seconds.\n\nHere's our roadmap:\n\n• **How search engines actually work** — crawl, index, rank, in plain English.\n• **Choosing powerful keywords** — why fewer, sharper words beat long sentences.\n• **Search operators** — secret commands like quotes, \`-\`, \`site:\`, and \`filetype:\`.\n• **Filters and trust** — spotting ads, judging results, and not believing the #1 link automatically.\n\nThis skill pays off everywhere: research projects, debugging code, finding a part-time job, or just settling an argument with facts.`,
+        body: `Everyone can type words into a search box. But there's a huge gap between *searching* and *searching like a pro* — the difference between scrolling through junk for ten minutes and finding the exact answer in ten seconds.\n\nHere's our roadmap:\n\n• **How search engines actually work** — crawl, index, rank, in plain English.\n• **Choosing powerful keywords** — why fewer, sharper words beat long sentences.\n• **Search operators** — secret commands like quotes, \`-\`, \`site:\`, and \`filetype:\`.\n• **Filters and trust** — spotting ads, judging results, and not believing the #1 link automatically.\n• **A refine-until-it-works loop** — for homework, scholarships, jobs, and troubleshooting.\n\nThis skill pays off everywhere: research projects, debugging a frozen app, finding a part-time job posting, hunting scholarship PDFs, or settling an argument with facts.`,
         image: "/images/lessons/dl-3.png",
-        imageAlt: "A magnifying glass over a search bar with filtered, sorted results behind it",
+        imageAlt: "Laptop browser with a search bar and results list; smartphone showing the same search on a smaller screen",
         callout: {
           label: "Why it matters",
           text: "In school and at work, the people who find good answers fast look brilliant — not because they know more, but because they search smarter. It's a learnable superpower.",
@@ -66,7 +66,7 @@ export const digitalLesson3: AILessonConfig = {
         title: "Search operators: tiny symbols, huge control",
         body: `**Search operators** are special commands you add to a query to control your results precisely. They're like the **filters on a shopping site** that let you narrow down to exactly the size, color, and price you want. Here are the most useful ones — try them out, they really work:\n\n• **Quotes** \`"exact phrase"\` — find that phrase exactly, in that order. Searching \`"to be or not to be"\` finds that exact line, not pages with those words scattered around.\n• **Minus** \`-word\` — *exclude* a word (leave it out). \`jaguar -car\` finds the animal, not the vehicle.\n• **site:** \`site:domain\` — search within one website only. (A *domain* is a site's address, like \`nasa.gov\`.) \`climate change site:nasa.gov\` searches only NASA's site.\n• **filetype:** \`filetype:pdf\` — find a specific file type. \`study guide filetype:pdf\` finds downloadable PDFs.\n\nYou can even combine them. \`"photosynthesis" site:edu filetype:pdf\` hunts for PDFs about that exact term on educational sites (\`.edu\` sites are usually schools and universities). That's the kind of search that makes a research project feel easy.`,
         image: "/images/lessons/dl-3-2.png",
-        imageAlt: "Search operator commands shown as control panel toggles: quotation marks, a minus sign, a site filter, and a filetype filter narrowing a list of results",
+        imageAlt: "Browser search box on a laptop showing operators like quotes, minus, site:, and filetype: with filtered results below",
         table: {
           columns: ["Operator", "What it does", "Example"],
           values: [
@@ -93,12 +93,28 @@ export const digitalLesson3: AILessonConfig = {
         },
       },
       {
+        id: "refine-loop",
+        kicker: "Decision framework",
+        title: "The refine loop: homework, scholarships, and jobs",
+        body: `Pros don't search once — they run a short loop until the results get useful:\n\n**1. Start with sharp keywords** (nouns + specifics).\n**2. Scan the first page** — who published each result? Skip obvious ads.\n**3. Add one upgrade** — a quote, a \`site:\`, a \`filetype:\`, a year, or a place.\n**4. Repeat** until you have 2–3 solid sources (or the exact form/PDF you need).\n\n**Real scenarios:**\n\n• **Group project research:** \`"civil rights act 1964" site:edu\` beats a vague paragraph of questions.\n• **Scholarship hunt:** \`\"first-generation\" scholarship 2026 filetype:pdf\` or \`site:yourstate.gov scholarship\`.\n• **Internship / first job:** \`\"high school\" internship [your city] 2026\` plus a date filter for recent posts.\n• **College email / portal help:** \`\"how to reset password\" site:yourcollege.edu\` instead of random how-to blogs.\n\n**Decision shortcut:** If the first page is spammy or off-topic, don't scroll forever — change the query. Scrolling is not refining.`,
+        bullets: [
+          "Loop: keywords → scan → add one operator/filter → repeat.",
+          "Prefer .edu / .gov / known orgs for school and money decisions.",
+          "Use filetype:pdf when you need forms, guides, or applications.",
+          "Date filters help for jobs, news, and deadline-sensitive info.",
+        ],
+        callout: {
+          label: "Try this week",
+          text: "Take one real task (homework question, scholarship, or troubleshooting) and run the refine loop twice — start broad, then add one operator. Notice how much faster the second try gets you somewhere useful.",
+        },
+      },
+      {
         id: "worked",
         kicker: "Worked example",
         title: "Turning a vague question into a sharp query",
         body: `Say you're writing a report and wonder: *"Is it true that we only use 10% of our brains?"* Here's how a pro turns that into a precise, trustworthy search, step by step.\n\n**Step 1 — Strip it to keywords.** Drop the filler. The core idea is the "10% of the brain" myth. Start with: \`10 percent brain myth\`.\n\n**Step 2 — Lock the exact phrase.** To make sure results are about this specific claim, add quotes: \`"10 percent of our brain" myth\`.\n\n**Step 3 — Aim at trustworthy sources.** Add an operator to favor educational or science sites: \`"10 percent of our brain" myth site:edu\`. Now you're searching universities, not random blogs.\n\n**Step 4 — Check who's talking and cross-check.** Open a couple of the organic (non-ad) results, notice they're from neuroscience departments, and confirm they agree. Conclusion: it's a myth — and you found solid sources fast. (You'll go deeper on judging sources in the next lesson.)`,
         image: "/images/lessons/dl-3-3.png",
-        imageAlt: "A vague chatty question being trimmed step by step into a short keyword query with quotes and a site filter, pointing to trustworthy results",
+        imageAlt: "Laptop screen showing a vague question rewritten into a short keyword query with quotes and site:edu in the browser search bar",
         callout: {
           label: "Pro tip",
           text: "Build your search in layers: start broad, see what comes back, then add one operator or specific word at a time. Each tweak sharpens your aim instead of starting over.",
@@ -108,7 +124,7 @@ export const digitalLesson3: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've gone from "type and hope" to "search with intent." Quick recap:\n\n• Search engines **crawl**, **index**, and **rank** pages ahead of time, so your **query** is a fast lookup in a catalog.\n• Strong **keywords** beat long sentences — keep the specifics, drop the filler, and **refine**.\n• **Operators** like \`"exact phrase"\`, \`-word\`, \`site:\`, and \`filetype:\` give you precise control.\n• Spot **sponsored** (ad) results, remember the top link isn't automatically true, and verify AI answer boxes.\n\nWhen you're ready, switch to the **Knowledge check**, then try crafting a sharp query of your own.`,
+        body: `You've gone from "type and hope" to "search with intent." Quick recap:\n\n• Search engines **crawl**, **index**, and **rank** pages ahead of time, so your **query** is a fast lookup in a catalog.\n• Strong **keywords** beat long sentences — keep the specifics, drop the filler, and **refine**.\n• **Operators** like \`"exact phrase"\`, \`-word\`, \`site:\`, and \`filetype:\` give you precise control.\n• Spot **sponsored** (ad) results, remember the top link isn't automatically true, and verify AI answer boxes.\n• Use the **refine loop** for school, scholarships, jobs, and troubleshooting.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then try crafting a sharp query of your own.`,
       },
     ],
   },
@@ -126,11 +142,11 @@ export const digitalLesson3: AILessonConfig = {
     { term: "Sponsored result", definition: "A paid ad shown at the top of results, marked 'Ad' or 'Sponsored' — not ranked purely by relevance." },
   ],
   realWorld:
-    "Researching a project, troubleshooting why an app crashes, or finding a downloadable application form all get faster with the same moves: precise keywords plus an operator like \`site:\` or \`filetype:pdf\`.",
+    "Researching a project, troubleshooting why an app crashes, finding a scholarship PDF, or locating a college portal help page all get faster with the same moves: precise keywords plus an operator like \`site:\` or \`filetype:pdf\`.",
   quiz: [
     {
       id: "q1",
-      question: "What are the three main steps a search engine does to answer your searches so quickly?",
+      question: "You're researching for a group project and need answers fast. What are the three main steps a search engine already did so results appear instantly?",
       choices: [
         "Download, install, and update",
         "Crawl, index, and rank",
@@ -143,7 +159,7 @@ export const digitalLesson3: AILessonConfig = {
     },
     {
       id: "q2",
-      question: "Which search is most likely to give you the best results?",
+      question: "Your phone overheats during a long gaming session and you want causes — not a chatty rant. Which search is most likely to give the best results?",
       choices: [
         "why does my phone get so hot when I play games for hours is that bad for it",
         "phone overheating gaming causes",
@@ -156,7 +172,7 @@ export const digitalLesson3: AILessonConfig = {
     },
     {
       id: "q3",
-      question: "You want results ONLY from NASA's website about climate change. Which operator do you use?",
+      question: "You need climate-change info ONLY from NASA's website for a science report. Which operator do you use?",
       choices: [
         "\"climate change\"",
         "climate change -nasa",
@@ -169,7 +185,7 @@ export const digitalLesson3: AILessonConfig = {
     },
     {
       id: "q4",
-      question: "A result at the very top is labeled 'Sponsored.' What does that tell you?",
+      question: "While searching for summer internships, a result at the very top is labeled 'Sponsored.' What does that tell you?",
       choices: [
         "It is the most trustworthy and accurate result",
         "It is an ad — a company paid to put it there, so it's advertising rather than a ranked-for-relevance answer",
@@ -182,7 +198,7 @@ export const digitalLesson3: AILessonConfig = {
     },
     {
       id: "q5",
-      question: "Which statement is true about the #1 (top) organic search result?",
+      question: "A scholarship search shows a #1 organic result from a site you've never heard of. Which statement is true?",
       choices: [
         "It is always the most accurate and correct answer",
         "It can be popular or well-optimized without being the most accurate, so you should check who published it",

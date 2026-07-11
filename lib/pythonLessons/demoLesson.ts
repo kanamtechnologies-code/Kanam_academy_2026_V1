@@ -15,7 +15,7 @@ export const demoLesson: PythonLessonConfig = {
   title: "Quickstart: Meet Your AI Helper",
   goal: "In two short exercises, create a variable and print a greeting — the same skills students use in class.",
   xpReward: 50,
-  badge: "🤖 The Awakener",
+  badge: "The Awakener",
   dashboardHref: "/welcome",
   nextHref: "/demo/complete",
   coachNoteGateSeconds: 4,

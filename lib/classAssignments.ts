@@ -3,6 +3,8 @@ export type StudentLessonAccess = {
   /** When classRestricted, only these lesson ids are open (plus any already completed). */
   enabledLessonIds: string[] | null;
   classIds: string[];
+  /** True when the student is only in the shared self-paced / async cohort. */
+  isAsyncCohort?: boolean;
 };
 
 export function unionEnabledLessonIds(

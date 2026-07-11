@@ -3,25 +3,25 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const digitalLesson13: AILessonConfig = {
   id: "dl-13",
   title: "13. Healthy Tech Habits & Digital Wellbeing",
-  goal: "Build healthy technology habits — balancing screen time, protecting your focus and sleep, caring for your mental health, and using your body well.",
+  goal: "Build healthy technology habits — balancing screen time, protecting your focus and sleep, caring for your mental health, and using your body well — including during college apps, exams, and first-job remote work.",
   xpReward: 650,
-  badge: "🧘 Balance Keeper",
+  badge: "Balance Keeper",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/12",
   nextHref: "/learn/digital/14",
   lessonModule: {
-    durationLabel: "~7 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Be honest: have you ever picked up your phone to check one thing and looked up forty minutes later, not even sure what you actually did? You're not weak, and you're not alone — that feeling is *engineered*. Today is about taking the wheel back.\n\nHere's our roadmap:\n\n• **Not all screen time is equal** — creating and connecting beats endless scrolling.\n• **Why apps are so hard to put down** — the attention tricks built into them.\n• **Focus, sleep, and your mood** — how screens affect all three, and how to protect them.\n• **Your body** — posture, eye breaks, and movement.\n• **A simple healthy-tech routine** you can actually keep.\n\nThis isn't about quitting technology — you're literally learning on it right now. It's about using it on *your* terms instead of letting it use you.`,
+        body: `Be honest: have you ever picked up your phone to check one thing and looked up forty minutes later, not even sure what you actually did? You're not weak, and you're not alone — that feeling is *engineered*. Today is about taking the wheel back.\n\nHere's our roadmap:\n\n• **Not all screen time is equal** — creating and connecting beats endless scrolling.\n• **Why apps are so hard to put down** — the attention tricks built into them.\n• **Focus, sleep, and your mood** — how screens affect all three, and how to protect them.\n• **Your body** — posture, eye breaks, and movement.\n• **A simple healthy-tech routine** you can actually keep.\n• **Senior stretch** — protecting focus during college apps, exams, and remote internships.\n\nThis isn't about quitting technology — you're literally learning on it right now. It's about using it on *your* terms instead of letting it use you.`,
         image: "/images/lessons/dl-13.png",
         imageAlt: "A calm teen setting their phone face-down beside a plant, a book, and a glass of water",
         callout: {
           label: "Why it matters",
-          text: "Your attention, sleep, and mood are the fuel for everything you care about — school, friendships, sports, music, games. Protecting them isn't boring self-care; it's how you get more out of the stuff you actually love.",
+          text: "Your attention, sleep, and mood are the fuel for everything you care about — school, friendships, sports, music, games, college apps, and first jobs. Protecting them isn't boring self-care; it's how you get more out of the stuff you actually love.",
         },
       },
       {
@@ -38,7 +38,7 @@ export const digitalLesson13: AILessonConfig = {
         id: "active-passive",
         kicker: "The big idea",
         title: "Not all screen time is the same",
-        body: `People love to say "screen time is bad," but that's way too simple. Two hours of screen time can mean wildly different things:\n\n• **Active / creating screen time** — editing a video, coding, designing, writing, learning a skill, video-calling your grandma, working on a group project. You're making something or genuinely connecting.\n• **Passive screen time** — endlessly scrolling a feed, autoplaying video after video, watching without really choosing. The app decides; you just keep going.\n\nBoth are "screen time," but they feel completely different afterward. Creating usually leaves you energized or proud. Doomscrolling usually leaves you a little numb, restless, or weirdly tired.\n\nSo the real question isn't *"how many hours?"* It's *"what kind of hours?"* A useful habit: now and then, ask yourself, **"Am I creating, connecting, or just consuming?"**`,
+        body: `People love to say "screen time is bad," but that's way too simple. Two hours of screen time can mean wildly different things:\n\n• **Active / creating screen time** — editing a video, coding, designing, writing, learning a skill, video-calling your grandma, working on a group project, drafting a college essay. You're making something or genuinely connecting.\n• **Passive screen time** — endlessly scrolling a feed, autoplaying video after video, watching without really choosing. The app decides; you just keep going.\n\nBoth are "screen time," but they feel completely different afterward. Creating usually leaves you energized or proud. Doomscrolling usually leaves you a little numb, restless, or weirdly tired.\n\nSo the real question isn't *"how many hours?"* It's *"what kind of hours?"* A useful habit: now and then, ask yourself, **"Am I creating, connecting, or just consuming?"**`,
         bullets: [
           "**Active** = creating, learning, or really connecting.",
           "**Passive** = scrolling and watching on autopilot.",
@@ -85,7 +85,7 @@ export const digitalLesson13: AILessonConfig = {
         id: "comparison",
         kicker: "Concept",
         title: "Feeds are highlight reels, not real life",
-        body: `Ever scroll a feed and suddenly feel like everyone else's life is cooler, prettier, and more fun than yours? That's **social comparison**, and feeds are basically machines for triggering it.\n\nHere's the key insight: a feed is a **highlight reel, not the full movie**. People post their best moments — the perfect vacation shot (after 40 tries), the win, the good-hair day. You're comparing your *behind-the-scenes* (including the boring and hard parts) to everyone else's *greatest hits*. That's not a fair fight, and it can quietly chip away at your mood and how you see yourself.\n\nThere's also **FOMO** — the "fear of missing out" — that itchy feeling that something better is happening without you, which keeps you checking even when it makes you feel worse.\n\nProtect yourself: remind yourself you're seeing the edited version, follow accounts that make you feel *good* (and mute the ones that don't), and remember that no one's real life looks like their feed — not even the people in those feeds.`,
+        body: `Ever scroll a feed and suddenly feel like everyone else's life is cooler, prettier, and more fun than yours? That's **social comparison**, and feeds are basically machines for triggering it.\n\nHere's the key insight: a feed is a **highlight reel, not the full movie**. People post their best moments — the perfect vacation shot (after 40 tries), the win, the good-hair day, the acceptance letter. You're comparing your *behind-the-scenes* (including the boring and hard parts) to everyone else's *greatest hits*. That's not a fair fight, and it can quietly chip away at your mood and how you see yourself.\n\nThere's also **FOMO** — the "fear of missing out" — that itchy feeling that something better is happening without you, which keeps you checking even when it makes you feel worse.\n\nProtect yourself: remind yourself you're seeing the edited version, follow accounts that make you feel *good* (and mute the ones that don't), and remember that no one's real life looks like their feed — not even the people in those feeds.`,
         callout: {
           label: "Common misconception",
           text: "\"Everyone's life is as perfect as their feed.\" Nope — feeds are curated, filtered, and cherry-picked. Even the influencers you envy have boring, messy, hard days they simply don't post.",
@@ -104,6 +104,22 @@ export const digitalLesson13: AILessonConfig = {
         callout: {
           label: "Watch out",
           text: "Signs of overuse to notice in yourself: sore eyes or headaches, a stiff neck, trouble sleeping, feeling anxious when you can't check your phone, or skipping things you used to love. These are cues to adjust — not reasons to feel guilty.",
+        },
+      },
+      {
+        id: "senior-focus",
+        kicker: "For older teens",
+        title: "Focus blocks for college apps, exams & remote work",
+        body: `Application season, finals, and remote internships all demand the same scarce resource: **deep focus**. The students and new hires who protect it finish better work in less time.\n\nTry this playbook:\n\n• **Batch the high-stakes work.** Block 45–90 minutes for one essay, one scholarship form, or one internship task. Phone in another room. Focus / Do Not Disturb on.\n• **Separate "research scrolling" from "writing."** Looking up colleges can turn into an hour of TikTok. Decide: research tab open *or* draft open — not both with a feed in the middle.\n• **Protect sleep during crunch weeks.** All-nighters feel productive and usually aren't. A rested brain writes clearer essays and catches more errors on job applications.\n• **Remote internship tip** — calendar your focus blocks the way you'd calendar a meeting. Bosses notice people who deliver on time without living in Slack 24/7.\n\nYounger teens: the same focus-block habit makes homework shorter. Practice it now.`,
+        bullets: [
+          "One high-stakes task per focus block; phone away.",
+          "Don't mix research tabs with endless feeds.",
+          "Sleep beats all-nighters for essays and exams.",
+          "Treat focus time like a meeting on your calendar.",
+        ],
+        callout: {
+          label: "Pro tip",
+          text: "If college decision season or job hunting is stressing you out, mute comparison accounts for a while. Other people's highlight-reel acceptances are not a scoreboard for your worth.",
         },
       },
       {
@@ -128,14 +144,14 @@ export const digitalLesson13: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got the full picture: **not all screen time is equal** (creating beats consuming), apps are **designed** to grab your attention so it's not your fault it's hard to stop, "multitasking" is really focus-killing **task-switching**, screens hurt **sleep**, feeds are **highlight reels** that fuel comparison and FOMO, and your **body** needs good posture, eye breaks, and movement.\n\nThe goal was never to fear technology — it's to use it on purpose. Spend your attention budget where *you* want it to go.\n\nWhen you're ready, head to the **Knowledge check**, then jot a quick reflection about one healthy-tech habit you'll start this week.`,
+        body: `You've got the full picture: **not all screen time is equal** (creating beats consuming), apps are **designed** to grab your attention so it's not your fault it's hard to stop, "multitasking" is really focus-killing **task-switching**, screens hurt **sleep**, feeds are **highlight reels** that fuel comparison and FOMO, and your **body** needs good posture, eye breaks, and movement. Protect focus blocks especially during college apps, exams, and remote work.\n\nThe goal was never to fear technology — it's to use it on purpose. Spend your attention budget where *you* want it to go.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then jot a quick reflection about one healthy-tech habit you'll start this week.`,
       },
     ],
   },
   bigIdeas: [
     "Not all screen time is equal — **creating and connecting** beats passive scrolling.",
     "Apps are **designed** to capture your attention, so set up your phone to fight back for you.",
-    "Protect your **sleep, focus, mood, and body**: wind down, single-task, and take movement and eye breaks.",
+    "Protect your **sleep, focus, mood, and body**: wind down, single-task, and take movement and eye breaks — especially during high-stakes school and work seasons.",
   ],
   keyTerms: [
     { term: "Digital wellbeing", definition: "Using technology in a way that supports — rather than harms — your mental and physical health." },
@@ -146,11 +162,11 @@ export const digitalLesson13: AILessonConfig = {
     { term: "20-20-20 rule", definition: "Every 20 minutes, look at something 20 feet away for 20 seconds to rest your eyes." },
   ],
   realWorld:
-    "Tech companies hire focus and attention experts, but so do the people who thrive: workers who protect deep-focus time, sleep well, and take breaks consistently do better and burn out less. Learning this now is a career skill, not just a teen one.",
+    "Tech companies hire focus and attention experts, but so do the people who thrive: workers who protect deep-focus time, sleep well, and take breaks consistently do better and burn out less. Learning this now is a career skill, not just a teen one — and it pays off during college apps and first jobs.",
   quiz: [
     {
       id: "q1",
-      question: "Which best explains why 'all screen time is bad' is too simple?",
+      question: "You're drafting a college essay for two hours, then doomscrolling for two hours. Which best explains why 'all screen time is bad' is too simple?",
       choices: [
         "Screens are actually good for your eyes",
         "Creating, learning, and connecting are very different from passive doomscrolling",
@@ -159,11 +175,11 @@ export const digitalLesson13: AILessonConfig = {
       ],
       correctIndex: 1,
       explanation:
-        "The type of screen time matters more than the total. Editing a video or video-calling family is active, creative time — very different from endless passive scrolling.",
+        "The type of screen time matters more than the total. Writing an essay or video-calling family is active, creative time — very different from endless passive scrolling.",
     },
     {
       id: "q2",
-      question: "You find it really hard to stop scrolling a feed. What's the most accurate takeaway?",
+      question: "During finals week you find it really hard to stop scrolling a feed. What's the most accurate takeaway?",
       choices: [
         "You have weak willpower and should feel guilty",
         "The app is designed by experts to be hard to put down, so changing the setup (like notifications) helps more than just trying harder",
@@ -176,7 +192,7 @@ export const digitalLesson13: AILessonConfig = {
     },
     {
       id: "q3",
-      question: "What actually happens when you 'multitask' on homework while texting and watching a show?",
+      question: "You're filling out a scholarship form while texting and watching a show. What actually happens when you 'multitask' like that?",
       choices: [
         "Your brain does all three at once, perfectly",
         "You task-switch rapidly, which makes you slower and more error-prone",
@@ -189,7 +205,7 @@ export const digitalLesson13: AILessonConfig = {
     },
     {
       id: "q4",
-      question: "What's the best reason a feed can make you feel worse about your own life?",
+      question: "Decision day posts flood your feed and suddenly everyone else's life looks perfect. What's the best reason a feed can make you feel worse?",
       choices: [
         "Feeds always show the full, honest truth about people",
         "A feed is a highlight reel, so you compare your behind-the-scenes to everyone's greatest hits",
@@ -202,7 +218,7 @@ export const digitalLesson13: AILessonConfig = {
     },
     {
       id: "q5",
-      question: "Which is a correct use of the 20-20-20 rule?",
+      question: "You're on a laptop all afternoon for a remote internship. Which is a correct use of the 20-20-20 rule?",
       choices: [
         "Take a 20-minute nap after 20 videos",
         "Every 20 minutes, look at something 20 feet away for 20 seconds",
@@ -216,7 +232,7 @@ export const digitalLesson13: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Pick ONE healthy-tech habit from this lesson to start this week (for example: charging your phone outside your room, a 30-minute focus block, or turning off non-essential notifications). Which will you choose, and when will you do it?",
+      "Pick ONE healthy-tech habit from this lesson to start this week (for example: charging your phone outside your room, a 30-minute focus block for homework or college apps, or turning off non-essential notifications). Which will you choose, and when will you do it?",
     placeholder: "Example: I'll charge my phone in the kitchen at night so I stop scrolling in bed and sleep better…",
   },
 };

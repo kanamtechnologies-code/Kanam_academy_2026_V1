@@ -48,7 +48,7 @@ export function CodeTextarea({
   ariaLabel,
   minHeightPx = 220,
   maxHeightPx = 640,
-  showLineNumbers = false,
+  showLineNumbers = true,
   className,
   "data-tour": dataTour,
 }: {
@@ -121,7 +121,7 @@ export function CodeTextarea({
           ref={lineNoRef}
           aria-hidden="true"
           className={[
-            "pointer-events-none absolute inset-y-0 left-0 rounded-md py-3 pr-2",
+            "pointer-events-none absolute inset-y-0 left-0 rounded-l-md border-r border-slate-200/80 bg-slate-50/80 py-3 pr-2",
             "overflow-hidden",
             "kanam-hide-scrollbar",
             "select-none font-mono text-xs leading-5 text-slate-400",

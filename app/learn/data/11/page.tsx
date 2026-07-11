@@ -11,7 +11,7 @@ const daLesson11: DataLessonConfig = {
   title: "11. Change Over Time",
   goal: "Use a line chart to show how a number changes over time — and read the trend, peaks, and dips across a week.",
   xpReward: 550,
-  badge: "📉 Trend Spotter",
+  badge: "Trend Spotter",
   previewTable: "daily_orders",
   seedData: WEEKLY_ORDERS_SEED,
   prevHref: "/learn/data/10",

@@ -132,7 +132,7 @@ type MiniStmt =
   | { kind: "call"; name: string; args: string[]; lineNo: number }
   | { kind: "if"; branches: Array<{ test?: string; body: MiniStmt[] }>; lineNo: number }
   | { kind: "while"; test: string; body: MiniStmt[]; lineNo: number }
-  | { kind: "for"; varName: string; rangeExpr: string; body: MiniStmt[]; lineNo: number };
+  | { kind: "for"; varName: string; rangeExpr: string; body: MiniStmt[]; lineNo: number; iterable?: "range" | "list" };
 
 function stripInlineComment(s: string) {
   // Keep it simple: strip '#' when not inside quotes.
@@ -156,6 +156,33 @@ function stripInlineComment(s: string) {
   return out.trimEnd();
 }
 
+function braceBalance(s: string): number {
+  let depth = 0;
+  let quote: "'" | '"' | null = null;
+  let esc = false;
+  for (const ch of s) {
+    if (esc) {
+      esc = false;
+      continue;
+    }
+    if (quote) {
+      if (ch === "\\") {
+        esc = true;
+        continue;
+      }
+      if (ch === quote) quote = null;
+      continue;
+    }
+    if (ch === "'" || ch === '"') {
+      quote = ch;
+      continue;
+    }
+    if (ch === "{" || ch === "[") depth += 1;
+    if (ch === "}" || ch === "]") depth -= 1;
+  }
+  return depth;
+}
+
 function preprocessLines(code: string): MiniLine[] {
   const rawLines = code.replace(/\r\n/g, "\n").split("\n");
   const lines: MiniLine[] = [];
@@ -166,7 +193,27 @@ function preprocessLines(code: string): MiniLine[] {
     if (!cleaned) continue;
     lines.push({ indent, text: cleaned, raw, lineNo: i + 1 });
   }
-  return lines;
+
+  // Join multiline dict/list literals onto one logical line so
+  // `npc_memory = {\n  "name": "Alex"\n}` parses like a single assignment.
+  const joined: MiniLine[] = [];
+  for (let i = 0; i < lines.length; i++) {
+    let cur = lines[i];
+    let depth = braceBalance(cur.text);
+    while (depth > 0 && i + 1 < lines.length) {
+      i += 1;
+      const next = lines[i];
+      cur = {
+        indent: cur.indent,
+        text: `${cur.text} ${next.text}`,
+        raw: `${cur.raw}\n${next.raw}`,
+        lineNo: cur.lineNo,
+      };
+      depth += braceBalance(next.text);
+    }
+    joined.push(cur);
+  }
+  return joined;
 }
 
 function parseBlock(lines: MiniLine[], startIdx: number, indent: number): { body: MiniStmt[]; nextIdx: number } {
@@ -182,7 +229,8 @@ function parseBlock(lines: MiniLine[], startIdx: number, indent: number): { body
     const txt = line.text;
     const ifMatch = txt.match(/^if\s+(.+)\s*:\s*$/);
     const whileMatch = txt.match(/^while\s+(.+)\s*:\s*$/);
-    const forMatch = txt.match(/^for\s+([A-Za-z_]\w*)\s+in\s+range\s*\(\s*(.+?)\s*\)\s*:\s*$/);
+    const forRangeMatch = txt.match(/^for\s+([A-Za-z_]\w*)\s+in\s+range\s*\(\s*(.+?)\s*\)\s*:\s*$/);
+    const forListMatch = txt.match(/^for\s+([A-Za-z_]\w*)\s+in\s+([A-Za-z_]\w*)\s*:\s*$/);
     const defMatch = txt.match(/^def\s+([A-Za-z_]\w*)\s*\(\s*([A-Za-z_]\w*)?\s*\)\s*:\s*$/);
     if (ifMatch) {
       const branches: Array<{ test?: string; body: MiniStmt[] }> = [];
@@ -222,11 +270,34 @@ function parseBlock(lines: MiniLine[], startIdx: number, indent: number): { body
       continue;
     }
 
-    if (forMatch) {
-      const varName = forMatch[1].trim();
-      const rangeExpr = forMatch[2].trim();
+    if (forRangeMatch) {
+      const varName = forRangeMatch[1].trim();
+      const rangeExpr = forRangeMatch[2].trim();
       const parsedBody = parseBlock(lines, i + 1, indent + 4);
-      body.push({ kind: "for", varName, rangeExpr, body: parsedBody.body, lineNo: line.lineNo });
+      body.push({
+        kind: "for",
+        varName,
+        rangeExpr,
+        body: parsedBody.body,
+        lineNo: line.lineNo,
+        iterable: "range",
+      });
+      i = parsedBody.nextIdx;
+      continue;
+    }
+
+    if (forListMatch) {
+      const varName = forListMatch[1].trim();
+      const rangeExpr = forListMatch[2].trim();
+      const parsedBody = parseBlock(lines, i + 1, indent + 4);
+      body.push({
+        kind: "for",
+        varName,
+        rangeExpr,
+        body: parsedBody.body,
+        lineNo: line.lineNo,
+        iterable: "list",
+      });
       i = parsedBody.nextIdx;
       continue;
     }
@@ -310,6 +381,60 @@ function evalMiniValue(expr: string, env: Record<string, MiniValue>): MiniValue 
   if (t === "{}") return {};
   if (/^(True|False)$/.test(t)) return t === "True";
   if (/^-?\d+$/.test(t)) return Number(t);
+
+  // ["a", "b", 1] list literal (strings / numbers / bools / names)
+  if (t.startsWith("[") && t.endsWith("]") && t !== "[]") {
+    const inner = t.slice(1, -1).trim();
+    if (!inner) return [];
+    const parts: string[] = [];
+    let cur = "";
+    let depth = 0;
+    let quote: "'" | '"' | null = null;
+    let esc = false;
+    for (const ch of inner) {
+      if (esc) {
+        cur += ch;
+        esc = false;
+        continue;
+      }
+      if (quote) {
+        if (ch === "\\") {
+          esc = true;
+          cur += ch;
+          continue;
+        }
+        if (ch === quote) quote = null;
+        cur += ch;
+        continue;
+      }
+      if (ch === "'" || ch === '"') {
+        quote = ch;
+        cur += ch;
+        continue;
+      }
+      if (ch === "(" || ch === "[" || ch === "{") depth += 1;
+      if (ch === ")" || ch === "]" || ch === "}") depth = Math.max(0, depth - 1);
+      if (ch === "," && depth === 0) {
+        const trimmed = cur.trim();
+        if (trimmed) parts.push(trimmed);
+        cur = "";
+        continue;
+      }
+      cur += ch;
+    }
+    const trimmed = cur.trim();
+    if (trimmed) parts.push(trimmed);
+    return parts.map((p) => evalMiniValue(p, env));
+  }
+
+  // name.lower() / name.strip()
+  const methodCall = t.match(/^([A-Za-z_]\w*)\.(lower|strip)\(\s*\)$/);
+  if (methodCall) {
+    const v = env[methodCall[1]];
+    if (v === undefined) throw new Error(`NameError: name '${methodCall[1]}' is not defined`);
+    if (typeof v !== "string") throw new Error(`TypeError: '${methodCall[1]}' must be a string`);
+    return methodCall[2] === "lower" ? v.toLowerCase() : v.trim();
+  }
 
   // {"key": "value", "n": 1} (dictionary literal; string keys only)
   if (t.startsWith("{") && t.endsWith("}") && t !== "{}") {
@@ -476,6 +601,14 @@ function evalCondition(test: string, env: Record<string, MiniValue>): boolean {
   const t = test.trim();
   if (!t) return false;
 
+  // Simple boolean combinations (left-to-right; no parentheses).
+  if (/\s+or\s+/.test(t)) {
+    return t.split(/\s+or\s+/).some((part) => evalCondition(part.trim(), env));
+  }
+  if (/\s+and\s+/.test(t)) {
+    return t.split(/\s+and\s+/).every((part) => evalCondition(part.trim(), env));
+  }
+
   // "hello" in player_input.lower()
   const inMatch = t.match(/^["']([^"']+)["']\s+in\s+([A-Za-z_]\w*)(?:\.(lower|strip)\(\))?\s*$/);
   if (inMatch) {
@@ -553,7 +686,7 @@ export function runMiniPython(code: string, runtime: Record<string, string>, opt
         const promptExpr = inputCall[1]?.trim();
         const promptStr =
           promptExpr && isQuoted(promptExpr) ? unquote(promptExpr) : promptExpr ? String(promptExpr) : "";
-        const answerRaw = (runtime?.[stmt.name] ?? "").toString();
+        const answerRaw = (runtime?.[stmt.name] ?? "").toString().trim() || "Alex";
         const answer = inputCall[2] ? answerRaw.toLowerCase() : answerRaw;
         stdout.push(`${promptStr}${answer}`);
         env[stmt.name] = answer;
@@ -679,6 +812,21 @@ export function runMiniPython(code: string, runtime: Record<string, string>, opt
     }
 
     if (stmt.kind === "for") {
+      if (stmt.iterable === "list") {
+        const listVal = env[stmt.rangeExpr];
+        if (!Array.isArray(listVal)) {
+          throw new Error(
+            `TypeError on line ${stmt.lineNo}: '${stmt.rangeExpr}' is not a list (did you forget: ${stmt.rangeExpr} = [...] ?)`
+          );
+        }
+        const items = listVal.slice(0, 50);
+        for (const item of items) {
+          env[stmt.varName] = item;
+          for (const s of stmt.body) execStmt(s);
+        }
+        return;
+      }
+
       const m = stmt.rangeExpr.match(/^(\d+)$|^([A-Za-z_]\w*)$/);
       if (!m) throw new Error(`SyntaxError on line ${stmt.lineNo}: range(...) must be a number or a variable`);
       const rangeVal = m[1] ? Number(m[1]) : env[m[2] ?? ""];

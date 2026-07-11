@@ -52,6 +52,7 @@ export function SqlTextarea({
   className,
   autoClearBlanks = false,
   typingZones = [],
+  showLineNumbers = true,
   "data-tour": dataTour,
 }: {
   value: string;
@@ -66,10 +67,12 @@ export function SqlTextarea({
   autoClearBlanks?: boolean;
   /** Green highlight zones — stay visible while the exercise is in progress. */
   typingZones?: TypingZone[];
+  showLineNumbers?: boolean;
   "data-tour"?: string;
 }) {
   const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
   const preRef = React.useRef<HTMLPreElement | null>(null);
+  const lineNoRef = React.useRef<HTMLPreElement | null>(null);
   const pendingCursor = React.useRef<number | null>(null);
   const [heightPx, setHeightPx] = React.useState(minHeightPx);
 
@@ -79,12 +82,24 @@ export function SqlTextarea({
     [value, showZones, typingZones]
   );
 
+  const lineCount = React.useMemo(() => Math.max(1, (value ?? "").split("\n").length), [value]);
+  const lineDigits = React.useMemo(() => String(lineCount).length, [lineCount]);
+  const gutterCh = React.useMemo(() => Math.max(2, lineDigits), [lineDigits]);
+  const gutterWidth = showLineNumbers ? `calc(${gutterCh}ch + 1.25rem)` : "0px";
+  const contentPaddingLeft = showLineNumbers ? `calc(0.75rem + ${gutterWidth})` : "0.75rem";
+  const lineNumbersText = React.useMemo(() => {
+    if (!showLineNumbers) return "";
+    return Array.from({ length: lineCount }, (_, i) => String(i + 1)).join("\n");
+  }, [showLineNumbers, lineCount]);
+
   const syncScroll = () => {
     const ta = textareaRef.current;
     const pre = preRef.current;
+    const ln = lineNoRef.current;
     if (!ta || !pre) return;
     pre.scrollTop = ta.scrollTop;
     pre.scrollLeft = ta.scrollLeft;
+    if (ln) ln.scrollTop = ta.scrollTop;
   };
 
   React.useLayoutEffect(() => {
@@ -94,6 +109,7 @@ export function SqlTextarea({
     const clamped = Math.max(minHeightPx, Math.min(maxHeightPx, ta.scrollHeight));
     ta.style.height = `${clamped}px`;
     if (preRef.current) preRef.current.style.height = `${clamped}px`;
+    if (lineNoRef.current) lineNoRef.current.style.height = `${clamped}px`;
     setHeightPx((prev) => (prev === clamped ? prev : clamped));
 
     if (pendingCursor.current !== null) {
@@ -102,7 +118,7 @@ export function SqlTextarea({
       ta.setSelectionRange(cursor, cursor);
     }
     syncScroll();
-  }, [value, minHeightPx, maxHeightPx]);
+  }, [value, minHeightPx, maxHeightPx, showLineNumbers, lineCount]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     pendingCursor.current = e.target.selectionStart;
@@ -167,11 +183,25 @@ export function SqlTextarea({
           if (!readOnly) textareaRef.current?.focus();
         }}
       >
+        {showLineNumbers ? (
+          <pre
+            ref={lineNoRef}
+            aria-hidden
+            className={cn(
+              "kanam-hide-scrollbar pointer-events-none absolute inset-y-0 left-0 m-0 overflow-hidden",
+              "select-none border-r border-slate-200/80 bg-slate-50/80 py-3 pr-2 text-right",
+              "font-mono text-base leading-6 text-slate-400 sm:text-sm"
+            )}
+            style={{ height: `${heightPx}px`, width: gutterWidth, paddingLeft: "0.5rem" }}
+          >
+            {lineNumbersText + "\n"}
+          </pre>
+        ) : null}
         <pre
           ref={preRef}
           aria-hidden
-          className="kanam-hide-scrollbar pointer-events-none absolute inset-0 m-0 overflow-auto whitespace-pre-wrap break-words p-3 font-mono text-base leading-6 text-slate-900 sm:text-sm"
-          style={{ height: `${heightPx}px` }}
+          className="kanam-hide-scrollbar pointer-events-none absolute inset-0 m-0 overflow-auto whitespace-pre-wrap break-words py-3 font-mono text-base leading-6 text-slate-900 sm:text-sm"
+          style={{ height: `${heightPx}px`, paddingLeft: contentPaddingLeft, paddingRight: "0.75rem" }}
           dangerouslySetInnerHTML={{ __html: html + "\n" }}
         />
         <textarea
@@ -189,7 +219,7 @@ export function SqlTextarea({
           autoCorrect="off"
           autoCapitalize="off"
           className={cn(
-            "kanam-hide-scrollbar relative z-10 w-full resize-none bg-transparent p-3",
+            "kanam-hide-scrollbar relative z-10 w-full resize-none bg-transparent py-3",
             "font-mono text-base leading-6 text-transparent caret-[var(--brand)] sm:text-sm",
             "selection:bg-[var(--brand)]/25 placeholder:text-slate-400",
             "focus-visible:outline-none",
@@ -199,6 +229,8 @@ export function SqlTextarea({
             minHeight: minHeightPx,
             height: heightPx,
             maxHeight: maxHeightPx,
+            paddingLeft: contentPaddingLeft,
+            paddingRight: "0.75rem",
             WebkitTextFillColor: "transparent",
           }}
         />

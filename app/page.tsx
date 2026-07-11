@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { BookOpenCheck, Flame, Sparkles, Trophy } from "lucide-react";
 
 import { TrackRoadmap } from "@/components/dashboard/TrackRoadmap";
+import { TrackIcon } from "@/components/tracks/TrackIcon";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,6 +47,7 @@ export default function Home() {
     classRestricted: false,
     enabledLessonIds: null,
     classIds: [],
+    isAsyncCohort: false,
   });
 
   React.useEffect(() => {
@@ -168,10 +170,14 @@ export default function Home() {
                   Kanam Academy · Learning hub
                 </p>
                 <h1 className="mt-2 break-words text-2xl font-black tracking-tight text-white sm:text-3xl md:text-5xl">
-                  Welcome back, {studentName}!
+                  {hasSavedProgress && completedIds.length > 0
+                    ? `Welcome back, ${studentName}!`
+                    : `Welcome, ${studentName}!`}
                 </h1>
                 <p className="mt-2 max-w-2xl text-sm font-medium text-white/85 md:text-base">
-                  Pick up where you left off, track your streak, and jump into your next lesson faster.
+                  {hasSavedProgress && completedIds.length > 0
+                    ? "Pick up where you left off, track your streak, and jump into your next lesson faster."
+                    : "You're all set — pick a track below and start your first lesson."}
                 </p>
               </div>
               <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
@@ -249,8 +255,8 @@ export default function Home() {
                   </Link>
                 </Button>
               ) : null}
-              <Badge className="w-fit border border-white/35 bg-white/15 px-3 py-1.5 text-white">
-                {activeTrack.icon}{" "}
+              <Badge className="flex w-fit items-center gap-1.5 border border-white/35 bg-white/15 px-3 py-1.5 text-white">
+                <TrackIcon trackId={activeTrack.id} className="h-3.5 w-3.5 text-white" />
                 <span className="hidden sm:inline">{activeTrack.subtitle}</span>
                 <span className="sm:hidden">{activeTrack.title}</span>
               </Badge>
@@ -312,6 +318,11 @@ export default function Home() {
             You&apos;re in a class — your instructor controls which lessons are open. Locked lessons
             show as <span className="font-bold">Not assigned</span>.
           </div>
+        ) : lessonAccess.isAsyncCohort ? (
+          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-950">
+            You&apos;re in the <span className="font-bold">self-paced cohort</span> — all lessons are
+            open. Learn at your own speed; your progress stays with this shared group.
+          </div>
         ) : null}
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -322,7 +333,9 @@ export default function Home() {
               value="ai-literacy"
               className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
             >
-              <span>{aiTrack.icon}</span>
+              <span className="inline-flex items-center">
+                <TrackIcon trackId="ai-literacy" className="h-3.5 w-3.5" />
+              </span>
               <span className="sm:hidden">AI</span>
               <span className="hidden sm:inline">{aiTrack.title}</span>
               {aiTrack.lessons.some((l) => l.hasLesson) ? (
@@ -335,7 +348,9 @@ export default function Home() {
               value="digital-literacy"
               className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
             >
-              <span>{digitalTrack.icon}</span>
+              <span className="inline-flex items-center">
+                <TrackIcon trackId="digital-literacy" className="h-3.5 w-3.5" />
+              </span>
               <span className="sm:hidden">Digital</span>
               <span className="hidden sm:inline">{digitalTrack.title}</span>
               {digitalTrack.lessons.some((l) => l.hasLesson) ? (
@@ -348,7 +363,9 @@ export default function Home() {
               value="python-starter"
               className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
             >
-              <span>{pythonTrack.icon}</span>
+              <span className="inline-flex items-center">
+                <TrackIcon trackId="python-starter" className="h-3.5 w-3.5" />
+              </span>
               <span className="sm:hidden">Python</span>
               <span className="hidden sm:inline">{pythonTrack.title}</span>
               {pythonTrack.lessons.some((l) => l.hasLesson) ? (
@@ -361,7 +378,9 @@ export default function Home() {
               value="data-analyst"
               className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
             >
-              <span>{dataTrack.icon}</span>
+              <span className="inline-flex items-center">
+                <TrackIcon trackId="data-analyst" className="h-3.5 w-3.5" />
+              </span>
               <span className="sm:hidden">Data</span>
               <span className="hidden sm:inline">{dataTrack.title}</span>
               {dataTrack.lessons.some((l) => l.hasLesson) ? (

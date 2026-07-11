@@ -2,13 +2,6 @@ import type { PythonLessonConfig } from "@/components/python/PythonLessonCanvas"
 import type { MiniRunResult } from "@/lib/pythonRunner";
 import { rejectsUppercasePrint } from "@/lib/pythonTerminal";
 
-const RUNTIME_NAME_INPUT = {
-  key: "name",
-  label: 'Pretend you typed for: input("What is your name? ")',
-  placeholder: "Alex",
-  defaultValue: "Alex",
-};
-
 function hasNameInput(code: string) {
   return /\bname\s*=\s*input\(/.test(code);
 }
@@ -42,7 +35,7 @@ export const lesson4: PythonLessonConfig = {
   title: "4. Smarter AI Rules",
   goal: "Use if / elif / else to make your AI follow multiple rules in order.",
   xpReward: 250,
-  badge: "🧠 Rule Builder",
+  badge: "Rule Builder",
   instructorScript:
     "**Coach’s note**:\nLast session, our AI helper could make a simple choice (if/else).\nToday, we’re going to teach it how to make **better choices** with more rules.\n\nNew tool: `elif` (else if)\n- Python checks rules from **top to bottom**.\n- The **first** rule that matches is the one that runs.\n- After a match happens, Python stops checking the rest.\n\nAI idea:\nAdding more rules can make an AI look “smarter”…\n…but it still follows human-defined logic.\nIf your rules are unclear or in the wrong order, the behavior can look wrong.\n\nCommon mistakes to watch for:\n- Missing colons (:) after if/elif/else\n- Indentation errors (print must be indented under each rule)\n- Using multiple if statements instead of elif (that can cause confusing behavior)\n\nHow to test like a teacher:\nRun it with Alex, Jordan, and one other name and confirm you get 3 different outputs.",
   kidExplain: [
@@ -121,132 +114,179 @@ export const lesson4: PythonLessonConfig = {
   ],
   exercises: [
     {
-      id: "ex-if",
-      title: "Exercise 1 — First rule (if)",
-      focusCommand: "if",
-      commandExplain:
-        'Start with the top rule: if name == "Alex": with an indented print underneath.',
-      goal: 'Add if name == "Alex": with a special welcome message.',
-      starterCode: `name = input("What is your name? ")
-
-if name == "____":
-    print("____")
-`,
-      hint: 'Type Alex and a message like "Welcome back, Alex!"',
-      successMessage: "Great! You wrote the first rule in your rule chain.",
-      failureMessage: 'Use if name == "Alex": with an indented print() and a colon.',
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
-        if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameInput(code)) return false;
-        if (!hasIfAlex(code)) return false;
-        if (!hasIndentedPrintIf(code)) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        return run.stdout.length >= 1;
-      },
-    },
-    {
-      id: "ex-elif",
-      title: "Exercise 2 — Second rule (elif)",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill in elif",
       focusCommand: "elif",
       commandExplain:
-        'elif adds another rule checked only if the if rule was False. Use elif, not a second if.',
-      goal: 'Add elif name == "Jordan": with its own indented print.',
-      starterCode: `name = input("What is your name? ")
+        "elif means “else if” — an extra rule checked only if the if above was False. Fill in the blank to add Jordan’s rule.",
+      goal: "Replace ____ with elif so the second rule continues the same chain.",
+      starterCode: `# Fill in the blank 👇
+name = input("What is your name? ")
 
 if name == "Alex":
     print("Welcome back, Alex!")
-elif name == "____":
-    print("____")
+____ name == "Jordan":
+    print("Hey Jordan, good to see you!")
+else:
+    print("Hello there!")
 `,
-      hint: 'Type Jordan and a message like "Hey Jordan, good to see you!"',
-      successMessage: "Nice! You added a second rule with elif.",
-      failureMessage: 'Add elif name == "Jordan": with an indented print() underneath.',
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
-        if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameInput(code)) return false;
-        if (!hasIfAlex(code)) return false;
-        if (!hasElifJordan(code)) return false;
-        if (!hasIndentedPrintIf(code) || !hasIndentedPrintElif(code)) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        return run.stdout.length >= 2;
-      },
-    },
-    {
-      id: "ex-else",
-      title: "Exercise 3 — Catch-all (else)",
-      focusCommand: "else",
-      commandExplain:
-        "else is the fallback — it runs when neither the if nor elif rule matched.",
-      goal: "Add else: with an indented print for everyone else.",
-      starterCode: `name = input("What is your name? ")
+      solutionCode: `name = input("What is your name? ")
 
 if name == "Alex":
     print("Welcome back, Alex!")
 elif name == "Jordan":
     print("Hey Jordan, good to see you!")
 else:
-    print("____")
+    print("Hello there!")
 `,
-      hint: 'Try print("Hello there!") for all other names.',
-      successMessage: "Perfect! Your helper now has three paths to choose from.",
-      failureMessage: "Add else: with an indented print() for names that aren't Alex or Jordan.",
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
+      hint: "Type elif (one word) — not a second if.",
+      successMessage: "You added elif — three paths in one chain!",
+      failureMessage: 'Need if Alex, elif Jordan, else — each with indented prints.',
+      validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameInput(code)) return false;
-        if (!hasIfAlex(code)) return false;
-        if (!hasElifJordan(code)) return false;
-        if (!hasElse(code)) return false;
-        if (!hasIndentedPrintIf(code) || !hasIndentedPrintElif(code) || !hasIndentedPrintElse(code))
-          return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        return run.stdout.length >= 2;
+        if (!hasNameInput(code) || !hasIfAlex(code) || !hasElifJordan(code) || !hasElse(code)) return false;
+        if (!hasIndentedPrintIf(code) || !hasIndentedPrintElif(code) || !hasIndentedPrintElse(code)) return false;
+        return run.stdout.join("\n").includes("Welcome back, Alex!");
       },
     },
     {
-      id: "ex-challenge",
-      title: "Exercise 4 — Put it all together",
-      focusCommand: "if + elif + else",
-      commandExplain:
-        "Build the full rule chain: special messages for Alex and Jordan, and a fallback for everyone else.",
-      goal: "Complete the if/elif/else program with all three rules and indented prints.",
-      starterCode: `# Fill in the blanks 👇
-name = input("What is your name? ")
-
-if name == "____":
-    print("____")
-elif name == "____":
-    print("____")
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the rule chain",
+      focusCommand: "if / elif / else",
+      commandExplain: "Scrambled smarter rules. Put if → elif → else in working order.",
+      goal: "Reorder the lines, then Run & check.",
+      starterCode: "",
+      solutionCode: `name = input("What is your name? ")
+if name == "Alex":
+    print("Welcome back, Alex!")
+elif name == "Jordan":
+    print("Hey Jordan, good to see you!")
 else:
-    print("____")
-`,
-      hint: "Alex → special welcome, Jordan → different greeting, else → friendly hello.",
-      successMessage: "You did it! Your AI follows smarter rules in order. 🎯",
-      failureMessage:
-        'Need name = input(...), if/elif/else rules (with colons), and indented print() lines. Check lowercase print.',
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
+    print("Hello there!")`,
+      parsonsLines: [
+        'name = input("What is your name? ")',
+        'if name == "Alex":',
+        '    print("Welcome back, Alex!")',
+        'elif name == "Jordan":',
+        '    print("Hey Jordan, good to see you!")',
+        "else:",
+        '    print("Hello there!")',
+      ],
+      hint: "Top rule first, then elif, then else — with indented prints.",
+      successMessage: "Rule chain order is correct.",
+      failureMessage: "Need if Alex, elif Jordan, else — each with indented prints.",
+      validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameInput(code)) return false;
-        if (!hasIfAlex(code)) return false;
-        if (!hasElifJordan(code)) return false;
-        if (!hasElse(code)) return false;
-        if (!hasIndentedPrintIf(code) || !hasIndentedPrintElif(code) || !hasIndentedPrintElse(code))
-          return false;
-        const ifCount = (code.match(/\bif\s+name\s*==/g) ?? []).length;
-        const hasElif = /\belif\b/.test(code);
-        if (ifCount >= 2 && !hasElif) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        return run.stdout.length >= 2;
+        if (!hasNameInput(code) || !hasIfAlex(code) || !hasElifJordan(code) || !hasElse(code)) return false;
+        if (!hasIndentedPrintIf(code) || !hasIndentedPrintElif(code) || !hasIndentedPrintElse(code)) return false;
+        return run.stdout.join("\n").includes("Welcome back, Alex!");
+      },
+    },
+    {
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 3 — Debug elif order",
+      focusCommand: "elif",
+      commandExplain: "Jordan never gets their special message. The second rule uses if instead of elif — fix it.",
+      goal: "Change the second rule so it is elif (not a second if).",
+      starterCode: `name = input("What is your name? ")
+
+if name == "Alex":
+    print("Welcome back, Alex!")
+if name == "Jordan":
+    print("Hey Jordan, good to see you!")
+else:
+    print("Hello there!")
+`,
+      solutionCode: `name = input("What is your name? ")
+
+if name == "Alex":
+    print("Welcome back, Alex!")
+elif name == "Jordan":
+    print("Hey Jordan, good to see you!")
+else:
+    print("Hello there!")
+`,
+      debugHint: "elif vs second if",
+      hint: "A second if starts a new chain. Use elif to continue the first chain.",
+      successMessage: "Fixed — elif continues the same decision chain.",
+      failureMessage: 'Second rule should be elif name == "Jordan":',
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        if (!hasNameInput(code) || !hasIfAlex(code) || !hasElifJordan(code) || !hasElse(code)) return false;
+        if ((code.match(/\bif\s+name\s*==/g) ?? []).length > 1) return false;
+        if (!hasIndentedPrintIf(code) || !hasIndentedPrintElif(code) || !hasIndentedPrintElse(code)) return false;
+        return run.stdout.join("\n").includes("Welcome back, Alex!");
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the path",
+      focusCommand: "trace elif",
+      commandExplain: "If name is Jordan, which message prints?",
+      goal: "Predict the exact output for Jordan.",
+      starterCode: `name = "Jordan"
+if name == "Alex":
+    print("Welcome back, Alex!")
+elif name == "Jordan":
+    print("Hey Jordan, good to see you!")
+else:
+    print("Hello there!")
+`,
+      solutionCode: `name = "Jordan"
+if name == "Alex":
+    print("Welcome back, Alex!")
+elif name == "Jordan":
+    print("Hey Jordan, good to see you!")
+else:
+    print("Hello there!")
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What exact line prints?",
+      acceptedPredictions: [
+        "Hey Jordan, good to see you!",
+        "hey jordan, good to see you!",
+      ],
+      hint: "Alex rule fails, then elif Jordan matches.",
+      successMessage: "You traced the elif path correctly.",
+      failureMessage: "Jordan should hit the elif message.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        return run.stdout.join("\n").includes("Hey Jordan, good to see you!");
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build if/elif/else",
+      focusCommand: "from scratch",
+      commandExplain: "Write the full three-path helper yourself.",
+      goal: "Special messages for Alex and Jordan; fallback for everyone else.",
+      starterCode: `# Smarter rules from scratch\n`,
+      solutionCode: `name = input("What is your name? ")
+
+if name == "Alex":
+    print("Welcome back, Alex!")
+elif name == "Jordan":
+    print("Hey Jordan, good to see you!")
+else:
+    print("Hello there!")
+`,
+      hint: "if → elif → else with indented prints",
+      successMessage: "You built a three-path helper from scratch.",
+      failureMessage: "Need if Alex, elif Jordan, else, and indented prints.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        if (!hasNameInput(code) || !hasIfAlex(code) || !hasElifJordan(code) || !hasElse(code)) return false;
+        if (!hasIndentedPrintIf(code) || !hasIndentedPrintElif(code) || !hasIndentedPrintElse(code)) return false;
+        return run.stdout.join("\n").includes("Welcome back, Alex!");
       },
     },
   ],
+
   lessonModule: {
     durationLabel: "~8 min lesson",
     sections: [

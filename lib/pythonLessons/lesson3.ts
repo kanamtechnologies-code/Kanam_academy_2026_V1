@@ -2,13 +2,6 @@ import type { PythonLessonConfig } from "@/components/python/PythonLessonCanvas"
 import type { MiniRunResult } from "@/lib/pythonRunner";
 import { rejectsUppercasePrint } from "@/lib/pythonTerminal";
 
-const RUNTIME_NAME_INPUT = {
-  key: "name",
-  label: 'Pretend you typed for: input("What is your name? ")',
-  placeholder: "Alex",
-  defaultValue: "Alex",
-};
-
 function hasNameInput(code: string) {
   return /\bname\s*=\s*input\(/.test(code);
 }
@@ -34,7 +27,7 @@ export const lesson3: PythonLessonConfig = {
   title: "3. My AI Makes Choices",
   goal: "Use if / else to make your AI respond differently based on input.",
   xpReward: 150,
-  badge: "🧠 Decision Maker",
+  badge: "Decision Maker",
   instructorScript:
     "**Coach’s note**:\nLast week, our AI helper learned how to **listen**.\nToday, we’re going to teach it how to **make choices**.\n\nBig idea (very important):\n- The computer does NOT guess.\n- It checks your rule.\n- If the rule is True, it runs that block.\n- Otherwise, it runs the else block.\n\nThis is what many early AI systems look like:\n**rule-based decision making**.\nA human writes the rules. The program follows them exactly.\n\nTwo super common mistakes (watch for these):\n- `=` vs `==`: `=` assigns (puts a value in a box). `==` compares (asks a question).\n- Indentation: the lines under if/else MUST be indented so Python knows what belongs to each choice.\n\nHow to test like a teacher:\nRun it once with Alex (you should get the special message), then run it again with a different name (you should get the other message).",
   kidExplain: [
@@ -118,112 +111,164 @@ export const lesson3: PythonLessonConfig = {
   ],
   exercises: [
     {
-      id: "ex-input",
-      title: "Exercise 1 — Ask for a name",
-      focusCommand: "input()",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill in the comparison",
+      focusCommand: "==",
       commandExplain:
-        "Start by listening — your AI needs a name before it can make a choice.",
-      goal: "Add name = input(\"What is your name? \")",
+        "Inside an if, you compare with == (two equals). Fill in the blank so the rule checks whether name is Alex.",
+      goal: 'Replace ____ with == so the if compares name to "Alex".',
       starterCode: `# Fill in the blank 👇
-name = input("____")
-`,
-      hint: 'Type the question: "What is your name? "',
-      successMessage: "Great! Your helper can collect a name to decide with.",
-      failureMessage: 'Use name = input("What is your name? ").',
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
-        if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameInput(code)) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        return run.stdout.some((line) => line.includes(nameRaw));
-      },
-    },
-    {
-      id: "ex-if",
-      title: "Exercise 2 — Write the if rule",
-      focusCommand: "if",
-      commandExplain:
-        'Use == to compare: if name == "Alex": checks whether the input equals Alex. Remember the colon!',
-      goal: 'Add if name == "Alex": with an indented print for Alex.',
-      starterCode: `name = input("What is your name? ")
+name = input("What is your name? ")
 
-if name == "____":
-    print("____")
+if name ____ "Alex":
+    print("Welcome back, Alex!")
+else:
+    print("Hello there!")
 `,
-      hint: 'Type Alex in the comparison and a welcome message like "Welcome back, Alex!"',
-      successMessage: "Nice! You wrote your first decision rule.",
-      failureMessage: 'Use if name == "Alex": with an indented print() underneath.',
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
-        if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameInput(code)) return false;
-        if (!hasIfAlex(code)) return false;
-        if (!hasIndentedPrintIf(code)) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        if (nameRaw !== "Alex") return run.stdout.length >= 1;
-        return run.stdout.length >= 2;
-      },
-    },
-    {
-      id: "ex-else",
-      title: "Exercise 3 — Add the else path",
-      focusCommand: "else",
-      commandExplain:
-        "else runs when the if condition is False — so everyone who isn't Alex still gets a friendly message.",
-      goal: "Add else: with an indented print for other names.",
-      starterCode: `name = input("What is your name? ")
+      solutionCode: `name = input("What is your name? ")
 
 if name == "Alex":
     print("Welcome back, Alex!")
 else:
-    print("____")
+    print("Hello there!")
 `,
-      hint: 'Try print("Hello there!") for everyone else.',
-      successMessage: "Perfect! Your helper now has two paths to choose from.",
-      failureMessage: "Add else: with an indented print() for non-Alex names.",
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
+      hint: "One = assigns. Two == compares. You want to ask a question here.",
+      successMessage: "You used == to compare — the decision rule works!",
+      failureMessage: 'Need if name == "Alex": with indented prints under if and else.',
+      validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameInput(code)) return false;
-        if (!hasIfAlex(code)) return false;
-        if (!hasElse(code)) return false;
+        if (!hasNameInput(code) || !hasIfAlex(code) || !hasElse(code)) return false;
         if (!hasIndentedPrintIf(code) || !hasIndentedPrintElse(code)) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        return run.stdout.length >= 2;
+        return run.stdout.join("\n").includes("Welcome back, Alex!");
       },
     },
     {
-      id: "ex-challenge",
-      title: "Exercise 4 — Put it all together",
-      focusCommand: "if + else",
-      commandExplain:
-        "Build the full rule-based helper: special message for Alex, different message for everyone else.",
-      goal: "Complete the if/else program and test with Alex and another name.",
-      starterCode: `# Fill in the blanks 👇
-name = input("What is your name? ")
-
-if name == "____":
-    print("____")
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the decision",
+      focusCommand: "if / else",
+      commandExplain: "Scrambled if/else helper. Put the lines in a working order.",
+      goal: "Reorder the lines, then Run & check.",
+      starterCode: "",
+      solutionCode: `name = input("What is your name? ")
+if name == "Alex":
+    print("Welcome back, Alex!")
 else:
-    print("____")
+    print("Hello there!")`,
+      parsonsLines: [
+        'name = input("What is your name? ")',
+        'if name == "Alex":',
+        '    print("Welcome back, Alex!")',
+        "else:",
+        '    print("Hello there!")',
+      ],
+      hint: "input → if → indented print → else → indented print.",
+      successMessage: "Order works — your helper can choose a path.",
+      failureMessage: "Check indentation under if/else and the == comparison.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        if (!hasNameInput(code) || !hasIfAlex(code) || !hasElse(code)) return false;
+        if (!hasIndentedPrintIf(code) || !hasIndentedPrintElse(code)) return false;
+        return run.stdout.join("\n").includes("Welcome back, Alex!");
+      },
+    },
+    {
+      id: "ex-debug-if",
+      kind: "debug",
+      title: "Exercise 3 — Debug the decision",
+      focusCommand: "if / else",
+      commandExplain:
+        "This helper is almost right, but the if rule has a bug. Fix it so Alex gets the special welcome.",
+      goal: "Find and fix the bug, then Run & check.",
+      starterCode: `name = input("What is your name? ")
+
+if name = "Alex":
+    print("Welcome back, Alex!")
+else:
+    print("Hello there!")
 `,
-      hint: 'Alex gets a special welcome; else prints something friendly for other names.',
-      successMessage: "You did it! Your AI makes choices using rules. 🎉",
-      failureMessage:
-        'Need name = input(...), if name == "Alex":, else:, and indented print() lines. Check lowercase print.',
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
+      solutionCode: `name = input("What is your name? ")
+
+if name == "Alex":
+    print("Welcome back, Alex!")
+else:
+    print("Hello there!")
+`,
+      debugHint: "comparison vs assignment",
+      hint: "Remember: == compares. A single = assigns.",
+      successMessage: "Bug squashed! You used == for the comparison.",
+      failureMessage: "The if line should compare with ==, not assign with =.",
+      validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
         if (!hasNameInput(code)) return false;
         if (!hasIfAlex(code)) return false;
         if (!hasElse(code)) return false;
+        if (
+          /\bif\s+name\s*=\s*["']Alex["']\s*:/.test(code) &&
+          !/\bif\s+name\s*==\s*["']Alex["']\s*:/.test(code)
+        ) {
+          return false;
+        }
         if (!hasIndentedPrintIf(code) || !hasIndentedPrintElse(code)) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        return run.stdout.length >= 2;
+        return run.stdout.join("\n").includes("Welcome back, Alex!");
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the branch",
+      focusCommand: "trace if/else",
+      commandExplain: "If name is Riley (not Alex), what will print?",
+      goal: "Predict the exact output for Riley.",
+      starterCode: `name = "Riley"
+if name == "Alex":
+    print("Welcome back, Alex!")
+else:
+    print("Hello there!")
+`,
+      solutionCode: `name = "Riley"
+if name == "Alex":
+    print("Welcome back, Alex!")
+else:
+    print("Hello there!")
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What exact line prints?",
+      acceptedPredictions: ["Hello there!", "hello there!"],
+      hint: "Riley is not Alex, so the else path runs.",
+      successMessage: "You predicted the else branch correctly.",
+      failureMessage: "Non-Alex names take the else path.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        return run.stdout.join("\n").includes("Hello there!");
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build if/else yourself",
+      focusCommand: "from scratch",
+      commandExplain:
+        "Write a full program: ask for a name; special welcome for Alex; friendly hello for everyone else.",
+      goal: "Write the full if/else program.",
+      starterCode: `# Decision helper from scratch\n`,
+      solutionCode: `name = input("What is your name? ")
+
+if name == "Alex":
+    print("Welcome back, Alex!")
+else:
+    print("Hello there!")
+`,
+      hint: 'if name == "Alex": … else: … with indented prints',
+      successMessage: "You built a rule-based helper from scratch.",
+      failureMessage: 'Need input, if name == "Alex":, else:, and indented prints.',
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        if (!hasNameInput(code) || !hasIfAlex(code) || !hasElse(code)) return false;
+        if (!hasIndentedPrintIf(code) || !hasIndentedPrintElse(code)) return false;
+        // Silent default name is Alex → if branch should run.
+        return run.stdout.join("\n").includes("Welcome back, Alex!");
       },
     },
   ],

@@ -16,7 +16,7 @@ export const lesson7: PythonLessonConfig = {
   title: "7. AI Notices Patterns",
   goal: "Use a loop + a changing value to create a pattern you can predict.",
   xpReward: 400,
-  badge: "🧠 Pattern Spotter",
+  badge: "Pattern Spotter",
   instructorScript:
     "**Coach’s note**:\nPatterns happen when you repeat a ==rule== inside a ==loop==.\nToday your job is to make a pattern you can ==predict== before pressing [[Run]].\n\nBig idea:\n- The ==loop== controls how many times we repeat.\n- The ==rule== controls what happens each time.\n\n**Mini goal**:\nMake the output switch back and forth (like ping → pong → ping → pong…).",
   kidExplain: [
@@ -167,104 +167,212 @@ export const lesson7: PythonLessonConfig = {
   coachNoteGateSeconds: 8,
   exercises: [
     {
-      id: "ex-start-value",
-      title: "Exercise 1 — Set a starting value",
-      focusCommand: "Variable",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill the starting-value pattern",
+      focusCommand: "starting value + flip",
       commandExplain:
-        "A variable before the loop holds the starting state — like message = \"ping\".",
-      goal: "Fill in the starting message and print it once to confirm the value.",
+        "Set a starting value before the loop, print it, then flip it each turn. Fill every ____.",
+      goal: "Fill the blanks so the pattern prints ping, then flips for 5 turns.",
       starterCode: `message = "____"
-print(message)`,
-      hint: 'Try "ping" as your starting word',
-      successMessage: "Starting value set — you know where the pattern begins.",
-      failureMessage: 'Fill in the blank with a word in quotes, like "ping".',
+
+for i in range(5):
+    print(message)
+    if message == "____":
+        message = "____"
+    else:
+        message = "____"`,
+      solutionCode: `message = "ping"
+
+for i in range(5):
+    print(message)
+    if message == "ping":
+        message = "pong"
+    else:
+        message = "ping"`,
+      hint: 'Start with "ping". Print first, then flip to "pong" (and back).',
+      previewOutput: "ping\npong\nping\npong\nping",
+      successMessage: "Starting value + flip — your bouncing pattern works.",
+      failureMessage:
+        "Need message before the loop, for range(5), print(message), and if/else flips inside.",
       validate: (code, run) =>
         !rejectsUppercasePrint(code) &&
         noRunError(run) &&
         /\bmessage\s*=\s*["'][^"']+["']/.test(code) &&
-        /\bprint\s*\(\s*message\s*\)/.test(code) &&
-        run.stdout.length === 1 &&
-        run.stdout[0].length > 0,
-    },
-    {
-      id: "ex-loop-five",
-      title: "Exercise 2 — Loop 5 times",
-      focusCommand: "for",
-      commandExplain: "range(5) repeats the indented block exactly 5 times.",
-      goal: "Add a for loop with range(5) that prints the message each iteration.",
-      starterCode: `message = "ping"
-
-for i in range(____):
-    print(message)`,
-      hint: "Type 5 in range(...)",
-      successMessage: "Five iterations — the loop is driving your pattern.",
-      failureMessage: "Use for i in range(5): with an indented print(message). Expect 5 lines.",
-      validate: (code, run) =>
-        !rejectsUppercasePrint(code) &&
-        noRunError(run) &&
         FOR_RANGE5.test(code) &&
-        /\bfor[\s\S]*?\n[ \t]+print\(/.test(code) &&
-        run.stdout.length === 5,
+        IF_INSIDE_FOR.test(code) &&
+        ELSE_INSIDE_FOR.test(code) &&
+        /\bfor[\s\S]*?\n[ \t]+print\s*\(\s*message\s*\)/.test(code) &&
+        run.stdout.length === 5 &&
+        run.stdout.filter((line) => line === "ping" || line === "pong").length === 5,
     },
     {
-      id: "ex-if-else-loop",
-      title: "Exercise 3 — Rule inside the loop",
-      focusCommand: "if / else",
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the bouncer",
+      focusCommand: "state + loop",
       commandExplain:
-        "Put if/else inside the for loop and update message so each turn can differ.",
-      goal: "Build if/else inside the loop that alternates ping and pong.",
-      starterCode: `message = "ping"
-
+        "Scrambled bounce pattern. Put starting value, loop, print, then flip in order.",
+      goal: "Reorder the lines, then Run & check.",
+      starterCode: "",
+      parsonsLines: [
+        'message = "ping"',
+        "for i in range(5):",
+        "    print(message)",
+        '    if message == "ping":',
+        '        message = "pong"',
+        "    else:",
+        '        message = "ping"',
+      ],
+      solutionCode: `message = "ping"
 for i in range(5):
+    print(message)
     if message == "ping":
-        print("ping")
         message = "pong"
     else:
-        print("____")
         message = "ping"`,
-      hint: 'Print "pong" in the else block',
-      successMessage: "Rule checked every iteration — the pattern alternates!",
+      hint: "Starting value first. Inside the loop: print, then if/else flip.",
+      successMessage: "Order is right — print then flip each turn.",
       failureMessage:
-        "Need if/else inside the for loop with indented print lines under each path.",
+        "Need message before the loop, for range(5), print(message), and if/else flips.",
       validate: (code, run) =>
         !rejectsUppercasePrint(code) &&
         noRunError(run) &&
         FOR_RANGE5.test(code) &&
         IF_INSIDE_FOR.test(code) &&
         ELSE_INSIDE_FOR.test(code) &&
-        INDENTED_PRINT_IN_FOR.test(code) &&
-        run.stdout.length === 5,
+        /\bfor[\s\S]*?\n[ \t]+print\s*\(\s*message\s*\)/.test(code) &&
+        run.stdout.length === 5 &&
+        run.stdout.filter((line) => line === "ping" || line === "pong").length === 5,
     },
     {
-      id: "ex-challenge",
-      title: "Exercise 4 — Predictable ping/pong pattern",
-      focusCommand: "Loop + rule",
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 3 — Debug the starting value",
+      focusCommand: "starting value placement",
       commandExplain:
-        "Combine starting value, for loop, if/else, and variable updates into one predictable pattern.",
-      goal: "Fill in all blanks to create a ping/pong pattern across 5 loop iterations.",
-      starterCode: `# Fill in the blanks 👇
-message = "____"
+        "This pattern is stuck on ping. The starting value is reset inside the loop every turn.",
+      goal: "Move the starting value so it is set only once, before the loop.",
+      starterCode: `for i in range(5):
+    message = "ping"
+    print(message)
+    if message == "ping":
+        message = "pong"
+    else:
+        message = "ping"
+`,
+      solutionCode: `message = "ping"
 
 for i in range(5):
-    if message == "____":
-        print("____")
-        message = "____"
+    print(message)
+    if message == "ping":
+        message = "pong"
     else:
-        print("____")
-        message = "____"`,
-      hint: "Start with ping, alternate to pong, and flip message back each turn.",
-      previewOutput: "ping\npong\nping\npong\nping",
-      successMessage: "You built a predictable pattern with loops + rules. 🌟",
+        message = "ping"
+`,
+      debugHint: "starting value inside loop",
+      hint: "Set message = \"ping\" before the for loop, not at the top of every turn.",
+      successMessage: "Fixed — the starting value lives before the loop so it can flip.",
       failureMessage:
-        "Need for range(5), if/else inside the loop, indented print() lines, and 5 output lines.",
+        "Move message = \"ping\" above the for loop so it isn't reset every turn.",
+      validate: (code, run) => {
+        const startBeforeLoop =
+          /\bmessage\s*=\s*["']ping["'][\s\S]*?\bfor\s+[A-Za-z_]\w*\s+in\s+range\s*\(\s*5\s*\)\s*:/.test(
+            code
+          );
+        const resetInsideLoop =
+          /\bfor\s+[A-Za-z_]\w*\s+in\s+range\s*\(\s*5\s*\)\s*:\s*\n[ \t]+message\s*=/.test(code);
+        return (
+          !rejectsUppercasePrint(code) &&
+          noRunError(run) &&
+          startBeforeLoop &&
+          !resetInsideLoop &&
+          FOR_RANGE5.test(code) &&
+          IF_INSIDE_FOR.test(code) &&
+          ELSE_INSIDE_FOR.test(code) &&
+          run.stdout.length === 5 &&
+          run.stdout[0] === "ping" &&
+          run.stdout[1] === "pong" &&
+          run.stdout.filter((line) => line === "ping" || line === "pong").length === 5
+        );
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the bounce",
+      focusCommand: "trace state",
+      commandExplain:
+        "Read this finished bouncer. Predict the five output lines before you see them.",
+      goal: "Type your prediction, then Run & check.",
+      starterCode: `message = "ping"
+
+for i in range(5):
+    print(message)
+    if message == "ping":
+        message = "pong"
+    else:
+        message = "ping"
+`,
+      solutionCode: `message = "ping"
+
+for i in range(5):
+    print(message)
+    if message == "ping":
+        message = "pong"
+    else:
+        message = "ping"
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What five lines print? (one per line)",
+      acceptedPredictions: [
+        "ping\npong\nping\npong\nping",
+        "ping pong ping pong ping",
+        "Ping\nPong\nPing\nPong\nPing",
+      ],
+      hint: "Print the current value first, then flip for the next turn.",
+      successMessage: "You traced the bouncing state correctly.",
+      failureMessage: "Walk through each turn: print the current message, then flip it.",
       validate: (code, run) =>
         !rejectsUppercasePrint(code) &&
         noRunError(run) &&
+        run.stdout.length === 5 &&
+        run.stdout[0] === "ping" &&
+        run.stdout[1] === "pong" &&
+        run.stdout[2] === "ping" &&
+        run.stdout[3] === "pong" &&
+        run.stdout[4] === "ping",
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build the bouncer",
+      focusCommand: "from scratch",
+      commandExplain:
+        "Write a program that starts with a value, loops 5 times, prints, and flips each turn.",
+      goal: "Build the full bounce pattern yourself.",
+      starterCode: `# Starting value + loop + flip\n`,
+      solutionCode: `message = "ping"
+
+for i in range(5):
+    print(message)
+    if message == "ping":
+        message = "pong"
+    else:
+        message = "ping"
+`,
+      hint: 'message = "ping" before the loop; print(message) then if/else flip inside.',
+      successMessage: "You built a predictable bouncing pattern from scratch. 🌟",
+      failureMessage:
+        "Need a starting value before for range(5), print(message), and if/else flips.",
+      validate: (code, run) =>
+        !rejectsUppercasePrint(code) &&
+        noRunError(run) &&
+        /\bmessage\s*=\s*["'][^"']+["']/.test(code) &&
         FOR_RANGE5.test(code) &&
         IF_INSIDE_FOR.test(code) &&
         ELSE_INSIDE_FOR.test(code) &&
         INDENTED_PRINT_IN_FOR.test(code) &&
-        /\b=\s*["'][^"']+["']/.test(code) &&
         run.stdout.length === 5 &&
         run.stdout.filter((line) => line === "ping" || line === "pong").length === 5,
     },

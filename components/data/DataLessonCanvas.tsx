@@ -11,7 +11,6 @@ import {
   Lightbulb,
   ListChecks,
   Loader2,
-  PartyPopper,
   Play,
   Sparkles,
   Table2,
@@ -25,6 +24,7 @@ import { LessonAside } from "@/components/lesson/LessonAside";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
 import { ResultTable } from "@/components/data/ResultTable";
 import { SqlTextarea } from "@/components/data/SqlTextarea";
+import { PremiumBadge } from "@/components/badges/PremiumBadge";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -42,6 +42,9 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
 import { prepareExerciseSql, cursorForIncompleteSql, findTypingZonesForExercise } from "@/lib/sqlStarter";
 import { cn } from "@/lib/utils";
+import { PredictionInput } from "@/components/exercises/PredictionInput";
+import { ParsonsLines } from "@/components/exercises/ParsonsLines";
+import { predictionSoftMatches } from "@/lib/exercises/normalizePrediction";
 import type { Database as SqlDatabase } from "sql.js";
 
 export type DataExplainItem = { title: string; text: string };
@@ -53,6 +56,8 @@ export type SqlCommandReference = {
   example: string;
 };
 
+export type DataExerciseKind = "fill" | "predict" | "debug" | "scratch" | "parsons";
+
 export type DataSqlExercise = {
   id: string;
   title: string;
@@ -63,6 +68,12 @@ export type DataSqlExercise = {
   hint?: string;
   successMessage: string;
   failureMessage: string;
+  kind?: DataExerciseKind;
+  predictionPrompt?: string;
+  acceptedPredictions?: string[];
+  codeReadOnly?: boolean;
+  debugHint?: string;
+  parsonsLines?: string[];
   validate: (sql: string, result: QueryResult | null) => boolean;
 };
 
@@ -156,6 +167,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
   const [terminalOutput, setTerminalOutput] = React.useState("");
   const [runError, setRunError] = React.useState<string | null>(null);
   const [lessonComplete, setLessonComplete] = React.useState(false);
+  const [predictionByExercise, setPredictionByExercise] = React.useState<Record<string, string>>({});
 
   const [coachConfirmed, setCoachConfirmed] = React.useState(false);
   const [coachSecondsLeft, setCoachSecondsLeft] = React.useState(gateSeconds);
@@ -330,9 +342,22 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
 
   const handleRunExercise = () => {
     if (!activeExercise) return;
-    trackProgress("run", { exerciseId: activeExercise.id });
+    const kind = activeExercise.kind ?? "fill";
+    trackProgress("run", { exerciseId: activeExercise.id, kind });
 
-    if (hasSqlPlaceholders(activeSql)) {
+    if (kind === "predict") {
+      const prediction = (predictionByExercise[activeExercise.id] ?? "").trim();
+      if (!prediction) {
+        setRunError(null);
+        setQueryResult(null);
+        setLastFeedbackSuccess(false);
+        setLastFeedback("Type your prediction before you run.");
+        setTerminalOutput(formatTerminal("❌ Make a prediction first, then Run & check."));
+        return;
+      }
+    }
+
+    if (hasSqlPlaceholders(activeSql) && kind !== "predict") {
       setRunError(null);
       setQueryResult(null);
       setLastFeedbackSuccess(false);
@@ -346,17 +371,64 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
       setRunError(result.error);
       setQueryResult(null);
       setLastFeedbackSuccess(false);
-      setLastFeedback(activeExercise.failureMessage);
+      setLastFeedback(
+        kind === "debug"
+          ? `${activeExercise.failureMessage}${activeExercise.debugHint ? ` Hint category: ${activeExercise.debugHint}.` : ""}`
+          : activeExercise.failureMessage
+      );
       setTerminalOutput(formatTerminal(`❌ ${result.error}`));
       return;
     }
 
     setRunError(null);
-    setQueryResult(result);
     const preview = `${result.rowCount} row${result.rowCount === 1 ? "" : "s"}`;
+    const resultSummary = `${preview}; columns: ${result.columns.join(", ")}`;
 
-    const ok = activeExercise.validate(activeSql, result);
-    if (ok) {
+    const codeOk = activeExercise.validate(activeSql, result);
+
+    if (kind === "predict") {
+      const prediction = predictionByExercise[activeExercise.id] ?? "";
+      const accepted =
+        activeExercise.acceptedPredictions && activeExercise.acceptedPredictions.length > 0
+          ? activeExercise.acceptedPredictions
+          : [String(result.rowCount), resultSummary];
+      const predOk = predictionSoftMatches(prediction, accepted);
+
+      if (!codeOk) {
+        setQueryResult(null);
+        setLastFeedbackSuccess(false);
+        setLastFeedback(activeExercise.failureMessage);
+        setTerminalOutput(formatTerminal(`❌ ${activeExercise.failureMessage}`));
+        return;
+      }
+      if (!predOk) {
+        setLastFeedbackSuccess(false);
+        setQueryResult(null);
+        setLastFeedback(
+          "Not quite — your prediction doesn't match the result. Revise it (the real answer stays hidden until you get it)."
+        );
+        setTerminalOutput(
+          formatTerminal(
+            `△ Prediction incorrect.\nYour prediction: ${prediction}\n(Result hidden until your prediction is right.)`
+          )
+        );
+        return;
+      }
+      setQueryResult(result);
+      setLastFeedbackSuccess(true);
+      setLastFeedback(activeExercise.successMessage);
+      setTerminalOutput(formatTerminal(`✓ ${activeExercise.successMessage}\n(${preview})`));
+      setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
+      if (activeIndex === lesson.exercises.length - 1) {
+        setLessonComplete(true);
+        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
+      }
+      return;
+    }
+
+    setQueryResult(result);
+
+    if (codeOk) {
       setLastFeedbackSuccess(true);
       setLastFeedback(activeExercise.successMessage);
       setTerminalOutput(formatTerminal(`✓ ${activeExercise.successMessage}\n(${preview})`));
@@ -365,11 +437,15 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
       const isLast = activeIndex === lesson.exercises.length - 1;
       if (isLast) {
         setLessonComplete(true);
-        trackProgress("lesson_success", { exerciseId: activeExercise.id });
+        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
       }
     } else {
       setLastFeedbackSuccess(false);
-      setLastFeedback(activeExercise.failureMessage);
+      setLastFeedback(
+        kind === "debug"
+          ? `${activeExercise.failureMessage}${activeExercise.debugHint ? ` Hint category: ${activeExercise.debugHint}.` : ""}`
+          : activeExercise.failureMessage
+      );
       setTerminalOutput(
         formatTerminal(`Query ran (${preview}) but not quite right yet.\n${activeExercise.failureMessage}`)
       );
@@ -453,7 +529,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                 <Zap className="mr-1.5 h-4 w-4" />
                 {lesson.xpReward} XP
               </Badge>
-              <Badge className="kanam-hero-chip">{lesson.badge}</Badge>
+              <PremiumBadge lessonId={lesson.id} name={lesson.badge} variant="chip" />
               <Button asChild className="kanam-hero-cta" size="sm">
                 <Link href={lesson.dashboardHref ?? "/dashboard"}>Dashboard</Link>
               </Button>
@@ -653,6 +729,18 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                             <Badge className="bg-sky-700 text-white">
                               {activeExercise.focusCommand}
                             </Badge>
+                            {(activeExercise.kind ?? "fill") === "predict" ? (
+                              <Badge className="bg-violet-100 text-violet-900">Predict</Badge>
+                            ) : null}
+                            {(activeExercise.kind ?? "fill") === "debug" ? (
+                              <Badge className="bg-amber-100 text-amber-900">Debug</Badge>
+                            ) : null}
+                            {(activeExercise.kind ?? "fill") === "parsons" ? (
+                              <Badge className="bg-indigo-100 text-indigo-900">Reorder</Badge>
+                            ) : null}
+                            {(activeExercise.kind ?? "fill") === "scratch" ? (
+                              <Badge className="bg-emerald-100 text-emerald-900">Build</Badge>
+                            ) : null}
                             <p className="text-sm font-semibold text-slate-900">
                               {activeExercise.title}
                             </p>
@@ -666,19 +754,70 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                               Hint: {activeExercise.hint}
                             </p>
                           ) : null}
+                          {activeExercise.debugHint && (activeExercise.kind ?? "fill") === "debug" ? (
+                            <p className="mt-2 text-xs font-semibold text-amber-800">
+                              Bug category: {activeExercise.debugHint}
+                            </p>
+                          ) : null}
                         </div>
 
-                        <SqlTextarea
-                          value={activeSql}
-                          onChange={setActiveSql}
-                          autoClearBlanks
-                          typingZones={typingZones}
-                          ariaLabel={`SQL exercise ${activeIndex + 1}`}
-                          placeholder="Type your SQL here…"
-                          minHeightPx={100}
-                          maxHeightPx={200}
-                          readOnly={lessonComplete}
-                        />
+                        {(activeExercise.kind ?? "fill") === "predict" ? (
+                          <PredictionInput
+                            prompt={
+                              activeExercise.predictionPrompt ??
+                              "What will this query return? (rows and/or columns)"
+                            }
+                            value={predictionByExercise[activeExercise.id] ?? ""}
+                            onChange={(value) =>
+                              setPredictionByExercise((prev) => ({
+                                ...prev,
+                                [activeExercise.id]: value,
+                              }))
+                            }
+                            disabled={lessonComplete || currentDone}
+                          />
+                        ) : null}
+
+                        {(activeExercise.kind ?? "fill") === "parsons" &&
+                        activeExercise.parsonsLines?.length ? (
+                          <ParsonsLines
+                            lines={activeExercise.parsonsLines}
+                            disabled={lessonComplete || currentDone}
+                            languageLabel="SQL lines"
+                            onAssembledChange={(sql) => {
+                              setSqlByExercise((prev) => ({
+                                ...prev,
+                                [activeExercise.id]: sql,
+                              }));
+                            }}
+                          />
+                        ) : (
+                          <SqlTextarea
+                            value={activeSql}
+                            onChange={setActiveSql}
+                            autoClearBlanks
+                            typingZones={
+                              activeExercise.codeReadOnly ||
+                              (activeExercise.kind ?? "fill") === "predict" ||
+                              (activeExercise.kind ?? "fill") === "scratch"
+                                ? []
+                                : typingZones
+                            }
+                            ariaLabel={`SQL exercise ${activeIndex + 1}`}
+                            placeholder={
+                              (activeExercise.kind ?? "fill") === "scratch"
+                                ? "Write the full query here…"
+                                : "Type your SQL here…"
+                            }
+                            minHeightPx={100}
+                            maxHeightPx={200}
+                            readOnly={
+                              lessonComplete ||
+                              Boolean(activeExercise.codeReadOnly) ||
+                              (activeExercise.kind ?? "fill") === "predict"
+                            }
+                          />
+                        )}
 
                         <div className="flex w-full flex-col gap-2 sm:flex-row sm:flex-wrap">
                           <Button
@@ -780,22 +919,25 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                 {lessonComplete ? (
                   <Card className="kanam-data-lesson-complete overflow-hidden border-0">
                     <CardContent className="py-8 text-center">
-                      <span className="kanam-data-lesson-complete-emoji" aria-hidden>
-                        🎉
-                      </span>
+                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[var(--brand)]/10">
+                        <Trophy className="h-7 w-7 text-[var(--accent)]" aria-hidden />
+                      </div>
                       <div className="mt-3 flex items-center justify-center gap-2">
-                        <Trophy className="h-6 w-6 text-[var(--accent)]" aria-hidden />
                         <p className="text-2xl font-black tracking-tight text-slate-900">
                           Lesson complete!
                         </p>
-                        <PartyPopper className="h-6 w-6 text-[var(--brand)]" aria-hidden />
                       </div>
                       <p className="mt-3 text-base font-semibold text-[var(--brand-2)]">
                         You earned {lesson.xpReward} XP
                       </p>
-                      <Badge className="mt-3 bg-[var(--brand)] px-4 py-1.5 text-sm text-white">
-                        {lesson.badge}
-                      </Badge>
+                      <div className="mt-4 flex justify-center">
+                        <PremiumBadge
+                          lessonId={lesson.id}
+                          name={lesson.badge}
+                          variant="seal"
+                          unlocked
+                        />
+                      </div>
                       <p className="mt-4 text-sm text-slate-600">
                         You nailed every SQL exercise — rows, columns, and queries unlocked.
                       </p>

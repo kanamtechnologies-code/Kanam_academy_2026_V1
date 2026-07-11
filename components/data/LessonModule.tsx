@@ -81,9 +81,11 @@ function renderRichText(text: string) {
 export function LessonModule({
   module,
   onStart,
+  startLabel = "Start the exercises",
 }: {
   module: LessonModuleData;
   onStart: () => void;
+  startLabel?: string;
 }) {
   const sections = module.sections;
   const [index, setIndex] = React.useState(0);
@@ -258,7 +260,7 @@ export function LessonModule({
           {isLast ? (
             <Button type="button" className="min-h-11 w-full shadow-sm sm:w-auto" onClick={onStart}>
               <Rocket className="h-4 w-4" />
-              Start the exercises
+              {startLabel}
             </Button>
           ) : (
             <Button

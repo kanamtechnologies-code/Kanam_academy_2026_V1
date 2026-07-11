@@ -46,6 +46,8 @@ export default function WelcomePage() {
   const [loadingNew, setLoadingNew] = React.useState(false);
   const [loadingReturning, setLoadingReturning] = React.useState(false);
   const [loadingInstructor, setLoadingInstructor] = React.useState(false);
+  const [requestingCode, setRequestingCode] = React.useState(false);
+  const [requestCodeMsg, setRequestCodeMsg] = React.useState<string | null>(null);
   const [returningError, setReturningError] = React.useState<string | null>(null);
   const [instructorError, setInstructorError] = React.useState<string | null>(null);
   const [newError, setNewError] = React.useState<string | null>(null);
@@ -258,7 +260,7 @@ export default function WelcomePage() {
                   <span className="kanam-text-pop-strong font-extrabold text-[color:var(--brand)]">
                     New student
                   </span>
-                  : enter your email to get started (class code optional).
+                  : enter your email and class code to get started.
                 </p>
                 <p>
                   <span className="kanam-text-pop-strong font-extrabold text-[color:var(--accent)]">
@@ -316,8 +318,8 @@ export default function WelcomePage() {
                   I’m a new student
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Enter your email to create your account. Have a class code? Add it to join your
-                  teacher&apos;s class.
+                  Every student needs a class code. Use your teacher&apos;s code, or request the
+                  self-paced code by email — all self-paced learners share one group.
                 </p>
 
                 {newError ? (
@@ -325,24 +327,13 @@ export default function WelcomePage() {
                     {newError}
                   </div>
                 ) : null}
+                {requestCodeMsg ? (
+                  <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-medium text-emerald-900">
+                    {requestCodeMsg}
+                  </div>
+                ) : null}
 
                 <div className="mt-6 grid gap-3 rounded-2xl border border-white/50 bg-white/40 p-4">
-                  <div className="space-y-1.5">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                      <Hash className="h-4 w-4 text-emerald-600" />
-                      Class code <span className="font-normal text-slate-500">(optional)</span>
-                    </div>
-                    <Input
-                      value={classCode}
-                      onChange={(e) => setClassCode(e.target.value)}
-                      placeholder="e.g. KANAM-7B2K9"
-                      className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
-                    />
-                    <p className="text-xs text-slate-600">
-                      Have a class code? Enter it to join your teacher&apos;s class.
-                    </p>
-                  </div>
-
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
                       <Mail className="h-4 w-4 text-emerald-600" />
@@ -351,15 +342,93 @@ export default function WelcomePage() {
                     <Input
                       value={newEmail}
                       onChange={(e) => setNewEmail(e.target.value)}
-                      placeholder='e.g. student@school.org'
+                      placeholder="e.g. student@school.org"
                       type="email"
                       name="kanam-new-student-email"
                       autoComplete="off"
                       className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
                     />
-                    <p className="text-xs text-slate-600">
-                      You’ll set a password on the next screen.
-                    </p>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                      <Hash className="h-4 w-4 text-emerald-600" />
+                      Class code <span className="font-normal text-slate-500">(required)</span>
+                    </div>
+                    <Input
+                      value={classCode}
+                      onChange={(e) => setClassCode(e.target.value)}
+                      placeholder="Teacher code or self-paced code"
+                      className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
+                    />
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                      <p className="text-xs text-slate-600">
+                        Learning on your own? We&apos;ll email you the shared self-paced code.
+                      </p>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        disabled={requestingCode}
+                        className="shrink-0"
+                        onClick={async () => {
+                          setNewError(null);
+                          setRequestCodeMsg(null);
+                          const em = newEmail.trim();
+                          if (!em || !em.includes("@")) {
+                            setNewError("Enter your email first, then request a class code.");
+                            return;
+                          }
+                          setRequestingCode(true);
+                          try {
+                            const res = await fetch("/api/student/request-class-code", {
+                              method: "POST",
+                              headers: { "content-type": "application/json" },
+                              body: JSON.stringify({ email: em }),
+                            });
+                            const json = (await res.json()) as {
+                              ok?: boolean;
+                              error?: string;
+                              message?: string;
+                              classCode?: string;
+                              emailed?: boolean;
+                            };
+                            if (!res.ok || !json.ok) {
+                              throw new Error(json.error || "Could not send a class code.");
+                            }
+                            if (json.classCode) {
+                              setClassCode(json.classCode);
+                              try {
+                                window.localStorage.setItem("kanam.classCode", json.classCode);
+                              } catch {
+                                // ignore
+                              }
+                            }
+                            setRequestCodeMsg(
+                              json.emailed
+                                ? "Check your email for the self-paced class code, then paste it above."
+                                : json.message ||
+                                    (json.classCode
+                                      ? `Your self-paced code is ${json.classCode}. We filled it in for you.`
+                                      : "Class code sent.")
+                            );
+                          } catch (error: unknown) {
+                            setNewError(errorMessage(error, "Could not request a class code."));
+                          } finally {
+                            setRequestingCode(false);
+                          }
+                        }}
+                      >
+                        {requestingCode ? (
+                          <>
+                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                            Sending…
+                          </>
+                        ) : (
+                          "Email me a self-paced code"
+                        )}
+                      </Button>
+                    </div>
                   </div>
                 </div>
 
@@ -383,16 +452,20 @@ export default function WelcomePage() {
                         setNewError("Enter a valid email.");
                         return;
                       }
+                      if (!cc) {
+                        setNewError(
+                          "Enter a class code, or tap “Email me a self-paced code” first."
+                        );
+                        return;
+                      }
                       try {
-                        if (cc) window.localStorage.setItem("kanam.classCode", cc);
-                        else window.localStorage.removeItem("kanam.classCode");
+                        window.localStorage.setItem("kanam.classCode", cc);
                         window.localStorage.setItem("kanam.onboardingEmail", em);
                       } catch {
                         // ignore
                       }
                       setLoadingNew(true);
-                      const params = new URLSearchParams({ email: em });
-                      if (cc) params.set("classCode", cc);
+                      const params = new URLSearchParams({ email: em, classCode: cc });
                       router.push(`/welcome/profile?${params.toString()}`);
                     }}
                   >
@@ -412,7 +485,8 @@ export default function WelcomePage() {
                 <div className="mt-4 rounded-2xl border border-white/50 bg-white/40 p-4">
                   <p className="text-sm font-extrabold tracking-tight text-slate-900">Need help?</p>
                   <p className="mt-1 text-sm text-slate-700">
-                    Class codes are optional. If yours isn&apos;t working, check your email or use{" "}
+                    Need a code? Tap “Email me a self-paced code,” or if a teacher code isn&apos;t
+                    working, check your email or use{" "}
                     <Link
                       className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
                       href="/help"

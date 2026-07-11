@@ -11,7 +11,7 @@ const daLesson4: DataLessonConfig = {
   title: "4. Find What You're Looking For",
   goal: "Use WHERE to filter rows — match text, compare numbers, and combine conditions with AND / OR.",
   xpReward: 200,
-  badge: "🎯 Filter Finder",
+  badge: "Filter Finder",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {

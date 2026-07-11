@@ -11,7 +11,7 @@ const daLesson2: DataLessonConfig = {
   title: "2. Your First Query",
   goal: "Write and run complete SQL queries — see every row, use LIMIT, and pick the columns you care about.",
   xpReward: 100,
-  badge: "🔎 Query Starter",
+  badge: "Query Starter",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
@@ -163,98 +163,87 @@ Read the results table after every Run & check. Row count and column names tell 
     "When you query real data at work or school, only select columns you are allowed to see — not extra private fields.",
   exercises: [
     {
-      id: "ex-all-rows",
-      title: "Exercise 1 — See every row",
-      focusCommand: "SELECT + FROM",
-      commandExplain:
-        "A complete query needs SELECT (what columns) and FROM (which table). No LIMIT means you get every row — all 8 orders.",
-      goal: "Write SELECT * FROM lunch_orders; and confirm you see 8 rows.",
-      starterSql: `SELECT 
-FROM lunch_orders;`,
-      hint: "Type * after SELECT. End with FROM lunch_orders;",
-      successMessage: "Awesome! You pulled the full table — all 8 lunch orders.",
-      failureMessage: "Use SELECT * FROM lunch_orders; with no LIMIT. Expect 8 rows.",
-      validate: (sql, result) => {
-        const n = normSql(sql);
-        if (n.includes("____")) return false;
-        if (!/\bselect\s+\*/.test(n)) return false;
-        if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        if (/\blimit\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 8);
-      },
-    },
-    {
-      id: "ex-limit-sample",
-      title: "Exercise 2 — Take a sample",
-      focusCommand: "LIMIT",
-      commandExplain:
-        "LIMIT keeps results short. LIMIT 3 returns only three rows even though the table has eight.",
-      goal: "Write SELECT * FROM lunch_orders LIMIT 3;",
-      starterSql: `SELECT *
-FROM lunch_orders
-LIMIT ;`,
-      hint: "Type 3 after LIMIT.",
-      successMessage: "Nice sample! LIMIT 3 returned exactly three rows.",
-      failureMessage: "Need SELECT * FROM lunch_orders LIMIT 3; and exactly 3 rows.",
-      validate: (sql, result) => {
-        const n = normSql(sql);
-        if (!/\blimit\s+3\b/.test(n)) return false;
-        if (!/\bselect\s+\*/.test(n)) return false;
-        if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 3);
-      },
-    },
-    {
-      id: "ex-pick-columns",
-      title: "Exercise 3 — Pick columns",
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 1 — Reorder columns query",
       focusCommand: "SELECT columns",
-      commandExplain:
-        "Instead of *, name the columns you want: student_name, item. The result table will only show those two columns.",
-      goal: "Write SELECT student_name, item FROM lunch_orders;",
-      starterSql: `SELECT 
-FROM lunch_orders;`,
-      hint: "Type student_name, item after SELECT (comma between them).",
-      successMessage: "Perfect! You chose exactly the columns you needed.",
-      failureMessage:
-        "Use SELECT student_name, item FROM lunch_orders; — expect 8 rows and 2 columns.",
+      commandExplain: "Scrambled query that should show student_name and item for every order.",
+      goal: "Reorder into a working query (8 rows, 2 columns).",
+      starterSql: "",
+      parsonsLines: ["SELECT student_name, item", "FROM lunch_orders;"],
+      hint: "SELECT list first, then FROM.",
+      successMessage: "Nice — you selected just the columns you need.",
+      failureMessage: "Need SELECT student_name, item FROM lunch_orders;",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (!/\bselect\s+student_name,\s*item\b/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        if (/\blimit\b/.test(n)) return false;
-        return Boolean(
-          result &&
-            result.rowCount === 8 &&
-            result.columns.length === 2 &&
-            hasColumns(result, "student_name", "item")
-        );
+        return Boolean(result && result.rowCount === 8 && hasColumns(result, "student_name", "item"));
       },
     },
     {
-      id: "ex-challenge",
-      title: "Exercise 4 — Analyst challenge",
-      focusCommand: "SELECT + FROM + LIMIT",
-      commandExplain:
-        "Combine skills: pick two columns, limit the rows. Real analysts do this to focus on a slice of data.",
-      goal: "Write SELECT student_name, price FROM lunch_orders LIMIT 4;",
-      starterSql: `-- Write the full query:
-SELECT 
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 2 — Debug LIMIT",
+      focusCommand: "LIMIT",
+      commandExplain: "This sample query should return 3 rows, but LIMIT is wrong.",
+      goal: "Fix it so exactly 3 rows come back.",
+      starterSql: `SELECT *
 FROM lunch_orders
-LIMIT ;`,
+LIMIT 30;`,
+      debugHint: "wrong limit value",
+      hint: "You only want a tiny sample — three rows.",
+      successMessage: "Fixed — LIMIT 3 keeps the sample small.",
+      failureMessage: "Use LIMIT 3 for a three-row sample.",
+      validate: (sql, result) => {
+        const n = normSql(sql);
+        if (!/\bselect\s+\*/.test(n)) return false;
+        if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
+        if (!/\blimit\s+3\b/.test(n)) return false;
+        return Boolean(result && result.rowCount === 3);
+      },
+    },
+    {
+      id: "ex-predict-limit",
+      kind: "predict",
+      title: "Exercise 3 — Predict the sample",
+      focusCommand: "LIMIT",
+      commandExplain: "Predict how many rows this query returns.",
+      goal: "Type your prediction, then Run & check.",
+      starterSql: `SELECT *
+FROM lunch_orders
+LIMIT 3;`,
+      codeReadOnly: true,
+      predictionPrompt: "How many rows will this query return?",
+      acceptedPredictions: ["3", "3 rows", "three", "three rows"],
+      hint: "LIMIT 3 caps the result at three rows.",
+      successMessage: "Yes — LIMIT 3 means at most three rows.",
+      failureMessage: "Look at the LIMIT number in the query.",
+      validate: (sql, result) => {
+        const n = normSql(sql);
+        if (!/\bselect\s+\*/.test(n)) return false;
+        if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
+        if (!/\blimit\s+3\b/.test(n)) return false;
+        return Boolean(result && result.rowCount === 3);
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 4 — Build a focused query",
+      focusCommand: "from scratch",
+      commandExplain: "Write a query that shows student_name and price, limited to 4 rows.",
+      goal: "Write the full query yourself.",
+      starterSql: `-- student_name + price, sample of 4\n`,
       hint: "SELECT student_name, price FROM lunch_orders LIMIT 4;",
-      successMessage: "You ran a focused analyst query — columns + limit, perfect!",
-      failureMessage:
-        "Need SELECT student_name, price FROM lunch_orders LIMIT 4; — 4 rows, 2 columns.",
+      successMessage: "Analyst move — focused columns and a clean sample.",
+      failureMessage: "Need student_name, price, FROM lunch_orders, LIMIT 4.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (!/\bselect\s+student_name,\s*price\b/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
         if (!/\blimit\s+4\b/.test(n)) return false;
-        return Boolean(
-          result &&
-            result.rowCount === 4 &&
-            hasColumns(result, "student_name", "price")
-        );
+        return Boolean(result && result.rowCount === 4 && hasColumns(result, "student_name", "price"));
       },
     },
   ],

@@ -11,7 +11,7 @@ const daLesson12: DataLessonConfig = {
   title: "12. Distributions",
   goal: "Use a histogram to see how a set of numbers is spread out — where scores cluster, and how high and low they reach.",
   xpReward: 600,
-  badge: "📊 Distribution Detective",
+  badge: "Distribution Detective",
   previewTable: "quiz_scores",
   seedData: QUIZ_SCORES_SEED,
   prevHref: "/learn/data/11",

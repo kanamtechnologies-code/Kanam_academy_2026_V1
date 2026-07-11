@@ -5,23 +5,23 @@ export const digitalLesson2: AILessonConfig = {
   title: "2. Files, Folders & the Cloud",
   goal: "Organize files in folders, understand file types and extensions, know the difference between save and save-as, and use cloud storage with sync and backups.",
   xpReward: 100,
-  badge: "🗂️ File Wrangler",
+  badge: "File Wrangler",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/1",
   nextHref: "/learn/digital/3",
   lessonModule: {
-    durationLabel: "~9 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Ever lost an essay the night before it was due? Or scrolled through a Downloads folder so messy you couldn't find anything? Today you'll learn the skills that make sure that never happens again — explained from scratch, no jargon assumed.\n\nHere's our roadmap:\n\n• **Files and folders** — what they really are and how to nest them neatly.\n• **File extensions** — the little \`.jpg\` or \`.pdf\` ending that tells you what's inside.\n• **Save vs. Save As** — a tiny difference that saves you from huge mistakes.\n• **Cloud storage, sync, and backups** — keep your stuff safe and on every device.\n\nThis is one of the most useful "boring" skills there is. Good file habits make you faster, calmer, and look seriously professional at school and at your first job.`,
+        body: `Ever lost an essay the night before it was due? Or scrolled through a Downloads folder so messy you couldn't find anything? Today you'll learn the skills that make sure that never happens again — explained from scratch, no jargon assumed.\n\nHere's our roadmap:\n\n• **Files and folders** — what they really are and how to nest them neatly.\n• **File extensions** — the little \`.jpg\` or \`.pdf\` ending that tells you what's inside.\n• **Save vs. Save As** — a tiny difference that saves you from huge mistakes.\n• **Cloud storage, sync, and backups** — keep your stuff safe and on every device.\n• **A naming system that works** — for school, scholarships, and your first job.\n\nThis is one of the most useful "boring" skills there is. Good file habits make you faster, calmer, and look seriously professional — whether you're sharing a group-project draft, uploading a scholarship essay, or sending a resume to an internship.`,
         image: "/images/lessons/dl-2.png",
-        imageAlt: "A tidy digital filing cabinet with labeled folders syncing up to a cloud",
+        imageAlt: "Laptop file manager showing nested folders next to a phone with cloud sync icons",
         callout: {
           label: "Why it matters",
-          text: "Teachers, bosses, and teammates all judge how organized you are by how easily you can find and share the right file. \"I know it's here somewhere…\" is not a great look during a group project deadline.",
+          text: "Teachers, bosses, and teammates all judge how organized you are by how easily you can find and share the right file. \"I know it's here somewhere…\" is not a great look during a group project deadline — or a job application portal that closes at midnight.",
         },
       },
       {
@@ -40,7 +40,7 @@ export const digitalLesson2: AILessonConfig = {
         title: "Files live in folders, and folders nest inside folders",
         body: `A **file** is a single saved item on a computer — one essay, one photo, one song, one video. Everything you save is a file.\n\nA **folder** (also called a **directory** — same thing, just the more technical word) is a container that holds files and other folders. Folders can **nest**, which means putting one folder inside another folder inside another — so you can group things from broad to specific.\n\nThink of it like a **backpack with labeled pockets**. The whole backpack is your storage. Inside, a big pocket says "School." Inside *that* is a smaller pouch for "English," and inside *that* is your essay. Each layer narrows things down so you can grab exactly what you need without dumping everything out.\n\nThe trail of folders that leads to a file is its **file path**. Something like \`School/English/essay.docx\` reads left to right: open School, then English, then the file. It's basically the file's home address — the slashes \`/\` just separate one folder from the next.`,
         image: "/images/lessons/dl-2-2.png",
-        imageAlt: "Nested folders shown like a backpack with labeled pockets: a School folder containing an English folder containing an essay file",
+        imageAlt: "Laptop Finder or File Explorer window showing nested School, English, and essay.docx folders and files",
         bullets: [
           "**File** = one saved item (a doc, photo, song, video).",
           "**Folder / directory** = a container for files and other folders.",
@@ -56,7 +56,7 @@ export const digitalLesson2: AILessonConfig = {
         id: "extensions",
         kicker: "Reading the label",
         title: "File extensions tell you what kind of file it is",
-        body: `At the end of almost every file name is a dot and a few letters — the **file extension**. It's a label that tells your computer (and you) what *type* of file it is and which app should open it. In \`essay.docx\`, the \`.docx\` is the extension.\n\nThink of it like the **label on a can of food**. The label says "soup" or "beans" so you know what's inside before you open it. Change the label and you've fooled no one — the contents are still the same.\n\nHere are common ones you'll meet constantly:\n\n• \`.docx\` — a Word document (text, essays).\n• \`.pdf\` — a fixed-layout document that looks the same on every device.\n• \`.jpg\` and \`.png\` — images/photos (\`.png\` can keep see-through backgrounds; \`.jpg\` makes smaller photo files).\n• \`.mp3\` — audio/music. \`.mp4\` — video.\n• \`.csv\` — a simple spreadsheet of values separated by commas.\n• \`.zip\` — a compressed bundle that squishes many files into one for easy sharing.`,
+        body: `At the end of almost every file name is a dot and a few letters — the **file extension**. It's a label that tells your computer (and you) what *type* of file it is and which app should open it. In \`essay.docx\`, the \`.docx\` is the extension.\n\nThink of it like the **label on a can of food**. The label says "soup" or "beans" so you know what's inside before you open it. Change the label and you've fooled no one — the contents are still the same.\n\nHere are common ones you'll meet constantly:\n\n• \`.docx\` — a Word document (text, essays).\n• \`.pdf\` — a fixed-layout document that looks the same on every device (often required for applications).\n• \`.jpg\` and \`.png\` — images/photos (\`.png\` can keep see-through backgrounds; \`.jpg\` makes smaller photo files).\n• \`.mp3\` — audio/music. \`.mp4\` — video.\n• \`.csv\` — a simple spreadsheet of values separated by commas.\n• \`.zip\` — a compressed bundle that squishes many files into one for easy sharing.`,
         table: {
           columns: ["Extension", "What's inside", "Opens with"],
           values: [
@@ -82,6 +82,22 @@ export const digitalLesson2: AILessonConfig = {
         callout: {
           label: "Watch out",
           text: "Hitting Save after deleting big chunks of a file overwrites the original — there's no \"undo\" once you close it. When in doubt, Save As a new copy first, then edit freely.",
+        },
+      },
+      {
+        id: "naming",
+        kicker: "Decision framework",
+        title: "Name files so future-you (and a recruiter) can find them",
+        body: `A good name answers three questions in one glance: **what is it, whose is it, and which version?** Use a simple pattern:\n\n\`what-who-date.ext\` → \`resume-jordan-lee-2026-04.pdf\` or \`chem-lab3-maya-2026-02-18.docx\`\n\n**Rules that work in school and at work:**\n\n• Prefer **lowercase** and **hyphens** (or underscores) — spaces and weird characters break some upload portals.\n• Put the **date as YYYY-MM-DD** so files sort in order automatically.\n• For applications, match what they ask for: many scholarship and internship portals want a **PDF**, not a Word file.\n• Keep one **Applications** (or **Jobs**) folder with subfolders per opportunity: \`Applications/State-U-scholarship/\`, \`Applications/summer-internship/\`.\n\n**Decision shortcut:** If someone else might open this file (teacher, coach, admissions, hiring manager), name it as if they have zero context — because they do.`,
+        bullets: [
+          "Pattern: \`what-who-date.ext\` (clear, sortable, professional).",
+          "Use dates as YYYY-MM-DD so files sort correctly.",
+          "Export to PDF when a portal or adult asks for a fixed copy.",
+          "One folder per application or project beats a chaotic Downloads pile.",
+        ],
+        callout: {
+          label: "Try this week",
+          text: "Spend 10 minutes: create a School (or Applications) folder tree, move five important files out of Downloads, and rename them with a clear what-who-date pattern. Future-you will thank you on deadline night.",
         },
       },
       {
@@ -116,7 +132,7 @@ export const digitalLesson2: AILessonConfig = {
         title: "Rescuing an overwritten essay with version history",
         body: `Picture this disaster: your history essay is due tomorrow. You meant to edit a copy, but you accidentally deleted three paragraphs and hit **Save** on the real file — then closed it. The good paragraphs are gone. Or are they? Let's fix it step by step.\n\n**Step 1 — Don't panic, and stop typing.** The original is still recoverable as long as the file lives in cloud storage with version history (Google Drive, OneDrive, etc.). New edits could pile up, so pause.\n\n**Step 2 — Open version history.** Find the file and open its "Version history" or "Manage versions" option (usually in the File menu). You'll see a list of automatic snapshots with dates and times.\n\n**Step 3 — Preview earlier versions.** Click a snapshot from *before* you deleted the paragraphs. You can read it to confirm the missing text is there.\n\n**Step 4 — Restore (or Save As a copy).** Restore that earlier version, or use **Save As** to keep both the old and new copies. Crisis averted — and now you know to use **Save As** before big edits next time.`,
         image: "/images/lessons/dl-2-3.png",
-        imageAlt: "A version history timeline of a document with dated snapshots and a rewind arrow restoring an earlier version",
+        imageAlt: "Browser showing a Google Drive or OneDrive document with version history panel open on a laptop screen",
         callout: {
           label: "Pro tip",
           text: "Before making major changes to any important file, do a quick \"Save As\" to create a dated copy first. It takes five seconds and turns a potential disaster into a non-event.",
@@ -126,7 +142,7 @@ export const digitalLesson2: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Nice work — you've leveled up from "files everywhere" to "files under control." Quick recap:\n\n• A **file** is one saved item; a **folder/directory** holds files and nests inside other folders; the **file path** is its address.\n• **File extensions** like \`.pdf\` or \`.jpg\` label what a file is — and renaming one does not convert it.\n• **Save** updates the current file; **Save As** makes a new copy. Name files clearly.\n• **Cloud storage** plus **sync** keeps files on every device; **backups** and **version history** rescue you when things go wrong.\n\nWhen you're ready, switch to the **Knowledge check**, then reflect on how you'll organize your own files.`,
+        body: `Nice work — you've leveled up from "files everywhere" to "files under control." Quick recap:\n\n• A **file** is one saved item; a **folder/directory** holds files and nests inside other folders; the **file path** is its address.\n• **File extensions** like \`.pdf\` or \`.jpg\` label what a file is — and renaming one does not convert it.\n• **Save** updates the current file; **Save As** makes a new copy. Name files clearly with a what-who-date pattern.\n• **Cloud storage** plus **sync** keeps files on every device; **backups** and **version history** rescue you when things go wrong.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on how you'll organize your own files.`,
       },
     ],
   },
@@ -146,11 +162,11 @@ export const digitalLesson2: AILessonConfig = {
     { term: "Version history", definition: "Automatic saved snapshots of a file over time that let you restore an earlier version." },
   ],
   realWorld:
-    "Group projects run on these skills: a clearly named file in a shared cloud folder, **synced** so everyone sees the latest version, with **version history** to undo a teammate's accidental delete.",
+    "Group projects, scholarship uploads, and internship applications all run on these skills: a clearly named file in a shared cloud folder, **synced** so everyone sees the latest version, with **version history** to undo a teammate's accidental delete.",
   quiz: [
     {
       id: "q1",
-      question: "Your file is saved at School/Science/lab-report.docx. What does this path tell you?",
+      question: "Your lab report for a group project is saved at School/Science/lab-report.docx. What does this path tell you?",
       choices: [
         "The file is named School and stored in a folder called docx",
         "lab-report.docx is inside the Science folder, which is inside the School folder",
@@ -163,20 +179,20 @@ export const digitalLesson2: AILessonConfig = {
     },
     {
       id: "q2",
-      question: "You rename 'song.mp3' to 'song.mp4'. What actually happens?",
+      question: "A scholarship form asks for a PDF, so you rename 'essay.docx' to 'essay.pdf'. What actually happens?",
       choices: [
-        "The audio file instantly becomes a video",
-        "Nothing changes inside — only the label changes, and the file may now fail to open correctly",
+        "The document instantly becomes a real PDF",
+        "Nothing changes inside — only the label changes, and the file may fail to upload or open correctly",
         "The file is permanently deleted",
         "It automatically uploads to the cloud",
       ],
       correctIndex: 1,
       explanation:
-        "An extension is just a label, like the label on a can. Renaming it doesn't convert the contents — it can even make the file refuse to open. Real conversion needs an app that exports the new type.",
+        "An extension is just a label. Renaming doesn't convert the contents. To make a real PDF, export or 'Save as PDF' from the app.",
     },
     {
       id: "q3",
-      question: "You have 'essay.docx' and need a shorter version while keeping the original. What should you do?",
+      question: "You have 'essay.docx' and need a shorter version for a college app while keeping the original. What should you do?",
       choices: [
         "Delete half the text and hit Save",
         "Use Save As to make a new copy like 'essay-short.docx'",
@@ -189,7 +205,7 @@ export const digitalLesson2: AILessonConfig = {
     },
     {
       id: "q4",
-      question: "Why is sync NOT the same as a backup?",
+      question: "You delete a resume draft on your phone, and it disappears from your laptop too. Why is sync NOT the same as a backup?",
       choices: [
         "Sync only works on phones",
         "Because if you delete a file on one device, sync can delete it on every device too",
@@ -202,7 +218,7 @@ export const digitalLesson2: AILessonConfig = {
     },
     {
       id: "q5",
-      question: "You accidentally overwrote and saved over your essay, then closed it. What's your best chance of getting the old text back?",
+      question: "You accidentally overwrote your internship cover letter, then closed it. What's your best chance of getting the old text back?",
       choices: [
         "Restart the computer until it comes back",
         "Change the file extension",
@@ -216,7 +232,7 @@ export const digitalLesson2: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Describe how you'll organize your school files into folders, and name one thing you'll do to make sure you always have a backup.",
+      "Describe how you'll organize your school (or application) files into folders, and name one thing you'll do to make sure you always have a backup.",
     placeholder: "Example: A 'School' folder with a subfolder per subject, all in Google Drive so it syncs and keeps version history…",
   },
 };

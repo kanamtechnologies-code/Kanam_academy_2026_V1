@@ -104,7 +104,7 @@ one-sentence **reflection** that logs the week's badge/XP. Auto-graded exercises
 | Formative checks (CFU) | Each lesson | Communicating about computing (P7) |
 | Auto-graded guided + scratch exercises | Each lesson | Testing & refining (P6) |
 | XP + badges per lesson | Dashboard | Motivation / progress tracking |
-| Capstone projects | Python L13 (Week 8), Data L14 (Week 8) | Creating computational artifacts (P5) |
+| Capstone projects | Python L13–L14 (Week 8), Data L14 (Week 8) | Creating computational artifacts (P5) |
 | Progress events (opened/run/success, CFU reveals) | Supabase rollups | Teacher visibility / standards-based grading inputs |
 
 ## 6. How to read the track docs

@@ -3,20 +3,20 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const digitalLesson14: AILessonConfig = {
   id: "dl-14",
   title: "14. Troubleshoot Like a Tech Pro",
-  goal: "Solve everyday technology problems with a calm, logical process — the same problem-solving pros use — and know how to find help and ask good questions.",
+  goal: "Solve everyday technology problems with a calm, logical process — the same problem-solving pros use — and know how to find help and ask good questions when college portals, job sites, or shared docs break.",
   xpReward: 700,
-  badge: "🔧 Problem Solver",
+  badge: "Problem Solver",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/13",
   nextHref: "/learn/digital/15",
   lessonModule: {
-    durationLabel: "~7 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Your Wi-Fi drops. An app freezes. A file won't open and a scary red error pops up. The natural reaction is panic, frustration, or "ugh, I'm just bad at tech." Today you'll trade that panic for a calm, repeatable process — the exact one professionals use.\n\nHere's our roadmap:\n\n• **The troubleshooting mindset** — most tech problems are fixable, and you don't need to be an expert.\n• **A step-by-step process** — describe it, ask what changed, isolate it, try simple fixes first.\n• **Reading error messages** — they're clues, not insults.\n• **Decomposition and the "rubber duck" trick** — break it down and talk it out.\n• **How to ask for help well** — and when to back up first.\n\nHere's the secret most people never learn: troubleshooting is a *skill*, not a talent. And it's used in literally every tech job there is.`,
+        body: `Your Wi-Fi drops. An app freezes. A file won't open and a scary red error pops up — or a college portal won't accept your PDF five minutes before the deadline. The natural reaction is panic, frustration, or "ugh, I'm just bad at tech." Today you'll trade that panic for a calm, repeatable process — the exact one professionals use.\n\nHere's our roadmap:\n\n• **The troubleshooting mindset** — most tech problems are fixable, and you don't need to be an expert.\n• **A step-by-step process** — describe it, ask what changed, isolate it, try simple fixes first.\n• **Reading error messages** — they're clues, not insults.\n• **Decomposition and the "rubber duck" trick** — break it down and talk it out.\n• **How to ask for help well** — and when to back up first.\n• **Senior stretch** — troubleshooting college portals, job applications, and shared Google Docs.\n\nHere's the secret most people never learn: troubleshooting is a *skill*, not a talent. And it's used in literally every tech job there is.`,
         image: "/images/lessons/dl-14.png",
         imageAlt: "A calm teen at a laptop with a checklist, a Wi-Fi icon, and a friendly error message bubble",
         callout: {
@@ -77,7 +77,7 @@ export const digitalLesson14: AILessonConfig = {
         id: "errors",
         kicker: "Concept",
         title: "Error messages are clues, not insults",
-        body: `An error message looks scary, so most people panic, close it instantly, and miss the one thing that would've helped: the message itself.\n\nReframe it: **an error message is a clue, not an insult.** The computer is *trying to tell you* what went wrong. Read it slowly. Often it names the problem ("No internet connection," "File not found," "Storage full") and sometimes even suggests a fix.\n\nTwo habits make errors your friend:\n\n• **Read the whole thing** before clicking away. Look for the specific part that tells you *what* and *where*.\n• **Copy the exact wording** and search it. Error messages are often standardized, so someone, somewhere, has already explained that exact one online.\n\nThe difference between someone who "can't do tech" and someone who can is often just this: one closes the error in fear, the other reads it for clues.`,
+        body: `An error message looks scary, so most people panic, close it instantly, and miss the one thing that would've helped: the message itself.\n\nReframe it: **an error message is a clue, not an insult.** The computer is *trying to tell you* what went wrong. Read it slowly. Often it names the problem ("No internet connection," "File not found," "Storage full," "File exceeds size limit") and sometimes even suggests a fix.\n\nTwo habits make errors your friend:\n\n• **Read the whole thing** before clicking away. Look for the specific part that tells you *what* and *where*.\n• **Copy the exact wording** and search it. Error messages are often standardized, so someone, somewhere, has already explained that exact one online.\n\nThe difference between someone who "can't do tech" and someone who can is often just this: one closes the error in fear, the other reads it for clues.`,
         callout: {
           label: "Common misconception",
           text: "\"Error messages are scary and useless.\" They're the opposite — they're free hints from the computer about what's wrong. Reading the exact text (and searching it) is one of the fastest ways to a fix.",
@@ -97,7 +97,7 @@ export const digitalLesson14: AILessonConfig = {
         id: "help",
         kicker: "Concept",
         title: "Asking for help is a skill — do it well",
-        body: `Sometimes you do everything right and still need help. That's normal — even senior engineers ask each other for help constantly. The skill is asking in a way that gets you a fast, useful answer.\n\nA **bad help request** is: *"It's broken, can you fix it?"* The helper has nothing to work with, so they have to drag every detail out of you.\n\nA **good help request** includes four things:\n\n• **What you were doing** — "I was trying to upload a 2-minute video to the class site."\n• **What you expected** — "I expected it to upload like usual."\n• **What actually happened** — "Instead I got this exact error: 'File exceeds 100 MB limit.'"\n• **What you already tried** — "I restarted, checked my Wi-Fi, and searched the error."\n\nThat single message respects the helper's time, shows you put in effort, and usually gets you fixed in one reply. It works for a teacher, IT support, an online forum, or a future boss.`,
+        body: `Sometimes you do everything right and still need help. That's normal — even senior engineers ask each other for help constantly. The skill is asking in a way that gets you a fast, useful answer.\n\nA **bad help request** is: *"It's broken, can you fix it?"* The helper has nothing to work with, so they have to drag every detail out of you.\n\nA **good help request** includes four things:\n\n• **What you were doing** — "I was trying to upload a 2-minute video to the class site."\n• **What you expected** — "I expected it to upload like usual."\n• **What actually happened** — "Instead I got this exact error: 'File exceeds 100 MB limit.'"\n• **What you already tried** — "I restarted, checked my Wi-Fi, and searched the error."\n\nThat single message respects the helper's time, shows you put in effort, and usually gets you fixed in one reply. It works for a teacher, IT support, an online forum, a college help desk, or a future boss.`,
         bullets: [
           "Say **what you were doing**.",
           "Say **what you expected** to happen.",
@@ -107,6 +107,22 @@ export const digitalLesson14: AILessonConfig = {
         callout: {
           label: "Watch out",
           text: "Before any risky fix (resetting, deleting, reinstalling, wiping settings), BACK UP your important files first. A backup means a fix that goes wrong costs you nothing instead of your photos and projects.",
+        },
+      },
+      {
+        id: "senior-troubleshoot",
+        kicker: "For older teens",
+        title: "When college portals, job sites & shared docs break",
+        body: `High-stakes systems fail at the worst times. Here's how the same process maps to real senior scenarios:\n\n• **College / scholarship portal rejects your upload** — Read the exact error. Often it's file type (needs PDF), size limit, or a required field left blank. Convert/compress, rename clearly, try another browser, then email the help desk with what you tried.\n• **Job application site freezes mid-form** — Don't rage-refresh and lose everything. Copy your answers into a doc first next time; for now, try another browser, clear cache, or restart — and screenshot the error for HR if the deadline is close.\n• **Group Google Doc chaos** — Someone deleted a section? Use **Version history** before rewriting. Can't edit? Check **permissions** (view vs. edit). Conflicting changes? Comment instead of overwriting.\n• **Professional email bounce** — Check the address, attachment size, and whether you're sending from the right account. Attach PDFs under size limits.\n\nYounger teens: the same moves fix class LMS uploads and shared homework docs.`,
+        bullets: [
+          "Portal errors often mean wrong file type, size, or missing fields.",
+          "Copy long form answers into a doc before submitting.",
+          "Use version history and permissions on shared Docs.",
+          "Write clear help-desk emails with exact errors.",
+        ],
+        callout: {
+          label: "Pro tip",
+          text: "Don't wait until 11:59 p.m. on deadline night to upload. Portals get slow when everyone hits submit at once — and calm troubleshooting needs a little time buffer.",
         },
       },
       {
@@ -134,14 +150,14 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got a real pro's toolkit now: stay **calm** (most problems are fixable), run the **process** (describe → what changed → isolate → simple fixes → search the exact error), know **why restarting works**, read **error messages** as clues, use **decomposition** and the **rubber duck** trick, write down what you tried, and ask for help with a clear, four-part request — backing up before anything risky.\n\nThis isn't just for emergencies. It's a core skill in *every* tech job, and honestly in every job. Calm, logical problem-solvers are the people teams rely on.\n\nWhen you're ready, head to the **Knowledge check**, then reflect on a tech problem you've solved — or one you'll tackle next.`,
+        body: `You've got a real pro's toolkit now: stay **calm** (most problems are fixable), run the **process** (describe → what changed → isolate → simple fixes → search the exact error), know **why restarting works**, read **error messages** as clues, use **decomposition** and the **rubber duck** trick, write down what you tried, and ask for help with a clear, four-part request — backing up before anything risky. The same process fixes college portals, job sites, and shared Docs.\n\nThis isn't just for emergencies. It's a core skill in *every* tech job, and honestly in every job. Calm, logical problem-solvers are the people teams rely on.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on a tech problem you've solved — or one you'll tackle next.`,
       },
     ],
   },
   bigIdeas: [
     "Troubleshooting is a **skill, not a talent** — stay calm and assume it's fixable.",
     "Run a **process**: describe it, ask what changed, isolate it, try simple fixes first, then search the exact error.",
-    "Error messages are **clues**, restarting clears stuck states, and a **good help request** says what you did, expected, saw, and tried.",
+    "Error messages are **clues**, restarting clears stuck states, and a **good help request** says what you did, expected, saw, and tried — including for portals and shared docs.",
   ],
   keyTerms: [
     { term: "Troubleshooting", definition: "A calm, systematic process for finding and fixing the cause of a technology problem." },
@@ -152,11 +168,11 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
     { term: "Good help request", definition: "A request that states what you were doing, what you expected, what actually happened, and what you already tried." },
   ],
   realWorld:
-    "In tech jobs, no one expects you to know everything — they expect you to debug calmly, search well, and write clear help requests. These exact habits are what separate people who get stuck from people who ship fixes.",
+    "In tech jobs, no one expects you to know everything — they expect you to debug calmly, search well, and write clear help requests. These exact habits are what separate people who get stuck from people who ship fixes — and they save college applications and internship forms too.",
   quiz: [
     {
       id: "q1",
-      question: "Your friend says 'I'm just bad at tech.' What's the most accurate response?",
+      question: "Your friend freezes when a college portal shows a red error and says 'I'm just bad at tech.' What's the most accurate response?",
       choices: [
         "They're right — some people just can't do tech",
         "Troubleshooting is a learnable process, not a talent; staying calm and systematic is the real skill",
@@ -169,7 +185,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
     },
     {
       id: "q2",
-      question: "Your laptop has no internet, but your phone works fine on the same Wi-Fi. What has this told you?",
+      question: "You're trying to submit a job application. Your laptop has no internet, but your phone works fine on the same Wi-Fi. What has this told you?",
       choices: [
         "The Wi-Fi network is completely down",
         "The problem is isolated to the laptop, not the network",
@@ -182,7 +198,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
     },
     {
       id: "q3",
-      question: "Why does 'turn it off and on again' fix so many problems?",
+      question: "A shared Google Doc for your group project is acting weird after hours of edits. Why does 'turn it off and on again' (restart the browser/device) fix so many problems?",
       choices: [
         "It deletes all your files and starts over",
         "It clears stuck temporary states in memory and restarts from a known-good condition",
@@ -195,24 +211,24 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
     },
     {
       id: "q4",
-      question: "You hit a scary error message. What's the smartest move?",
+      question: "A college portal says: 'Upload failed: File exceeds 5 MB limit.' What's the smartest move?",
       choices: [
         "Close it instantly so you don't have to look at it",
-        "Read it carefully and copy the exact wording into a search engine",
+        "Read it carefully — then compress/convert the file or search that exact wording for a fix",
         "Assume your device is permanently broken",
         "Click random buttons until it goes away",
       ],
       correctIndex: 1,
       explanation:
-        "Error messages are clues. Reading the exact text often tells you what and where the problem is, and searching that exact wording usually finds a fix someone already posted.",
+        "Error messages are clues. This one literally names the problem (file too big). Reading the exact text and acting on it — or searching it — is the fastest path to a fix.",
     },
     {
       id: "q5",
-      question: "Which is the best, most helpful way to ask for help?",
+      question: "You need help from the college IT help desk after a portal upload fails. Which is the best, most helpful way to ask?",
       choices: [
         "\"It's broken, can you fix it?\"",
         "\"It won't work, ugh\"",
-        "\"I tried to upload a video and got 'File exceeds 100 MB limit.' I restarted and checked my Wi-Fi. What should I try next?\"",
+        "\"I tried to upload my transcript PDF and got 'File exceeds 5 MB limit.' I compressed it once and tried Chrome and Safari. What should I try next?\"",
         "Sending no details and waiting",
       ],
       correctIndex: 2,
@@ -222,7 +238,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
   ],
   reflection: {
     prompt:
-      "Think of a tech problem you've faced (or one you have now). Walk it through the process: how would you describe it, what changed, how could you isolate it, and what simple fixes would you try first?",
+      "Think of a tech problem you've faced (or one you have now) — Wi-Fi, a portal upload, a shared Doc, or a frozen app. Walk it through the process: how would you describe it, what changed, how could you isolate it, and what simple fixes would you try first?",
     placeholder: "Example: My game keeps crashing. It started after an update… I'd check if other apps crash too, then restart and reinstall…",
   },
 };

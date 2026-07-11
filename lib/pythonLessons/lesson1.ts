@@ -11,7 +11,7 @@ export const lesson1: PythonLessonConfig = {
   title: "1. My First AI Helper",
   goal: "Write your first Python program: use a variable + print() to introduce your AI helper.",
   xpReward: 50,
-  badge: "🤖 The Awakener",
+  badge: "The Awakener",
   instructorScript:
     "**Coach’s note**:\nWelcome to Kanam Academy.\nToday, you’re going to teach a computer how to introduce itself.\n\nBig idea (this is also a core AI idea):\n- Computers (and AI systems) do NOT guess.\n- They follow instructions exactly.\n\nWhat you’re building:\n- A **variable** that stores text (your name).\n- A **print()** line that displays a full sentence.\n\nHere’s the program you’re aiming for:\nname = \"Alex\"\nprint(\"Hello! I am \" + name)\n\nTwo super common mistakes (and how to fix them):\n- Quotes: If you forget quotes, Python thinks you mean a variable.\n- Spaces: Python will NOT add spaces for you. Put the space inside the quotes: \"I am \"\n\nSuccess today = your scratch code runs without errors AND prints one sentence that includes your name.",
   kidExplain: [
@@ -97,87 +97,129 @@ export const lesson1: PythonLessonConfig = {
   ],
   exercises: [
     {
-      id: "ex-variable",
-      title: "Exercise 1 — Create a variable",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill in the name",
       focusCommand: "name =",
       commandExplain:
-        "A variable stores information. Type your name inside the quotes — that text becomes the value in the box labeled name.",
-      goal: 'Fill in the blank so name holds your name, like name = "Alex".',
+        "A variable stores text in a labeled box. Fill in the blank so name holds a name, then the print line will greet with it.",
+      goal: 'Replace ____ with a name in quotes, like "Alex".',
       starterCode: `# Fill in the blank 👇
 name = "____"
+print("Hello! I am " + name)
 `,
-      hint: 'Put your name between the quotes, e.g. name = "Alex".',
-      successMessage: "Great! You created a variable that stores your name.",
-      failureMessage: 'Create name = "YourName" with quotes around your name.',
-      validate: (code: string) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return hasNameVariable(code);
-      },
-    },
-    {
-      id: "ex-print",
-      title: "Exercise 2 — Practice print()",
-      focusCommand: "print()",
-      commandExplain:
-        "print() sends a message to the console. Use lowercase print — Python won't recognize Print.",
-      goal: "Add a print() line that shows the name variable.",
-      starterCode: `name = "Alex"
-print(____)
+      solutionCode: `name = "Alex"
+print("Hello! I am " + name)
 `,
-      hint: "Type name inside the parentheses: print(name)",
-      successMessage: "Nice! print() displayed your variable in the console.",
-      failureMessage: "Add print(name) so the console shows your name.",
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameVariable(code)) return false;
-        if (!/\bprint\s*\([\s\S]*\bname\b[\s\S]*\)/.test(code)) return false;
-        return run.stdout.length > 0 && run.stdout.some((line) => line.includes("Alex") || /\S/.test(line));
-      },
-    },
-    {
-      id: "ex-glue",
-      title: "Exercise 3 — Join strings with +",
-      focusCommand: "+",
-      commandExplain:
-        'The + glues text together. Include the space inside the quotes: "Hello! I am " — Python is literal about spaces.',
-      goal: 'Print one sentence: "Hello! I am " + name (fill in the string part).',
-      starterCode: `name = "Alex"
-print("____" + name)
-`,
-      hint: 'Type Hello! I am  (with a space after am) inside the quotes.',
-      successMessage: "Perfect! You glued strings together into one sentence.",
-      failureMessage: 'Use print("Hello! I am " + name) — include the space after "am ".',
+      hint: 'Put a name between the quotes, e.g. name = "Alex". Keep the space after "am ".',
+      successMessage: "Nice — you stored a name and printed a greeting!",
+      failureMessage:
+        'Need name = "..." and print("Hello! I am " + name) with a space after "am ".',
       validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
         if (!hasNameVariable(code)) return false;
         if (!/\bprint\s*\(/.test(code) || !code.includes("+")) return false;
         if (!/["']Hello! I am\s+["']/.test(code)) return false;
-        const out = run.stdout.join("\n");
-        return /Hello! I am\s+\S/.test(out);
+        return /Hello! I am\s+\S/.test(run.stdout.join("\n"));
       },
     },
     {
-      id: "ex-challenge",
-      title: "Exercise 4 — Put it all together",
-      focusCommand: "variable + print + +",
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the intro",
+      focusCommand: "name = + print()",
       commandExplain:
-        "Build the full intro program: store your name, then print one sentence that includes it.",
-      goal: "Complete the program so it prints one sentence with your name.",
-      starterCode: `# Fill in the blanks 👇
-name = "____"            # put your name
-print("Hello! I am " + ____)  # use the variable
-`,
-      hint: 'name = "YourName" and print("Hello! I am " + name)',
-      successMessage: "You did it! Your AI helper introduced itself correctly. 🎉",
-      failureMessage:
-        'Need name = "..." and print("Hello! I am " + name). Check lowercase print and the space after "am ".',
+        "These lines make an AI helper introduce itself — but they're scrambled. Put them in the right order.",
+      goal: "Reorder the lines, then Run & check.",
+      starterCode: "",
+      solutionCode: `name = "Alex"
+print("Hello! I am " + name)`,
+      parsonsLines: [
+        'name = "Alex"',
+        'print("Hello! I am " + name)',
+      ],
+      hint: "Create the variable first, then print using it.",
+      successMessage: "Nice ordering — your helper introduced itself!",
+      failureMessage: "Variable first, then print the greeting with + name.",
       validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
         if (!hasNameVariable(code)) return false;
-        if (!code.includes("print(") || !code.includes("+")) return false;
+        if (!/\bprint\s*\(/.test(code) || !code.includes("+")) return false;
+        return /Hello! I am\s+\S/.test(run.stdout.join("\n"));
+      },
+    },
+    {
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 3 — Fix the greeting bug",
+      focusCommand: "print()",
+      commandExplain:
+        "This program is supposed to say hello with the name, but something's wrong. Fix it.",
+      goal: "Repair the bug so it prints a greeting that includes Alex.",
+      starterCode: `name = "Alex"
+Print("Hello! I am " + name)
+`,
+      solutionCode: `name = "Alex"
+print("Hello! I am " + name)
+`,
+      debugHint: "capitalization",
+      hint: "Python commands are lowercase.",
+      successMessage: "Bug fixed — lowercase print() works.",
+      failureMessage: "Use lowercase print(...), not Print(...).",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        if (!hasNameVariable(code)) return false;
+        if (!/\bprint\s*\(/.test(code)) return false;
+        return /Hello! I am\s+Alex/.test(run.stdout.join("\n"));
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the output",
+      focusCommand: "trace the code",
+      commandExplain:
+        "Read this finished program. Predict exactly what it will print — before you see the answer.",
+      goal: "Type your prediction, then Run & check.",
+      starterCode: `name = "Sam"
+print("Hello! I am " + name)
+`,
+      solutionCode: `name = "Sam"
+print("Hello! I am " + name)
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What exact line will print?",
+      acceptedPredictions: ["Hello! I am Sam", "hello! i am sam"],
+      hint: "Replace name with Sam inside the sentence.",
+      successMessage: "Great tracing — you predicted the output.",
+      failureMessage: "Look at the string and the variable value carefully.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        return /Hello! I am\s+Sam/.test(run.stdout.join("\n"));
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build it yourself",
+      focusCommand: "from scratch",
+      commandExplain:
+        "No blanks this time. Write a short program that stores a name and prints Hello! I am … using that name.",
+      goal: "Write the full program in the editor.",
+      starterCode: `# Write your intro program below\n`,
+      solutionCode: `name = "Alex"
+print("Hello! I am " + name)
+`,
+      hint: 'You need name = "..." and print("Hello! I am " + name)',
+      successMessage: "You built it from scratch.",
+      failureMessage:
+        'Need name = "..." and print("Hello! I am " + name) with a space after "am ".',
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        if (!hasNameVariable(code)) return false;
+        if (!/\bprint\s*\(/.test(code) || !code.includes("+")) return false;
         if (!/["']Hello! I am\s+["']/.test(code)) return false;
-        const out = run.stdout.join("\n");
-        return /Hello! I am\s+\S/.test(out);
+        return /Hello! I am\s+\S/.test(run.stdout.join("\n"));
       },
     },
   ],

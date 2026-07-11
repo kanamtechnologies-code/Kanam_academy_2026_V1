@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { enrollStudentInClassByCode, getAsyncClassCode } from "@/lib/asyncClass";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -46,7 +47,6 @@ async function getOrCreateSchoolId(supabase: ReturnType<typeof createSupabaseAdm
     .single();
 
   if (insertErr) {
-    // If a UNIQUE constraint exists, we may race; re-select.
     const { data: retry, error: retryErr } = await supabase
       .from("schools")
       .select("id")
@@ -72,7 +72,7 @@ export async function POST(req: Request) {
   const password = s(body.password);
   const firstName = s(body.firstName);
   const lastName = s(body.lastName);
-  const classCode = s(body.classCode) || null;
+  const classCode = s(body.classCode).toUpperCase();
 
   const grade = s(body.grade) || null;
   const schoolName = s(body.schoolName);
@@ -95,10 +95,18 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
+  if (!classCode) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: `A class code is required. Request the self-paced code (${getAsyncClassCode()}) by email if you do not have a teacher code.`,
+      },
+      { status: 400 }
+    );
+  }
 
   const supabase = createSupabaseAdminClient();
 
-  // Create Auth user WITHOUT sending confirmation email (avoids email rate limits during onboarding).
   const { data: created, error: createErr } = await supabase.auth.admin.createUser({
     email,
     password,
@@ -133,7 +141,6 @@ export async function POST(req: Request) {
 
   const { error: studentErr } = await supabase.from("students").insert({
     user_id: userId,
-    // App uses first name only for greetings.
     display_name: firstName,
     first_name: firstName,
     last_name: lastName,
@@ -142,11 +149,9 @@ export async function POST(req: Request) {
     parent_name: parentName,
     parent_email: parentEmail,
     parent_phone: parentPhone,
-    // Some existing DBs still require device_id (legacy). Keep it non-empty.
     device_id: `auth:${userId}`,
   });
 
-  // If PostgREST schema cache hasn't picked up new columns yet, retry without them.
   if (studentErr) {
     const msg = studentErr.message ?? "";
     const looksLikeSchemaCache =
@@ -171,37 +176,36 @@ export async function POST(req: Request) {
     }
   }
 
-  // Best-effort: enroll into a class if a class code was provided.
-  // (If the classes/enrollments tables aren't deployed yet, ignore and continue.)
-  if (classCode) {
-    try {
-      const code = classCode.toUpperCase();
+  const { data: studentRow } = await supabase
+    .from("students")
+    .select("id")
+    .eq("user_id", userId)
+    .maybeSingle();
 
-      const { data: klass, error: classErr } = await supabase
-        .from("classes")
-        .select("id")
-        .eq("code", code)
-        .maybeSingle();
-
-      if (!classErr && klass?.id) {
-        // Find the student's row id (just created above).
-        const { data: studentRow } = await supabase
-          .from("students")
-          .select("id")
-          .eq("user_id", userId)
-          .maybeSingle();
-
-        if (studentRow?.id) {
-          await supabase
-            .from("class_enrollments")
-            .upsert({ class_id: klass.id, student_id: studentRow.id }, { onConflict: "class_id,student_id" });
-        }
-      }
-    } catch {
-      // ignore
-    }
+  if (!studentRow?.id) {
+    return NextResponse.json(
+      { ok: false, error: "Account created, but student profile was not found for enrollment." },
+      { status: 500 }
+    );
   }
 
-  return NextResponse.json({ ok: true, userId }, { status: 200 });
-}
+  const enrolled = await enrollStudentInClassByCode({
+    studentId: studentRow.id,
+    classCode,
+    admin: supabase,
+  });
 
+  if (!enrolled.ok) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error:
+          enrolled.error ||
+          "Account created, but that class code was not found. Request a self-paced code and try again.",
+      },
+      { status: 400 }
+    );
+  }
+
+  return NextResponse.json({ ok: true, userId, classId: enrolled.classId }, { status: 200 });
+}

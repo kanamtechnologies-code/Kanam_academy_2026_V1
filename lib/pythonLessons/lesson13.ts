@@ -6,18 +6,48 @@ function hasNoLists(code: string): boolean {
   return !/\=\s*\[\s*\]/.test(code) && !/\.\s*append\s*\(/.test(code);
 }
 
+function noRunError(run: MiniRunResult): boolean {
+  return !run.error;
+}
+
+function hasNpcMemory(code: string): boolean {
+  return (
+    /\bnpc_memory\s*=\s*\{/.test(code) &&
+    (/npc_memory\[\s*["']name["']\s*\]\s*=/.test(code) || /["']name["']\s*:/.test(code))
+  );
+}
+
+function hasNpcDef(code: string): boolean {
+  return /\bdef\s+npc\s*\(\s*[A-Za-z_]\w*\s*\)\s*:/.test(code);
+}
+
+function hasIfElifElse(code: string): boolean {
+  return (
+    /\n[ \t]+if\s+/.test(code) &&
+    /\n[ \t]+elif\s+/.test(code) &&
+    /\n[ \t]+else\s*:/.test(code)
+  );
+}
+
+function usesNameMemory(code: string): boolean {
+  return /npc_memory\[\s*["']name["']\s*\]/.test(code);
+}
+
+function hasNpcCall(code: string): boolean {
+  return /\bnpc\s*\(\s*.+\s*\)\s*/.test(code);
+}
+
+function usesPlayerText(code: string): boolean {
+  return /\bplayer_text\s*=/.test(code) && !/\binput\s*\(/.test(code);
+}
+
 function npcCapstoneValid(code: string, run: MiniRunResult): boolean {
-  if (rejectsUppercasePrint(code)) return false;
-  if (!/\bnpc_memory\s*=\s*\{/.test(code)) return false;
-  if (!/\bdef\s+npc\s*\(\s*[A-Za-z_]\w*\s*\)\s*:/.test(code)) return false;
-  if (!/\n[ \t]+if\s+/.test(code)) return false;
-  if (!/\n[ \t]+elif\s+/.test(code)) return false;
-  if (!/\n[ \t]+else\s*:/.test(code)) return false;
-  const hasNameStore =
-    /npc_memory\[\s*["']name["']\s*\]\s*=/.test(code) || /["']name["']\s*:/.test(code);
-  if (!hasNameStore) return false;
-  if (!/npc_memory\[\s*["']name["']\s*\]/.test(code)) return false;
-  if (!/\bnpc\s*\(\s*.+\s*\)\s*/.test(code)) return false;
+  if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+  if (!hasNpcMemory(code)) return false;
+  if (!hasNpcDef(code)) return false;
+  if (!hasIfElifElse(code)) return false;
+  if (!usesNameMemory(code)) return false;
+  if (!hasNpcCall(code)) return false;
   if (!hasNoLists(code)) return false;
   return run.stdout.length >= 1;
 }
@@ -27,11 +57,11 @@ export const lesson13: PythonLessonConfig = {
   title: "13. Build Your AI NPC",
   goal: "Modify a rule-based NPC, add memory, and explain which rule ran — like a real game AI builder.",
   xpReward: 700,
-  badge: "🎨 Designer",
+  badge: "Designer",
   dashboardHref: "/dashboard",
   coachNoteGateSeconds: 8,
   prevHref: "/learn/12",
-  nextHref: undefined,
+  nextHref: "/learn/14",
   instructorScript:
     "**Coach's note**\nRead this first — it explains the goal + how to think about the code.\n**Coach's note**:\nToday you're building an **adventure NPC**.\n\nYour NPC is not \"smart\" on its own.\nIt follows **rules** you write.\nIt can also use **npc_memory** (a dictionary) to remember a character profile.\n\nHere's the loop you're building:\n- Message (what the player says)\n- Rules (if/elif/else)\n- Memory (npc_memory)\n- Output (what the NPC prints)\n\nToday, we're not using input().\nWe test by changing variables like player_text = \"hello\".\n\nWhen you test your NPC, always ask:\n**Which rule ran, and why?**\n\n**Mini goal**:\nCreate a character profile in npc_memory, then make the NPC talk like it's a quest.\nPress [[Run]] to test your code, then improve it.",
   commandReference: [
@@ -191,132 +221,222 @@ export const lesson13: PythonLessonConfig = {
   },
   exercises: [
     {
-      id: "ex-npc-memory",
-      title: "Exercise 1 — Character memory",
-      focusCommand: "npc_memory = {...}",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill in the NPC",
+      focusCommand: "npc_memory + if/elif/else",
       commandExplain:
-        "Build a character profile dictionary. Include at least a name key stored in npc_memory.",
-      goal: "Create npc_memory with a name entry.",
+        "Complete the memory profile, keywords, fallback, and test message. Use player_text — not input().",
+      goal: "Fill blanks so the NPC has memory, three rule branches, and a test call.",
       starterCode: `# Fill in the blanks 👇
-player_name = "Alex"
-
 npc_memory = {
-    "name": ____,
+    "name": "____",
     "class": "____",
     "home": "____"
 }
-`,
-      hint: 'Use player_name or a quoted name for the "name" value.',
-      successMessage: "Profile stored! npc_memory holds your character details.",
-      failureMessage: 'Create npc_memory = {...} with a "name" key and value.',
-      validate: (code: string) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return (
-          /\bnpc_memory\s*=\s*\{/.test(code) &&
-          (/npc_memory\[\s*["']name["']\s*\]\s*=/.test(code) ||
-            /["']name["']\s*:/.test(code))
-        );
-      },
-    },
-    {
-      id: "ex-npc-def-if",
-      title: "Exercise 2 — NPC function + if rule",
-      focusCommand: "def npc + if",
-      commandExplain:
-        "Define npc(player_input) and add an if rule that checks what the player said.",
-      goal: "Define def npc(...) with an if rule and a print inside it.",
-      starterCode: `# Fill in the blanks 👇
-player_name = "Alex"
-npc_memory = {"name": player_name, "class": "knight", "home": "Riverdale"}
 
 def npc(player_input):
     if "____" in player_input.lower():
-        print("Welcome, " + npc_memory["name"] + "!")
-`,
-      hint: 'Check for a greeting word like "hello" in player_input.lower().',
-      successMessage: "NPC brain started! Your first rule responds to player input.",
-      failureMessage: "Define def npc(player_input): with an if rule and indented print.",
-      validate: (code: string) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return (
-          /\bdef\s+npc\s*\(\s*[A-Za-z_]\w*\s*\)\s*:/.test(code) &&
-          /\n[ \t]+if\s+/.test(code) &&
-          /npc_memory\[\s*["']name["']\s*\]/.test(code)
-        );
-      },
-    },
-    {
-      id: "ex-npc-elif-else",
-      title: "Exercise 3 — elif and else rules",
-      focusCommand: "elif + else",
-      commandExplain:
-        "Add elif for a second special case and else as a helpful fallback when nothing matches.",
-      goal: "Add elif and else branches with print statements inside npc().",
-      starterCode: `# Fill in the blanks 👇
-player_name = "Alex"
-npc_memory = {"name": player_name, "class": "knight", "home": "Riverdale"}
-
-def npc(player_input):
-    if "hello" in player_input.lower():
         print("Welcome, " + npc_memory["name"] + "!")
     elif "____" in player_input.lower():
         print("A quest, you say? I'll remember this.")
     else:
         print("____")
 
-player_text = "hello"
-npc(player_text)
-`,
-      hint: "Add a quest keyword in elif and a helpful fallback message in else.",
-      successMessage: "All three rule branches ready — if, elif, and else!",
-      failureMessage: "Add elif and else branches with indented print lines inside npc().",
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return (
-          /\bdef\s+npc\s*\(\s*[A-Za-z_]\w*\s*\)\s*:/.test(code) &&
-          /\n[ \t]+if\s+/.test(code) &&
-          /\n[ \t]+elif\s+/.test(code) &&
-          /\n[ \t]+else\s*:/.test(code) &&
-          /\bnpc\s*\(\s*.+\s*\)\s*/.test(code) &&
-          run.stdout.length >= 1
-        );
-      },
-    },
-    {
-      id: "ex-challenge",
-      title: "Exercise 4 — Build your AI NPC",
-      focusCommand: "npc capstone",
-      commandExplain:
-        "Put it all together: npc_memory profile, def npc with if/elif/else, name in messages, and a test call. No lists!",
-      goal: "Build a complete NPC with memory, rules, and a test call.",
-      starterCode: `# Fill in the blanks 👇
-player_name = "____"
-
-npc_memory = {
-    "name": player_name,
-    "class": "____",
-    "home": "____",
-    "____": "____"
-}
-
-def npc(player_input):
-    if "____" in player_input.lower():
-        print("Welcome, " + npc_memory["name"] + " the " + npc_memory["class"] + "!")
-        print("From " + npc_memory["home"] + ", right? The road has been rough...")
-    elif "____" in player_input.lower():
-        print("A quest, you say? I'll remember this: " + npc_memory["____"] + ".")
-        print("If you're ready, speak your plan.")
-    else:
-        print("____")
-
 player_text = "____"
 npc(player_text)
 `,
-      hint: "Fill keywords (hello/quest), use npc_memory in messages, and test with player_text.",
-      successMessage: "Submitted! Your NPC uses input, rules, npc_memory, and output — like game AI. 🎮",
+      hint: 'Try name "Alex", keywords "hello" and "quest", a helpful else message, and player_text = "hello".',
+      successMessage: "NPC brain online — memory, rules, and a test call!",
       failureMessage:
-        'Need npc_memory, def npc with if/elif/else, npc_memory["name"] in a message, npc(...) call, and no lists.',
-      validate: (code: string, run: MiniRunResult) => npcCapstoneValid(code, run),
+        "Need npc_memory with name, def npc with if/elif/else, npc_memory[\"name\"], player_text, and npc(...).",
+      solutionCode: `npc_memory = {
+    "name": "Alex",
+    "class": "knight",
+    "home": "Riverdale"
+}
+
+def npc(player_input):
+    if "hello" in player_input.lower():
+        print("Welcome, " + npc_memory["name"] + "!")
+    elif "quest" in player_input.lower():
+        print("A quest, you say? I'll remember this.")
+    else:
+        print("I do not understand, traveler.")
+
+player_text = "hello"
+npc(player_text)
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (!usesPlayerText(code)) return false;
+        return npcCapstoneValid(code, run);
+      },
+    },
+    {
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the NPC",
+      focusCommand: "memory + rules + call",
+      commandExplain:
+        "Scrambled NPC pieces. Put memory, rules, player_text, and the call in working order.",
+      goal: "Reorder into a complete NPC that greets using memory.",
+      starterCode: "",
+      parsonsLines: [
+        'npc_memory = {"name": "Alex", "class": "knight"}',
+        "def npc(player_input):",
+        '    if "hello" in player_input.lower():',
+        '        print("Welcome, " + npc_memory["name"] + "!")',
+        '    elif "quest" in player_input.lower():',
+        '        print("A quest, you say? I\'ll remember this.")',
+        "    else:",
+        '        print("I do not understand, traveler.")',
+        'player_text = "hello"',
+        "npc(player_text)",
+      ],
+      hint: "Memory first, then def npc with if/elif/else, then player_text and npc(player_text).",
+      successMessage: "Order works — your NPC greets from memory.",
+      failureMessage: "Need npc_memory, if/elif/else inside npc, player_text, and npc(...).",
+      solutionCode: `npc_memory = {"name": "Alex", "class": "knight"}
+def npc(player_input):
+    if "hello" in player_input.lower():
+        print("Welcome, " + npc_memory["name"] + "!")
+    elif "quest" in player_input.lower():
+        print("A quest, you say? I'll remember this.")
+    else:
+        print("I do not understand, traveler.")
+player_text = "hello"
+npc(player_text)`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (!usesPlayerText(code)) return false;
+        return npcCapstoneValid(code, run);
+      },
+    },
+    {
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 3 — Debug the NPC",
+      focusCommand: "elif + else",
+      commandExplain:
+        "This NPC is missing a branch and uses input(). Fix it to use if/elif/else and player_text.",
+      goal: "Add elif, keep else, and test with player_text (no input()).",
+      starterCode: `npc_memory = {"name": "Alex", "class": "knight"}
+
+def npc(player_input):
+    if "hello" in player_input.lower():
+        print("Welcome, " + npc_memory["name"] + "!")
+    else:
+        print("I do not understand, traveler.")
+
+player_text = input("What do you say? ")
+npc(player_text)
+`,
+      debugHint: "missing elif / no input()",
+      hint: 'Add an elif for "quest", and set player_text = "hello" instead of input().',
+      successMessage: "Fixed — full if/elif/else rules and a player_text test.",
+      failureMessage:
+        "Need if, elif, and else inside npc(), plus player_text = \"...\" (no input()).",
+      solutionCode: `npc_memory = {"name": "Alex", "class": "knight"}
+
+def npc(player_input):
+    if "hello" in player_input.lower():
+        print("Welcome, " + npc_memory["name"] + "!")
+    elif "quest" in player_input.lower():
+        print("A quest, you say? I'll remember this.")
+    else:
+        print("I do not understand, traveler.")
+
+player_text = "hello"
+npc(player_text)
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (!usesPlayerText(code)) return false;
+        return npcCapstoneValid(code, run);
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict which rule",
+      focusCommand: "trace if/elif/else",
+      commandExplain: 'If player_text is "hello", which exact line prints?',
+      goal: "Predict the greeting that uses npc_memory.",
+      starterCode: `npc_memory = {"name": "Alex", "class": "knight"}
+
+def npc(player_input):
+    if "hello" in player_input.lower():
+        print("Welcome, " + npc_memory["name"] + "!")
+    elif "quest" in player_input.lower():
+        print("A quest, you say? I'll remember this.")
+    else:
+        print("I do not understand, traveler.")
+
+player_text = "hello"
+npc(player_text)
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What exact line prints?",
+      acceptedPredictions: [
+        "Welcome, Alex!",
+        "welcome, alex!",
+        "Welcome, Alex",
+      ],
+      hint: '"hello" matches the if rule, and npc_memory["name"] is Alex.',
+      successMessage: "You traced which rule ran — and why.",
+      failureMessage: "The hello keyword hits the if branch and uses the stored name.",
+      solutionCode: `npc_memory = {"name": "Alex", "class": "knight"}
+
+def npc(player_input):
+    if "hello" in player_input.lower():
+        print("Welcome, " + npc_memory["name"] + "!")
+    elif "quest" in player_input.lower():
+        print("A quest, you say? I'll remember this.")
+    else:
+        print("I do not understand, traveler.")
+
+player_text = "hello"
+npc(player_text)
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        return run.stdout.join("\n").includes("Welcome, Alex!");
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build your AI NPC",
+      focusCommand: "from scratch",
+      commandExplain:
+        "Build a full NPC: npc_memory profile, def npc with if/elif/else, use the name in a message, test with player_text. No lists, no input().",
+      goal: "Write a complete rule-based NPC with dictionary memory.",
+      starterCode: `# Build your AI NPC from scratch
+# Use player_text = "..." (not input())
+`,
+      hint: 'npc_memory = {...}, def npc(...): with if/elif/else, print using npc_memory["name"], then player_text and npc(player_text).',
+      successMessage: "Submitted! Your NPC uses memory, rules, and output — like game AI. 🎮",
+      failureMessage:
+        'Need npc_memory, def npc with if/elif/else, npc_memory["name"], player_text (no input()), npc(...), and no lists.',
+      solutionCode: `npc_memory = {
+    "name": "Alex",
+    "class": "knight",
+    "home": "Riverdale"
+}
+
+def npc(player_input):
+    if "hello" in player_input.lower():
+        print("Welcome, " + npc_memory["name"] + " the " + npc_memory["class"] + "!")
+    elif "quest" in player_input.lower():
+        print("A quest, you say? I'll remember this.")
+    else:
+        print("I do not understand, traveler. Try saying hello or quest.")
+
+player_text = "hello"
+npc(player_text)
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (!usesPlayerText(code)) return false;
+        return npcCapstoneValid(code, run);
+      },
     },
   ],
 };

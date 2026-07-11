@@ -16,7 +16,7 @@ const daLesson6: DataLessonConfig = {
   title: "6. Count and Summarize",
   goal: "Turn many rows into one answer with COUNT, SUM, and AVG — then break totals down by group with GROUP BY.",
   xpReward: 300,
-  badge: "🧮 Summary Pro",
+  badge: "Summary Pro",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {

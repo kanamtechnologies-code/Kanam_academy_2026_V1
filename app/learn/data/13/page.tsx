@@ -11,7 +11,7 @@ const daLesson13: DataLessonConfig = {
   title: "13. Relationships",
   goal: "Use a scatter plot to see whether two numbers are related — does more studying go with higher scores?",
   xpReward: 650,
-  badge: "🔬 Relationship Finder",
+  badge: "Relationship Finder",
   previewTable: "study_log",
   seedData: STUDY_SCORE_SEED,
   prevHref: "/learn/data/12",

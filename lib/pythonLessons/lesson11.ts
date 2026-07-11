@@ -12,12 +12,22 @@ function uniqueCallArgs(code: string, fn: string): Set<string> {
   return new Set(Array.from(code.matchAll(callRe)).map((m) => m[2].trim()));
 }
 
+function noRunError(run: MiniRunResult): boolean {
+  return !run.error;
+}
+
+function hasPrintUsingParam(code: string, fn: string, param: string): boolean {
+  return new RegExp(
+    `\\bdef\\s+${fn}\\s*\\(\\s*${param}\\s*\\)\\s*:[^\\n]*\\n[ \\t]+print\\([\\s\\S]*?\\b${param}\\b`
+  ).test(code);
+}
+
 export const lesson11: PythonLessonConfig = {
   id: "lesson-11",
   title: "11. Giving Functions Better Information (Parameters)",
   goal: "Use a parameter so one function can work with different details.",
   xpReward: 600,
-  badge: "🎮 Parameter Pro",
+  badge: "Parameter Pro",
   dashboardHref: "/dashboard",
   coachNoteGateSeconds: 8,
   prevHref: "/learn/10",
@@ -171,102 +181,169 @@ export const lesson11: PythonLessonConfig = {
   },
   exercises: [
     {
-      id: "ex-param-def",
-      title: "Exercise 1 — Add a parameter",
-      focusCommand: "def attack(enemy):",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill in the parameter",
+      focusCommand: "def attack(enemy)",
       commandExplain:
-        "Put one name inside the parentheses. That name becomes a variable inside the function.",
-      goal: "Define a function with exactly one parameter.",
-      starterCode: `# Fill in the blank 👇
+        "Add the parameter name, then call attack twice with two different enemy strings.",
+      goal: "Fill blanks so one parameterized function runs with two different values.",
+      starterCode: `# Fill in the blanks 👇
 def attack(____):
     print("You attack the " + enemy + "!")
-`,
-      hint: "Type enemy (or another name) inside the parentheses.",
-      successMessage: "Parameter added! Your function can receive information now.",
-      failureMessage: "Define def attack(something): with one parameter name inside ().",
-      validate: (code: string) => {
-        if (rejectsUppercasePrint(code)) return false;
-        const { fn, param } = getDefWithParam(code);
-        return Boolean(fn && param);
-      },
-    },
-    {
-      id: "ex-use-param",
-      title: "Exercise 2 — Use the parameter",
-      focusCommand: "print + parameter",
-      commandExplain:
-        "The parameter works like a variable inside the function. Include it in your print message.",
-      goal: "Print a message that uses the parameter inside the function.",
-      starterCode: `# Fill in the blank 👇
-def attack(enemy):
-    print("You attack the " + ____ + "!")
-`,
-      hint: "Use the parameter name (enemy) inside the print.",
-      successMessage: "Nice! The message will change based on what you pass in.",
-      failureMessage: "Use the parameter name inside print(...), e.g. + enemy +",
-      validate: (code: string) => {
-        if (rejectsUppercasePrint(code)) return false;
-        const { fn, param } = getDefWithParam(code);
-        if (!fn || !param) return false;
-        return new RegExp(
-          `\\bdef\\s+${fn}\\s*\\(\\s*${param}\\s*\\)\\s*:[^\\n]*\\n[ \\t]+print\\([\\s\\S]*?\\b${param}\\b`
-        ).test(code);
-      },
-    },
-    {
-      id: "ex-one-call",
-      title: "Exercise 3 — Pass a value",
-      focusCommand: 'attack("goblin")',
-      commandExplain:
-        "When you call the function, pass a string in quotes. That value fills the parameter.",
-      goal: "Call your function once with a string argument.",
-      starterCode: `# Fill in the blank 👇
-def attack(enemy):
-    print("You attack the " + enemy + "!")
-
-attack("____")
-`,
-      hint: 'Try attack("goblin") or any enemy name in quotes.',
-      successMessage: "Called! You passed information into the function.",
-      failureMessage: 'Call attack("something") with a quoted string argument.',
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        const { fn, param } = getDefWithParam(code);
-        if (!fn || !param) return false;
-        const hasPrintUsingParam = new RegExp(
-          `\\bdef\\s+${fn}\\s*\\(\\s*${param}\\s*\\)\\s*:[^\\n]*\\n[ \\t]+print\\([\\s\\S]*?\\b${param}\\b`
-        ).test(code);
-        const calls = uniqueCallArgs(code, fn);
-        return hasPrintUsingParam && calls.size >= 1 && run.stdout.length >= 1;
-      },
-    },
-    {
-      id: "ex-challenge",
-      title: "Exercise 4 — Parameter pro challenge",
-      focusCommand: "def + param + 2 calls",
-      commandExplain:
-        "Same skill, different details: call your function at least twice with different values.",
-      goal: "Define a function with one parameter and call it twice with different values.",
-      starterCode: `# Fill in the blanks 👇
-def attack(enemy):
-    print("You attack the " + enemy + "!")
 
 attack("____")
 attack("____")
 `,
-      hint: "Use two different enemy names, like goblin and dragon.",
-      successMessage: "Submitted! You reused one skill with different details using a parameter. 🎯",
+      hint: 'Use enemy as the parameter, then two different names like "goblin" and "dragon".',
+      successMessage: "Same skill, different details — parameters at work!",
       failureMessage:
-        "Define a function with one parameter, use it in print, and call twice with different values.",
+        "Need def attack(enemy): using the parameter in print, plus two calls with different values.",
+      solutionCode: `def attack(enemy):
+    print("You attack the " + enemy + "!")
+
+attack("goblin")
+attack("dragon")
+`,
       validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
         const { fn, param } = getDefWithParam(code);
         if (!fn || !param) return false;
-        const hasPrintUsingParam = new RegExp(
-          `\\bdef\\s+${fn}\\s*\\(\\s*${param}\\s*\\)\\s*:[^\\n]*\\n[ \\t]+print\\([\\s\\S]*?\\b${param}\\b`
-        ).test(code);
         const uniqueArgs = uniqueCallArgs(code, fn);
-        return hasPrintUsingParam && uniqueArgs.size >= 2 && run.stdout.length >= 2;
+        return (
+          hasPrintUsingParam(code, fn, param) &&
+          uniqueArgs.size >= 2 &&
+          run.stdout.length >= 2
+        );
+      },
+    },
+    {
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the attack",
+      focusCommand: "param + calls",
+      commandExplain: "Scrambled parameterized function. Put define, print, and two calls in order.",
+      goal: "Reorder so attack(enemy) is defined, then called with two enemies.",
+      starterCode: "",
+      parsonsLines: [
+        "def attack(enemy):",
+        '    print("You attack the " + enemy + "!")',
+        'attack("goblin")',
+        'attack("dragon")',
+      ],
+      hint: "def with parameter first, indented print next, then two attack(...) calls.",
+      successMessage: "Order works — one skill, two different enemies.",
+      failureMessage: "Need def attack(enemy):, print using enemy, and two different calls.",
+      solutionCode: `def attack(enemy):
+    print("You attack the " + enemy + "!")
+attack("goblin")
+attack("dragon")`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        const { fn, param } = getDefWithParam(code);
+        if (!fn || !param) return false;
+        const uniqueArgs = uniqueCallArgs(code, fn);
+        return (
+          hasPrintUsingParam(code, fn, param) &&
+          uniqueArgs.size >= 2 &&
+          run.stdout.length >= 2
+        );
+      },
+    },
+    {
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 3 — Debug the parameter",
+      focusCommand: "use the parameter",
+      commandExplain:
+        "This attack always says the word enemy instead of the real name. Fix it so the parameter is used.",
+      goal: "Use the enemy parameter (not the string \"enemy\") in the print.",
+      starterCode: `def attack(enemy):
+    print("You attack the " + "enemy" + "!")
+
+attack("goblin")
+`,
+      debugHint: "variable vs string",
+      hint: 'Use + enemy + (no quotes around enemy) so the parameter value prints.',
+      successMessage: "Fixed — the message now uses the parameter value.",
+      failureMessage: 'Print must use the parameter name enemy, not the string "enemy".',
+      solutionCode: `def attack(enemy):
+    print("You attack the " + enemy + "!")
+
+attack("goblin")
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        const { fn, param } = getDefWithParam(code);
+        if (!fn || !param) return false;
+        if (!hasPrintUsingParam(code, fn, param)) return false;
+        if (/\+\s*["']enemy["']\s*\+/.test(code) && !new RegExp(`\\+\\s*${param}\\s*\\+`).test(code)) {
+          return false;
+        }
+        return run.stdout.some((line) => line.includes("goblin"));
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the argument",
+      focusCommand: "trace parameter",
+      commandExplain: 'If we call attack("dragon"), what exact line prints?',
+      goal: "Predict the output for this call.",
+      starterCode: `def attack(enemy):
+    print("You attack the " + enemy + "!")
+
+attack("dragon")
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What exact line prints?",
+      acceptedPredictions: [
+        "You attack the dragon!",
+        "you attack the dragon!",
+        "You attack the dragon",
+      ],
+      hint: 'enemy becomes "dragon" for this call, then gets joined into the sentence.',
+      successMessage: "You traced the argument into the message correctly.",
+      failureMessage: "Replace enemy with dragon inside the printed sentence.",
+      solutionCode: `def attack(enemy):
+    print("You attack the " + enemy + "!")
+
+attack("dragon")
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        return run.stdout.join("\n").includes("You attack the dragon!");
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build with a parameter",
+      focusCommand: "from scratch",
+      commandExplain:
+        "Write a function with one parameter, use it in print, and call it twice with different values.",
+      goal: "Build a parameterized skill and reuse it with two different arguments.",
+      starterCode: `# One skill, different details\n`,
+      hint: 'def attack(enemy): … print(... + enemy + ...) then attack("goblin") and attack("dragon").',
+      successMessage: "You built a flexible skill from scratch.",
+      failureMessage:
+        "Need a one-parameter function that uses the param in print, plus two different calls.",
+      solutionCode: `def attack(enemy):
+    print("You attack the " + enemy + "!")
+
+attack("goblin")
+attack("dragon")
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        const { fn, param } = getDefWithParam(code);
+        if (!fn || !param) return false;
+        const uniqueArgs = uniqueCallArgs(code, fn);
+        return (
+          hasPrintUsingParam(code, fn, param) &&
+          uniqueArgs.size >= 2 &&
+          run.stdout.length >= 2
+        );
       },
     },
   ],

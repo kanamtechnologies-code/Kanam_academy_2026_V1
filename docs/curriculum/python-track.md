@@ -202,8 +202,8 @@ A dedicated planning session so Week 8 isn't a cliff (a common drop-off point at
 
 - **Self-paced note:** Save your plan; you'll paste pieces of it into the capstone editor next week.
 
-### Week 8 — Capstone: Build Your AI NPC
-**Week goal:** Combine everything into one working project, test it, and reflect.
+### Week 8 — Capstone: Build & Ship Your AI
+**Week goal:** Craft an NPC brain, then ship a full Quest Adventure Bot that combines the whole track.
 **Big idea:** *You can now make a computer behave intelligently — and explain how.*
 
 #### Session 1 · Lesson 13 — Build Your AI NPC
@@ -213,10 +213,12 @@ A dedicated planning session so Week 8 isn't a cliff (a common drop-off point at
 - **Evidence of mastery:** NPC has a new rule + memory + improved fallback, passes test messages, and the student submits a written reflection.
 - **Vocabulary:** NPC, memory, fallback, reflection, iteration.
 
-#### Session 2 · Showcase & Reflect (celebration — no new lesson)
-- **Demo:** Show your NPC to a mentor/peer and give it 3 test messages.
-- **Reflect (`3A-AP-23`):** Write 2–3 sentences: one design choice you made and why; one thing you'd improve.
-- **Equity check (`3A-IC-25`):** Does your fallback treat unexpected inputs fairly and kindly?
+#### Session 2 · Lesson 14 — Capstone: Quest Adventure Bot
+- **Goal:** Invent a story, build a rule-based adventure AI people can talk to, then **play it live** (~60 min project — not drill activities).
+- **Learning objectives:** Combine dictionaries, lists+append, functions+parameters, if/elif/else, for loops, and string joining into one fun artifact; prove paths with a Build test list; ship an Adventure chat demo with 3+ live turns; explain which rule fired.
+- **Standards:** `3A-AP-13`, `3A-AP-16`, `3A-AP-18`, `2-AP-17`, `3A-AP-23`, `3A-IC-25`.
+- **Evidence of mastery:** Build checklist green; Adventure mode shows a multi-turn chat with a growing quest log; student can demo the bot to a peer without reading the code.
+- **Vocabulary:** capstone, quest log, rule path, rule-based model, product demo.
 
 ---
 
@@ -230,15 +232,15 @@ A dedicated planning session so Week 8 isn't a cliff (a common drop-off point at
 | 2-AP-13 | Decompose problems into parts | W2 (L4), W7 (L12), W7–8 (plan/capstone) |
 | 2-AP-14 | Procedures with parameters | W6 (L10, L11), W7 (L12) |
 | 2-AP-15 | Seek & incorporate feedback to refine | W8 (reflection / iterate) |
-| 2-AP-17 | Systematically test & refine with test cases | W1 (L2), W3 (L6), W4 (debug lab), W8 (L13) |
+| 2-AP-17 | Systematically test & refine with test cases | W1 (L2), W3 (L6), W4 (debug lab), W8 (L13, L14) |
 | 2-AP-19 | Document programs to make them easier to follow | W1 (L1), W4 (debug lab), W8 (L13) |
-| 3A-AP-13 | Prototype using algorithms & personal interest | W7 (plan), W8 (L13) |
+| 3A-AP-13 | Prototype using algorithms & personal interest | W7 (plan), W8 (L13, L14) |
 | 3A-AP-14 | Use lists to generalize solutions | W5 (L8, L9), W6 (L11) |
 | 3A-AP-15 | Justify selection of control structures | W7 (L12) |
-| 3A-AP-16 | Iteratively develop an artifact | W8 (L13) |
+| 3A-AP-16 | Iteratively develop an artifact | W8 (L13, L14) |
 | 3A-AP-17 | Decompose using procedures/modules | W6 (L10), W7 (L12) |
-| 3A-AP-18 | Create artifacts using procedures + data (incl. return values) | W6 (L10, L11), W8 (L13) |
-| 3A-AP-23 | Document design decisions | W8 (L13 reflection) |
+| 3A-AP-18 | Create artifacts using procedures + data (incl. return values) | W6 (L10, L11), W8 (L13, L14) |
+| 3A-AP-23 | Document design decisions | W8 (L13 reflection, L14) |
 | 2-IC-20 | Tradeoffs of computing technologies (AI framing) | W1–W8 (ethics moments) |
 | 3A-IC-25 | Reduce bias / equity deficits | W8 (fallback fairness) |
 

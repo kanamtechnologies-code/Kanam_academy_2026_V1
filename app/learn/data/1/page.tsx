@@ -11,7 +11,7 @@ const daLesson1: DataLessonConfig = {
   title: "1. What Is Data?",
   goal: "Learn rows, columns, and your first SQL commands — one exercise at a time, then put them together.",
   xpReward: 50,
-  badge: "📊 Data Spotter",
+  badge: "Data Spotter",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
@@ -182,85 +182,83 @@ Work through each exercise in the SQL workspace. Click **Run & check** after eac
   nextHref: "/learn/data/2",
   exercises: [
     {
-      id: "ex-select",
-      title: "Exercise 1 — Practice SELECT",
-      focusCommand: "SELECT",
-      commandExplain:
-        "SELECT lists the columns you want back. The star (*) means all columns — order_id, student_name, item, and price.",
-      goal: "Type * right after SELECT to ask for every column.",
-      starterSql: `SELECT 
-FROM lunch_orders
-LIMIT 3;`,
-      hint: "Click the editor and type * after SELECT (means all columns).",
-      successMessage: "Nice! SELECT * asks for every column.",
-      failureMessage: "Use SELECT * to grab all columns — type * right after SELECT.",
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 1 — Reorder the query",
+      focusCommand: "SELECT + FROM + LIMIT",
+      commandExplain: "These SQL lines are scrambled. Put them in a working order.",
+      goal: "Reorder into a valid query that returns 3 rows.",
+      starterSql: "",
+      parsonsLines: ["SELECT *", "FROM lunch_orders", "LIMIT 3;"],
+      hint: "SELECT → FROM → LIMIT.",
+      successMessage: "Order is right — you built a real query.",
+      failureMessage: "Need SELECT * FROM lunch_orders LIMIT 3;",
       validate: (sql, result) => {
         const n = normSql(sql);
-        if (n.includes("____")) return false;
         if (!/\bselect\s+\*/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 3 && hasColumns(result, "student_name", "item"));
+        if (!/\blimit\s+3\b/.test(n)) return false;
+        return Boolean(result && result.rowCount === 3);
       },
     },
     {
-      id: "ex-from",
-      title: "Exercise 2 — Practice FROM",
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 2 — Debug the query",
       focusCommand: "FROM",
-      commandExplain:
-        "FROM points to the table you are reading. Here our table is called lunch_orders — spelling matters!",
-      goal: "Type the table name lunch_orders after FROM.",
-      starterSql: `SELECT student_name, item
-FROM 
-LIMIT 3;`,
-      hint: "The table is called lunch_orders (lowercase, with an underscore).",
-      successMessage: "Correct! FROM lunch_orders tells SQL where the data lives.",
-      failureMessage: "Type the table name lunch_orders after FROM.",
-      validate: (sql, result) => {
-        const n = normSql(sql);
-        if (n.includes("____")) return false;
-        if (!/\bselect\s+student_name,\s*item\b/.test(n)) return false;
-        if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 3 && result.columns.length === 2);
-      },
-    },
-    {
-      id: "ex-limit",
-      title: "Exercise 3 — Practice LIMIT",
-      focusCommand: "LIMIT",
-      commandExplain:
-        "LIMIT stops the result after N rows. LIMIT 5 returns at most five rows — even if the table has hundreds.",
-      goal: "Type 5 after LIMIT so only five rows come back.",
+      commandExplain: "This query is almost right, but the table name is wrong.",
+      goal: "Fix the bug so it reads lunch_orders and returns 5 rows.",
       starterSql: `SELECT *
-FROM lunch_orders
-LIMIT ;`,
-      hint: "Type the number 5 after LIMIT.",
-      successMessage: "Perfect! LIMIT 5 keeps the result short and readable.",
-      failureMessage: "Set LIMIT to 5 and make sure exactly 5 rows appear.",
+FROM lunch_order
+LIMIT 5;`,
+      debugHint: "table name / spelling",
+      hint: "The table is lunch_orders (with an s).",
+      successMessage: "Fixed — table names must match exactly.",
+      failureMessage: "Use FROM lunch_orders (plural) and LIMIT 5.",
       validate: (sql, result) => {
         const n = normSql(sql);
-        if (n.includes("____")) return false;
+        if (!/\bselect\s+\*/.test(n)) return false;
+        if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
+        if (/\blunch_order\b/.test(n) && !/\blunch_orders\b/.test(n)) return false;
         if (!/\blimit\s+5\b/.test(n)) return false;
         return Boolean(result && result.rowCount === 5);
       },
     },
     {
-      id: "ex-challenge",
-      title: "Exercise 4 — Put it all together",
-      focusCommand: "SELECT + FROM + LIMIT",
-      commandExplain:
-        "Real analysts combine commands in one query. You write the full statement yourself — no blanks!",
-      goal: "Write a complete query: all columns, from lunch_orders, limited to 5 rows.",
-      starterSql: `-- Write the full query below (no blanks):
-SELECT 
-FROM 
-LIMIT ;`,
-      hint: "SELECT * FROM lunch_orders LIMIT 5;",
-      successMessage: "You did it! You wrote a real SQL query from scratch.",
-      failureMessage:
-        "Need: SELECT *, FROM lunch_orders, LIMIT 5, and exactly 5 rows in the results.",
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 3 — Predict the rows",
+      focusCommand: "LIMIT",
+      commandExplain: "This query is finished. Predict how many rows it returns.",
+      goal: "Type a number prediction, then Run & check.",
+      starterSql: `SELECT *
+FROM lunch_orders
+LIMIT 2;`,
+      codeReadOnly: true,
+      predictionPrompt: "How many rows will come back?",
+      acceptedPredictions: ["2", "2 rows", "two", "two rows"],
+      hint: "Look at the LIMIT number.",
+      successMessage: "Yes — LIMIT 2 means at most two rows.",
+      failureMessage: "Read the LIMIT carefully.",
       validate: (sql, result) => {
         const n = normSql(sql);
-        if (n.includes("____")) return false;
+        if (!/\blimit\s+2\b/.test(n)) return false;
+        return Boolean(result && result.rowCount === 2);
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 4 — Write it yourself",
+      focusCommand: "from scratch",
+      commandExplain: "No blanks. Write a full query: all columns from lunch_orders, limited to 5 rows.",
+      goal: "Type the complete query in the editor.",
+      starterSql: `-- Write your full query below\n`,
+      hint: "SELECT * FROM lunch_orders LIMIT 5;",
+      successMessage: "You wrote a real SQL query from scratch.",
+      failureMessage: "Need SELECT * FROM lunch_orders LIMIT 5 with exactly 5 rows.",
+      validate: (sql, result) => {
+        const n = normSql(sql);
         if (!/\bselect\s+\*/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
         if (!/\blimit\s+5\b/.test(n)) return false;

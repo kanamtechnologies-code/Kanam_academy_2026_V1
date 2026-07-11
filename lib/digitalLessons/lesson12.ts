@@ -3,20 +3,20 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const digitalLesson12: AILessonConfig = {
   id: "dl-12",
   title: "12. Protect Your Privacy & Data",
-  goal: "Understand how your personal data is collected and used online, and take control with privacy settings, smart app permissions, and more careful sharing.",
+  goal: "Understand how your personal data is collected and used online, and take control with privacy settings, smart app permissions, and more careful sharing — including what colleges, scholarships, and employers can see.",
   xpReward: 600,
-  badge: "🛡️ Privacy Protector",
+  badge: "Privacy Protector",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/11",
   nextHref: "/learn/digital/13",
   lessonModule: {
-    durationLabel: "~7 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Every app you open, site you visit, and post you make leaves a trail of **data** about you. Companies collect that trail constantly — and most people have no idea how much they're giving away. Today you'll take back some control.\n\nHere's our roadmap:\n\n• **What personal data is** and why it's valuable.\n• **How apps and sites collect it** — cookies, trackers, and permissions.\n• **"If it's free, you might be the product"** — how your data pays the bill.\n• **Privacy settings and app permissions** — granting only what's needed.\n• **Oversharing risks** and your basic data rights.\n\nThis isn't about being scared of technology. It's about being the person who *decides* what they share, instead of handing everything over by accident. That control matters more every year — for your safety, your reputation, and your future.`,
+        body: `Every app you open, site you visit, and post you make leaves a trail of **data** about you. Companies collect that trail constantly — and most people have no idea how much they're giving away. Today you'll take back some control.\n\nHere's our roadmap:\n\n• **What personal data is** and why it's valuable.\n• **How apps and sites collect it** — cookies, trackers, and permissions.\n• **"If it's free, you might be the product"** — how your data pays the bill.\n• **Privacy settings and app permissions** — granting only what's needed.\n• **Oversharing risks** and your basic data rights.\n• **Senior stretch** — what colleges and employers see, and protecting application data.\n\nThis isn't about being scared of technology. It's about being the person who *decides* what they share, instead of handing everything over by accident. That control matters more every year — for your safety, your reputation, and your future.`,
         image: "/images/lessons/dl-12.png",
         imageAlt: "A phone showing app permission requests for location, contacts, and microphone, with toggles being switched off",
         callout: {
@@ -38,7 +38,7 @@ export const digitalLesson12: AILessonConfig = {
         id: "what-is-data",
         kicker: "The big idea",
         title: "Personal data is information that identifies you",
-        body: `**Personal data** — often called **PII** (Personally Identifiable Information) — is any information that can identify *you*. It's more than just your name:\n\n• Your **name, birthday, and address**\n• Your **location** (where you are right now and where you usually go)\n• Your **photos and contacts**\n• Your **browsing and search habits**, what you watch, what you buy, who you talk to\n\nIndividually, some of these seem harmless. But companies combine them to build a detailed **profile** of you — your interests, routines, mood, and what might make you click or buy.\n\nThink of your data like **ingredients**. One ingredient isn't much, but collect enough — your searches, your location history, your likes — and a company can "cook up" a surprisingly complete picture of who you are, often more than your friends know.`,
+        body: `**Personal data** — often called **PII** (Personally Identifiable Information) — is any information that can identify *you*. It's more than just your name:\n\n• Your **name, birthday, and address**\n• Your **location** (where you are right now and where you usually go)\n• Your **photos and contacts**\n• Your **browsing and search habits**, what you watch, what you buy, who you talk to\n• For older teens: **SSN fragments, financial aid info, transcripts**, and anything you type into college or scholarship forms\n\nIndividually, some of these seem harmless. But companies combine them to build a detailed **profile** of you — your interests, routines, mood, and what might make you click or buy.\n\nThink of your data like **ingredients**. One ingredient isn't much, but collect enough — your searches, your location history, your likes — and a company can "cook up" a surprisingly complete picture of who you are, often more than your friends know.`,
         callout: {
           label: "Common misconception",
           text: "\"I have nothing to hide, so privacy doesn't matter.\" Privacy isn't about hiding bad things — it's about *control*. You close the bathroom door not because you're doing something wrong, but because some things are simply yours to decide who sees.",
@@ -83,6 +83,22 @@ export const digitalLesson12: AILessonConfig = {
         },
       },
       {
+        id: "senior-privacy",
+        kicker: "For older teens",
+        title: "What colleges & employers see — and protecting application data",
+        body: `Admissions officers, scholarship committees, and hiring managers often search applicants online. Your public posts, tagged photos, and usernames are part of that picture — whether you meant them to be or not.\n\nPractical moves for application season:\n\n• **Audit public profiles** before you hit submit on Common App, a scholarship, or a job form. Set accounts to private if you don't want strangers scrolling your life.\n• **Don't overshare sensitive application data** in group chats or random "scholarship helper" sites. SSN, FAFSA details, and tax info belong on official portals only.\n• **Beware of "free scholarship" apps** that ask for every permission and every personal detail — grant the least needed, and prefer official .gov / school / known foundation sites.\n• **Shared devices** — log out of college portals and email on library or school computers so the next person can't peek.\n\nYounger teens: the same "future check" still applies. The posts you make at 14 can still be findable at 18.`,
+        bullets: [
+          "Search yourself the way a college or employer would.",
+          "Keep SSN / FAFSA / tax data on official sites only.",
+          "Question \"free scholarship\" apps that demand every permission.",
+          "Log out of portals on shared computers.",
+        ],
+        callout: {
+          label: "Watch out",
+          text: "A site that asks for your Social Security number, bank login, or \"processing fee\" to \"guarantee\" a scholarship is almost never legitimate. Official aid goes through known portals — not panic-click forms.",
+        },
+      },
+      {
         id: "quick-wins",
         kicker: "A real example",
         title: "Five quick privacy wins you can do tonight",
@@ -114,14 +130,14 @@ export const digitalLesson12: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You're now in the driver's seat of your own data. Quick recap:\n\n• **Personal data (PII)** is anything that identifies you; companies combine it into a detailed **profile**.\n• It's collected through **cookies**, **trackers**, **permissions**, and logins — and many "free" apps pay their bills with your data via **targeted ads**.\n• Grant apps the **least permissions** they need, and tighten your **privacy settings**.\n• Avoid **oversharing** (location tags, vacation posts), minimize what you hand over since **breaches happen**, and use your **rights** to see or delete your data.\n\nWhen you're ready, switch to the **Knowledge check**, then write a quick reflection about your own apps and settings.`,
+        body: `You're now in the driver's seat of your own data. Quick recap:\n\n• **Personal data (PII)** is anything that identifies you; companies combine it into a detailed **profile**.\n• It's collected through **cookies**, **trackers**, **permissions**, and logins — and many "free" apps pay their bills with your data via **targeted ads**.\n• Grant apps the **least permissions** they need, and tighten your **privacy settings**.\n• Avoid **oversharing** (location tags, vacation posts), minimize what you hand over since **breaches happen**, and use your **rights** to see or delete your data.\n• Before college apps or job searches, audit public profiles and keep sensitive aid data on official sites only.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then write a quick reflection about your own apps and settings.`,
       },
     ],
   },
   bigIdeas: [
     "**Personal data (PII)** is anything that identifies you; companies combine it into a detailed profile.",
     "Many \"free\" apps make money from your data through **targeted ads** — collected via cookies, trackers, and permissions.",
-    "Take control: grant the **least permissions** needed, tighten **privacy settings**, and avoid oversharing.",
+    "Take control: grant the **least permissions** needed, tighten **privacy settings**, and avoid oversharing — especially before colleges or employers look you up.",
   ],
   keyTerms: [
     { term: "Personal data (PII)", definition: "Any information that can identify you — name, birthday, address, location, photos, contacts, and online habits." },
@@ -132,24 +148,24 @@ export const digitalLesson12: AILessonConfig = {
     { term: "Terms of service", definition: "The rules and agreement you accept to use a service — including what data it can collect and how." },
   ],
   realWorld:
-    "The targeted ads that seem to 'read your mind,' the apps asking for your location, and the 'sign in with Google' button all run on your **personal data**. Reviewing **permissions** and tightening **privacy settings** is how you stay in control — a habit valued everywhere from daily life to tech jobs.",
+    "The targeted ads that seem to 'read your mind,' the apps asking for your location, and the 'sign in with Google' button all run on your **personal data**. Reviewing **permissions** and tightening **privacy settings** is how you stay in control — a habit valued everywhere from daily life to tech jobs, college apps, and first interviews.",
   quiz: [
     {
       id: "q1",
-      question: "Which of these counts as personal data (PII)?",
+      question: "You're filling out a scholarship form that asks for your name, birthday, address, and school. Which of these counts as personal data (PII)?",
       choices: [
         "Only your full legal name",
-        "Your name, location, contacts, photos, and browsing habits",
+        "Your name, location, contacts, photos, and browsing habits — plus form details like birthday and address",
         "Only information you mark as private",
         "Nothing you post publicly counts as personal data",
       ],
       correctIndex: 1,
       explanation:
-        "Personal data is anything that can identify you — name, birthday, address, location, photos, contacts, and online habits. Companies combine these pieces into a detailed profile of you.",
+        "Personal data is anything that can identify you — name, birthday, address, location, photos, contacts, and online habits. Companies (and forms) combine these pieces into a detailed profile of you.",
     },
     {
       id: "q2",
-      question: "A free game app makes money without charging you. How does that usually work?",
+      question: "A free \"scholarship finder\" app makes money without charging you. How does that usually work?",
       choices: [
         "The developers run it for free out of kindness",
         "It collects your data and shows targeted ads — you 'pay' with your data and attention",
@@ -162,7 +178,7 @@ export const digitalLesson12: AILessonConfig = {
     },
     {
       id: "q3",
-      question: "A simple flashlight app asks for your location, contacts, and microphone. What's the smart move?",
+      question: "A simple flashlight app asks for your location, contacts, and microphone while you're on a school Chromebook. What's the smart move?",
       choices: [
         "Allow everything — permissions are required and harmless",
         "Deny the permissions it doesn't need; a flashlight doesn't need your contacts or location",
@@ -175,20 +191,20 @@ export const digitalLesson12: AILessonConfig = {
     },
     {
       id: "q4",
-      question: "Why is minimizing what you share online a good privacy strategy?",
+      question: "You're about to submit a college application and wonder whether to keep posting your exact location on every photo. Why is minimizing what you share a good privacy strategy?",
       choices: [
         "Because the internet is slow and sharing less saves data",
-        "Because data breaches happen, and a company can't lose data it never collected from you",
+        "Because data breaches happen, and a company can't lose data it never collected from you — plus public posts can be seen by admissions and employers",
         "Because sharing anything online is illegal",
         "Because privacy settings don't exist",
       ],
       correctIndex: 1,
       explanation:
-        "Even big companies get breached. The less data you hand over, the less can be exposed or misused. Minimizing what you share is one of the strongest privacy protections you control.",
+        "Even big companies get breached. The less data you hand over, the less can be exposed or misused. Public oversharing also shapes what colleges and employers find when they search you.",
     },
     {
       id: "q5",
-      question: "Which statement is TRUE about privacy online?",
+      question: "A friend says private/incognito mode will hide their college-portal browsing from everyone. Which statement is TRUE about privacy online?",
       choices: [
         "Incognito/private mode makes you completely anonymous to everyone",
         "Laws like GDPR and CCPA let you see and ask to delete data companies hold about you",
@@ -202,7 +218,7 @@ export const digitalLesson12: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Pick one app on your phone. What permissions does it have, and is there one you could turn off? Name one privacy setting you'll tighten this week.",
+      "Pick one app on your phone. What permissions does it have, and is there one you could turn off? Name one privacy setting you'll tighten this week — especially if colleges, scholarships, or employers might search you soon.",
     placeholder: "Example: My photo app has location access I don't need — I'll turn it off and set my profile to private…",
   },
 };

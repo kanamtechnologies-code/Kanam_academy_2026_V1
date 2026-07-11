@@ -11,7 +11,7 @@ import {
   Lightbulb,
   ListChecks,
   Loader2,
-  PartyPopper,
+  MessageCircle,
   Play,
   Sparkles,
   Terminal,
@@ -19,18 +19,23 @@ import {
   Zap,
 } from "lucide-react";
 
+import { PredictionInput } from "@/components/exercises/PredictionInput";
+import { ParsonsLines } from "@/components/exercises/ParsonsLines";
 import { GuestLessonTour } from "@/components/demo/GuestLessonTour";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
+import { AdventurePlayPanel } from "@/components/python/AdventurePlayPanel";
 import { CoachNoteContent } from "@/components/python/CoachNoteContent";
 import { PythonExerciseEditor } from "@/components/python/PythonExerciseEditor";
+import { PremiumBadge } from "@/components/badges/PremiumBadge";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
+import { predictionSoftMatches } from "@/lib/exercises/normalizePrediction";
+import { canPlayAdventure } from "@/lib/pythonLessons/adventurePlay";
 import { runMiniPython, type MiniRunResult } from "@/lib/pythonRunner";
 import {
   cursorForIncompleteCode,
@@ -59,6 +64,15 @@ export type PythonRuntimeInput = {
   defaultValue?: string;
 };
 
+export type PythonExerciseKind = "fill" | "predict" | "debug" | "scratch" | "parsons";
+
+export type PythonProjectRequirement = {
+  id: string;
+  label: string;
+  /** Checked after each successful Run — powers the live project checklist. */
+  check: (code: string, run: MiniRunResult) => boolean;
+};
+
 export type PythonExercise = {
   id: string;
   title: string;
@@ -69,8 +83,26 @@ export type PythonExercise = {
   hint?: string;
   successMessage: string;
   failureMessage: string;
+  /** @deprecated Unused — input() uses a silent default in the runner. */
   runtimeInputs?: PythonRuntimeInput[];
   previewOutput?: string;
+  /** Defaults to "fill". Prefer debug / scratch / parsons / predict over fill. */
+  kind?: PythonExerciseKind;
+  /** Predict exercises: question shown above the free-text box. */
+  predictionPrompt?: string;
+  /** Accepted free-text answers (normalized). Soft-matched against stdout if omitted and validate passes. */
+  acceptedPredictions?: string[];
+  /** When true, editor is read-only (typical for predict). */
+  codeReadOnly?: boolean;
+  /** Debug: short category hint (typo / logic / indent) — not the full fix. */
+  debugHint?: string;
+  /** Parsons: scrambled lines the learner must reorder (correct order). */
+  parsonsLines?: string[];
+  /**
+   * Optional correct solution used only by TEMP test auto-pass.
+   * Remove usages when shipping.
+   */
+  solutionCode?: string;
   validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => boolean;
 };
 
@@ -88,6 +120,15 @@ export type PythonLessonConfig = {
   aiSafetyMoment: string;
   commandReference: PythonCommandReference[];
   exercises: PythonExercise[];
+  /**
+   * Capstone / big-project mode: one workspace + live requirements checklist
+   * instead of a multi-exercise drill sequence.
+   */
+  project?: {
+    missionTitle: string;
+    timeLabel: string;
+    requirements: PythonProjectRequirement[];
+  };
   lessonModule?: LessonModuleData;
   terminalPrompt?: string;
   prevHref?: string;
@@ -129,23 +170,11 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
   const activeExercise = lesson.exercises[activeIndex];
   const activeCode = codeByExercise[activeExercise?.id ?? ""] ?? "";
 
-  const runtimeDefaults = React.useMemo(() => {
-    const entries: [string, string][] = [];
-    for (const ex of lesson.exercises) {
-      for (const input of ex.runtimeInputs ?? []) {
-        if (!entries.some(([k]) => k === input.key)) {
-          entries.push([input.key, input.defaultValue ?? ""]);
-        }
-      }
-    }
-    return Object.fromEntries(entries) as Record<string, string>;
-  }, [lesson.exercises]);
-
-  const [runtime, setRuntime] = React.useState<Record<string, string>>(runtimeDefaults);
-
-  React.useEffect(() => {
-    setRuntime(runtimeDefaults);
-  }, [runtimeDefaults]);
+  const [predictionByExercise, setPredictionByExercise] = React.useState<Record<string, string>>({});
+  const [projectChecks, setProjectChecks] = React.useState<Record<string, boolean>>({});
+  const [playTurns, setPlayTurns] = React.useState(0);
+  const [projectWorkspace, setProjectWorkspace] = React.useState<"build" | "play">("build");
+  const isProject = Boolean(lesson.project);
 
   React.useEffect(() => {
     setAnimateIn(false);
@@ -282,13 +311,35 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
 
   const handleRunExercise = () => {
     if (!activeExercise) return;
-    trackProgress("run", { exerciseId: activeExercise.id });
+    const kind = activeExercise.kind ?? "fill";
+    trackProgress("run", { exerciseId: activeExercise.id, kind });
 
-    if (hasBlankTokens(activeCode)) {
+    if (kind === "predict") {
+      const prediction = (predictionByExercise[activeExercise.id] ?? "").trim();
+      if (!prediction) {
+        setRunError(null);
+        setLastFeedbackSuccess(false);
+        setLastFeedback("Type your prediction before you run.");
+        setTerminalOutput(
+          formatPythonTerminal("❌ Make a prediction first, then Run & check.", terminalPrompt)
+        );
+        return;
+      }
+    }
+
+    if (hasBlankTokens(activeCode) && kind !== "predict") {
       setRunError(null);
       setLastFeedbackSuccess(false);
       setLastFeedback("Fill in every blank before running.");
       setTerminalOutput(formatPythonTerminal("❌ Fill in every blank first.", terminalPrompt));
+      return;
+    }
+
+    if (hasBlankTokens(activeCode) && kind === "predict") {
+      setRunError(null);
+      setLastFeedbackSuccess(false);
+      setLastFeedback("This predict exercise still has blanks — ask your teacher to fix the lesson.");
+      setTerminalOutput(formatPythonTerminal("❌ Predict code should not contain blanks.", terminalPrompt));
       return;
     }
 
@@ -302,28 +353,15 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
       return;
     }
 
-    const missingInputs =
-      activeExercise.runtimeInputs?.filter((input) => {
-        const expectsInput = new RegExp(`\\b${input.key}\\s*=\\s*input\\s*\\(`).test(activeCode);
-        if (!expectsInput) return false;
-        return !(runtime[input.key] ?? "").trim();
-      }) ?? [];
-
-    if (missingInputs.length) {
-      setRunError(null);
-      setLastFeedbackSuccess(false);
-      setLastFeedback(`Type a test answer for: ${missingInputs.map((i) => i.label).join(", ")}`);
-      setTerminalOutput(
-        formatPythonTerminal("❌ Fill in the test input box above, then Run again.", terminalPrompt)
-      );
-      return;
-    }
-
-    const run = runMiniPython(activeCode, runtime);
+    const run = runMiniPython(activeCode, {});
     if (run.error) {
       setRunError(run.error);
       setLastFeedbackSuccess(false);
-      setLastFeedback(activeExercise.failureMessage);
+      setLastFeedback(
+        kind === "debug"
+          ? `${activeExercise.failureMessage}${activeExercise.debugHint ? ` Hint category: ${activeExercise.debugHint}.` : ""}`
+          : activeExercise.failureMessage
+      );
       setTerminalOutput(formatPythonTerminal(`❌ ${run.error}`, terminalPrompt));
       return;
     }
@@ -334,8 +372,108 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
         ? run.stdout.join("\n")
         : "(no output)\nTip: add print(...) to see output.";
 
-    const ok = activeExercise.validate(activeCode, run, runtime);
-    if (ok) {
+    if (lesson.project?.requirements?.length) {
+      const nextChecks: Record<string, boolean> = {};
+      for (const req of lesson.project.requirements) {
+        try {
+          nextChecks[req.id] =
+            req.id === "req-play" ? playTurns >= 3 : req.check(activeCode, run);
+        } catch {
+          nextChecks[req.id] = req.id === "req-play" ? playTurns >= 3 : false;
+        }
+      }
+      setProjectChecks(nextChecks);
+
+      const allGreen = lesson.project.requirements.every((req) => nextChecks[req.id]);
+      if (allGreen) {
+        setLastFeedbackSuccess(true);
+        setLastFeedback(activeExercise.successMessage);
+        setTerminalOutput(
+          formatPythonTerminal(`✓ ${activeExercise.successMessage}\n\n${body}`, terminalPrompt)
+        );
+        setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
+        setLessonComplete(true);
+        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind: "project" });
+        return;
+      }
+    }
+
+    const codeOk = activeExercise.validate(activeCode, run, {});
+
+    if (kind === "predict") {
+      const prediction = predictionByExercise[activeExercise.id] ?? "";
+      const accepted =
+        activeExercise.acceptedPredictions && activeExercise.acceptedPredictions.length > 0
+          ? activeExercise.acceptedPredictions
+          : run.stdout.length > 0
+            ? [run.stdout.join("\n")]
+            : [];
+      const predOk = predictionSoftMatches(prediction, accepted);
+
+      if (!codeOk) {
+        setLastFeedbackSuccess(false);
+        setLastFeedback(activeExercise.failureMessage);
+        setTerminalOutput(formatPythonTerminal(`❌ ${activeExercise.failureMessage}\n\n${body}`, terminalPrompt));
+        return;
+      }
+      if (!predOk) {
+        setLastFeedbackSuccess(false);
+        setLastFeedback(
+          "Not quite — your prediction doesn't match what the program does. Revise your prediction (the real output stays hidden until you get it)."
+        );
+        setTerminalOutput(
+          formatPythonTerminal(
+            `△ Prediction incorrect.\nYour prediction: ${prediction}\n(Output hidden until your prediction is right.)`,
+            terminalPrompt
+          )
+        );
+        return;
+      }
+      setLastFeedbackSuccess(true);
+      setLastFeedback(activeExercise.successMessage);
+      setTerminalOutput(
+        formatPythonTerminal(`✓ ${activeExercise.successMessage}\n\n${body}`, terminalPrompt)
+      );
+      setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
+      if (activeIndex === lesson.exercises.length - 1) {
+        setLessonComplete(true);
+        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
+      }
+      return;
+    }
+
+    if (codeOk) {
+      // Project mode: only finish when the full checklist (incl. Adventure play) is green.
+      if (isProject && lesson.project) {
+        const playOk = playTurns >= 3 || Boolean(projectChecks["req-play"]);
+        const buildOk = lesson.project.requirements
+          .filter((r) => r.id !== "req-play")
+          .every((r) => {
+            try {
+              return r.id === "req-play" ? playOk : r.check(activeCode, run);
+            } catch {
+              return false;
+            }
+          });
+        if (!(buildOk && playOk)) {
+          setLastFeedbackSuccess(false);
+          setLastFeedback(
+            playOk
+              ? activeExercise.failureMessage
+              : "Build looks good — now open Adventure and play at least 3 live turns to finish the capstone."
+          );
+          setTerminalOutput(
+            formatPythonTerminal(
+              playOk
+                ? `△ Almost — finish every checklist item.\n\n${body}`
+                : `✓ Build checks passed!\n→ Switch to Adventure and chat with your bot (3+ turns).\n\n${body}`,
+              terminalPrompt
+            )
+          );
+          return;
+        }
+      }
+
       setLastFeedbackSuccess(true);
       setLastFeedback(activeExercise.successMessage);
       setTerminalOutput(formatPythonTerminal(`✓ ${activeExercise.successMessage}\n\n${body}`, terminalPrompt));
@@ -343,14 +481,16 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
 
       if (activeIndex === lesson.exercises.length - 1) {
         setLessonComplete(true);
-        trackProgress("lesson_success", { exerciseId: activeExercise.id });
+        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
       }
     } else {
       setLastFeedbackSuccess(false);
-      setLastFeedback(activeExercise.failureMessage);
-      setTerminalOutput(
-        formatPythonTerminal(`Code ran but not quite right yet.\n\n${body}\n\n${activeExercise.failureMessage}`, terminalPrompt)
+      setLastFeedback(
+        kind === "debug"
+          ? `${activeExercise.failureMessage}${activeExercise.debugHint ? ` Hint category: ${activeExercise.debugHint}.` : ""}`
+          : activeExercise.failureMessage
       );
+      setTerminalOutput(formatPythonTerminal(`❌ ${activeExercise.failureMessage}\n\n${body}`, terminalPrompt));
     }
   };
 
@@ -364,9 +504,103 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
     }
   };
 
+  const handlePlayTurnsChange = (turns: number) => {
+    setPlayTurns(turns);
+    if (!lesson.project?.requirements?.length) return;
+
+    setProjectChecks((prev) => {
+      const next: Record<string, boolean> = { ...prev, "req-play": turns >= 3 };
+      // Re-check build items against current code without requiring a fresh Run.
+      const dry = runMiniPython(activeCode, {});
+      for (const req of lesson.project!.requirements) {
+        if (req.id === "req-play") continue;
+        try {
+          next[req.id] = req.check(activeCode, dry);
+        } catch {
+          // keep previous
+        }
+      }
+      const allGreen = lesson.project!.requirements.every((req) => next[req.id]);
+      if (allGreen && activeExercise && !lessonComplete) {
+        setCompletedIds((p) => new Set(p).add(activeExercise.id));
+        setLessonComplete(true);
+        setLastFeedbackSuccess(true);
+        setLastFeedback(activeExercise.successMessage);
+        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind: "project-play" });
+      }
+      return next;
+    });
+  };
+
+  /** TEMP testing helper — remove before shipping. */
+  const tempPassCurrentExercise = () => {
+    if (!activeExercise || lessonComplete) return;
+    const id = activeExercise.id;
+    if (activeExercise.kind === "predict") {
+      const answer = activeExercise.acceptedPredictions?.[0] ?? "ok";
+      setPredictionByExercise((prev) => ({ ...prev, [id]: answer }));
+    }
+    if (activeExercise.solutionCode) {
+      setCodeByExercise((prev) => ({ ...prev, [id]: activeExercise.solutionCode! }));
+    }
+    if (lesson.project?.requirements?.length) {
+      const allGreen: Record<string, boolean> = {};
+      for (const req of lesson.project.requirements) allGreen[req.id] = true;
+      setProjectChecks(allGreen);
+      setPlayTurns(3);
+    }
+    setCompletedIds((prev) => new Set(prev).add(id));
+    setLastFeedbackSuccess(true);
+    setLastFeedback(`[TEMP] Passed: ${activeExercise.successMessage}`);
+    setTerminalOutput(
+      formatPythonTerminal(`✓ [TEMP] Auto-passed ${activeExercise.title}`, terminalPrompt)
+    );
+    if (activeIndex === lesson.exercises.length - 1) {
+      setLessonComplete(true);
+      trackProgress("lesson_success", { exerciseId: id, kind: "temp-pass" });
+    } else {
+      goToNextExercise();
+    }
+  };
+
+  /** TEMP testing helper — remove before shipping. */
+  const tempPassAllRemaining = () => {
+    if (lessonComplete) return;
+    const nextCompleted = new Set(completedIds);
+    const nextPredictions = { ...predictionByExercise };
+    const nextCode = { ...codeByExercise };
+    for (const ex of lesson.exercises) {
+      nextCompleted.add(ex.id);
+      if (ex.kind === "predict" && ex.acceptedPredictions?.[0]) {
+        nextPredictions[ex.id] = ex.acceptedPredictions[0];
+      }
+      if (ex.solutionCode) nextCode[ex.id] = ex.solutionCode;
+    }
+    setCompletedIds(nextCompleted);
+    setPredictionByExercise(nextPredictions);
+    setCodeByExercise(nextCode);
+    setActiveIndex(Math.max(0, lesson.exercises.length - 1));
+    setLessonComplete(true);
+    if (lesson.project?.requirements?.length) {
+      const allGreen: Record<string, boolean> = {};
+      for (const req of lesson.project.requirements) allGreen[req.id] = true;
+      setProjectChecks(allGreen);
+      setPlayTurns(3);
+    }
+    setLastFeedbackSuccess(true);
+    setLastFeedback("[TEMP] All exercises auto-passed.");
+    trackProgress("lesson_success", { kind: "temp-pass-all" });
+  };
+
   const progressPercent = lessonComplete
     ? 100
-    : Math.round((completedIds.size / lesson.exercises.length) * 100);
+    : isProject && lesson.project
+      ? Math.round(
+          (Object.values(projectChecks).filter(Boolean).length /
+            Math.max(1, lesson.project.requirements.length)) *
+            100
+        )
+      : Math.round((completedIds.size / Math.max(1, lesson.exercises.length)) * 100);
 
   const currentDone = activeExercise ? completedIds.has(activeExercise.id) : false;
   const canAdvance =
@@ -442,7 +676,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                 <Zap className="mr-1.5 h-4 w-4" />
                 {lesson.xpReward} XP
               </Badge>
-              <Badge className="kanam-hero-chip">{lesson.badge}</Badge>
+              <PremiumBadge lessonId={lesson.id} name={lesson.badge} variant="chip" />
               <Button asChild className="kanam-hero-cta" size="sm">
                 <Link href={exitHref}>{exitLabel}</Link>
               </Button>
@@ -451,7 +685,9 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
           <div className="relative z-10 mt-6">
             <div className="mb-2 flex justify-between text-sm font-semibold text-white/90">
               <span>
-                Exercises complete: {completedIds.size} / {lesson.exercises.length}
+                {isProject
+                  ? `Project checklist: ${Object.values(projectChecks).filter(Boolean).length} / ${lesson.project?.requirements.length ?? 0}`
+                  : `Exercises complete: ${completedIds.size} / ${lesson.exercises.length}`}
               </span>
               <span>{progressPercent}%</span>
             </div>
@@ -488,14 +724,18 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
               )}
             >
               <ListChecks className="h-4 w-4" />
-              Exercises
+              {isProject ? "Capstone project" : "Exercises"}
             </button>
           </div>
         ) : null}
 
         {lesson.lessonModule && view === "lesson" ? (
           <div data-tour="lesson-module">
-            <LessonModule module={lesson.lessonModule} onStart={() => setView("exercises")} />
+            <LessonModule
+              module={lesson.lessonModule}
+              onStart={() => setView("exercises")}
+              startLabel={isProject ? "Start the project" : "Start the exercises"}
+            />
           </div>
         ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
@@ -576,6 +816,47 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
               </LessonAside>
             ) : null}
 
+            {isProject && lesson.project ? (
+              <LessonAside
+                title="Project checklist"
+                defaultOpen
+                icon={<Trophy className="h-5 w-5 text-[var(--accent)]" />}
+                className="border-[rgb(var(--accent-rgb)/0.55)] bg-amber-50/40"
+              >
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-amber-900">
+                  {lesson.project.timeLabel}
+                </p>
+                <ul className="space-y-2">
+                  {lesson.project.requirements.map((req) => {
+                    const done = Boolean(projectChecks[req.id]);
+                    return (
+                      <li
+                        key={req.id}
+                        className={cn(
+                          "flex items-start gap-2 rounded-lg border px-3 py-2 text-sm",
+                          done
+                            ? "border-emerald-300 bg-emerald-50 text-emerald-950"
+                            : "border-slate-200 bg-white text-slate-700"
+                        )}
+                      >
+                        <CheckCircle2
+                          className={cn(
+                            "mt-0.5 h-4 w-4 shrink-0",
+                            done ? "text-emerald-600" : "text-slate-300"
+                          )}
+                        />
+                        <span>{req.label}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <p className="mt-3 text-xs text-slate-500">
+                  Work in order 1–8. Use <strong>Build</strong> + Run for items 1–7, then{" "}
+                  <strong>Adventure</strong> for item 8 (3+ live chat turns).
+                </p>
+              </LessonAside>
+            ) : null}
+
             <LessonAside
               title="AI safety moment"
               icon={<Sparkles className="h-5 w-5 text-violet-500" />}
@@ -603,54 +884,150 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex flex-wrap gap-2">
-                      {lesson.exercises.map((ex, idx) => {
-                        const done = completedIds.has(ex.id);
-                        const active = idx === activeIndex;
-                        const locked = idx > 0 && !completedIds.has(lesson.exercises[idx - 1].id);
-                        return (
+                    {isProject && lesson.project ? (
+                      <div className="space-y-3">
+                        <div className="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-4">
+                          <p className="text-xs font-black uppercase tracking-wide text-amber-900">
+                            Capstone mission · {lesson.project.timeLabel}
+                          </p>
+                          <p className="mt-1 text-lg font-black tracking-tight text-slate-900">
+                            {lesson.project.missionTitle}
+                          </p>
+                          <p className="mt-2 text-sm text-slate-700">
+                            {activeExercise?.commandExplain}
+                          </p>
+                          <ol className="mt-3 list-decimal space-y-1 pl-5 text-sm text-slate-700">
+                            <li>
+                              Fill the <strong>design comments</strong> at the top of the code.
+                            </li>
+                            <li>
+                              Replace every <strong>TODO</strong> — each rule needs{" "}
+                              <code className="rounded bg-white/80 px-1">print</code> +{" "}
+                              <code className="rounded bg-white/80 px-1">append</code>.
+                            </li>
+                            <li>
+                              Press <strong>Run &amp; check</strong> until items 1–7 are green.
+                            </li>
+                            <li>
+                              Open <strong>Adventure</strong> and send 3+ real messages (item 8).
+                            </li>
+                          </ol>
+                        </div>
+                        <div className="inline-flex w-full items-center gap-1 rounded-2xl border border-slate-200 bg-slate-50 p-1 sm:w-auto">
                           <button
-                            key={ex.id}
                             type="button"
-                            disabled={locked}
-                            onClick={() => {
-                              if (!locked) setActiveIndex(idx);
-                            }}
+                            onClick={() => setProjectWorkspace("build")}
                             className={cn(
-                              "flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors sm:min-h-0 sm:py-1.5",
-                              active
-                                ? "border-[var(--brand)] bg-[var(--brand)] text-white"
-                                : done
-                                  ? "border-[var(--brand)]/40 bg-[var(--brand)]/10 text-[var(--brand-2)]"
-                                  : locked
-                                    ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400"
-                                    : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                              "flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors sm:flex-none",
+                              projectWorkspace === "build"
+                                ? "bg-[var(--brand)] text-white shadow-sm"
+                                : "text-slate-600 hover:bg-white"
                             )}
                           >
-                            {done ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
-                            {idx + 1}. {ex.focusCommand}
+                            <Code2 className="h-4 w-4" />
+                            Build
                           </button>
-                        );
-                      })}
-                    </div>
+                          <button
+                            type="button"
+                            onClick={() => setProjectWorkspace("play")}
+                            className={cn(
+                              "flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors sm:flex-none",
+                              projectWorkspace === "play"
+                                ? "bg-violet-700 text-white shadow-sm"
+                                : "text-slate-600 hover:bg-white"
+                            )}
+                          >
+                            <MessageCircle className="h-4 w-4" />
+                            Adventure
+                            {playTurns > 0 ? (
+                              <Badge className="bg-white/20 text-[10px] text-white">
+                                {playTurns} turn{playTurns === 1 ? "" : "s"}
+                              </Badge>
+                            ) : null}
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-wrap gap-2">
+                        {lesson.exercises.map((ex, idx) => {
+                          const done = completedIds.has(ex.id);
+                          const active = idx === activeIndex;
+                          const locked = idx > 0 && !completedIds.has(lesson.exercises[idx - 1].id);
+                          return (
+                            <button
+                              key={ex.id}
+                              type="button"
+                              disabled={locked}
+                              onClick={() => {
+                                if (!locked) setActiveIndex(idx);
+                              }}
+                              className={cn(
+                                "flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors sm:min-h-0 sm:py-1.5",
+                                active
+                                  ? "border-[var(--brand)] bg-[var(--brand)] text-white"
+                                  : done
+                                    ? "border-[var(--brand)]/40 bg-[var(--brand)]/10 text-[var(--brand-2)]"
+                                    : locked
+                                      ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400"
+                                      : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                              )}
+                            >
+                              {done ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
+                              {idx + 1}. {ex.focusCommand}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
 
-                    {activeExercise ? (
+                    {isProject && projectWorkspace === "play" ? (
+                      <AdventurePlayPanel
+                        code={activeCode}
+                        playReady={canPlayAdventure(activeCode)}
+                        onPlayTurnsChange={handlePlayTurnsChange}
+                      />
+                    ) : activeExercise ? (
                       <>
                         <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <Badge className="bg-violet-700 text-white">
-                              {activeExercise.focusCommand}
-                            </Badge>
+                          {!isProject ? (
+                            <div className="flex flex-wrap items-center gap-2">
+                              <Badge className="bg-violet-700 text-white">
+                                {activeExercise.focusCommand}
+                              </Badge>
+                              {(activeExercise.kind ?? "fill") === "predict" ? (
+                                <Badge className="bg-violet-100 text-violet-900">Predict</Badge>
+                              ) : null}
+                              {(activeExercise.kind ?? "fill") === "debug" ? (
+                                <Badge className="bg-amber-100 text-amber-900">Debug</Badge>
+                              ) : null}
+                              {(activeExercise.kind ?? "fill") === "parsons" ? (
+                                <Badge className="bg-indigo-100 text-indigo-900">Reorder</Badge>
+                              ) : null}
+                              {(activeExercise.kind ?? "fill") === "scratch" ? (
+                                <Badge className="bg-emerald-100 text-emerald-900">Build</Badge>
+                              ) : null}
+                              <p className="text-sm font-semibold text-slate-900">
+                                {activeExercise.title}
+                              </p>
+                            </div>
+                          ) : (
                             <p className="text-sm font-semibold text-slate-900">
                               {activeExercise.title}
                             </p>
-                          </div>
-                          <p className="mt-2 text-sm font-medium text-violet-900">
-                            {activeExercise.commandExplain}
-                          </p>
+                          )}
+                          {!isProject ? (
+                            <p className="mt-2 text-sm font-medium text-violet-900">
+                              {activeExercise.commandExplain}
+                            </p>
+                          ) : null}
                           <p className="mt-2 text-sm text-slate-600">{activeExercise.goal}</p>
                           {activeExercise.hint ? (
                             <p className="mt-2 text-xs text-slate-500">Hint: {activeExercise.hint}</p>
+                          ) : null}
+                          {activeExercise.debugHint && (activeExercise.kind ?? "fill") === "debug" ? (
+                            <p className="mt-2 text-xs font-semibold text-amber-800">
+                              Bug category: {activeExercise.debugHint}
+                            </p>
                           ) : null}
                           {activeExercise.previewOutput ? (
                             <pre className="mt-3 rounded-lg bg-slate-900 p-3 font-mono text-xs text-emerald-100">
@@ -659,33 +1036,66 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                           ) : null}
                         </div>
 
-                        {activeExercise.runtimeInputs?.map((input) => (
-                          <div key={input.key} className="space-y-1">
-                            <label className="text-xs font-semibold text-slate-600">{input.label}</label>
-                            <Input
-                              value={runtime[input.key] ?? ""}
-                              placeholder={input.placeholder}
-                              onChange={(e) =>
-                                setRuntime((prev) => ({ ...prev, [input.key]: e.target.value }))
+                        {(activeExercise.kind ?? "fill") === "predict" ? (
+                          <PredictionInput
+                            prompt={
+                              activeExercise.predictionPrompt ??
+                              "What will this program print when it runs?"
+                            }
+                            value={predictionByExercise[activeExercise.id] ?? ""}
+                            onChange={(value) =>
+                              setPredictionByExercise((prev) => ({
+                                ...prev,
+                                [activeExercise.id]: value,
+                              }))
+                            }
+                            disabled={lessonComplete || currentDone}
+                          />
+                        ) : null}
+
+                        {(activeExercise.kind ?? "fill") === "parsons" &&
+                        activeExercise.parsonsLines?.length ? (
+                          <ParsonsLines
+                            lines={activeExercise.parsonsLines}
+                            disabled={lessonComplete || currentDone}
+                            languageLabel="Python lines"
+                            onAssembledChange={(code) => {
+                              setCodeByExercise((prev) => ({
+                                ...prev,
+                                [activeExercise.id]: code,
+                              }));
+                            }}
+                          />
+                        ) : (
+                          <div data-tour="lesson-editor">
+                            <PythonExerciseEditor
+                              value={activeCode}
+                              onChange={setActiveCode}
+                              autoClearBlanks
+                              starterCode={activeExercise.starterCode}
+                              typingZones={
+                                activeExercise.codeReadOnly ||
+                                (activeExercise.kind ?? "fill") === "predict" ||
+                                (activeExercise.kind ?? "fill") === "scratch"
+                                  ? []
+                                  : typingZones
+                              }
+                              ariaLabel={`Python exercise ${activeIndex + 1}`}
+                              placeholder={
+                                (activeExercise.kind ?? "fill") === "scratch"
+                                  ? "Write the full program here…"
+                                  : "Type your Python here…"
+                              }
+                              minHeightPx={isProject ? 280 : 140}
+                              maxHeightPx={isProject ? 520 : 360}
+                              readOnly={
+                                lessonComplete ||
+                                Boolean(activeExercise.codeReadOnly) ||
+                                (activeExercise.kind ?? "fill") === "predict"
                               }
                             />
                           </div>
-                        ))}
-
-                        <div data-tour="lesson-editor">
-                          <PythonExerciseEditor
-                            value={activeCode}
-                            onChange={setActiveCode}
-                            autoClearBlanks
-                            starterCode={activeExercise.starterCode}
-                            typingZones={typingZones}
-                            ariaLabel={`Python exercise ${activeIndex + 1}`}
-                            placeholder="Type your Python here…"
-                            minHeightPx={140}
-                            maxHeightPx={360}
-                            readOnly={lessonComplete}
-                          />
-                        </div>
+                        )}
 
                         <div
                           data-tour="lesson-run"
@@ -785,22 +1195,25 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                 {lessonComplete ? (
                   <Card className="kanam-data-lesson-complete overflow-hidden border-0">
                     <CardContent className="py-8 text-center">
-                      <span className="kanam-data-lesson-complete-emoji" aria-hidden>
-                        🎉
-                      </span>
+                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[var(--brand)]/10">
+                        <Trophy className="h-7 w-7 text-[var(--accent)]" aria-hidden />
+                      </div>
                       <div className="mt-3 flex items-center justify-center gap-2">
-                        <Trophy className="h-6 w-6 text-[var(--accent)]" aria-hidden />
                         <p className="text-2xl font-black tracking-tight text-slate-900">
                           Lesson complete!
                         </p>
-                        <PartyPopper className="h-6 w-6 text-[var(--brand)]" aria-hidden />
                       </div>
                       <p className="mt-3 text-base font-semibold text-[var(--brand-2)]">
                         You earned {lesson.xpReward} XP
                       </p>
-                      <Badge className="mt-3 bg-[var(--brand)] px-4 py-1.5 text-sm text-white">
-                        {lesson.badge}
-                      </Badge>
+                      <div className="mt-4 flex justify-center">
+                        <PremiumBadge
+                          lessonId={lesson.id}
+                          name={lesson.badge}
+                          variant="seal"
+                          unlocked
+                        />
+                      </div>
                       {lesson.tryThis.length > 0 ? (
                         <ul className="mt-4 space-y-1 text-left text-sm text-slate-600">
                           {lesson.tryThis.map((tip) => (
@@ -826,6 +1239,32 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
         </div>
         )}
       </div>
+
+      {/* TEMP: testing skip controls — delete this block later */}
+      {view === "exercises" && !lessonComplete ? (
+        <div className="fixed bottom-4 right-4 z-[80] flex max-w-[min(100vw-2rem,20rem)] flex-col gap-2 rounded-2xl border-2 border-dashed border-orange-400 bg-orange-50 p-3 shadow-xl">
+          <p className="text-[10px] font-black uppercase tracking-wide text-orange-800">
+            Temp test controls — remove later
+          </p>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            className="h-10 border-orange-300 bg-white text-orange-950 hover:bg-orange-100"
+            onClick={tempPassCurrentExercise}
+          >
+            Pass current exercise
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            className="h-10 bg-orange-500 text-white hover:bg-orange-600"
+            onClick={tempPassAllRemaining}
+          >
+            Pass all remaining
+          </Button>
+        </div>
+      ) : null}
     </WelcomeBackground>
     </LessonAccessGate>
   );

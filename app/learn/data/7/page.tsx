@@ -11,7 +11,7 @@ const daLesson7: DataLessonConfig = {
   title: "7. Combine Tables",
   goal: "Use JOIN to connect two tables — match orders to the students who placed them with a shared key.",
   xpReward: 350,
-  badge: "🔗 Table Joiner",
+  badge: "Table Joiner",
   previewTable: "orders",
   seedData: SCHOOL_DB_SEED,
   lessonModule: {
@@ -199,24 +199,27 @@ JOIN students ON orders.student_id = students.student_id;`,
       },
     },
     {
-      id: "ex-join-columns",
-      title: "Exercise 2 — Name + item",
-      focusCommand: "Select joined columns",
+      id: "ex-debug-join",
+      kind: "debug",
+      title: "Exercise 2 — Debug the JOIN",
+      focusCommand: "JOIN … ON",
       commandExplain:
-        "After joining you can pick columns from either table. Show the student's name and what they ordered.",
-      goal: "Select student_name and item from the joined tables.",
+        "This JOIN is trying to show each order with the student's name, but the ON clause is wrong. Fix the match key.",
+      goal: "Repair the JOIN so names line up with items (5 rows, 2 columns).",
       starterSql: `SELECT student_name, item
 FROM orders
-JOIN students ON orders.student_id = students.student_id;`,
-      hint: "The query is ready — Run & check to see names beside items.",
-      successMessage: "Clear and readable: each name next to its item.",
+JOIN students ON orders.student_id = students.item;`,
+      debugHint: "wrong join key",
+      hint: "Both sides of ON should use student_id.",
+      successMessage: "Fixed! Matching on student_id connects the right rows.",
       failureMessage:
-        "Select student_name, item from the joined tables. Expect 5 rows, 2 columns.",
+        "Use ON orders.student_id = students.student_id. Expect 5 rows with student_name and item.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bjoin\s+students\b/.test(n)) return false;
-        if (!/\bstudent_name\b/.test(n) || !/\bitem\b/.test(n)) return false;
+        if (!/\bon\s+orders\.student_id\s*=\s*students\.student_id\b/.test(n)) return false;
+        if (/\bstudents\.item\b/.test(n)) return false;
         return Boolean(
           result &&
             result.rowCount === 5 &&

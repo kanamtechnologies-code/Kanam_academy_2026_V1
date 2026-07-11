@@ -15,7 +15,7 @@ export const lesson5: PythonLessonConfig = {
   title: "5. AI Repeats Tasks",
   goal: "Use a for loop to repeat instructions a specific number of times.",
   xpReward: 300,
-  badge: "🔁 Loop Starter",
+  badge: "Loop Starter",
   instructorScript:
     "**Coach’s note**:\nSo far, your bot can talk, listen, and make choices.\n\nToday, you’re giving it a new superpower: **repetition**.\n\nComputers and AI systems are great at doing the same thing again and again without getting tired.\nWhen we tell a program to repeat something, we use a ==loop==.\n\nA loop is like saying:\n\n“Do this exact action…\nthen do it again…\nand again…\na specific number of times.”\n\nIn this lesson, you’ll use a `for` loop to control repetition.\n\nHere’s how to think like a coder today:\n\nFirst, tell Python how many times you want something to repeat.\n\nThen, tell Python what action should repeat.\n\nPython will handle the counting for you.\n\nImportant things to remember:\n\nA `for` loop line must end with a ==colon (:)==.\n\nAnything that should repeat must be ==indented== underneath the loop.\n\nIf a line is not indented, it only runs one time.\n\nTwo super common mistakes (and how to fix them):\n\nMissing the ==colon (:)== → Python doesn’t know where the loop starts.\n\nForgetting ==indentation== → Your message prints only once.\n\n**Mini goal**:\nMake your bot say the same message multiple times using a ==loop==.\n\nRead the steps, fill in the blanks, then press [[Run]].",
   kidExplain: [
@@ -175,18 +175,44 @@ export const lesson5: PythonLessonConfig = {
   coachNoteGateSeconds: 8,
   exercises: [
     {
-      id: "ex-range",
-      title: "Exercise 1 — Practice range()",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill in range()",
       focusCommand: "range()",
       commandExplain:
-        "range(n) tells Python how many times to repeat. range(3) runs the loop 3 times.",
-      goal: "Fill in range(3) so the message prints exactly 3 times.",
-      starterCode: `for i in range(____):
+        "range(n) controls how many times the loop runs. Fill in the blank so the message prints 5 times.",
+      goal: "Replace ____ with 5 so the loop repeats five times.",
+      starterCode: `# Fill in the blank 👇
+for i in range(____):
+    print("KanamBot: Hello!")
+`,
+      solutionCode: `for i in range(5):
+    print("KanamBot: Hello!")
+`,
+      hint: "range(5) means the indented print runs 5 times (0 through 4).",
+      successMessage: "You set the repeat count — the loop ran 5 times!",
+      failureMessage: "Use for i in range(5): with an indented print(...) — expect 5 lines.",
+      validate: (code, run) =>
+        !rejectsUppercasePrint(code) &&
+        noRunError(run) &&
+        /\bfor\s+[A-Za-z_]\w*\s+in\s+range\s*\(\s*5\s*\)\s*:\s*/.test(code) &&
+        INDENTED_PRINT_IN_FOR.test(code) &&
+        run.stdout.length === 5,
+    },
+    {
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the loop",
+      focusCommand: "for + range",
+      commandExplain: "Scrambled loop lines. Put them in order so Hi prints 3 times.",
+      goal: "Reorder, then Run & check.",
+      starterCode: "",
+      solutionCode: `for i in range(3):
     print("Hi")`,
-      hint: "Type 3 inside the parentheses: range(3)",
-      successMessage: "Nice! range(3) made the loop run 3 times.",
-      failureMessage:
-        "Use range(3) with an indented print(...) line. You should see 3 lines of output.",
+      parsonsLines: ["for i in range(3):", '    print("Hi")'],
+      hint: "for line with colon first, then an indented print.",
+      successMessage: "Loop order is correct.",
+      failureMessage: "Need for i in range(3): with an indented print underneath.",
       validate: (code, run) =>
         !rejectsUppercasePrint(code) &&
         noRunError(run) &&
@@ -196,18 +222,22 @@ export const lesson5: PythonLessonConfig = {
         run.stdout.length === 3,
     },
     {
-      id: "ex-for",
-      title: "Exercise 2 — Practice for",
-      focusCommand: "for",
-      commandExplain:
-        "A for loop line ends with a colon. Everything indented underneath repeats.",
-      goal: "Use range(5) in a for loop so your bot message prints 5 times.",
-      starterCode: `for i in range(____):
-    print("KanamBot: ready!")`,
-      hint: "Type 5 for five repeats: range(5)",
-      successMessage: "Great! Your for loop repeated 5 times.",
-      failureMessage:
-        "Need for i in range(5): with an indented print(...) — expect 5 output lines.",
+      id: "ex-debug-loop",
+      kind: "debug",
+      title: "Exercise 3 — Debug the loop",
+      focusCommand: "indentation",
+      commandExplain: "This loop should print 5 times, but the print isn't inside the loop.",
+      goal: "Fix indentation so the message repeats 5 times.",
+      starterCode: `for i in range(5):
+print("KanamBot: ready!")
+`,
+      solutionCode: `for i in range(5):
+    print("KanamBot: ready!")
+`,
+      debugHint: "indentation",
+      hint: "Lines inside the loop must be indented under the for.",
+      successMessage: "Indentation fixed — the loop body runs each time.",
+      failureMessage: "Indent print(...) under the for loop.",
       validate: (code, run) =>
         !rejectsUppercasePrint(code) &&
         noRunError(run) &&
@@ -216,40 +246,51 @@ export const lesson5: PythonLessonConfig = {
         run.stdout.length === 5,
     },
     {
-      id: "ex-indent",
-      title: "Exercise 3 — Indentation inside the loop",
-      focusCommand: "Indentation",
-      commandExplain:
-        "Only indented lines run inside the loop. If print is not indented, it runs once.",
-      goal: "Fill in a bot message so it prints 5 times inside the loop.",
-      starterCode: `for i in range(5):
-    print("KanamBot: ____")`,
-      hint: 'Type any short message inside the quotes, like "Hello!"',
-      successMessage: "Perfect indentation — your message repeated every loop turn.",
-      failureMessage:
-        "Keep print(...) indented under the for loop and fill in the message blank.",
+      id: "ex-predict-loop",
+      kind: "predict",
+      title: "Exercise 4 — Predict the loop",
+      focusCommand: "for + range",
+      commandExplain: "Read this finished loop. Predict how many lines it prints and what they say.",
+      goal: "Type your prediction, then Run & check.",
+      starterCode: `for i in range(3):
+    print("Hi")
+`,
+      solutionCode: `for i in range(3):
+    print("Hi")
+`,
+      codeReadOnly: true,
+      predictionPrompt: 'What prints? (e.g. "Hi" three times)',
+      acceptedPredictions: [
+        "Hi\nHi\nHi",
+        "Hi Hi Hi",
+        "Hi three times",
+        "3 times Hi",
+        "hi hi hi",
+      ],
+      hint: "range(3) means the indented print runs 3 times.",
+      successMessage: "Nailed it — you predicted the loop correctly.",
+      failureMessage: "Count how many times range(3) repeats the print.",
       validate: (code, run) =>
         !rejectsUppercasePrint(code) &&
         noRunError(run) &&
-        /\bfor\s+[A-Za-z_]\w*\s+in\s+range\s*\(\s*5\s*\)\s*:\s*/.test(code) &&
-        INDENTED_PRINT_IN_FOR.test(code) &&
-        run.stdout.length === 5 &&
-        run.stdout.every((line) => line.includes("KanamBot:")),
+        /\brange\s*\(\s*3\s*\)/.test(code) &&
+        run.stdout.length === 3 &&
+        run.stdout.every((line) => line.trim() === "Hi"),
     },
     {
-      id: "ex-challenge",
-      title: "Exercise 4 — Put it all together",
-      focusCommand: "for + range + print",
-      commandExplain:
-        "Combine a for loop, range(5), and an indented print to repeat a bot message.",
-      goal: "Build the full loop: range(5) and a KanamBot message that prints 5 times.",
-      starterCode: `# Fill in the blanks 👇
-for i in range(____):
-    print("KanamBot: ____")`,
-      hint: "range(5) and any message you like inside print(...)",
-      successMessage: "You did it! Your AI repeated a task using a for loop. 🏁",
-      failureMessage:
-        "Need for i in range(5):, a colon, an indented print(...), and 5 lines of output. Check print is lowercase.",
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build a loop",
+      focusCommand: "from scratch",
+      commandExplain: "Write a for loop that prints KanamBot: ready! exactly 5 times.",
+      goal: "Write the full loop yourself.",
+      starterCode: `# Repeat a bot message 5 times\n`,
+      solutionCode: `for i in range(5):
+    print("KanamBot: ready!")
+`,
+      hint: "for i in range(5): with an indented print(...)",
+      successMessage: "You built a working loop from scratch.",
+      failureMessage: "Need for … range(5): and an indented print that runs 5 times.",
       validate: (code, run) =>
         !rejectsUppercasePrint(code) &&
         noRunError(run) &&

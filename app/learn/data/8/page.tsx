@@ -11,7 +11,7 @@ const daLesson8: DataLessonConfig = {
   title: "8. Ask Better Questions",
   goal: "Stack clauses together — filter, group, and use HAVING to ask sharper questions of your data.",
   xpReward: 400,
-  badge: "💡 Question Asker",
+  badge: "Question Asker",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {

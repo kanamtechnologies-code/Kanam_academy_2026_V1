@@ -5,20 +5,20 @@ export const digitalLesson5: AILessonConfig = {
   title: "5. Communicate Clearly & Kindly Online",
   goal: "Communicate effectively and respectfully across email, chat, and posts — understanding tone, audience, netiquette, and the difference between casual and professional messages.",
   xpReward: 250,
-  badge: "💬 Clear Communicator",
+  badge: "Clear Communicator",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/4",
   nextHref: "/learn/digital/6",
   lessonModule: {
-    durationLabel: "~7 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `You send messages all day — texts to friends, posts in a group chat, maybe an email to a teacher or a coach. It feels easy. But have you ever had a message blow up because someone "took it the wrong way"? That happens because typed words carry no voice, no face, and no body language.\n\nHere's our roadmap:\n\n• **Pick the right channel** — when to chat, when to email, when to just call.\n• **Netiquette** — the unwritten rules of behaving well online.\n• **Why tone gets lost** — and how ALL CAPS, sarcasm, and emojis change your meaning.\n• **Write clear messages** — good subject lines, a clear "ask," and a real professional email.\n\nThese are the exact skills that make group projects smoother, get faster replies from busy adults, and help you land and keep your first job.`,
+        body: `You send messages all day — texts to friends, posts in a group chat, maybe an email to a teacher or a coach. It feels easy. But have you ever had a message blow up because someone "took it the wrong way"? That happens because typed words carry no voice, no face, and no body language.\n\nHere's our roadmap:\n\n• **Pick the right channel** — when to chat, when to email, when to just call.\n• **Netiquette** — the unwritten rules of behaving well online.\n• **Why tone gets lost** — and how ALL CAPS, sarcasm, and emojis change your meaning.\n• **Write clear messages** — good subject lines, a clear "ask," and a real professional email.\n• **Audience switch** — friend chat vs. teacher, college, or first-job email.\n\nThese are the exact skills that make group projects smoother, get faster replies from busy adults, and help you land and keep your first job or internship.`,
         image: "/images/lessons/dl-5.png",
-        imageAlt: "A phone showing a chat bubble next to a tidy email, with a thumbs-up icon",
+        imageAlt: "Smartphone chat thread beside a laptop open to a professional email draft in a browser",
         callout: {
           label: "Why it matters",
           text: "In almost every job, people judge you by how you write. A clear, kind message makes you look capable and easy to work with — before anyone has even met you.",
@@ -65,7 +65,7 @@ export const digitalLesson5: AILessonConfig = {
         title: "Text strips out your tone — so people fill it in",
         body: `Here's the single most important idea in this lesson. When you speak, people hear your **tone** — your voice, speed, and warmth — and they see your face. When you type, all of that disappears. The reader has to guess your tone, and they often guess wrong.\n\nThink of a typed message like a **note with the tone of voice erased**. You wrote "fine." You meant "okay, sounds good!" But the reader fills in the blank tone with *their* mood — maybe they read "fine." as cold and annoyed.\n\nThis is why small choices change everything:\n\n• **ALL CAPS** does not read as emphasis — it reads as SHOUTING.\n• **Sarcasm and jokes** fall flat without your voice; "nice job 🙄" can really sting, and even "great" alone can sound fake.\n• **Emojis and punctuation** shift meaning. "Sure." feels cold. "Sure!" feels warm. "Sure..." feels doubtful.`,
         image: "/images/lessons/dl-5-2.png",
-        imageAlt: "Two identical chat bubbles both reading 'fine' — one paired with a smiling face, one with a flat, annoyed face — showing how readers guess the tone",
+        imageAlt: "Two identical phone chat bubbles reading 'fine' — one with a smiling reaction, one with a flat annoyed reaction — showing how readers guess tone",
         callout: {
           label: "Common misconception",
           text: "People think typing in ALL CAPS just adds emphasis. To almost everyone, it reads as anger or yelling. Use **bold**, or just clear words, to stress a point instead.",
@@ -113,12 +113,28 @@ export const digitalLesson5: AILessonConfig = {
         },
       },
       {
+        id: "audience-switch",
+        kicker: "Decision framework",
+        title: "Same idea, different audience: friend → adult → workplace",
+        body: `Great communicators don't have one style — they **switch**. Use this quick decision tree:\n\n**1. Who is reading?** Friend / classmate → teacher / coach → college office / employer.\n**2. How lasting is this?** Disappears in chat vs. sits in an inbox forever.\n**3. What do you need?** A quick yes, a record, or a careful first impression.\n\n**Same request, three versions** (asking for a deadline extension):\n\n• **Friend/group chat:** "Hey — I'm slammed tonight. Can I send my slides by tomorrow AM?"\n• **Teacher email:** Clear subject, greeting, reason, specific ask + date, thank-you, full name + class period.\n• **College / internship / first job:** Even cleaner — no slang, no emojis, proofread twice, include any ID/student number they need, and attach files with professional names.\n\n**Habit:** Before you hit send to anyone who isn't a close friend, ask: *Would I be okay if this were forwarded?* Because sometimes it will be.`,
+        bullets: [
+          "Match formality to the audience — not to your mood.",
+          "Important + lasting → email with subject, greeting, ask, sign-off.",
+          "Applications and workplaces: no slang, clear attachments, proofread.",
+          "Assume important emails can be forwarded — write accordingly.",
+        ],
+        callout: {
+          label: "Try this week",
+          text: "Rewrite one real message you'd send to a teacher, coach, or manager using the professional email shape. Keep a draft template on your phone so the next ask takes two minutes, not twenty.",
+        },
+      },
+      {
         id: "worked",
         kicker: "Worked example",
         title: "Turning a sloppy message into a clear email",
         body: `Imagine you need to ask your teacher, Ms. Lopez, for a two-day extension on a project because you were sick. Here's the first draft a lot of people would send:\n\n*Subject: (none)*\n*"yo i cant finish the project im sick can i get more time???"*\n\nThat's vague, too casual, has no clear deadline, and reads as a bit demanding. Let's fix it step by step.\n\n**Step 1 — Add a clear subject.** "Extension request for the history project (out sick)."\n\n**Step 2 — Start with a proper greeting.** "Hi Ms. Lopez,"\n\n**Step 3 — State the purpose, then the ask.** "I've been home sick since Monday and won't be able to finish the history project by Friday. Could I please have until Tuesday to turn it in?"\n\n**Step 4 — Add a polite sign-off and proofread.** "Thank you for understanding. — Jordan Lee, Period 3."\n\nSame request, completely different result. The second version is easy to read, easy to say yes to, and makes you look responsible.`,
         image: "/images/lessons/dl-5-3.png",
-        imageAlt: "A messy, casual one-line text message transforming into a tidy, well-structured professional email with a subject line, greeting, and sign-off",
+        imageAlt: "Split screen: messy one-line text on a phone transforming into a structured email with subject line on a laptop",
         callout: {
           label: "Pro tip",
           text: "Read your message out loud before sending. If it would sound rude or confusing spoken aloud, it'll read that way too — and now you have a chance to fix it.",
@@ -128,7 +144,7 @@ export const digitalLesson5: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got the toolkit: pick the right **channel**, follow basic **netiquette**, remember that text **strips out tone**, and write clear messages with a strong subject line and an obvious ask. For anything formal, use the professional email shape — greeting, purpose, ask, sign-off — and proofread before you send.\n\nMaster this and you'll spend less time untangling misunderstandings and more time getting things done. It's one of the most underrated skills in school *and* in any job.\n\nWhen you're ready, head to the **Knowledge check**, then jot a quick reflection about a message you could rewrite to be clearer.`,
+        body: `You've got the toolkit: pick the right **channel**, follow basic **netiquette**, remember that text **strips out tone**, and write clear messages with a strong subject line and an obvious ask. For anything formal, use the professional email shape — greeting, purpose, ask, sign-off — and switch your style for teachers, colleges, and workplaces.\n\nMaster this and you'll spend less time untangling misunderstandings and more time getting things done. It's one of the most underrated skills in school *and* in any job.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then jot a quick reflection about a message you could rewrite to be clearer.`,
       },
     ],
   },
@@ -146,11 +162,11 @@ export const digitalLesson5: AILessonConfig = {
     { term: "Reply-all", definition: "Sends your reply to everyone on the thread, not just the original sender." },
   ],
   realWorld:
-    "Recruiters and managers often decide whether you seem reliable from a single email. A clear subject line, a polite tone, and an obvious ask quietly mark you as someone worth hiring and easy to work with.",
+    "Recruiters, admissions offices, and managers often decide whether you seem reliable from a single email. A clear subject line, a polite tone, and an obvious ask quietly mark you as someone worth hiring and easy to work with.",
   quiz: [
     {
       id: "q1",
-      question: "You need a two-day extension from your teacher and want it in writing. Which channel fits best?",
+      question: "You need a two-day extension from your teacher and want it in writing for your records. Which channel fits best?",
       choices: [
         "A late-night text in all lowercase",
         "A clear, polite email with a subject line",
@@ -163,7 +179,7 @@ export const digitalLesson5: AILessonConfig = {
     },
     {
       id: "q2",
-      question: "Your teammate types \"FINE WHATEVER\" in the group chat. Why might that upset people?",
+      question: "In your group-project chat, a teammate types \"FINE WHATEVER.\" Why might that upset people?",
       choices: [
         "ALL CAPS reads as shouting, so it sounds angry",
         "It's a spelling mistake",
@@ -176,20 +192,20 @@ export const digitalLesson5: AILessonConfig = {
     },
     {
       id: "q3",
-      question: "Which of these is the strongest email subject line?",
+      question: "You're emailing a college admissions office about a missing transcript. Which subject line is strongest?",
       choices: [
         "Hi",
         "Question",
-        "Question about Friday's history project deadline",
+        "Missing transcript for Jordan Lee — application ID 48291",
         "(left blank)",
       ],
       correctIndex: 2,
       explanation:
-        "A good subject line tells the reader exactly what the email is about before they open it, so it gets read and answered faster.",
+        "A good subject line tells the reader exactly what the email is about before they open it, so it gets read and answered faster — especially in busy offices.",
     },
     {
       id: "q4",
-      question: "What's the difference between CC and BCC?",
+      question: "You're copying a parent on an email to a teacher. What's the difference between CC and BCC?",
       choices: [
         "CC is faster than BCC",
         "BCC sends the email twice",
@@ -202,7 +218,7 @@ export const digitalLesson5: AILessonConfig = {
     },
     {
       id: "q5",
-      question: "What's the simplest test for whether a message is appropriate to send?",
+      question: "Before you send a heated reply to a classmate (or a manager at a first job), what's the simplest appropriateness test?",
       choices: [
         "Would it get a lot of likes?",
         "Would I say this to their face?",

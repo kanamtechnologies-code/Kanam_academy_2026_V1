@@ -89,7 +89,7 @@ Supabase helpers live in `lib/supabase/` — `browser.ts`, `server.ts`, and `adm
 
 Both tracks are paced as **8-week programs** (two sessions per week), built to be done **self-paced or with light assistance** — every lesson explains, checks, and corrects itself. See the [curriculum docs](docs/curriculum/) for the full week-by-week plan and standards alignment.
 
-### 🤖 AI + Python Starter Pack — 8 weeks · 13 lessons
+### 🤖 AI + Python Starter Pack — 8 weeks · 14 lessons
 
 Build your first AI helper with Python: variables, input, conditionals, loops, patterns, lists, functions, parameters, and a final "Build Your AI NPC" capstone (50 → 700 XP). Includes a Week 4 checkpoint/debugging lab and Week 7 capstone planning so nothing is left as a gap.
 
@@ -104,7 +104,7 @@ Learn SQL from `SELECT` to a final data project — columns, `WHERE`, `ORDER BY`
 | `/welcome` | Entry point — sign in, sign up, or demo |
 | `/demo` | Dashboard preview (tutorial only, no sign-in) |
 | `/learn/demo` | Interactive demo lesson |
-| `/learn/1` … `/learn/13` | AI + Python lessons |
+| `/learn/1` … `/learn/14` | AI + Python lessons |
 | `/learn/data/1` … `/learn/data/14` | Data Analyst (SQL) lessons |
 | `/dashboard` | Student dashboard (tracks + progress) |
 | `/instructor` | Instructor dashboard |

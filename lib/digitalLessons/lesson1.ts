@@ -5,22 +5,22 @@ export const digitalLesson1: AILessonConfig = {
   title: "1. How Computers & the Internet Work",
   goal: "Understand the basic parts of a computer (hardware vs software), what an operating system does, and how the internet, web, and cloud move information.",
   xpReward: 50,
-  badge: "🖥️ Tech Foundations",
+  badge: "Tech Foundations",
   dashboardHref: "/dashboard",
   nextHref: "/learn/digital/2",
   lessonModule: {
-    durationLabel: "~9 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `You use a computer or phone every single day — texting friends, watching videos, gaming, doing homework. But what's actually happening inside that glass-and-metal rectangle? Today you'll pull back the curtain. No experience needed — we'll explain every new word the moment it shows up.\n\nHere's our roadmap:\n\n• **Hardware vs. software** — the physical parts vs. the instructions that bring them to life.\n• **The brains of the machine** — the CPU, RAM, and storage, explained with a kitchen.\n• **The operating system** — the manager that lets you and the hardware talk.\n• **The internet, the web, and the cloud** — how a message or video actually reaches your screen.\n\nThis isn't just trivia. Understanding how your devices work makes you faster, harder to fool, and more confident — whether you're fixing a frozen laptop, picking a new phone, or starting your first tech job.`,
+        body: `You use a computer or phone every day — texting friends, watching videos, gaming, turning in homework. But what's actually happening inside that glass-and-metal rectangle? Today you'll pull back the curtain. No experience needed — every new word gets explained the moment it shows up.\n\nHere's our roadmap:\n\n• **Hardware vs. software** — the physical parts vs. the instructions that bring them to life.\n• **CPU, RAM, and storage** — the kitchen analogy that makes the insides stick.\n• **The operating system** — the manager between you and the hardware.\n• **Internet, web, and cloud** — how a message or video actually reaches your screen.\n• **A fix-it framework** — what to check when something is slow, frozen, or offline.\n\nThis isn't trivia. Understanding how devices work makes you faster, harder to fool, and more confident — whether you're unfreezing a Chromebook before class, comparing laptop specs for college, or answering a "tech literacy" question on a job or internship application.`,
         image: "/images/lessons/dl-1.png",
-        imageAlt: "A friendly cutaway of a computer showing the CPU, memory, and storage connected to the internet",
+        imageAlt: "Open laptop beside a smartphone, with a home Wi-Fi router and ethernet cable visible in the background",
         callout: {
           label: "Why it matters",
-          text: "When something breaks — a slow phone, a website that won't load — knowing the parts involved helps you figure out what's actually wrong instead of just guessing or panicking.",
+          text: "When something breaks — a slow phone, a website that won't load — knowing the parts involved helps you figure out what's wrong instead of guessing, panicking, or paying for a fix you don't need.",
         },
       },
       {
@@ -30,7 +30,7 @@ export const digitalLesson1: AILessonConfig = {
         body: `Before we dive in, here are the words we'll use a lot — explained simply, so nothing feels like a foreign language later. Don't memorize these; just read them once and they'll click as we go.\n\n• A **device** is any computer-like gadget you use: a phone, tablet, laptop, desktop, or a school Chromebook.\n• A **program** (or **app**, short for *application*) is a set of instructions that does a job — like the camera app, a game, or a web browser.\n• **Data** is just information stored as numbers a computer can handle — your photos, texts, and saved games are all data.\n• A **network** is a group of devices connected so they can send each other data — like everyone's phones connected to the same Wi-Fi.\n\nThat's it. Every other term in this lesson gets defined the first time it appears, right where you meet it.`,
         callout: {
           label: "Pro tip",
-          text: "If a tech word ever confuses you, try swapping in its plain-English meaning from a glossary like this one. \"Open the application\" simply means \"open the app.\" Most jargon is just a fancy label for something simple.",
+          text: "If a tech word ever confuses you, swap in its plain-English meaning. \"Open the application\" simply means \"open the app.\" Most jargon is just a fancy label for something simple.",
         },
       },
       {
@@ -39,7 +39,7 @@ export const digitalLesson1: AILessonConfig = {
         title: "Hardware is what you can touch. Software is the instructions.",
         body: `Every computer is really two things working together:\n\n• **Hardware** is the physical stuff — the parts you could actually hold or knock on. The screen, keyboard, battery, chips, and cables are all hardware.\n• **Software** is the set of instructions that tells the hardware what to do. It's not physical — you can't hold software in your hand. Your games, your browser, TikTok, and the menus you tap are all software.\n\nHere's an easy way to remember it: hardware is like a **musical instrument**, and software is the **sheet music**. A guitar (hardware) can't play anything by itself. The music (software) tells it exactly what to do. And the *same* guitar can play a thousand different songs, just like the *same* phone can run thousands of different apps.\n\nNeither one is useful alone. Hardware without software is a fancy paperweight. Software without hardware is just an idea that can't run anywhere.`,
         image: "/images/lessons/dl-1-2.png",
-        imageAlt: "Split illustration: on one side a physical phone, screen, and keyboard (hardware); on the other, app icons and gears representing software instructions",
+        imageAlt: "Split photo: a physical laptop keyboard and phone on the left; browser tabs and app icons on a screen on the right",
         callout: {
           label: "Watch out",
           text: "People often blame \"the computer\" when something goes wrong, but it's usually the software (an app or the operating system) that's frozen — not the physical hardware. Knowing the difference helps you fix it faster.",
@@ -92,12 +92,28 @@ export const digitalLesson1: AILessonConfig = {
         },
       },
       {
+        id: "troubleshoot",
+        kicker: "Decision framework",
+        title: "When something breaks: check the chain",
+        body: `Most "my computer is broken" moments aren't mysterious — they're a weak link in a short chain. Use this order before you panic or blame the wrong part:\n\n**1. Is it the app?** Force-quit and reopen. If only one app is stuck, the hardware is probably fine.\n**2. Is it the device?** Restart. That clears RAM and gives the OS a clean slate. Still frozen after a restart? Note whether storage is full (can't save) vs. everything lagging (often RAM or too many apps).\n**3. Is it the local network?** Check Wi-Fi bars, try turning Wi-Fi off/on, or move closer to the **router** (the box that connects your devices to the internet). Can other devices on the same Wi-Fi load sites?\n**4. Is it beyond your house?** If every device is offline, the problem may be the internet company or a wider outage — not your laptop.\n\nThis same chain helps when you're buying a device for college or a first job: more **RAM** helps multitasking (browser + docs + Zoom); more **storage** helps if you keep big video/photo projects; a faster **CPU** helps editing and coding. Specs stop being alphabet soup once you know what each part actually does.`,
+        bullets: [
+          "App stuck → restart the app first.",
+          "Whole device laggy → restart; check RAM vs. storage.",
+          "Only online stuff fails → check Wi-Fi, then the router, then the wider internet.",
+          "Buying a laptop? Match RAM/storage/CPU to how you'll actually use it.",
+        ],
+        callout: {
+          label: "Try this week",
+          text: "Once this week, when something feels \"broken,\" name the layer out loud: app, device, Wi-Fi/router, or internet beyond the router. That one habit turns random frustration into a real diagnosis.",
+        },
+      },
+      {
         id: "worked",
         kicker: "Worked example",
         title: "What really happens when you open a video",
         body: `Let's trace a single tap, from your finger to a playing video, step by step. There's no magic — just clients, packets, and servers doing their jobs.\n\n**Step 1 — You make a request.** You tap a video in an app. Your device (the **client**) sends a request out through your Wi-Fi to your **router** (the box at home or school that connects your devices to the internet). The router passes it to your **internet company** and onto the internet.\n\n**Step 2 — The request finds the server.** The request travels across the internet until it reaches the **server** (a computer in a **data center** — part of "the cloud") that stores that video.\n\n**Step 3 — The server replies in packets.** The server chops the video into thousands of tiny **packets** and sends them back toward you, each labeled with its order.\n\n**Step 4 — Your device reassembles and plays.** Your device collects the packets, puts them back in order, and the **CPU** processes them while **RAM** holds the part that's playing right now. The screen (an **output** device) shows you the video. This all happens in seconds — and it often starts playing before every packet has even arrived, which is why videos sometimes pause to "buffer" (wait for more packets to catch up).`,
         image: "/images/lessons/dl-1-3.png",
-        imageAlt: "A phone requesting a video that travels as numbered packets from a distant data center server, through a router, back to the screen",
+        imageAlt: "Smartphone requesting a video; data travels as packets from a remote server through a home router back to the phone screen",
         callout: {
           label: "Pro tip",
           text: "When a video keeps buffering, packets are arriving too slowly — usually a weak connection between you and the server, not a problem with your screen or your CPU. That's why moving closer to the router often fixes it.",
@@ -107,7 +123,7 @@ export const digitalLesson1: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've just toured a whole computer and the internet it lives on. Quick recap:\n\n• **Hardware** is the physical parts; **software** is the instructions. The **CPU** thinks, **RAM** is short-term memory, **storage** keeps your files.\n• The **operating system** is the manager between you and the hardware, and **apps** run on top of it.\n• The **internet** is the global network (the roads); the **web** is the pages you view in a **browser** (the cars). Data travels as **packets** between your device (the **client**) and **servers**.\n• **"The cloud"** is just real servers in data centers you reach over the internet.\n\nWhen you're ready, switch to the **Knowledge check**, then write a quick reflection about a device you use.`,
+        body: `You've just toured a whole computer and the internet it lives on. Quick recap:\n\n• **Hardware** is the physical parts; **software** is the instructions. The **CPU** thinks, **RAM** is short-term memory, **storage** keeps your files.\n• The **operating system** is the manager between you and the hardware, and **apps** run on top of it.\n• The **internet** is the global network (the roads); the **web** is the pages you view in a **browser** (the cars). Data travels as **packets** between your device (the **client**) and **servers**.\n• **"The cloud"** is just real servers in data centers you reach over the internet.\n• When something fails, check the chain: **app → device → Wi-Fi/router → wider internet**.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then write a quick reflection about a device you use.`,
       },
     ],
   },
@@ -127,16 +143,16 @@ export const digitalLesson1: AILessonConfig = {
     { term: "Browser", definition: "An app like Chrome, Safari, or Firefox that fetches and displays web pages." },
   ],
   realWorld:
-    "Streaming a show, sending a text, and saving a photo to Google Photos all rely on the same chain: your device (**client**) sends **packets** over the **internet** to a **server** in a **data center** (\"the cloud\") and back.",
+    "Streaming a show, submitting a scholarship form online, and saving a photo to Google Photos all rely on the same chain: your device (**client**) sends **packets** over the **internet** to a **server** in a **data center** (\"the cloud\") and back.",
   quiz: [
     {
       id: "q1",
-      question: "Which of these is software, not hardware?",
+      question: "You're filling out a college application on a laptop. Which of these is software, not hardware?",
       choices: [
         "The keyboard you type on",
-        "The screen that shows the picture",
-        "The web browser you tap to open",
-        "The battery inside your phone",
+        "The screen that shows the form",
+        "The web browser you use to open the application portal",
+        "The battery inside the laptop",
       ],
       correctIndex: 2,
       explanation:
@@ -144,7 +160,7 @@ export const digitalLesson1: AILessonConfig = {
     },
     {
       id: "q2",
-      question: "Your phone keeps getting slow and laggy when you have lots of apps open at once, but you still have plenty of free space for photos. What is most likely running low?",
+      question: "During a group project, your Chromebook gets slow and laggy with lots of tabs and docs open, but you still have plenty of free space for files. What is most likely running low?",
       choices: [
         "Storage",
         "RAM",
@@ -153,20 +169,20 @@ export const digitalLesson1: AILessonConfig = {
       ],
       correctIndex: 1,
       explanation:
-        "RAM is short-term memory for what you're doing right now. Juggling many apps fills up RAM and causes lag. Storage is about saving files long-term, which is fine here since there's free space.",
+        "RAM is short-term memory for what you're doing right now. Juggling many apps and tabs fills up RAM and causes lag. Storage is about saving files long-term, which is fine here since there's free space.",
     },
     {
       id: "q3",
-      question: "What is the job of the operating system?",
+      question: "Your first-job training video won't play, but your phone still shows strong Wi-Fi. What does that tell you?",
       choices: [
-        "To physically charge the battery",
-        "To act as the manager between you and the hardware, running your apps",
-        "To connect your house to the electricity grid",
-        "To replace the internet",
+        "Wi-Fi and the internet are the same thing, so the internet must be fine",
+        "Strong Wi-Fi only means a good link to the local router — the internet beyond the router could still be down",
+        "Your phone's CPU is broken",
+        "The cloud has permanently deleted the video",
       ],
       correctIndex: 1,
       explanation:
-        "The operating system (like Windows, iOS, or Android) is the main software that manages the hardware, gives apps resources, and lets you interact with the device.",
+        "Wi-Fi is the wireless hop to your router. The router still has to reach the wider internet. Strong Wi-Fi bars don't guarantee that path is working.",
     },
     {
       id: "q4",
@@ -183,7 +199,7 @@ export const digitalLesson1: AILessonConfig = {
     },
     {
       id: "q5",
-      question: "When someone says a file is saved 'in the cloud,' where is it really?",
+      question: "A scholarship portal says your essay is saved 'in the cloud.' Where is it really?",
       choices: [
         "Floating in the sky as data",
         "Only on your own device's storage",

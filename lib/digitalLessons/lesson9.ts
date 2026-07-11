@@ -3,25 +3,25 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const digitalLesson9: AILessonConfig = {
   id: "dl-9",
   title: "9. Create & Edit Digital Content",
-  goal: "Create and edit clear, well-designed digital content — documents, images, and audio/video — using simple formatting and design principles, and make it accessible to everyone.",
+  goal: "Create and edit clear, well-designed digital content — documents, images, and audio/video — using simple formatting and design principles, make it accessible to everyone, and export the right formats for school, college apps, and first jobs.",
   xpReward: 450,
-  badge: "🎨 Content Creator",
+  badge: "Content Creator",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/8",
   nextHref: "/learn/digital/10",
   lessonModule: {
-    durationLabel: "~7 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `You already make digital content all the time — a slideshow for class, a meme, a video for friends, a flyer for the bake sale. Today you'll learn how to make that content look **clear, professional, and easy for anyone to use**.\n\nHere's our roadmap:\n\n• **Content types and tools** — which app for documents, images, and audio/video.\n• **Formatting that's actually readable** — headings, lists, and consistent styles.\n• **Image basics** — resolution, file size, and why a logo and a photo are made differently.\n• **Simple design principles** — contrast, alignment, and not overcrowding.\n• **Accessibility** — alt text and captions that include *everyone*.\n• **Exporting the right format** for the job.\n\nThis isn't just about making things "pretty." Clear content gets read, gets shared, and makes *you* look like someone who knows what they're doing — in school now and in any job later.`,
+        body: `You already make digital content all the time — a slideshow for class, a meme, a video for friends, a flyer for the bake sale. Today you'll learn how to make that content look **clear, professional, and easy for anyone to use** — the same skills that make a scholarship essay readable, a résumé look sharp, and a club video get watched.\n\nHere's our roadmap:\n\n• **Content types and tools** — which app for documents, images, and audio/video.\n• **Formatting that's actually readable** — headings, lists, and consistent styles.\n• **Image basics** — resolution, file size, and why a logo and a photo are made differently.\n• **Simple design principles** — contrast, alignment, and not overcrowding.\n• **Accessibility** — alt text and captions that include *everyone*.\n• **Exporting the right format** for school, college portals, and job apps.\n• **Senior stretch** — résumés, portfolios, and application materials that look intentional.\n\nThis isn't just about making things "pretty." Clear content gets read, gets shared, and makes *you* look like someone who knows what they're doing — in middle school now and in any internship later.`,
         image: "/images/lessons/dl-9.png",
         imageAlt: "A messy wall-of-text flyer beside a clean, well-organized version with headings, good contrast, and an image",
         callout: {
           label: "Why it matters",
-          text: "People decide in seconds whether to read something or scroll past. Content that's organized and easy to scan gets your message across; a wall of text gets ignored — even if your ideas are great.",
+          text: "People decide in seconds whether to read something or scroll past — including admissions readers and hiring managers. Content that's organized and easy to scan gets your message across; a wall of text gets ignored — even if your ideas are great.",
         },
       },
       {
@@ -38,7 +38,7 @@ export const digitalLesson9: AILessonConfig = {
         id: "types-tools",
         kicker: "The big idea",
         title: "Different content, different tools",
-        body: `Digital content comes in a few main flavors, and each has go-to tools:\n\n• **Documents & text** — reports, essays, flyers, slideshows. Tools: Google Docs, Microsoft Word, Slides/PowerPoint, Canva.\n• **Images** — photos, logos, graphics, memes. Tools: Photos apps, Canva, Photoshop, GIMP (free).\n• **Audio** — podcasts, voiceovers, music. Tools: Audacity (free), GarageBand, Voice Memos.\n• **Video** — clips, tutorials, edits. Tools: CapCut, iMovie, Clipchamp, DaVinci Resolve.\n\nYou don't need expensive software to make great stuff — most of these have free versions, and the *principles* you'll learn today work in all of them. The tool is just the paintbrush; the skills are what matter.`,
+        body: `Digital content comes in a few main flavors, and each has go-to tools:\n\n• **Documents & text** — reports, essays, flyers, slideshows, résumés. Tools: Google Docs, Microsoft Word, Slides/PowerPoint, Canva.\n• **Images** — photos, logos, graphics, memes. Tools: Photos apps, Canva, Photoshop, GIMP (free).\n• **Audio** — podcasts, voiceovers, music. Tools: Audacity (free), GarageBand, Voice Memos.\n• **Video** — clips, tutorials, edits. Tools: CapCut, iMovie, Clipchamp, DaVinci Resolve.\n\nYou don't need expensive software to make great stuff — most of these have free versions, and the *principles* you'll learn today work in all of them. The tool is just the paintbrush; the skills are what matter.`,
         bullets: [
           "**Documents** = words and layout (Docs, Word, Slides, Canva).",
           "**Images** = photos and graphics (Canva, Photoshop, GIMP).",
@@ -54,7 +54,7 @@ export const digitalLesson9: AILessonConfig = {
         id: "formatting",
         kicker: "Make it readable",
         title: "Formatting is like organizing a store",
-        body: `Imagine walking into a store where everything is just dumped in one giant pile — no aisles, no signs, no sections. You'd give up and leave. A wall of unformatted text feels exactly the same to a reader.\n\n**Formatting** is how you arrange and style content so people can find what they need fast:\n\n• **Headings** act like aisle signs — they break content into sections and let readers skim to the part they want.\n• **Lists** (bullets and numbers) turn a cramped paragraph into clear, scannable points.\n• **Consistent styles** — using the *same* look for all your headings, the same font for body text — makes everything feel professional and calm.\n• **White space** (empty room around text) gives the eyes a break so nothing feels crowded.\n\nGood formatting isn't decoration. It's the difference between content people actually read and content they bounce off of.`,
+        body: `Imagine walking into a store where everything is just dumped in one giant pile — no aisles, no signs, no sections. You'd give up and leave. A wall of unformatted text feels exactly the same to a reader.\n\n**Formatting** is how you arrange and style content so people can find what they need fast:\n\n• **Headings** act like aisle signs — they break content into sections and let readers skim to the part they want.\n• **Lists** (bullets and numbers) turn a cramped paragraph into clear, scannable points.\n• **Consistent styles** — using the *same* look for all your headings, the same font for body text — makes everything feel professional and calm.\n• **White space** (empty room around text) gives the eyes a break so nothing feels crowded.\n\nGood formatting isn't decoration. It's the difference between content people actually read and content they bounce off of — whether that's a class handout or a scholarship personal statement.`,
         callout: {
           label: "Common misconception",
           text: "Using five different fonts and ten colors does NOT make something look exciting — it makes it look messy and hard to read. Professional design usually means *fewer*, consistent choices, not more.",
@@ -64,7 +64,7 @@ export const digitalLesson9: AILessonConfig = {
         id: "images",
         kicker: "Image basics",
         title: "Resolution, file size, and raster vs. vector",
-        body: `Images trip people up, so let's clear up the basics.\n\n**Resolution** is how many tiny dots (**pixels**) make up an image — like 1920×1080. More pixels means more detail, but also a bigger **file size** (how much storage it takes up). Huge files load slowly and eat up storage and data.\n\nNow the big one — two totally different *kinds* of images:\n\n• **Raster** images are made of a fixed grid of pixels. Photos are raster (\`.jpg\`, \`.png\`). They look great at their real size, but blow them up too far and they get blurry and **pixelated** — the grid starts to show.\n• **Vector** images are made of math (points and lines), so they can scale to *any* size and stay perfectly sharp. Logos, icons, and simple graphics are usually vector (\`.svg\`).\n\nThink of it like a **recipe vs. a printed photo of a finished cake**. A recipe (vector) can be re-made at any size — tiny cupcake or giant wedding cake — and it's always crisp. A printed photo of a cake (raster) is fixed: enlarge it and it just gets blurry.`,
+        body: `Images trip people up, so let's clear up the basics.\n\n**Resolution** is how many tiny dots (**pixels**) make up an image — like 1920×1080. More pixels means more detail, but also a bigger **file size** (how much storage it takes up). Huge files load slowly and eat up storage and data — and many college portals and job sites reject uploads that are too big.\n\nNow the big one — two totally different *kinds* of images:\n\n• **Raster** images are made of a fixed grid of pixels. Photos are raster (\`.jpg\`, \`.png\`). They look great at their real size, but blow them up too far and they get blurry and **pixelated** — the grid starts to show.\n• **Vector** images are made of math (points and lines), so they can scale to *any* size and stay perfectly sharp. Logos, icons, and simple graphics are usually vector (\`.svg\`).\n\nThink of it like a **recipe vs. a printed photo of a finished cake**. A recipe (vector) can be re-made at any size — tiny cupcake or giant wedding cake — and it's always crisp. A printed photo of a cake (raster) is fixed: enlarge it and it just gets blurry.`,
         image: "/images/lessons/dl-9-2.png",
         imageAlt: "Side by side: a photo enlarged until it looks blurry and pixelated (raster) next to a logo enlarged while staying perfectly sharp (vector)",
         bullets: [
@@ -82,7 +82,7 @@ export const digitalLesson9: AILessonConfig = {
         id: "audio-video-design",
         kicker: "Sound, motion & design",
         title: "Audio/video editing and simple design principles",
-        body: `**Audio and video** follow one golden rule for beginners: **keep it short and trim the boring parts.** The main skill is **trimming** — cutting out the dead air at the start, the "ums," and anything that drags. A tight 60-second video beats a rambling 5-minute one every time. Add captions and you're set (more on that next).\n\nFor anything visual — a slide, a flyer, a thumbnail — these **design principles** instantly level up your work:\n\n• **Contrast** — make text stand out from the background. Dark text on a light background (or vice versa) is readable; light gray text on white is not.\n• **Alignment** — line things up. Edges that match look intentional and clean; random placement looks sloppy.\n• **Don't overcrowd** — give elements room to breathe. Empty space is a feature, not a waste.\n• **Limit fonts and colors** — pick about two fonts and a small color palette and stick to them.`,
+        body: `**Audio and video** follow one golden rule for beginners: **keep it short and trim the boring parts.** The main skill is **trimming** — cutting out the dead air at the start, the "ums," and anything that drags. A tight 60-second video beats a rambling 5-minute one every time — including for a club promo, a scholarship video essay, or an internship portfolio clip. Add captions and you're set (more on that next).\n\nFor anything visual — a slide, a flyer, a thumbnail — these **design principles** instantly level up your work:\n\n• **Contrast** — make text stand out from the background. Dark text on a light background (or vice versa) is readable; light gray text on white is not.\n• **Alignment** — line things up. Edges that match look intentional and clean; random placement looks sloppy.\n• **Don't overcrowd** — give elements room to breathe. Empty space is a feature, not a waste.\n• **Limit fonts and colors** — pick about two fonts and a small color palette and stick to them.`,
         callout: {
           label: "Common misconception",
           text: "Design isn't just decoration to make things look fancy. Real design is about *clarity* — helping the viewer understand your message faster. If a design choice makes something harder to read, it's bad design, no matter how cool it looks.",
@@ -92,10 +92,26 @@ export const digitalLesson9: AILessonConfig = {
         id: "accessibility",
         kicker: "Include everyone",
         title: "Accessibility means your content works for all people",
-        body: `**Accessibility** means making your content usable by *everyone* — including people who are blind or low-vision, deaf or hard of hearing, or who have other disabilities. It's not an extra; it's part of doing the job right.\n\nThe big ones are easy to do:\n\n• **Alt text** — a short written description of an image. Screen readers (software that reads a screen aloud) speak the alt text so a blind user knows what the image shows. Example alt text: "Student smiling while presenting a science project."\n• **Captions** — the on-screen text of what's said in a video. They help deaf and hard-of-hearing viewers — *and* anyone watching with the sound off, which is most people on their phones.\n• **Readable font sizes** — text big enough to read comfortably, with good contrast.\n\nAccessibility helps *everyone*, not just people with disabilities. Captions help in a noisy bus; high contrast helps in bright sunlight. Designing for the edges makes things better for all.`,
+        body: `**Accessibility** means making your content usable by *everyone* — including people who are blind or low-vision, deaf or hard of hearing, or who have other disabilities. It's not an extra; it's part of doing the job right.\n\nThe big ones are easy to do:\n\n• **Alt text** — a short written description of an image. Screen readers (software that reads a screen aloud) speak the alt text so a blind user knows what the image shows. Example alt text: "Student smiling while presenting a science project."\n• **Captions** — the on-screen text of what's said in a video. They help deaf and hard-of-hearing viewers — *and* anyone watching with the sound off, which is most people on their phones.\n• **Readable font sizes** — text big enough to read comfortably, with good contrast.\n\nAccessibility helps *everyone*, not just people with disabilities. Captions help in a noisy bus; high contrast helps in bright sunlight. Designing for the edges makes things better for all — and many schools, colleges, and workplaces expect it.`,
         callout: {
           label: "Watch out",
           text: "Accessibility is not \"optional\" or something to add later if there's time. Leaving people out isn't a small detail — and good alt text and captions take only seconds. Build them in from the start.",
+        },
+      },
+      {
+        id: "senior-exports",
+        kicker: "For older teens",
+        title: "Résumés, portfolios & application uploads that look intentional",
+        body: `If you're heading toward college apps, scholarships, internships, or a first job, the *same* content skills suddenly matter a lot more — because strangers will judge your work in seconds.\n\n• **Résumé / activity list** — use clear headings (Education, Experience, Activities), consistent fonts, and plenty of white space. Export as a **PDF** so the layout doesn't break when someone opens it on another computer.\n• **Portfolio pieces** — a short project write-up, a clean slide deck, or a captioned video clip. Show your best work with readable formatting and sharp images — not a blurry screenshot stretched to fill the page.\n• **College / scholarship portals** — read the upload rules: file type (often PDF), max size, and page limits. A beautiful Word doc that the portal rejects is useless; a clean PDF that meets the rules wins.\n• **Professional email attachments** — name files clearly (\`Lastname_Resume.pdf\`, not \`finalFINAL2.docx\`) so a busy counselor or hiring manager can find them.\n\nYounger teens: you can practice the same habits on class projects and club flyers. The skills transfer the day you need them for something high-stakes.`,
+        bullets: [
+          "Export résumés and essays as **PDF** so layout stays put.",
+          "Check portal rules: file type, size limit, page count.",
+          "Name files clearly for counselors, colleges, and employers.",
+          "Practice now on school work — the habits transfer.",
+        ],
+        callout: {
+          label: "Pro tip",
+          text: "Before you upload anything to a college portal or job site, open the PDF yourself on your phone. If you can't read it comfortably there, neither can a tired admissions reader on a small screen.",
         },
       },
       {
@@ -117,21 +133,21 @@ export const digitalLesson9: AILessonConfig = {
         imageAlt: "A cluttered gray flyer transforming step by step into a clean flyer with a clear heading, bullet points, high-contrast text, and a sharp logo",
         callout: {
           label: "Pro tip",
-          text: "Match the export format to the job: **PDF** keeps layouts fixed for printing or sharing documents; **.jpg** is small and good for photos; **.png** keeps sharp edges and transparent backgrounds for graphics and logos; **.mp4** is the standard for video.",
+          text: "Match the export format to the job: **PDF** keeps layouts fixed for printing, résumés, or sharing documents; **.jpg** is small and good for photos; **.png** keeps sharp edges and transparent backgrounds for graphics and logos; **.mp4** is the standard for video.",
         },
       },
       {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've leveled up from "making stuff" to "making stuff *well*." Quick recap:\n\n• Match the **tool** to the content type, but remember the *skills* matter more than the app.\n• **Format** for skimmability — headings, lists, consistent styles, and white space.\n• Know your images: **resolution** and **file size**, and **raster** (photos) vs. **vector** (logos/icons).\n• Apply simple **design principles** — contrast, alignment, don't overcrowd, limit fonts and colors.\n• Build in **accessibility** with **alt text** and **captions** — it includes everyone.\n• **Export** the right format for the job.\n\nWhen you're ready, switch to the **Knowledge check**, then write a quick reflection about something you could redesign.`,
+        body: `You've leveled up from "making stuff" to "making stuff *well*." Quick recap:\n\n• Match the **tool** to the content type, but remember the *skills* matter more than the app.\n• **Format** for skimmability — headings, lists, consistent styles, and white space.\n• Know your images: **resolution** and **file size**, and **raster** (photos) vs. **vector** (logos/icons).\n• Apply simple **design principles** — contrast, alignment, don't overcrowd, limit fonts and colors.\n• Build in **accessibility** with **alt text** and **captions** — it includes everyone.\n• **Export** the right format for the job — especially PDF for résumés and application portals.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then write a quick reflection about something you could redesign.`,
       },
     ],
   },
   bigIdeas: [
     "Good **formatting** (headings, lists, consistent styles) makes content skimmable and professional.",
     "**Raster** images (photos) are pixels and blur when enlarged; **vector** images (logos/icons) are math and scale perfectly.",
-    "Simple **design** = clarity (contrast, alignment, don't overcrowd), and **accessibility** (alt text, captions) includes everyone.",
+    "Simple **design** = clarity (contrast, alignment, don't overcrowd), and **accessibility** (alt text, captions) includes everyone — including for résumés and application uploads.",
   ],
   keyTerms: [
     { term: "Format", definition: "How content is arranged and styled — headings, lists, fonts, and spacing — so it's easy to read and scan." },
@@ -143,24 +159,24 @@ export const digitalLesson9: AILessonConfig = {
     { term: "Export", definition: "Saving your content in a specific file format (PDF, .png, .mp4) chosen to fit how it will be used." },
   ],
   realWorld:
-    "When you make a slideshow, post a graphic, or upload a video, the same skills apply: clear **formatting**, the right **image** type, strong **contrast**, and **alt text** plus **captions** so it reaches everyone — exactly what employers expect from anyone who creates content.",
+    "When you make a slideshow, upload a résumé PDF to a college portal, or post a captioned video for a scholarship, the same skills apply: clear **formatting**, the right **image** type, strong **contrast**, and **alt text** plus **captions** so it reaches everyone — exactly what employers expect from anyone who creates content.",
   quiz: [
     {
       id: "q1",
-      question: "Why do headings, bullet lists, and consistent styles make a document better?",
+      question: "You're writing a scholarship personal statement in Google Docs. A counselor says it looks like a \"wall of text.\" What's the best formatting fix?",
       choices: [
-        "They make the file size smaller",
-        "They make content easy to skim so readers find what they need fast",
-        "They are required by law for all documents",
-        "They automatically fix spelling mistakes",
+        "Add five different fonts and neon colors so it looks exciting",
+        "Add clear headings, shorter paragraphs, and bullet lists so readers can skim",
+        "Shrink the font so more words fit on one page",
+        "Remove all spacing so nothing is wasted",
       ],
       correctIndex: 1,
       explanation:
-        "Formatting is like aisle signs in a store — headings, lists, and consistent styles let readers skim and find what they need quickly, instead of facing a wall of text.",
+        "Formatting is like aisle signs in a store — headings, lists, and consistent styles let busy readers (including scholarship reviewers) skim and find what they need quickly.",
     },
     {
       id: "q2",
-      question: "You have a small logo and need a giant version for a banner. What's the best choice to keep it sharp?",
+      question: "You're designing a banner for a summer internship fair and only have a tiny logo file. What's the best way to keep it sharp when enlarged?",
       choices: [
         "Stretch the small image bigger — stretching keeps it sharp",
         "Use a vector (.svg) version, which scales to any size without blurring",
@@ -169,24 +185,24 @@ export const digitalLesson9: AILessonConfig = {
       ],
       correctIndex: 1,
       explanation:
-        "Vector images are made of math, so they scale to any size and stay sharp. Stretching a small raster image just spreads the same pixels out, making it blurry — it can't add detail.",
+        "Vector images are made of math, so they scale to any size and stay sharp. Stretching a small raster image just spreads the same pixels out, making it blurry.",
     },
     {
       id: "q3",
-      question: "Which statement about image file size is TRUE?",
+      question: "A college application portal rejects your activity list because the file is \"too large.\" Which statement about image/file size is TRUE?",
       choices: [
         "A bigger file is always better quality, so always use the biggest",
-        "File size doesn't affect how fast something loads",
-        "Huge images take more storage and load slowly, so match the size to the need",
+        "File size doesn't affect how fast something loads or whether portals accept it",
+        "Huge files take more storage and load slowly, so match the size to the need",
         "Vector and raster files are always the exact same size",
       ],
       correctIndex: 2,
       explanation:
-        "Bigger isn't always better. Huge files eat storage and data and load slowly. Pick a resolution and file size that fits the job rather than maxing it out for no reason.",
+        "Bigger isn't always better. Huge files eat storage and data, load slowly, and often get rejected by portals. Pick a resolution and file size that fits the job.",
     },
     {
       id: "q4",
-      question: "What is alt text, and why does it matter?",
+      question: "You're posting a club flyer image to the school website. What is alt text, and why does it matter?",
       choices: [
         "A backup copy of an image in case the file is lost",
         "A short description of an image that screen readers speak aloud for people who can't see it",
@@ -195,25 +211,25 @@ export const digitalLesson9: AILessonConfig = {
       ],
       correctIndex: 1,
       explanation:
-        "Alt text is a short written description of an image. Screen readers speak it aloud so blind and low-vision users know what the image shows. It's a key part of accessibility.",
+        "Alt text is a short written description of an image. Screen readers speak it aloud so blind and low-vision users know what the image shows — a key part of accessibility.",
     },
     {
       id: "q5",
-      question: "Which choice best reflects good, simple design?",
+      question: "You're exporting a résumé to upload for a first-job application. Which choice best reflects good, simple design and the right export?",
       choices: [
-        "Use many fonts and bright colors so it looks exciting",
-        "Cram in as much as possible so nothing is wasted",
-        "Use high contrast, aligned elements, and a limited set of fonts and colors",
-        "Use faint gray text on white to look modern and subtle",
+        "Use many fonts and bright colors so it looks exciting, then send a .docx",
+        "Cram in as much as possible so nothing is wasted, then screenshot it",
+        "Use high contrast, aligned sections, limited fonts, and export as a PDF",
+        "Use faint gray text on white to look modern, then email a photo of the screen",
       ],
       correctIndex: 2,
       explanation:
-        "Good design is about clarity: high contrast for readability, aligned elements that look intentional, room to breathe, and a limited palette of fonts and colors. More clutter and faint text hurt readability.",
+        "Good design is about clarity: high contrast, aligned elements, room to breathe, and a limited palette. PDF keeps the layout fixed on any device — what employers and portals expect.",
     },
   ],
   reflection: {
     prompt:
-      "Think of a flyer, slide, or post you've seen (or made) that was hard to read. Name one formatting, design, or accessibility fix that would make it better.",
-    placeholder: "Example: A club slide had tiny faint text — I'd add a heading, bump the contrast, and add alt text to its image…",
+      "Think of a flyer, slide, résumé draft, or post you've seen (or made) that was hard to read. Name one formatting, design, or accessibility fix that would make it better — especially if someone were judging it for school, college, or a job.",
+    placeholder: "Example: My club slide had tiny faint text — I'd add a heading, bump the contrast, add alt text, and export a clean PDF…",
   },
 };

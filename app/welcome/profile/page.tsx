@@ -100,16 +100,17 @@ export default function WelcomeProfilePage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5 sm:col-span-2">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Class code <span className="normal-case tracking-normal text-white/70">(optional)</span>
+                      Class code <span className="text-amber-200">*</span>
                     </label>
                     <Input
                       value={classCode}
                       onChange={(e) => setClassCode(e.target.value)}
-                      placeholder="e.g. KANAM-7B2K9"
+                      placeholder="Teacher code or self-paced code"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                     <p className="mt-1 text-xs text-white/85">
-                      Have a class code? Enter it to join your teacher&apos;s class.
+                      Required. Self-paced learners use the shared code emailed from the welcome
+                      screen.
                     </p>
                   </div>
                 </div>
@@ -272,6 +273,12 @@ export default function WelcomeProfilePage() {
                       const trimmedFirst = firstName.trim();
                       const trimmedLast = lastName.trim();
                       const trimmedEmail = email.trim();
+                      if (!cc) {
+                        setError(
+                          "A class code is required. Go back and request the self-paced code by email if you do not have a teacher code."
+                        );
+                        return;
+                      }
                       if (!trimmedFirst) {
                         setError("Please enter your first name.");
                         return;
@@ -302,7 +309,7 @@ export default function WelcomeProfilePage() {
                           method: "POST",
                           headers: { "content-type": "application/json" },
                           body: JSON.stringify({
-                            classCode: cc || undefined,
+                            classCode: cc,
                             email: trimmedEmail,
                             password,
                             firstName: trimmedFirst,
@@ -370,9 +377,10 @@ export default function WelcomeProfilePage() {
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
-                  <p className="text-sm font-extrabold tracking-tight text-white">Keeps things organized</p>
+                  <p className="text-sm font-extrabold tracking-tight text-white">Joins your cohort</p>
                   <p className="mt-1 text-sm">
-                    If you join a school later, we can link your account to your class.
+                    Your class code places you with your teacher&apos;s class — or the shared
+                    self-paced group if you&apos;re learning on your own.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-4">

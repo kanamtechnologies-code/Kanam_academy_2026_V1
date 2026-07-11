@@ -3,20 +3,20 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const digitalLesson10: AILessonConfig = {
   id: "dl-10",
   title: "10. Copyright, Licensing & Giving Credit",
-  goal: "Use other people's content legally and ethically — understand copyright, licenses, Creative Commons, public domain, and fair use, avoid plagiarism, and give proper credit (including for AI-generated work).",
+  goal: "Use other people's content legally and ethically — understand copyright, licenses, Creative Commons, public domain, and fair use, avoid plagiarism, and give proper credit (including for AI-generated work) in school projects, scholarship videos, and portfolios.",
   xpReward: 500,
-  badge: "📜 Credit Giver",
+  badge: "Credit Giver",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/9",
   nextHref: "/learn/digital/11",
   lessonModule: {
-    durationLabel: "~7 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `You're making a video, a slideshow, or a post and you want a cool song, a great photo, or a clip. Can you just grab it off the internet? Usually... no. Today you'll learn how to use other people's work the *right* way — legally and ethically.\n\nHere's our roadmap:\n\n• **Copyright** — why creators automatically own what they make.\n• **Licenses & Creative Commons** — permission with rules.\n• **Public domain and "free to use"** — and why you still read the terms.\n• **Fair use** — what it really covers (it's narrower than people think).\n• **Plagiarism vs. attribution** — and how to credit properly.\n• **Who owns AI-generated content?**\n\nThis matters now (that essay, that video edit) and later: getting this wrong at a job or online can mean takedowns, muted videos, failing grades, or even legal trouble. Getting it right makes you look trustworthy and professional.`,
+        body: `You're making a video, a slideshow, or a post and you want a cool song, a great photo, or a clip. Can you just grab it off the internet? Usually... no. Today you'll learn how to use other people's work the *right* way — legally and ethically — whether it's a class project, a scholarship video essay, or a portfolio for an internship.\n\nHere's our roadmap:\n\n• **Copyright** — why creators automatically own what they make.\n• **Licenses & Creative Commons** — permission with rules.\n• **Public domain and "free to use"** — and why you still read the terms.\n• **Fair use** — what it really covers (it's narrower than people think).\n• **Plagiarism vs. attribution** — and how to credit properly.\n• **Who owns AI-generated content?**\n• **Senior stretch** — media for college apps, scholarships, and job portfolios.\n\nThis matters now (that essay, that video edit) and later: getting this wrong at a job or online can mean takedowns, muted videos, failing grades, or even legal trouble. Getting it right makes you look trustworthy and professional.`,
         image: "/images/lessons/dl-10.png",
         imageAlt: "A photo, a song, and a piece of writing each tagged with a small copyright symbol, next to a checklist for giving credit",
         callout: {
@@ -76,10 +76,26 @@ export const digitalLesson10: AILessonConfig = {
         id: "ai-attribution",
         kicker: "Crediting properly",
         title: "How to attribute — and who owns AI-generated work?",
-        body: `When you *are* allowed to use something, give a clear attribution. A good one usually names four things, sometimes remembered as **TASL**:\n\n• **Title** — what the work is called\n• **Author** — who made it (the creator)\n• **Source** — where you found it (a link)\n• **License** — what license it's under (e.g., CC BY)\n\nExample: *"Sunrise Over Hills" by Jordan Lee, from Unsplash, used under the Unsplash License.*\n\n**What about AI-generated content?** This is new and the rules are still being worked out. Some key points: in many places, work created *purely* by AI may **not** be copyrightable the way human work is, because there's no human author. Tools also have their own terms about what you can do with their output. And it's good practice — and increasingly required at school and work — to **disclose when you used AI**, just like any other source.`,
+        body: `When you *are* allowed to use something, give a clear attribution. A good one usually names four things, sometimes remembered as **TASL**:\n\n• **Title** — what the work is called\n• **Author** — who made it (the creator)\n• **Source** — where you found it (a link)\n• **License** — what license it's under (e.g., CC BY)\n\nExample: *"Sunrise Over Hills" by Jordan Lee, from Unsplash, used under the Unsplash License.*\n\n**What about AI-generated content?** This is new and the rules are still being worked out. Some key points: in many places, work created *purely* by AI may **not** be copyrightable the way human work is, because there's no human author. Tools also have their own terms about what you can do with their output. And it's good practice — and increasingly required at school and work — to **disclose when you used AI**, just like any other source. College honor codes and internship employers often care a lot about this.`,
         callout: {
           label: "Pro tip",
           text: "When in doubt, over-credit and ask. A clear note like \"Image generated with [AI tool]\" or a full attribution line costs you nothing and protects you. Silence is what gets people into trouble.",
+        },
+      },
+      {
+        id: "senior-media",
+        kicker: "For older teens",
+        title: "Media for scholarships, college apps & job portfolios",
+        body: `High-stakes projects have the same copyright rules as class projects — and sometimes *stricter* expectations, because your work may be posted publicly or judged by adults who notice muted audio and missing credits.\n\n• **Scholarship / college video essays** — don't rip a chart-topping song from a streaming app. Use a free music library or Creative Commons track, read the license, and put credits on the end screen or description.\n• **Portfolios for internships** — if you include photos, fonts, or code snippets you didn't make, check the license and attribute. Employers notice honesty.\n• **Group Google Docs / shared decks** — if a teammate drops in a random Google Image, pause and ask: do we have permission? Better to swap it for a licensed photo than to submit a stolen one.\n• **Your own work** — when *you* create something original, you own the copyright. That means you can put it in a portfolio — and others need *your* permission to reuse it.\n\nYounger teens: practice the habit now on school videos. Seniors: treat every public upload like a professional sample of your judgment.`,
+        bullets: [
+          "Scholarship videos need licensed music — not ripped hits.",
+          "Portfolios should credit anything you didn't create.",
+          "In group docs, question mystery images before submitting.",
+          "Your original work is yours — protect it and share it wisely.",
+        ],
+        callout: {
+          label: "Watch out",
+          text: "\"It's for a scholarship / school / nonprofit\" does not automatically equal fair use for a full song or movie clip. When in doubt, use clearly licensed media and write the credit.",
         },
       },
       {
@@ -114,14 +130,14 @@ export const digitalLesson10: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You now know how to use the internet's content without stealing it. Quick recap:\n\n• **Copyright** means the creator automatically owns their work — you usually can't just reuse it.\n• A **license** is permission with rules; **Creative Commons** offers free licenses with conditions; **public domain** is free for all.\n• **Fair use** is narrow and case-by-case — not a blanket school excuse.\n• **Plagiarism** is claiming others' work as yours; fix it with **attribution** (Title, Author, Source, License) — but credit alone doesn't make use legal.\n• **AI-generated** content has its own evolving rules — disclose when you use it.\n\nWhen you're ready, switch to the **Knowledge check**, then write a quick reflection.`,
+        body: `You now know how to use the internet's content without stealing it. Quick recap:\n\n• **Copyright** means the creator automatically owns their work — you usually can't just reuse it.\n• A **license** is permission with rules; **Creative Commons** offers free licenses with conditions; **public domain** is free for all.\n• **Fair use** is narrow and case-by-case — not a blanket school excuse.\n• **Plagiarism** is claiming others' work as yours; fix it with **attribution** (Title, Author, Source, License) — but credit alone doesn't make use legal.\n• **AI-generated** content has its own evolving rules — disclose when you use it.\n• For scholarships, college apps, and portfolios: use licensed media and write the credits.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then write a quick reflection.`,
       },
     ],
   },
   bigIdeas: [
     "**Copyright** means the creator automatically owns their work — you usually need permission to reuse it.",
     "A **license** is permission with rules; **Creative Commons** and **public domain** make some work free to use under conditions.",
-    "**Fair use** is narrow, and **credit** fixes plagiarism but doesn't make an illegal use legal.",
+    "**Fair use** is narrow, and **credit** fixes plagiarism but doesn't make an illegal use legal — especially on scholarship videos and portfolios.",
   ],
   keyTerms: [
     { term: "Copyright", definition: "The legal right that automatically gives a creator ownership of their original work the moment it's made." },
@@ -133,11 +149,11 @@ export const digitalLesson10: AILessonConfig = {
     { term: "Attribution", definition: "Crediting a source clearly, usually with the Title, Author, Source, and License (TASL)." },
   ],
   realWorld:
-    "Whether you're posting a video, writing a report, or designing for a job, the same rules apply: use **licensed** or **public domain** media, respect **copyright**, and write a clear **attribution**. Skipping it gets videos muted, posts removed, and reputations damaged.",
+    "Whether you're posting a video, writing a report, designing for a job, or submitting a scholarship clip, the same rules apply: use **licensed** or **public domain** media, respect **copyright**, and write a clear **attribution**. Skipping it gets videos muted, posts removed, and reputations damaged.",
   quiz: [
     {
       id: "q1",
-      question: "You find a great photo on Google Images for your project. What's the safest assumption?",
+      question: "You're building a slide deck for a college interview portfolio and grab a great photo from Google Images. What's the safest assumption?",
       choices: [
         "It's free to use because it appeared in a search",
         "Someone owns the copyright, so you need a license or permission unless it says otherwise",
@@ -150,7 +166,7 @@ export const digitalLesson10: AILessonConfig = {
     },
     {
       id: "q2",
-      question: "What does a Creative Commons license with 'Attribution' (BY) require you to do?",
+      question: "A Creative Commons photo for your internship portfolio has an 'Attribution' (BY) license. What must you do?",
       choices: [
         "Pay the creator a fee before using it",
         "Only use it for commercial projects",
@@ -163,20 +179,20 @@ export const digitalLesson10: AILessonConfig = {
     },
     {
       id: "q3",
-      question: "Which statement about fair use is correct?",
+      question: "A teammate says you can drop a full popular song into your scholarship video essay because \"it's for school / a nonprofit.\" Which statement about fair use is correct?",
       choices: [
-        "Fair use means anything used for school is automatically allowed",
+        "Fair use means anything used for school or scholarships is automatically allowed",
         "Fair use lets you copy entire songs and movies freely",
-        "Fair use is a limited, case-by-case exception for things like commentary, news, or teaching",
+        "Fair use is a limited, case-by-case exception for things like commentary, news, or teaching — not a blanket pass for whole songs",
         "Fair use only applies if you give credit",
       ],
       correctIndex: 2,
       explanation:
-        "Fair use is narrow and decided case-by-case based on factors like how much you used. It is NOT a blanket 'it's for school' pass, and credit alone doesn't create fair use.",
+        "Fair use is narrow and decided case-by-case. It is NOT a blanket 'it's for school/scholarship' pass for entire songs, and credit alone doesn't create fair use.",
     },
     {
       id: "q4",
-      question: "What's the difference between plagiarism and copyright infringement?",
+      question: "You copy a paragraph from a website into your college application essay without saying where it came from. What's the difference between plagiarism and copyright infringement?",
       choices: [
         "They're exactly the same thing",
         "Plagiarism is claiming others' work as your own (honesty); infringement is using it without permission (legal)",
@@ -189,7 +205,7 @@ export const digitalLesson10: AILessonConfig = {
     },
     {
       id: "q5",
-      question: "You change a copyrighted image a little and add a credit line. Is it now yours to use freely?",
+      question: "You lightly edit a copyrighted image for a club poster, add a credit line, and post it. Is it now yours to use freely?",
       choices: [
         "Yes — editing it makes it a new original work",
         "Yes — giving credit makes any use legal",
@@ -203,7 +219,7 @@ export const digitalLesson10: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Think about the last video, slideshow, or post you made. Where did the images or music come from — and how could you check or write a proper attribution next time?",
+      "Think about the last video, slideshow, scholarship clip, or post you made. Where did the images or music come from — and how could you check or write a proper attribution next time?",
     placeholder: "Example: I grabbed a song from YouTube — next time I'd use a free music library and write a TASL credit line…",
   },
 };

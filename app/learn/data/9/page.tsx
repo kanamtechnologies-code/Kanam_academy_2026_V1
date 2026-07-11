@@ -11,7 +11,7 @@ const daLesson9: DataLessonConfig = {
   title: "9. Tell the Story with Charts",
   goal: "Shape query results into a chart — a label column and a number column — and let sorting tell the story.",
   xpReward: 450,
-  badge: "📈 Chart Maker",
+  badge: "Chart Maker",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   prevHref: "/learn/data/8",

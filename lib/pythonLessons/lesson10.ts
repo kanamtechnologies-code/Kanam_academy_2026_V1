@@ -10,12 +10,22 @@ function fnCallCount(code: string, fn: string): number {
   return (code.match(new RegExp(`^[ \\t]*${fn}\\s*\\(\\s*\\)\\s*$`, "gm")) ?? []).length;
 }
 
+function noRunError(run: MiniRunResult): boolean {
+  return !run.error;
+}
+
+function hasIndentedPrintInDef(code: string, fn: string): boolean {
+  return new RegExp(
+    `\\bdef\\s+${fn}\\s*\\(\\s*\\)\\s*:[^\\n]*\\n[ \\t]+print\\(`
+  ).test(code);
+}
+
 export const lesson10: PythonLessonConfig = {
   id: "lesson-10",
   title: "10. Teaching the Bot Skills (Functions)",
   goal: "Use functions to package a skill and reuse it without rewriting code.",
   xpReward: 550,
-  badge: "🧩 Skill Builder",
+  badge: "Skill Builder",
   dashboardHref: "/dashboard",
   coachNoteGateSeconds: 8,
   prevHref: "/learn/9",
@@ -169,104 +179,149 @@ export const lesson10: PythonLessonConfig = {
   },
   exercises: [
     {
-      id: "ex-define",
-      title: "Exercise 1 — Define a function",
-      focusCommand: "def greet():",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill in the skill",
+      focusCommand: "def + greet()",
       commandExplain:
-        "def creates a named skill. The indented print line is what the skill does when it runs.",
-      goal: "Define a function with def and an indented print inside.",
+        "Finish the message inside the function, then call greet() twice so the bot speaks twice.",
+      goal: "Fill the blanks so greet prints a message and runs twice.",
       starterCode: `# Fill in the blanks 👇
 def greet():
     print("Hi! ____")
-`,
-      hint: "Finish the message inside quotes, and make sure print is indented with 4 spaces.",
-      successMessage: "Skill defined! Your function packages the bot message.",
-      failureMessage: "Need def greet(): with an indented print(...) line inside.",
-      validate: (code: string) => {
-        if (rejectsUppercasePrint(code)) return false;
-        const fn = getDefFn(code);
-        if (!fn) return false;
-        return new RegExp(
-          `\\bdef\\s+${fn}\\s*\\(\\s*\\)\\s*:[^\\n]*\\n[ \\t]+print\\(`
-        ).test(code);
-      },
-    },
-    {
-      id: "ex-call-once",
-      title: "Exercise 2 — Call the function",
-      focusCommand: "greet()",
-      commandExplain:
-        "Defining a function doesn't run it. You must call it — greet() — to make the bot speak.",
-      goal: "Define greet() and call it once so you see output.",
-      starterCode: `# Fill in the blank 👇
-def greet():
-    print("Hi! Nice to meet you!")
-
-____
-`,
-      hint: "Type greet() on its own line (no indentation).",
-      successMessage: "It ran! Calling the function executes the skill.",
-      failureMessage: "Define greet() with print inside, then call greet() once.",
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        const fn = getDefFn(code);
-        if (!fn) return false;
-        const hasIndentedPrint = new RegExp(
-          `\\bdef\\s+${fn}\\s*\\(\\s*\\)\\s*:[^\\n]*\\n[ \\t]+print\\(`
-        ).test(code);
-        return hasIndentedPrint && fnCallCount(code, fn) >= 1 && run.stdout.length >= 1;
-      },
-    },
-    {
-      id: "ex-call-twice",
-      title: "Exercise 3 — Reuse the skill",
-      focusCommand: "greet() × 2",
-      commandExplain:
-        "Call the same function twice — same skill, no copied code. That's reuse.",
-      goal: "Call your function at least twice.",
-      starterCode: `# Fill in the blank 👇
-def greet():
-    print("Hi! Nice to meet you!")
 
 greet()
 ____
 `,
-      hint: "Add a second greet() line.",
-      successMessage: "Reused! The bot spoke twice from one function definition.",
-      failureMessage: "Call greet() at least twice (two separate greet() lines).",
+      hint: 'Finish the message (e.g. Nice to meet you!), then add a second greet() call.',
+      successMessage: "Skill defined and reused — the bot spoke twice!",
+      failureMessage: "Need def greet(): with an indented print, plus greet() called at least twice.",
+      solutionCode: `def greet():
+    print("Hi! Nice to meet you!")
+
+greet()
+greet()
+`,
       validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
         const fn = getDefFn(code);
         if (!fn) return false;
-        return fnCallCount(code, fn) >= 2 && run.stdout.length >= 2;
+        return hasIndentedPrintInDef(code, fn) && fnCallCount(code, fn) >= 2 && run.stdout.length >= 2;
       },
     },
     {
-      id: "ex-challenge",
-      title: "Exercise 4 — Skill builder challenge",
-      focusCommand: "def + print + calls",
-      commandExplain:
-        "Build your own function from scratch: define it, print inside, call it twice.",
-      goal: "Define any function with print inside and call it at least twice.",
-      starterCode: `# Fill in the blanks 👇
-def ____():
-    print("____")
-
-____
-____
-`,
-      hint: "Pick a name like greet or speak, then call it twice on separate lines.",
-      successMessage: "Submitted! You packaged and reused a skill with a function. 🎯",
-      failureMessage:
-        "Define a function with def, print inside (indented), and call it at least twice.",
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the skill",
+      focusCommand: "def + call",
+      commandExplain: "These lines define and call a function — but they're scrambled. Put them in order.",
+      goal: "Reorder so greet is defined, then called twice.",
+      starterCode: "",
+      parsonsLines: [
+        "def greet():",
+        '    print("Hi! Nice to meet you!")',
+        "greet()",
+        "greet()",
+      ],
+      hint: "def first, indented print next, then two greet() calls with no indent.",
+      successMessage: "Order is right — define once, call twice.",
+      failureMessage: "Need def greet():, an indented print, and greet() twice.",
+      solutionCode: `def greet():
+    print("Hi! Nice to meet you!")
+greet()
+greet()`,
       validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
         const fn = getDefFn(code);
         if (!fn) return false;
-        const hasIndentedPrint = new RegExp(
-          `\\bdef\\s+${fn}\\s*\\(\\s*\\)\\s*:[^\\n]*\\n[ \\t]+print\\(`
-        ).test(code);
-        return hasIndentedPrint && fnCallCount(code, fn) >= 2 && run.stdout.length >= 2;
+        return hasIndentedPrintInDef(code, fn) && fnCallCount(code, fn) >= 2 && run.stdout.length >= 2;
+      },
+    },
+    {
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 3 — Debug the skill",
+      focusCommand: "indentation",
+      commandExplain:
+        "This function should greet when called, but the print isn't inside the function.",
+      goal: "Fix indentation so print belongs inside greet, then call it.",
+      starterCode: `def greet():
+print("Hi! Nice to meet you!")
+
+greet()
+`,
+      debugHint: "indentation",
+      hint: "Indent the print line under def greet(): with 4 spaces.",
+      successMessage: "Fixed — the print now runs when you call greet().",
+      failureMessage: "Indent print(...) under def greet(): and call greet() at least once.",
+      solutionCode: `def greet():
+    print("Hi! Nice to meet you!")
+
+greet()
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        const fn = getDefFn(code);
+        if (!fn) return false;
+        return hasIndentedPrintInDef(code, fn) && fnCallCount(code, fn) >= 1 && run.stdout.length >= 1;
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the calls",
+      focusCommand: "trace greet()",
+      commandExplain: "Read this finished program. Predict exactly what prints when greet() runs twice.",
+      goal: "Type your prediction, then Run & check.",
+      starterCode: `def greet():
+    print("Hi!")
+
+greet()
+greet()
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What exact output prints? (two lines)",
+      acceptedPredictions: ["Hi!\nHi!", "Hi! Hi!", "Hi!\nHi!\n", "hi!\nhi!"],
+      hint: "Each greet() call runs the print once — two calls means two lines.",
+      successMessage: "Nailed it — you predicted both calls.",
+      failureMessage: "Count how many times greet() is called.",
+      solutionCode: `def greet():
+    print("Hi!")
+
+greet()
+greet()
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        return (
+          run.stdout.length === 2 && run.stdout.every((line) => line.trim() === "Hi!")
+        );
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build a skill",
+      focusCommand: "from scratch",
+      commandExplain:
+        "Write a function with no parameters that prints a bot message, then call it at least twice.",
+      goal: "Define any no-parameter function with print inside and call it twice.",
+      starterCode: `# Define a skill, then call it twice\n`,
+      hint: "def name(): with an indented print(...), then name() on two separate lines.",
+      successMessage: "You packaged and reused a skill from scratch.",
+      failureMessage:
+        "Need def name(): with indented print, and call the function at least twice.",
+      solutionCode: `def greet():
+    print("Hi! Nice to meet you!")
+
+greet()
+greet()
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        const fn = getDefFn(code);
+        if (!fn) return false;
+        return hasIndentedPrintInDef(code, fn) && fnCallCount(code, fn) >= 2 && run.stdout.length >= 2;
       },
     },
   ],

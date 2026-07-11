@@ -2,12 +2,8 @@ import type { PythonLessonConfig } from "@/components/python/PythonLessonCanvas"
 import type { MiniRunResult } from "@/lib/pythonRunner";
 import { rejectsUppercasePrint } from "@/lib/pythonTerminal";
 
-const RUNTIME_NAME_INPUT = {
-  key: "name",
-  label: 'Pretend you typed for: input("What is your name? ")',
-  placeholder: "Alex",
-  defaultValue: "Alex",
-};
+/** Runner fills empty input() with this silent default. */
+const DEFAULT_NAME = "Alex";
 
 function hasNameInput(code: string) {
   return /\bname\s*=\s*input\(/.test(code);
@@ -22,7 +18,7 @@ export const lesson2: PythonLessonConfig = {
   title: "2. My AI Helper Listens",
   goal: "Use input() to collect information and respond using the user’s input.",
   xpReward: 100,
-  badge: "👂 Listener",
+  badge: "Listener",
   instructorScript:
     "**Coach’s note**:\nLast time, our AI helper could talk.\nToday, we’re going to teach it how to **listen**.\n\nWe do that with input(). Think of input() like a pause button:\n- Your program stops.\n- The user types something.\n- When they press Enter, that answer becomes a value.\n\nImportant AI idea:\n- AI systems respond to input, but they do NOT think or choose answers on their own.\n- Different input can create different output, but the behavior still follows rules written by humans.\n\nKey reminder:\n- input() always returns text (a string).\n- If you want to use the input later, store it in a variable.\n\nHow to test like a pro:\nRun it with two different names and watch how the output changes.",
   kidExplain: [
@@ -101,99 +97,121 @@ export const lesson2: PythonLessonConfig = {
   ],
   exercises: [
     {
-      id: "ex-input",
-      title: "Exercise 1 — Practice input()",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill in input()",
       focusCommand: "input()",
       commandExplain:
-        "input() asks a question and waits for an answer. Store it in name so your program remembers what was typed.",
-      goal: 'Fill in the blank to complete: name = input("What is your name? ")',
+        "input() pauses and waits for the user to type. Fill in the blank so the answer is stored in name.",
+      goal: 'Replace ____ with input so the program asks for a name.',
       starterCode: `# Fill in the blank 👇
-name = input("____")
+name = ____("What is your name? ")
+print("Nice to meet you, " + name)
 `,
-      hint: 'Type the question inside the quotes: "What is your name? "',
-      successMessage: "Great! Your helper can now listen for a name.",
-      failureMessage: 'Use input("What is your name? ") to ask for a name.',
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
-        if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameInput(code)) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        return run.stdout.some((line) => line.includes(nameRaw));
-      },
-    },
-    {
-      id: "ex-print-response",
-      title: "Exercise 2 — Print a response",
-      focusCommand: "print()",
-      commandExplain:
-        "After listening, your helper should respond. Add a print() line that uses the name variable.",
-      goal: "Add a print() line that includes the name variable.",
-      starterCode: `name = input("What is your name? ")
-print(____)
+      solutionCode: `name = input("What is your name? ")
+print("Nice to meet you, " + name)
 `,
-      hint: 'Try print("Nice to meet you, " + name) or print(name)',
-      successMessage: "Nice! Your helper responded using the input.",
-      failureMessage: "Add print(...) that uses the name variable.",
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
-        if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameInput(code)) return false;
-        if (!/\bprint\s*\([\s\S]*\bname\b[\s\S]*\)/.test(code)) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        const out = run.stdout.join("\n");
-        return out.includes(nameRaw) && run.stdout.length >= 2;
-      },
-    },
-    {
-      id: "ex-glue",
-      title: "Exercise 3 — Join greeting with +",
-      focusCommand: "+",
-      commandExplain:
-        'Glue the greeting text to the name: "Nice to meet you, " + name creates one friendly sentence.',
-      goal: 'Fill in the greeting string: print("Nice to meet you, " + name)',
-      starterCode: `name = input("What is your name? ")
-print("____" + name)
-`,
-      hint: 'Type Nice to meet you,  (with comma and space) inside the quotes.',
-      successMessage: "Perfect! You built a personalized greeting.",
-      failureMessage: 'Use print("Nice to meet you, " + name) with the greeting in quotes.',
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
-        if (rejectsUppercasePrint(code)) return false;
-        if (!hasNameInput(code)) return false;
-        if (!/\bprint\s*\([\s\S]*\+[\s\S]*\bname\b[\s\S]*\)/.test(code)) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        const out = run.stdout.join("\n");
-        return out.includes(`Nice to meet you, ${nameRaw}`);
-      },
-    },
-    {
-      id: "ex-challenge",
-      title: "Exercise 4 — Put it all together",
-      focusCommand: "input() + print() + +",
-      commandExplain:
-        "Build the full listening helper: ask for a name, then respond with a personalized greeting.",
-      goal: "Complete the program so it asks and responds using the user's name.",
-      starterCode: `# Fill in the blanks 👇
-name = input("What is your name? ")
-print("Nice to meet you, " + ____)
-`,
-      hint: 'Fill in name at the end: print("Nice to meet you, " + name)',
-      successMessage: "You did it! Your AI helper listened and responded. 🎉",
-      failureMessage:
-        'Need name = input(...), then print("Nice to meet you, " + name). Check lowercase print.',
-      runtimeInputs: [RUNTIME_NAME_INPUT],
-      validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => {
+      hint: "The command that listens is input — type it in the blank.",
+      successMessage: "You taught your helper to listen with input()!",
+      failureMessage: 'Need name = input("...") and print("Nice to meet you, " + name).',
+      validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
         if (!hasNameInput(code)) return false;
         if (!hasNiceToMeetPrint(code)) return false;
-        const nameRaw = (runtime?.name ?? "").trim();
-        if (!nameRaw) return false;
-        const out = run.stdout.join("\n");
-        return out.includes(`Nice to meet you, ${nameRaw}`);
+        return run.stdout.join("\n").includes(`Nice to meet you, ${DEFAULT_NAME}`);
+      },
+    },
+    {
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the listener",
+      focusCommand: "input() + print()",
+      commandExplain: "Scrambled lines: ask for a name, then greet them. Put the lines in order.",
+      goal: "Reorder the lines, then Run & check.",
+      starterCode: "",
+      solutionCode: `name = input("What is your name? ")
+print("Nice to meet you, " + name)`,
+      parsonsLines: [
+        'name = input("What is your name? ")',
+        'print("Nice to meet you, " + name)',
+      ],
+      hint: "Listen (input) first, then respond (print).",
+      successMessage: "Order is right — your helper listened and replied.",
+      failureMessage: "Need input into name, then print a greeting with + name.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        if (!hasNameInput(code)) return false;
+        if (!hasNiceToMeetPrint(code)) return false;
+        return run.stdout.join("\n").includes(`Nice to meet you, ${DEFAULT_NAME}`);
+      },
+    },
+    {
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 3 — Debug the listener",
+      focusCommand: "input()",
+      commandExplain: "This program should ask for a name and greet them, but it's broken.",
+      goal: "Fix the bug so it listens and responds.",
+      starterCode: `name = input(What is your name? )
+print("Nice to meet you, " + name)
+`,
+      solutionCode: `name = input("What is your name? ")
+print("Nice to meet you, " + name)
+`,
+      debugHint: "quotes / string",
+      hint: "The question inside input() needs quotes around it.",
+      successMessage: "Fixed — input() needs a quoted prompt string.",
+      failureMessage: 'Use input("What is your name? ") with quotes around the question.',
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        if (!hasNameInput(code)) return false;
+        if (!hasNiceToMeetPrint(code)) return false;
+        return run.stdout.join("\n").includes(`Nice to meet you, ${DEFAULT_NAME}`);
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the greeting",
+      focusCommand: "trace variable → output",
+      commandExplain: "If name is Jordan, what will this program print?",
+      goal: "Predict the exact output, then Run & check.",
+      starterCode: `name = "Jordan"
+print("Nice to meet you, " + name)
+`,
+      solutionCode: `name = "Jordan"
+print("Nice to meet you, " + name)
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What exact line prints?",
+      acceptedPredictions: ["Nice to meet you, Jordan", "nice to meet you, jordan"],
+      hint: "The name variable is Jordan, so that word appears in the greeting.",
+      successMessage: "You traced the variable to the output correctly.",
+      failureMessage: "Use the name Jordan inside the greeting sentence.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        return run.stdout.join("\n").includes("Nice to meet you, Jordan");
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build a listener",
+      focusCommand: "from scratch",
+      commandExplain: "Write a program that asks for a name and prints Nice to meet you, … using that name.",
+      goal: "Write the full program yourself.",
+      starterCode: `# Ask for a name, then greet them\n`,
+      solutionCode: `name = input("What is your name? ")
+print("Nice to meet you, " + name)
+`,
+      hint: 'name = input("...") then print("Nice to meet you, " + name)',
+      successMessage: "You built a listening helper from scratch.",
+      failureMessage: 'Need input into name and print("Nice to meet you, " + name).',
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        if (!hasNameInput(code)) return false;
+        if (!hasNiceToMeetPrint(code)) return false;
+        return run.stdout.join("\n").includes(`Nice to meet you, ${DEFAULT_NAME}`);
       },
     },
   ],
@@ -279,7 +297,7 @@ print("Nice to meet you, " + ____)
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've added a powerful new skill: your helper can **ask** with \`input()\`, **remember** the answer in a variable, and **respond** by joining text with \`+\`.\n\nIn the exercises you'll build this listening helper one step at a time — first the question, then the reply, then the personalized greeting. Type a test answer, run it, then try a different name and watch the output change.\n\nClick **Start the exercises** when you're ready.`,
+        body: `You've added a powerful new skill: your helper can **ask** with \`input()\`, **remember** the answer in a variable, and **respond** by joining text with \`+\`.\n\nIn the exercises you'll build this listening helper one step at a time — first the question, then the reply, then the personalized greeting.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

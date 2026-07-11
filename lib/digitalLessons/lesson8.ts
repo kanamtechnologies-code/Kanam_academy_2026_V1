@@ -5,20 +5,20 @@ export const digitalLesson8: AILessonConfig = {
   title: "8. Being a Good Digital Citizen",
   goal: "Act responsibly, safely, and kindly in online communities — showing empathy, standing up to cyberbullying, reporting harm, and contributing positively.",
   xpReward: 400,
-  badge: "🌐 Digital Citizen",
+  badge: "Digital Citizen",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/7",
   nextHref: "/learn/digital/9",
   lessonModule: {
-    durationLabel: "~7 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Every group chat, comment section, and game lobby is a community of real people. Being a **good digital citizen** means treating those spaces — and the people in them — with the same care you'd want in person.\n\nHere's our roadmap:\n\n• **Digital citizenship** — using tech responsibly and kindly.\n• **Why people get crueler online** — the "disinhibition effect."\n• **Cyberbullying** — what it is and the real harm it causes.\n• **Bystander vs. upstander** — and exactly what an upstander does.\n• **Reporting, blocking, and positive participation** — making spaces better.\n\nThis is the most important lesson in the track, because it's about how you treat people. The internet runs on millions of small choices — and yours can make someone's day worse or genuinely better.`,
+        body: `Every group chat, comment section, and game lobby is a community of real people. Being a **good digital citizen** means treating those spaces — and the people in them — with the same care you'd want in person.\n\nHere's our roadmap:\n\n• **Digital citizenship** — using tech responsibly and kindly.\n• **Why people get crueler online** — the "disinhibition effect."\n• **Cyberbullying** — what it is and the real harm it causes.\n• **Bystander vs. upstander** — and exactly what an upstander does.\n• **Reporting, blocking, and positive participation** — plus a clear escalate-or-support decision guide.\n\nThis is the most important lesson in the track, because it's about how you treat people. The internet runs on millions of small choices — and yours can make someone's day worse or genuinely better. The same habits matter in school chats *and* in workplace Slack channels later.`,
         image: "/images/lessons/dl-8.png",
-        imageAlt: "Diverse people connected by friendly chat bubbles around a glowing globe",
+        imageAlt: "Laptop and phone showing a group chat and a game lobby with people connected through messaging apps",
         callout: {
           label: "Why it matters",
           text: "Online communities are shared spaces, like a school hallway. How everyone behaves decides whether it's a place people feel safe — and you're one of the people who sets that tone.",
@@ -80,7 +80,7 @@ export const digitalLesson8: AILessonConfig = {
         title: "Be an upstander, not a bystander",
         body: `When you see someone being targeted, you have a choice. A **bystander** sees it happen and does nothing — and silence can feel to the victim like everyone agrees with the bully. An **upstander** steps in to help.\n\nBeing an upstander doesn't mean starting a fight. It means:\n\n• **Don't pile on.** Don't like, share, or laugh at the cruel post — that fuels it.\n• **Support the target.** A simple private message — "Hey, that wasn't okay. You good?" — means a lot.\n• **Save evidence.** Screenshot what's happening before anyone deletes it.\n• **Report it,** and **tell a trusted adult** if it's serious.\n\nYou don't have to be loud or heroic. Quietly refusing to join in, checking on the person, and reporting the behavior is exactly what an upstander does — and it can change everything for the person being targeted.`,
         image: "/images/lessons/dl-8-2.png",
-        imageAlt: "One person stepping forward to stand beside someone who is being targeted online, while others stay back — an upstander supporting the target",
+        imageAlt: "Smartphone group chat with one person privately messaging support to a targeted classmate while a report menu is open",
         bullets: [
           "**Bystander** = watches and does nothing.",
           "**Upstander** = doesn't pile on, supports the target, saves evidence, reports.",
@@ -108,12 +108,28 @@ export const digitalLesson8: AILessonConfig = {
         },
       },
       {
+        id: "escalate",
+        kicker: "Decision framework",
+        title: "Support, report, or escalate? A clear decision guide",
+        body: `Not every rough moment needs the same response. Use this ladder — it works in school chats *and* later in workplace channels:\n\n**Level 1 — One-time rude comment, no threat.** Don't pile on. Optionally reply calmly or ignore. Check on the person privately if they seem hurt.\n**Level 2 — Repeated targeting, exclusion, or rumor-spreading.** Don't amplify. Support the target. Screenshot. Report in-app. Tell a trusted adult at school.\n**Level 3 — Threats, hate speech, sexual harassment, or "I'm going to hurt you."** Same upstander steps *plus* escalate immediately to a trusted adult (and, if needed, platform report + school admin). Do not handle Level 3 alone.\n\n**Workplace / internship note:** Companies have codes of conduct. Harassment in Slack, Discord, or email can get people fired — and reporting through HR or a manager is the adult version of telling a trusted adult. The skills transfer.\n\n**Decision shortcut:** If you're asking "is this serious enough?" — screenshot first, support the person, and tell an adult. Better to over-report safety than under-report harm.`,
+        bullets: [
+          "Level 1: don't fuel it; optional private support.",
+          "Level 2: support + evidence + report + adult.",
+          "Level 3: threats/hate — escalate immediately; don't go solo.",
+          "Same ladder applies later at work under codes of conduct.",
+        ],
+        callout: {
+          label: "Try this week",
+          text: "Decide your upstander plan *before* you need it: (1) don't react publicly, (2) private check-in, (3) screenshot, (4) report, (5) tell an adult if it's repeated or scary. Write those five steps in your notes app.",
+        },
+      },
+      {
         id: "worked",
         kicker: "Worked example",
         title: "You witness bullying in a group chat — what now?",
         body: `Someone in your class group chat starts mocking a classmate, Priya, posting a screenshot of her and calling her names. Others are laughing with 😂 reactions. Here's the upstander response, step by step.\n\n**Step 1 — Don't share or like it.** Reacting or forwarding it spreads the harm and tells the bully they have an audience. Stay out of the pile-on completely.\n\n**Step 2 — Check on Priya.** Send her a private message: "Hey, what they posted wasn't okay. I've got your back — are you doing alright?" That support matters more than you'd think.\n\n**Step 3 — Save evidence.** Screenshot the messages *before* anyone deletes them, so there's proof of what happened.\n\n**Step 4 — Report and block.** Use the app's report tool to flag the posts, and block the person if they come after you for stepping in.\n\n**Step 5 — Tell a trusted adult.** Show the screenshots to a teacher, counselor, or parent — especially since it's targeting a specific person and others joined in.\n\nYou didn't have to start a fight. You refused to fuel it, supported the target, and got help — that's exactly what an upstander does.`,
         image: "/images/lessons/dl-8-3.png",
-        imageAlt: "A five-step upstander response shown as icons: a crossed-out share, a supportive private message, a screenshot for evidence, a report flag, and a trusted adult",
+        imageAlt: "Phone interface showing steps: crossed-out share button, private supportive message, screenshot, report flag, and contacting a trusted adult",
         callout: {
           label: "Pro tip",
           text: "Decide *now* that you'll be an upstander, before you're ever in the moment. Having a plan — don't pile on, check in, screenshot, report, tell an adult — makes it far easier to act when it counts.",
@@ -123,7 +139,7 @@ export const digitalLesson8: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've learned what it means to be a good **digital citizen**: remember there's a real person behind every screen, watch out for the **disinhibition effect** that makes people crueler online, recognize **cyberbullying** and its real harm, and choose to be an **upstander** — don't pile on, support the target, save evidence, report, and tell an adult.\n\nMost of all, participate positively. Every helpful, kind, inclusive thing you do online makes the shared space better for everyone in it.\n\nWhen you're ready, head to the **Knowledge check**, then reflect on one way you'll be a better digital citizen this week.`,
+        body: `You've learned what it means to be a good **digital citizen**: remember there's a real person behind every screen, watch out for the **disinhibition effect** that makes people crueler online, recognize **cyberbullying** and its real harm, and choose to be an **upstander** — don't pile on, support the target, save evidence, report, and tell an adult. Use the escalate ladder when you're unsure how serious something is.\n\nMost of all, participate positively. Every helpful, kind, inclusive thing you do online makes the shared space better for everyone in it.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on one way you'll be a better digital citizen this week.`,
       },
     ],
   },
@@ -145,7 +161,7 @@ export const digitalLesson8: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "What is the 'online disinhibition effect'?",
+      question: "In a game lobby, someone types something they'd never say face-to-face. What is the 'online disinhibition effect'?",
       choices: [
         "A setting that speeds up your internet",
         "The tendency to say crueler things online because you can't see the other person's reaction",
@@ -158,7 +174,7 @@ export const digitalLesson8: AILessonConfig = {
     },
     {
       id: "q2",
-      question: "A classmate says posting a mean rumor about someone was 'just a joke.' Is that a defense?",
+      question: "A classmate says posting a mean rumor about someone in the group chat was 'just a joke.' Is that a defense?",
       choices: [
         "Yes — if it's a joke, it can't be bullying",
         "No — bullying is measured by the harm to the target, not the sender's intent",
@@ -171,7 +187,7 @@ export const digitalLesson8: AILessonConfig = {
     },
     {
       id: "q3",
-      question: "You see someone being bullied in a group chat. What does an UPSTANDER do?",
+      question: "You see someone being bullied in a class group chat. What does an UPSTANDER do?",
       choices: [
         "Like the post so it's not awkward",
         "Ignore it completely and hope it stops",
@@ -184,7 +200,7 @@ export const digitalLesson8: AILessonConfig = {
     },
     {
       id: "q4",
-      question: "Why is 'anonymous means no consequences' a dangerous myth?",
+      question: "Someone claims an anonymous account means they can harass a classmate (or coworker) with no consequences. Why is that a dangerous myth?",
       choices: [
         "Anonymous accounts can't post anything",
         "People are less anonymous than they think, and serious harassment can be traced by platforms, schools, or police",
@@ -197,7 +213,7 @@ export const digitalLesson8: AILessonConfig = {
     },
     {
       id: "q5",
-      question: "Which of these is positive digital participation?",
+      question: "Which of these is positive digital participation — in school chats or later at a first job?",
       choices: [
         "Excluding people you don't like from chats",
         "Sharing rumors quickly",

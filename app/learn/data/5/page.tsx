@@ -11,7 +11,7 @@ const daLesson5: DataLessonConfig = {
   title: "5. Sort and Rank",
   goal: "Use ORDER BY to sort rows, flip the direction with DESC, and combine with LIMIT to find top results.",
   xpReward: 250,
-  badge: "🏆 Rank Master",
+  badge: "Rank Master",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {

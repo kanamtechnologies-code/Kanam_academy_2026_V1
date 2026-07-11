@@ -12,12 +12,28 @@ function uniqueCallArgs(code: string, fn: string): Set<string> {
   return new Set(Array.from(code.matchAll(callRe)).map((m) => m[2].trim()));
 }
 
+function noRunError(run: MiniRunResult): boolean {
+  return !run.error;
+}
+
+function hasIfBranch(code: string, fn: string, param: string): boolean {
+  return new RegExp(
+    `\\bdef\\s+${fn}\\s*\\(\\s*${param}\\s*\\)\\s*:[\\s\\S]*?\\n[ \\t]+if\\s+\\b${param}\\b\\s*==\\s*["'][^"']+["']\\s*:\\s*\\n[ \\t]+print\\(`
+  ).test(code);
+}
+
+function hasElseBranch(code: string, fn: string): boolean {
+  return new RegExp(
+    `\\bdef\\s+${fn}\\b[\\s\\S]*?\\n[ \\t]+else\\s*:\\s*\\n[ \\t]+print\\(`
+  ).test(code);
+}
+
 export const lesson12: PythonLessonConfig = {
   id: "lesson-12",
   title: "12. Guiding AI with Rules",
   goal: "Use if/else rules inside a function to control behavior based on the parameter.",
   xpReward: 650,
-  badge: "🛡️ Rule Guide",
+  badge: "Rule Guide",
   dashboardHref: "/dashboard",
   coachNoteGateSeconds: 8,
   prevHref: "/learn/11",
@@ -176,89 +192,16 @@ export const lesson12: PythonLessonConfig = {
   },
   exercises: [
     {
-      id: "ex-fn-param",
-      title: "Exercise 1 — Function with parameter",
-      focusCommand: "def attack(enemy):",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill in the rules",
+      focusCommand: "if / else",
       commandExplain:
-        "Start with a function that accepts one parameter — rules will check that value.",
-      goal: "Define a function with one parameter.",
-      starterCode: `# Fill in the blank 👇
-def attack(____):
-    print("Ready to fight!")
-`,
-      hint: "Use enemy as the parameter name to match the lesson examples.",
-      successMessage: "Function ready! Next you'll add rules inside it.",
-      failureMessage: "Define def attack(enemy): with one parameter.",
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        const { fn, param } = getDefWithParam(code);
-        return Boolean(fn && param) && run.stdout.length >= 1;
-      },
-    },
-    {
-      id: "ex-if-rule",
-      title: "Exercise 2 — Add an if rule",
-      focusCommand: 'if enemy == "dragon":',
-      commandExplain:
-        "Put an if rule inside the function that checks the parameter with ==.",
-      goal: "Add an if rule inside your function that checks the parameter.",
-      starterCode: `# Fill in the blank 👇
-def attack(enemy):
-    if enemy == "____":
-        print("This enemy is too strong! Run!")
-`,
-      hint: 'Check for a special enemy like "dragon".',
-      successMessage: "Rule added! The function can now branch on the parameter.",
-      failureMessage: 'Add if enemy == "something": with an indented print inside the function.',
-      validate: (code: string) => {
-        if (rejectsUppercasePrint(code)) return false;
-        const { fn, param } = getDefWithParam(code);
-        if (!fn || !param) return false;
-        return new RegExp(
-          `\\bdef\\s+${fn}\\s*\\(\\s*${param}\\s*\\)\\s*:[\\s\\S]*?\\n[ \\t]+if\\s+\\b${param}\\b\\s*==\\s*["'][^"']+["']\\s*:\\s*\\n[ \\t]+print\\(`
-        ).test(code);
-      },
-    },
-    {
-      id: "ex-else-rule",
-      title: "Exercise 3 — Add else",
-      focusCommand: "else:",
-      commandExplain:
-        "else handles every case the if didn't match. Both branches should print different messages.",
-      goal: "Add an else branch with its own print inside the function.",
-      starterCode: `# Fill in the blank 👇
-def attack(enemy):
-    if enemy == "dragon":
-        print("This enemy is too strong! Run!")
-    else:
-        print("____")
-`,
-      hint: 'Try print("You attack the " + enemy + "!")',
-      successMessage: "Both branches ready! Your function follows rules now.",
-      failureMessage: "Add else: with an indented print(...) under it inside the function.",
-      validate: (code: string) => {
-        if (rejectsUppercasePrint(code)) return false;
-        const { fn, param } = getDefWithParam(code);
-        if (!fn || !param) return false;
-        const hasIfBranch = new RegExp(
-          `\\bdef\\s+${fn}\\s*\\(\\s*${param}\\s*\\)\\s*:[\\s\\S]*?\\n[ \\t]+if\\s+\\b${param}\\b\\s*==\\s*["'][^"']+["']\\s*:\\s*\\n[ \\t]+print\\(`
-        ).test(code);
-        const hasElseBranch = new RegExp(
-          `\\bdef\\s+${fn}\\b[\\s\\S]*?\\n[ \\t]+else\\s*:\\s*\\n[ \\t]+print\\(`
-        ).test(code);
-        return hasIfBranch && hasElseBranch;
-      },
-    },
-    {
-      id: "ex-challenge",
-      title: "Exercise 4 — Rule guide challenge",
-      focusCommand: "if/else + calls",
-      commandExplain:
-        "Call your function with different values — include the special value your if rule checks.",
-      goal: "Complete the function with if/else and call it with at least two different values.",
+        "Complete the special enemy check and both test calls so both rule branches can run.",
+      goal: "Fill blanks for the if value and two different attack calls.",
       starterCode: `# Fill in the blanks 👇
 def attack(enemy):
-    if enemy == "dragon":
+    if enemy == "____":
         print("This enemy is too strong! Run!")
     else:
         print("You attack the " + enemy + "!")
@@ -266,32 +209,196 @@ def attack(enemy):
 attack("____")
 attack("____")
 `,
-      hint: 'Call once with "dragon" and once with another enemy like "goblin".',
-      successMessage: "Submitted! Your function follows human-written rules to decide what to do. 🛡️",
+      hint: 'Check for "dragon", then call once with "dragon" and once with "goblin".',
+      successMessage: "Rules ready — your function chooses a path from the parameter.",
       failureMessage:
-        "Need if/else with print in each branch, plus two calls with different values (including the if value).",
+        "Need if/else with prints, plus two different calls including the special if value.",
+      solutionCode: `def attack(enemy):
+    if enemy == "dragon":
+        print("This enemy is too strong! Run!")
+    else:
+        print("You attack the " + enemy + "!")
+
+attack("dragon")
+attack("goblin")
+`,
       validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
         const { fn, param } = getDefWithParam(code);
         if (!fn || !param) return false;
-
-        const hasIfBranch = new RegExp(
-          `\\bdef\\s+${fn}\\s*\\(\\s*${param}\\s*\\)\\s*:[\\s\\S]*?\\n[ \\t]+if\\s+\\b${param}\\b\\s*==\\s*["']([^"']+)["']\\s*:\\s*\\n[ \\t]+print\\(`
-        ).test(code);
-        const hasElseBranch = new RegExp(
-          `\\bdef\\s+${fn}\\b[\\s\\S]*?\\n[ \\t]+else\\s*:\\s*\\n[ \\t]+print\\(`
-        ).test(code);
-
         const ifValueMatch = code.match(
           new RegExp(`if\\s+${param}\\s*==\\s*(["'])([^"']+)\\1\\s*:`)
         );
         const special = ifValueMatch?.[2];
         const uniqueArgs = uniqueCallArgs(code, fn);
-        const hasSpecialCall = special ? uniqueArgs.has(special) : true;
-
+        const hasSpecialCall = special ? uniqueArgs.has(special) : false;
         return (
-          hasIfBranch &&
-          hasElseBranch &&
+          hasIfBranch(code, fn, param) &&
+          hasElseBranch(code, fn) &&
+          uniqueArgs.size >= 2 &&
+          hasSpecialCall &&
+          run.stdout.length >= 2
+        );
+      },
+    },
+    {
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the rules",
+      focusCommand: "if / else + calls",
+      commandExplain: "Scrambled rule-based function. Put def, if/else, and both calls in order.",
+      goal: "Reorder into a working attack skill with if/else and two test calls.",
+      starterCode: "",
+      parsonsLines: [
+        "def attack(enemy):",
+        '    if enemy == "dragon":',
+        '        print("This enemy is too strong! Run!")',
+        "    else:",
+        '        print("You attack the " + enemy + "!")',
+        'attack("dragon")',
+        'attack("goblin")',
+      ],
+      hint: "def → if → print → else → print → then both attack(...) calls.",
+      successMessage: "Order works — rules decide which message prints.",
+      failureMessage: "Need if/else inside the function plus two different attack calls.",
+      solutionCode: `def attack(enemy):
+    if enemy == "dragon":
+        print("This enemy is too strong! Run!")
+    else:
+        print("You attack the " + enemy + "!")
+attack("dragon")
+attack("goblin")`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        const { fn, param } = getDefWithParam(code);
+        if (!fn || !param) return false;
+        const uniqueArgs = uniqueCallArgs(code, fn);
+        return (
+          hasIfBranch(code, fn, param) &&
+          hasElseBranch(code, fn) &&
+          uniqueArgs.size >= 2 &&
+          run.stdout.length >= 2
+        );
+      },
+    },
+    {
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 3 — Debug the rule",
+      focusCommand: "== vs =",
+      commandExplain:
+        "This function should warn about dragons, but the if rule has a bug. Fix the comparison.",
+      goal: "Fix the if condition so == compares instead of = assigning.",
+      starterCode: `def attack(enemy):
+    if enemy = "dragon":
+        print("This enemy is too strong! Run!")
+    else:
+        print("You attack the " + enemy + "!")
+
+attack("dragon")
+`,
+      debugHint: "comparison vs assignment",
+      hint: "Inside if, use == to compare. A single = assigns.",
+      successMessage: "Bug squashed — you used == for the comparison.",
+      failureMessage: 'The if line should compare with ==, e.g. if enemy == "dragon":',
+      solutionCode: `def attack(enemy):
+    if enemy == "dragon":
+        print("This enemy is too strong! Run!")
+    else:
+        print("You attack the " + enemy + "!")
+
+attack("dragon")
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        const { fn, param } = getDefWithParam(code);
+        if (!fn || !param) return false;
+        if (
+          new RegExp(`\\bif\\s+${param}\\s*=\\s*["']`).test(code) &&
+          !new RegExp(`\\bif\\s+${param}\\s*==\\s*["']`).test(code)
+        ) {
+          return false;
+        }
+        return (
+          hasIfBranch(code, fn, param) &&
+          hasElseBranch(code, fn) &&
+          run.stdout.join("\n").includes("This enemy is too strong! Run!")
+        );
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the branch",
+      focusCommand: "trace if/else",
+      commandExplain: 'If we call attack("goblin"), which message prints?',
+      goal: "Predict the exact output for goblin.",
+      starterCode: `def attack(enemy):
+    if enemy == "dragon":
+        print("This enemy is too strong! Run!")
+    else:
+        print("You attack the " + enemy + "!")
+
+attack("goblin")
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What exact line prints?",
+      acceptedPredictions: [
+        "You attack the goblin!",
+        "you attack the goblin!",
+        "You attack the goblin",
+      ],
+      hint: "goblin is not dragon, so the else branch runs.",
+      successMessage: "You predicted the else path correctly.",
+      failureMessage: "Non-dragon enemies take the else message.",
+      solutionCode: `def attack(enemy):
+    if enemy == "dragon":
+        print("This enemy is too strong! Run!")
+    else:
+        print("You attack the " + enemy + "!")
+
+attack("goblin")
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        return run.stdout.join("\n").includes("You attack the goblin!");
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build rule-guided attack",
+      focusCommand: "from scratch",
+      commandExplain:
+        "Write a function with if/else rules on a parameter, then call it with two different values.",
+      goal: "Build attack(enemy) with if/else and test both branches.",
+      starterCode: `# Function + if/else rules from scratch\n`,
+      hint: 'if enemy == "dragon": … else: … then attack("dragon") and attack("goblin").',
+      successMessage: "You guided AI behavior with human-written rules. 🛡️",
+      failureMessage:
+        "Need if/else with prints inside a parameterized function, plus two different calls.",
+      solutionCode: `def attack(enemy):
+    if enemy == "dragon":
+        print("This enemy is too strong! Run!")
+    else:
+        print("You attack the " + enemy + "!")
+
+attack("dragon")
+attack("goblin")
+`,
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
+        const { fn, param } = getDefWithParam(code);
+        if (!fn || !param) return false;
+        const ifValueMatch = code.match(
+          new RegExp(`if\\s+${param}\\s*==\\s*(["'])([^"']+)\\1\\s*:`)
+        );
+        const special = ifValueMatch?.[2];
+        const uniqueArgs = uniqueCallArgs(code, fn);
+        const hasSpecialCall = special ? uniqueArgs.has(special) : false;
+        return (
+          hasIfBranch(code, fn, param) &&
+          hasElseBranch(code, fn) &&
           uniqueArgs.size >= 2 &&
           hasSpecialCall &&
           run.stdout.length >= 2

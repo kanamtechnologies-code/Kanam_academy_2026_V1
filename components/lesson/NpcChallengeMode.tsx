@@ -397,6 +397,7 @@ export function NpcChallengeMode({
                 value={draft.code}
                 onChange={(next) => setDraft((d) => ({ ...d, code: next }))}
                 ariaLabel="NPC Python code editor"
+                showLineNumbers
                 minHeightPx={320}
                 maxHeightPx={680}
                 className="mt-2 min-h-[320px] w-full border-2 border-slate-200 bg-white shadow-sm focus-within:ring-4 focus-within:ring-[var(--accent)]/25"

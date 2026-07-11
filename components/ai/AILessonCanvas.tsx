@@ -10,7 +10,6 @@ import {
   ChevronRight,
   Lightbulb,
   ListChecks,
-  PartyPopper,
   PenLine,
   ShieldCheck,
   Sparkles,
@@ -19,14 +18,22 @@ import {
   Zap,
 } from "lucide-react";
 
+import { MatchOrder, type MatchPair, type OrderItem } from "@/components/exercises/MatchOrder";
+import { ScenarioTree, type ScenarioNode } from "@/components/exercises/ScenarioTree";
+import { AIDebugChallenge } from "@/components/exercises/AIDebugChallenge";
+import { AIParsonsChallenge } from "@/components/exercises/AIParsonsChallenge";
+import { AIPredictChallenge } from "@/components/exercises/AIPredictChallenge";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
+import { PremiumBadge } from "@/components/badges/PremiumBadge";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { AI_INTERACTIVE_BY_LESSON } from "@/lib/aiLessons/interactiveExercises";
+import { DIGITAL_INTERACTIVE_BY_LESSON } from "@/lib/digitalLessons/interactiveExercises";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
 import { cn } from "@/lib/utils";
@@ -44,6 +51,76 @@ export type AIQuizQuestion = {
 
 export type AIKeyTerm = { term: string; definition: string };
 
+export type AIMatchActivity = {
+  id: string;
+  kind: "match";
+  title: string;
+  prompt: string;
+  pairs: MatchPair[];
+};
+
+export type AIOrderActivity = {
+  id: string;
+  kind: "order";
+  title: string;
+  prompt: string;
+  items: OrderItem[];
+};
+
+export type AIScenarioActivity = {
+  id: string;
+  kind: "scenario";
+  title: string;
+  startId: string;
+  nodes: ScenarioNode[];
+};
+
+export type AIParsonsActivity = {
+  id: string;
+  kind: "parsons";
+  title: string;
+  prompt: string;
+  lines: string[];
+  languageLabel?: string;
+  explanation: string;
+};
+
+export type AIDebugActivity = {
+  id: string;
+  kind: "debug";
+  title: string;
+  prompt: string;
+  buggyContent: string;
+  contentLabel?: string;
+  choices: string[];
+  correctIndex: number;
+  explanation: string;
+  hint?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+};
+
+export type AIPredictActivity = {
+  id: string;
+  kind: "predict";
+  title: string;
+  prompt: string;
+  scenario?: string;
+  acceptedAnswers: string[];
+  explanation: string;
+  placeholder?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+};
+
+export type AIBonusActivity =
+  | AIMatchActivity
+  | AIOrderActivity
+  | AIScenarioActivity
+  | AIParsonsActivity
+  | AIDebugActivity
+  | AIPredictActivity;
+
 export type AILessonConfig = {
   id: string;
   title: string;
@@ -58,6 +135,12 @@ export type AILessonConfig = {
   /** A real-world connection callout. */
   realWorld?: string;
   quiz: AIQuizQuestion[];
+  /**
+   * Interactive practice after the MCQ quiz:
+   * reorder (parsons), debug, predict, match, order, or scenario.
+   * If omitted, a default set from the AI exercise bank is used.
+   */
+  activities?: AIBonusActivity[];
   /** Optional open-ended reflection shown after the quiz. */
   reflection?: { prompt: string; placeholder?: string };
   prevHref?: string;
@@ -102,6 +185,8 @@ export function AILessonCanvas({
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [selected, setSelected] = React.useState<Record<string, number>>({});
   const [correctIds, setCorrectIds] = React.useState<Set<string>>(() => new Set());
+  const [activityDoneIds, setActivityDoneIds] = React.useState<Set<string>>(() => new Set());
+  const [activeActivityIndex, setActiveActivityIndex] = React.useState(0);
   const [reflection, setReflection] = React.useState("");
   const [lessonComplete, setLessonComplete] = React.useState(false);
 
@@ -221,12 +306,74 @@ export function AILessonCanvas({
     if (activeIndex < totalQuestions - 1) setActiveIndex((i) => i + 1);
   };
 
+  const activities = React.useMemo(() => {
+    if (lesson.activities && lesson.activities.length > 0) return lesson.activities;
+    return (
+      AI_INTERACTIVE_BY_LESSON[lesson.id] ??
+      DIGITAL_INTERACTIVE_BY_LESSON[lesson.id] ??
+      []
+    );
+  }, [lesson.activities, lesson.id]);
   const allCorrect = lesson.quiz.every((q) => correctIds.has(q.id));
+  const allActivitiesDone =
+    activities.length === 0 || activities.every((a) => activityDoneIds.has(a.id));
+  const canFinish = allCorrect && allActivitiesDone;
   const isLastQuestion = activeIndex === totalQuestions - 1;
   const currentCorrect = activeQuestion ? correctIds.has(activeQuestion.id) : false;
   const currentSelection = activeQuestion ? selected[activeQuestion.id] : undefined;
+  const activeActivity = activities[activeActivityIndex];
+
+  const markActivityDone = (activityId: string, payload?: Record<string, unknown>) => {
+    setActivityDoneIds((prev) => new Set(prev).add(activityId));
+    trackProgress("run", { activityId, kind: "bonus", ...payload });
+  };
+
+  /** TEMP testing helper — remove before shipping. */
+  const tempPassCurrentStep = () => {
+    if (lessonComplete) return;
+
+    if (!allCorrect) {
+      const q = lesson.quiz[activeIndex];
+      if (!q) return;
+      setSelected((prev) => ({ ...prev, [q.id]: q.correctIndex }));
+      setCorrectIds((prev) => new Set(prev).add(q.id));
+      if (activeIndex < totalQuestions - 1) {
+        setActiveIndex((i) => i + 1);
+      }
+      return;
+    }
+
+    const act = activities[activeActivityIndex];
+    if (act && !activityDoneIds.has(act.id)) {
+      markActivityDone(act.id, { tempSkip: true });
+      if (activeActivityIndex < activities.length - 1) {
+        setActiveActivityIndex((i) => i + 1);
+      }
+    }
+  };
+
+  /** TEMP testing helper — remove before shipping. */
+  const tempPassAllRemaining = () => {
+    if (lessonComplete) return;
+
+    const nextSelected: Record<string, number> = { ...selected };
+    const nextCorrect = new Set(correctIds);
+    for (const q of lesson.quiz) {
+      nextSelected[q.id] = q.correctIndex;
+      nextCorrect.add(q.id);
+    }
+    setSelected(nextSelected);
+    setCorrectIds(nextCorrect);
+    setActiveIndex(Math.max(0, totalQuestions - 1));
+
+    const nextDone = new Set(activityDoneIds);
+    for (const act of activities) nextDone.add(act.id);
+    setActivityDoneIds(nextDone);
+    if (activities.length > 0) setActiveActivityIndex(activities.length - 1);
+  };
 
   const finishLesson = () => {
+    if (!canFinish) return;
     setLessonComplete(true);
     try {
       if (reflection.trim()) {
@@ -239,12 +386,19 @@ export function AILessonCanvas({
       markGuestLessonComplete(lesson.id);
       return;
     }
-    trackProgress("lesson_success", { reflectionLength: reflection.trim().length });
+    trackProgress("lesson_success", {
+      reflectionLength: reflection.trim().length,
+      activitiesCompleted: activityDoneIds.size,
+    });
   };
 
   const progressPercent = lessonComplete
     ? 100
-    : Math.round((correctIds.size / Math.max(1, totalQuestions)) * 100);
+    : Math.round(
+        ((correctIds.size + activityDoneIds.size) /
+          Math.max(1, totalQuestions + activities.length)) *
+          100
+      );
 
   return (
     <LessonAccessGate lessonId={lesson.id}>
@@ -284,7 +438,7 @@ export function AILessonCanvas({
                 <Zap className="mr-1.5 h-4 w-4" />
                 {lesson.xpReward} XP
               </Badge>
-              <Badge className="kanam-hero-chip">{lesson.badge}</Badge>
+              <PremiumBadge lessonId={lesson.id} name={lesson.badge} variant="chip" />
               <Button asChild className="kanam-hero-cta" size="sm">
                 <Link href={lesson.dashboardHref ?? "/dashboard"}>Dashboard</Link>
               </Button>
@@ -293,7 +447,8 @@ export function AILessonCanvas({
           <div className="relative z-10 mt-6">
             <div className="mb-2 flex justify-between text-sm font-semibold text-white/90">
               <span>
-                Knowledge check: {correctIds.size} / {totalQuestions}
+                Knowledge check: {correctIds.size + activityDoneIds.size} /{" "}
+                {totalQuestions + activities.length}
               </span>
               <span>{progressPercent}%</span>
             </div>
@@ -499,7 +654,10 @@ export function AILessonCanvas({
                             role="alert"
                           >
                             <p className="font-semibold">Not quite — try again.</p>
-                            <p className="mt-1">{activeQuestion.explanation}</p>
+                            <p className="mt-1">
+                              Reread the question and pick a different answer. The full explanation
+                              unlocks when you get it right.
+                            </p>
                           </div>
                         )
                       ) : null}
@@ -522,13 +680,160 @@ export function AILessonCanvas({
                 </CardContent>
               </Card>
 
-              {allCorrect && !lessonComplete ? (
+              {allCorrect && activities.length > 0 ? (
+                <Card className="border-violet-200 bg-violet-50/40 shadow-md">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="flex items-center gap-2 text-base">
+                      <Sparkles className="h-5 w-5 text-violet-600" />
+                      Practice challenges
+                    </CardTitle>
+                    <p className="text-sm font-medium text-slate-600">
+                      Reorder · Debug · Predict — finish each one to complete the lesson.
+                    </p>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex flex-wrap gap-2">
+                      {activities.map((activity, idx) => {
+                        const done = activityDoneIds.has(activity.id);
+                        const active = idx === activeActivityIndex;
+                        const locked =
+                          idx > 0 && !activityDoneIds.has(activities[idx - 1].id);
+                        const kindLabel =
+                          activity.kind === "parsons"
+                            ? "Reorder"
+                            : activity.kind === "debug"
+                              ? "Debug"
+                              : activity.kind === "predict"
+                                ? "Predict"
+                                : activity.kind === "match"
+                                  ? "Match"
+                                  : activity.kind === "order"
+                                    ? "Order"
+                                    : "Scenario";
+                        return (
+                          <button
+                            key={activity.id}
+                            type="button"
+                            disabled={locked && !done}
+                            onClick={() => {
+                              if (!locked || done) setActiveActivityIndex(idx);
+                            }}
+                            className={cn(
+                              "flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors",
+                              active
+                                ? "border-violet-600 bg-violet-600 text-white"
+                                : done
+                                  ? "border-violet-300 bg-violet-100 text-violet-900"
+                                  : locked
+                                    ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400"
+                                    : "border-slate-200 bg-white text-slate-700"
+                            )}
+                          >
+                            {done ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
+                            <span className="opacity-80">{kindLabel}:</span> {activity.title}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {activeActivity ? (
+                      <div className="rounded-2xl border border-white bg-white p-4 shadow-sm">
+                        {activeActivity.kind === "match" ? (
+                          <MatchOrder
+                            mode="match"
+                            prompt={activeActivity.prompt}
+                            pairs={activeActivity.pairs}
+                            completed={activityDoneIds.has(activeActivity.id)}
+                            onComplete={() => markActivityDone(activeActivity.id)}
+                          />
+                        ) : null}
+                        {activeActivity.kind === "order" ? (
+                          <MatchOrder
+                            mode="order"
+                            prompt={activeActivity.prompt}
+                            items={activeActivity.items}
+                            completed={activityDoneIds.has(activeActivity.id)}
+                            onComplete={() => markActivityDone(activeActivity.id)}
+                          />
+                        ) : null}
+                        {activeActivity.kind === "scenario" ? (
+                          <ScenarioTree
+                            title={activeActivity.title}
+                            startId={activeActivity.startId}
+                            nodes={activeActivity.nodes}
+                            completed={activityDoneIds.has(activeActivity.id)}
+                            onComplete={(pathIds) =>
+                              markActivityDone(activeActivity.id, { pathIds })
+                            }
+                          />
+                        ) : null}
+                        {activeActivity.kind === "parsons" ? (
+                          <AIParsonsChallenge
+                            prompt={activeActivity.prompt}
+                            lines={activeActivity.lines}
+                            languageLabel={activeActivity.languageLabel}
+                            explanation={activeActivity.explanation}
+                            completed={activityDoneIds.has(activeActivity.id)}
+                            onComplete={() => markActivityDone(activeActivity.id)}
+                          />
+                        ) : null}
+                        {activeActivity.kind === "debug" ? (
+                          <AIDebugChallenge
+                            prompt={activeActivity.prompt}
+                            buggyContent={activeActivity.buggyContent}
+                            contentLabel={activeActivity.contentLabel}
+                            choices={activeActivity.choices}
+                            correctIndex={activeActivity.correctIndex}
+                            explanation={activeActivity.explanation}
+                            hint={activeActivity.hint}
+                            imageSrc={activeActivity.imageSrc}
+                            imageAlt={activeActivity.imageAlt}
+                            completed={activityDoneIds.has(activeActivity.id)}
+                            onComplete={() => markActivityDone(activeActivity.id)}
+                          />
+                        ) : null}
+                        {activeActivity.kind === "predict" ? (
+                          <AIPredictChallenge
+                            prompt={activeActivity.prompt}
+                            scenario={activeActivity.scenario}
+                            acceptedAnswers={activeActivity.acceptedAnswers}
+                            explanation={activeActivity.explanation}
+                            placeholder={activeActivity.placeholder}
+                            imageSrc={activeActivity.imageSrc}
+                            imageAlt={activeActivity.imageAlt}
+                            completed={activityDoneIds.has(activeActivity.id)}
+                            onComplete={() => markActivityDone(activeActivity.id)}
+                          />
+                        ) : null}
+
+                        {activityDoneIds.has(activeActivity.id) &&
+                        activeActivityIndex < activities.length - 1 ? (
+                          <div className="mt-4">
+                            <Button
+                              type="button"
+                              className="h-11"
+                              onClick={() => setActiveActivityIndex((i) => i + 1)}
+                            >
+                              Next challenge
+                              <ChevronRight className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </CardContent>
+                </Card>
+              ) : null}
+
+              {canFinish && !lessonComplete ? (
                 <Card className="border-[var(--brand)]/40 bg-[var(--brand)]/5 shadow-md">
                   <CardContent className="space-y-4 py-6">
                     <div className="flex items-center gap-2">
                       <ShieldCheck className="h-5 w-5 text-[var(--brand)]" />
                       <p className="text-lg font-black tracking-tight text-slate-900">
-                        You aced the knowledge check!
+                        {activities.length > 0
+                          ? "Quiz + practice complete!"
+                          : "You aced the knowledge check!"}
                       </p>
                     </div>
                     {lesson.reflection ? (
@@ -566,22 +871,25 @@ export function AILessonCanvas({
               {lessonComplete ? (
                 <Card className="kanam-data-lesson-complete overflow-hidden border-0">
                   <CardContent className="py-8 text-center">
-                    <span className="kanam-data-lesson-complete-emoji" aria-hidden>
-                      🎉
-                    </span>
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[var(--brand)]/10">
+                      <Trophy className="h-7 w-7 text-[var(--accent)]" aria-hidden />
+                    </div>
                     <div className="mt-3 flex items-center justify-center gap-2">
-                      <Trophy className="h-6 w-6 text-[var(--accent)]" aria-hidden />
                       <p className="text-2xl font-black tracking-tight text-slate-900">
                         Lesson complete!
                       </p>
-                      <PartyPopper className="h-6 w-6 text-[var(--brand)]" aria-hidden />
                     </div>
                     <p className="mt-3 text-base font-semibold text-[var(--brand-2)]">
                       You earned {lesson.xpReward} XP
                     </p>
-                    <Badge className="mt-3 bg-[var(--brand)] px-4 py-1.5 text-sm text-white">
-                      {lesson.badge}
-                    </Badge>
+                    <div className="mt-4 flex justify-center">
+                      <PremiumBadge
+                        lessonId={lesson.id}
+                        name={lesson.badge}
+                        variant="seal"
+                        unlocked
+                      />
+                    </div>
                     {lesson.nextHref ? (
                       <Button asChild className="mt-5 shadow-md" size="lg">
                         <Link href={lesson.nextHref}>Next lesson</Link>
@@ -598,6 +906,32 @@ export function AILessonCanvas({
           </div>
         )}
       </div>
+
+      {/* TEMP: testing skip controls — delete this block later */}
+      {view === "quiz" && !lessonComplete ? (
+        <div className="fixed bottom-4 right-4 z-[80] flex max-w-[min(100vw-2rem,20rem)] flex-col gap-2 rounded-2xl border-2 border-dashed border-orange-400 bg-orange-50 p-3 shadow-xl">
+          <p className="text-[10px] font-black uppercase tracking-wide text-orange-800">
+            Temp test controls — remove later
+          </p>
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            className="h-10 border-orange-300 bg-white text-orange-950 hover:bg-orange-100"
+            onClick={tempPassCurrentStep}
+          >
+            Pass current step
+          </Button>
+          <Button
+            type="button"
+            size="sm"
+            className="h-10 bg-orange-500 text-white hover:bg-orange-600"
+            onClick={tempPassAllRemaining}
+          >
+            Pass all remaining
+          </Button>
+        </div>
+      ) : null}
     </WelcomeBackground>
     </LessonAccessGate>
   );

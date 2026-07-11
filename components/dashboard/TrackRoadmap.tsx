@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { PremiumBadge, PremiumBadgeMark } from "@/components/badges/PremiumBadge";
 import {
   type Track,
   isLessonOpenForStudent,
@@ -278,8 +279,13 @@ function TrackRoadmapContent({
                               <p className="mt-1 break-words text-base font-black tracking-tight text-slate-900">
                                 {lesson.title}
                               </p>
-                              <p className="mt-1 text-xs font-semibold text-slate-500">
-                                +{lesson.xp} XP · {lesson.badgeIcon} {lesson.badgeName}
+                              <p className="mt-1 flex flex-wrap items-center gap-1.5 text-xs font-semibold text-slate-500">
+                                <span>+{lesson.xp} XP</span>
+                                <span aria-hidden>·</span>
+                                <span className="inline-flex items-center gap-1 text-slate-700">
+                                  <PremiumBadgeMark lessonId={lesson.id} name={lesson.badgeName} />
+                                  {lesson.badgeName}
+                                </span>
                               </p>
                             </div>
                           </div>
@@ -354,25 +360,29 @@ function TrackRoadmapContent({
 
         <div className="space-y-3">
           <h2 className="text-lg font-black tracking-tight text-slate-900">Badges</h2>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {track.lessons.map((l) => {
               const unlocked = completedIds.includes(l.id);
               return (
                 <Card
                   key={l.id}
                   className={[
-                    "border",
+                    "border transition-shadow",
                     unlocked
-                      ? "border-[var(--accent)]/50 bg-amber-50/30"
-                      : "border-slate-200 opacity-70",
+                      ? "border-[rgb(var(--accent-rgb)/0.45)] bg-gradient-to-br from-amber-50/80 to-white shadow-sm"
+                      : "border-slate-200 bg-slate-50/60 opacity-80",
                   ].join(" ")}
                 >
                   <CardContent className="p-4">
-                    <div className="text-2xl">{l.badgeIcon}</div>
-                    <p className="mt-2 text-sm font-semibold text-slate-900">{l.badgeName}</p>
-                    <p className="mt-1 text-xs text-slate-500">
-                      {unlocked ? "Unlocked" : l.comingSoon ? "Coming soon" : "Locked"}
-                    </p>
+                    <PremiumBadge
+                      lessonId={l.id}
+                      name={l.badgeName}
+                      variant="medal"
+                      unlocked={unlocked}
+                      statusLabel={
+                        unlocked ? "Unlocked" : l.comingSoon ? "Coming soon" : "Locked"
+                      }
+                    />
                   </CardContent>
                 </Card>
               );

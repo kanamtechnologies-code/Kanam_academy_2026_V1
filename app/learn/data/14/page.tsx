@@ -11,7 +11,7 @@ const daLesson14: DataLessonConfig = {
   title: "14. Your Data Project",
   goal: "Put it all together — explore, join, summarize, and rank to answer a real question: who spent the most?",
   xpReward: 700,
-  badge: "🎓 Data Analyst",
+  badge: "Data Analyst",
   previewTable: "orders",
   seedData: SCHOOL_DB_SEED,
   lessonModule: {
@@ -121,7 +121,7 @@ Our two tables are back:
 
 Your mission across these exercises: figure out **which student spent the most money**. You'll get there step by step — explore, join, summarize, then rank.
 
-Take your time and read each result. You've earned this. 🎓`,
+Take your time and read each result. You've earned this.`,
   commandReference: [
     {
       command: "Explore",
@@ -262,7 +262,7 @@ ORDER BY
 LIMIT ;`,
       hint: "ORDER BY total_spent DESC LIMIT 1;",
       successMessage:
-        "🎓 Project complete! Alex is the top spender at $6.25. You're a Data Analyst!",
+        "Project complete! Alex is the top spender at $6.25. You're a Data Analyst!",
       failureMessage:
         "Need GROUP BY student_name, ORDER BY total_spent DESC, LIMIT 1 — exactly 1 row.",
       validate: (sql, result) => {

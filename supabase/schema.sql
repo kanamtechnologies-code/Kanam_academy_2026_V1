@@ -111,11 +111,16 @@ create table if not exists public.classes (
   name text not null,
   -- Human-shareable code students enter during onboarding (case-insensitive in the app; store uppercase).
   code text not null,
+  -- True for the shared self-paced / async cohort (all async learners use one code).
+  is_async boolean not null default false,
   created_at timestamptz not null default now()
 );
 
 create unique index if not exists idx_classes_code_unique on public.classes (code);
 create index if not exists idx_classes_teacher_user_id on public.classes (teacher_user_id);
+
+-- Existing projects: add the async flag if the table already existed without it.
+alter table public.classes add column if not exists is_async boolean not null default false;
 
 create table if not exists public.class_enrollments (
   class_id uuid not null references public.classes(id) on delete cascade,
@@ -329,6 +334,20 @@ create policy classes_delete_own
   using (teacher_user_id = auth.uid());
 
 -- Enrollments: instructors can view and manage enrollments for their classes.
+-- Students can read their own enrollment rows (needed for lesson-access checks).
+drop policy if exists class_enrollments_select_own_student on public.class_enrollments;
+create policy class_enrollments_select_own_student
+  on public.class_enrollments for select
+  to authenticated
+  using (
+    exists (
+      select 1
+      from public.students s
+      where s.id = class_enrollments.student_id
+        and s.user_id = auth.uid()
+    )
+  );
+
 drop policy if exists class_enrollments_select_for_own_classes on public.class_enrollments;
 create policy class_enrollments_select_for_own_classes
   on public.class_enrollments for select

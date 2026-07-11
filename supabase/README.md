@@ -26,7 +26,19 @@ After it succeeds, confirm tables exist:
 select tablename from pg_tables where schemaname = 'public' order by tablename;
 ```
 
-You should see: `class_enrollments`, `classes`, `lesson_progress`, `progress_events`, `schools`, `students`.
+You should see: `class_enrollments`, `class_lesson_assignments`, `classes`, `lesson_progress`, `progress_events`, `schools`, `students`.
+
+### Self-paced / async cohort
+
+All solo learners share **one** class code (default `KANAM-ASYNC`) so they batch together in the database.
+
+1. Create an instructor account (or use an existing one).
+2. Copy that instructor's Auth user UUID into `.env.local` as `KANAM_ASYNC_OWNER_USER_ID`.
+3. Optionally set `KANAM_ASYNC_CLASS_CODE` / `KANAM_ASYNC_CLASS_NAME`.
+4. Set `RESEND_API_KEY` + `KANAM_EMAIL_FROM` so “Email me a self-paced code” actually sends mail.
+5. Re-run `supabase/schema.sql` (adds `classes.is_async` if missing).
+
+The first successful request creates the shared class row automatically.
 
 Then verify the app (with `npm run dev` running):
 

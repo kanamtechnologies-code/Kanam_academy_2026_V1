@@ -36,6 +36,7 @@ import { Progress } from "@/components/ui/progress";
 import { SpotlightTour, type SpotlightTourHandle } from "@/components/ui/SpotlightTour";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import { PremiumBadge } from "@/components/badges/PremiumBadge";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
@@ -1413,15 +1414,12 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
             <Zap className="mr-1 h-4 w-4 text-[var(--accent)]" />
             {lesson.xpReward} XP
           </Badge>
-          <Badge
-            variant={submitted ? "success" : "outline"}
-            className={[
-              "border border-slate-200 bg-white px-3 py-1 shadow-sm",
-              submitted ? "animate-pulse" : "",
-            ].join(" ")}
-          >
-            {lesson.badge}
-          </Badge>
+          <PremiumBadge
+            lessonId={lesson.id}
+            name={lesson.badge}
+            variant="chip"
+            className="!border-slate-200 !bg-white !text-slate-900 shadow-sm [&_.kanam-badge-mark]:shadow-sm"
+          />
 
           <div className="mx-1 hidden h-6 w-px bg-slate-200/70 sm:block" />
 
@@ -2161,6 +2159,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
                 ariaLabel="From-scratch Python code editor"
                 data-tour="scratch-editor"
                 placeholder={lesson.editorPlaceholder ?? '# Start here:\n# print("Hello!")\n'}
+                showLineNumbers
                 minHeightPx={220}
                 maxHeightPx={560}
                 className={[

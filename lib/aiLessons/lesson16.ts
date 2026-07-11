@@ -5,7 +5,7 @@ export const aiLesson16: AILessonConfig = {
   title: "16. Capstone: Be an AI-Smart Citizen",
   goal: "Put it all together: review the big ideas, evaluate a real AI tool, and write your own responsible-use guidelines.",
   xpReward: 800,
-  badge: "🎓 AI-Smart Citizen",
+  badge: "AI-Smart Citizen",
   dashboardHref: "/dashboard",
   prevHref: "/learn/ai/15",
   lessonModule: {
@@ -76,7 +76,7 @@ export const aiLesson16: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn — finish strong",
-        body: `This is the finish line of the whole AI Literacy track. You started by asking what AI is; now you can understand it, direct it, verify it, protect yourself from its risks, and use it ethically. That's real AI literacy — the kind most adults don't have yet.\n\nTake the final knowledge check (it pulls from the entire course), then complete your capstone reflection to earn your 🎓 **AI-Smart Citizen** badge.\n\nWhen you're ready, switch to the **Knowledge check**. Congratulations — you've become exactly the kind of thoughtful, AI-smart person the future needs.`,
+        body: `This is the finish line of the whole AI Literacy track. You started by asking what AI is; now you can understand it, direct it, verify it, protect yourself from its risks, and use it ethically. That's real AI literacy — the kind most adults don't have yet.\n\nTake the final knowledge check (it pulls from the entire course), then complete your capstone reflection to earn your **AI-Smart Citizen** badge.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict). Congratulations — you've become exactly the kind of thoughtful, AI-smart person the future needs.`,
       },
     ],
   },

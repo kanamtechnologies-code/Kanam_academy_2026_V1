@@ -11,7 +11,7 @@ const daLesson10: DataLessonConfig = {
   title: "10. Parts of a Whole",
   goal: "Use a pie chart to show how each item is a slice of all the orders — and learn when a pie helps and when it misleads.",
   xpReward: 500,
-  badge: "🥧 Slice Master",
+  badge: "Slice Master",
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   prevHref: "/learn/data/9",

@@ -5,20 +5,20 @@ export const digitalLesson4: AILessonConfig = {
   title: "4. Is It True? Spotting Misinformation",
   goal: "Evaluate the credibility of online information, spot misinformation, and fact-check using lateral reading and the SIFT method.",
   xpReward: 200,
-  badge: "🕵️ Truth Seeker",
+  badge: "Truth Seeker",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/3",
   nextHref: "/learn/digital/5",
   lessonModule: {
-    durationLabel: "~9 min lesson",
+    durationLabel: "~11–12 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Your feed is a firehose of headlines, clips, and "did you hear?!" posts. Some are true, some are twisted, and some are flat-out made up. Today you'll learn how to tell them apart — a skill the smartest, most careful people in the world actually use.\n\nHere's our roadmap:\n\n• **Misinformation vs. disinformation** — false by accident vs. false on purpose.\n• **Why false stuff spreads so fast** — emotion, algorithms, and the share button.\n• **The SIFT method** — a simple 4-move checklist the pros use.\n• **Lateral reading & reverse image search** — checking a source from the outside.\n\nThis is maybe the most important digital skill of all. Getting fooled can cost you money, embarrass you, or push you to believe things that just aren't real. Learning to verify keeps you sharp and in control.`,
+        body: `Your feed is a firehose of headlines, clips, and "did you hear?!" posts. Some are true, some are twisted, and some are flat-out made up. Today you'll learn how to tell them apart — a skill the smartest, most careful people in the world actually use.\n\nHere's our roadmap:\n\n• **Misinformation vs. disinformation** — false by accident vs. false on purpose.\n• **Why false stuff spreads so fast** — emotion, algorithms, and the share button.\n• **The SIFT method** — a simple 4-move checklist the pros use.\n• **Lateral reading & reverse image search** — checking a source from the outside.\n• **High-stakes checks** — scholarships, college rumors, and "too good to be true" offers.\n\nThis is maybe the most important digital skill of all. Getting fooled can cost you money, embarrass you, or push you to believe things that just aren't real. Learning to verify keeps you sharp and in control.`,
         image: "/images/lessons/dl-4.png",
-        imageAlt: "A detective's magnifying glass examining a suspicious headline with multiple browser tabs open to cross-check it",
+        imageAlt: "Laptop with multiple browser tabs open to fact-check a headline; phone showing a suspicious social post beside it",
         callout: {
           label: "Why it matters",
           text: "Anyone can publish anything online and make it look official. The ability to check before you believe — and before you share — protects you and everyone who trusts you.",
@@ -66,7 +66,7 @@ export const digitalLesson4: AILessonConfig = {
         title: "The SIFT method: four moves to check anything",
         body: `When you meet a surprising claim, don't argue with it in your head — run **SIFT**, a simple four-move routine used by professional fact-checkers. Each letter is one move:\n\n• **S — Stop.** Before reacting or sharing, pause. Notice your emotional reaction and ask: do I even know if this source is trustworthy? Don't go further until you've checked.\n• **I — Investigate the source.** Who made this? A real news organization, an expert, a random anonymous account, or a site you've never heard of? Find out who's behind it and whether they're credible.\n• **F — Find better (or other) coverage.** Don't rely on the one post. Search for the claim and see what *other* reliable sources say. If several trustworthy outlets agree, that's a good sign; if no one else reports it, be suspicious.\n• **T — Trace claims to the original.** Headlines and reshares twist things. Follow quotes, stats, and images back to where they *first* came from to see the real, full context.\n\nSIFT works on articles, videos, screenshots, viral posts — anything. Four quick moves, and you've gone from "I think this is true" to "I actually checked."`,
         image: "/images/lessons/dl-4-2.png",
-        imageAlt: "The four SIFT steps as a vertical checklist: a stop hand, a magnifying glass over a source, multiple open tabs comparing coverage, and an arrow tracing a claim back to its origin",
+        imageAlt: "Desktop browser with four open tabs used to stop, investigate a source, compare coverage, and trace a claim to its origin",
         callout: {
           label: "Pro tip",
           text: "You don't always need all four moves. Often just the first two — Stop and Investigate the source — are enough to tell that a sketchy post isn't worth believing or sharing.",
@@ -89,12 +89,28 @@ export const digitalLesson4: AILessonConfig = {
         },
       },
       {
+        id: "high-stakes",
+        kicker: "When it really matters",
+        title: "Scholarships, college rumors, and 'guaranteed' offers",
+        body: `Some false claims are annoying. Others can cost you money, a deadline, or a real opportunity. Treat these as **high-stakes** — always SIFT before you act:\n\n• **"Guaranteed scholarship / free laptop if you pay a fee"** — Real aid almost never asks you to pay upfront to "unlock" money. Investigate the organization; check .gov / school sites.\n• **"College just canceled applications / everyone got rejected"** — Viral panic posts love this. Find other coverage from the college's official site or reputable news before you spiral.\n• **"This internship pays $5,000/week — just send your SSN"** — Trace the claim. Legitimate employers don't hire through random DMs asking for sensitive info.\n• **Screenshots of "official" emails** — Easy to fake. Go to the real portal or known address yourself; don't trust the screenshot alone.\n\n**Decision framework:** If a claim involves **money, personal info, deadlines, or your future**, require stronger evidence: official sites, multiple reliable sources, and a calm pause. Emotion + urgency is the scam's favorite combo.`,
+        bullets: [
+          "Money + urgency + 'act now' = slow down and verify.",
+          "Prefer official .edu / .gov / known org pages over viral posts.",
+          "Never send SSN, bank info, or passwords from a random link or DM.",
+          "Screenshots are easy to fake — confirm in the real system.",
+        ],
+        callout: {
+          label: "Try this week",
+          text: "The next time a post makes you feel shocked, angry, or greedy for a 'deal,' run Stop + Investigate the source before you share or click. Two moves. Ten seconds. Huge protection.",
+        },
+      },
+      {
         id: "worked",
         kicker: "Worked example",
         title: "A shocking headline appears — apply SIFT",
         body: `You're scrolling and see a dramatic post: *"BREAKING: Scientists confirm chocolate cures the common cold!"* with a photo of a lab and thousands of shares. Let's run SIFT.\n\n**Step 1 — Stop.** Notice the rush of excitement ("yes, finally!"). That strong feeling is the warning sign. Pause before sharing.\n\n**Step 2 — Investigate the source.** Tap who posted it. It's "HealthBuzzDailyNow," a site you've never heard of, full of ads and clickbait. Not a credible medical source.\n\n**Step 3 — Find other coverage.** Open new tabs (lateral reading) and search "chocolate cures cold." No real news outlet or health organization reports it — only copycat clickbait sites. Big red flag: a real cure would be everywhere.\n\n**Step 4 — Trace to the original.** The post links to a "study," but following it leads to a tiny blog with no actual research. The lab photo, run through reverse image search, turns out to be a stock photo from years ago. Verdict: **false** — don't share it. In under two minutes, you avoided spreading misinformation.`,
         image: "/images/lessons/dl-4-3.png",
-        imageAlt: "A flashy fake breaking-news headline being checked across several browser tabs and a reverse image search that exposes a recycled stock photo, stamped false",
+        imageAlt: "Phone showing a flashy fake headline next to a laptop with reverse image search results exposing a recycled stock photo",
         callout: {
           label: "Pro tip",
           text: "Extraordinary claims need extraordinary evidence. If something would be huge news but only one unknown site is reporting it, that's almost always a sign it's false.",
@@ -104,7 +120,7 @@ export const digitalLesson4: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You're now equipped to be the person in the group chat who actually checks things. Quick recap:\n\n• **Misinformation** is false by accident; **disinformation** is false on purpose; **bias** leans the story one way.\n• False content spreads fast because of **emotion**, **algorithms**, and easy **sharing** — strong feelings are your cue to slow down.\n• Run **SIFT**: **S**top, **I**nvestigate the source, **F**ind other coverage, **T**race claims to the original.\n• Use **lateral reading** and **reverse image search**, and stay wary of **clickbait** and **deepfakes**.\n\nWhen you're ready, switch to the **Knowledge check**, then reflect on a time you almost shared something false.`,
+        body: `You're now equipped to be the person in the group chat who actually checks things. Quick recap:\n\n• **Misinformation** is false by accident; **disinformation** is false on purpose; **bias** leans the story one way.\n• False content spreads fast because of **emotion**, **algorithms**, and easy **sharing** — strong feelings are your cue to slow down.\n• Run **SIFT**: **S**top, **I**nvestigate the source, **F**ind other coverage, **T**race claims to the original.\n• Use **lateral reading** and **reverse image search**, and stay wary of **clickbait** and **deepfakes**.\n• For money, deadlines, and personal info, raise the bar — verify on official channels.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on a time you almost shared something false.`,
       },
     ],
   },
@@ -124,14 +140,14 @@ export const digitalLesson4: AILessonConfig = {
     { term: "Fact-check", definition: "The process of verifying whether a claim is actually true using reliable evidence." },
   ],
   realWorld:
-    "Before resharing a viral health 'tip,' a shocking news clip, or a too-good-to-be-true deal, fact-checkers run **SIFT** and read **laterally** — the same moves that keep you from being scammed or embarrassed online.",
+    "Before resharing a viral health 'tip,' a shocking college rumor, or a too-good-to-be-true scholarship, fact-checkers run **SIFT** and read **laterally** — the same moves that keep you from being scammed or embarrassed online.",
   quiz: [
     {
       id: "q1",
-      question: "What is the difference between misinformation and disinformation?",
+      question: "A classmate reshared a fake health tip because they thought it was real. The original creator knew it was fake. What's the difference?",
       choices: [
         "Misinformation is on TV; disinformation is online",
-        "Misinformation is false but shared without intent to harm; disinformation is false and spread on purpose to deceive",
+        "The classmate spread misinformation (no intent to harm); the creator spread disinformation (on purpose to deceive)",
         "Misinformation is always true; disinformation is always false",
         "There is no difference",
       ],
@@ -141,7 +157,7 @@ export const digitalLesson4: AILessonConfig = {
     },
     {
       id: "q2",
-      question: "Why does false or exaggerated content often spread faster than the truth?",
+      question: "A viral post about 'guaranteed free college' spreads through your group chat in minutes. Why does false or exaggerated content often spread faster than the truth?",
       choices: [
         "Because true stories are illegal to share",
         "Because it triggers strong emotions, which boosts sharing and gets amplified by algorithms",
@@ -154,7 +170,7 @@ export const digitalLesson4: AILessonConfig = {
     },
     {
       id: "q3",
-      question: "What does the 'I' in the SIFT method stand for?",
+      question: "You're checking a shocking scholarship claim. What does the 'I' in the SIFT method stand for?",
       choices: [
         "Ignore the post",
         "Investigate the source — find out who made it and whether they're credible",
@@ -167,7 +183,7 @@ export const digitalLesson4: AILessonConfig = {
     },
     {
       id: "q4",
-      question: "What is 'lateral reading'?",
+      question: "You land on a slick website claiming an internship pays thousands a week. What is 'lateral reading'?",
       choices: [
         "Reading a webpage from top to bottom to judge how professional it looks",
         "Leaving the page and opening new tabs to see what other reliable sources say about the source",

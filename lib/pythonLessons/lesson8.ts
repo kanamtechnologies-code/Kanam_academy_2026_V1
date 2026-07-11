@@ -2,13 +2,6 @@ import type { PythonLessonConfig } from "@/components/python/PythonLessonCanvas"
 import type { MiniRunResult } from "@/lib/pythonRunner";
 import { rejectsUppercasePrint } from "@/lib/pythonTerminal";
 
-const CHOICE_INPUT = {
-  key: "choice",
-  label: 'Pretend you typed for: input("Tell me one thing you like: ")',
-  placeholder: "pizza",
-  defaultValue: "pizza",
-};
-
 function noRunError(run: MiniRunResult): boolean {
   return !run.error;
 }
@@ -22,7 +15,7 @@ export const lesson8: PythonLessonConfig = {
   title: "8. AI Remembers Choices",
   goal: "Use a list to remember multiple choices over time.",
   xpReward: 450,
-  badge: "🧺 Memory Builder",
+  badge: "Memory Builder",
   instructorScript:
     "**Coach’s note**:\nSo far, your bot has been able to remember one thing at a time.\n\nThat’s because we’ve been using ==variables==.\n\nA variable is like one labeled box.\nIt can only hold one value.\n\nToday, you’re going to help your bot remember more than one thing.\nThat’s where ==lists== come in.\n\nA list is like a row of boxes instead of just one.\nEach box can hold a piece of information.\n\nHere’s what list memory can look like:\n`choices = []`\n`choices.append(\"pizza\")`\n`choices.append(\"soccer\")`\n`print(choices)`\n`choices.remove(\"pizza\")`\n`print(choices)`\n\nHere’s how to think like a coder today:\n- A ==variable== remembers one thing\n- A ==list== remembers many things\n- You decide what gets added and what gets removed\n\nNothing is automatic.\nYour bot only remembers what you tell it to remember.\n\n**Mini goal**:\nMake your bot remember multiple choices by saving them in a list.\n\nRead the steps, follow them in order, then press [[Run]].",
   kidExplain: [
@@ -44,8 +37,8 @@ export const lesson8: PythonLessonConfig = {
   ],
   steps: [
     "Create an empty list to store choices.",
-    "Ask the user a question using input().",
-    "Add the user’s answer to the list.",
+    'Store a choice in a variable (for example: choice = "pizza").',
+    "Add the choice to the list with append().",
     "Print the list to see what the bot remembers.",
     "Remove one item from the list.",
     "Print the list again to see how memory changed.",
@@ -66,7 +59,7 @@ export const lesson8: PythonLessonConfig = {
     },
   ],
   tryThis: [
-    "Add more than one answer to the list (ask two questions).",
+    "Add more than one answer to the list (append twice).",
     "Remove a different item.",
     "Challenge: Explain why remembering everything could be a problem.",
   ],
@@ -79,9 +72,9 @@ export const lesson8: PythonLessonConfig = {
       example: "choices = []",
     },
     {
-      command: "input(...)",
-      summary: "Pauses and waits for the user to type an answer (stored as text).",
-      example: 'choice = input("Tell me one thing you like: ")',
+      command: 'choice = "pizza"',
+      summary: "Stores one value in a variable so you can append or remove it by name.",
+      example: 'choice = "pizza"',
     },
     {
       command: "choices.append(...)",
@@ -135,14 +128,14 @@ export const lesson8: PythonLessonConfig = {
       {
         id: "ask",
         kicker: "Building block #2",
-        title: "Ask the user, then remember the answer",
-        body: `A memory bot gets way more interesting when *you* decide what it remembers. The \`input(...)\` command pauses your program and waits for someone to type an answer, then hands that answer back as text.\n\nStore that answer in a variable, then \`.append()\` it onto your list. Now your bot remembers whatever the user told it — not something you typed in ahead of time.\n\nThis is the same trick chat apps use: they take what you type and add it to a running list of messages.`,
-        code: `choices = []\nchoice = input("Tell me one thing you like: ")\nchoices.append(choice)\nprint(choices)`,
-        codeCaption: "If the user types pizza, the list remembers it",
+        title: "Store a choice, then remember it",
+        body: `A memory bot gets more interesting when you save a value in a variable first, then \`.append()\` that variable onto your list. That way you can reuse the same value later — for example when you \`.remove()\` it.\n\nIn this lesson we set the choice in code (like \`choice = "pizza"\`) so you can focus on how the list grows and shrinks.`,
+        code: `choices = []\nchoice = "pizza"\nchoices.append(choice)\nprint(choices)`,
+        codeCaption: "Store pizza, then remember it in the list",
         output: `['pizza']`,
         callout: {
           label: "Common misconception",
-          text: "`input()` always gives you **text**, even when the person types numbers. If they type `7`, your list holds the text `\"7\"`, not the number 7.",
+          text: "Appending the variable `choice` is the same as appending `\"pizza\"` when `choice` holds that text — but using the variable makes remove/append easier to keep in sync.",
         },
       },
       {
@@ -180,7 +173,7 @@ export const lesson8: PythonLessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've leveled up your bot's memory with three moves: \`[]\` to start a list, \`.append()\` to remember, and \`.remove()\` to forget.\n\nIn the exercises you'll create a list, ask the user for a choice, append it, print the memory, then remove an item and print again to watch the memory change.\n\nClick **Start the exercises** when you're ready.`,
+        body: `You've leveled up your bot's memory with three moves: \`[]\` to start a list, \`.append()\` to remember, and \`.remove()\` to forget.\n\nIn the exercises you'll create a list, store a choice, append it, print the memory, then remove an item and print again to watch the memory change.\n\nClick **Start the exercises** when you're ready.`,
         callout: {
           label: "Responsible AI",
           text: "Memory is powerful. Humans must decide what is okay to remember, what should be forgotten, and what should never be saved at all.",
@@ -194,125 +187,212 @@ export const lesson8: PythonLessonConfig = {
   coachNoteGateSeconds: 8,
   exercises: [
     {
-      id: "ex-empty-list",
-      title: "Exercise 1 — Create an empty list",
-      focusCommand: "[]",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill the list blanks",
+      focusCommand: "append / remove",
       commandExplain:
-        "An empty list starts with no items. print(choices) shows what the bot remembers.",
-      goal: "Create choices = [] and print the empty list.",
-      starterCode: `choices = ____
-print(choices)`,
-      hint: "Type [] after the equals sign",
-      successMessage: "Empty list created — ready to store memories!",
-      failureMessage: "Use choices = [] then print(choices). Output should be [].",
-      validate: (code, run) =>
-        !rejectsUppercasePrint(code) &&
-        noRunError(run) &&
-        /^\s*choices\s*=\s*\[\]\s*$/m.test(code) &&
-        /\bprint\s*\(\s*choices\s*\)/.test(code) &&
-        run.stdout.length === 1 &&
-        run.stdout[0] === "[]",
-    },
-    {
-      id: "ex-input-append",
-      title: "Exercise 2 — Ask and remember",
-      focusCommand: "input() + append()",
-      commandExplain:
-        "input() collects an answer. append() adds it to the list so the bot remembers.",
-      goal: "Ask a question with input(), append the answer, and print the list.",
+        "Store a choice, append it to a list, print, remove it, and print again. Fill every ____.",
+      goal: 'Use choice = "pizza" with append and remove — no input() needed.',
       starterCode: `choices = []
 
-choice = input("Tell me one thing you like: ")
+choice = "pizza"
 choices.append(____)
-print(choices)`,
-      hint: "Append the choice variable: choices.append(choice)",
-      runtimeInputs: [CHOICE_INPUT],
-      successMessage: "Your bot listened and saved the answer in memory!",
-      failureMessage:
-        "Need choices = [], choice = input(...), choices.append(choice), and print(choices).",
-      validate: (code, run, runtime) => {
-        const answer = (runtime?.choice ?? "pizza").trim();
-        return (
-          !rejectsUppercasePrint(code) &&
-          noRunError(run) &&
-          /^\s*choices\s*=\s*\[\]\s*$/m.test(code) &&
-          /\bchoice\s*=\s*input\(/.test(code) &&
-          /\bchoices\.append\(/.test(code) &&
-          /\bprint\s*\(\s*choices\s*\)/.test(code) &&
-          run.stdout.some((line) => line.includes(`["${answer}"]`) || line === `["${answer}"]`)
-        );
-      },
-    },
-    {
-      id: "ex-remove",
-      title: "Exercise 3 — Remove from memory",
-      focusCommand: "remove()",
-      commandExplain:
-        "remove() deletes an item from the list. Print before and after to see memory change.",
-      goal: "Append an answer, print the list, remove it, and print again.",
-      starterCode: `choices = []
-
-choice = input("Tell me one thing you like: ")
-choices.append(choice)
 print(choices)
 
 choices.remove(____)
 print(choices)`,
-      hint: "Remove the same variable you appended: choices.remove(choice)",
-      runtimeInputs: [CHOICE_INPUT],
-      successMessage: "Memory changed — you added and then removed an item!",
+      solutionCode: `choices = []
+
+choice = "pizza"
+choices.append(choice)
+print(choices)
+
+choices.remove(choice)
+print(choices)`,
+      hint: "Use the choice variable in both append(...) and remove(...).",
+      successMessage: "List memory grew and shrank — append then remove.",
       failureMessage:
-        "Need append, print, remove, and a second print(choices). Final output should be [].",
-      validate: (code, run, runtime) => {
-        const answer = (runtime?.choice ?? "pizza").trim();
+        "Need choices = [], choice = \"pizza\", append(choice), remove(choice), and two print(choices).",
+      validate: (code, run) => {
         const prints = listPrintLines(run);
         return (
           !rejectsUppercasePrint(code) &&
           noRunError(run) &&
+          /^\s*choices\s*=\s*\[\]\s*$/m.test(code) &&
+          /\bchoice\s*=\s*["']pizza["']/.test(code) &&
           /\bchoices\.append\(/.test(code) &&
           /\bchoices\.(remove|pop)\(/.test(code) &&
           (code.match(/\bprint\s*\(\s*choices\s*\)/g) ?? []).length >= 2 &&
           prints.length >= 2 &&
-          prints[0] === `["${answer}"]` &&
+          prints[0] === '["pizza"]' &&
           prints[prints.length - 1] === "[]"
         );
       },
     },
     {
-      id: "ex-challenge",
-      title: "Exercise 4 — Full list memory challenge",
-      focusCommand: "List memory",
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder list memory",
+      focusCommand: "[] + append + remove",
       commandExplain:
-        "Put it all together: empty list, input, append, print, remove, print again.",
-      goal: "Build the complete program that stores, shows, removes, and shows memory again.",
-      starterCode: `# Fill in the blanks 👇
-choices = []
-
-choice = input("Tell me one thing you like: ")
-choices.append(____)
+        "Scrambled memory bot. Put empty list, choice, append, print, remove, print in order.",
+      goal: "Reorder the lines, then Run & check.",
+      starterCode: "",
+      parsonsLines: [
+        "choices = []",
+        'choice = "pizza"',
+        "choices.append(choice)",
+        "print(choices)",
+        "choices.remove(choice)",
+        "print(choices)",
+      ],
+      solutionCode: `choices = []
+choice = "pizza"
+choices.append(choice)
 print(choices)
-
-# remove the same item you added
-choices.remove(____)
+choices.remove(choice)
 print(choices)`,
-      hint: "Use choice in both append(...) and remove(...)",
-      runtimeInputs: [CHOICE_INPUT],
-      successMessage: "Your AI stored and updated memory using a list. 🧠",
+      hint: "Empty list first, then choice, append, print, remove, print again.",
+      successMessage: "Order is right — memory updates in sequence.",
       failureMessage:
-        "Need choices = [], append(...), two print(choices), and remove(...). Check print is lowercase.",
-      validate: (code, run, runtime) => {
-        const answer = (runtime?.choice ?? "pizza").trim();
+        "Need choices = [], choice = \"pizza\", append, print, remove, and a second print.",
+      validate: (code, run) => {
         const prints = listPrintLines(run);
         return (
           !rejectsUppercasePrint(code) &&
           noRunError(run) &&
           /^\s*choices\s*=\s*\[\]\s*$/m.test(code) &&
           /\bchoices\.append\(/.test(code) &&
-          /\bprint\s*\(\s*choices\s*\)/.test(code) &&
           /\bchoices\.(remove|pop)\(/.test(code) &&
           (code.match(/\bprint\s*\(\s*choices\s*\)/g) ?? []).length >= 2 &&
           prints.length >= 2 &&
-          prints[0] === `["${answer}"]` &&
+          prints[0] === '["pizza"]' &&
+          prints[prints.length - 1] === "[]"
+        );
+      },
+    },
+    {
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 3 — Debug the list",
+      focusCommand: "append()",
+      commandExplain:
+        "This memory bot should save pizza, but append is missing parentheses / the choice.",
+      goal: "Fix append so pizza is added to the list.",
+      starterCode: `choices = []
+
+choice = "pizza"
+choices.append
+print(choices)
+
+choices.remove(choice)
+print(choices)
+`,
+      solutionCode: `choices = []
+
+choice = "pizza"
+choices.append(choice)
+print(choices)
+
+choices.remove(choice)
+print(choices)
+`,
+      debugHint: "method call",
+      hint: "append needs parentheses and the item: choices.append(choice)",
+      successMessage: "Fixed — append(choice) adds pizza to the list.",
+      failureMessage: "Use choices.append(choice) with parentheses and the choice variable.",
+      validate: (code, run) => {
+        const prints = listPrintLines(run);
+        return (
+          !rejectsUppercasePrint(code) &&
+          noRunError(run) &&
+          /\bchoices\.append\s*\(/.test(code) &&
+          /\bchoices\.(remove|pop)\(/.test(code) &&
+          (code.match(/\bprint\s*\(\s*choices\s*\)/g) ?? []).length >= 2 &&
+          prints.length >= 2 &&
+          prints[0] === '["pizza"]' &&
+          prints[prints.length - 1] === "[]"
+        );
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the memory",
+      focusCommand: "trace append / remove",
+      commandExplain:
+        "Read this finished memory bot. Predict both printed lines before you see them.",
+      goal: "Type your prediction, then Run & check.",
+      starterCode: `choices = []
+choice = "pizza"
+choices.append(choice)
+print(choices)
+choices.remove(choice)
+print(choices)
+`,
+      solutionCode: `choices = []
+choice = "pizza"
+choices.append(choice)
+print(choices)
+choices.remove(choice)
+print(choices)
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What two lines print? (list after append, then after remove)",
+      acceptedPredictions: [
+        '["pizza"]\n[]',
+        "['pizza']\n[]",
+        '["pizza"] []',
+        "['pizza'] []",
+        '["pizza"] then []',
+      ],
+      hint: "First print shows the list with pizza; after remove it is empty.",
+      successMessage: "You predicted how list memory changes.",
+      failureMessage: "Think about what the list holds after append, then after remove.",
+      validate: (code, run) => {
+        const prints = listPrintLines(run);
+        return (
+          !rejectsUppercasePrint(code) &&
+          noRunError(run) &&
+          prints.length >= 2 &&
+          prints[0] === '["pizza"]' &&
+          prints[prints.length - 1] === "[]"
+        );
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build list memory",
+      focusCommand: "from scratch",
+      commandExplain:
+        'Write a program that uses choice = "pizza", appends it, prints, removes it, and prints again.',
+      goal: "Build the full list memory program yourself.",
+      starterCode: `# List memory: append, then remove\n`,
+      solutionCode: `choices = []
+choice = "pizza"
+choices.append(choice)
+print(choices)
+choices.remove(choice)
+print(choices)
+`,
+      hint: 'choices = [], choice = "pizza", append(choice), print, remove(choice), print.',
+      successMessage: "You built list memory from scratch. 🧺",
+      failureMessage:
+        "Need choices = [], choice = \"pizza\", append, remove, and two print(choices).",
+      validate: (code, run) => {
+        const prints = listPrintLines(run);
+        return (
+          !rejectsUppercasePrint(code) &&
+          noRunError(run) &&
+          /^\s*choices\s*=\s*\[\]\s*$/m.test(code) &&
+          /\bchoice\s*=\s*["']pizza["']/.test(code) &&
+          /\bchoices\.append\(/.test(code) &&
+          /\bchoices\.(remove|pop)\(/.test(code) &&
+          (code.match(/\bprint\s*\(\s*choices\s*\)/g) ?? []).length >= 2 &&
+          prints.length >= 2 &&
+          prints[0] === '["pizza"]' &&
           prints[prints.length - 1] === "[]"
         );
       },

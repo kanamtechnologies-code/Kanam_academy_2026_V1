@@ -11,7 +11,7 @@ export const lesson9: PythonLessonConfig = {
   title: "9. Organizing Memory",
   goal: "Use a dictionary (key → value) to store information with meaning.",
   xpReward: 500,
-  badge: "🗂️ Memory Organizer",
+  badge: "Memory Organizer",
   dashboardHref: "/dashboard",
   coachNoteGateSeconds: 8,
   prevHref: "/learn/8",
@@ -171,92 +171,29 @@ export const lesson9: PythonLessonConfig = {
   },
   exercises: [
     {
-      id: "ex-empty-dict",
-      title: "Exercise 1 — Create a dictionary",
-      focusCommand: "profile = {}",
+      id: "ex-fill",
+      kind: "fill",
+      title: "Exercise 1 — Fill the dictionary blanks",
+      focusCommand: "{} + keys",
       commandExplain:
-        "An empty dictionary `{}` is organized memory waiting for labels. Start every profile here.",
-      goal: "Create an empty dictionary called profile.",
-      starterCode: `# Fill in the blank 👇
-profile = ____
-`,
-      hint: "Type empty curly braces: {}",
-      successMessage: "Nice! profile = {} is your empty labeled memory.",
-      failureMessage: "Create an empty dictionary: profile = {}",
-      validate: (code: string) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return /^\s*profile\s*=\s*\{\}\s*$/m.test(code);
-      },
-    },
-    {
-      id: "ex-set-pairs",
-      title: "Exercise 2 — Add key–value pairs",
-      focusCommand: 'profile["key"] = value',
-      commandExplain:
-        "Each key–value pair is one labeled drawer. Add at least two so your bot remembers more than one thing.",
-      goal: "Add at least two key–value pairs to profile.",
-      starterCode: `# Fill in the blanks 👇
-profile = {}
+        "Create a profile dictionary, store two labeled values, and print a sentence using one key. Fill every ____.",
+      goal: "Fill the blanks to build organized memory and print a Name: line.",
+      starterCode: `profile = ____
 
 profile["____"] = "____"
 profile["____"] = "____"
-`,
-      hint: 'Try keys like "name" and "favorite_color" with string values in quotes.',
-      successMessage: "Great! You stored two labeled pieces of information.",
-      failureMessage:
-        "Need profile = {} plus at least two lines like profile[\"key\"] = \"value\".",
-      validate: (code: string) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return (
-          /^\s*profile\s*=\s*\{\}\s*$/m.test(code) && profileSets(code) >= 2
-        );
-      },
-    },
-    {
-      id: "ex-get-value",
-      title: "Exercise 3 — Read by key",
-      focusCommand: 'profile["key"]',
-      commandExplain:
-        "Access a stored value with its key inside square brackets. Python returns exactly what you saved.",
-      goal: "Print one value from profile using its key.",
-      starterCode: `# Fill in the blanks 👇
-profile = {}
+
+print("Name: " + profile["____"])`,
+      solutionCode: `profile = {}
+
 profile["name"] = "Alex"
 profile["favorite_color"] = "blue"
 
-print(profile["____"])
-`,
-      hint: 'Print profile["name"] or profile["favorite_color"].',
-      successMessage: "Perfect! You read organized memory by its label.",
+print("Name: " + profile["name"])`,
+      hint: 'Use {} for the dict, keys like "name" and "favorite_color", and match the print key.',
+      successMessage: "You filled in labeled memory and used a key in a sentence.",
       failureMessage:
-        'Add print(profile["..."]) using a key you stored. Expect output in the console.',
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        if (!/\bprint\s*\(\s*profile\[\s*["'][^"']+["']\s*\]\s*\)/.test(code)) {
-          return false;
-        }
-        return run.stdout.length >= 1;
-      },
-    },
-    {
-      id: "ex-challenge",
-      title: "Exercise 4 — Organized memory challenge",
-      focusCommand: "{} + keys + print",
-      commandExplain:
-        "Put it together: empty dict, two labeled values, and a sentence that uses a stored value.",
-      goal: "Build a full profile dict and print a sentence using one value.",
-      starterCode: `# Fill in the blanks 👇
-profile = {}
-
-profile["____"] = "____"
-profile["____"] = "____"
-
-print("Name: " + profile["____"])
-`,
-      hint: 'Match your print key to a key you stored, e.g. profile["name"].',
-      successMessage: "Submitted! You organized memory using a dictionary. 🗂️",
-      failureMessage:
-        'Need profile = {}, two key–value pairs, and print("... " + profile["..."]) with output.',
+        'Need profile = {}, two key–value pairs, and print("Name: " + profile["..."]).',
       validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
         return (
@@ -264,7 +201,139 @@ print("Name: " + profile["____"])
           profileSets(code) >= 2 &&
           /\bprint\s*\([\s\S]*profile\[\s*["'][^"']+["']\s*\][\s\S]*\)/.test(code) &&
           code.includes("+") &&
-          run.stdout.length >= 1
+          run.stdout.length >= 1 &&
+          !run.error
+        );
+      },
+    },
+    {
+      id: "ex-parsons",
+      kind: "parsons",
+      title: "Exercise 2 — Reorder the profile",
+      focusCommand: "dictionary order",
+      commandExplain:
+        "Scrambled profile. Put empty dict, key–value pairs, then the print sentence in order.",
+      goal: "Reorder the lines, then Run & check.",
+      starterCode: "",
+      parsonsLines: [
+        "profile = {}",
+        'profile["name"] = "Alex"',
+        'profile["favorite_color"] = "blue"',
+        'print("Name: " + profile["name"])',
+      ],
+      solutionCode: `profile = {}
+profile["name"] = "Alex"
+profile["favorite_color"] = "blue"
+print("Name: " + profile["name"])`,
+      hint: "Empty {} first, then store keys, then print using a key.",
+      successMessage: "Order is right — labeled memory is ready to use.",
+      failureMessage:
+        "Need profile = {}, at least two key–value pairs, and a print that uses a key.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        return (
+          /^\s*profile\s*=\s*\{\}\s*$/m.test(code) &&
+          profileSets(code) >= 2 &&
+          /\bprint\s*\([\s\S]*profile\[\s*["'][^"']+["']\s*\][\s\S]*\)/.test(code) &&
+          run.stdout.length >= 1 &&
+          !run.error
+        );
+      },
+    },
+    {
+      id: "ex-debug",
+      kind: "debug",
+      title: "Exercise 3 — Debug the dictionary",
+      focusCommand: "{}",
+      commandExplain:
+        "This profile should use a dictionary, but it was created with list brackets instead.",
+      goal: "Fix the empty container so it is a dictionary, not a list.",
+      starterCode: `profile = []
+
+profile["name"] = "Alex"
+profile["favorite_color"] = "blue"
+
+print("Name: " + profile["name"])
+`,
+      solutionCode: `profile = {}
+
+profile["name"] = "Alex"
+profile["favorite_color"] = "blue"
+
+print("Name: " + profile["name"])
+`,
+      debugHint: "list vs dictionary",
+      hint: "Dictionaries use curly braces {}. Square brackets [] make a list.",
+      successMessage: "Fixed — profile = {} creates labeled memory.",
+      failureMessage: "Change profile = [] to profile = {}.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        return (
+          /^\s*profile\s*=\s*\{\}\s*$/m.test(code) &&
+          !/^\s*profile\s*=\s*\[\]\s*$/m.test(code) &&
+          profileSets(code) >= 2 &&
+          /\bprint\s*\([\s\S]*profile\[\s*["'][^"']+["']\s*\][\s\S]*\)/.test(code) &&
+          run.stdout.length >= 1 &&
+          !run.error
+        );
+      },
+    },
+    {
+      id: "ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the profile line",
+      focusCommand: "trace key → value",
+      commandExplain:
+        "Read this finished profile. Predict the exact printed line before you see it.",
+      goal: "Type your prediction, then Run & check.",
+      starterCode: `profile = {}
+profile["name"] = "Alex"
+profile["favorite_color"] = "blue"
+print("Name: " + profile["name"])
+`,
+      solutionCode: `profile = {}
+profile["name"] = "Alex"
+profile["favorite_color"] = "blue"
+print("Name: " + profile["name"])
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What exact line prints?",
+      acceptedPredictions: ["Name: Alex", "name: alex", "Name:Alex"],
+      hint: "The print joins \"Name: \" with whatever is stored under the name key.",
+      successMessage: "You traced the key to the printed value.",
+      failureMessage: "Look at the print string and which key it reads from the profile.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        return !run.error && run.stdout.join("\n").includes("Name: Alex");
+      },
+    },
+    {
+      id: "ex-scratch",
+      kind: "scratch",
+      title: "Exercise 5 — Build a profile",
+      focusCommand: "from scratch",
+      commandExplain:
+        "Write a dictionary profile with at least two key–value pairs and print a sentence using one value.",
+      goal: "Build organized memory yourself.",
+      starterCode: `# Organized memory with a dictionary\n`,
+      solutionCode: `profile = {}
+profile["name"] = "Alex"
+profile["favorite_color"] = "blue"
+print("Name: " + profile["name"])
+`,
+      hint: 'profile = {}, then profile["key"] = "value", then print with + and a key.',
+      successMessage: "You built a dictionary profile from scratch. 🗂️",
+      failureMessage:
+        'Need profile = {}, two key–value pairs, and print("... " + profile["..."]).',
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        return (
+          /^\s*profile\s*=\s*\{\}\s*$/m.test(code) &&
+          profileSets(code) >= 2 &&
+          /\bprint\s*\([\s\S]*profile\[\s*["'][^"']+["']\s*\][\s\S]*\)/.test(code) &&
+          code.includes("+") &&
+          run.stdout.length >= 1 &&
+          !run.error
         );
       },
     },

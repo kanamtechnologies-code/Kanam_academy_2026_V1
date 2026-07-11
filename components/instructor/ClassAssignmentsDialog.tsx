@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Loader2 } from "lucide-react";
 
+import { TrackIcon } from "@/components/tracks/TrackIcon";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -138,7 +139,10 @@ export function ClassAssignmentsDialog({
                   <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                     <div>
                       <p className="text-sm font-black text-slate-900">
-                        {track.icon} {track.title}
+                        <span className="inline-flex items-center gap-1.5">
+                          <TrackIcon trackId={track.id} className="h-3.5 w-3.5" />
+                          {track.title}
+                        </span>
                       </p>
                       <p className="text-xs text-slate-600">
                         {trackEnabledCount} of {track.lessons.length} on
