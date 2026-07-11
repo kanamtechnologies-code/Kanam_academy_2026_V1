@@ -16,6 +16,8 @@ export const cyberLesson2: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-2.png",
+        imageAlt: "Triangle diagram props for Confidentiality Integrity Availability beside a login screen on a laptop",
         body: `Last lesson introduced the **CIA Triad**. Today you'll make it stick — and connect it to every login screen you meet.\n\nHere's our roadmap:\n\n• **Confidentiality, Integrity, Availability** — what each goal really means with school-life examples.\n• **Authentication vs. authorization** — proving who you are vs. what you're allowed to do.\n• **How we prove identity** — passwords, MFA, biometrics, and tokens (concepts only).\n• **How these ideas fit together** — why weak login habits break CIA in the real world.\n\nBy the end, you'll be able to look at a situation and say which CIA goal is at risk — and whether the problem is \"who are you?\" or \"what can you do?\"`,
         callout: {
           label: "Why it matters",
@@ -36,6 +38,8 @@ export const cyberLesson2: AILessonConfig = {
         id: "cia-deep",
         kicker: "The triad",
         title: "Confidentiality, Integrity, Availability",
+        image: "/images/lessons/cs-2-2.png",
+        imageAlt: "Three labeled cards: Confidentiality lock, Integrity checkmark, Availability green uptime light",
         body: `The **CIA Triad** is a simple checklist defenders use everywhere — hospitals, banks, schools, and your own accounts.\n\n• **Confidentiality** — Secrets stay secret. Examples: only you and approved staff see your health forms; only group members see a private shared doc. Failures look like leaked passwords, someone reading your messages, or files shared with \"anyone with the link\" by mistake.\n• **Integrity** — Information stays trustworthy. Examples: your submitted essay shouldn't be silently edited by a stranger; a gradebook shouldn't change without a teacher. Failures look like tampered files, wrong data, or \"I never sent that message.\"\n• **Availability** — Authorized users can get what they need. Examples: the testing portal works on exam day; backups help recover after a device dies. Failures look like outages, locked accounts with no recovery path, or ransomware-style lockouts (we'll cover malware types next lesson — conceptually).\n\nNotice the tradeoffs: locking everything so tightly that teachers can't open the gradebook hurts **availability**. Leaving everything open hurts **confidentiality**. Good security balances all three.`,
         bullets: [
           "**Confidentiality** → Who can see it?",
@@ -61,6 +65,8 @@ export const cyberLesson2: AILessonConfig = {
         id: "factors",
         kicker: "Proving who you are",
         title: "Passwords, MFA, biometrics, and tokens",
+        image: "/images/lessons/cs-2-3.png",
+        imageAlt: "Phone MFA prompt, fingerprint sensor, and hardware security key on a desk",
         body: `Defenders talk about **authentication factors** — categories of proof:\n\n• **Something you know** — a password or PIN.\n• **Something you have** — a phone that receives a code, an authenticator app, or a physical security **token**/key.\n• **Something you are** — **biometrics** like fingerprint or face unlock on a device.\n\nA **password** alone is one factor. **MFA (Multi-Factor Authentication)** means using *more than one category* — for example, password + app code. That way, if one factor is stolen, the attacker still doesn't have the others.\n\n**Biometrics** are convenient on devices you control, but they are not magic: they usually unlock a secret stored on the device, and they raise privacy questions if misused. Treat them as one helpful factor, not the whole security story.\n\n**Tokens** (apps or hardware keys) prove \"something you have.\" Conceptually, they make remote takeovers harder because a stolen password alone often isn't enough.\n\nWe'll go deeper on password strength, hashing, and MFA types in a later lesson. Today, just know: stronger authentication protects **confidentiality** and **integrity** by keeping the wrong people out.`,
         bullets: [
           "**Password / PIN** = something you know.",

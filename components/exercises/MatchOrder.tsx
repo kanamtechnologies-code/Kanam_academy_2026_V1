@@ -158,32 +158,44 @@ function OrderPanel({ prompt, items, completed, onComplete }: OrderActivityProps
   const correctIds = React.useMemo(() => items.map((i) => i.id), [items]);
   const [order, setOrder] = React.useState(() => shuffle(items));
   const [feedback, setFeedback] = React.useState<string | null>(null);
+  const [slotCorrect, setSlotCorrect] = React.useState<boolean[] | null>(null);
+  const [checked, setChecked] = React.useState(completed);
 
   React.useEffect(() => {
-    if (completed) setOrder(items);
+    if (completed) {
+      setOrder(items);
+      setChecked(true);
+      setSlotCorrect(items.map(() => true));
+    }
   }, [completed, items]);
 
   const move = (index: number, dir: -1 | 1) => {
-    if (completed) return;
+    if (completed || checked) return;
     const nextIndex = index + dir;
     if (nextIndex < 0 || nextIndex >= order.length) return;
     const next = [...order];
     [next[index], next[nextIndex]] = [next[nextIndex], next[index]];
     setOrder(next);
     setFeedback(null);
+    setSlotCorrect(null);
   };
 
   const check = () => {
-    const ok = order.every((item, i) => item.id === correctIds[i]);
+    const slots = order.map((item, i) => item.id === correctIds[i]);
+    setSlotCorrect(slots);
+    const ok = slots.every(Boolean);
     if (ok) {
       setFeedback("Correct order!");
+      setChecked(true);
       onComplete();
     } else {
-      const firstWrong = order.findIndex((item, i) => item.id !== correctIds[i]);
+      const correctCount = slots.filter(Boolean).length;
       setFeedback(
-        firstWrong === 0
-          ? "Not quite — start by placing the first step correctly."
-          : `Close — check step ${firstWrong + 1} and the ones after it.`
+        correctCount === 0
+          ? "Not quite — none of the steps are in the right spot yet. Green will light up when a step is correct."
+          : `${correctCount} step${correctCount === 1 ? "" : "s"} pulsing green ${
+              correctCount === 1 ? "is" : "are"
+            } already correct — keep those and move the others.`
       );
     }
   };
@@ -197,51 +209,61 @@ function OrderPanel({ prompt, items, completed, onComplete }: OrderActivityProps
         </p>
       ) : null}
       <ol className="space-y-2">
-        {order.map((item, index) => (
-          <li
-            key={item.id}
-            className={cn(
-              "flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2",
-              completed && "border-emerald-300 bg-emerald-50"
-            )}
-          >
-            <GripVertical className="h-4 w-4 shrink-0 text-slate-400" aria-hidden />
-            <span className="min-w-0 flex-1 text-sm font-semibold text-slate-900">
-              <span className="mr-2 text-slate-400">{index + 1}.</span>
-              {item.label}
-            </span>
-            {!completed ? (
-              <div className="flex shrink-0 gap-1">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="h-9 px-2"
-                  disabled={index === 0}
-                  onClick={() => move(index, -1)}
-                  aria-label={`Move ${item.label} up`}
-                >
-                  ↑
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="h-9 px-2"
-                  disabled={index === order.length - 1}
-                  onClick={() => move(index, 1)}
-                  aria-label={`Move ${item.label} down`}
-                >
-                  ↓
-                </Button>
-              </div>
-            ) : (
-              <CheckCircle2 className="h-4 w-4 text-emerald-700" />
-            )}
-          </li>
-        ))}
+        {order.map((item, index) => {
+          const slotOk = Boolean(slotCorrect?.[index]);
+          return (
+            <li
+              key={item.id}
+              className={cn(
+                "flex items-center gap-2 rounded-xl border bg-white px-3 py-2 transition-colors",
+                slotOk
+                  ? "animate-[kanamOrderCorrectPulse_1.1s_ease-in-out_infinite] border-emerald-400 bg-emerald-50"
+                  : completed || checked
+                    ? "border-emerald-300 bg-emerald-50"
+                    : "border-slate-200"
+              )}
+            >
+              <GripVertical className="h-4 w-4 shrink-0 text-slate-400" aria-hidden />
+              <span className="min-w-0 flex-1 text-sm font-semibold text-slate-900">
+                <span className="mr-2 text-slate-400">{index + 1}.</span>
+                {item.label}
+              </span>
+              {!completed && !checked ? (
+                <div className="flex shrink-0 items-center gap-1">
+                  {slotOk ? (
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600" aria-label="Correct position" />
+                  ) : null}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-9 px-2"
+                    disabled={index === 0}
+                    onClick={() => move(index, -1)}
+                    aria-label={`Move ${item.label} up`}
+                  >
+                    ↑
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-9 px-2"
+                    disabled={index === order.length - 1}
+                    onClick={() => move(index, 1)}
+                    aria-label={`Move ${item.label} down`}
+                  >
+                    ↓
+                  </Button>
+                </div>
+              ) : (
+                <CheckCircle2 className="h-4 w-4 text-emerald-700" />
+              )}
+            </li>
+          );
+        })}
       </ol>
-      {!completed ? (
+      {!completed && !checked ? (
         <Button type="button" className="h-11" onClick={check}>
           Check order
         </Button>

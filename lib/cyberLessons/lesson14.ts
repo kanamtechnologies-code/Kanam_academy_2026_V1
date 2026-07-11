@@ -16,6 +16,8 @@ export const cyberLesson14: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-14.png",
+        imageAlt: "Student reviewing privacy settings on phone and laptop with public profile muted",
         body: `**OSINT** stands for Open-Source Intelligence — information gathered from *public* sources. Spies and security teams use the idea professionally; scammers and harassers misuse public scraps too. Today is **defensive awareness** only: what you expose, how to self-check ethically, and how to shrink your risk.\n\nHere's our roadmap:\n\n• What OSINT means in plain English.\n• **Public exposure** — how small posts add up.\n• **Oversharing** traps (travel, school IDs, routines).\n• **Ethical \"search yourself\"** habits — not targeting others.\n• **Privacy settings** that actually matter.\n• What an adversary might infer — and how to respond defensively.\n\nNo hacking search recipes. No stalking playbooks. Just privacy self-defense.`,
         callout: {
           label: "Why it matters",
@@ -51,6 +53,8 @@ export const cyberLesson14: AILessonConfig = {
         id: "oversharing",
         kicker: "Common traps",
         title: "Oversharing patterns that help adversaries",
+        image: "/images/lessons/cs-14-2.png",
+        imageAlt: "Social post drafts with location and school ID blurred as oversharing warning",
         body: `High-risk overshares (defensive list):\n\n• Real-time travel/vacation posts while the house is empty.\n• Photos of **IDs**, tickets with barcodes, or badges.\n• Passwords, MFA codes, or \"my PIN is…\" jokes.\n• Detailed daily routines (\"I leave at 7:10 every day via the side gate\").\n• Answers to common security questions (first pet, mother's maiden name) posted as fun quizzes.\n\nNone of this requires fancy tools for a scammer — just reading. Your defense is boring and effective: pause before posting, blur sensitive details, save travel posts for after you're home.`,
         callout: {
           label: "Common misconception",
@@ -71,6 +75,8 @@ export const cyberLesson14: AILessonConfig = {
         id: "privacy-settings",
         kicker: "Tighten the knobs",
         title: "Privacy settings that actually move the needle",
+        image: "/images/lessons/cs-14-3.png",
+        imageAlt: "Privacy settings screens set to friends-only with a notebook checklist",
         body: `Platforms differ, but these controls matter everywhere:\n\n• Who can see posts / stories / friends lists.\n• Who can tag or mention you.\n• Location sharing defaults (often off is wiser).\n• Search engine indexing options where available.\n• Ad/data sharing preferences.\n• Connected third-party apps — revoke what you don't use.\n\nAlso lock down **account recovery** paths: recovery email/phone should be ones you control, with MFA on those too.\n\nPrivacy settings aren't perfect, but leaving everything public by default is an unnecessary gift to impersonators.`,
         bullets: [
           "Default to tighter audiences; widen intentionally.",

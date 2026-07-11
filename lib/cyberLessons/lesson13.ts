@@ -16,6 +16,8 @@ export const cyberLesson13: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-13.png",
+        imageAlt: "Defender dashboard showing blocked traffic and security alerts without attack tools",
         body: `Defenders study attacks the way firefighters study fire: to **recognize**, **reduce risk**, and **respond** — not to start fires. Today you'll learn common attack *patterns* at awareness level only.\n\nHere's our roadmap:\n\n• How to think like a **defender-analyst** (patterns, impact, controls).\n• **DoS / DDoS** — overwhelming availability.\n• **Spoofing** — faking identity.\n• **MITM awareness** — hostile middle positions (concepts only).\n• **Injection (concept)** — tricking software with unexpected input — without exploit recipes.\n• **Defense map** — what to do about each family.\n\nIf a detail would help someone attack a system, we skip it. Your job is protection.`,
         callout: {
           label: "Why it matters",
@@ -51,6 +53,8 @@ export const cyberLesson13: AILessonConfig = {
         id: "dos-ddos",
         kicker: "Availability attacks",
         title: "DoS / DDoS: knocking the service offline",
+        image: "/images/lessons/cs-13-2.png",
+        imageAlt: "Crowded doorway metaphor photo labeled overload to explain denial of service simply",
         body: `**Denial of Service (DoS)** aims to overwhelm a system so real users can't get through — flooding a club website ticket form, flooding a game server, exhausting resources until everything crawls.\n\n**DDoS** is the same idea at larger scale: many systems sending traffic so the target can't cope.\n\n**Defender focus:**\n\n• Know who hosts your site/service and how to contact them during outages.\n• Use reputable hosting/protections when public services matter.\n• Monitor for sudden traffic spikes and have a communication plan for users (\"we're aware of downtime\").\n• Don't confuse a DoS with \"the Wi-Fi is bad\" — check whether the *service* is down for everyone.\n\nWe won't discuss how to launch floods. Availability defense is about resilience and response partnerships.`,
         callout: {
           label: "Defender view",
@@ -86,6 +90,8 @@ export const cyberLesson13: AILessonConfig = {
         id: "defense-map",
         kicker: "Put it together",
         title: "A quick defense map for common patterns",
+        image: "/images/lessons/cs-13-3.png",
+        imageAlt: "Layered defense poster: patching MFA logging monitoring on a classroom wall",
         body: `Match pattern → primary defenses:\n\n• **DoS/DDoS** → resilient hosting, monitoring, escalation to providers, comms plan.\n• **Spoofing** → verify identity out-of-band, URL/domain checks, phishing awareness, MFA.\n• **MITM risk** → HTTPS, avoid sensitive logins on hostile networks, respect cert warnings.\n• **Injection class bugs** → secure development practices, patching, least privilege, input handled safely by design.\n• **Across the board** → logging/monitoring + IR basics from Lesson 12.\n\nYou're building an analyst's cheat sheet — impact, signals, controls.`,
         callout: {
           label: "Try this week",

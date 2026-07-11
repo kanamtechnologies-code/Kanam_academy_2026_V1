@@ -24,6 +24,13 @@ type ParsonsLinesProps = {
   lines: string[];
   /** Called whenever the learner reorders; parent stores assembled source. */
   onAssembledChange: (code: string) => void;
+  /** Optional: report ordered line ids (L0, L1, …) for slot-level check feedback. */
+  onOrderIdsChange?: (ids: string[]) => void;
+  /**
+   * After Check: true = this slot is in the correct position (pulses green).
+   * null/undefined = no per-slot feedback yet.
+   */
+  slotCorrect?: boolean[] | null;
   disabled?: boolean;
   languageLabel?: string;
   /** Overrides the default “press Run & check” hint. */
@@ -34,6 +41,8 @@ type ParsonsLinesProps = {
 export function ParsonsLines({
   lines,
   onAssembledChange,
+  onOrderIdsChange,
+  slotCorrect = null,
   disabled,
   languageLabel = "lines",
   checkHint = "Run & check",
@@ -46,6 +55,8 @@ export function ParsonsLines({
 
   const onAssembledChangeRef = React.useRef(onAssembledChange);
   onAssembledChangeRef.current = onAssembledChange;
+  const onOrderIdsChangeRef = React.useRef(onOrderIdsChange);
+  onOrderIdsChangeRef.current = onOrderIdsChange;
 
   const assemble = React.useCallback(
     (next: typeof order) => next.map((item) => item.line).join("\n"),
@@ -54,6 +65,7 @@ export function ParsonsLines({
 
   React.useEffect(() => {
     onAssembledChangeRef.current(assemble(order));
+    onOrderIdsChangeRef.current?.(order.map((item) => item.id));
   }, [order, assemble]);
 
   const linesKey = lines.join("\n");
@@ -72,6 +84,7 @@ export function ParsonsLines({
   };
 
   const isCorrectOrder = order.every((item, i) => item.id === correct[i]?.id);
+  const showSlots = Array.isArray(slotCorrect) && slotCorrect.length === order.length;
 
   return (
     <div className="space-y-3 rounded-2xl border border-indigo-200 bg-indigo-50/60 p-4">
@@ -93,54 +106,77 @@ export function ParsonsLines({
       </div>
       <p className="text-sm text-slate-700">
         Put the {languageLabel} in the right order, then press <strong>{checkHint}</strong>.
+        {showSlots ? (
+          <span className="mt-1 block text-emerald-800">
+            Green-pulsing steps are already in the correct spot.
+          </span>
+        ) : null}
       </p>
       <ol className="space-y-2">
-        {order.map((item, index) => (
-          <li
-            key={item.id}
-            className={cn(
-              "flex items-stretch gap-2 rounded-xl border bg-white px-2 py-2",
-              disabled && isCorrectOrder
-                ? "border-emerald-300"
-                : "border-slate-200"
-            )}
-          >
-            <div className="flex items-center pl-1 text-slate-400">
-              <GripVertical className="h-4 w-4" aria-hidden />
-            </div>
-            <pre className="min-w-0 flex-1 overflow-x-auto whitespace-pre-wrap rounded-lg bg-slate-900 px-3 py-2 font-mono text-xs text-emerald-100">
-              {item.line || " "}
-            </pre>
-            {!disabled ? (
-              <div className="flex flex-col justify-center gap-1">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="h-8 px-2"
-                  disabled={index === 0}
-                  onClick={() => move(index, -1)}
-                  aria-label="Move line up"
-                >
-                  ↑
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="h-8 px-2"
-                  disabled={index === order.length - 1}
-                  onClick={() => move(index, 1)}
-                  aria-label="Move line down"
-                >
-                  ↓
-                </Button>
+        {order.map((item, index) => {
+          const slotOk = showSlots ? Boolean(slotCorrect[index]) : false;
+          return (
+            <li
+              key={item.id}
+              className={cn(
+                "flex items-stretch gap-2 rounded-xl border bg-white px-2 py-2 transition-colors",
+                slotOk
+                  ? "animate-[kanamOrderCorrectPulse_1.1s_ease-in-out_infinite] border-emerald-400 bg-emerald-50"
+                  : disabled && isCorrectOrder
+                    ? "border-emerald-300"
+                    : "border-slate-200"
+              )}
+            >
+              <div className="flex items-center pl-1 text-slate-400">
+                <GripVertical className="h-4 w-4" aria-hidden />
               </div>
-            ) : (
-              <CheckCircle2 className="m-auto h-4 w-4 text-emerald-700" />
-            )}
-          </li>
-        ))}
+              <pre
+                className={cn(
+                  "min-w-0 flex-1 overflow-x-auto whitespace-pre-wrap rounded-lg px-3 py-2 font-mono text-xs",
+                  slotOk
+                    ? "bg-emerald-950 text-emerald-100"
+                    : "bg-slate-900 text-emerald-100"
+                )}
+              >
+                {item.line || " "}
+              </pre>
+              {!disabled ? (
+                <div className="flex flex-col justify-center gap-1">
+                  {slotOk ? (
+                    <CheckCircle2
+                      className="mx-auto h-4 w-4 text-emerald-600"
+                      aria-label="Correct position"
+                    />
+                  ) : null}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-8 px-2"
+                    disabled={index === 0}
+                    onClick={() => move(index, -1)}
+                    aria-label="Move line up"
+                  >
+                    ↑
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="h-8 px-2"
+                    disabled={index === order.length - 1}
+                    onClick={() => move(index, 1)}
+                    aria-label="Move line down"
+                  >
+                    ↓
+                  </Button>
+                </div>
+              ) : (
+                <CheckCircle2 className="m-auto h-4 w-4 text-emerald-700" />
+              )}
+            </li>
+          );
+        })}
       </ol>
     </div>
   );

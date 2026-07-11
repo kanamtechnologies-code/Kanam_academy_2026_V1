@@ -15,6 +15,8 @@ export const cyberLesson1: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-1.png",
+        imageAlt: "Student desk with laptop showing a cybersecurity overview dashboard, shield icon, and notebook titled Ethics",
         body: `Your school account, your phone photos, your group's shared docs — all of that is information someone might want to steal, change, or lock away. **Cybersecurity** is the practice of protecting that information, the systems that hold it, and the people who use it.\n\nHere's our roadmap:\n\n• **What cybersecurity means** — protecting data, systems, and people.\n• **The CIA Triad** — Confidentiality, Integrity, and Availability at a high level.\n• **Careers in cyber** — analyst, SOC, and ethical roles (big picture only).\n• **Ethics and authorized use** — why "just because you can" is never enough.\n• **Why you should care now** — as a student, friend, and future professional.\n\nNo experience needed. Every new word gets explained the moment it shows up. This track stays **defensive and educational** — we learn how defenders think, not how to break things.`,
         callout: {
           label: "Why it matters",
@@ -60,6 +62,8 @@ export const cyberLesson1: AILessonConfig = {
         id: "careers",
         kicker: "Who does this work?",
         title: "Cyber careers at a high level",
+        image: "/images/lessons/cs-1-2.png",
+        imageAlt: "Split scene: SOC analyst at monitors beside a school IT help desk helping a student with an account lock",
         body: `Cybersecurity is a field with many roles. You do not need to pick one today — just know the landscape exists and that skills from this class transfer.\n\n• A **security analyst** looks for signs that something is wrong, investigates alerts, and helps fix weaknesses before they become bigger problems.\n• A **SOC** (Security Operations Center) is a team — often working in shifts — that watches for suspicious activity across an organization's systems and responds when something looks off.\n• **Ethical / authorized roles** (sometimes called ethical hacking or penetration testing in industry) involve testing defenses **only with clear written permission** from the system owner, then reporting findings so defenders can improve.\n\nOther paths include writing security policy, teaching users safe habits, building safer software, and responding after an incident. What they share: a defender mindset and a commitment to **authorized use only**.\n\nHigh school is a great time to explore clubs, Cyber.org-style courses, CompTIA fundamentals topics, and ethical capture-the-flag events that stay inside the rules.`,
         callout: {
           label: "Watch out",
@@ -70,6 +74,8 @@ export const cyberLesson1: AILessonConfig = {
         id: "ethics",
         kicker: "Ground rules",
         title: "Ethics: authorized use only",
+        image: "/images/lessons/cs-1-3.png",
+        imageAlt: "Permission checklist on a clipboard next to a laptop; red stamp Unauthorized vs green Authorized testing",
         body: `Curiosity is good. Breaking into accounts \"to see if I can,\" scanning school networks without permission, or sharing someone's login is not.\n\nCore ethics for this class:\n\n• **Only use systems and data you are allowed to use.** Permission must be clear — school accounts for school work, personal accounts for you, lab environments for practice.\n• **Do not try to access, change, or disrupt** someone else's device, account, or network without authorization.\n• **Respect privacy.** Reading another student's messages or grades without permission is a privacy failure, even if no malware was involved.\n• **Report, don't exploit.** If you notice a weakness, tell a trusted adult or the right school/IT contact — don't demonstrate it by causing harm.\n\nThink of it like a chemistry lab: you learn about reactions in controlled, supervised settings. You don't mix random chemicals in the cafeteria \"for science.\"`,
         bullets: [
           "Permission first — always.",

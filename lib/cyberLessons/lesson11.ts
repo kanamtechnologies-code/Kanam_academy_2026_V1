@@ -16,6 +16,8 @@ export const cyberLesson11: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-11.png",
+        imageAlt: "Laptop installing security updates with a progress bar and a phone awaiting updates",
         body: `Attackers love soft targets: outdated software, leftover services nobody uses, and devices with no backup plan. **Hardening** is the defender's craft of making systems tougher *before* something goes wrong.\n\nHere's our roadmap:\n\n• **Patching & updates** — closing known holes quickly.\n• **Disable unused services** — less surface area to attack.\n• **Secure defaults** — start locked down, open only what you need.\n• **Backups** — your recovery lifeline.\n• **Device inventory** — you can't protect what you forget exists.\n• **A simple hardening checklist** for school, home, and clubs.\n\nNo exploit recipes — just practical defense you can actually do.`,
         callout: {
           label: "Why it matters",
@@ -36,6 +38,8 @@ export const cyberLesson11: AILessonConfig = {
         id: "patching",
         kicker: "The big idea",
         title: "Updates close doors attackers already know about",
+        image: "/images/lessons/cs-11-2.png",
+        imageAlt: "Update Available notifications on laptop and phone side by side",
         body: `When researchers or vendors find a **vulnerability**, they usually release a **patch**. Attackers also learn about many of those weaknesses. Running old software is like leaving a broken lock on the door after the locksmith already mailed you a replacement.\n\nDefender habits:\n\n• Enable **automatic updates** for OS and browsers when possible.\n• Update apps you actually use — especially browsers, messaging, and office tools.\n• Restart when asked; some patches only finish after reboot.\n• On shared/school devices, follow IT guidance — don't disable update services \"to go faster.\"\n\nPatching isn't exciting. It's one of the highest-ROI defenses in cybersecurity.`,
         bullets: [
           "Known vulnerabilities get exploited at scale.",
@@ -71,6 +75,8 @@ export const cyberLesson11: AILessonConfig = {
         id: "backups-inventory",
         kicker: "Recover & know your stuff",
         title: "Backups and inventory: defend against the bad day",
+        image: "/images/lessons/cs-11-3.png",
+        imageAlt: "External drive backup, cloud sync icon, and a written device inventory list",
         body: `**Backups** are how you survive ransomware, theft, accidental deletion, and failed drives. Good backup habits:\n\n• Keep copies of irreplaceable schoolwork, photos, and club records.\n• Use more than one place (e.g., cloud sync *and* an occasional offline/export copy for critical files).\n• Test that you can actually **restore** — an untested backup is a hope, not a plan.\n\n**Inventory** means listing devices and accounts: phones, laptops, tablets, routers, shared club laptops, social accounts, cloud drives. You can't patch, wipe, or revoke access for a device you forgot exists.\n\nFor a family or club, a simple spreadsheet of \"what we own + who administers it\" is already strong defender practice.`,
         bullets: [
           "Backup = recovery option when prevention fails.",

@@ -16,6 +16,8 @@ export const cyberLesson5: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-5.png",
+        imageAlt: "Password manager vault on a laptop screen with a phone MFA code beside it",
         body: `Credentials are the keys to your digital life. Today you'll learn how to choose stronger keys, how sites *should* store them, and what to do when a breach hits the news.\n\nHere's our roadmap:\n\n• **Strong passwords & passphrases** — length and uniqueness beat clever substitutions.\n• **Password managers** — one vault, many unique passwords (concept).\n• **Hashing vs. encryption** — one-way checks vs. reversible lockboxes.\n• **Salt** — why identical passwords shouldn't look identical when stored.\n• **MFA types** — app codes, prompts, SMS, keys (tradeoffs at a high level).\n• **Breach response** — change passwords, enable MFA, watch for follow-on scams.\n\nStill defensive only: we explain how storage *protects* passwords, not how to crack them.`,
         callout: {
           label: "Why it matters",
@@ -52,6 +54,8 @@ export const cyberLesson5: AILessonConfig = {
         id: "managers-hashing",
         kicker: "Storage and tools",
         title: "Password managers, hashing, encryption, salt",
+        image: "/images/lessons/cs-5-2.png",
+        imageAlt: "Simple visual of password going into a one-way hash funnel becoming a digest, not reversible",
         body: `**Password managers (concept):** You remember one strong master unlock method; the manager creates and fills unique passwords for each site. That lets you stop reusing credentials. Choose a reputable manager and protect the master unlock carefully (and use MFA on the vault if available).\n\n**Hashing vs. encryption (defender view):**\n• **Encryption** is designed so the right key can reverse the process and recover the original data — useful for files you need to read later.\n• **Hashing** is designed to be **one-way**. Login systems hash what you type and compare it to the stored hash. If someone steals the database of hashes, they shouldn't get your actual password directly.\n\n**Salt (simple):** If two users choose the same password, unsalted hashes could look the same — which helps attackers. A **salt** is unique random data mixed in before hashing so identical passwords produce different stored values.\n\nYou don't need the math. You need the implication: good services hash + salt; bad breaches sometimes reveal poor storage practices — which is why unique passwords still matter.`,
         callout: {
           label: "Common misconception",
@@ -62,6 +66,8 @@ export const cyberLesson5: AILessonConfig = {
         id: "mfa-types",
         kicker: "Second factors",
         title: "MFA types — strengths at a glance",
+        image: "/images/lessons/cs-5-3.png",
+        imageAlt: "App authenticator code, SMS code, and physical security key laid out as MFA options",
         body: `**MFA** adds another factor beyond the password. Common types:\n\n• **Authenticator app codes** — time-based codes in an app on your phone. Generally strong everyday choice.\n• **Push prompts** — approve/deny on a trusted device. Convenient; beware **prompt bombing** (many pushes hoping you'll tap Approve). If you get a prompt you didn't start — deny and change password.\n• **SMS codes** — better than password alone, but phone-number attacks and SIM problems make SMS one of the weaker MFA options.\n• **Hardware security keys** — physical tokens you tap/plug in; excellent for high-value accounts when supported.\n• **Backup codes** — one-time codes you store offline for recovery. Keep them safe; treat them like passwords.\n\nMFA doesn't mean you can use \`password\` as your password. It means a stolen password alone often isn't enough.`,
         callout: {
           label: "Pro tip",

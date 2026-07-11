@@ -15,6 +15,8 @@ export const cyberLesson16: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-16.png",
+        imageAlt: "Capstone planning desk: school club scenario folder, security checklist, and laptop",
         body: `This is your **Cybersecurity capstone**. You'll step into the role of defender for a realistic school club and pull the whole track together — not as isolated facts, but as one coherent plan.\n\nHere's the plan:\n\n• Meet the **scenario** and what's at stake.\n• Fast **track recap** of the tools in your kit.\n• Apply **CIA + identity defenses** (phishing, MFA, least privilege).\n• Apply **hardening, crypto/HTTPS awareness, and privacy**.\n• Draft **detection, IR, and risk priorities**.\n• Build a short **security plan** you could actually hand a club sponsor.\n\nBy the end, you should sound like a Cyber Defender — calm, ethical, and practical.`,
         callout: {
           label: "Why it matters",
@@ -25,6 +27,8 @@ export const cyberLesson16: AILessonConfig = {
         id: "scenario",
         kicker: "Your mission",
         title: "Scenario: Greenwood Media Club",
+        image: "/images/lessons/cs-16-2.png",
+        imageAlt: "After-school club room with shared laptop Wi-Fi and a Defend This Space poster",
         body: `You're advising the **Greenwood High Media Club** (about 25 members). They have:\n\n• A shared **club Gmail** used for sponsor emails and contest logins.\n• A **Google Drive** with photo/video projects and a budget spreadsheet.\n• Two **shared laptops** for editing (sometimes left in the classroom).\n• An **Instagram** account that promotes events.\n• A simple **club website** on a free host for meeting times.\n\nRecent headaches: a near-miss phishing email asking for \"Drive access,\" a laptop that hasn't updated in months, public Instagram posts showing student ID badges in the background, and nobody is sure who still has the Gmail password after seniors graduated.\n\nYour job: defend this small org with the skills from Lessons 1–15.`,
         callout: {
           label: "Constraints",
@@ -80,6 +84,8 @@ export const cyberLesson16: AILessonConfig = {
         id: "plan-template",
         kicker: "Deliverable",
         title: "Security plan template (keep it one page)",
+        image: "/images/lessons/cs-16-3.png",
+        imageAlt: "Filled security plan worksheet covering MFA phishing hardening and incident contacts",
         body: `Hand this structure to a club sponsor:\n\n**1. Scope** — accounts, devices, data we protect.\n**2. Top 3 risks** — likelihood/impact in plain words.\n**3. Controls this month** — MFA, password manager, sharing audit, updates, privacy cleanup.\n**4. Roles** — sponsor, student lead, treasurer (least privilege).\n**5. Monitoring** — alerts we watch; monthly 15-minute review.\n**6. Incident contacts & first steps** — contain checklist.\n**7. Backups** — where finals live; who verifies restore.\n**8. Review date** — next semester checkup.\n\nShort beats perfect. A one-page plan that people follow outperforms a 40-page binder nobody reads.`,
         bullets: [
           "Prioritize identity + backups + patching.",

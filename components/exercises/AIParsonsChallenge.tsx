@@ -26,19 +26,31 @@ export function AIParsonsChallenge({
   onComplete,
 }: AIParsonsChallengeProps) {
   const [assembled, setAssembled] = React.useState("");
+  const [orderIds, setOrderIds] = React.useState<string[]>([]);
+  const [slotCorrect, setSlotCorrect] = React.useState<boolean[] | null>(null);
   const [feedback, setFeedback] = React.useState<"idle" | "wrong" | "right">(
     completed ? "right" : "idle"
   );
 
+  const correctIds = React.useMemo(
+    () => lines.map((_, index) => `L${index}`),
+    [lines]
+  );
+
   React.useEffect(() => {
-    if (completed) setFeedback("right");
-  }, [completed]);
+    if (completed) {
+      setFeedback("right");
+      setSlotCorrect(correctIds.map(() => true));
+    }
+  }, [completed, correctIds]);
 
   const correct = lines.join("\n");
 
   const check = () => {
     if (completed) return;
-    if (assembled.trim() === correct.trim()) {
+    const slots = orderIds.map((id, i) => id === correctIds[i]);
+    setSlotCorrect(slots);
+    if (assembled.trim() === correct.trim() || slots.every(Boolean)) {
       setFeedback("right");
       onComplete();
     } else {
@@ -60,10 +72,15 @@ export function AIParsonsChallenge({
         lines={lines}
         languageLabel={languageLabel}
         disabled={completed || feedback === "right"}
+        slotCorrect={slotCorrect}
         onAssembledChange={(code) => {
           setAssembled(code);
-          if (feedback !== "right") setFeedback("idle");
+          if (feedback !== "right") {
+            setFeedback("idle");
+            setSlotCorrect(null);
+          }
         }}
+        onOrderIdsChange={setOrderIds}
         checkHint="Check order"
       />
 
@@ -75,8 +92,11 @@ export function AIParsonsChallenge({
 
       {feedback === "wrong" ? (
         <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950" role="alert">
-          <p className="font-semibold">Order isn&apos;t right yet.</p>
-          <p className="mt-1">Think about what has to happen first, then move the lines and check again.</p>
+          <p className="font-semibold">Order isn&apos;t fully right yet.</p>
+          <p className="mt-1">
+            Steps pulsing green are already correct — leave those and move the others, then check
+            again.
+          </p>
         </div>
       ) : null}
 

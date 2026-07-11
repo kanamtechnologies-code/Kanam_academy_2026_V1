@@ -16,6 +16,8 @@ export const cyberLesson12: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-12.png",
+        imageAlt: "SOC-style monitors with calm alert banners and a runbook binder labeled Incident Response",
         body: `Prevention is great — until something slips through. Then you need **detection**, **logs**, and a calm **incident response** plan. Today you'll learn how defenders notice trouble and recover without making things worse.\n\nHere's our roadmap:\n\n• **Why logs matter** — the black box recorder of systems.\n• **Detection vs prevention** — both are needed.\n• **Basic IR steps** — identify, contain, eradicate, recover, lessons learned.\n• **Who to tell** — escalation without chaos.\n• **What good evidence looks like** — preserve, don't panic-wipe.\n• **A mini playbook** for school/club incidents.\n\nThis is about thinking clearly under pressure — a core cyber skill.`,
         callout: {
           label: "Why it matters",
@@ -61,6 +63,8 @@ export const cyberLesson12: AILessonConfig = {
         id: "ir-steps",
         kicker: "The playbook",
         title: "Basic incident response steps",
+        image: "/images/lessons/cs-12-2.png",
+        imageAlt: "Five step cards: Identify Contain Eradicate Recover Lessons on a classroom table",
         body: `Here's a simple IR loop used widely (wording varies, idea is stable):\n\n**1. Identify** — Confirm something real is wrong. Gather symptoms: alert text, weird charges, ransomware note, locked account.\n**2. Contain** — Stop the bleeding. Disconnect a compromised device from Wi-Fi if appropriate, revoke sessions, reset passwords, pause risky sharing — without destroying needed evidence when you can help it.\n**3. Eradicate** — Remove the cause: malware cleanup with proper tools/IT help, close the exposed setting, remove the malicious OAuth app.\n**4. Recover** — Restore from clean backups, re-enable services carefully, verify systems work.\n**5. Lessons learned** — What failed? What will you change (MFA, training, patching, logging)?\n\nYou may not run all steps alone — but knowing the order keeps you from skipping straight to \"reinstall everything\" in a panic.`,
         callout: {
           label: "Defender view",
@@ -71,6 +75,8 @@ export const cyberLesson12: AILessonConfig = {
         id: "who-to-tell",
         kicker: "Escalate wisely",
         title: "Who to tell (and what not to do)",
+        image: "/images/lessons/cs-12-3.png",
+        imageAlt: "Student calling school IT while an incident report form is open on a laptop",
         body: `Incidents are team sports. Know your contacts:\n\n• **School / work** — teacher, IT help desk, administrator, or designated security contact.\n• **Club / team** — adult sponsor and account owners.\n• **Personal accounts** — platform support; for money theft, also bank/card issuer promptly.\n• **Legal/serious harm** — trusted adults; emergency services if someone is in immediate danger.\n\nAvoid:\n\n• Posting raw incident details publicly while it's unfolding.\n• Accusing classmates without evidence.\n• Paying random \"unlock\" demands without trusted adult/IT guidance.\n• Silently hoping it goes away.\n\nA short message helps: what you noticed, when, what accounts/devices, what you already tried.`,
         bullets: [
           "Tell the right responsible adults/IT early.",

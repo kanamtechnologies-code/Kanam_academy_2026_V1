@@ -16,6 +16,8 @@ export const cyberLesson8: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-8.png",
+        imageAlt: "Network firewall appliance beside a laptop firewall settings allow/deny list",
         body: `You've learned identities, malware awareness, phishing defense, credentials, access control, and network paths. Today closes the intro arc with **filters and safe defaults**.\n\nHere's our roadmap:\n\n• **Firewalls** — allow/deny filters for network traffic.\n• **Common ports** — 80, 443, and 22 as awareness (not a hands-on attack or hardening lab).\n• **Default configurations** — why \"out of the box\" can be dangerously open or weak.\n• **Network segmentation** — separating groups of systems so one compromise doesn't flood everywhere.\n• **Secure config habits** — change defaults, close what you don't need, least privilege for services.\n\nStill defensive and educational: we discuss what firewalls *are for*, not how to bypass them.`,
         callout: {
           label: "Why it matters",
@@ -36,6 +38,8 @@ export const cyberLesson8: AILessonConfig = {
         id: "firewall",
         kicker: "The filter",
         title: "Firewalls allow or deny traffic",
+        image: "/images/lessons/cs-8-2.png",
+        imageAlt: "Guard-gate metaphor photo: firewall filtering traffic into a school network",
         body: `A **firewall** sits in a path — on a device, a home router, or at an organization boundary — and compares traffic to **rules**:\n\n• **Allow** — this traffic may pass (for example, normal web browsing responses you requested).\n• **Deny / block** — this traffic is dropped (for example, unsolicited attempts to reach admin services from the public internet).\n\nFirewalls can filter based on ideas like:\n• direction (inbound vs outbound),\n• source/destination addresses,\n• ports/services,\n• and in more advanced products, additional context.\n\nYou don't need to write enterprise rule sets in this course. You need the defender concept: **default-deny for unneeded inbound services** is often safer than default-allow everything.\n\nHome example: many home routers include firewall-like behavior that blocks unsolicited inbound connections from the internet while still letting you browse out and receive responses.`,
         bullets: [
           "Firewall = traffic filter with rules.",
@@ -78,6 +82,8 @@ export const cyberLesson8: AILessonConfig = {
         id: "secure-habits",
         kicker: "Closing the intro track",
         title: "Secure configuration habits that stick",
+        image: "/images/lessons/cs-8-3.png",
+        imageAlt: "Checklist changing default router password and closing unused ports on a settings screen",
         body: `Bring the whole cyber intro together into a practical checklist:\n\n• **Identity** — unique credentials, MFA, no shared owner logins.\n• **Access** — least privilege and roles that match real jobs.\n• **Awareness** — phishing skepticism; don't run mystery files; update software.\n• **Path controls** — firewalls allow only what's needed; segment sensitive systems.\n• **Defaults** — change them; turn off unused features; keep admin interfaces limited.\n• **Recovery** — backups and a plan beat panic.\n• **Ethics** — authorized use only; report issues; defend, don't offend.\n\nYou've earned the arc from **Cyber Rookie** to **Firewall Builder**. These fundamentals align with Cyber.org-style intro thinking and CompTIA-style security foundations — enough vocabulary and judgment to keep learning safely.`,
         callout: {
           label: "Try this week",

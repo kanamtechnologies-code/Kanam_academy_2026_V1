@@ -16,6 +16,8 @@ export const cyberLesson15: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-15.png",
+        imageAlt: "Risk matrix sticky notes Likelihood vs Impact on a whiteboard in a classroom",
         body: `You can't eliminate every cyber risk — and you don't need to treat every risk the same. **Risk assessment** helps you decide what matters most and which **controls** are worth the effort.\n\nHere's our roadmap:\n\n• **Asset / threat / vulnerability / risk** — the core vocab.\n• **Likelihood vs impact** — why \"scary\" isn't the same as \"priority.\"\n• **Control types** — preventive, detective, corrective.\n• **Risk responses** — accept, mitigate, transfer, avoid.\n• A **worked mini-assessment** for a school club.\n• How this prepares you for the capstone.\n\nThis is decision-making skill — the heart of real cybersecurity work.`,
         callout: {
           label: "Why it matters",
@@ -36,6 +38,8 @@ export const cyberLesson15: AILessonConfig = {
         id: "atrv",
         kicker: "The big idea",
         title: "Assets, threats, vulnerabilities, risk",
+        image: "/images/lessons/cs-15-2.png",
+        imageAlt: "Cards labeled Asset Threat Vulnerability Risk arranged in a teaching layout",
         body: `Walk an example:\n\n• **Asset:** club treasurer Google account (holds budget sheets).\n• **Threat:** phishing that steals the password.\n• **Vulnerability:** no MFA; password reused from another site.\n• **Risk:** attacker empties the payment info sheet, scams sponsors, damages trust.\n\nChange any piece and the risk changes. Add MFA (shrink vulnerability) and residual risk drops even though phishing still exists as a threat.\n\nDefenders don't only ask \"is this scary?\" They ask \"scary *to what*, through *what weakness*?\"`,
         bullets: [
           "Name the **asset** first.",
@@ -86,6 +90,8 @@ export const cyberLesson15: AILessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Mini risk assessment: school robotics club",
+        image: "/images/lessons/cs-15-3.png",
+        imageAlt: "Club laptop scenario with controls listed: MFA backups training monitoring",
         body: `**Assets:** team email, sponsor list, robot design files, shared laptop.\n\n**Top risks (ranked):**\n1. Email takeover via phishing (high likelihood/impact) → **Mitigate** with MFA + unique password + training; **detective** login alerts; **corrective** session revoke playbook.\n2. Laptop loss without encryption (medium/high) → **Mitigate** with disk encryption + inventory; **avoid** storing sole copies of designs only on that laptop.\n3. Public oversharing of competition travel (medium/medium) → **Mitigate** with posting guidelines.\n\nNotice how risk language drives a short, sensible plan instead of a random tool-shopping spree.`,
         callout: {
           label: "Try this week",

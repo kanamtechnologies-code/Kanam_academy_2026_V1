@@ -16,6 +16,8 @@ export const cyberLesson9: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-9.png",
+        imageAlt: "Two locked boxes and two keys on a desk illustrating encryption concepts for students",
         body: `You've used encryption thousands of times without noticing — every time a padlock shows up in a browser, a messaging app says "end-to-end encrypted," or a password is stored as a scrambled hash. Today you'll learn the **ideas** behind that protection, not how to break it.\n\nHere's our roadmap:\n\n• **What cryptography is for** — protecting confidentiality and checking integrity.\n• **Symmetric encryption** — one shared secret key.\n• **Asymmetric encryption** — public and private key pairs.\n• **Hashing** — one-way fingerprints for integrity (and why passwords aren't stored as plain text).\n• **Keys** — why protecting the key matters as much as the algorithm.\n• **Limits** — what crypto does *not* fix.\n\nThis is defender knowledge: you need to know what "encrypted" really promises so you can choose tools wisely and spot marketing hype.`,
         callout: {
           label: "Why it matters",
@@ -51,6 +53,8 @@ export const cyberLesson9: AILessonConfig = {
         id: "symmetric",
         kicker: "One shared secret",
         title: "Symmetric encryption: same key both ways",
+        image: "/images/lessons/cs-9-2.png",
+        imageAlt: "Same key used to lock and unlock a padlock representing symmetric encryption",
         body: `In **symmetric encryption**, the **same key** locks and unlocks the data. You and your friend both need that shared secret.\n\nAnalogy: a house key. The same physical key locks and unlocks the door. It's fast and efficient — great for encrypting large amounts of data (like a whole file or a video call stream).\n\nThe hard part is **key distribution**: how do you safely give someone the shared key without an eavesdropper grabbing it? If the key leaks, an attacker can decrypt everything that used it. Defenders care a lot about storing and rotating those keys carefully.`,
         callout: {
           label: "Defender view",
@@ -76,6 +80,8 @@ export const cyberLesson9: AILessonConfig = {
         id: "hashing",
         kicker: "One-way fingerprints",
         title: "Hashing checks integrity (and protects stored passwords)",
+        image: "/images/lessons/cs-9-3.png",
+        imageAlt: "Document feeding into a blender icon becoming a short hash fingerprint for integrity",
         body: `A **hash** takes any input and produces a fixed-size output that looks random. Change one letter in the input and the hash changes completely. Importantly, hashing is designed to be **one-way**: you shouldn't be able to reverse a hash back into the original data.\n\nDefenders use hashes to:\n\n• Verify a downloaded file matches the publisher's fingerprint.\n• Detect unauthorized changes to important files.\n• Store **password hashes** instead of plain passwords (with extra protective techniques) so a stolen database doesn't instantly reveal every password.\n\nHashing is **not** encryption. Encryption is meant to be reversed with a key. Hashing is meant to *not* be reversed.`,
         callout: {
           label: "Myth check",

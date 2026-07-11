@@ -16,6 +16,8 @@ export const cyberLesson6: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-6.png",
+        imageAlt: "School portal with role badges Student Teacher Admin and a least-privilege lock icon",
         body: `Logging in is only half the story. Once you're in, **access control** decides which doors open.\n\nHere's our roadmap:\n\n• **Authentication vs. authorization** — a quick rematch with sharper examples.\n• **RBAC** — Role-Based Access Control in plain English.\n• **Least privilege** — give the minimum access needed to do the job.\n• **Admin vs. user accounts** — why everyday work shouldn't use \"keys to the castle.\"\n• **Shared accounts** — why \"one login for the whole club\" creates lasting problems.\n\nThese ideas show up in school portals, cloud docs, workplace tools, and games with moderator roles.`,
         callout: {
           label: "Why it matters",
@@ -46,6 +48,8 @@ export const cyberLesson6: AILessonConfig = {
         id: "rbac",
         kicker: "Roles as toolbelts",
         title: "RBAC — Role-Based Access Control",
+        image: "/images/lessons/cs-6-2.png",
+        imageAlt: "Access control board mapping roles to permissions with colored badges",
         body: `**RBAC (Role-Based Access Control)** assigns permissions to **roles**, then assigns people to roles — instead of hand-crafting every permission for every person from scratch.\n\nExample roles in a school LMS:\n• **Student** — submit work, view own grades.\n• **Teacher** — create assignments, grade class sections.\n• **Counselor** — view certain student records needed for support.\n• **IT Admin** — manage accounts and system settings.\n\nWhen a new student joins, they get the Student role and inherit that toolbelt. When a teacher leaves, removing the Teacher role (or disabling the account) is cleaner than hunting through dozens of one-off permissions.\n\nRBAC isn't the only access model in industry, but it's the one you'll hear most in intro cyber and CompTIA-style fundamentals — and it matches how clubs, jobs, and games already think about \"mod\" vs \"member.\"`,
         bullets: [
           "Permissions attach to **roles**.",
@@ -62,6 +66,8 @@ export const cyberLesson6: AILessonConfig = {
         id: "least-privilege",
         kicker: "The golden rule",
         title: "Least privilege — minimum access to do the job",
+        image: "/images/lessons/cs-6-3.png",
+        imageAlt: "Two accounts on a laptop: everyday user vs admin, with a sticky note Use admin only when needed",
         body: `**Least privilege** means each user, account, and program should get only the permissions required for legitimate work — not every permission available.\n\nWhy defenders love it:\n• **Mistakes do less damage.** Accidental deletes are limited.\n• **Malware / stolen sessions do less damage.** If your everyday account can't install system-wide software, some attacks stall.\n• **Insiders have less blast radius.** Curiosity clicks don't open every file in the organization.\n\nSchool/life applications:\n• Use a standard user account for browsing and homework; reserve admin for installs when needed.\n• Share cloud docs as **view** or **comment** unless someone truly needs **edit**.\n• Club social media: not every member needs the owner login.\n\nLeast privilege feels slightly inconvenient in the moment — and saves careers later.`,
         callout: {
           label: "Common misconception",

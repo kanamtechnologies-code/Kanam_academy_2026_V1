@@ -16,6 +16,8 @@ export const cyberLesson7: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-7.png",
+        imageAlt: "Home router, laptop, and phone on a desk with simple LAN cables suggesting a network",
         body: `Cyber defenders don't just think about passwords — they think about **paths**. Data travels through networks, and every hop is a place something can be protected… or exposed.\n\nHere's our roadmap:\n\n• **IP addresses** — numerical addresses for devices on a network.\n• **Routers** — devices that forward traffic between networks.\n• **LAN vs WAN** — local networks vs wide-area networks.\n• **DNS** — how human-friendly names become addresses.\n• **Ports** — numbered doorways to services on a device.\n• **Client-server** — who asks and who answers.\n• **Why defenders care** — spotting where risk lives along the path.\n\nThis is awareness for high-school cyber — not a networking engineering lab or attack guide.`,
         callout: {
           label: "Why it matters",
@@ -36,6 +38,8 @@ export const cyberLesson7: AILessonConfig = {
         id: "ip-router-lan-wan",
         kicker: "Addresses and neighborhoods",
         title: "IP addresses, routers, LAN vs WAN",
+        image: "/images/lessons/cs-7-2.png",
+        imageAlt: "Diagram-style photo props: LAN inside home, WAN cloud beyond the router",
         body: `Every device that talks on a network needs a way to be found. An **IP address** is that locator. You don't need to memorize formats — just know devices use IPs so packets know where to go.\n\nYour home or school **LAN** connects nearby devices — phones, laptops, printers — often through Wi-Fi access points and a **router**. The router is the gateway that helps your LAN reach other networks.\n\nBeyond your building is the wider world: a **WAN**. The **internet** is a giant mesh of networks. When you stream a video, packets leave your LAN through your router, travel across many networks, and arrive at a remote server.\n\nDefender intuition:\n• Compromising a device on a LAN can threaten neighbors on that same local network if controls are weak.\n• Traffic leaving your LAN toward the internet crosses paths you don't fully control — which is why encryption on websites (more in secure config thinking next lesson) and careful trust decisions matter.`,
         bullets: [
           "**IP** → address for a device on a network.",
@@ -72,6 +76,8 @@ export const cyberLesson7: AILessonConfig = {
         id: "defender-paths",
         kicker: "Think like a scout",
         title: "Why defenders map network paths",
+        image: "/images/lessons/cs-7-3.png",
+        imageAlt: "Whiteboard sketch of packets traveling client to DNS to server with defender checkpoints",
         body: `Put the pieces together into a defender's mental model:\n\n**Device (client)** → **LAN / Wi-Fi** → **Router** → **Internet (WAN)** → **DNS lookup** → **Server** on an **IP:port** → response packets back.\n\nQuestions defenders ask along that path:\n• Are we on a trusted network?\n• Is the domain legitimate?\n• Is the service supposed to be reachable from here?\n• Is traffic protected in transit when it needs to be?\n• Do logs show strange clients talking to strange ports?\n\nYou don't need to run offensive scans. You need to understand that **security controls exist at multiple hops** — passwords on accounts, permissions on servers, filters on firewalls, updates on software, and user judgment on phishing links.\n\nNetworking literacy turns \"it broke\" into \"the failure might be local Wi-Fi, DNS, the remote server, or something in between.\"`,
         bullets: [
           "Map the path: client → LAN → router → WAN → server.",

@@ -16,6 +16,8 @@ export const cyberLesson3: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-3.png",
+        imageAlt: "Laptop warning dialog about suspicious download next to USB drive and email attachment icons",
         body: `**Malware** is short for *malicious software* — programs designed to harm devices, steal data, spy, or disrupt. You do not need to know how to build it. You need to recognize categories and respond like a defender.\n\nHere's our roadmap:\n\n• **Malware types** — virus, worm, trojan, ransomware, spyware, adware (concepts).\n• **Threat actors** — who causes harm and why (high level).\n• **How malware spreads** — common paths, explained for defenders.\n• **Defender habits** — updates, caution with unknown files, and reporting.\n\nThis lesson stays educational and defensive. We talk about what malware *does* and how to *reduce risk* — not how to create or launch attacks.`,
         callout: {
           label: "Why it matters",
@@ -36,6 +38,8 @@ export const cyberLesson3: AILessonConfig = {
         id: "malware-types",
         kicker: "Know the categories",
         title: "Virus, worm, trojan, ransomware, spyware, adware",
+        image: "/images/lessons/cs-3-2.png",
+        imageAlt: "Clean educational cards naming ransomware, spyware, trojan, and worm without scary gore",
         body: `These names get used loosely in everyday speech. Here's the classroom version — conceptual, not a how-to:\n\n• **Virus** — malware that typically needs a host file or program and user action to help it spread to other files.\n• **Worm** — malware known for spreading across networks more on its own, often without someone opening each new copy.\n• **Trojan** — malware that *disguises* itself as something useful or interesting so a person is tricked into running it. Named after the Trojan Horse story.\n• **Ransomware** — malware that blocks access to files or systems (often by locking them) and demands payment to restore access. Paying is risky and not a guarantee — defenders focus on backups and prevention.\n• **Spyware** — malware designed to watch what you do and steal information (keystrokes, browsing, credentials) secretly.\n• **Adware** — unwanted software that floods you with ads; sometimes bundled with other junk and may track you. Annoying, and it can be a warning sign of a messy, risky install.\n\nReal incidents can blend categories. A trojan might deliver ransomware. Defenders care about **impact** and **response**, not perfect taxonomy debates.`,
         bullets: [
           "**Trojan** → tricks you into running it.",
@@ -73,6 +77,8 @@ export const cyberLesson3: AILessonConfig = {
         id: "habits",
         kicker: "Defender playbook",
         title: "Habits that lower malware risk",
+        image: "/images/lessons/cs-3-3.png",
+        imageAlt: "Student updating a Chromebook with Software Update screen and a closed unknown email attachment",
         body: `You can't eliminate every risk, but you can make success much harder for malware authors:\n\n• **Keep systems updated.** Install OS and app updates — they often include security fixes.\n• **Don't run unknown files.** If you didn't expect an attachment or installer, don't open it. Verify with the sender through another channel.\n• **Stick to trusted sources.** Official app stores and known vendor sites beat random download buttons.\n• **Use strong authentication.** Stolen credentials often matter as much as malware.\n• **Back up important work.** Good backups reduce ransomware panic because you can restore without paying.\n• **Limit admin rights** when possible on shared/family PCs (more in the access-control lesson).\n• **Report early.** Tell a parent, teacher, or IT if something looks infected — faster response limits damage.\n\nThese habits protect **CIA**: they keep spies out (confidentiality), reduce tampering (integrity), and help you recover (availability).`,
         bullets: [
           "Update regularly.",

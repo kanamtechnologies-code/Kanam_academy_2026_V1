@@ -16,6 +16,8 @@ export const cyberLesson10: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-10.png",
+        imageAlt: "Browser address bar with HTTPS padlock on a school portal laptop screen",
         body: `That little padlock in your browser is one of the most important security signals online — and one of the most misunderstood. Today you'll learn what **HTTPS**, **certificates**, and **trust** actually mean from a defender's point of view.\n\nHere's our roadmap:\n\n• **HTTP vs HTTPS** — plain vs protected web traffic.\n• **Certificates** — digital ID cards for websites.\n• **Certificate Authorities (CAs)** — who vouch for those IDs.\n• **What the padlock means** — and what it never promised.\n• **MITM awareness** — why attackers want to sit in the middle.\n• **When padlock isn't enough** — phishing pages can have HTTPS too.\n\nYou'll leave able to read the padlock like a defender, not like a superstition.`,
         callout: {
           label: "Why it matters",
@@ -51,6 +53,8 @@ export const cyberLesson10: AILessonConfig = {
         id: "certs-cas",
         kicker: "Who do we trust?",
         title: "Certificates and CAs — digital ID cards",
+        image: "/images/lessons/cs-10-2.png",
+        imageAlt: "Certificate details panel and certificate authority concept cards on a desk",
         body: `When you visit \`https://example.com\`, the server presents a **certificate**. Think of it as a digital ID card that says:\n\n• This certificate is for *this* domain name.\n• Here is the site's **public key**.\n• A **Certificate Authority (CA)** has signed this claim.\n\nYour browser ships with a list of CAs it trusts (like a list of passport offices it believes). If the certificate matches the site name, is signed by a trusted CA, and hasn't expired or been revoked, the browser shows the padlock and continues with HTTPS.\n\nYou don't need to become a CA expert — you need to know that **trust is delegated**. Browsers automate most of the checking so you don't have to.`,
         callout: {
           label: "Defender view",
@@ -61,6 +65,8 @@ export const cyberLesson10: AILessonConfig = {
         id: "padlock",
         kicker: "Reading the signal",
         title: "What the padlock actually means",
+        image: "/images/lessons/cs-10-3.png",
+        imageAlt: "Close-up of browser padlock with sticky note Encryption is not the same as trust the site",
         body: `The **padlock** (or equivalent HTTPS indicator) roughly means:\n\n• Your connection to *this* site is encrypted.\n• The certificate is acceptable to your browser for that domain.\n\nIt does **not** mean:\n\n• The website is honest, ethical, or safe to log into.\n• The page can't be a phishing clone of a real brand.\n• The company behind the site won't leak your data later.\n• The content is accurate or malware-free.\n\nScammers can buy domains and get HTTPS certificates too. The padlock says \"encrypted channel to this name\" — not \"this name is your real bank.\"`,
         bullets: [
           "Padlock ≈ encrypted connection + accepted certificate.",

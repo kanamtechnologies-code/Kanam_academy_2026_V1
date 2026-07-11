@@ -16,6 +16,8 @@ export const cyberLesson4: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/cs-4.png",
+        imageAlt: "Phone showing a phishing text beside a laptop with a fake urgent school email",
         body: `The strongest lock fails if someone tricks you into opening the door. **Social engineering** is manipulation that targets people — not just software bugs.\n\nHere's our roadmap:\n\n• **Social engineering** defined in plain English.\n• **Phishing, smishing, vishing, pretexting** — same idea, different channels.\n• **Red flags** — urgency, fear, prizes, weird links, odd sender details.\n• **Verify, then act** — how to check without clicking the trap.\n• **Report, don't click** — the habit that protects you and your community.\n\nWe'll stay on the defender side: recognizing and reporting. No playbooks for running scams.`,
         callout: {
           label: "Why it matters",
@@ -46,6 +48,8 @@ export const cyberLesson4: AILessonConfig = {
         id: "channels",
         kicker: "Same scam, different inbox",
         title: "Phishing, smishing, vishing, pretexting",
+        image: "/images/lessons/cs-4-2.png",
+        imageAlt: "Three channels labeled email phishing, SMS smishing, and phone vishing on sticky notes",
         body: `Learn the channel names so you can describe what happened clearly:\n\n• **Phishing (email)** — fake \"school IT,\" shipping, bank, or scholarship emails with links to lookalike login pages or risky attachments.\n• **Smishing (SMS)** — texts about package delivery, \"school alerts,\" or account freezes with short links.\n• **Vishing (voice)** — phone calls where someone claims to be support and pushes you to share codes or remote-access permission.\n• **Pretexting** — the storyline used across channels: a made-up reason that makes the ask seem reasonable.\n\nRelated ideas you may hear:\n• **Spear phishing** — targeted at a specific person using personal details.\n• **Business Email Compromise (concept)** — attackers impersonate leaders to push urgent money or gift-card requests (more common in workplaces, but the urgency pattern shows up in student orgs too).\n\nYou don't need to memorize every marketing name. You need the pattern: **unexpected request + pressure + ask for secrets or clicks.**`,
         bullets: [
           "**Phishing** → email bait.",
@@ -72,6 +76,8 @@ export const cyberLesson4: AILessonConfig = {
         id: "verify-report",
         kicker: "Defender response",
         title: "Verify safely — report, don't click",
+        image: "/images/lessons/cs-4-3.png",
+        imageAlt: "Student verifying a link by calling IT on a known number instead of clicking",
         body: `When something feels off, use this defender sequence:\n\n**1. Pause.** Urgency is often the weapon. Take a breath.\n**2. Don't click the link in the message** if you can avoid it. Don't open unexpected attachments.\n**3. Verify through a channel you trust.** Open the official app/site yourself (not from the message), call a known published number, or ask the person face-to-face / through a known good contact method.\n**4. Never share passwords or one-time codes** with someone who messaged you first.\n**5. Report.** Use your school's report button, mark as phishing if available, tell a parent/teacher/IT, and warn teammates if a shared account was targeted.\n**6. If you already clicked or entered a password** — don't panic-hide it. Change the password from a safe device, enable MFA, check recovery email/phone, and tell a trusted adult promptly.\n\n\"Report, don't click\" protects more than you. One report can stop a campaign from hitting your whole school.`,
         bullets: [
           "Pause — don't let urgency drive you.",
