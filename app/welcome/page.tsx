@@ -280,8 +280,8 @@ export default function WelcomePage() {
                 Just testing? Try a guided lesson — no account needed.
               </p>
               <p className="mt-1 text-sm text-slate-600">
-                A short tour walks you through a real Python lesson: coach note, code blanks, Run
-                &amp; check, and XP. Progress saves on this device.
+                A guided classroom lesson: objectives, building blocks, a worked example, then fill /
+                reorder / debug. Built for students, parents, and educators.
               </p>
 
               <div className="mt-4">

@@ -907,8 +907,8 @@ export function AILessonCanvas({
         )}
       </div>
 
-      {/* TEMP: testing skip controls — delete this block later */}
-      {view === "quiz" && !lessonComplete ? (
+      {/* Dev-only skip controls */}
+      {process.env.NODE_ENV === "development" && view === "quiz" && !lessonComplete ? (
         <div className="fixed bottom-4 right-4 z-[80] flex max-w-[min(100vw-2rem,20rem)] flex-col gap-2 rounded-2xl border-2 border-dashed border-orange-400 bg-orange-50 p-3 shadow-xl">
           <p className="text-[10px] font-black uppercase tracking-wide text-orange-800">
             Temp test controls — remove later

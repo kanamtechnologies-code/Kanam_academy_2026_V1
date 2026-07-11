@@ -6,8 +6,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   BookOpen,
+  Bug,
   Code2,
-  Flame,
+  ListOrdered,
   Play,
   Sparkles,
   Trophy,
@@ -41,9 +42,9 @@ export default function DemoEntryPage() {
       <div className="mx-auto flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full max-w-[1200px] flex-col justify-center px-4 py-6 sm:py-8 md:px-10">
         <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr]">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 260, damping: 24 }}
+            transition={{ type: "spring", stiffness: 280, damping: 26 }}
           >
             <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-[color:var(--brand-2)]">
               Interactive demo
@@ -53,8 +54,9 @@ export default function DemoEntryPage() {
               <span className="block text-[color:var(--brand)]">guided, step by step</span>
             </h1>
             <p className="mt-4 max-w-xl text-base font-medium leading-relaxed text-slate-700 md:text-lg">
-              A short tour walks you through the lesson canvas — coach note, Python blanks, Run &amp;
-              check, and XP. No account required. About 3 minutes.
+              Start with a short product tour that teaches the canvas — tabs, coach note, editor,
+              Run &amp; check, and console — then practice a real Python lesson. Built for students,
+              parents, and educators.
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
@@ -65,7 +67,7 @@ export default function DemoEntryPage() {
                 Guided tour
               </Badge>
               <Badge variant="outline" className="border-slate-300 bg-white/80">
-                Progress saves locally
+                Fill · Reorder · Debug
               </Badge>
             </div>
 
@@ -77,6 +79,7 @@ export default function DemoEntryPage() {
                   "h-14 w-full rounded-2xl px-7 text-base font-extrabold sm:w-auto",
                   "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
                   "text-[var(--accent)] shadow-lg shadow-emerald-900/20 hover:brightness-[1.05]",
+                  "transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0",
                 ].join(" ")}
                 onClick={startGuidedLesson}
               >
@@ -101,9 +104,9 @@ export default function DemoEntryPage() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 240, damping: 22, delay: 0.08 }}
+            transition={{ type: "spring", stiffness: 260, damping: 24, delay: 0.06 }}
             className="space-y-4"
           >
             <div className="kanam-dashboard-hero overflow-hidden rounded-[28px] p-6 shadow-xl">
@@ -117,14 +120,14 @@ export default function DemoEntryPage() {
                     <p className="text-xs font-black uppercase tracking-[0.2em] text-white/80">
                       Lesson canvas preview
                     </p>
-                    <p className="text-lg font-black text-white">Quickstart: Meet Your AI Helper</p>
+                    <p className="text-lg font-black text-white">Meet Your AI Helper</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   {[
                     { label: "XP", value: "50", icon: Sparkles },
-                    { label: "Steps", value: "2", icon: BookOpen },
-                    { label: "Time", value: "~3 min", icon: Flame },
+                    { label: "Exercises", value: "3", icon: ListOrdered },
+                    { label: "Time", value: "~6 min", icon: BookOpen },
                   ].map((stat) => (
                     <div key={stat.label} className="kanam-dashboard-stat rounded-2xl p-3">
                       <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-white/70">
@@ -153,16 +156,27 @@ export default function DemoEntryPage() {
                   },
                   {
                     icon: Code2,
-                    title: "Write a little Python",
-                    body: "Fill in blanks, press Run, and read the console.",
+                    title: "Fill in a blank",
+                    body: "Store a name in a variable and print Hello! I am …",
+                  },
+                  {
+                    icon: ListOrdered,
+                    title: "Reorder + debug",
+                    body: "Drag lines into order, then fix a Print vs print bug.",
                   },
                   {
                     icon: Trophy,
-                    title: "Earn XP",
-                    body: "Finish both exercises and see your progress celebrate.",
+                    title: "Earn XP & a badge",
+                    body: "Finish all three exercises and unlock The Awakener.",
                   },
-                ].map((item) => (
-                  <li key={item.title} className="flex gap-3">
+                ].map((item, i) => (
+                  <motion.li
+                    key={item.title}
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.12 + i * 0.05 }}
+                    className="flex gap-3"
+                  >
                     <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-emerald-50 text-emerald-800 ring-1 ring-emerald-100">
                       <item.icon className="h-5 w-5" />
                     </span>
@@ -172,12 +186,16 @@ export default function DemoEntryPage() {
                       </span>
                       <span className="text-sm text-slate-600">{item.body}</span>
                     </span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
+              <p className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-500">
+                <Bug className="h-3.5 w-3.5" />
+                Same exercise kinds as Week 1 of the Python track.
+              </p>
               <button
                 type="button"
-                className="mt-4 inline-flex min-h-11 items-center text-xs font-semibold text-slate-500 underline underline-offset-2 hover:text-slate-800"
+                className="mt-3 inline-flex min-h-11 items-center text-xs font-semibold text-slate-500 underline underline-offset-2 hover:text-slate-800"
                 onClick={() => {
                   resetGuestProgress();
                 }}

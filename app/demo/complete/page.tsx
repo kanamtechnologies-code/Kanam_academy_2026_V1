@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
+import { PremiumBadge } from "@/components/badges/PremiumBadge";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
 import { DEMO_LESSON_TOUR_FLAG } from "@/components/demo/GuestLessonTour";
@@ -26,6 +27,7 @@ import { totalXpAcrossTracks } from "@/lib/tracks";
 export default function DemoCompletePage() {
   const [xp, setXp] = React.useState(0);
   const [completed, setCompleted] = React.useState(0);
+  const earned = completed > 0;
 
   React.useEffect(() => {
     if (!isGuestMode()) {
@@ -41,9 +43,9 @@ export default function DemoCompletePage() {
     <WelcomeBackground>
       <div className="mx-auto flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full max-w-[1100px] flex-col justify-center px-4 py-6 sm:py-10 md:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", stiffness: 260, damping: 24 }}
+          transition={{ type: "spring", stiffness: 280, damping: 26 }}
           className="overflow-hidden rounded-[24px] border border-white/60 bg-white/80 shadow-[0_24px_60px_rgba(0,0,0,0.06)] backdrop-blur-2xl sm:rounded-[30px]"
         >
           <div className="kanam-dashboard-hero px-4 py-6 sm:px-6 sm:py-8 md:px-10 md:py-10">
@@ -57,14 +59,15 @@ export default function DemoCompletePage() {
                   You just used the real Kanam canvas
                 </h1>
                 <p className="mt-2 max-w-xl text-sm font-medium text-white/85 md:text-base">
-                  Same lesson flow students get in class — coach note, exercises, Run & check, XP.
+                  Same flow students get in class — lesson, fill / reorder / debug, Run &amp; check,
+                  XP, and a badge.
                 </p>
               </div>
               <div className="kanam-hero-brand-tile grid h-14 w-14 place-items-center rounded-2xl">
                 <Image src="/images/Logo.png" alt="Kanam Academy" width={36} height={36} />
               </div>
             </div>
-            <div className="relative z-10 mt-6 flex flex-wrap gap-3">
+            <div className="relative z-10 mt-6 flex flex-wrap items-end gap-3">
               <div className="kanam-dashboard-stat rounded-2xl px-4 py-3">
                 <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-white/70">
                   XP earned
@@ -83,6 +86,19 @@ export default function DemoCompletePage() {
                   {completed}
                 </p>
               </div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, type: "spring", stiffness: 260, damping: 18 }}
+                className="ml-auto"
+              >
+                <PremiumBadge
+                  lessonId="lesson-1"
+                  name="The Awakener"
+                  variant="seal"
+                  unlocked={earned}
+                />
+              </motion.div>
             </div>
           </div>
 
@@ -93,16 +109,22 @@ export default function DemoCompletePage() {
               </p>
               <ul className="space-y-3">
                 {[
-                  "You can follow a coach note and start an activity.",
-                  "You can edit Python, press Run, and read the console.",
-                  "You can earn XP in a real Kanam lesson flow.",
-                ].map((line) => (
-                  <li key={line} className="flex items-start gap-3 text-sm text-slate-700">
+                  "You followed a coach note and started the activity.",
+                  "You filled a blank, reordered lines, and fixed a bug.",
+                  "You ran Python, read the console, and earned XP.",
+                ].map((line, i) => (
+                  <motion.li
+                    key={line}
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.08 + i * 0.05 }}
+                    className="flex items-start gap-3 text-sm text-slate-700"
+                  >
                     <span className="mt-0.5 grid h-6 w-6 place-items-center rounded-full bg-emerald-100 text-emerald-800">
                       <CheckCircle2 className="h-4 w-4" />
                     </span>
                     <span className="leading-relaxed">{line}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
 

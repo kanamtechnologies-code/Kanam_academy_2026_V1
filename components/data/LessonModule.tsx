@@ -49,14 +49,17 @@ export type LessonModuleData = {
 
 function renderRichText(text: string) {
   return text.split("\n").map((line, i) => {
-    if (line.trim() === "") return <div key={i} className="h-2" />;
+    if (line.trim() === "") return <div key={i} className="h-3" />;
     const parts = line.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
     return (
-      <p key={i} className="leading-relaxed text-slate-700">
+      <p
+        key={i}
+        className="text-[16px] leading-[1.75] text-slate-700 sm:text-[17px] sm:leading-[1.8]"
+      >
         {parts.map((part, j) => {
           if (part.startsWith("**") && part.endsWith("**")) {
             return (
-              <strong key={j} className="font-semibold text-slate-900">
+              <strong key={j} className="font-bold text-slate-900">
                 {part.slice(2, -2)}
               </strong>
             );
@@ -65,7 +68,7 @@ function renderRichText(text: string) {
             return (
               <code
                 key={j}
-                className="rounded bg-slate-100 px-1 py-0.5 font-mono text-sm text-emerald-800"
+                className="rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[0.9em] text-emerald-800"
               >
                 {part.slice(1, -1)}
               </code>
@@ -185,13 +188,16 @@ export function LessonModule({
 
           const prose = (
             <>
-              <div className="space-y-2 text-[15px]">{renderRichText(section.body)}</div>
+              <div className="space-y-3">{renderRichText(section.body)}</div>
 
               {section.bullets && section.bullets.length > 0 ? (
-                <ul className="space-y-2">
+                <ul className="space-y-2.5">
                   {section.bullets.map((b, i) => (
-                    <li key={i} className="flex items-start gap-2 text-[15px] text-slate-700">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
+                    <li
+                      key={i}
+                      className="flex items-start gap-2.5 text-[16px] leading-[1.7] text-slate-700 sm:text-[17px]"
+                    >
+                      <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[var(--brand)]" />
                       <span>{renderInline(b)}</span>
                     </li>
                   ))}
@@ -199,13 +205,15 @@ export function LessonModule({
               ) : null}
 
               {section.callout ? (
-                <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
+                <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 sm:p-5">
                   <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
                   <div>
                     <p className="text-xs font-black uppercase tracking-wide text-amber-800">
                       {section.callout.label}
                     </p>
-                    <p className="mt-1 text-sm text-amber-900">{renderInline(section.callout.text)}</p>
+                    <p className="mt-1.5 text-[15px] leading-relaxed text-amber-950 sm:text-base">
+                      {renderInline(section.callout.text)}
+                    </p>
                   </div>
                 </div>
               ) : null}
@@ -224,18 +232,18 @@ export function LessonModule({
                     {section.kicker}
                   </span>
                 ) : null}
-                <h2 className="mt-3 text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
+                <h2 className="mt-3 text-[1.65rem] font-black leading-tight tracking-tight text-slate-900 sm:text-3xl md:text-[2rem]">
                   {section.title}
                 </h2>
               </div>
 
               {hasMedia ? (
                 <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-                  <div className="space-y-4 lg:order-1">{prose}</div>
+                  <div className="space-y-5 lg:order-1">{prose}</div>
                   <div className="space-y-4 lg:order-2 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto">{media}</div>
                 </div>
               ) : (
-                <div className="mx-auto max-w-3xl space-y-4">{prose}</div>
+                <div className="mx-auto max-w-3xl space-y-5">{prose}</div>
               )}
             </div>
           );
@@ -245,7 +253,7 @@ export function LessonModule({
           <Button
             type="button"
             variant="outline"
-            className="min-h-11 w-full sm:w-auto"
+            className="min-h-11 w-full scroll-mt-28 sm:w-auto"
             onClick={() => goTo(index - 1)}
             disabled={isFirst}
           >
@@ -258,14 +266,20 @@ export function LessonModule({
           </p>
 
           {isLast ? (
-            <Button type="button" className="min-h-11 w-full shadow-sm sm:w-auto" onClick={onStart}>
+            <Button
+              type="button"
+              data-tour="lesson-module-start"
+              className="min-h-11 w-full scroll-mb-28 shadow-sm sm:w-auto"
+              onClick={onStart}
+            >
               <Rocket className="h-4 w-4" />
               {startLabel}
             </Button>
           ) : (
             <Button
               type="button"
-              className="min-h-11 w-full shadow-sm sm:w-auto"
+              data-tour="lesson-module-next"
+              className="min-h-11 w-full scroll-mb-28 shadow-sm sm:w-auto"
               onClick={() => goTo(index + 1)}
             >
               Next

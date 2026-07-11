@@ -16,16 +16,19 @@ export function LessonAside({
   defaultOpen = false,
   className,
   children,
+  "data-tour": dataTour,
 }: {
   title: string;
   icon: React.ReactNode;
   defaultOpen?: boolean;
   className?: string;
   children: React.ReactNode;
+  "data-tour"?: string;
 }) {
   return (
     <details
       open={defaultOpen}
+      data-tour={dataTour}
       className={cn(
         "group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm",
         className

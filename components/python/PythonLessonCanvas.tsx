@@ -137,6 +137,8 @@ export type PythonLessonConfig = {
   coachNoteGateSeconds?: number;
   /** When true, guest demo tour can spotlight this canvas. */
   guidedTour?: boolean;
+  /** Label for the post-completion next button (defaults to "Next lesson"). */
+  nextCtaLabel?: string;
 };
 
 export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
@@ -671,7 +673,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                 {lesson.goal}
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2" data-tour="lesson-hero-rewards">
               <Badge className="kanam-hero-chip">
                 <Zap className="mr-1.5 h-4 w-4" />
                 {lesson.xpReward} XP
@@ -702,6 +704,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
           >
             <button
               type="button"
+              data-tour="lesson-tab-lesson"
               onClick={() => setView("lesson")}
               className={cn(
                 "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
@@ -715,6 +718,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
             </button>
             <button
               type="button"
+              data-tour="lesson-tab-exercises"
               onClick={() => setView("exercises")}
               className={cn(
                 "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
@@ -745,6 +749,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
               defaultOpen={!lesson.lessonModule}
               icon={<Sparkles className="h-5 w-5 text-[var(--accent)]" />}
               className="border-[rgb(var(--accent-rgb)/0.55)]"
+              data-tour="lesson-coach"
             >
               <div className="space-y-3 text-sm">
                 <CoachNoteContent text={lesson.instructorScript} />
@@ -948,7 +953,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                         </div>
                       </div>
                     ) : (
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2" data-tour="lesson-exercise-nav">
                         {lesson.exercises.map((ex, idx) => {
                           const done = completedIds.has(ex.id);
                           const active = idx === activeIndex;
@@ -988,7 +993,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                       />
                     ) : activeExercise ? (
                       <>
-                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4" data-tour="lesson-goal">
                           {!isProject ? (
                             <div className="flex flex-wrap items-center gap-2">
                               <Badge className="bg-violet-700 text-white">
@@ -1103,6 +1108,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                         >
                           <Button
                             type="button"
+                            data-tour="lesson-run-button"
                             className="min-h-11 w-full sm:w-auto"
                             onClick={handleRunExercise}
                             disabled={lessonComplete}
@@ -1223,7 +1229,9 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                       ) : null}
                       {lesson.nextHref ? (
                         <Button asChild className="mt-5 shadow-md" size="lg">
-                          <Link href={lesson.nextHref}>Next lesson</Link>
+                          <Link href={lesson.nextHref}>
+                            {lesson.nextCtaLabel ?? "Next lesson"}
+                          </Link>
                         </Button>
                       ) : (
                         <Button asChild className="mt-5 shadow-md" size="lg" variant="secondary">
@@ -1240,8 +1248,11 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
         )}
       </div>
 
-      {/* TEMP: testing skip controls — delete this block later */}
-      {view === "exercises" && !lessonComplete ? (
+      {/* Dev-only skip controls — never on guided demo / production */}
+      {process.env.NODE_ENV === "development" &&
+      !lesson.guidedTour &&
+      view === "exercises" &&
+      !lessonComplete ? (
         <div className="fixed bottom-4 right-4 z-[80] flex max-w-[min(100vw-2rem,20rem)] flex-col gap-2 rounded-2xl border-2 border-dashed border-orange-400 bg-orange-50 p-3 shadow-xl">
           <p className="text-[10px] font-black uppercase tracking-wide text-orange-800">
             Temp test controls — remove later
