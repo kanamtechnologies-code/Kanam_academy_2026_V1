@@ -121,6 +121,24 @@ export const LESSON_BADGE_ICONS: Record<string, LucideIcon> = {
   "dl-14": Wrench,
   "dl-15": Briefcase,
   "dl-16": Compass,
+
+  // Cybersecurity
+  "cs-1": Shield,
+  "cs-2": ShieldCheck,
+  "cs-3": Radar,
+  "cs-4": Eye,
+  "cs-5": KeyRound,
+  "cs-6": Lock,
+  "cs-7": Globe2,
+  "cs-8": Layers,
+  "cs-9": Binary,
+  "cs-10": Fingerprint,
+  "cs-11": Wrench,
+  "cs-12": Flame,
+  "cs-13": Target,
+  "cs-14": ScanSearch,
+  "cs-15": Scale,
+  "cs-16": Trophy,
 };
 
 /** Fallback when a lesson id is unknown. */
@@ -197,6 +215,22 @@ export function lessonIdFromBadgeLabel(badge: string): string | null {
     ["problem solver", "dl-14"],
     ["career ready", "dl-15"],
     ["digitally fluent", "dl-16"],
+    ["cyber rookie", "cs-1"],
+    ["triad guardian", "cs-2"],
+    ["threat spotter", "cs-3"],
+    ["phish defender", "cs-4"],
+    ["credential pro", "cs-5"],
+    ["gatekeeper", "cs-6"],
+    ["net scout", "cs-7"],
+    ["firewall builder", "cs-8"],
+    ["cipher starter", "cs-9"],
+    ["trust verifier", "cs-10"],
+    ["hardener", "cs-11"],
+    ["incident ready", "cs-12"],
+    ["attack analyst", "cs-13"],
+    ["privacy scout", "cs-14"],
+    ["risk analyst", "cs-15"],
+    ["cyber defender", "cs-16"],
   ];
   for (const [label, id] of entries) {
     if (name === label || name.endsWith(label)) return id;

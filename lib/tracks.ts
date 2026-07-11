@@ -24,7 +24,7 @@ export type WeekPlan = {
 };
 
 export type Track = {
-  id: "python-starter" | "data-analyst" | "ai-literacy" | "digital-literacy";
+  id: "python-starter" | "data-analyst" | "ai-literacy" | "digital-literacy" | "cybersecurity";
   title: string;
   subtitle: string;
   icon: string;
@@ -138,6 +138,17 @@ export const DIGITAL_LITERACY_WEEKS: WeekPlan[] = [
   { week: 8, theme: "Digital Skills for the Real World", focus: "Workplace-ready digital skills and your personal digital toolkit." },
 ];
 
+export const CYBERSECURITY_WEEKS: WeekPlan[] = [
+  { week: 1, theme: "Foundations & Ethics", focus: "What cybersecurity is, career paths, ethics, and the CIA triad with authentication." },
+  { week: 2, theme: "Threats & the Human Factor", focus: "Malware families and social engineering — especially phishing." },
+  { week: 3, theme: "Identity & Access", focus: "Passwords, hashing, MFA, and least-privilege access control." },
+  { week: 4, theme: "Networks & Defense", focus: "How networks work for defenders, plus firewalls, ports, and secure configs." },
+  { week: 5, theme: "Cryptography & Trust", focus: "Encryption and hashing basics, then HTTPS and digital certificates." },
+  { week: 6, theme: "Hardening & Response", focus: "Patching and system hardening, then logging, monitoring, and incident basics." },
+  { week: 7, theme: "Attacks & Awareness", focus: "Common attack patterns from a defender’s view, plus OSINT and privacy awareness." },
+  { week: 8, theme: "Risk & Capstone", focus: "Risk assessment and controls, then a capstone defense plan for a real scenario." },
+];
+
 export const DATA_ANALYST_WEEKS: WeekPlan[] = [
   { week: 1, theme: "What Data Is", focus: "Rows, columns, and your first SELECT queries." },
   { week: 2, theme: "Choosing & Filtering", focus: "Pick the columns you need and filter rows with WHERE." },
@@ -221,6 +232,25 @@ const DIGITAL_LITERACY_LESSONS: LessonRow[] = [
   { id: "dl-16", title: "Capstone: Your Digital Toolkit", href: "/learn/digital/16", xp: 800, badgeName: "Digitally Fluent", badgeIcon: "", week: 8, session: 2, hasLesson: true },
 ];
 
+const CYBERSECURITY_LESSONS: LessonRow[] = [
+  { id: "cs-1", title: "What Is Cybersecurity?", href: "/learn/cyber/1", xp: 50, badgeName: "Cyber Rookie", badgeIcon: "", week: 1, session: 1, hasLesson: true },
+  { id: "cs-2", title: "CIA Triad & Authentication", href: "/learn/cyber/2", xp: 100, badgeName: "Triad Guardian", badgeIcon: "", week: 1, session: 2, hasLesson: true },
+  { id: "cs-3", title: "Malware & the Threat Landscape", href: "/learn/cyber/3", xp: 150, badgeName: "Threat Spotter", badgeIcon: "", week: 2, session: 1, hasLesson: true },
+  { id: "cs-4", title: "Social Engineering & Phishing", href: "/learn/cyber/4", xp: 200, badgeName: "Phish Defender", badgeIcon: "", week: 2, session: 2, hasLesson: true },
+  { id: "cs-5", title: "Passwords, Hashing & MFA", href: "/learn/cyber/5", xp: 250, badgeName: "Credential Pro", badgeIcon: "", week: 3, session: 1, hasLesson: true },
+  { id: "cs-6", title: "Access Control & Least Privilege", href: "/learn/cyber/6", xp: 300, badgeName: "Gatekeeper", badgeIcon: "", week: 3, session: 2, hasLesson: true },
+  { id: "cs-7", title: "Networking for Defenders", href: "/learn/cyber/7", xp: 350, badgeName: "Net Scout", badgeIcon: "", week: 4, session: 1, hasLesson: true },
+  { id: "cs-8", title: "Firewalls, Ports & Secure Config", href: "/learn/cyber/8", xp: 400, badgeName: "Firewall Builder", badgeIcon: "", week: 4, session: 2, hasLesson: true },
+  { id: "cs-9", title: "Cryptography Basics", href: "/learn/cyber/9", xp: 450, badgeName: "Cipher Starter", badgeIcon: "", week: 5, session: 1, hasLesson: true },
+  { id: "cs-10", title: "HTTPS, Certificates & Trust", href: "/learn/cyber/10", xp: 500, badgeName: "Trust Verifier", badgeIcon: "", week: 5, session: 2, hasLesson: true },
+  { id: "cs-11", title: "System Hardening & Patching", href: "/learn/cyber/11", xp: 550, badgeName: "Hardener", badgeIcon: "", week: 6, session: 1, hasLesson: true },
+  { id: "cs-12", title: "Logging, Monitoring & Incidents", href: "/learn/cyber/12", xp: 600, badgeName: "Incident Ready", badgeIcon: "", week: 6, session: 2, hasLesson: true },
+  { id: "cs-13", title: "Common Attacks (Defender View)", href: "/learn/cyber/13", xp: 650, badgeName: "Attack Analyst", badgeIcon: "", week: 7, session: 1, hasLesson: true },
+  { id: "cs-14", title: "OSINT Awareness & Privacy", href: "/learn/cyber/14", xp: 700, badgeName: "Privacy Scout", badgeIcon: "", week: 7, session: 2, hasLesson: true },
+  { id: "cs-15", title: "Risk Assessment & Controls", href: "/learn/cyber/15", xp: 750, badgeName: "Risk Analyst", badgeIcon: "", week: 8, session: 1, hasLesson: true },
+  { id: "cs-16", title: "Capstone: Defend the Scenario", href: "/learn/cyber/16", xp: 800, badgeName: "Cyber Defender", badgeIcon: "", week: 8, session: 2, hasLesson: true },
+];
+
 export const TRACKS: Track[] = [
   {
     id: "ai-literacy",
@@ -235,6 +265,13 @@ export const TRACKS: Track[] = [
     subtitle: "Use technology safely, smartly, and ready for work",
     icon: "",
     lessons: DIGITAL_LITERACY_LESSONS,
+  },
+  {
+    id: "cybersecurity",
+    title: "Cybersecurity",
+    subtitle: "Defend systems, data, and people — high school cyber fundamentals",
+    icon: "",
+    lessons: CYBERSECURITY_LESSONS,
   },
   {
     id: "python-starter",
@@ -261,6 +298,7 @@ export function weeksForTrack(id: Track["id"]): WeekPlan[] {
   if (id === "python-starter") return PYTHON_WEEKS;
   if (id === "data-analyst") return DATA_ANALYST_WEEKS;
   if (id === "digital-literacy") return DIGITAL_LITERACY_WEEKS;
+  if (id === "cybersecurity") return CYBERSECURITY_WEEKS;
   return AI_LITERACY_WEEKS;
 }
 

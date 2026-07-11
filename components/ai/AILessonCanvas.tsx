@@ -34,6 +34,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { AI_INTERACTIVE_BY_LESSON } from "@/lib/aiLessons/interactiveExercises";
 import { DIGITAL_INTERACTIVE_BY_LESSON } from "@/lib/digitalLessons/interactiveExercises";
+import { CYBER_INTERACTIVE_BY_LESSON } from "@/lib/cyberLessons/interactiveExercises";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
 import { cn } from "@/lib/utils";
@@ -311,6 +312,7 @@ export function AILessonCanvas({
     return (
       AI_INTERACTIVE_BY_LESSON[lesson.id] ??
       DIGITAL_INTERACTIVE_BY_LESSON[lesson.id] ??
+      CYBER_INTERACTIVE_BY_LESSON[lesson.id] ??
       []
     );
   }, [lesson.activities, lesson.id]);
@@ -688,7 +690,24 @@ export function AILessonCanvas({
                       Practice challenges
                     </CardTitle>
                     <p className="text-sm font-medium text-slate-600">
-                      Reorder · Debug · Predict — finish each one to complete the lesson.
+                      {activities
+                        .map((activity) =>
+                          activity.kind === "parsons"
+                            ? "Reorder"
+                            : activity.kind === "debug"
+                              ? "Debug"
+                              : activity.kind === "predict"
+                                ? "Predict"
+                                : activity.kind === "match"
+                                  ? "Match"
+                                  : activity.kind === "order"
+                                    ? "Order"
+                                    : activity.kind === "scenario"
+                                      ? "Decision tree"
+                                      : "Challenge"
+                        )
+                        .join(" · ")}{" "}
+                      — finish each one to complete the lesson.
                     </p>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -709,7 +728,9 @@ export function AILessonCanvas({
                                   ? "Match"
                                   : activity.kind === "order"
                                     ? "Order"
-                                    : "Scenario";
+                                    : activity.kind === "scenario"
+                                      ? "Decision tree"
+                                      : "Challenge";
                         return (
                           <button
                             key={activity.id}

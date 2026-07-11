@@ -65,6 +65,7 @@ export default function Home() {
 
   const aiTrack = TRACKS.find((t) => t.id === "ai-literacy")!;
   const digitalTrack = TRACKS.find((t) => t.id === "digital-literacy")!;
+  const cyberTrack = TRACKS.find((t) => t.id === "cybersecurity")!;
   const pythonTrack = TRACKS.find((t) => t.id === "python-starter")!;
   const dataTrack = TRACKS.find((t) => t.id === "data-analyst")!;
   const totalXp = totalXpAcrossTracks(completedIds);
@@ -360,6 +361,21 @@ export default function Home() {
               ) : null}
             </TabsTrigger>
             <TabsTrigger
+              value="cybersecurity"
+              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
+            >
+              <span className="inline-flex items-center">
+                <TrackIcon trackId="cybersecurity" className="h-3.5 w-3.5" />
+              </span>
+              <span className="sm:hidden">Cyber</span>
+              <span className="hidden sm:inline">{cyberTrack.title}</span>
+              {cyberTrack.lessons.some((l) => l.hasLesson) ? (
+                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
+                  Guided
+                </span>
+              ) : null}
+            </TabsTrigger>
+            <TabsTrigger
               value="python-starter"
               className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
             >
@@ -403,6 +419,15 @@ export default function Home() {
           <TabsContent value="digital-literacy">
             <TrackRoadmap
               track={digitalTrack}
+              completedIds={completedIds}
+              classRestricted={lessonAccess.classRestricted}
+              enabledLessonIds={lessonAccess.enabledLessonIds}
+            />
+          </TabsContent>
+
+          <TabsContent value="cybersecurity">
+            <TrackRoadmap
+              track={cyberTrack}
               completedIds={completedIds}
               classRestricted={lessonAccess.classRestricted}
               enabledLessonIds={lessonAccess.enabledLessonIds}
