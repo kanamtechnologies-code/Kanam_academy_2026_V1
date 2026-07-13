@@ -16,6 +16,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "The server reassembles packets and stores or replies",
         "Your device receives the response and updates the screen",
       ],
+      lineExplanations: [
+        "Everything starts on your device: the app you typed in has to convert your words into digital data the computer can process. Without that first step, there is nothing for the network to send. Software on local hardware kicks off the whole trip.",
+        "Next, the operating system and network stack chop that data into smaller packets with addressing info. Packets travel more reliably than one giant blob, and the OS is what manages this job for apps. Cause: big message; effect: many labeled pieces ready to ship.",
+        "Only after packets exist can routers forward them hop by hop toward the destination. The internet is a path of machines handing packets along — not magic teleportation. Order matters: nothing useful moves until the stack has prepared the packets.",
+        "At the other end, a server in the cloud (someone else's computers) must reassemble the packets before it can store your message or craft a reply. If reassembly came first, there would be nothing complete to process. This is why the cloud answer depends on a successful network arrival.",
+        "Finally your device gets the response and the app updates the screen so you see the result. Feedback only makes sense after the server has answered. The loop closes: hardware and software on your side show what the remote computers returned.",
+      ],
       explanation:
         "Hardware runs the software; the OS manages the trip; the internet moves packets; the cloud is just someone else's computers answering over the network.",
     },
@@ -77,6 +84,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Copy or sync a backup to cloud or an external drive",
         "Check that the backup opens before you close everything",
       ],
+      lineExplanations: [
+        "First lock in your working copy: Save with a clear name and folder so you know where the live essay lives. If you skip this, later steps have no reliable master file to version or back up. Cause: unfinished edits on screen; effect: a durable file on disk.",
+        "Save As or export comes next when you need a new version or format without overwriting the original by accident. You can only branch a file that already exists and is saved. That creates a second copy for drafts, PDFs, or milestones.",
+        "After naming and format choices, confirm the extension matches the app (.docx, .pdf, and so on). Extensions tell the computer which program should open the file; a wrong suffix breaks opening later. Checking now prevents a fake \"conversion\" by renaming alone.",
+        "Only then copy or sync a backup to cloud or an external drive. Backing up before the file is correctly saved and typed just duplicates a broken or incomplete work. A second location protects you if the laptop fails or the folder gets deleted.",
+        "Last, open the backup to prove it works before you close everything. An unverified backup is wishful thinking — corruption or a sync miss only shows up when you try. Cause: you need insurance; effect: you confirm the spare copy actually opens.",
+      ],
       explanation:
         "Save updates the current file; Save As creates a new copy or format. Extensions tell apps how to open files. Backups only count if you verify they work.",
     },
@@ -132,6 +146,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Scan results for source quality, not just top rank",
         "Open promising pages and check author, date, evidence",
         "Refine keywords if results are off-topic or weak",
+      ],
+      lineExplanations: [
+        "Start by defining the research question and choosing precise keywords. Vague hype words send the engine hunting in the wrong places. Clear terms are the cause of focused results later.",
+        "Once you know what you're asking, add operators or filters (quotes, site, date, type) to narrow the search. Filters only help after keywords exist — otherwise you're constraining noise. Cause: broad query; effect: tighter, more useful hits.",
+        "With a filtered list on screen, scan for source quality instead of trusting top rank alone. Rank reflects relevance, ads, or engagement — not automatic credibility. Judgment at this stage decides which links deserve your time.",
+        "Open the promising pages and check author, date, and evidence before you cite them. Skimming titles isn't verification; you need proof on the page. This step turns a shortlist into sources you can defend.",
+        "If results are still off-topic or weak, refine the keywords and run another pass. Search is iterative: what you learned from weak results becomes better queries. Stopping at the first dump leaves you with junk for the paper.",
       ],
       explanation:
         "Good search is iterative: keywords → operators/filters → judgment → verify → refine. Ranking alone isn't a trust score.",
@@ -192,6 +213,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Find better coverage with lateral reading (new tabs, other outlets)",
         "Trace claims back to original evidence or data",
       ],
+      lineExplanations: [
+        "Stop first — don't share while emotions are high. Anger or shock is exactly when rumors spread fastest, and a share puts your name on the claim. Pausing breaks the impulse that turns one post into a class-wide rumor.",
+        "Next investigate the source: who published it and what track record they have. Design and drama aren't proof, so you need to know whether the publisher is reliable. Cause: unknown origin; effect: you decide if the page deserves trust.",
+        "Then leave the original page for lateral reading — new tabs and other outlets. Staying on one site locks you into its framing; comparing coverage reveals consensus or red flags. This is how fact-checkers avoid getting trapped by a single polished page.",
+        "Finally trace the claim back to original evidence or data. Summaries and screenshots can distort; primary sources show what was actually said or measured. Only after that chain of checks should you decide whether the claim is shareable.",
+      ],
       explanation:
         "SIFT slows you down on purpose: pause, check the source, read sideways across the web, then trace the claim. Sharing first is how rumors scale.",
     },
@@ -251,6 +278,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Add only needed details or attachments",
         "Close with thanks and a professional sign-off",
       ],
+      lineExplanations: [
+        "Lead with a specific subject line that states the purpose. Busy readers decide whether to open from the subject alone, so \"hey\" hides the ask. Cause: clear purpose up front; effect: your email gets found and prioritized.",
+        "Open next with a polite greeting plus your name and context so they know who you are. Without that, the ask feels abrupt or anonymous. Respect and identity set the tone before you request anything.",
+        "Then state the ask or update in short, direct sentences. Buried requests get missed; clarity beats slang because text already reads colder than speech. This is the core job of the message — everything else supports it.",
+        "Add only needed details or attachments after the ask is clear. Extra fluff before the point wastes time; extras after it answer \"what do you need from me?\" Cause: focused request; effect: supporting info without a wall of text.",
+        "Close with thanks and a professional sign-off so the thread ends cleanly. A polite ending signals respect and makes reply easier. Skipping it can make a fine ask feel careless or unfinished.",
+      ],
       explanation:
         "Good email is scannable: subject → who you are → clear ask → essentials → polite close. Tone online reads colder than you intend, so clarity beats slang.",
     },
@@ -306,6 +340,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Agree on naming, owners, and how you'll use comments",
         "Edit in the live doc and leave comments instead of silent overwrites",
         "Use version history if something important gets changed by mistake",
+      ],
+      lineExplanations: [
+        "Create the file in a shared drive or team folder first so everyone works from one living copy. Emailing attachments creates conflicting versions immediately. Cause: one home for the project; effect: collaboration can actually start.",
+        "Set permissions next — view, comment, or edit — for each person. Broad \"anyone can edit\" links on sensitive work invite accidents and leaks. Matching access to need protects the file before people start changing it.",
+        "Agree on naming, owners, and how you'll use comments before heavy editing. Without roles, silent overwrites and \"final_final_v9\" chaos take over. Norms make the shared doc readable as a team system, not a free-for-all.",
+        "Then edit in the live doc and leave comments instead of silent overwrites. Comments preserve discussion; silent deletes hide who changed what. This habit only works after permissions and norms exist.",
+        "If something important gets wiped, use version history to restore a known-good state. History is the safety net for mistakes that still happen in live editing. Documenting recovery beats rebuilding from memory.",
       ],
       explanation:
         "Cloud collab works when access is intentional, roles are clear, and history/comments replace \"final_final_v9\" chaos on email.",
@@ -367,6 +408,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Remove, archive, or privacy-lock what you wouldn't show a reviewer",
         "Set ongoing habits so new posts match the reputation you want",
       ],
+      lineExplanations: [
+        "Begin by listing accounts where you post or appear — your active footprint. You can't clean what you haven't inventoried. Cause: map of your public voice; effect: a checklist of places to review.",
+        "Then search your name and common usernames for the passive footprint others or platforms keep. Tags, old forums, and indexed pages may show up even if your main feed looks polished. Reviewers often find those first.",
+        "With both active and passive traces visible, decide what still represents you well for school or work. Reputation is long-lived, so this judgment step filters keep vs change. Skipping it leads to random deletes that miss the real risks.",
+        "Remove, archive, or privacy-lock anything you wouldn't show a reviewer. Action follows judgment — cleaning before you know the full picture leaves gaps. Cause: content that undermines you; effect: a footprint closer to the portfolio you want.",
+        "Finally set ongoing habits so new posts match that reputation. A one-time purge fails if next week's posts recreate the problem. Maintenance turns a cleanup into lasting digital citizenship.",
+      ],
       explanation:
         "Active posts are what you publish; passive traces are what others or platforms keep. Reputation is long-lived — treat it like a public portfolio.",
     },
@@ -427,6 +475,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Report through the platform and/or a trusted adult or school channel",
         "Avoid amplifying the attack with public call-outs that re-share abuse",
       ],
+      lineExplanations: [
+        "First recognize the behavior as harmful, not \"just a joke.\" Naming the harm correctly is what moves you from bystander to upstander. If you minimize it, every later step feels optional.",
+        "Support the target privately if it's safe — check in without piling on in the public thread. Private support helps the person without giving the attack a bigger audience. Cause: someone is being hurt; effect: they know they're not alone.",
+        "Document evidence with screenshots and dates without spreading it for entertainment. Reports need proof, but re-sharing the abuse as content makes you part of the harm. Save it for official channels, not for laughs.",
+        "Report through the platform and/or a trusted adult or school channel so people with power to intervene can act. DIY silence or public pile-ons rarely stop targeted harassment. Evidence plus a real report path is how systems respond.",
+        "Throughout, avoid amplifying the attack with public call-outs that re-share the abuse. Spectacle grows the audience the harasser wanted. Responsible order ends with containment, not a second viral wave.",
+      ],
       explanation:
         "Digital citizenship means upstander action: support, document, report through real channels — not silence, and not turning harm into more spectacle.",
     },
@@ -482,6 +537,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Check contrast so text is readable on the background",
         "Add alt text or captions for key images/media",
         "Proofread and test on phone and laptop screens",
+      ],
+      lineExplanations: [
+        "Clarify one main idea per slide or section before decorating. Hierarchy and design can't rescue a cluttered message. Cause: clear content job; effect: every visual choice can support that idea.",
+        "Apply consistent fonts, spacing, and hierarchy next so the eye knows what matters. Random styles fight the main idea you just set. Consistency is how structure becomes readable at a glance.",
+        "Check contrast so text stays readable on the background. Low contrast fails classmates on phones and anyone with vision differences. Pretty colors that hide words break the communication job.",
+        "Add alt text or captions for key images and media so more people can access the meaning. Missing alternatives leave out screen-reader users and anyone who can't see the graphic. Accessibility belongs in the checklist, not as optional extra credit.",
+        "Proofread and test on phone and laptop screens last. Typos and layout breaks often appear only on smaller displays. Final QA confirms the deck works where your audience will actually view it.",
       ],
       explanation:
         "Strong content isn't decoration — it's hierarchy, readability, and accessibility so more people can actually use what you made.",
@@ -539,6 +601,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Follow required attribution and link rules",
         "If unclear or restricted, get permission or choose another asset",
       ],
+      lineExplanations: [
+        "Identify the work and who holds the rights before you drop an image into the video. Copyright is automatic; guessing ownership invites takedowns. Cause: unknown rights; effect: you know whom the rules apply to.",
+        "Check the license next — all rights reserved, Creative Commons, or public domain. Licenses spell out permission; without reading them you can't know what's allowed. This step turns a found file into a legal decision.",
+        "Confirm your planned use fits that license or fair-use limits for your school context. \"It's for class\" is not a blank check for public uploads of full songs or movie stills. Scope and purpose decide whether reuse is okay.",
+        "Follow required attribution and link rules when the license demands credit. CC BY and similar licenses fail if you skip the creator name or license notice. Compliance is part of using the work, not a courtesy.",
+        "If rights are unclear or restricted, get permission or pick another asset. Hoping for the best after publishing is how projects get blocked. A clean alternative is safer than a risky clip you can't defend.",
+      ],
       explanation:
         "Copyright is automatic; licenses spell out permission. CC and fair use have conditions — attribution and scope matter, including for AI-generated assets.",
     },
@@ -594,6 +663,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Turn on two-factor authentication (2FA)",
         "Review recovery email/phone so only you control resets",
         "Stay alert for phishing that tries to steal the new credentials",
+      ],
+      lineExplanations: [
+        "Create a long unique password or passphrase you won't reuse elsewhere. Reuse lets one breach unlock email, shopping, and school accounts through credential stuffing. Uniqueness is the foundation every other control builds on.",
+        "Store that password in a password manager, not a notes app titled Passwords. Managers make strong unique secrets usable; plaintext notes are easy to steal or leak. You need a safe home before you depend on the credential daily.",
+        "Turn on two-factor authentication so a stolen password alone often isn't enough. 2FA blocks many takeover attempts after the password exists and is stored well. Cause: password might leak; effect: a second factor still protects the inbox.",
+        "Review recovery email and phone so only you control resets. Weak recovery paths let attackers bypass a strong login. Locking recovery closes the side door into the same account.",
+        "Stay alert for phishing that tries to steal the new credentials anyway. Urgency emails and fake login pages bypass passwords and 2FA if you type secrets into the wrong site. Ongoing vigilance keeps the setup from being undone by one click.",
       ],
       explanation:
         "Unique passwords stop breach dominoes; managers make them usable; 2FA blocks many stolen-password logins; phishing still tries to bypass all of it.",
@@ -655,6 +731,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Limit oversharing in profiles and posts tied to the account",
         "Revisit permissions later and revoke what you no longer need",
       ],
+      lineExplanations: [
+        "Ask what data the app actually needs for its job before you install or grant access. A flashlight doesn't need contacts; questioning purpose sets the privacy baseline. Cause: clear function; effect: you can spot overreach.",
+        "Check permission requests for camera, mic, contacts, and location against that need. Excess permissions expand what the app can collect if compromised or sold. Matching permission to function is the practical privacy filter.",
+        "Review cookie and tracking choices in browser or app settings so you aren't accepting all trackers by default. Trackers stitch browsing into ad profiles across sites. This step limits the trail after the app is on your device.",
+        "Limit oversharing in profiles and posts tied to the account — address, schedule, empty-house vacation dates. Permissions don't stop what you volunteer publicly. Cause: public personal details; effect: easier scams or physical risk.",
+        "Revisit permissions later and revoke what you no longer need. Privacy is ongoing, not a one-time install decision. Revoking unused access shrinks your exposure as habits and apps change.",
+      ],
       explanation:
         "Privacy is ongoing: minimize data, question permissions, manage cookies/trackers, and avoid volunteering extras that apps didn't need.",
     },
@@ -715,6 +798,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Replace scroll time with one offline or restorative option",
         "Review after a week and adjust what actually stuck",
       ],
+      lineExplanations: [
+        "Notice which apps steal time, sleep, or mood before you rewrite your whole routine. Awareness names the real competitors so boundaries aren't vague. Cause: specific drains identified; effect: a target for change.",
+        "Set concrete boundaries next — no-phone wind-down, app limits, focus blocks. Vague \"I'll have more discipline\" loses to designed apps. Written limits turn awareness into rules you can follow tonight.",
+        "Change the environment: charger outside the bedroom, notifications off overnight. Willpower fails when the glowing screen is within arm's reach. Environment design makes the healthy choice the easy default.",
+        "Replace scroll time with one offline or restorative option so the habit gap isn't empty. Removing a behavior without a substitute often brings the scroll back. A real alternative fills the time you freed.",
+        "Review after a week and adjust what actually stuck. Healthy tech use is iterative, not a one-shot vow. Feedback lets you keep what works and rewrite what didn't.",
+      ],
       explanation:
         "Healthy tech use is designed, not wished: awareness → boundaries → environment → replacement habits → iterate. Comparison feeds need the same intentional limits.",
     },
@@ -770,6 +860,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Isolate variables (try another site, device, or network)",
         "Apply one fix at a time (refresh, restart, forget/rejoin Wi-Fi)",
         "Document what worked or escalate with clear details",
+      ],
+      lineExplanations: [
+        "Define the problem precisely — what fails, since when, on which device — before changing settings. Vague \"the internet is broken\" leads to random panic fixes. A clear symptom statement focuses every later test.",
+        "Check the obvious next: cables, Wi-Fi icon, airplane mode, correct network. Many failures are simple misconnects, and skipping basics wastes time on deep fixes. Cause: often a toggle or wrong SSID; effect: quick recovery.",
+        "Isolate variables by trying another site, device, or network. If your phone on the same Wi-Fi works, the whole internet isn't dead — you've narrowed the layer. Comparison evidence tells you where to dig.",
+        "Apply one fix at a time — refresh, restart, forget/rejoin Wi-Fi — so you know what actually helped. Changing everything at once hides the real cause and can add new damage. Controlled experiments are how pros debug.",
+        "Document what worked or escalate with clear details for the next helper. Without notes, the same failure returns and support starts from zero. Recording the fix closes the troubleshooting loop.",
       ],
       explanation:
         "Pros don't random-click. They define, check basics, isolate, change one thing at a time, then record the fix — same mindset as debugging code.",
@@ -827,6 +924,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Set remote-work habits (mute/unmute, camera framing, shared agendas)",
         "Keep communication timely and documented for teammates",
       ],
+      lineExplanations: [
+        "Clean public profiles and choose a professional email first — reviewers often search you before they open your samples. partyking2009@ and chaotic banners undercut otherwise strong skills. Cause: first impression online; effect: you look hireable before they meet you.",
+        "Organize files and a simple portfolio folder so you can send work samples quickly. Messy desktops cost time when an internship asks for examples tonight. Presence without ready artifacts still fails the \"show your work\" test.",
+        "Practice core tools — docs, sheets, calendar, video meetings — because workplaces assume fluency. Trend apps fade; spreadsheet and calendar literacy stay. Tool comfort turns organized files into actual collaborative work.",
+        "Set remote-work habits: mute/unmute, camera framing, shared agendas. Remote teams infer reliability from meeting etiquette and clarity. Skills without habits still look careless on Zoom.",
+        "Keep communication timely and documented for teammates so managers aren't left on read. Clear status beats \"idk lol\" when trust is the currency of remote work. Ongoing documentation closes the career-ready loop.",
+      ],
       explanation:
         "Career digital skills are presence + organization + tool fluency + remote etiquette. Spreadsheets and clear messages matter as much as any platform trend.",
     },
@@ -882,6 +986,13 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Pick 3 high-impact fixes you can finish this week",
         "Schedule habits (backups, updates, password/2FA checks, boundaries)",
         "Revisit monthly and adjust the plan as school/work changes",
+      ],
+      lineExplanations: [
+        "Inventory devices, accounts, files, and key habits first so the audit is based on reality, not \"I'm fine.\" You can't prioritize blind spots you haven't listed. Cause: complete map; effect: risks become visible.",
+        "Score risks across security, privacy, footprint, wellbeing, and collaboration next. Ranking turns a long inventory into triage instead of random panic cleaning. High scores tell you where a breach, rumor, or burnout is most likely.",
+        "Pick three high-impact fixes you can finish this week. An audit without scheduled actions is theater; small concrete wins beat a giant mental to-do. Cause: prioritized risks; effect: real change on the calendar.",
+        "Schedule recurring habits — backups, updates, password/2FA checks, boundaries — so fluency isn't a one-day purge. Living toolkits need maintenance or old problems return. Habits lock in the fixes after week one.",
+        "Revisit monthly and adjust as school or work changes. New accounts, devices, and stressors shift the risk map. Iteration keeps the personal digital action plan useful instead of outdated notes.",
       ],
       explanation:
         "Fluency isn't one quiz — it's a living toolkit: inventory → prioritize → act → maintain. Small recurring habits beat one dramatic cleanup.",

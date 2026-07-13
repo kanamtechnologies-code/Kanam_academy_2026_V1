@@ -66,6 +66,8 @@ export type AIOrderActivity = {
   title: string;
   prompt: string;
   items: OrderItem[];
+  /** One teaching note per item, in correct order — shown after a successful check. */
+  itemExplanations?: string[];
 };
 
 export type AIScenarioActivity = {
@@ -84,6 +86,8 @@ export type AIParsonsActivity = {
   lines: string[];
   languageLabel?: string;
   explanation: string;
+  /** One teaching note per line, in correct order — shown after a successful check. */
+  lineExplanations?: string[];
 };
 
 export type AIDebugActivity = {
@@ -773,6 +777,7 @@ export function AILessonCanvas({
                             mode="order"
                             prompt={activeActivity.prompt}
                             items={activeActivity.items}
+                            itemExplanations={activeActivity.itemExplanations}
                             completed={activityDoneIds.has(activeActivity.id)}
                             onComplete={() => markActivityDone(activeActivity.id)}
                           />
@@ -794,6 +799,7 @@ export function AILessonCanvas({
                             lines={activeActivity.lines}
                             languageLabel={activeActivity.languageLabel}
                             explanation={activeActivity.explanation}
+                            lineExplanations={activeActivity.lineExplanations}
                             completed={activityDoneIds.has(activeActivity.id)}
                             onComplete={() => markActivityDone(activeActivity.id)}
                           />

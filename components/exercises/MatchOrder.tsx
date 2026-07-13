@@ -24,6 +24,8 @@ type OrderActivityProps = {
   prompt: string;
   /** Items in the correct order. */
   items: OrderItem[];
+  /** Teaching notes aligned to each correct item — shown after success. */
+  itemExplanations?: string[];
   completed: boolean;
   onComplete: () => void;
 };
@@ -154,12 +156,20 @@ function MatchPanel({ prompt, pairs, completed, onComplete }: MatchActivityProps
   );
 }
 
-function OrderPanel({ prompt, items, completed, onComplete }: OrderActivityProps) {
+function OrderPanel({
+  prompt,
+  items,
+  itemExplanations,
+  completed,
+  onComplete,
+}: OrderActivityProps) {
   const correctIds = React.useMemo(() => items.map((i) => i.id), [items]);
   const [order, setOrder] = React.useState(() => shuffle(items));
   const [feedback, setFeedback] = React.useState<string | null>(null);
   const [slotCorrect, setSlotCorrect] = React.useState<boolean[] | null>(null);
   const [checked, setChecked] = React.useState(completed);
+  const hasStepWhy =
+    Array.isArray(itemExplanations) && itemExplanations.length === items.length;
 
   React.useEffect(() => {
     if (completed) {
@@ -203,7 +213,7 @@ function OrderPanel({ prompt, items, completed, onComplete }: OrderActivityProps
   return (
     <div className="space-y-4">
       <p className="text-sm font-semibold text-slate-900">{prompt}</p>
-      {feedback ? (
+      {feedback && !checked ? (
         <p className="text-sm font-medium text-slate-700" role="status">
           {feedback}
         </p>
@@ -267,6 +277,32 @@ function OrderPanel({ prompt, items, completed, onComplete }: OrderActivityProps
         <Button type="button" className="h-11" onClick={check}>
           Check order
         </Button>
+      ) : null}
+      {checked || completed ? (
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-950">
+          <p className="font-semibold text-emerald-900">Correct order!</p>
+          {hasStepWhy ? (
+            <div className="mt-3 rounded-xl border border-emerald-200/80 bg-white/80 p-3 sm:p-4">
+              <p className="text-xs font-black uppercase tracking-wide text-emerald-900">
+                Why this order
+              </p>
+              <ol className="mt-3 space-y-3">
+                {items.map((item, index) => (
+                  <li key={`why-${item.id}`} className="text-sm text-slate-800">
+                    <p className="font-semibold text-slate-900">
+                      <span className="mr-1.5 text-emerald-700">{index + 1}.</span>
+                      {item.label}
+                    </p>
+                    <p className="mt-1 leading-relaxed text-slate-700">
+                      <span className="font-semibold text-emerald-800">Why: </span>
+                      {itemExplanations[index]}
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : null}
+        </div>
       ) : null}
     </div>
   );

@@ -12,6 +12,8 @@ export type AIParsonsChallengeProps = {
   lines: string[];
   languageLabel?: string;
   explanation: string;
+  /** Teaching notes aligned to each correct line — shown after success. */
+  lineExplanations?: string[];
   completed: boolean;
   onComplete: () => void;
 };
@@ -22,6 +24,7 @@ export function AIParsonsChallenge({
   lines,
   languageLabel = "steps",
   explanation,
+  lineExplanations,
   completed,
   onComplete,
 }: AIParsonsChallengeProps) {
@@ -45,6 +48,9 @@ export function AIParsonsChallenge({
   }, [completed, correctIds]);
 
   const correct = lines.join("\n");
+  const showTeaching = feedback === "right" || completed;
+  const hasStepWhy =
+    Array.isArray(lineExplanations) && lineExplanations.length === lines.length;
 
   const check = () => {
     if (completed) return;
@@ -100,12 +106,35 @@ export function AIParsonsChallenge({
         </div>
       ) : null}
 
-      {feedback === "right" ? (
+      {showTeaching ? (
         <div className="kanam-data-success-banner" role="status">
           <CheckCircle2 className="kanam-data-success-icon" aria-hidden />
-          <div>
-            <p className="kanam-data-success-title">Order locked in!</p>
-            <p className="kanam-data-success-body">{explanation}</p>
+          <div className="min-w-0 space-y-3">
+            <div>
+              <p className="kanam-data-success-title">Order locked in!</p>
+              <p className="kanam-data-success-body">{explanation}</p>
+            </div>
+            {hasStepWhy ? (
+              <div className="rounded-xl border border-emerald-200/80 bg-white/80 p-3 sm:p-4">
+                <p className="text-xs font-black uppercase tracking-wide text-emerald-900">
+                  Why this order
+                </p>
+                <ol className="mt-3 space-y-3">
+                  {lines.map((line, index) => (
+                    <li key={`why-${index}`} className="text-sm text-slate-800">
+                      <p className="font-semibold text-slate-900">
+                        <span className="mr-1.5 text-emerald-700">{index + 1}.</span>
+                        {line}
+                      </p>
+                      <p className="mt-1 leading-relaxed text-slate-700">
+                        <span className="font-semibold text-emerald-800">Why: </span>
+                        {lineExplanations[index]}
+                      </p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ) : null}
           </div>
         </div>
       ) : null}

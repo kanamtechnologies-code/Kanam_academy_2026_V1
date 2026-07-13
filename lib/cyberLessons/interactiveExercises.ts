@@ -16,6 +16,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Wait for authorized staff to validate and fix the issue",
         "Follow up only if asked — don't keep probing on your own",
       ],
+      lineExplanations: [
+        "This comes first because permission draws the line between helpful noticing and unauthorized testing. If you skip it, even a \"good\" probe can violate school rules or law before you've helped anyone.",
+        "Document next so you have a clear, non-destructive record of what you saw. Trying to exploit first can damage systems, destroy evidence, and turn a report into an incident you caused.",
+        "Reporting through the official channel comes after notes exist so staff get facts, not rumors. Side-channel chats skip accountability and can delay the people who are allowed to fix it.",
+        "Waiting for authorized staff matters because validation and remediation need tools and access you may not have. Continuing alone can lock accounts, corrupt data, or tip off an attacker if one is already present.",
+        "Following up only when asked closes the loop without turning curiosity into ongoing unauthorized access. If you keep probing, you recreate the same ethical and safety risk you just avoided.",
+      ],
       explanation:
         "Cybersecurity includes ethics: notice, document, report. Unauthorized testing — even with good intent — can harm systems and break rules.",
     },
@@ -151,6 +158,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "On success, the session is created with limited permissions",
         "Failed attempts are logged and rate-limited if needed",
       ],
+      lineExplanations: [
+        "Authentication starts with a claim of identity — username or account id — so the system knows which credential record to check. Without a claim first, there is nothing specific to verify.",
+        "Proof comes next because a name alone is not authentication. If you skip requesting a password, MFA code, or passkey, anyone who knows a username could pretend to be that person.",
+        "Verification against stored credentials must happen before trust is granted. Creating a session without this check would let forged or guessed proofs through unchecked.",
+        "A successful check then creates a session with limited permissions so the user can work without getting blanket admin rights. Authorization (what you may do) only makes sense after authentication succeeds.",
+        "Failed attempts are logged and rate-limited so defenders can spot stuffing and slow brute force. If you only celebrate success and ignore failures, attackers get unlimited free guesses.",
+      ],
       explanation:
         "Authentication answers \"who are you?\" with proof. Authorization (what you may do) comes after a successful, logged, rate-limited check.",
     },
@@ -217,6 +231,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Run trusted security tools / ask IT for a scan",
         "Change important passwords from a clean device",
         "Restore from a known-good backup if needed after cleanup",
+      ],
+      lineExplanations: [
+        "Containment comes first: disconnecting (when safe) limits malware from spreading or exfiltrating data while you still have a chance to stop the bleed. If you keep chatting and browsing first, the infection may reach more accounts and systems.",
+        "Next, note symptoms so you and IT know what changed — new apps, pop-ups, heat, slowness. Skipping observation makes later scans and cleanup guesswork, and you may miss clues about what was installed.",
+        "Trusted tools or IT scans come after you have contained and observed, so cleanup uses known-good software rather than random \"fixers\" from scareware. Untrusted cleaners can make the problem worse.",
+        "Password changes happen from a clean device because a still-infected machine can steal the new secrets as you type them. Resetting on the compromised laptop often hands attackers fresh credentials.",
+        "Restore from a known-good backup only after cleanup so you do not reintroduce malware from a dirty image. Declaring victory before a verified restore leaves you with a fragile or reinfected system.",
       ],
       explanation:
         "Contain first, then investigate with trusted tools. Reset credentials from a clean device so malware can't capture new passwords.",
@@ -353,6 +374,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Verify via a known-good channel (official portal or IT)",
         "Report the message with the school's phishing report tool",
       ],
+      lineExplanations: [
+        "Pausing comes first because one click can load malware or send you to a credential trap. If you act on urgency before thinking, the attacker already won the race they designed.",
+        "Inspecting sender, pressure, and odd language next builds suspicion without interacting with payloads. You need those red flags before you decide whether the message deserves deeper checking.",
+        "Hovering or inspecting the real URL (without clicking through) reveals lookalike domains safely. Jumping straight to the link skips this check and may land you on the attacker's site.",
+        "Out-of-band verification via the official portal or IT confirms whether the request is real. Relying only on the email's own links keeps you inside the attacker's story.",
+        "Reporting last shares the sample so defenders can block and warn others. Deleting quietly without reporting leaves classmates exposed to the same lure.",
+      ],
       explanation:
         "Slow down, inspect, verify out-of-band, then report. Attackers count on panic clicks.",
     },
@@ -487,6 +515,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Turn on MFA with an authenticator app or hardware key when available",
         "Save a backup MFA method in a secure place",
         "Review recovery email/phone so account recovery stays under your control",
+      ],
+      lineExplanations: [
+        "Creating a long unique secret in a manager comes first so the account starts with a strong, memorable-enough credential you do not have to invent under pressure. Weak or reused passwords from day one invite stuffing later.",
+        "Storing it only in the manager (no reuse elsewhere) preserves uniqueness. If you copy that password to other sites, one breach elsewhere unlocks this school account too.",
+        "MFA is next because a stolen or phished password alone should not be enough. Enabling it after the password exists layers a second factor attackers often cannot easily steal.",
+        "A backup MFA method comes after primary MFA so a lost phone does not lock you out permanently. Skipping backups tempts people to disable MFA later \"just to get back in.\"",
+        "Recovery email and phone must be reviewed last in this setup so account recovery stays yours, not an old unused inbox attackers can hijack. Weak recovery paths bypass even strong passwords and MFA.",
       ],
       explanation:
         "Unique secrets + MFA beat clever short passwords. Recovery paths matter as much as the login itself.",
@@ -623,6 +658,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Set an expiry or review date for the permission",
         "Remove or reduce access when the volunteer work ends",
       ],
+      lineExplanations: [
+        "Start by defining the minimum task so access decisions map to real work, not vague \"they might need stuff.\" If you skip this, you invent privileges before you know what is required.",
+        "Choosing the smallest fitting role comes next so you translate the task into concrete permissions. Jumping to admin \"for convenience\" expands blast radius before the volunteer ever logs in.",
+        "Scoping to one folder or resource — not the whole drive — limits what a mistake or stolen account can touch. Broad grants turn a small volunteer job into access to unrelated sensitive data.",
+        "An expiry or review date prevents temporary help from becoming permanent privilege. Without a calendar reminder, forgotten access silently accumulates.",
+        "Removal when the work ends closes the least-privilege loop. Leaving access \"just in case\" is how former helpers still reach systems long after they should.",
+      ],
       explanation:
         "Least privilege means just enough, just in time, and removed when done — not \"admin forever for convenience.\"",
     },
@@ -658,6 +700,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         { id: "mfa", label: "Require MFA on remaining privileged accounts" },
         { id: "document", label: "Document exceptions and next review date" },
       ],
+      itemExplanations: [
+        "Exporting access first gives you a factual inventory of who can reach sensitive apps. If you trim or enforce MFA without a list, you are guessing and will miss stale or hidden privileges.",
+        "Confirming a business owner next makes someone responsible for each access remaining. Without owners, \"needed\" access becomes folklore and you cannot safely decide what to keep.",
+        "Trimming unused and overly broad roles comes after ownership checks so you remove what nobody still needs. Cutting first without owners can delete legitimate access — or leave orphans you never question.",
+        "Requiring MFA on remaining privileged accounts hardens what you intentionally kept. Doing MFA before trimming wastes effort on accounts you were about to remove, and skips protecting the survivors.",
+        "Documenting exceptions and the next review date last creates accountability and a schedule. Skipping this means the cleaned access slowly drifts back into chaos before the next quarter.",
+      ],
     },
   ],
 
@@ -675,6 +724,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Traffic may cross firewalls and NAT boundaries",
         "Destination host receives on a listening service port",
         "Logs and monitors may record connection metadata along the path",
+      ],
+      lineExplanations: [
+        "Defenders start at the source: a device sending from an IP and port is the \"who started talking\" clue. Without that origin, later logs cannot be tied to a host or process that initiated contact.",
+        "Local forwarding comes next because packets must leave the LAN via switch, AP, or router before they reach anywhere else. Skipping this hop in your mental model hides where local monitoring and VLAN controls sit.",
+        "Firewalls and NAT boundaries sit in the middle of many paths, so they are where allow/deny and address translation happen. If you ignore them, you misread why traffic was blocked, remapped, or never arrived.",
+        "The destination listening port is where the intended service actually accepts the connection. Understanding this step tells defenders which app was targeted — not just that \"the network\" was used.",
+        "Logs and monitors along the path matter last in this model because evidence is captured at each hop for later triage. If you only think about send/receive and forget telemetry, investigations have nothing to correlate.",
       ],
       explanation:
         "Defenders care about who talked to whom, on which ports, and what logs captured — not how to craft attacks.",
@@ -811,6 +867,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Document the rule owner and review date",
         "Remove or tighten the rule when the need ends",
       ],
+      lineExplanations: [
+        "Confirming need and exact ports/protocols first stops \"open whatever\" changes. If you draft a rule before you know the real requirement, you invent unnecessary attack surface.",
+        "A least-privilege draft (source, destination, port, time) comes next so the change is specific. Broad allows are hard to walk back once something depends on them.",
+        "Testing in a change window with log watch verifies the app works and shows unexpected allows or denies. Shipping untested rules can break class apps or silently open more than you intended.",
+        "Documenting owner and review date assigns responsibility so the rule does not become orphaned. Unowned firewall holes are classic long-term exposure.",
+        "Removing or tightening when the need ends completes the lifecycle. Leaving temporary opens forever turns a classroom exception into permanent internet risk.",
+      ],
       explanation:
         "Firewall rules should be specific, logged, owned, and temporary when possible — not \"allow any any.\"",
     },
@@ -945,6 +1008,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Protect integrity so tampering is detectable",
         "Authenticate the other party so you know who you're talking to",
         "Store keys safely and rotate them when policy requires",
+      ],
+      lineExplanations: [
+        "Trustworthy keys or certificates come first because encryption without trusted key material can protect you from nobody — or from the wrong party. If keys are fake or shared carelessly, later crypto steps fail open.",
+        "Encrypting next provides confidentiality so eavesdroppers cannot read content in transit or at rest. Doing this before you have keys is impossible; doing it without integrity still leaves messages malleable.",
+        "Integrity protection detects tampering so an altered ciphertext or plaintext cannot pass as authentic. Confidentiality alone does not stop an attacker from flipping bits or inserting data.",
+        "Authenticating the other party confirms you are not encrypting to an impostor. Skipping this lets a middleperson present their own keys and read or alter what you thought was private.",
+        "Safe storage and rotation keep long-term secrecy alive. Strong algorithms fail if yesterday's private key sits in chat history or never gets replaced after exposure.",
       ],
       explanation:
         "Crypto goals map to confidentiality, integrity, and authentication — plus careful key handling.",
@@ -1081,6 +1151,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Encrypted session keys are established for the connection",
         "Padlock/HTTPS indicates transport protection — not page honesty",
       ],
+      lineExplanations: [
+        "The browser must first request the site's certificate so it has identity material to evaluate. Without that step, there is nothing to validate about who claims to run the server.",
+        "Checking against trusted CAs next answers whether a known authority vouched for that certificate. Skipping trust validation accepts self-signed or untrusted certs as if they were bank-grade.",
+        "Name matching ensures the certificate belongs to the hostname you typed or clicked — not a lookalike. A trusted cert for the wrong name is still a mismatch you must stop on.",
+        "Only after identity checks succeed do encrypted session keys protect the pipe. Encrypting to an unverified server would hide traffic from some eavesdroppers while still talking to the wrong host.",
+        "Remembering that the padlock means transport protection — not honest content — prevents overtrust. Phishing sites can use valid HTTPS; domain and behavior still matter after the lock appears.",
+      ],
       explanation:
         "HTTPS protects the pipe and helps verify the server identity via certificates — it does not mean the website content is truthful or safe.",
     },
@@ -1215,6 +1292,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Disable or uninstall what isn't needed",
         "Confirm local firewall and secure configuration baselines",
         "Verify backups still restore before declaring the job done",
+      ],
+      lineExplanations: [
+        "Inventory comes first so you know what is actually running on the lab PC. Patching or disabling blindly misses forgotten apps and leaves unknown services exposed.",
+        "Patches from trusted channels next close known vulnerabilities on what you found. Delaying updates while you still have a clear inventory lets scanners hit public flaws you already could have fixed.",
+        "Disabling or uninstalling unused software shrinks attack surface after systems are current. Removing first without inventory risks breaking needed tools; leaving everything after patching keeps extra doors open.",
+        "Confirming firewall and secure baselines locks in defensive defaults once the software set is lean. Config drift undoes patching benefits if remote services or weak settings remain.",
+        "Verifying restore proves recovery works before you call hardening complete. Untested backups fail during real incidents — the worst time to discover they do not restore.",
       ],
       explanation:
         "Know what's running, patch it, shrink the surface, confirm configs, and prove recovery works.",
@@ -1351,6 +1435,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Recover systems and verify normal operations",
         "Document lessons learned and improve detections",
       ],
+      lineExplanations: [
+        "Detect and triage first so you understand whether the alert is real and how serious it is. Jumping to wipe or restore without triage can destroy evidence and miss the actual scope.",
+        "Containment next limits blast radius — isolate a host or disable an account before deep cleanup. If you eradicate without containing, malware or attackers may keep spreading while you work.",
+        "Eradication with approved steps removes the cause after spread is limited. Cleaning too early without containment, or too late without a plan, either fails to stop the threat or breaks systems randomly.",
+        "Recovery restores service and verifies normal operations only after the cause is gone. Bringing systems back while the foothold remains invites immediate reinfection.",
+        "Lessons learned and better detections last so the same alert pattern is caught faster next time. Skipping this turns every incident into a one-off fire drill with no lasting improvement.",
+      ],
       explanation:
         "Classic IR rhythm: detect → contain → eradicate → recover → learn. Skipping containment often makes recovery harder.",
     },
@@ -1485,6 +1576,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Privilege and lateral movement expand reach inside the environment",
         "Goal actions appear (data theft, disruption, ransomware prep)",
         "Defenders detect, contain, and eradicate using controls and IR",
+      ],
+      lineExplanations: [
+        "Initial access is the entry stage defenders watch first — phish, exposed service, or stolen creds. Controls and detections at this stage stop many incidents before anything deeper happens.",
+        "Persistence or foothold comes next in the chain as the attacker tries to stay after the first login or exploit. Understanding this stage helps place monitoring on new accounts, scheduled tasks, and unusual remote tools.",
+        "Privilege escalation and lateral movement expand reach only after a foothold exists. Defenders prioritize least privilege and segmentation here because skipping those controls lets one compromised account become many.",
+        "Goal actions (theft, disruption, ransomware prep) appear once the attacker has enough reach. Recognizing this late stage explains why earlier containment matters — waiting until impact starts is already expensive.",
+        "Detection, containment, and eradication close the defender view: controls and IR interrupt the chain at whatever stage you catch it. Studying stages without this response focus would only describe harm, not how to stop it.",
       ],
       explanation:
         "Thinking in stages helps place detections and controls — without teaching how to run the attack.",
@@ -1621,6 +1719,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Separate school, work, and personal identities where practical",
         "Think before posting locations, schedules, or IDs in the future",
       ],
+      lineExplanations: [
+        "Listing what you intentionally publish first builds awareness of your known footprint. Without that inventory, privacy cleanup is random and you miss accounts you still control.",
+        "Searching your name and handles next reveals what others can already find — including forgotten profiles. If you only tighten settings on one app, leaked copies elsewhere still expose you.",
+        "Tightening settings and removing sensitive posts comes after discovery so you fix what the search showed. Acting before you search leaves unknown public posts untouched.",
+        "Separating school, work, and personal identities reduces cross-linking if one account is breached or doxxed. Mixing everything into one public persona makes each leak more damaging.",
+        "Future posting habits last because ongoing oversharing undoes cleanup. Delaying location tags and stripping IDs keeps the reduced footprint from growing back.",
+      ],
       explanation:
         "OSINT awareness for learners means reducing your own exposure — not stalking others or doxxing.",
     },
@@ -1756,6 +1861,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Choose controls that reduce the highest risks first",
         "Revisit after changes or on a regular schedule",
       ],
+      lineExplanations: [
+        "Identifying assets first answers what you are protecting — the site, member data, admin accounts. Threat lists without assets become abstract fear instead of focused defense.",
+        "Listing threats and vulnerabilities next connects those assets to realistic ways they can be harmed. Skipping this jumps straight to random controls that may not match your actual weak points.",
+        "Estimating likelihood and impact ranks which scenarios hurt most if they happen. Without prioritization, you either freeze or spend on low-value fixes while high-impact risks wait.",
+        "Choosing controls for the highest risks first spends limited time and budget where they matter. Controls chosen before ranking often look busy but leave the worst scenarios untreated.",
+        "Revisiting after changes or on a schedule keeps residual risk honest. A one-time assessment goes stale when the site, members, or threats change.",
+      ],
       explanation:
         "Risk work is prioritize-and-treat, not \"eliminate every theoretical danger forever.\"",
     },
@@ -1822,6 +1934,13 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Patch, reduce exposed services, and tighten firewall rules",
         "Enable logging/alerts and draft a short IR playbook",
         "Test backups/restore and schedule a risk review date",
+      ],
+      lineExplanations: [
+        "Defining assets, users, and worst-case impacts first scopes the defense plan to what failure would actually hurt. Hardening without that map wastes effort on low-value systems while critical ones stay vague.",
+        "Account hardening (unique creds, MFA, least privilege) comes next because stolen or shared logins are a top path into small web apps. Network fixes alone fail if admin passwords are weak or shared.",
+        "Patching, reducing exposure, and tightening firewalls shrink how attackers reach the app after accounts are stronger. Opening this step before knowing assets can leave the wrong ports open on the wrong hosts.",
+        "Logging, alerts, and a short IR playbook enable detection and response once preventive controls exist. Without telemetry and a plan, a breach becomes improvisation under pressure.",
+        "Tested backups plus a scheduled risk review prove you can recover and that the plan will be revisited. Skipping restore tests or reviews leaves the capstone plan unfinished when ransomware or mistakes hit.",
       ],
       explanation:
         "A complete defense plan ties assets → preventive hardening → detection/IR → recovery → continuous review.",

@@ -16,6 +16,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Show a new photo and get a prediction",
         "Check mistakes and improve with more examples",
       ],
+      lineExplanations: [
+        "Labeled examples come first because a classifier needs known answers to learn from. Without photos already tagged cat or dog, later steps have no ground truth to connect patterns to labels.",
+        "Pattern extraction comes next so the system turns raw pixels into useful signals like ear shape or fur texture. If you skip this, the model has only messy numbers and no shared features to compare across photos.",
+        "Training must follow features because that is when the model learns which patterns predict which label. Predicting before training would be guessing with no learned mapping from examples.",
+        "Prediction on a new photo comes after training so the model can apply what it learned to an unseen input. Testing on the same labeled training set alone would not show whether it works on real new photos.",
+        "Checking mistakes last closes the loop: errors reveal missing examples or weak patterns. Improving without measuring failures would leave the same blind spots in place.",
+      ],
       explanation:
         "Narrow AI learns from labeled examples, finds patterns, predicts on new inputs, then improves — it doesn't 'understand' pets the way you do.",
     },
@@ -70,6 +77,12 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Find patterns in your past behavior",
         "Score new videos by predicted interest",
         "Rank and show the top suggestions in your feed",
+      ],
+      lineExplanations: [
+        "Logging comes first because recommendations need a trail of what you actually did. Without watch, like, skip, and search signals, the system has no personal history to learn from.",
+        "Pattern-finding comes next so the app turns that trail into habits — genres you finish, creators you skip. Scoring videos before you know those patterns would rank content with no link to your tastes.",
+        "Scoring predicted interest happens after patterns exist so each new video gets a number for how likely you are to watch. Ranking without scores would leave the feed unordered guesswork.",
+        "Ranking and showing top picks last turns those scores into what you see. If the app showed everything before ranking, the feed would bury the best matches under noise.",
       ],
       explanation:
         "Everyday AI predicts what you'll want next from your data trail — then ranks content. That's useful, but it also means the app is learning a lot about you.",
@@ -127,6 +140,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "If matched, start recording the full request",
         "Convert speech features into text or commands",
         "Run the command or reply with speech",
+      ],
+      lineExplanations: [
+        "Capture comes first because the device only works on numbers, not 'sound' as you experience it. Without a waveform, later detectors have nothing to scan for a wake phrase.",
+        "The wake-word check comes next so the speaker stays mostly idle until the trigger pattern appears. Recording every full request without this filter would waste power and privacy on constant listening.",
+        "Full recording starts only after a match so the system spends effort on real requests. Converting speech before the wake succeeds would process background chatter you never meant as a command.",
+        "Speech-to-text or command features follow recording because the model needs the full utterance to interpret. Acting on raw waveforms without this step leaves the device with noise, not meaning.",
+        "Running the command or speaking a reply is last because action depends on a parsed request. Doing this earlier would fire random actions before the system knows what you asked.",
       ],
       explanation:
         "Computers don't 'hear' like you — they turn sound into numbers, spot a wake pattern, then process the rest. Bad input (noise, mumbling) breaks the chain early.",
@@ -189,6 +209,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Accept that some meaning is lost in the numbers",
         "Feed the feature vector into the model",
       ],
+      lineExplanations: [
+        "Raw text comes first because that is the real-world input you care about. You cannot choose tokens or features until you have the essay itself to represent.",
+        "Tokenizing next breaks continuous writing into pieces a computer can count and compare. Feature choice before tokens would skip the units models actually operate on.",
+        "Choosing features after tokens decides which signals — word counts, lengths, topics — enter the model. Feeding everything unfiltered often includes noise; choosing nothing leaves the model empty.",
+        "Acknowledging loss belongs here so you remember representation is a map, not the territory. If you pretend numbers keep every nuance, you will overtrust later predictions built on a thin slice of meaning.",
+        "Feeding the vector last is when learning or prediction actually runs. Sending data earlier, before tokens and features exist, would give the model no usable input.",
+      ],
       explanation:
         "The world becomes data through tokens and features — useful, but lossy. What you leave out of the representation can't be recovered later.",
     },
@@ -246,6 +273,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Test on new emails the model hasn't seen",
         "Deploy and watch for new spam tricks",
       ],
+      lineExplanations: [
+        "Labeled emails come first because supervised learning needs known answers. Without spam vs not-spam tags, training cannot learn which side of the line a message belongs on.",
+        "Feature extraction next turns each email into signals like suspicious links or sender patterns. Training on raw blobs without features makes it harder to spot the patterns that separate spam from real mail.",
+        "Training follows features so the model learns which signals predict the label. Testing or deploying before this step would ship a filter that has not learned anything yet.",
+        "Held-out testing comes after training to measure real performance on unseen mail. Judging only on training emails can hide overfitting — memorizing old examples instead of generalizing.",
+        "Deploy-and-monitor last because spammers change tactics after you ship. A filter that never updates will slowly miss new tricks that were not in the original training set.",
+      ],
       explanation:
         "Learning from examples means: labeled data → features → model → check on new cases. The filter only knows patterns that appeared in training.",
     },
@@ -297,6 +331,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Score accuracy on the untouched test set",
         "Watch for overfitting (great train, weak test)",
         "Adjust and re-check without peeking at test labels early",
+      ],
+      lineExplanations: [
+        "Splitting first protects an honesty check: some examples stay untouched for later. If you train on everything immediately, you have no fair test left to measure real learning.",
+        "Training only on the train set comes next so the model never sees the held-out cases during learning. Mixing test examples into training leaks answers and inflates later scores.",
+        "Scoring on the untouched test set follows training because that is the fair measure of generalization. Reporting only train accuracy can hide a model that merely memorized.",
+        "Watching for overfitting comes after both scores exist so you can compare strong train results with weak test results. Without that contrast, memorization looks like success.",
+        "Adjusting carefully last keeps the test set honest: tweak using train/validation ideas, then re-check. Peeking at test labels early turns the test into another training set and breaks the evaluation.",
       ],
       explanation:
         "A test set is your honesty check. Memorizing training examples (overfitting) looks amazing until new data arrives.",
@@ -355,6 +396,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Give one short example of the style you want",
         "Generate, read critically, then iterate",
       ],
+      lineExplanations: [
+        "A clear task comes first so the model knows what to create, not just that you want 'something.' Without a goal, later context and format still aim at an undefined target.",
+        "Context next narrows audience, topic, and constraints so the output fits your situation. Format alone cannot fix a reply aimed at the wrong reader or topic.",
+        "Format instructions follow so length, structure, and tone are explicit. Leaving shape undefined often produces walls of text that ignore how you plan to use the answer.",
+        "A short style example after the rules shows the pattern you want in concrete form. Models copy examples strongly — placing one here steers tone better than vague adjectives alone.",
+        "Generate-then-critique last because prompting is a loop: read what you got, tighten the ask, try again. Stopping at the first draft skips the improvement that strong prompting depends on.",
+      ],
       explanation:
         "Generative AI creates new text/images by predicting likely continuations. Clear task + context + format beats a vague one-liner.",
     },
@@ -410,6 +458,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Produce fluent text that may still be wrong",
         "You must verify facts the model might hallucinate",
       ],
+      lineExplanations: [
+        "Tokenizing the prompt first loads your words into the finite context the model can see. Prediction cannot start until the input exists as tokens inside that window.",
+        "Next-token prediction follows because that is how the reply is built — one likely piece after another. Treating the model as a database lookup at this stage misunderstands the mechanism.",
+        "Context limits sit in the middle of the process: only so much prompt-plus-reply fits at once. Ignoring the window explains why long chats drop earlier details or lose track.",
+        "Fluent output comes next as a side effect of good next-token guesses, not of guaranteed truth. Sounding smooth can happen even when a claim is invented.",
+        "Human verification last is required because hallucinations look confident. If you skip fact-checking, plausible wrong text can enter essays and decisions unchecked.",
+      ],
       explanation:
         "LLMs are next-word engines with a finite context window. Fluency ≠ truth — hallucinations happen when plausible text isn't grounded.",
     },
@@ -464,6 +519,12 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Task: Explain photosynthesis in plain language",
         "Context: Student already knows cells have chloroplasts",
         "Format: 5 bullet points + one analogy with phones/batteries",
+      ],
+      lineExplanations: [
+        "Role comes first so the model adopts a patient tutor stance for eighth graders before it writes. Without a role, tone and difficulty default to generic adult explanations that miss the audience.",
+        "Task next states exactly what to create — explain photosynthesis in plain language. Role without a clear task still leaves the model guessing which science job to do.",
+        "Context after the task tells the model what the student already knows so it can build on chloroplasts instead of restarting from zero. Skipping context often yields redundant or poorly leveled explanations.",
+        "Format last shapes delivery into five bullets plus a phone/battery analogy so the answer is usable in class. Without format, even a correct explanation may arrive as an unusable wall of text.",
       ],
       explanation:
         "Strong prompts stack role, task, context, and format so the model isn't guessing what 'help with science' means.",
@@ -526,6 +587,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Regenerate with the tighter prompt",
         "Repeat until the result is usable",
       ],
+      lineExplanations: [
+        "A clear first attempt comes first so you have something concrete to judge. You cannot improve a prompt you have never run.",
+        "Reading and marking problems next turns vague disappointment into specific fixes — too long, off-topic, wrong tone. Adding examples before you know what failed wastes those examples on the wrong gaps.",
+        "Few-shot or step-by-step upgrades follow diagnosis because they teach the pattern you just found missing. Regenerating without new instructions usually repeats the same flaws.",
+        "Regenerating with the tighter prompt applies those upgrades to a fresh draft. Stopping after editing the prompt but never re-running leaves you with an untested improvement.",
+        "Repeating until usable last treats prompting as iteration, not a single shot. One pass rarely nails school-ready work; each cycle adds constraints until the draft is good enough.",
+      ],
       explanation:
         "Better prompts aren't one-and-done. Few-shot examples, step-by-step asks, and iteration turn 'meh' into 'usable.'",
     },
@@ -585,6 +653,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Verify any citation actually exists",
         "Use the claim only if confirmed — else drop it",
       ],
+      lineExplanations: [
+        "Spotting risky specifics first focuses your energy on stats, dates, quotes, and studies — the claims most likely to be invented. Checking every adjective equally would waste time while the dangerous parts slip through.",
+        "A trusted-source search next asks whether the claim appears outside the chat. Skipping this step leaves you trusting fluent text with no external anchor.",
+        "A second independent source after the first reduces the chance one site copied an error. One matching page can still be wrong; agreement across unrelated sources raises confidence.",
+        "Citation checks follow because models invent realistic-looking references. If the paper or journal does not exist, the claim should not enter your essay even if the sentence sounds academic.",
+        "Use-or-drop last enforces the rule: confirmed claims can stay; unconfirmed ones go. Keeping 'probably fine' AI facts undoes the whole verification routine.",
+      ],
       explanation:
         "Don't trust — verify. Hallucinations wear confidence. Your job is source, cross-check, and confirm citations are real.",
     },
@@ -640,6 +715,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Write the final work in your own words and understanding",
         "Cite or disclose AI help when required",
         "Be ready to explain your thinking without the chat open",
+      ],
+      lineExplanations: [
+        "Rules come first because allowed help differs by class. Using AI before you know the policy risks accidental cheating even if your intent was honest.",
+        "Brainstorming, outlining, or feedback next keeps AI in a helper role instead of a ghostwriter. Asking for a secret full essay here would outsource the learning the assignment is meant to build.",
+        "Writing the final work yourself follows so authorship and understanding stay yours. Pasting a generated draft as the finished product skips the thinking you are graded on.",
+        "Disclosure when required comes after you used help so teachers can see the process honestly. Hiding required AI use turns an allowed tool into an integrity violation.",
+        "Being able to explain without the chat last proves the learning stuck. If you cannot discuss your choices offline, the work was not really yours in the way school expects.",
       ],
       explanation:
         "Help builds skills; cheating outsources the learning. Integrity means following rules, keeping authorship, and staying able to explain your work.",
@@ -697,6 +779,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Measure outcomes across groups (who gets hired/rejected)",
         "Find skewed patterns tied to the data or labels",
         "Fix data/process and re-test before trusting the tool",
+      ],
+      lineExplanations: [
+        "Defining fairness first sets the standard you will measure against — equal opportunity, equal error rates, or another agreed goal. Without that definition, later audits have no target and 'looks fine' stays vague.",
+        "Inspecting who is in the training data next reveals whose past outcomes the model will copy. Measuring results before you know the data makeup makes it hard to explain why gaps appear.",
+        "Measuring outcomes across groups follows so you can see who gets hired or rejected in practice. Skipping measurement lets bias hide behind claims that the math is 'objective.'",
+        "Finding skewed patterns after measurement links unfair results to data or labels — not mystery. Fixing randomly without this diagnosis often misses the real cause.",
+        "Fixing and re-testing last closes the loop before anyone trusts the tool. Shipping without a re-check can leave the same unfair pattern live under a new coat of paint.",
       ],
       explanation:
         "Bias often starts in skewed data and labels. Fairness work means measuring impacts and fixing the pipeline — not hoping the model is 'neutral.'",
@@ -759,6 +848,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Check whether the media could be a deepfake scam",
         "Report and delete suspicious messages",
       ],
+      lineExplanations: [
+        "Pausing first breaks the urgency trap scammers design. If you send codes or money while panicked, the attacker already won before you evaluate the call.",
+        "Refusing to paste secrets next keeps passwords, IDs, and 2FA codes out of chats and random tools. Sharing those 'just to verify' hands attackers the keys they need.",
+        "Contacting the real person on a known-good channel follows so you verify identity outside the suspicious thread. Staying only inside the weird call keeps you inside the attacker's story.",
+        "Checking for deepfake media after you have slowed down asks whether voice or video could be synthetic. Believing the face alone skips a common modern scam pattern.",
+        "Reporting and deleting last helps others and removes the lure from your devices. Ignoring the message after you escape still leaves classmates exposed to the same bait.",
+      ],
       explanation:
         "Privacy and deepfake safety start with not feeding secrets to random tools — and verifying identity out-of-band when something feels off.",
     },
@@ -816,6 +912,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Verify outputs and fix mistakes",
         "Communicate the final decision to people",
       ],
+      lineExplanations: [
+        "Clarifying the human goal first sets what success means and what limits apply. Letting AI draft before you know the goal produces busywork aimed at the wrong target.",
+        "AI drafting next accelerates options and routine work once the goal is clear. Skipping AI entirely here is fine for some tasks, but in this workflow the tool's job is speed — not final judgment.",
+        "Human judgment, ethics, and domain skill follow because drafts are not decisions. Accepting the first AI option without this step can ship unethical or impractical plans.",
+        "Verification and fixes come after judgment so errors, gaps, and hallucinations get caught. Communicating an unchecked draft to others spreads mistakes with a confident tone.",
+        "Communicating the final call last is the human job AI cannot own for you. Stakeholders need a person who can explain and stand behind the decision.",
+      ],
       explanation:
         "Durable careers pair AI speed with human judgment, verification, and communication — not blind autopilot.",
     },
@@ -872,6 +975,13 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Check accuracy, bias, and privacy risks",
         "Confirm human review and disclosure rules",
         "Decide: adopt, limit use, or reject",
+      ],
+      lineExplanations: [
+        "Defining the job first stops shiny-tool shopping without a purpose. If you skip this, demos impress you for tasks your class never needed.",
+        "Testing on real school examples next checks performance on your actual work, not vendor highlight reels. Demo-only evidence often hides failures on messy classroom inputs.",
+        "Accuracy, bias, and privacy checks follow successful-looking tests so you catch wrong answers, unfair gaps, and data leaks. Adopting before this review treats marketing claims as proof.",
+        "Human review and disclosure rules come next so people stay in the loop and use stays honest. A tool without oversight or policy can quietly replace judgment and hide AI help.",
+        "Decide last — adopt, limit, or reject — using everything you learned. Choosing earlier based on hype alone skips the evaluation the checklist exists to force.",
       ],
       explanation:
         "Capstone thinking: don't adopt hype — evaluate purpose, evidence, fairness, privacy, and human oversight, then decide.",
