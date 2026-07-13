@@ -16,6 +16,8 @@ export const financeLesson3: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/fl-3.png",
+        imageAlt: "Teen looking at a first paper paycheck and pay stub at a cafe table after a shift",
         body: `Your first job (or next job) comes with a moment every worker remembers: looking at a paycheck and thinking, \"Wait — where's the rest?\" Today you'll learn why the number you earn and the number you take home are different — and what those missing pieces usually are.\n\nHere's our roadmap:\n\n• **Gross vs. net pay** — earned vs. take-home.\n• **Common deductions** — taxes and other withholdings at a teen-friendly level.\n• **Hourly vs. salary basics** — how pay is calculated in simple terms.\n• **W-4 awareness** — the form that guides withholding (overview only).\n• **Reading a pay stub** — what to check so surprises don't wreck your budget.\n\nThis is educational. We won't give tax-filing advice for your personal return — just the concepts you need to understand a typical paycheck.`,
         callout: {
           label: "Why it matters",
@@ -36,7 +38,9 @@ export const financeLesson3: AILessonConfig = {
         id: "gross-net",
         kicker: "The big idea",
         title: "Gross is earned; net is what you can spend",
-        body: `Imagine you work 20 hours at $12/hour.\n\n• **Gross pay** ≈ 20 × $12 = **$240**.\n• After taxes and other withholdings, **net pay** might be noticeably less — for example, something in the ballpark of the low-to-mid $200s depending on your situation. (Exact amounts vary; this is only an illustration.)\n\nIf you plan to spend the full $240, you'll come up short. That's why \"Paycheck Pro\" thinking starts with: **What actually lands?**\n\nHourly jobs multiply hours × rate (plus overtime rules when they apply). Some jobs pay a **salary** (a set amount per year divided across pay periods). Either way, deductions still reduce take-home pay.`,
+        image: "/images/lessons/fl-3-2.png",
+        imageAlt: "Clear educational diagram showing Gross pay bar shrinking to Net pay after labeled tax deductions",
+        body: `Imagine you work 20 hours at $12/hour at a local shop.\n\n• **Gross pay** ≈ 20 × $12 = **$240**.\n• After taxes and other withholdings, **net pay** might be noticeably less — for example, something in the ballpark of the low-to-mid $200s depending on your situation. (Exact amounts vary; this is only an illustration.)\n\nIf you plan to spend the full $240 on weekend plans, you'll come up short. That's why \"Paycheck Pro\" thinking starts with: **What actually lands?**\n\nHourly jobs multiply hours × rate (plus overtime rules when they apply). Some jobs pay a **salary** (a set amount per year divided across pay periods). Either way, deductions still reduce take-home pay.`,
         bullets: [
           "**Gross** = before deductions.",
           "**Net** = after deductions (take-home).",
@@ -71,7 +75,9 @@ export const financeLesson3: AILessonConfig = {
         id: "paystub",
         kicker: "Read it",
         title: "How to skim a pay stub in 60 seconds",
-        body: `Every pay period, check:\n\n**1. Hours / pay rate** — Do hours match your timesheet?\n**2. Gross pay** — Does the math look right?\n**3. Deduction list** — Any surprise line items?\n**4. Net pay** — Does it match what hit your account?\n**5. YTD** — Useful for seeing how much you've earned and withheld so far.\n\nIf something looks wrong (missing hours, unexpected deduction), ask a supervisor or payroll contact politely and promptly — bring the stub. Mistakes happen; catching them early matters.\n\nAlso note your **pay schedule** (weekly, biweekly, monthly). Budgets are easier when you know when money arrives.`,
+        image: "/images/lessons/fl-3-3.png",
+        imageAlt: "Realistic close-up of a pay stub on a laptop screen with hours, gross, deductions, and net highlighted",
+        body: `Every pay period, check:\n\n**1. Hours / pay rate** — Do hours match your timesheet?\n**2. Gross pay** — Does the math look right?\n**3. Deduction list** — Any surprise line items?\n**4. Net pay** — Does it match what hit your account?\n**5. YTD** — Useful for seeing how much you've earned and withheld so far.\n\nIf something looks wrong (missing hours, unexpected deduction), ask your manager or payroll contact politely and promptly — bring the stub. Mistakes happen; catching them early matters.\n\nAlso note your **pay schedule** (weekly, biweekly, monthly). Budgets are easier when you know when money arrives.`,
         bullets: [
           "Match hours → gross → deductions → net → bank deposit.",
           "Save or download stubs when possible.",
@@ -105,7 +111,7 @@ export const financeLesson3: AILessonConfig = {
     { term: "Year-to-date (YTD)", definition: "Running totals of earnings and withholdings for the year so far." },
   ],
   realWorld:
-    "A teen budgeting $240 of gross pay for weekend plans may bounce a payment when only ~$210 net hits the account. Planning from net pay prevents that mismatch.",
+    "A teen budgeting $240 of gross pay for a weekend trip may bounce a payment when only ~$210 net hits the account. Planning from net pay prevents that mismatch.",
   quiz: [
     {
       id: "q1",
@@ -122,7 +128,7 @@ export const financeLesson3: AILessonConfig = {
     },
     {
       id: "q2",
-      question: "Why can budgeting from gross pay cause problems?",
+      question: "You get paid $240 gross but only $186 hits your account. Why can budgeting from gross cause problems?",
       choices: [
         "Gross pay is illegal to look at",
         "Gross pay overestimates spendable money because deductions reduce take-home pay",
@@ -161,7 +167,7 @@ export const financeLesson3: AILessonConfig = {
     },
     {
       id: "q5",
-      question: "What should you check first if your deposit looks too low?",
+      question: "Your first paycheck deposit looks way smaller than you expected. What should you do first?",
       choices: [
         "Ignore it until next year",
         "Compare hours, gross pay, deductions, and net pay on the pay stub to your timesheet and bank deposit",

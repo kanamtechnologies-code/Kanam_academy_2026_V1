@@ -16,6 +16,8 @@ export const financeLesson6: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/fl-6.png",
+        imageAlt: "Teen reviewing bank app spending history on a smartphone at a school desk",
         body: `A budget is a plan. **Tracking** is how you see whether reality matches the plan. Today you'll learn lightweight ways to track spending, set up **sinking funds** for predictable \"irregular\" costs, and start an **emergency fund** for true surprises.\n\nHere's our roadmap:\n\n• **Cash flow** — money in vs. money out.\n• **Tracking methods** — apps, notes, receipts — pick one you'll use.\n• **Sinking funds** — save ahead for known future costs.\n• **Emergency funds** — starter cushions for the unexpected.\n• **Patterns** — what two weeks of data can teach you.\n\nGoal: awareness and preparedness — not perfectionism.`,
         callout: {
           label: "Why it matters",
@@ -26,7 +28,7 @@ export const financeLesson6: AILessonConfig = {
         id: "words",
         kicker: "Let's break down the words",
         title: "A quick plain-English glossary",
-        body: `• **Cash flow** is the movement of money in (income) and out (spending/saving) over time.\n• **Tracking** means recording spending so you can see totals by category.\n• A **sinking fund** is money you save gradually for a known future expense (prom, car insurance, new phone).\n• An **emergency fund** is money reserved for unexpected necessary costs (car repair, urgent travel, lost phone you need for work).\n• A **leak** is small, repeated spending that adds up unnoticed (daily snacks, unused subscriptions).\n\nEmergencies are surprises. Sinking funds are expected — you're just paying yourself early.`,
+        body: `• **Cash flow** is the movement of money in (income) and out (spending/saving) over time.\n• **Tracking** means recording spending so you can see totals by category.\n• A **sinking fund** is money you save gradually for a known future expense (prom, car insurance, new phone).\n• An **emergency fund** is money reserved for unexpected necessary costs (car repair, urgent ride home, lost phone you need for work).\n• A **leak** is small, repeated spending that adds up unnoticed (daily snacks, unused subscriptions).\n\nEmergencies are surprises. Sinking funds are expected — you're just paying yourself early.`,
         callout: {
           label: "Pro tip",
           text: "If you can name the expense and roughly when it hits, it's usually a sinking fund — not an \"emergency.\"",
@@ -36,7 +38,7 @@ export const financeLesson6: AILessonConfig = {
         id: "cash-flow",
         kicker: "The big idea",
         title: "Cash flow: in, out, and leftover",
-        body: `**Positive cash flow** for a period means income exceeded spending (you have leftover to save or buffer). **Negative cash flow** means you spent more than you took in — drawing down savings or borrowing.\n\nFor teens, cash flow often swings with work hours. Tracking two or three pay periods teaches you:\n\n• Which categories spike on weekends\n• Whether \"small\" purchases are the real budget-killers\n• How much you can safely automate to savings\n\nCash flow awareness is the heart of the **Cash Flow Keeper** badge.`,
+        body: `**Positive cash flow** for a period means income exceeded spending (you have leftover to save or buffer). **Negative cash flow** means you spent more than you took in — drawing down savings or borrowing.\n\nFor teens, cash flow often swings with work hours. Tracking two or three pay periods teaches you:\n\n• Which categories spike on weekends\n• Whether \"small\" purchases are the real budget-killers\n• How much you can safely move to savings each payday\n\nCash flow awareness is the heart of the **Cash Flow Keeper** badge.`,
         bullets: [
           "Income − spending = leftover (or shortfall).",
           "Track long enough to see patterns, not one dramatic day.",
@@ -51,7 +53,9 @@ export const financeLesson6: AILessonConfig = {
         id: "tracking",
         kicker: "Make it light",
         title: "Track spending in a way you'll continue",
-        body: `Pick **one** method:\n\n• Notes app list with category tags\n• Simple spreadsheet\n• Bank/credit app categories (review weekly)\n• Photo receipts into an album for a week, then total\n\nRules of thumb:\n\n• Track for at least **14 days** before judging yourself.\n• Round if needed — direction beats penny-perfect stress.\n• Separate **needs, wants, and goals** when you review.\n• Look for **leaks**: subscriptions you forgot, daily habits that quietly total $50+.\n\nTracking is information. Use it to adjust the budget — not to spiral.`,
+        image: "/images/lessons/fl-6-2.png",
+        imageAlt: "Spreadsheet-style tracking sheet on a laptop with categories lunch, gas, apps, and weekly totals",
+        body: `Pick **one** method:\n\n• Notes app list with category tags\n• Simple spreadsheet\n• Bank/credit app categories (review weekly)\n• Photo receipts into an album for a week, then total\n\nRules of thumb:\n\n• Track for at least **14 days** before judging yourself.\n• Round if needed — direction beats penny-perfect stress.\n• Separate **needs, wants, and goals** when you review.\n• Look for **leaks**: subscriptions you forgot, daily boba runs that quietly total $50+.\n\nTracking is information. Use it to adjust the budget — not to spiral.`,
         callout: {
           label: "Why it matters",
           text: "Most people underestimate discretionary spending. Data replaces guessing.",
@@ -61,7 +65,7 @@ export const financeLesson6: AILessonConfig = {
         id: "sinking",
         kicker: "Plan ahead",
         title: "Sinking funds: save before the bill arrives",
-        body: `A **sinking fund** turns a scary lump sum into small, scheduled saves.\n\nExample: Prom costs ~$240 in 6 months → about **$40/month** into a \"prom\" savings bucket.\n\nOther teen sinking-fund ideas:\n\n• Car maintenance / new tires\n• Holiday gifts\n• School yearbook / trip fees\n• Phone replacement on a timeline\n• Sports or club dues\n\nLabel the money (sub-account, envelope, or notes). When the expense hits, you're ready — and you don't call it an emergency.`,
+        body: `A **sinking fund** turns a scary lump sum into small, scheduled saves.\n\nExample: Prom costs ~$240 in 6 months → about **$40/month** into a \"prom\" savings bucket.\n\nOther teen sinking-fund ideas:\n\n• Car maintenance / new tires\n• Holiday gifts\n• Yearbook / senior trip fees\n• Phone replacement on a timeline\n• Sports or club dues\n\nLabel the money (sub-account, envelope, or notes). When the expense hits, you're ready — and you don't call it an emergency.`,
         bullets: [
           "Known future cost ÷ months left ≈ monthly save.",
           "Label the fund so you don't \"borrow\" it casually.",
@@ -76,7 +80,9 @@ export const financeLesson6: AILessonConfig = {
         id: "emergency",
         kicker: "Shock absorber",
         title: "Starter emergency funds for teens",
-        body: `An **emergency fund** is for true surprises that are necessary — not sales, not boredom, not \"it was 20% off.\"\n\nStarter targets for many teens (adapt to your life):\n\n• **$100–$500** as a first cushion, or\n• One or two small \"oh no\" expenses you can imagine (phone screen, bus home, basic car issue)\n\nAdults often aim for months of expenses later. You don't need that number today — you need a **start** so one setback doesn't wipe out every goal.\n\nKeep emergency money separate and boring. Replenish it after you use it.`,
+        image: "/images/lessons/fl-6-3.png",
+        imageAlt: "Small emergency fund jar labeled Starter cushion next to a phone with a cracked screen repair estimate",
+        body: `An **emergency fund** is for true surprises that are necessary — not sales, not boredom, not \"it was 20% off.\"\n\n**Emergency vs. budget item — know the difference:**\n\n• **Budget or sinking fund:** broken charger, routine phone-case replacement, expected school fees, annual car registration — you can name it and save ahead.\n• **Emergency:** shocks you did not plan for that threaten **work, safety, or required obligations** — stolen bike lock before a shift, urgent ride home, a flat tire that blocks getting to school or a job.\n\nIf you can predict it or it happens on a schedule, it belongs in your **budget or a sinking fund**, not the emergency jar. Urgency marketing (\"limited drop tonight!\") is not an emergency.\n\nStarter targets for many teens (adapt to your life):\n\n• **$100–$500** as a first cushion, or\n• One or two small \"oh no\" expenses you can imagine (phone screen, bus home, basic car issue)\n\nAdults often aim for months of expenses later — that's a long-term goal, not something you need today. You need a **start** so one setback doesn't wipe out every goal.\n\n**Panic borrowing is not a substitute:** **Payday-style loans** are **debt** with high costs — not a savings account you can tap. Growing even a small buffer beats borrowing in a panic when something real hits.\n\nKeep emergency money separate and boring. Replenish it after you use it.`,
         callout: {
           label: "Watch out",
           text: "Raiding the emergency fund for concert tickets turns it into a fun fund. Use sinking funds for planned wants.",

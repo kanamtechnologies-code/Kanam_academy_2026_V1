@@ -18,7 +18,7 @@ export const cyberLesson6: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-6.png",
         imageAlt: "School portal with role badges Student Teacher Admin and a least-privilege lock icon",
-        body: `Logging in is only half the story. Once you're in, **access control** decides which doors open.\n\nHere's our roadmap:\n\n• **Authentication vs. authorization** — a quick rematch with sharper examples.\n• **RBAC** — Role-Based Access Control in plain English.\n• **Least privilege** — give the minimum access needed to do the job.\n• **Admin vs. user accounts** — why everyday work shouldn't use \"keys to the castle.\"\n• **Shared accounts** — why \"one login for the whole club\" creates lasting problems.\n\nThese ideas show up in school portals, cloud docs, workplace tools, and games with moderator roles.`,
+        body: `Logging in is only half the story. Once you're in, **access control** decides which doors open.\n\nHere's our roadmap:\n\n• **Authentication vs. authorization** — a quick rematch with sharper examples.\n• **RBAC** — Role-Based Access Control in plain English.\n• **Least privilege** — give the minimum access needed to do the job.\n• **Access lifecycle** — temporary grants, offboarding, and periodic review.\n• **Admin vs. user accounts** — why everyday work shouldn't use \"keys to the castle.\"\n• **Shared accounts** — why \"one login for the whole club\" creates lasting problems.\n\nThese ideas show up in school portals, cloud docs, workplace tools, and games with moderator roles.`,
         callout: {
           label: "Why it matters",
           text: "Many breaches aren't genius break-ins — they're ordinary accounts that had far more power than they needed.",
@@ -91,10 +91,25 @@ export const cyberLesson6: AILessonConfig = {
         },
       },
       {
+        id: "access-lifecycle",
+        kicker: "Just in time",
+        title: "Temporary access, offboarding, and periodic review",
+        body: `Least privilege isn't a one-time checkbox — it's a lifecycle:\n\n• **Temporary access** should include an **expiry or review date**. A volunteer who needed edit access for one event shouldn't still have it six months later.\n• **Revoke on offboarding** — when someone leaves a club, job, or class, remove their access promptly. \"Just in case\" leftovers are how former members still reach systems.\n• **Avoid blanket Domain Admin** (or equivalent \"god mode\") for everyday work. Broad admin rights turn one stolen password into a campus-wide incident.\n• **Don't share guest Wi-Fi credentials with staff file servers** — guest networks and sensitive systems should stay separate. One password for everything collapses segmentation.\n\n**Periodic access review** (quarterly is common) keeps role creep under control:\n\n1. **Export** who has access to sensitive apps and folders.\n2. **Confirm owners** — each access should have a responsible person who can say it's still needed.\n3. **Trim roles** — remove unused and overly broad permissions.\n4. **MFA on privileged** — require MFA on remaining admin and high-power accounts.\n5. **Document exceptions** — note who still needs extra access and set the next review date.\n\nThis workflow turns \"we'll clean it up someday\" into a repeatable defender habit.`,
+        bullets: [
+          "Grant **just enough, just in time** — with expiry and removal when done.",
+          "Revoke promptly on offboarding; avoid shared god-mode accounts.",
+          "Quarterly review: **export → owners → trim → MFA → document**.",
+        ],
+        callout: {
+          label: "Defender view",
+          text: "If one account is stolen, how much can an attacker reach? Least privilege and timely revocation shrink that blast radius.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Access control** enforces who can do what after login.\n• **Authentication** proves identity; **authorization** grants permissions.\n• **RBAC** bundles permissions into roles.\n• **Least privilege** limits damage from mistakes and misuse.\n• Avoid everyday **admin** use and risky **shared accounts**.\n\nNext lessons zoom out to networks and firewalls — how traffic is allowed or denied across systems.\n\nComplete the **Knowledge check**, then reflect on a place you can apply least privilege this week.`,
+        body: `Quick recap:\n\n• **Access control** enforces who can do what after login.\n• **Authentication** proves identity; **authorization** grants permissions.\n• **RBAC** bundles permissions into roles.\n• **Least privilege** limits damage from mistakes and misuse.\n• Grant **temporary access** with expiry; **revoke on offboarding**; avoid blanket admin.\n• **Periodic access review:** export → confirm owners → trim roles → MFA on privileged → document exceptions.\n• Avoid everyday **admin** use and risky **shared accounts**.\n\nNext lessons zoom out to networks and firewalls — how traffic is allowed or denied across systems.\n\nComplete the **Knowledge check**, then reflect on a place you can apply least privilege this week.`,
       },
     ],
   },
@@ -112,6 +127,7 @@ export const cyberLesson6: AILessonConfig = {
     { term: "Admin Account", definition: "A highly privileged account that can change system settings and manage users." },
     { term: "Standard User Account", definition: "An everyday account with limited privileges for normal work." },
     { term: "Shared Account", definition: "One login used by multiple people — weak accountability and risky offboarding." },
+    { term: "Access review", definition: "A periodic process to verify, trim, and document who still needs permissions." },
   ],
   realWorld:
     "A newspaper club should give reporters editor access to articles, not the owner password for the entire website hosting account. That's RBAC + least privilege in a student org.",

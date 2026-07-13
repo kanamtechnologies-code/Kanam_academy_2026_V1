@@ -63,7 +63,7 @@ export const aiLesson5: AILessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Teaching an AI to flag spam, step by step",
-        body: `Let's build a spam filter the machine-learning way and watch each stage.\n\n**Step 1 — Gather labeled examples.** Collect a huge pile of real emails, each already marked by people as "spam" or "not spam." That's your training data with its answer key.\n\n**Step 2 — Train.** The AI reads example after example, hunting for patterns: maybe lots of links, urgent ALL-CAPS, or phrases like "act now" lean toward spam. It tunes its numbers to match the labels.\n\n**Step 3 — Save the model.** Once it's good at the examples, we save what it learned as a model — no human ever wrote "if it says 'free money'..." by hand.\n\n**Step 4 — Use it on new mail.** A brand-new email arrives. The model checks its patterns and predicts "92% spam." If it generalizes well, it catches new spam it never saw before — even the sneaky "fr€e m0ney" kind that broke the old hand-written rule.`,
+        body: `Let's build a spam filter the machine-learning way and watch each stage.\n\n**Step 1 — Gather labeled examples.** Collect a huge pile of real emails, each already marked by people as "spam" or "not spam." That's your training data with its answer key.\n\n**Step 2 — Extract features.** Each email becomes a list of signals the model can learn from: suspicious words ("FREE $$$"), number of links, sender patterns. Raw email text is too messy on its own — features turn it into useful numbers.\n\n**Step 3 — Train the model.** The AI studies those features and labels, tuning itself to connect patterns like "lots of links + ALL-CAPS" with spam. No human writes "if it says 'free money'..." by hand.\n\n**Step 4 — Test on held-out mail.** Before trusting it, we quiz the model on emails it **never saw during training**. That's the honest check — does it generalize, or did it just memorize?\n\n**Step 5 — Deploy and monitor.** Ship the filter, but keep watching. Spammers invent new tricks every month, so the team adds fresh examples and retrains.\n\n**Watch out — class imbalance.** Suppose your training pile has 5,000 spam ads but only 20 real school emails. The model sees "spam" almost every time, so it learns a lazy rule: "call everything spam." Your teacher's homework reminder gets crushed. More total emails isn't automatically better — **balanced, varied examples** matter as much as quantity.`,
         callout: {
           label: "Pro tip",
           text: "When a spam filter wrongly trashes a real email, that's a hint its training data didn't include enough examples like that one. The fix is almost always better, more varied examples — not more hand-written rules.",
@@ -79,14 +79,15 @@ export const aiLesson5: AILessonConfig = {
   },
   bigIdeas: [
     "**Machine learning** learns rules from examples instead of being hand-coded.",
-    "**Training data** (labeled examples) is the fuel for learning.",
-    "Learning produces a **model** that should work on new, unseen examples.",
+    "**Training data** (labeled examples) is the fuel — balance and quality matter.",
+    "Learning produces a **model** tested on held-out data, then deployed and monitored.",
   ],
   keyTerms: [
     { term: "Machine Learning (ML)", definition: "AI that learns patterns from examples rather than from rules a human writes." },
     { term: "Training data", definition: "The collection of examples an AI studies to learn." },
     { term: "Label", definition: "The correct answer attached to a training example (e.g., 'cat')." },
     { term: "Model", definition: "The trained result — tuned numbers that capture the learned patterns." },
+    { term: "Class imbalance", definition: "When one label appears far more often than others in training data, which can teach lazy, unfair rules." },
     { term: "Supervised learning", definition: "Learning from examples that each include the correct answer." },
   ],
   realWorld:

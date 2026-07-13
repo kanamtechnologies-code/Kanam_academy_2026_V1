@@ -18,7 +18,7 @@ export const cyberLesson15: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-15.png",
         imageAlt: "Risk matrix sticky notes Likelihood vs Impact on a whiteboard in a classroom",
-        body: `You can't eliminate every cyber risk — and you don't need to treat every risk the same. **Risk assessment** helps you decide what matters most and which **controls** are worth the effort.\n\nHere's our roadmap:\n\n• **Asset / threat / vulnerability / risk** — the core vocab.\n• **Likelihood vs impact** — why \"scary\" isn't the same as \"priority.\"\n• **Control types** — preventive, detective, corrective.\n• **Risk responses** — accept, mitigate, transfer, avoid.\n• A **worked mini-assessment** for a school club.\n• How this prepares you for the capstone.\n\nThis is decision-making skill — the heart of real cybersecurity work.`,
+        body: `You can't eliminate every cyber risk — and you don't need to treat every risk the same. **Risk assessment** helps you decide what matters most and which **controls** are worth the effort.\n\nHere's our roadmap:\n\n• **Asset / threat / vulnerability / risk** — the core vocab.\n• **Likelihood vs impact** — why \"scary\" isn't the same as \"priority.\"\n• **Control types** — preventive, detective, corrective, and administrative.\n• **Risk responses** — accept, mitigate, transfer, avoid.\n• A **worked mini-assessment** for a school club.\n• How this prepares you for the capstone.\n\nThis is decision-making skill — the heart of real cybersecurity work.`,
         callout: {
           label: "Why it matters",
           text: "Teams with limited time waste energy on low-impact fears while ignoring high-impact basics like MFA and backups. Risk thinking fixes that.",
@@ -65,11 +65,12 @@ export const cyberLesson15: AILessonConfig = {
         id: "control-types",
         kicker: "Safeguards",
         title: "Preventive, detective, and corrective controls",
-        body: `Controls come in flavors:\n\n• **Preventive** — stop the bad thing: MFA, patching, least privilege, phishing training, privacy minimization.\n• **Detective** — notice it: login alerts, logs/monitoring, antivirus detections, odd spending notices.\n• **Corrective** — fix and recover: isolate a device, reset credentials, restore backups, remove malicious posts, IR playbooks.\n\nStrong programs layer all three. Prevention reduces hits; detection catches misses; corrective limits damage and restores trust.`,
+        body: `Controls come in flavors:\n\n• **Preventive** — stop the bad thing: MFA, patching, least privilege, phishing training, privacy minimization.\n• **Detective** — notice it: login alerts, logs/monitoring, antivirus detections, odd spending notices.\n• **Corrective** — fix and recover: isolate a device, reset credentials, restore backups, remove malicious posts, IR playbooks.\n• **Administrative** — govern people and process: **policies**, **procedures**, **approval processes**, and **assigned owners** who decide what is allowed, who may grant access, and how exceptions are documented.\n\nStrong programs layer all three technical types **plus** administrative controls. A firewall rule without an owner who reviews it drifts into \"open forever.\" Prevention reduces hits; detection catches misses; corrective limits damage; administrative controls keep humans aligned.`,
         bullets: [
           "Preventive ≈ lock on the door.",
           "Detective ≈ alarm.",
           "Corrective ≈ repair + cleaner process afterward.",
+          "Administrative ≈ written policy, approvals, and named owners.",
         ],
         callout: {
           label: "Defender view",
@@ -102,13 +103,13 @@ export const cyberLesson15: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Risk** ties **assets**, **threats**, and **vulnerabilities** to likelihood and impact.\n• Prioritize with a simple likelihood×impact view.\n• Layer **preventive / detective / corrective** controls.\n• Choose **mitigate, avoid, transfer, or accept** on purpose.\n\nAce the **Knowledge check**, then reflect with a tiny risk register of your own — you'll need this thinking in the capstone.`,
+        body: `Quick recap:\n\n• **Risk** ties **assets**, **threats**, and **vulnerabilities** to likelihood and impact.\n• Prioritize with a simple likelihood×impact view.\n• Layer **preventive / detective / corrective** controls plus **administrative** (policies, procedures, approvals, owners).\n• Choose **mitigate, avoid, transfer, or accept** on purpose.\n\nAce the **Knowledge check**, then reflect with a tiny risk register of your own — you'll need this thinking in the capstone.`,
       },
     ],
   },
   bigIdeas: [
     "**Risk** is the chance a **threat** exploits a **vulnerability** to harm an **asset** — judged by likelihood and impact.",
-    "Controls are **preventive** (stop), **detective** (notice), and **corrective** (fix/recover).",
+    "Controls are **preventive** (stop), **detective** (notice), **corrective** (fix/recover), and **administrative** (policies, procedures, approvals, owners).",
     "After assessing, choose a response: **mitigate**, **avoid**, **transfer**, or consciously **accept** residual risk.",
   ],
   keyTerms: [
@@ -120,6 +121,7 @@ export const cyberLesson15: AILessonConfig = {
     { term: "Preventive control", definition: "A safeguard meant to stop an incident before it succeeds." },
     { term: "Detective control", definition: "A safeguard meant to notice suspicious or harmful activity." },
     { term: "Corrective control", definition: "A safeguard meant to contain, repair, and recover after an incident." },
+    { term: "Administrative control", definition: "A policy, procedure, approval process, or assigned owner that governs how security decisions are made." },
   ],
   realWorld:
     "A club weighs buying fancy network gadgets vs turning on **MFA** for shared email. A quick risk view shows email takeover is high likelihood/impact — **mitigate** with MFA first, then reconsider extras.",

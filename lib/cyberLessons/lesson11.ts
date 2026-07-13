@@ -40,7 +40,7 @@ export const cyberLesson11: AILessonConfig = {
         title: "Updates close doors attackers already know about",
         image: "/images/lessons/cs-11-2.png",
         imageAlt: "Update Available notifications on laptop and phone side by side",
-        body: `When researchers or vendors find a **vulnerability**, they usually release a **patch**. Attackers also learn about many of those weaknesses. Running old software is like leaving a broken lock on the door after the locksmith already mailed you a replacement.\n\nDefender habits:\n\n• Enable **automatic updates** for OS and browsers when possible.\n• Update apps you actually use — especially browsers, messaging, and office tools.\n• Restart when asked; some patches only finish after reboot.\n• On shared/school devices, follow IT guidance — don't disable update services \"to go faster.\"\n\nPatching isn't exciting. It's one of the highest-ROI defenses in cybersecurity.`,
+        body: `When researchers or vendors find a **vulnerability**, they usually release a **patch**. Attackers also learn about many of those weaknesses. Running old software is like leaving a broken lock on the door after the locksmith already mailed you a replacement.\n\n**Hardening starts with inventory** — know what software is installed and what services are running before you patch or disable anything. You can't shrink attack surface you haven't listed.\n\nDefender habits:\n\n• Enable **automatic updates** for OS and browsers when possible.\n• Update apps you actually use — especially browsers, messaging, and office tools.\n• Restart when asked; some patches only finish after reboot.\n• On shared/school devices, follow IT guidance — don't disable update services \"to go faster.\"\n• After patching, **confirm firewall and secure configuration baselines** — updates fix bugs, but misconfigured services can still leave doors open.\n\nPatching isn't exciting. It's one of the highest-ROI defenses in cybersecurity.`,
         bullets: [
           "Known vulnerabilities get exploited at scale.",
           "Browsers and OS updates are priority #1 for most people.",
@@ -59,6 +59,21 @@ export const cyberLesson11: AILessonConfig = {
         callout: {
           label: "Defender view",
           text: "Less installed + less exposed usually means fewer surprises in an incident. Complexity is an enemy of security.",
+        },
+      },
+      {
+        id: "iot-hardening",
+        kicker: "Before you plug in",
+        title: "IoT and new devices: harden before joining the network",
+        body: `Cameras, printers, smart speakers, and other **IoT (Internet of Things)** devices often ship with **published default passwords** and outdated firmware. Defenders treat new gear like a guest with a known weak lock — fix it before broad exposure.\n\n**IoT hardening order:**\n\n**1. Change defaults** — Replace factory admin passwords with unique, strong ones.\n**2. Firmware first** — Apply vendor **security updates** before joining a sensitive VLAN or school network.\n**3. Reduce remote exposure** — Disable unused remote-management features you don't need.\n**4. Then join the network** — Prefer a segmented VLAN or guest zone until the device is patched and locked down.\n\nPlugging in with factory defaults on a school VLAN is asking for automated scanners to find a device everyone on the internet already knows how to log into. Harden first, expose second.`,
+        bullets: [
+          "**Inventory** what's installed/running before patching or disabling.",
+          "IoT: **change defaults → firmware → reduce remote exposure → join network/VLAN**.",
+          "Confirm **firewall and baselines** after every patch cycle.",
+        ],
+        callout: {
+          label: "Watch out",
+          text: "Leaving every remote service enabled \"for emergencies\" creates free scanning targets. Plan access — don't leave doors open forever.",
         },
       },
       {
@@ -92,7 +107,7 @@ export const cyberLesson11: AILessonConfig = {
         id: "checklist",
         kicker: "Put it together",
         title: "A simple hardening checklist",
-        body: `Use this anytime you set up or review a device:\n\n**1. Update** OS, browser, and key apps.\n**2. Lock** with a strong passcode/password + biometrics if available.\n**3. Enable MFA** on important accounts.\n**4. Remove** unused apps/services and leftover accounts.\n**5. Check sharing defaults** — nothing public by accident.\n**6. Confirm backups** for critical files.\n**7. Record it** on your inventory list.\n\nThat's hardening in everyday life — not a Hollywood hacker scene.`,
+        body: `Use this anytime you set up or review a device:\n\n**1. Inventory** installed software and running services.\n**2. Update** OS, browser, and key apps.\n**3. Lock** with a strong passcode/password + biometrics if available.\n**4. Enable MFA** on important accounts.\n**5. Remove** unused apps/services and leftover accounts.\n**6. Confirm firewall and secure baselines** after patching.\n**7. Check sharing defaults** — nothing public by accident.\n**8. Confirm backups** for critical files.\n**9. Record it** on your inventory list.\n\nThat's hardening in everyday life — not a Hollywood hacker scene.`,
         callout: {
           label: "Myth check",
           text: "Hardening isn't only for servers in a data center. Phones, Chromebooks, home routers, and club laptops all benefit from the same mindset.",
@@ -102,7 +117,7 @@ export const cyberLesson11: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Patching** closes known vulnerabilities — turn updates on.\n• Shrink **attack surface** by disabling unused services/apps.\n• Prefer **secure defaults** and least privilege from day one.\n• **Backups** + tested restores beat panic later.\n• Keep an **inventory** of devices and accounts.\n\nTake the **Knowledge check**, then reflect on one hardening change you'll make this week.`,
+        body: `Quick recap:\n\n• **Hardening starts with inventory** — know what's installed and running.\n• **Patching** closes known vulnerabilities — turn updates on; confirm firewall/baselines after.\n• Shrink **attack surface** by disabling unused services/apps.\n• **IoT:** change defaults, firmware first, reduce remote exposure, then join network/VLAN.\n• Prefer **secure defaults** and least privilege from day one.\n• **Backups** + tested restores beat panic later.\n• Keep an **inventory** of devices and accounts.\n\nTake the **Knowledge check**, then reflect on one hardening change you'll make this week.`,
       },
     ],
   },

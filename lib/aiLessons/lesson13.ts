@@ -49,7 +49,7 @@ export const aiLesson13: AILessonConfig = {
         id: "fix",
         kicker: "What helps",
         title: "Fairness takes deliberate effort",
-        body: `Here's the hopeful part: bias can be reduced — but only on purpose. It never fixes itself.\n\n• Collect **diverse, representative** data that includes everyone the AI will affect.\n• **Test** the AI separately across different groups, not just its overall accuracy (a model can look "95% accurate" while failing one group badly).\n• Keep **humans in the loop** for high-stakes decisions like jobs, loans, and justice.\n• Be **transparent** about the system's limits.\n\nAs a user, your job is to stay skeptical: ask *who might this AI be unfair to?* and never assume "the computer" is automatically objective.`,
+        body: `Here's the hopeful part: bias can be reduced — but only on purpose. It never fixes itself.\n\nBut first you need to **define fairness**: what does "fair" mean for *this* decision? Equal chance for everyone? Equal accuracy across groups? No one-size-fits-all answer — you have to pick a standard before you can audit anything.\n\nThen the fixes:\n\n• Collect **diverse, representative** data that includes everyone the AI will affect.\n• **Test** the AI separately across different groups, not just its overall accuracy (a model can look "95% accurate" while failing one group badly).\n• Watch for **proxy features** — data that looks neutral but secretly tracks protected groups. **Zip code** can stand in for income or race. **"Culture fit" notes** can encode old hiring biases. The math looks objective; the patterns aren't.\n• Keep **humans in the loop** for high-stakes decisions like jobs, loans, and justice.\n• Be **transparent** about the system's limits.\n\nAs a user, your job is to stay skeptical: ask *who might this AI be unfair to?* and never assume "the computer" is automatically objective.`,
         callout: {
           label: "Myth buster",
           text: "'Computers are neutral' is false. An AI is only as fair as the data and choices behind it.",
@@ -59,7 +59,7 @@ export const aiLesson13: AILessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Trace where bias enters a hiring AI",
-        body: `Imagine a company builds an AI to screen résumés, hoping to save time. Follow how bias creeps in, step by step.\n\n**Step 1 — The training data.** They feed it 10 years of past résumés labeled "hired" or "not hired." But over those 10 years, the company mostly hired men for tech roles.\n\n**Step 2 — The AI finds the pattern.** It notices "hired" résumés often share certain words, schools, even hobbies — and that they rarely came from women. It learns: *this pattern = good candidate.*\n\n**Step 3 — The unfair result.** Now it quietly down-ranks qualified women, not because they're less able, but because the *past data* was unfair. The AI didn't invent the bias — it inherited and amplified it.\n\n**Step 4 — The fix.** Test the tool's results by group, retrain on fairer data, and keep a human reviewing decisions. (This is a real category of problem — companies have scrapped biased hiring tools for exactly this reason.)`,
+        body: `Imagine a company builds an AI to screen résumés, hoping to save time. Follow how bias creeps in — and why you must **define fairness first** before auditing anything.\n\n**Step 1 — Define what "fair" means here.** The team agrees: qualified applicants from every background should get an equal chance to reach a human reviewer. Without that definition, later checks have no target.\n\n**Step 2 — Inspect the training data.** They feed it 10 years of past résumés labeled "hired" or "not hired." Over those 10 years, the company mostly hired men for tech roles.\n\n**Step 3 — Spot proxy features.** The model also uses **zip code**, hobbies scraped from social media, and vague **"culture fit" notes." Zip code can track neighborhood income. Culture-fit notes can encode "sounds like us" — copying old biases while looking like neutral data.\n\n**Step 4 — Measure outcomes by group.** Testing shows the tool quietly down-ranks qualified women. The AI didn't invent prejudice — it inherited and amplified patterns from unfair history plus sneaky proxies.\n\n**Step 5 — Fix and re-test before trusting.** Retrain on fairer data, drop risky proxies, keep humans reviewing decisions, and measure again. (Real companies have scrapped biased hiring tools for exactly this reason.)`,
         code: `Unfair past hiring  →  training data  →  AI learns "pattern of success"
         ↳ that pattern secretly includes "mostly men"
         ↳ AI down-ranks women  →  old bias amplified at scale`,
@@ -79,13 +79,14 @@ export const aiLesson13: AILessonConfig = {
   },
   bigIdeas: [
     "**AI bias** = unfair results for some groups, usually learned from data.",
-    "Bias enters through **unrepresentative or historically unfair** training data.",
+    "Define **fairness first**, then audit — proxy features can hide discrimination.",
     "Fairness requires **deliberate effort** — 'computers are neutral' is a myth.",
   ],
   keyTerms: [
     { term: "AI bias", definition: "When an AI system produces systematically unfair results for certain groups." },
     { term: "Representative data", definition: "Training data that fairly reflects all the groups the AI will affect." },
     { term: "Historical bias", definition: "Unfair patterns from the past that get baked into data and copied by AI." },
+    { term: "Proxy feature", definition: "A data column that looks neutral but tracks something sensitive (like zip code standing in for income or race)." },
     { term: "Fairness", definition: "Designing and using AI so it doesn't unjustly disadvantage people." },
   ],
   realWorld:

@@ -16,7 +16,9 @@ export const financeLesson15: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Big purchases aren't just "Can I afford the monthly payment?" Decision Pros ask better questions — about total cost, risk, and what else that money could do.\n\nHere's our roadmap:\n\n• **A simple decision framework** you can reuse.\n• **Phones** — sticker vs plan vs repair vs upgrade cycles.\n• **Cars** — price, insurance, fuel/maintenance, depreciation.\n• **Housing** — rent, roommates, deposits, commute tradeoffs.\n• **Opportunity cost** — what you give up.\n• **Cooling-off habits** — delay tactics against impulse.\n\nPrestige is optional. Clarity is the skill.`,
+        image: "/images/lessons/fl-15.png",
+        imageAlt: "Teen deciding between a used car listing and a transit pass on a laptop, realistic decision moment",
+        body: `Big purchases aren't just "Can I afford the monthly payment?" Decision Pros ask better questions — about total cost, risk, and what else that money could do.\n\nHere's our roadmap:\n\n• **A simple decision framework** you can reuse.\n• **Phones** — sticker vs plan vs repair vs upgrade cycles.\n• **Cars** — price, insurance, fuel/maintenance, depreciation.\n• **Housing** — rent, roommates, deposits, commute tradeoffs (future awareness).\n• **Opportunity cost** — what you give up.\n• **Cooling-off habits** — delay tactics against impulse.\n\nPrestige is optional. Clarity is the skill.`,
         callout: {
           label: "Why it matters",
           text: "One oversized car payment or phone plan can quietly block saving, classes, or moving for a better opportunity.",
@@ -36,11 +38,12 @@ export const financeLesson15: AILessonConfig = {
         id: "framework",
         kicker: "The big idea",
         title: "A Decision Pro framework (use every time)",
-        body: `Try this six-step loop for cars, phones, housing, or other big spends:\n\n1. **Define the job** — What problem must this solve for 1–3 years?\n2. **Set a max budget** — Including monthly *and* upfront cash.\n3. **List 2–3 options** — Including a cheaper/no-buy path.\n4. **Total the costs** — Upfront + recurring + likely repairs/fees.\n5. **Score tradeoffs** — Reliability, commute time, safety, stress, flexibility.\n6. **Sleep on it** — Especially if a salesperson is rushing you.\n\nWrite it down. Memory lies under pressure; paper doesn't.`,
+        body: `Try this six-step loop for cars, phones, housing, or other big spends:\n\n1. **Define the job** — What problem must this solve for 1–3 years?\n2. **Set a max budget** — Including monthly *and* upfront cash.\n3. **List 2–3 options** — Including a cheaper/no-buy path.\n4. **Total the costs** — Upfront + recurring + likely repairs/fees.\n5. **Score tradeoffs** — Reliability, commute time, safety, stress, flexibility.\n6. **Sleep on it** — Especially if a salesperson is rushing you.\n\nWrite it down. Memory lies under pressure; paper doesn't.\n\n**After you decide:** **Document the why** in one sentence (\"I picked the used car because total cost fits even in a slow month\") and **set a review date** — often **3–6 months** out for big purchases. Big decisions deserve a check-in, not eternal autopilot.`,
         bullets: [
           "Always include a 'wait / smaller' option.",
           "Monthly payment ≠ full cost.",
           "If it wrecks your emergency fund, it's probably too big right now.",
+          "Write why you chose — and when you'll revisit.",
         ],
         callout: {
           label: "Watch out",
@@ -51,7 +54,9 @@ export const financeLesson15: AILessonConfig = {
         id: "phones-cars",
         kicker: "Apply it",
         title: "Phones and cars — teen-relevant tradeoffs",
-        body: `**Phones:** Compare device price, carrier plan, insurance/add-ons, and how often you upgrade. A solid mid-range phone kept longer often beats a flagship on a forever installment. Factor cases, cracked screens, and whether you need the camera for actual work/school.\n\n**Cars:** Beyond the sale price, count insurance (often high for teens), registration, fuel or charging, maintenance, parking, and depreciation. A reliable used car can beat a flashy payment. Also ask: Do I need a car, or do transit/biking/carpool cover the job cheaper?\n\nDecision Pro question: Which option protects my goals for the next two years?`,
+        image: "/images/lessons/fl-15-2.png",
+        imageAlt: "Photo collage: smartphone upgrade flyer and a used car lot sign with a notebook totaling true monthly costs",
+        body: `**Phones:** Compare device price, carrier plan, insurance/add-ons, and how often you upgrade. A solid mid-range phone kept through senior year often beats a flagship on a forever installment. Factor cases, cracked screens, and whether you need the camera for actual work/school.\n\n**Cars:** Beyond the sale price, count insurance (often high for teen drivers), registration, fuel or charging, maintenance, parking, and depreciation. A reliable used car can beat a flashy payment. Also ask: Do I need a car, or do transit/biking/carpool cover the job cheaper?\n\nDecision Pro question: Which option protects my goals for the next two years?`,
         callout: {
           label: "Common misconception",
           text: "\"I need the nicest car/phone to be taken seriously.\" Reliability and cash left for goals usually signal maturity more than chrome.",
@@ -61,17 +66,19 @@ export const financeLesson15: AILessonConfig = {
         id: "housing",
         kicker: "Apply it",
         title: "Housing tradeoffs: rent, roommates, and location",
-        body: `Whether it's a first apartment later or choosing a college housing plan, the same math applies:\n\n• **Rent + utilities + internet + renter-related costs**\n• **Deposits and moving costs** — cash you need *before* the first month.\n• **Commute** — time and money to school/work.\n• **Roommates** — lower rent, higher coordination risk.\n• **Lease length** — flexibility vs price.\n\nCheaper rent far away can lose if transit eats hours and fares. Expensive rent next door can lose if it kills saving. Score both money *and* time.`,
+        image: "/images/lessons/fl-15-3.png",
+        imageAlt: "First-apartment awareness scene: lease draft, renters insurance brochure, and a simple budget for after graduation",
+        body: `Whether it's a first apartment after graduation or choosing a college housing plan, the same math applies:\n\n• **Rent + utilities + internet + renter-related costs**\n• **Deposits and moving costs** — cash you need *before* the first month.\n• **Commute** — time and money to school/work.\n• **Roommates** — lower rent, higher coordination risk.\n• **Lease length** — flexibility vs price.\n\nCheaper rent far away can lose if transit eats hours and fares. Expensive rent next door can lose if it kills saving. Score both money *and* time.`,
         callout: {
           label: "Try this week",
-          text: "Pick one big decision ahead of you (phone upgrade, car, summer housing). Draft the six-step framework with real numbers — even rough ones.",
+          text: "Pick one big decision ahead of you (phone upgrade, used car, summer housing). Draft the six-step framework with real numbers — even rough ones.",
         },
       },
       {
         id: "opportunity-cost",
         kicker: "Tradeoffs",
         title: "Opportunity cost and cooling-off habits",
-        body: `Every big yes is a no to something else: emergency fund progress, courses, travel for family, investing education money, or simply lower stress.\n\nCooling-off habits:\n• 24–72 hour rule on non-urgent upgrades.\n• Bring a budget sheet to the store/dealer.\n• Talk it through with a trusted adult who isn't selling you anything.\n• Beware sunk cost: \"I already spent on repairs\" doesn't mean keep pouring money into a lemon.\n\nDecision Pros aren't joyless — they spend on purpose.`,
+        body: `Every big yes is a no to something else: emergency fund progress, prom, sports fees, travel for family, or simply lower stress.\n\nCooling-off habits:\n• 24–72 hour rule on non-urgent upgrades.\n• Bring a budget sheet to the store/dealer.\n• Talk it through with a trusted adult who isn't selling you anything.\n• Beware sunk cost: \"I already spent on repairs\" doesn't mean keep pouring money into a lemon.\n\nDecision Pros aren't joyless — they spend on purpose.`,
         callout: {
           label: "Reality check",
           text: "Sometimes the 'best' financial choice is waiting. Boredom is cheaper than interest.",
@@ -99,7 +106,7 @@ export const financeLesson15: AILessonConfig = {
     { term: "Cooling-off period", definition: "A deliberate wait before finalizing a non-urgent purchase." },
   ],
   realWorld:
-    "Two friends want cars. One takes a long high payment for a new model and pauses saving. The other buys a reliable used car, keeps insurance manageable, and still funds an emergency buffer — same 'car job,' different Decision Pro outcomes.",
+    "Two friends want cars senior year. One takes a long high payment for a new model and pauses saving for prom. The other buys a reliable used car, keeps insurance manageable, and still funds an emergency buffer — same 'car job,' different Decision Pro outcomes.",
   quiz: [
     {
       id: "q1",
@@ -171,6 +178,6 @@ export const financeLesson15: AILessonConfig = {
     prompt:
       "Use the six-step Decision Pro framework on a real or hypothetical phone, car, or housing choice. Include total costs and one opportunity cost you're weighing.",
     placeholder:
-      "Example: Job — reliable commute to work. Budget — $X upfront / $Y monthly. Options — transit vs used car. Total costs — … Opportunity cost — delaying an emergency fund…",
+      "Example: Job — reliable commute to my part-time job. Budget — $X upfront / $Y monthly. Options — transit vs used car. Total costs — … Opportunity cost — delaying prom fund…",
   },
 };

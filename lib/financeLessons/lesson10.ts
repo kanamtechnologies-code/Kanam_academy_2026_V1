@@ -16,7 +16,9 @@ export const financeLesson10: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Investing is how people put money to work for **long-term goals** — with risk that savings accounts usually don't have. Today you'll learn the map, not stock tips.\n\nHere's our roadmap:\n\n• **Investing vs saving** — different jobs for different money.\n• **Stocks, bonds, and funds** — ownership, lending, and baskets.\n• **Risk vs return** — why higher possible upside usually means more volatility.\n• **Diversification** — not betting everything on one name.\n• **Long horizon for teens** — decades beat day trading drama.\n• **Guardrails** — education only; no get-rich promises.\n\nYou'll leave able to talk like an Investor Apprentice: calm, skeptical of hype, focused on time.`,
+        image: "/images/lessons/fl-10.png",
+        imageAlt: "High school student studying investing basics on a laptop with a notebook Risk vs return",
+        body: `Investing is how people put money to work for **long-term goals** — with risk that savings accounts usually don't have. Today you'll learn the map, not stock tips.\n\nHere's our roadmap:\n\n• **Investing vs saving** — different jobs for different money.\n• **Stocks, bonds, and funds** — ownership, lending, and baskets.\n• **Risk vs return** — why higher possible upside usually means more volatility.\n• **Diversification** — not betting everything on one name.\n• **Long horizon for teens** — years beat day-trading drama.\n• **Guardrails** — education only; no get-rich promises.\n\nYou'll leave able to talk like an Investor Apprentice: calm, skeptical of hype, focused on time.`,
         callout: {
           label: "Why it matters",
           text: "Social feeds reward flashy trades. Real wealth-building for most people is boring, diversified, and long-term — and starts with understanding risk.",
@@ -36,6 +38,8 @@ export const financeLesson10: AILessonConfig = {
         id: "save-vs-invest",
         kicker: "The big idea",
         title: "Saving and investing have different jobs",
+        image: "/images/lessons/fl-10-2.png",
+        imageAlt: "Split infographic: Saving safe short-term vs Investing long-term with risk, teen-friendly icons",
         body: `**Savings** (and emergency funds) prioritize safety and access: money for near-term needs and surprises. **Investing** accepts more risk for the *possibility* of higher long-term growth — money you hopefully won't need for many years.\n\nA useful teen rule of thumb:\n• Short-term goals and emergencies → keep in safer, accessible places.\n• Long-term goals (years ahead) → *learn* about investing; only use money you can leave invested through ups and downs.\n\nInvesting is not "extra savings with better vibes." Prices can fall — sometimes a lot, and sometimes for a long time.`,
         bullets: [
           "Emergency fund first (from earlier lessons) before risking money you can't afford to lose.",
@@ -44,7 +48,7 @@ export const financeLesson10: AILessonConfig = {
         ],
         callout: {
           label: "Watch out",
-          text: "Putting rent money or next month's phone bill into volatile investments is a strategy failure, not a bold move.",
+          text: "Putting rent money, your phone bill, or next month's car payment into volatile investments is a strategy failure, not a bold move.",
         },
       },
       {
@@ -61,6 +65,8 @@ export const financeLesson10: AILessonConfig = {
         id: "risk-diversify",
         kicker: "Tradeoffs",
         title: "Risk vs return — and why diversification helps",
+        image: "/images/lessons/fl-10-3.png",
+        imageAlt: "Illustrated basket of many small investments vs one single stock egg, diversification concept",
         body: `In markets, **higher expected returns usually come with higher risk** (more chance of big swings or losses). There is no free lunch: anyone promising high returns with "no risk" is selling a story.\n\n**Diversification** spreads your bets:\n• One company can fail; a broad mix is less likely to go to zero together.\n• Different assets can react differently to the same news.\n\nDiversification does **not** guarantee profits or prevent losses in a downturn. It is risk management, not magic.`,
         bullets: [
           "Risk and potential return tend to travel together.",
@@ -76,10 +82,10 @@ export const financeLesson10: AILessonConfig = {
         id: "teen-horizon",
         kicker: "Teen lens",
         title: "Long horizon — not day trading",
-        body: `As a teen, your biggest investing advantage (when you eventually invest) is often **time**: decades for long-term goals. Day trading and constant flipping fight that advantage with fees, taxes, stress, and emotional mistakes.\n\nHealthy Investor Apprentice habits:\n• Learn vocabulary and risk before risking real money.\n• Prefer education and broad concepts over tip culture.\n• If/when you invest (with family rules, custodial accounts, or later adult accounts), think in years, not hours.\n• Never invest money needed soon for school, bills, or emergencies.\n\nCuriosity is good. Gambling dressed up as "strategy" is not.`,
+        body: `As a teen, your biggest investing advantage (when you eventually invest) is often **time**: decades for long-term goals like a career fund or retirement far in the future. Day trading and constant flipping fight that advantage with fees, taxes, stress, and emotional mistakes.\n\nHealthy Investor Apprentice habits:\n• Learn vocabulary and risk before risking real money.\n• Prefer education and broad concepts over tip culture.\n• If/when you invest (with family rules, custodial accounts, or later adult accounts), think in years, not hours.\n• Never invest money needed soon for senior-year expenses, bills, or emergencies.\n\nCuriosity is good. Gambling dressed up as "strategy" is not.`,
         callout: {
           label: "Try this week",
-          text: "Write one long-term goal (5+ years) and one short-term goal. Note which belongs in safer savings vs future investing education.",
+          text: "Write one long-term goal (5+ years — college fund, certification, first apartment) and one short-term goal (prom, phone repair). Note which belongs in safer savings vs future investing education.",
         },
       },
       {
@@ -177,6 +183,6 @@ export const financeLesson10: AILessonConfig = {
     prompt:
       "Describe one long-term goal (5+ years) and explain how risk, diversification, and horizon would shape how you treat money for that goal — versus money for next month's expenses.",
     placeholder:
-      "Example: Long-term — skills/certification fund in 6 years. I'd keep next month's expenses safe, learn about diversified funds before investing any long-term money, and ignore day-trading hype…",
+      "Example: Long-term — trade-school certification fund in 6 years. I'd keep next month's phone bill safe, learn about diversified funds before investing any long-term money, and ignore day-trading hype…",
   },
 };

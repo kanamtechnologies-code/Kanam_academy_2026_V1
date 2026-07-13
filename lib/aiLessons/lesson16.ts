@@ -27,7 +27,7 @@ export const aiLesson16: AILessonConfig = {
         id: "recap",
         kicker: "Capstone",
         title: "Everything you now know about AI",
-        body: `Look how far you've come. You can now explain what AI is, how it senses and represents the world, and how it **learns** from data. You understand how generative AI and **LLMs** work — predicting plausible text, not looking up guaranteed truth.\n\nYou can **prompt** with Task, Context, Role, and Format, then refine with follow-ups. You know to **verify** output because confident AI can still be wrong. And you can reason clearly about **bias**, **privacy**, **deepfakes**, academic **integrity**, and the **future of work**.\n\nThat's not trivia — that's a genuine mental model of one of the most important technologies of your lifetime.`,
+        body: `You can **prompt** with Role, Task, Context, and Format, then refine with follow-ups. You know to **verify** output because confident AI can still be wrong. And you can reason clearly about **bias**, **privacy**, **deepfakes**, academic **integrity**, and the **future of work**.\n\nThat's not trivia — that's a genuine mental model of one of the most important technologies of your lifetime.`,
         callout: {
           label: "You can now",
           text: "Define AI, explain how it learns, prompt it well, verify its answers, and use it ethically and safely. That's real AI literacy.",
@@ -50,7 +50,7 @@ export const aiLesson16: AILessonConfig = {
         id: "evaluate",
         kicker: "Capstone task",
         title: "Evaluate a real AI tool",
-        body: `For your capstone, pick **one AI tool you actually use** — a chatbot, a recommendation feed (YouTube, TikTok, Spotify), a photo editor, or a study app — and analyze it using everything from this course:\n\n• What task is it a specialist at? What does it predict or generate?\n• What data does it likely use — and what might that leave out or bias?\n• Where could it be wrong, unfair, or risky to your privacy?\n• What are *your* personal rules for using it wisely?\n\nYou'll capture this in the reflection after the knowledge check.`,
+        body: `For your capstone, pick **one AI tool you actually use** — a chatbot, a recommendation feed (YouTube, TikTok, Spotify), a photo editor, or a study app — and analyze it using everything from this course.\n\nStart with the quick four questions: specialty, data, risks, your rules. Then, if your class were **adopting** this tool, run the full **Capstone adoption checklist**:\n\n1. **Define the job** — what problem should this tool solve for you?\n2. **Test on real school examples** — not just slick demos; try your actual homework, projects, or daily use.\n3. **Check accuracy, bias, and privacy** — where could it be wrong, unfair, or leak data?\n4. **Confirm human review and disclosure rules** — who checks the output, and when do you tell a teacher you used AI?\n5. **Decide: adopt, limit, or reject** — based on evidence, not hype.\n\nYou'll capture this in the reflection after the knowledge check.`,
         callout: {
           label: "Make it real",
           text: "The goal isn't a perfect essay — it's proving you can look at any AI tool and think clearly about it. That's the skill that lasts.",
@@ -60,16 +60,15 @@ export const aiLesson16: AILessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Size up a tool: a video recommendation feed",
-        body: `Let's model the capstone with a tool you almost certainly use: the **recommendation feed** that picks your next video.\n\n**1 — What's it a specialist at?** Predicting which video will keep *you* watching, based on patterns in what you (and people like you) clicked before.\n\n**2 — What data, and what's left out?** Your watch time, likes, pauses, and searches. What it can't see: whether the content is *good for you*, true, or balanced — only whether it holds attention.\n\n**3 — Risks?** It can create a bubble (more of the same), amplify sensational or biased content because it gets clicks, and quietly track a lot about you.\n\n**4 — Your rules.** Maybe: take breaks, search on purpose instead of only scrolling, and verify shocking videos before believing them.\n\nThat's the whole course in action — and you can run this same four-step analysis on *any* AI tool.`,
+        body: `Let's model the capstone with a tool you almost certainly use: the **recommendation feed** that picks your next video.\n\n**Quick analysis (four questions):**\n\n**1 — What's it a specialist at?** Predicting which video will keep *you* watching, based on patterns in what you clicked before.\n\n**2 — What data, and what's left out?** Your watch time, likes, pauses, and searches. What it can't see: whether the content is *good for you*, true, or balanced — only whether it holds attention.\n\n**3 — Risks?** Filter bubbles, sensational content, and quiet tracking of your habits.\n\n**4 — Your rules.** Take breaks, search on purpose, verify shocking videos before believing them.\n\n**Adoption checklist — if your school considered this tool:**\n\n**Step 1 — Define the job.** "Help students discover educational videos during research time" — not "replace all learning."\n\n**Step 2 — Test on real school examples.** Try actual history or science topics from class. Do the top results include reliable sources, or only clickbait?\n\n**Step 3 — Check accuracy, bias, and privacy.** Could the feed push one-sided politics? Does it track students more than families expect?\n\n**Step 4 — Human review and disclosure rules.** Teachers spot-check recommendations; students log when they used the feed for research.\n\n**Step 5 — Decide.** Maybe **limit use** to teacher-curated playlists rather than full autoplay — adopt the helpful parts, reject the risky ones.\n\nThat's the whole course in action — quick analysis plus a careful adoption decision.`,
         code: `Tool: video recommendation feed
-1 Specialist at: predicting what keeps YOU watching
-2 Data: clicks, watch time, likes  →  leaves out: is it true / good for me?
-3 Risks: filter bubble, sensational content, tracking
-4 My rules: search on purpose, take breaks, verify before believing`,
+Quick: specialist → data → risks → my rules
+Adoption: define job → test real examples → check accuracy/bias/privacy
+         → human review rules → adopt / limit / reject`,
         codeCaption: "The four-step analysis on a tool you use daily",
         callout: {
           label: "Pro tip",
-          text: "Use these same four questions — specialty, data, risks, your rules — on any new AI tool you meet. It even works for tools that haven't been invented yet.",
+          text: "Run the four quick questions on any tool, then the five-step adoption checklist before your class trusts it. It even works for tools that haven't been invented yet.",
         },
       },
       {
@@ -82,7 +81,8 @@ export const aiLesson16: AILessonConfig = {
   },
   bigIdeas: [
     "AI literacy = **understand, direct, verify, protect, act ethically**.",
-    "You can analyze **any** AI tool: what it does, its data, its risks, your rules.",
+    "You can analyze **any** AI tool: specialty, data, risks, your rules — then an adoption checklist.",
+    "Before adopting: **define job → test real examples → check risks → set human rules → decide**.",
     "Staying the **thoughtful human in charge** is the skill that lasts.",
   ],
   keyTerms: [
@@ -162,7 +162,7 @@ export const aiLesson16: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "CAPSTONE: Pick one AI tool you use. In a few sentences, describe (1) what it's a specialist at, (2) what data it likely uses and what that might leave out, (3) one risk (error, bias, or privacy), and (4) your personal rules for using it wisely.",
-    placeholder: "The tool I chose is ___. It specializes in ___. It probably uses data like ___, which might leave out ___. A risk is ___. My rules for using it are…",
+      "CAPSTONE: Pick one AI tool you use. (1) Quick analysis: specialty, data, risks, your rules. (2) Adoption checklist: define the job, test on real school examples, check accuracy/bias/privacy, set human review rules, and decide adopt/limit/reject.",
+    placeholder: "The tool I chose is ___. Quick analysis: it specializes in ___, uses data like ___, risk is ___, my rules are ___. Adoption: I'd define the job as ___, test with ___, check ___, set review rules ___, and decide to adopt/limit/reject because…",
   },
 };

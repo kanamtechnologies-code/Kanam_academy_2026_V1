@@ -18,7 +18,7 @@ export const cyberLesson3: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-3.png",
         imageAlt: "Laptop warning dialog about suspicious download next to USB drive and email attachment icons",
-        body: `**Malware** is short for *malicious software* — programs designed to harm devices, steal data, spy, or disrupt. You do not need to know how to build it. You need to recognize categories and respond like a defender.\n\nHere's our roadmap:\n\n• **Malware types** — virus, worm, trojan, ransomware, spyware, adware (concepts).\n• **Threat actors** — who causes harm and why (high level).\n• **How malware spreads** — common paths, explained for defenders.\n• **Defender habits** — updates, caution with unknown files, and reporting.\n\nThis lesson stays educational and defensive. We talk about what malware *does* and how to *reduce risk* — not how to create or launch attacks.`,
+        body: `**Malware** is short for *malicious software* — programs designed to harm devices, steal data, spy, or disrupt. You do not need to know how to build it. You need to recognize categories and respond like a defender.\n\nHere's our roadmap:\n\n• **Malware types** — virus, worm, trojan, ransomware, spyware, adware (concepts).\n• **Threat actors** — who causes harm and why (high level).\n• **How malware spreads** — common paths, explained for defenders.\n• **First response steps** — isolate, observe, scan, reset from clean device, restore.\n• **Defender habits** — updates, caution with unknown files, and reporting.\n\nThis lesson stays educational and defensive. We talk about what malware *does* and how to *reduce risk* — not how to create or launch attacks.`,
         callout: {
           label: "Why it matters",
           text: "Knowing the category helps you communicate clearly: \"I think this might be ransomware\" tells support something different than \"my browser keeps popping up ads.\"",
@@ -74,6 +74,21 @@ export const cyberLesson3: AILessonConfig = {
         },
       },
       {
+        id: "first-response",
+        kicker: "When you suspect infection",
+        title: "First response: ordered steps defenders use",
+        body: `If a device acts strangely — mass pop-ups, unknown programs, files suddenly inaccessible, browser hijacks — don't \"experiment\" with random downloads. Follow a calm order:\n\n**1. Disconnect / isolate** — Unplug from Wi-Fi or Ethernet when safe to do so. This limits spread and data theft while you still have control.\n**2. Observe** — Note what changed: new apps, pop-ups, slowdowns, odd file extensions. Simple notes help IT respond faster.\n**3. Scan** — Run trusted security tools or ask IT for an approved scan. Avoid scareware \"cleaner\" pop-ups that demand mystery downloads.\n**4. Password reset from a CLEAN device** — Change important passwords from a phone or computer you trust is not infected. A compromised laptop can steal new passwords as you type them.\n**5. Restore** — After cleanup, restore from a known-good backup if needed.\n\n**Ransomware note:** Isolate **first** — before chasing payment options or opening links in ransom notes. Payment is risky and not a guarantee. Real recovery comes from **offline or immutable backups** that ransomware couldn't reach — not from paying strangers.\n\nTell a trusted adult or IT early. Containment beats panic.`,
+        bullets: [
+          "**Isolate** → **observe** → **scan** → **reset passwords from clean device** → **restore**.",
+          "Ransomware: isolate first; recover from backups attackers couldn't touch.",
+          "Never pay as your first plan — offline/immutable backups are the defender path.",
+        ],
+        callout: {
+          label: "Watch out",
+          text: "Opening every link in a ransom note on an infected PC can worsen the compromise. Contain, call IT, and plan recovery from clean backups.",
+        },
+      },
+      {
         id: "habits",
         kicker: "Defender playbook",
         title: "Habits that lower malware risk",
@@ -96,7 +111,7 @@ export const cyberLesson3: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Malware** is malicious software; categories include **virus, worm, trojan, ransomware, spyware, adware**.\n• **Threat actors** have different motivations — money, disruption, spying, ideology — which shapes what defenders see.\n• Spread often involves risky downloads, messages, unpatched software, and social tricks.\n• Defender habits: **update**, **don't run unknown files**, trusted sources, backups, and **report**.\n\nNext up: social engineering and phishing — because many malware and account-theft incidents start with tricking a human.\n\nTake the **Knowledge check**, then reflect on one habit you'll strengthen this week.`,
+        body: `Quick recap:\n\n• **Malware** is malicious software; categories include **virus, worm, trojan, ransomware, spyware, adware**.\n• **Threat actors** have different motivations — money, disruption, spying, ideology — which shapes what defenders see.\n• Spread often involves risky downloads, messages, unpatched software, and social tricks.\n• **First response:** isolate → observe → scan → password reset from clean device → restore.\n• **Ransomware:** isolate first; recover from offline/immutable backups — not payment.\n• Defender habits: **update**, **don't run unknown files**, trusted sources, backups, and **report**.\n\nNext up: social engineering and phishing — because many malware and account-theft incidents start with tricking a human.\n\nTake the **Knowledge check**, then reflect on one habit you'll strengthen this week.`,
       },
     ],
   },
@@ -114,6 +129,7 @@ export const cyberLesson3: AILessonConfig = {
     { term: "Adware", definition: "Unwanted software that pushes ads and may come bundled with risky installs." },
     { term: "Threat Actor", definition: "A person or group that poses a cybersecurity threat." },
     { term: "Patch / Update", definition: "A vendor fix that closes known security weaknesses in software." },
+    { term: "Immutable backup", definition: "A backup copy that cannot be altered or deleted by ransomware during an attack." },
   ],
   realWorld:
     "A fake \"homework helper\" installer that secretly steals saved browser passwords is a **trojan** delivering **spyware**-like harm — prevented more by cautious downloads and updates than by memorizing malware source code.",

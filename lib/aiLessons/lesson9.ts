@@ -16,7 +16,7 @@ export const aiLesson9: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Every time you ask a chatbot to help with homework, draft a text, brainstorm ideas, or explain something confusing, you're writing a **prompt**. This lesson teaches you how to write prompts that get genuinely useful answers instead of vague, generic ones.\n\nHere's the roadmap:\n\n• Why the exact words you choose change the answer you get.\n• The four ingredients of a strong prompt: **Task, Context, Role, and Format**.\n• How to turn a weak prompt into a great one, step by step.\n\nPrompting well is one of the most useful real-life skills you can build right now — it's the difference between AI being a fancy autocomplete and a genuinely helpful study partner.`,
+        body: `Every time you ask a chatbot to help with homework, draft a text, brainstorm ideas, or explain something confusing, you're writing a **prompt**. This lesson teaches you how to write prompts that get genuinely useful answers instead of vague, generic ones.\n\nHere's the roadmap:\n\n• Why the exact words you choose change the answer you get.\n• The four ingredients of a strong prompt — in order: **Role, Task, Context, and Format**.\n• How to turn a weak prompt into a great one, step by step.\n\nPrompting well is one of the most useful real-life skills you can build right now — it's the difference between AI being a fancy autocomplete and a genuinely helpful study partner.`,
         image: "/images/lessons/ai-9-prompt.png",
         imageAlt: "A vague prompt and a detailed prompt side by side with their results",
         callout: {
@@ -37,12 +37,12 @@ export const aiLesson9: AILessonConfig = {
       {
         id: "tcrf",
         kicker: "The recipe",
-        title: "Four ingredients: Task, Context, Role, and Format",
-        body: `Strong prompts usually mix four ingredients. Think of it like a recipe — you don't always need every spice, but the right ones transform the dish.\n\n• **Task** — what you want done: \`explain\`, \`list\`, \`rewrite\`, \`compare\`.\n• **Context** — the background: who you are, what it's for ("I'm in 9th grade", "for a science-fair poster").\n• **Role** — who the AI should act as ("act as a patient tutor").\n• **Format** — how the answer should look ("a 5-bullet list", "a short paragraph", "a table").\n\nYou rarely need all four, but adding even two or three turns a vague request into a focused one.`,
+        title: "Four ingredients — in order: Role, Task, Context, Format",
+        body: `Strong prompts usually mix four ingredients in a helpful order. Think of it like building a sandwich — put the pieces in a sensible sequence so the AI knows who to be before what to do.\n\n• **Role** — who the AI should act as ("act as a patient tutor for 8th graders").\n• **Task** — what you want done: \`explain\`, \`list\`, \`rewrite\`, \`compare\`.\n• **Context** — the background: who you are, what it's for ("I'm in 9th grade", "for a science-fair poster").\n• **Format** — how the answer should look ("5 bullet points", "a short paragraph", "a table").\n\n**Role → Task → Context → Format** gives the model a persona first, then the job, then the situation, then the shape of the answer. You rarely need all four, but stacking them in this order turns a vague request into a focused one.`,
         bullets: [
+          "**Role:** the persona the AI should take.",
           "**Task:** the action you want.",
           "**Context:** background that narrows the answer.",
-          "**Role:** the persona the AI should take.",
           "**Format:** the shape of the output.",
         ],
       },
@@ -56,9 +56,9 @@ export const aiLesson9: AILessonConfig = {
 
 ✅ Strong:
 "Act as a friendly biology tutor (role).
+Explain photosynthesis in plain language (task).
 I'm a 9th grader studying for a test (context).
-Explain photosynthesis (task)
-as 4 simple bullet points with one everyday example (format)."`,
+Give 4 simple bullet points with one everyday example (format)."`,
         codeCaption: "Same topic — very different results",
       },
       {
@@ -75,32 +75,32 @@ as 4 simple bullet points with one everyday example (format)."`,
         id: "worked",
         kicker: "Worked example",
         title: "Fix a weak prompt, step by step",
-        body: `Let's upgrade a real prompt together. Say you want help studying for a history test.\n\n**Step 1 — Start with the weak version.** "Help me with history." The AI has no idea which era, what kind of help, or how you learn best.\n\n**Step 2 — Add Task + Context.** What exactly do you need, and why? → "Quiz me on the causes of World War I. I'm a 9th grader with a test Friday."\n\n**Step 3 — Add Role + Format.** Who should it act as, and how should the answer look? → "Act as a friendly history tutor. Ask me 5 multiple-choice questions one at a time, and wait for my answer before the next."\n\nNow the AI knows the role, the topic, your situation, and the exact format. You went from a shrug to a personalized practice quiz.`,
+        body: `Let's upgrade a real prompt together. Say you want help studying for a history test.\n\n**Step 1 — Start with the weak version.** "Help me with history." The AI has no idea which era, what kind of help, or how you learn best.\n\n**Step 2 — Add Role + Task.** Who should it act as, and what exactly do you need? → "Act as a friendly history tutor. Quiz me on the causes of World War I."\n\n**Step 3 — Add Context.** What's your situation? → "I'm a 9th grader with a test Friday."\n\n**Step 4 — Add Format.** How should the answer look? → "Ask me 5 multiple-choice questions one at a time, and wait for my answer before the next."\n\nStack them in **Role → Task → Context → Format** order and the AI knows the persona, the job, your situation, and the exact shape of the reply.`,
         code: `❌ Weak:
 "Help me with history."
 
 ✅ Strong:
 "Act as a friendly history tutor (role).
+Quiz me on the causes of World War I (task).
 I'm a 9th grader with a test Friday (context).
-Quiz me on the causes of World War I (task)
-with 5 multiple-choice questions, one at a time (format)."`,
+Ask 5 multiple-choice questions, one at a time (format)."`,
         codeCaption: "Weak prompt → strong prompt",
         callout: {
           label: "Pro tip",
-          text: "Before you hit enter, do a quick check: did I include the **task**, enough **context**, maybe a **role**, and the **format** I want? Even two of the four makes a big difference.",
+          text: "Before you hit enter, stack **Role → Task → Context → Format**. Even two or three of the four makes a big difference.",
         },
       },
       {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've learned that a prompt is an instruction, that clearer instructions win, and that the four ingredients — **Task, Context, Role, Format** — turn vague requests into useful ones.\n\nNext lesson covers how to *refine* answers with follow-ups and examples. But first, lock in these ideas.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict).`,
+        body: `You've learned that a prompt is an instruction, that clearer instructions win, and that the four ingredients — **Role, Task, Context, Format** — turn vague requests into useful ones.\n\nNext lesson covers how to *refine* answers with follow-ups and examples. But first, lock in these ideas.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict).`,
       },
     ],
   },
   bigIdeas: [
     "A **prompt** is your instruction; clearer prompts produce better answers.",
-    "Strong prompts often include **Task, Context, Role, and Format**.",
+    "Strong prompts often include **Role, Task, Context, and Format** — in that order.",
     "Prompting is a **learnable skill**, not luck.",
   ],
   keyTerms: [
@@ -167,7 +167,7 @@ with 5 multiple-choice questions, one at a time (format)."`,
   ],
   reflection: {
     prompt:
-      "Take a boring prompt like 'help me with my essay' and rewrite it using at least three of: task, context, role, format.",
+      "Take a boring prompt like 'help me with my essay' and rewrite it using Role → Task → Context → Format (at least three of the four).",
     placeholder: "Act as… I'm working on… Please… in the form of…",
   },
 };

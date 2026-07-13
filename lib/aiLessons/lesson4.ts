@@ -51,7 +51,7 @@ export const aiLesson4: AILessonConfig = {
         id: "categories",
         kicker: "Choices → numbers",
         title: "Categories and features become columns",
-        body: `Words aren't the only thing we represent. Real decisions use **features** — measurable facts about something. To predict whether a fruit is an apple or an orange, an AI might use features like color, weight, and bumpiness, each stored as a number.\n\nPicture a spreadsheet: each **row** is one example (one fruit), and each **column** is one **feature** (one fact about it). The AI learns patterns across the columns — like "bumpy + orange-colored + lighter usually means orange."\n\nMost "decision-making" AI is really just this: finding patterns across rows and columns of numbers. It looks like judgment, but underneath it's spreadsheet math.`,
+        body: `Words aren't the only thing we represent. Real decisions use **features** — measurable facts about something. To predict whether a fruit is an apple or an orange, an AI might use features like color, weight, and bumpiness, each stored as a number.\n\nPicture a spreadsheet: each **row** is one example (one fruit), and each **column** is one **feature** (one fact about it). The **feature vector** is one row turned into a list of numbers — like \`[color: 1, weight: 130, bumpy: 1]\` — the actual input a model receives.\n\nMost "decision-making" AI is really just this: finding patterns across rows and columns of numbers. It looks like judgment, but underneath it's spreadsheet math — and every representation **loses** something the numbers didn't capture.`,
         table: {
           columns: ["fruit", "color (0=green,1=orange)", "weight (g)", "bumpy? (0/1)"],
           values: [
@@ -70,7 +70,7 @@ export const aiLesson4: AILessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Representing a student as data — and what gets lost",
-        body: `Imagine a school wants an AI to flag students who might "need help." First, someone has to represent each student as data. Watch what gets packed into the suitcase — and what gets left behind.\n\n**Step 1 — Pick features.** The team chooses what's easy to measure: test scores, attendance, and assignments turned in. Each becomes a number column.\n\n**Step 2 — Build the rows.** Every student becomes one row of numbers, like \`[score: 72, attendance: 95%, turned_in: 80%]\`.\n\n**Step 3 — Spot the gaps.** Notice what's *missing*: a student dealing with a tough home situation, someone who's curious and creative but a poor test-taker, a kid who helps classmates constantly. None of that is in the numbers.\n\n**Step 4 — See the risk.** If the AI only sees the columns we packed, a struggling-but-bright student might look "fine," while a great student having one bad week might get flagged. The AI isn't being cruel — it can only reason about what the representation captured.`,
+        body: `Imagine a school wants an AI to flag students who might "need help." First, someone has to represent each student as data. Follow the full pipeline — tokens, features, and a **feature vector** — and watch what gets lost along the way.\n\n**Step 1 — Start with raw text.** A counselor's notes about a student: "Struggling in math but asks great questions in class."\n\n**Step 2 — Split into tokens.** The text breaks into pieces the computer can count: \`["Struggling", "in", "math", "but", "asks", "great", "questions"]\`. Each token gets a number, just like in the pizza example above.\n\n**Step 3 — Choose features.** The team picks measurable signals: test scores, attendance, assignments turned in. Each becomes one number in a row.\n\n**Step 4 — Accept representation loss.** A **feature vector** is the final list of numbers the model actually sees — like \`[score: 72, attendance: 95%, turned_in: 80%]\`. Notice what's *missing*: curiosity, kindness, a tough home situation. The vector is useful, but it's a compressed map — not the whole person.\n\n**Step 5 — Feed the feature vector into the model.** The AI learns patterns across those number lists and makes predictions. It can only reason about what the vector captured. A struggling-but-bright student might look "fine," while a great student having one bad week might get flagged — not because the AI is cruel, but because the representation left out what mattered most.`,
         callout: {
           label: "Pro tip",
           text: "Whenever you see an AI judgment about people, ask the power question: *What did this data leave out?* The missing columns often matter more than the ones that made it in.",
@@ -86,7 +86,7 @@ export const aiLesson4: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Lock these in: **Representation** is how the world gets encoded as data an AI can use. Text becomes **tokens**, then numbers, so AI can find language patterns. Choices become **features** in columns. And every representation **leaves things out** — which can cause mistakes or unfairness.\n\nThis is the hidden first step inside every AI you'll meet for the rest of the course.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on what numbers might miss when representing "a good student."`,
+        body: `Lock these in: **Representation** is how the world gets encoded as data an AI can use. Text becomes **tokens**, then numbers; choices become **features** in a **feature vector** the model reads. And every representation **leaves things out** — which can cause mistakes or unfairness.\n\nThis is the hidden first step inside every AI you'll meet for the rest of the course.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on what numbers might miss when representing "a good student."`,
       },
     ],
   },
@@ -99,6 +99,7 @@ export const aiLesson4: AILessonConfig = {
     { term: "Representation", definition: "How a piece of the world is encoded as data so a computer can reason about it." },
     { term: "Token", definition: "A small chunk of text (word or word-part) that gets turned into a number for AI to process." },
     { term: "Feature", definition: "A measurable property of something (color, weight, price) used as input to AI." },
+    { term: "Feature vector", definition: "The final list of numbers representing one example — the input a model actually sees." },
     { term: "Encoding", definition: "The act of converting information into a numeric form a computer can store." },
   ],
   realWorld:

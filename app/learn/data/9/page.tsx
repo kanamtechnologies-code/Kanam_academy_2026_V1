@@ -117,14 +117,25 @@ const daLesson9: DataLessonConfig = {
         },
         callout: {
           label: "Pro tip",
-          text: "Sorting the bars from tallest to shortest turns a plain chart into a ranking. A sorted bar chart reads like a top-10 list — the story jumps right out.",
+          text: "Sorting the bars from tallest to shortest turns a plain chart into a ranking. Use `ORDER BY order_count DESC` so the biggest counts come first. Add `LIMIT 3` when you only want a focused top-three chart — same recipe as a leaderboard from Lesson 5.",
         },
+      },
+      {
+        id: "sort-rank",
+        kicker: "Shape the chart",
+        title: "Sort and limit so the chart tells a ranking",
+        body: `A bar chart is clearest when the tallest bars lead. After \`GROUP BY item\` and \`COUNT(*) AS order_count\`, add \`ORDER BY order_count DESC\` so the most popular items appear first — your eye reads it like a top-10 list.\n\nSometimes you want a **focused** story instead of every category. \`LIMIT 3\` keeps only the top three rows after sorting, which is perfect for a "top 3 lunch items" chart without clutter. Remember: **sort first, then LIMIT** — otherwise you might grab three random rows, not the top three.`,
+        bullets: [
+          "`ORDER BY order_count DESC` — tallest bars first.",
+          "`LIMIT N` after sorting — keep only the top N categories.",
+          "Sort + limit changes what story the chart tells — use it on purpose.",
+        ],
       },
       {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You now know what a bar chart is for (comparing categories), how to read it (label + height), and when *not* to use it. Best of all, you know the recipe every chart needs: **a label column + a number column**.\n\nIn the exercises you'll write the query that shapes \`lunch_orders\` into a bar chart, then watch the chart appear under your results.\n\nClick **Start the exercises** when you're ready.`,
+        body: `You now know what a bar chart is for (comparing categories), how to read it (label + height), when *not* to use it, and how to **sort with DESC** and **LIMIT** so the ranking jumps out. Best of all, you know the recipe every chart needs: **a label column + a number column**.\n\nIn the exercises you'll write the query that shapes \`lunch_orders\` into a bar chart, sort it biggest-first, optionally limit to the top 3, then watch the chart appear under your results.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

@@ -119,7 +119,7 @@ const daLesson11: DataLessonConfig = {
         },
         callout: {
           label: "Pro tip",
-          text: "Always sort by the time column, not the label's alphabet. Sorting weekdays alphabetically would put Fri before Mon and scramble the trend into nonsense — `ORDER BY day_num` keeps time honest.",
+          text: "Always sort by the time column, not the label's alphabet. Sorting weekdays alphabetically would put Fri before Mon and scramble the trend into nonsense — `ORDER BY day_num` keeps time honest. To find the **busiest single day**, sort by the number instead: `ORDER BY orders DESC LIMIT 1`.",
         },
       },
       {

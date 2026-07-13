@@ -114,7 +114,7 @@ const daLesson13: DataLessonConfig = {
         },
         callout: {
           label: "Pro tip",
-          text: "Before claiming \"X causes Y,\" ask: could a third thing cause both? Could the cause run the other way? Good analysts report what the dots *show* and stay honest about what they can't prove.",
+          text: "Before claiming \"X causes Y,\" ask: could a third thing cause both? Could the cause run the other way? Good analysts report what the dots *show* and stay honest about what they can't prove. To name the **extreme dot** (most study time, highest score), use `ORDER BY study_minutes DESC LIMIT 1` — same top-one recipe as a leaderboard.",
         },
       },
       {

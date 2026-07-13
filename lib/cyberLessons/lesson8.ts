@@ -53,10 +53,25 @@ export const cyberLesson8: AILessonConfig = {
         },
       },
       {
+        id: "firewall-change",
+        kicker: "Change safely",
+        title: "Making a firewall change safely",
+        body: `Opening a port for a new app sounds simple — but sloppy changes create long-lived holes. Use a checklist:\n\n**1. Confirm need** — What business or classroom task requires this? Which exact ports and protocols?\n**2. Draft least-privilege** — Specify source, destination, port, and a **time window** if temporary. Avoid \"allow any → any.\"\n**3. Test in a change window** — Apply during a planned time; watch **allow/deny logs** to confirm the app works and nothing unexpected opened.\n**4. Document owner and review date** — Every rule needs a responsible person and a calendar reminder.\n**5. Remove when done** — Temporary needs should end with tightened or deleted rules.\n\n**Remote admin (RDP and similar)** must stay behind **VPN, MFA, and tight source limits** — not exposed directly to the whole internet \"for convenience.\"\n\n**Unused ports** (for example, file-sharing services like SMB on port 445 from the internet) should not stay open because \"someone might need it someday.\" Unowned, stale allows become permanent attack surface. **Temporary rules need owners and expiry** from day one — not \"we'll lock it down later.\"`,
+        bullets: [
+          "Confirm need → least-privilege draft → test with logs → document owner → remove when done.",
+          "Remote admin belongs behind VPN/MFA/tight sources — not the open internet.",
+          "Close unused ports; temporary rules need owners and expiry.",
+        ],
+        callout: {
+          label: "Defender view",
+          text: "Default-deny for unneeded inbound services is safer than default-allow everything and hoping to clean up later.",
+        },
+      },
+      {
         id: "ports-awareness",
         kicker: "Door numbers to know",
         title: "Ports 80, 443, and 22 — awareness only",
-        body: `Remember: **ports** help identify services. A few numbers appear constantly in cyber fundamentals:\n\n• **Port 80** — traditionally associated with **HTTP** web traffic (often unencrypted).\n• **Port 443** — traditionally associated with **HTTPS** web traffic (encrypted in transit — the lock icon era of browsing).\n• **Port 22** — commonly associated with **SSH**, a remote administration service used by IT professionals to manage systems securely *when properly controlled*.\n\nDefender takeaways (not a setup lab):\n• Prefer sites using **HTTPS (443)** for logins and personal data rather than plain **HTTP (80)** when you have the choice.\n• Remote admin services (conceptually including those on **22**) should not be casually exposed to the entire internet; access should be limited, authenticated, and monitored.\n• Knowing \"what this port usually means\" helps you understand alerts and news — it is not an invitation to probe systems.\n\nIf you ever practice networking skills, do it only on **authorized labs** and classroom environments.`,
+        body: `Remember: **ports** help identify services. A few numbers appear constantly in cyber fundamentals:\n\n• **Port 80** — traditionally associated with **HTTP** web traffic (often unencrypted).\n• **Port 443** — traditionally associated with **HTTPS** web traffic (encrypted in transit — the lock icon era of browsing).\n• **Port 22** — commonly associated with **SSH**, a remote administration service used by IT professionals to manage systems securely *when properly controlled*.\n• **Port 445** (awareness) — associated with Windows file sharing (SMB). Defenders usually **do not** expose this from the internet; it is a common unnecessary-open-port example.\n\nDefender takeaways (not a setup lab):\n• Prefer sites using **HTTPS (443)** for logins and personal data rather than plain **HTTP (80)** when you have the choice.\n• Remote admin services (SSH on **22**, RDP on **3389**) should stay behind **VPN, MFA, and tight source limits** — not casually exposed to the entire internet.\n• Knowing \"what this port usually means\" helps you understand alerts and news — it is not an invitation to probe systems.\n\nIf you ever practice networking skills, do it only on **authorized labs** and classroom environments.`,
         callout: {
           label: "Why it matters",
           text: "Security tools and logs often mention port numbers. Recognizing 443 vs an unexpected admin port helps you understand whether traffic looks normal.",
@@ -94,7 +109,7 @@ export const cyberLesson8: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Firewalls** filter traffic with **allow/deny** rules.\n• Know **80 / 443 / 22** as common service associations — awareness, not an exploit guide.\n• **Default configs** can leave doors open; **hardening** closes them.\n• **Segmentation** limits how far a problem can spread.\n• Secure systems combine identity, access control, updates, filtering, and ethics.\n\nTake the final **Knowledge check** for this lesson, then reflect on one secure-config improvement you can make in a place you're allowed to manage.`,
+        body: `Quick recap:\n\n• **Firewalls** filter traffic with **allow/deny** rules.\n• **Safe changes:** confirm need → least-privilege draft → test with logs → document owner → remove when done.\n• Know **80 / 443 / 22** (and unused services like file-sharing) as awareness — not an exploit guide.\n• **Remote admin** stays behind VPN/MFA/tight sources; temporary rules need owners and expiry.\n• **Default configs** can leave doors open; **hardening** closes them.\n• **Segmentation** limits how far a problem can spread.\n• Secure systems combine identity, access control, updates, filtering, and ethics.\n\nTake the final **Knowledge check** for this lesson, then reflect on one secure-config improvement you can make in a place you're allowed to manage.`,
       },
     ],
   },

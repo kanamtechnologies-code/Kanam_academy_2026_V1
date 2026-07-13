@@ -53,7 +53,7 @@ export const aiLesson14: AILessonConfig = {
         id: "scams",
         kicker: "Protect yourself",
         title: "Spot AI-powered tricks",
-        body: `Scammers use AI to sound more convincing than ever — cloning a voice to fake an emergency call, writing flawless phishing messages with no typos to give them away, or impersonating someone you trust online.\n\nDefend yourself:\n\n• **Verify through another channel** — if "a friend" makes an urgent request, contact them directly on a number you already know.\n• **Be skeptical of urgency** — pressure to act *right now* is a classic scam sign.\n• **Check the source** of shocking images or videos before believing or sharing.\n• **Guard your footprint** — the less you post publicly, the less can be used to copy or target you.`,
+        body: `Scammers use AI to sound more convincing than ever — cloning a voice to fake an emergency call, writing flawless phishing messages with no typos to give them away, or impersonating someone you trust online.\n\nDefend yourself:\n\n• **Never paste passwords, student IDs, or 2FA codes** into chatbots, random forms, or "verification" chats — not even to "summarize" or "check" something. AI tools aren't private vaults.\n• **Verify through another channel** — if "a friend" makes an urgent request, contact them directly on a number you already know.\n• **Be skeptical of urgency** — pressure to act *right now* is a classic scam sign.\n• **Check the source** of shocking images or videos before believing or sharing.\n• **Report and delete** suspicious messages once you've handled them safely — don't leave the bait on your phone for a classmate to tap.\n• **Guard your footprint** — the less you post publicly, the less can be used to copy or target you.`,
         callout: {
           label: "Voice-clone scam",
           text: "A cloned voice 'crying for help' is a known scam. Agree on a family code word, and always call the person back to confirm.",
@@ -63,10 +63,10 @@ export const aiLesson14: AILessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Catch a deepfake voice scam",
-        body: `Late at night, your family gets a call. The voice sounds *exactly* like your older cousin: "I'm in trouble, I need money wired right now — please don't tell anyone." Walk through the safe response.\n\n**Step 1 — Notice the scam signals.** Extreme urgency + secrecy + a money request = textbook scam pattern, no matter how real the voice sounds.\n\n**Step 2 — Remember voices can be cloned.** A few seconds of someone's audio from social media is enough for AI to fake their voice. The voice is *not* proof.\n\n**Step 3 — Verify through another channel.** Hang up and call your cousin directly on their real number, or ask the family **code word** you agreed on in advance.\n\n**Step 4 — Don't act under pressure.** Real emergencies survive a 2-minute verification. Scams fall apart the moment you check.`,
+        body: `Late at night, your family gets a call. The voice sounds *exactly* like your older cousin: "I'm in trouble, I need money wired right now — please don't tell anyone." Walk through the safe response.\n\n**Step 1 — Pause. Don't panic-send codes or money.** Extreme urgency + secrecy + a money request = textbook scam pattern, no matter how real the voice sounds.\n\n**Step 2 — Never paste passwords, IDs, or 2FA codes.** If anyone — or any chatbot — asks you to share a login code "to verify," that's a trap. Real help never needs your secret codes.\n\n**Step 3 — Verify through another channel.** Hang up and call your cousin directly on their real number, or ask the family **code word** you agreed on in advance.\n\n**Step 4 — Remember voices can be cloned.** A few seconds of someone's audio from social media is enough for AI to fake their voice. The voice is *not* proof.\n\n**Step 5 — Report and delete suspicious messages.** Once you've verified safely, report the scam to a trusted adult or platform, then delete the message so no one else in your family taps the bait.`,
         code: `Incoming: "It's me! Send money NOW. Don't tell anyone."
    ↳ urgency? ⚠️   secrecy? ⚠️   money? ⚠️   voice = proof? ❌ (cloneable)
-Action: hang up → call the real number / ask the code word → verify first`,
+Action: pause → never share codes → call real number / safe word → report & delete`,
         codeCaption: "Spotting an AI voice-clone scam",
         callout: {
           label: "Pro tip",
@@ -82,9 +82,9 @@ Action: hang up → call the real number / ask the code word → verify first`,
     ],
   },
   bigIdeas: [
-    "What you put into AI tools may be **stored or used** — don't share secrets or others' data.",
+    "What you put into AI tools may be **stored or used** — never share passwords, IDs, or 2FA codes.",
     "**Deepfakes** make fake images/voices/videos look real — seeing isn't believing.",
-    "Beat AI scams by **verifying through another channel** and resisting urgency.",
+    "Beat AI scams by **verifying out-of-band**, resisting urgency, and **reporting suspicious messages**.",
   ],
   keyTerms: [
     { term: "Privacy", definition: "Your right to control who sees your personal information." },

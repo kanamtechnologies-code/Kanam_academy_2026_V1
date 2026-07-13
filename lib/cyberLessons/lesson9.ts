@@ -89,6 +89,21 @@ export const cyberLesson9: AILessonConfig = {
         },
       },
       {
+        id: "trust-chain",
+        kicker: "Bridge to HTTPS",
+        title: "Trustworthy keys, integrity, and authenticating the other party",
+        body: `Encryption only works when the **keys and certificates** are trustworthy. Scrambling data with a key an impostor gave you protects you from nobody — or from the wrong party.\n\nA complete defender mental model pairs three goals:\n\n**1. Obtain trustworthy keys/certificates** — Know who issued them and whether you trust that issuer (certificates preview this in the next lesson).\n**2. Confidentiality** — Encrypt so outsiders cannot read intercepted traffic.\n**3. Integrity + authentication** — Detect tampering and confirm you are talking to the real server or person, not a middle impostor.\n\nReal systems often combine asymmetric crypto (to agree on keys safely) with symmetric crypto (for speed), plus hashes or signatures for integrity. The order matters conceptually: trust the key material first, then encrypt, then verify the other party hasn't been swapped out mid-conversation.\n\n**Store keys safely** and rotate them when policy requires. A strong algorithm with a leaked private key is just a locked door with the key under the mat.`,
+        bullets: [
+          "Encryption needs **trustworthy keys/certs** — not just any random key.",
+          "Pair **confidentiality** with **integrity** and **authenticating the other party**.",
+          "Certificates (next lesson) help browsers decide which servers to trust.",
+        ],
+        callout: {
+          label: "Defender view",
+          text: "Crypto goals map to confidentiality, integrity, and authentication — plus careful key handling. Missing any leg weakens the whole stool.",
+        },
+      },
+      {
         id: "limits",
         kicker: "Reality check",
         title: "What cryptography does — and doesn't — solve",
@@ -107,7 +122,7 @@ export const cyberLesson9: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Cryptography** supports **confidentiality** (encryption) and **integrity** (hashing/signatures).\n• **Symmetric** = one shared key; **asymmetric** = public/private key pair.\n• **Hashes** are one-way fingerprints — not the same as encryption.\n• Crypto is essential, but it doesn't replace good passwords, MFA, updates, or phishing defense.\n\nWhen you're ready, switch to the **Knowledge check**, then reflect on where you already trust encryption in daily life.`,
+        body: `Quick recap:\n\n• **Cryptography** supports **confidentiality** (encryption) and **integrity** (hashing/signatures).\n• **Symmetric** = one shared key; **asymmetric** = public/private key pair.\n• **Hashes** are one-way fingerprints — not the same as encryption.\n• Encryption needs **trustworthy keys/certs**; pair confidentiality with integrity and authenticating the other party.\n• Crypto is essential, but it doesn't replace good passwords, MFA, updates, or phishing defense.\n\nWhen you're ready, switch to the **Knowledge check**, then reflect on where you already trust encryption in daily life.`,
       },
     ],
   },
@@ -125,6 +140,7 @@ export const cyberLesson9: AILessonConfig = {
     { term: "Key", definition: "A secret (or key pair) that controls who can encrypt, decrypt, or sign data." },
     { term: "Plaintext / Ciphertext", definition: "Plaintext is readable data; ciphertext is the encrypted form." },
     { term: "Integrity", definition: "Assurance that data has not been altered unexpectedly." },
+    { term: "Certificate", definition: "A digital document that helps prove a public key belongs to a specific server or organization (preview for next lesson)." },
   ],
   realWorld:
     "When you open a banking site over **HTTPS**, your browser and the server negotiate encryption so account details travel as **ciphertext**. Separately, your password should be stored as a **hash** on the server — never as plain text.",

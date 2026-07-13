@@ -16,6 +16,8 @@ export const financeLesson5: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/fl-5.png",
+        imageAlt: "High school student budgeting on a laptop spreadsheet with a phone calculator and receipts nearby",
         body: `A **budget** is not a punishment spreadsheet. It's a plan for your money that matches your income to your priorities — needs, goals, and some wants — before the month (or pay period) spends itself.\n\nHere's our roadmap:\n\n• **What a budget is** — a plan, not a personality test.\n• **Categories that fit teen life** — income, needs, wants, goals.\n• **50/30/20** — one popular model, not a law of nature.\n• **Zero-based idea** — give every dollar a job.\n• **When budgets break** — and how to adjust without quitting.\n\nYou'll leave with a structure you can actually use with irregular teen income.`,
         callout: {
           label: "Why it matters",
@@ -26,7 +28,7 @@ export const financeLesson5: AILessonConfig = {
         id: "words",
         kicker: "Let's break down the words",
         title: "A quick plain-English glossary",
-        body: `• A **budget** is a plan for how you will use income over a period of time.\n• A **category** is a bucket for similar spending (food, transport, fun, saving).\n• **Fixed expenses** stay about the same each period (phone plan).\n• **Variable expenses** change (gas, eating out).\n• The **50/30/20 rule** is a guideline that suggests roughly 50% needs, 30% wants, 20% saving/debt goals — one model among many.\n• **Zero-based budgeting** means assigning every dollar of income a job so income minus planned uses equals zero.\n\nBudgets can be weekly if you get paid weekly — match the plan to your pay rhythm.`,
+        body: `• A **budget** is a plan for how you will use income over a period of time.\n• A **category** is a bucket for similar spending (food, transport, fun, saving).\n• **Fixed expenses** stay about the same each period (phone plan).\n• **Variable expenses** change (gas, eating out with friends).\n• The **50/30/20 rule** is a guideline that suggests roughly 50% needs, 30% wants, 20% saving/debt goals — one model among many.\n• **Zero-based budgeting** means giving every dollar of income a job so income minus planned uses equals zero.\n\nBudgets can be weekly if you get paid weekly — match the plan to your pay rhythm.`,
         callout: {
           label: "Pro tip",
           text: "Start ugly and simple. A rough budget you use beats a perfect template you abandon.",
@@ -36,7 +38,9 @@ export const financeLesson5: AILessonConfig = {
         id: "budget-defined",
         kicker: "The big idea",
         title: "A budget tells your money where to go",
-        body: `Think of a budget as a coach's game plan. You still play the game (life happens), but you're not improvising every possession.\n\nBasic flow:\n\n**1. List net income** for the period (use take-home pay).\n**2. List needs** you must cover.\n**3. Set goal contributions** (savings, sinking funds — next lesson).\n**4. Plan wants** with what's left.\n**5. Track and adjust** when reality disagrees.\n\nIf income is irregular (babysitting, seasonal hours), budget from a **conservative estimate** or average of recent pay — not your best week ever.`,
+        image: "/images/lessons/fl-5-2.png",
+        imageAlt: "Notebook open to a simple monthly teen budget with Save, Needs, and Wants categories — no religious labels",
+        body: `Think of a budget as a game plan for your paycheck. You still play the game (life happens), but you're not improvising every purchase.\n\nBasic flow:\n\n**1. List net income** for the period (use take-home pay).\n**2. List needs** you must cover.\n**3. Set goal contributions** (savings, sinking funds — next lesson).\n**4. Plan wants** with what's left.\n**5. Track and adjust** when reality disagrees.\n\nIf income is irregular (babysitting, seasonal hours), budget from a **conservative estimate** or average of recent pay — not your best week ever.`,
         bullets: [
           "Budget from **net** income.",
           "Needs and goals before unlimited wants.",
@@ -51,7 +55,7 @@ export const financeLesson5: AILessonConfig = {
         id: "categories",
         kicker: "Buckets",
         title: "Categories that fit high school life",
-        body: `You don't need 40 categories. Try a starter set:\n\n• **Income** — jobs, allowance, gifts (note which are one-time).\n• **Needs / must-pays** — transport, required phone, work clothes, school fees you cover.\n• **Food** — lunches, groceries you buy (split need vs. want extras if helpful).\n• **Goals / saving** — car, prom, emergency starter, college fund.\n• **Fun / wants** — entertainment, hobbies, non-essential shopping.\n• **Giving** — optional but meaningful for some students.\n\nWrite estimated amounts for one pay period. If a category always blows up, that's data — raise the estimate or change the habit, don't pretend.`,
+        body: `You don't need 40 categories. Try a starter set:\n\n• **Income** — jobs, allowance, gifts (note which are one-time).\n• **Needs / must-pays** — gas, required phone, work clothes, sports fees you cover.\n• **Food** — lunches, groceries you buy (split need vs. want extras if helpful).\n• **Goals / saving** — car, prom, emergency starter, college fund.\n• **Fun / wants** — movies, gaming, non-essential shopping.\n• **Giving** — optional but meaningful for some students.\n\nWrite estimated amounts for one pay period. If a category always blows up, that's data — raise the estimate or change the habit, don't pretend.`,
         callout: {
           label: "Why it matters",
           text: "Categories turn \"I have no idea where it went\" into \"fun ran $40 over — next period I'll trim or earn more.\"",
@@ -61,6 +65,8 @@ export const financeLesson5: AILessonConfig = {
         id: "fifty-thirty-twenty",
         kicker: "One model",
         title: "50/30/20 — useful, not sacred",
+        image: "/images/lessons/fl-5-3.png",
+        imageAlt: "Bright pie chart infographic labeled 50 needs, 30 wants, 20 save for a teen budget",
         body: `The **50/30/20** guideline suggests (after tax / from take-home):\n\n• ~**50% needs**\n• ~**30% wants**\n• ~**20% savings and debt payoff**\n\nFor teens, the percentages may not fit — you might have fewer bills (so \"needs\" % looks low) or be saving hard for a car (so \"saving\" % looks high). **That is okay.**\n\nUse 50/30/20 as a conversation starter:\n\n• Am I accidentally spending wants-level money before needs and goals?\n• Is my saving % basically zero every month?\n\nOther valid models: \"pay yourself first\" (save a set amount immediately), priority-based lists, or envelope-style cash/app buckets. The winning budget is the one you'll follow.`,
         bullets: [
           "50/30/20 = one framework, not the only framework.",
@@ -76,7 +82,7 @@ export const financeLesson5: AILessonConfig = {
         id: "zero-based",
         kicker: "Every dollar works",
         title: "Zero-based budgeting — simply",
-        body: `**Zero-based** does not mean you end with $0 in the bank. It means on paper:\n\n**Income − (all planned categories) = 0**\n\nEvery dollar gets a job: bills, gas, saving, fun, buffer. Money left \"unassigned\" tends to disappear. Assigning it on purpose — even to \"misc buffer\" — is the skill.\n\nExample with $200 net:\n• $60 gas/transport\n• $40 food\n• $50 car fund\n• $30 fun\n• $20 buffer\n= $200 → zero left unassigned.\n\nIf a surprise expense hits, you move money between jobs (usually from buffer or fun), not pretend math doesn't matter.`,
+        body: `**Zero-based** does not mean you end with $0 in the bank. It means on paper:\n\n**Income − (all planned categories) = 0**\n\nEvery dollar gets a job: gas, food, saving, fun, buffer. Money left \"unassigned\" tends to disappear. Giving it a job on purpose — even to \"misc buffer\" — is the skill.\n\nExample with $200 net from a part-time job:\n• $60 gas/transport\n• $40 food\n• $50 car fund\n• $30 fun\n• $20 buffer\n= $200 → zero left unassigned.\n\nIf a surprise expense hits, you move money between jobs (usually from buffer or fun), not pretend math doesn't matter.`,
         callout: {
           label: "Pro tip",
           text: "A \"buffer\" category is allowed and smart. Zero-based planning can include intentional flexibility.",
@@ -86,7 +92,7 @@ export const financeLesson5: AILessonConfig = {
         id: "adjust",
         kicker: "Keep going",
         title: "When the budget breaks (it will)",
-        body: `Budgets fail for normal reasons: hours got cut, a tire went flat, a birthday week happened. Failure is feedback.\n\nRepair steps:\n\n**1. Don't quit** — update the plan mid-period.\n**2. Protect must-pays and minimum goal deposits if you can.**\n**3. Cut or pause wants temporarily.**\n**4. Note the surprise** — should it become a sinking fund next lesson?\n**5. Recalculate next period** with better estimates.\n\nProgress is \"closer than last month,\" not \"perfect every week.\"`,
+        body: `Budgets fail for normal reasons: hours got cut, a tire went flat, a birthday week happened. Failure is feedback.\n\nRepair steps:\n\n**1. Don't quit** — update the plan mid-period.\n**2. Protect must-pays and minimum goal deposits if you can.**\n**3. Cut or pause wants temporarily.**\n**4. Note the surprise** — should it become a sinking fund next lesson?\n**5. Recalculate next period** with better estimates.\n\n**Stay on track between paydays:** Do a quick **weekly check-in** — did spending match the plan? Track **due dates on must-pays** (phone bill, car insurance, club fees) so nothing sneaks up mid-month.\n\nProgress is \"closer than last month,\" not \"perfect every week.\"`,
         callout: {
           label: "Try this week",
           text: "Write a one-period budget on paper or notes: net income, 5 categories, amounts that add up. Use it once — then revise.",
@@ -167,11 +173,11 @@ export const financeLesson5: AILessonConfig = {
       ],
       correctIndex: 1,
       explanation:
-        "Net pay is what you can actually allocate. Gross overestimates spendable money.",
+        "Net pay is what you can actually use. Gross overestimates spendable money.",
     },
     {
       id: "q5",
-      question: "What is a healthy response when a budget breaks mid-month?",
+      question: "Your hours got cut and your budget no longer works. What is a healthy response?",
       choices: [
         "Delete the budget forever",
         "Adjust categories, protect must-pays when possible, and revise next period",

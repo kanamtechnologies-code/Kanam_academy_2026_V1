@@ -28,7 +28,7 @@ export const aiLesson6: AILessonConfig = {
         id: "test",
         kicker: "The big idea",
         title: "You test a model on examples it has never seen",
-        body: `Imagine studying for a test by memorizing the exact answer key from last year. You'd ace those *specific* questions but flop the moment the teacher changes them. You didn't learn the subject — you memorized answers. AI can fall into the same trap.\n\nSo we split our examples into two piles: most become **training data** (for studying), and we hold some back as a secret **test set** the model never sees during learning. Then we quiz it on that held-back set.\n\nA model is only good if it does well on the **test set** — questions it never studied. That's the proof it learned the real **pattern**, not just the answer key. It's the difference between truly understanding fractions and memorizing that "question 4 equals 7."`,
+        body: `Imagine studying for a test by memorizing the exact answer key from last year. You'd ace those *specific* questions but flop the moment the teacher changes them. You didn't learn the subject — you memorized answers. AI can fall into the same trap.\n\nSo we split our examples into piles: most become **training data** (for studying), some become a **validation set** (for tuning while you build), and we hold back a secret **test set** the model never sees until the very end.\n\nHere's the golden rule: **don't peek at test labels while tuning.** If you keep checking the test set, adjusting the model, and checking again, the test set stops being an honesty check — it becomes another answer key you memorized. Use the **validation set** to try fixes (more data, simpler model, different features). Only when you're done tuning do you run the **final test** once — that's your honest score.\n\nA model is only good if it does well on that final test — questions it never studied and never influenced your tweaks. That's the proof it learned the real **pattern**, not just the answer key.`,
         callout: {
           label: "Key insight",
           text: "Doing well on training data is easy — the model already saw those answers. Doing well on new, unseen data is what actually matters.",
@@ -63,7 +63,7 @@ export const aiLesson6: AILessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Why a '99% accurate' spam filter can be terrible",
-        body: `Let's put a suspicious "99% accurate" filter on trial, step by step.\n\n**Step 1 — Know the mix.** Out of 100 emails, 99 are normal and 1 is spam. Spam is rare, which is the key to the trick.\n\n**Step 2 — Meet the lazy model.** This filter has a single move: label *everything* "not spam." It never flags anything.\n\n**Step 3 — Count the score.** It's right about all 99 normal emails and wrong only about the 1 spam. That's 99 ÷ 100 = **99% accuracy** — a great-looking number!\n\n**Step 4 — Spot the failure.** But its real job was catching spam, and it caught **zero**. The one case that mattered slipped right through. The headline score hid the only mistake we cared about.\n\nSo the smart question isn't "what's the accuracy?" It's "of the cases that actually matter, how many did it catch?"`,
+        body: `Let's put a suspicious "99% accurate" filter on trial — and show why peeking at the test set ruins the score.\n\n**Step 1 — Split the data honestly.** Out of 100 emails, 99 are normal and 1 is spam. We split into train, validation, and a held-out test set. The test labels stay hidden while we tune.\n\n**Step 2 — Train and tune on train + validation.** A lazy model learns one rule: label *everything* "not spam." It scores 99% on training data — looks great!\n\n**Step 3 — Don't peek at the test set yet.** A teammate wants to "just check" the test score, tweak the model, and check again. That's cheating — each peek leaks answers. We use the **validation set** for tweaks instead.\n\n**Step 4 — Run the final test once.** On the untouched test set: 99 correct out of 100 = **99% accuracy**. Impressive number — but it caught **zero** spam. The one case that mattered slipped through.\n\n**Step 5 — Ask the right question.** The smart follow-up isn't "what's the accuracy?" It's "of the cases that actually matter, how many did it catch?" High accuracy can hide lazy models and rare-but-critical failures.`,
         callout: {
           label: "Pro tip",
           text: "When you hear a shiny accuracy number, ask: *what's the mix of cases, and which mistakes count most?* Rare-but-important cases (spam, fraud, illness) are exactly where high accuracy can lie.",
@@ -79,12 +79,12 @@ export const aiLesson6: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Take these with you: models are judged on a **hidden test set** of unseen examples. **Overfitting** is memorizing the training data instead of learning the pattern. **Accuracy** is useful but can hide what *kinds* of mistakes a model makes. And pattern-based AI will always make some mistakes — confidently.\n\nThat's why "95% accuracy" should make you curious, not convinced.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on what follow-up question you'd ask about that other 5%.`,
+        body: `Take these with you: models are judged on a **hidden test set** of unseen examples — tune on **train/validation**, then run the **final test** once without peeking. **Overfitting** is memorizing the training data instead of learning the pattern. **Accuracy** is useful but can hide what *kinds* of mistakes a model makes. And pattern-based AI will always make some mistakes — confidently.\n\nThat's why "95% accuracy" should make you curious, not convinced.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on what follow-up question you'd ask about that other 5%.`,
       },
     ],
   },
   bigIdeas: [
-    "Models are judged on a **hidden test set** of unseen examples.",
+    "Models are judged on a **hidden test set** — tune on validation, don't peek at test labels early.",
     "**Overfitting** is memorizing the training data instead of learning the pattern.",
     "**Accuracy** is useful but can hide what kinds of mistakes a model makes.",
   ],
@@ -92,6 +92,7 @@ export const aiLesson6: AILessonConfig = {
     { term: "Test set", definition: "Examples held back from training, used to check if the model really learned." },
     { term: "Overfitting", definition: "When a model memorizes training data and fails on new data." },
     { term: "Accuracy", definition: "The fraction of predictions a model gets right." },
+    { term: "Validation set", definition: "Examples used to tune a model during development — separate from the final test set." },
     { term: "Generalize", definition: "To perform well on new, unseen examples — the real goal of learning." },
   ],
   realWorld:

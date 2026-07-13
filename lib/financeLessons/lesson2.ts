@@ -16,7 +16,9 @@ export const financeLesson2: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Every dollar you spend is a choice — even when it feels automatic. Today you'll practice seeing those choices clearly: what's a **need**, what's a **want**, what you give up when you pick one option (**opportunity cost**), and how waiting can change the deal.\n\nHere's our roadmap:\n\n• **Needs vs. wants** — and why the line can blur.\n• **Tradeoffs** — you rarely get everything at once.\n• **Opportunity cost** — the real price of \"yes.\"\n• **Values again** — same income, different choices.\n• **Delayed gratification** — waiting on purpose, not forever.\n\nThis is not about shaming fun. It's about making tradeoffs visible so you stay in control.`,
+        image: "/images/lessons/fl-2.png",
+        imageAlt: "Teen comparing a grocery receipt and a takeout bag on a kitchen counter, deciding what to buy",
+        body: `Every dollar you spend is a choice — even when it feels automatic. Today you'll practice seeing those choices clearly: what's a **need**, what's a **want**, what you give up when you pick one option (**opportunity cost**), and how waiting can change the deal.\n\nHere's our roadmap:\n\n• **Needs vs. wants** — and why the line can blur.\n• **Tradeoffs** — you rarely get everything at once.\n• **Opportunity cost** — the real price of \"yes.\"\n• **Values again** — same paycheck, different choices.\n• **Delayed gratification** — waiting on purpose, not forever.\n\nThis is not about shaming fun. It's about making tradeoffs visible so you stay in control.`,
         callout: {
           label: "Why it matters",
           text: "People who can name the tradeoff before they spend are less likely to feel regret later — and more likely to fund the goals they said mattered.",
@@ -26,7 +28,7 @@ export const financeLesson2: AILessonConfig = {
         id: "words",
         kicker: "Let's break down the words",
         title: "A quick plain-English glossary",
-        body: `Core words for this lesson:\n\n• A **need** is something required for health, safety, or basic functioning in your situation (food, shelter, required school fees, essential transport to work).\n• A **want** is something you'd like but could live without for now (newest sneakers, extra streaming, upgrade snacks).\n• A **tradeoff** is giving up one option to get another.\n• **Opportunity cost** is the next-best thing you give up when you choose.\n• **Delayed gratification** means waiting for a better or more important result instead of grabbing the immediate reward.\n\nNeeds and wants can shift with context — that's normal. The skill is noticing which is which *for this decision*.`,
+        body: `Core words for this lesson:\n\n• A **need** is something required for health, safety, or basic functioning in your situation (food, shelter, required school fees, gas to get to work).\n• A **want** is something you'd like but could live without for now (newest sneakers, extra streaming, upgrade snacks).\n• A **tradeoff** is giving up one option to get another.\n• **Opportunity cost** is the next-best thing you give up when you choose.\n• **Delayed gratification** means waiting for a better or more important result instead of grabbing the immediate reward.\n\nNeeds and wants can shift with context — that's normal. The skill is noticing which is which *for this decision*.`,
         callout: {
           label: "Pro tip",
           text: "Ask: \"What happens if I wait two weeks?\" If life still works, it was probably closer to a want than a need.",
@@ -36,7 +38,9 @@ export const financeLesson2: AILessonConfig = {
         id: "needs-wants",
         kicker: "The big idea",
         title: "Needs keep you going; wants make life nicer",
-        body: `In personal finance, **needs** usually include basics like food, housing-related costs, essential clothing, and getting to school or work safely. **Wants** include nicer versions of those things and extras that add enjoyment.\n\nGray areas are real:\n\n• A phone plan might be a **need** for work and safety — but the newest flagship phone is often a **want**.\n• Eating is a **need** — daily delivery from a restaurant is usually a **want**.\n• School supplies for class are closer to a **need** — branded limited-edition gear may be a **want**.\n\nLabeling something a want does not make it \"bad.\" It means you should fund it *after* (or alongside) priorities you already named — and be honest about the tradeoff.`,
+        image: "/images/lessons/fl-2-2.png",
+        imageAlt: "Clean infographic split: Needs (food, transit, phone) vs Wants (games, snacks, concert) for high school life",
+        body: `In personal finance, **needs** usually include basics like food, housing-related costs, essential clothing, and getting to school or work safely. **Wants** include nicer versions of those things and extras that add enjoyment.\n\nGray areas are real:\n\n• A phone plan might be a **need** for work and safety — but the newest flagship phone is often a **want**.\n• Eating is a **need** — DoorDash every night is usually a **want**.\n• School supplies for class are closer to a **need** — branded limited-edition gear may be a **want**.\n\nLabeling something a want does not make it \"bad.\" It means you should fund it *after* (or alongside) priorities you already named — and be honest about the tradeoff.`,
         bullets: [
           "**Need** ≈ required for functioning in your real life.",
           "**Want** ≈ desirable, optional, or upgrade.",
@@ -50,18 +54,20 @@ export const financeLesson2: AILessonConfig = {
       {
         id: "tradeoffs",
         kicker: "Reality check",
-        title: "Tradeoffs are normal — scarcity is the rule",
-        body: `You have limited money, time, and energy. That means **tradeoffs** are built into adult (and teen) life — not a personal failure.\n\nExamples:\n\n• Buy concert tickets → less left for gas this month.\n• Take an extra shift → more income, less free time.\n• Upgrade a phone early → delay the car fund.\n\nA healthy money mindset does not pretend tradeoffs disappear. It makes them **conscious**. Unconscious tradeoffs feel like \"Where did my money go?\" Conscious tradeoffs feel like \"I chose this, so I won't also expect that.\"`,
+        title: "Tradeoffs are normal — you can't buy everything",
+        body: `You have limited money, time, and energy. That means **tradeoffs** are built into life — not a personal failure.\n\nExamples from a typical week:\n\n• Buy concert tickets → less left for gas this month.\n• Pick up an extra shift → more income, less free time.\n• Upgrade your phone early → delay the car fund.\n\nWhen money is tight, **total what your needs cost and compare that to cash you actually have** before you rank wants — the number tells you how much room (if any) wants get.\n\nA healthy money mindset does not pretend tradeoffs disappear. It makes them **conscious**. Unconscious tradeoffs feel like \"Where did my money go?\" Conscious tradeoffs feel like \"I chose this, so I won't also expect that.\"`,
         callout: {
           label: "Why it matters",
-          text: "Families, schools, and governments face tradeoffs too. Learning the habit now prepares you for bigger decisions later — cars, college, apartments.",
+          text: "Learning the tradeoff habit now prepares you for bigger decisions later — a used car, college, your first apartment.",
         },
       },
       {
         id: "opportunity-cost",
         kicker: "The real price",
         title: "Opportunity cost: what you give up",
-        body: `**Opportunity cost** is the value of the next-best alternative you did *not* choose. The sticker price of a purchase is only part of the story.\n\nIf you spend $60 on a game:\n\n• You give up $60 that could have gone toward sneakers, gas, or savings.\n• You also give up whatever that $60 would have bought instead — that's the opportunity cost.\n\nOpportunity cost is not always money. Choosing three hours of scrolling might cost practice time, sleep, or a shift you could have worked.\n\nYou don't need a spreadsheet for every snack. Use the idea for decisions that are big *for you* — anything that would delay a goal you care about.`,
+        image: "/images/lessons/fl-2-3.png",
+        imageAlt: "Photorealistic teen holding a wallet while friends invite them out; thought bubble style choice of save vs spend",
+        body: `**Opportunity cost** is the value of the next-best alternative you did *not* choose. The sticker price of a purchase is only part of the story.\n\nIf you spend $60 on a new game:\n\n• You give up $60 that could have gone toward sneakers, gas, or savings.\n• You also give up whatever that $60 would have bought instead — that's the opportunity cost.\n\nOpportunity cost is not always money. Choosing three hours of scrolling might cost practice time, sleep, or a shift you could have worked.\n\nYou don't need a spreadsheet for every snack. Use the idea for decisions that are big *for you* — anything that would delay a goal you care about.`,
         bullets: [
           "Price tag ≠ full cost.",
           "Opportunity cost = the best option you skipped.",
@@ -122,9 +128,9 @@ export const financeLesson2: AILessonConfig = {
       question: "Which example is closest to a need for most high school students with a job?",
       choices: [
         "Limited-edition sneakers released this week",
-        "Safe transportation to get to work on time",
+        "Gas or a bus pass to get to work on time",
         "The newest gaming console on launch day",
-        "Daily premium coffee delivery",
+        "Daily boba runs after school",
       ],
       correctIndex: 1,
       explanation:

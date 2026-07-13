@@ -50,6 +50,21 @@ export const cyberLesson13: AILessonConfig = {
         },
       },
       {
+        id: "attack-chain",
+        kicker: "Stages, not recipes",
+        title: "Defender view of an attack chain",
+        body: `Defenders often describe compromises as **stages** — not to teach attacks, but to place controls and detections where they matter most:\n\n**1. Initial access** — How did they get in? Phishing, stolen credentials, exposed service, risky download. This is where MFA, patching, and phishing awareness earn their keep.\n**2. Foothold / persistence** — Can they stay after the first login? New accounts, scheduled tasks, unusual remote tools. Monitoring and least privilege matter here.\n**3. Privilege escalation / lateral movement** — Can they reach more systems and accounts? Segmentation and role limits shrink blast radius.\n**4. Goal actions** — Data theft, disruption, ransomware prep. By this stage, impact is expensive — earlier detection is cheaper.\n**5. Defender response** — Detect, contain, eradicate using controls and IR from Lesson 12. You can interrupt the chain at any stage you catch it.\n\n**Signals to watch:**\n\n• **MFA** (ideally **phishing-resistant MFA**) blunts credential stuffing and many phishing follow-ons at the access layer.\n• **Impossible travel** — successful logins from far-away places minutes apart, especially after phishing waves — deserves triage and stronger authentication.\n• Correlate **login, VPN, and MFA logs** to confirm whether a success was legitimate.\n\nThinking in stages helps you ask \"where would we notice this?\" without learning how to run the attack.`,
+        bullets: [
+          "Chain: **initial access → foothold → lateral movement → goal → defender response**.",
+          "**MFA** and **impossible-travel** alerts are high-value detection signals.",
+          "Place controls early — waiting until goal actions is already costly.",
+        ],
+        callout: {
+          label: "Defender view",
+          text: "Study attacks as patterns for defense and response — never as recipes. Authorized labs only for hands-on practice.",
+        },
+      },
+      {
         id: "dos-ddos",
         kicker: "Availability attacks",
         title: "DoS / DDoS: knocking the service offline",
@@ -102,7 +117,7 @@ export const cyberLesson13: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• Study attacks as **patterns** for defense — never as recipes.\n• **DoS/DDoS** hits availability; **spoofing** fakes identity; **MITM** threatens the channel; **injection** abuses untrusted input.\n• For each: know impact, signals, and controls.\n• Stay ethical: authorized learning environments only.\n\nComplete the **Knowledge check**, then reflect on which pattern you'd watch for in a school club system.`,
+        body: `Quick recap:\n\n• Study attacks as **patterns** for defense — never as recipes.\n• **Attack chain:** initial access → foothold → lateral movement → goal → defender response.\n• **MFA**, **phishing-resistant MFA**, and **impossible-travel** are key detection signals.\n• **DoS/DDoS** hits availability; **spoofing** fakes identity; **MITM** threatens the channel; **injection** abuses untrusted input.\n• For each: know impact, signals, and controls.\n• Stay ethical: authorized learning environments only.\n\nComplete the **Knowledge check**, then reflect on which pattern you'd watch for in a school club system.`,
       },
     ],
   },
@@ -119,6 +134,8 @@ export const cyberLesson13: AILessonConfig = {
     { term: "Injection (concept)", definition: "Abusing software by supplying input that is mishandled as harmful instructions or data." },
     { term: "Attack surface", definition: "The set of places an attacker might try to abuse." },
     { term: "Availability", definition: "Ensuring systems and data remain usable when needed." },
+    { term: "Attack chain", definition: "A defender model of compromise stages from initial access through goal actions and response." },
+    { term: "Impossible travel", definition: "A detection signal when logins from distant locations appear too close together in time." },
   ],
   realWorld:
     "A student government ticket site goes down during election week after a huge traffic flood (**DDoS** pattern). Defenders focus on hosting protections and communications — not on learning how to run floods themselves.",

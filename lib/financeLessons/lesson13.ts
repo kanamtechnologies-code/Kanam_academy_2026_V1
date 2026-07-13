@@ -16,7 +16,9 @@ export const financeLesson13: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Your first paycheck can feel like a plot twist: the number you earn isn't the number you take home. Today you'll learn why — as a Tax Rookie, not a CPA.\n\nHere's our roadmap:\n\n• **Why taxes exist** — shared public costs.\n• **Gross vs net** — what disappears before deposit.\n• **W-2 vs 1099 (lightly)** — employee vs contractor vibes.\n• **Filing awareness** — forms, deadlines, when help matters.\n• **Refund myths** — a refund isn't free bonus money.\n• **Teen action items** — records, questions, honesty.\n\nThis is general education. Rules change and depend on your situation — trusted adults and official resources beat random videos.`,
+        image: "/images/lessons/fl-13.png",
+        imageAlt: "Teen with a W-2 form and a summer job pay stubs folder at a desk with a parent nearby",
+        body: `Your first paycheck can feel like a plot twist: the number on the hiring poster isn't the number you take home. Today you'll learn why — as a Tax Rookie, not a CPA.\n\nHere's our roadmap:\n\n• **Why taxes exist** — shared public costs.\n• **Gross vs net** — what disappears before deposit.\n• **W-2 vs 1099 (lightly)** — employee vs contractor vibes.\n• **Filing awareness** — forms, deadlines, when help matters.\n• **Refund myths** — a refund isn't free bonus money.\n• **Teen action items** — records, questions, honesty.\n\nThis is general education. Rules change and depend on your situation — trusted adults and official resources beat random videos.`,
         callout: {
           label: "Why it matters",
           text: "Understanding withholdings and forms helps you budget, avoid panic, and spot bad advice when you start earning.",
@@ -36,7 +38,7 @@ export const financeLesson13: AILessonConfig = {
         id: "why-taxes",
         kicker: "The big idea",
         title: "Why taxes exist (the civic money story)",
-        body: `Taxes fund things people share: roads, schools, public safety, courts, health programs, defense, and more — plus interest on public debt and other obligations. People argue about *how much* and *on what*, but the core idea is collective funding.\n\nDifferent taxes hit differently: income taxes, sales taxes, payroll taxes for social programs, property taxes (often via housing costs), and more. As a first-job teen, you'll mostly notice **payroll withholdings** and **sales tax** at checkout.\n\nPaying legally required taxes isn't optional "if you disagree." Tax Rookies learn the system so they can comply and plan.`,
+        body: `Taxes fund things people share: roads, schools, public safety, courts, health programs, defense, and more — plus interest on public debt and other obligations. People argue about *how much* and *on what*, but the core idea is collective funding.\n\nDifferent taxes hit differently: income taxes, sales tax at checkout, payroll taxes for social programs, property taxes (often via housing costs), and more. As a first-job teen, you'll mostly notice **payroll withholdings** and **sales tax** when you buy snacks or gas.\n\nPaying legally required taxes isn't optional "if you disagree." Tax Rookies learn the system so they can comply and plan.`,
         bullets: [
           "Taxes fund shared public goods and services.",
           "Your paycheck may withhold several categories at once.",
@@ -51,7 +53,9 @@ export const financeLesson13: AILessonConfig = {
         id: "w2-1099",
         kicker: "First job lens",
         title: "W-2 vs 1099 — lightly, for awareness",
-        body: `**W-2 employee (typical):** employer withholds income and payroll taxes, may offer benefits, and issues a W-2. You still may need to file a return depending on income and rules.\n\n**1099 / contractor-style work (simplified):** you may receive payment with little or no tax withheld. That can feel like a bigger check — but you may owe taxes later, and you might need to plan quarterly payments as an adult. Expenses and self-employment rules get complicated fast.\n\nTax Rookie takeaway: a higher sticker rate on gig work isn't automatically "more money" until you account for taxes, expenses, and lack of benefits. Ask a trusted adult before treating all deposits as spendable.`,
+        image: "/images/lessons/fl-13-2.png",
+        imageAlt: "Side-by-side educational cards: W-2 employee paycheck vs 1099 gig style income for teens",
+        body: `**W-2 employee (typical):** your employer withholds income and payroll taxes, may offer benefits, and issues a W-2. You still may need to file a return depending on income and rules.\n\n**1099 / contractor-style work (simplified):** you may receive payment with little or no tax withheld. That can feel like a bigger check — but you may owe taxes later, and you might need to plan quarterly payments as an adult. Expenses and self-employment rules get complicated fast.\n\nTax Rookie takeaway: a higher sticker rate on gig work isn't automatically "more money" until you account for taxes, expenses, and lack of benefits. Ask a trusted adult before treating all deposits as spendable.`,
         callout: {
           label: "Common misconception",
           text: "\"If no tax was withheld, I don't owe anything.\" Withholding and final tax responsibility are related but not identical.",
@@ -71,7 +75,9 @@ export const financeLesson13: AILessonConfig = {
         id: "teen-habits",
         kicker: "Make it real",
         title: "Tax Rookie habits that prevent future messes",
-        body: `• Save digital/paper copies of W-2/1099 forms when they arrive.\n• Update your address with employers so forms don't go missing.\n• Budget on **net** pay, not the hiring-poster wage.\n• If you have multiple gigs, track payments in a simple spreadsheet.\n• Never share tax documents in random DMs.\n• Ask questions early — parents, guardians, school counselors, or reputable volunteer clinics.\n\nYou're building literacy so first-job surprises become manageable.`,
+        image: "/images/lessons/fl-13-3.png",
+        imageAlt: "Organized folder labeled Tax papers with pay stubs and a calendar marked Keep records",
+        body: `• **Day one:** Complete **Form W-4** (and your state's equivalent, if your employer gives one) with a **trusted adult** if you need help — these forms **set how much tax is withheld** from each paycheck. Keep copies for your records.\n• Save digital/paper copies of W-2/1099 forms when they arrive.\n• Update your address with employers so forms don't go missing.\n• Budget on **net** pay, not the hiring-poster wage.\n• If you have multiple gigs, track payments in a simple spreadsheet.\n• Never share tax documents in random DMs.\n• Ask questions early — parents, guardians, school counselors, or reputable volunteer clinics.\n\nYou're building literacy so first-job surprises become manageable.`,
         callout: {
           label: "Reality check",
           text: "This lesson is educational awareness, not personalized tax advice. Your forms and obligations depend on your facts and current law.",
@@ -100,7 +106,7 @@ export const financeLesson13: AILessonConfig = {
     { term: "Filing", definition: "Submitting a tax return when required by law." },
   ],
   realWorld:
-    "A first job offers $15/hour on the flyer. After withholdings, the deposit is lower. A Tax Rookie budgets from net pay and saves forms when they arrive in January — instead of being shocked at tax time.",
+    "The coffee shop flyer says $15/hour. After withholdings, your deposit is lower. A Tax Rookie budgets from net pay and saves the W-2 when it arrives in January — instead of being shocked at tax time.",
   quiz: [
     {
       id: "q1",
@@ -170,7 +176,7 @@ export const financeLesson13: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Look at (or imagine) a first paycheck. What line items would you expect between gross and net, and what is one question you would ask a trusted adult or payroll contact?",
+      "Look at (or imagine) a first paycheck from a part-time job. What line items would you expect between gross and net, and what is one question you would ask a trusted adult or payroll contact?",
     placeholder:
       "Example: I'd expect federal/state withholding and other payroll lines. I'd ask how to get copies of my W-2 and whether I need to file…",
   },

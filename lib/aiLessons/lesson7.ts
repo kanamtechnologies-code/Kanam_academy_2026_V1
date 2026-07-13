@@ -63,12 +63,12 @@ export const aiLesson7: AILessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Turning a weak prompt into a strong one",
-        body: `Because generative AI builds on what you give it, the **prompt** (your request) hugely shapes the result. Watch a vague prompt become a great one, step by step.\n\n**Step 1 — Start with the weak prompt.** It's too vague, so the AI fills the gaps with generic guesses.\n\n**Step 2 — Add a role and goal.** Tell it *who* to act as and *what* you actually need.\n\n**Step 3 — Add details and format.** Give it the specifics — topic, length, audience, structure.\n\n**Step 4 — Compare.** Same AI, wildly better output — just from a clearer prompt.`,
-        code: `WEAK PROMPT:\n"Write about dogs."\n\nSTRONG PROMPT:\n"You are a friendly science writer for 8th graders.\nWrite a 5-sentence paragraph explaining why dogs\nare good at smelling, using one real example.\nKeep it fun and easy to read."`,
+        body: `Because generative AI builds on what you give it, the **prompt** (your request) hugely shapes the result. Watch a vague prompt become a strong one — with a short example and an iteration loop.\n\n**Step 1 — Start with the weak prompt.** "Write about dogs." Too vague — the AI fills gaps with generic guesses.\n\n**Step 2 — Add task and context.** Tell it *what* to create and *for whom*: "Write a 5-sentence paragraph explaining why dogs are good at smelling, for 8th graders."\n\n**Step 3 — Add format and role.** Give structure and a persona: "You are a friendly science writer. Keep it fun and easy to read."\n\n**Step 4 — Add one short example (few-shot style).** Show the tone you want: "Example opening: 'A dog's nose is like a superpower — it can sniff out a treat hidden in a backpack across the room.'" Models copy examples strongly — one line can steer the whole reply.\n\n**Step 5 — Generate, critique, and iterate.** Run the prompt. Read the output: too long? Off-topic? Tighten one detail and try again. Prompting is a loop, not a one-shot — a second pass often fixes what the first draft missed.`,
+        code: `WEAK PROMPT:\n"Write about dogs."\n\nSTRONG PROMPT:\n"You are a friendly science writer for 8th graders.\nWrite a 5-sentence paragraph explaining why dogs\nare good at smelling, using one real example.\nExample tone: 'A dog's nose is like a superpower…'\nKeep it fun and easy to read."`,
         codeCaption: "Before and after: a clearer prompt steers the AI",
         callout: {
           label: "Pro tip",
-          text: "Tell the AI three things: who it should act as, exactly what you want, and the format (length, audience, style). Specific in, specific out — vague in, generic out.",
+          text: "Tell the AI who to act as, what to create, who it's for, and the format. Add one short example of the style you want, then generate → critique → iterate. Specific in, specific out.",
         },
       },
       {
@@ -88,6 +88,7 @@ export const aiLesson7: AILessonConfig = {
     { term: "Generative AI", definition: "AI that creates new content — text, images, audio, code — rather than just classifying." },
     { term: "Next-token prediction", definition: "Building text by repeatedly predicting the most likely next word/word-part." },
     { term: "Prompt", definition: "The instruction or request you give a generative AI to guide what it creates." },
+    { term: "Few-shot example", definition: "One or two short examples in a prompt that show the style or format you want." },
     { term: "Training corpus", definition: "The huge collection of text/images a generative model learned from." },
   ],
   realWorld:

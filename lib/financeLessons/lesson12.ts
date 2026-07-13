@@ -16,6 +16,8 @@ export const financeLesson12: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/fl-12.png",
+        imageAlt: "Teen squinting at a suspicious scholarship fee text message on a phone, realistic caution scene",
         body: `Scammers don't need elite hacking skills if they can rush your emotions. Today you'll build Consumer Guardian instincts for money, identity, and everyday purchases.\n\nHere's our roadmap:\n\n• **How scams work** — urgency, fear, greed, and secrecy.\n• **Phishing & money scams** — fake messages, fake jobs, fake "refunds."\n• **Identity theft basics** — what thieves want and how to harden yourself.\n• **Compare before you buy** — price, terms, reviews, return policies.\n• **Complaint paths (conceptually)** — company → trusted agencies → records.\n• **Bystander skills** — helping family without shaming.\n\nDefensive, ethical, practical — no scare tactics for their own sake.`,
         callout: {
           label: "Why it matters",
@@ -36,7 +38,9 @@ export const financeLesson12: AILessonConfig = {
         id: "scam-patterns",
         kicker: "The big idea",
         title: "Scams run on emotion, not IQ",
-        body: `Most money scams share a pattern:\n\n1. **Hook** — prize, job, romance, "your account is locked," package problem.\n2. **Pressure** — limited time, threats, or exclusive secrecy.\n3. **Ask** — gift cards, wire/crypto, remote access, codes, personal data.\n4. **Isolation** — "Don't tell your parents/bank."\n\nYou're not "dumb" if you almost fall for it — you're human. Consumer Guardians build **pause habits**: verify on a known channel, refuse gift-card payments for debts, never share one-time codes.`,
+        image: "/images/lessons/fl-12-2.png",
+        imageAlt: "Infographic red flags: Too good to be true, Urgency, Ask for gift cards, Fake official logos",
+        body: `Most money scams share a pattern:\n\n1. **Hook** — prize, fake job, romance, "your account is locked," package problem.\n2. **Pressure** — limited time, threats, or exclusive secrecy.\n3. **Ask** — gift cards, wire/crypto, remote access, codes, personal data.\n4. **Isolation** — "Don't tell your parents/bank."\n\nYou're not "dumb" if you almost fall for it — you're human. Consumer Guardians build **pause habits**: verify on a known channel, refuse gift-card payments for debts, never share one-time codes.`,
         bullets: [
           "Legitimate companies don't demand gift cards to 'fix' accounts.",
           "Verify callbacks using official numbers you look up yourself.",
@@ -61,10 +65,12 @@ export const financeLesson12: AILessonConfig = {
         id: "compare-buy",
         kicker: "Everyday defense",
         title: "Compare before you buy — and know complaint paths",
+        image: "/images/lessons/fl-12-3.png",
+        imageAlt: "Teen comparing prices of headphones on two browser tabs before buying, realistic desk photo",
         body: `Consumer Guardians shop with a short checklist:\n\n• **Price** — is this deal dramatically below market? Why?\n• **Seller** — reputable site/store vs random link.\n• **Terms** — subscriptions, auto-renew, restocking fees.\n• **Returns** — window, condition, who pays shipping.\n• **Reviews** — look for patterns, not one perfect five-star.\n\nIf something goes wrong, a conceptual complaint path looks like:\n1. Contact the seller with facts, dates, and screenshots.\n2. Use card dispute/chargeback options when appropriate.\n3. Consider trusted consumer protection or attorney-general style resources for your area (adults can help navigate).\n4. Keep records. Calm documentation beats angry essays.\n\nLaws differ by location — the skill is knowing to escalate with evidence, not giving up at the first "no."`,
         callout: {
           label: "Try this week",
-          text: "Before your next non-trivial purchase, write a 60-second compare list: price, return policy, and one alternative seller.",
+          text: "Before your next non-trivial purchase (prom outfit, used gear, phone case), write a 60-second compare list: price, return policy, and one alternative seller.",
         },
       },
       {
@@ -99,7 +105,7 @@ export const financeLesson12: AILessonConfig = {
     { term: "Urgency tactic", definition: "Pressure to act immediately so you skip verification." },
   ],
   realWorld:
-    "A text says your package is held for a $1.99 fee and links to a login page. A Consumer Guardian ignores the link, opens the shipping app directly, and finds no fee — classic phishing pressure.",
+    "A DM says you won a $500 scholarship but must pay a $29 'processing fee' by gift card. A Consumer Guardian ignores the link, checks with your school counselor, and finds no such scholarship — classic scam pressure.",
   quiz: [
     {
       id: "q1",

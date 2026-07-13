@@ -16,7 +16,9 @@ export const financeLesson14: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `College marketing loves big campus photos. Aid Navigators look at **numbers**: what it costs *you*, what doesn't need repayment, and what becomes debt.\n\nHere's our roadmap:\n\n• **Sticker vs net price** — the real bill after aid.\n• **Grants vs scholarships vs loans** — gift aid vs borrowed money.\n• **FAFSA awareness** — why it matters and what it unlocks conceptually.\n• **Comparing offers** — beyond the brand name.\n• **Loan caution** — borrowing is a claim on future you.\n• **Non-college paths** — tradeoffs still deserve the same math.\n\nNo school-rank worship — just clear money thinking.`,
+        image: "/images/lessons/fl-14.png",
+        imageAlt: "High school senior comparing college offer letters and net price on a laptop with a family member",
+        body: `College marketing loves big campus photos. Aid Navigators look at **numbers**: what it costs *you*, what doesn't need repayment, and what becomes debt.\n\nHere's our roadmap:\n\n• **Sticker vs net price** — the real bill after aid.\n• **Grants vs scholarships vs loans** — gift aid vs borrowed money.\n• **FAFSA awareness** — why it matters and what it unlocks conceptually.\n• **Comparing offers** — beyond the brand name.\n• **Loan caution** — borrowing is a claim on future you.\n• **Non-college paths** — tradeoffs still deserve the same math.\n\nNo school-rank hype — just clear money thinking for senior year and beyond.`,
         callout: {
           label: "Why it matters",
           text: "Two schools with similar sticker prices can differ by thousands in net cost. Comparing offers carefully can change your debt for years.",
@@ -36,6 +38,8 @@ export const financeLesson14: AILessonConfig = {
         id: "sticker-net",
         kicker: "The big idea",
         title: "Sticker price vs net price",
+        image: "/images/lessons/fl-14-2.png",
+        imageAlt: "Infographic: Sticker price crossed down to Net price after grants and scholarships",
         body: `The **sticker price** is what brochures shout. The **net price** is closer to what your family may actually pay after gift aid.\n\nExample shape (illustrative only):\n• Sticker: $40,000\n• Grants/scholarships: $18,000\n• Net toward that package: $22,000 — before loans you might choose to borrow\n\nNet price calculators on school sites are estimates. Official aid offers matter more. Also watch **living costs**, travel, fees, and whether aid is one-year-only.\n\nAid Navigator move: compare **net costs and debt**, not logos.`,
         bullets: [
           "Sticker ≠ what you pay.",
@@ -51,7 +55,7 @@ export const financeLesson14: AILessonConfig = {
         id: "grants-loans-fafsa",
         kicker: "Aid types",
         title: "Grants, loans, and FAFSA awareness",
-        body: `**Grants & scholarships** — prioritize these. They reduce what you owe without creating a loan balance (still read conditions).\n\n**Loans** — can make school possible, but they are a contract. Federal student loans and private loans differ in protections and terms; details matter and change. Borrow only what you need after gift aid and realistic work income.\n\n**FAFSA awareness:** Completing the FAFSA (when eligible/required) is often the gateway to federal grants, federal loans, and sometimes school/state aid. It's free via official channels — paid 'special filers' who pressure you are a red flag. Deadlines matter; missing them can shrink options.\n\nThis is awareness, not a filing walkthrough for every family situation.`,
+        body: `**Grants & scholarships** — prioritize these. They reduce what you owe without creating a loan balance (still read conditions).\n\n**Loans** — can make school possible, but they are a contract. Federal student loans and private loans differ in protections and terms; details matter and change. Borrow only what you need after gift aid and realistic work income.\n\n**FAFSA awareness:** Completing the FAFSA (when eligible/required) is often the gateway to federal grants, federal loans, and sometimes school/state aid. Sit down with a parent/guardian — it's a family conversation. Use official free channels — paid 'special filers' who pressure you are a red flag. Deadlines matter; missing them can shrink options.\n\n**Scholarship apps:** Apply to local and school scholarships early. Small awards add up and don't need repayment.\n\nThis is awareness, not a filing walkthrough for every family situation.`,
         callout: {
           label: "Myth check",
           text: "\"My family won't qualify for anything, so skip FAFSA.\" Many schools still want it for their own aid — ask a counselor before skipping.",
@@ -61,6 +65,8 @@ export const financeLesson14: AILessonConfig = {
         id: "compare-offers",
         kicker: "Decision skill",
         title: "Compare offers carefully — a worksheet mindset",
+        image: "/images/lessons/fl-14-3.png",
+        imageAlt: "Worksheet photo comparing two college offers: gift aid vs loans columns filled in pencil",
         body: `Line up offers side by side:\n\n1. **Cost of attendance** components (tuition, housing, fees, books estimate).\n2. **Gift aid** total and whether it renews.\n3. **Work expectations** (work-study or needed job hours).\n4. **Loans suggested** — how much, which type, estimated payment later (rough).\n5. **Out-of-pocket gap** — what family savings/income must cover this year.\n6. **Fit factors** — program strength, support services — weighed *after* you understand money.\n\nAppeal politely if circumstances change or if another offer is stronger — some schools reconsider. Keep tone factual.\n\nAlso consider community college + transfer, trade programs, employer tuition help, or gap years — different paths, same net-price discipline.`,
         callout: {
           label: "Try this week",
@@ -81,7 +87,7 @@ export const financeLesson14: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Net price** beats sticker price for decisions.\n• Prefer **grants/scholarships**; treat **loans** as real debt.\n• **FAFSA** awareness unlocks many aid doors — use official channels.\n• Compare offers line by line, including renewability and living costs.\n\nTake the **Knowledge check**, then reflect on how you'd compare two hypothetical offers.`,
+        body: `Quick recap:\n\n• **Net price** beats sticker price for decisions.\n• Prefer **grants/scholarships**; treat **loans** as real debt.\n• **FAFSA** awareness unlocks many aid doors — use official channels with family.\n• Compare offers line by line, including renewability and living costs.\n\nTake the **Knowledge check**, then reflect on how you'd compare two hypothetical offers.`,
       },
     ],
   },
@@ -100,7 +106,7 @@ export const financeLesson14: AILessonConfig = {
     { term: "Scholarship", definition: "Gift aid often based on merit, talent, or other criteria." },
   ],
   realWorld:
-    "School A lists $52k and offers $20k grants + $10k loans. School B lists $38k and offers $8k grants + $5k loans. An Aid Navigator compares remaining gaps and loan totals — not which logo looks cooler.",
+    "School A lists $52k and offers $20k grants + $10k loans. School B lists $38k and offers $8k grants + $5k loans. An Aid Navigator compares remaining gaps and loan totals with a parent — not which logo looks cooler.",
   quiz: [
     {
       id: "q1",

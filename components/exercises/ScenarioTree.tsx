@@ -138,14 +138,7 @@ export function ScenarioTree({
                 type="button"
                 disabled={finished}
                 onClick={() => choose(choice)}
-                className={cn(
-                  "flex min-h-11 w-full rounded-xl border px-4 py-3 text-left text-sm font-semibold transition-colors",
-                  choice.tone === "risky"
-                    ? "border-amber-200 bg-amber-50/50 hover:bg-amber-50"
-                    : choice.tone === "best"
-                      ? "border-emerald-200 bg-emerald-50/40 hover:bg-emerald-50"
-                      : "border-slate-200 bg-white hover:border-slate-300"
-                )}
+                className="flex min-h-11 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-left text-sm font-semibold transition-colors hover:border-slate-300 hover:bg-slate-50"
               >
                 {choice.label}
               </button>

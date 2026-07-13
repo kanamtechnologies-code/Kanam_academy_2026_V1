@@ -16,10 +16,12 @@ export const financeLesson7: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `**Credit** is about borrowed money and trust: will you repay what you owe as agreed? Lenders, landlords, and sometimes employers look at credit history. Today you'll learn what scores and reports are — at a high-school overview level — and how to spot myths.\n\nHere's our roadmap:\n\n• **What credit is** — borrowing with a promise to repay.\n• **Credit reports vs. scores** — the file vs. the number.\n• **FICO factors (overview)** — what tends to matter.\n• **Free annual reports** — your right to check.\n• **Myths** — what credit is *not*.\n\nEducational overview only — not personalized lending advice.`,
+        image: "/images/lessons/fl-7.png",
+        imageAlt: "Teen reading a credit score education page on a laptop with a notebook titled Credit basics",
+        body: `**Credit** is about borrowed money and trust: will you repay what you owe as agreed? When you eventually apply for a car loan, apartment, or student loan, lenders may look at your credit history. Today you'll learn what scores and reports are — at a high-school overview level — and how to spot myths.\n\nHere's our roadmap:\n\n• **What credit is** — borrowing with a promise to repay.\n• **Credit reports vs. scores** — the file vs. the number.\n• **FICO factors (overview)** — what tends to matter.\n• **Free annual reports** — your right to check.\n• **Myths** — what credit is *not*.\n\nEducational overview only — not personalized lending advice.`,
         callout: {
           label: "Why it matters",
-          text: "Credit mistakes in early adulthood can follow you for years. Understanding the system early helps you avoid expensive first errors.",
+          text: "Credit mistakes in your late teens and early twenties can follow you for years. Understanding the system early helps you avoid expensive first errors.",
         },
       },
       {
@@ -36,7 +38,9 @@ export const financeLesson7: AILessonConfig = {
         id: "what-credit",
         kicker: "The big idea",
         title: "Credit is borrowed trust — with a paper trail",
-        body: `When you use credit, someone else covers a cost now; you repay later, often with **interest** if you don't pay in full on time (details in the next lesson).\n\nCommon credit products:\n\n• Credit cards\n• Auto loans\n• Student loans\n• Personal loans\n• Buy-now-pay-later plans (still debt — treat carefully)\n\nYour **payment history** becomes part of your financial reputation. Paying as agreed builds trust. Missing payments damages it.\n\nCredit can be useful (spreading a necessary purchase, building history). Credit can also be harmful (high-interest balances, collections). The tool isn't magic — the habits are.`,
+        image: "/images/lessons/fl-7-2.png",
+        imageAlt: "Illustrated diagram: borrow now, repay later, trust builds over time — teen-friendly credit explanation",
+        body: `When you use credit, someone else covers a cost now; you repay later, often with **interest** if you don't pay in full on time (details in the next lesson).\n\nCommon credit products you'll encounter:\n\n• Credit cards\n• Auto loans\n• Student loans\n• Personal loans\n• Buy-now-pay-later plans (still debt — treat carefully)\n\nYour **payment history** becomes part of your financial reputation. Paying as agreed builds trust. Missing payments damages it.\n\nCredit can be useful (spreading a necessary purchase, building history). Credit can also be harmful (high-interest balances, collections). The tool isn't magic — the habits are.`,
         bullets: [
           "Credit = borrow now, repay later.",
           "History is recorded on credit reports.",
@@ -51,7 +55,7 @@ export const financeLesson7: AILessonConfig = {
         id: "report-score",
         kicker: "Two tools",
         title: "Reports vs. scores",
-        body: `A **credit report** lists accounts, balances, payment history, and certain public records. U.S. consumer reports commonly involve three major bureaus (Equifax, Experian, TransUnion) — names you'll see in adult life.\n\nA **credit score** turns report data into a number using a model. Many lenders use **FICO**-style scores; other scoring models exist too. Ranges and exact formulas are proprietary and can differ by product.\n\nKey mindset:\n\n• You don't \"have one eternal score\" forever identical everywhere — versions and lender pulls can differ.\n• Focusing on healthy **behaviors** (on-time payments, low revolving balances relative to limits, not opening accounts recklessly) matters more than refreshing a score app daily.`,
+        body: `A **credit report** lists accounts, balances, payment history, and certain public records. U.S. consumer reports commonly involve three major bureaus (Equifax, Experian, TransUnion) — names you'll see when you're older.\n\nA **credit score** turns report data into a number using a model. Many lenders use **FICO**-style scores; other scoring models exist too. Ranges and exact formulas are proprietary and can differ by product.\n\nKey mindset:\n\n• You don't \"have one eternal score\" forever identical everywhere — versions and lender pulls can differ.\n• Focusing on healthy **behaviors** (on-time payments, low revolving balances relative to limits, not opening accounts recklessly) matters more than refreshing a score app daily.`,
         callout: {
           label: "Why it matters",
           text: "If something is wrong on a report (not your account), you can dispute errors. You can't fix what you never read.",
@@ -61,6 +65,8 @@ export const financeLesson7: AILessonConfig = {
         id: "fico-overview",
         kicker: "Overview only",
         title: "FICO factors at a high level",
+        image: "/images/lessons/fl-7-3.png",
+        imageAlt: "Infographic meter showing credit score ranges with labels poor to excellent, educational not branded",
         body: `Classic FICO models commonly emphasize categories like these (exact weights can vary by version — learn the *ideas*, not memorized trivia for a specific year):\n\n• **Payment history** — on-time vs. late/missed payments (usually the biggest theme).\n• **Amounts owed / utilization** — how much you owe, especially on revolving credit vs. limits.\n• **Length of credit history** — how long accounts have been open.\n• **Credit mix** — types of credit (overview only; don't open accounts just to \"collect types\").\n• **New credit** — recent applications/accounts can matter.\n\nFor beginners: **pay on time** and **don't max out revolving credit**. Those two habits carry enormous weight compared with hacking obscure tricks.`,
         bullets: [
           "On-time payments are foundational.",
@@ -76,7 +82,7 @@ export const financeLesson7: AILessonConfig = {
         id: "annual-report",
         kicker: "Know your rights",
         title: "Free annual credit reports",
-        body: `U.S. consumers are entitled to free credit reports from the major bureaus through the official Annual Credit Report process (frequency and access details can expand beyond the old \"once per year\" pattern — check the official site for current rules when you use it).\n\nWhy check?\n\n• Catch **identity theft** or accounts you don't recognize.\n• Spot **errors** (wrong balances, accounts that aren't yours).\n• Learn what lenders see before you apply for big credit.\n\nChecking your **own** report through legitimate free channels is normal self-care — it is not the same as a lender running a hard application inquiry.\n\nIf you're a minor with little or no file, you may have limited reports — still learn the process for young adulthood.`,
+        body: `U.S. consumers are entitled to free credit reports from the major bureaus through the official Annual Credit Report process (frequency and access details can expand beyond the old \"once per year\" pattern — check the official site for current rules when you use it).\n\nWhy check?\n\n• Catch **identity theft** or accounts you don't recognize.\n• Spot **errors** (wrong balances, accounts that aren't yours).\n• Learn what lenders see before you apply for big credit.\n\nChecking your **own** report through legitimate free channels is normal self-care — it is not the same as a lender running a hard application inquiry.\n\nIf you're a minor with little or no file, you may have limited reports — still learn the process for when you're older.`,
         callout: {
           label: "Pro tip",
           text: "Use official government-linked channels for free reports. Be skeptical of random sites that demand payment to \"unlock your score\" in a rush.",
@@ -86,7 +92,7 @@ export const financeLesson7: AILessonConfig = {
         id: "myths",
         kicker: "Myth check",
         title: "Credit myths — cleared up",
-        body: `• **Myth:** \"Checking my own report ruins my score.\" **Reality:** Using legitimate consumer report access is for your review; it's not the same as applying for new credit everywhere.\n• **Myth:** \"Carrying a credit card balance helps your score.\" **Reality:** You don't need to pay interest to build history. On-time payments matter; interest is a cost.\n• **Myth:** \"I have no credit, so I have a bad score.\" **Reality:** Thin/no file is different from a damaged history — you may simply be \"unscored\" until enough history exists.\n• **Myth:** \"Closing every card always helps.\" **Reality:** It's complicated; impulsive closures can affect utilization and history length. Don't panic-close without learning more.\n• **Myth:** \"A score is my worth as a person.\" **Reality:** It's a lender risk estimate — not a moral grade.\n\nCredit Reader skill = calm, accurate mental models.`,
+        body: `• **Myth:** \"Checking my own report ruins my score.\" **Reality:** Using legitimate consumer report access is for your review; it's not the same as applying for new credit everywhere.\n• **Myth:** \"Carrying a credit card balance helps your score.\" **Reality:** You don't need to pay interest to build history. On-time payments matter; interest is a cost.\n• **Myth:** \"I have no credit, so I have a bad score.\" **Reality:** Thin/no file is different from a damaged history — you may simply be \"unscored\" until enough history exists.\n• **Myth:** \"Closing every card always helps.\" **Reality:** It's complicated; impulsive closures can affect utilization and history length. Don't panic-close without learning more.\n• **Myth:** \"A score is my worth as a person.\" **Reality:** It's a lender risk estimate — not a moral grade.\n• **Myth:** \"Cash advances are free weekend fun money.\" **Reality:** A **cash advance** pulls cash from your credit card with **extra fees** and often **immediate interest** — no grace period like a normal purchase. Treat it as a **last resort**, not spending money for a night out.\n\nCredit Reader skill = calm, accurate mental models.`,
         callout: {
           label: "Try this week",
           text: "Ask a trusted adult how they check their credit report — or look up the official Annual Credit Report process together (read-only research is fine).",
@@ -116,7 +122,7 @@ export const financeLesson7: AILessonConfig = {
     { term: "Thin file", definition: "A credit history with little or no information, common for people new to credit." },
   ],
   realWorld:
-    "A first apartment application may involve a credit check. Building calm, accurate habits now — and knowing how to read a report later — reduces surprise denials and scammy \"fix your credit\" pitches.",
+    "When you eventually apply for a car loan or apartment, lenders may check your credit. Building calm, accurate habits now — and knowing how to read a report later — reduces surprise denials and scammy \"fix your credit\" pitches.",
   quiz: [
     {
       id: "q1",
@@ -146,9 +152,9 @@ export const financeLesson7: AILessonConfig = {
     },
     {
       id: "q3",
-      question: "Which habit is generally most foundational for healthy credit?",
+      question: "You get a starter credit card with a $300 limit. Which habit is generally most foundational for healthy credit?",
       choices: [
-        "Paying every bill late on purpose",
+        "Max it out every month so the bank sees activity",
         "Paying on time",
         "Opening as many cards as possible in one week",
         "Carrying the maximum balance forever",

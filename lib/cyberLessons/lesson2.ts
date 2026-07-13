@@ -18,7 +18,7 @@ export const cyberLesson2: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-2.png",
         imageAlt: "Triangle diagram props for Confidentiality Integrity Availability beside a login screen on a laptop",
-        body: `Last lesson introduced the **CIA Triad**. Today you'll make it stick — and connect it to every login screen you meet.\n\nHere's our roadmap:\n\n• **Confidentiality, Integrity, Availability** — what each goal really means with school-life examples.\n• **Authentication vs. authorization** — proving who you are vs. what you're allowed to do.\n• **How we prove identity** — passwords, MFA, biometrics, and tokens (concepts only).\n• **How these ideas fit together** — why weak login habits break CIA in the real world.\n\nBy the end, you'll be able to look at a situation and say which CIA goal is at risk — and whether the problem is \"who are you?\" or \"what can you do?\"`,
+        body: `Last lesson introduced the **CIA Triad**. Today you'll make it stick — and connect it to every login screen you meet.\n\nHere's our roadmap:\n\n• **Confidentiality, Integrity, Availability** — what each goal really means with school-life examples.\n• **Authentication vs. authorization** — proving who you are vs. what you're allowed to do.\n• **How we prove identity** — passwords, MFA, biometrics, and tokens (concepts only).\n• **Sessions and rate limiting** — what happens after login; logging failed attempts.\n• **How these ideas fit together** — why weak login habits break CIA in the real world.\n\nBy the end, you'll be able to look at a situation and say which CIA goal is at risk — and whether the problem is \"who are you?\" or \"what can you do?\"`,
         callout: {
           label: "Why it matters",
           text: "Almost every security control — from phone locks to school portals — is trying to protect at least one of Confidentiality, Integrity, or Availability. Naming the goal helps you choose better habits.",
@@ -80,6 +80,21 @@ export const cyberLesson2: AILessonConfig = {
         },
       },
       {
+        id: "sessions-defense",
+        kicker: "After login",
+        title: "Sessions, failed attempts, and rate limiting",
+        body: `Successful **authentication** doesn't end at the password screen. The system creates a **session** — a temporary, limited proof that you already proved who you are. Sessions let you browse without retyping your password every click, but they also mean a stolen session can bypass a fresh login challenge.\n\nDefender habits around sessions:\n\n• **Log out** on shared computers and revoke unknown sessions in account security settings.\n• **Sessions expire** after inactivity or a time limit — that's intentional, not annoyance.\n• **Failed login attempts are logged** so defenders can spot patterns: one typo vs. hundreds of guesses from the same address.\n\n**Rate limiting** slows repeated failed attempts — for example, a short lockout or increasing delays after several wrong passwords. **Brute force** (conceptually) means trying many guesses to crack a password. Rate limiting doesn't make passwords optional; it buys time for detection and makes mass guessing less practical.\n\nTogether, logging + rate limiting + MFA turn \"guess until it works\" from a quiet hobby into a noisy, often-blocked event defenders can investigate.`,
+        bullets: [
+          "A **session** keeps you signed in with limited permissions after authentication succeeds.",
+          "**Failed attempts** should be logged — patterns reveal stuffing and brute-force tries.",
+          "**Rate limiting** slows repeated failures; pair it with MFA and strong passwords.",
+        ],
+        callout: {
+          label: "Defender view",
+          text: "If your email shows many failed logins you didn't cause, report it — that's a signal worth investigating, not background noise.",
+        },
+      },
+      {
         id: "connect",
         kicker: "Put it together",
         title: "How weak auth breaks CIA",
@@ -93,7 +108,7 @@ export const cyberLesson2: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **CIA** = Confidentiality (who can see), Integrity (stays accurate), Availability (usable when needed).\n• **Authentication** proves identity; **authorization** grants permissions.\n• Factors include **passwords**, **MFA**, **biometrics**, and **tokens** — concepts that strengthen the front door.\n• Weak authentication can break all three CIA goals in one incident.\n\nWhen you're ready, take the **Knowledge check**, then reflect on an account where MFA would help you most.`,
+        body: `Quick recap:\n\n• **CIA** = Confidentiality (who can see), Integrity (stays accurate), Availability (usable when needed).\n• **Authentication** proves identity; **authorization** grants permissions.\n• Factors include **passwords**, **MFA**, **biometrics**, and **tokens** — concepts that strengthen the front door.\n• **Sessions** follow login; **failed attempts** are logged; **rate limiting** slows brute-force guessing.\n• Weak authentication can break all three CIA goals in one incident.\n\nWhen you're ready, take the **Knowledge check**, then reflect on an account where MFA would help you most.`,
       },
     ],
   },
@@ -111,6 +126,8 @@ export const cyberLesson2: AILessonConfig = {
     { term: "MFA", definition: "Multi-Factor Authentication — proving identity with more than one type of factor." },
     { term: "Biometrics", definition: "Authentication based on a physical trait, such as a fingerprint or face unlock." },
     { term: "Token", definition: "Something you have used to prove identity, such as an authenticator app or hardware security key." },
+    { term: "Session", definition: "A temporary authenticated state that lets you use a system without re-proving identity on every action." },
+    { term: "Rate limiting", definition: "Slowing or blocking repeated failed login attempts to reduce brute-force and stuffing attacks." },
   ],
   realWorld:
     "A student portal login is **authentication**. Being able to view your transcript but not edit another student's record is **authorization**. Both exist to protect **CIA** for grades and personal data.",

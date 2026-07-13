@@ -16,7 +16,9 @@ export const financeLesson4: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `A bank (or credit union) is where most people park everyday money, pay bills, and save. Today you'll learn the account types teens meet first, how debit and credit differ, what fees to watch for, and what \"FDIC insured\" roughly means — without endorsing any brand.\n\nHere's our roadmap:\n\n• **Checking vs. savings** — spend vs. set aside.\n• **Debit vs. credit** — your money now vs. borrowed money.\n• **Fees and gotchas** — overdraft, ATM, minimum balance.\n• **FDIC (and similar protection)** — what happens if an insured bank fails.\n• **Safe habits** — PINs, statements, and not sharing login info.\n\nEducational only: choose institutions with a trusted adult using your own needs (fees, access, requirements).`,
+        image: "/images/lessons/fl-4.png",
+        imageAlt: "Teen at a bank branch counter with a debit card and new account brochure, daytime realistic photo",
+        body: `When you get your first paycheck, you need somewhere to put it. A bank (or credit union) is where most people park everyday money, pay bills, and save. Today you'll learn the account types teens meet first, how debit and credit differ, what fees to watch for, and what \"FDIC insured\" roughly means — without endorsing any brand.\n\nHere's our roadmap:\n\n• **Checking vs. savings** — spend vs. set aside.\n• **Debit vs. credit** — your money now vs. borrowed money.\n• **Fees and gotchas** — overdraft, ATM, minimum balance.\n• **FDIC (and similar protection)** — what happens if an insured bank fails.\n• **Safe habits** — PINs, statements, and not sharing login info.\n\nEducational only: choose institutions with a trusted adult using your own needs (fees, access, requirements).`,
         callout: {
           label: "Why it matters",
           text: "The wrong account habits can quietly drain money through fees. The right basics keep your paycheck usable and your savings separate.",
@@ -36,7 +38,9 @@ export const financeLesson4: AILessonConfig = {
         id: "checking-savings",
         kicker: "The big idea",
         title: "Checking moves money; savings holds it",
-        body: `**Checking** is your transaction hub: paycheck deposits, debit purchases, peer payments, and bill pay. Keep enough here for planned spending plus a small buffer if you can.\n\n**Savings** is for goals and cushions. Separating savings from checking makes it less tempting to spend \"future you\" money on impulse.\n\nMany people use both: checking for monthly cash flow, savings for emergency starters and named goals. Some accounts pay **interest** (the bank pays you a small percentage for keeping money there). Rates change; chase understanding, not hype.\n\nCredit unions are member-owned financial institutions that often offer similar account types. Functionally, you still need to compare fees, access (ATMs/apps), and requirements.`,
+        image: "/images/lessons/fl-4-2.png",
+        imageAlt: "Infographic of two account jars: Checking for spending and Savings for goals, with arrows",
+        body: `**Checking** is your transaction hub: paycheck deposits, debit purchases, Venmo, and bill pay. Keep enough here for planned spending plus a small buffer if you can.\n\n**Savings** is for goals and cushions. Separating savings from checking makes it less tempting to spend \"future you\" money on impulse.\n\nMany people use both: checking for monthly cash flow, savings for emergency starters and named goals. Some accounts pay **interest** (the bank pays you a small percentage for keeping money there). Rates change; chase understanding, not hype.\n\nCredit unions are member-owned financial institutions that often offer similar account types. Functionally, you still need to compare fees, access (ATMs/apps), and requirements.`,
         bullets: [
           "**Checking** ≈ everyday spending account.",
           "**Savings** ≈ separated money for later.",
@@ -51,6 +55,8 @@ export const financeLesson4: AILessonConfig = {
         id: "debit-credit",
         kicker: "Cards",
         title: "Debit spends yours; credit borrows",
+        image: "/images/lessons/fl-4-3.png",
+        imageAlt: "Side-by-side photo of a debit card and credit card on a desk with sticky notes Your money now vs Borrowed money",
         body: `**Debit card**\n• Pulls from your checking balance.\n• If the money isn't there, the purchase may decline — or trigger overdraft fees if you opted into overdraft coverage.\n• Good for spending money you already have.\n\n**Credit card**\n• Borrows from the issuer up to a **credit limit**.\n• You get a bill; paying in full by the due date helps you avoid interest.\n• Carrying a balance can get expensive because of **interest**.\n• Builds a payment history when used responsibly (more in later lessons on credit).\n\nNeither card is \"evil.\" Debit is simpler for many teens. Credit is a powerful tool that becomes a trap if you treat the limit like free money.`,
         callout: {
           label: "Why it matters",
@@ -86,7 +92,7 @@ export const financeLesson4: AILessonConfig = {
         id: "habits",
         kicker: "Stay safe",
         title: "Account habits that prevent headaches",
-        body: `• **Never share** your PIN, password, or one-time codes — not even with friends.\n• **Review transactions** weekly in the app or on statements.\n• **Report** lost cards and unauthorized charges quickly.\n• **Use strong, unique passwords** and bank-app security features when available.\n• **Beware** \"verify your account\" texts/links; go directly through the official app or site you already trust.\n\nBanking literacy is half product knowledge, half security habits. You'll go deeper on scams in a later finance lesson.`,
+        body: `• **Never share** your PIN, password, or one-time codes — not even with friends.\n• **Review transactions** weekly in the app or on statements.\n• **Report** lost cards and unauthorized charges quickly.\n• **Use strong, unique passwords** and bank-app security features when available.\n• **Beware** \"verify your account\" texts/links; go directly through the official app or site you already trust.\n\n**Opening an account as a teen:** Many teen or student accounts require a **parent or guardian as co-signer or joint owner** — that's normal. Bring required **ID** (and whatever the bank asks for) when you open it with a trusted adult.\n\n**Compare before you sign:** Teen and student products differ on **fees, minimum balances, and rules**. Read the fee schedule side by side before choosing — ten minutes of comparison beats months of surprise charges.\n\n**Turn on security from day one:** Enable **multi-factor authentication (MFA)** — also called **two-factor authentication (2FA)** — plus **balance and transaction alerts** when you open the account. Alerts catch mistakes and fraud early; MFA makes it harder for someone else to log in even if they guess your password.\n\nBanking literacy is half product knowledge, half security habits. You'll go deeper on scams in a later finance lesson.`,
         callout: {
           label: "Try this week",
           text: "With a trusted adult, list the fees on your account (or a sample fee schedule online) and circle any that could hit a teen paycheck.",

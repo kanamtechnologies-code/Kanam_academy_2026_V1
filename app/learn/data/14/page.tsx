@@ -81,18 +81,15 @@ const daLesson14: DataLessonConfig = {
         id: "query",
         kicker: "The payoff",
         title: "One query, a full answer",
-        body: `Stacking all three steps into one query gives the finished investigation. It joins both tables, totals each student's spending, and ranks them — turning raw rows into a real answer. The grouped, sorted result is below.`,
-        code: `SELECT students.student_name,\n       SUM(orders.price) AS total_spent\nFROM students\nJOIN orders\n  ON students.student_id = orders.student_id\nGROUP BY students.student_name\nORDER BY total_spent DESC;`,
-        codeCaption: "Who spent the most?",
+        body: `Stacking all three steps into one query gives the finished investigation. It joins both tables, totals each student's spending, and ranks them — turning raw rows into a real answer. The grouped, sorted result is below.\n\nTo crown **one** winner in the exercises, keep the same \`ORDER BY total_spent DESC\` and add \`LIMIT 1\` — that returns only the top row instead of the full ranked list.`,
+        code: `SELECT students.student_name,\n       SUM(orders.price) AS total_spent\nFROM students\nJOIN orders\n  ON students.student_id = orders.student_id\nGROUP BY students.student_name\nORDER BY total_spent DESC\nLIMIT 1;`,
+        codeCaption: "Who spent the most? (top row only)",
         table: {
           columns: ["student_name", "total_spent"],
           values: [
             ["Alex", 6.25],
-            ["Sam", 5.25],
-            ["Riley", 4.75],
-            ["Jordan", 4.0],
           ],
-          rowCount: 4,
+          rowCount: 1,
         },
       },
       {

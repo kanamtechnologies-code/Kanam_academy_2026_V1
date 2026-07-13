@@ -15,27 +15,31 @@ export const financeLesson1: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Money shows up everywhere — a paycheck from a first job, money for gas, saving for a car, splitting a group gift, or planning for college. This lesson starts at the foundation: what money *is*, what you want it to *do*, and how to turn fuzzy wishes into clear goals.\n\nHere's our roadmap:\n\n• **Money as a tool** — it buys choices; it doesn't define your worth.\n• **Goal horizons** — short, medium, and long term.\n• **SMART-ish goals** — clear enough to act on, flexible enough for real teen life.\n• **Values → goals** — why two people with the same income can choose totally different plans.\n• **Your starter plan** — one goal you can name and track this month.\n\nNo prior finance class needed. Every new word gets explained when it appears. This track is **educational** — habits and decision skills, not get-rich-quick tips.`,
+        image: "/images/lessons/fl-1.png",
+        imageAlt: "High school student at a desk with a notebook labeled Goals, phone showing a savings balance, and a small cash jar",
+        body: `Money shows up everywhere in your life — a paycheck from your part-time job, gas money, saving for a used car, splitting a group gift, or chipping in for senior trip. This lesson starts at the foundation: what money *is*, what you want it to *do*, and how to turn fuzzy wishes into clear goals.\n\nHere's our roadmap:\n\n• **Money as a tool** — it buys choices; it doesn't define your worth.\n• **Goal horizons** — short, medium, and long term.\n• **SMART-ish goals** — clear enough to act on, flexible enough for real teen life.\n• **Values → goals** — why two people with the same paycheck can choose totally different plans.\n• **Your starter plan** — one goal you can name and track this month.\n\nNo prior finance class needed. Every new word gets explained when it appears. This track is **educational** — habits and decision skills, not get-rich-quick tips.`,
         callout: {
           label: "Why it matters",
-          text: "Clear money goals reduce stress and impulse spending. When you know what you're aiming for, it's easier to say yes to what matters and no to what doesn't.",
+          text: "Clear money goals cut stress and impulse spending. When you know what you're aiming for, it's easier to say yes to what matters and no to what doesn't.",
         },
       },
       {
         id: "words",
         kicker: "Let's break down the words",
         title: "A quick plain-English glossary",
-        body: `Before we dive in, here are the core words for this lesson — explained simply.\n\n• **Money** is a tool you use to trade for goods and services — and to save for later.\n• A **goal** is a specific result you want, with a rough timeline.\n• **Income** is money you receive (job, allowance, gifts, side work).\n• **Spending** is money you use now; **saving** is money you set aside for later.\n• A **priority** is something you rank as more important than other options.\n\nKeep these in mind. Everything else in the lesson builds on them.`,
+        body: `Before we dive in, here are the core words for this lesson — explained simply.\n\n• **Money** is what you use to buy things and save for later.\n• A **goal** is something specific you want, with a rough timeline.\n• **Income** is money you receive — from a job, allowance, gifts, or side work.\n• **Spending** is money you use now; **saving** is money you set aside for later.\n• A **priority** is something you rank as more important than other options.\n\nKeep these in mind. Everything else in the lesson builds on them.`,
         callout: {
           label: "Pro tip",
-          text: "When a money word feels fancy, swap in the plain meaning. \"Allocate income toward a goal\" just means \"decide where this money goes.\"",
+          text: "When a money word feels fancy, swap in the plain meaning. \"Assign income to a goal\" just means \"decide where this paycheck goes.\"",
         },
       },
       {
         id: "money-tool",
         kicker: "The big idea",
         title: "Money is a tool — not a personality",
-        body: `**Money** is a medium of exchange: it lets you trade your time and skills for things and experiences. It can buy food, a bus pass, a phone plan, concert tickets, or breathing room when something breaks.\n\nWhat money is *not*:\n\n• A measure of how good a person you are.\n• Proof that someone is smarter than someone else.\n• A guarantee of happiness.\n\nTwo students can earn the same amount and feel totally different about money — because they value different things. One might save hard for a used car; another might spend more on shared experiences with friends. Neither is automatically \"right.\" The skill is matching your money choices to **your** priorities — and adjusting when life changes.\n\nThink of money like a backpack: useful for carrying what you need for the trip. The trip matters more than the pack.`,
+        image: "/images/lessons/fl-1-2.png",
+        imageAlt: "Simple illustrated diagram: money as a tool connecting a paycheck icon to choices like gas, phone, and savings",
+        body: `**Money** lets you trade your time and skills for things you need and want — food, a bus pass, a phone plan, concert tickets, or breathing room when something breaks.\n\nWhat money is *not*:\n\n• A measure of how good a person you are.\n• Proof that someone is smarter than someone else.\n• A guarantee of happiness.\n\nTwo students can earn the same from a weekend job and feel totally different about money — because they value different things. One might save hard for a used car; another might spend more on hangouts with friends. Neither is automatically \"right.\" The skill is matching your money choices to **your** priorities — and adjusting when life changes.\n\nThink of money like a backpack: useful for carrying what you need for the trip. The trip matters more than the pack.`,
         bullets: [
           "**Money** = a tool for choices over time.",
           "Your **values** shape what \"enough\" and \"worth it\" mean.",
@@ -50,7 +54,7 @@ export const financeLesson1: AILessonConfig = {
         id: "horizons",
         kicker: "Time frames",
         title: "Short, medium, and long-term goals",
-        body: `Money goals get clearer when you name the **time horizon** — how soon you want the result.\n\n• **Short-term** — roughly days to a few months. Examples: concert ticket next month, sports gear this season, holiday gifts.\n• **Medium-term** — roughly several months to a couple of years. Examples: a used car down payment, a laptop for college, a senior trip fund.\n• **Long-term** — years ahead. Examples: college costs, first apartment deposits, building emergency savings as an adult.\n\nYou can work on more than one horizon at once — but not by dumping every dollar into the farthest goal and ignoring next week's needs. A healthy plan usually protects a little for *now*, a little for *soon*, and a little for *later*.\n\nIf everything feels equally urgent, list goals and circle the one that would reduce the most stress if you made progress this month.`,
+        body: `Money goals get clearer when you name the **time horizon** — how soon you want the result.\n\n• **Short-term** — days to a few months. Examples: concert ticket next month, new cleats this season, holiday gifts.\n• **Medium-term** — several months to a couple of years. Examples: a used car down payment, a laptop for school, a senior trip fund.\n• **Long-term** — years ahead. Examples: college costs, first apartment deposit, building savings as an adult.\n\nYou can work on more than one horizon at once — but not by dumping every dollar into the farthest goal and ignoring next week's needs. A healthy plan usually protects a little for *now*, a little for *soon*, and a little for *later*.\n\nIf everything feels equally urgent, list your goals and circle the one that would reduce the most stress if you made progress this month.`,
         callout: {
           label: "Why it matters",
           text: "Without horizons, \"I should save\" stays vague. Naming *when* turns a wish into something you can schedule and measure.",
@@ -60,7 +64,9 @@ export const financeLesson1: AILessonConfig = {
         id: "smart",
         kicker: "Make it doable",
         title: "SMART-ish goals for teens",
-        body: `Adults often teach **SMART** goals: Specific, Measurable, Achievable, Relevant, Time-bound. For high school, use a lighter version — **SMART-ish** — so goals stay clear without feeling like a corporate memo.\n\nAsk:\n\n• **Specific** — What exactly? (\"Save for a used car\" beats \"be better with money.\")\n• **Measurable** — How will you know progress? (A dollar amount or a checklist.)\n• **Achievable** — Given your real income and expenses, is this realistic?\n• **Relevant** — Does this match what you care about right now?\n• **Time-bound** — By when?\n\nWeak: \"Save more.\"\nSMART-ish: \"Save $150 for new cleats by October 15 by putting $25 from each paycheck into a labeled savings envelope or account.\"\n\nYou can revise a goal when income changes or a new priority appears. Revising is planning — not failing.`,
+        image: "/images/lessons/fl-1-3.png",
+        imageAlt: "Close-up of a teen planner with a SMART-ish goal written: Save $150 for cleats by Oct 15",
+        body: `You might hear adults talk about **SMART** goals: Specific, Measurable, Achievable, Relevant, Time-bound. For high school, use a lighter version — **SMART-ish** — so goals stay clear without feeling like a boring form nobody wants to fill out.\n\nAsk:\n\n• **Specific** — What exactly? (\"Save for a used car\" beats \"be better with money.\")\n• **Measurable** — How will you know you're making progress? (A dollar amount or a checklist.)\n• **Achievable** — Given your real income and expenses, is this realistic?\n• **Relevant** — Does this match what you care about right now?\n• **Time-bound** — By when?\n\nWeak: \"Save more.\"\nSMART-ish: \"Save $150 for new cleats by October 15 by putting $25 from each paycheck into a labeled savings envelope or account.\"\n\nYou can revise a goal when hours get cut or a new priority pops up. Revising is planning — not failing.`,
         bullets: [
           "Vague goals are hard to start; clear goals are easier to track.",
           "If the math doesn't fit your income, shrink the goal or extend the deadline.",
@@ -75,7 +81,7 @@ export const financeLesson1: AILessonConfig = {
         id: "values",
         kicker: "Your filter",
         title: "Values turn goals into decisions",
-        body: `A **value** is what you treat as important — independence, family, creativity, safety, fun, faith, learning. Values aren't right or wrong in the abstract; they help you choose when money is limited (which it always is).\n\nExample: You have $40 left this week.\n\n• If you value **reliability**, you might put gas in the car so you can get to work.\n• If you value **connection**, you might chip in for a friend's birthday.\n• If you value **future options**, you might add to a college or car fund.\n\nNone of those choices is automatically selfish or smart. The question is: Did you choose on purpose, or on autopilot?\n\nTry a 60-second check before a non-essential purchase: \"Does this help a goal I named, or am I just filling boredom / matching someone else's feed?\" That pause is financial literacy in action.`,
+        body: `A **value** is what you treat as important — independence, family, creativity, safety, fun, learning. Values aren't right or wrong in the abstract; they help you choose when money is limited (which it always is).\n\nExample: You have $40 left this week.\n\n• If you value **reliability**, you might put gas in the car so you can get to work.\n• If you value **connection**, you might chip in for a friend's birthday.\n• If you value **future options**, you might add to a college or car fund.\n\nNone of those choices is automatically selfish or smart. The question is: Did you choose on purpose, or on autopilot?\n\nTry a 60-second check before a non-essential purchase: \"Does this help a goal I named, or am I just filling boredom / matching someone else's feed?\" That pause is financial literacy in action.`,
         callout: {
           label: "Watch out",
           text: "Saying you value \"saving for college\" while spending every extra dollar on impulse buys is a mismatch. Aligning spending with stated values is the real skill.",
@@ -95,7 +101,7 @@ export const financeLesson1: AILessonConfig = {
     "**SMART-ish** goals (specific, measurable, realistic, relevant, timed) turn wishes into actions.",
   ],
   keyTerms: [
-    { term: "Money", definition: "A tool used to trade for goods and services and to save for future needs." },
+    { term: "Money", definition: "What you use to buy things and save for future needs." },
     { term: "Goal", definition: "A specific result you want, ideally with a timeline and a way to measure progress." },
     { term: "Income", definition: "Money you receive from a job, allowance, gifts, or other sources." },
     { term: "Saving", definition: "Setting money aside for future use instead of spending it now." },
@@ -112,13 +118,13 @@ export const financeLesson1: AILessonConfig = {
       question: "Which statement best describes money in this lesson?",
       choices: [
         "A score of how successful someone is as a person",
-        "A tool for making choices and trading for goods and services",
+        "A tool for making choices and buying things you need and want",
         "A guarantee that you will never feel stressed",
         "Something only adults need to think about",
       ],
       correctIndex: 1,
       explanation:
-        "Money is a tool for exchange and planning. It is not a measure of personal worth or a guarantee of happiness.",
+        "Money is a tool for buying things and planning ahead. It is not a measure of personal worth or a guarantee of happiness.",
     },
     {
       id: "q2",

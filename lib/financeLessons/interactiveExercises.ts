@@ -7,7 +7,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "Goal-setting sequence",
       prompt:
-        "Reorder a solid process for turning a vague money wish into a workable goal.",
+        "Reorder the steps for turning a vague money wish into a goal you can actually hit.",
       languageLabel: "process",
       lines: [
         "Name what you want in specific, measurable terms",
@@ -24,20 +24,20 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Tracking and adjusting last keeps the plan alive when hours, prices, or priorities shift. A goal you never review becomes a forgotten promise, not a habit.",
       ],
       explanation:
-        "Strong money goals are specific, costed, timed, broken into steps, and reviewed — not vague wishes.",
+        "Solid money goals are specific, costed, timed, broken into steps, and reviewed — not vague wishes.",
     },
     {
       id: "fl1-debug",
       kind: "debug",
       title: "Goal myth",
-      prompt: "This advice sounds motivating but has a serious flaw. Spot it.",
+      prompt: "This TikTok-style advice sounds motivating but has a serious flaw. Spot it.",
       contentLabel: "Buggy tip",
       buggyContent:
         '"Just \"manifest\" a big lifestyle goal with no dollar amount or deadline. If you want it badly enough, the money will appear. Tracking progress is unnecessary because vibes beat planning."',
       choices: [
         "Goals need a clear amount, timeline, and tracking — wishing alone does not create cash",
         "Deadlines always kill motivation, so never set them",
-        "Only adults with full-time jobs can set money goals",
+        "Only people with full-time jobs can set money goals",
         "Tracking progress is only for people who already failed",
       ],
       correctIndex: 0,
@@ -150,7 +150,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "Needs vs wants triage",
       prompt:
-        "Reorder a smart process for deciding what to buy when money is limited.",
+        "Reorder the steps for deciding what to buy when your money is tight this week.",
       languageLabel: "process",
       lines: [
         "List upcoming essential needs (food, transport, required fees)",
@@ -160,10 +160,10 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Choose which wants fit the leftover — skip or delay the rest",
       ],
       lineExplanations: [
-        "Listing essentials first prevents \"I deserve this\" from crowding out bills you cannot skip. If wants jump the queue, needs get funded with stress or debt.",
+        "Listing essentials first prevents \"I deserve this\" from crowding out stuff you cannot skip — like gas or a phone bill. If wants jump the queue, needs get funded with stress or debt.",
         "Totaling costs next turns a vague sense of \"I need stuff\" into a number. Without a sum, you cannot tell whether your cash covers the basics.",
         "Comparing to available money forces a reality check before shopping. Skipping this step is how people overspend and then scramble.",
-        "Funding needs before ranking wants protects survival and obligations. Ranking first often means the flashiest want wins while rent or lunch money disappears.",
+        "Funding needs before ranking wants protects the basics. Ranking first often means the flashiest want wins while gas or lunch money disappears.",
         "Choosing only the wants that fit leftover cash teaches tradeoffs without guilt. Delaying the rest is not failure — it is budgeting with intention.",
       ],
       explanation:
@@ -176,7 +176,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       prompt: "Spot the flawed claim in this study note.",
       contentLabel: "Buggy note",
       buggyContent:
-        '"If you really want something, it counts as a need. Needs and wants cost the same psychologically, so always buy both. Opportunity cost is only for businesses, not teens."',
+        '"If you really want something, it counts as a need. Needs and wants feel the same, so always buy both. Opportunity cost is only for businesses — not high schoolers."',
       choices: [
         "Wants are not needs; every purchase has an opportunity cost — even for teens",
         "Teens never face tradeoffs because parents pay everything",
@@ -197,7 +197,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         {
           id: "start",
           prompt:
-            "Alex has $45 left until payday. Bus pass refill ($30) is due this week; friends want a $40 group dinner tonight. What first?",
+            "Alex has $45 left until payday. A bus pass refill ($30) is due this week; friends want a $40 group dinner tonight. What first?",
           choices: [
             {
               id: "protect",
@@ -292,12 +292,12 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "Reading a paycheck",
       prompt:
-        "Reorder how to make sense of a first paycheck from gross pay to take-home.",
+        "Reorder the steps for making sense of your first paycheck — from gross to take-home.",
       languageLabel: "process",
       lines: [
         "Find gross pay (hours × rate, or salary for the period)",
         "Identify required deductions (taxes and mandated withholdings)",
-        "Note optional deductions (benefits, retirement, other elections)",
+        "Note optional deductions (benefits, other elections)",
         "Confirm net pay equals gross minus all deductions",
         "Compare net pay to your budget so plans use take-home, not gross",
       ],
@@ -371,10 +371,10 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
           choices: [
             {
               id: "budget-net",
-              label: "Update the spending plan using $186 net and ask HR only if something looks wrong",
+              label: "Update the spending plan using $186 net and ask your manager or payroll only if something looks wrong",
               nextId: "success",
               tone: "best",
-              feedback: "Calm verification plus net-based planning is the professional move.",
+              feedback: "Calm verification plus net-based planning is the smart move.",
             },
             {
               id: "ignore",
@@ -419,7 +419,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
           id: "ignore-end",
           ending: {
             title: "Stub blindness",
-            body: "Paystubs are your audit trail for hours, rate, and withholdings. Skimming them regularly is part of the job.",
+            body: "Paystubs are your audit trail for hours, rate, and withholdings. Skimming them each pay period is part of having a job.",
             isSuccess: false,
           },
           prompt: "Done.",
@@ -435,7 +435,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "Safe account setup",
       prompt:
-        "Reorder a smart sequence for opening and protecting a first bank account.",
+        "Reorder the steps for opening and protecting your first bank account.",
       languageLabel: "process",
       lines: [
         "Compare account fees, minimums, and teen/student rules",
@@ -509,7 +509,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "Budget build order",
       prompt:
-        "Reorder a practical way to build a teen budget that can actually stick.",
+        "Reorder the steps for building a teen budget that can actually stick.",
       languageLabel: "process",
       lines: [
         "List net income for the period (what you truly receive)",
@@ -535,7 +535,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       prompt: "This \"budget hack\" is broken. Spot why.",
       contentLabel: "Buggy hack",
       buggyContent:
-        '"Budgets are only for people in debt. Use your gross pay as the limit. Never adjust mid-month — that means you failed. Fun money is irresponsible, so set it to $0 forever."',
+        '"Budgets are only for people in debt. Use your gross pay as the limit. Never adjust mid-month — that means you failed. Fun money is irresponsible, so set it to $0."',
       choices: [
         "Budgets help anyone; use net pay; adjust when life changes; small fun money improves stickiness",
         "Only millionaires need budgets",
@@ -556,7 +556,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         {
           id: "start",
           prompt:
-            "Sam's monthly net is $400. Planned expenses + savings already total $420. What first?",
+            "Sam's monthly net from a part-time job is $400. Planned expenses + savings already total $420. What first?",
           choices: [
             {
               id: "rebalance",
@@ -651,7 +651,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "Track then protect",
       prompt:
-        "Reorder a healthy cycle for spending tracking and starting an emergency fund.",
+        "Reorder the steps for tracking spending and starting a small emergency fund.",
       languageLabel: "process",
       lines: [
         "Record spending for a couple of weeks without judgment",
@@ -748,7 +748,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
           id: "success",
           ending: {
             title: "Fund used wisely",
-            body: "You kept wants out of the emergency jar, used it for a real disruption, and planned to refill. That is cash-flow maturity.",
+            body: "You kept wants out of the emergency jar, used it for a real disruption, and planned to refill. That is how you handle a starter emergency fund.",
             isSuccess: true,
           },
           prompt: "Done.",
@@ -794,7 +794,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "Credit health habits",
       prompt:
-        "Reorder habits that generally support healthier credit over time (for someone using credit responsibly).",
+        "Reorder the habits that support healthier credit over time (when you use credit responsibly).",
       languageLabel: "process",
       lines: [
         "Understand that credit history reflects payment and balance behavior over time",
@@ -841,7 +841,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         {
           id: "start",
           prompt:
-            "Taylor gets a starter credit card with a $300 limit. Friends say \"spend it all so the bank sees activity.\" What first?",
+            "Taylor gets a starter credit card with a $300 limit. Friends say \"max it out so the bank sees activity.\" What first?",
           choices: [
             {
               id: "plan",
@@ -936,7 +936,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "Debt decision sequence",
       prompt:
-        "Reorder a careful process before taking on a loan or carrying card debt.",
+        "Reorder the steps you should take before taking on a loan or carrying card debt.",
       languageLabel: "process",
       lines: [
         "Confirm the purchase or need is necessary and sized to your income",
@@ -962,7 +962,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       prompt: "Spot the false claim about debt and interest.",
       contentLabel: "Buggy claim",
       buggyContent:
-        '"If the monthly payment is low, the loan is automatically cheap. Interest only matters for mortgages. Buy-now-pay-later never has costs or risks. Making minimum credit payments is the fastest way out of debt."',
+        '"If the monthly payment is low, the loan is automatically cheap. Interest only matters for big adult loans. Buy-now-pay-later never has costs or risks. Making minimum credit payments is the fastest way out of debt."',
       choices: [
         "Low payments can mean long costly terms; interest matters; BNPL has risks; minimums slow payoff",
         "Interest is illegal for people under 18 in all cases",
@@ -979,7 +979,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "order",
       title: "Payoff priority order",
       prompt:
-        "Put these debt-response actions in a sensible order when balances feel stressful.",
+        "Put these debt-response steps in a sensible order when balances feel stressful.",
       items: [
         { id: "list", label: "List every debt with balance, rate, and minimum due" },
         { id: "essentials", label: "Cover essentials and required minimums to stay current" },
@@ -1003,7 +1003,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "Saving & compound path",
       prompt:
-        "Reorder a practical path for building savings that can grow over time.",
+        "Reorder a practical path for building savings from a part-time job that can grow over time.",
       languageLabel: "process",
       lines: [
         "Set a clear savings purpose and starter target",
@@ -1050,7 +1050,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         {
           id: "start",
           prompt:
-            "Casey can auto-transfer $20 per paycheck to savings or keep buying $20 impulse snacks. Goal: $300 headphones in 8 months. What first?",
+            "Casey can auto-transfer $20 per paycheck to savings or keep buying $20 impulse snacks. Goal: $300 for senior prom tickets and outfit in 8 months. What first?",
           choices: [
             {
               id: "auto",
@@ -1077,7 +1077,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         },
         {
           id: "auto-ok",
-          prompt: "At month 3, friends pressure Casey to pause savings for a trip. Best move?",
+          prompt: "At month 3, friends pressure Casey to pause savings for a spring break trip. Best move?",
           choices: [
             {
               id: "adjust",
@@ -1192,7 +1192,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         {
           id: "start",
           prompt:
-            "A classmate says a meme asset will \"10× by Friday\" and urges Priya to put her emergency $200 into it. What first?",
+            "A classmate says a meme asset will \"10× by Friday\" and urges Priya to put her $200 emergency fund (phone repair + bus pass money) into it. What first?",
           choices: [
             {
               id: "pause",
@@ -1288,7 +1288,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "Insurance decision path",
       prompt:
-        "Reorder how to think about insurance before you buy or skip coverage.",
+        "Reorder how to think about insurance before you drive, move out, or skip coverage.",
       languageLabel: "process",
       lines: [
         "Identify risks that would be financially devastating if they happened",
@@ -1409,7 +1409,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         {
           id: "start",
           prompt:
-            "A text says Drew's \"package is held\" and links to a payment page for a $2.99 fee. Drew did not order anything. What first?",
+            "A text says Drew's \"package is held\" and links to a payment page for a $2.99 fee. Drew did not order anything — they were just scrolling after school. What first?",
           choices: [
             {
               id: "ignore",
@@ -1551,7 +1551,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         {
           id: "start",
           prompt:
-            "A pop-up ad promises Kai a huge refund for a \"small unlock fee\" paid in gift cards. Kai has a real W-2 from a summer job. What first?",
+            "A pop-up ad promises Kai a huge refund for a \"small unlock fee\" paid in gift cards. Kai has a real W-2 from a summer lifeguard job. What first?",
           choices: [
             {
               id: "reject",
@@ -1646,7 +1646,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "College money sequence",
       prompt:
-        "Reorder a smart approach to comparing college costs and aid.",
+        "Reorder a smart approach to comparing college costs and aid with your family.",
       languageLabel: "process",
       lines: [
         "Estimate total cost of attendance (not just tuition)",
@@ -1836,7 +1836,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         {
           id: "start",
           prompt:
-            "Morgan can buy a flashy car with a long high-payment loan or a reliable used car with lower total cost. Weekend job income is unstable. What first?",
+            "Morgan can buy a flashy car with a long high-payment loan or a reliable used car with lower total cost. Their weekend job income is unstable — senior year hours vary. What first?",
           choices: [
             {
               id: "total",
@@ -1932,7 +1932,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       kind: "parsons",
       title: "First-year money plan sequence",
       prompt:
-        "Reorder a strong sequence for building a first-year personal money plan.",
+        "Reorder a strong sequence for building your first-year-after-high-school money plan.",
       languageLabel: "process",
       lines: [
         "Clarify top goals for the next 12 months",
@@ -1960,7 +1960,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"Write the plan once in fancy fonts and never look at it again. Skip emergency savings if goals sound exciting. Use credit to fund every want so the plan feels unlimited. Check-ins are only for people who failed."',
       choices: [
-        "Plans need reviews; keep a buffer; credit is not unlimited fun money; check-ins are healthy maintenance",
+        "Plans need reviews; keep a buffer; credit is not unlimited fun money; monthly check-ins are healthy maintenance",
         "Emergency funds cancel your goals permanently",
         "Monthly reviews lower your credit score",
         "Fancy fonts guarantee financial success",

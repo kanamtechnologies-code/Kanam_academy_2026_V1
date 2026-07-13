@@ -38,7 +38,7 @@ export const cyberLesson12: AILessonConfig = {
         id: "why-logs",
         kicker: "The big idea",
         title: "Logs are how defenders reconstruct the story",
-        body: `Without **logs**, incidents turn into guessing games. Logs answer questions like:\n\n• Who signed in, from where, and when?\n• Which file was accessed or changed?\n• Did an admin setting flip unexpectedly?\n• Was there a burst of failed login attempts?\n\nEveryday examples: login history on email, \"recent activity\" on cloud drives, router connection logs, school LMS access records.\n\nDefenders care about **what is logged**, **how long logs are kept**, and **who can alter them**. If an attacker can delete the cameras after a break-in, investigation gets much harder — same idea with logs.`,
+        body: `Without **logs**, incidents turn into guessing games. Logs answer questions like:\n\n• Who signed in, from where, and when?\n• Which file was accessed or changed?\n• Did an admin setting flip unexpectedly?\n• Was there a burst of failed login attempts?\n\n**Clock sync (NTP)** matters because investigators **correlate logs across systems**. If one server's clock is an hour off, login, VPN, and firewall timelines won't line up — and you can't tell whether two events were related or minutes apart.\n\nEveryday examples: login history on email, \"recent activity\" on cloud drives, router connection logs, school LMS access records.\n\nDefenders care about **what is logged**, **how long logs are kept**, **whether clocks are synchronized**, and **who can alter them**. If an attacker can delete the cameras after a break-in, investigation gets much harder — same idea with logs.`,
         bullets: [
           "Logs turn mysteries into timelines.",
           "Protect logs from tampering when possible.",
@@ -53,7 +53,7 @@ export const cyberLesson12: AILessonConfig = {
         id: "detect-vs-prevent",
         kicker: "Two layers",
         title: "Prevention reduces hits; detection catches what slips through",
-        body: `**Prevention** tries to stop attacks: patching, MFA, phishing training, least privilege, hardening.\n\n**Detection** assumes something may still happen: monitoring failed logins, odd file sharing, antivirus alerts, \"new login from nowhere\" notices.\n\nA strong defense uses both. A locked door (prevention) plus an alarm (detection) beats either alone. In cyber, \"we prevented everything forever\" is fantasy — so plan to notice and respond.`,
+        body: `**Prevention** tries to stop attacks: patching, MFA, phishing training, least privilege, hardening.\n\n**Detection** assumes something may still happen: monitoring failed logins, odd file sharing, antivirus alerts, \"new login from nowhere\" notices.\n\n**Detection example — credential stuffing / impossible travel:**\n\n• Many **failed logins** from one address, then one **success** — a pattern that can mean someone guessed or reused a stolen password list.\n• **Successful logins from far-away places minutes apart** — sometimes called **impossible travel** when the timing doesn't fit normal human movement.\n• Defenders **correlate login, VPN, and MFA logs** around the success time to confirm scope: Was MFA challenged? Did VPN connect from the same region? What changed after the success?\n\nA strong defense uses both prevention and detection. A locked door (prevention) plus an alarm (detection) beats either alone. In cyber, \"we prevented everything forever\" is fantasy — so plan to notice and respond.`,
         callout: {
           label: "Common misconception",
           text: "\"We have strong passwords, so we don't need monitoring.\" Credentials still get phished. Detection catches the unusual sign-in afterward.",
@@ -102,7 +102,7 @@ export const cyberLesson12: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Logs** create timelines defenders can trust.\n• **Prevention** and **detection** work together.\n• IR basics: **identify → contain → eradicate → recover → lessons**.\n• Know **who to tell** and avoid panic moves that make recovery harder.\n\nTake the **Knowledge check**, then reflect on an incident scenario and your first three actions.`,
+        body: `Quick recap:\n\n• **Logs** create timelines defenders can trust; **NTP clock sync** enables correlation.\n• **Prevention** and **detection** work together.\n• Watch for **credential stuffing** and **impossible-travel** patterns; correlate login, VPN, and MFA logs.\n• IR basics: **identify → contain → eradicate → recover → lessons**.\n• Know **who to tell** and avoid panic moves that make recovery harder.\n\nTake the **Knowledge check**, then reflect on an incident scenario and your first three actions.`,
       },
     ],
   },
@@ -120,6 +120,8 @@ export const cyberLesson12: AILessonConfig = {
     { term: "Incident response (IR)", definition: "An organized process for handling and recovering from incidents." },
     { term: "Containment", definition: "Limiting an incident's spread and damage while response continues." },
     { term: "Lessons learned", definition: "The post-incident review that improves defenses and playbooks." },
+    { term: "NTP", definition: "Network Time Protocol — synchronizes clocks so logs from different systems can be correlated accurately." },
+    { term: "Impossible travel", definition: "A detection pattern where logins from distant locations appear too close together in time to be one person traveling normally." },
   ],
   realWorld:
     "You get a \"new sign-in\" alert for school email from a city you've never visited. **Detection** gave you the signal; next you **contain** (revoke sessions, reset password, confirm MFA), tell IT if it's a school account, then review **logs**/activity for what else changed.",

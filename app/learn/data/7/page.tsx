@@ -95,7 +95,7 @@ const daLesson7: DataLessonConfig = {
         },
         callout: {
           label: "Pro tip",
-          text: "Everything you've already learned still works *after* a JOIN. You can add `WHERE` to filter, `ORDER BY` to sort, and `LIMIT` to take the top few — all on the combined rows. JOIN just gives you a bigger, richer table to ask questions about.",
+          text: "Everything you've already learned still works *after* a JOIN. You can add `WHERE` to filter, `ORDER BY price DESC` to sort biggest-first, and `LIMIT 1` to grab the single top row — all on the combined rows. JOIN just gives you a bigger, richer table to ask questions about.",
         },
       },
       {

@@ -16,10 +16,12 @@ export const financeLesson8: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
+        image: "/images/lessons/fl-8.png",
+        imageAlt: "Teen comparing loan APR fine print on a laptop while holding a calculator",
         body: `Borrowing can help when used carefully — and it can become a trap when costs are unclear or payments never shrink the balance. Today you'll learn the language of **interest**, spot high-risk products, and see why **minimum payments** can keep you in debt for years.\n\nHere's our roadmap:\n\n• **Principal and interest** — what you borrowed vs. the cost of borrowing.\n• **APR** — a standardized way to talk about yearly cost.\n• **How balances grow** — simple mental math, not lender software.\n• **Debt traps** — payday loans, risky BNPL habits, fee spirals.\n• **Minimum payments** — why \"affordable today\" can be expensive tomorrow.\n\nEducational awareness only — not a recommendation to take or avoid a specific loan for your personal situation. When in doubt, ask a trusted adult and read terms slowly.`,
         callout: {
           label: "Why it matters",
-          text: "Understanding interest turns scary fine print into a decision you can evaluate — before a balance owns your future cash flow.",
+          text: "Understanding interest turns scary fine print into a decision you can evaluate — before a balance owns your future paychecks.",
         },
       },
       {
@@ -36,6 +38,8 @@ export const financeLesson8: AILessonConfig = {
         id: "principal-interest",
         kicker: "The big idea",
         title: "Principal is the loan; interest is the rental fee on money",
+        image: "/images/lessons/fl-8-2.png",
+        imageAlt: "Clear diagram: Principal amount plus Interest growing over time on a small loan example",
         body: `When you borrow **$1,000**, that $1,000 is the starting **principal**. The lender charges **interest** for letting you use that money.\n\nRough intuition (not a full amortization lesson):\n\n• Higher rate → faster-growing cost if you carry a balance.\n• Longer time carrying a balance → more total interest paid.\n• Paying more than the minimum → usually shrinks principal faster → less interest over time.\n\nCredit cards often charge interest on revolving balances if you don't pay in full. Installment loans (like many auto loans) have scheduled payments of principal + interest over a term.\n\nDebt Defender mindset: interest is not a surprise \"gotcha\" if you read it — but it *feels* like a gotcha if you only look at the monthly payment.`,
         bullets: [
           "**Principal** = amount borrowed / owed before interest.",
@@ -61,7 +65,9 @@ export const financeLesson8: AILessonConfig = {
         id: "traps",
         kicker: "High risk",
         title: "Debt traps to recognize early",
-        body: `**Payday-style loans**\nOften marketed as quick fixes until payday. Costs can be extremely high, and many borrowers struggle to repay without reborrowing — a cycle.\n\n**BNPL (Buy Now, Pay Later)**\nCan be fine when you already had the money and just want scheduling — and you pay every installment on time. It becomes risky when you stack multiple plans, lose track of due dates, or buy things you couldn't afford in cash. Late fees and credit reporting can apply depending on the provider.\n\n**Fee spirals**\nLate fees + penalty rates + over-limit fees can make a balance balloon beyond the original purchase.\n\n**\"Easy approval\" culture**\nIf the marketing focuses on speed and lifestyle — not cost and repayment — pause. Debt Defender instinct: slow down.`,
+        image: "/images/lessons/fl-8-3.png",
+        imageAlt: "Realistic phone screen showing a buy-now-pay-later checkout with a sticky note warning Read the total cost",
+        body: `**Payday-style loans**\nOften marketed as quick fixes until payday. Costs can be extremely high, and many borrowers struggle to repay without reborrowing — a cycle.\n\n**BNPL (Buy Now, Pay Later)**\nCan be fine when you already had the money and just want scheduling — and you pay every installment on time. It becomes risky when you stack multiple plans for online shopping, lose track of due dates, or buy things you couldn't afford in cash. Late fees and credit reporting can apply depending on the provider.\n\n**Fee spirals**\nLate fees + penalty rates + over-limit fees can make a balance balloon beyond the original purchase.\n\n**\"Easy approval\" culture**\nIf the marketing focuses on speed and lifestyle — not cost and repayment — pause. Debt Defender instinct: slow down.`,
         bullets: [
           "High cost + short fuse + reborrowing = danger pattern.",
           "BNPL is still debt — track every installment.",
@@ -83,10 +89,25 @@ export const financeLesson8: AILessonConfig = {
         },
       },
       {
+        id: "payoff-plan",
+        kicker: "Already in debt",
+        title: "If you already have debt — a payoff order",
+        body: `If you already owe money — a starter card balance, stacked **BNPL** plans, or a small loan — use this order to fight back without panic:\n\n**1. List every debt** — balance, interest rate (APR), and minimum payment for each.\n\n**2. Cover essentials and all minimums** — rent, food, transport, and every required minimum so you stay current and avoid new late fees.\n\n**3. Put extra toward highest-rate or chosen focus debt** — once you're current, send any extra to the most expensive balance (or one you want gone first).\n\n**4. Cut new nonessential charges while paying down** — paying off while still charging wants is a treadmill. Pause the wants that feed new balances.\n\n**5. Review monthly** — check progress, adjust if income changed, and avoid new high-cost debt.\n\nThis works for teen-scale debt too: one card, a few BNPL installments, maybe a small personal loan. The point is a **map and a rhythm**, not shame.`,
+        bullets: [
+          "You cannot fix what you have not listed.",
+          "Minimums first — then attack with extra.",
+          "Monthly review keeps the plan alive.",
+        ],
+        callout: {
+          label: "Why it matters",
+          text: "Random tiny payments everywhere feel busy but move slowly. A written order turns \"I'm stressed\" into \"here's step three.\"",
+        },
+      },
+      {
         id: "defense",
         kicker: "Defend yourself",
         title: "A Debt Defender checklist",
-        body: `Before borrowing:\n\n**1. Need vs. want?** Is this necessary enough to owe money?\n**2. Total cost?** APR, fees, and estimated total payoff — not just monthly payment.\n**3. Cash-flow fit?** Can you pay as agreed without skipping needs/goals?\n**4. Exit plan?** When will principal hit zero?\n**5. Trap check?** Payday/reborrow cycle, stacked BNPL, or minimum-only forever?\n\nIf answers are fuzzy, wait. Fuzzy debt is expensive debt.\n\nRemember: this track teaches defense and literacy — not fear of all borrowing, and not get-rich schemes. Loans for education or necessary transportation can be tools when terms are clear and payments are planned.`,
+        body: `Before borrowing:\n\n**1. Need vs. want?** Is this necessary enough to owe money?\n**2. Total cost?** APR, fees, and estimated total payoff — not just monthly payment.\n**3. Cash-flow fit?** Can you pay as agreed without skipping needs/goals?\n**4. Exit plan?** When will principal hit zero?\n**5. Trap check?** Payday/reborrow cycle, stacked BNPL, or minimum-only forever?\n\nIf answers are fuzzy, wait. Fuzzy debt is expensive debt.\n\nRemember: this track teaches defense and literacy — not fear of all borrowing, and not get-rich schemes. A used car loan or student loan can be a tool when terms are clear and payments are planned.`,
         callout: {
           label: "Try this week",
           text: "Find a sample credit card or loan disclosure online (educational). Highlight APR, late fee, and minimum payment language — just to practice reading.",
@@ -96,7 +117,7 @@ export const financeLesson8: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Principal** is what you borrow; **interest** is the cost of borrowing over time.\n• **APR** helps compare yearly borrowing costs.\n• **Payday loans**, careless **BNPL**, and fee spirals are high-risk patterns.\n• **Minimum payments** can keep you in debt far longer — and cost far more — than the sticker price.\n• Debt Defenders read terms, plan payoff, and refuse confusion marketing.\n\nWhen you're ready, switch to the **Knowledge check**, then reflect on one debt trap you'll refuse to normalize.`,
+        body: `Quick recap:\n\n• **Principal** is what you borrow; **interest** is the cost of borrowing over time.\n• **APR** helps compare yearly borrowing costs.\n• **Payday loans**, careless **BNPL**, and fee spirals are high-risk patterns.\n• **Minimum payments** can keep you in debt far longer — and cost far more — than the sticker price.\n• **Already in debt?** List balances, cover minimums, attack with extra, cut new charges, review monthly.\n• Debt Defenders read terms, plan payoff, and refuse confusion marketing.\n\nWhen you're ready, switch to the **Knowledge check**, then reflect on one debt trap you'll refuse to normalize.`,
       },
     ],
   },
@@ -133,16 +154,16 @@ export const financeLesson8: AILessonConfig = {
     },
     {
       id: "q2",
-      question: "Why is APR useful?",
+      question: "You see a BNPL ad: \"4 payments of $25 — no interest!\" Why is APR still useful to understand?",
       choices: [
         "It guarantees you will be approved for every loan",
-        "It helps compare the yearly cost of borrowing more clearly",
+        "It helps compare the yearly cost of borrowing more clearly — and missed BNPL payments can still have costs",
         "It replaces the need to repay principal",
         "It is the same as your net pay",
       ],
       correctIndex: 1,
       explanation:
-        "APR is a standardized yearly cost signal that helps consumers compare credit products.",
+        "APR is a standardized yearly cost signal. Even BNPL can have fees or consequences if you miss payments.",
     },
     {
       id: "q3",

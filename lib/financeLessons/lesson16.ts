@@ -3,7 +3,7 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const financeLesson16: AILessonConfig = {
   id: "fl-16",
   title: "16. Capstone: Your First-Year Money Plan",
-  goal: "Synthesize the Financial Literacy track into a practical 12-month plan — goals, budget, emergency fund, credit habits, scam defense, and calm big decisions — without get-rich promises.",
+  goal: "Synthesize the Financial Literacy track into a practical 12-month plan for your first year after high school — college, work, or a mix — without get-rich promises.",
   xpReward: 800,
   badge: "Money Planner",
   dashboardHref: "/dashboard",
@@ -15,17 +15,19 @@ export const financeLesson16: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `This is your **Financial Literacy capstone**. You'll turn the whole track into one usable plan for the next year — not a fantasy lifestyle, a Money Planner blueprint.\n\nHere's the plan:\n\n• Meet a **first-year scenario** you can adapt to your life.\n• Fast **track recap** of tools you already built.\n• Lock **goals + budget + emergency fund**.\n• Set **credit, saving/investing awareness, and protection** habits.\n• Add **scam defense + big-decision rules**.\n• Write a **12-month money plan** you could actually follow.\n\nBy the end, you should sound like someone who owns their next year of money decisions.`,
+        image: "/images/lessons/fl-16.png",
+        imageAlt: "Capstone desk: calendar for first year after high school, budget notebook, and a checklist titled Money plan",
+        body: `This is your **Financial Literacy capstone**. You'll turn the whole track into one usable plan for your **first year after high school** — not a 30-year retirement fantasy, but a Money Planner blueprint you could actually run.\n\nHere's the plan:\n\n• Meet a **first-year scenario** you can adapt to your life.\n• Fast **track recap** of tools you already built.\n• Lock **goals + budget + emergency fund**.\n• Set **credit, saving/investing awareness, and protection** habits.\n• Add **scam defense + big-decision rules**.\n• Write a **12-month money plan** for college-or-work year one.\n\nBy the end, you should sound like someone who owns their next year of money decisions.`,
         callout: {
           label: "Why it matters",
-          text: "Knowledge without a plan fades. A one-page plan with dates and amounts becomes a habit system.",
+          text: "Knowledge without a plan fades. A one-page plan with dates and amounts becomes a habit system — especially when life gets busier after graduation.",
         },
       },
       {
         id: "scenario",
         kicker: "Your mission",
-        title: "Scenario: Jordan's first year of more independence",
-        body: `Meet **Jordan**, 17–18, heading into a year with more money responsibility:\n\n• Part-time job (~$200–$400 take-home some weeks; uneven hours).\n• Phone plan on family account for now; wants upgrades.\n• Thinking about a used car *or* sticking with transit.\n• Has a small savings balance but dips into it for impulse buys.\n• Curious about credit but hasn't built habits yet.\n• Applies to programs/schools and sees aid letters that mix grants and loans.\n• Family is helpful but wants Jordan to show a plan.\n\nYour job: build Jordan a **12-month money plan** using Lessons 1–15. Then adapt the same structure to *you*.`,
+        title: "Scenario: Jordan's first year after high school",
+        body: `Meet **Jordan**, 18, in their first year of more independence — either starting college or working full-time:\n\n• Part-time job or campus work (~$200–$400 take-home some weeks; uneven hours).\n• Phone plan on family account for now; wants upgrades.\n• Thinking about a used car *or* sticking with transit.\n• Has a small savings balance but dips into it for impulse buys.\n• Curious about credit but hasn't built habits yet.\n• If in college: aid letters that mix grants and loans; scholarship apps still open.\n• If working: first apartment with roommates is on the horizon.\n• Family is helpful but wants Jordan to show a plan.\n\nYour job: build Jordan a **12-month money plan** using Lessons 1–15. Then adapt the same structure to *you*.`,
         callout: {
           label: "Constraints",
           text: "No viral side-hustle miracles. Use realistic income, clear priorities, and defenses against scams and lifestyle creep.",
@@ -45,6 +47,8 @@ export const financeLesson16: AILessonConfig = {
         id: "core-plan",
         kicker: "Apply it",
         title: "Goals, budget, and emergency fund first",
+        image: "/images/lessons/fl-16-2.png",
+        imageAlt: "Infographic first-year money plan pillars: Income, Budget, Emergency cushion, Goals",
         body: `For Jordan (and you), start where stability lives:\n\n1. **Goals** — one near-term (3 months), one medium (12 months). Make them specific amounts.\n2. **Budget** — net income → needs → savings transfer → wants. Pay yourself first even if small.\n3. **Emergency fund** — a starter target (even $200–$500) in a separate place before upgrade sprees.\n4. **Tracking** — weekly 10-minute check: what came in, what went out, what to adjust.\n\nIf income is uneven, budget with a **low-week baseline** and treat extra hours as bonus toward goals — not instant lifestyle.`,
         bullets: [
           "Write goals with dollar amounts and dates.",
@@ -70,6 +74,8 @@ export const financeLesson16: AILessonConfig = {
         id: "twelve-month",
         kicker: "Deliverable",
         title: "12-month money plan template",
+        image: "/images/lessons/fl-16-3.png",
+        imageAlt: "12-month roadmap poster on a wall with quarterly money goals for a recent high school graduate",
         body: `Hand this structure to yourself (or a parent/sponsor):\n\n**1. Income reality** — typical monthly net; low-week plan.\n**2. Top 3 goals** — amounts + months.\n**3. Budget rules** — needs %, auto-save amount, wants cap.\n**4. Emergency fund milestones** — 3-month and 12-month targets.\n**5. Credit rules** — if any card/loan: pay-on-time covenant.\n**6. Big decisions gate** — phone/car/housing must pass total-cost + 72-hour wait.\n**7. Scam protocol** — no gift cards/codes under pressure; verify officially.\n**8. Learning calendar** — quarterly checkup: budget, goals, aid/tax deadlines if relevant.\n**9. Review dates** — first Sunday each month.\n\nShort beats perfect. A plan you follow beats a novel you ignore.`,
         bullets: [
           "Name dollar amounts, not vibes.",
@@ -85,7 +91,7 @@ export const financeLesson16: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn — build the year",
-        body: `You've walked the full money path. Capstone recap:\n\n• Synthesize **goals, budget, emergency fund, credit habits, saving/investing awareness, insurance, scam defense, taxes/aid literacy, and decision frameworks**.\n• Favor a few high-impact rules with review dates.\n• Write a 12-month plan you could actually run.\n\nComplete the **Knowledge check** (it mixes ideas across the track), then write your **first-year money plan** in the reflection. You've earned the **Money Planner** finish line — go show the synthesis.`,
+        body: `You've walked the full money path. Capstone recap:\n\n• Synthesize **goals, budget, emergency fund, credit habits, saving/investing awareness, insurance, scam defense, taxes/aid literacy, and decision frameworks**.\n• Favor a few high-impact rules with review dates.\n• Write a 12-month plan for your first year after high school.\n\nComplete the **Knowledge check** (it mixes ideas across the track), then write your **first-year money plan** in the reflection. You've earned the **Money Planner** finish line — go show the synthesis.`,
       },
     ],
   },
@@ -174,7 +180,7 @@ export const financeLesson16: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Write your first-year money plan (or Jordan's). Include: top goals with amounts, budget/auto-save rules, emergency fund milestones, credit/scam/decision rules, and when you'll review each month.",
+      "Write your first-year-after-high-school money plan (or Jordan's). Include: top goals with amounts, budget/auto-save rules, emergency fund milestones, credit/scam/decision rules, and when you'll review each month.",
     placeholder:
       "Example: Goals — $400 emergency by December; $150 activity fund by June. Auto-save $20 on each payday. Scam rule — no codes/gift cards under pressure. Car/phone — 72-hour wait + total cost sheet. Review — first Sunday…",
   },

@@ -3,7 +3,7 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const financeLesson9: AILessonConfig = {
   id: "fl-9",
   title: "9. Saving & Compound Growth",
-  goal: "Explain interest, compounding, pay-yourself-first, and the time value of money — and build teen-friendly habits that let savings grow without get-rich promises.",
+  goal: "Explain interest, compounding, pay-yourself-first, and the time value of money — and build habits that let your savings grow without get-rich promises.",
   xpReward: 450,
   badge: "Growth Saver",
   dashboardHref: "/dashboard",
@@ -16,17 +16,19 @@ export const financeLesson9: AILessonConfig = {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Saving isn't just "putting money aside." It's giving your future self options — and understanding how **interest** and **time** can work for you. Today you'll learn how growth actually works, without hype.\n\nHere's our roadmap:\n\n• **Why saving beats hoping** — goals need cash sitting ready.\n• **Interest** — the fee for borrowing, or the reward for lending/saving.\n• **Compounding** — earning growth on your growth.\n• **Time value of money** — a dollar today vs later.\n• **Pay yourself first** — automation that beats willpower.\n• **Realistic teen tactics** — small, steady beats flashy.\n\nNo get-rich shortcuts. Just clear math and habits that scale with your income.`,
+        image: "/images/lessons/fl-9.png",
+        imageAlt: "Teen transferring money to savings on a banking app after a paycheck, realistic phone in hand",
+        body: `Saving isn't just "putting money aside." It's giving your future self options — and understanding how **interest** and **time** can work for you. Today you'll learn how growth actually works, without hype.\n\nHere's our roadmap:\n\n• **Why saving beats hoping** — prom tickets and car repairs need cash sitting ready.\n• **Interest** — the fee for borrowing, or the reward for lending/saving.\n• **Compounding** — earning growth on your growth.\n• **Time value of money** — a dollar today vs. later.\n• **Pay yourself first** — automation that beats willpower.\n• **Real teen tactics** — small, steady beats flashy.\n\nNo get-rich shortcuts. Just clear math and habits that scale with your paycheck.`,
         callout: {
           label: "Why it matters",
-          text: "Starting early — even with small amounts — can matter more than waiting for a 'perfect' larger amount later. Time is a tool you already have.",
+          text: "Starting early — even with $10 a week from a part-time job — can matter more than waiting for a 'perfect' larger amount later. Time is a tool you already have.",
         },
       },
       {
         id: "glossary",
         kicker: "Let's break down the words",
         title: "Saving words in plain English",
-        body: `These terms show up on apps, statements, and adult conversations. Here's the teen translation:\n\n• **Interest** — money paid for the use of money (you earn it on savings; you pay it on loans).\n• **Principal** — the original amount you save or borrow, before interest.\n• **Compound interest** — interest calculated on principal *plus* interest already earned.\n• **APY / rate** — a percentage that describes how fast money grows (or how expensive a loan is).\n• **Pay yourself first** — treating savings as a non-negotiable "bill" you pay before discretionary spending.\n• **Time value of money** — money available now can be used or grown; waiting has a cost.\n\nWe'll use each idea with examples next — no memorizing first.`,
+        body: `These terms show up on banking apps, statements, and adult conversations. Here's the teen translation:\n\n• **Interest** — money paid for the use of money (you earn it on savings; you pay it on loans).\n• **Principal** — the original amount you save or borrow, before interest.\n• **Compound interest** — interest calculated on principal *plus* interest already earned.\n• **APY / rate** — a percentage that describes how fast money grows (or how expensive a loan is).\n• **Pay yourself first** — treating savings as a non-negotiable "bill" you pay before discretionary spending.\n• **Time value of money** — money available now can be used or grown; waiting has a cost.\n\nWe'll use each idea with examples next — no memorizing first.`,
         callout: {
           label: "Pro tip",
           text: "If a word feels fuzzy, swap in the plain meaning: interest ≈ 'rent on money'; compounding ≈ 'growth on growth.'",
@@ -36,7 +38,7 @@ export const financeLesson9: AILessonConfig = {
         id: "interest",
         kicker: "The big idea",
         title: "Interest: earning (or paying) for the use of money",
-        body: `When you keep money in a savings-style account that pays interest, the institution pays **you** a small percentage for using those deposits. When you borrow, **you** pay interest to the lender.\n\nSimple picture: save $100 at 4% for a year (simplified annual interest) → about $4 of interest, so you end near $104. Real accounts may compound more often and rates change — the point is direction, not a promise.\n\nInterest rates on savings are often modest. That's okay. The skill is building the habit so larger amounts later have a place to grow — and so you're not forced into expensive borrowing when life happens.`,
+        body: `When you keep money in a savings account that pays interest, the bank pays **you** a small percentage for using those deposits. When you borrow — like a car loan or credit card — **you** pay interest to the lender.\n\nSimple picture: save $100 at 4% for a year (simplified annual interest) → about $4 of interest, so you end near $104. Real accounts may compound more often and rates change — the point is direction, not a promise.\n\nInterest rates on savings are often modest. That's okay. The skill is building the habit so larger amounts later have a place to grow — and so you're not forced into expensive borrowing when your phone dies or your car needs tires.`,
         bullets: [
           "**Earn** interest when you save/lend; **pay** interest when you borrow.",
           "Rate × time × principal drive the rough size of interest.",
@@ -51,7 +53,9 @@ export const financeLesson9: AILessonConfig = {
         id: "compounding",
         kicker: "Growth on growth",
         title: "Compounding: why starting early helps",
-        body: `**Compounding** means interest gets added to your balance, and then future interest is calculated on that larger balance. Over years, the "interest on interest" can become a bigger share of growth.\n\nTiny illustration (rounded, educational only):\n• Save $50/month for years → the balance grows from deposits *and* any interest earned.\n• Someone who starts later may need much higher monthly deposits to catch up — because they missed years of compounding.\n\nCompounding is powerful **and** slow at first. Early balances look boring. That's normal. The edge is consistency + time, not a viral tip.`,
+        image: "/images/lessons/fl-9-2.png",
+        imageAlt: "Educational compound growth chart: small deposits growing steeper over years, teal and navy colors",
+        body: `**Compounding** means interest gets added to your balance, and then future interest is calculated on that larger balance. Over years, the "interest on interest" can become a bigger share of growth.\n\nTiny illustration (rounded, educational only):\n• Save $25 from each paycheck for a year → the balance grows from deposits *and* any interest earned.\n• Someone who starts senior year may need much higher monthly deposits to catch up to a friend who started sophomore year — because they missed years of compounding.\n\nCompounding is powerful **and** slow at first. Early balances look boring. That's normal. The edge is consistency + time, not a viral tip.`,
         callout: {
           label: "Myth check",
           text: "Compounding is not a lottery ticket. It rewards patience and regular deposits — not day trading or 'doubling in a week' schemes.",
@@ -61,7 +65,7 @@ export const financeLesson9: AILessonConfig = {
         id: "time-value",
         kicker: "Tradeoffs",
         title: "Time value of money — and pay yourself first",
-        body: `A dollar you can use **today** is different from a dollar you only get later — because today's dollar can be spent, saved, or invested (with risk). That's the **time value of money** in everyday language.\n\n**Pay yourself first** is the habit that turns the idea into action:\n1. Get paid (job, allowance, gigs).\n2. Move a planned amount to savings *before* shopping and subscriptions.\n3. Live on what's left — adjust the plan if needed, don't skip the transfer forever.\n\nAutomation helps: scheduled transfers beat "I'll save whatever's left" (often nothing). Pair this with goals from earlier lessons so the money has a purpose.`,
+        body: `A dollar you can use **today** is different from a dollar you only get later — because today's dollar can be spent, saved, or invested (with risk). That's the **time value of money** in everyday language.\n\n**Pay yourself first** is the habit that turns the idea into action:\n1. Get paid (part-time job, allowance, babysitting).\n2. Move a planned amount to savings *before* you hit the mall or renew subscriptions.\n3. Live on what's left — adjust the plan if needed, don't skip the transfer forever.\n\nAutomation helps: scheduled transfers beat "I'll save whatever's left" (often nothing). Pair this with goals from earlier lessons — prom fund, sports gear, first-apartment starter — so the money has a purpose.`,
         bullets: [
           "Decide the savings amount when you're calm — not mid-scroll in a store.",
           "Even 5–10% of income (when possible) builds muscle memory.",
@@ -69,14 +73,16 @@ export const financeLesson9: AILessonConfig = {
         ],
         callout: {
           label: "Try this week",
-          text: "Name one savings target and one automatic or recurring transfer (even $5–10) that moves money before you spend.",
+          text: "Name one savings target (even $50 for a school event) and one automatic or recurring transfer — even $5 — that moves money before you spend.",
         },
       },
       {
         id: "teen-tactics",
         kicker: "Make it real",
         title: "Teen-ready growth habits (no hype)",
-        body: `You don't need a huge paycheck to practice Growth Saver skills:\n\n• **Split windfalls** — birthday money or a tax refund: enjoy some, save some, don't invent a lifestyle on one-time cash.\n• **Raise the floor** — when income goes up, increase the automatic save a little before lifestyle expands.\n• **Protect the pile** — keep emergency money boring and accessible; don't treat it like play money.\n• **Ignore flex culture** — someone else's new sneakers aren't a financial plan.\n\nGrowth is mostly behavior: deposit regularly, avoid high-interest debt traps you already studied, and let time do quiet work.`,
+        image: "/images/lessons/fl-9-3.png",
+        imageAlt: "Photo of automatic transfer reminder on a calendar next to a labeled savings envelope for a prom fund",
+        body: `You don't need a huge paycheck to practice Growth Saver skills:\n\n• **Split windfalls** — birthday money or a tax refund: enjoy some, save some, don't invent a lifestyle on one-time cash.\n• **Raise the floor** — when your hours go up at work, increase the automatic save a little before lifestyle expands.\n• **Protect the pile** — keep emergency money boring and accessible; don't treat it like play money for a weekend.\n• **Ignore flex culture** — someone else's new sneakers or car aren't a financial plan.\n\nGrowth is mostly behavior: deposit regularly, avoid high-interest debt traps you already studied, and let time do quiet work.`,
         callout: {
           label: "Reality check",
           text: "If money is extremely tight, saving may be tiny or paused while you cover needs. The principle still matters: when cash flow allows, rebuild the habit.",
@@ -104,7 +110,7 @@ export const financeLesson9: AILessonConfig = {
     { term: "APY / interest rate", definition: "A percentage describing how quickly savings grow (or how expensive borrowing is)." },
   ],
   realWorld:
-    "A student who automatically moves $20 from each paycheck into savings may feel little pain week to week — but builds a balance that can cover a phone repair or bus pass without a high-interest loan.",
+    "You automatically move $15 from each paycheck into savings. Week to week you barely notice — but after a few months you've got enough to cover a cracked phone screen or a bus pass without a high-interest loan.",
   quiz: [
     {
       id: "q1",
@@ -174,8 +180,8 @@ export const financeLesson9: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Name one savings goal and describe how you'll pay yourself first this month (amount or percent, when you'll move it, and how you'll protect that money from impulse spending).",
+      "Name one savings goal (prom, sports gear, car fund, etc.) and describe how you'll pay yourself first this month — amount or percent, when you'll move it, and how you'll protect that money from impulse spending.",
     placeholder:
-      "Example: Goal — $150 emergency buffer. I'll transfer $15 every Friday from paycheck/allowance before weekend spending…",
+      "Example: Goal — $150 for senior trip. I'll transfer $15 every Friday from my paycheck before weekend spending…",
   },
 };
