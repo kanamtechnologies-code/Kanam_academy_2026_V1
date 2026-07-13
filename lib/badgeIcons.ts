@@ -23,9 +23,11 @@ import {
   Gauge,
   GitBranch,
   Globe2,
+  GraduationCap,
   Handshake,
   HeartPulse,
   KeyRound,
+  Landmark,
   Layers,
   Library,
   Link2,
@@ -49,6 +51,7 @@ import {
   Target,
   Trophy,
   Users,
+  Wallet,
   Wrench,
 } from "lucide-react";
 
@@ -139,6 +142,24 @@ export const LESSON_BADGE_ICONS: Record<string, LucideIcon> = {
   "cs-14": ScanSearch,
   "cs-15": Scale,
   "cs-16": Trophy,
+
+  // Financial Literacy
+  "fl-1": Wallet,
+  "fl-2": Scale,
+  "fl-3": Briefcase,
+  "fl-4": Landmark,
+  "fl-5": ListChecks,
+  "fl-6": Gauge,
+  "fl-7": ChartLine,
+  "fl-8": ShieldCheck,
+  "fl-9": Sparkles,
+  "fl-10": ChartPie,
+  "fl-11": Shield,
+  "fl-12": Eye,
+  "fl-13": FileStack,
+  "fl-14": GraduationCap,
+  "fl-15": Target,
+  "fl-16": Trophy,
 };
 
 /** Fallback when a lesson id is unknown. */
@@ -231,6 +252,22 @@ export function lessonIdFromBadgeLabel(badge: string): string | null {
     ["privacy scout", "cs-14"],
     ["risk analyst", "cs-15"],
     ["cyber defender", "cs-16"],
+    ["money starter", "fl-1"],
+    ["tradeoff thinker", "fl-2"],
+    ["paycheck pro", "fl-3"],
+    ["banking basics", "fl-4"],
+    ["budget builder", "fl-5"],
+    ["cash flow keeper", "fl-6"],
+    ["credit reader", "fl-7"],
+    ["debt defender", "fl-8"],
+    ["growth saver", "fl-9"],
+    ["investor apprentice", "fl-10"],
+    ["coverage checker", "fl-11"],
+    ["consumer guardian", "fl-12"],
+    ["tax rookie", "fl-13"],
+    ["aid navigator", "fl-14"],
+    ["decision pro", "fl-15"],
+    ["money planner", "fl-16"],
   ];
   for (const [label, id] of entries) {
     if (name === label || name.endsWith(label)) return id;

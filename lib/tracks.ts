@@ -24,7 +24,7 @@ export type WeekPlan = {
 };
 
 export type Track = {
-  id: "python-starter" | "data-analyst" | "ai-literacy" | "digital-literacy" | "cybersecurity";
+  id: "python-starter" | "data-analyst" | "ai-literacy" | "digital-literacy" | "cybersecurity" | "financial-literacy";
   title: string;
   subtitle: string;
   icon: string;
@@ -149,6 +149,17 @@ export const CYBERSECURITY_WEEKS: WeekPlan[] = [
   { week: 8, theme: "Risk & Capstone", focus: "Risk assessment and controls, then a capstone defense plan for a real scenario." },
 ];
 
+export const FINANCIAL_LITERACY_WEEKS: WeekPlan[] = [
+  { week: 1, theme: "Money Foundations", focus: "What money is for, goals, values, and smart needs-vs-wants decisions." },
+  { week: 2, theme: "Earning & Banking", focus: "Paychecks and taxes basics, then checking, savings, and debit vs credit cards." },
+  { week: 3, theme: "Budgeting & Cash Flow", focus: "Build a real budget, track spending, and start an emergency fund." },
+  { week: 4, theme: "Credit & Debt", focus: "Credit scores and reports, then interest, loans, and avoiding debt traps." },
+  { week: 5, theme: "Saving & Investing", focus: "Compound growth, saving strategies, and investing basics with risk in mind." },
+  { week: 6, theme: "Protection & Consumer Power", focus: "Insurance basics, then scams, fraud, and consumer rights." },
+  { week: 7, theme: "Taxes, Jobs & Big Costs", focus: "First-job taxes and pay stubs, then college costs, aid, and student loan awareness." },
+  { week: 8, theme: "Plan & Capstone", focus: "Big money tradeoffs, then ship your First-Year Money Plan." },
+];
+
 export const DATA_ANALYST_WEEKS: WeekPlan[] = [
   { week: 1, theme: "What Data Is", focus: "Rows, columns, and your first SELECT queries." },
   { week: 2, theme: "Choosing & Filtering", focus: "Pick the columns you need and filter rows with WHERE." },
@@ -251,6 +262,25 @@ const CYBERSECURITY_LESSONS: LessonRow[] = [
   { id: "cs-16", title: "Capstone: Defend the Scenario", href: "/learn/cyber/16", xp: 800, badgeName: "Cyber Defender", badgeIcon: "", week: 8, session: 2, hasLesson: true },
 ];
 
+const FINANCIAL_LITERACY_LESSONS: LessonRow[] = [
+  { id: "fl-1", title: "Money, Goals & You", href: "/learn/finance/1", xp: 50, badgeName: "Money Starter", badgeIcon: "", week: 1, session: 1, hasLesson: true },
+  { id: "fl-2", title: "Needs, Wants & Tradeoffs", href: "/learn/finance/2", xp: 100, badgeName: "Tradeoff Thinker", badgeIcon: "", week: 1, session: 2, hasLesson: true },
+  { id: "fl-3", title: "Paychecks, Income & Taxes", href: "/learn/finance/3", xp: 150, badgeName: "Paycheck Pro", badgeIcon: "", week: 2, session: 1, hasLesson: true },
+  { id: "fl-4", title: "Banks, Accounts & Cards", href: "/learn/finance/4", xp: 200, badgeName: "Banking Basics", badgeIcon: "", week: 2, session: 2, hasLesson: true },
+  { id: "fl-5", title: "Build a Budget That Works", href: "/learn/finance/5", xp: 250, badgeName: "Budget Builder", badgeIcon: "", week: 3, session: 1, hasLesson: true },
+  { id: "fl-6", title: "Spending Tracking & Emergency Funds", href: "/learn/finance/6", xp: 300, badgeName: "Cash Flow Keeper", badgeIcon: "", week: 3, session: 2, hasLesson: true },
+  { id: "fl-7", title: "Credit Scores & Reports", href: "/learn/finance/7", xp: 350, badgeName: "Credit Reader", badgeIcon: "", week: 4, session: 1, hasLesson: true },
+  { id: "fl-8", title: "Interest, Loans & Debt Traps", href: "/learn/finance/8", xp: 400, badgeName: "Debt Defender", badgeIcon: "", week: 4, session: 2, hasLesson: true },
+  { id: "fl-9", title: "Saving & Compound Growth", href: "/learn/finance/9", xp: 450, badgeName: "Growth Saver", badgeIcon: "", week: 5, session: 1, hasLesson: true },
+  { id: "fl-10", title: "Investing Basics & Risk", href: "/learn/finance/10", xp: 500, badgeName: "Investor Apprentice", badgeIcon: "", week: 5, session: 2, hasLesson: true },
+  { id: "fl-11", title: "Insurance: Protecting What Matters", href: "/learn/finance/11", xp: 550, badgeName: "Coverage Checker", badgeIcon: "", week: 6, session: 1, hasLesson: true },
+  { id: "fl-12", title: "Scams, Fraud & Consumer Rights", href: "/learn/finance/12", xp: 600, badgeName: "Consumer Guardian", badgeIcon: "", week: 6, session: 2, hasLesson: true },
+  { id: "fl-13", title: "Taxes & Your First Job", href: "/learn/finance/13", xp: 650, badgeName: "Tax Rookie", badgeIcon: "", week: 7, session: 1, hasLesson: true },
+  { id: "fl-14", title: "College Costs, Aid & Loans", href: "/learn/finance/14", xp: 700, badgeName: "Aid Navigator", badgeIcon: "", week: 7, session: 2, hasLesson: true },
+  { id: "fl-15", title: "Big Money Decisions", href: "/learn/finance/15", xp: 750, badgeName: "Decision Pro", badgeIcon: "", week: 8, session: 1, hasLesson: true },
+  { id: "fl-16", title: "Capstone: Your First-Year Money Plan", href: "/learn/finance/16", xp: 800, badgeName: "Money Planner", badgeIcon: "", week: 8, session: 2, hasLesson: true },
+];
+
 export const TRACKS: Track[] = [
   {
     id: "ai-literacy",
@@ -272,6 +302,13 @@ export const TRACKS: Track[] = [
     subtitle: "Defend systems, data, and people — high school cyber fundamentals",
     icon: "",
     lessons: CYBERSECURITY_LESSONS,
+  },
+  {
+    id: "financial-literacy",
+    title: "Financial Literacy",
+    subtitle: "Budgets, credit, investing, and money decisions for real life",
+    icon: "",
+    lessons: FINANCIAL_LITERACY_LESSONS,
   },
   {
     id: "python-starter",
@@ -299,6 +336,7 @@ export function weeksForTrack(id: Track["id"]): WeekPlan[] {
   if (id === "data-analyst") return DATA_ANALYST_WEEKS;
   if (id === "digital-literacy") return DIGITAL_LITERACY_WEEKS;
   if (id === "cybersecurity") return CYBERSECURITY_WEEKS;
+  if (id === "financial-literacy") return FINANCIAL_LITERACY_WEEKS;
   return AI_LITERACY_WEEKS;
 }
 

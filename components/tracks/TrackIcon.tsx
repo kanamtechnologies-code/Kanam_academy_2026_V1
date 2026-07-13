@@ -5,6 +5,7 @@ import {
   Database,
   Monitor,
   Shield,
+  Wallet,
   type LucideIcon,
 } from "lucide-react";
 
@@ -17,6 +18,7 @@ const TRACK_ICONS: Record<Track["id"], LucideIcon> = {
   "ai-literacy": Brain,
   "digital-literacy": Monitor,
   cybersecurity: Shield,
+  "financial-literacy": Wallet,
 };
 
 function TrackGlyph({

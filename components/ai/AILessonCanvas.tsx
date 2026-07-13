@@ -35,6 +35,7 @@ import { Progress } from "@/components/ui/progress";
 import { AI_INTERACTIVE_BY_LESSON } from "@/lib/aiLessons/interactiveExercises";
 import { DIGITAL_INTERACTIVE_BY_LESSON } from "@/lib/digitalLessons/interactiveExercises";
 import { CYBER_INTERACTIVE_BY_LESSON } from "@/lib/cyberLessons/interactiveExercises";
+import { FINANCE_INTERACTIVE_BY_LESSON } from "@/lib/financeLessons/interactiveExercises";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
 import { cn } from "@/lib/utils";
@@ -317,6 +318,7 @@ export function AILessonCanvas({
       AI_INTERACTIVE_BY_LESSON[lesson.id] ??
       DIGITAL_INTERACTIVE_BY_LESSON[lesson.id] ??
       CYBER_INTERACTIVE_BY_LESSON[lesson.id] ??
+      FINANCE_INTERACTIVE_BY_LESSON[lesson.id] ??
       []
     );
   }, [lesson.activities, lesson.id]);
