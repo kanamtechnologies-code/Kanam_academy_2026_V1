@@ -7,7 +7,6 @@ import { BookOpen, CheckCircle2, ListChecks, Lock, Play, Trophy } from "lucide-r
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { PremiumBadge, PremiumBadgeMark } from "@/components/badges/PremiumBadge";
 import {
   type Track,
@@ -76,10 +75,6 @@ export function TrackRoadmap({
           <TrackRoadmapContent
             track={track}
             completedIds={completedIds}
-            completedCount={completedCount}
-            totalCount={totalCount}
-            percent={percent}
-            nextLesson={nextLesson}
             disableActions
             classRestricted={classRestricted}
             enabledLessonIds={enabledLessonIds}
@@ -91,54 +86,93 @@ export function TrackRoadmap({
 
   return (
     <div className="space-y-6">
-      <div className="kanam-track-header rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-slate-500">
-              Current focus
-            </p>
-            <p className="mt-1 text-sm font-semibold text-slate-700">{track.subtitle}</p>
+      <section className="kanam-track-focus">
+        <div className="kanam-track-focus-overlay" aria-hidden />
+        <div className="relative z-10 grid gap-5 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-6">
+          <div className="min-w-0 space-y-4">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="kanam-track-focus-copy min-w-0">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white sm:text-xs sm:tracking-[0.22em]">
+                  Current focus · {track.title}
+                </p>
+                <p className="mt-1.5 text-base font-semibold leading-snug text-white sm:text-lg">
+                  {track.subtitle}
+                </p>
+              </div>
+              <Badge className="shrink-0 border border-white/40 bg-black/25 px-3 py-1.5 font-bold text-white backdrop-blur-sm">
+                {totalXp} XP in this track
+              </Badge>
+            </div>
+
+            <div className="rounded-2xl border border-white/25 bg-black/25 p-3.5 backdrop-blur-sm sm:p-4">
+              <div className="kanam-track-focus-copy flex items-end justify-between gap-3">
+                <div>
+                  <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-white">
+                    Track progress
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-white">
+                    {completedCount} of {totalCount} lessons complete
+                  </p>
+                </div>
+                <p className="text-2xl font-black tabular-nums text-white">{percent}%</p>
+              </div>
+              <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-black/35 ring-1 ring-white/20">
+                <div
+                  className="h-full rounded-full bg-[var(--accent)] transition-[width] duration-500 ease-out"
+                  style={{ width: `${Math.max(0, Math.min(100, percent))}%` }}
+                />
+              </div>
+            </div>
           </div>
-          <Badge className="w-fit border border-emerald-200 bg-emerald-50 text-emerald-900">
-            {totalXp} XP earned in this track
-          </Badge>
-        </div>
-        <div className="mt-4">
-          {nextLesson?.href && !nextLesson.comingSoon ? (
-            <Button
-              asChild
-              size="lg"
-              className="mt-2 h-auto min-h-11 w-full whitespace-normal px-4 py-3 text-left shadow-sm sm:w-auto"
-            >
-              <Link href={nextLesson.href} className="flex items-start gap-2">
-                <Play className="mt-0.5 h-4 w-4 shrink-0" />
-                <span className="min-w-0">
-                  <span className="line-clamp-2 font-extrabold">Next step: {nextLesson.title}</span>
-                  <span className="mt-0.5 block text-xs text-white/80">
-                    ({weekSessionLabel(nextLesson)})
+
+          <div className="min-w-0">
+            {nextLesson?.href && !nextLesson.comingSoon ? (
+              <Button
+                asChild
+                size="lg"
+                className="h-auto min-h-[4.25rem] w-full whitespace-normal border border-white/40 bg-white px-4 py-3.5 text-left text-[var(--brand-2)] shadow-[0_12px_28px_rgba(15,23,42,0.18)] hover:bg-white/95"
+              >
+                <Link href={nextLesson.href} className="flex items-start gap-3">
+                  <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--brand)] text-white">
+                    <Play className="h-4 w-4" />
                   </span>
-                </span>
-              </Link>
-            </Button>
-          ) : nextLesson?.comingSoon ? (
-            <Button size="lg" disabled className="mt-2 min-h-11 w-full shadow-sm sm:w-auto">
-              Next lesson coming soon
-            </Button>
-          ) : (
-            <Button size="lg" disabled className="min-h-11 w-full shadow-sm sm:w-auto">
-              Track complete!
-            </Button>
-          )}
+                  <span className="min-w-0">
+                    <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-[var(--brand)]">
+                      Next step
+                    </span>
+                    <span className="mt-0.5 block text-base font-extrabold leading-snug">
+                      {nextLesson.title}
+                    </span>
+                    <span className="mt-0.5 block text-xs font-semibold text-[var(--brand-2)]/75">
+                      {weekSessionLabel(nextLesson)}
+                    </span>
+                  </span>
+                </Link>
+              </Button>
+            ) : nextLesson?.comingSoon ? (
+              <Button
+                size="lg"
+                disabled
+                className="min-h-[4.25rem] w-full border border-white/25 bg-white/20 text-white"
+              >
+                Next lesson coming soon
+              </Button>
+            ) : (
+              <Button
+                size="lg"
+                disabled
+                className="min-h-[4.25rem] w-full border border-white/25 bg-white/20 text-white"
+              >
+                Track complete!
+              </Button>
+            )}
+          </div>
         </div>
-      </div>
+      </section>
 
       <TrackRoadmapContent
         track={track}
         completedIds={completedIds}
-        completedCount={completedCount}
-        totalCount={totalCount}
-        percent={percent}
-        nextLesson={nextLesson}
         classRestricted={classRestricted}
         enabledLessonIds={enabledLessonIds}
       />
@@ -149,41 +183,27 @@ export function TrackRoadmap({
 function TrackRoadmapContent({
   track,
   completedIds,
-  completedCount,
-  totalCount,
-  percent,
-  nextLesson,
   disableActions = false,
   classRestricted = false,
   enabledLessonIds = null,
 }: {
   track: Track;
   completedIds: string[];
-  completedCount: number;
-  totalCount: number;
-  percent: number;
-  nextLesson?: Track["lessons"][number];
   disableActions?: boolean;
   classRestricted?: boolean;
   enabledLessonIds?: string[] | null;
 }) {
+  const openLessonIds = React.useMemo(() => {
+    if (!classRestricted || enabledLessonIds == null) return null;
+    const set = new Set(enabledLessonIds);
+    for (const id of completedIds) set.add(id);
+    return set;
+  }, [classRestricted, enabledLessonIds, completedIds]);
+
+  const { nextLesson } = trackProgress(completedIds, track.lessons, { openLessonIds });
+
   return (
     <>
-      <Card className="border-slate-200 shadow-sm">
-        <CardContent className="space-y-3 pt-6">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <p className="text-sm font-bold text-slate-800">{track.title} progress</p>
-              <p className="text-xs font-medium text-slate-500">
-                {completedCount} of {totalCount} lessons complete
-              </p>
-            </div>
-            <span className="text-sm font-bold text-slate-800">{percent}%</span>
-          </div>
-          <Progress value={percent} className="h-2.5" />
-        </CardContent>
-      </Card>
-
       <div className="grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
         <div className="space-y-4">
           <div className="flex items-center gap-2">

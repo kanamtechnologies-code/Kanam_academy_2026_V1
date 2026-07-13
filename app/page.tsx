@@ -327,101 +327,46 @@ export default function Home() {
           </div>
         ) : null}
 
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList
-            className="kanam-track-tabs h-auto w-full max-w-full flex-wrap justify-start gap-1.5 overflow-x-auto p-1.5 sm:gap-2 sm:p-2 md:w-auto"
-          >
-            <TabsTrigger
-              value="ai-literacy"
-              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
-            >
-              <span className="inline-flex items-center">
-                <TrackIcon trackId="ai-literacy" className="h-3.5 w-3.5" />
-              </span>
-              <span className="sm:hidden">AI</span>
-              <span className="hidden sm:inline">{aiTrack.title}</span>
-              {aiTrack.lessons.some((l) => l.hasLesson) ? (
-                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
-                  Guided
-                </span>
-              ) : null}
-            </TabsTrigger>
-            <TabsTrigger
-              value="digital-literacy"
-              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
-            >
-              <span className="inline-flex items-center">
-                <TrackIcon trackId="digital-literacy" className="h-3.5 w-3.5" />
-              </span>
-              <span className="sm:hidden">Digital</span>
-              <span className="hidden sm:inline">{digitalTrack.title}</span>
-              {digitalTrack.lessons.some((l) => l.hasLesson) ? (
-                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
-                  Guided
-                </span>
-              ) : null}
-            </TabsTrigger>
-            <TabsTrigger
-              value="cybersecurity"
-              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
-            >
-              <span className="inline-flex items-center">
-                <TrackIcon trackId="cybersecurity" className="h-3.5 w-3.5" />
-              </span>
-              <span className="sm:hidden">Cyber</span>
-              <span className="hidden sm:inline">{cyberTrack.title}</span>
-              {cyberTrack.lessons.some((l) => l.hasLesson) ? (
-                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
-                  Guided
-                </span>
-              ) : null}
-            </TabsTrigger>
-            <TabsTrigger
-              value="financial-literacy"
-              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
-            >
-              <span className="inline-flex items-center">
-                <TrackIcon trackId="financial-literacy" className="h-3.5 w-3.5" />
-              </span>
-              <span className="sm:hidden">Money</span>
-              <span className="hidden sm:inline">{financeTrack.title}</span>
-              {financeTrack.lessons.some((l) => l.hasLesson) ? (
-                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
-                  Guided
-                </span>
-              ) : null}
-            </TabsTrigger>
-            <TabsTrigger
-              value="python-starter"
-              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
-            >
-              <span className="inline-flex items-center">
-                <TrackIcon trackId="python-starter" className="h-3.5 w-3.5" />
-              </span>
-              <span className="sm:hidden">Python</span>
-              <span className="hidden sm:inline">{pythonTrack.title}</span>
-              {pythonTrack.lessons.some((l) => l.hasLesson) ? (
-                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
-                  Guided
-                </span>
-              ) : null}
-            </TabsTrigger>
-            <TabsTrigger
-              value="data-analyst"
-              className="min-h-11 gap-1.5 px-3 py-2.5 text-xs sm:gap-2 sm:px-5 sm:text-sm"
-            >
-              <span className="inline-flex items-center">
-                <TrackIcon trackId="data-analyst" className="h-3.5 w-3.5" />
-              </span>
-              <span className="sm:hidden">Data</span>
-              <span className="hidden sm:inline">{dataTrack.title}</span>
-              {dataTrack.lessons.some((l) => l.hasLesson) ? (
-                <span className="hidden rounded-full bg-emerald-100 px-1.5 py-0.5 text-[10px] font-bold text-emerald-800 md:inline">
-                  Guided
-                </span>
-              ) : null}
-            </TabsTrigger>
-          </TabsList>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-3">
+          <div className="space-y-2">
+            <div className="flex items-end justify-between gap-3 px-0.5">
+              <div>
+                <p className="kanam-track-tabs-label">Training tracks</p>
+                <p className="mt-1 text-sm font-semibold text-slate-600">
+                  Choose your path — guided lessons with badges and XP
+                </p>
+              </div>
+              <p className="hidden text-xs font-bold uppercase tracking-[0.16em] text-slate-400 sm:block">
+                {TRACKS.length} paths
+              </p>
+            </div>
+            <TabsList className="kanam-track-tabs grid h-auto w-full grid-cols-2 gap-2 overflow-visible p-2.5 sm:grid-cols-3 sm:gap-2.5 sm:p-3 lg:grid-cols-6">
+              {(
+                [
+                  { track: aiTrack, label: "AI Literacy" },
+                  { track: digitalTrack, label: "Digital Literacy" },
+                  { track: cyberTrack, label: "Cybersecurity" },
+                  { track: financeTrack, label: "Financial Literacy" },
+                  { track: pythonTrack, label: "Python Starter" },
+                  { track: dataTrack, label: "Data Analyst" },
+                ] as const
+              ).map(({ track, label }) => (
+                <TabsTrigger
+                  key={track.id}
+                  value={track.id}
+                  title={track.subtitle}
+                  className="kanam-track-tab flex h-full min-h-[4.25rem] w-full flex-col items-center justify-center gap-1.5 whitespace-normal rounded-[0.95rem] px-1.5 py-2.5 text-center sm:min-h-[4.5rem] sm:gap-2 sm:px-2"
+                >
+                  <span className="kanam-track-tab-icon shrink-0">
+                    <TrackIcon trackId={track.id} className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="kanam-track-tab-label text-[11px] leading-snug sm:text-xs md:text-[13px]">
+                    {label}
+                  </span>
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
 
           <TabsContent value="ai-literacy">
             <TrackRoadmap

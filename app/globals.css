@@ -294,15 +294,193 @@ body {
   backdrop-filter: blur(6px);
 }
 
-.kanam-track-tabs {
-  border: 1px solid rgb(148 163 184 / 0.28);
-  background: rgb(255 255 255 / 0.85);
-  box-shadow: 0 8px 22px rgb(15 23 42 / 0.06);
+.kanam-track-focus {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgb(var(--accent-rgb) / 0.55);
+  border-radius: 1.4rem;
+  padding: 1.15rem 1.2rem;
+  color: #ffffff;
+  background:
+    radial-gradient(720px 240px at 100% 0%, rgb(var(--accent-rgb) / 0.22), transparent 48%),
+    linear-gradient(135deg, #064e3f 0%, #0a6f5b 42%, #0f766e 100%);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.18) inset,
+    0 18px 42px rgb(15 23 42 / 0.18);
 }
 
+@media (min-width: 640px) {
+  .kanam-track-focus {
+    padding: 1.35rem 1.5rem;
+  }
+}
+
+.kanam-track-focus-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgb(0 0 0 / 0.12), rgb(0 0 0 / 0.28)),
+    radial-gradient(900px 320px at 0% 0%, rgb(0 0 0 / 0.08), transparent 60%);
+}
+
+.kanam-track-focus .kanam-track-focus-copy {
+  text-shadow: 0 1px 2px rgb(0 0 0 / 0.35);
+}
+
+.kanam-track-tabs {
+  position: relative;
+  isolation: isolate;
+  display: grid !important;
+  width: 100% !important;
+  height: auto !important;
+  border: 1px solid rgb(var(--accent-rgb) / 0.45);
+  border-radius: 1.4rem;
+  background:
+    linear-gradient(180deg, rgb(241 245 249 / 0.95), rgb(226 232 240 / 0.88)),
+    radial-gradient(720px 180px at 8% -40%, rgb(var(--brand-rgb) / 0.1), transparent 60%),
+    radial-gradient(640px 160px at 92% -30%, rgb(var(--accent-rgb) / 0.16), transparent 62%);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.75) inset,
+    0 0 0 1px rgb(148 163 184 / 0.18) inset,
+    0 16px 40px rgb(15 23 42 / 0.1),
+    0 2px 8px rgb(var(--brand-2-rgb) / 0.07);
+  backdrop-filter: blur(12px);
+}
+
+.kanam-track-tabs::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    rgb(var(--accent-rgb) / 0.14),
+    transparent 28%,
+    transparent 72%,
+    rgb(var(--brand-rgb) / 0.08)
+  );
+  opacity: 0.8;
+  z-index: 0;
+}
+
+.kanam-track-tabs > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Inactive options = distinct chips (card-within-card), not flat text on tray */
+.kanam-track-tab {
+  border: 1px solid rgb(148 163 184 / 0.38) !important;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.98), rgb(248 250 252 / 0.94)) !important;
+  color: rgb(51 65 85) !important;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 1) inset,
+    0 -1px 0 rgb(148 163 184 / 0.12) inset,
+    0 4px 10px rgb(15 23 42 / 0.06),
+    0 1px 2px rgb(15 23 42 / 0.04) !important;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.kanam-track-tab:hover {
+  border-color: rgb(var(--brand-rgb) / 0.42);
+  background:
+    linear-gradient(180deg, #ffffff, rgb(var(--brand-rgb) / 0.06));
+  color: rgb(var(--brand-2-rgb));
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 1) inset,
+    0 8px 18px rgb(var(--brand-2-rgb) / 0.12),
+    0 2px 6px rgb(15 23 42 / 0.06);
+  transform: translateY(-1px);
+}
+
+.kanam-track-tab .kanam-track-tab-icon {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 0.72rem;
+  border: 1px solid rgb(148 163 184 / 0.36);
+  background:
+    linear-gradient(160deg, #ffffff 0%, rgb(241 245 249) 100%);
+  color: rgb(var(--brand-2-rgb));
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 1) inset,
+    0 2px 6px rgb(15 23 42 / 0.05);
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.kanam-track-tab .kanam-track-tab-label {
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+  hyphens: auto;
+  overflow: visible;
+  white-space: normal;
+}
+
+.kanam-track-tab .kanam-track-tab-meta {
+  border: 1px solid rgb(var(--accent-rgb) / 0.45);
+  background: rgb(var(--accent-rgb) / 0.18);
+  color: rgb(var(--brand-2-rgb));
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 0.15rem 0.45rem;
+}
+
+.kanam-track-tabs [data-state="active"].kanam-track-tab,
 .kanam-track-tabs [data-state="active"] {
-  background: rgb(var(--brand-rgb) / 0.95);
+  background:
+    linear-gradient(
+      145deg,
+      rgb(var(--brand-2-rgb) / 0.98) 0%,
+      rgb(var(--brand-rgb) / 0.96) 58%,
+      rgb(var(--accent-rgb) / 0.88) 140%
+    ) !important;
+  border-color: rgb(var(--accent-rgb) / 0.65);
+  color: white !important;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.3) inset,
+    0 12px 26px rgb(var(--brand-2-rgb) / 0.32),
+    0 0 0 1px rgb(var(--accent-rgb) / 0.28);
+  transform: translateY(-1px);
+}
+
+.kanam-track-tabs [data-state="active"] .kanam-track-tab-icon {
+  border-color: rgb(255 255 255 / 0.4);
+  background: rgb(255 255 255 / 0.2);
   color: white;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.4) inset,
+    0 6px 14px rgb(15 23 42 / 0.14);
+}
+
+.kanam-track-tabs [data-state="active"] .kanam-track-tab-meta {
+  border-color: rgb(255 255 255 / 0.4);
+  background: rgb(255 255 255 / 0.18);
+  color: rgb(255 255 255 / 0.96);
+}
+
+.kanam-track-tabs-label {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgb(var(--brand-2-rgb) / 0.78);
 }
 
 /* Premium Light Glass: subtle hex pattern overlay */
