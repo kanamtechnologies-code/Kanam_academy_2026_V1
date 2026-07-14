@@ -153,12 +153,8 @@ export const lesson12: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "Inside a function, where must the if/else statements and their print lines be placed?",
-          choices: [
-            "Anywhere in the file — indentation doesn't matter",
-            "Indented inside the function, with each branch's print further indented",
-            "Only after the function is called",
-          ],
-          correctIndex: 1,
+          choices: ["Indented inside the function, with each branch's print further indented", "Anywhere in the file — indentation doesn't matter", "Only after the function is called"],
+          correctIndex: 0,
           explanation: "if/else must be indented inside the function body, and each branch's code (like print) must be indented one level further under it.",
         },
       },
@@ -198,12 +194,8 @@ export const lesson12: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "In a parameterized function with if/else rules, what decides which branch runs?",
-          choices: [
-            "The function randomly picks one",
-            "The condition, evaluated against the parameter's current value",
-            "Whichever branch is written first always runs",
-          ],
-          correctIndex: 1,
+          choices: ["The function randomly picks one", "Whichever branch is written first always runs", "The condition, evaluated against the parameter's current value"],
+          correctIndex: 2,
           explanation: "The if condition is checked against the parameter's value for that specific call — that comparison result determines which branch executes.",
         },
       },
@@ -235,8 +227,8 @@ export const lesson12: PythonLessonConfig = {
         codeCaption: "Which message prints for age 10?",
         checkIn: {
           prompt: "What does this program print?",
-          choices: ["Access granted", "Access denied", "Nothing prints"],
-          correctIndex: 1,
+          choices: ["Access denied", "Access granted", "Nothing prints"],
+          correctIndex: 0,
           explanation: "10 is not >= 13, so the condition is False and the else branch runs, printing \"Access denied\".",
         },
       },
@@ -263,12 +255,8 @@ export const lesson12: PythonLessonConfig = {
         body: `If your function seems to always take the same branch no matter what you pass in, the most common cause is a typo in the condition — often using \`=\` instead of \`==\`, or misspelling the value being compared. Check the condition line first.`,
         checkIn: {
           prompt: "Your function always prints the if-branch message, even when you expect the else-branch to run. What should you check first?",
-          choices: [
-            "Whether the condition uses == (comparison) correctly, not = (assignment) or a typo",
-            "Whether Python needs to be reinstalled",
-            "Whether the function has too many parameters",
-          ],
-          correctIndex: 0,
+          choices: ["Whether Python needs to be reinstalled", "Whether the condition uses == (comparison) correctly, not = (assignment) or a typo", "Whether the function has too many parameters"],
+          correctIndex: 1,
           explanation: "A condition that's always True (like using = instead of ==, or comparing to the wrong value) will make the if-branch run every time regardless of input.",
         },
       },
@@ -312,12 +300,8 @@ export const lesson12: PythonLessonConfig = {
         body: `Let's confirm the rules pattern is locked in.`,
         checkIn: {
           prompt: "Who decides what an if/else rule checks and does — the program or the human who wrote it?",
-          choices: [
-            "The program decides on its own",
-            "The human who wrote the code — the program just follows the rule exactly",
-            "Neither — it's random",
-          ],
-          correctIndex: 1,
+          choices: ["The program decides on its own", "Neither — it's random", "The human who wrote the code — the program just follows the rule exactly"],
+          correctIndex: 2,
           explanation: "The human author writes the condition and both branches. The program never improvises — it always follows the written rule exactly.",
         },
       },

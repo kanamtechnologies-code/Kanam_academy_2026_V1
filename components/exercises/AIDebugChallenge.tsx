@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Bug, CheckCircle2, XCircle } from "lucide-react";
 
+import { ExerciseHint } from "@/components/exercises/ExerciseHint";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -87,8 +88,8 @@ export function AIDebugChallenge({
         <p className="text-xs font-black uppercase tracking-wide text-slate-500">What&apos;s the bug?</p>
         {choices.map((choice, ci) => {
           const isChosen = selected === ci;
-          const showCorrect = checked && ci === correctIndex;
-          const showWrong = checked && isChosen && ci !== correctIndex;
+          const showCorrect = isCorrect && ci === correctIndex;
+          const showWrong = checked && !isCorrect && isChosen && ci !== correctIndex;
           return (
             <button
               key={ci}
@@ -133,8 +134,12 @@ export function AIDebugChallenge({
       {checked && !isCorrect ? (
         <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950" role="alert">
           <p className="font-semibold">Not that bug — look again.</p>
-          {hint ? <p className="mt-1">{hint}</p> : null}
+          <p className="mt-1">Pick a different answer. The explanation unlocks when you find the bug.</p>
         </div>
+      ) : null}
+
+      {!isCorrect && !completed ? (
+        <ExerciseHint exerciseKey={`${prompt}:${buggyContent}`} hint={hint} />
       ) : null}
 
       {isCorrect ? (

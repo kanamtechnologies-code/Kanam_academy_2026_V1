@@ -59,8 +59,8 @@ export const cyberLesson12: AILessonConfig = {
           choices: [
             "They automatically fix any problem they detect",
             "They provide a timeline of who did what and when, turning guesswork into evidence",
-            "They replace the need for strong passwords",
-            "They only matter for large companies, not individuals",
+            "They replace the need for strong passwords and MFA",
+            "They mainly matter after you've already recovered the account",
           ],
           correctIndex: 1,
           explanation:
@@ -307,12 +307,12 @@ export const cyberLesson12: AILessonConfig = {
       id: "q1",
       question: "Why do logs matter during an incident?",
       choices: [
-        "They automatically patch every vulnerability",
         "They help reconstruct what happened with times, accounts, and actions",
+        "They automatically patch every vulnerability",
         "They replace the need for MFA",
         "They make phishing emails illegal",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Logs provide the timeline and evidence defenders need to understand and respond to incidents.",
     },
@@ -322,8 +322,8 @@ export const cyberLesson12: AILessonConfig = {
       choices: [
         "Prevention notices attacks; detection stops them beforehand",
         "Prevention tries to stop attacks; detection notices what still happens",
-        "They are unrelated to cybersecurity",
-        "Detection only works offline",
+        "They are unrelated concepts in cybersecurity",
+        "Detection only works when a device is offline",
       ],
       correctIndex: 1,
       explanation:
@@ -334,11 +334,11 @@ export const cyberLesson12: AILessonConfig = {
       question: "In basic IR order, what should usually come right after identifying a real incident?",
       choices: [
         "Post every detail on social media",
-        "Contain the damage / limit spread",
         "Skip straight to lessons learned",
+        "Contain the damage / limit spread",
         "Delete all logs immediately",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "After identify, contain — stop the bleeding before cleanup and recovery.",
     },
@@ -347,11 +347,11 @@ export const cyberLesson12: AILessonConfig = {
       question: "A school club Discord is compromised. Who should you typically notify first?",
       choices: [
         "Only strangers on the internet for advice",
-        "The adult sponsor / account owners and follow school rules for IT escalation if needed",
         "Nobody — silence is safer",
         "The attacker, to negotiate publicly",
+        "The adult sponsor / account owners and follow school rules for IT escalation if needed",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Escalate to responsible adults/owners (and IT when appropriate). Don't handle serious account takeovers alone in secret.",
     },
@@ -359,12 +359,12 @@ export const cyberLesson12: AILessonConfig = {
       id: "q5",
       question: "What belongs in the \"lessons learned\" step?",
       choices: [
-        "Pretending nothing happened",
         "Identifying what failed and which controls/habits to improve next time",
+        "Pretending nothing happened",
         "Disabling all logging forever",
         "Sharing private passwords with the whole grade",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Lessons learned turn pain into better prevention, detection, and playbooks.",
     },
@@ -386,11 +386,11 @@ export const cyberLesson12: AILessonConfig = {
       question: "What is the main purpose of a tabletop exercise?",
       choices: [
         "To practice actually attacking a live system",
-        "To discuss a hypothetical incident scenario and find gaps in the response plan, calmly and in advance",
         "To replace the need for backups",
+        "To discuss a hypothetical incident scenario and find gaps in the response plan, calmly and in advance",
         "To publicly announce security weaknesses",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Tabletop exercises are discussion-only rehearsals that reveal readiness gaps — like unclear ownership or missing contacts — before a real incident.",
     },
@@ -399,11 +399,11 @@ export const cyberLesson12: AILessonConfig = {
       question: "Two logins to the same account happen eight minutes apart from very distant locations. What pattern is this, and what should happen?",
       choices: [
         "This is normal and needs no response",
-        "This is 'impossible travel' — treat it as likely compromise and investigate/contain quickly",
         "This means the account has too much storage",
         "This always means the internet provider made an error, so ignore it",
+        "This is 'impossible travel' — treat it as likely compromise and investigate/contain quickly",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Impossible travel is a strong detection signal for account compromise and should trigger rapid investigation and containment.",
     },

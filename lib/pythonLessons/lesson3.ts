@@ -319,8 +319,12 @@ else:
         },
         checkIn: {
           prompt: 'If `name` is `"Sam"`, does `if name == "Alex":` run its indented code?',
-          choices: ["Yes, always", "No — the condition is False for Sam", "Only if Sam is capitalized"],
-          correctIndex: 1,
+          choices: [
+            "No — the condition is False for Sam",
+            "Yes — if runs for every name once the program starts",
+            "Only if Sam is capitalized the same way as Alex",
+          ],
+          correctIndex: 0,
           explanation: "\"Sam\" is not equal to \"Alex\", so the condition is False and the indented code under the if is skipped.",
         },
       },
@@ -340,7 +344,7 @@ else:
         },
         checkIn: {
           prompt: "Which line correctly ASKS whether name equals Alex, inside an if?",
-          choices: ['if name = "Alex":', 'if name == "Alex":', 'if name = = "Alex":'],
+          choices: ['if name = "Alex":', 'if name == "Alex":', 'if name === "Alex":'],
           correctIndex: 1,
           explanation: "Two equals signs (==) compares. A single = would try to assign, which is not valid inside an if condition.",
         },
@@ -359,8 +363,8 @@ else:
         },
         checkIn: {
           prompt: "Can both the if block AND the else block run in the same pass through the code?",
-          choices: ["Yes, both always run", "No — exactly one of the two ever runs", "Only if the name is empty"],
-          correctIndex: 1,
+          choices: ["Yes, both always run", "Only if the name is empty", "No — exactly one of the two ever runs"],
+          correctIndex: 2,
           explanation: "if/else is an either/or choice. Exactly one branch runs each time — never both, never neither.",
         },
       },
@@ -392,8 +396,8 @@ else:
         codeCaption: "What will this print for Riley?",
         checkIn: {
           prompt: "What exact line prints for Riley?",
-          choices: ["Welcome back, Alex!", "Hello there!", "Nothing prints"],
-          correctIndex: 1,
+          choices: ["Hello there!", "Welcome back, Alex!", "Nothing prints"],
+          correctIndex: 0,
           explanation: "\"Riley\" != \"Alex\", so the if condition is False and the else branch runs, printing Hello there!",
         },
       },
@@ -471,11 +475,11 @@ else:
         checkIn: {
           prompt: 'What is wrong with this code: `if name = "Alex": print("Hi")` `else: print("Bye")`?',
           choices: [
-            "Nothing is wrong",
+            "It's fine — one equals sign also compares in an if",
+            "else needs its own condition written after it",
             "The if line uses = instead of == to compare",
-            "else needs a condition too",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "Inside an if, you need == to compare values. A single = tries to assign, which isn't valid there.",
         },
       },

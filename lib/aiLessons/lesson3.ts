@@ -55,14 +55,14 @@ export const aiLesson3: AILessonConfig = {
         checkIn: {
           prompt: "What does 'perception' mean for an AI system?",
           choices: [
-            "AI having an emotional reaction to what it sees",
             "Converting a real-world signal (light, sound, motion) into numbers a computer can process",
-            "AI reading your mind directly",
-            "A robot growing physical eyes",
+            "AI forming an emotional impression of what it captures",
+            "AI storing an exact physical copy of the scene it captured",
+            "AI understanding the full context and meaning behind an image or sound",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Perception is the translation step: turning a physical signal into data. It's the foundation every camera- or microphone-based AI relies on.",
+            "Perception is the translation step: turning a physical signal into data. It's the foundation every camera- or microphone-based AI relies on — not an emotional reaction, a physical copy, or full contextual understanding.",
         },
       },
       {
@@ -100,14 +100,14 @@ export const aiLesson3: AILessonConfig = {
         checkIn: {
           prompt: "What is a 'waveform' in the context of AI perception?",
           choices: [
-            "A hand gesture used to control a device",
             "Sound represented as a long series of numbers measuring air pressure over time",
-            "A type of Wi-Fi signal",
-            "The shape of a sound wave drawn by hand on paper",
+            "The visual animation a music app displays while a song plays, and nothing more",
+            "A single number representing the overall volume of a sound clip",
+            "The written lyrics matched to a song's timing",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "A waveform is the numeric record of sound a microphone captures — thousands of pressure measurements per second, ready for pattern matching.",
+            "A waveform is the numeric record of sound a microphone captures — thousands of pressure measurements per second, ready for pattern matching. It's not just a visual animation, one summary number, or text.",
         },
       },
       {
@@ -133,14 +133,14 @@ export const aiLesson3: AILessonConfig = {
         checkIn: {
           prompt: "Why might a voice assistant work great for one person and poorly for another with a different accent?",
           choices: [
-            "The second person is speaking too much English",
             "The assistant's training and testing data may not have included enough examples of that accent's speech patterns",
-            "Accents make sound waves invisible to microphones",
-            "It's always a hardware problem with the microphone itself",
+            "The second person's phone hardware is automatically less powerful",
+            "Accents change the physical loudness of a person's voice",
+            "It's always a problem with the device's internet connection",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Perception systems only recognize patterns they were trained and tested on. Gaps in that data create real, repeatable gaps in performance for some groups of people.",
+            "Perception systems only recognize patterns they were trained and tested on. Gaps in that data create real, repeatable gaps in performance for some groups of people — it isn't about hardware, loudness, or connectivity.",
         },
       },
       {
@@ -280,77 +280,77 @@ export const aiLesson3: AILessonConfig = {
       id: "q1",
       question: "When an AI 'sees' a photo, what is it actually working with?",
       choices: [
-        "A mental image like a human sees",
+        "The exact file size and creation date of the photo",
+        "The same mental image a human would form looking at it",
         "A grid of numbers describing each pixel's color",
-        "The photographer's intentions",
-        "A printed copy of the picture",
+        "A written caption describing what the photo shows",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "To a computer, an image is just a grid of pixel numbers (red, green, blue values). It finds patterns in those numbers.",
+        "To a computer, an image is just a grid of pixel numbers (red, green, blue values). It finds patterns in those numbers — not a mental image, a caption, or file metadata.",
     },
     {
       id: "q2",
       question: "What does the Big Idea of 'Perception' mean in AI?",
       choices: [
-        "AI having feelings about what it sees",
         "Turning real-world signals (light, sound) into numbers a computer can analyze",
-        "AI predicting the future",
-        "Robots growing eyes and ears",
+        "AI forming genuine feelings about what it captures",
+        "AI guessing what will happen in the future",
+        "AI understanding the deeper meaning behind an image the way a person would",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Perception is converting a physical signal — light, sound, motion — into data the AI can process.",
+        "Perception is converting a physical signal — light, sound, motion — into data the AI can process, not feeling, forecasting, or truly understanding meaning.",
     },
     {
       id: "q3",
       question: "A voice assistant keeps mishearing you at a loud party. Why?",
       choices: [
-        "It's angry at you",
+        "The assistant has a limited daily quota of words it can recognize",
+        "The assistant is choosing to ignore you because of the background music",
+        "Voice assistants are designed to only work in complete silence by policy",
         "The noisy room messes up the input numbers (the waveform), so pattern matching fails",
-        "It only works outdoors",
-        "It ran out of words",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "AI perception depends on clean input. Background noise corrupts the waveform, making the words hard to match.",
+        "AI perception depends on clean input. Background noise corrupts the waveform, making the words hard to match — it's not a word quota, a silence-only policy, or a deliberate choice.",
     },
     {
       id: "q4",
       question: "What do images and sound have in common from an AI's point of view?",
       choices: [
+        "Neither can be processed without a live internet connection",
         "Both are stored as lists of numbers the AI finds patterns in",
-        "Both are understood emotionally",
-        "Neither can be processed by computers",
-        "Both require the internet",
+        "Both are understood with the same emotional depth a person would bring",
+        "Both must first be converted into written text before an AI can use them",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
-        "Perception uses the same recipe for any signal: convert it to numbers, then look for patterns.",
+        "Perception uses the same recipe for any signal: convert it to numbers, then look for patterns. It doesn't require internet access, emotional understanding, or a text conversion step first.",
     },
     {
       id: "q5",
       question: "Why did an automatic soap dispenser fail to detect some hands but not others?",
       choices: [
         "The dispenser was intentionally programmed to discriminate",
+        "The people it failed for were holding their hands at the wrong angle every time",
+        "The dispenser only works when the room is completely silent",
         "Its sensor wasn't tested and tuned across a wide enough range of skin tones",
-        "Soap dispensers don't use sensors",
-        "It only worked on Tuesdays",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "The sensor's perception gap traced back to incomplete testing across the range of real users — a pattern that shows up across many perception systems.",
+        "The sensor's perception gap traced back to incomplete testing across the range of real users, not deliberate design, sound, or hand positioning.",
     },
     {
       id: "q6",
       question: "The Gender Shades research found lower accuracy for darker-skinned faces mainly because:",
       choices: [
-        "Darker skin reflects no light at all",
-        "The training and benchmark datasets underrepresented darker-skinned faces, especially women",
         "The researchers were biased against the technology",
-        "Facial recognition cannot use pixels",
+        "Facial recognition cannot use pixels for darker skin tones",
+        "Darker skin reflects too little light for any camera to ever capture",
+        "The training and benchmark datasets underrepresented darker-skinned faces, especially women",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "The systems learned strong patterns for the well-represented groups in their data and weaker patterns for underrepresented ones — a direct data gap, not intentional design.",
     },
@@ -359,11 +359,11 @@ export const aiLesson3: AILessonConfig = {
       question: "What should you do when a perception system gives a high-confidence answer from clearly messy input (blurry photo, noisy audio)?",
       choices: [
         "Trust it completely because the confidence score is high",
-        "Be more skeptical, since messy input can produce a confidently wrong answer",
         "Assume the AI is lying on purpose",
+        "Be more skeptical, since messy input can produce a confidently wrong answer",
         "Confidence scores are meaningless and should always be ignored",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "A confidence score reflects pattern-match strength on the input it received — if that input was already degraded, the confident answer deserves extra scrutiny.",
     },
@@ -372,11 +372,11 @@ export const aiLesson3: AILessonConfig = {
       question: "What is the best one-sentence takeaway about fairness in AI perception?",
       choices: [
         "AI perception is automatically fair to everyone because it's just math",
-        "A perception system is only as fair as the range of people and conditions it was trained and tested on",
         "Fairness has nothing to do with training data",
+        "A perception system is only as fair as the range of people and conditions it was trained and tested on",
         "Perception systems always work worse for everyone equally",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "This is the throughline of the whole lesson: perception quality (and fairness) is a direct reflection of what was included — and left out — during training and testing.",
     },

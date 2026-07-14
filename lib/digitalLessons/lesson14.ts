@@ -63,11 +63,11 @@ export const digitalLesson14: AILessonConfig = {
           prompt: "A form shows a red error five minutes before your deadline. Which response follows the troubleshooting mindset from this lesson?",
           choices: [
             "Immediately close the tab and start completely over without reading the error",
-            "Click submit rapidly ten times in a row",
             "Pause, read exactly what the error says, and treat it as a common, likely-fixable issue rather than a disaster",
             "Assume the entire internet is broken and give up",
+            "Click submit rapidly ten times in a row",
           ],
-          correctIndex: 2,
+          correctIndex: 1,
           explanation:
             "The troubleshooting mindset starts with staying calm enough to actually read the clue in front of you — the error message — instead of reacting with panic that often destroys useful information like unsaved answers.",
         },
@@ -105,11 +105,11 @@ export const digitalLesson14: AILessonConfig = {
           prompt: "During a video call, the video freezes every few minutes but audio keeps working fine. According to the process, what should you check next?",
           choices: [
             "Immediately buy a new laptop",
-            "What recently changed (new tabs, network switch, app update) and whether it happens on every call or just this one",
             "Nothing — freezing video always means the device is permanently broken",
+            "What recently changed (new tabs, network switch, app update) and whether it happens on every call or just this one",
             "Delete the app and never use video calls again",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Following the process means checking what changed and isolating whether the issue is specific to this call/network/app, rather than jumping to a drastic conclusion.",
         },
@@ -146,12 +146,12 @@ export const digitalLesson14: AILessonConfig = {
         checkIn: {
           prompt: "IT support asks you to 'reproduce the bug' before they can help further. What are they actually asking you to do?",
           choices: [
-            "Buy a new device",
-            "Make the exact problem happen again, in a way you can describe step by step, so they can understand and study it",
             "Delete all your files",
             "Ignore the problem entirely",
+            "Buy a new device",
+            "Make the exact problem happen again, in a way you can describe step by step, so they can understand and study it",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Reproducing a bug means triggering it again on purpose and noting the exact steps. That turns a vague 'it's broken sometimes' into a clear, checkable pattern a helper can actually work with.",
         },
@@ -178,12 +178,12 @@ export const digitalLesson14: AILessonConfig = {
         checkIn: {
           prompt: "You say 'my whole college portal account is broken,' but haven't checked anything specific yet. What's the best next move using decomposition?",
           choices: [
-            "Assume the entire portal is down for everyone and give up",
             "Break it into small, checkable questions — can I log in? does it happen on every page? every device? every browser?",
-            "Immediately create a brand new account",
             "Call the college and demand a refund",
+            "Immediately create a brand new account",
+            "Assume the entire portal is down for everyone and give up",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Decomposition turns one overwhelming, vague problem into a short list of specific, checkable questions — each answer narrows down what's actually wrong.",
         },
@@ -255,8 +255,8 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
           choices: [
             "Assume the portal is broken and email an angry complaint immediately",
             "Compress or re-export the PDF at a smaller file size, since the error specifically names the file size as the problem",
-            "Keep resubmitting the exact same file repeatedly",
             "Give up on the scholarship entirely",
+            "Keep resubmitting the exact same file repeatedly",
           ],
           correctIndex: 1,
           explanation:
@@ -276,11 +276,11 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
           prompt: "You're mid-panic over a broken app and can't remember what to do first. According to this checklist, what's actually step one?",
           choices: [
             "Immediately uninstall and reinstall everything",
-            "Pause and take a breath before touching anything else",
-            "Call every tech support number you can find at once",
             "Assume the device is permanently broken",
+            "Call every tech support number you can find at once",
+            "Pause and take a breath before touching anything else",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "The checklist deliberately starts with pausing, because a calm start is what makes every later step (describing, isolating, reading the error) actually effective instead of rushed and error-prone.",
         },
@@ -317,12 +317,12 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       id: "q1",
       question: "Your friend freezes when a college portal shows a red error and says 'I'm just bad at tech.' What's the most accurate response?",
       choices: [
+        "Only experts can fix anything",
         "They're right — some people just can't do tech",
         "Troubleshooting is a learnable process, not a talent; staying calm and systematic is the real skill",
         "They should buy a new device",
-        "Only experts can fix anything",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "There's no tech 'gene.' People who seem great at tech mostly stay calm and follow a process. That process is exactly what this lesson teaches.",
     },
@@ -330,12 +330,12 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       id: "q2",
       question: "You're trying to submit a job application. Your laptop has no internet, but your phone works fine on the same Wi-Fi. What has this told you?",
       choices: [
-        "The Wi-Fi network is completely down",
         "The problem is isolated to the laptop, not the network",
-        "You need a new phone",
+        "The Wi-Fi network is completely down",
         "Nothing useful",
+        "You need a new phone",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Since another device works on the same network, the network is fine and the problem lives in the laptop. Isolating where a problem is rules out half the causes.",
     },
@@ -344,11 +344,11 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       question: "A shared Google Doc for your group project is acting weird after hours of edits. Why does 'turn it off and on again' (restart the browser/device) fix so many problems?",
       choices: [
         "It deletes all your files and starts over",
-        "It clears stuck temporary states in memory and restarts from a known-good condition",
         "It's just a joke with no real effect",
+        "It clears stuck temporary states in memory and restarts from a known-good condition",
         "It installs new hardware",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "A restart wipes the short-term clutter and stuck processes a running device builds up — without deleting your files. That's why it's a pro's first move.",
     },
@@ -356,12 +356,12 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       id: "q4",
       question: "A college portal says: 'Upload failed: File exceeds 5 MB limit.' What's the smartest move?",
       choices: [
-        "Close it instantly so you don't have to look at it",
-        "Read it carefully — then compress/convert the file or search that exact wording for a fix",
-        "Assume your device is permanently broken",
         "Click random buttons until it goes away",
+        "Close it instantly so you don't have to look at it",
+        "Assume your device is permanently broken",
+        "Read it carefully — then compress/convert the file or search that exact wording for a fix",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Error messages are clues. This one literally names the problem (file too big). Reading the exact text and acting on it — or searching it — is the fastest path to a fix.",
     },
@@ -369,12 +369,12 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       id: "q5",
       question: "You need help from the college IT help desk after a portal upload fails. Which is the best, most helpful way to ask?",
       choices: [
-        "\"It's broken, can you fix it?\"",
-        "\"It won't work, ugh\"",
         "\"I tried to upload my transcript PDF and got 'File exceeds 5 MB limit.' I compressed it once and tried Chrome and Safari. What should I try next?\"",
         "Sending no details and waiting",
+        "\"It's broken, can you fix it?\"",
+        "\"It won't work, ugh\"",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "A good help request states what you were doing, what you expected, what actually happened (exact error), and what you already tried — so the helper can solve it fast.",
     },
@@ -382,10 +382,10 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       id: "q6",
       question: "IT support asks you to 'reproduce the bug' before helping further. What are they asking you to do?",
       choices: [
-        "Buy new hardware immediately",
+        "Delete the app permanently",
         "Make the exact problem happen again in a describable, repeatable way so it can actually be studied",
         "Ignore the problem and hope it goes away",
-        "Delete the app permanently",
+        "Buy new hardware immediately",
       ],
       correctIndex: 1,
       explanation:
@@ -395,12 +395,12 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       id: "q7",
       question: "You say 'my whole college portal account is broken' without checking anything specific. What does decomposition suggest as the next step?",
       choices: [
-        "Assume the entire portal is down for everyone and give up",
-        "Break it into small, checkable questions — can I log in? Does it happen on every page, device, and browser?",
         "Create a brand-new account immediately",
         "Call the college and demand a refund",
+        "Break it into small, checkable questions — can I log in? Does it happen on every page, device, and browser?",
+        "Assume the entire portal is down for everyone and give up",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Decomposition turns one overwhelming, vague problem into a short list of specific, checkable questions, each of which narrows down what's actually going on.",
     },
@@ -408,12 +408,12 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       id: "q8",
       question: "Five minutes before a deadline, a form shows a red error. Which response best matches the troubleshooting mindset from this lesson?",
       choices: [
+        "Assume the whole internet is broken and give up",
+        "Pause, read exactly what the error says, and treat it as a likely common, fixable issue",
         "Click submit rapidly over and over without reading anything",
         "Close the tab immediately and start completely over from scratch",
-        "Pause, read exactly what the error says, and treat it as a likely common, fixable issue",
-        "Assume the whole internet is broken and give up",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "The troubleshooting mindset starts with staying calm enough to read the error message — the exact clue that panic-clicking or restarting from scratch would otherwise destroy or skip past.",
     },

@@ -70,8 +70,8 @@ const daLesson5: DataLessonConfig = {
         },
         checkIn: {
           prompt: "By default, does ORDER BY sort ascending or descending?",
-          choices: ["Ascending (smallest/A first)", "Descending (largest/Z first)", "It picks randomly"],
-          correctIndex: 0,
+          choices: ["Descending (largest/Z first)", "Ascending (smallest/A first)", "It picks randomly"],
+          correctIndex: 1,
           explanation: "Ascending is the default direction — smallest numbers or earliest letters come first unless you add DESC.",
         },
       },
@@ -88,8 +88,8 @@ const daLesson5: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "You want the most expensive order to appear FIRST. What do you add?",
-          choices: ["Nothing — ascending already does this", "DESC after the column name", "LIMIT 1 by itself"],
-          correctIndex: 1,
+          choices: ["Nothing — ascending already does this", "LIMIT 1 by itself", "DESC after the column name"],
+          correctIndex: 2,
           explanation: "DESC reverses the default ascending order, so the largest value — the most expensive order — appears first.",
         },
       },
@@ -111,12 +111,8 @@ const daLesson5: DataLessonConfig = {
         },
         checkIn: {
           prompt: "What is the correct ORDER of operations for a 'Top 3' query?",
-          choices: [
-            "LIMIT 3 first, then ORDER BY",
-            "ORDER BY first (to rank everything), then LIMIT 3 (to keep the top)",
-            "It doesn't matter which comes first",
-          ],
-          correctIndex: 1,
+          choices: ["ORDER BY first (to rank everything), then LIMIT 3 (to keep the top)", "LIMIT 3 first, then ORDER BY", "It doesn't matter which comes first"],
+          correctIndex: 0,
           explanation: "You must sort the full set first so the ranking is correct, THEN limit to the top rows — otherwise LIMIT might grab random rows before they're sorted.",
         },
       },
@@ -190,8 +186,8 @@ const daLesson5: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "If a table has 8 rows and you only add ORDER BY (no WHERE), how many rows come back?",
-          choices: ["Still all 8, just rearranged", "Fewer than 8", "Exactly 1"],
-          correctIndex: 0,
+          choices: ["Fewer than 8", "Exactly 1", "Still all 8, just rearranged"],
+          correctIndex: 2,
           explanation: "ORDER BY never removes rows — it only changes their order. All 8 rows are still there, just rearranged.",
         },
       },
@@ -241,12 +237,8 @@ const daLesson5: DataLessonConfig = {
         body: `Let's confirm ORDER BY, DESC, and the Top N recipe are all locked in.`,
         checkIn: {
           prompt: "Which query finds the SINGLE cheapest lunch order?",
-          choices: [
-            "SELECT * FROM lunch_orders ORDER BY price DESC LIMIT 1;",
-            "SELECT * FROM lunch_orders ORDER BY price LIMIT 1;",
-            "SELECT * FROM lunch_orders LIMIT 1;",
-          ],
-          correctIndex: 1,
+          choices: ["SELECT * FROM lunch_orders ORDER BY price LIMIT 1;", "SELECT * FROM lunch_orders ORDER BY price DESC LIMIT 1;", "SELECT * FROM lunch_orders LIMIT 1;"],
+          correctIndex: 0,
           explanation: "Sorting ascending (the default, no DESC) puts the cheapest first, and LIMIT 1 keeps just that single row.",
         },
       },

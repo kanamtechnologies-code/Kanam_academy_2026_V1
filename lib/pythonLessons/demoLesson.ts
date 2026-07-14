@@ -138,7 +138,7 @@ Click **Got it, let's go!** when you're ready to learn, then practice.`,
       focusCommand: "name =",
       commandExplain:
         "First you give the program a memory. Fill the blank so the box labeled name holds a real name in quotes. The print line is already written — it will use whatever you store.",
-      goal: 'Replace ____ with a name in quotes (example: "Alex"). Keep the print line as-is.',
+      goal: "Replace ____ with a name (keep the quotes), like Alex. Keep the print line as-is.",
       starterCode: `# Step 1: store a name in a labeled box (variable)
 name = "____"
 

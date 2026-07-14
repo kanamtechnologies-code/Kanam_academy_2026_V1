@@ -91,8 +91,8 @@ const daLesson4: DataLessonConfig = {
         },
         checkIn: {
           prompt: "Two orders are priced exactly $4.00. Does WHERE price > 4 include them?",
-          choices: ["Yes, > includes the boundary", "No, > is strictly greater, so exactly 4 is excluded", "Only one of them"],
-          correctIndex: 1,
+          choices: ["Yes, > includes the boundary", "Only one of them", "No, > is strictly greater, so exactly 4 is excluded"],
+          correctIndex: 2,
           explanation: "The `>` operator means strictly greater than — a value exactly equal to 4 does not pass. Use `>=` to include the boundary.",
         },
       },
@@ -108,12 +108,8 @@ const daLesson4: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "WHERE item = 'Salad' OR item = 'Burger' — what does this return?",
-          choices: [
-            "Only rows where BOTH item = 'Salad' AND item = 'Burger' are true (impossible, so 0 rows)",
-            "Every row that is either a Salad or a Burger order",
-            "Every row except Salads and Burgers",
-          ],
-          correctIndex: 1,
+          choices: ["Every row that is either a Salad or a Burger order", "Only rows where BOTH item = 'Salad' AND item = 'Burger' are true (impossible, so 0 rows)", "Every row except Salads and Burgers"],
+          correctIndex: 0,
           explanation: "OR widens the filter: a row passes if at least one condition is true, so both Salad and Burger orders come through.",
         },
       },
@@ -189,8 +185,8 @@ const daLesson4: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "You want ALL the salad orders, no matter how many there are. Should you use LIMIT or WHERE?",
-          choices: ["LIMIT", "WHERE", "Either one works the same"],
-          correctIndex: 1,
+          choices: ["LIMIT", "Either one works the same", "WHERE"],
+          correctIndex: 2,
           explanation: "WHERE checks content and returns every row that matches, however many there are. LIMIT would just grab the first few rows regardless of what's in them.",
         },
       },
@@ -240,12 +236,8 @@ const daLesson4: DataLessonConfig = {
         body: `Let's confirm text matching, number comparisons, and AND/OR are all locked in.`,
         checkIn: {
           prompt: "Which condition finds orders that are BOTH priced over $3 AND are salads?",
-          choices: [
-            "WHERE price > 3 OR item = 'Salad'",
-            "WHERE price > 3 AND item = 'Salad'",
-            "WHERE price = 3 AND item = Salad",
-          ],
-          correctIndex: 1,
+          choices: ["WHERE price > 3 AND item = 'Salad'", "WHERE price > 3 OR item = 'Salad'", "WHERE price = 3 AND item = Salad"],
+          correctIndex: 0,
           explanation: "AND requires both conditions to be true at once, narrowing the results to only salads priced above $3 — with the text value properly quoted.",
         },
       },

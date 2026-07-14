@@ -68,12 +68,8 @@ const daLesson12: DataLessonConfig = {
         body: `A **histogram** takes one big pile of numbers and shows their **shape** — where most values land, and how far they stretch from low to high.\n\nPicture sorting a deck of test papers into labeled trays: a 50s tray, a 60s tray, a 70s tray, and so on. After sorting, you don't even read the scores — you just look at which trays are *fullest*. The tall stacks show where the class clustered; the empty trays show ranges nobody hit. A histogram is exactly that, drawn as bars.\n\nIt looks like a bar chart, but it answers a different question: not *"compare these named categories"* but *"how is this one set of numbers distributed?"* That's a subtle but huge difference.`,
         checkIn: {
           prompt: "What question does a histogram answer?",
-          choices: [
-            "Which named category is biggest?",
-            "How is one set of numbers spread out, and where do they cluster?",
-            "How does a number change over time?",
-          ],
-          correctIndex: 1,
+          choices: ["How is one set of numbers spread out, and where do they cluster?", "Which named category is biggest?", "How does a number change over time?"],
+          correctIndex: 0,
           explanation: "A histogram reveals the shape of a single numeric column's distribution — where values cluster and how far they spread.",
         },
       },
@@ -116,8 +112,8 @@ const daLesson12: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "Your x-axis will show 'Pizza,' 'Salad,' and 'Burger.' Histogram or bar chart?",
-          choices: ["Histogram", "Bar chart", "Either works identically"],
-          correctIndex: 1,
+          choices: ["Histogram", "Either works identically", "Bar chart"],
+          correctIndex: 2,
           explanation: "Named, separate categories (not ranges of one number) call for a bar chart, not a histogram.",
         },
       },
@@ -148,12 +144,8 @@ const daLesson12: DataLessonConfig = {
         body: `There's no single "correct" histogram — bin size changes the whole picture. Very wide bins blur real differences together; very narrow bins make random noise look like a pattern. Always try a sensible bin width before trusting the shape.`,
         checkIn: {
           prompt: "If you used a bin size of 50 instead of 10 for the quiz scores, what would likely happen?",
-          choices: [
-            "The histogram would show more detail",
-            "Most scores would blur into one or two giant bins, hiding the real clustering",
-            "Nothing would change",
-          ],
-          correctIndex: 1,
+          choices: ["Most scores would blur into one or two giant bins, hiding the real clustering", "The histogram would show more detail", "Nothing would change"],
+          correctIndex: 0,
           explanation: "A bin size that's too wide lumps very different scores together, hiding the real shape of the distribution.",
         },
       },
@@ -246,12 +238,8 @@ const daLesson12: DataLessonConfig = {
         body: `Let's confirm bins and the histogram-vs-bar distinction are locked in.`,
         checkIn: {
           prompt: "Which scenario calls for a HISTOGRAM rather than a bar chart?",
-          choices: [
-            "Comparing sales of Pizza, Salad, and Burger",
-            "Seeing how 30 students' quiz scores are spread across the 0-100 range",
-            "Showing a budget split into categories",
-          ],
-          correctIndex: 1,
+          choices: ["Comparing sales of Pizza, Salad, and Burger", "Showing a budget split into categories", "Seeing how 30 students' quiz scores are spread across the 0-100 range"],
+          correctIndex: 2,
           explanation: "Seeing the spread of ONE numeric column (scores) across ranges is exactly what a histogram is built for — the other two involve named categories or a whole-split, which fit bar or pie charts instead.",
         },
       },

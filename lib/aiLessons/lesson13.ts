@@ -81,7 +81,7 @@ export const aiLesson13: AILessonConfig = {
           choices: [
             "Those people are using it wrong",
             "The training photos weren't representative of everyone",
-            "The AI is jealous",
+            "The AI is having an off day and needs to be restarted",
             "Phones can't recognize faces at all",
           ],
           correctIndex: 1,
@@ -293,12 +293,12 @@ export const aiLesson13: AILessonConfig = {
       id: "q1",
       question: "Where does AI bias usually come from?",
       choices: [
-        "The AI deciding to be prejudiced on its own",
         "Patterns (often unfair ones) in the human-made training data",
+        "The AI deciding to be prejudiced on its own",
         "Slow internet",
         "Using the AI too much",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "AI learns from human data. If that data is skewed or reflects historical unfairness, the AI absorbs it.",
     },
@@ -307,11 +307,11 @@ export const aiLesson13: AILessonConfig = {
       question: "A face-unlock AI works great for some people but poorly for others. What's the most likely cause?",
       choices: [
         "Those people are using it wrong",
-        "The training photos weren't representative of everyone",
-        "The AI is jealous",
+        "The AI is having an off day and needs to be restarted",
         "Phones can't recognize faces at all",
+        "The training photos weren't representative of everyone",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Unrepresentative training data leads to worse performance for underrepresented groups.",
     },
@@ -319,12 +319,12 @@ export const aiLesson13: AILessonConfig = {
       id: "q3",
       question: "Is the statement 'computers are neutral, so AI decisions are always objective' true?",
       choices: [
-        "True — computers can't be biased",
         "False — an AI is only as fair as the data and design choices behind it",
+        "True — computers can't be biased",
         "True, but only for chatbots",
         "It depends on the brand of computer",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "AI reflects its data and the choices of its makers. It is not automatically objective.",
     },
@@ -346,11 +346,11 @@ export const aiLesson13: AILessonConfig = {
       question: "Does AI bias require someone to have intentionally programmed unfairness?",
       choices: [
         "Yes, bias only exists if someone did it on purpose",
-        "No — bias usually comes from unintentional data gaps, but the harm to real people is still real",
         "Yes, and only the AI itself is ever at fault",
         "No, because bias is impossible in software",
+        "No — bias usually comes from unintentional data gaps, but the harm to real people is still real",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Most real-world AI bias is unintentional. Intent isn't required for the impact on affected people to be real and serious.",
     },
@@ -372,11 +372,11 @@ export const aiLesson13: AILessonConfig = {
       question: "Why is defining 'fairness' considered a values question, not purely a technical one?",
       choices: [
         "Because fairness has one single scientific definition everyone agrees on",
+        "Because only engineers should decide what fairness means",
         "Because different reasonable definitions of fairness (equal chances, equal outcomes, equal accuracy) can lead to different, defensible choices",
         "Because fairness doesn't matter once the math works",
-        "Because only engineers should decide what fairness means",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "There are multiple legitimate ways to define fairness, and choosing between them involves values and tradeoffs — not just technical calculation.",
     },

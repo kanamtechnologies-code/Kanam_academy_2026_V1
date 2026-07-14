@@ -1,16 +1,32 @@
-/** Remove fill-in-the-blank tokens from exercise starter code. */
+export type TypingZone = { start: number; end: number };
+
+/** @deprecated Prefer keeping ____ visible. Kept for any callers that still strip blanks. */
 export function prepareExerciseCode(starter: string): string {
   return starter.replaceAll("____", "");
 }
-
-export type TypingZone = { start: number; end: number };
 
 export function hasBlankTokens(code: string): boolean {
   return code.includes("____");
 }
 
-/** Map each ____ in the starter to a highlight zone in the prepared editor. */
-export function findTypingZonesForExercise(code: string, starterCode: string): TypingZone[] {
+/** Highlight zones for every remaining ____ blank in the current editor text. */
+export function findBlankTokenZones(code: string): TypingZone[] {
+  const zones: TypingZone[] = [];
+  let from = 0;
+  while (from < code.length) {
+    const idx = code.indexOf("____", from);
+    if (idx === -1) break;
+    zones.push({ start: idx, end: idx + 4 });
+    from = idx + 4;
+  }
+  return zones;
+}
+
+/**
+ * Map each ____ in the starter to a highlight zone after blanks were removed.
+ * Used as a fallback once the learner has started replacing blanks.
+ */
+function findPreparedGapZones(code: string, starterCode: string): TypingZone[] {
   const blankOffsets: number[] = [];
   let preparedIdx = 0;
   for (let i = 0; i < starterCode.length; ) {
@@ -25,6 +41,7 @@ export function findTypingZonesForExercise(code: string, starterCode: string): T
 
   const zones: TypingZone[] = [];
   for (const start of blankOffsets) {
+    if (start > code.length) continue;
     const lineEndRaw = code.indexOf("\n", start);
     const lineEnd = lineEndRaw === -1 ? code.length : lineEndRaw;
     let end = lineEnd;
@@ -43,10 +60,41 @@ export function findTypingZonesForExercise(code: string, starterCode: string): T
   return zones;
 }
 
+/**
+ * Highlight fill-in blanks. Prefer visible ____ tokens; if those are gone,
+ * fall back to the prepared gap zones so learners can keep editing the slot.
+ */
+export function findTypingZonesForExercise(code: string, starterCode: string): TypingZone[] {
+  const blankZones = findBlankTokenZones(code);
+  if (blankZones.length > 0) return blankZones;
+  if (!starterCode.includes("____")) return [];
+  return findPreparedGapZones(code, starterCode);
+}
+
 export function cursorForIncompleteCode(code: string, starterCode?: string): number {
-  if (starterCode) {
-    const zones = findTypingZonesForExercise(code, starterCode);
-    if (zones.length) return zones[0].start;
-  }
+  const zones = starterCode
+    ? findTypingZonesForExercise(code, starterCode)
+    : findBlankTokenZones(code);
+  if (zones.length) return zones[0].start;
   return code.length;
+}
+
+/** Selection range that covers the next blank (so typing replaces ____). */
+export function selectionForIncompleteCode(
+  code: string,
+  starterCode?: string
+): { start: number; end: number } {
+  const zones = starterCode
+    ? findTypingZonesForExercise(code, starterCode)
+    : findBlankTokenZones(code);
+  if (!zones.length) {
+    const end = code.length;
+    return { start: end, end };
+  }
+  const zone = zones[0];
+  const token = code.slice(zone.start, zone.end);
+  if (token === "____") {
+    return { start: zone.start, end: zone.end };
+  }
+  return { start: zone.start, end: zone.start };
 }

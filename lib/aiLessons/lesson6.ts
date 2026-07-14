@@ -138,11 +138,11 @@ export const aiLesson6: AILessonConfig = {
           prompt: "What follow-up question should you ask after hearing '95% accurate'?",
           choices: [
             "Nothing — 95% is high enough to trust automatically",
+            "How many total employees work at the company that built it?",
             "What kind of mistakes make up the other 5%, and how much do they matter?",
-            "How much does the product cost?",
-            "What color is the company's logo?",
+            "How long has the company existed?",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "The nature of the mistakes — not just the overall percentage — determines whether a tool is actually trustworthy for a given use.",
         },
@@ -285,11 +285,11 @@ export const aiLesson6: AILessonConfig = {
       question: "Why do we hold back a 'test set' the model never trains on?",
       choices: [
         "To make training faster",
-        "To check whether the model learned the real pattern, not just memorized answers",
         "To save storage space",
+        "To check whether the model learned the real pattern, not just memorized answers",
         "Test sets aren't actually useful",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Testing on unseen examples proves the model generalizes, rather than just memorizing its training data.",
     },
@@ -297,12 +297,12 @@ export const aiLesson6: AILessonConfig = {
       id: "q2",
       question: "A model scores 100% on training data but fails badly on new examples. This is called…",
       choices: [
-        "Underfitting",
         "Overfitting",
+        "Underfitting",
         "Perfect learning",
         "Perception",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Overfitting means the model memorized its training examples (and their quirks) instead of learning the general pattern.",
     },
@@ -311,11 +311,11 @@ export const aiLesson6: AILessonConfig = {
       question: "99% of emails are NOT spam. A model that labels EVERY email 'not spam' is 99% accurate. Why is it still useless?",
       choices: [
         "99% is a failing score",
-        "It never actually catches any spam — high accuracy hides the mistakes that matter",
         "Accuracy can't be measured for email",
         "It is actually a great model",
+        "It never actually catches any spam — high accuracy hides the mistakes that matter",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Accuracy alone can mislead. Here the model catches zero spam, so it fails at its real job despite a high score.",
     },
@@ -324,9 +324,9 @@ export const aiLesson6: AILessonConfig = {
       question: "Why will pattern-based AI always make some mistakes?",
       choices: [
         "It predicts from patterns and will meet unusual inputs it didn't train on",
-        "Programmers are lazy",
-        "Computers are too slow",
-        "It won't — modern AI is perfect",
+        "Test sets are optional, so most teams skip checking for mistakes",
+        "Accuracy scores are randomly generated rather than measured",
+        "It won't — a well-trained model becomes perfect and stops making mistakes",
       ],
       correctIndex: 0,
       explanation:
@@ -337,11 +337,11 @@ export const aiLesson6: AILessonConfig = {
       question: "What is a 'false negative' in the context of a disease-screening AI?",
       choices: [
         "The model correctly identifies a healthy patient as healthy",
-        "The model says a sick patient is healthy, missing a real case",
         "The model crashes and gives no answer",
         "The model is 100% accurate",
+        "The model says a sick patient is healthy, missing a real case",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "A false negative means the model missed a real positive case — often the more dangerous kind of mistake in medical screening.",
     },
@@ -349,12 +349,12 @@ export const aiLesson6: AILessonConfig = {
       id: "q6",
       question: "In the real medical AI case, what was a key root cause of its unsafe recommendations?",
       choices: [
+        "It had zero training data of any kind",
+        "The tool was released without ever being tested once",
         "It was trained and tested mainly on a narrower set of expert-imagined scenarios rather than a large, diverse set of real patient cases",
-        "It had zero training data",
-        "Doctors refused to use any computers",
-        "The tool was never tested at all",
+        "Doctors intentionally sabotaged its recommendations",
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       explanation:
         "A gap between narrow training/testing scenarios and the real diversity of patients allowed unsafe recommendations to slip through.",
     },
@@ -376,11 +376,11 @@ export const aiLesson6: AILessonConfig = {
       question: "What's the smartest response to an ad that says 'our AI is 97% accurate'?",
       choices: [
         "Trust it immediately — that number is high enough",
-        "Ask what the other 3% looks like, how it was tested, and which mistakes matter most for this use",
         "Assume it's a lie with no further thought",
+        "Ask what the other 3% looks like, how it was tested, and which mistakes matter most for this use",
         "Ignore accuracy entirely; it's meaningless",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "A single accuracy number is a starting point, not the full story. The nature of the mistakes and the thoroughness of testing matter just as much.",
     },

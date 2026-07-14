@@ -138,8 +138,8 @@ export const lesson11: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "In `def attack(enemy):`, what is `enemy`?",
-          choices: ["An argument", "A parameter — a placeholder waiting for a value", "A print statement"],
-          correctIndex: 1,
+          choices: ["A parameter — a placeholder waiting for a value", "An argument", "A print statement"],
+          correctIndex: 0,
           explanation: "enemy is the parameter: a placeholder name in the function definition that receives a real value when the function is called.",
         },
       },
@@ -178,12 +178,8 @@ export const lesson11: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "Why is one function with a parameter usually better than three separate functions (attack_goblin, attack_dragon, attack_boss)?",
-          choices: [
-            "It runs faster",
-            "One flexible function avoids repeated near-identical code and is easier to update",
-            "Python doesn't allow more than one function",
-          ],
-          correctIndex: 1,
+          choices: ["It runs faster", "Python doesn't allow more than one function", "One flexible function avoids repeated near-identical code and is easier to update"],
+          correctIndex: 2,
           explanation: "A single parameterized function avoids duplicated logic — you write and maintain the behavior once instead of in three separate places.",
         },
       },
@@ -215,12 +211,8 @@ export const lesson11: PythonLessonConfig = {
         codeCaption: "What prints for each call?",
         checkIn: {
           prompt: "What does this program print?",
-          choices: [
-            "Hello, name!\nHello, name!",
-            "Hello, Maya!\nHello, Diego!",
-            "Hello, Diego!\nHello, Maya!",
-          ],
-          correctIndex: 1,
+          choices: ["Hello, Maya!\nHello, Diego!", "Hello, name!\nHello, name!", "Hello, Diego!\nHello, Maya!"],
+          correctIndex: 0,
           explanation: 'The first call fills name with "Maya", the second with "Diego" — in that order.',
         },
       },
@@ -248,12 +240,8 @@ export const lesson11: PythonLessonConfig = {
         body: `If you call the same function twice and get the *same* output both times, check the arguments you passed. A common mistake is accidentally calling the function with the same value twice, or forgetting to use the parameter inside the print statement at all.`,
         checkIn: {
           prompt: "You call `attack(\"goblin\")` and `attack(\"dragon\")`, but both print the exact same message. What should you check first?",
-          choices: [
-            "Whether the print statement inside the function actually uses the enemy parameter",
-            "Whether Python is installed correctly",
-            "Whether the function has too many parameters",
-          ],
-          correctIndex: 0,
+          choices: ["Whether Python is installed correctly", "Whether the print statement inside the function actually uses the enemy parameter", "Whether the function has too many parameters"],
+          correctIndex: 1,
           explanation: "If the print statement hard-codes a value instead of using the parameter, every call will produce identical output regardless of the argument.",
         },
       },
@@ -297,12 +285,8 @@ export const lesson11: PythonLessonConfig = {
         body: `Let's confirm the parameter pattern is locked in.`,
         checkIn: {
           prompt: "What's the difference between a parameter and an argument?",
-          choices: [
-            "There is no difference — they're the same thing",
-            "A parameter is the placeholder in the function definition; an argument is the real value passed in when calling",
-            "A parameter is used only in loops",
-          ],
-          correctIndex: 1,
+          choices: ["There is no difference — they're the same thing", "A parameter is used only in loops", "A parameter is the placeholder in the function definition; an argument is the real value passed in when calling"],
+          correctIndex: 2,
           explanation: "The parameter (like `enemy`) lives in the def line as a placeholder. The argument (like `\"goblin\"`) is the real value supplied at call time.",
         },
       },

@@ -55,14 +55,14 @@ export const financeLesson16: AILessonConfig = {
         checkIn: {
           prompt: "Jordan has uneven job hours and wants a phone upgrade. What's the Earning & Spending move before signing anything?",
           choices: [
-            "Finance the most expensive phone immediately based on the advertised monthly payment",
             "Budget from realistic net income and total the phone's full cost (device + plan + add-ons) before deciding",
-            "Assume gross pay is what's actually available to spend",
-            "Skip comparing options because motivation is enough",
+            "Assume gross pay is what's actually available to spend on the upgrade",
+            "Finance the newest model since the advertised monthly payment looks affordable",
+            "Skip comparing plans since the motivation to upgrade is reason enough",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Earning & Spending synthesis: budget on net income, and total the real cost of a purchase rather than trusting a payment headline.",
+            "Earning & Spending synthesis: budget on net income, and total the real cost of a purchase — gross pay overstates what's actually available, and a low monthly figure can still hide a bad total.",
         },
       },
       {
@@ -77,14 +77,14 @@ export const financeLesson16: AILessonConfig = {
         checkIn: {
           prompt: "Jordan wants to start 'investing' with money they might need next month for rent. What's the Saving & Investing synthesis?",
           choices: [
-            "Invest it all immediately since any growth is good growth",
+            "Invest it right away, since any amount of growth is better than none",
             "Keep near-term, needed money safe and accessible; reserve investing conversations for genuinely long-horizon money after an emergency fund exists",
-            "Skip an emergency fund entirely and go straight to investing",
-            "Day-trade with rent money to grow it faster",
+            "Skip the emergency fund entirely and put everything toward investing instead",
+            "Move the rent money into a higher-risk account to try to grow it faster before it's due",
           ],
           correctIndex: 1,
           explanation:
-            "Money needed soon belongs in safe, accessible savings. Investing is a long-horizon tool, and it follows a stable emergency-fund foundation.",
+            "Money needed soon belongs in safe, accessible savings. Investing is a long-horizon tool that follows a stable emergency-fund foundation — chasing growth on rent money risks not having it when it's due.",
         },
       },
       {
@@ -99,14 +99,14 @@ export const financeLesson16: AILessonConfig = {
         checkIn: {
           prompt: "A text tells Jordan to pay a fee with gift cards immediately to avoid losing an account. What's the Credit & Risk Management move?",
           choices: [
-            "Buy the gift cards quickly to be safe",
-            "Treat urgency + gift cards as a scam red flag, verify on an official channel, and tell a trusted adult",
-            "Share a one-time verification code from the text",
-            "Ignore it, since teens aren't scam targets",
+            "Buy the gift cards quickly, since accounts really can get shut off that fast",
+            "Reply to the number in the text asking for more details before deciding",
+            "Treat urgency plus gift cards as a scam red flag, verify on an official channel, and tell a trusted adult",
+            "Share the one-time verification code first, then double-check with the bank afterward",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Urgency plus gift-card or code requests is a classic scam pattern — pause, verify independently, and involve a trusted adult.",
+            "Urgency plus gift-card or code requests is a classic scam pattern — replying to the text or sharing a code just engages the scammer, so verifying independently and involving a trusted adult is the safe move.",
         },
       },
       {
@@ -133,13 +133,13 @@ export const financeLesson16: AILessonConfig = {
           prompt: "Which statement is the myth, not the reality?",
           choices: [
             "A workable money plan includes a real (even if small) 'wants' line",
-            "A side hustle or investing trick can reliably replace the need for a budget and emergency fund",
             "Fundamentals like budgeting, emergency savings, and scam defense compound slowly but reliably",
             "A plan without a scheduled review date tends to be abandoned, like Jordan's spreadsheet",
+            "A side hustle or investing trick can reliably replace the need for a budget and emergency fund",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "There's no reliable shortcut that replaces the core habits — budgeting, saving, credit discipline, and scam defense are the actual engine.",
+            "There's no reliable shortcut that replaces the core habits — budgeting, saving, credit discipline, and scam defense are the actual engine, unlike the other three accurate statements.",
         },
       },
       {
@@ -228,14 +228,14 @@ export const financeLesson16: AILessonConfig = {
         checkIn: {
           prompt: "What's the Money Planner read on Jordan's three-month check-in?",
           choices: [
-            "Everything is fine — no action needed on any of the four items",
-            "The stress-tested response to lost income and the emergency fund progress are working well; the creeping 'wants' spending needs a conscious decision, and the bank text should be treated as a likely scam and never given a code",
-            "Jordan should give the bank text the code immediately since it claims to be about security",
-            "Jordan should abandon the plan since one month had a income drop",
+            "Income stress-test and emergency fund look solid; fix wants creep and treat the bank text as a scam",
+            "Everything is fine, including sending the bank text its verification code",
+            "Abandon the whole plan because one month had an income drop",
+            "Raise the wants cap immediately so the friend group hangouts still fit",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Two items show the plan working as designed; the drifting wants spending needs a deliberate check against lifestyle creep; the text matches classic scam patterns and should never get a one-time code.",
+            "Handling lost hours and growing the emergency fund show the plan working. Creeping wants need a deliberate decision, and a text asking for a one-time code is a classic scam — never send the code.",
         },
       },
       {
@@ -246,14 +246,14 @@ export const financeLesson16: AILessonConfig = {
         checkIn: {
           prompt: "Which 12-month plan element best shows genuine synthesis of all six Jump$tart pillars?",
           choices: [
-            "Only listing a dream income with no actions",
+            "Only listing a dream income target with no supporting actions",
             "Goals with amounts, budget/auto-save rules, emergency milestones, credit/scam/decision gates, and monthly review dates that catch lifestyle creep",
-            "A promise to get rich by next summer with no risk",
-            "Skipping taxes/aid awareness because those are 'adult only'",
+            "A plan to get ahead fast through a side hustle, skipping the emergency fund step",
+            "Skipping the taxes/aid sections because those feel like 'later' problems",
           ],
           correctIndex: 1,
           explanation:
-            "A genuine capstone plan ties earning, spending, saving, credit, investing awareness, and risk management into one living, reviewed document.",
+            "A genuine capstone plan ties earning, spending, saving, credit, investing awareness, and risk management into one living, reviewed document — a single income goal or a shortcut plan skips most of that.",
         },
       },
       {
@@ -286,92 +286,92 @@ export const financeLesson16: AILessonConfig = {
       id: "q1",
       question: "Jordan has uneven job hours and wants a phone upgrade and an emergency fund. What should come first in a Money Planner approach?",
       choices: [
-        "Finance the most expensive phone immediately to build confidence",
+        "Finance the most expensive phone right away to build confidence in the plan",
+        "Put leftover cash into a quick high-risk investment to fund both goals faster",
         "Set a realistic budget on low-week income, automate a small save toward an emergency target, then revisit the upgrade",
-        "Day trade leftover cash to fund both faster",
-        "Skip budgeting because motivation is enough",
+        "Skip budgeting entirely, since motivation is usually enough to make it work out",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Capstone synthesis: stabilize cash flow and emergency savings before lifestyle upgrades.",
+        "Capstone synthesis: stabilize cash flow and emergency savings before lifestyle upgrades — a risky shortcut or skipping the budget both undercut that stability.",
     },
     {
       id: "q2",
       question: "An aid letter shows a large 'award' that is mostly loans. What is the Aid Navigator reading?",
       choices: [
-        "Loans are the same as grants",
+        "Loans and grants are functionally the same once they appear on the same letter",
+        "The sticker price no longer matters once any award appears",
+        "FAFSA becomes irrelevant once any award shows up on a letter",
         "Gift aid reduces net price; loans are debt that must be repaid under their terms",
-        "Sticker price no longer matters for any reason",
-        "FAFSA is irrelevant once any award appears",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Track integration from the college-costs lesson: separate gift aid from borrowing.",
+        "Track integration from the college-costs lesson: separate gift aid from borrowing — a big total doesn't erase the difference between the two.",
     },
     {
       id: "q3",
       question: "A text says Jordan must pay a fine with gift cards to keep an account open. What scam-defense move fits the track?",
       choices: [
-        "Buy gift cards quickly to be safe",
-        "Treat urgency + gift cards as a red flag; verify on an official channel and tell a trusted adult",
-        "Share a one-time code from the text",
-        "Ignore consumer rights because teens aren't targets",
+        "Treat urgency plus gift cards as a red flag; verify on an official channel and tell a trusted adult",
+        "Buy the gift cards quickly, since accounts can genuinely be closed that fast",
+        "Reply directly to the number in the text to confirm the account issue is real",
+        "Share a one-time code from the text once the account issue seems confirmed",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Consumer-defense skills from earlier lessons: pause, verify, don't pay under panic scripts.",
+        "Consumer-defense skills from earlier lessons: pause, verify independently, and don't pay or share codes under a panic script — replying to the scammer's own number doesn't count as verifying.",
     },
     {
       id: "q4",
       question: "Jordan considers a car with a manageable monthly payment but hasn't totaled insurance and maintenance. Which Decision Pro idea applies?",
       choices: [
-        "Monthly payment alone defines affordability",
+        "The monthly payment alone is enough to define whether it's affordable",
         "Use total cost of ownership and opportunity cost — including insurance, fuel/maintenance, and what savings would be skipped",
-        "Depreciation never matters for used cars",
-        "Cooling-off periods are only for phones",
+        "Depreciation doesn't need to be considered since the car isn't brand new",
+        "Cooling-off periods only matter for phone purchases, not cars",
       ],
       correctIndex: 1,
       explanation:
-        "Big-money decisions require full cost and tradeoff analysis, not payment headlines.",
+        "Big-money decisions require full cost and tradeoff analysis, not payment headlines — that applies to cars just as much as phones, new or used.",
     },
     {
       id: "q5",
       question: "Which 12-month plan element best shows track-wide synthesis?",
       choices: [
-        "Only listing a dream income with no actions",
+        "Only listing a dream income with no supporting actions attached",
+        "A plan to get ahead fast through a side hustle, skipping the budgeting and savings steps",
         "Goals with amounts, budget/auto-save rules, emergency milestones, credit/scam/decision gates, and monthly review dates",
-        "A promise to get rich by next summer with no risk",
-        "Skipping taxes/aid awareness because those are 'adult only'",
+        "Skipping the taxes/aid sections because those feel like problems for later",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "A Money Planner capstone ties goals, cash flow, protection, and scheduled reviews into one living document.",
+        "A Money Planner capstone ties goals, cash flow, protection, and scheduled reviews into one living document — a single income goal or a shortcut plan leaves most of that out.",
     },
     {
       id: "q6",
       question: "Jordan's plan loses 30% of income for one month. Per the stress-test skill, what should bend first?",
       choices: [
-        "The emergency fund balance already saved, spent down to zero immediately",
+        "The emergency fund balance already saved, spent down to zero right away",
+        "Needs spending, since it's the easiest category to cut quickly",
+        "Nothing — the plan should stay exactly the same regardless of any income shock",
         "The wants cap first, with auto-save paused temporarily if needed, while protecting needs and existing savings as long as possible",
-        "Nothing — the plan should stay exactly the same regardless of income shocks",
-        "Needs spending, cut before anything else",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "A resilient plan bends discretionary spending first and protects needs and existing emergency savings as long as possible.",
+        "A resilient plan bends discretionary spending first and protects needs and existing emergency savings as long as possible — draining savings or cutting needs first does the opposite.",
     },
     {
       id: "q7",
       question: "What is lifestyle creep?",
       choices: [
-        "A required annual budget review",
         "Spending that gradually rises with income or social pressure without a deliberate decision to raise it",
-        "A type of scam targeting new apartment renters",
-        "A rule that says spending must never increase",
+        "A required annual review of a household budget",
+        "A type of scam that specifically targets new apartment renters",
+        "A rule stating that spending must never increase from one year to the next",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Lifestyle creep is the slow, often unnoticed rise in spending — especially common in a first year of new independence and new social circles.",
+        "Lifestyle creep is the slow, often unnoticed rise in spending — especially common in a first year of new independence and new social circles, not a formal review or a scam type.",
     },
     {
       id: "q8",
@@ -379,12 +379,12 @@ export const financeLesson16: AILessonConfig = {
       choices: [
         "Nothing — the two paths require completely different financial skills",
         "The core structure: a realistic budget, an emergency fund milestone, credit discipline, and scam defense — only the specific numbers and biggest risk differ",
-        "Only the work path needs an emergency fund",
-        "Only the college path needs to worry about scams",
+        "Only the work path actually needs an emergency fund",
+        "Only the college path really needs to worry about scams",
       ],
       correctIndex: 1,
       explanation:
-        "The six-pillar structure applies to any first-year path; the line items and biggest risks shift, but the core plan does not change.",
+        "The six-pillar structure applies to any first-year path; the line items and biggest risks shift, but the core plan does not change for either path.",
     },
   ],
   reflection: {

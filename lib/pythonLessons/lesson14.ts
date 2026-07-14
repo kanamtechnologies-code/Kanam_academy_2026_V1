@@ -285,12 +285,8 @@ export const lesson14: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "Why fill out the design sheet before writing any code?",
-          choices: [
-            "It's required by Python and the program won't run otherwise",
-            "A clear character, quest, and keywords make the code you write next much easier to plan and debug",
-            "It has no real effect on the code",
-          ],
-          correctIndex: 1,
+          choices: ["A clear character, quest, and keywords make the code you write next much easier to plan and debug", "It's required by Python and the program won't run otherwise", "It has no real effect on the code"],
+          correctIndex: 0,
           explanation: "Fuzzy stories make messy code. Deciding your character, quest, and keywords up front means every if/elif branch has a clear job before you type it.",
         },
       },
@@ -333,12 +329,8 @@ export const lesson14: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "What TWO things should happen inside every if/elif/else branch of respond()?",
-          choices: [
-            "Only a print() reply",
-            "Only a quest_log.append(...)",
-            "Both a print() reply AND a quest_log.append(...)",
-          ],
-          correctIndex: 2,
+          choices: ["Only a print() reply", "Both a print() reply AND a quest_log.append(...)", "Only a quest_log.append(...)"],
+          correctIndex: 1,
           explanation: "Each branch needs to speak to the player (print) AND record that the rule fired (append) — skipping either one breaks the checklist.",
         },
       },
@@ -414,12 +406,8 @@ Ask for help if you are stuck.
         body: `It's easy to feel like your bot is actually understanding what players type, especially once it replies smoothly. It isn't. It's checking whether a specific substring (like \`"quest"\`) appears in the lowercased text, then running a pre-written reply. There's no comprehension — just pattern matching you designed by hand.\n\nThis matters for AI safety: knowing exactly *how* a system works (rules you wrote) versus assuming it "understands" is the difference between using AI responsibly and being fooled by it.`,
         checkIn: {
           prompt: 'Your bot replies well to "quest" but gets confused by "what\'s my mission?" What\'s actually happening?',
-          choices: [
-            "The bot understood the meaning but chose not to respond correctly",
-            "The exact keyword \"quest\" isn't in that sentence, so no if/elif branch matched, and else caught it",
-            "Python is broken",
-          ],
-          correctIndex: 1,
+          choices: ["The bot understood the meaning but chose not to respond correctly", "Python is broken", "The exact keyword \"quest\" isn't in that sentence, so no if/elif branch matched, and else caught it"],
+          correctIndex: 2,
           explanation: "Rule-based bots only match the literal keywords you coded. \"What's my mission?\" doesn't contain \"quest\", so it falls through to else — the bot isn't reasoning, it's pattern-matching.",
         },
       },
@@ -430,12 +418,8 @@ Ask for help if you are stuck.
         body: `Suppose your \`test_messages\` list is \`["hello", "banana", "quest"]\` and your rules append \`"greeted"\`, \`"confused"\`, and \`"quest given"\` respectively. Before running it, predict exactly what \`quest_log\` will contain at the end — in order.`,
         checkIn: {
           prompt: 'With test_messages = ["hello", "banana", "quest"], what will quest_log look like at the end?',
-          choices: [
-            '["confused", "greeted", "quest given"]',
-            '["greeted", "confused", "quest given"]',
-            '["quest given", "confused", "greeted"]',
-          ],
-          correctIndex: 1,
+          choices: ["[\"greeted\", \"confused\", \"quest given\"]", "[\"confused\", \"greeted\", \"quest given\"]", "[\"quest given\", \"confused\", \"greeted\"]"],
+          correctIndex: 0,
           explanation: "append() adds to the list in the exact order respond() is called, which matches the order of test_messages: greeted, confused, quest given.",
         },
       },
@@ -452,12 +436,8 @@ Ask for help if you are stuck.
         body: `Build mode replays the same \`test_messages\` every single Run — perfectly repeatable, which makes debugging fast because you always know exactly what should happen. Adventure mode is the opposite: unpredictable human input, which is exactly what reveals gaps your fixed tests never would (like a player typing nothing at all, or something totally unexpected). Real products need both: repeatable tests to catch bugs, and real users to catch what tests miss.`,
         checkIn: {
           prompt: "Why do real products need both a fixed test list AND live human testing?",
-          choices: [
-            "Fixed tests are repeatable and catch known bugs fast; live testing reveals unpredictable gaps fixed tests can't anticipate",
-            "Fixed tests are only for looks; only live testing matters",
-            "Live testing is unnecessary once fixed tests pass",
-          ],
-          correctIndex: 0,
+          choices: ["Fixed tests are only for looks; only live testing matters", "Fixed tests are repeatable and catch known bugs fast; live testing reveals unpredictable gaps fixed tests can't anticipate", "Live testing is unnecessary once fixed tests pass"],
+          correctIndex: 1,
           explanation: "Fixed tests give fast, repeatable bug-catching, while live human testing surfaces the unpredictable edge cases that a predetermined list can never fully cover.",
         },
       },
@@ -490,12 +470,8 @@ Ask for help if you are stuck.
         body: `Let's confirm the capstone pattern is locked in.`,
         checkIn: {
           prompt: "What's the purpose of including a nonsense test message like \"banana\" in test_messages?",
-          choices: [
-            "It's just a joke and has no real purpose",
-            "It proves your else branch works and handles unexpected input gracefully",
-            "Python requires at least one nonsense string",
-          ],
-          correctIndex: 1,
+          choices: ["It's just a joke and has no real purpose", "Python requires at least one nonsense string", "It proves your else branch works and handles unexpected input gracefully"],
+          correctIndex: 2,
           explanation: "A nonsense message is the only way to prove your else branch actually runs and gives a kind, sensible fallback reply.",
         },
       },

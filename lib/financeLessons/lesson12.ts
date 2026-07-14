@@ -61,16 +61,16 @@ export const financeLesson12: AILessonConfig = {
           text: "Impersonation can look polished — logos, caller ID spoofing, and AI voice clones exist. Verification beats vibes.",
         },
         checkIn: {
-          prompt: "A caller says your account will be closed unless you pay with gift cards right now. What should you do?",
+          prompt: "A caller claims to be from Malik's bank and says his account will be closed within the hour unless he pays a 'reactivation fee' with gift cards. What should Malik do?",
           choices: [
-            "Buy the gift cards immediately to be safe",
-            "Treat it as a scam red flag — hang up and verify using a known official channel",
-            "Share a one-time code so they can 'unlock' the account",
-            "Wire crypto because it's faster",
+            "Buy the gift cards right away, since banks do sometimes charge fees to keep accounts open",
+            "Ask the caller for their employee ID number, then proceed if they provide one",
+            "Hang up and call the number on the back of his own bank card to check if this is real",
+            "Stay on the line and give the account number so the caller can 'verify' him first",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Gift-card and extreme-urgency payment demands are classic scam patterns. Verify independently.",
+            "Gift-card demands paired with extreme urgency are classic scam patterns, and real banks don't charge 'reactivation fees' via gift card. An employee ID from the caller proves nothing since a scammer can just make one up — the safe move is verifying through a number you found yourself.",
         },
       },
       {
@@ -83,16 +83,16 @@ export const financeLesson12: AILessonConfig = {
           text: "\"Only older people get scammed.\" Teens are targets for fake jobs, scholarship fees, gaming trades, and friendship scams too.",
         },
         checkIn: {
-          prompt: "Which habit best reduces identity theft risk?",
+          prompt: "Amara uses the same password for her email, gaming accounts, and school portal because it's easier to remember. What's the risk, based on the lesson?",
           choices: [
-            "Reuse one password everywhere for convenience",
-            "Use unique passwords, enable MFA where available, and limit sharing of sensitive IDs",
-            "Post photos of your full ID 'for vibes'",
-            "Ignore account alerts so you aren't annoyed",
+            "There's no real risk, as long as the password itself is long",
+            "It's only risky if she also shares the password out loud with a friend",
+            "If one account gets breached, the same password could unlock all her other accounts too",
+            "Reusing a password is fine as long as she changes it once a year",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Unique credentials, MFA, and careful data sharing make stolen info harder to abuse.",
+            "Reusing one password means a single leak can expose every account tied to it. Length alone, avoiding spoken sharing, or an annual change don't fix the core problem — unique passwords and MFA are what actually limit the damage.",
         },
       },
       {
@@ -107,16 +107,16 @@ export const financeLesson12: AILessonConfig = {
           text: "Before your next non-trivial purchase (prom outfit, used gear, phone case), write a 60-second compare list: price, return policy, and one alternative seller.",
         },
         checkIn: {
-          prompt: "What belongs on a compare-before-you-buy checklist?",
+          prompt: "Before buying headphones from a site she found through an ad, Priya wants to shop like a Consumer Guardian. What should actually be on her checklist?",
           choices: [
-            "Only the influencer's discount code",
+            "Just whether the influencer's discount code still works",
+            "Only whether the site's homepage looks professionally designed",
             "Price, seller reputation, terms/auto-renew, and return policy",
-            "Whether the ad used your favorite color",
-            "Skipping reviews because they take time",
+            "Skipping reviews, since most of them are exaggerated anyway",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Comparing price, trustworthiness, terms, and returns prevents many consumer regrets and scam purchases.",
+            "Comparing price, seller trustworthiness, terms, and return policy prevents many consumer regrets — a working discount code or a polished-looking site doesn't confirm the seller or deal is actually legitimate.",
         },
       },
       {
@@ -140,16 +140,16 @@ export const financeLesson12: AILessonConfig = {
         title: "Common myth: \"Scams only happen to careless or older people\"",
         body: `Two myths worth retiring:\n\n**Myth 1: "I'm too smart/young to be scammed."** Scams are engineered to bypass careful thinking by hijacking emotion (fear, excitement, urgency) — intelligence and age don't fully protect against that. Teens are actively targeted through fake job offers, gaming trade scams, and "scholarship" fees.\n\n**Myth 2: "If it looks official — logo, professional tone — it must be real."** Logos and polished design are trivial to copy. Legitimacy comes from verifying through a channel *you* found yourself (official app, number from the back of your card, the school's real front desk), not from how convincing the message looks.\n\nStaying alert isn't about distrust of everyone — it's about verifying anything involving money, codes, or personal data.`,
         checkIn: {
-          prompt: "Why can even careful, tech-savvy teens fall for scams?",
+          prompt: "Jordan is confident and tech-savvy, but he still almost fell for a fake prize text last week. Why can even careful, tech-savvy teens fall for scams?",
           choices: [
             "Because scams only work on people who don't understand technology",
+            "Because scams are always obvious and easy to spot once you look closely",
             "Because scams are designed to trigger urgency and fear, which can override careful thinking regardless of age or skill",
-            "Because scams are always obvious and easy to spot",
-            "Because only people over 60 are ever targeted",
+            "Because only people over 60 are ever targeted by scammers",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Scams exploit emotional pressure, not just lack of knowledge. That's why pausing and verifying matters for everyone.",
+            "Scams exploit emotional pressure, not just lack of knowledge or tech skill — that's why pausing and verifying matters for everyone, not just people assumed to be 'easy targets.'",
         },
       },
       {
@@ -187,14 +187,14 @@ export const financeLesson12: AILessonConfig = {
         checkIn: {
           prompt: "Which combination is the strongest signal of a scam rather than a legitimate request?",
           choices: [
-            "A calm message that lets you call back on a number you look up yourself",
-            "Urgent tone, secrecy request, and demand for payment via gift card or crypto",
-            "An email confirming an order you actually placed",
-            "A statement mailed to your home address",
+            "An email confirming an order you actually remember placing",
+            "A statement mailed to your home address with your usual account details",
+            "Urgent tone, a request for secrecy, and a demand for payment via gift card or crypto",
+            "A calm message that's fine with you calling back on a number you look up yourself",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Urgency plus secrecy plus an unusual payment method (gift cards, crypto, wires 'to fix something') is a strong combined signal of fraud.",
+            "Urgency plus secrecy plus an unusual payment method (gift cards, crypto, wires 'to fix something') is a strong combined signal of fraud — a legitimate request is generally comfortable with you verifying independently and doesn't need secrecy.",
         },
       },
       {
@@ -255,16 +255,16 @@ export const financeLesson12: AILessonConfig = {
         title: "Before the knowledge check…",
         body: `Quick gut-check on the whole lesson: scams use urgency, fear, and secrecy; phishing steals access while identity theft misuses data; smart buyers compare before purchasing; and independent verification beats trusting how a message looks or sounds.\n\nAnswer the check-in below, then head into the full knowledge check.`,
         checkIn: {
-          prompt: "If a purchase or offer goes wrong, what is a sound conceptual first step?",
+          prompt: "Marcus's order never arrived and the seller isn't responding to his messages. What's a sound conceptual first step, based on the lesson?",
           choices: [
-            "Post threats publicly with no facts",
-            "Contact the seller with dates, evidence, and a clear request — then escalate with records if needed",
-            "Give up immediately",
-            "Share your password with a stranger offering to 'fix it'",
+            "Give up on the money entirely, since online purchases can't really be disputed",
+            "Post an angry public callout with no dates or screenshots attached",
+            "Share his card number with a stranger in the comments who offers to 'help escalate it'",
+            "Document dates and evidence, contact the seller clearly one more time, then escalate with a card dispute if needed",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "Documented, calm escalation — seller first, then card disputes or consumer resources as appropriate — is the guardian path.",
+            "Documented, calm escalation — seller first, then card disputes or consumer resources as appropriate — is the guardian path. Giving up, posting without evidence, or sharing card details with a random 'helper' all make things worse.",
         },
       },
       {
@@ -294,81 +294,81 @@ export const financeLesson12: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "A caller says your account will be closed unless you pay with gift cards right now. What should you do?",
+      question: "A text says you've won a prize and must pay a 'delivery fee' via gift card within 20 minutes. What's the best response?",
       choices: [
-        "Buy the gift cards immediately to be safe",
-        "Treat it as a scam red flag — hang up and verify using a known official channel",
-        "Share a one-time code so they can 'unlock' the account",
-        "Wire crypto because it's faster",
+        "Ignore the countdown, don't pay anything, and independently check if the prize is real through an official channel",
+        "Pay the fee quickly, since legitimate prizes sometimes require a small unlock cost",
+        "Ask the sender to email a company logo as proof before deciding",
+        "Reply asking for more details about the prize before paying",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Gift-card and extreme-urgency payment demands are classic scam patterns. Verify independently; don't follow the caller's script.",
+        "Real prizes don't require a payment to 'unlock' them, so paying is never the safe move. A logo proves nothing since it's trivial to copy, and replying just confirms a real person is reachable — neither actually verifies legitimacy.",
     },
     {
       id: "q2",
-      question: "What is phishing?",
+      question: "Aiden gets an email that looks like it's from his school, asking him to click a link and log in to 'confirm his schedule.' The link goes to a site with a slightly misspelled URL. What is this an example of?",
       choices: [
-        "A type of savings account bonus",
-        "Fake messages or sites designed to steal logins or personal information",
-        "A legal way companies collect taxes",
-        "An insurance deductible",
+        "A normal password reset email that's just formatted a little differently",
+        "Phishing — a fake message impersonating a trusted source to steal his login",
+        "A legal way schools verify students' identities every semester",
+        "A scholarship offer that requires a processing fee",
       ],
       correctIndex: 1,
       explanation:
-        "Phishing impersonates trusted sources to trick you into handing over credentials or data.",
+        "A misspelled URL asking for a login is a classic phishing setup impersonating a trusted source — schools don't verify identity this way, and this isn't a routine password reset.",
     },
     {
       id: "q3",
-      question: "Which habit best reduces identity theft risk?",
+      question: "Leah gets a DM from a 'talent scout' asking her to send a photo of her ID to 'verify she's real' before discussing a modeling opportunity. What's the smartest move?",
       choices: [
-        "Reuse one password everywhere for convenience",
-        "Use unique passwords, enable MFA where available, and limit sharing of sensitive IDs",
-        "Post photos of your full ID 'for vibes'",
-        "Ignore account alerts so you aren't annoyed",
+        "Send a blurry photo, since that feels safer than a clear one",
+        "Send it, since legitimate scouts commonly ask for ID upfront before any conversation",
+        "Send it only after the scout sends their own ID first",
+        "Decline and look into the opportunity independently — legitimate scouts don't need your ID just to start a conversation",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Unique credentials, MFA, and careful data sharing make stolen info harder to abuse.",
+        "Sharing an ID photo with an unverified DM is a common identity-theft setup — a blurrier photo or a 'they showed theirs first' trade doesn't make it safer, since a fake ID is just as easy to send back.",
     },
     {
       id: "q4",
-      question: "What belongs on a compare-before-you-buy checklist?",
+      question: "A 'flash sale' site is selling a popular jacket for 80% off with a countdown timer and no visible return policy. What should a Consumer Guardian do?",
       choices: [
-        "Only the influencer's discount code",
-        "Price, seller reputation, terms/auto-renew, and return policy",
-        "Whether the ad used your favorite color",
-        "Skipping reviews because they take time",
+        "Treat the missing return policy and steep discount as red flags, and check seller reputation before buying",
+        "Buy quickly, since the countdown timer means the deal will genuinely disappear soon",
+        "Assume the deal is fine, since scam sites never accept card payments",
+        "Skip checking reviews, since the price is already obviously a good deal",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Comparing price, trustworthiness, terms, and returns prevents many consumer regrets and scam purchases.",
+        "A steep discount plus no return policy is worth checking before buying. Countdown timers are a pressure tactic, not proof of scarcity, and plenty of scam sites do accept card payments — that alone doesn't make a site trustworthy.",
     },
     {
       id: "q5",
-      question: "If a purchase goes wrong, what is a sound conceptual first step?",
+      question: "An online seller sent the wrong item and hasn't responded to two follow-up messages. What's a sound next step?",
       choices: [
-        "Post threats publicly with no facts",
-        "Contact the seller with dates, evidence, and a clear request — then escalate with records if needed",
-        "Give up immediately",
-        "Share your password with a stranger offering to 'fix it'",
+        "File a police report immediately, before trying anything else",
+        "Use a card dispute or chargeback option, backed by dates, screenshots, and your messages as evidence",
+        "Leave a one-star review and consider the issue fully resolved",
+        "Wait a few more months in case the seller eventually responds",
       ],
       correctIndex: 1,
       explanation:
-        "Documented, calm escalation — seller first, then card disputes or consumer resources as appropriate — is the guardian path.",
+        "Documented escalation through a card dispute is the practical next step once a seller stops responding. A review alone doesn't get the money back, and waiting indefinitely just delays a resolution you can pursue now.",
     },
     {
       id: "q6",
       question: "In the annotated scam text example, what was the technical giveaway that the message was fake?",
       choices: [
         "The message used the word 'account'",
-        "The link used a URL that wasn't the bank's actual official domain",
         "The message was longer than usual",
         "The message included a greeting",
+        "The link used a URL that wasn't the bank's actual official domain",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "A URL that only *resembles* an official domain (rather than matching it exactly) is a strong phishing signal, alongside the manufactured urgency and threat.",
+        "A URL that only resembles an official domain (rather than matching it exactly) is the technical phishing tell, alongside the manufactured urgency and threat — message length or wording alone don't indicate a scam.",
     },
     {
       id: "q7",
@@ -376,25 +376,25 @@ export const financeLesson12: AILessonConfig = {
       choices: [
         "Use the phone number or link provided inside the suspicious message",
         "Independently look up the real contact info yourself and reach out through that channel",
-        "Assume it's real if the logo looks professional",
-        "Ask the sender to prove it by sending more personal information",
+        "Assume it's real if the caller ID shows a familiar-looking name",
+        "Ask the sender to send additional personal information to 'prove' who they are",
       ],
       correctIndex: 1,
       explanation:
-        "Verifying through contact info you found yourself — not info from the suspicious message — removes the scammer's ability to control what happens next.",
+        "Verifying through contact info you found yourself — not info from the suspicious message — removes the scammer's ability to control what happens next. Caller ID can be spoofed, so a familiar name proves nothing.",
     },
     {
       id: "q8",
       question: "In the fake job offer case study, what was the biggest red flag before any technical detail even mattered?",
       choices: [
-        "The job was remote",
-        "The pay and lack of interview process didn't match how real hiring normally works, and the 'employer' asked for money up front",
-        "The message included a greeting",
-        "The job listing mentioned data entry",
+        "High pay with no interview, plus asking the applicant to pay money up front",
+        "The job was described as remote rather than in-person",
+        "The message opened with a friendly greeting and emoji",
+        "The listing mentioned data entry instead of a skilled role",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "A mismatch between the offer (high pay, no interview) and normal hiring practices — plus asking the applicant to pay first — is a classic scam pattern.",
+        "A mismatch between the offer (high pay, no interview) and normal hiring practices — plus asking the applicant to pay first — is a classic scam pattern, unrelated to the job being remote or how the message was worded.",
     },
   ],
   reflection: {

@@ -275,12 +275,12 @@ export const cyberLesson4: AILessonConfig = {
       id: "q1",
       question: "What is social engineering?",
       choices: [
-        "Building social media apps",
         "Manipulating people into unsafe disclosures or actions",
-        "Configuring firewalls only",
-        "A type of hardware cable",
+        "Configuring firewalls to block malicious traffic",
+        "A method for encrypting stored passwords",
+        "Designing the layout of a social media app",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Social engineering tricks humans — the goal is information, access, or actions that bypass technical controls.",
     },
@@ -288,12 +288,12 @@ export const cyberLesson4: AILessonConfig = {
       id: "q2",
       question: "A fake bank call asking you to read your one-time login code is best described as:",
       choices: [
-        "Smishing",
+        "Smishing, since it involves a code",
+        "A worm spreading through the phone network",
         "Vishing",
-        "A worm",
-        "A patch",
+        "A patch the bank issued for security",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Voice-call phishing is called vishing. (Smishing would be text; a worm is malware.)",
     },
@@ -302,11 +302,11 @@ export const cyberLesson4: AILessonConfig = {
       question: "Which ask is a major red flag in a surprise \"IT support\" message?",
       choices: [
         "A reminder that password changes are available in the official portal",
-        "A request for your password or MFA code in the chat/email",
         "A link to the school's publicly known homepage that you navigate to yourself",
-        "Office hours for the help desk",
+        "Published office hours for the help desk",
+        "A request for your password or MFA code in the chat/email",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Legitimate support almost never needs you to send your password or one-time codes to an inbound message.",
     },
@@ -314,12 +314,12 @@ export const cyberLesson4: AILessonConfig = {
       id: "q4",
       question: "What is the best first move when you get an urgent email with a login link you weren't expecting?",
       choices: [
-        "Click quickly before the deadline in the email",
-        "Reply with your password so they can \"verify\" you",
         "Pause and verify through an official app/site or known contact — don't use the email's link",
-        "Forward the email with the link to all your friends to vote on it",
+        "Click quickly before the deadline mentioned in the email",
+        "Reply with your password so they can \"verify\" you",
+        "Forward the email with the link to friends so they can vote on whether it's real",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "Pause and verify independently. Using the message's link can take you to a lookalike page designed to steal credentials.",
     },
@@ -327,12 +327,12 @@ export const cyberLesson4: AILessonConfig = {
       id: "q5",
       question: "Why is \"report, don't click\" useful beyond protecting just you?",
       choices: [
-        "It isn't — reporting never helps anyone else",
         "Reports can help IT block campaigns before more people are hit",
-        "It automatically pays ransomware",
-        "It replaces the need for passwords",
+        "It isn't useful beyond you — reporting never helps anyone else",
+        "It removes the need for anyone to use MFA",
+        "It automatically stops ransomware from spreading",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Reporting gives defenders visibility so they can warn others and block malicious messages organization-wide.",
     },
@@ -342,8 +342,8 @@ export const cyberLesson4: AILessonConfig = {
       choices: [
         "Send the code immediately since it's from a friend's real account",
         "Verify with your friend through a different channel before sending anything, since the account may be compromised",
-        "Ignore the possibility that a friend's account could ever be compromised",
-        "Post the code publicly so others can confirm it's real",
+        "Assume a friend's account can never be compromised, so no check is needed",
+        "Post the code publicly so mutual friends can confirm it's genuine",
       ],
       correctIndex: 1,
       explanation:
@@ -352,8 +352,8 @@ export const cyberLesson4: AILessonConfig = {
     {
       id: "q7",
       question: "Which term describes the fake scenario or story used to make an unusual request seem reasonable, regardless of channel?",
-      choices: ["Phishing", "Smishing", "Vishing", "Pretexting"],
-      correctIndex: 3,
+      choices: ["Phishing", "Smishing", "Pretexting", "Vishing"],
+      correctIndex: 2,
       explanation:
         "Pretexting is the invented story itself, and it can show up inside phishing, smishing, or vishing attempts.",
     },
@@ -362,11 +362,11 @@ export const cyberLesson4: AILessonConfig = {
       question: "Why do cybersecurity standards connect phishing awareness to both safety/ethics and technical security measures?",
       choices: [
         "Because phishing is a purely technical problem with no human element",
-        "Because phishing exploits human trust and decision-making, making it as much a safety and ethics topic as a technical one",
         "Because ethics only applies to malware, not phishing",
         "Because reporting phishing is optional and has no real impact",
+        "Because phishing exploits human trust and decision-making, making it as much a safety and ethics topic as a technical one",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Phishing succeeds by manipulating people, not by breaking code — which is exactly why standards frame it as both a security and a digital-citizenship topic.",
     },

@@ -143,8 +143,8 @@ export const lesson5: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "What tells Python which lines belong INSIDE the loop and should repeat?",
-          choices: ["The color of the text", "Indentation under the for line", "The word for itself"],
-          correctIndex: 1,
+          choices: ["Indentation under the for line", "The color of the text", "The word for itself"],
+          correctIndex: 0,
           explanation: "Python uses indentation to define what belongs inside the loop. Un-indented lines run only once, outside the loop.",
         },
       },
@@ -179,12 +179,8 @@ export const lesson5: PythonLessonConfig = {
         output: `Turn 0\nTurn 1\nTurn 2`,
         checkIn: {
           prompt: 'Why do we need `str(i)` instead of just `i` inside `print("Turn " + i)`?',
-          choices: [
-            "str() makes the loop run faster",
-            "+  can only join text to text — i is a number, so it must be converted first",
-            "It's just a style preference, not required",
-          ],
-          correctIndex: 1,
+          choices: ["str() makes the loop run faster", "It's just a style preference, not required", "+  can only join text to text — i is a number, so it must be converted first"],
+          correctIndex: 2,
           explanation: "+ concatenates strings. i is a number, so Python needs str(i) to convert it to text before it can be joined with other text.",
         },
       },
@@ -216,8 +212,8 @@ export const lesson5: PythonLessonConfig = {
         codeCaption: "How many times, and what prints?",
         checkIn: {
           prompt: "How many lines does this loop print, and what do they say?",
-          choices: ["3 lines, each saying Hi", "4 lines, each saying Hi", "5 lines, each saying Hi"],
-          correctIndex: 1,
+          choices: ["4 lines, each saying Hi", "3 lines, each saying Hi", "5 lines, each saying Hi"],
+          correctIndex: 0,
           explanation: "range(4) produces 0,1,2,3 — four iterations — so Hi prints exactly 4 times.",
         },
       },
@@ -294,8 +290,8 @@ export const lesson5: PythonLessonConfig = {
         body: `Let's confirm the loop pattern is locked in.`,
         checkIn: {
           prompt: "You want a message to print exactly 7 times. What should you write?",
-          choices: ["for i in range(6):", "for i in range(7):", "for i in range(8):"],
-          correctIndex: 1,
+          choices: ["for i in range(6):", "for i in range(8):", "for i in range(7):"],
+          correctIndex: 2,
           explanation: "range(7) produces 0 through 6 — that's 7 numbers, so the loop body runs exactly 7 times.",
         },
       },

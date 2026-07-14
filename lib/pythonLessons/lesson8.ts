@@ -134,8 +134,8 @@ export const lesson8: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "After `choices = []`, `choices.append(\"a\")`, `choices.append(\"b\")` — what does `choices` hold?",
-          choices: ['["b", "a"]', '["a", "b"]', '"a" and "b" as separate variables'],
-          correctIndex: 1,
+          choices: ["[\"a\", \"b\"]", "[\"b\", \"a\"]", "\"a\" and \"b\" as separate variables"],
+          correctIndex: 0,
           explanation: "append adds to the end, in the order you call it. \"a\" was appended first, so it stays first: [\"a\", \"b\"].",
         },
       },
@@ -181,12 +181,8 @@ export const lesson8: PythonLessonConfig = {
         },
         checkIn: {
           prompt: 'What happens if you call `choices.remove("banana")` but "banana" isn\'t in the list?',
-          choices: [
-            "Nothing happens, silently",
-            "Python raises an error",
-            "It removes the last item instead",
-          ],
-          correctIndex: 1,
+          choices: ["Nothing happens, silently", "It removes the last item instead", "Python raises an error"],
+          correctIndex: 2,
           explanation: ".remove() needs the item to exist. Trying to remove something that isn't in the list causes an error.",
         },
       },
@@ -218,8 +214,8 @@ export const lesson8: PythonLessonConfig = {
         codeCaption: "What does pets hold at the end?",
         checkIn: {
           prompt: "What does the final print(pets) show?",
-          choices: ["['cat', 'dog', 'fish']", "['cat', 'fish']", "['fish', 'cat']"],
-          correctIndex: 1,
+          choices: ["['cat', 'fish']", "['cat', 'dog', 'fish']", "['fish', 'cat']"],
+          correctIndex: 0,
           explanation: "cat, dog, and fish are appended in order, then dog is removed — leaving ['cat', 'fish'] in their original order.",
         },
       },
@@ -296,12 +292,8 @@ export const lesson8: PythonLessonConfig = {
         body: `Let's confirm the list pattern is locked in.`,
         checkIn: {
           prompt: "What's the difference between `scores = []` and `scores = \"\"`?",
-          choices: [
-            "No difference — both are empty",
-            "The first makes an empty list, the second makes an empty string (text) — different containers entirely",
-            "The second is faster",
-          ],
-          correctIndex: 1,
+          choices: ["No difference — both are empty", "The second is faster", "The first makes an empty list, the second makes an empty string (text) — different containers entirely"],
+          correctIndex: 2,
           explanation: "[] creates an empty list (a container for many items); \"\" creates an empty string (text). They behave very differently.",
         },
       },

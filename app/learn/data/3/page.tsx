@@ -95,8 +95,8 @@ const daLesson3: DataLessonConfig = {
         },
         checkIn: {
           prompt: "8 orders include 2 Pizza slices and 2 Salads. How many rows does SELECT DISTINCT item return?",
-          choices: ["8", "6", "4"],
-          correctIndex: 1,
+          choices: ["8", "4", "6"],
+          correctIndex: 2,
           explanation: "DISTINCT collapses the duplicate 'Pizza slice' and 'Salad' rows down to one each, so 8 orders become 6 unique items.",
         },
       },
@@ -107,8 +107,8 @@ const daLesson3: DataLessonConfig = {
         body: `Here's the twist that surprises most beginners: \`DISTINCT\` doesn't just look at one column — it looks at the **combination** of every column you selected. \`SELECT DISTINCT item\` finds unique items, but \`SELECT DISTINCT item, price\` finds unique **item-and-price pairs**.\n\nThat means a value like "Pizza slice" could still appear twice in a multi-column DISTINCT query, *if* it had two different prices attached to it. DISTINCT is checking whether the whole row is a repeat, not just one piece of it.`,
         checkIn: {
           prompt: "If two students both ordered a Pizza slice at the SAME price, how many rows does SELECT DISTINCT item, price show for it?",
-          choices: ["2 rows — one per student", "1 row — the combo is identical", "0 rows"],
-          correctIndex: 1,
+          choices: ["1 row — the combo is identical", "2 rows — one per student", "0 rows"],
+          correctIndex: 0,
           explanation: "DISTINCT checks the full combination of selected columns. If item AND price match exactly, it's treated as one repeated combo and shown once.",
         },
       },
@@ -143,12 +143,8 @@ const daLesson3: DataLessonConfig = {
         body: `The biggest trap in this lesson: thinking \`DISTINCT\` applies separately to each column you list. It doesn't — it applies to the **entire combination** at once.`,
         checkIn: {
           prompt: "Where must DISTINCT be placed in a query?",
-          choices: [
-            "Right after SELECT, before the column list",
-            "Right before FROM",
-            "In front of any single column, anywhere in the list",
-          ],
-          correctIndex: 0,
+          choices: ["Right before FROM", "Right after SELECT, before the column list", "In front of any single column, anywhere in the list"],
+          correctIndex: 1,
           explanation: "DISTINCT always goes immediately after SELECT and applies to the whole row of selected columns — not in front of an individual column name.",
         },
       },
@@ -180,8 +176,8 @@ const daLesson3: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "You just want a plain list of every unique item — no counts needed. What's the simplest tool?",
-          choices: ["DISTINCT", "GROUP BY with COUNT", "ORDER BY alone"],
-          correctIndex: 0,
+          choices: ["GROUP BY with COUNT", "ORDER BY alone", "DISTINCT"],
+          correctIndex: 2,
           explanation: "When you only need unique values with no extra calculation, DISTINCT is the simplest, most direct tool for the job.",
         },
       },
@@ -231,12 +227,8 @@ const daLesson3: DataLessonConfig = {
         body: `Let's make sure column order and DISTINCT are both locked in.`,
         checkIn: {
           prompt: "Which query lists each unique item ALONGSIDE its price, with item shown first?",
-          choices: [
-            "SELECT DISTINCT price, item FROM lunch_orders;",
-            "SELECT DISTINCT item, price FROM lunch_orders;",
-            "SELECT item, DISTINCT price FROM lunch_orders;",
-          ],
-          correctIndex: 1,
+          choices: ["SELECT DISTINCT item, price FROM lunch_orders;", "SELECT DISTINCT price, item FROM lunch_orders;", "SELECT item, DISTINCT price FROM lunch_orders;"],
+          correctIndex: 0,
           explanation: "DISTINCT sits right after SELECT, and listing item before price puts item first in the result — exactly what's needed here.",
         },
       },

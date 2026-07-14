@@ -92,8 +92,8 @@ const daLesson2: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "If a table has 8 rows and you write a query with NO LIMIT, how many rows come back?",
-          choices: ["0", "All 8", "Exactly 5"],
-          correctIndex: 1,
+          choices: ["0", "Exactly 5", "All 8"],
+          correctIndex: 2,
           explanation: "No LIMIT means \"give me everything.\" With 8 rows in the table, that's all 8.",
         },
       },
@@ -104,8 +104,8 @@ const daLesson2: DataLessonConfig = {
         body: `It's easy to blur these two together when you're new, so let's separate them cleanly. \`SELECT\` controls **which columns** appear — the width of your result table. \`LIMIT\` controls **how many rows** appear — the height of your result table.\n\nChanging one never affects the other. Adding a third column to your \`SELECT\` list doesn't change your row count, and lowering your \`LIMIT\` doesn't remove any columns.`,
         checkIn: {
           prompt: "You want FEWER rows in your result. Which keyword should you change?",
-          choices: ["SELECT", "LIMIT", "FROM"],
-          correctIndex: 1,
+          choices: ["LIMIT", "SELECT", "FROM"],
+          correctIndex: 0,
           explanation: "LIMIT controls row count. SELECT controls which columns show, and FROM names the table — neither affects how many rows you get back.",
         },
       },
@@ -179,12 +179,8 @@ const daLesson2: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "You're exploring a brand-new table for the first time. What's the better first move?",
-          choices: [
-            "SELECT * LIMIT 5 — peek at everything first",
-            "Immediately write a 10-column focused SELECT",
-            "Skip straight to filtering with WHERE",
-          ],
-          correctIndex: 0,
+          choices: ["Immediately write a 10-column focused SELECT", "Skip straight to filtering with WHERE", "SELECT * LIMIT 5 — peek at everything first"],
+          correctIndex: 2,
           explanation: "When a table is unfamiliar, a quick SELECT * with a small LIMIT is the standard first move — you narrow the columns down once you understand what's there.",
         },
       },
@@ -242,12 +238,8 @@ const daLesson2: DataLessonConfig = {
         body: `Let's confirm the two controls are locked in: SELECT for columns, LIMIT for rows.`,
         checkIn: {
           prompt: "Which query returns exactly 2 columns and at most 3 rows from an 8-row table?",
-          choices: [
-            "SELECT * FROM lunch_orders LIMIT 3;",
-            "SELECT student_name, item FROM lunch_orders LIMIT 3;",
-            "SELECT student_name, item, price, order_id FROM lunch_orders;",
-          ],
-          correctIndex: 1,
+          choices: ["SELECT student_name, item FROM lunch_orders LIMIT 3;", "SELECT * FROM lunch_orders LIMIT 3;", "SELECT student_name, item, price, order_id FROM lunch_orders;"],
+          correctIndex: 0,
           explanation: "Listing exactly two columns controls the width, and LIMIT 3 controls the height — together they shape a small, focused result.",
         },
       },

@@ -638,9 +638,14 @@ export function AILessonCanvas({
                         {activeQuestion.choices.map((choice, ci) => {
                           const isChosen = currentSelection === ci;
                           const isCorrectChoice = ci === activeQuestion.correctIndex;
-                          const revealed = currentSelection !== undefined;
-                          const showCorrect = revealed && isCorrectChoice;
-                          const showWrong = revealed && isChosen && !isCorrectChoice;
+                          // Only mark the correct choice after the learner picks it —
+                          // never reveal the answer on a wrong attempt.
+                          const showCorrect = currentCorrect && isCorrectChoice;
+                          const showWrong =
+                            !currentCorrect &&
+                            isChosen &&
+                            currentSelection !== undefined &&
+                            !isCorrectChoice;
                           return (
                             <button
                               key={ci}

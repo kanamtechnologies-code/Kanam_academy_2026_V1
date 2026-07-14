@@ -99,7 +99,7 @@ export const aiLesson8: AILessonConfig = {
         checkIn: {
           prompt: "An AI gives you a confident answer with a specific quote and date that turn out to be fake. This is called…",
           choices: [
-            "A glitch in the screen",
+            "A rare software bug that a future update will simply patch out",
             "A hallucination",
             "Overfitting",
             "A context window",
@@ -279,11 +279,11 @@ export const aiLesson8: AILessonConfig = {
       question: "At its core, what does a Large Language Model do?",
       choices: [
         "Searches the internet live for answers",
-        "Predicts the next token (word/word-part) over and over to produce text",
         "Stores a copy of every webpage and quotes it exactly",
+        "Predicts the next token (word/word-part) over and over to produce text",
         "Thinks and reasons exactly like a human",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "An LLM is fundamentally a next-token predictor. Its many abilities emerge from doing that extremely well.",
     },
@@ -291,12 +291,12 @@ export const aiLesson8: AILessonConfig = {
       id: "q2",
       question: "What is the 'context window'?",
       choices: [
-        "The app's settings menu",
         "The recent text the model can currently pay attention to",
+        "The app's settings menu",
         "A window that pops up with ads",
         "The model's permanent memory of you forever",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "The context window is the model's working memory for a conversation. Text beyond it can be forgotten.",
     },
@@ -304,12 +304,12 @@ export const aiLesson8: AILessonConfig = {
       id: "q3",
       question: "An AI gives you a confident answer with a specific quote and date that turn out to be fake. This is called…",
       choices: [
-        "A glitch in the screen",
-        "A hallucination",
+        "A rare software bug that a future update will simply patch out",
         "Overfitting",
         "A context window",
+        "A hallucination",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Hallucination is when an LLM produces false information that sounds convincing, because it optimizes for plausible, not true.",
     },
@@ -318,11 +318,11 @@ export const aiLesson8: AILessonConfig = {
       question: "Given how LLMs work, which task is SAFEST to rely on without double-checking?",
       choices: [
         "Getting exact historical dates and statistics",
-        "Listing real research papers with page numbers",
         "Rephrasing a paragraph you wrote to sound clearer",
+        "Listing real research papers with page numbers",
         "Reporting today's breaking news",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "Language tasks like rephrasing your own text are a strength. Facts, citations, and live news are exactly where hallucination bites.",
     },
@@ -331,11 +331,11 @@ export const aiLesson8: AILessonConfig = {
       question: "In the real lawyer case, what happened when the chatbot was asked to confirm its citations were real?",
       choices: [
         "It immediately admitted the cases were fake",
-        "It confidently reassured him the fake cases were real",
         "It refused to respond",
         "It connected to a court database and verified them",
+        "It confidently reassured him the fake cases were real",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "The model reaffirmed its own fabrication with confidence — proof that an LLM has no reliable internal way to detect its own hallucinations.",
     },
@@ -343,12 +343,12 @@ export const aiLesson8: AILessonConfig = {
       id: "q6",
       question: "Why is a search engine generally safer than a chatbot for verifying one exact fact?",
       choices: [
-        "Search engines are incapable of ever showing wrong information",
         "Search engines typically link to real, checkable source pages, while chatbots often generate plausible text without a direct source",
+        "Search engines are incapable of ever showing wrong information",
         "Chatbots are always slower than search engines",
         "There's no meaningful difference between the two for facts",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Traceability to a real source is the key advantage — exactly what a generated chatbot answer often lacks by default.",
     },
@@ -370,11 +370,11 @@ export const aiLesson8: AILessonConfig = {
       question: "What is the biggest overall lesson from the courtroom hallucination case?",
       choices: [
         "AI should never be used for any research, ever",
-        "Verification is not optional, no matter how confident or polished an AI's answer sounds, or how experienced the user is",
         "Lawyers are uniquely bad at using technology",
+        "Verification is not optional, no matter how confident or polished an AI's answer sounds, or how experienced the user is",
         "Hallucinations only happen in legal contexts",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "The case shows hallucination can fool even careful, experienced professionals — which is exactly why verification has to be a consistent habit, not an occasional afterthought.",
     },

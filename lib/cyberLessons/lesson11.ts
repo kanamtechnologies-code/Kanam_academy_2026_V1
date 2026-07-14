@@ -304,12 +304,12 @@ export const cyberLesson11: AILessonConfig = {
       id: "q1",
       question: "What is the main security reason to install patches promptly?",
       choices: [
-        "Patches always add new games",
         "They close known vulnerabilities attackers may already understand how to abuse",
-        "They permanently stop all phishing",
-        "They remove the need for passwords",
+        "Patches mainly exist to add new features and games",
+        "They permanently stop all phishing attempts",
+        "They remove the need for passwords entirely",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Patches fix known weaknesses. Delaying updates leaves doors open that defenders and attackers both know about.",
     },
@@ -317,14 +317,14 @@ export const cyberLesson11: AILessonConfig = {
       id: "q2",
       question: "Why disable unused services or uninstall unused apps?",
       choices: [
-        "To make the device look emptier",
+        "To free up storage space, which is the real security benefit",
         "To shrink the attack surface — fewer things that can be abused",
-        "Because updates are illegal on unused apps",
-        "So backups stop working",
+        "Because every unused app already contains malware",
+        "So that automatic backups will stop running",
       ],
       correctIndex: 1,
       explanation:
-        "Every unused service or app is potential exposure. Reducing them is classic hardening.",
+        "Every unused service or app is potential exposure. Reducing them is classic hardening — the storage savings are a side effect, not the point.",
     },
     {
       id: "q3",
@@ -332,34 +332,34 @@ export const cyberLesson11: AILessonConfig = {
       choices: [
         "New cloud folders set to public until someone remembers to lock them",
         "Admin rights given to every club member by default",
-        "MFA offered as optional forever on a sensitive admin account",
         "Screen lock and automatic updates enabled when you first set up a device",
+        "MFA offered as optional forever on a sensitive admin account",
       ],
-      correctIndex: 3,
+      correctIndex: 2,
       explanation:
-        "Secure defaults start protective (locks, updates, limited sharing) instead of wide open.",
+        "Secure defaults start protective (locks, updates, limited sharing) instead of wide open or optional-forever.",
     },
     {
       id: "q4",
       question: "What makes a backup actually useful in an incident?",
       choices: [
-        "You once thought about backing up",
-        "You can successfully restore the files you need",
+        "You once thought about setting up a backup, even if it was never tested",
         "The backup is stored only on the same infected laptop",
-        "The backup replaces the need for patching",
+        "The backup replaces the need for patching entirely",
+        "You can successfully restore the files you need",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Untested or inaccessible backups fail when you need them. Restorability is the point.",
+        "Untested or inaccessible backups fail when you need them. Restorability is the point — and backups complement patching, not replace it.",
     },
     {
       id: "q5",
       question: "Why keep a device/account inventory for a club or family?",
       choices: [
-        "So you can forget about updates",
+        "So you can forget about updates entirely",
         "So you know what exists to patch, lock, wipe, or revoke when people leave",
-        "Inventories replace encryption",
-        "Only large corporations are allowed to list devices",
+        "Inventories replace the need for encryption",
+        "Only large corporations are allowed to keep device lists",
       ],
       correctIndex: 1,
       explanation:
@@ -370,11 +370,11 @@ export const cyberLesson11: AILessonConfig = {
       question: "What is the correct order for hardening a new IoT device before connecting it to a sensitive network?",
       choices: [
         "Join the network first, then think about passwords later",
-        "Change default password → apply firmware updates → reduce remote exposure → then join the network",
         "Enable every remote-access feature immediately for convenience",
+        "Change default password → apply firmware updates → reduce remote exposure → then join the network",
         "Skip firmware updates since IoT devices don't need them",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Harden first, expose second — factory-default IoT devices are quickly found by automated scanners if joined to a network before being locked down.",
     },
@@ -383,11 +383,11 @@ export const cyberLesson11: AILessonConfig = {
       question: "An internet-facing service with a default password and an internal-only tool with a minor, low-impact bug both need attention. Which should be prioritized first?",
       choices: [
         "The internal-only tool, since patches are always most urgent",
-        "The internet-facing service, since it's exposed, high-impact, and cheap to fix",
         "Neither needs prioritizing — fix whatever is easiest",
-        "Whichever was discovered most recently",
+        "Whichever issue was discovered most recently",
+        "The internet-facing service, since it's exposed, high-impact, and cheap to fix",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Prioritization weighs exposure, impact, and fix cost. An exposed, high-impact, easy fix should jump the queue.",
     },
@@ -395,12 +395,12 @@ export const cyberLesson11: AILessonConfig = {
       id: "q8",
       question: "Why use change management (plan, test, communicate, rollback, document) for hardening changes?",
       choices: [
-        "To slow down security work for no reason",
         "So well-intentioned changes don't cause unexpected outages, and can be undone if something breaks",
+        "To slow down security work for no reason",
         "Because untested changes are always safe on production systems",
         "To avoid ever making any security improvements",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Change management prevents good security intentions from turning into unplanned breakage, and ensures a way back if something goes wrong.",
     },

@@ -35,6 +35,8 @@ type ParsonsLinesProps = {
   languageLabel?: string;
   /** Overrides the default “press Run & check” hint. */
   checkHint?: string;
+  /** Change this (e.g. from Reset) to force a fresh shuffle. */
+  resetToken?: number | string;
 };
 
 /** Reorder scrambled lines into a working program/query (Parsons problem). */
@@ -46,6 +48,7 @@ export function ParsonsLines({
   disabled,
   languageLabel = "lines",
   checkHint = "Run & check",
+  resetToken = 0,
 }: ParsonsLinesProps) {
   const correct = React.useMemo(
     () => lines.map((line, index) => ({ id: `L${index}`, line })),
@@ -71,8 +74,8 @@ export function ParsonsLines({
   const linesKey = lines.join("\n");
   React.useEffect(() => {
     setOrder(shuffle(correct));
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- reshuffle when line set changes
-  }, [linesKey]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- reshuffle when line set or reset changes
+  }, [linesKey, resetToken]);
 
   const move = (index: number, dir: -1 | 1) => {
     if (disabled) return;

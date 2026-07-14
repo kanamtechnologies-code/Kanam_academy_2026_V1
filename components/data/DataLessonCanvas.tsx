@@ -23,6 +23,7 @@ import { LessonAside } from "@/components/lesson/LessonAside";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
 import { ResultTable } from "@/components/data/ResultTable";
 import { SqlTextarea } from "@/components/data/SqlTextarea";
+import { ExerciseHint } from "@/components/exercises/ExerciseHint";
 import { PremiumBadge } from "@/components/badges/PremiumBadge";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Badge } from "@/components/ui/badge";
@@ -167,6 +168,8 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
   const [runError, setRunError] = React.useState<string | null>(null);
   const [lessonComplete, setLessonComplete] = React.useState(false);
   const [predictionByExercise, setPredictionByExercise] = React.useState<Record<string, string>>({});
+  /** Bumped on Reset so the editor / Parsons board remounts cleanly. */
+  const [exerciseResetToken, setExerciseResetToken] = React.useState(0);
 
   const [coachConfirmed, setCoachConfirmed] = React.useState(false);
   const [coachSecondsLeft, setCoachSecondsLeft] = React.useState(gateSeconds);
@@ -339,6 +342,19 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
     setSqlByExercise((prev) => ({ ...prev, [activeExercise.id]: next }));
   };
 
+  const handleResetExercise = () => {
+    if (!activeExercise || lessonComplete) return;
+    const starter = prepareExerciseSql(activeExercise.starterSql);
+    setSqlByExercise((prev) => ({ ...prev, [activeExercise.id]: starter }));
+    setPredictionByExercise((prev) => ({ ...prev, [activeExercise.id]: "" }));
+    setQueryResult(null);
+    setRunError(null);
+    setLastFeedback("");
+    setLastFeedbackSuccess(false);
+    setTerminalOutput("");
+    setExerciseResetToken((n) => n + 1);
+  };
+
   const handleRunExercise = () => {
     if (!activeExercise) return;
     const kind = activeExercise.kind ?? "fill";
@@ -370,11 +386,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
       setRunError(result.error);
       setQueryResult(null);
       setLastFeedbackSuccess(false);
-      setLastFeedback(
-        kind === "debug"
-          ? `${activeExercise.failureMessage}${activeExercise.debugHint ? ` Hint category: ${activeExercise.debugHint}.` : ""}`
-          : activeExercise.failureMessage
-      );
+      setLastFeedback(activeExercise.failureMessage);
       setTerminalOutput(formatTerminal(`❌ ${result.error}`));
       return;
     }
@@ -444,11 +456,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
       }
     } else {
       setLastFeedbackSuccess(false);
-      setLastFeedback(
-        kind === "debug"
-          ? `${activeExercise.failureMessage}${activeExercise.debugHint ? ` Hint category: ${activeExercise.debugHint}.` : ""}`
-          : activeExercise.failureMessage
-      );
+      setLastFeedback(activeExercise.failureMessage);
       setTerminalOutput(
         formatTerminal(`Query ran (${preview}) but not quite right yet.\n${activeExercise.failureMessage}`)
       );
@@ -775,15 +783,17 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                             {activeExercise.commandExplain}
                           </p>
                           <p className="mt-2 text-sm text-slate-600">{activeExercise.goal}</p>
-                          {activeExercise.hint ? (
-                            <p className="mt-2 text-xs text-slate-500">
-                              Hint: {activeExercise.hint}
-                            </p>
-                          ) : null}
-                          {activeExercise.debugHint && (activeExercise.kind ?? "fill") === "debug" ? (
-                            <p className="mt-2 text-xs font-semibold text-amber-800">
-                              Bug category: {activeExercise.debugHint}
-                            </p>
+                          {!currentDone && !lessonComplete ? (
+                            <ExerciseHint
+                              exerciseKey={activeExercise.id}
+                              hint={activeExercise.hint}
+                              secondaryHint={
+                                (activeExercise.kind ?? "fill") === "debug" &&
+                                activeExercise.debugHint
+                                  ? `Bug category: ${activeExercise.debugHint}`
+                                  : undefined
+                              }
+                            />
                           ) : null}
                         </div>
 
@@ -807,7 +817,9 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                         {(activeExercise.kind ?? "fill") === "parsons" &&
                         activeExercise.parsonsLines?.length ? (
                           <ParsonsLines
+                            key={`${activeExercise.id}-parsons-${exerciseResetToken}`}
                             lines={activeExercise.parsonsLines}
+                            resetToken={exerciseResetToken}
                             disabled={lessonComplete || currentDone}
                             languageLabel="SQL lines"
                             onAssembledChange={(sql) => {
@@ -819,6 +831,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                           />
                         ) : (
                           <SqlTextarea
+                            key={`${activeExercise.id}-sql-${exerciseResetToken}`}
                             value={activeSql}
                             onChange={setActiveSql}
                             autoClearBlanks
@@ -867,9 +880,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                             type="button"
                             variant="outline"
                             className="min-h-11 w-full sm:w-auto"
-                            onClick={() =>
-                              setActiveSql(prepareExerciseSql(activeExercise.starterSql))
-                            }
+                            onClick={handleResetExercise}
                             disabled={lessonComplete}
                           >
                             Reset

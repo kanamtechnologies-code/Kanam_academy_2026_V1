@@ -62,10 +62,10 @@ export const digitalLesson12: AILessonConfig = {
         checkIn: {
           prompt: "Individually, your school name, your after-school activity, and your usual walking route each seem pretty harmless. Why might sharing all three together be riskier than sharing just one?",
           choices: [
-            "It isn't riskier — combining harmless facts is still harmless",
-            "Combined, they could reveal exactly where and when to find you, which no single fact alone would show",
-            "Because schools ban students from having any online presence",
             "Because combining data automatically deletes your account",
+            "Combined, they could reveal exactly where and when to find you, which no single fact alone would show",
+            "It isn't riskier — combining harmless facts is still harmless",
+            "Because schools ban students from having any online presence",
           ],
           correctIndex: 1,
           explanation:
@@ -92,12 +92,12 @@ export const digitalLesson12: AILessonConfig = {
         checkIn: {
           prompt: "A free app never charges you money but somehow still makes millions of dollars. What's the most likely explanation?",
           choices: [
-            "The app developers work entirely for free out of generosity",
+            "The app only makes money if you later buy a paid upgrade — ads never matter",
+            "Free apps usually lose money forever and just hope for donations",
             "It collects user data and sells targeted ads, so users 'pay' with their data and attention instead of money",
-            "Free apps are required by law to be funded by the government",
-            "It's impossible for a free app to make money",
+            "App stores pay developers a flat fee for every free download",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Running servers and building apps costs real money. When you're not paying with cash, the business model is usually built on collecting data and selling targeted ads — you're paying with attention and information instead.",
         },
@@ -134,12 +134,12 @@ export const digitalLesson12: AILessonConfig = {
         checkIn: {
           prompt: "A simple offline word-puzzle game requests permission to access your contacts and exact location. What's the smart response?",
           choices: [
-            "Allow both — permissions are always required for games to function",
-            "Deny both, since a word-puzzle game has no clear reason to need your contacts or location",
-            "Allow only location, since games often need it",
             "Uninstall your phone's entire operating system",
+            "Allow both — permissions are always required for games to function",
+            "Allow only location, since games often need it",
+            "Deny both, since a word-puzzle game has no clear reason to need your contacts or location",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "A word-puzzle game's core function doesn't require your contacts or location. Requests that go beyond an app's actual purpose are a sign the data is wanted for something other than making the app work.",
         },
@@ -166,12 +166,12 @@ export const digitalLesson12: AILessonConfig = {
         checkIn: {
           prompt: "What's the biggest privacy risk in a public post that says 'Leaving for vacation for 10 days starting tomorrow!' with a home neighborhood tag?",
           choices: [
-            "It might get too many likes",
             "It publicly announces that a specific home will be empty for a known window of time",
+            "It might get too many likes",
             "It uses too many emojis",
             "There's no real risk since it's just exciting news",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Publicly sharing exact travel dates plus a home location tells anyone watching exactly when and roughly where a home will be unoccupied. Waiting until you're back, and limiting the audience, removes most of that risk.",
         },
@@ -242,10 +242,10 @@ export const digitalLesson12: AILessonConfig = {
         checkIn: {
           prompt: "While auditing your accounts before college applications, you find an old public post with your home address and daily schedule from two years ago. What's the best next step?",
           choices: [
-            "Leave it — old posts don't matter anymore",
-            "Delete or restrict the post's visibility now, since it's still publicly findable today",
             "Post it again to make sure people notice",
+            "Delete or restrict the post's visibility now, since it's still publicly findable today",
             "Only worry about posts made in the last week",
+            "Leave it — old posts don't matter anymore",
           ],
           correctIndex: 1,
           explanation:
@@ -264,12 +264,12 @@ export const digitalLesson12: AILessonConfig = {
         checkIn: {
           prompt: "Which ISTE-aligned habit did this lesson focus on building?",
           choices: [
-            "Memorizing every privacy law by name",
+            "Avoiding all technology so nothing can collect data",
+            "Trusting that popular apps only request permissions they truly need",
+            "Accepting permission requests quickly so apps work without friction",
             "Managing your personal data thoughtfully and questioning what technology collects and why",
-            "Avoiding all technology entirely",
-            "Accepting every permission request without reading it",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "The ISTE Digital Citizen standard is about managing your data to protect your privacy and security — exactly the skill this lesson builds through permissions, settings, and smart sharing choices.",
         },
@@ -306,12 +306,12 @@ export const digitalLesson12: AILessonConfig = {
       id: "q1",
       question: "You're filling out a scholarship form that asks for your name, birthday, address, and school. Which of these counts as personal data (PII)?",
       choices: [
-        "Only your full legal name",
         "Your name, location, contacts, photos, and browsing habits — plus form details like birthday and address",
-        "Only information you mark as private",
         "Nothing you post publicly counts as personal data",
+        "Only information you mark as private",
+        "Only your full legal name",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Personal data is anything that can identify you — name, birthday, address, location, photos, contacts, and online habits. Companies (and forms) combine these pieces into a detailed profile of you.",
     },
@@ -319,12 +319,12 @@ export const digitalLesson12: AILessonConfig = {
       id: "q2",
       question: "A free \"scholarship finder\" app makes money without charging you. How does that usually work?",
       choices: [
-        "The developers run it for free out of kindness",
-        "It collects your data and shows targeted ads — you 'pay' with your data and attention",
-        "The government pays for all free apps",
         "Free apps never make any money at all",
+        "The government pays for all free apps",
+        "It collects your data and shows targeted ads — you 'pay' with your data and attention",
+        "The developers run it for free out of kindness",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "If you're not paying with money, the business often earns from your data and attention through targeted ads. Running apps costs money, so 'free' usually means you're the product.",
     },
@@ -332,12 +332,12 @@ export const digitalLesson12: AILessonConfig = {
       id: "q3",
       question: "A simple flashlight app asks for your location, contacts, and microphone while you're on a school Chromebook. What's the smart move?",
       choices: [
-        "Allow everything — permissions are required and harmless",
         "Deny the permissions it doesn't need; a flashlight doesn't need your contacts or location",
-        "Uninstall every app that asks for any permission",
         "Allow them since denying will break your phone",
+        "Allow everything — permissions are required and harmless",
+        "Uninstall every app that asks for any permission",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Use 'least privilege' — grant only what an app truly needs. A flashlight has no reason to need your location, contacts, or mic, so deny those. They're almost certainly for data collection.",
     },
@@ -345,9 +345,9 @@ export const digitalLesson12: AILessonConfig = {
       id: "q4",
       question: "You're about to submit a college application and wonder whether to keep posting your exact location on every photo. Why is minimizing what you share a good privacy strategy?",
       choices: [
-        "Because the internet is slow and sharing less saves data",
-        "Because data breaches happen, and a company can't lose data it never collected from you — plus public posts can be seen by admissions and employers",
         "Because sharing anything online is illegal",
+        "Because data breaches happen, and a company can't lose data it never collected from you — plus public posts can be seen by admissions and employers",
+        "Because the internet is slow and sharing less saves data",
         "Because privacy settings don't exist",
       ],
       correctIndex: 1,
@@ -359,11 +359,11 @@ export const digitalLesson12: AILessonConfig = {
       question: "A friend says private/incognito mode will hide their college-portal browsing from everyone. Which statement is TRUE about privacy online?",
       choices: [
         "Incognito/private mode makes you completely anonymous to everyone",
-        "Laws like GDPR and CCPA let you see and ask to delete data companies hold about you",
         "Once you accept permissions you can never change them",
         "Public posts can be fully deleted with no trace at any time",
+        "Laws like GDPR and CCPA let you see and ask to delete data companies hold about you",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Privacy laws like GDPR and CCPA give people the right to see and delete their data. Incognito mode only hides history on your own device, permissions can be changed in settings, and posts can be screenshotted.",
     },
@@ -372,11 +372,11 @@ export const digitalLesson12: AILessonConfig = {
       question: "Your school, your after-school activity, and your usual walking route each seem harmless shared alone. What's the risk in sharing all three together publicly?",
       choices: [
         "There's no added risk from combining harmless facts",
+        "Combining data automatically makes an account private",
         "Combined, they could reveal exactly where and when to find you — something no single fact alone would show",
         "It would only matter if you also shared your favorite color",
-        "Combining data automatically makes an account private",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Data adds up. Individually mild facts can combine into a detailed, sensitive picture, which is why the real question is what a set of shared details reveals together, not just each one alone.",
     },
@@ -384,12 +384,12 @@ export const digitalLesson12: AILessonConfig = {
       id: "q7",
       question: "A note-taking app requests microphone access for voice notes, plus 'always-on' precise location. What's the most reasonable response?",
       choices: [
+        "Deny microphone but allow location, since microphones are riskier",
         "Allow both automatically since apps always need every permission they ask for",
         "The microphone request could be reasonable for the voice-note feature; the always-on location request likely goes beyond what a note app needs",
-        "Deny microphone but allow location, since microphones are riskier",
         "Uninstall the app immediately without reading any requests",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "The right test is whether a permission matches the app's actual advertised feature. A microphone for voice notes can make sense; constant precise location for a note-taking app usually does not.",
     },

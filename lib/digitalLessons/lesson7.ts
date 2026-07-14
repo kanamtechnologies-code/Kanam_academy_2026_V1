@@ -56,12 +56,12 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "A scholarship committee googles your name. What is a 'digital footprint'?",
           choices: [
-            "The battery your phone uses online",
-            "The trail of data you leave online through posts, likes, searches, and activity",
             "A type of password",
             "The speed of your internet connection",
+            "The battery your phone uses online",
+            "The trail of data you leave online through posts, likes, searches, and activity",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Your digital footprint is the overall trail of data you leave behind as you use the internet — both what you post and what's collected about you.",
         },
@@ -83,12 +83,12 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Your location, search history, and what you click while browsing college sites are part of which footprint?",
           choices: [
-            "Active footprint",
-            "Passive footprint",
-            "No footprint at all",
             "A deleted footprint",
+            "No footprint at all",
+            "Passive footprint",
+            "Active footprint",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Your passive footprint is data collected about you without posting. Your active footprint is the content you choose to share.",
         },
@@ -107,12 +107,12 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "You delete an embarrassing post an hour after sending it, before a job interview next month. Why might it still exist?",
           choices: [
-            "Deleting always works instantly and fully",
             "Screenshots, archives, and reshares can keep copies you can't control",
-            "Posts can never be deleted by anyone",
             "Only the government can delete posts",
+            "Deleting always works instantly and fully",
+            "Posts can never be deleted by anyone",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Because of permanence, deleting removes only your copy. Screenshots and reshares may already be out there beyond your reach.",
         },
@@ -147,10 +147,10 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "You post a photo, and your phone automatically attaches your location to it without you typing anything about location. What kind of footprint is the location tag?",
           choices: [
-            "Active — you chose to share your location",
-            "Passive — it was collected and attached without you actively deciding to share it",
-            "It's not part of your footprint at all",
             "It only counts if you mention the location in the caption",
+            "Passive — it was collected and attached without you actively deciding to share it",
+            "Active — you chose to share your location",
+            "It's not part of your footprint at all",
           ],
           correctIndex: 1,
           explanation:
@@ -211,12 +211,12 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "What's a smart way to build a POSITIVE digital footprint for college or a first job?",
           choices: [
-            "Post nothing ever, anywhere",
-            "Share projects and portfolios you're proud of and post helpfully",
             "Make every account public",
+            "Post nothing ever, anywhere",
             "Tag yourself in as many photos as possible",
+            "Share projects and portfolios you're proud of and post helpfully",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Sharing real work and being helpful builds a footprint that actively helps you — often more than just hiding the bad stuff.",
         },
@@ -259,12 +259,12 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Before posting a joke about your workplace (or school) in a story, which is the best quick test?",
           choices: [
+            "Did I post recently?",
+            "Would I be okay with a teacher, future boss, or grandparent seeing this?",
             "Will this get a lot of likes?",
             "Is it under 280 characters?",
-            "Would I be okay with a teacher, future boss, or grandparent seeing this?",
-            "Did I post recently?",
           ],
-          correctIndex: 2,
+          correctIndex: 1,
           explanation:
             "The 'would I be okay with them seeing this?' test catches posts that could hurt your reputation with the people who actually check it.",
         },
@@ -298,12 +298,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q1",
       question: "A scholarship committee googles your name. What is a 'digital footprint'?",
       choices: [
-        "The battery your phone uses online",
         "The trail of data you leave online through posts, likes, searches, and activity",
-        "A type of password",
+        "The battery your phone uses online",
         "The speed of your internet connection",
+        "A type of password",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Your digital footprint is the overall trail of data you leave behind as you use the internet — both what you post and what's collected about you.",
     },
@@ -311,12 +311,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q2",
       question: "Your location, search history, and what you click while browsing college sites are part of which footprint?",
       choices: [
-        "Active footprint",
-        "Passive footprint",
-        "No footprint at all",
         "A deleted footprint",
+        "No footprint at all",
+        "Passive footprint",
+        "Active footprint",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Your passive footprint is data collected about you without posting. Your active footprint is the content you choose to share.",
     },
@@ -324,12 +324,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q3",
       question: "You delete an embarrassing post an hour after sending it, before a job interview next month. Why might it still exist?",
       choices: [
-        "Deleting always works instantly and fully",
-        "Screenshots, archives, and reshares can keep copies you can't control",
         "Posts can never be deleted by anyone",
+        "Deleting always works instantly and fully",
         "Only the government can delete posts",
+        "Screenshots, archives, and reshares can keep copies you can't control",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Because of permanence, deleting removes only your copy. Screenshots and reshares may already be out there beyond your reach.",
     },
@@ -337,12 +337,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q4",
       question: "Before posting a joke about your workplace (or school) in a story, which is the best quick test?",
       choices: [
-        "Will this get a lot of likes?",
-        "Is it under 280 characters?",
         "Would I be okay with a teacher, future boss, or grandparent seeing this?",
+        "Is it under 280 characters?",
         "Did I post recently?",
+        "Will this get a lot of likes?",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "The 'would I be okay with them seeing this?' test catches posts that could hurt your reputation with the people who actually check it.",
     },
@@ -351,11 +351,11 @@ export const digitalLesson7: AILessonConfig = {
       question: "What's a smart way to build a POSITIVE digital footprint for college or a first job?",
       choices: [
         "Post nothing ever, anywhere",
-        "Share projects and portfolios you're proud of and post helpfully",
         "Make every account public",
+        "Share projects and portfolios you're proud of and post helpfully",
         "Tag yourself in as many photos as possible",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Sharing real work and being helpful builds a footprint that actively helps you — often more than just hiding the bad stuff.",
     },
@@ -363,9 +363,9 @@ export const digitalLesson7: AILessonConfig = {
       id: "q6",
       question: "You keep your own account private and post nothing embarrassing, but a friend tags you in an old party photo. What does this reveal?",
       choices: [
-        "Your footprint is fully in your control as long as you're careful",
-        "Others can post about you too, so your footprint isn't entirely under your own control",
         "Tags never actually attach to your name",
+        "Others can post about you too, so your footprint isn't entirely under your own control",
+        "Your footprint is fully in your control as long as you're careful",
         "Private accounts are immune to being tagged",
       ],
       correctIndex: 1,
@@ -377,11 +377,11 @@ export const digitalLesson7: AILessonConfig = {
       question: "Why isn't a 'private' account setting a full guarantee of secrecy?",
       choices: [
         "Private accounts are always hacked eventually",
-        "A follower or friend can screenshot content and share it beyond the private circle",
         "Private settings don't actually exist on most platforms",
         "Private accounts can't be seen by anyone, ever, including yourself",
+        "A follower or friend can screenshot content and share it beyond the private circle",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Private settings limit who initially sees your content, but a trusted follower can screenshot and share it — private is not the same as guaranteed secret.",
     },
@@ -389,12 +389,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q8",
       question: "In the two-applicant case study, what actually created the difference in the hiring manager's impression?",
       choices: [
+        "One applicant had more social media followers",
         "One applicant was clearly more qualified on paper",
         "One applicant had done a footprint audit and published a portfolio; the other had an old public comment thread and no cleanup",
-        "One applicant had more social media followers",
         "The hiring manager flipped a coin",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Both applicants were equally qualified — the difference was that one had audited their footprint and published a proud project, shaping a better first impression.",
     },

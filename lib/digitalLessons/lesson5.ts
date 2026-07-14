@@ -61,12 +61,12 @@ export const digitalLesson5: AILessonConfig = {
         checkIn: {
           prompt: "You need a two-day extension from your teacher and want it in writing for your records. Which channel fits best?",
           choices: [
-            "A late-night text in all lowercase",
-            "A clear, polite email with a subject line",
             "A comment on their social media post",
             "Shouting it across the classroom",
+            "A clear, polite email with a subject line",
+            "A late-night text in all lowercase",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Anything important or formal — especially something you want a record of — belongs in a clear email, not a casual text.",
         },
@@ -83,10 +83,10 @@ export const digitalLesson5: AILessonConfig = {
         checkIn: {
           prompt: "Before you send a heated reply to a classmate (or a manager at a first job), what's the simplest appropriateness test?",
           choices: [
-            "Would it get a lot of likes?",
+            "Does it have an emoji?",
             "Would I say this to their face?",
             "Is it under 20 words?",
-            "Does it have an emoji?",
+            "Would it get a lot of likes?",
           ],
           correctIndex: 1,
           explanation:
@@ -107,12 +107,12 @@ export const digitalLesson5: AILessonConfig = {
         checkIn: {
           prompt: "In your group-project chat, a teammate types \"FINE WHATEVER.\" Why might that upset people?",
           choices: [
-            "ALL CAPS reads as shouting, so it sounds angry",
+            "It uses too many emojis",
             "It's a spelling mistake",
             "Caps lock breaks the chat app",
-            "It uses too many emojis",
+            "ALL CAPS reads as shouting, so it sounds angry",
           ],
-          correctIndex: 0,
+          correctIndex: 3,
           explanation:
             "Typed words carry no tone, and ALL CAPS reads as yelling. The reader fills in an angry tone even if none was meant.",
         },
@@ -147,12 +147,12 @@ export const digitalLesson5: AILessonConfig = {
         checkIn: {
           prompt: "Which reply to a teammate sharing their finished slide sounds the warmest while staying just as quick to type?",
           choices: [
-            "k",
-            "fine.",
             "Thanks, Maya! I'll finish my part tonight.",
             "(no reply at all)",
+            "fine.",
+            "k",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
             "Using the person's name, a quick thanks, and a clear next step takes barely longer to type than 'k' but reads as warm instead of cold.",
         },
@@ -219,9 +219,9 @@ export const digitalLesson5: AILessonConfig = {
           prompt: "You're emailing a college admissions office about a missing transcript. Which subject line is strongest?",
           choices: [
             "Hi",
-            "Question",
-            "Missing transcript for Jordan Lee — application ID 48291",
             "(left blank)",
+            "Missing transcript for Jordan Lee — application ID 48291",
+            "Question",
           ],
           correctIndex: 2,
           explanation:
@@ -268,10 +268,10 @@ export const digitalLesson5: AILessonConfig = {
           choices: [
             "CC is faster than BCC",
             "BCC sends the email twice",
-            "CC'd people are visible to all; BCC'd people are hidden from other recipients",
             "There is no real difference",
+            "CC'd people are visible to all; BCC'd people are hidden from other recipients",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
             "CC ('carbon copy') is visible to everyone, while BCC ('blind carbon copy') copies someone privately so others can't see them.",
         },
@@ -305,12 +305,12 @@ export const digitalLesson5: AILessonConfig = {
       id: "q1",
       question: "You need a two-day extension from your teacher and want it in writing for your records. Which channel fits best?",
       choices: [
-        "A late-night text in all lowercase",
         "A clear, polite email with a subject line",
+        "A late-night text in all lowercase",
         "A comment on their social media post",
         "Shouting it across the classroom",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Anything important or formal — especially something you want a record of — belongs in a clear email, not a casual text.",
     },
@@ -318,12 +318,12 @@ export const digitalLesson5: AILessonConfig = {
       id: "q2",
       question: "In your group-project chat, a teammate types \"FINE WHATEVER.\" Why might that upset people?",
       choices: [
-        "ALL CAPS reads as shouting, so it sounds angry",
         "It's a spelling mistake",
+        "ALL CAPS reads as shouting, so it sounds angry",
         "Caps lock breaks the chat app",
         "It uses too many emojis",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
         "Typed words carry no tone, and ALL CAPS reads as yelling. The reader fills in an angry tone even if none was meant.",
     },
@@ -331,12 +331,12 @@ export const digitalLesson5: AILessonConfig = {
       id: "q3",
       question: "You're emailing a college admissions office about a missing transcript. Which subject line is strongest?",
       choices: [
-        "Hi",
-        "Question",
-        "Missing transcript for Jordan Lee — application ID 48291",
         "(left blank)",
+        "Missing transcript for Jordan Lee — application ID 48291",
+        "Question",
+        "Hi",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "A good subject line tells the reader exactly what the email is about before they open it, so it gets read and answered faster — especially in busy offices.",
     },
@@ -344,12 +344,12 @@ export const digitalLesson5: AILessonConfig = {
       id: "q4",
       question: "You're copying a parent on an email to a teacher. What's the difference between CC and BCC?",
       choices: [
+        "CC'd people are visible to all; BCC'd people are hidden from other recipients",
         "CC is faster than BCC",
         "BCC sends the email twice",
-        "CC'd people are visible to all; BCC'd people are hidden from other recipients",
         "There is no real difference",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "CC ('carbon copy') is visible to everyone, while BCC ('blind carbon copy') copies someone privately so others can't see them.",
     },
@@ -357,12 +357,12 @@ export const digitalLesson5: AILessonConfig = {
       id: "q5",
       question: "Before you send a heated reply to a classmate (or a manager at a first job), what's the simplest appropriateness test?",
       choices: [
+        "Is it under 20 words?",
         "Would it get a lot of likes?",
         "Would I say this to their face?",
-        "Is it under 20 words?",
         "Does it have an emoji?",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "'Would I say this to their face?' catches most netiquette problems. If you wouldn't say it in person, don't type it.",
     },
@@ -371,11 +371,11 @@ export const digitalLesson5: AILessonConfig = {
       question: "A teammate replies \"k\" to your finished project section. According to this lesson, why might that feel colder than intended?",
       choices: [
         "\"k\" is technically a spelling error",
-        "In text, short replies default to reading as cold or annoyed unless a warm signal is added",
-        "\"k\" is against the platform's rules",
         "It means the message was never received",
+        "\"k\" is against the platform's rules",
+        "In text, short replies default to reading as cold or annoyed unless a warm signal is added",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Because tone is invisible in text, brevity tends to read as negative by default. Adding a name, a thanks, or a next step flips it from cold to warm.",
     },
@@ -383,12 +383,12 @@ export const digitalLesson5: AILessonConfig = {
       id: "q7",
       question: "You meant to privately thank one teacher, but accidentally hit reply-all on a 40-person email thread. What could have prevented this?",
       choices: [
-        "Nothing — reply-all mistakes cannot be prevented",
-        "Glancing at the To/CC fields before sending to confirm everyone listed actually needs the reply",
         "Always using CC instead of BCC",
         "Writing the email in all lowercase",
+        "Nothing — reply-all mistakes cannot be prevented",
+        "Glancing at the To/CC fields before sending to confirm everyone listed actually needs the reply",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "A quick glance at who's listed before hitting send catches most reply-all mistakes — reply-all should be reserved for messages the whole group truly needs.",
     },
@@ -396,10 +396,10 @@ export const digitalLesson5: AILessonConfig = {
       id: "q8",
       question: "Asking for a deadline extension, which version is BEST suited for a college admissions office (as opposed to a friend group chat)?",
       choices: [
-        "\"hey can i get more time lol\"",
+        "A meme with the request written on it",
         "A casual one-liner with no greeting or sign-off",
         "A proofread, formal email with a clear subject line, greeting, specific ask with a date, and polite sign-off",
-        "A meme with the request written on it",
+        "\"hey can i get more time lol\"",
       ],
       correctIndex: 2,
       explanation:

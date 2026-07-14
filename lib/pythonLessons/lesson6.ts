@@ -140,8 +140,8 @@ export const lesson6: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "In a for loop with an if inside it, how many levels of indentation does the print inside the if need?",
-          choices: ["One level", "Two levels", "Zero — no indentation needed"],
-          correctIndex: 1,
+          choices: ["Two levels", "One level", "Zero — no indentation needed"],
+          correctIndex: 0,
           explanation: "One level of indentation puts the code inside the loop; a second level puts it inside the if that's nested within the loop.",
         },
       },
@@ -180,12 +180,8 @@ export const lesson6: PythonLessonConfig = {
         },
         checkIn: {
           prompt: 'If `message = "ping"` is placed INSIDE the loop (reset every turn), what happens to the pattern?',
-          choices: [
-            "It alternates perfectly, same as before",
-            "It gets stuck printing ping every single turn",
-            "It causes an error",
-          ],
-          correctIndex: 1,
+          choices: ["It alternates perfectly, same as before", "It causes an error", "It gets stuck printing ping every single turn"],
+          correctIndex: 2,
           explanation: "Resetting message to \"ping\" every turn erases the flip from the previous turn, so the pattern never actually alternates.",
         },
       },
@@ -217,8 +213,8 @@ export const lesson6: PythonLessonConfig = {
         codeCaption: "What five lines print, starting from pong?",
         checkIn: {
           prompt: "What are the first two lines printed, in order?",
-          choices: ["ping, pong", "pong, ping", "pong, pong"],
-          correctIndex: 1,
+          choices: ["pong, ping", "ping, pong", "pong, pong"],
+          correctIndex: 0,
           explanation: "Since message starts as \"pong\", the else branch runs first (printing pong and flipping to ping), then the if branch runs next (printing ping).",
         },
       },
@@ -292,12 +288,8 @@ export const lesson6: PythonLessonConfig = {
         body: `Let's confirm the nested pattern is locked in.`,
         checkIn: {
           prompt: "Which is required for a loop-plus-rule pattern to actually alternate output?",
-          choices: [
-            "The rule must be outside the loop",
-            "The rule must be inside the loop AND update a value that changes what happens next turn",
-            "You only need the loop — rules are optional",
-          ],
-          correctIndex: 1,
+          choices: ["The rule must be outside the loop", "You only need the loop — rules are optional", "The rule must be inside the loop AND update a value that changes what happens next turn"],
+          correctIndex: 2,
           explanation: "The rule needs to live inside the loop (checked every turn) and also update the value it's checking, so the next turn behaves differently.",
         },
       },

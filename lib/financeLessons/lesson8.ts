@@ -61,16 +61,16 @@ export const financeLesson8: AILessonConfig = {
           text: "A low monthly payment can hide a high total cost. Always ask how long until you're done and what you'll pay overall.",
         },
         checkIn: {
-          prompt: "What is principal?",
+          prompt: "Elena borrows $1,000 for a used car. Before any interest is added, what is that $1,000 called?",
           choices: [
-            "Only the interest charged by a lender",
-            "The amount you borrow (or the remaining balance before interest)",
-            "Your credit score",
-            "A type of savings account fee",
+            "The principal",
+            "The APR",
+            "Her credit score",
+            "A minimum payment",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Principal is the borrowed amount or remaining balance before interest costs pile on.",
+            "Principal is the amount borrowed (or the remaining balance) before interest is added — APR, credit score, and minimum payment are all different, related concepts.",
         },
       },
       {
@@ -83,16 +83,16 @@ export const financeLesson8: AILessonConfig = {
           text: "APR turns \"sounds cheap\" into \"here's the yearly cost language regulators require so shoppers can compare.\"",
         },
         checkIn: {
-          prompt: "Two loans have similar monthly payments but different APRs. What does that most likely mean?",
+          prompt: "Two loans for the same amount have nearly identical monthly payments, but Loan A has a 10% APR and Loan B has a 22% APR. What does that most likely mean?",
           choices: [
-            "They will always have the exact same total cost",
-            "They can have very different total interest costs over the life of the loan, even with similar monthly payments",
-            "APR has no effect on total cost",
-            "The lower APR always has a shorter term",
+            "They'll cost exactly the same in total since the payments match",
+            "Loan B must have a shorter term, since higher APR always means fewer payments",
+            "They can have very different total interest costs even with similar monthly payments",
+            "Higher APR just means bigger monthly payments, so the totals should still match",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Similar monthly payments can hide very different total costs — APR and term both affect how much you pay overall.",
+            "Similar monthly payments can hide very different total interest. Higher APR doesn't automatically mean a shorter term or matching totals — compare lifetime cost, not just the payment.",
         },
       },
       {
@@ -114,14 +114,14 @@ export const financeLesson8: AILessonConfig = {
         checkIn: {
           prompt: "Which pattern is a debt trap this lesson warns about?",
           choices: [
-            "Paying a loan off early when you can afford it",
+            "Paying off a loan faster than required when you can afford it",
             "Stacking multiple BNPL plans for things you couldn't afford in cash",
-            "Reading APR and fee terms before borrowing",
-            "Building an emergency fund before a surprise expense",
+            "Comparing APRs before choosing between two loan offers",
+            "Setting aside money in an emergency fund before a big purchase",
           ],
           correctIndex: 1,
           explanation:
-            "Stacking BNPL plans you can't track is risky debt — late fees and missed payments can snowball.",
+            "Stacking BNPL plans you can't track is risky debt — late fees and missed payments can snowball. Paying early, comparing APRs, and building an emergency fund are healthy habits, not traps.",
         },
       },
       {
@@ -136,14 +136,14 @@ export const financeLesson8: AILessonConfig = {
         checkIn: {
           prompt: "On a $600 balance at 24% APR, roughly how much interest accrues in the first month alone (600 × 0.24 ÷ 12)?",
           choices: [
+            "About $600",
+            "About $144",
             "About $1",
             "About $12",
-            "About $144",
-            "About $600",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "$600 × (0.24 ÷ 12) = $12 — a simplified estimate of one month's interest before that month's payment is applied.",
+            "$600 × (0.24 ÷ 12) = $12 — a simplified estimate of one month's interest before that month's payment is applied, not the full balance or a full year's rate.",
         },
       },
       {
@@ -174,16 +174,16 @@ export const financeLesson8: AILessonConfig = {
         imageAlt: "Close-up illustration of a credit card statement highlighting the minimum payment due line next to a much larger total balance and payoff time estimate",
         body: `Credit cards often let you pay a **minimum** — a small percentage of the balance or a floor amount. That keeps the account \"current,\" but:\n\n• Most of a small payment may go to interest when balances and APRs are high.\n• Principal shrinks slowly.\n• You can pay for a purchase several times over in interest across years.\n\nIllustration mindset (numbers vary): carrying a revolving balance and paying only minimums is like jogging on a treadmill set slightly faster than you — you move, but you don't arrive.\n\nMost card statements are required to show a **\"minimum payment warning\"** box — an estimate of how long payoff would take, and the total cost, if you only ever pay the minimum. This is one of the most useful, most-ignored pieces of information on the entire statement.\n\nHealthier patterns when you use a card:\n\n• Budget so you can **pay in full** most months.\n• If you can't, stop new charges and pay **more than minimum** aggressively.\n• Avoid treating available credit as available income.\n\nMinimum payments are a safety feature for short cash crunches — not a lifestyle plan.`,
         checkIn: {
-          prompt: "What is a common danger of paying only the credit card minimum?",
+          prompt: "A statement's 'minimum payment warning' box shows it would take 12 years to pay off a balance at the minimum, costing far more than the original purchase. What is this warning highlighting?",
           choices: [
-            "It always erases the balance immediately",
-            "It can keep you in debt longer and increase total interest paid",
-            "It deletes your credit report",
-            "It raises your FDIC insurance limits",
+            "A common danger of paying only the minimum — it can keep you in debt longer and increase total interest paid",
+            "A rare glitch that only affects a small number of accounts",
+            "That the card issuer made an error and should be contacted immediately",
+            "That minimum payments are actually the fastest way to pay off a card",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Minimums often shrink principal slowly, so interest keeps adding cost over a long time.",
+            "This box exists precisely because minimum payments often shrink principal slowly, letting interest add cost for years — it's not a glitch, an issuer error, or evidence that minimums are the fastest payoff route.",
         },
       },
       {
@@ -247,14 +247,14 @@ export const financeLesson8: AILessonConfig = {
         checkIn: {
           prompt: "Based on this lesson, which option best helps Priya actually pay down the debt and reduce total interest?",
           choices: [
-            "Option 1, because minimum payments always clear debt efficiently",
+            "Option 1, since minimums are specifically designed to clear balances quickly",
+            "Option 3, since more available credit reduces how much she owes",
             "Option 2, because extra payments on top of the minimum — combined with no new charges — shrink principal faster and cut total interest",
-            "Option 3, because more available credit automatically reduces a balance",
-            "There is no meaningful difference between the three options",
+            "All three options reduce her total interest by about the same amount",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Paying more than the minimum while pausing new charges is the most direct way to shrink principal faster and reduce total interest paid — opening a new card doesn't reduce the existing balance at all.",
+            "Paying more than the minimum while pausing new charges is the most direct way to shrink principal faster and reduce total interest — opening a new card doesn't touch the existing balance at all, and minimums are a floor, not a fast payoff plan.",
         },
       },
       {
@@ -265,14 +265,14 @@ export const financeLesson8: AILessonConfig = {
         checkIn: {
           prompt: "Which statement best captures this lesson's core idea?",
           choices: [
-            "Monthly payment size alone tells you everything you need to know about a loan's cost",
-            "Principal is what you borrowed, interest is the cost of borrowing, and comparing total cost (not just the monthly payment) is how you avoid debt traps",
-            "BNPL and payday loans are always safe because payments are split into small pieces",
-            "Paying only the minimum is the fastest way to pay off a balance",
+            "Monthly payment size alone tells you everything you need to know about a loan's total cost",
+            "Principal is what you borrowed, interest is the cost of borrowing, and comparing total cost — not just the monthly payment — is how you avoid debt traps",
+            "BNPL plans never count as real debt as long as there's no listed interest rate",
+            "Paying the minimum every month is the most efficient way to become debt-free",
           ],
           correctIndex: 1,
           explanation:
-            "The throughline: understand principal and interest, always compare total cost, and recognize the marketing and payment patterns that create debt traps.",
+            "The throughline is understanding principal and interest and always comparing total cost — monthly payment size alone, treating BNPL as not-real-debt, and minimum-only payoff are exactly the misconceptions this lesson corrects.",
         },
       },
       {
@@ -307,40 +307,40 @@ export const financeLesson8: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "What is principal?",
+      question: "Which description best fits what \"principal\" means on a loan?",
       choices: [
-        "Only the interest charged by a lender",
-        "The amount you borrow (or the remaining balance before interest)",
-        "Your credit score",
-        "A type of savings account fee",
+        "The total interest charged over the life of the loan",
+        "A fee charged for paying off a loan early",
+        "Your credit score at the time you applied",
+        "The amount you borrow, or the remaining balance before interest",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Principal is the borrowed amount (or remaining balance) before interest costs.",
+        "Principal is the borrowed amount (or remaining balance) before interest costs — not the interest itself, a prepayment fee, or a credit score.",
     },
     {
       id: "q2",
-      question: "You see a BNPL ad: \"4 payments of $25 — no interest!\" Why is APR still useful to understand?",
+      question: "You see a BNPL ad: \"4 payments of $25 — no interest!\" Why is understanding APR still useful here?",
       choices: [
-        "It guarantees you will be approved for every loan",
-        "It helps compare the yearly cost of borrowing more clearly — and missed BNPL payments can still have costs",
-        "It replaces the need to repay principal",
-        "It is the same as your net pay",
+        "It helps compare the yearly cost of borrowing more clearly, and missed BNPL payments can still carry real costs",
+        "It guarantees the plan will always be approved instantly",
+        "It removes any need to actually repay the $100 total",
+        "It's identical to your take-home pay for that period",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "APR is a standardized yearly cost signal. Even BNPL can have fees or consequences if you miss payments.",
+        "APR is a standardized yearly cost signal that's useful for comparing offers — it has nothing to do with approval odds or take-home pay, and BNPL still needs to be repaid even without listed interest.",
     },
     {
       id: "q3",
       question: "A $600 balance at 24% APR accrues roughly how much interest in one month, using balance × (APR ÷ 12)?",
       choices: [
-        "About $2",
-        "About $12",
-        "About $60",
         "About $144",
+        "About $60",
+        "About $12",
+        "About $2",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "$600 × (0.24 ÷ 12) = $12 — a simplified one-month interest estimate before that month's payment is applied.",
     },
@@ -348,66 +348,66 @@ export const financeLesson8: AILessonConfig = {
       id: "q4",
       question: "What is a common danger of paying only the credit card minimum?",
       choices: [
-        "It always erases the balance immediately",
+        "It guarantees the balance will be paid off within a year",
         "It can keep you in debt longer and increase total interest paid",
-        "It deletes your credit report",
-        "It raises FDIC limits",
+        "It automatically raises your APR every month",
+        "It removes the purchase from your credit report",
       ],
       correctIndex: 1,
       explanation:
-        "Minimums often shrink principal slowly, so interest keeps adding cost over a long time.",
+        "Minimums often shrink principal slowly, so interest keeps adding cost over a long time — they don't guarantee a fast payoff, raise your APR by themselves, or erase the purchase from your record.",
     },
     {
       id: "q5",
       question: "Comparing a $500 loan at 15% APR over 12 months to a payday-style loan with a flat $75 fee due in 2 weeks on the same $500 — what's the key comparison skill?",
       choices: [
-        "Just compare the two fee numbers directly, since both are dollar amounts",
+        "Always assume the flat-fee loan is cheaper since $75 is a smaller number than the APR loan's total",
+        "Add the two numbers together to find a combined cost",
+        "Skip the comparison since APR and flat fees measure completely different things",
         "Convert the flat fee to an equivalent yearly rate so both offers are compared on the same basis",
-        "Always assume the flat-fee loan is cheaper because the number looks smaller",
-        "APR and flat fees can never be compared to each other",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Converting a short-term flat fee to a yearly rate reveals its true comparative cost — this is exactly why payday-style loans are so costly when annualized.",
+        "Converting a short-term flat fee to a yearly rate reveals its true comparative cost — this is exactly why payday-style loans look deceptively cheap until annualized, and the two costs can be compared once put on the same basis.",
     },
     {
       id: "q6",
       question: "Priya has $600 at 24% APR. Which choice most directly reduces her total interest paid?",
       choices: [
-        "Continuing to pay only the required minimum",
         "Paying extra above the minimum each month while not adding new charges",
-        "Opening a second card to split the balance",
-        "Ignoring the balance until it's sent to collections",
+        "Continuing to pay only the required minimum every month",
+        "Opening a second card to split the balance across two accounts",
+        "Waiting for the issuer to lower her APR on its own",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Extra payments on top of the minimum, combined with no new charges, shrink principal faster and cut total interest.",
+        "Extra payments on top of the minimum, combined with no new charges, shrink principal faster and cut total interest — the other options either keep the pace the same, don't reduce the existing balance, or rely on something outside her control.",
     },
     {
       id: "q7",
       question: "Which statement about BNPL is most accurate?",
       choices: [
-        "BNPL is never debt",
+        "BNPL never has any late fees under any provider",
+        "BNPL guarantees your credit score will improve",
         "BNPL splits purchases into installments — late or stacked plans can create fees and cash-flow stress",
-        "BNPL always has 0% cost with no rules",
-        "BNPL replaces the need for any budget",
+        "BNPL is only available for purchases under $20",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "BNPL is still a repayment obligation; missing payments or stacking plans can hurt.",
+        "BNPL is still a repayment obligation; missing payments or stacking plans can create real fees and stress — it doesn't guarantee a fee-free experience, a credit score boost, or come with a purchase cap.",
     },
     {
       id: "q8",
       question: "Comparing avalanche, snowball, and minimum-only payoff strategies, which statement is most accurate?",
       choices: [
-        "Minimum-only saves the most money over time",
-        "Avalanche and snowball both beat minimum-only by a wide margin; avalanche typically saves the most interest, while snowball can build motivation",
-        "Snowball and avalanche are identical strategies with different names",
-        "Payoff strategy has no effect on total interest paid",
+        "Snowball always saves more total interest than avalanche",
+        "Both beat minimum-only; avalanche usually cuts more interest, snowball can motivate",
+        "Minimum-only saves the most money as long as you never miss a payment",
+        "Avalanche and snowball are just two names for the same exact strategy",
       ],
       correctIndex: 1,
       explanation:
-        "Both avalanche (highest-APR first) and snowball (smallest-balance first) beat paying only minimums; avalanche tends to minimize total interest, while snowball can offer motivating quick wins.",
+        "Both avalanche (highest-APR first) and snowball (smallest-balance first) beat paying only minimums; avalanche tends to minimize total interest while snowball offers motivating quick wins — they aren't identical, and minimum-only isn't the cost-saving option even without missed payments.",
     },
   ],
   reflection: {

@@ -84,8 +84,8 @@ const daLesson6: DataLessonConfig = {
         body: `\`COUNT\` and \`SUM\` are not the same, even though they can produce similarly-sized numbers. \`COUNT(*)\` tells you **how many rows** (8 orders), while \`SUM(price)\` **adds up the values** inside a column ($30.75). One counts records, the other totals dollars.`,
         checkIn: {
           prompt: "A table has 8 orders totaling $30.75. What would SUM(price) return?",
-          choices: ["8", "30.75", "3.84"],
-          correctIndex: 1,
+          choices: ["8", "3.84", "30.75"],
+          correctIndex: 2,
           explanation: "SUM adds up every value in the price column — the total dollar amount, not the number of rows.",
         },
       },
@@ -113,12 +113,8 @@ const daLesson6: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "SELECT item, COUNT(*) FROM lunch_orders GROUP BY item; — what does each result row represent?",
-          choices: [
-            "One single lunch order",
-            "One unique item, with the count of orders for it",
-            "The whole table at once",
-          ],
-          correctIndex: 1,
+          choices: ["One unique item, with the count of orders for it", "One single lunch order", "The whole table at once"],
+          correctIndex: 0,
           explanation: "GROUP BY item bundles all orders of the same item into one row, and COUNT(*) reports how many orders landed in each bundle.",
         },
       },
@@ -190,8 +186,8 @@ const daLesson6: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "SELECT COUNT(*) FROM lunch_orders; (no GROUP BY) — how many rows does this return?",
-          choices: ["1 row — a single grand total", "8 rows — one per order", "6 rows — one per item"],
-          correctIndex: 0,
+          choices: ["8 rows — one per order", "6 rows — one per item", "1 row — a single grand total"],
+          correctIndex: 2,
           explanation: "Without GROUP BY, the aggregate summarizes the entire table into exactly one row.",
         },
       },
@@ -241,12 +237,8 @@ const daLesson6: DataLessonConfig = {
         body: `Let's confirm COUNT, SUM, and GROUP BY are all locked in.`,
         checkIn: {
           prompt: "Which query gives the total number of orders PER ITEM, most popular first?",
-          choices: [
-            "SELECT item, COUNT(*) FROM lunch_orders;",
-            "SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item ORDER BY order_count DESC;",
-            "SELECT SUM(price) FROM lunch_orders GROUP BY item;",
-          ],
-          correctIndex: 1,
+          choices: ["SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item ORDER BY order_count DESC;", "SELECT item, COUNT(*) FROM lunch_orders;", "SELECT SUM(price) FROM lunch_orders GROUP BY item;"],
+          correctIndex: 0,
           explanation: "This groups orders by item, counts each group, names the count, and sorts so the most popular item leads — exactly the recipe for a popularity ranking.",
         },
       },

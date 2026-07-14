@@ -290,12 +290,12 @@ export const cyberLesson16: AILessonConfig = {
       id: "q1",
       question: "Greenwood's club Gmail has no MFA and a password shared in a group chat. What is the best first mitigation?",
       choices: [
-        "Buy an expensive firewall before changing anything else",
         "Move to a unique strong password, enable MFA, and stop sharing the password in chat — store access with clear owners",
+        "Buy an expensive firewall before changing anything else",
         "Make the Instagram public to confuse attackers",
         "Turn off all login alerts so members aren't annoyed",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Identity risk is top priority. Unique credentials + MFA + ownership beat random hardware purchases.",
     },
@@ -317,11 +317,11 @@ export const cyberLesson16: AILessonConfig = {
       question: "The club website uses HTTPS. A phishing page also shows a padlock. What should members remember?",
       choices: [
         "Padlock means any site is trustworthy",
-        "HTTPS encrypts the connection to that domain — they must still verify the URL and avoid fake login pages",
         "HTTPS replaces MFA forever",
+        "HTTPS encrypts the connection to that domain — they must still verify the URL and avoid fake login pages",
         "Certificate warnings should always be ignored",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Capstone synthesis from the HTTPS lesson: padlock ≠ honesty. Check domains; keep MFA.",
     },
@@ -330,11 +330,11 @@ export const cyberLesson16: AILessonConfig = {
       question: "A shared laptop is months behind on updates and has no backup of final video projects. Which pair best matches preventive + corrective thinking?",
       choices: [
         "Ignore updates; delete logs if malware appears",
-        "Enable patching/auto-updates now (preventive) and set up restore-tested backups (corrective readiness)",
         "Only post more frequently on Instagram",
         "Accept total data loss as unavoidable with no controls",
+        "Enable patching/auto-updates now (preventive) and set up restore-tested backups (corrective readiness)",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Patching reduces vulnerability; backups enable recovery — classic preventive + corrective pairing.",
     },
@@ -342,12 +342,12 @@ export const cyberLesson16: AILessonConfig = {
       id: "q5",
       question: "Instagram starts posting spam. Using IR order, what is the best immediate containment move after confirming it's unauthorized?",
       choices: [
-        "Write lessons learned before changing anything",
         "Revoke other sessions, change the password, confirm MFA, and remove unknown connected apps — then clean posts and notify the sponsor",
+        "Write lessons learned before changing anything",
         "Publicly accuse a classmate with no evidence",
         "Share the password with all 25 members to \"help investigate\"",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Contain access first (sessions/password/MFA/apps), then clean up and escalate — don't widen access during an incident.",
     },
@@ -369,11 +369,11 @@ export const cyberLesson16: AILessonConfig = {
       question: "After containing a compromised club Gmail account, what eradication step is important to check before considering the incident resolved?",
       choices: [
         "Nothing else is needed once the password is changed",
-        "Check for and remove any malicious forwarding rules or filters the attacker may have added",
         "Immediately delete the account permanently",
+        "Check for and remove any malicious forwarding rules or filters the attacker may have added",
         "Post the incident details publicly on social media",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Attackers sometimes leave forwarding rules or filters that persist after a password change — checking for these is a key eradication step in the IR order.",
     },
@@ -382,11 +382,11 @@ export const cyberLesson16: AILessonConfig = {
       question: "A sponsor asks why the club bothers with a risk register and named owners instead of just \"being careful.\" What's the best defense of this approach?",
       choices: [
         "It's not worth defending — being careful is sufficient on its own",
-        "A written register with owners and review dates keeps knowledge from living only in one person's head and prevents plans from decaying as officers change",
         "Risk registers are only required for large corporations",
         "Named owners are unnecessary if the club trusts each other",
+        "A written register with owners and review dates keeps knowledge from living only in one person's head and prevents plans from decaying as officers change",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Written, owned, and scheduled processes survive officer turnover and changing circumstances far better than an informal \"just be careful\" approach.",
     },

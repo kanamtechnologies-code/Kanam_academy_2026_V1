@@ -59,16 +59,16 @@ export const financeLesson11: AILessonConfig = {
           text: "Buying tiny 'protection plans' for low-cost items while skipping major coverage (like liability) is often backwards priorities.",
         },
         checkIn: {
-          prompt: "What does insurance mainly do financially?",
+          prompt: "Theo's family says paying car insurance premiums feels like 'wasting money' since nothing bad has happened yet this year. What's the flaw in that thinking?",
           choices: [
-            "Guarantee nothing bad will ever happen",
-            "Transfer certain large financial risks in exchange for premiums",
-            "Replace the need for an emergency fund in every case",
-            "Make all medical care free with no rules",
+            "There isn't a flaw — insurance is pointless until you actually file a claim",
+            "Insurance transfers certain large financial risks in exchange for the premium, whether or not a claim happens that year",
+            "Premiums are refunded in full if you never file a claim",
+            "Insurance mainly exists to replace the need for an emergency fund"
           ],
           correctIndex: 1,
           explanation:
-            "Insurance pools risk: you pay premiums so covered large losses can be shared — it doesn't erase risk or rules.",
+            "Insurance pools risk: the premium buys protection for the whole year, similar to a fire extinguisher you hope not to need — it's not 'wasted' just because nothing went wrong, and it doesn't replace every other financial safety net.",
         },
       },
       {
@@ -83,16 +83,16 @@ export const financeLesson11: AILessonConfig = {
           text: "\"The lowest premium is always the best deal.\" Not if the deductible is impossible or the coverage is too thin.",
         },
         checkIn: {
-          prompt: "How is a deductible different from a premium?",
+          prompt: "Camille's family pays $70 a month to keep their auto policy active, and separately owes $500 out of pocket the one time they file a claim. Which number is the deductible?",
           choices: [
-            "They are two names for the same monthly fee",
-            "A premium keeps the policy active; a deductible is what you pay on a covered claim before more coverage kicks in",
-            "A deductible is only paid by people without insurance",
-            "Premiums only apply to auto; deductibles only apply to health",
+            "The $70 a month, since that's the ongoing insurance cost",
+            "The $500, since that's what they pay on the covered claim before more coverage kicks in",
+            "Both numbers together count as the deductible",
+            "Neither — deductibles only apply to health insurance, not auto",
           ],
           correctIndex: 1,
           explanation:
-            "Premiums are ongoing costs of coverage. Deductibles apply when you use coverage for a claim.",
+            "The $70 monthly cost is the premium that keeps the policy active. The $500 paid when a claim happens is the deductible — and deductibles apply across policy types, not just health.",
         },
       },
       {
@@ -112,16 +112,16 @@ export const financeLesson11: AILessonConfig = {
           text: "Ask a parent/guardian one Coverage Checker question: What insurance am I on, and what should I do after an accident or theft?",
         },
         checkIn: {
-          prompt: "A landlord's insurance typically covers the building. What might renters insurance help with for a tenant?",
+          prompt: "After a small kitchen fire in her apartment, Nina assumes her landlord's insurance will pay to replace her damaged laptop and gaming setup. Is that a safe assumption?",
           choices: [
-            "Only the landlord's mortgage payments",
-            "Often the tenant's belongings and liability — depending on the policy",
-            "Unlimited cash for any loss with no deductible",
-            "Traffic tickets received while driving",
+            "Yes — landlord policies automatically cover every tenant's personal belongings too",
+            "No — a landlord's policy typically covers the building, while renters insurance is what would often help with a tenant's belongings and liability",
+            "Yes, but only if the landlord agrees to file the claim on her behalf",
+            "No — renters insurance only covers traffic tickets, not belongings",
           ],
           correctIndex: 1,
           explanation:
-            "Building coverage and tenant coverage are different. Renters policies commonly address personal property and liability, with limits and exclusions.",
+            "Building coverage and tenant coverage are different products. Renters policies commonly address personal property and liability, with their own limits and exclusions — the landlord's policy generally isn't built to replace a tenant's laptop.",
         },
       },
       {
@@ -145,16 +145,16 @@ export const financeLesson11: AILessonConfig = {
         title: "Common myth: \"The cheapest policy is always the best deal\"",
         body: `Two myths worth retiring:\n\n**Myth 1: "Lowest premium = best policy."** As the worked example showed, a low premium paired with a deductible you can't actually afford can cost more overall — or leave you unable to pay when a claim happens.\n\n**Myth 2: "If I'm covered, nothing bad can really happen to me financially."** Coverage has limits, exclusions, and deductibles. "Insured" doesn't mean "immune" — it means the worst-case financial hit is smaller and shared, not zero.\n\nThe fix: read what's actually covered, compare realistic total costs (not just monthly price), and make sure the deductible fits your real budget.`,
         checkIn: {
-          prompt: "Why might choosing the policy with the lowest premium not always be the smartest choice?",
+          prompt: "Marco picks the auto policy with the lowest monthly premium without checking the deductible. What risk is he taking on?",
           choices: [
-            "Because low premiums are illegal for insurers to offer",
-            "Because a low premium can come with a deductible you can't actually afford if a claim happens",
-            "Because low premiums always mean unlimited coverage",
-            "Because premiums never affect your total yearly cost",
+            "None — the lowest premium is always the best overall deal",
+            "The low premium probably means the policy has no deductible at all",
+            "The low premium might come with a deductible he can't actually afford if he ever needs to file a claim",
+            "Low premiums always come bundled with a higher policy limit",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "A cheap monthly premium paired with an unaffordable deductible can end up costing more — or leaving you stuck — when you actually need to file a claim.",
+            "A cheap monthly premium paired with an unaffordable deductible can end up costing more — or leaving Marco stuck — when he actually needs to file a claim. A low premium says nothing about the deductible or limit by itself.",
         },
       },
       {
@@ -190,16 +190,16 @@ export const financeLesson11: AILessonConfig = {
         title: "Auto vs. renters vs. health — what each one really protects",
         body: `Quick side-by-side of what these three common coverage types are built for:\n\n• **Auto:** Protects against costs from crashes — liability for others you injure/damage, and often your own vehicle depending on the policy. Matters the moment you're behind the wheel.\n• **Renters:** Protects your personal belongings (theft, fire, etc., depending on policy) and often liability if someone is hurt in your rented space. Matters once you move into your own place.\n• **Health:** Helps share the cost of medical care — checkups, emergencies, prescriptions. Matters your whole life, and many teens are covered under a parent's plan already.\n\nEach type answers a different "what if" — which is why Coverage Checkers ask what specific risk a policy is meant to cover before assuming it protects something else.`,
         checkIn: {
-          prompt: "Which coverage type is specifically built to help with the cost of a doctor visit or hospital stay?",
+          prompt: "After a sports injury lands him in the ER, Kai wonders which type of coverage is actually built to help with that hospital bill?",
           choices: [
-            "Auto insurance",
-            "Renters insurance",
-            "Health insurance",
-            "None of these cover medical costs",
+            "His family's auto insurance, since it's the most comprehensive policy they have",
+            "Renters insurance, since it covers unexpected personal losses",
+            "Health insurance, since it's specifically designed to help share medical costs",
+            "None of these — hospital bills aren't something insurance typically addresses",
           ],
           correctIndex: 2,
           explanation:
-            "Health insurance is designed to help share medical costs. Auto and renters insurance address very different risks (vehicles and rented living spaces).",
+            "Health insurance is built to help share medical costs. Auto and renters insurance address very different risks (vehicles and rented living spaces), and hospital bills are exactly the kind of cost insurance is meant for.",
         },
       },
       {
@@ -262,14 +262,14 @@ export const financeLesson11: AILessonConfig = {
         checkIn: {
           prompt: "Which Coverage Checker habit is smartest before you drive or move out after graduation?",
           choices: [
-            "Ignore policies until after an accident",
-            "Ask what coverage you're on, what to do after an incident, and what deductibles/limits apply",
-            "Assume social media tips replace reading a policy summary",
-            "Cancel liability coverage to save money",
+            "Trust that a social media summary of 'what insurance covers' is close enough to reading the real policy",
+            "Cancel liability coverage to lower the monthly cost, since it rarely gets used",
+            "Wait until after an accident or move-in to figure out what's actually covered",
+            "Ask what coverage you're on, what to do after an incident, and what deductibles or limits apply",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "Knowing coverage, contacts, and costs before a crisis is the core Coverage Checker skill.",
+            "Knowing coverage, contacts, and costs before a crisis is the core Coverage Checker skill — figuring it out afterward, skipping liability, or trusting a social post over the real policy all leave you exposed.",
         },
       },
       {
@@ -300,107 +300,107 @@ export const financeLesson11: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "What does insurance mainly do financially?",
+      question: "Jasmine wonders why her family still pays for car insurance in years when nothing goes wrong. What is insurance mainly doing in those quiet years?",
       choices: [
-        "Guarantee nothing bad will ever happen",
-        "Transfer certain large financial risks in exchange for premiums",
-        "Replace the need for an emergency fund in every case",
-        "Make all medical care free with no rules",
+        "Transferring the financial risk of a possible large loss in exchange for the premium, even if it's never used that year",
+        "Guaranteeing that nothing bad will ever happen to the family's car",
+        "Building up a refund that gets paid back at the end of every claim-free year",
+        "Replacing the need for an emergency fund entirely",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Insurance pools risk: you pay premiums so covered large losses can be shared — it doesn't erase risk or rules.",
+        "Insurance pools risk: the premium buys protection for the whole year whether or not it's used, like a fire extinguisher. Premiums generally aren't refunded for a claim-free year, and insurance doesn't replace every other safety net.",
     },
     {
       id: "q2",
-      question: "How is a deductible different from a premium?",
+      question: "On Deja's family policy, they pay $65 every month to keep it active, and $500 the one time they file a claim. Which term describes the $500?",
       choices: [
-        "They are two names for the same monthly fee",
-        "A premium keeps the policy active; a deductible is what you pay on a covered claim before more coverage kicks in",
-        "A deductible is only paid by people without insurance",
-        "Premiums only apply to auto; deductibles only apply to health",
+        "The premium",
+        "The policy limit",
+        "An exclusion",
+        "The deductible",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Premiums are ongoing costs of coverage. Deductibles apply when you use coverage for a claim (policy rules vary).",
+        "The $65 monthly cost is the premium. The $500 paid on the covered claim, before the insurer pays more, is the deductible — not the maximum payout (limit) or something excluded from coverage.",
     },
     {
       id: "q3",
       question: "Why might choosing a much higher deductible lower your premium — and when is that a bad idea?",
       choices: [
-        "Higher deductibles always save money with no downside",
-        "It can lower premiums, but it's a bad fit if you couldn't afford to pay that deductible after a loss",
-        "Insurers ban high deductibles for teens",
-        "Deductibles never affect premiums",
+        "Higher deductibles always save money with no real downside",
+        "It can lower the premium, but it's a bad fit if you couldn't actually afford to pay that deductible after a loss",
+        "Insurers generally don't allow teen drivers to choose a high deductible",
+        "Raising the deductible has no real effect on the premium",
       ],
       correctIndex: 1,
       explanation:
-        "Trading a higher deductible for a lower premium only works if you can actually fund the deductible when needed.",
+        "Trading a higher deductible for a lower premium only works if you can actually fund the deductible when needed — otherwise the 'savings' backfire the moment you file a claim.",
     },
     {
       id: "q4",
       question: "A landlord's insurance typically covers the building. What might renters insurance help with for a tenant?",
       choices: [
-        "Only the landlord's mortgage",
         "Often the tenant's belongings and liability — depending on the policy",
-        "Unlimited cash for any loss with no deductible",
-        "Traffic tickets",
+        "Only the landlord's mortgage payments",
+        "Unlimited cash for any loss with no deductible at all",
+        "Traffic tickets received while driving",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Building coverage and tenant coverage are different. Renters policies commonly address personal property and liability, with limits and exclusions.",
+        "Building coverage and tenant coverage are different products. Renters policies commonly address personal property and liability, with limits and exclusions — not unlimited payouts or unrelated costs like traffic tickets.",
     },
     {
       id: "q5",
-      question: "Which Coverage Checker habit is smartest before you drive or move out after graduation?",
+      question: "Before Malia gets her license, which habit fits the Coverage Checker mindset best?",
       choices: [
-        "Ignore policies until after an accident",
-        "Ask what coverage you're on, what to do after an incident, and what deductibles/limits apply",
-        "Assume social media tips replace reading a policy summary",
-        "Cancel liability coverage to save money",
+        "Wait until after her first accident to learn what the family policy actually covers",
+        "Assume coverage details a friend mentioned online apply the same way to her family's policy",
+        "Ask what coverage she's on, what to do after an incident, and what the deductible and limits are",
+        "Skip asking questions since her parents handle all of that automatically",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Knowing coverage, contacts, and costs before a crisis is the core Coverage Checker skill.",
+        "Knowing coverage, contacts, and costs before a crisis is the core Coverage Checker skill — figuring it out after an accident, borrowing a friend's assumptions, or never asking all leave her guessing when it matters most.",
     },
     {
       id: "q6",
       question: "In the two-policy worked example, why did Policy B end up cheaper overall in a year with one claim, despite its higher monthly premium?",
       choices: [
         "Because Policy B had no deductible at all",
-        "Because its much lower deductible outweighed the higher premium once a claim actually happened",
-        "Because Policy A was illegal to purchase",
-        "Because insurers always favor the more expensive policy",
+        "Because the higher premium automatically means better coverage every year",
+        "Because insurers always favor whichever policy costs more per month",
+        "Because its lower deductible outweighed the higher premium once a claim hit",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Total yearly cost depends on premiums plus any deductible paid. A lower deductible can offset a higher premium once a claim occurs.",
+        "Total yearly cost is premiums plus any deductible paid. A lower deductible can offset a higher premium when a claim happens — Policy B still had a deductible, just a smaller one.",
     },
     {
       id: "q7",
       question: "When comparing insurance quotes, which set of fields should you line up side by side — not just the monthly price?",
       choices: [
-        "Only the insurer's logo and advertising slogan",
         "Coverage types, deductible, policy limits, exclusions, and premium",
-        "Just the color of the insurance card",
-        "Only the phone number for claims",
+        "Only the insurer's advertising slogan and logo design",
+        "Just how quickly the sales rep responds to texts",
+        "Only the phone number listed for filing a claim",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "A true comparison lines up what's covered, what you'd pay out of pocket, the maximum payout, what's excluded, and the price — together.",
+        "A true comparison lines up what's covered, what you'd pay out of pocket, the maximum payout, what's excluded, and the price together — not surface details like branding or response speed.",
     },
     {
       id: "q8",
       question: "In Deja's case study, why did filing a claim make sense for her fender bender?",
       choices: [
-        "Because any accident should always be reported regardless of cost",
-        "Because the repair estimate was well above her deductible, so the insurer would cover the difference",
-        "Because she wanted her premium to go up",
-        "Because she had no deductible at all",
+        "Because any accident should always be reported regardless of the repair cost",
+        "Because the repair estimate was well above her deductible, so the insurer would cover a meaningful remaining amount",
+        "Because she wanted her monthly premium to increase",
+        "Because her policy happened to have no deductible that year",
       ],
       correctIndex: 1,
       explanation:
-        "Comparing the repair cost to the deductible showed that filing left the insurer covering a meaningful remaining amount — a reasonable use of the coverage.",
+        "Comparing the repair cost to the deductible showed that filing left the insurer covering a meaningful remaining amount — a reasonable use of the coverage, not a blanket rule to always report or a wish to raise premiums.",
     },
   ],
   reflection: {

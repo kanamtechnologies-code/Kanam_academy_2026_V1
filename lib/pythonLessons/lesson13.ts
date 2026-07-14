@@ -181,12 +181,8 @@ export const lesson13: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "What are the four steps every NPC brain follows, in order?",
-          choices: [
-            "Output → Memory → Rules → Input",
-            "Input → Rules → Memory → Output",
-            "Memory → Output → Input → Rules",
-          ],
-          correctIndex: 1,
+          choices: ["Input → Rules → Memory → Output", "Output → Memory → Rules → Input", "Memory → Output → Input → Rules"],
+          correctIndex: 0,
           explanation: "The NPC reads player input, checks it against rules, consults its memory dictionary, then produces output — always in that order.",
         },
       },
@@ -223,12 +219,8 @@ export const lesson13: PythonLessonConfig = {
         ],
         checkIn: {
           prompt: 'What does `npc_memory["name"]` do inside an NPC\'s print statement?',
-          choices: [
-            "Deletes the name from memory",
-            "Reads the stored name value so it can be joined into the message",
-            "Creates a new dictionary",
-          ],
-          correctIndex: 1,
+          choices: ["Deletes the name from memory", "Creates a new dictionary", "Reads the stored name value so it can be joined into the message"],
+          correctIndex: 2,
           explanation: "Reading npc_memory[\"name\"] retrieves the stored value so it can be joined with + into a personalized message.",
         },
       },
@@ -260,12 +252,8 @@ export const lesson13: PythonLessonConfig = {
         codeCaption: "Which branch matches first — help or hello?",
         checkIn: {
           prompt: "Which message prints?",
-          choices: [
-            "Hi, I'm Nova!",
-            "Try saying hello or quest.",
-            "...",
-          ],
-          correctIndex: 1,
+          choices: ["Try saying hello or quest.", "Hi, I'm Nova!", "..."],
+          correctIndex: 0,
           explanation: 'The message contains both "hello" and "help", but the if branch checking "help" runs first since it\'s checked first — top to bottom, first match wins.',
         },
       },
@@ -293,12 +281,8 @@ export const lesson13: PythonLessonConfig = {
         body: `Whenever your NPC's response surprises you, stop and ask: *which rule actually matched, and why?* Trace the player's message through each \`if\`/\`elif\` in order, checking whether the keyword actually appears. This habit turns confusing bugs into quick, obvious fixes.`,
         checkIn: {
           prompt: "Your NPC responds with the else fallback even though the player typed \"QUEST please\". What's the first thing to check?",
-          choices: [
-            "Whether the rule uses .lower() so \"QUEST\" matches the lowercase keyword \"quest\"",
-            "Whether Python needs reinstalling",
-            "Whether the dictionary has too many keys",
-          ],
-          correctIndex: 0,
+          choices: ["Whether Python needs reinstalling", "Whether the rule uses .lower() so \"QUEST\" matches the lowercase keyword \"quest\"", "Whether the dictionary has too many keys"],
+          correctIndex: 1,
           explanation: "Without .lower(), \"QUEST\" (uppercase) won't match a check for the lowercase keyword \"quest\", causing it to fall through to else.",
         },
       },
@@ -342,12 +326,8 @@ export const lesson13: PythonLessonConfig = {
         body: `Let's confirm the NPC brain pattern is locked in.`,
         checkIn: {
           prompt: "Why does a good NPC design put its else branch last?",
-          choices: [
-            "Because else must always be the last branch in Python's if/elif/else structure",
-            "Because else is optional and rarely needed",
-            "Because else runs before if",
-          ],
-          correctIndex: 0,
+          choices: ["Because else is optional and rarely needed", "Because else runs before if", "Because else must always be the last branch in Python's if/elif/else structure"],
+          correctIndex: 2,
           explanation: "Python's if/elif/else structure requires else to come last — it's the fallback that only runs when no earlier condition matched.",
         },
       },

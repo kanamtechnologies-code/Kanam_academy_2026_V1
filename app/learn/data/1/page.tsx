@@ -68,12 +68,8 @@ const daLesson1: DataLessonConfig = {
         },
         checkIn: {
           prompt: "Which of these is the best example of a 'table' of data?",
-          choices: [
-            "A single photo on your phone",
-            "A class roster with one row per student and columns for name, grade, and homeroom",
-            "A song playing on the radio",
-          ],
-          correctIndex: 1,
+          choices: ["A class roster with one row per student and columns for name, grade, and homeroom", "A single photo on your phone", "A song playing on the radio"],
+          correctIndex: 0,
           explanation: "A class roster is a table: every student gets a row, and every row shares the same columns (name, grade, homeroom).",
         },
       },
@@ -158,12 +154,8 @@ const daLesson1: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "What does `SELECT *` mean?",
-          choices: [
-            "Multiply every value in the table",
-            "Show every column for the matching rows",
-            "Delete the table",
-          ],
-          correctIndex: 1,
+          choices: ["Show every column for the matching rows", "Multiply every value in the table", "Delete the table"],
+          correctIndex: 0,
           explanation: "The asterisk `*` is shorthand for \"all columns.\" It's not math and it doesn't change any data.",
         },
       },
@@ -271,12 +263,8 @@ const daLesson1: DataLessonConfig = {
         body: `Let's make sure the three building blocks are locked in before you head to the exercises.`,
         checkIn: {
           prompt: "Put these in the correct order for a basic SQL query: FROM, LIMIT, SELECT.",
-          choices: [
-            "LIMIT, SELECT, FROM",
-            "SELECT, FROM, LIMIT",
-            "FROM, SELECT, LIMIT",
-          ],
-          correctIndex: 1,
+          choices: ["LIMIT, SELECT, FROM", "FROM, SELECT, LIMIT", "SELECT, FROM, LIMIT"],
+          correctIndex: 2,
           explanation: "The standard order is SELECT (columns) → FROM (table) → LIMIT (row count) — exactly the order you've been building queries in today.",
         },
       },

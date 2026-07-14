@@ -64,12 +64,12 @@ export const digitalLesson10: AILessonConfig = {
         checkIn: {
           prompt: "You use a photo for a nonprofit school fundraiser video, without permission, believing it's fine because you're not making money. Is that accurate?",
           choices: [
-            "Yes — copyright only applies to commercial, for-profit use",
-            "No — copyright applies whether or not money is involved; you still need permission or a license",
-            "Yes, as long as it's for a good cause",
             "No, but only because it's a video and not a photo",
+            "Yes, as long as it's for a good cause",
+            "No — copyright applies whether or not money is involved; you still need permission or a license",
+            "Yes — copyright only applies to commercial, for-profit use",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Copyright protection doesn't depend on whether you're making money. A nonprofit or school purpose doesn't remove the need for permission or a proper license.",
         },
@@ -102,12 +102,12 @@ export const digitalLesson10: AILessonConfig = {
         checkIn: {
           prompt: "A photo is licensed CC BY-NC-ND. Which use is allowed?",
           choices: [
-            "Selling prints of it for profit",
             "Editing it heavily and reposting the remix",
-            "Using it unchanged in a free school presentation, with credit to the creator",
+            "Selling prints of it for profit",
             "Using it however you want since it's technically 'free'",
+            "Using it unchanged in a free school presentation, with credit to the creator",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
             "NC blocks commercial use and ND blocks changing the work, but using it as-is, for free, with proper attribution, fits within a CC BY-NC-ND license.",
         },
@@ -134,12 +134,12 @@ export const digitalLesson10: AILessonConfig = {
         checkIn: {
           prompt: "You use the ENTIRE runtime of a popular song as unremarked background music in your class video, purely because you like it. Which fair-use factor most clearly weighs AGAINST you?",
           choices: [
-            "The purpose is commentary or criticism",
             "You used the whole song for a purpose unrelated to commentary, and using the entire piece leans against fair use",
-            "The song is a factual work, not creative",
+            "The purpose is commentary or criticism",
             "It has no effect on the market at all",
+            "The song is a factual work, not creative",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Using an entire creative work as plain background music — not for commentary, criticism, or parody — is exactly the kind of full, unrelated use that weighs against fair use.",
         },
@@ -189,11 +189,11 @@ export const digitalLesson10: AILessonConfig = {
           prompt: "You found a great photo but can't find any license information, statement of permission, or public domain status anywhere. What should you do?",
           choices: [
             "Use it anyway since it's probably fine",
-            "Assume you don't have permission and either find a clearly licensed alternative or contact the creator to ask",
-            "Use it and just avoid crediting it so no one notices",
             "Use it only if you change the colors slightly",
+            "Use it and just avoid crediting it so no one notices",
+            "Assume you don't have permission and either find a clearly licensed alternative or contact the creator to ask",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "No license information means you can't confirm permission — and copyright is the default assumption for anything original. When in doubt, find a clearly licensed source or ask the creator directly.",
         },
@@ -254,12 +254,12 @@ export const digitalLesson10: AILessonConfig = {
         checkIn: {
           prompt: "You use a CC BY 4.0 photo in your scholarship slide deck but only wrote the credit in your personal notes, not anywhere in the actual submitted deck. Is that sufficient attribution?",
           choices: [
-            "Yes — as long as you know where it came from, that's enough",
-            "No — the attribution needs to be visible in the actual work you submit, not just in private notes",
             "Yes — CC BY doesn't actually require attribution",
             "No, because CC BY photos can never be used in slide decks",
+            "No — the attribution needs to be visible in the actual work you submit, not just in private notes",
+            "Yes — as long as you know where it came from, that's enough",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Attribution has to be visible to whoever views your finished work — a credit hidden in personal notes doesn't fulfill a CC BY license or protect you from a plagiarism concern.",
         },
@@ -307,12 +307,12 @@ export const digitalLesson10: AILessonConfig = {
       id: "q1",
       question: "You're building a slide deck for a college interview portfolio and grab a great photo from Google Images. What's the safest assumption?",
       choices: [
-        "It's free to use because it appeared in a search",
         "Someone owns the copyright, so you need a license or permission unless it says otherwise",
         "It's automatically public domain once it's online",
         "You can use it as long as you don't make money",
+        "It's free to use because it appeared in a search",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Almost everything online was made by someone who owns the copyright. Showing up in a search doesn't grant permission — you need a license, permission, or a clearly free source.",
     },
@@ -321,11 +321,11 @@ export const digitalLesson10: AILessonConfig = {
       question: "A Creative Commons photo for your internship portfolio has an 'Attribution' (BY) license. What must you do?",
       choices: [
         "Pay the creator a fee before using it",
-        "Only use it for commercial projects",
         "Credit the creator when you use the work",
+        "Only use it for commercial projects",
         "Keep the work completely unchanged forever",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "Attribution (BY) means you must credit the creator. Other conditions like NonCommercial or ShareAlike add different rules, but BY specifically requires giving credit.",
     },
@@ -333,12 +333,12 @@ export const digitalLesson10: AILessonConfig = {
       id: "q3",
       question: "A teammate says you can drop a full popular song into your scholarship video essay because \"it's for school / a nonprofit.\" Which statement about fair use is correct?",
       choices: [
-        "Fair use means anything used for school or scholarships is automatically allowed",
         "Fair use lets you copy entire songs and movies freely",
         "Fair use is a limited, case-by-case exception for things like commentary, news, or teaching — not a blanket pass for whole songs",
+        "Fair use means anything used for school or scholarships is automatically allowed",
         "Fair use only applies if you give credit",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "Fair use is narrow and decided case-by-case. It is NOT a blanket 'it's for school/scholarship' pass for entire songs, and credit alone doesn't create fair use.",
     },
@@ -346,12 +346,12 @@ export const digitalLesson10: AILessonConfig = {
       id: "q4",
       question: "You copy a paragraph from a website into your college application essay without saying where it came from. What's the difference between plagiarism and copyright infringement?",
       choices: [
-        "They're exactly the same thing",
-        "Plagiarism is claiming others' work as your own (honesty); infringement is using it without permission (legal)",
         "Plagiarism is illegal but copyright infringement is just rude",
         "Plagiarism only applies to music, infringement only to writing",
+        "Plagiarism is claiming others' work as your own (honesty); infringement is using it without permission (legal)",
+        "They're exactly the same thing",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Plagiarism is an honesty problem — pretending someone else's work is yours. Copyright infringement is a legal problem — using protected work without permission. You can do one, the other, or both.",
     },
@@ -359,12 +359,12 @@ export const digitalLesson10: AILessonConfig = {
       id: "q5",
       question: "You lightly edit a copyrighted image for a club poster, add a credit line, and post it. Is it now yours to use freely?",
       choices: [
+        "Yes — as long as it's for a school project",
         "Yes — editing it makes it a new original work",
         "Yes — giving credit makes any use legal",
         "No — small changes and credit don't replace needing permission or the right license",
-        "Yes — as long as it's for a school project",
       ],
-      correctIndex: 2,
+      correctIndex: 3,
       explanation:
         "Changing a work slightly doesn't make it yours, and credit only fixes plagiarism. You still need a license or permission to legally use copyrighted content.",
     },
@@ -372,12 +372,12 @@ export const digitalLesson10: AILessonConfig = {
       id: "q6",
       question: "A photo is licensed CC BY-NC-ND. Which use fits within that license?",
       choices: [
-        "Selling printed copies of it",
-        "Remixing it heavily into a new collage",
         "Using it completely unchanged in a free class presentation, with credit given",
+        "Remixing it heavily into a new collage",
+        "Selling printed copies of it",
         "Using it any way you like since it's 'free'",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "NC blocks commercial use and ND blocks changes, but using the work as-is, for free, with attribution, fits a CC BY-NC-ND license.",
     },
@@ -385,9 +385,9 @@ export const digitalLesson10: AILessonConfig = {
       id: "q7",
       question: "You use an entire copyrighted song, unedited, as background music in a video purely because you like it — no commentary or critique involved. Which fair-use factor weighs most clearly against you?",
       choices: [
-        "The purpose is commentary or parody",
-        "You used the whole work for a purpose unrelated to commentary or criticism",
         "The song is non-creative and factual",
+        "You used the whole work for a purpose unrelated to commentary or criticism",
+        "The purpose is commentary or parody",
         "There's no possible effect on the market for the song",
       ],
       correctIndex: 1,
@@ -398,12 +398,12 @@ export const digitalLesson10: AILessonConfig = {
       id: "q8",
       question: "You find a photo with no visible license, statement of permission, or public domain notice anywhere. What's the safest move?",
       choices: [
-        "Use it and assume it's fine since you searched a bit",
-        "Assume it's still under copyright and either find a clearly licensed alternative or ask the creator directly",
-        "Use it but skip crediting it so it's less noticeable",
         "Use it only if you convert it to a different file type",
+        "Use it but skip crediting it so it's less noticeable",
+        "Assume it's still under copyright and either find a clearly licensed alternative or ask the creator directly",
+        "Use it and assume it's fine since you searched a bit",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Copyright protection is automatic and the default assumption. No visible license means you don't have confirmed permission — find a clearly licensed source or ask first.",
     },

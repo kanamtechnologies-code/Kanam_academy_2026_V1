@@ -61,16 +61,16 @@ export const financeLesson14: AILessonConfig = {
           text: "A huge 'award' that is mostly loans is debt with marketing makeup.",
         },
         checkIn: {
-          prompt: "What is the best plain-English meaning of net price?",
+          prompt: "Diego keeps hearing the term 'net price' while comparing two schools. What does it actually mean?",
           choices: [
-            "The sticker tuition with no aid considered",
-            "What you pay after gift aid like grants and scholarships",
-            "Only the cost of textbooks",
-            "The maximum loan you are required to take",
+            "What he'd actually pay after subtracting grants and scholarships from the total cost",
+            "The sticker tuition number listed before any aid is applied",
+            "The amount of loans he's required to accept in his aid package",
+            "The total of tuition plus every one-time campus fee, before aid",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Net price focuses on cost after gift aid — more decision-relevant than sticker price alone.",
+            "Net price is cost after gift aid — more decision-relevant than the sticker number, and not the same as a required loan amount or a fee-only total.",
         },
       },
       {
@@ -83,16 +83,16 @@ export const financeLesson14: AILessonConfig = {
           text: "\"An award letter with a big total number is automatically a great deal.\" Break the total apart into gift aid vs loans before celebrating.",
         },
         checkIn: {
-          prompt: "How do grants generally differ from student loans?",
+          prompt: "Sofia's aid letter lists a scholarship and a loan on the same 'total award' line. How do the two generally differ?",
           choices: [
-            "Grants must always be repaid with interest; loans never are",
-            "Grants are typically gift aid; loans must be repaid under their terms",
-            "They are identical except for the name on the letter",
-            "Loans always reduce net price more than grants",
+            "Both eventually need to be repaid, just on different schedules",
+            "The scholarship is gift aid she likely won't repay; the loan must be repaid under its terms",
+            "Loans only cover tuition, while scholarships only cover housing",
+            "Whichever one is listed first on the letter is the one she actually has to pay back",
           ],
           correctIndex: 1,
           explanation:
-            "Gift aid lowers what you owe without creating a loan balance. Loans postpone cost into future payments.",
+            "Gift aid lowers what you owe without creating a loan balance, while a loan postpones cost into future payments — the order on a letter or the category it's listed under doesn't change that.",
         },
       },
       {
@@ -105,16 +105,16 @@ export const financeLesson14: AILessonConfig = {
           text: "\"My family won't qualify for anything, so skip FAFSA.\" Many schools still want it for their own aid — ask a counselor before skipping.",
         },
         checkIn: {
-          prompt: "Why does FAFSA awareness matter for many students?",
+          prompt: "Devon's family assumes they make 'too much' to bother with FAFSA. What's the more accurate view?",
           choices: [
-            "It is a paid ranking service colleges require for admission essays",
-            "It is often required to access federal aid and may unlock other aid — and it should be done via official free channels",
-            "It replaces the need to compare net prices",
-            "It guarantees a full-ride at any school",
+            "FAFSA is a paid ranking service that boosts admission chances",
+            "Skipping FAFSA has no effect on which aid a student can access",
+            "It's often required for federal aid and may unlock school or state aid too",
+            "FAFSA guarantees a set scholarship amount for every applicant",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "FAFSA is a key gateway for many aid types. Use official free processes; beware paid panic sellers, and note it never guarantees a specific outcome.",
+            "Many schools use FAFSA for their own aid beyond federal programs, so assuming zero aid before applying can cost real money — though FAFSA never guarantees a specific outcome.",
         },
       },
       {
@@ -141,13 +141,13 @@ export const financeLesson14: AILessonConfig = {
           prompt: "Which statement is the myth, not the reality?",
           choices: [
             "Breaking an award letter into gift aid vs loans matters more than the total number",
-            "The school offering the single biggest total award number is automatically the best deal",
             "Some schools use their own aid formulas beyond FAFSA, including merit aid",
             "Community college, trade programs, or transfer paths can be strong net-price options",
+            "The school offering the single biggest total award number is automatically the best deal",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "A large total can hide a large loan burden. The composition of an award matters more than its headline size.",
+            "A large total can hide a large loan burden — the composition of an award matters more than its headline size, unlike the other three accurate statements.",
         },
       },
       {
@@ -231,14 +231,14 @@ export const financeLesson14: AILessonConfig = {
         checkIn: {
           prompt: "What's the Aid Navigator move for Sofia, given the renewability twist?",
           choices: [
-            "Ignore renewability — only the first-year net price matters",
             "Ask each school directly about renewal requirements and project the net price for all four years before comparing further",
-            "Automatically choose Coastal because its gift aid total is larger",
-            "Automatically choose State because its sticker price is lower",
+            "Automatically choose Coastal since its first-year gift aid total is larger",
+            "Automatically choose State since its sticker price is lower",
+            "Ignore renewal terms since only the first semester's cost really matters",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "A one-time grant can make year one look deceptively affordable. Projecting all four years — and confirming renewal terms directly with each school — is the responsible next step.",
+            "A one-time grant can make year one look deceptively affordable. Projecting all four years — and confirming renewal terms directly with each school — beats deciding on sticker price or a single year's gift aid total alone.",
         },
       },
       {
@@ -249,14 +249,14 @@ export const financeLesson14: AILessonConfig = {
         checkIn: {
           prompt: "A friend says: 'This school's total aid package is $40,000, way more than the other school's $22,000, so it's obviously the better deal.' What's the Aid Navigator response?",
           choices: [
-            "Agree — a bigger total number always means a better deal",
+            "Agree — a bigger total package always beats a smaller one",
             "Ask how much of each package is gift aid vs loans, and whether it renews, before comparing net cost and long-term debt",
-            "Say loans never matter as long as the total is large",
-            "Say the smaller total is automatically the scam",
+            "Point out that loans never really matter once the total looks impressive",
+            "Assume the smaller total package must be a mistake or a worse school",
           ],
           correctIndex: 1,
           explanation:
-            "Totals can mislead. Composition (gift aid vs loans) and renewability determine the real deal — not the headline number.",
+            "Totals can mislead. Composition (gift aid vs loans) and renewability determine the real deal — not the headline number or which total simply looks bigger.",
         },
       },
       {
@@ -287,107 +287,107 @@ export const financeLesson14: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "What is the best plain-English meaning of net price?",
+      question: "Which is the best plain-English meaning of 'net price'?",
       choices: [
-        "The sticker tuition with no aid considered",
-        "What you pay after gift aid like grants/scholarships (estimates/offers matter)",
-        "Only the cost of textbooks",
-        "The maximum loan you are required to take",
+        "The sticker tuition number with no aid considered at all",
+        "The maximum amount of loans a student is required to take",
+        "What a student actually pays after gift aid like grants and scholarships is subtracted",
+        "Only the cost of textbooks and other small supplies",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Net price focuses on cost after gift aid — more decision-relevant than sticker price alone.",
+        "Net price focuses on cost after gift aid — more decision-relevant than the sticker number, and it isn't the same as a required loan amount.",
     },
     {
       id: "q2",
-      question: "How do grants generally differ from student loans?",
+      question: "Two lines on an aid letter read 'Grant: $4,000' and 'Loan: $4,000.' How do they generally differ?",
       choices: [
-        "Grants must always be repaid with interest; loans never are",
-        "Grants are typically gift aid; loans must be repaid under their terms",
-        "They are identical except for the name on the letter",
-        "Loans always reduce net price more than grants",
+        "They're functionally identical since both reduce the sticker price the same way",
+        "The loan is gift aid, and the grant must be repaid with interest",
+        "Whichever line is listed first on the page is the one that must be repaid",
+        "The grant is typically gift aid that doesn't need repayment; the loan must be repaid under its terms",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Gift aid lowers what you owe without creating a loan balance. Loans postpone cost into future payments.",
+        "Gift aid lowers what you owe without creating a loan balance; a loan postpones cost into future payments — matching dollar amounts doesn't make them equivalent.",
     },
     {
       id: "q3",
-      question: "Why does FAFSA awareness matter for many students?",
+      question: "Why does completing the FAFSA matter for many students, even if they're unsure they'll qualify for aid?",
       choices: [
-        "It is a paid ranking service colleges require for admission essays",
-        "It is often required to access federal aid and may unlock other aid — and it should be done via official free channels",
-        "It replaces the need to compare net prices",
-        "It guarantees a full-ride at any school",
+        "It's often the gateway to federal aid and may unlock other school or state aid too, and it should be done through official free channels",
+        "It's a paid service that ranks applicants for admission",
+        "It replaces the need to ever compare net prices between schools",
+        "It guarantees a full-ride scholarship at any school that receives it",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "FAFSA is a key gateway for many aid types. Use official free processes; beware paid panic sellers, and note it guarantees no specific outcome.",
+        "Many schools use FAFSA for their own aid beyond federal programs, so it's worth completing — though it never guarantees a specific dollar outcome.",
     },
     {
       id: "q4",
       question: "Which question is most important when reading an aid offer?",
       choices: [
-        "Which school has the flashiest brochure?",
-        "How much is gift aid vs loans, does aid renew, and what out-of-pocket gap remains?",
-        "Can I ignore living costs if tuition looks covered?",
-        "Are loans secretly the same as scholarships?",
+        "Which school has the flashiest brochure or campus photos?",
+        "How much of the award is gift aid vs loans, does it renew, and what out-of-pocket gap remains?",
+        "Can living costs be ignored if tuition looks mostly covered?",
+        "Can the loan portion just be treated the same as a scholarship?",
       ],
       correctIndex: 1,
       explanation:
-        "Aid Navigators separate gift aid from debt, check renewability, and compute the real gap including living costs.",
+        "Aid Navigators separate gift aid from debt, check renewability, and compute the real gap including living costs — not just the tuition line.",
     },
     {
       id: "q5",
       question: "What is a cautious approach to student loans?",
       choices: [
-        "Borrow the maximum offered regardless of need",
-        "Borrow only what's needed after gift aid and understand repayment is a future obligation",
-        "Assume all loans are automatically forgiven",
-        "Never read the promissory note",
+        "Borrow the maximum amount offered so nothing is left on the table",
+        "Assume any remaining balance will eventually be forgiven automatically",
+        "Borrow only what's needed after gift aid, and understand repayment is a real future obligation",
+        "Skip reading the loan terms since they're mostly the same everywhere",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Loans can enable education but create future payments. Need-based borrowing with eyes open is the cautious path.",
+        "Loans can enable education but create future payments. Need-based borrowing with eyes open — not maxing out or assuming forgiveness — is the cautious path.",
     },
     {
       id: "q6",
       question: "What is the purpose of a financial aid appeal letter?",
       choices: [
-        "A guaranteed negotiating trick that always increases aid",
+        "A guaranteed negotiating trick that always increases the aid offered",
+        "A required step every applicant must complete before enrolling",
+        "A way to skip filing the FAFSA entirely and still receive aid",
         "A factual, documented request tied to changed circumstances or a differing offer — never guaranteed to succeed",
-        "A way to skip filing the FAFSA entirely",
-        "A required step for every single applicant",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Appeals are a legitimate but non-guaranteed process based on real documentation — not pressure tactics.",
+        "Appeals are a legitimate but non-guaranteed process based on real documentation — not a pressure tactic or a required or automatic step.",
     },
     {
       id: "q7",
       question: "What is the prestige-anchor trap?",
       choices: [
-        "Comparing every school using the same net-price method",
         "Letting a 'dream school' or famous name become the biased reference point that other offers get unfairly judged against",
-        "A rule requiring you to pick the cheapest school",
-        "A myth that doesn't affect real decisions",
+        "Comparing every school using the exact same net-price method",
+        "A financial aid rule that requires picking the cheapest option",
+        "A myth that has no real effect on college decisions",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Anchoring on a favorite school's name can distort otherwise-objective cost comparisons.",
+        "Anchoring on a favorite school's name can distort otherwise-objective cost comparisons — using a consistent net-price method is actually the fix, not the trap.",
     },
     {
       id: "q8",
       question: "Two offers list the same total aid number, but one has more gift aid and less debt, and its aid renews for all four years. What's the Aid Navigator conclusion?",
       choices: [
-        "The offers are identical in value since the totals match",
+        "The offers are identical in value since their totals match exactly",
         "The offer with more gift aid, less debt, and multi-year renewal is the stronger deal despite an equal headline total",
-        "Renewability never matters, only year-one numbers count",
-        "The offer with more loans is automatically better because it's 'real money now'",
+        "Renewability never matters — only the year-one number counts",
+        "The offer with more loans is automatically better since it's 'real cash now'",
       ],
       correctIndex: 1,
       explanation:
-        "Composition and renewability distinguish otherwise-equal totals — gift aid and renewal terms create the real long-term difference.",
+        "Composition and renewability distinguish otherwise-equal totals — gift aid and renewal terms create the real long-term difference, not the matching headline figure.",
     },
   ],
   reflection: {

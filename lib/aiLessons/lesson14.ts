@@ -83,10 +83,10 @@ export const aiLesson14: AILessonConfig = {
         checkIn: {
           prompt: "What is a deepfake?",
           choices: [
-            "A very deep philosophical question",
+            "Any video edited with normal filters or editing apps, nothing AI-specific",
             "AI-generated fake media that makes a real person appear to say or do things they didn't",
-            "A type of strong password",
-            "A deep-sea camera",
+            "Grainy, low-quality footage that's just hard to see clearly",
+            "A video that's simply been slowed down or sped up",
           ],
           correctIndex: 1,
           explanation:
@@ -141,14 +141,14 @@ Action: pause → never share codes → call real number / safe word → report 
         checkIn: {
           prompt: "Is it true that only celebrities and politicians need to worry about being deepfaked?",
           choices: [
-            "True — ordinary people are never targeted",
+            "True — attackers only bother with celebrities and politicians",
             "False — ordinary teens have been targeted with fake images or audio, especially from public social media content",
-            "True, but only adults need to worry",
-            "False, but only if you have over a million followers",
+            "True — school accounts are technically impossible to spoof",
+            "False — but only if your account is set to private (then risk is zero)",
           ],
           correctIndex: 1,
           explanation:
-            "Deepfake harassment and scams have targeted everyday people, not just public figures — anyone with public photos or voice clips can be at risk.",
+            "Deepfake harassment and scams have hit everyday people, not just public figures. Private accounts reduce risk but don't make spoofing \"impossible.\"",
         },
       },
       {
@@ -298,12 +298,12 @@ Action: pause → never share codes → call real number / safe word → report 
       id: "q1",
       question: "Why should you avoid pasting private info into a chatbot?",
       choices: [
-        "It makes the AI slower",
         "What you share may be stored, reviewed, or used to train future models — and you can't take it back",
+        "It makes the AI slower",
         "Chatbots can't read text",
         "It uses too much data on your plan",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "AI tools may retain or reuse what you type. Treat them like a semi-public space, not a vault.",
     },
@@ -311,12 +311,12 @@ Action: pause → never share codes → call real number / safe word → report 
       id: "q2",
       question: "What is a deepfake?",
       choices: [
-        "A very deep philosophical question",
+        "Any video edited with normal filters or editing apps, nothing AI-specific",
+        "Grainy, low-quality footage that's just hard to see clearly",
+        "A video that's simply been slowed down or sped up",
         "AI-generated fake media that makes a real person appear to say or do things they didn't",
-        "A type of strong password",
-        "A deep-sea camera",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Deepfakes are realistic fake images, audio, or video created by AI — a major source of misinformation and scams.",
     },
@@ -350,25 +350,25 @@ Action: pause → never share codes → call real number / safe word → report 
       id: "q5",
       question: "Is it true that only celebrities and politicians need to worry about being deepfaked?",
       choices: [
-        "True — ordinary people are never targeted",
         "False — ordinary teens have been targeted with fake images or audio, especially from public content",
-        "True, but only adults need to worry",
-        "False, but only people with huge followings",
+        "True — attackers only bother with celebrities and politicians",
+        "True — school accounts are technically impossible to spoof",
+        "False — but only people with huge followings face any real risk",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Deepfake harassment and scams have targeted everyday people, not just public figures.",
+        "Deepfake harassment and scams have targeted everyday people, not just public figures. Follower count isn't a shield.",
     },
     {
       id: "q6",
       question: "You receive a flawless, urgent message asking you to 'verify your login' through a link. What's the smartest move?",
       choices: [
         "Click the link immediately since it looks professional",
-        "Don't click the link — go directly to the real site or app to check instead",
         "Reply with your password to be safe",
         "Forward it to friends so they can click it too",
+        "Don't click the link — go directly to the real site or app to check instead",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "AI-written phishing can look flawless. Always navigate directly to the known, real site instead of trusting an embedded link.",
     },
@@ -390,11 +390,11 @@ Action: pause → never share codes → call real number / safe word → report 
       question: "How does this lesson's content connect to being a responsible digital citizen (ISTE 1.2)?",
       choices: [
         "It doesn't relate — privacy is a separate topic from digital citizenship",
-        "Managing your digital footprint, verifying media, and respecting others' consent online are all core parts of responsible digital citizenship",
-        "Digital citizenship only covers screen-time limits",
-        "Only adults need to think about digital citizenship",
+        "Digital citizenship mainly means posting politely and nothing else",
+        "Managing your digital footprint, verifying media, and respecting others' consent online are core parts of responsible digital citizenship",
+        "Digital citizenship only applies when you're using a school-issued device",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Protecting your own data, critically evaluating media, and respecting other people's privacy and consent are exactly what the Digital Citizen standard describes.",
     },

@@ -301,8 +301,8 @@ Now do this one:
     {
       id: "q2",
       question: "You give the AI one example of the style you want, then your real request. This technique is called…",
-      choices: ["Overfitting", "Few-shot prompting", "Hallucination", "A context window"],
-      correctIndex: 1,
+      choices: ["Overfitting", "Hallucination", "A context window", "Few-shot prompting"],
+      correctIndex: 3,
       explanation:
         "Few-shot prompting means showing examples so the model matches the pattern you demonstrated.",
     },
@@ -310,12 +310,12 @@ Now do this one:
       id: "q3",
       question: "For a tricky math or logic problem, what often improves the AI's accuracy?",
       choices: [
-        "Telling it to answer in one word",
         "Asking it to work through the problem step by step and show its reasoning",
+        "Telling it to answer in one word",
         "Typing in all capital letters",
         "Asking it to answer faster",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Step-by-step prompting encourages the model to reason carefully rather than blurting a guess.",
     },
@@ -324,9 +324,9 @@ Now do this one:
       question: "Why does showing an example work so well?",
       choices: [
         "The AI is a strong pattern-matcher and copies the pattern you demonstrate",
-        "It forces the AI to search Google",
-        "Examples unlock secret features",
-        "It makes the AI respond for free",
+        "Examples make the AI switch to a more advanced version of itself",
+        "It skips the need to describe the task at all",
+        "It guarantees the output will be factually accurate",
       ],
       correctIndex: 0,
       explanation:
@@ -336,12 +336,12 @@ Now do this one:
       id: "q5",
       question: "Does step-by-step prompting GUARANTEE a correct final answer?",
       choices: [
-        "Yes, always",
+        "Yes — once the model shows its steps, the conclusion is reliable",
+        "Yes for schoolwork, but not for math or science questions",
         "No — it improves the odds of accuracy but the final answer can still be wrong",
-        "Yes, but only for essays",
-        "No, it makes accuracy worse",
+        "No — asking for steps usually makes the answer less accurate",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Step-by-step prompting helps the model reason more carefully, but you should still verify important final answers.",
     },
@@ -363,11 +363,11 @@ Now do this one:
       question: "What's the difference between iterating on YOUR draft versus iterating until AI hands you a finished product to submit as-is?",
       choices: [
         "There's no difference — both are exactly the same",
-        "The first keeps you doing the thinking and learning; the second can quietly replace your own work",
         "The second is always faster and therefore always fine",
         "Only the first one is technically called 'iteration'",
+        "The first keeps you doing the thinking and learning; the second can quietly replace your own work",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Iterating on your own draft keeps you in the driver's seat. Iterating until AI produces a finished product you submit as your own can cross into letting AI do your thinking for you.",
     },
@@ -376,11 +376,11 @@ Now do this one:
       question: "How does iterating on AI answers connect to computational thinking (ISTE 1.5)?",
       choices: [
         "It doesn't relate to computer science at all",
-        "The try → evaluate → adjust loop mirrors the same process used in testing and debugging code",
         "Only writing code from scratch counts as computational thinking",
+        "The try → evaluate → adjust loop mirrors the same process used in testing and debugging code",
         "Iteration is only a writing skill, not a CS skill",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Refining an answer through evaluation and adjustment is the same iterative loop computational thinkers use when testing and debugging.",
     },

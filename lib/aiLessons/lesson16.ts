@@ -293,12 +293,12 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       id: "q1",
       question: "Which statement shows true AI literacy?",
       choices: [
-        "AI is a conscious mind that's always right",
         "AI is a powerful pattern tool I should direct, verify, and use ethically",
+        "AI is a conscious mind that's always right",
         "AI is magic I shouldn't question",
         "AI is useless and I should avoid it",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "AI literacy means seeing AI clearly: a powerful pattern tool you guide, check, and use responsibly.",
     },
@@ -307,11 +307,11 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       question: "An AI gives you a confident statistic with a source for your project. The AI-smart move is to…",
       choices: [
         "Use it right away — it sounds official",
-        "Verify the statistic and confirm the source actually exists before using it",
         "Delete your project",
         "Ask the AI to promise it's true",
+        "Verify the statistic and confirm the source actually exists before using it",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Don't trust, verify. Facts, stats, and sources from AI can be hallucinated and must be checked.",
     },
@@ -333,11 +333,11 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       question: "Which is the best example of using AI with academic integrity?",
       choices: [
         "Submitting an AI-written essay as your own",
-        "Having AI explain feedback on a draft you wrote, then improving it yourself, and disclosing the AI use",
         "Using AI on a test where it's banned",
+        "Having AI explain feedback on a draft you wrote, then improving it yourself, and disclosing the AI use",
         "Copying AI answers without understanding them",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Using AI to learn and improve your own work, and being honest about that use, is the integrity standard this course has built toward.",
     },
@@ -359,11 +359,11 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       question: "In the capstone adoption checklist, what should happen BEFORE deciding to adopt, limit, or reject an AI tool?",
       choices: [
         "Nothing — decide immediately based on marketing claims",
-        "Define the real job, test on genuine examples, and check accuracy, bias, and privacy risks",
         "Only ask the AI tool itself whether it's trustworthy",
         "Skip straight to a school-wide rollout",
+        "Define the real job, test on genuine examples, and check accuracy, bias, and privacy risks",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "The adoption decision should come only after defining the job, testing on real examples, and checking risks — evidence before verdict.",
     },
@@ -384,12 +384,12 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       id: "q8",
       question: "Why does this course argue that the AI-Smart Citizen habits will keep working even on AI tools that don't exist yet?",
       choices: [
-        "Because all future AI tools will be identical to today's tools",
         "Because the habits (understand, direct, verify, protect, act ethically) are general questions you can ask of any computing tool, known or unknown",
+        "Because all future AI tools will be identical to today's tools",
         "Because new AI tools will never need to be evaluated",
         "Because this course predicted exactly which tools will be invented",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "The five habits are general-purpose questions — what's it a specialist at, what data, what risks, how do I verify, who's affected — that transfer to any future AI tool, not just today's.",
     },

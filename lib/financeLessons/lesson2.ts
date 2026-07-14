@@ -61,16 +61,17 @@ export const financeLesson2: AILessonConfig = {
           text: "Marketing loves to rebrand wants as needs (\"You deserve this\"). Pause and ask whether skipping it actually harms health, safety, or required responsibilities.",
         },
         checkIn: {
-          prompt: "In this lesson, a basic phone plan for getting to work safely leans toward which label?",
+          prompt:
+            "Malik's job requires him to be reachable by text for shift changes, but he's also eyeing the newest flagship phone instead of just keeping his current plan active. How does this lesson frame the two?",
           choices: [
-            "A want — all phones are optional upgrades",
-            "A need — it supports basic functioning in your situation",
-            "Neither — needs and wants don't apply to teens",
-            "A need only if it's the newest flagship model",
+            "The flagship upgrade counts as a need too, since his job depends on having a phone at all",
+            "Keeping a working phone plan active is the need; the flagship upgrade is the want",
+            "Neither counts as a need, since paying for a plan is his parents' responsibility, not his",
+            "Only wants apply here, since a job requiring a phone doesn't make the phone itself a need",
           ],
           correctIndex: 1,
           explanation:
-            "A functional phone plan for work and safety is closer to a need; the newest flagship upgrade is usually the want.",
+            "A working plan supports basic functioning for his job — that's the need. Wanting the newest model is a want; needing a phone for work doesn't automatically stretch to needing the latest one.",
         },
       },
       {
@@ -83,16 +84,17 @@ export const financeLesson2: AILessonConfig = {
           text: "Learning the tradeoff habit now prepares you for bigger decisions later — a used car, college, your first apartment.",
         },
         checkIn: {
-          prompt: "What is the best description of a tradeoff?",
+          prompt:
+            "Devon picks up an extra shift this week, which means missing his friend's game night. What does this situation show, according to this lesson?",
           choices: [
-            "A sign that you failed at budgeting",
-            "Giving up one option in order to get another, because resources are limited",
-            "Something that only happens to people with low income",
-            "A type of bank fee",
+            "That Devon is bad at managing his schedule",
+            "That extra shifts are only worth it if there's zero cost involved",
+            "That missing game night doesn't really count since he's getting paid",
+            "A tradeoff — giving up one option to get another because time and money are limited",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "Tradeoffs are a normal result of limited money, time, and energy — not a personal failure.",
+            "This is a normal tradeoff, not a scheduling failure. Getting paid doesn't erase the real cost of missing game night — it's still something he gave up.",
         },
       },
       {
@@ -112,16 +114,17 @@ export const financeLesson2: AILessonConfig = {
           text: "Say the tradeoff in one sentence before you buy: \"If I get this, I'm choosing it instead of ___.\" If that sentence stings, reconsider.",
         },
         checkIn: {
-          prompt: "You spend $60 on a new game instead of adding $60 to your car fund. What is the opportunity cost?",
+          prompt:
+            "Instead of adding $50 to her savings this week, Zoe spends it on a new game. What is the opportunity cost of that purchase?",
           choices: [
-            "Only the fun you have playing the game",
-            "The next-best use of that $60 — progress toward the car fund",
-            "Zero, because the game was on sale",
-            "Whatever your friends spent that weekend",
+            "Only the enjoyment she gets from playing the new game",
+            "Nothing, since the money was hers to spend either way",
+            "The $50 of car-fund progress she gave up by not saving it",
+            "Whatever her friends happened to spend that same week",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Opportunity cost is the next-best alternative you gave up — here, $60 toward your car fund.",
+            "Opportunity cost is the next-best thing you give up, not the enjoyment you gain. Saying \"the money was hers either way\" is true but misses that spending it still costs her the alternative use of it.",
         },
       },
       {
@@ -152,14 +155,14 @@ export const financeLesson2: AILessonConfig = {
         checkIn: {
           prompt: "What's the strongest read of Priya's situation?",
           choices: [
-            "The jacket is a need because it's on sale right now",
-            "The jacket is a want, and buying it would put the required field trip fee at risk — that's the opportunity cost",
-            "There's no tradeoff since both items are affordable individually",
-            "Sales always outrank required fees",
+            "The jacket is a want, and buying it risks not having enough for the required field trip fee — that's the opportunity cost",
+            "The jacket becomes a need once it's marked down enough",
+            "There's no real tradeoff, since $65 and $40 are both small amounts on their own",
+            "The field trip fee can wait since it's not due for two weeks",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "A sale doesn't change whether something is a need. Since the jacket was never a stated priority and the field trip fee is required and due soon, buying the jacket risks not covering the fee — that's the real opportunity cost.",
+            "A discount doesn't turn a want into a need. And even though the fee isn't due immediately, spending on an unplanned want now still risks leaving less for a fee she already knows is required.",
         },
       },
       {
@@ -194,16 +197,17 @@ export const financeLesson2: AILessonConfig = {
           text: "\"I'll start saving after I treat myself\" often becomes never. Flip it: small goal contribution first, then the treat if it still fits.",
         },
         checkIn: {
-          prompt: "Which approach to delayed gratification matches this lesson?",
+          prompt:
+            "Nina wants to enjoy a $20 snack run with friends this weekend, but she also has a savings goal running. Which approach best matches healthy delayed gratification from this lesson?",
           choices: [
-            "Never allow any fun — discipline means zero wants",
-            "Fund your goal first, then spend guilt-free on a planned want",
-            "Wait forever with no plan — that's real discipline",
-            "Treat yourself first, then save whatever is left",
+            "She skips the goal transfer for the week since one snack run won't matter much",
+            "She funds her goal transfer first, then enjoys the snack run guilt-free if it still fits",
+            "She avoids the snack run entirely, since any fun spending works against a goal",
+            "She spends on the snack run first, then adds whatever's left over to her goal",
           ],
           correctIndex: 1,
           explanation:
-            "Balanced delayed gratification protects goals first, then schedules planned fun — not misery or avoidance.",
+            "Funding the goal first, then enjoying a planned want, is balanced delayed gratification. \"Spend first, save the leftover\" is exactly the approach this lesson warns tends to leave goals underfunded.",
         },
       },
       {
@@ -252,14 +256,14 @@ export const financeLesson2: AILessonConfig = {
         checkIn: {
           prompt: "A flash sale banner says \"Only 2 left — ends in 10 minutes!\" What's the smartest response from this lesson?",
           choices: [
-            "Buy immediately since the countdown proves it's a great deal",
+            "Buy right away, since a countdown like that usually signals a genuinely rare deal",
+            "Wait exactly 10 minutes to see if the timer is real before deciding",
             "Recognize the scarcity tactic, and ask whether you'd still want this without the timer",
-            "Assume all countdown timers are lies and never trust any sale",
-            "Ignore your budget since it's a small purchase",
+            "Skip checking your budget since the item is probably cheap anyway",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Scarcity messaging is designed to rush a decision. Pausing to ask if the want exists independent of the timer restores your normal decision process.",
+            "Scarcity messaging is designed to rush a decision, not to signal a rare deal. Watching the countdown play out still keeps you inside the manufactured urgency instead of stepping outside it.",
         },
       },
       {
@@ -294,109 +298,112 @@ export const financeLesson2: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "Which example is closest to a need for most high school students with a job?",
+      question:
+        "Bailey works evenings and closes at 9pm. Which of these is closest to a need for getting home safely and to school on time?",
       choices: [
-        "Limited-edition sneakers released this week",
-        "Gas or a bus pass to get to work on time",
-        "The newest gaming console on launch day",
-        "Daily boba runs after school",
+        "A reliable way to get to and from work and school, like gas money or a bus pass",
+        "The newest phone model so she can film her commute",
+        "A streaming subscription to pass time while waiting for rides",
+        "Limited-edition sneakers she's been eyeing",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Getting to work safely and on time supports basic functioning and income. The other options are typically wants or upgrades.",
+        "Reliable transportation supports her safety, schooling, and income — that's the need. The other options are upgrades or entertainment, which are wants even though they feel appealing.",
     },
     {
       id: "q2",
-      question: "You spend $50 on concert tickets instead of adding $50 to your car fund. What is the opportunity cost?",
+      question:
+        "Marco spends $55 on concert tickets instead of adding it to his car fund. What is the opportunity cost of that choice?",
       choices: [
-        "Only the fun you have at the concert",
-        "The next-best use of that $50 — progress toward the car fund",
-        "Zero, because tickets were on sale",
-        "Whatever your friends spent",
+        "Only the fun he has at the concert",
+        "Zero, since the tickets were nonrefundable anyway",
+        "Whatever his friends spent going to the same concert",
+        "The $55 of car-fund progress he gave up",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Opportunity cost is the next-best alternative you gave up — here, adding $50 to the car fund.",
+        "Opportunity cost is the next-best alternative given up, not the enjoyment gained. \"Nonrefundable\" describes the ticket policy, not whether the $55 could have gone toward his goal instead.",
     },
     {
       id: "q3",
       question:
-        "A $60 jacket is marked 50% off, so it costs $30. You weren't planning to buy a jacket. What is the most accurate way to think about this?",
+        "A $60 jacket is on sale for $30. Jasmine wasn't planning to buy a jacket this month. What's the most accurate way to think about this purchase?",
       choices: [
-        "You saved $30, so it's basically free money in your pocket",
-        "You are spending $30 you weren't planning to spend — that's the real cost, not a savings",
-        "Sale prices never count as real spending",
-        "The discount cancels out any opportunity cost",
+        "She's saving $30 compared to doing nothing, so it's basically free money",
+        "She's spending $30 she wasn't planning to spend — that's new spending, not a savings",
+        "Since it's discounted, the jacket no longer counts as a want",
+        "The discount cancels out any opportunity cost of buying it",
       ],
       correctIndex: 1,
       explanation:
-        "A discount only \"saves\" money compared to buying at full price. If the purchase wasn't already planned, the sale price is still new spending with a real opportunity cost.",
+        "A discount only \"saves\" money compared to buying at full price when you were already planning the purchase. Since Jasmine wasn't, the $30 is new spending with a real opportunity cost.",
     },
     {
       id: "q4",
-      question: "Which tactic is an example of scarcity marketing?",
+      question: "Which of these is the clearest example of scarcity marketing?",
       choices: [
-        "A store simply listing its everyday regular price",
-        "A countdown timer and \"only 2 left\" messaging designed to rush a decision",
-        "A price comparison chart with no urgency language",
-        "A return policy explained in plain language",
+        "A store's everyday listed price with no time limit",
+        "An ad that compares prices at three different stores",
+        "A countdown timer with \"only 2 left\" messaging designed to rush your decision",
+        "A return policy printed in plain, simple language",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Scarcity marketing uses limited time or limited stock framing to create urgency and skip your normal decision process.",
+        "Scarcity marketing uses limited time or limited stock framing to create urgency and skip your normal decision process — that's the countdown timer, not a plain price or policy.",
     },
     {
       id: "q5",
-      question: "What does delayed gratification mean in personal finance?",
+      question:
+        "Sam wants to buy a new game but decides to fund his savings goal first, then buy the game later if it still fits his budget. What does this show about delayed gratification?",
       choices: [
-        "Never spending on anything fun",
-        "Waiting for a later, goal-aligned result instead of grabbing the immediate reward",
-        "Ignoring all wants forever",
-        "Letting someone else control your money",
+        "Waiting on purpose for a goal-aligned result instead of grabbing the immediate reward",
+        "Putting every purchase on hold until the price drops further",
+        "Letting someone else decide when he's allowed to buy things",
+        "Skipping wants entirely until every medium-term goal is fully funded",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Delayed gratification is purposeful waiting — not lifelong denial of every want.",
+        "Delayed gratification is purposeful waiting tied to a goal — not price-hunting forever, outsourcing the choice, or freezing every want until all other goals are done.",
     },
     {
       id: "q6",
-      question: "Why can needs and wants be a gray area?",
+      question: "Why can something like a phone plan be a gray area between a need and a want?",
       choices: [
-        "Because finance words have no meaning",
-        "Because context matters — a basic phone plan may be needed, while the newest model may be a want",
-        "Because only adults have needs",
-        "Because opportunity cost does not apply to teens",
+        "Because the words \"need\" and \"want\" don't really apply to purchases under $50",
+        "Because opportunity cost only applies to expensive items",
+        "Because a phone is automatically a full need once you have a job",
+        "Context matters — a basic plan may be a need for safety or work, while the newest model is usually a want",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "The same category (like a phone) can include a functional need and a luxury upgrade want. Context matters.",
+        "The same category can include both a functional need and a luxury upgrade want — it depends on context, not on price size or simply having a job.",
     },
     {
       id: "q7",
       question:
-        "Priya sees a \"48-hour flash sale\" for something she never mentioned wanting before, while a required field trip fee is due soon. What's the strongest move?",
+        "Devante sees a \"48-hour flash sale\" for something he never mentioned wanting before, while a required school fee is due soon. What's the strongest move?",
       choices: [
-        "Buy the sale item immediately since the deadline is real",
+        "Buy the sale item immediately since the 48-hour deadline is real and non-negotiable",
         "Pause, recognize the sale's urgency is likely manufactured, and protect money for the required fee first",
-        "Assume the sale item is now a need because it's discounted",
-        "Split the money evenly with no regard for which is required",
+        "Treat the sale item as a need now that it's discounted",
+        "Split the money evenly between both, regardless of which one is required",
       ],
       correctIndex: 1,
       explanation:
-        "A required fee with a real deadline should generally be protected before an unplanned want, especially one framed with manufactured urgency.",
+        "A required fee with a real deadline should generally be protected before an unplanned want — flash-sale countdowns are typically manufactured urgency, not a truly one-time deadline.",
     },
     {
       id: "q8",
-      question: "Which approach best shows conscious tradeoff thinking?",
+      question: "Which approach best shows conscious tradeoff thinking, according to this lesson?",
       choices: [
-        "Buying first and figuring out goals later",
-        "Saying out loud what you are choosing instead of, then deciding",
-        "Assuming sales erase opportunity cost",
-        "Copying whatever friends buy",
+        "Buying first and figuring out your goals afterward",
+        "Assuming a sale price erases any opportunity cost",
+        "Naming out loud what you're choosing instead of, before you decide",
+        "Copying whatever your friends decide to buy",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Naming what you give up makes the tradeoff conscious — the core skill of this lesson.",
+        "Naming what you give up makes the tradeoff conscious — the core skill of this lesson. A sale price doesn't erase what you're giving up by spending.",
     },
   ],
   reflection: {

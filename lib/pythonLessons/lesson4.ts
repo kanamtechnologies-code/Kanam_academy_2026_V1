@@ -334,12 +334,8 @@ else:
         },
         checkIn: {
           prompt: "Why is `elif` different from writing a second, separate `if`?",
-          choices: [
-            "There's no difference — they behave identically",
-            "elif is only checked if the earlier rules were False; a separate if is always checked",
-            "elif can only be used with numbers",
-          ],
-          correctIndex: 1,
+          choices: ["elif is only checked if the earlier rules were False; a separate if is always checked", "There's no difference — they behave identically", "elif can only be used with numbers"],
+          correctIndex: 0,
           explanation: "elif belongs to the same chain, so it's skipped once an earlier rule matches. A separate if is checked independently, which can run extra branches by accident.",
         },
       },
@@ -410,8 +406,8 @@ else:
         codeCaption: "What will this print for Jordan?",
         checkIn: {
           prompt: "What exact line prints for Jordan?",
-          choices: ["Welcome back, Alex!", "Hey Jordan, good to see you!", "Hello there!"],
-          correctIndex: 1,
+          choices: ["Hey Jordan, good to see you!", "Welcome back, Alex!", "Hello there!"],
+          correctIndex: 0,
           explanation: "The if for Alex fails, so Python checks the elif for Jordan — that matches, so its message prints and else is skipped.",
         },
       },
@@ -488,11 +484,11 @@ else:
         checkIn: {
           prompt: "A chain has: if score >= 60 (print Pass) elif score >= 90 (print Excellent) else (print Fail). What's wrong?",
           choices: [
-            "Nothing is wrong",
+            "It's fine — Python checks every elif even after an earlier match",
+            "elif needs to come before if for the chain to work",
             "The broader rule (>= 60) is placed before the more specific rule (>= 90), so Excellent never runs",
-            "elif needs to come before if",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "Since 90+ also satisfies >= 60, the first (broader) rule always wins and the more specific Excellent branch never gets a chance to run.",
         },
       },

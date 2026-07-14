@@ -55,14 +55,14 @@ export const aiLesson2: AILessonConfig = {
         checkIn: {
           prompt: "Why is it useful to practice 'spotting' AI in ordinary apps?",
           choices: [
-            "It isn't useful — AI only matters in dedicated 'AI apps'",
             "Because you can't think critically about something you don't even notice is there",
-            "Because spotting AI removes it from the app",
-            "Because every app secretly has the exact same AI inside it",
+            "Because it's only useful once you plan to build your own app",
+            "Because spotting it disables the recommendation feature",
+            "Because ordinary apps only use AI on premium or paid versions",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Critical thinking starts with noticing. If AI is invisible to you, you can't ask smart questions about what it's doing with your attention or your data.",
+            "Critical thinking starts with noticing. If AI is invisible to you, you can't ask smart questions about what it's doing with your attention or your data — and noticing it doesn't turn it off or require a paid tier.",
         },
       },
       {
@@ -83,14 +83,14 @@ export const aiLesson2: AILessonConfig = {
         checkIn: {
           prompt: "A friend swears their phone 'must be listening' because an ad matched something they only talked about out loud. What's the more likely explanation?",
           choices: [
-            "Every app secretly records audio 24/7, no exceptions",
             "Prediction from existing data (searches, location, shared interests with similar users) can look eerily accurate without any listening at all",
-            "It's pure magic with no explanation",
-            "Ads are always randomly generated, so it was a coincidence with zero connection to data",
+            "Phones only run the microphone when an app is actively open, so it must have caught that one conversation",
+            "The friend's phone has different privacy settings than everyone else's, which explains the ad",
+            "It's a total coincidence with no pattern behind it at all",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Recommendation systems are shockingly good at prediction from clicks, searches, location, and 'people like you' patterns — often accurate enough to feel like mind-reading.",
+            "Recommendation systems are shockingly good at prediction from clicks, searches, location, and 'people like you' patterns — often accurate enough to feel like mind-reading, without needing to overhear anything.",
         },
       },
       {
@@ -105,14 +105,14 @@ export const aiLesson2: AILessonConfig = {
         checkIn: {
           prompt: "What is the most accurate way to describe why many popular apps are free?",
           choices: [
-            "The companies that make them don't need money",
             "You're paying with your attention and your data instead of cash",
-            "Free apps have no AI inside them at all",
-            "Governments pay for every free app",
+            "The companies mainly earn money from the small app-store download fee instead",
+            "Most free apps eventually charge every user once they hit a certain age",
+            "The company absorbs the cost as a public service with no return",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "The 'free' trade is usually: you give attention and data, the company sells ads or improves its product, and the AI gets better at predicting you.",
+            "The 'free' trade is usually: you give attention and data, the company sells ads or improves its product, and the AI gets better at predicting you — it's not funded by download fees or run as charity.",
         },
       },
       {
@@ -138,14 +138,14 @@ export const aiLesson2: AILessonConfig = {
         checkIn: {
           prompt: "What is the clearest sign that an app's recommendation AI is optimizing for engagement rather than your wellbeing?",
           choices: [
-            "It occasionally suggests a video you didn't expect",
+            "It occasionally suggests a video from a creator you don't follow yet",
             "It keeps surfacing content that's hard to stop watching, even past the point you meant to close the app",
-            "It shows videos in chronological order",
-            "It has a dark mode setting",
+            "It sometimes shows the same video twice in one week",
+            "It lets you skip ahead in a video instead of watching it fully",
           ],
           correctIndex: 1,
           explanation:
-            "Engagement-optimized systems are built to extend watch time. Feeling unable to stop is a direct signal of that design goal at work.",
+            "Engagement-optimized systems are built to extend watch time. Feeling unable to stop is a direct signal of that design goal at work — an occasional repeat or new creator suggestion doesn't reveal much on its own.",
         },
       },
       {
@@ -188,14 +188,14 @@ export const aiLesson2: AILessonConfig = {
         checkIn: {
           prompt: "According to the comparison, what is usually the main optimization goal of a free, ad-supported app's recommendation AI?",
           choices: [
-            "Making sure you spend as little time as possible in the app",
             "Maximizing engagement and ad revenue, which usually means maximizing your time and attention",
-            "Charging you a monthly subscription fee",
-            "There is no goal — it's random",
+            "Minimizing the amount of your personal data it needs to collect",
+            "Matching the experience of the paid version as closely as possible",
+            "Making sure every user sees the exact same content in the exact same order",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Free, ad-supported models generally profit from attention and data, so the AI is tuned to keep you engaged longer.",
+            "Free, ad-supported models generally profit from attention and data, so the AI is tuned to keep you engaged longer — not to minimize data collection or serve identical content to everyone.",
         },
       },
       {
@@ -249,14 +249,14 @@ export const aiLesson2: AILessonConfig = {
         checkIn: {
           prompt: "What does the content-moderator lawsuit best illustrate about AI-powered apps?",
           choices: [
-            "AI content filtering requires zero human involvement",
             "Behind many 'automated' feeds, human labor (often difficult and underpaid) fills the gaps AI can't confidently handle",
-            "Content moderation has nothing to do with AI",
-            "This kind of work is always well-paid and easy",
+            "The AI in that case had a bug that has since been fully fixed",
+            "Content moderation was phased out entirely once AI improved",
+            "Only one company has ever relied on human content reviewers",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "The case shows the real, human-labor side of AI systems — a side that's easy to forget when an app feels seamless and 'automatic.'",
+            "The case shows the real, human-labor side of AI systems — a side that's easy to forget when an app feels seamless and 'automatic.' It's an industry-wide pattern, not a one-time bug or a single company's issue.",
         },
       },
       {
@@ -289,105 +289,105 @@ export const aiLesson2: AILessonConfig = {
       id: "q1",
       question: "Which of these is powered by AI?",
       choices: [
-        "Only special 'AI apps' you download on purpose",
+        "Only apps that are explicitly branded or marketed as 'AI-powered'",
+        "Only apps you have to pay a subscription for",
         "Everyday features like video recommendations, spam filters, and face unlock",
-        "Nothing on a normal phone uses AI",
-        "Only video games",
+        "Only apps that require you to type a written prompt",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "AI is built into many everyday features. You use it constantly without opening a dedicated 'AI app'.",
+        "AI is built into many everyday features whether or not the app advertises that fact, is free, or uses a chat-style prompt box.",
     },
     {
       id: "q2",
       question: "What do most everyday AIs (feeds, maps, keyboards, spam filters) have in common?",
       choices: [
-        "They all make a prediction based on past data",
-        "They all talk to you out loud",
-        "They are all robots with arms",
-        "They all cost money to use",
+        "They all require you to create an account first",
+        "They all make a prediction based on patterns in past data",
+        "They all need a live internet connection to function at all",
+        "They all show you the same result as every other user",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
-        "Underneath, they're all predicting the best next thing — the next video, route, word, or spam label.",
+        "Underneath, they're all predicting the best next thing — the next video, route, word, or spam label — from patterns in data, not from an account requirement or identical output for everyone.",
     },
     {
       id: "q3",
       question: "Two friends open the same video app and see totally different feeds. Why?",
       choices: [
-        "The app is broken",
         "Recommendation AI personalizes each feed from each person's own data",
-        "One friend has a newer phone",
-        "Feeds are random for everyone",
+        "One friend's phone has a faster processor, which changes what loads",
+        "Feeds are reshuffled completely at random for every user",
+        "The app shows different content depending only on time of day",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Recommendation systems use each person's history to predict what will keep that specific person engaged.",
+        "Recommendation systems use each person's history to predict what will keep that specific person engaged — it's personalization, not processor speed, randomness, or time of day.",
     },
     {
       id: "q4",
       question: "A popular app is free and extremely good at keeping you scrolling. What's the smartest question to ask?",
       choices: [
-        "Why isn't it more fun?",
-        "How can I scroll even more?",
+        "Which of my friends spends the most time on it?",
         "What data is it collecting, and who benefits when I use it longer?",
-        "Nothing — free apps have no downsides",
+        "How do I get it to recommend content faster?",
+        "Is there a paid version with even more content?",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
-        "Free, attention-grabbing apps usually run on your data and profit from your time. Knowing the trade keeps you in control.",
+        "Free, attention-grabbing apps usually run on your data and profit from your time. Knowing the trade keeps you in control, rather than focusing on how to get more from it.",
     },
     {
       id: "q5",
       question: "What is a 'content moderator'?",
       choices: [
-        "An AI model that runs entirely without humans",
+        "A setting that controls how much screen time an app allows",
+        "The engineer who originally trained the recommendation AI",
         "A person who reviews flagged content that an AI system couldn't confidently decide on alone",
-        "The CEO of a social media company",
-        "A setting inside your phone",
+        "An automated bot that deletes posts with zero human review",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Content moderators are real people who review edge cases and difficult material an AI flags but can't safely decide on by itself.",
+        "Content moderators are real people who review edge cases and difficult material an AI flags but can't safely decide on by itself — it's not a screen-time setting or a fully automated bot.",
     },
     {
       id: "q6",
       question: "Why is it misleading to call an app's content filtering 'fully automated'?",
       choices: [
-        "It's not misleading — there's truly zero human involvement, ever",
+        "Because AI is actually incapable of filtering any content on its own",
         "Because human moderators and labelers are often part of the pipeline, especially for edge cases",
-        "Because AI cannot filter any content at all",
-        "Because apps never use any filtering",
+        "Because filtering only happens after a human reports a specific post",
+        "Because 'automated' is just a marketing term with no real system behind it",
       ],
       correctIndex: 1,
       explanation:
-        "AI handles huge volumes automatically, but humans — often working in difficult, underpaid conditions — fill in the gaps AI can't confidently handle.",
+        "AI handles huge volumes automatically, but humans — often working in difficult, underpaid conditions — fill in the gaps AI can't confidently handle, rather than acting only after user reports.",
     },
     {
       id: "q7",
       question: "What does 'you pay with data' mean in the context of free apps?",
       choices: [
-        "You are charged a hidden monthly fee in a foreign currency",
         "The company profits from your attention and personal data instead of a purchase price",
-        "It means nothing — free apps have no business model",
-        "You must pay with cryptocurrency",
+        "You're billed a small amount that shows up under a disguised name",
+        "The app converts your usage time directly into a currency it sells",
+        "It's just a figure of speech with no real business model behind it",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Free, ad-supported apps typically monetize by collecting your data and attention, then selling ads or improving engagement-driving predictions.",
+        "Free, ad-supported apps typically monetize by collecting your data and attention, then selling ads or improving engagement-driving predictions — there's no hidden charge or literal currency conversion.",
     },
     {
       id: "q8",
       question: "What's the healthiest way to relate to a highly engaging, free recommendation app?",
       choices: [
-        "Assume it has no design intentions behind it",
+        "Assume the app has your best interests in mind since it feels helpful",
+        "Delete every free app to avoid the data trade entirely",
         "Recognize it's optimized for engagement, understand the data/labor trade, and decide consciously how much time it deserves",
-        "Delete every free app immediately",
-        "Believe everything it recommends is in your best interest",
+        "Ignore the design entirely since thinking about it won't change anything",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Awareness — not panic or blind trust — is the goal: know the design, know the trade, then choose deliberately.",
+        "Awareness — not blind trust, avoidance, or resignation — is the goal: know the design, know the trade, then choose deliberately.",
     },
   ],
   reflection: {

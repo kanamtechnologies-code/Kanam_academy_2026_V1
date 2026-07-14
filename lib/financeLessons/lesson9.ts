@@ -59,16 +59,16 @@ export const financeLesson9: AILessonConfig = {
           text: "Ads that promise huge guaranteed returns on 'savings' are usually selling something else. Treat extreme claims as a red flag.",
         },
         checkIn: {
-          prompt: "When do you earn interest, and when do you pay it?",
+          prompt: "Malik keeps money in a savings account and also has a car loan. Where does he earn interest, and where does he pay it?",
           choices: [
-            "You always pay interest and never earn it",
-            "You earn interest when you save or lend; you pay it when you borrow",
-            "Interest only applies to credit cards",
-            "Interest is just another name for a withdrawal fee",
+            "He earns interest on the savings account and pays interest on the car loan",
+            "He earns interest on the car loan and pays interest on the savings account",
+            "He only pays interest if he misses a loan payment; otherwise no interest applies",
+            "He earns interest on both because any account with a balance grows the same way",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Saving or lending money can earn you interest. Borrowing money means you pay interest to whoever lent it to you.",
+            "Savings pays Malik interest for keeping money there; borrowing (the loan) charges him interest for the bank's money whether or not he's ever late — interest isn't just a late fee, and loans don't work like savings accounts.",
         },
       },
       {
@@ -83,16 +83,16 @@ export const financeLesson9: AILessonConfig = {
           text: "Compounding is not a lottery ticket. It rewards patience and regular deposits — not day trading or 'doubling in a week' schemes.",
         },
         checkIn: {
-          prompt: "What does compound interest mean in plain language?",
+          prompt: "Riley and Sam each save $25 a month in the same type of account, but Riley started freshman year and Sam started senior year. Why is Riley likely to end up ahead?",
           choices: [
-            "Interest paid only once, then never again",
-            "Interest calculated on principal plus interest already earned",
-            "A guaranteed way to double money in a month",
-            "A fee stores charge for using a debit card",
+            "Riley's bank gives an automatic bonus rate to younger savers",
+            "Riley's deposits count double compared to Sam's",
+            "Riley has more years for interest to build on both the deposits and the interest already earned",
+            "There's no real advantage as long as both deposit the same monthly amount",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Compounding adds earned interest to the balance so future interest is calculated on a larger amount.",
+            "More years in the account means more compounding periods — interest earning on interest already earned. Depositing the same amount isn't enough to close the gap (last choice); the extra years matter, not a special rate or double-counting.",
         },
       },
       {
@@ -110,16 +110,16 @@ export const financeLesson9: AILessonConfig = {
           text: "Name one savings target (even $50 for a school event) and one automatic or recurring transfer — even $5 — that moves money before you spend.",
         },
         checkIn: {
-          prompt: "What is the core idea of 'pay yourself first'?",
+          prompt: "Devon gets paid every Friday and wants to build a 'pay yourself first' habit. What should Devon do?",
           choices: [
-            "Spend first, then save whatever is left over",
-            "Treat planned savings like a bill you pay before discretionary spending",
-            "Only save after buying everything you want",
-            "Never use a checking account",
+            "Wait to see what's left after weekend plans, then save whatever remains",
+            "Save only in months when there isn't anything he wants to buy",
+            "Make one large deposit at the end of the year and call the habit done",
+            "Move a set amount to savings automatically before spending, then live on the rest",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "Pay yourself first moves a planned amount to savings when income arrives — instead of hoping leftovers appear.",
+            "Pay yourself first means the transfer happens before discretionary spending, not after — waiting for leftovers (first choice) usually means little or nothing gets saved.",
         },
       },
       {
@@ -143,16 +143,16 @@ export const financeLesson9: AILessonConfig = {
         title: "Common myth: \"I need a lot of money to start\"",
         body: `A lot of teens (and adults) put off saving because they think it "doesn't count" unless the deposit is big. Two myths to retire:\n\n**Myth 1: "Compounding only matters for large amounts."** In reality, compounding rewards *time* more than the size of your very first deposit. A small amount started now can end up ahead of a larger amount started years later — because it had more years to grow.\n\n**Myth 2: "Cash in a jar is basically the same as cash in a savings account."** A jar doesn't pay interest, isn't protected the way many bank accounts are, and is easier to "borrow from" for a snack run. An account keeps money working and a little more separated from impulse spending.\n\nThe fix for both myths is the same: start with whatever amount is realistic today, and let consistency do the rest.`,
         checkIn: {
-          prompt: "Which idea is TRUE about starting to save?",
+          prompt: "Jayden says he'll start saving once he has '$1,000 to really make it count.' What's the flaw in that plan, based on the lesson?",
           choices: [
-            "You must start with at least $1,000 for compounding to matter",
-            "Starting small and staying consistent lets compounding work over time",
-            "Money in a jar earns the same interest as a savings account",
-            "Compounding only works if you invest in stocks",
+            "Banks generally won't open an account for less than $1,000",
+            "Waiting delays the years compounding needs, so a smaller amount started now can end up ahead of a bigger start later",
+            "Small deposits don't count toward compounding until they reach a minimum balance",
+            "It's not really a flaw — the idea that you need a lot of money to start is actually true",
           ],
           correctIndex: 1,
           explanation:
-            "Compounding rewards consistency and time far more than the size of your very first deposit — small, steady beats waiting for 'enough.'",
+            "Compounding rewards time more than the size of the first deposit — delaying to save up a 'real' amount just gives up years of growth. There's no minimum balance requirement for compounding to start working.",
         },
       },
       {
@@ -195,14 +195,14 @@ export const financeLesson9: AILessonConfig = {
         checkIn: {
           prompt: "Two savers deposit the same monthly amount, but Saver A starts 9 years earlier than Saver B. What's the most likely result, all else equal?",
           choices: [
-            "Saver B will always end up with more money",
             "Saver A gets more years of compounding, which usually helps their balance grow more",
-            "Starting earlier makes no difference to compounding",
-            "Only the interest rate matters, not the number of years",
+            "Saver B can fully catch up just by depositing for a few extra months",
+            "The 9-year head start only matters if Saver A also gets a higher interest rate",
+            "Both savers will end up with about the same balance since the monthly deposit is identical",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "More time in the account generally means more compounding periods — an edge that's hard for a later starter to fully close, even with identical deposits.",
+            "Extra years mean extra compounding periods, which is hard to fully close with the same deposit later (ruling out the 'catch up' choice). The advantage comes from time in the account, not a higher rate.",
         },
       },
       {
@@ -265,16 +265,16 @@ export const financeLesson9: AILessonConfig = {
         title: "Before the knowledge check…",
         body: `Quick gut-check on the whole lesson: interest rewards saving and costs borrowing; compounding turns time into growth; pay yourself first makes the habit automatic; the Rule of 72 estimates doubling time; and the biggest trap is waiting for a "perfect" moment that never quite arrives.\n\nAnswer the check-in below, then head into the full knowledge check.`,
         checkIn: {
-          prompt: "Which combination best describes a strong Growth Saver habit?",
+          prompt: "Which combination best describes a strong Growth Saver habit, based on this lesson?",
           choices: [
-            "Wait for a big lump sum, then deposit once and never again",
+            "Chase whichever account currently advertises the highest rate, even if it means moving money often",
+            "Save consistently but skip an emergency fund since compounding will cover surprises",
             "Automate small regular deposits early, and let compounding work over time",
-            "Focus only on finding the highest advertised rate, regardless of consistency",
-            "Avoid savings accounts because the Rule of 72 is too complicated",
+            "Save a large lump sum once a year instead of smaller regular deposits",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Consistency plus time is the core Growth Saver formula. Rates and shortcuts like the Rule of 72 are just tools for estimating — not the main lever you control.",
+            "Consistency plus time is the core Growth Saver formula. Chasing rates or skipping an emergency fund both undercut the habit the lesson builds.",
         },
       },
       {
@@ -304,107 +304,107 @@ export const financeLesson9: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "What does compound interest mean in plain language?",
+      question: "Aaliyah's account balance grew by about $25 in year one and $26.25 in year two, even though the interest rate didn't change. What does this show?",
       choices: [
-        "Interest paid only once, then never again",
-        "Interest calculated on principal plus interest already earned",
-        "A guaranteed way to double money in a month",
-        "A fee stores charge for using a debit card",
+        "The bank made an error, since the interest earned should stay exactly the same each year",
+        "Aaliyah's rate secretly increased between year one and year two",
+        "Interest is only calculated once, at the very start of the account",
+        "Compound interest: each year's interest is calculated on principal plus interest already earned",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Compounding adds earned interest to the balance so future interest can be calculated on a larger amount.",
+        "The growing interest amount is compounding in action — later interest is calculated on a bigger balance (principal plus prior interest), not a rate change or an error.",
     },
     {
       id: "q2",
-      question: "What is the core idea of 'pay yourself first'?",
+      question: "Sophie's paycheck hits her account on Friday. Under 'pay yourself first,' what should happen next?",
       choices: [
-        "Spend first, then save whatever is left over",
-        "Treat planned savings like a bill you pay before discretionary spending",
-        "Only save after buying everything you want",
-        "Never use a checking account",
+        "She spends on whatever she wants over the weekend, then saves anything left on Monday",
+        "A planned amount moves to savings right away, before her weekend spending",
+        "She saves only if her paycheck was larger than usual that week",
+        "She keeps everything in checking so it's easier to track later",
       ],
       correctIndex: 1,
       explanation:
-        "Pay yourself first prioritizes a planned transfer to savings when income arrives, instead of hoping leftovers appear.",
+        "Pay yourself first flips the order — savings happens first, like a bill — instead of waiting to see what's left over or making it conditional on a bigger paycheck.",
     },
     {
       id: "q3",
-      question: "Why can starting to save earlier help even with small amounts?",
+      question: "Two students each plan to save $15 a week, but one starts freshman year and the other starts senior year. Why might starting earlier matter more than the exact weekly amount?",
       choices: [
-        "Because early deposits get more time for compounding to work",
-        "Because banks only accept deposits from younger teens",
-        "Because small amounts always earn higher rates than large amounts",
-        "Because compounding only works for the first year",
+        "Earlier deposits get more years for compounding to work on them",
+        "Only large weekly amounts actually trigger compounding",
+        "Compounding resets back to zero at the start of every school year",
+        "The interest rate automatically goes up the longer someone waits to start",
       ],
       correctIndex: 0,
       explanation:
-        "Time is a major ingredient in compounding. Earlier consistent deposits have more periods to grow — without promising specific returns.",
+        "Time is the key ingredient — more years means more compounding periods. Compounding doesn't require a large amount, doesn't reset yearly, and waiting doesn't raise the rate.",
     },
     {
       id: "q4",
-      question: "Which statement best reflects the time value of money?",
+      question: "Marcus is deciding whether to spend $40 now on a jacket or set it aside for six months. Which idea reflects the 'time value of money' concept from the lesson?",
       choices: [
-        "Money in the future is always worth more than money today",
-        "A dollar available now can be used or grown; waiting can mean missing that chance",
-        "Cash under a mattress always beats any savings account",
-        "Interest rates never change",
+        "Money in the future is always worth more than money today, so waiting is always better",
+        "Cash kept at home always outperforms any savings account over time",
+        "The $40 available now could be spent, saved, or grown; waiting means giving up that choice for a while",
+        "Interest rates stay fixed forever once you open an account",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Money you have now can be spent, saved, or put to work. Delaying receipt or use has opportunity costs — that's the time-value idea.",
+        "Time value of money is about the option to use, save, or grow money now — not a guarantee that waiting or keeping cash at home is automatically better.",
     },
     {
       id: "q5",
-      question: "Which approach matches a realistic Growth Saver habit?",
+      question: "Talia wants to build a realistic Growth Saver habit with her part-time job income. Which approach fits best?",
       choices: [
-        "Follow ads that promise huge guaranteed returns next week",
-        "Automate a small recurring transfer to savings and increase it when income rises",
-        "Skip an emergency fund because compounding will cover surprises",
-        "Wait until you can deposit thousands at once before starting",
+        "Set up a small automatic transfer to savings and increase it when her hours (and pay) go up",
+        "Wait for an ad promising a guaranteed high return before opening any account",
+        "Skip an emergency fund entirely since her savings account will cover anything",
+        "Hold off on saving until she can deposit at least a few hundred dollars at once",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Steady automation and gradual increases beat hype and all-or-nothing waiting.",
+        "Automating a small, growing deposit is the realistic habit the lesson describes. Waiting for a big ad-promised return or a large deposit both delay the years compounding needs.",
     },
     {
       id: "q6",
       question: "Using the Rule of 72 as a rough estimate, about how many years would it take money to roughly double at a simplified 8% rate?",
       choices: [
         "72 years",
-        "8 years",
         "About 9 years (72 ÷ 8)",
+        "8 years",
         "It can't be estimated at all",
-      ],
-      correctIndex: 2,
-      explanation:
-        "72 ÷ 8 ≈ 9. The Rule of 72 is a rough estimate for a steady rate — real accounts vary and this ignores fees and taxes.",
-    },
-    {
-      id: "q7",
-      question: "What's the risk of the mindset 'I'll start saving once I have more money'?",
-      choices: [
-        "It's actually the smartest plan for everyone",
-        "Lifestyle creep can absorb future raises, so the 'right time' may never arrive",
-        "Waiting always leads to a higher interest rate",
-        "It guarantees a bigger final balance than starting now",
       ],
       correctIndex: 1,
       explanation:
-        "Spending often rises to match income before savings do. Deciding the savings move in advance — before a raise lands — helps break the pattern.",
+        "72 ÷ 8 ≈ 9. Mixing up the rate and the answer, or misreading the whole number 72 as the answer, are common slip-ups — the Rule of 72 is a widely used shortcut, not something impossible to estimate.",
+    },
+    {
+      id: "q7",
+      question: "Devin tells himself, 'I'll start saving once I get a raise at work.' What's the risk in that plan, according to the lesson?",
+      choices: [
+        "Raises are rare, so the plan will probably never come up at all",
+        "It guarantees Devin will end up with a smaller final balance no matter what",
+        "It's actually a strong plan, since more income always means easier saving",
+        "Spending often rises to match new income, so the 'right time' may never actually arrive",
+      ],
+      correctIndex: 3,
+      explanation:
+        "Lifestyle creep means spending quietly rises with income, so waiting for a raise doesn't reliably create room to save — deciding the savings move in advance breaks the pattern.",
     },
     {
       id: "q8",
       question: "In Maria's case study, what allowed her to cover a laptop repair without a high-interest loan?",
       choices: [
-        "A single giant deposit right before the repair happened",
-        "Consistent small weekly deposits that built a cushion over time",
-        "Borrowing from a friend and never paying it back",
-        "Ignoring her account until the emergency appeared",
+        "A single large deposit she made right before the laptop broke",
+        "Borrowing the repair cost from a friend and paying it back slowly",
+        "Consistent small weekly deposits that built a cushion over time, increased after her raise",
+        "Ignoring her account balance until the emergency showed up",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Small, automatic, consistent deposits — increased slightly after a raise — built the cushion she needed when a real expense showed up.",
+        "Maria's steady, automatic weekly deposits — bumped up after a raise instead of spent — built the cushion she used. It wasn't a single last-minute deposit or borrowed money.",
     },
   ],
   reflection: {

@@ -60,16 +60,17 @@ export const financeLesson1: AILessonConfig = {
           text: "Social media shows highlight reels of spending. Treat those as entertainment, not a budget. Your real life has different constraints — and that's normal.",
         },
         checkIn: {
-          prompt: "Which statement matches this lesson's view of money?",
+          prompt:
+            "Two friends earn about the same from their summer jobs but spend very differently — one saves hard for a car, the other spends more on hangouts. What does this lesson say about that?",
           choices: [
-            "Money proves you're smarter than people who have less",
-            "Money is a tool for choices — not a score of your worth",
-            "If you have money, you don't need goals",
-            "Comparing your spending to social media is the best budget plan",
+            "Whoever spends less is clearly more responsible with money",
+            "This kind of income needs a strict 50/50 split to be considered normal",
+            "Their different values shape what feels \"worth it\" to each of them — neither is automatically wrong",
+            "Once someone has a budget, differences like this always go away",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Right — money buys options over time. It isn't a personality test or a ranking of who matters more.",
+            "Values, not income, drive spending differences — spending less doesn't automatically mean someone is \"better\" with money; it just means their priorities are different.",
         },
       },
       {
@@ -82,11 +83,17 @@ export const financeLesson1: AILessonConfig = {
           text: "Without horizons, \"I should save\" stays vague. Naming *when* turns a wish into something you can schedule and measure.",
         },
         checkIn: {
-          prompt: "Saving for a used car over the next 18 months is mostly which horizon?",
-          choices: ["Short-term", "Medium-term", "Long-term (decades)", "Not a money goal"],
+          prompt:
+            "Marcus wants to save enough for winter formal tickets, which go on sale in 5 weeks. Which horizon best fits this goal?",
+          choices: [
+            "Medium-term, because it's more than a few weeks away",
+            "Short-term — days to a few months out",
+            "Long-term, since anything over a month counts as long-term",
+            "Not a real goal since it's not about saving for years",
+          ],
           correctIndex: 1,
           explanation:
-            "Months to a couple of years is medium-term — farther than next month, closer than adult life decades out.",
+            "Five weeks is short-term. It's easy to assume \"more than a few weeks\" pushes a goal into medium-term, but medium-term really means several months to a couple of years out.",
         },
       },
       {
@@ -106,16 +113,17 @@ export const financeLesson1: AILessonConfig = {
           text: "Attach a goal to a paycheck habit: \"When money hits, move the goal amount first.\" Paying yourself first beats hoping leftovers appear.",
         },
         checkIn: {
-          prompt: "Which goal is the best SMART-ish example?",
+          prompt:
+            "Sofia writes: \"I want to get better with money this year.\" A friend suggests a rewrite. Which version is most SMART-ish?",
           choices: [
-            "Be better with money",
-            "Save somehow",
-            "Save $150 for cleats by October 15 by setting aside $25 each paycheck",
-            "Get rich someday",
+            "\"Try to spend less on stuff I don't really need.\"",
+            "\"Put any extra money into savings whenever I remember.\"",
+            "\"Stop spending on wants until I feel more responsible.\"",
+            "\"Save $150 for cleats by October 15 by setting aside $25 from each paycheck.\"",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
-            "It names the amount, the why, the deadline, and the habit — specific enough to act on this month.",
+            "The other options sound like effort or intention, but none has a number, a deadline, and a habit — the pieces that make a goal SMART-ish instead of just a good intention.",
         },
       },
       {
@@ -144,16 +152,17 @@ export const financeLesson1: AILessonConfig = {
         title: "Practice: fix this vague goal",
         body: `Here's a real goal statement a student wrote: **\"I want to get better with money and maybe save up for something this year.\"**\n\nBefore you look at the choices below, try rewriting it yourself using the SMART-ish checklist: specific, measurable, achievable, relevant, time-bound.\n\nThen check your version against the ones below and pick the strongest rewrite.`,
         checkIn: {
-          prompt: "Which rewrite turns the vague goal into a usable SMART-ish goal?",
+          prompt:
+            "A classmate's goal reads: \"I want to get better with money and maybe save up for something this year.\" Which rewrite is the strongest SMART-ish version?",
           choices: [
-            "\"I want to get better with money and maybe save up for something this year.\"",
             "\"Save $250 for a phone screen repair fund by December 1 by moving $25 from every biweekly paycheck.\"",
-            "\"Try really hard to care more about saving.\"",
-            "\"Save whatever is left over, if anything, at the end of the month.\"",
+            "\"Really commit to saving more starting now.\"",
+            "\"Put money aside for repairs whenever there's some left over.\"",
+            "\"Save aggressively for a few different things this year.\"",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "It names the amount ($250), the purpose, the deadline (Dec 1), and the exact habit that funds it — everything the vague version was missing.",
+            "It has the amount, deadline, and exact habit. \"Save the leftover\" (choice 3) sounds proactive, but this lesson's whole point is that leftovers are usually small or nonexistent — not a real plan.",
         },
       },
       {
@@ -184,16 +193,17 @@ export const financeLesson1: AILessonConfig = {
         title: "Present bias: why \"later\" loses to \"now\"",
         body: `**Present bias** is a well-documented pull toward a smaller reward *right now* over a bigger reward *later* — even when you know the later reward is objectively better. It's not a character flaw; it's how most human brains are wired, and it gets stronger when something feels urgent, social, or time-limited (\"only 3 left,\" \"drops tonight\").\n\nHow it shows up for teens:\n\n• A "24-hour sale" countdown timer creating fake urgency.\n• Seeing a friend post a purchase and wanting to match it immediately.\n• Treating \"I'll start saving next paycheck\" as a real plan (it rarely is).\n\nYou can't delete present bias, but you can design around it: automate the goal transfer so it happens before you feel the pull, and add a short waiting period (24–48 hours) for non-urgent purchases over a set amount you pick for yourself.`,
         checkIn: {
-          prompt: "What is the best description of present bias?",
+          prompt:
+            "Jayden sees a countdown timer saying a shoe drop ends in 20 minutes, and suddenly feels a strong urge to buy — even though he wasn't thinking about shoes an hour ago. What's going on?",
           choices: [
-            "A rare condition that only affects people who are bad with money",
-            "A common pull toward a smaller reward now over a bigger reward later",
-            "A rule that says you should never spend on wants",
-            "A type of bank fee",
+            "Present bias — a normal pull toward an immediate reward that fake urgency can amplify",
+            "A sign Jayden has unusually poor self-control that most people don't struggle with",
+            "Proof the shoes must be a smart purchase since he wants them so badly",
+            "A rule that means he should never buy shoes he actually wants",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Present bias is a normal, common tendency to favor immediate rewards — the fix is designing habits (like automation) around it, not just \"trying harder.\"",
+            "Present bias is common and normal, not a rare personal flaw — the fix is designing around it (automation, waiting periods), not just assuming some people simply lack willpower.",
         },
       },
       {
@@ -240,16 +250,16 @@ export const financeLesson1: AILessonConfig = {
         title: "Quick recap — could you explain this?",
         body: `Before the Knowledge check, see if you can explain each of these in your own words:\n\n• **Money** is a tool for choices — not a scoreboard for your worth.\n• Goals have **horizons**: short, medium, and long term.\n• **SMART-ish** goals are specific, measurable, realistic, relevant, and timed.\n• **Pay yourself first** beats hoping leftovers appear.\n• **Present bias** pulls you toward "now" — automation and short waiting periods design around it.\n• Your **values** help you choose when you can't fund everything.\n\nIf any of those feel shaky, scroll back to that section before continuing — the quiz builds directly on this recap.`,
         checkIn: {
-          prompt: "Which habit most directly protects a savings goal from present bias?",
+          prompt: "Which habit does the most to protect a savings goal from present bias?",
           choices: [
-            "Waiting to feel motivated before moving any money",
+            "Waiting until you feel motivated enough to move money",
+            "Checking your goal's progress once a year so it doesn't stress you out",
+            "Comparing your progress to what friends post online to stay inspired",
             "Automating the transfer on payday, before spending happens",
-            "Comparing your goal to what friends post online",
-            "Only reviewing progress once a year",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "Automation removes the moment-to-moment willpower fight. The money moves before present bias gets a chance to argue.",
+            "Automation removes the moment-to-moment willpower fight, moving money before present bias gets a chance to argue. Waiting for motivation feels responsible but rarely holds up week after week.",
         },
       },
       {
@@ -284,100 +294,106 @@ export const financeLesson1: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "Which statement best describes money in this lesson?",
+      question:
+        "Two students earn the same from a weekend job. One saves for a car; the other spends more on hangouts. What does this lesson say that difference mainly reflects?",
       choices: [
-        "A score of how successful someone is as a person",
-        "A tool for making choices and buying things you need and want",
-        "A guarantee that you will never feel stressed",
-        "Something only adults need to think about",
+        "Proof that one student is smarter with numbers",
+        "That saving is always the morally better choice",
+        "Different values and priorities about what money should do",
+        "That money only works as a plan once you earn more",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Money is a tool for buying things and planning ahead. It is not a measure of personal worth or a guarantee of happiness.",
+        "Same income, different choices usually means different values — not a score of who's smarter. Saving isn't automatically \"more moral\"; it depends on what each person is aiming for.",
     },
     {
       id: "q2",
       question: "Saving for a used car over the next 18 months is best classified as which kind of goal?",
-      choices: ["Short-term only", "Medium-term", "Impossible for a teen", "Not a money goal"],
-      correctIndex: 1,
+      choices: [
+        "Medium-term — months to a couple of years",
+        "Short-term — anything under two years counts as short",
+        "Long-term — anything past next month is long-term",
+        "Long-term — because owning a car can last many years",
+      ],
+      correctIndex: 0,
       explanation:
-        "Medium-term goals typically span several months to a couple of years — like saving toward a car over 18 months.",
+        "Horizons are about how soon you want the result, not how long you'll own the thing afterward. An 18-month save sits in the medium band — not short (under ~a few months) and not long just because cars last years.",
     },
     {
       id: "q3",
       question:
         "Amir wants $360 saved in 12 weeks and gets paid every two weeks. How much should he move per paycheck to hit the goal on time?",
-      choices: ["$30", "$60", "$120", "$360"],
-      correctIndex: 1,
+      choices: ["$30", "$120", "$180", "$60"],
+      correctIndex: 3,
       explanation:
-        "12 weeks ÷ 2-week pay periods = 6 paychecks. $360 ÷ 6 = $60 per paycheck.",
+        "12 weeks ÷ 2-week pay periods = 6 paychecks. $360 ÷ 6 = $60. $30 comes from dividing by weeks instead of paychecks — a common mix-up.",
     },
     {
       id: "q4",
-      question: "Why does \"pay yourself first\" usually outperform \"save the leftover\"?",
+      question: "Why does \"pay yourself first\" usually beat \"save whatever is left\"?",
       choices: [
-        "It guarantees you'll earn more income",
-        "The goal amount moves before it can compete with spending temptations that show up later",
-        "It only works for people with high salaries",
-        "It removes the need for a specific dollar amount",
+        "It raises your hourly wage automatically",
+        "The goal amount is moved before everyday spending can claim it",
+        "It works best when you move whatever feels leftover right after payday",
+        "Leftover saving works better for people with irregular hours",
       ],
       correctIndex: 1,
       explanation:
-        "Paying yourself first removes the goal money from the fight against everyday spending decisions, so it gets funded consistently.",
+        "Moving a set amount first protects the goal from competing temptations. \"Whatever feels leftover after payday\" is still leftover saving — and leftover saving usually loses, even with irregular hours.",
     },
     {
       id: "q5",
-      question: "Which response best describes present bias and how to manage it?",
+      question: "Which statement about present bias is most accurate?",
       choices: [
-        "It only affects people who are naturally undisciplined, so willpower is the fix",
-        "It's a common pull toward immediate rewards; automating transfers helps design around it",
-        "It means you should never buy anything you want right now",
-        "It disappears once you turn 18",
+        "It means every want you feel today is a bad purchase",
+        "It only matters for long-term investing, not teen goals",
+        "It only hits people with weak willpower, so trying harder is the main fix",
+        "It's a common pull toward smaller rewards now; habits like auto-transfers reduce its pull",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Present bias is normal and common. Automation and short waiting periods reduce its power without requiring constant willpower.",
+        "Present bias is normal and common, not a character flaw limited to people with \"weak willpower.\" Designing habits (automation, short waits) works better than relying on constant willpower.",
     },
     {
       id: "q6",
       question:
-        "A student says, \"I'll manifest the money for my trip by staying positive — no need for a number or deadline.\" What is the flaw in this plan?",
+        "A student says, \"I'll stay positive about my trip fund — I don't need a number or deadline.\" What's the main problem?",
       choices: [
-        "There is no flaw — belief alone reliably funds goals",
-        "Motivation matters, but goals also need a specific amount, deadline, and habit to actually get funded",
-        "Deadlines always ruin motivation, so this plan is smarter",
-        "This plan only fails for goals under $100",
+        "Motivation helps, but without an amount, deadline, and funding habit the goal stays vague",
+        "A clear deadline alone is enough; the dollar amount can stay flexible forever",
+        "Deadlines usually hurt motivation, so skipping them is the safer plan",
+        "Numbers mainly matter for goals over $1,000; smaller ones can stay vague",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Motivation can help you start, but specific numbers, deadlines, and habits (like automatic transfers) are what actually move money toward a goal.",
+        "Motivation helps you start, but money moves with a clear target, a deadline, and a habit. A deadline without an amount still leaves the goal fuzzy — and small goals need numbers too.",
     },
     {
       id: "q7",
       question:
-        "Deja needs to fund a $90 phone repair (needed for her work schedule) and a $70 friend outing in 6 weeks, with hours that might get cut. What's the most SMART-ish sequencing?",
+        "Deja needs a $90 phone repair (she needs the phone for work) and wants a $70 friend outing in 6 weeks; her hours might get cut. Best sequencing?",
       choices: [
-        "Fund the outing first since it has a sooner deadline, then worry about the phone",
-        "Prioritize the phone repair since it supports her ability to work, then schedule smaller amounts toward the outing",
-        "Ignore both and wait to see what happens with her hours",
-        "Split money evenly with no regard for which expense is closer to a need",
+        "Fund the outing first because its deadline comes sooner",
+        "Split every dollar 50/50 even if that delays the repair past when she needs the phone",
+        "Prioritize the phone repair that protects her income, then schedule smaller amounts toward the outing",
+        "Pause both until her hours are guaranteed, then start from zero",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Needs that protect income (like a phone required for work) generally come before discretionary wants, especially when income might shrink.",
+        "Expenses that protect your ability to earn usually outrank wants when money is tight — a sooner deadline doesn't automatically outrank a bigger need. Even 50/50 splits can leave a critical need unfunded.",
     },
     {
       id: "q8",
-      question: "Why do values matter in money decisions?",
+      question: "When two goals compete for the same $40, what role should values play?",
       choices: [
-        "They replace the need for any plan",
-        "They help you choose when you cannot fund everything at once",
-        "They guarantee you will earn more income",
-        "They only matter for millionaires",
+        "They prove which option will earn you more money later",
+        "They help you choose which tradeoff fits what matters most to you right now",
+        "They replace any need to check the math or timeline",
+        "They only matter after you've funded every want on your list",
       ],
       correctIndex: 1,
       explanation:
-        "Values act as a filter for tradeoffs. When money is limited, knowing what matters helps you choose on purpose.",
+        "Values don't skip the budget math — they help you pick when you can't fund everything. They aren't a promise of higher income or a reason to skip the numbers.",
     },
   ],
   reflection: {

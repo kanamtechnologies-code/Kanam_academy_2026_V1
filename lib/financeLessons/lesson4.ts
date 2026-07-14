@@ -61,16 +61,17 @@ export const financeLesson4: AILessonConfig = {
           text: "If all your money sits in checking with a debit card attached, it's easy to spend savings-by-accident. Separation is a feature, not a hassle.",
         },
         checkIn: {
-          prompt: "Why might someone keep savings in a separate savings account?",
+          prompt:
+            "Marcus notices that whenever his savings and spending money sit in the same account, he ends up dipping into his car-fund savings for random purchases. What's the best explanation for why a separate savings account would help?",
           choices: [
-            "To make impulse spending from goal money harder",
-            "Because savings accounts cannot hold U.S. dollars",
-            "Because checking accounts are illegal for teens",
-            "Because only savings accounts earn any interest ever",
+            "Because checking accounts can't legally hold money meant for savings goals",
+            "Because separate accounts always pay a much higher interest rate",
+            "Keeping savings separate makes it harder to spend that money on impulse",
+            "Because his bank requires two accounts once his balance goes above $100",
           ],
-          correctIndex: 0,
+          correctIndex: 2,
           explanation:
-            "Separating savings from checking reduces accidental spending of money you set aside for goals.",
+            "Separation reduces accidental spending of goal money. Higher interest isn't guaranteed just by having two accounts, and checking accounts can legally hold savings-style money too — it's just easier to raid.",
         },
       },
       {
@@ -85,16 +86,17 @@ export const financeLesson4: AILessonConfig = {
           text: "Confusing debit and credit leads to surprise debt. If it isn't your money in the account yet, you're borrowing.",
         },
         checkIn: {
-          prompt: "How does a debit card differ from a credit card?",
+          prompt:
+            "Sofia pays for lunch with her debit card, while her older brother pays for his textbooks with a credit card. What's the key difference in what's happening?",
           choices: [
-            "Debit always earns unlimited cash back with no rules",
-            "Debit spends your account money; credit borrows money you must repay",
-            "They are identical in every way",
-            "Credit cards cannot create debt",
+            "Sofia is spending money she already has; her brother is borrowing money he'll need to repay",
+            "There's no real difference — both cards work exactly the same way",
+            "Her brother's purchase is automatically fee-free since it's for school",
+            "Sofia's card lets her spend more than her balance with no consequence",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Debit pulls from money you already have; credit is borrowed money with repayment (and possible interest).",
+            "Debit pulls from money already in the account; credit borrows money that must be repaid, often with interest if a balance carries. Neither card works the way the other two options describe.",
         },
       },
       {
@@ -112,15 +114,17 @@ export const financeLesson4: AILessonConfig = {
           text: "Overdraft \"protection\" can sound helpful but may mean expensive fees for covering a shortfall. Know what you opted into.",
         },
         checkIn: {
-          prompt: "Which fee is most closely tied to spending more than your available balance?",
+          prompt:
+            "Jordan's debit purchase went through even though his balance was too low, and a few days later a charge showed up on his account for letting it happen. Which type of fee is this?",
           choices: [
-            "Paper statement fee only",
-            "Overdraft / NSF-related fees",
-            "Safe deposit box rental",
-            "College application fee",
+            "A foreign transaction fee",
+            "A paper statement fee",
+            "An out-of-network ATM fee",
+            "An overdraft / NSF-related fee",
           ],
-          correctIndex: 1,
-          explanation: "Overdraft or NSF fees relate to payments that exceed available funds.",
+          correctIndex: 3,
+          explanation:
+            "Overdraft/NSF fees relate to payments that exceed available funds. The other fees are tied to currency conversion, statement format, or ATM network — not a low balance.",
         },
       },
       {
@@ -151,14 +155,14 @@ export const financeLesson4: AILessonConfig = {
         checkIn: {
           prompt: "Which account fits this situation better, and why?",
           choices: [
-            "Account B, because automatic overdraft coverage is always safer",
+            "Account B, because automatic overdraft coverage is always the safer choice",
             "Account A, because its fees are easier to avoid given irregular income and no guaranteed high balance",
-            "They're equivalent since both eventually charge some fee",
-            "Account B, because a higher monthly fee always means better service",
+            "They're basically equivalent since both accounts can charge some fee eventually",
+            "Account B, because a higher monthly fee usually means better account features",
           ],
           correctIndex: 1,
           explanation:
-            "Account A's fees are avoidable with realistic teen habits (any direct deposit, opt-in overdraft). Account B assumes a $1,500 balance that's unrealistic here and defaults into overdraft coverage.",
+            "Account A's fees are avoidable with realistic teen habits. Automatic overdraft coverage isn't \"always safer\" — it can turn a small shortfall into an expensive surprise, and a higher fee doesn't guarantee better service.",
         },
       },
       {
@@ -191,14 +195,14 @@ export const financeLesson4: AILessonConfig = {
         checkIn: {
           prompt: "What is the \"cashless effect,\" and what's a practical way to counter it?",
           choices: [
-            "It means cards always charge higher prices than cash, so avoid them entirely",
+            "It means cards always charge higher prices than the same purchase in cash",
             "Card payments can feel less painful than cash, so checking your running balance or using alerts helps replace that missing signal",
             "It only affects people who use credit cards, never debit cards",
-            "It is solved automatically by opting into overdraft coverage",
+            "It's automatically solved by opting into overdraft coverage",
           ],
           correctIndex: 1,
           explanation:
-            "The cashless effect describes reduced \"felt cost\" when paying by card. Actively checking balances or using alerts helps counter the automatic spending creep it can cause.",
+            "The cashless effect describes reduced \"felt cost\" when paying by card — it applies to debit too, and it's about spending behavior, not sticker prices or overdraft settings.",
         },
       },
       {
@@ -247,14 +251,14 @@ export const financeLesson4: AILessonConfig = {
         checkIn: {
           prompt: "What is the clearest way to avoid a surprise overdraft fee like Elena's?",
           choices: [
-            "Always keep overdraft coverage automatically enabled",
             "Keep a small buffer in checking and turn on low-balance alerts",
-            "Never use a debit card for anything under $10",
-            "Ignore your balance since the bank will always cover it for free",
+            "Keep overdraft coverage automatically turned on at all times",
+            "Avoid using a debit card for any purchase under $10",
+            "Trust that the bank will always cover shortfalls for free",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "A small buffer plus low-balance alerts prevents the shortfall in the first place — cheaper and simpler than relying on paid overdraft coverage.",
+            "A small buffer plus low-balance alerts prevents the shortfall in the first place. Overdraft coverage isn't free — it's the paid service that created Elena's $35 fee in the first place.",
         },
       },
       {
@@ -289,39 +293,39 @@ export const financeLesson4: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "What is the main everyday job of a checking account?",
+      question: "Which of these is the main everyday job of a checking account?",
       choices: [
-        "Guaranteeing investment profits",
-        "Handling deposits and day-to-day spending/transactions",
-        "Eliminating all fees forever",
-        "Replacing the need for any budget",
+        "Guaranteeing that your investments will grow",
+        "Automatically eliminating every possible fee",
+        "Handling deposits and day-to-day spending and transactions",
+        "Replacing the need for any kind of budget",
       ],
-      correctIndex: 1,
-      explanation: "Checking accounts are built for transactions — paychecks in, spending and bills out.",
+      correctIndex: 2,
+      explanation: "Checking accounts are built for transactions — paychecks in, spending and bills out. They don't guarantee investment growth or erase every fee on their own.",
     },
     {
       id: "q2",
-      question: "How does a debit card differ from a credit card?",
+      question: "Which statement correctly describes the difference between a debit card and a credit card?",
       choices: [
+        "Debit spends money you already have; credit borrows money you must repay",
         "Debit always earns unlimited cash back with no rules",
-        "Debit spends your account money; credit borrows money you must repay",
-        "They are identical in every way",
-        "Credit cards cannot create debt",
+        "They function exactly the same, just with different logos",
+        "Credit cards can never result in owing money if you're careful",
       ],
-      correctIndex: 1,
-      explanation: "Debit uses your balance; credit is borrowed money with repayment (and possible interest).",
+      correctIndex: 0,
+      explanation: "Debit uses your balance; credit is borrowed money with repayment (and possible interest). Even careful credit use still creates a real balance owed until it's paid off.",
     },
     {
       id: "q3",
       question:
         "Elena's $4.75 snack triggered a $35 overdraft fee because overdraft coverage was enabled. What would most likely have happened with coverage off?",
       choices: [
-        "The exact same $35 fee would still apply",
-        "The purchase likely would have simply declined, with no fee",
+        "The exact same $35 fee would still apply either way",
         "The bank would have automatically closed her account",
-        "She would have earned interest instead",
+        "She would have earned a small amount of interest instead",
+        "The purchase likely would have simply declined, with no fee",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Without overdraft coverage, a purchase that would overdraw the account typically just declines at checkout — no fee, just an inconvenience.",
     },
@@ -329,66 +333,66 @@ export const financeLesson4: AILessonConfig = {
       id: "q4",
       question: "What does FDIC insurance (or NCUA at a credit union) primarily protect against?",
       choices: [
-        "You losing money in the stock market",
+        "You losing money because a stock investment dropped in value",
         "An insured institution failing, for eligible deposits up to legal limits",
-        "Every scam text message",
-        "Credit card interest rates",
+        "Every possible scam text message you might receive",
+        "The interest rate charged on a credit card balance",
       ],
       correctIndex: 1,
       explanation:
-        "FDIC/NCUA insurance covers eligible deposits if an insured institution fails — not market losses or all fraud types.",
+        "FDIC/NCUA insurance covers eligible deposits if an insured institution fails — it doesn't cover investment losses, scams, or interest rates.",
     },
     {
       id: "q5",
-      question: "Why might someone keep savings in a separate savings account?",
+      question: "Why might someone choose to keep savings in a separate account from checking?",
       choices: [
-        "To make impulse spending from that money harder",
-        "Because savings accounts cannot hold U.S. dollars",
-        "Because checking accounts are illegal for teens",
-        "Because FDIC only covers savings, never checking",
+        "Because savings accounts can't legally hold U.S. dollars",
+        "Because FDIC insurance only ever applies to savings accounts, never checking",
+        "To make it harder to spend that money on impulse",
+        "Because a single account can't hold more than a few hundred dollars",
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       explanation:
-        "Separation reduces accidental spending of goal/emergency money. (FDIC can cover eligible checking too.)",
+        "Separation reduces accidental spending of goal or emergency money. FDIC coverage can apply to eligible checking balances too, and accounts aren't capped at a few hundred dollars.",
     },
     {
       id: "q6",
       question:
         "Account A has a $0 monthly fee with opt-in overdraft; Account B has a $12 fee waived only at a $1,500 balance and automatic overdraft coverage. For a student with irregular income and no $1,500 balance, which is the stronger fit?",
       choices: [
-        "Account B, because automatic overdraft coverage is always the safer default",
         "Account A, because its fees are realistically avoidable given the student's situation",
-        "Neither — both are equally risky",
-        "Account B, because a higher fee always signals better service",
+        "Account B, because automatic overdraft coverage is always the safer default",
+        "Neither — both accounts are equally risky either way",
+        "Account B, because a higher monthly fee always signals better service",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Account A's $0 fee doesn't depend on an unrealistic balance, and opt-in overdraft avoids automatic fee exposure — a better realistic fit here.",
+        "Account A's $0 fee doesn't depend on an unrealistic balance, and opt-in overdraft avoids automatic fee exposure. A bigger fee doesn't automatically mean better service.",
     },
     {
       id: "q7",
       question: "What is the clearest fix for preventing overdraft fees before they happen?",
       choices: [
         "Enable automatic overdraft coverage and stop checking your balance",
+        "Only ever use credit cards and never touch a debit card",
+        "Close the account the first time any fee occurs",
         "Keep a small buffer in checking and turn on low-balance alerts",
-        "Only use credit cards and never debit cards",
-        "Close the account whenever a fee occurs",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "A small buffer plus alerts catches a low balance before a purchase can trigger a fee — cheaper and simpler than relying on paid coverage.",
+        "A small buffer plus alerts catches a low balance before a purchase can trigger a fee — cheaper and simpler than relying on paid overdraft coverage.",
     },
     {
       id: "q8",
-      question: "Which fee is most closely tied to spending more than your available balance?",
+      question: "Which fee is most directly triggered by spending more money than you actually have available?",
       choices: [
-        "Paper statement fee only",
-        "Overdraft / NSF-related fees",
-        "Safe deposit box rental",
-        "College application fee",
+        "A safe deposit box rental fee",
+        "An overdraft / NSF-related fee",
+        "A college application fee",
+        "A paper statement fee",
       ],
       correctIndex: 1,
-      explanation: "Overdraft or NSF fees relate to payments that exceed available funds.",
+      explanation: "Overdraft or NSF fees relate specifically to payments that exceed available funds, unlike the other listed fees.",
     },
   ],
   reflection: {

@@ -2,9 +2,8 @@
 
 import * as React from "react";
 import {
-  cursorForIncompleteCode,
   hasBlankTokens,
-  prepareExerciseCode,
+  selectionForIncompleteCode,
   type TypingZone,
 } from "@/lib/pythonStarter";
 import { cn } from "@/lib/utils";
@@ -81,7 +80,7 @@ export function PythonExerciseEditor({
   const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
   const preRef = React.useRef<HTMLPreElement | null>(null);
   const lineNoRef = React.useRef<HTMLPreElement | null>(null);
-  const pendingCursor = React.useRef<number | null>(null);
+  const pendingSelection = React.useRef<{ start: number; end: number } | null>(null);
   const [heightPx, setHeightPx] = React.useState(minHeightPx);
 
   const showZones = !readOnly && typingZones.length > 0;
@@ -119,50 +118,63 @@ export function PythonExerciseEditor({
     if (preRef.current) preRef.current.style.height = `${clamped}px`;
     if (lineNoRef.current) lineNoRef.current.style.height = `${clamped}px`;
     setHeightPx((prev) => (prev === clamped ? prev : clamped));
-    if (pendingCursor.current !== null) {
-      const cursor = pendingCursor.current;
-      pendingCursor.current = null;
-      ta.setSelectionRange(cursor, cursor);
+    if (pendingSelection.current !== null) {
+      const { start, end } = pendingSelection.current;
+      pendingSelection.current = null;
+      ta.setSelectionRange(start, end);
     }
     syncScroll();
   }, [value, minHeightPx, maxHeightPx, showLineNumbers, lineCount]);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    pendingCursor.current = e.target.selectionStart;
+    const start = e.target.selectionStart;
+    pendingSelection.current = { start, end: start };
     onChange(e.target.value);
   };
 
-  // If a click lands the caret outside every green zone, snap it to the
-  // nearest zone so typing always happens inside the highlighted area.
+  // If a click lands outside a green zone, snap into the nearest blank/slot.
+  // When the zone is still ____, select the whole blank so typing replaces it.
   const snapCaretIntoZone = React.useCallback(() => {
     const ta = textareaRef.current;
     if (!ta || !showZones || typingZones.length === 0) return;
     if (ta.selectionStart !== ta.selectionEnd) return;
     const pos = ta.selectionStart;
-    const inside = typingZones.some((z) => pos >= z.start && pos <= z.end);
-    if (inside) return;
-    let target = typingZones[0].start;
-    let bestDist = Infinity;
-    for (const z of typingZones) {
-      const candidate = pos < z.start ? z.start : z.end;
-      const dist = Math.abs(candidate - pos);
-      if (dist < bestDist) {
-        bestDist = dist;
-        target = candidate;
+    let zone =
+      typingZones.find((z) => pos >= z.start && pos <= z.end) ?? null;
+    if (!zone) {
+      let bestDist = Infinity;
+      for (const z of typingZones) {
+        const candidate = pos < z.start ? z.start : z.end;
+        const dist = Math.abs(candidate - pos);
+        if (dist < bestDist) {
+          bestDist = dist;
+          zone = z;
+        }
       }
     }
-    ta.setSelectionRange(target, target);
+    if (!zone) return;
+    const token = ta.value.slice(zone.start, zone.end);
+    if (token === "____") {
+      ta.setSelectionRange(zone.start, zone.end);
+    } else {
+      ta.setSelectionRange(zone.start, zone.start);
+    }
   }, [showZones, typingZones]);
 
   const handleFocus = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     const el = e.currentTarget;
-    let code = el.value;
-    if (autoClearBlanks && !readOnly && hasBlankTokens(code)) {
-      code = prepareExerciseCode(code);
-      pendingCursor.current = cursorForIncompleteCode(code, starterCode);
-      onChange(code);
-    } else if (autoClearBlanks && !readOnly && starterCode) {
-      pendingCursor.current = cursorForIncompleteCode(code, starterCode);
+    const code = el.value;
+    // Keep ____ visible so it matches the exercise instructions. Select the
+    // next blank so the learner's first keystrokes replace it.
+    if (autoClearBlanks && !readOnly && (hasBlankTokens(code) || starterCode)) {
+      pendingSelection.current = selectionForIncompleteCode(code, starterCode);
+      requestAnimationFrame(() => {
+        if (textareaRef.current && pendingSelection.current) {
+          const { start, end } = pendingSelection.current;
+          textareaRef.current.setSelectionRange(start, end);
+          pendingSelection.current = null;
+        }
+      });
     }
     onFocus?.(e);
   };
@@ -237,7 +249,9 @@ export function PythonExerciseEditor({
           <span className="kanam-sql-typing-gap inline-flex min-w-[1.35em] px-1 py-0">
             <span className="kanam-sql-typing-gap-inner">&nbsp;</span>
           </span>
-          Type in the green highlighted area
+          {hasBlankTokens(value)
+            ? "Replace each ____ in the green highlighted area"
+            : "Type in the green highlighted area"}
         </p>
       ) : null}
     </div>

@@ -63,13 +63,13 @@ export const aiLesson1: AILessonConfig = {
           prompt: "A vending machine gives you a soda after you press a button and pay the right amount. Is that AI?",
           choices: [
             "Yes — it 'decided' to give you the soda",
+            "Yes — any machine that responds automatically to input counts as AI",
             "No — it just follows one fixed rule every time; it never learned a pattern from data",
-            "Yes — anything electronic counts as AI",
-            "No — because it doesn't have a screen",
+            "It depends on whether the machine tracks which sodas sell best",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "AI specifically means software that learned patterns from data to handle tasks that normally need judgment. A vending machine follows one hard-coded rule — no learning, no pattern-matching, no AI.",
+            "AI specifically means software that learned patterns from data to handle tasks that normally need judgment. A vending machine follows one hard-coded rule — no learning, no pattern-matching, no AI, even if it reacts automatically or logs sales data.",
         },
       },
       {
@@ -90,13 +90,13 @@ export const aiLesson1: AILessonConfig = {
           prompt: "Which of these is an example of narrow AI?",
           choices: [
             "A single AI that can drive a car, diagnose illness, write a novel, and do your taxes equally well",
-            "A chatbot that only writes text, recommends what to watch next",
-            "A robot that thinks and reasons about any topic exactly like a human adult",
-            "A machine that has become self-aware and sets its own goals",
+            "A recommendation tool that suggests what video to watch next, and nothing else",
+            "A system that reasons across any topic the way a flexible human mind can",
+            "A tool that gets better at every unrelated task the more people use it",
           ],
           correctIndex: 1,
           explanation:
-            "A tool that specializes in one job — like writing text or recommending videos — is narrow AI. Anything that claims to master every task at once is describing general AI, which doesn't exist.",
+            "A tool that specializes in one job — like recommending videos — is narrow AI. Mastering every task at once, or improving across unrelated tasks at the same time, describes general AI, which doesn't exist.",
         },
       },
       {
@@ -111,14 +111,14 @@ export const aiLesson1: AILessonConfig = {
         checkIn: {
           prompt: "An AI photo app confidently labels a fluffy Pomeranian dog as a 'cat.' What does this best show?",
           choices: [
-            "The AI is being deliberately dishonest",
-            "The AI truly believed it was looking at a cat in the emotional sense",
             "The AI matched surface-level patterns (fur, size, face shape) that happened to overlap with its 'cat' pattern — it doesn't understand what a cat is",
-            "The photo app is broken and unrelated to how AI works",
+            "The AI ran low on processing power and guessed to save time",
+            "The training photos of dogs must have been deleted by mistake",
+            "The app is intentionally testing users to see if they're paying attention",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
-            "Pattern-matching can misfire on unusual or ambiguous inputs. The AI isn't lying or 'believing' anything — it's comparing number patterns and picking the closest match, right or wrong.",
+            "Pattern-matching can misfire on unusual or ambiguous inputs — a fluffy face can overlap with 'cat' features. It isn't a power issue, missing data by itself, or an intentional test; it's the model comparing patterns and picking the closest match, right or wrong.",
         },
       },
       {
@@ -144,14 +144,14 @@ export const aiLesson1: AILessonConfig = {
         checkIn: {
           prompt: "A friend says, \"This AI wrote an amazing essay, so it must be smart enough to also perform surgery.\" What's the flaw in that claim?",
           choices: [
-            "There's no flaw — great AI at one task really can do any task",
             "It wrongly assumes narrow-AI skill at writing transfers to a completely unrelated task like surgery",
-            "AI can never write essays, so the claim is impossible",
-            "Surgery doesn't actually require any intelligence",
+            "There's no flaw — any AI that handles language well can be trusted with any complex task",
+            "The claim is backwards — AI that's good at surgery is usually bad at writing",
+            "It's only a problem if the essay covered a medical topic",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "This is the narrow-AI trap: assuming skill in one specialty means skill in all specialties. An essay-writing model and a surgical robot would need completely different training.",
+            "This is the narrow-AI trap: assuming skill in one specialty means skill in all specialties. An essay-writing model and a surgical robot would need completely different training, regardless of the essay's topic or how good the writing was.",
         },
       },
       {
@@ -197,14 +197,14 @@ export const aiLesson1: AILessonConfig = {
         checkIn: {
           prompt: "Based on the comparison, which statement is accurate?",
           choices: [
-            "Narrow AI and general AI are basically the same thing with different names",
+            "General AI already matches narrow AI's availability, just with broader skills",
             "Narrow AI exists today and specializes in one task; general AI is still hypothetical and would need human-like range and understanding",
-            "You (a human) are technically a form of narrow AI",
-            "General AI is more common today than narrow AI",
+            "The main difference is that narrow AI runs on phones and general AI runs on computers",
+            "Narrow AI will automatically turn into general AI once it's trained on enough data",
           ],
           correctIndex: 1,
           explanation:
-            "The table's whole point: narrow AI is real but limited to one job; general AI would match human range and understanding, but nobody has built it.",
+            "The table's whole point: narrow AI is real but limited to one job; general AI would match human range and understanding, but nobody has built it — and more training data alone doesn't bridge that gap or change what device it runs on.",
         },
       },
       {
@@ -258,8 +258,8 @@ export const aiLesson1: AILessonConfig = {
         checkIn: {
           prompt: "Which best explains why the quiz-show AI answered 'Toronto' for a 'U.S. Cities' clue?",
           choices: [
-            "It was trying to be funny",
-            "It ran out of battery mid-question",
+            "It autocorrected the city name to one it had seen more often in its training data",
+            "It ran a live internet search mid-question and picked the wrong webpage",
             "It matched patterns in its data without truly understanding the category's real-world boundary",
             "It secretly knew the answer was wrong but said it anyway",
           ],
@@ -298,38 +298,38 @@ export const aiLesson1: AILessonConfig = {
       id: "q1",
       question: "Which statement best describes what AI actually is?",
       choices: [
-        "A living digital brain that thinks and feels like a human",
+        "Software that copies a human brain cell-for-cell so it can feel emotions",
+        "Any program that follows only hard-coded if/then rules with no pattern learning",
         "Software that does tasks that usually need human intelligence by finding patterns in data",
-        "A robot body controlled by electricity",
-        "A type of internet connection",
+        "Hardware that must include a robot body to count as AI",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "AI is software that performs intelligence-like tasks by learning patterns from data. It isn't alive and doesn't truly understand or feel.",
+        "AI is software that performs intelligence-like tasks by learning patterns from data. It isn't a biological brain, and rule-only scripts without learning aren't what this lesson means by AI.",
     },
     {
       id: "q2",
       question: "Which kind of AI exists in the real world today?",
       choices: [
-        "General AI (AGI) that can do any task a human can",
-        "Conscious AI with its own feelings",
         "Narrow AI that specializes in one kind of task",
-        "No AI exists yet — it's all fiction",
+        "General AI (AGI) that can do any intellectual task a human can",
+        "Conscious AI that is aware of its own goals and feelings",
+        "One universal AI system that already runs every app on your phone",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
-        "Every AI today is narrow AI — a specialist. General AI that matches human flexibility doesn't exist yet.",
+        "What we use today is narrow AI — strong at one job. AGI and conscious AI aren't available products, and your phone apps aren't one single all-purpose mind.",
     },
     {
       id: "q3",
       question: "A chatbot writes you a birthday poem. Why can't that same chatbot also safely drive a car?",
       choices: [
-        "It would need a faster internet connection",
-        "Because each AI today is narrow — good at one task, not all tasks",
-        "Because cars don't have keyboards",
+        "It would just need access to the car's cameras and sensors to drive",
+        "Because self-driving needs GPS, and chatbots aren't built with GPS",
         "It actually can — modern AI can do anything",
+        "Because each AI today is narrow — good at one task, not all tasks",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Narrow AI is a specialist. A poem-writing model and a self-driving model are trained for completely different tasks.",
     },
@@ -338,11 +338,11 @@ export const aiLesson1: AILessonConfig = {
       question: "An AI image recognizer says a photo contains a cat. What does it really 'know'?",
       choices: [
         "It understands what a cat is, like you do",
-        "Nothing — it guesses randomly",
         "It matched visual patterns (ears, whiskers, fur) it learned from many example images",
+        "Nothing — it guesses randomly",
         "It asked another human to check",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "The model learned patterns from millions of labeled images. It's pattern-matching, not understanding.",
     },
@@ -351,11 +351,11 @@ export const aiLesson1: AILessonConfig = {
       question: "Which of these is the biggest red flag that a headline is overhyping AI?",
       choices: [
         "It says the tool 'recommends songs based on your listening history'",
-        "It says the tool 'understands everything, like a human, across any topic'",
         "It says the tool 'sorts spam from real email'",
         "It says the tool 'was trained on millions of examples'",
+        "It says the tool 'understands everything, like a human, across any topic'",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Claiming human-like understanding across any topic describes general AI — which doesn't exist. That's the tell of overhyped marketing.",
     },
@@ -363,12 +363,12 @@ export const aiLesson1: AILessonConfig = {
       id: "q6",
       question: "In the Jeopardy mini-case, why did the AI answer 'Toronto' for a 'U.S. Cities' category?",
       choices: [
-        "It was being deliberately funny",
         "It matched data patterns loosely connected to the clue, without truly grasping the category's real boundary",
-        "It ran a background check on U.S. citizenship",
+        "It autocorrected the answer to a city name it had seen more often in training",
+        "It ran a live internet search and picked the wrong result",
         "The question was a trick with no correct answer",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Even highly skilled narrow AI can miss things a person would catch instantly, because it's matching patterns, not truly comprehending category rules.",
     },
@@ -390,11 +390,11 @@ export const aiLesson1: AILessonConfig = {
       question: "Before trusting a big AI claim, the two-question hype detector asks you to consider what?",
       choices: [
         "The brand name and the price only",
-        "The specific task the AI is doing, and who benefits if you believe the hype",
         "Whether the AI has a friendly-sounding name",
+        "The specific task the AI is doing, and who benefits if you believe the hype",
         "How many downloads the app has",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Naming the actual task and asking who benefits from the hype are the two questions that cut through exaggerated AI claims.",
     },

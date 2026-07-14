@@ -61,16 +61,16 @@ export const financeLesson7: AILessonConfig = {
           text: "\"Build credit\" is not a reason to buy things you can't afford. Affordability comes first; credit building is a side effect of responsible use.",
         },
         checkIn: {
-          prompt: "What is credit in this lesson?",
+          prompt: "Marcus is deciding whether to put a $40 purchase on a store credit card. What does using that credit actually mean?",
           choices: [
-            "Free money you never have to repay",
-            "The ability to borrow now and repay later under agreed terms",
-            "Your school GPA",
-            "Only cash in a savings account",
+            "The store covers the cost now, and Marcus agrees to repay it later under the card's terms",
+            "The $40 is forgiven as long as Marcus pays something eventually",
+            "It's the same as paying with cash from his own account",
+            "It automatically raises his credit score by using it once",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Credit is borrowing with a repayment agreement — your payment history becomes part of your financial reputation.",
+            "Credit means someone else covers the cost now while you agree to repay later — it isn't the same as spending your own cash, isn't automatically forgiven, and one purchase alone doesn't guarantee a score boost.",
         },
       },
       {
@@ -83,16 +83,16 @@ export const financeLesson7: AILessonConfig = {
           text: "If something is wrong on a report (not your account), you can dispute errors. You can't fix what you never read.",
         },
         checkIn: {
-          prompt: "How does a credit report differ from a credit score?",
+          prompt: "A lender pulls up two different documents on an applicant: a long list of account history, and a single three-digit number. What's the relationship between the two?",
           choices: [
-            "They are the same document",
-            "A report is the detailed history; a score is a modeled summary number",
-            "Scores list every cash purchase you made",
-            "Reports are illegal to read",
+            "They're two names for the exact same document",
+            "The number is calculated first, and the account history is generated from it afterward",
+            "The account history is the report; the number is a score modeled from that report's data",
+            "Only one of the two is ever used by real lenders",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Reports hold the detailed story; scores summarize lending risk from that data.",
+            "The detailed history is the report, and the score is a modeled summary built from that data — not the reverse, and not two names for one document.",
         },
       },
       {
@@ -112,16 +112,16 @@ export const financeLesson7: AILessonConfig = {
           text: "Social media \"hacks\" that tell you to open five cards in a week are usually terrible advice for students.",
         },
         checkIn: {
-          prompt: "Of the FICO factor categories, which two carry the most beginner-friendly weight to focus on?",
+          prompt: "A student just got their first credit card and wants to know where to focus their energy. Based on this lesson, which two factors matter most for a beginner?",
           choices: [
-            "Credit mix and new credit",
+            "Credit mix and opening several new accounts quickly",
             "Payment history and utilization (amounts owed)",
-            "Length of history only",
-            "None of the factors matter for beginners",
+            "Length of history alone, since nothing else matters until years pass",
+            "None of the factors matter until you have a mortgage",
           ],
           correctIndex: 1,
           explanation:
-            "Paying on time and keeping utilization low are the two habits that carry the most practical weight for someone just starting out.",
+            "Paying on time and keeping utilization low are the two habits that carry the most practical weight early on — credit mix and opening multiple accounts aren't the priority, and the factors matter well before a mortgage.",
         },
       },
       {
@@ -137,13 +137,13 @@ export const financeLesson7: AILessonConfig = {
           prompt: "A card has a $400 limit and a $200 balance. What is the utilization?",
           choices: [
             "20%",
-            "50%",
             "80%",
-            "200%",
+            "10%",
+            "50%",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "$200 ÷ $400 = 50% utilization — balance divided by limit.",
+            "$200 ÷ $400 = 50% utilization — balance divided by limit, not the balance alone or a rough guess.",
         },
       },
       {
@@ -235,14 +235,14 @@ export const financeLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Based on this lesson, which option is generally the stronger starting point for Sofia, and why?",
           choices: [
-            "The store card, because instant approval always means a better deal",
             "The authorized-user option, because it lets her benefit from an already long, well-managed account with low utilization and perfect payment history",
-            "Neither — she should apply for five different cards to compare offers",
-            "The store card, because a discount today always outweighs long-term credit factors",
+            "The store card, because a same-day discount always outweighs long-term credit factors",
+            "Neither — she should apply to several cards at once to see which approves her fastest",
+            "The store card, because instant approval means the lender already trusts her credit",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Becoming an authorized user on a long-standing, responsibly managed account can help with length of history and payment history — a stronger overview-level starting point than chasing a same-day discount card.",
+            "Becoming an authorized user on a long-standing, responsibly managed account can help with length of history and payment history — a stronger overview-level starting point than a same-day discount, and instant approval reflects marketing speed, not an assessment of her credit.",
         },
       },
       {
@@ -253,14 +253,14 @@ export const financeLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Which statement best captures this lesson's core idea?",
           choices: [
-            "You must carry a balance and open many cards quickly to build good credit",
-            "Credit is borrowed trust tracked on a report; scores summarize that history, and on-time payments plus low utilization matter most for beginners",
+            "You must carry a balance and open several cards quickly to build good credit",
             "Checking your own credit report always lowers your score",
-            "A credit score is a measure of your worth as a person",
+            "Credit is borrowed trust; on-time payments and low utilization matter most early on",
+            "A credit score mainly measures how much cash someone has right now",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "The throughline: credit is a recorded trust relationship, and calm, informed habits — not hacks — build it responsibly.",
+            "The throughline is that credit is a recorded trust relationship, and calm, informed habits build it — carrying a balance on purpose, self-checks lowering scores, and equating score with current wealth are all misconceptions this lesson corrects.",
         },
       },
       {
@@ -295,107 +295,107 @@ export const financeLesson7: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "What is credit?",
+      question: "Which description best fits what credit actually is?",
       choices: [
-        "Free money you never repay",
+        "Extra spending power that isn't really debt if you plan to pay it off later",
+        "A measure of how much cash you currently have saved",
+        "Your checking balance summarized as a three-digit score",
         "The ability to borrow now and repay later under agreed terms",
-        "Your school GPA",
-        "Only cash in a savings account",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Credit is borrowing with a repayment agreement — not free money.",
+        "Credit is borrowing with a repayment agreement — still debt even if you plan to pay it off. It isn't your savings balance or a score of cash on hand.",
     },
     {
       id: "q2",
       question: "How does a credit report differ from a credit score?",
       choices: [
-        "They are the same document",
+        "A score lists every account in detail, and a report is just one number",
         "A report is the detailed history; a score is a modeled summary number",
-        "Scores list every purchase you made in cash",
-        "Reports are illegal to read",
+        "They track completely unrelated types of information",
+        "A report only exists after you turn 21",
       ],
       correctIndex: 1,
       explanation:
-        "Reports hold the story; scores summarize risk from that story.",
+        "Reports hold the detailed story; scores summarize risk from that story — the roles aren't reversed, the two aren't unrelated, and reports can exist well before age 21.",
     },
     {
       id: "q3",
       question: "You get a starter credit card with a $300 limit. Which habit is generally most foundational for healthy credit?",
       choices: [
-        "Max it out every month so the bank sees activity",
         "Paying on time",
-        "Opening as many cards as possible in one week",
-        "Carrying the maximum balance forever",
+        "Using the full $300 every month so the bank sees activity",
+        "Applying for a second card within the first month",
+        "Keeping the card in a drawer and never using it at all",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Payment history is a core theme in major scoring models — on-time payments are foundational.",
+        "Payment history is a core theme in major scoring models, so on-time payments are foundational — maxing out the limit, stacking new applications, or never using the card don't build the same track record.",
     },
     {
       id: "q4",
       question: "A card has a $600 limit and a $300 balance. What is the utilization, and is it on the higher or lower side of common guidance?",
       choices: [
         "20% — on the lower side",
+        "10% — on the lower side",
         "50% — on the higher side of common overview guidance",
-        "300% — extremely high",
-        "Utilization cannot be calculated from this information",
+        "Utilization can't be found without knowing the interest rate",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "$300 ÷ $600 = 50%, which is generally considered higher than commonly cited overview guidance for this factor.",
+        "$300 ÷ $600 = 50%, which is generally considered higher than commonly cited overview guidance — utilization only needs balance and limit, not the interest rate.",
     },
     {
       id: "q5",
       question: "Which statement about carrying a credit card balance is most accurate?",
       choices: [
-        "You must carry a balance to build credit",
+        "Carrying a balance is required to build any payment history at all",
+        "A larger balance always looks better to a lender than a small one",
+        "Balances have no connection to utilization",
         "You do not need to pay interest to build payment history — interest is a cost",
-        "Balances never affect utilization",
-        "Credit cards cannot appear on reports",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "On-time payments build history; carrying a balance for its own sake usually just costs interest.",
+        "On-time payments build history whether or not you carry a balance; carrying one just adds interest cost, and balances are directly tied to utilization, not disconnected from it.",
     },
     {
       id: "q6",
       question: "Why check a free official credit report?",
       choices: [
-        "To automatically raise your score by 100 points overnight",
+        "It's the only way to apply for a loan",
         "To spot errors or accounts you don't recognize and see what lenders may see",
-        "Because cash purchases appear as loans there",
-        "To cancel FDIC insurance",
+        "Checking it will automatically remove any late payments on file",
+        "It's required annually by law for every consumer",
       ],
       correctIndex: 1,
       explanation:
-        "Reports help you find errors, fraud, and understand your file — not magic overnight score boosts.",
+        "Reports help you find errors, fraud, and understand your file — checking one doesn't erase real late payments, isn't a loan application, and isn't a legally mandated annual requirement.",
     },
     {
       id: "q7",
       question: "Sofia is offered authorized-user status on a 10-year-old, well-managed family account, or a new store card with 'instant approval.' Based on this lesson, why might the authorized-user path be the stronger overview-level starting point?",
       choices: [
-        "Because store cards are always scams",
         "Because it can benefit from an already long, low-utilization, on-time payment history rather than starting from zero",
-        "Because instant approval is always a red flag",
-        "Because authorized users can never be affected by the primary user's behavior",
+        "Because store cards can never be used responsibly",
+        "Because authorized users are never affected by the primary user's habits",
+        "Because instant approval always signals a hidden fee",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Length of history and clean payment history are real factors — piggybacking on an established, well-managed account can be a stronger starting point than a brand-new account, though outcomes still depend on the primary user's habits.",
+        "Length of history and clean payment history are real factors, so piggybacking on an established, well-managed account can be a stronger start — though a store card isn't inherently unusable, and an authorized user's outcomes are affected by the primary user's behavior.",
     },
     {
       id: "q8",
       question: "An ad promises 'instant approval, no credit check, apply for 5 cards today for the best bonuses.' What's the biggest red flag here for a first-time credit builder?",
       choices: [
-        "There is no red flag — more cards always means better credit",
+        "Mentioning bonuses at all is automatically a scam",
+        "No credit check means the card will definitely be free to use",
         "The focus on speed and stacking applications, rather than cost, terms, and necessity",
-        "The ad mentions credit at all",
-        "Bonuses are illegal on credit cards",
+        "Instant approval guarantees a low interest rate",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Marketing that emphasizes speed and stacking applications over actual terms is a classic pattern to slow down and scrutinize, especially for someone just starting to build credit.",
+        "Marketing that emphasizes speed and stacking applications over actual terms is a pattern to slow down and scrutinize — mentioning bonuses, skipping a credit check, or approving instantly says nothing about being free or low-cost.",
     },
   ],
   reflection: {

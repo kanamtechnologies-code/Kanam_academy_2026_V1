@@ -67,12 +67,8 @@ const daLesson10: DataLessonConfig = {
         body: `A **pie chart** is a circle cut into slices. The whole circle is **100%** of something, and each slice is one part's **share** of that whole.\n\nThe perfect mental picture is an actual pizza. The whole pizza is everything; each slice is a fraction of it; and all the slices together always add back up to one complete pizza. If your data doesn't work like that — if the parts don't sum to a meaningful whole — a pie is the wrong tool.\n\nUse a pie when you want to answer: *"Out of everything, how much is each piece?"* Examples: how a budget is split, or what share of all lunch orders each item makes up. The question is about **proportion**, not raw comparison.`,
         checkIn: {
           prompt: "What must be true for a pie chart to make sense?",
-          choices: [
-            "The slices must all be the same size",
-            "The slices must add up to one meaningful whole",
-            "There must be at least 10 slices",
-          ],
-          correctIndex: 1,
+          choices: ["The slices must add up to one meaningful whole", "The slices must all be the same size", "There must be at least 10 slices"],
+          correctIndex: 0,
           explanation: "A pie chart only makes sense when every slice is a genuine part of the same total — otherwise the \"100%\" framing is meaningless.",
         },
       },
@@ -115,12 +111,8 @@ const daLesson10: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "You have 15 nearly-equal categories to show. Is a pie chart a good choice?",
-          choices: [
-            "Yes, more slices always means more detail",
-            "No — with that many similar-sized slices, a sorted bar chart is much easier to read",
-            "Yes, but only if it's 3-D",
-          ],
-          correctIndex: 1,
+          choices: ["Yes, more slices always means more detail", "Yes, but only if it's 3-D", "No — with that many similar-sized slices, a sorted bar chart is much easier to read"],
+          correctIndex: 2,
           explanation: "Human eyes struggle to compare many similarly-sized wedges. A sorted bar chart makes the ranking obvious where a crowded pie would not.",
         },
       },
@@ -152,12 +144,8 @@ const daLesson10: DataLessonConfig = {
         body: `More slices does *not* mean a better pie. With 8+ near-equal wedges, nobody can tell which is biggest — a sorted bar chart would be clearer. And a 3-D tilt that puffs up the front slice is a classic way charts fool people. Keep pies flat, simple, and few.`,
         checkIn: {
           prompt: "Why should you generally avoid 3-D pie charts?",
-          choices: [
-            "They take longer to load",
-            "The tilt visually distorts slice sizes, making some look bigger or smaller than their real share",
-            "They can only show 2 slices",
-          ],
-          correctIndex: 1,
+          choices: ["The tilt visually distorts slice sizes, making some look bigger or smaller than their real share", "They take longer to load", "They can only show 2 slices"],
+          correctIndex: 0,
           explanation: "The 3-D perspective exaggerates the front slices and shrinks the back ones visually, even though the underlying numbers haven't changed — a classic misleading chart trick.",
         },
       },
@@ -236,12 +224,8 @@ const daLesson10: DataLessonConfig = {
         body: `Let's confirm the whole-vs-share concept is locked in.`,
         checkIn: {
           prompt: "Your data is 'average temperature in 5 cities.' Is a pie chart appropriate?",
-          choices: [
-            "Yes, any 5 numbers can be a pie",
-            "No — temperatures don't add up to a meaningful whole, so a bar chart fits better",
-            "Yes, but only if all 5 cities have the same temperature",
-          ],
-          correctIndex: 1,
+          choices: ["Yes, any 5 numbers can be a pie", "Yes, but only if all 5 cities have the same temperature", "No — temperatures don't add up to a meaningful whole, so a bar chart fits better"],
+          correctIndex: 2,
           explanation: "Temperatures are independent measurements, not parts of one total — summing them wouldn't mean anything. A bar chart compares them honestly instead.",
         },
       },

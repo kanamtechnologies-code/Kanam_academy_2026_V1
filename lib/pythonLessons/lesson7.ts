@@ -134,8 +134,8 @@ export const lesson7: PythonLessonConfig = {
         },
         checkIn: {
           prompt: 'What is `message` right after the line `message = "pong"` runs, if it was previously "ping"?',
-          choices: ['Still "ping"', '"pong"', "Empty"],
-          correctIndex: 1,
+          choices: ["\"pong\"", "Still \"ping\"", "Empty"],
+          correctIndex: 0,
           explanation: "Assignment overwrites the old value. Once message = \"pong\" runs, the box holds \"pong\" until something changes it again.",
         },
       },
@@ -173,12 +173,8 @@ export const lesson7: PythonLessonConfig = {
         codeCaption: "Print BEFORE updating the state",
         checkIn: {
           prompt: "What goes wrong if you flip message to \"pong\" BEFORE printing it, on the very first turn?",
-          choices: [
-            "Nothing changes",
-            "The starting value \"ping\" never gets shown — the output starts one step late",
-            "Python throws an error",
-          ],
-          correctIndex: 1,
+          choices: ["Nothing changes", "Python throws an error", "The starting value \"ping\" never gets shown — the output starts one step late"],
+          correctIndex: 2,
           explanation: "If you flip before printing, the printed value is always the flipped one, so the true starting value is skipped entirely.",
         },
       },
@@ -288,8 +284,8 @@ export const lesson7: PythonLessonConfig = {
         body: `Let's confirm the state-tracing pattern is locked in.`,
         checkIn: {
           prompt: 'A loop runs 4 times, starting with `message = "ping"`, printing then flipping each turn. What is the 4th (last) line printed?',
-          choices: ["ping", "pong", "Nothing prints"],
-          correctIndex: 1,
+          choices: ["ping", "Nothing prints", "pong"],
+          correctIndex: 2,
           explanation: "Turn 1: ping. Turn 2: pong. Turn 3: ping. Turn 4: pong. The pattern alternates, so the 4th line is pong.",
         },
       },

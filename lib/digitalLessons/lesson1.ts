@@ -58,11 +58,11 @@ export const digitalLesson1: AILessonConfig = {
           prompt: "Jordan's Chromebook screen froze on one essay app, but the keyboard and screen still lit up fine. What does that suggest?",
           choices: [
             "The hardware is destroyed and needs replacing",
-            "Most likely a software problem (the app), since the physical hardware is still responding",
             "The battery is dead",
             "There is no way to know without a repair shop",
+            "Most likely a software problem (the app), since the physical hardware is still responding",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "If the physical parts (screen lighting up, keys registering) still work, the freeze is almost always in software — a stuck app or the OS — not broken hardware.",
         },
@@ -84,8 +84,8 @@ export const digitalLesson1: AILessonConfig = {
         },
         checkIn: {
           prompt: "Your Chromebook is laggy with 15 tabs open, but you still have 40GB of free space for files. What's most likely low?",
-          choices: ["Storage", "RAM", "The CPU's battery", "Wi-Fi signal"],
-          correctIndex: 1,
+          choices: ["RAM", "Storage", "The CPU's battery", "Wi-Fi signal"],
+          correctIndex: 0,
           explanation:
             "RAM is short-term memory for what you're doing right now. Juggling many tabs fills it up and causes lag, while storage is about saved files — which is fine here.",
         },
@@ -102,9 +102,9 @@ export const digitalLesson1: AILessonConfig = {
         checkIn: {
           prompt: "What is the main job of an operating system like Windows, macOS, or ChromeOS?",
           choices: [
-            "It's just another app, like a game",
-            "It manages the hardware and lets apps run on top of it",
             "It only connects you to the internet",
+            "It manages the hardware and lets apps run on top of it",
+            "It's just another app, like a game",
             "It permanently stores your photos",
           ],
           correctIndex: 1,
@@ -142,12 +142,12 @@ export const digitalLesson1: AILessonConfig = {
         checkIn: {
           prompt: "Only YOUR laptop can't load any websites, but every other device on the same home Wi-Fi loads pages fine. What's the most likely layer?",
           choices: [
+            "The router itself is broken",
             "The wider internet beyond the router is down",
             "Something with your specific device or its network settings",
-            "The router itself is broken",
             "The cloud has gone offline",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "If other devices on the same network work fine, the internet and router are clearly fine — the problem is isolated to your one device.",
         },
@@ -216,12 +216,12 @@ export const digitalLesson1: AILessonConfig = {
         checkIn: {
           prompt: "You restart your whole laptop, but a single app is still frozen while everything else runs fine. What should you check next?",
           choices: [
-            "Buy a new laptop immediately",
             "Force-quit and reopen just that one app",
             "Unplug the router",
             "Assume the CPU is permanently broken",
+            "Buy a new laptop immediately",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "When only one app misbehaves after a restart, the fix is usually to force-quit and relaunch that specific app — the device and OS are working fine.",
         },
@@ -266,8 +266,8 @@ export const digitalLesson1: AILessonConfig = {
           choices: [
             "Every tech problem means you need a new device",
             "Breaking a system into layers (hardware/software, RAM/storage, app/device/network/internet) helps you understand and fix it",
-            "The cloud is a physical place in the sky",
             "Wi-Fi bars always guarantee a working internet connection",
+            "The cloud is a physical place in the sky",
           ],
           correctIndex: 1,
           explanation:
@@ -305,12 +305,12 @@ export const digitalLesson1: AILessonConfig = {
       id: "q1",
       question: "You're filling out a college application on a laptop. Which of these is software, not hardware?",
       choices: [
-        "The keyboard you type on",
         "The screen that shows the form",
-        "The web browser you use to open the application portal",
+        "The keyboard you type on",
         "The battery inside the laptop",
+        "The web browser you use to open the application portal",
       ],
-      correctIndex: 2,
+      correctIndex: 3,
       explanation:
         "A web browser is a set of instructions (software). The keyboard, screen, and battery are all physical parts you can touch, which makes them hardware.",
     },
@@ -319,11 +319,11 @@ export const digitalLesson1: AILessonConfig = {
       question: "During a group project, your Chromebook gets slow and laggy with lots of tabs and docs open, but you still have plenty of free space for files. What is most likely running low?",
       choices: [
         "Storage",
+        "Wi-Fi signal",
         "RAM",
         "The CPU's battery",
-        "Wi-Fi signal",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "RAM is short-term memory for what you're doing right now. Juggling many apps and tabs fills up RAM and causes lag. Storage is about saving files long-term, which is fine here since there's free space.",
     },
@@ -331,10 +331,10 @@ export const digitalLesson1: AILessonConfig = {
       id: "q3",
       question: "Your first-job training video won't play, but your phone still shows strong Wi-Fi. What does that tell you?",
       choices: [
-        "Wi-Fi and the internet are the same thing, so the internet must be fine",
-        "Strong Wi-Fi only means a good link to the local router — the internet beyond the router could still be down",
         "Your phone's CPU is broken",
+        "Strong Wi-Fi only means a good link to the local router — the internet beyond the router could still be down",
         "The cloud has permanently deleted the video",
+        "Wi-Fi and the internet are the same thing, so the internet must be fine",
       ],
       correctIndex: 1,
       explanation:
@@ -344,12 +344,12 @@ export const digitalLesson1: AILessonConfig = {
       id: "q4",
       question: "Which statement about the internet and the web is correct?",
       choices: [
-        "They are exactly the same thing",
-        "The web is the global network, and the internet is one part of it",
         "The internet is the global network, and the web is the pages you view in a browser",
+        "The web is the global network, and the internet is one part of it",
+        "They are exactly the same thing",
         "The web works without the internet",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "The internet is the giant global network (the roads). The web is just one thing that travels on it — the pages you open in a browser (the cars). The web is a part of the internet, not the whole thing.",
     },
@@ -357,12 +357,12 @@ export const digitalLesson1: AILessonConfig = {
       id: "q5",
       question: "A scholarship portal says your essay is saved 'in the cloud.' Where is it really?",
       choices: [
-        "Floating in the sky as data",
-        "Only on your own device's storage",
-        "On a real server in a data center that you reach over the internet",
         "Inside your Wi-Fi router",
+        "Only on your own device's storage",
+        "Floating in the sky as data",
+        "On a real server in a data center that you reach over the internet",
       ],
-      correctIndex: 2,
+      correctIndex: 3,
       explanation:
         "\"The cloud\" is just real, powerful computers (servers) in data centers owned by companies. You reach them over the internet — there's nothing magical or sky-based about it.",
     },
@@ -370,12 +370,12 @@ export const digitalLesson1: AILessonConfig = {
       id: "q6",
       question: "A laptop ad brags about '1TB of storage!' but says nothing about RAM. Based on this lesson, why should that make you cautious?",
       choices: [
-        "Storage and RAM are the same thing, so it doesn't matter",
-        "Storage handles long-term files, but low RAM can still make the laptop laggy during multitasking regardless of storage size",
-        "1TB of storage guarantees a fast CPU",
         "More storage always means more RAM automatically",
+        "1TB of storage guarantees a fast CPU",
+        "Storage handles long-term files, but low RAM can still make the laptop laggy during multitasking regardless of storage size",
+        "Storage and RAM are the same thing, so it doesn't matter",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "RAM and storage solve different problems. A laptop can have huge storage and still feel painfully slow if it doesn't have enough RAM for multitasking.",
     },
@@ -383,10 +383,10 @@ export const digitalLesson1: AILessonConfig = {
       id: "q7",
       question: "In the school Wi-Fi case study, IT noticed that phones on cellular data still worked while every device on the building's Wi-Fi failed. What did that tell them?",
       choices: [
-        "The problem was one broken laptop",
-        "The problem was the local network (Wi-Fi/router), not a single device or a nationwide internet outage",
-        "The problem was a single frozen app",
         "The problem could not be diagnosed without a repair shop",
+        "The problem was the local network (Wi-Fi/router), not a single device or a nationwide internet outage",
+        "The problem was one broken laptop",
+        "The problem was a single frozen app",
       ],
       correctIndex: 1,
       explanation:
@@ -396,12 +396,12 @@ export const digitalLesson1: AILessonConfig = {
       id: "q8",
       question: "Before typing a password into a site, this lesson recommends checking which part of the URL first?",
       choices: [
-        "The color of the page background",
-        "The domain name in the address bar, to confirm it matches the real site you intend to visit",
         "The number of tabs you have open",
         "How fast the page loaded",
+        "The color of the page background",
+        "The domain name in the address bar, to confirm it matches the real site you intend to visit",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Reading the domain in the address bar (like kanam.academy vs. a lookalike domain) is a quick way to catch fake or copycat sites before entering sensitive information.",
     },

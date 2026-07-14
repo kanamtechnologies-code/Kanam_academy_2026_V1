@@ -306,12 +306,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q1",
       question: "What's the honest test for using AI on schoolwork?",
       choices: [
-        "Will I get caught?",
         "Does this help me learn and do the work, or replace my thinking and pass off AI work as mine?",
+        "Will I get caught?",
         "Is the AI free?",
         "Is it faster than doing it myself?",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Integrity is about whether you're learning and doing your own work — not just about getting caught.",
     },
@@ -333,11 +333,11 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       question: "You're not sure if AI is allowed on an assignment. What's the best move?",
       choices: [
         "Use it anyway and hope it's fine",
-        "Ask your teacher what's allowed before using it",
         "Never use AI for anything ever",
         "Use it but delete your history",
+        "Ask your teacher what's allowed before using it",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Rules vary by class and teacher. Asking first keeps you honest and avoids accidental cheating.",
     },
@@ -347,8 +347,8 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       choices: [
         "It doesn't hurt anyone",
         "You skip the learning, so you can't perform when AI isn't allowed (and misuse is detectable)",
-        "It uses up your phone battery",
-        "It makes the AI angry",
+        "It only counts against you if a teacher happens to check",
+        "It slows down the AI tool for everyone else using it",
       ],
       correctIndex: 1,
       explanation:
@@ -358,12 +358,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q5",
       question: "Your syllabus never mentions AI at all. What's the safest assumption?",
       choices: [
-        "That anything goes, including having AI write your whole assignment",
         "That standard academic honesty rules likely still apply, and it's worth asking your teacher to confirm",
+        "That anything goes, including having AI write your whole assignment",
         "That you must avoid all AI tools including spell-check",
         "That the assignment is automatically optional",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Silence about AI usually doesn't mean permission for anything. Standard expectations of original work likely still apply.",
     },
@@ -372,11 +372,11 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       question: "Why can brainstorming with AI be 'fine' for one assignment but 'cheating' for another?",
       choices: [
         "It's random and depends on luck",
-        "Because the purpose of the assignment (what skill it's meant to measure) changes what counts as legitimate help",
         "Because AI tools change their rules daily",
         "It's never fine to brainstorm with AI",
+        "Because the purpose of the assignment (what skill it's meant to measure) changes what counts as legitimate help",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "The same AI action can support or undermine an assignment's goal depending on what that specific assignment is designed to measure.",
     },
@@ -385,11 +385,11 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       question: "Beyond your own grade, why does academic honesty matter to your classmates too?",
       choices: [
         "It doesn't affect anyone else at all",
-        "Grades, rankings, and trust are shared systems — submitting AI work as your own can unfairly affect others who did honest work",
         "Because AI tools cost money for the whole class",
+        "Grades, rankings, and trust are shared systems — submitting AI work as your own can unfairly affect others who did honest work",
         "Because teachers only grade the whole class as one group",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Academic integrity has a community dimension: dishonest work can distort shared systems like grading curves and trust, affecting honest classmates.",
     },

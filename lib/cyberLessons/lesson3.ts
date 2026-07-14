@@ -289,12 +289,12 @@ export const cyberLesson3: AILessonConfig = {
       id: "q1",
       question: "Which malware type is best described as \"disguised as something useful to trick you into running it\"?",
       choices: [
-        "Worm",
-        "Trojan",
-        "Patch",
-        "Firewall",
+        "A worm, which spreads across a network with little user action",
+        "A patch, which fixes a known software weakness",
+        "A trojan",
+        "A firewall rule blocking unwanted traffic",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "A trojan pretends to be desirable software so a person willingly runs it. That social trick is the defining idea at this level.",
     },
@@ -302,12 +302,12 @@ export const cyberLesson3: AILessonConfig = {
       id: "q2",
       question: "Ransomware mainly threatens which CIA goal first for the victim?",
       choices: [
-        "Availability — you can't reach your files or systems",
         "Confidentiality only — it always just reads data quietly",
-        "Integrity only — it only corrects spelling mistakes",
-        "None — ransomware is not a cybersecurity topic",
+        "Availability — you can't reach your files or systems",
+        "Integrity only — it silently corrects spelling mistakes",
+        "None — ransomware only affects hardware, not data",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
         "Ransomware typically blocks access, which is an Availability crisis. It may also threaten Confidentiality if data is stolen, but the hallmark is lockout.",
     },
@@ -315,12 +315,12 @@ export const cyberLesson3: AILessonConfig = {
       id: "q3",
       question: "Which defender habit best matches \"close known weaknesses vendors have already fixed\"?",
       choices: [
-        "Ignoring updates to avoid change",
+        "Turning off automatic updates so nothing changes unexpectedly",
+        "Waiting a year after release before ever updating software",
+        "Sharing admin passwords with trusted friends for convenience",
         "Installing software updates / patches",
-        "Sharing admin passwords with friends",
-        "Opening every attachment quickly",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Updates and patches apply fixes for known problems — one of the most important everyday defenses.",
     },
@@ -328,12 +328,12 @@ export const cyberLesson3: AILessonConfig = {
       id: "q4",
       question: "Why might criminals use ransomware?",
       choices: [
-        "To practice authorized school labs",
         "Often for financial gain by demanding payment",
-        "To improve Availability for victims",
-        "Because malware is required by law",
+        "To practice inside an authorized school lab environment",
+        "To improve Availability for the victim's organization",
+        "Because using malware is a required certification step",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "At a high level, many ransomware operators are motivated by money. That does not mean paying is safe or recommended.",
     },
@@ -342,9 +342,9 @@ export const cyberLesson3: AILessonConfig = {
       question: "You receive an unexpected email attachment labeled \"invoice\" from an unknown sender. What is the best defensive response?",
       choices: [
         "Open it immediately to see if it's malware",
-        "Forward it to everyone in class as a warning with the file attached",
+        "Forward it to everyone in class as a warning, attachment included",
         "Don't open it; verify through another channel or report it to a trusted adult/IT",
-        "Disable all updates so nothing else changes",
+        "Disable all future updates so nothing else changes",
       ],
       correctIndex: 2,
       explanation:
@@ -354,12 +354,12 @@ export const cyberLesson3: AILessonConfig = {
       id: "q6",
       question: "A free download tool quietly adds an extra unwanted toolbar and ads. This pattern is best described as:",
       choices: [
-        "A worm spreading with no user action",
         "A bundled junk installer, often paired with a trojan-style trick",
-        "A hardware security key malfunction",
-        "A properly configured firewall rule",
+        "A worm spreading between computers with no user action at all",
+        "A hardware security key malfunctioning",
+        "A firewall rule that was configured correctly",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Bundled installers sneak unwanted extras alongside a tool a person intentionally chose to download — a common trojan/adware pattern.",
     },
@@ -368,11 +368,11 @@ export const cyberLesson3: AILessonConfig = {
       question: "A pop-up appears claiming your device is critically infected and offers a free \"cleaner\" download to fix it immediately. What should you do?",
       choices: [
         "Click the download right away since the pop-up looks urgent",
-        "Close the pop-up without clicking inside it, and use security tools you already trust or ask for help",
         "Enter your password into the pop-up to \"verify\" your identity",
-        "Share the pop-up link with friends so they can also fix their devices",
+        "Share the pop-up link with friends so they can fix their devices too",
+        "Close the pop-up without clicking inside it, and use security tools you already trust or ask for help",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "This is a classic scareware trap. Legitimate fixes don't arrive as urgent, self-offering pop-ups — avoid clicking inside it and use trusted tools instead.",
     },
@@ -382,8 +382,8 @@ export const cyberLesson3: AILessonConfig = {
       choices: [
         "Because naming types is more important than understanding impact",
         "Because understanding real impact on data (Confidentiality, Integrity, Availability) is what helps you respond appropriately, not just recognize a word",
-        "Because malware never actually affects real data",
-        "Because this only matters for IT professionals, not students",
+        "Because malware never actually affects real data in practice",
+        "Because this level of detail only matters for IT professionals, not students",
       ],
       correctIndex: 1,
       explanation:

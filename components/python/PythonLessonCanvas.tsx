@@ -18,6 +18,7 @@ import {
   Zap,
 } from "lucide-react";
 
+import { ExerciseHint } from "@/components/exercises/ExerciseHint";
 import { PredictionInput } from "@/components/exercises/PredictionInput";
 import { ParsonsLines } from "@/components/exercises/ParsonsLines";
 import { GuestLessonTour } from "@/components/demo/GuestLessonTour";
@@ -37,10 +38,9 @@ import { predictionSoftMatches } from "@/lib/exercises/normalizePrediction";
 import { canPlayAdventure } from "@/lib/pythonLessons/adventurePlay";
 import { runMiniPython, type MiniRunResult } from "@/lib/pythonRunner";
 import {
-  cursorForIncompleteCode,
   findTypingZonesForExercise,
   hasBlankTokens,
-  prepareExerciseCode,
+  selectionForIncompleteCode,
 } from "@/lib/pythonStarter";
 import { formatPythonTerminal, PYTHON_TERMINAL_PROMPT } from "@/lib/pythonTerminal";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
@@ -150,9 +150,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
   );
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [codeByExercise, setCodeByExercise] = React.useState<Record<string, string>>(() =>
-    Object.fromEntries(
-      lesson.exercises.map((ex) => [ex.id, prepareExerciseCode(ex.starterCode)])
-    )
+    Object.fromEntries(lesson.exercises.map((ex) => [ex.id, ex.starterCode]))
   );
   const [completedIds, setCompletedIds] = React.useState<Set<string>>(() => new Set());
   const [lastFeedback, setLastFeedback] = React.useState("");
@@ -172,6 +170,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
   const activeCode = codeByExercise[activeExercise?.id ?? ""] ?? "";
 
   const [predictionByExercise, setPredictionByExercise] = React.useState<Record<string, string>>({});
+  const [exerciseResetToken, setExerciseResetToken] = React.useState(0);
   const [projectChecks, setProjectChecks] = React.useState<Record<string, boolean>>({});
   const [playTurns, setPlayTurns] = React.useState(0);
   const [projectWorkspace, setProjectWorkspace] = React.useState<"build" | "play">("build");
@@ -310,6 +309,20 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
     setCodeByExercise((prev) => ({ ...prev, [activeExercise.id]: next }));
   };
 
+  const handleResetExercise = () => {
+    if (!activeExercise || lessonComplete) return;
+    setCodeByExercise((prev) => ({
+      ...prev,
+      [activeExercise.id]: activeExercise.starterCode,
+    }));
+    setPredictionByExercise((prev) => ({ ...prev, [activeExercise.id]: "" }));
+    setRunError(null);
+    setLastFeedback("");
+    setLastFeedbackSuccess(false);
+    setTerminalOutput("");
+    setExerciseResetToken((n) => n + 1);
+  };
+
   const handleRunExercise = () => {
     if (!activeExercise) return;
     const kind = activeExercise.kind ?? "fill";
@@ -358,11 +371,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
     if (run.error) {
       setRunError(run.error);
       setLastFeedbackSuccess(false);
-      setLastFeedback(
-        kind === "debug"
-          ? `${activeExercise.failureMessage}${activeExercise.debugHint ? ` Hint category: ${activeExercise.debugHint}.` : ""}`
-          : activeExercise.failureMessage
-      );
+      setLastFeedback(activeExercise.failureMessage);
       setTerminalOutput(formatPythonTerminal(`❌ ${run.error}`, terminalPrompt));
       return;
     }
@@ -491,11 +500,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
       }
     } else {
       setLastFeedbackSuccess(false);
-      setLastFeedback(
-        kind === "debug"
-          ? `${activeExercise.failureMessage}${activeExercise.debugHint ? ` Hint category: ${activeExercise.debugHint}.` : ""}`
-          : activeExercise.failureMessage
-      );
+      setLastFeedback(activeExercise.failureMessage);
       setTerminalOutput(formatPythonTerminal(`❌ ${activeExercise.failureMessage}\n\n${body}`, terminalPrompt));
     }
   };
@@ -647,8 +652,8 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
       );
       if (el) {
         el.focus();
-        const cursor = cursorForIncompleteCode(el.value, activeExercise?.starterCode);
-        el.setSelectionRange(cursor, cursor);
+        const sel = selectionForIncompleteCode(el.value, activeExercise?.starterCode);
+        el.setSelectionRange(sel.start, sel.end);
       }
     }, 150);
     return () => window.clearTimeout(t);
@@ -1054,13 +1059,17 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                             </p>
                           ) : null}
                           <p className="mt-2 text-sm text-slate-600">{activeExercise.goal}</p>
-                          {activeExercise.hint ? (
-                            <p className="mt-2 text-xs text-slate-500">Hint: {activeExercise.hint}</p>
-                          ) : null}
-                          {activeExercise.debugHint && (activeExercise.kind ?? "fill") === "debug" ? (
-                            <p className="mt-2 text-xs font-semibold text-amber-800">
-                              Bug category: {activeExercise.debugHint}
-                            </p>
+                          {!currentDone && !lessonComplete ? (
+                            <ExerciseHint
+                              exerciseKey={activeExercise.id}
+                              hint={activeExercise.hint}
+                              secondaryHint={
+                                (activeExercise.kind ?? "fill") === "debug" &&
+                                activeExercise.debugHint
+                                  ? `Bug category: ${activeExercise.debugHint}`
+                                  : undefined
+                              }
+                            />
                           ) : null}
                           {activeExercise.previewOutput ? (
                             <pre className="mt-3 rounded-lg bg-slate-900 p-3 font-mono text-xs text-emerald-100">
@@ -1089,7 +1098,9 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                         {(activeExercise.kind ?? "fill") === "parsons" &&
                         activeExercise.parsonsLines?.length ? (
                           <ParsonsLines
+                            key={`${activeExercise.id}-parsons-${exerciseResetToken}`}
                             lines={activeExercise.parsonsLines}
+                            resetToken={exerciseResetToken}
                             disabled={lessonComplete || currentDone}
                             languageLabel="Python lines"
                             onAssembledChange={(code) => {
@@ -1102,6 +1113,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                         ) : (
                           <div data-tour="lesson-editor">
                             <PythonExerciseEditor
+                              key={`${activeExercise.id}-code-${exerciseResetToken}`}
                               value={activeCode}
                               onChange={setActiveCode}
                               autoClearBlanks
@@ -1156,9 +1168,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                             type="button"
                             variant="outline"
                             className="min-h-11 w-full sm:w-auto"
-                            onClick={() =>
-                              setActiveCode(prepareExerciseCode(activeExercise.starterCode))
-                            }
+                            onClick={handleResetExercise}
                             disabled={lessonComplete}
                           >
                             Reset

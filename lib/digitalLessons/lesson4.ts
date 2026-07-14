@@ -62,12 +62,12 @@ export const digitalLesson4: AILessonConfig = {
         checkIn: {
           prompt: "A classmate reshared a fake giveaway because they thought it was real. The original creator knew it was fake. What's the difference?",
           choices: [
-            "Misinformation is on TV; disinformation is online",
             "The classmate spread misinformation (no intent to harm); the creator spread disinformation (on purpose to deceive)",
+            "Misinformation is on TV; disinformation is online",
             "Misinformation is always true; disinformation is always false",
             "There is no difference",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Both are false, but intent separates them. Misinformation is shared by someone who thinks it's true; disinformation is deliberately created to deceive or manipulate.",
         },
@@ -84,12 +84,12 @@ export const digitalLesson4: AILessonConfig = {
         checkIn: {
           prompt: "A viral post about 'guaranteed free headphones' spreads through your group chat in minutes. Why does false content often spread faster than the truth?",
           choices: [
-            "Because true stories are illegal to share",
-            "Because it triggers strong emotions, which boosts sharing and gets amplified by algorithms",
-            "Because the internet deletes true stories",
             "Because false stories load faster",
+            "Because the internet deletes true stories",
+            "Because it triggers strong emotions, which boosts sharing and gets amplified by algorithms",
+            "Because true stories are illegal to share",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Emotional content gets shared more, algorithms amplify whatever keeps people engaged, and one-tap sharing spreads it instantly — often before anyone checks if it's true.",
         },
@@ -108,10 +108,10 @@ export const digitalLesson4: AILessonConfig = {
         checkIn: {
           prompt: "You're checking a shocking scholarship claim. What does the 'I' in the SIFT method stand for?",
           choices: [
-            "Ignore the post",
-            "Investigate the source — find out who made it and whether they're credible",
-            "Instantly share it",
             "Imagine if it's true",
+            "Investigate the source — find out who made it and whether they're credible",
+            "Ignore the post",
+            "Instantly share it",
           ],
           correctIndex: 1,
           explanation:
@@ -148,12 +148,12 @@ export const digitalLesson4: AILessonConfig = {
         checkIn: {
           prompt: "A panic-inducing post about a college has no named source, just an anonymous account and a screenshot. What should you do first?",
           choices: [
-            "Share it immediately so others can be warned",
-            "Stop and investigate the source before believing or sharing it",
             "Assume it's true since it has many shares",
+            "Share it immediately so others can be warned",
             "Comment your opinion without checking anything",
+            "Stop and investigate the source before believing or sharing it",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "The first two SIFT moves — Stop and Investigate the source — are often enough to catch an unreliable claim before it spreads further.",
         },
@@ -218,11 +218,11 @@ export const digitalLesson4: AILessonConfig = {
           prompt: "What's the best signal that you should slow down and run SIFT before sharing something?",
           choices: [
             "The post has a colorful thumbnail",
-            "You feel a strong, sudden emotional reaction and an urge to share immediately",
             "The post is longer than three sentences",
             "The post was made more than a year ago",
+            "You feel a strong, sudden emotional reaction and an urge to share immediately",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "A sudden strong emotional pull and an urge to act immediately is exactly the pattern disinformation is designed to trigger — which makes it the best cue to pause and check.",
         },
@@ -265,12 +265,12 @@ export const digitalLesson4: AILessonConfig = {
         checkIn: {
           prompt: "What's the core skill that ties SIFT and lateral reading together?",
           choices: [
-            "Judging a source only by how professional the page looks",
             "Checking a source from the OUTSIDE — other coverage, the original, and who's really behind it — before trusting or sharing",
-            "Sharing quickly so others can decide for themselves",
             "Ignoring anything that seems surprising",
+            "Sharing quickly so others can decide for themselves",
+            "Judging a source only by how professional the page looks",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Both SIFT and lateral reading are built around verifying a source from the outside — checking other coverage, tracing the original, and investigating who's behind it — rather than trusting the page's own claims about itself.",
         },
@@ -308,8 +308,8 @@ export const digitalLesson4: AILessonConfig = {
       choices: [
         "Misinformation is on TV; disinformation is online",
         "The classmate spread misinformation (no intent to harm); the creator spread disinformation (on purpose to deceive)",
-        "Misinformation is always true; disinformation is always false",
         "There is no difference",
+        "Misinformation is always true; disinformation is always false",
       ],
       correctIndex: 1,
       explanation:
@@ -319,12 +319,12 @@ export const digitalLesson4: AILessonConfig = {
       id: "q2",
       question: "A viral post about 'guaranteed free college' spreads through your group chat in minutes. Why does false or exaggerated content often spread faster than the truth?",
       choices: [
+        "Because the internet deletes true stories",
         "Because true stories are illegal to share",
         "Because it triggers strong emotions, which boosts sharing and gets amplified by algorithms",
-        "Because the internet deletes true stories",
         "Because false stories load faster",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Emotional content gets shared more, algorithms amplify whatever keeps people engaged, and one-tap sharing spreads it instantly — often before anyone checks if it's true.",
     },
@@ -332,12 +332,12 @@ export const digitalLesson4: AILessonConfig = {
       id: "q3",
       question: "You're checking a shocking scholarship claim. What does the 'I' in the SIFT method stand for?",
       choices: [
-        "Ignore the post",
         "Investigate the source — find out who made it and whether they're credible",
         "Instantly share it",
         "Imagine if it's true",
+        "Ignore the post",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "SIFT stands for Stop, Investigate the source, Find better coverage, and Trace claims to the original. Investigating the source means checking who is behind the information.",
     },
@@ -345,12 +345,12 @@ export const digitalLesson4: AILessonConfig = {
       id: "q4",
       question: "You land on a slick website claiming an internship pays thousands a week. What is 'lateral reading'?",
       choices: [
-        "Reading a webpage from top to bottom to judge how professional it looks",
-        "Leaving the page and opening new tabs to see what other reliable sources say about the source",
         "Reading the page sideways",
         "Only reading the headline",
+        "Reading a webpage from top to bottom to judge how professional it looks",
+        "Leaving the page and opening new tabs to see what other reliable sources say about the source",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Lateral reading means checking a source from the outside by opening new tabs, instead of trusting the page to describe itself. A slick design alone proves nothing.",
     },
@@ -360,8 +360,8 @@ export const digitalLesson4: AILessonConfig = {
       choices: [
         "It must be true because so many people shared it",
         "High share counts measure how clickable something is, not whether it's true — be suspicious since no reliable source confirms it",
-        "Share it quickly before it gets deleted",
         "The number of shares proves it was fact-checked",
+        "Share it quickly before it gets deleted",
       ],
       correctIndex: 1,
       explanation:
@@ -371,10 +371,10 @@ export const digitalLesson4: AILessonConfig = {
       id: "q6",
       question: "A giveaway post has a professional logo and thousands of likes, but the account was created two weeks ago with a slightly misspelled brand name. What should you do?",
       choices: [
-        "Enter your info immediately since it looks official",
         "Trust it because of the high like count",
-        "Treat the mismatched account details as a red flag and investigate the source before clicking",
         "Assume all giveaways are automatically legitimate",
+        "Treat the mismatched account details as a red flag and investigate the source before clicking",
+        "Enter your info immediately since it looks official",
       ],
       correctIndex: 2,
       explanation:
@@ -397,12 +397,12 @@ export const digitalLesson4: AILessonConfig = {
       id: "q8",
       question: "Which best describes the relationship between vertical reading and lateral reading?",
       choices: [
+        "Vertical reading is only used by professional fact-checkers",
         "They are the same thing with different names",
         "Vertical reading judges a page by how it looks; lateral reading checks the source from outside sources, which catches far more fakes",
         "Lateral reading means reading the page more slowly",
-        "Vertical reading is only used by professional fact-checkers",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Vertical reading stays on the page and judges it by appearance, which is easy to fake. Lateral reading opens outside tabs to verify the source, catching problems vertical reading misses.",
     },

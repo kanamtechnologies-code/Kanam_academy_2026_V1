@@ -49,12 +49,8 @@ const daLesson13: DataLessonConfig = {
         },
         checkIn: {
           prompt: "If the cloud of dots tilts up and to the right, what does that mean?",
-          choices: [
-            "The two numbers have no relationship",
-            "As one number goes up, the other tends to go up too — a positive relationship",
-            "The data must be wrong",
-          ],
-          correctIndex: 1,
+          choices: ["As one number goes up, the other tends to go up too — a positive relationship", "The two numbers have no relationship", "The data must be wrong"],
+          correctIndex: 0,
           explanation: "An upward-tilting cloud means the two values tend to rise together — that's what a positive relationship looks like on a scatter plot.",
         },
       },
@@ -174,12 +170,8 @@ const daLesson13: DataLessonConfig = {
         body: `Before the exercises, picture two students: one studied 10 minutes and scored 55; another studied 75 minutes and scored 92. If you added ten more students following the same overall pattern from today's chart, where would most of their dots land relative to those two?`,
         checkIn: {
           prompt: "Given the trend so far, where would a student who studied 65 minutes most likely land?",
-          choices: [
-            "Close to the low-score corner, near 55",
-            "Somewhere in the upper-middle area, scoring noticeably higher than 55 but maybe just under 92",
-            "Exactly at 92, no matter what",
-          ],
-          correctIndex: 1,
+          choices: ["Somewhere in the upper-middle area, scoring noticeably higher than 55 but maybe just under 92", "Close to the low-score corner, near 55", "Exactly at 92, no matter what"],
+          correctIndex: 0,
           explanation: "Since the trend is positive, a study time between the two examples (65 minutes) would likely land with a score between them too — higher than the low end, but not guaranteed to hit the very top.",
         },
       },
@@ -251,12 +243,8 @@ const daLesson13: DataLessonConfig = {
         body: `Let's confirm the relationship-reading rules are fully locked in.`,
         checkIn: {
           prompt: "A scatter plot shows a strong positive relationship between two numbers. What can you safely conclude?",
-          choices: [
-            "One number definitely causes the other to change",
-            "The two numbers tend to move together, but that alone doesn't prove causation",
-            "The chart type is wrong and should be a bar chart instead",
-          ],
-          correctIndex: 1,
+          choices: ["One number definitely causes the other to change", "The chart type is wrong and should be a bar chart instead", "The two numbers tend to move together, but that alone doesn't prove causation"],
+          correctIndex: 2,
           explanation: "A scatter plot can reveal a strong tendency for two numbers to move together, but correlation alone is never enough to prove that one causes the other.",
         },
       },

@@ -70,12 +70,12 @@ export const digitalLesson11: AILessonConfig = {
         checkIn: {
           prompt: "Which of these is the strongest password for an important account like email?",
           choices: [
-            "Summer2024!",
             "Tr0ub4dor&3",
-            "copper-lantern-quiet-otter-42",
             "P@ssword",
+            "Summer2024!",
+            "copper-lantern-quiet-otter-42",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
             "Length and genuine unpredictability beat 'looks complicated.' A long string of unrelated words (a passphrase) is far harder for cracking software to guess than short, pattern-following passwords with symbols swapped in.",
         },
@@ -92,10 +92,10 @@ export const digitalLesson11: AILessonConfig = {
         checkIn: {
           prompt: "Your friend has a strong, unique password for their email, but their recovery phone number belongs to an old phone they no longer own. What's the risk?",
           choices: [
-            "None — the password alone is all that matters",
-            "Someone who gets that old phone number could potentially use it to reset the account, bypassing the strong password",
-            "Recovery numbers can never be used to reset an account",
             "It only matters if 2FA is turned off completely",
+            "Someone who gets that old phone number could potentially use it to reset the account, bypassing the strong password",
+            "None — the password alone is all that matters",
+            "Recovery numbers can never be used to reset an account",
           ],
           correctIndex: 1,
           explanation:
@@ -115,9 +115,9 @@ export const digitalLesson11: AILessonConfig = {
           prompt: "Which of these 2FA methods is generally considered the weakest, though still better than no 2FA at all?",
           choices: [
             "A physical security key",
-            "An authenticator app that generates codes on your device",
-            "SMS text-message codes, due to risks like SIM swapping",
             "There is no difference between any 2FA methods",
+            "SMS text-message codes, due to risks like SIM swapping",
+            "An authenticator app that generates codes on your device",
           ],
           correctIndex: 2,
           explanation:
@@ -152,12 +152,12 @@ export const digitalLesson11: AILessonConfig = {
         checkIn: {
           prompt: "A text says: 'URGENT: Your account will be suspended in 15 min unless you verify at kanam-secure-verify.net.' What's the safest response?",
           choices: [
-            "Click the link immediately since 15 minutes isn't much time",
-            "Reply with your password to prove your identity quickly",
             "Don't click it — go directly to the real site or app yourself by typing the address you already know",
             "Forward it to friends so they can click it and check if it's real",
+            "Click the link immediately since 15 minutes isn't much time",
+            "Reply with your password to prove your identity quickly",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
             "Urgency, threats, and an unfamiliar domain are classic phishing signs. The safe move is always to go to the real site or app yourself, never through a link in the suspicious message.",
         },
@@ -185,11 +185,11 @@ export const digitalLesson11: AILessonConfig = {
           prompt: "You're at a coffee shop on open Wi-Fi and need to log into your college financial aid portal before a deadline. What's the safest approach?",
           choices: [
             "Never use public Wi-Fi for anything, ever, even in an emergency",
-            "Log in normally — public Wi-Fi has no real risk",
             "If possible, wait for trusted Wi-Fi or use your phone's cellular data; if you must use it now, confirm the site shows https:// and consider a VPN",
             "Ask a stranger at the coffee shop to log in for you",
+            "Log in normally — public Wi-Fi has no real risk",
           ],
-          correctIndex: 2,
+          correctIndex: 1,
           explanation:
             "Public Wi-Fi isn't automatically dangerous, but sensitive logins deserve extra caution: prefer trusted networks or cellular data when you can, and confirm HTTPS (or use a VPN) if you must use open Wi-Fi.",
         },
@@ -260,12 +260,12 @@ export const digitalLesson11: AILessonConfig = {
         checkIn: {
           prompt: "You use a shared family laptop to check your college portal, then close the browser tab without signing out. What's the risk?",
           choices: [
-            "None — closing the tab is the same as logging out",
-            "The next person to use that browser profile could still be logged into your account",
             "The laptop will automatically delete your account",
+            "None — closing the tab is the same as logging out",
             "There's no risk since the laptop is shared with family",
+            "The next person to use that browser profile could still be logged into your account",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Closing a tab often leaves you still signed in behind the scenes. On a shared device, explicitly signing out (not just closing the tab) is what actually protects your account.",
         },
@@ -313,11 +313,11 @@ export const digitalLesson11: AILessonConfig = {
       question: "You used the same password for a game site and your college application portal. The game site gets breached. Why is that so dangerous?",
       choices: [
         "It makes websites load more slowly",
-        "If one site is breached, attackers can use that password to unlock your other accounts",
         "It uses up more storage on your phone",
+        "If one site is breached, attackers can use that password to unlock your other accounts",
         "It's actually safe because it's easier to remember",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "When a site is breached, leaked passwords get tried on other sites automatically (credential stuffing). A reused password means one leak can open all your accounts — including high-stakes portals.",
     },
@@ -325,12 +325,12 @@ export const digitalLesson11: AILessonConfig = {
       id: "q2",
       question: "You're setting a password for your first-job email. Which is the strongest, most practical choice?",
       choices: [
-        "P@ss1",
         "A long passphrase of several random words like 'maple-rocket-quiet-otter'",
-        "Your pet's name and birth year",
         "12345678",
+        "P@ss1",
+        "Your pet's name and birth year",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Length is the biggest factor in strength. A long passphrase of random words is hard for computers to crack and easy for you to remember — much better than a short symbol-filled or guessable password.",
     },
@@ -339,11 +339,11 @@ export const digitalLesson11: AILessonConfig = {
       question: "You turn on 2FA for your scholarship portal. What does that protect you from?",
       choices: [
         "It speeds up your login",
-        "It means someone who steals your password still can't log in without your second step",
         "It removes the need to have any password at all",
         "It blocks all viruses from your device",
+        "It means someone who steals your password still can't log in without your second step",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "2FA adds a second requirement (something you have, like a code or your phone). Even if a thief gets your password, they can't get in without that second factor.",
     },
@@ -351,12 +351,12 @@ export const digitalLesson11: AILessonConfig = {
       id: "q4",
       question: "An email says: \"Paid internship — verify your SSN and bank info HERE within 1 hour or we give the spot away.\" What's the safest move?",
       choices: [
-        "Tap the link quickly before the internship is lost",
-        "Reply with your password to prove it's you",
         "Don't tap the link — go to the official company careers page yourself (or ignore it if you never applied)",
+        "Tap the link quickly before the internship is lost",
         "Forward it to friends to warn them, then tap it",
+        "Reply with your password to prove it's you",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "Urgency plus a mystery link plus requests for sensitive info is classic phishing. Never log in or \"verify\" through a link someone sent. Go to the real site yourself — or ignore unsolicited \"offers.\"",
     },
@@ -364,12 +364,12 @@ export const digitalLesson11: AILessonConfig = {
       id: "q5",
       question: "You're downloading software for a school project on a shared laptop. Which habit best lowers your risk of getting malware?",
       choices: [
+        "Turning off all updates so nothing changes",
+        "Downloading pirated games to save money",
         "Installing apps only from official stores and keeping software updated",
         "Clicking 'You won a prize!' pop-ups to see what they are",
-        "Downloading pirated games to save money",
-        "Turning off all updates so nothing changes",
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       explanation:
         "Malware usually sneaks in through risky downloads and clicks. Sticking to official stores, avoiding surprise links and attachments, and installing updates (which patch security holes) keeps you much safer.",
     },
@@ -390,9 +390,9 @@ export const digitalLesson11: AILessonConfig = {
       id: "q7",
       question: "You need to log into your financial aid portal but you're only near open public Wi-Fi at a coffee shop. What's the safest approach?",
       choices: [
-        "Log in immediately — public Wi-Fi is exactly as safe as home Wi-Fi",
-        "Prefer cellular data or trusted Wi-Fi if possible; if you must use public Wi-Fi, confirm the site uses https:// or use a VPN",
         "Ask a stranger to log in on their device instead",
+        "Prefer cellular data or trusted Wi-Fi if possible; if you must use public Wi-Fi, confirm the site uses https:// or use a VPN",
+        "Log in immediately — public Wi-Fi is exactly as safe as home Wi-Fi",
         "Never use the internet again for financial aid",
       ],
       correctIndex: 1,
@@ -403,12 +403,12 @@ export const digitalLesson11: AILessonConfig = {
       id: "q8",
       question: "On a shared family laptop, you close the browser tab after checking your email but don't explicitly sign out. What's the concern?",
       choices: [
+        "The laptop automatically deletes the account after one use",
         "Closing a tab always logs you out completely, so there's no concern",
         "The next person using that same browser profile could still be signed into your account",
-        "The laptop automatically deletes the account after one use",
         "Shared devices can never be made secure",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Closing a tab often leaves your session active behind the scenes. On shared devices, explicitly signing out — not just closing the tab — is the habit that actually protects your account.",
     },

@@ -57,8 +57,8 @@ export const digitalLesson9: AILessonConfig = {
         body: `Beyond raster vs. vector (coming up next), a handful of file types cover almost everything you'll ever save. Knowing which one to pick avoids blurry images, broken uploads, and rejected forms:\n\n• **.jpg / .jpeg** — photos. Small file size, good for real-life images, but quality drops a little each time you re-save it.\n• **.png** — graphics, logos, and screenshots. Keeps sharp edges and can have a transparent background — great for anything layered on top of other content.\n• **.pdf** — documents where the layout must stay exactly the same on any device — résumés, essays, forms. This is almost always the safest export for something you're submitting.\n• **.mp3 / .wav** — audio. \`.mp3\` is smaller and fine for most uses; \`.wav\` is bigger but higher quality, used in professional editing.\n• **.mp4** — video, the standard format nearly every site and app accepts.\n\nThe fix for "my file won't upload" is often just: wrong file type. Check what the form actually asks for before you fight with anything else.`,
         checkIn: {
           prompt: "You're uploading a one-page résumé to a scholarship portal and want the layout to look identical on any device that opens it. Which file type is the safest choice?",
-          choices: [".jpg", ".png", ".pdf", ".mp3"],
-          correctIndex: 2,
+          choices: [".jpg", ".pdf", ".png", ".mp3"],
+          correctIndex: 1,
           explanation:
             "PDF locks in the exact layout no matter what device or software opens it — which is exactly what you want for a résumé, essay, or form.",
         },
@@ -85,12 +85,12 @@ export const digitalLesson9: AILessonConfig = {
         checkIn: {
           prompt: "Your slide has three lines of text, and you bold, underline, AND all-caps every single line to \"make sure people read it.\" What's the likely result?",
           choices: [
-            "Everything looks equally important, so nothing actually stands out",
             "It automatically becomes the most readable slide in the deck",
             "Screen readers will skip it entirely",
+            "Everything looks equally important, so nothing actually stands out",
             "The file size gets smaller",
           ],
-          correctIndex: 0,
+          correctIndex: 2,
           explanation:
             "When every line is emphasized, nothing is. Emphasis only works by contrast — save bold or all-caps for the one key phrase you actually want to jump out.",
         },
@@ -125,12 +125,12 @@ export const digitalLesson9: AILessonConfig = {
         checkIn: {
           prompt: "A logo needs to appear as a tiny app icon AND as a giant banner at a school fair, staying perfectly sharp both times. What should it be saved as?",
           choices: [
-            "A .jpg photo, since photos are always highest quality",
-            "A vector file like .svg, so it scales to any size without blurring",
-            "A screenshot of the original file",
             "Any format — size never matters for logos",
+            "A .jpg photo, since photos are always highest quality",
+            "A screenshot of the original file",
+            "A vector file like .svg, so it scales to any size without blurring",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Whenever something needs to scale across very different sizes without blurring, a vector format like .svg is the right call — that's the exact problem vectors are built to solve.",
         },
@@ -157,12 +157,12 @@ export const digitalLesson9: AILessonConfig = {
         checkIn: {
           prompt: "You squint at your flyer and everything — the title, three subheadings, and the fine print — looks equally bold and colorful. What does the squint test suggest you should fix?",
           choices: [
-            "Nothing — that means it's balanced",
-            "Add even more colors so it's more exciting",
             "Reduce emphasis on most elements so only the most important one or two truly stand out",
+            "Add even more colors so it's more exciting",
             "Delete the flyer and start with a blank page forever",
+            "Nothing — that means it's balanced",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
             "If everything demands attention equally, nothing effectively does. Trim emphasis down to the one or two elements that truly matter, and let the rest recede.",
         },
@@ -189,10 +189,10 @@ export const digitalLesson9: AILessonConfig = {
         checkIn: {
           prompt: "Which of these is the strongest alt text for a photo of a bake-sale table with three labeled dessert trays?",
           choices: [
-            "\"image_0472.jpg\"",
+            "Leaving it blank because photos don't need alt text",
             "\"picture of a picture of food\"",
             "\"Bake-sale table with labeled trays of cookies, brownies, and cupcakes\"",
-            "Leaving it blank because photos don't need alt text",
+            "\"image_0472.jpg\"",
           ],
           correctIndex: 2,
           explanation:
@@ -251,12 +251,12 @@ export const digitalLesson9: AILessonConfig = {
         checkIn: {
           prompt: "You're cropping a blurry, tiny headshot pulled from a group photo for a scholarship profile. What's the real problem, and what fixes it?",
           choices: [
+            "Saving it as a vector will make it scale perfectly",
+            "Adding more contrast will restore the missing detail",
             "The file type is wrong — switching to .pdf will sharpen it",
             "The original image didn't have enough resolution to begin with — cropping and editing can't add detail back",
-            "Adding more contrast will restore the missing detail",
-            "Saving it as a vector will make it scale perfectly",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "A raster photo only has the pixels it started with. If the source is small or blurry, no amount of cropping or filters can add real detail back — you need to start from a higher-resolution original.",
         },
@@ -304,10 +304,10 @@ export const digitalLesson9: AILessonConfig = {
       id: "q1",
       question: "You're writing a scholarship personal statement in Google Docs. A counselor says it looks like a \"wall of text.\" What's the best formatting fix?",
       choices: [
-        "Add five different fonts and neon colors so it looks exciting",
-        "Add clear headings, shorter paragraphs, and bullet lists so readers can skim",
-        "Shrink the font so more words fit on one page",
         "Remove all spacing so nothing is wasted",
+        "Add clear headings, shorter paragraphs, and bullet lists so readers can skim",
+        "Add five different fonts and neon colors so it looks exciting",
+        "Shrink the font so more words fit on one page",
       ],
       correctIndex: 1,
       explanation:
@@ -317,12 +317,12 @@ export const digitalLesson9: AILessonConfig = {
       id: "q2",
       question: "You're designing a banner for a summer internship fair and only have a tiny logo file. What's the best way to keep it sharp when enlarged?",
       choices: [
-        "Stretch the small image bigger — stretching keeps it sharp",
         "Use a vector (.svg) version, which scales to any size without blurring",
         "Save it as a smaller file to add detail",
         "Take a screenshot of it to increase the resolution",
+        "Stretch the small image bigger — stretching keeps it sharp",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Vector images are made of math, so they scale to any size and stay sharp. Stretching a small raster image just spreads the same pixels out, making it blurry.",
     },
@@ -331,11 +331,11 @@ export const digitalLesson9: AILessonConfig = {
       question: "A college application portal rejects your activity list because the file is \"too large.\" Which statement about image/file size is TRUE?",
       choices: [
         "A bigger file is always better quality, so always use the biggest",
+        "Vector and raster files are always the exact same size",
         "File size doesn't affect how fast something loads or whether portals accept it",
         "Huge files take more storage and load slowly, so match the size to the need",
-        "Vector and raster files are always the exact same size",
       ],
-      correctIndex: 2,
+      correctIndex: 3,
       explanation:
         "Bigger isn't always better. Huge files eat storage and data, load slowly, and often get rejected by portals. Pick a resolution and file size that fits the job.",
     },
@@ -344,11 +344,11 @@ export const digitalLesson9: AILessonConfig = {
       question: "You're posting a club flyer image to the school website. What is alt text, and why does it matter?",
       choices: [
         "A backup copy of an image in case the file is lost",
-        "A short description of an image that screen readers speak aloud for people who can't see it",
         "An alternate-colored version of the image for dark mode",
+        "A short description of an image that screen readers speak aloud for people who can't see it",
         "Text that automatically translates the image into other languages",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Alt text is a short written description of an image. Screen readers speak it aloud so blind and low-vision users know what the image shows — a key part of accessibility.",
     },
@@ -357,11 +357,11 @@ export const digitalLesson9: AILessonConfig = {
       question: "You're exporting a résumé to upload for a first-job application. Which choice best reflects good, simple design and the right export?",
       choices: [
         "Use many fonts and bright colors so it looks exciting, then send a .docx",
-        "Cram in as much as possible so nothing is wasted, then screenshot it",
         "Use high contrast, aligned sections, limited fonts, and export as a PDF",
+        "Cram in as much as possible so nothing is wasted, then screenshot it",
         "Use faint gray text on white to look modern, then email a photo of the screen",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "Good design is about clarity: high contrast, aligned elements, room to breathe, and a limited palette. PDF keeps the layout fixed on any device — what employers and portals expect.",
     },
@@ -369,12 +369,12 @@ export const digitalLesson9: AILessonConfig = {
       id: "q6",
       question: "A form specifically asks for a PDF, but you keep uploading a Word document and getting an error. What's actually going wrong?",
       choices: [
-        "Your internet connection is broken",
         "The file type doesn't match what the form requires — you need to export as a PDF first",
-        "The form is broken and you should give up",
         "PDFs and Word documents are exactly the same thing",
+        "The form is broken and you should give up",
+        "Your internet connection is broken",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "A rejected upload is often simply a file-type mismatch. Reading and matching the required extension (here, exporting to PDF) usually solves it instantly.",
     },
@@ -382,12 +382,12 @@ export const digitalLesson9: AILessonConfig = {
       id: "q7",
       question: "You run the '60-second design check' on a flyer and notice the title, three headings, and the fine print are all bold, underlined, and in caps. What should you do?",
       choices: [
-        "Nothing — more emphasis always helps",
         "Add a fourth style of emphasis to be thorough",
         "Remove emphasis from most elements so only the one or two most important things stand out",
         "Delete all the text and start with only images",
+        "Nothing — more emphasis always helps",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "Emphasis only works through contrast. When everything is bold and shouting, nothing actually stands out — trimming emphasis down to what truly matters fixes it.",
     },
@@ -395,12 +395,12 @@ export const digitalLesson9: AILessonConfig = {
       id: "q8",
       question: "You're cropping a tiny, blurry headshot cut from an old group photo for a scholarship profile. Editing tools don't seem to help. Why not?",
       choices: [
-        "The file type is wrong and switching to .svg will fix it",
         "A raster photo only contains the pixels it started with — cropping or filters can't add detail that was never captured",
         "Headshots don't need to be sharp",
         "Adding captions will sharpen the image",
+        "The file type is wrong and switching to .svg will fix it",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Raster images are a fixed grid of pixels. If the original resolution was low, no amount of cropping, filtering, or resizing can invent detail that isn't there — you need a better original.",
     },

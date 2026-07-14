@@ -265,12 +265,8 @@ print("Nice to meet you, " + name)
         },
         checkIn: {
           prompt: "What happens if you write `input(\"What is your name? \")` with no `name =` in front?",
-          choices: [
-            "Python won't run at all",
-            "The question is asked, but the answer isn't saved anywhere",
-            "The answer is automatically saved as a number",
-          ],
-          correctIndex: 1,
+          choices: ["The question is asked, but the answer isn't saved anywhere", "Python won't run at all", "The answer is automatically saved as a number"],
+          correctIndex: 0,
           explanation: "input() still asks the question, but without a variable to catch the answer, it's asked and then immediately lost.",
         },
       },
@@ -309,12 +305,8 @@ print("Nice to meet you, " + name)
         },
         checkIn: {
           prompt: "Why does the SAME line of code produce different greetings for different users?",
-          choices: [
-            "Python randomly picks a name",
-            "The variable name holds whatever was typed, so the printed message changes each run",
-            "print() automatically detects who is using the computer",
-          ],
-          correctIndex: 1,
+          choices: ["Python randomly picks a name", "print() automatically detects who is using the computer", "The variable name holds whatever was typed, so the printed message changes each run"],
+          correctIndex: 2,
           explanation: "Because the message uses the variable (not a hardcoded name), the output changes based on whatever was stored in it.",
         },
       },
@@ -424,8 +416,8 @@ print("Nice to meet you, " + name)
         body: `Let's confirm the listening pattern is locked in before the exercises.`,
         checkIn: {
           prompt: "Put these steps in the right order: (A) print a reply using the variable, (B) store the answer in a variable, (C) ask a question with input().",
-          choices: ["A, B, C", "C, B, A", "B, C, A"],
-          correctIndex: 1,
+          choices: ["A, B, C", "B, C, A", "C, B, A"],
+          correctIndex: 2,
           explanation: "First ask the question (C), which also stores the answer (B happens as part of the same line), then respond using it (A). The listen-then-respond order is: ask & store, then reply.",
         },
       },

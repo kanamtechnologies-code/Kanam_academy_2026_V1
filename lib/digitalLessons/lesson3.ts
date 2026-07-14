@@ -56,12 +56,12 @@ export const digitalLesson3: AILessonConfig = {
         checkIn: {
           prompt: "Why do search results appear almost instantly when you hit enter?",
           choices: [
-            "The engine searches the entire live internet in that instant",
-            "The engine already crawled and indexed pages ahead of time, so your search is just a fast lookup in that catalog",
-            "Search engines guess randomly",
             "Results are always pre-written by humans",
+            "Search engines guess randomly",
+            "The engine already crawled and indexed pages ahead of time, so your search is just a fast lookup in that catalog",
+            "The engine searches the entire live internet in that instant",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Search engines crawl the web and build a giant index ahead of time. Your query just triggers a fast lookup and ranking within that pre-built catalog.",
         },
@@ -85,11 +85,11 @@ export const digitalLesson3: AILessonConfig = {
           prompt: "Which search is most likely to give the best results for phone overheating?",
           choices: [
             "why does my phone get so hot when I play games for hours is that bad for it",
-            "phone overheating gaming causes",
             "phone",
             "please help me my phone is hot",
+            "phone overheating gaming causes",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Strong keywords keep the important nouns and specifics and drop the filler. The chatty sentence buries the real keywords, and a single vague word like 'phone' is too broad.",
         },
@@ -120,11 +120,11 @@ export const digitalLesson3: AILessonConfig = {
           prompt: "You need climate-change info ONLY from NASA's website for a science report. Which operator do you use?",
           choices: [
             "\"climate change\"",
-            "climate change -nasa",
             "climate change site:nasa.gov",
             "climate change filetype:pdf",
+            "climate change -nasa",
           ],
-          correctIndex: 2,
+          correctIndex: 1,
           explanation:
             "The site: operator restricts results to one website. site:nasa.gov searches only NASA's pages.",
         },
@@ -159,12 +159,12 @@ export const digitalLesson3: AILessonConfig = {
         checkIn: {
           prompt: "While searching for summer internships, the top result is labeled 'Sponsored.' What does that tell you?",
           choices: [
-            "It is the most trustworthy and accurate result",
             "It is an ad — a company paid to put it there, so it's advertising rather than a ranked-for-relevance answer",
-            "It is the official government result",
+            "It is the most trustworthy and accurate result",
             "It was fact-checked by the search engine",
+            "It is the official government result",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Sponsored results are paid ads, not results ranked purely by relevance or trustworthiness. The unpaid, relevance-ranked results are called organic results.",
         },
@@ -275,12 +275,12 @@ export const digitalLesson3: AILessonConfig = {
         checkIn: {
           prompt: "What is the single biggest upgrade you can make to almost any search?",
           choices: [
-            "Typing your question as a full, polite sentence",
-            "Using sharp, specific keywords — and refining with an operator if the first try misses",
             "Always clicking the very first result",
             "Avoiding search engines entirely",
+            "Typing your question as a full, polite sentence",
+            "Using sharp, specific keywords — and refining with an operator if the first try misses",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Sharp keywords, refined with an operator when needed, is the single highest-leverage search skill — it's the difference between Devon's 20-minute search and a 30-second one.",
         },
@@ -314,10 +314,10 @@ export const digitalLesson3: AILessonConfig = {
       id: "q1",
       question: "You're researching for a group project and need answers fast. What are the three main steps a search engine already did so results appear instantly?",
       choices: [
-        "Download, install, and update",
-        "Crawl, index, and rank",
         "Save, sync, and back up",
+        "Crawl, index, and rank",
         "Type, click, and scroll",
+        "Download, install, and update",
       ],
       correctIndex: 1,
       explanation:
@@ -327,12 +327,12 @@ export const digitalLesson3: AILessonConfig = {
       id: "q2",
       question: "Your phone overheats during a long gaming session and you want causes — not a chatty rant. Which search is most likely to give the best results?",
       choices: [
-        "why does my phone get so hot when I play games for hours is that bad for it",
         "phone overheating gaming causes",
-        "phone",
+        "why does my phone get so hot when I play games for hours is that bad for it",
         "please help me my phone is hot",
+        "phone",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Strong keywords keep the important nouns and specifics and drop the filler. The long chatty sentence buries the real keywords, and a single vague word like 'phone' is too broad.",
     },
@@ -341,11 +341,11 @@ export const digitalLesson3: AILessonConfig = {
       question: "You need climate-change info ONLY from NASA's website for a science report. Which operator do you use?",
       choices: [
         "\"climate change\"",
-        "climate change -nasa",
         "climate change site:nasa.gov",
         "climate change filetype:pdf",
+        "climate change -nasa",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "The site: operator restricts results to one website. site:nasa.gov searches only NASA's pages. Quotes match an exact phrase, -word excludes, and filetype: finds a file type.",
     },
@@ -353,12 +353,12 @@ export const digitalLesson3: AILessonConfig = {
       id: "q4",
       question: "While searching for summer internships, a result at the very top is labeled 'Sponsored.' What does that tell you?",
       choices: [
-        "It is the most trustworthy and accurate result",
-        "It is an ad — a company paid to put it there, so it's advertising rather than a ranked-for-relevance answer",
         "It is the official government result",
         "It was fact-checked by the search engine",
+        "It is the most trustworthy and accurate result",
+        "It is an ad — a company paid to put it there, so it's advertising rather than a ranked-for-relevance answer",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Sponsored results are paid ads, not results ranked purely by relevance or trustworthiness. The unpaid, relevance-ranked results are called organic results.",
     },
@@ -367,11 +367,11 @@ export const digitalLesson3: AILessonConfig = {
       question: "A scholarship search shows a #1 organic result from a site you've never heard of. Which statement is true?",
       choices: [
         "It is always the most accurate and correct answer",
-        "It can be popular or well-optimized without being the most accurate, so you should check who published it",
         "It is guaranteed to be from a government source",
+        "It can be popular or well-optimized without being the most accurate, so you should check who published it",
         "It is always older than the other results",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Ranking high doesn't guarantee truth — a page can rank well by being popular or well-optimized. Popular is not the same as accurate, so always check who published it.",
     },
@@ -379,12 +379,12 @@ export const digitalLesson3: AILessonConfig = {
       id: "q6",
       question: "A sponsored ad promises 'guaranteed $10,000 in scholarships' if you enter a card number to 'unlock results.' What should you do?",
       choices: [
+        "Treat it as a major red flag — legitimate financial aid almost never requires upfront payment",
         "Enter the card info immediately since it's at the top of the results",
         "Trust it because it looks official",
-        "Treat it as a major red flag — legitimate financial aid almost never requires upfront payment",
         "Assume all sponsored results are scams and never click any ad",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "Real scholarships and financial aid don't charge you to 'unlock' opportunities. A paid ad demanding money upfront is a classic scam pattern.",
     },
@@ -392,12 +392,12 @@ export const digitalLesson3: AILessonConfig = {
       id: "q7",
       question: "Your first search returns spammy, off-topic pages. According to the refine loop, what should you do?",
       choices: [
-        "Keep scrolling through many pages of results",
-        "Give up and assume there's no good answer",
         "Adjust the query — swap or add a keyword, or add an operator — then search again",
+        "Keep scrolling through many pages of results",
         "Only trust the AI-generated answer box",
+        "Give up and assume there's no good answer",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "Scrolling endlessly is not the same as refining. The refine loop means adjusting your keywords or adding an operator and trying again.",
     },
@@ -405,12 +405,12 @@ export const digitalLesson3: AILessonConfig = {
       id: "q8",
       question: "In the internship case study, which combination of habits helped Alex find legitimate leads fast?",
       choices: [
-        "Using a vague search and paying a registration fee for a promising ad",
-        "Sharper keywords, a recent-date filter, skipping sponsored 'pay-to-start' ads, and using site: for trusted platforms",
         "Only ever clicking the very first search result",
+        "Using a vague search and paying a registration fee for a promising ad",
         "Searching once and accepting whatever appeared first",
+        "Sharper keywords, a recent-date filter, skipping sponsored 'pay-to-start' ads, and using site: for trusted platforms",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Alex combined sharp keywords, a date filter for recent postings, a scan for sponsored scam ads, and the site: operator to focus on trustworthy platforms.",
     },

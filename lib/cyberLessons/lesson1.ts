@@ -257,10 +257,10 @@ export const cyberLesson1: AILessonConfig = {
       id: "q1",
       question: "Which statement best defines cybersecurity?",
       choices: [
-        "Only installing antivirus on a laptop",
+        "Installing antivirus once and assuming you're covered",
         "Protecting digital data, systems, and people from harm",
-        "Memorizing every type of malware name",
-        "Building websites as quickly as possible",
+        "A specialty that only professional IT staff ever need to practice",
+        "Keeping networks as fast as possible so users stay productive",
       ],
       correctIndex: 1,
       explanation:
@@ -270,10 +270,10 @@ export const cyberLesson1: AILessonConfig = {
       id: "q2",
       question: "In the CIA Triad, what does Integrity mainly mean?",
       choices: [
-        "Systems are always online for everyone, including strangers",
         "Only authorized people can see the information",
+        "Systems are always online for everyone, including strangers",
         "Information stays accurate and is not changed without authorization",
-        "Passwords must be shared with the whole team",
+        "All data is encrypted so nobody can ever read it",
       ],
       correctIndex: 2,
       explanation:
@@ -284,24 +284,24 @@ export const cyberLesson1: AILessonConfig = {
       question: "A student finds a possible weakness in a school website. What is the most ethical next step?",
       choices: [
         "Try to break in further to prove the weakness",
-        "Post the weakness publicly to \"help\" others",
+        "Quietly fix it themselves using admin tools they found, without telling anyone",
         "Report it to a trusted adult or the school's IT/security contact",
-        "Ignore it because ethics only apply to adults",
+        "Post the weakness publicly to \"help\" others",
       ],
       correctIndex: 2,
       explanation:
-        "Responsible reporting with authorization in mind is the ethical path. Exploring further or publishing details without permission can cause harm and may be illegal.",
+        "Responsible reporting with authorization in mind is the ethical path. Exploring further, self-fixing without authorization, or publishing details can cause harm and may be illegal.",
     },
     {
       id: "q4",
       question: "What does a SOC (Security Operations Center) typically do?",
       choices: [
-        "Design school lunch menus",
+        "Approve every software purchase before it is installed",
+        "Write the school's cybersecurity policies once a year",
+        "Replace the need for individual account passwords entirely",
         "Watch for suspicious activity and help respond when something looks wrong",
-        "Sell personal data to advertisers",
-        "Replace the need for passwords entirely",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "A SOC is a team that monitors systems for signs of trouble and supports incident response — a defender role.",
     },
@@ -309,12 +309,12 @@ export const cyberLesson1: AILessonConfig = {
       id: "q5",
       question: "Why should high school students care about cybersecurity?",
       choices: [
-        "They never use online accounts, so they don't",
-        "Only college graduates face digital threats",
         "Their accounts, schoolwork, reputation, and future applications already depend on digital systems",
-        "Cybersecurity is only about criminal careers",
+        "Cybersecurity only becomes relevant once someone has a full-time job",
+        "Schools handle all security automatically, so students never need to think about it",
+        "Only students planning a cybersecurity career need to learn this",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "Students already rely on accounts and online systems for school and life. Defender habits protect them now and build career-ready awareness.",
     },
@@ -325,7 +325,7 @@ export const cyberLesson1: AILessonConfig = {
         "The tester needs no permission at all",
         "The tester works scoped, permission-based projects; the analyst does ongoing monitoring and investigation",
         "They are exactly the same job with different titles",
-        "Analysts are always less trustworthy than testers",
+        "Only analysts are ever allowed to notice security weaknesses",
       ],
       correctIndex: 1,
       explanation:
@@ -335,12 +335,12 @@ export const cyberLesson1: AILessonConfig = {
       id: "q7",
       question: "A student says: \"I only looked at my friend's unlocked account because I meant well.\" What is the flaw in that reasoning?",
       choices: [
-        "There is no flaw — good intentions always make an action authorized",
         "Good intentions explain motive but do not equal permission from the account owner",
+        "There is no flaw — good intentions always make an action authorized",
         "Only professionals need permission to access accounts",
         "It's not a flaw as long as nothing was changed",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Intent and authorization are different things. Without a clear \"yes\" from the account owner, accessing it is unauthorized regardless of motive.",
     },
@@ -349,11 +349,11 @@ export const cyberLesson1: AILessonConfig = {
       question: "Why do cybersecurity decisions often involve ethical and legal considerations, not just technical ones?",
       choices: [
         "They don't — cybersecurity is purely technical",
-        "Because protecting data, systems, and people involves privacy, permission, and impacts on real people, which standards like CSTA's Impacts of Computing address",
         "Because ethics only matters after college",
         "Because technical skills replace the need for permission",
+        "Because protecting data, systems, and people involves privacy, permission, and impacts on real people, which standards like CSTA's Impacts of Computing address",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Cybersecurity touches real people's privacy and rights, which is why recognized standards connect it to ethics, law, and digital citizenship — not just technical skill.",
     },

@@ -82,9 +82,9 @@ export const aiLesson5: AILessonConfig = {
         checkIn: {
           prompt: "Why is 'supervised learning' called supervised?",
           choices: [
-            "Because a human watches the computer screen the entire time it trains",
+            "Because a human manually approves every single prediction after training",
             "Because each training example includes the correct label, acting like a built-in answer key",
-            "Because it only runs during school hours",
+            "Because the model is limited to one supervised task for its entire life",
             "Because it requires no training data at all",
           ],
           correctIndex: 1,
@@ -284,12 +284,12 @@ export const aiLesson5: AILessonConfig = {
       id: "q1",
       question: "How is machine learning different from old-style rule-based programming?",
       choices: [
-        "It uses faster computers but the same hand-written rules",
+        "It uses faster computers but still runs on the same hand-written rules",
+        "It skips training entirely and starts making predictions immediately",
         "Instead of a human writing every rule, the AI learns patterns from many examples",
-        "It doesn't use data at all",
-        "It only works on robots",
+        "It requires a human to approve each individual prediction in real time",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "In machine learning, we provide examples and the AI figures out the rules itself, rather than a human coding each rule.",
     },
@@ -297,12 +297,12 @@ export const aiLesson5: AILessonConfig = {
       id: "q2",
       question: "What is 'training data'?",
       choices: [
-        "The robot's exercise routine",
+        "The final report showing how accurate a finished model is",
+        "The number of computer chips used to run the AI",
         "The labeled examples an AI studies to learn patterns",
-        "The price of the AI",
-        "The internet connection speed",
+        "The instructions a programmer writes for how to use the model",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Training data is the set of examples (often with correct labels) that the AI learns from.",
     },
@@ -310,10 +310,10 @@ export const aiLesson5: AILessonConfig = {
       id: "q3",
       question: "In supervised learning, what makes it 'supervised'?",
       choices: [
-        "A teacher watches the computer the whole time",
+        "A person manually double-checks every prediction the model makes after training",
         "Each training example comes with the correct answer (a label)",
-        "It only runs during school hours",
-        "It needs no data",
+        "It needs no data to begin learning",
+        "The model can only be updated once a year by its creators",
       ],
       correctIndex: 1,
       explanation:
@@ -337,11 +337,11 @@ export const aiLesson5: AILessonConfig = {
       question: "In the real hiring-tool case, why did the model start downgrading certain resumes?",
       choices: [
         "An engineer manually coded a rule to do so",
-        "It learned patterns from ten years of past hiring data that itself skewed toward one group",
         "The model was hacked",
         "It refused to read any resumes",
+        "It learned patterns from ten years of past hiring data that itself skewed toward one group",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "No one wrote a biased rule. The model learned the pattern that was actually present in its imperfect historical training data.",
     },
@@ -349,12 +349,12 @@ export const aiLesson5: AILessonConfig = {
       id: "q6",
       question: "Why is 'more training data always fixes bias' a myth?",
       choices: [
-        "More data can never help a model at all",
         "A bigger dataset that is still skewed just teaches the skewed pattern with more confidence",
+        "More data can never help a model at all",
         "Training data size has no effect on anything",
         "Bias only happens with small datasets, never large ones",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Scale doesn't fix skew — it can reinforce it. Balanced, varied, well-labeled data matters more than raw size.",
     },
@@ -362,10 +362,10 @@ export const aiLesson5: AILessonConfig = {
       id: "q7",
       question: "What is the smartest first question to ask about any new AI tool's training data?",
       choices: [
-        "How much did the company spend on marketing?",
+        "How much did the company spend on marketing the tool?",
         "Who and what is represented in the data, and does it reflect a biased history?",
-        "What color is the app icon?",
         "How many total employees does the company have?",
+        "How recently was the app's interface redesigned?",
       ],
       correctIndex: 1,
       explanation:
@@ -375,12 +375,12 @@ export const aiLesson5: AILessonConfig = {
       id: "q8",
       question: "What did the company that built the biased hiring tool ultimately decide to do?",
       choices: [
-        "Ship it anyway because it was mostly accurate",
         "Scrap the project rather than deploy a tool they couldn't fully trust",
-        "Sell the tool to a competitor",
+        "Ship it anyway because it was mostly accurate",
+        "Sell the tool to another company",
         "Ignore the bias and hope no one noticed",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "The company chose to shut the project down after repeated attempts to fix the bias fell short — a widely cited example of responsible restraint.",
     },

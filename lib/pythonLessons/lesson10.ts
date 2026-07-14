@@ -137,8 +137,8 @@ export const lesson10: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "After writing `def greet():` with an indented print inside, but never calling `greet()`, what happens when you run the program?",
-          choices: ["The greeting prints once", "Nothing prints", "Python raises an error"],
-          correctIndex: 1,
+          choices: ["Nothing prints", "The greeting prints once", "Python raises an error"],
+          correctIndex: 0,
           explanation: "Defining a function only teaches it to Python. Nothing runs until the function is called.",
         },
       },
@@ -161,8 +161,8 @@ export const lesson10: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "If `greet()` is called three times in a row, how many times does the print inside run?",
-          choices: ["Once", "Twice", "Three times"],
-          correctIndex: 2,
+          choices: ["Once", "Three times", "Twice"],
+          correctIndex: 1,
           explanation: "Each call to greet() runs the function's body once — three calls means the print runs three times.",
         },
       },
@@ -177,12 +177,8 @@ export const lesson10: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "You copy-pasted the same greeting print into 10 places in your code, then need to change the wording. What's the downside vs. using a function?",
-          choices: [
-            "No downside — copies are just as easy to update",
-            "You'd have to find and edit all 10 copies, and might miss some",
-            "Copies run faster than functions",
-          ],
-          correctIndex: 1,
+          choices: ["No downside — copies are just as easy to update", "Copies run faster than functions", "You'd have to find and edit all 10 copies, and might miss some"],
+          correctIndex: 2,
           explanation: "With copy-pasted code, every copy must be updated by hand. A function centralizes the logic so you only change it once.",
         },
       },
@@ -214,12 +210,8 @@ export const lesson10: PythonLessonConfig = {
         codeCaption: "How many lines print, and what do they say?",
         checkIn: {
           prompt: "What does this program print?",
-          choices: [
-            "\"Go team!\" once",
-            "\"Go team!\" three times, one per line",
-            "Nothing, because cheer() was never defined",
-          ],
-          correctIndex: 1,
+          choices: ["\"Go team!\" three times, one per line", "\"Go team!\" once", "Nothing, because cheer() was never defined"],
+          correctIndex: 0,
           explanation: "cheer is defined once, then called three times — each call runs the print, producing three lines of \"Go team!\".",
         },
       },
@@ -296,12 +288,8 @@ export const lesson10: PythonLessonConfig = {
         body: `Let's confirm the function pattern is locked in.`,
         checkIn: {
           prompt: "What are the two separate steps every function needs?",
-          choices: [
-            "Naming it, then printing it",
-            "Defining it with `def`, then calling it with `name()`",
-            "Calling it, then defining it",
-          ],
-          correctIndex: 1,
+          choices: ["Naming it, then printing it", "Calling it, then defining it", "Defining it with `def`, then calling it with `name()`"],
+          correctIndex: 2,
           explanation: "A function must first be defined with def (teaching the skill) and then called with name() (running the skill) — definition always comes before the call.",
         },
       },

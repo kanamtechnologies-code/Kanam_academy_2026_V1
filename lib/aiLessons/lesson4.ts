@@ -55,14 +55,14 @@ export const aiLesson4: AILessonConfig = {
         checkIn: {
           prompt: "What is the best definition of 'representation' in AI?",
           choices: [
-            "A drawing of what a robot looks like",
             "How a piece of the world is encoded as data so a computer can reason about it",
-            "The number of computers used to run an AI model",
-            "A legal document describing an AI company",
+            "The amount of computing power needed to train a model",
+            "A visual chart showing an AI's accuracy over time",
+            "The set of rules a company writes about how its AI should behave",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Representation is the encoding step — turning something real into a data 'suitcase' the model can actually work with.",
+            "Representation is the encoding step — turning something real into a data 'suitcase' the model can actually work with — not a measure of compute, a chart, or a behavior policy.",
         },
       },
       {
@@ -80,14 +80,14 @@ export const aiLesson4: AILessonConfig = {
         checkIn: {
           prompt: "Before an AI can process the word 'pizza,' what has to happen first?",
           choices: [
-            "Nothing — computers read letters exactly like humans do",
             "It gets split into a token and converted into a number from a lookup table",
-            "It gets translated into every language at once",
-            "It is deleted from the input",
+            "It gets checked against a dictionary to confirm it's spelled correctly",
+            "It gets converted directly into a picture of the object it names",
+            "Nothing — computers read letters exactly like humans do",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Text becomes tokens, and tokens become numbers, because computers can only do math — not read words the way people do.",
+            "Text becomes tokens, and tokens become numbers, because computers can only do math — not read words the way people do. There's no spell-check or image-conversion step involved.",
         },
       },
       {
@@ -251,12 +251,12 @@ export const aiLesson4: AILessonConfig = {
         checkIn: {
           prompt: "What made the risk-assessment tool's outcomes unequal across groups, based on the investigation?",
           choices: [
-            "The tool used a random number generator with no data at all",
             "Its features were tied to historical arrest patterns, which reflected uneven policing — so the representation baked in that unevenness",
-            "It only worked on weekdays",
-            "It didn't use any data whatsoever",
+            "The tool was intentionally coded to target specific groups by name",
+            "The defendants it flagged incorrectly had all committed similar past crimes",
+            "The tool's predictions were simply randomized rather than data-driven",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "The representation choice — using arrest history as a feature — carried forward existing unevenness in how policing happens across communities.",
         },
@@ -291,27 +291,27 @@ export const aiLesson4: AILessonConfig = {
       id: "q1",
       question: "What does 'representation' mean in AI?",
       choices: [
-        "A robot standing in for a human",
         "How a piece of the world is encoded as data the AI can store and reason about",
-        "A drawing of an AI",
-        "The company that makes the AI",
+        "The final accuracy score a model gets on a test dataset",
+        "A human spokesperson who explains an AI product to the public",
+        "The physical server hardware that stores an AI model",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Representation is about encoding things — words, images, choices — as data so an AI can work with them.",
+        "Representation is about encoding things — words, images, choices — as data so an AI can work with them, not an accuracy score, a spokesperson, or hardware.",
     },
     {
       id: "q2",
       question: "Before an AI can process the sentence 'I love pizza', what happens first?",
       choices: [
-        "It asks a human to read it",
+        "It checks the sentence for grammar mistakes and corrects them",
+        "It asks a human to confirm what the sentence means",
         "It splits the text into tokens and turns them into numbers",
-        "It prints the sentence on paper",
         "Nothing — AI reads letters directly like we do",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Text is broken into tokens, and each token becomes a number, because computers do math on numbers, not words.",
+        "Text is broken into tokens, and each token becomes a number, because computers do math on numbers, not words — there's no grammar-check or human-confirmation step first.",
     },
     {
       id: "q3",
@@ -319,10 +319,10 @@ export const aiLesson4: AILessonConfig = {
       choices: [
         "Tokens",
         "Pixels",
-        "Features",
         "Sensors",
+        "Features",
       ],
-      correctIndex: 2,
+      correctIndex: 3,
       explanation:
         "Features are the measurable properties (stored as numbers) that an AI uses as inputs to make a prediction.",
     },
@@ -330,12 +330,12 @@ export const aiLesson4: AILessonConfig = {
       id: "q4",
       question: "Why can a bad representation lead to unfair AI decisions?",
       choices: [
-        "Representations are always perfect, so they can't",
+        "Representations are always perfect, so this can't actually happen",
+        "Because numbers, once collected, can never be revised or corrected",
         "Because a representation leaves things out — it may miss or mismeasure what matters",
-        "Because numbers are always wrong",
-        "Because AI refuses to use data",
+        "Because AI systems refuse to run unless the data is flawless",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Every representation simplifies reality and leaves something out. If it misses what's important, the AI's results suffer.",
     },
@@ -344,11 +344,11 @@ export const aiLesson4: AILessonConfig = {
       question: "What is a 'proxy variable'?",
       choices: [
         "A backup server used to run AI models",
-        "A feature that seems neutral but secretly correlates with something sensitive, like race or income",
         "A second copy of the same training dataset",
         "A synonym for 'token'",
+        "A feature that seems neutral but secretly correlates with something sensitive, like race or income",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Proxy variables (like zip code) can encode sensitive information indirectly, causing bias even without a sensitive label ever appearing in the data.",
     },
@@ -356,12 +356,12 @@ export const aiLesson4: AILessonConfig = {
       id: "q6",
       question: "In the real risk-assessment tool investigation, what was a key source of the unequal outcomes?",
       choices: [
-        "The tool used no data whatsoever",
+        "The company deliberately labeled defendants by race in the training data",
+        "The defendants themselves reported false information to the tool",
+        "The tool's predictions were later proven to be entirely accurate for everyone",
         "Features tied to historical arrest patterns carried forward uneven policing patterns into the predictions",
-        "The researchers refused to analyze any real cases",
-        "The tool was tested on exactly one person",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Representation choices — like using arrest history as a feature — can carry forward existing real-world unevenness into a model's predictions.",
     },
@@ -369,12 +369,12 @@ export const aiLesson4: AILessonConfig = {
       id: "q7",
       question: "Why is 'it's just numbers, so it's objective' a misleading claim?",
       choices: [
-        "Numbers are never used in real AI systems",
+        "Because numbers are always rounded, so they're technically inaccurate",
+        "Because computers occasionally make random arithmetic errors",
+        "Objective measurement is impossible in any field, including science",
         "A human decided which numbers to measure in the first place, and that decision can carry hidden bias",
-        "Objective measurement is impossible in any field",
-        "AI systems never use spreadsheets",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "The choice of what to measure is a human decision, made before any 'objective-looking' number appears — and that choice deserves scrutiny.",
     },
@@ -383,11 +383,11 @@ export const aiLesson4: AILessonConfig = {
       question: "If a school wanted to represent 'how well a student is doing' using only 5 features, what's the smartest next step after choosing them?",
       choices: [
         "Assume the 5 features capture the whole truth and stop thinking about it",
-        "Ask what important things those 5 features leave out, and whether any of them act as proxy variables",
         "Add the student's home address as a feature with no further thought",
+        "Ask what important things those 5 features leave out, and whether any of them act as proxy variables",
         "Delete all other information immediately",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Naming what's missing — and checking for proxy variables — is the core representation-literacy skill from this lesson.",
     },

@@ -538,9 +538,9 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         '"Budgets are only for people in debt. Use your gross pay as the limit. Never adjust mid-month — that means you failed. Fun money is irresponsible, so set it to $0."',
       choices: [
         "Budgets help anyone; use net pay; adjust when life changes; small fun money improves stickiness",
-        "Only millionaires need budgets",
-        "Gross pay is always safer than net pay for planning",
-        "Changing a budget mid-month is illegal",
+        "Budgets are only useful after you're already in serious debt",
+        "Gross pay is always safer than net pay for planning spending",
+        "Changing a budget mid-month means the whole plan failed",
       ],
       correctIndex: 0,
       hint: "Is a budget a punishment — or a plan you update?",

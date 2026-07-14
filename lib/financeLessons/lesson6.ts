@@ -59,16 +59,16 @@ export const financeLesson6: AILessonConfig = {
           text: "Looking only at your bank balance can mislead you when pending charges haven't posted yet. Available balance matters.",
         },
         checkIn: {
-          prompt: "What does \"negative cash flow\" for a period mean?",
+          prompt: "Devon earned $180 this pay period but spent $215 once gas, food, and a concert ticket added up. What does this describe?",
           choices: [
-            "You earned more than you spent",
-            "You spent more than you took in, drawing down savings or borrowing",
-            "Your bank account was closed",
-            "You have no expenses that period",
+            "Negative cash flow — spending outpaced income, so he drew down savings or borrowed to cover it",
+            "Positive cash flow, since he still has money in some account",
+            "A budgeting error that means his whole plan is broken",
+            "Zero-based budgeting working as intended",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Negative cash flow means outflow exceeded inflow — spending outpaced income for that period.",
+            "Spending more than you take in for a period is negative cash flow — it doesn't mean the whole budget failed or that this is what zero-based budgeting is supposed to look like.",
         },
       },
       {
@@ -83,16 +83,16 @@ export const financeLesson6: AILessonConfig = {
           text: "Most people underestimate discretionary spending. Data replaces guessing.",
         },
         checkIn: {
-          prompt: "What's the main point of tracking spending for at least 14 days before judging yourself?",
+          prompt: "Why does this lesson suggest tracking spending for at least 14 days before judging yourself?",
           choices: [
-            "To guarantee you never spend money again",
+            "Because tracking for a shorter time is against most banking app rules",
+            "Because one week always looks identical to the next for most people",
             "To collect enough data to see real patterns instead of reacting to one unusual day",
-            "Because tracking for less than 14 days is illegal",
-            "Because apps require a 14-day minimum",
+            "Because 14 days is required to unlock budgeting features in most apps",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "A short window can be misleading. A couple weeks of data reveals real patterns, not one-off noise.",
+            "A short window can be misleading — a couple weeks of data reveals real patterns rather than one-off noise. There's no app or bank rule requiring a minimum tracking period.",
         },
       },
       {
@@ -110,16 +110,16 @@ export const financeLesson6: AILessonConfig = {
           text: "Automate the transfer on payday when you can. Sinking funds fail most often from \"I'll move it later.\"",
         },
         checkIn: {
-          prompt: "Which expense is the best candidate for a sinking fund?",
+          prompt: "Maya knows prom is five months away and will cost about $200. Which savings approach fits this expense best?",
           choices: [
-            "A totally unpredictable medical emergency tomorrow",
-            "Prom costs you know are coming in five months",
-            "A random sale you just saw online",
-            "Money you already spent last year",
+            "Treat it as an emergency and pull from her emergency fund when the bill comes due",
+            "Start a sinking fund now, since it's a known cost she can schedule toward",
+            "Wait until a month before prom, then figure out the money",
+            "Skip planning since $200 is too small to bother budgeting for",
           ],
           correctIndex: 1,
           explanation:
-            "Sinking funds are for known future costs you can schedule toward — like prom five months out.",
+            "A known, scheduled future cost like prom is exactly what a sinking fund is for — it's not an emergency, and waiting until the last month turns a plannable cost into a scramble.",
         },
       },
       {
@@ -135,13 +135,13 @@ export const financeLesson6: AILessonConfig = {
           prompt: "You need $150 for a trip in 3 months and get paid weekly (about 13 pay periods). Roughly how much should you set aside per paycheck?",
           choices: [
             "About $50 per paycheck",
+            "About $3 per paycheck",
+            "The full $150 out of your very next paycheck",
             "About $11–12 per paycheck",
-            "About $150 per paycheck",
-            "It doesn't matter — save whatever is left over",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "$150 ÷ 13 pay periods ≈ $11.50 per paycheck — a small, scheduled amount instead of one scramble at the end.",
+            "$150 ÷ 13 pay periods ≈ $11.50 per paycheck — a small, scheduled amount instead of one scramble at the end. $50/week would overshoot the total well before the trip.",
         },
       },
       {
@@ -172,16 +172,16 @@ export const financeLesson6: AILessonConfig = {
         imageAlt: "A small labeled emergency fund envelope next to a phone showing a cracked screen repair estimate, illustrating a real necessary surprise expense",
         body: `An **emergency fund** is for true surprises that are necessary — not sales, not boredom, not \"it was 20% off.\"\n\n**Emergency vs. budget item — know the difference:**\n\n• **Budget or sinking fund:** broken charger, routine phone-case replacement, expected school fees, annual car registration — you can name it and save ahead.\n• **Emergency:** shocks you did not plan for that threaten **work, safety, or required obligations** — stolen bike lock before a shift, urgent ride home, a flat tire that blocks getting to school or a job.\n\nIf you can predict it or it happens on a schedule, it belongs in your **budget or a sinking fund**, not the emergency jar.\n\nStarter targets for many teens (adapt to your life):\n\n• **$100–$500** as a first cushion, or\n• One or two small \"oh no\" expenses you can imagine (phone screen, bus home, basic car issue)\n\nAdults often aim for months of expenses later — that's a long-term goal, not something you need today. You need a **start** so one setback doesn't wipe out every goal.\n\n**Panic borrowing is not a substitute:** **Payday-style loans** are **debt** with high costs — not a savings account you can tap. Growing even a small buffer beats borrowing in a panic when something real hits.\n\nKeep emergency money separate and boring. Replenish it after you use it.`,
         checkIn: {
-          prompt: "How is an emergency fund different from a sinking fund?",
+          prompt: "Amara's phone screen cracked on a routine drop, while her friend's car got towed unexpectedly the night before a work shift. Which of these fits an emergency fund's actual purpose?",
           choices: [
-            "They are identical — both are for any purchase",
-            "Emergency funds cover unexpected necessary costs; sinking funds cover planned future expenses",
-            "Emergency funds are only for vacations",
-            "Sinking funds should be spent on anything fun",
+            "The tow — necessary and unpredictable; the screen fits a budget or sinking fund better",
+            "The cracked screen, because phone repairs are always emergencies",
+            "Both, because any unplanned expense automatically counts as an emergency",
+            "Neither — once you have a job, employers usually cover surprise costs like tows",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Emergencies are true surprises; sinking funds save ahead for costs you can name and schedule.",
+            "Emergency funds cover necessary, unpredictable costs like a surprise tow. A routine cracked screen is better planned as a sinking-fund item, not every surprise is an emergency, and employers rarely cover personal tow bills.",
         },
       },
       {
@@ -246,13 +246,13 @@ export const financeLesson6: AILessonConfig = {
           prompt: "What's Marcus's smartest move?",
           choices: [
             "Take the payday-style loan so both savings buckets stay untouched",
+            "Pull the $85 from the cleats fund since it already has enough sitting in it",
             "Use the emergency fund for the $85 repair — this is exactly the necessary, unpredictable cost it exists for — then plan to replenish it",
-            "Take $85 from the cleats sinking fund since it has enough",
             "Skip the repair and miss his shift instead",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "A flat tire blocking work is a textbook emergency: necessary and unpredictable. The emergency fund exists for exactly this — and it's far cheaper than a payday-style loan. Replenishing it afterward keeps the cushion ready for next time.",
+            "A flat tire blocking work is a textbook emergency: necessary and unpredictable. Using the emergency fund (and replenishing it after) is far cheaper than a payday-style loan and protects the cleats fund for its own scheduled goal.",
         },
       },
       {
@@ -265,12 +265,12 @@ export const financeLesson6: AILessonConfig = {
           choices: [
             "Emergency funds and sinking funds are interchangeable and can be spent on anything",
             "Tracking reveals real patterns, sinking funds prepare for known costs, and a starter emergency fund protects against necessary surprises",
-            "You should never check your bank balance because it causes anxiety",
-            "Budgets and tracking are only useful once you have thousands of dollars saved",
+            "You should stop checking your bank balance altogether to avoid anxiety",
+            "None of these savings buckets matter until you have a full-time job",
           ],
           correctIndex: 1,
           explanation:
-            "The throughline: awareness (tracking) plus two distinct, purpose-built savings buckets (sinking + emergency) build real resilience.",
+            "The throughline is awareness (tracking) plus two distinct, purpose-built savings buckets — not treating them as interchangeable, avoiding your balance, or waiting until adulthood to start.",
         },
       },
       {
@@ -304,107 +304,107 @@ export const financeLesson6: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "What is the main purpose of tracking spending?",
+      question: "What's the main purpose of tracking your spending?",
       choices: [
-        "To feel guilty every day",
+        "To make sure you never spend money on anything fun again",
+        "To calculate your credit score",
+        "To prove to yourself that budgeting doesn't work",
         "To see real patterns so you can adjust your plan",
-        "To eliminate all wants forever",
-        "To replace having any income",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Tracking provides data so you can improve cash flow — not to punish yourself.",
+        "Tracking provides data so you can improve cash flow, not to eliminate all fun spending or calculate unrelated numbers like a credit score.",
     },
     {
       id: "q2",
       question: "Which expense is the best candidate for a sinking fund?",
       choices: [
-        "A totally unpredictable medical emergency tomorrow",
         "Prom costs you know are coming in five months",
-        "A random sale you just saw online",
-        "Money you already spent last year",
+        "A completely unpredictable medical emergency tomorrow",
+        "A flash sale you just noticed while scrolling",
+        "A bill you already paid off last year",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Sinking funds are for known future costs you can schedule toward — like prom.",
+        "Sinking funds are for known future costs you can schedule toward, like prom — not true surprises, impulse sales, or costs that are already settled.",
     },
     {
       id: "q3",
       question: "You need $200 for yearbook and trip fees due in 5 months. About how much should you set aside per month?",
       choices: [
-        "$200 all at once next month",
-        "About $40 per month",
         "About $200 per month",
-        "Nothing — wait until the bill is due",
+        "Nothing — wait until the bill is due, then figure it out",
+        "About $40 per month",
+        "About $100 every other month",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "$200 ÷ 5 months = $40/month — a small, scheduled amount instead of a scramble at the deadline.",
+        "$200 ÷ 5 months = $40/month — a small, scheduled amount instead of a scramble at the deadline. Waiting until it's due, or paying it all in one month, defeats the purpose of spreading it out.",
     },
     {
       id: "q4",
       question: "What is a spending \"leak\"?",
       choices: [
-        "A broken debit card chip only",
+        "A one-time large purchase you planned for in advance",
         "Small repeated purchases that add up unnoticed",
-        "FDIC insurance failing",
-        "Your gross pay amount",
+        "Money automatically deducted for taxes",
+        "A fee charged only when your account is closed",
       ],
       correctIndex: 1,
       explanation:
-        "Leaks are quiet, recurring spends — snacks, unused subscriptions — that drain cash flow.",
+        "Leaks are quiet, recurring spends — snacks, unused subscriptions — that drain cash flow, unlike a planned large purchase or a one-time account fee.",
     },
     {
       id: "q5",
       question: "Marcus's car gets a flat tire that blocks him from getting to his weekend shift. What is the best use of his emergency fund here?",
       choices: [
-        "Emergency funds shouldn't be used for cars at all",
+        "Emergency funds shouldn't be used for car repairs, only medical costs",
+        "He should ignore the tire and figure out a ride some other way",
+        "He should use his cleats sinking fund instead, since it's not for anything specific yet",
         "This is exactly the necessary, unpredictable situation an emergency fund exists for — use it, then replenish afterward",
-        "He should ignore the tire and skip the shift instead",
-        "He should only use a sinking fund for this, never the emergency fund",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "A necessary, unpredictable cost that threatens work is a textbook emergency-fund use — followed by replenishing it.",
+        "A necessary, unpredictable cost that threatens work is a textbook emergency-fund use, not limited to medical costs — followed by replenishing it rather than raiding a differently-labeled fund.",
     },
     {
       id: "q6",
       question: "What is a reasonable first step for many teens building an emergency fund?",
       choices: [
-        "Wait until they have six months of adult rent saved before starting",
         "Start small (such as a few hundred dollars or one \"oh no\" expense) and keep it separate",
-        "Use the emergency fund for every sale",
-        "Never replenish it after use",
+        "Wait until you can save several months of adult-level expenses before starting",
+        "Combine it with your fun money so it's easier to access",
+        "Only start one once you have a credit card",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Starter emergency funds are about beginning and protecting a cushion — not hitting adult targets overnight.",
+        "Starter emergency funds are about beginning small and protecting a cushion, not hitting adult-sized targets right away, blending it with spending money, or waiting on unrelated milestones.",
     },
     {
       id: "q7",
       question: "A student keeps dipping into their emergency fund for concert tickets and sales, telling themselves \"just this once\" each time. What's happening?",
       choices: [
-        "This is a healthy, normal use of an emergency fund",
+        "Nothing concerning — occasional use for things you want is what the fund is for",
+        "The fund was clearly set at the wrong amount from the start",
         "The emergency fund is quietly turning into a fun fund, leaving them exposed when a real emergency hits",
-        "This means the emergency fund was too large to begin with",
-        "This has no effect on financial safety",
+        "This only matters if they do it more than ten times",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Repeated non-emergency withdrawals — even small, individually reasonable-feeling ones — erode the fund's real purpose.",
+        "Repeated non-emergency withdrawals — even ones that each feel small and reasonable — erode the fund's real purpose over time; the issue is the pattern, not how many times it happens.",
     },
     {
       id: "q8",
       question: "Which pair correctly matches each bucket to its main job?",
       choices: [
-        "Sinking fund = true surprises; Emergency fund = known future costs",
+        "Sinking fund = necessary surprises; Emergency fund = known future costs",
         "Sinking fund = known future costs you can schedule toward; Emergency fund = necessary, unpredictable costs",
-        "Both buckets are identical and interchangeable",
-        "Neither bucket should ever be replenished after use",
+        "Both buckets are meant to be spent on whatever feels urgent that day",
+        "Sinking fund = long-term goals like college; Emergency fund = daily spending money",
       ],
       correctIndex: 1,
       explanation:
-        "Sinking funds prepare for costs you can name and schedule; emergency funds cushion true, necessary surprises.",
+        "Sinking funds prepare for costs you can name and schedule; emergency funds cushion true, necessary surprises — swapping the definitions or treating either as everyday spending money misses the distinction.",
     },
   ],
   reflection: {

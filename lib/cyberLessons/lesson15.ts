@@ -295,12 +295,12 @@ export const cyberLesson15: AILessonConfig = {
       id: "q1",
       question: "In risk terms, what is an asset?",
       choices: [
-        "Only malware",
         "Something valuable you protect, like accounts, data, or devices",
+        "Only malware",
         "Any software update",
         "A type of phishing email",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Assets are what you care about protecting — data, systems, people, reputation, and more.",
     },
@@ -308,10 +308,10 @@ export const cyberLesson15: AILessonConfig = {
       id: "q2",
       question: "A club email has no MFA. Phishing is common. Which statement is most accurate?",
       choices: [
-        "There is a threat but no vulnerability",
+        "There is a threat but no vulnerability at all",
         "Missing MFA is a vulnerability that raises risk of account takeover",
         "Risk only exists for large corporations",
-        "Likelihood and impact are irrelevant",
+        "Likelihood and impact are irrelevant to this situation",
       ],
       correctIndex: 1,
       explanation:
@@ -322,11 +322,11 @@ export const cyberLesson15: AILessonConfig = {
       question: "Which control is primarily detective?",
       choices: [
         "MFA on login",
-        "A \"new sign-in\" alert email",
         "Restoring files from backup after ransomware",
+        "A \"new sign-in\" alert email",
         "Deleting a risky activity entirely",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Alerts notice suspicious activity (detective). MFA is preventive; restores are corrective; stopping an activity can be avoidance.",
     },
@@ -335,11 +335,11 @@ export const cyberLesson15: AILessonConfig = {
       question: "Choosing not to store Social Security numbers in a club spreadsheet is best described as:",
       choices: [
         "Transferring risk to malware",
-        "Avoiding the risk by not keeping that sensitive data there",
         "Accepting a high risk with no thought",
         "A detective control only",
+        "Avoiding the risk by not keeping that sensitive data there",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Avoidance means not doing the risky thing — here, not holding highly sensitive data you don't need.",
     },
@@ -347,12 +347,12 @@ export const cyberLesson15: AILessonConfig = {
       id: "q5",
       question: "When is \"accept the risk\" appropriate?",
       choices: [
-        "Whenever fixing something feels mildly inconvenient, even for admin email without MFA",
         "When remaining risk is low after reasonable controls and you consciously decide further effort isn't worth it",
+        "Whenever fixing something feels mildly inconvenient, even for admin email without MFA",
         "Only when you haven't assessed anything",
-        "Never — all risks must be zero",
+        "Never — all risks must be reduced to exactly zero",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Acceptance is a deliberate choice about residual low risk — not an excuse to skip basic high-impact controls.",
     },
@@ -374,11 +374,11 @@ export const cyberLesson15: AILessonConfig = {
       question: "What is \"residual risk\"?",
       choices: [
         "Risk that existed only before any controls were considered",
+        "A type of malware that specifically targets leftover files",
         "The risk that remains after controls have been applied — it is never fully zero",
-        "A type of malware",
         "Risk that only applies to large organizations",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Residual risk is what's left after preventive, detective, corrective, and administrative controls are applied — a normal, expected part of any real security posture.",
     },
@@ -387,11 +387,11 @@ export const cyberLesson15: AILessonConfig = {
       question: "Why is a risk register more useful than a one-time risk assessment?",
       choices: [
         "It isn't more useful — a one-time list is always sufficient",
-        "It assigns owners and review dates, turning risk management into an ongoing, maintained habit as circumstances change",
         "A risk register replaces the need for any controls",
         "Risk registers are only useful for large companies with dedicated staff",
+        "It assigns owners and review dates, turning risk management into an ongoing, maintained habit as circumstances change",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "A risk register with owners and review dates keeps risk management current, rather than letting a one-time assessment go stale as risks and circumstances change.",
     },

@@ -291,12 +291,12 @@ export const cyberLesson14: AILessonConfig = {
       id: "q1",
       question: "In this course, what is the appropriate use of OSINT awareness?",
       choices: [
-        "Building attack recipes to dig up private data on classmates",
         "Understanding public-info exposure so you can protect your own privacy",
+        "Building attack recipes to dig up private data on classmates",
         "Bypassing privacy settings on other people's accounts",
         "Publishing other students' addresses",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "We use OSINT as a defensive lens for your own exposure — not as an offensive research toolkit against others.",
     },
@@ -304,10 +304,10 @@ export const cyberLesson14: AILessonConfig = {
       id: "q2",
       question: "Why can several \"harmless\" posts still create risk?",
       choices: [
-        "Because search engines ignore them",
+        "Because search engines ignore public posts entirely",
         "Because details combine into a richer picture useful for scams or impersonation",
-        "Because posts automatically encrypt themselves",
-        "Because only celebrities have footprints",
+        "Because posts automatically encrypt themselves once shared",
+        "Because only celebrities ever build a meaningful digital footprint",
       ],
       correctIndex: 1,
       explanation:
@@ -317,12 +317,12 @@ export const cyberLesson14: AILessonConfig = {
       id: "q3",
       question: "Which is an ethical self-check habit?",
       choices: [
-        "Searching your own public profiles and cleaning up risky exposure",
         "Running intrusive lookups to map a classmate's private life",
         "Sharing MFA codes to \"verify friendship\"",
+        "Searching your own public profiles and cleaning up risky exposure",
         "Posting your government ID for aesthetic likes",
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       explanation:
         "Search yourself, review settings, minimize — don't target others or publish sensitive IDs.",
     },
@@ -331,11 +331,11 @@ export const cyberLesson14: AILessonConfig = {
       question: "Which privacy action best reduces public exposure?",
       choices: [
         "Leaving all posts public for maximum reach forever",
-        "Tightening audience defaults and reviewing connected apps",
         "Disabling MFA so recovery is easier for strangers",
         "Using the same password everywhere so you remember it",
+        "Tightening audience defaults and reviewing connected apps",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Audience controls and revoking unused apps shrink what strangers and third parties can access.",
     },
@@ -343,12 +343,12 @@ export const cyberLesson14: AILessonConfig = {
       id: "q5",
       question: "A scammer uses details from your public posts to sound like a friend in trouble. What's a strong defensive move?",
       choices: [
-        "Send money immediately to be helpful",
         "Verify the request out-of-band using a known contact method and reduce public details that enable impersonation",
+        "Send money immediately to be helpful",
         "Reply with your passwords so they can \"check\"",
         "Ignore privacy settings because scams are rare",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Out-of-band verification stops impersonation; minimizing public personal details makes bait harder to craft.",
     },
@@ -359,7 +359,7 @@ export const cyberLesson14: AILessonConfig = {
         "None — only captions matter for privacy",
         "Embedded metadata, such as GPS location and timestamp, even if the visible caption reveals nothing specific",
         "The photo will automatically strip all metadata during email",
-        "Metadata only applies to video files",
+        "Metadata only applies to video files, never photos",
       ],
       correctIndex: 1,
       explanation:
@@ -370,11 +370,11 @@ export const cyberLesson14: AILessonConfig = {
       question: "A viral social media quiz asks for your first pet's name and mother's maiden name. Why is this a privacy concern?",
       choices: [
         "It isn't a concern; the questions are unrelated to real accounts",
+        "Quizzes are always private by default, so nobody outside your friends sees it",
         "Those are common account-recovery security questions, so posting answers publicly can weaken real account protections",
-        "Quizzes are always private by default",
-        "Only your bank could ever be affected",
+        "Only your bank could ever be affected by this",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Many \"fun quiz\" questions mirror real security/recovery questions — publicly answering them can help an attacker impersonate you to a real account later.",
     },
@@ -383,11 +383,11 @@ export const cyberLesson14: AILessonConfig = {
       question: "What is the main benefit of a family verification phrase or agreement set up in advance?",
       choices: [
         "It removes the need to ever verify anything again",
-        "It removes the pressure of deciding \"is this really them?\" in the moment, since the plan was made calmly beforehand",
         "It guarantees scammers will never target the family",
         "It replaces the need for privacy settings entirely",
+        "It removes the pressure of deciding \"is this really them?\" in the moment, since the plan was made calmly beforehand",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Pre-agreed verification habits work because they're decided calmly in advance, removing the pressure and urgency a scammer relies on in the moment.",
     },

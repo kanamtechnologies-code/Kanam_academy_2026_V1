@@ -103,12 +103,8 @@ const daLesson7: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "What is the job of the ON clause in a JOIN?",
-          choices: [
-            "It renames a column",
-            "It defines the rule for which rows from each table should be matched together",
-            "It sorts the joined result",
-          ],
-          correctIndex: 1,
+          choices: ["It renames a column", "It sorts the joined result", "It defines the rule for which rows from each table should be matched together"],
+          correctIndex: 2,
           explanation: "ON is the matching rule — it tells SQL exactly which rows from the two tables belong together, usually by comparing a shared key.",
         },
       },
@@ -119,12 +115,8 @@ const daLesson7: DataLessonConfig = {
         body: `When two tables share a column name (both have \`student_id\`), SQL needs to know which one you mean. Writing \`table.column\` — like \`students.student_id\` or \`orders.student_id\` — removes all doubt.\n\nIt's the same reason you'd say "Ms. Kim's classroom" instead of just "the classroom" when there are several classrooms in the building.`,
         checkIn: {
           prompt: "Both students and orders have a column called student_id. How do you tell SQL which one you mean?",
-          choices: [
-            "You can't — SQL will guess",
-            "Prefix it with the table name, like orders.student_id",
-            "Rename one of the columns first, every time",
-          ],
-          correctIndex: 1,
+          choices: ["Prefix it with the table name, like orders.student_id", "You can't — SQL will guess", "Rename one of the columns first, every time"],
+          correctIndex: 0,
           explanation: "Using table.column syntax (like orders.student_id) tells SQL exactly which table's version of that column you're referring to.",
         },
       },
@@ -189,12 +181,8 @@ const daLesson7: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "What's the main downside of one giant table that repeats student_name on every order?",
-          choices: [
-            "It requires JOIN to query",
-            "If a student's name changes, you'd have to update it in many repeated places",
-            "It's impossible to filter",
-          ],
-          correctIndex: 1,
+          choices: ["It requires JOIN to query", "It's impossible to filter", "If a student's name changes, you'd have to update it in many repeated places"],
+          correctIndex: 2,
           explanation: "Repeating data means a single change (like a name correction) has to be applied everywhere it's repeated — a common source of real-world data errors.",
         },
       },
@@ -244,12 +232,8 @@ const daLesson7: DataLessonConfig = {
         body: `Let's confirm the shared key and ON clause are locked in.`,
         checkIn: {
           prompt: "Which is the correct JOIN to connect orders to students on their shared key?",
-          choices: [
-            "FROM orders JOIN students;",
-            "FROM orders JOIN students ON orders.student_id = students.student_id;",
-            "FROM orders, students WHERE student_id;",
-          ],
-          correctIndex: 1,
+          choices: ["FROM orders JOIN students ON orders.student_id = students.student_id;", "FROM orders JOIN students;", "FROM orders, students WHERE student_id;"],
+          correctIndex: 0,
           explanation: "A proper JOIN needs an ON clause that names the shared key on both sides — here, orders.student_id = students.student_id.",
         },
       },

@@ -286,10 +286,10 @@ export const aiLesson7: AILessonConfig = {
       id: "q1",
       question: "What makes generative AI different from a spam filter?",
       choices: [
-        "It runs faster",
+        "It doesn't use any training data at all",
         "It creates brand-new content instead of only labeling existing content",
-        "It doesn't use training data",
-        "It only works on phones",
+        "It can only process images, never text",
+        "It requires no computing power to run",
       ],
       correctIndex: 1,
       explanation:
@@ -299,12 +299,12 @@ export const aiLesson7: AILessonConfig = {
       id: "q2",
       question: "How does a text-generating AI build a sentence?",
       choices: [
-        "It looks up the sentence in a database",
+        "It looks up the closest matching sentence in a database",
+        "It copies a random webpage related to the topic",
         "It predicts the next word/token repeatedly, each based on what came before",
-        "A human types it secretly",
-        "It copies a random webpage",
+        "A human types it secretly on the other end",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Text generators work by predicting the next token over and over, chaining tiny predictions into full passages.",
     },
@@ -313,11 +313,11 @@ export const aiLesson7: AILessonConfig = {
       question: "Why can generative AI output reflect bias or errors?",
       choices: [
         "Because it has opinions",
-        "Because it reflects the training data, which can contain bias and mistakes",
         "Because it's connected to the news",
         "It can't — generated content is always neutral and correct",
+        "Because it reflects the training data, which can contain bias and mistakes",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Generative models learn from human-made data. Flaws and biases in that data can show up in the output.",
     },
@@ -326,11 +326,11 @@ export const aiLesson7: AILessonConfig = {
       question: "Which is the best way to think about generative AI's 'creativity'?",
       choices: [
         "True original imagination, like a human artist's",
-        "Magic that can't be explained",
         "Super-powered remixing of patterns learned from training data",
+        "Magic that can't be explained",
         "Random noise with no structure",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
         "It feels creative, but it's remixing and recombining patterns from its training data via prediction.",
     },
@@ -338,12 +338,12 @@ export const aiLesson7: AILessonConfig = {
       id: "q5",
       question: "Why did several artists and authors file lawsuits against AI companies starting in 2023?",
       choices: [
-        "They wanted their work removed from the internet entirely",
         "They argued their copyrighted work was used to train AI models without permission or payment",
-        "They were seeking free access to the AI tools",
-        "They objected to AI using electricity",
+        "They wanted their work removed from the internet entirely",
+        "They were seeking free personal access to the AI tools",
+        "They objected to how much energy AI data centers consume",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "The core legal argument centers on whether training an AI on copyrighted creative work without permission is fair use or infringement — a genuinely unresolved question.",
     },
@@ -351,12 +351,12 @@ export const aiLesson7: AILessonConfig = {
       id: "q6",
       question: "What made the stock-photo lawsuit's evidence unusually concrete?",
       choices: [
-        "A public confession from the AI company",
         "Generated images sometimes contained a distorted version of the company's own watermark",
+        "A public confession from the AI company",
         "There was no evidence presented at all",
         "The stock-photo company had never published any images",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "The distorted watermark gave a rare, visible clue connecting specific training data to specific generated output.",
     },
@@ -378,11 +378,11 @@ export const aiLesson7: AILessonConfig = {
       question: "Which of these is a genuinely unresolved question about generative AI, according to this lesson?",
       choices: [
         "Whether text can be converted into tokens",
-        "Who owns AI-generated content, and whether training on copyrighted work without permission is acceptable",
         "Whether generative AI exists at all",
+        "Who owns AI-generated content, and whether training on copyrighted work without permission is acceptable",
         "Whether prompts can include a task and format",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Ownership, credit, and consent for training data are live legal and ethical debates without a settled answer yet.",
     },

@@ -103,7 +103,7 @@ export const lesson1: PythonLessonConfig = {
       focusCommand: "name =",
       commandExplain:
         "A variable stores text in a labeled box. Fill in the blank so name holds a name, then the print line will greet with it.",
-      goal: 'Replace ____ with a name in quotes, like "Alex".',
+      goal: "Replace ____ with a name (keep the quotes), like Alex.",
       starterCode: `# Fill in the blank 👇
 name = "____"
 print("Hello! I am " + name)
@@ -283,12 +283,8 @@ print("Hello! I am " + name)
         },
         checkIn: {
           prompt: 'What does `name = "Alex"` do?',
-          choices: [
-            "Checks whether name equals Alex",
-            "Stores the text Alex inside a box called name",
-            "Prints the word Alex to the screen",
-          ],
-          correctIndex: 1,
+          choices: ["Stores the text Alex inside a box called name", "Checks whether name equals Alex", "Prints the word Alex to the screen"],
+          correctIndex: 0,
           explanation: "= assigns — it stores the value on the right inside the box on the left. Nothing is printed or compared yet.",
         },
       },
@@ -325,12 +321,8 @@ print("Hello! I am " + name)
         },
         checkIn: {
           prompt: 'Why does `"Hello! I am" + name` print `Hello! I amAlex` (no space)?',
-          choices: [
-            "Python is broken",
-            "+ never adds spaces — the space must be typed inside the quotes",
-            "The variable name is spelled wrong",
-          ],
-          correctIndex: 1,
+          choices: ["Python is broken", "The variable name is spelled wrong", "+ never adds spaces — the space must be typed inside the quotes"],
+          correctIndex: 2,
           explanation: "Concatenation glues text exactly as written. If you want a space, you must put it inside the quotes yourself.",
         },
       },
@@ -450,12 +442,8 @@ print("Hello! I am " + name)
         body: `Let's make sure the three building blocks are locked in before you head to the exercises.`,
         checkIn: {
           prompt: 'What is wrong with this line: `print("Hello! I am" + name)` if you want a space before the name?',
-          choices: [
-            "Nothing — it will print correctly",
-            "There's no space inside the quotes after \"am\", so the output will be mashed together",
-            "You need to use == instead of +",
-          ],
-          correctIndex: 1,
+          choices: ["Nothing — it will print correctly", "You need to use == instead of +", "There's no space inside the quotes after \"am\", so the output will be mashed together"],
+          correctIndex: 2,
           explanation: "+ doesn't add spaces automatically. Without a space inside the quotes after \"am\", the output reads like Hello! I amAlex.",
         },
       },

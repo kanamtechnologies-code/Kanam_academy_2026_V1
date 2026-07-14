@@ -98,8 +98,8 @@ const daLesson9: DataLessonConfig = {
         },
         checkIn: {
           prompt: "In a bar chart, what does the HEIGHT of a bar represent?",
-          choices: ["The category's name", "The number/value for that category", "The order it appears in"],
-          correctIndex: 1,
+          choices: ["The category's name", "The order it appears in", "The number/value for that category"],
+          correctIndex: 2,
           explanation: "The x-axis carries the labels (categories); the height of each bar (the y-axis) carries the number being compared.",
         },
       },
@@ -115,12 +115,8 @@ const daLesson9: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "You want to show 'orders per day this week.' Is a bar chart the best fit?",
-          choices: [
-            "Yes, always use bar charts",
-            "No — since the x-axis is time in order, a line chart shows the trend better",
-            "No — a pie chart is required for anything with numbers",
-          ],
-          correctIndex: 1,
+          choices: ["No — since the x-axis is time in order, a line chart shows the trend better", "Yes, always use bar charts", "No — a pie chart is required for anything with numbers"],
+          correctIndex: 0,
           explanation: "When the x-axis is time, a line chart reveals the trend (rising, falling) far better than separate bars — you'll learn this chart in Lesson 11.",
         },
       },
@@ -198,12 +194,8 @@ const daLesson9: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "Why can't you chart the raw lunch_orders table directly?",
-          choices: [
-            "You can — any table can be charted as-is",
-            "It has one row per order, not one summarized row per category, so it needs GROUP BY + COUNT first",
-            "Charts only work on tables with exactly 2 rows",
-          ],
-          correctIndex: 1,
+          choices: ["You can — any table can be charted as-is", "Charts only work on tables with exactly 2 rows", "It has one row per order, not one summarized row per category, so it needs GROUP BY + COUNT first"],
+          correctIndex: 2,
           explanation: "A chart needs exactly one row per category (a label + a number). The raw table has one row per order, so it must be summarized with GROUP BY first.",
         },
       },
@@ -254,12 +246,8 @@ const daLesson9: DataLessonConfig = {
         body: `Let's confirm the chart-ready recipe is locked in.`,
         checkIn: {
           prompt: "Which query produces a proper chart-ready result for 'orders per item'?",
-          choices: [
-            "SELECT * FROM lunch_orders;",
-            "SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item;",
-            "SELECT item FROM lunch_orders ORDER BY item;",
-          ],
-          correctIndex: 1,
+          choices: ["SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item;", "SELECT * FROM lunch_orders;", "SELECT item FROM lunch_orders ORDER BY item;"],
+          correctIndex: 0,
           explanation: "A chart needs a label column (item) and a number column (order_count), produced by grouping and counting — exactly this query's shape.",
         },
       },

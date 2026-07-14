@@ -61,16 +61,16 @@ export const financeLesson5: AILessonConfig = {
           text: "A budget that allows $0 for any fun often fails. Include small planned wants so the plan survives real life.",
         },
         checkIn: {
-          prompt: "Which income number should most budgets start from?",
+          prompt: "Jordan's paycheck stub shows $310 in gross pay but only $270 after taxes and deductions land in the account. Which number should Jordan's budget be based on?",
           choices: [
-            "Gross pay before deductions",
-            "Net (take-home) pay",
-            "Your friend's income",
-            "The largest paycheck you hope to get someday",
+            "$310, because that's the amount Jordan actually earned that period",
+            "Whichever number is easier to divide evenly across categories",
+            "$270, the net amount that actually lands in the account",
+            "The average of $310 and $270",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Net pay is what you can actually use. Gross overestimates spendable money.",
+            "Net pay ($270) is what's actually available to spend or save — budgeting from gross pay (like the $310 figure) overstates how much money is really there once taxes and deductions are taken out.",
         },
       },
       {
@@ -83,16 +83,16 @@ export const financeLesson5: AILessonConfig = {
           text: "Categories turn \"I have no idea where it went\" into \"fun ran $40 over — next period I'll trim or earn more.\"",
         },
         checkIn: {
-          prompt: "A concert ticket you bought purely for fun belongs in which category?",
+          prompt: "Amir bought a concert ticket purely because he wanted to go, not because anything required it. Which category fits that purchase?",
           choices: [
-            "Needs / must-pays",
             "Fun / wants",
-            "Goals / saving",
-            "It shouldn't be categorized at all",
+            "Needs / must-pays, since tickets can be expensive",
+            "Goals / saving, since it's a big purchase",
+            "It should be split evenly between needs and wants",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Concert tickets are enjoyable but not required — they belong in wants, planned with money left after needs and goals.",
+            "A concert ticket is enjoyable but not required, so it belongs in wants — cost alone doesn't turn something into a need, and there's no reason to split it with savings.",
         },
       },
       {
@@ -112,16 +112,16 @@ export const financeLesson5: AILessonConfig = {
           text: "Don't shame yourself for not matching a viral percentage chart. Adapt the tool to your income and responsibilities.",
         },
         checkIn: {
-          prompt: "A student has almost no bills but saves 60% of every paycheck for a car. What does this suggest?",
+          prompt: "A student has almost no monthly bills but saves 60% of every paycheck toward a car. What does this most likely suggest?",
           choices: [
-            "They are budgeting incorrectly and must switch to exactly 50/30/20",
-            "Their situation has different needs than the guideline assumes, so a different split can still be healthy",
-            "Saving is bad and should be reduced to 20%",
-            "50/30/20 is illegal for minors",
+            "The student is budgeting incorrectly and must switch to exactly 50/30/20",
+            "Saving more than 20% is never allowed under any model",
+            "They should cut saving until needs are closer to 50% of income",
+            "Fewer needs than the guideline assumes can justify a different, still-healthy split",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "50/30/20 is a starting guideline. Lower bills and an aggressive goal can justify a very different — still healthy — split.",
+            "50/30/20 is a starting guideline, not a hard rule — lower bills and an aggressive savings goal can justify a different split. Padding needs or cutting saving just to match the chart isn't required.",
         },
       },
       {
@@ -134,16 +134,16 @@ export const financeLesson5: AILessonConfig = {
           text: "A \"buffer\" category is allowed and smart. Zero-based planning can include intentional flexibility.",
         },
         checkIn: {
-          prompt: "In zero-based budgeting, what does \"every dollar gets a job\" mean?",
+          prompt: "In zero-based budgeting, what does the phrase \"every dollar gets a job\" actually mean?",
           choices: [
-            "You must end the month with literally $0 in every account",
-            "On paper, you assign all income to categories until nothing is left unplanned",
-            "You can never have a buffer category",
-            "You only use cash envelopes forever",
+            "You must spend your entire paycheck by the end of each period",
+            "On paper, all income gets assigned to a category until nothing is left unplanned",
+            "You're required to keep your bank balance at exactly $0",
+            "Buffer categories aren't allowed under this method",
           ],
           correctIndex: 1,
           explanation:
-            "Zero-based means planned assignments equal income. A buffer can be one of those jobs; bank balances can remain.",
+            "Zero-based means planned assignments (including a buffer) equal income on paper — it doesn't mean spending everything or draining your bank balance to zero.",
         },
       },
       {
@@ -244,14 +244,14 @@ export const financeLesson5: AILessonConfig = {
         checkIn: {
           prompt: "Using zero-based thinking, what's Deja's smartest first move with that unassigned $35 and the trip request?",
           choices: [
-            "Ignore the $35 and put the full $60 trip cost on a BNPL plan without checking anything else",
-            "Assign the $35 a job first (e.g., add to the trip or the laptop goal), then decide if the remaining trip gap fits without cutting needs or the full goal amount",
-            "Take the $60 goal contribution and spend all of it on the trip instead",
-            "Skip the phone bill this period to fund the trip",
+            "Put the full $60 trip cost on a buy-now-pay-later plan without checking her other numbers",
+            "Pull the $60 straight from her laptop goal since it's the biggest amount saved",
+            "Give the unassigned $35 a job first, then see if the remaining trip gap fits without cutting needs or shrinking the laptop goal",
+            "Skip the phone bill this period so the trip is fully covered",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Zero-based thinking means giving every dollar — including the unassigned $35 — a job on purpose, then checking whether a want fits without abandoning needs or shrinking a goal to zero.",
+            "Zero-based thinking means assigning every dollar — including the leftover $35 — a job on purpose, then checking whether the want still fits without abandoning needs or draining a goal, rather than reaching for BNPL or raiding the goal first.",
         },
       },
       {
@@ -262,14 +262,14 @@ export const financeLesson5: AILessonConfig = {
         checkIn: {
           prompt: "Which statement best summarizes this whole lesson's core idea?",
           choices: [
-            "There is exactly one correct budgeting percentage split for every person",
-            "A budget is a flexible plan that assigns income on purpose, using a model that fits your real life, then adjusts when life changes",
-            "Budgets are only useful once you have a high income",
-            "Zero-based budgeting means never having any money left in your bank account",
+            "A flexible plan that assigns income on purpose and adjusts when life changes",
+            "Everyone must follow 50/30/20 exactly to have a real budget",
+            "Budgeting only becomes useful once income is high enough for leftovers",
+            "Zero-based budgeting means your bank account should always read zero",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "The throughline of this lesson: plan on purpose, pick a model that fits you, and adjust instead of abandoning the plan.",
+            "The throughline is planning on purpose and adapting the model to your life — not matching one exact percentage split or draining your account, which are common misreadings of this lesson.",
         },
       },
       {
@@ -305,107 +305,107 @@ export const financeLesson5: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "What is a budget?",
+      question: "Which description best fits what a budget actually is?",
       choices: [
-        "A rule that bans all spending on wants",
+        "A record of what you already spent last month",
+        "A strict percentage you must follow every period without exception",
+        "The balance shown in your account right now",
         "A plan for how you will use income over a period of time",
-        "A loan from a bank",
-        "Your credit score",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "A budget is a spending-and-saving plan tied to a time period and your income.",
+        "A budget is a forward-looking plan tied to income and time — a past-spending log, a fixed percentage, or today's balance are related ideas but not what a budget is.",
     },
     {
       id: "q2",
-      question: "Malik has few bills but is saving hard for a car, so his 'saving' percentage is much higher than 20%. Is his budget wrong?",
+      question: "Malik has few bills but is saving hard for a car, so his savings percentage is much higher than 20%. Is his budget wrong?",
       choices: [
-        "Yes, he must match 50/30/20 exactly or the budget doesn't count",
-        "No — 50/30/20 is a guideline, and his situation and goals justify a different, still healthy split",
-        "Yes, because saving more than 20% is never allowed",
-        "No, but only if he stops paying for needs entirely",
+        "Yes, because exceeding 20% savings always means something was miscalculated",
+        "No — 50/30/20 is a guideline, and his goals can justify a different healthy split",
+        "Yes, unless he also raises his 'wants' spending to match the guideline",
+        "No — any savings rate above 20% means it isn't really a budget",
       ],
       correctIndex: 1,
       explanation:
-        "50/30/20 is one framework. Real situations, like fewer bills and an aggressive savings goal, often need different splits.",
+        "50/30/20 is a starting framework, not a law — fewer bills and an aggressive goal can justify a different split. Padding wants to match the chart isn't required, and high saving doesn't stop a plan from counting as a budget.",
     },
     {
       id: "q3",
       question: "In zero-based budgeting, what does \"every dollar gets a job\" mean?",
       choices: [
         "You must end the month with literally $0 in every account",
-        "On paper, you assign all income to categories until nothing is left unplanned",
-        "You can never have a buffer",
-        "You only use cash envelopes forever",
+        "You're required to track spending using cash envelopes only",
+        "On paper, all income is assigned to categories until nothing is left unplanned",
+        "Buffer categories are not allowed under this method",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Zero-based means planned assignments equal income. A buffer can be one of those jobs; bank balances can remain.",
+        "Zero-based means planned assignments equal income on paper — a buffer can be one of those jobs, and bank balances can absolutely stay above zero.",
     },
     {
       id: "q4",
       question: "Priya's paycheck stub shows $310 in gross pay and $265 after taxes. Which number should her budget start from?",
       choices: [
-        "$310, the gross pay",
         "$265, the net (take-home) pay",
-        "Whichever number is larger",
-        "Neither — budgets shouldn't use paycheck numbers",
+        "$310, since gross pay is the true measure of what she earned",
+        "Whichever number is closest to a round figure",
+        "Neither — budgets should be based on last year's total income",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Net pay is what she can actually spend. Starting from gross pay overestimates spendable money.",
+        "Net pay is what she can actually spend. Starting from gross pay (the $310 figure) overestimates spendable money since taxes never reach her account.",
     },
     {
       id: "q5",
-      question: "Your hours got cut and your budget no longer works. What is a healthy response?",
+      question: "Your hours got cut and your budget no longer adds up. What's a healthy response?",
       choices: [
-        "Delete the budget forever",
+        "Throw out the budget entirely and just wing it until hours pick back up",
         "Adjust categories, protect must-pays when possible, and revise next period",
-        "Ignore the numbers and hope",
-        "Only use 50/30/20 forever with no changes",
+        "Keep spending exactly the same and hope the numbers work out",
+        "Switch permanently to 50/30/20 with no further changes ever",
       ],
       correctIndex: 1,
       explanation:
-        "Budgets are living plans. Adjusting beats abandoning.",
+        "Budgets are living plans — adjusting beats abandoning them entirely, and ignoring the shortfall or locking into one fixed model forever won't fix a real income drop.",
     },
     {
       id: "q6",
       question: "A student gets a $1.50/hour raise but, six months later, has nothing extra saved and can't explain why. What most likely happened?",
       choices: [
-        "The raise was too small to matter at all",
+        "The raise was too small to have made any real difference",
+        "Switching budgeting methods caused the extra money to vanish",
+        "The student's bank made a calculation error on interest",
         "Lifestyle creep — spending quietly rose to absorb the extra income before it was assigned a goal",
-        "50/30/20 caused the problem",
-        "Zero-based budgeting always causes this",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Without deciding on purpose, extra income often gets absorbed into slightly higher everyday spending — that's lifestyle creep.",
+        "Without deciding on purpose where a raise goes, spending tends to quietly rise to match it — that's lifestyle creep, not a bank error or a sign the raise was too small to matter.",
     },
     {
       id: "q7",
       question: "Which statement about budgeting myths is most accurate?",
       choices: [
-        "A budget that allows zero dollars for fun is the healthiest kind",
-        "Overspending in one category one time means the whole budget has failed permanently",
         "A budget can include a planned amount for fun — that's a feature, not a flaw",
-        "You must use an expensive app for a budget to count",
+        "Going over budget in one category one time means the whole plan has failed for good",
+        "A budget only really counts if it's built in an app or spreadsheet",
+        "The healthiest budgets set every 'wants' category to zero",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
-        "Good budgets plan for some wants on purpose. Tools don't matter as much as the habit, and one rough category isn't total failure.",
+        "Good budgets plan for some wants on purpose — that's a strength, not a failure. One rough category isn't permanent failure, and the tool matters far less than the habit.",
     },
     {
       id: "q8",
       question: "Deja has $35 left unassigned this period. Following zero-based thinking, what should she do?",
       choices: [
-        "Leave it unassigned — it will sort itself out",
+        "Leave it unassigned since small amounts don't really matter",
+        "Automatically move it into her fun category since that's most tempting",
         "Give it a specific job, such as adding it to a goal or a buffer, so it doesn't quietly disappear",
-        "Automatically spend it on the first want she sees",
-        "Only assign leftover money if it's more than $100",
+        "Only assign leftover money if it adds up to more than $100",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Unassigned money tends to vanish. Zero-based budgeting means giving even small leftover amounts an intentional job.",
+        "Unassigned money tends to vanish into random spending. Zero-based budgeting means giving even a small leftover amount an intentional job, not skipping it because it seems minor.",
     },
   ],
   reflection: {

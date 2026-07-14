@@ -79,8 +79,8 @@ const daLesson8: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "Which filter would you use to keep only STUDENTS priced individually over $4 (before any grouping)?",
-          choices: ["HAVING price > 4", "WHERE price > 4", "ORDER BY price > 4"],
-          correctIndex: 1,
+          choices: ["HAVING price > 4", "ORDER BY price > 4", "WHERE price > 4"],
+          correctIndex: 2,
           explanation: "WHERE filters individual rows before any grouping happens — exactly what's needed to filter by a single row's price.",
         },
       },
@@ -101,12 +101,8 @@ const daLesson8: DataLessonConfig = {
         },
         checkIn: {
           prompt: "Why can't you write WHERE COUNT(*) > 1 instead of HAVING COUNT(*) > 1?",
-          choices: [
-            "You can — they're interchangeable",
-            "COUNT(*) doesn't exist yet when WHERE runs, since grouping hasn't happened",
-            "WHERE only works with text, not numbers",
-          ],
-          correctIndex: 1,
+          choices: ["COUNT(*) doesn't exist yet when WHERE runs, since grouping hasn't happened", "You can — they're interchangeable", "WHERE only works with text, not numbers"],
+          correctIndex: 0,
           explanation: "WHERE runs before GROUP BY, so there's no count to filter on yet. HAVING runs after grouping, when the count actually exists.",
         },
       },
@@ -175,12 +171,8 @@ const daLesson8: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "If you remove HAVING COUNT(*) > 1 from the worked example query, what happens?",
-          choices: [
-            "The query errors out",
-            "You get all 6 unique items instead of just the 2 repeated ones",
-            "Nothing changes — the result is identical",
-          ],
-          correctIndex: 1,
+          choices: ["The query errors out", "Nothing changes — the result is identical", "You get all 6 unique items instead of just the 2 repeated ones"],
+          correctIndex: 2,
           explanation: "Removing HAVING removes the group-level filter, so every group (all 6 unique items) shows up instead of just the ones with more than one order.",
         },
       },
@@ -230,8 +222,8 @@ const daLesson8: DataLessonConfig = {
         body: `Let's confirm the WHERE vs. HAVING distinction is fully locked in.`,
         checkIn: {
           prompt: "You want orders priced over $3, THEN grouped by item, THEN only groups with more than 1 order. Which clause handles the price filter?",
-          choices: ["HAVING price > 3", "WHERE price > 3", "ORDER BY price > 3"],
-          correctIndex: 1,
+          choices: ["WHERE price > 3", "HAVING price > 3", "ORDER BY price > 3"],
+          correctIndex: 0,
           explanation: "Filtering individual rows by price (before grouping) is WHERE's job. HAVING would come after GROUP BY to filter on COUNT(*) > 1.",
         },
       },

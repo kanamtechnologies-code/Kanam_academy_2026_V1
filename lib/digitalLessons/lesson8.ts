@@ -56,10 +56,10 @@ export const digitalLesson8: AILessonConfig = {
         checkIn: {
           prompt: "What core idea sits at the center of digital citizenship, according to this lesson?",
           choices: [
-            "Posting as often as possible builds a good reputation",
-            "There's a real person with real feelings on the other side of every screen",
             "Online spaces have no real effect on people's lives",
+            "There's a real person with real feelings on the other side of every screen",
             "Usernames make everyone anonymous and unaffected",
+            "Posting as often as possible builds a good reputation",
           ],
           correctIndex: 1,
           explanation:
@@ -78,12 +78,12 @@ export const digitalLesson8: AILessonConfig = {
         checkIn: {
           prompt: "In a game lobby, someone types something they'd never say face-to-face. What is the 'online disinhibition effect'?",
           choices: [
-            "A setting that speeds up your internet",
             "The tendency to say crueler things online because you can't see the other person's reaction",
-            "A type of computer virus",
             "A rule that bans all comments",
+            "A setting that speeds up your internet",
+            "A type of computer virus",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Without seeing someone's face, our normal brakes on cruelty loosen — so people type things online they'd never say in person.",
         },
@@ -108,11 +108,11 @@ export const digitalLesson8: AILessonConfig = {
           prompt: "You see someone being bullied in a class group chat. What does an UPSTANDER do?",
           choices: [
             "Like the post so it's not awkward",
+            "Join in so you don't become the next target",
             "Ignore it completely and hope it stops",
             "Avoid piling on, support the target, save evidence, and report it",
-            "Join in so you don't become the next target",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
             "An upstander refuses to fuel the harm, checks on the target, screenshots evidence, reports it, and tells a trusted adult if it's serious.",
         },
@@ -148,11 +148,11 @@ export const digitalLesson8: AILessonConfig = {
           prompt: "A classmate reacts with a laughing emoji to a mean post but doesn't type anything themselves. What role does that play?",
           choices: [
             "It's neutral and has no effect since no words were typed",
+            "It cancels out the original mean post",
             "It still amplifies the harm, because reactions are a visible audience that fuels a pile-on",
             "It automatically counts as reporting the post",
-            "It cancels out the original mean post",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Reactions like laughing emojis are a visible, low-effort way to fuel a pile-on. You don't need to type a cruel word to amplify harm — being an audience is part of what makes it feel powerful to a bully.",
         },
@@ -227,10 +227,10 @@ export const digitalLesson8: AILessonConfig = {
         checkIn: {
           prompt: "Someone claims an anonymous account means they can harass a classmate (or coworker) with no consequences. Why is that a dangerous myth?",
           choices: [
-            "Anonymous accounts can't post anything",
-            "People are less anonymous than they think, and serious harassment can be traced by platforms, schools, or police",
-            "Anonymity makes the internet slower",
             "It's actually true — nothing can be traced",
+            "People are less anonymous than they think, and serious harassment can be traced by platforms, schools, or police",
+            "Anonymous accounts can't post anything",
+            "Anonymity makes the internet slower",
           ],
           correctIndex: 1,
           explanation:
@@ -275,12 +275,12 @@ export const digitalLesson8: AILessonConfig = {
         checkIn: {
           prompt: "Which of these is positive digital participation — in school chats or later at a first job?",
           choices: [
-            "Excluding people you don't like from chats",
-            "Sharing rumors quickly",
             "Helping others, sharing good information, and being inclusive and respectful",
+            "Sharing rumors quickly",
             "Reacting 😂 to mean posts",
+            "Excluding people you don't like from chats",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
             "Good digital citizenship isn't only avoiding harm — it's actively helping, including others, and improving the shared space for everyone.",
         },
@@ -313,12 +313,12 @@ export const digitalLesson8: AILessonConfig = {
       id: "q1",
       question: "In a game lobby, someone types something they'd never say face-to-face. What is the 'online disinhibition effect'?",
       choices: [
+        "A rule that bans all comments",
+        "A type of computer virus",
         "A setting that speeds up your internet",
         "The tendency to say crueler things online because you can't see the other person's reaction",
-        "A type of computer virus",
-        "A rule that bans all comments",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Without seeing someone's face, our normal brakes on cruelty loosen — so people type things online they'd never say in person.",
     },
@@ -326,12 +326,12 @@ export const digitalLesson8: AILessonConfig = {
       id: "q2",
       question: "A classmate says posting a mean rumor about someone in the group chat was 'just a joke.' Is that a defense?",
       choices: [
+        "Only on weekends",
         "Yes — if it's a joke, it can't be bullying",
         "No — bullying is measured by the harm to the target, not the sender's intent",
         "Only if other people laughed",
-        "Only on weekends",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Impact matters more than intent. If it hurts, humiliates, or harasses the target, it counts as cyberbullying regardless of whether it was 'meant' as a joke.",
     },
@@ -339,12 +339,12 @@ export const digitalLesson8: AILessonConfig = {
       id: "q3",
       question: "You see someone being bullied in a class group chat. What does an UPSTANDER do?",
       choices: [
-        "Like the post so it's not awkward",
-        "Ignore it completely and hope it stops",
         "Avoid piling on, support the target, save evidence, and report it",
+        "Like the post so it's not awkward",
         "Join in so you don't become the next target",
+        "Ignore it completely and hope it stops",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "An upstander refuses to fuel the harm, checks on the target, screenshots evidence, reports it, and tells a trusted adult if it's serious.",
     },
@@ -352,9 +352,9 @@ export const digitalLesson8: AILessonConfig = {
       id: "q4",
       question: "Someone claims an anonymous account means they can harass a classmate (or coworker) with no consequences. Why is that a dangerous myth?",
       choices: [
-        "Anonymous accounts can't post anything",
-        "People are less anonymous than they think, and serious harassment can be traced by platforms, schools, or police",
         "Anonymity makes the internet slower",
+        "People are less anonymous than they think, and serious harassment can be traced by platforms, schools, or police",
+        "Anonymous accounts can't post anything",
         "It's actually true — nothing can be traced",
       ],
       correctIndex: 1,
@@ -365,10 +365,10 @@ export const digitalLesson8: AILessonConfig = {
       id: "q5",
       question: "Which of these is positive digital participation — in school chats or later at a first job?",
       choices: [
-        "Excluding people you don't like from chats",
+        "Reacting 😂 to mean posts",
         "Sharing rumors quickly",
         "Helping others, sharing good information, and being inclusive and respectful",
-        "Reacting 😂 to mean posts",
+        "Excluding people you don't like from chats",
       ],
       correctIndex: 2,
       explanation:
@@ -378,12 +378,12 @@ export const digitalLesson8: AILessonConfig = {
       id: "q6",
       question: "A classmate reacts with a laughing emoji to a cruel post but doesn't type any words themselves. According to this lesson, what role does that play?",
       choices: [
-        "None — reactions without words are completely neutral",
-        "It still amplifies the harm, since reactions are a visible audience that fuels a pile-on",
         "It automatically reports the post to the platform",
         "It only counts if the reaction is a specific emoji",
+        "None — reactions without words are completely neutral",
+        "It still amplifies the harm, since reactions are a visible audience that fuels a pile-on",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
         "Reacting to a cruel post — even silently — is a visible form of participation that fuels a pile-on. It's a myth that only typed words count as amplifying harm.",
     },
@@ -393,8 +393,8 @@ export const digitalLesson8: AILessonConfig = {
       choices: [
         "They're right — reporting is always a betrayal",
         "Reporting is a tool built into platforms specifically so communities can flag harm that breaks the rules and protect people",
-        "Reporting should only ever be used for spam",
         "Reporting guarantees the person will be arrested immediately",
+        "Reporting should only ever be used for spam",
       ],
       correctIndex: 1,
       explanation:
@@ -404,12 +404,12 @@ export const digitalLesson8: AILessonConfig = {
       id: "q8",
       question: "In the internship Slack case study, what actually helped Maya most?",
       choices: [
-        "Josh reacting publicly with an angry emoji in the channel",
         "Josh's private check-in message, alongside screenshotting and reporting the behavior",
-        "Everyone staying quiet so it wouldn't escalate",
         "Maya being told to handle it entirely on her own",
+        "Everyone staying quiet so it wouldn't escalate",
+        "Josh reacting publicly with an angry emoji in the channel",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "Josh's private support message, combined with saving evidence and reporting to his manager, mirrored the same upstander steps that work in school chats — and Maya said the private check-in mattered most.",
     },

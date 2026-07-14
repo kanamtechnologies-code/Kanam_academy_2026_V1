@@ -63,12 +63,8 @@ const daLesson14: DataLessonConfig = {
         },
         checkIn: {
           prompt: "What's the biggest difference between following a single-tool lesson and running a real investigation?",
-          choices: [
-            "Real investigations never use SQL",
-            "A real investigation requires deciding which tools to combine and in what order",
-            "There is no difference",
-          ],
-          correctIndex: 1,
+          choices: ["A real investigation requires deciding which tools to combine and in what order", "Real investigations never use SQL", "There is no difference"],
+          correctIndex: 0,
           explanation: "Earlier lessons handed you one command at a time. A real investigation requires you to plan which combination of tools (join, group, sort) will answer the question.",
         },
       },
@@ -104,12 +100,8 @@ const daLesson14: DataLessonConfig = {
         body: `Every step in the pipeline has to happen in the right order, or the next step has nothing to work with. You **JOIN** first (so every row has a name attached), *then* **GROUP BY** (so rows collapse into one per student), *then* **ORDER BY** and **LIMIT** (so you can rank the finished totals).\n\nTry it backwards and it breaks: you can't sort totals that don't exist yet, and you can't group rows that haven't been connected to a name. Build in order, and each step's output becomes the next step's input.`,
         checkIn: {
           prompt: "Why must JOIN happen before GROUP BY in this investigation?",
-          choices: [
-            "It doesn't matter — SQL runs clauses in any order",
-            "GROUP BY needs to bundle rows by student_name, which only exists after the JOIN attaches it",
-            "GROUP BY is faster if it runs first",
-          ],
-          correctIndex: 1,
+          choices: ["It doesn't matter — SQL runs clauses in any order", "GROUP BY is faster if it runs first", "GROUP BY needs to bundle rows by student_name, which only exists after the JOIN attaches it"],
+          correctIndex: 2,
           explanation: "Before the JOIN, an order row only has a student_id — there's no student_name to group by yet. The JOIN has to attach the name first.",
         },
       },
@@ -133,12 +125,8 @@ const daLesson14: DataLessonConfig = {
         },
         checkIn: {
           prompt: "In the final query, what does LIMIT 1 do that GROUP BY + ORDER BY alone don't?",
-          choices: [
-            "It changes the sort order",
-            "It keeps only the single top row instead of returning the full ranked list",
-            "It removes duplicate students",
-          ],
-          correctIndex: 1,
+          choices: ["It keeps only the single top row instead of returning the full ranked list", "It changes the sort order", "It removes duplicate students"],
+          correctIndex: 0,
           explanation: "GROUP BY and ORDER BY produce a full ranked list of totals. LIMIT 1 trims that list down to just the winner.",
         },
       },
@@ -165,12 +153,8 @@ const daLesson14: DataLessonConfig = {
         body: `Look back at Alex's two orders: Pizza slice ($3.50) and Fruit cup ($2.75). If you replaced \`SUM(price)\` with \`AVG(price)\` in the grouped query, what would Alex's row show instead of $6.25?`,
         checkIn: {
           prompt: "What would AVG(price) show for Alex instead of SUM(price)?",
-          choices: [
-            "Still 6.25, the totals don't change",
-            "3.125 — the average of 3.50 and 2.75",
-            "2 — the number of orders Alex placed",
-          ],
-          correctIndex: 1,
+          choices: ["Still 6.25, the totals don't change", "2 — the number of orders Alex placed", "3.125 — the average of 3.50 and 2.75"],
+          correctIndex: 2,
           explanation: "AVG(price) adds up the prices and divides by how many orders there are: (3.50 + 2.75) / 2 = 3.125, a very different number from the $6.25 total.",
         },
       },

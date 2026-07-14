@@ -129,8 +129,8 @@ export const lesson9: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "Which symbol creates an empty dictionary?",
-          choices: ["`[]`", "`{}`", "`()`"],
-          correctIndex: 1,
+          choices: ["`{}`", "`[]`", "`()`"],
+          correctIndex: 0,
           explanation: "Curly braces {} create a dictionary. Square brackets [] create a list.",
         },
       },
@@ -169,12 +169,8 @@ export const lesson9: PythonLessonConfig = {
         },
         checkIn: {
           prompt: 'If you stored `profile["Name"] = "Alex"`, what happens when you read `profile["name"]`?',
-          choices: [
-            "It works fine — Python ignores capitalization",
-            "It raises a KeyError, because \"Name\" and \"name\" are different keys",
-            "It returns an empty string",
-          ],
-          correctIndex: 1,
+          choices: ["It works fine — Python ignores capitalization", "It returns an empty string", "It raises a KeyError, because \"Name\" and \"name\" are different keys"],
+          correctIndex: 2,
           explanation: "Python keys are case-sensitive. \"Name\" and \"name\" are two different keys, so asking for the wrong one raises a KeyError.",
         },
       },
@@ -206,8 +202,8 @@ export const lesson9: PythonLessonConfig = {
         codeCaption: "What does the print statement output?",
         checkIn: {
           prompt: "What does this program print?",
-          choices: ["Rex named dog", "dog named Rex", "type named name"],
-          correctIndex: 1,
+          choices: ["dog named Rex", "Rex named dog", "type named name"],
+          correctIndex: 0,
           explanation: 'pet["type"] is "dog" and pet["name"] is "Rex", so the print joins them as "dog named Rex".',
         },
       },
@@ -284,12 +280,8 @@ export const lesson9: PythonLessonConfig = {
         body: `Let's confirm the dictionary pattern is locked in.`,
         checkIn: {
           prompt: "What's the key difference between a list and a dictionary?",
-          choices: [
-            "Lists use `{}`, dictionaries use `[]`",
-            "Lists look up items by position; dictionaries look up items by a labeled key",
-            "There is no real difference",
-          ],
-          correctIndex: 1,
+          choices: ["Lists use `{}`, dictionaries use `[]`", "There is no real difference", "Lists look up items by position; dictionaries look up items by a labeled key"],
+          correctIndex: 2,
           explanation: "Lists are ordered and accessed by numeric position; dictionaries are accessed by a named key that describes what the value means.",
         },
       },

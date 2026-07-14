@@ -62,16 +62,16 @@ export const financeLesson15: AILessonConfig = {
           text: "\"Only $99/month\" can hide long terms, high interest, or required add-ons.",
         },
         checkIn: {
-          prompt: "What should a Decision Pro include beyond the monthly payment?",
+          prompt: "Jasmine is comparing two phone plans and is tempted to decide based only on the advertised monthly price. What should a Decision Pro add to the comparison?",
           choices: [
-            "Only the brand logo popularity",
-            "Upfront costs, insurance/maintenance/fees, and opportunity cost",
-            "Salesperson confidence alone",
-            "Whether friends will be jealous",
+            "Upfront costs, ongoing fees like insurance or plan add-ons, and what else that money could do",
+            "Nothing else — the monthly number is really the only thing that matters",
+            "Just whichever plan the salesperson seems most confident about",
+            "Whether her friends would be impressed by the choice",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Total cost and tradeoffs — not just the monthly number — drive sound big-money decisions.",
+            "Total cost and tradeoffs — not just the monthly number — drive sound big-money decisions; salesperson confidence and social approval aren't cost information at all.",
         },
       },
       {
@@ -84,16 +84,16 @@ export const financeLesson15: AILessonConfig = {
           text: "\"I need the nicest car/phone to be taken seriously.\" Reliability and cash left for goals usually signal maturity more than chrome.",
         },
         checkIn: {
-          prompt: "When buying a car, which costs belong in a total-cost analysis?",
+          prompt: "When Omar is pricing out a used car, which costs belong in his total-cost analysis?",
           choices: [
-            "Only the monthly payment on the loan",
+            "Only the monthly loan payment listed in the ad",
             "Insurance, fuel/maintenance, registration, loan interest, and depreciation — plus the sale price",
-            "Only what the salesperson highlights in the ad",
-            "Depreciation never matters for used cars",
+            "Only whatever number the seller chose to highlight in the listing",
+            "Just the sale price, since depreciation doesn't apply to used cars",
           ],
           correctIndex: 1,
           explanation:
-            "Cars carry ongoing costs beyond the sticker or monthly payment — insurance, fuel, maintenance, interest, and value loss all count.",
+            "Cars carry ongoing costs beyond the sticker or monthly payment — insurance, fuel, maintenance, interest, and value loss all count, even on a used car that has already depreciated some.",
         },
       },
       {
@@ -106,16 +106,16 @@ export const financeLesson15: AILessonConfig = {
           text: "Pick one big decision ahead of you (phone upgrade, used car, summer housing). Draft the six-step framework with real numbers — even rough ones.",
         },
         checkIn: {
-          prompt: "When comparing housing options, what belongs in the analysis?",
+          prompt: "When Nadia compares two apartments, what belongs in her analysis beyond the monthly rent number?",
           choices: [
-            "Rent alone with no utilities or deposits",
+            "Rent alone — utilities and deposits are the landlord's problem, not hers",
+            "Only which building has the better photos online",
             "Rent, utilities, deposits, commute time/money, and lease flexibility",
-            "Only which building looks best on social media",
-            "Roommate coordination is irrelevant to cost",
+            "Roommate coordination, since splitting rent removes any real cost to weigh",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Housing decisions include cash needs, ongoing bills, commute, and flexibility — not rent in isolation.",
+            "Housing decisions include cash needs, ongoing bills, commute, and flexibility — deposits and utilities are still Nadia's costs, not just the landlord's.",
         },
       },
       {
@@ -142,13 +142,13 @@ export const financeLesson15: AILessonConfig = {
           prompt: "Which statement is the myth, not the reality?",
           choices: [
             "A longer loan term can lower the monthly payment while raising total interest paid",
-            "A low monthly payment always means the purchase is genuinely affordable",
             "New items often depreciate fastest in the first year or two",
             "Affording a payment technically doesn't automatically mean it's the best use of your money",
+            "A low monthly payment always means the purchase is genuinely affordable",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "A low monthly number can hide a long term, high interest, or missing costs like insurance — 'affordable-looking' isn't the same as affordable.",
+            "A low monthly number can hide a long term, high interest, or missing costs like insurance — 'affordable-looking' isn't the same as affordable, unlike the other three accurate statements.",
         },
       },
       {
@@ -230,14 +230,14 @@ export const financeLesson15: AILessonConfig = {
         checkIn: {
           prompt: "What's the Decision Pro move for Tyler at this point?",
           choices: [
-            "Sign the financed car deal immediately since $189/month sounded manageable",
             "Compare the full total cost of the financed car against his actual income and the cash-purchase alternative, then sleep on it before deciding",
-            "Ignore the cash-purchase option because a newer car is always better",
-            "Assume insurance and maintenance costs don't apply since they weren't in the ad",
+            "Sign the financed car deal right away since $189/month sounded manageable",
+            "Skip the cash-purchase option, since a newer financed car is always the smarter pick",
+            "Assume insurance and maintenance costs don't apply since they weren't mentioned in the ad",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Total cost, income reality, and a genuine alternative (a cheaper cash purchase) all belong in the comparison — plus a cooling-off period before signing.",
+            "Total cost, income reality, and a genuine alternative (a cheaper cash purchase) all belong in the comparison — plus a cooling-off period before signing, not a quick yes based on the ad's monthly number.",
         },
       },
       {
@@ -248,14 +248,14 @@ export const financeLesson15: AILessonConfig = {
         checkIn: {
           prompt: "A salesperson says: 'Don't overthink it — everyone finances this way, and it's only $150 a month.' What's the Decision Pro response?",
           choices: [
-            "Agree immediately since $150/month sounds small",
+            "Agree, since $150/month sounds manageable either way",
             "Ask for the loan term and total of all payments, then total ongoing costs like insurance and maintenance before deciding",
-            "Assume social proof ('everyone does it') proves it's a good total-cost decision",
-            "Skip the cooling-off period since the salesperson seems trustworthy",
+            "Assume that 'everyone finances this way' proves it's a smart total-cost decision",
+            "Skip the cooling-off period since the salesperson seems confident and trustworthy",
           ],
           correctIndex: 1,
           explanation:
-            "Monthly payment size and social proof are exactly the pressures this lesson trains you to look past — total cost and a cooling-off period are the real test.",
+            "Monthly payment size and social proof are exactly the pressures this lesson trains you to look past — total cost and a cooling-off period are the real test, not vibes about the salesperson.",
         },
       },
       {
@@ -288,105 +288,105 @@ export const financeLesson15: AILessonConfig = {
       id: "q1",
       question: "What should a Decision Pro include beyond the monthly payment?",
       choices: [
-        "Only the brand logo popularity",
+        "Only the brand's popularity or reputation",
+        "Whatever number the salesperson chooses to emphasize most",
         "Upfront costs, insurance/maintenance/fees, and opportunity cost",
-        "Salesperson confidence alone",
-        "Whether friends will be jealous",
+        "Whether friends would be impressed by the purchase",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Total cost and tradeoffs — not just the monthly number — drive sound big-money decisions.",
+        "Total cost and tradeoffs — not just the monthly number, a brand's reputation, or what a salesperson highlights — drive sound big-money decisions.",
     },
     {
       id: "q2",
       question: "What is opportunity cost?",
       choices: [
-        "A fee charged by phone carriers only",
+        "A fee that only phone carriers are allowed to charge",
+        "A type of car insurance add-on",
+        "Money that can never be spent again for any reason",
         "The next-best thing you give up when you make a choice",
-        "A type of car insurance",
-        "Money you can never spend again for any reason",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Choosing one path means not using that money/time for something else — that's opportunity cost.",
+        "Choosing one path means not using that money or time for something else — that's opportunity cost, not a fee, an insurance type, or money that's simply gone forever.",
     },
     {
       id: "q3",
       question: "Which phone approach often fits a careful teen budget?",
       choices: [
-        "Always finance the newest flagship and upgrade yearly regardless of need",
-        "Compare device + plan + add-ons and consider keeping a capable phone longer",
-        "Ignore plan costs because only the phone sticker matters",
-        "Buy based solely on an influencer unboxing",
+        "Compare device + plan + add-ons, and consider keeping a capable phone longer instead of upgrading every year",
+        "Always finance the newest flagship on a yearly upgrade schedule",
+        "Ignore the plan cost entirely, since only the phone's price tag matters",
+        "Choose based on whichever model a favorite influencer just unboxed",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Total cost and upgrade frequency matter. A capable phone kept longer often beats endless flagship installments.",
+        "Total cost and upgrade frequency matter — a capable phone kept longer often beats endless flagship installments, regardless of influencer hype or the sticker price alone.",
     },
     {
       id: "q4",
       question: "When comparing housing options, what belongs in the analysis?",
       choices: [
-        "Rent alone with no utilities or deposits",
+        "Rent alone, since utilities and deposits are minor details",
         "Rent, utilities, deposits, commute time/money, and lease flexibility",
-        "Only which building looks best on social media",
-        "Roommate coordination is irrelevant to cost",
+        "Only which building looks best in photos online",
+        "Nothing about roommates, since splitting rent removes any real cost to weigh",
       ],
       correctIndex: 1,
       explanation:
-        "Housing decisions include cash needs, ongoing bills, commute, and flexibility — not rent in isolation.",
+        "Housing decisions include cash needs, ongoing bills, commute, and flexibility — not rent in isolation, and roommate coordination still carries real cost and risk.",
     },
     {
       id: "q5",
       question: "Why use a cooling-off period on big purchases?",
       choices: [
-        "To guarantee the price never changes",
+        "To lock in the current price before it can ever change",
+        "Because most stores prohibit same-day purchases",
         "To reduce impulse and sales pressure so you can recheck total cost and goals",
-        "Because it's illegal to buy same-day",
-        "So you can ignore your budget",
+        "So the budget can be temporarily set aside while deciding",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Waiting helps you verify numbers and opportunity cost without high-pressure vibes driving the choice.",
+        "Waiting helps you verify numbers and opportunity cost without high-pressure vibes driving the choice — it doesn't freeze prices or excuse skipping the budget.",
     },
     {
       id: "q6",
       question: "A loan advertises a low monthly payment stretched over a much longer term than usual. What's the likely tradeoff?",
       choices: [
-        "There is no tradeoff — a lower payment is strictly better",
+        "There is no tradeoff — a lower monthly payment is strictly better in every case",
+        "The item automatically depreciates more slowly because of the longer loan term",
+        "Insurance costs are eliminated once a loan term gets long enough",
         "Total interest paid over the life of the loan is likely higher, even though the monthly number looks smaller",
-        "The item automatically depreciates slower because of the longer term",
-        "Insurance costs are eliminated by longer loan terms",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Stretching payments over more months typically increases total interest paid, even as the monthly figure shrinks.",
+        "Stretching payments over more months typically increases total interest paid, even as the monthly figure shrinks — it has no effect on depreciation or insurance requirements.",
     },
     {
       id: "q7",
       question: "What is the payment-size illusion?",
       choices: [
-        "A rule that all payments must be paid in cash",
         "Judging whether something is affordable by its monthly payment size instead of its total cost",
-        "A type of insurance discount",
-        "A law limiting how big a monthly payment can be",
+        "A rule that all large purchases must be paid fully in cash",
+        "A discount some insurers offer for paying on time",
+        "A law that caps how large a monthly payment can be",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Focusing on the monthly number instead of the total (payments × term, plus ongoing costs) can hide the real cost of a purchase.",
+        "Focusing on the monthly number instead of the total (payments × term, plus ongoing costs) can hide the real cost of a purchase — it's a mental shortcut, not a discount or a legal rule.",
     },
     {
       id: "q8",
       question: "Tyler's financed car totals about $6,618 in year-one costs against a $7,200 annual income, while a reliable used car he could buy in cash would cost far less overall. What's the Decision Pro move?",
       choices: [
-        "Sign the financed deal immediately since the ad's monthly number felt manageable",
+        "Sign the financed deal right away since the ad's monthly number felt manageable",
         "Seriously compare the full total-cost numbers against his income and the cash-purchase alternative before deciding, then sleep on it",
-        "Ignore the cash alternative because financing is always superior",
-        "Assume insurance and maintenance don't apply since the ad didn't mention them",
+        "Skip the cash alternative, since financing is always the superior option",
+        "Assume insurance and maintenance don't apply since the ad never mentioned them",
       ],
       correctIndex: 1,
       explanation:
-        "Comparing total cost against real income, seriously considering the alternative, and using a cooling-off period is the responsible Decision Pro process.",
+        "Comparing total cost against real income, seriously considering the alternative, and using a cooling-off period is the responsible Decision Pro process — not trusting the ad's framing.",
     },
   ],
   reflection: {

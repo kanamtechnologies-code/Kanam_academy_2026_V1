@@ -68,12 +68,8 @@ const daLesson11: DataLessonConfig = {
         body: `A **line chart** connects dots in order to show how a number **goes up and down over time**.\n\nThe connecting line is the secret sauce. With separate bars, your eye has to hop from one to the next; with a line, the *slope* does the work — a steep upward line screams "growing fast," a downward slope says "dropping." You read direction instantly, the way you'd read a hiking trail going uphill or down.\n\nUse a line chart whenever your x-axis is **time** — days, weeks, months, years. It lets you spot the **trend**: is the number rising, falling, or bouncing around? That's a question a bar chart simply can't answer as clearly.`,
         checkIn: {
           prompt: "What makes a line chart different from a bar chart?",
-          choices: [
-            "Line charts can only show one data point",
-            "The connecting line reveals a trend/slope across ordered time steps",
-            "Line charts don't need a y-axis",
-          ],
-          correctIndex: 1,
+          choices: ["The connecting line reveals a trend/slope across ordered time steps", "Line charts can only show one data point", "Line charts don't need a y-axis"],
+          correctIndex: 0,
           explanation: "The connecting line is what lets your eye read direction and speed of change (the slope) — something separate bars can't show as clearly.",
         },
       },
@@ -117,12 +113,8 @@ const daLesson11: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "Your data is 'sales by region' (North, South, East, West). Is a line chart appropriate?",
-          choices: [
-            "Yes, any numeric data works with a line",
-            "No — regions aren't in time order, so a bar chart compares them more honestly",
-            "Yes, but only if there are exactly 4 regions",
-          ],
-          correctIndex: 1,
+          choices: ["Yes, any numeric data works with a line", "Yes, but only if there are exactly 4 regions", "No — regions aren't in time order, so a bar chart compares them more honestly"],
+          correctIndex: 2,
           explanation: "Regions have no natural time order, so connecting them with a line would imply a trend that doesn't exist. A bar chart is the honest choice here.",
         },
       },
@@ -154,12 +146,8 @@ const daLesson11: DataLessonConfig = {
         body: `People assume any line chart is trustworthy. But if the days are out of order, or the y-axis is stretched (or doesn't start at zero), a tiny change can look like a giant spike. Keep time in order and always check the scale.`,
         checkIn: {
           prompt: "If you sort daily_orders by weekday ALPHABETICALLY instead of by day_num, what happens?",
-          choices: [
-            "Nothing changes — the trend still reads correctly",
-            "Fri would appear before Mon, scrambling the real week-long trend into nonsense",
-            "The chart would refuse to render",
-          ],
-          correctIndex: 1,
+          choices: ["Fri would appear before Mon, scrambling the real week-long trend into nonsense", "Nothing changes — the trend still reads correctly", "The chart would refuse to render"],
+          correctIndex: 0,
           explanation: "Alphabetical order (Fri, Mon, Sat, Sun, Thu, Tue, Wed) has nothing to do with actual time order, so the line would zig-zag meaninglessly instead of showing the real weekly trend.",
         },
       },
@@ -248,12 +236,8 @@ const daLesson11: DataLessonConfig = {
         body: `Let's confirm the time-ordering rule is fully locked in.`,
         checkIn: {
           prompt: "Which is the correct way to build an honest weekly trend line from daily_orders?",
-          choices: [
-            "SELECT weekday, orders FROM daily_orders ORDER BY weekday;",
-            "SELECT weekday, orders FROM daily_orders ORDER BY day_num;",
-            "SELECT weekday, orders FROM daily_orders;",
-          ],
-          correctIndex: 1,
+          choices: ["SELECT weekday, orders FROM daily_orders ORDER BY weekday;", "SELECT weekday, orders FROM daily_orders;", "SELECT weekday, orders FROM daily_orders ORDER BY day_num;"],
+          correctIndex: 2,
           explanation: "Sorting by day_num (the numeric time order) guarantees Monday through Sunday appear in true chronological order, not alphabetical order.",
         },
       },

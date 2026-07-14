@@ -61,16 +61,17 @@ export const financeLesson3: AILessonConfig = {
           text: "Apps that show \"you earned $X this week\" may display gross. Confirm what hits your bank before you spend like it's all available.",
         },
         checkIn: {
-          prompt: "You earned $240 gross but only about $210 hits your account. Which number should you budget from?",
+          prompt:
+            "Jayden earned $220 gross this week, but only about $190 actually hit his bank account. Which number should guide his spending plan?",
           choices: [
-            "Gross pay — it's what you earned",
-            "Net pay — take-home after deductions",
-            "The larger of the two numbers",
-            "Your friend's paycheck amount",
+            "The $220 gross pay, since that's what he technically earned",
+            "The $190 net pay, since that's what he can actually spend",
+            "Whichever number is higher, to stay optimistic about his budget",
+            "The average of the two numbers",
           ],
           correctIndex: 1,
           explanation:
-            "Net pay is what actually lands in your account. Budgeting from gross overestimates what you can spend.",
+            "Net pay is what actually lands in the account. Planning off the higher gross number — even to \"stay optimistic\" — is exactly how spending plans come up short.",
         },
       },
       {
@@ -83,16 +84,16 @@ export const financeLesson3: AILessonConfig = {
           text: "Understanding withholdings stops the \"they stole my money\" feeling and replaces it with \"I can read my stub and plan.\"",
         },
         checkIn: {
-          prompt: "Which pair is commonly part of FICA withholdings?",
+          prompt: "Which pair of items would you most likely find listed as FICA withholding on a teen's pay stub?",
           choices: [
-            "Streaming and gaming fees",
+            "Sales tax and tip pooling",
+            "Streaming subscriptions and phone plan charges",
             "Social Security and Medicare",
-            "Only state sales tax",
-            "Credit card interest",
+            "Union dues and gym membership fees",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "FICA typically refers to Social Security and Medicare payroll taxes withheld from many paychecks.",
+            "FICA refers to Social Security and Medicare payroll taxes. Things like union dues or subscriptions might appear on some pay stubs, but they aren't what FICA specifically funds.",
         },
       },
       {
@@ -107,16 +108,16 @@ export const financeLesson3: AILessonConfig = {
           text: "Friends' W-4 choices are not a template. Their income, dependents, and other jobs may differ from yours.",
         },
         checkIn: {
-          prompt: "What is a W-4 mainly used for?",
+          prompt: "What is a Form W-4 mainly used for?",
           choices: [
-            "Applying for a driver's license",
-            "Helping your employer estimate federal income tax withholding",
-            "Opening a savings account",
-            "Calculating your GPA",
+            "Helping your employer estimate how much federal income tax to withhold from your pay",
+            "Applying for a work permit as a minor",
+            "Setting up direct deposit with your bank",
+            "Reporting your hours worked each week",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "The W-4 guides how much federal income tax an employer withholds from your pay.",
+            "The W-4 guides federal income tax withholding. It's a common mix-up to confuse it with a work permit or timesheet — those are separate paperwork entirely.",
         },
       },
       {
@@ -147,14 +148,14 @@ export const financeLesson3: AILessonConfig = {
         checkIn: {
           prompt: "What should DeShawn conclude from these numbers?",
           choices: [
-            "Something is wrong because $243 minus $31 doesn't equal $212",
+            "Something is wrong, since $243 minus $31 shouldn't equal $212",
+            "He should immediately request a new W-4 since any deduction seems too high",
+            "There's no way to verify deduction amounts without contacting the IRS directly",
             "Everything checks out — gross minus deductions equals net, and net matches the deposit",
-            "He should immediately fill out a new W-4 because deductions exist",
-            "The deduction total is illegally high with no way to know for sure",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
-            "$243 − $31 = $212, which matches both the stated net pay and the bank deposit. That's exactly what a clean, correct pay stub should show.",
+            "$243 − $31 = $212, matching both the stated net pay and the deposit — a clean, correct stub. Deductions existing isn't a reason on its own to file a new W-4.",
         },
       },
       {
@@ -185,16 +186,17 @@ export const financeLesson3: AILessonConfig = {
         title: "The \"first paycheck\" lifestyle creep trap",
         body: `A very common pattern: your first paycheck (or a raise) arrives, and spending quietly rises to match — sometimes even a little past — the new gross number, before you've adjusted for what net pay and new expenses actually leave you. This is called **lifestyle creep**, and it's sneaky because each individual purchase feels reasonable in the moment.\n\nThe fix isn't to freeze your spending forever. It's to build a short pause into raises and new jobs: before your spending habits adjust upward, decide on purpose how much of the *increase* goes toward goals versus lifestyle. Even directing half of a raise toward savings while enjoying the other half avoids the trap of your spending silently absorbing 100% of every future increase.`,
         checkIn: {
-          prompt: "What is lifestyle creep, and how can you guard against it?",
+          prompt:
+            "After getting a raise, Marcus's spending slowly creeps up to match his new paycheck without him really deciding to spend more. What's the best way to describe and guard against this?",
           choices: [
-            "It only affects people who get a pay cut, and there's no way to prevent it",
-            "Spending quietly rising to match new income; guarding against it means directing part of any increase toward goals on purpose",
-            "A type of bank fee charged when your balance grows too fast",
-            "A rule that says you should never spend more even after a raise",
+            "This is lifestyle creep; directing part of any raise toward a goal on purpose helps guard against it",
+            "This only happens to people who get pay cuts, so there's no real fix",
+            "This is completely normal and there's no reason to ever adjust for it",
+            "This means Marcus should turn down any future raises",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Lifestyle creep is spending rising to match income increases by default. Deciding in advance where part of a raise goes protects your goals from being silently absorbed.",
+            "Lifestyle creep is spending rising to match income by default. It's common and worth planning for — but that doesn't mean there's nothing to do about it or that raises should be avoided.",
         },
       },
       {
@@ -246,16 +248,16 @@ export const financeLesson3: AILessonConfig = {
         title: "Quick recap — could you explain this?",
         body: `Before the Knowledge check, see if you can explain each of these in your own words:\n\n• **Gross pay** is before deductions; **net pay** is take-home.\n• Common withholdings include federal/state income tax and **FICA** (Social Security & Medicare).\n• A **W-4** guides federal withholding — overview only; get help for your personal form.\n• **Human capital** (your skills and experience) is the long-term driver of gross pay.\n• **Lifestyle creep** is spending quietly rising to absorb a raise — guard against it on purpose.\n• Budget from **net**, not gross, and read each **pay stub**.\n\nIf any of those feel shaky, scroll back to that section before continuing.`,
         checkIn: {
-          prompt: "What best explains why building human capital matters for your income?",
+          prompt: "What best explains why building human capital (skills, certifications, experience) matters for income?",
           choices: [
-            "It has no real effect on pay — only hours worked matters",
-            "Growing your skills, certifications, and experience is the main long-term driver of higher gross pay",
-            "It only matters after you turn 30",
-            "It replaces the need to ever read a pay stub",
+            "It mainly helps with networking, not with what employers are willing to pay",
+            "It only matters for people planning to attend a four-year college",
+            "It's the main long-term driver of higher gross pay over time",
+            "It matters for promotions but barely affects starting hourly rates",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
-            "Human capital — skills, education, and experience — is what typically drives access to higher gross pay over time, more than any single paycheck decision.",
+            "Skills, certifications, and experience typically unlock higher gross pay over time — including starting rates, not just promotions. It's not limited to the four-year-college path, and it isn't \"just networking.\"",
         },
       },
       {
@@ -289,22 +291,23 @@ export const financeLesson3: AILessonConfig = {
   quiz: [
     {
       id: "q1",
-      question: "What is net pay?",
+      question:
+        "Alexis wants to plan her weekend budget. Which number should she use — the amount she earned this week, or the amount that actually hit her bank account?",
       choices: [
-        "Pay before any taxes or deductions",
-        "Take-home pay after deductions",
-        "Only overtime earnings",
-        "Your hourly wage times 52 weeks",
+        "The amount that hit her account — net pay, after deductions",
+        "The amount she earned — gross pay, before deductions",
+        "Whichever amount lets her spend the most that weekend",
+        "Her scheduled hours multiplied by her hourly rate, regardless of the deposit",
       ],
-      correctIndex: 1,
-      explanation: "Net pay is what you actually receive after withholdings — take-home pay.",
+      correctIndex: 0,
+      explanation: "Net pay is what actually lands in the account and is safe to plan around. Gross pay overstates what's really available to spend.",
     },
     {
       id: "q2",
       question:
         "Kayla worked 22 hours at $14/hour and received a $254 deposit. What was withheld from her paycheck?",
-      choices: ["$308", "$254", "$54", "$14"],
-      correctIndex: 2,
+      choices: ["$308", "$54", "$254", "$14"],
+      correctIndex: 1,
       explanation:
         "Gross pay was 22 × $14 = $308. $308 − $254 (net/deposit) = $54 withheld.",
     },
@@ -312,51 +315,52 @@ export const financeLesson3: AILessonConfig = {
       id: "q3",
       question: "Which pair is commonly part of FICA withholdings?",
       choices: [
-        "Streaming and gaming fees",
-        "Social Security and Medicare",
+        "Streaming and gaming subscription fees",
         "Only state sales tax",
-        "Credit card interest",
+        "Credit card interest charges",
+        "Social Security and Medicare",
       ],
-      correctIndex: 1,
-      explanation: "FICA typically refers to Social Security and Medicare payroll taxes withheld from many paychecks.",
+      correctIndex: 3,
+      explanation: "FICA refers to Social Security and Medicare payroll taxes withheld from many paychecks — not sales tax, subscriptions, or credit card interest.",
     },
     {
       id: "q4",
       question: "What is a W-4 mainly used for?",
       choices: [
         "Applying for a driver's license",
-        "Helping your employer estimate federal income tax withholding",
         "Opening a savings account",
-        "Calculating your GPA",
+        "Helping your employer estimate federal income tax withholding",
+        "Calculating class credit hours for school",
       ],
-      correctIndex: 1,
-      explanation: "The W-4 guides how much federal income tax an employer withholds from your pay.",
+      correctIndex: 2,
+      explanation: "The W-4 guides how much federal income tax an employer withholds from your pay — it's unrelated to licenses, bank accounts, or school credits.",
     },
     {
       id: "q5",
-      question: "What does a larger-than-expected tax refund actually mean?",
+      question:
+        "Priya is excited that she's getting a $400 tax refund this year. What does that refund actually mean?",
       choices: [
-        "The government gave you free bonus money",
-        "You had more withheld during the year than you owed, and are getting your own money back",
-        "You did something wrong on your W-4 that must be fixed immediately",
-        "Your employer kept some of your pay illegally",
+        "The government is giving her $400 in bonus money",
+        "She had more withheld during the year than she owed, and is getting her own money back",
+        "She must have made a mistake on her W-4 that needs fixing immediately",
+        "Her employer held back pay illegally and now has to return it",
       ],
       correctIndex: 1,
       explanation:
-        "A refund means withholding was higher than what you actually owed — it's a return of your own money, not extra income.",
+        "A refund means withholding was higher than what she actually owed — it's a return of her own money, not extra income or proof of an error.",
     },
     {
       id: "q6",
       question: "Why does human capital matter for your long-term income?",
       choices: [
-        "It has no measurable effect on pay",
-        "Growing your skills, certifications, and experience is the main long-term driver of higher gross pay",
-        "It only affects people with college degrees",
-        "It replaces the need to ever check a pay stub",
+        "Growing skills, certifications, and experience drives higher gross pay over time",
+        "It mainly helps resumes look busy without changing what jobs pay",
+        "It only affects people who already have a college degree",
+        "It matters for promotions but barely affects starting hourly rates",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
-        "Human capital — your skills, education, and experience — typically drives access to higher-paying roles over time.",
+        "Human capital typically unlocks higher-paying roles over time — including starting rates. It's not limited to people with degrees, and stronger skills usually change pay, not just resume length.",
     },
     {
       id: "q7",
@@ -364,26 +368,26 @@ export const financeLesson3: AILessonConfig = {
         "Omar's hourly rate rises from $13 to $15.50 for the same hours. What is the smartest first step, according to this lesson?",
       choices: [
         "Immediately increase spending to match the full gross increase",
-        "Check the new net pay once the raise starts, and direct part of the increase toward a goal instead of letting it all become new spending",
         "Assume net pay will rise by the exact same dollar amount as gross pay",
-        "Ignore the raise since gross pay doesn't matter",
+        "Ignore the raise entirely since gross pay doesn't really matter",
+        "Check the new net pay once the raise starts, and direct part of the increase toward a goal instead of letting it all become new spending",
       ],
-      correctIndex: 1,
+      correctIndex: 3,
       explanation:
-        "Confirming actual net pay and directing part of a raise toward goals guards against lifestyle creep — spending that quietly absorbs the entire increase.",
+        "Confirming actual net pay and directing part of a raise toward a goal guards against lifestyle creep. Net pay won't rise by the exact same dollar amount as gross, since deductions scale too.",
     },
     {
       id: "q8",
       question: "Your first paycheck deposit looks way smaller than you expected. What should you do first?",
       choices: [
-        "Ignore it until next year",
-        "Compare hours, gross pay, deductions, and net pay on the pay stub to your timesheet and bank deposit",
-        "Fill out a new W-4 every day",
-        "Assume all deductions are always wrong",
+        "Ignore it until next year's taxes are filed",
+        "Fill out a brand new W-4 immediately, before checking anything else",
+        "Compare hours, gross pay, deductions, and net pay on the pay stub against the timesheet and bank deposit",
+        "Assume all the deductions must be a mistake with no way to check",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "A careful stub check — hours through net vs. deposit — is the right first step before escalating a payroll question.",
+        "A careful stub check — hours through net vs. deposit — is the right first step before assuming an error or filing new paperwork.",
     },
   ],
   reflection: {

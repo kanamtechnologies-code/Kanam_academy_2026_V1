@@ -64,12 +64,12 @@ export const digitalLesson2: AILessonConfig = {
         checkIn: {
           prompt: "A file lives at School/Science/lab-report.docx. What does that file path tell you?",
           choices: [
+            "The file has three saved versions",
             "The file is named School",
             "lab-report.docx is nested inside a Science folder, which is nested inside a School folder",
-            "The file has three saved versions",
             "The file only exists in the cloud",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "A file path reads from broad to specific, left to right. School is the outer folder, Science is nested inside it, and lab-report.docx is the file inside Science.",
         },
@@ -98,10 +98,10 @@ export const digitalLesson2: AILessonConfig = {
         checkIn: {
           prompt: "A scholarship portal requires a PDF, so you rename 'essay.docx' to 'essay.pdf'. What really happens?",
           choices: [
-            "The document instantly becomes a real, working PDF",
-            "Only the label changes — the contents stay a Word file, so the upload may fail to open correctly",
             "The essay is permanently deleted",
+            "Only the label changes — the contents stay a Word file, so the upload may fail to open correctly",
             "The file automatically uploads to the cloud",
+            "The document instantly becomes a real, working PDF",
           ],
           correctIndex: 1,
           explanation:
@@ -120,12 +120,12 @@ export const digitalLesson2: AILessonConfig = {
         checkIn: {
           prompt: "You have 'essay.docx' and need a shorter version for a college app while keeping the original. What should you do?",
           choices: [
-            "Delete half the text and hit Save",
             "Use Save As to make a new copy like 'essay-short.docx'",
-            "Rename the extension to .pdf",
             "Turn off sync first",
+            "Rename the extension to .pdf",
+            "Delete half the text and hit Save",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Save As creates a new copy and leaves the original untouched, so you keep both versions. Hitting Save after cutting text would overwrite and lose the original.",
         },
@@ -161,11 +161,11 @@ export const digitalLesson2: AILessonConfig = {
           prompt: "Which file name follows the what-who-date pattern that sorts and searches well later?",
           choices: [
             "Untitled document (3).docx",
+            "docx1.docx",
             "essay final FINAL v3 REAL.docx",
             "chem-lab3-maya-2026-02-18.docx",
-            "docx1.docx",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
             "chem-lab3-maya-2026-02-18.docx names what it is, whose it is, and the date in a sortable YYYY-MM-DD format — clear months or years later.",
         },
@@ -229,12 +229,12 @@ export const digitalLesson2: AILessonConfig = {
         checkIn: {
           prompt: "Which setup best follows the 3-2-1 backup rule?",
           choices: [
+            "Renaming the file three times",
             "One copy saved only on your laptop",
             "Two copies, both inside the same synced cloud folder",
             "A copy on your laptop, a copy in cloud storage, and a copy on a separate drive kept elsewhere",
-            "Renaming the file three times",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
             "3-2-1 means 3 copies, on 2 different types of storage, with 1 kept somewhere entirely separate — so no single accident wipes out everything.",
         },
@@ -318,12 +318,12 @@ export const digitalLesson2: AILessonConfig = {
       id: "q1",
       question: "Your lab report for a group project is saved at School/Science/lab-report.docx. What does this path tell you?",
       choices: [
+        "The file is stored in the cloud only",
         "The file is named School and stored in a folder called docx",
         "lab-report.docx is inside the Science folder, which is inside the School folder",
         "The file has three different versions",
-        "The file is stored in the cloud only",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "A file path reads from broad to specific. School is the outer folder, Science is nested inside it, and lab-report.docx is the file inside Science.",
     },
@@ -331,12 +331,12 @@ export const digitalLesson2: AILessonConfig = {
       id: "q2",
       question: "A scholarship form asks for a PDF, so you rename 'essay.docx' to 'essay.pdf'. What actually happens?",
       choices: [
-        "The document instantly becomes a real PDF",
         "Nothing changes inside — only the label changes, and the file may fail to upload or open correctly",
+        "The document instantly becomes a real PDF",
         "The file is permanently deleted",
         "It automatically uploads to the cloud",
       ],
-      correctIndex: 1,
+      correctIndex: 0,
       explanation:
         "An extension is just a label. Renaming doesn't convert the contents. To make a real PDF, export or 'Save as PDF' from the app.",
     },
@@ -358,11 +358,11 @@ export const digitalLesson2: AILessonConfig = {
       question: "You delete a resume draft on your phone, and it disappears from your laptop too. Why is sync NOT the same as a backup?",
       choices: [
         "Sync only works on phones",
+        "They are actually the same thing",
         "Because if you delete a file on one device, sync can delete it on every device too",
         "Backups are slower than sync",
-        "They are actually the same thing",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
         "Sync makes all devices match the same copy — including deletions. A true backup is a separate copy that survives even if the original is deleted.",
     },
@@ -370,12 +370,12 @@ export const digitalLesson2: AILessonConfig = {
       id: "q5",
       question: "You accidentally overwrote your internship cover letter, then closed it. What's your best chance of getting the old text back?",
       choices: [
-        "Restart the computer until it comes back",
         "Change the file extension",
-        "Open the file's version history in cloud storage and restore an earlier snapshot",
+        "Restart the computer until it comes back",
         "Nothing can ever be recovered",
+        "Open the file's version history in cloud storage and restore an earlier snapshot",
       ],
-      correctIndex: 2,
+      correctIndex: 3,
       explanation:
         "Cloud services keep version history — automatic snapshots over time. You can open it, find a version from before the change, and restore it.",
     },
@@ -383,12 +383,12 @@ export const digitalLesson2: AILessonConfig = {
       id: "q6",
       question: "Which file name best follows the recommended what-who-date naming pattern?",
       choices: [
-        "Untitled document (3).docx",
-        "essay final FINAL v3 REAL.docx",
         "resume-jordan-lee-2026-04.pdf",
+        "Untitled document (3).docx",
         "docx1.docx",
+        "essay final FINAL v3 REAL.docx",
       ],
-      correctIndex: 2,
+      correctIndex: 0,
       explanation:
         "resume-jordan-lee-2026-04.pdf clearly states what it is, whose it is, and the date in a sortable format — easy to find months later.",
     },
@@ -396,10 +396,10 @@ export const digitalLesson2: AILessonConfig = {
       id: "q7",
       question: "Following the 3-2-1 backup rule, which setup is safest for an important scholarship essay?",
       choices: [
-        "One copy, saved only in a synced cloud folder",
+        "Renaming the file three different ways",
         "Two copies, both inside the exact same synced cloud account",
         "A copy on your laptop, a copy in the cloud, and a third copy kept somewhere entirely separate",
-        "Renaming the file three different ways",
+        "One copy, saved only in a synced cloud folder",
       ],
       correctIndex: 2,
       explanation:
@@ -409,10 +409,10 @@ export const digitalLesson2: AILessonConfig = {
       id: "q8",
       question: "In the group-project case study, what actually saved the team after the intro got deleted?",
       choices: [
-        "Restarting everyone's laptops",
+        "Renaming the file extension",
         "A clear file name, one shared cloud doc, and restoring from version history",
         "Emailing the file to everyone as a backup copy",
-        "Renaming the file extension",
+        "Restarting everyone's laptops",
       ],
       correctIndex: 1,
       explanation:
