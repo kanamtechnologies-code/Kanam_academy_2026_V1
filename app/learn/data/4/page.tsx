@@ -203,17 +203,6 @@ const daLesson4: DataLessonConfig = {
         body: `Before writing a WHERE clause, say the rule out loud in plain English: "orders that cost $4 or more." Then translate it directly into SQL. This habit prevents the classic mix-up between \`>\` and \`>=\`, and between \`AND\` and \`OR\`.`,
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `Filtering is a foundational computational thinking skill.`,
-        bullets: [
-          "**CSTA 2-DA-08** — Transform and filter data to make it more useful for a specific question.",
-          "**CSTA 3A-DA-10** — Use data analysis techniques (filtering with conditions) to identify patterns.",
-          "**ISTE Computational Thinker** — Formulating a problem in a way that lets a computer test conditions and produce answers.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "Think of a filter you'd design",
@@ -239,6 +228,40 @@ const daLesson4: DataLessonConfig = {
           choices: ["WHERE price > 3 AND item = 'Salad'", "WHERE price > 3 OR item = 'Salad'", "WHERE price = 3 AND item = Salad"],
           correctIndex: 0,
           explanation: "AND requires both conditions to be true at once, narrowing the results to only salads priced above $3 — with the text value properly quoted.",
+        },
+      },
+      {
+        id: "where-walkthrough",
+        kicker: "Query walkthrough",
+        title: "Narrowing lunch_orders with AND",
+        body: `The cafeteria manager asks: "Show me orders that cost **at least** $4 **and** are **not** burgers." That needs two conditions chained with \`AND\` — both must be true for a row to stay.\n\nWatch the row count shrink as each condition applies. The table below shows only rows where \`price >= 4\` AND \`item\` is not 'Burger'. Read the result: how many rows survived? Do the prices all meet the threshold?`,
+        code: `SELECT student_name, item, price\nFROM lunch_orders\nWHERE price >= 4\n  AND item != 'Burger';`,
+        codeCaption: "Two conditions, both must pass",
+        table: {
+          columns: ["student_name", "item", "price"],
+          values: [
+            ["Jordan", "Salad", 4.0],
+            ["Sam", "Chicken wrap", 5.25],
+            ["Jamie", "Salad", 4.0],
+          ],
+          rowCount: 3,
+        },
+      },
+      {
+        id: "mistake-quotes",
+        kicker: "Common SQL mistake",
+        title: "Forgetting quotes around text values",
+        body: `Text values in \`WHERE\` must be wrapped in **single quotes**. Writing \`WHERE item = Salad\` makes SQL think \`Salad\` is a column name, not the word "Salad" — and the query breaks.\n\nNumbers don't need quotes: \`WHERE price > 4\` is fine. Text always does: \`WHERE item = 'Salad'\`. Mixing these up is one of the most common beginner errors in every SQL lesson from here on.`,
+        bullets: [
+          "Correct: `WHERE item = 'Salad'` — text in single quotes.",
+          "Wrong: `WHERE item = Salad` — SQL looks for a column named Salad.",
+          "Numbers stay bare: `WHERE price >= 4` — no quotes needed.",
+        ],
+        checkIn: {
+          prompt: "Which WHERE clause correctly finds orders for 'Pizza slice'?",
+          choices: ["WHERE item = Pizza slice", "WHERE item = 'Pizza slice'", "WHERE 'item' = Pizza slice"],
+          correctIndex: 1,
+          explanation: "Text values need single quotes around the whole value: 'Pizza slice'. Without them, SQL treats the words as column names.",
         },
       },
       {

@@ -228,16 +228,6 @@ export const financeLesson10: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "How this connects to national standards",
-        body: `This lesson lines up with the **Jump$tart Coalition** and **Council for Economic Education (CEE) 2021 National Standards for Personal Financial Literacy** — specifically the **Investing** strand: understanding risk vs. return, comparing basic investment vehicles (stocks, bonds, funds), and recognizing diversification as a risk-management tool rather than a guarantee.\n\nThese ideas are deliberately taught without recommending any specific product or predicting any return — that's what keeps this education rather than advice. The goal is that when you're old enough to open your own accounts, the vocabulary and risk-awareness are already familiar.`,
-        callout: {
-          label: "Standards note",
-          text: "This is general financial education, not personalized investment advice for your specific situation.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on…",
@@ -257,6 +247,89 @@ export const financeLesson10: AILessonConfig = {
         callout: {
           label: "Try this",
           text: "If you have a long-term goal, name it and its rough timeline. That's the first real step — before any product or platform decision.",
+        },
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you invest",
+        title: "Questions before anyone invests your money (including you)",
+        body: `If a family account, app, or advisor involves investing, educational questions matter:
+
+• **What am I buying?** Stock in one company? A fund holding hundreds?
+• **Time horizon** — Money needed in 6 months shouldn't ride stock volatility.
+• **Fees** — Expense ratios, trading fees, subscription costs?
+• **Risk** — What's a realistic bad year? Can I tolerate that emotionally?
+• **Liquidity** — How fast can I access cash without penalties?
+• **Taxes** — Will selling trigger taxes? (Awareness level — not filing advice.)
+• **Who controls the account?** Custodial rules if you're under 18.
+
+No stock picks here — just decision hygiene before money leaves savings.`,
+        callout: {
+          label: "Watch out",
+          text: "Influencer \"plays\" rarely include fees, taxes, or downside. If only wins are shown, it's marketing.",
+        },
+      },
+      {
+        id: "worked-tradeoff",
+        kicker: "Tradeoff table",
+        title: "$50/month — save vs. invest vs. spend",
+        body: `Same **$50/month** for one year ($600 total):
+
+• **High-yield savings ~4%:** Ends around **$610** — stable, accessible for prom, repairs, emergencies.
+
+• **Broad index fund (illustrative 7% average, not guaranteed):** Might end **$620–$640** — but could dip to **$540** mid-year during a volatile stretch.
+
+• **Spent on wants:** **$0** future balance — fine if consciously chosen, costly if accidental.
+
+**Rule of thumb from this lesson:** Money needed within ~3–5 years → savings first. Investing conversations are for long horizons with adults you trust.`,
+        bullets: [
+          "**Volatility** is the price of higher long-term averages.",
+          "Senior-year cash needs shouldn't gamble on daily headlines.",
+          "Consistency beats timing the market.",
+        ],
+      },
+      {
+        id: "second-scenario",
+        kicker: "Another look",
+        title: "The Ferreira family jar — month 6 check-in",
+        body: `The Ferreiras moved a **$400** college jar into a custodial brokerage for education — but kept **$800** in savings for tuition due in 18 months.
+
+**Why split?**
+• Tuition in 18 months = **savings** territory (known bill, no volatility surprise).
+• College fund for 8+ years = room to learn **diversified** investing with time to recover dips.
+
+**Month 6:** Markets dip 8%. Savings still $800+. Brokerage shows $368 on the $400 moved — uncomfortable but expected sometimes. They didn't panic-sell because the timeline allowed recovery.
+
+Matching **timeline to tool** prevented a tuition panic.`,
+        checkIn: {
+          prompt: "You need $900 for a certification course in 10 months. Where should most of that money live while you save?",
+          choices: [
+            "Individual high-volatility stocks for maximum growth",
+            "Accessible savings or similar stable account",
+            "Crypto because it might double quickly",
+            "Split evenly with no plan — markets average out automatically",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Short, known deadlines need stable, accessible money. Volatile assets can be down right when the bill arrives.",
+        },
+      },
+      {
+        id: "behavioral-trap-2",
+        kicker: "Watch your brain",
+        title: "Herd trades: when group chat becomes \"research\"",
+        body: `Three friends post gains from a hot stock. Your brain screams **join now**. That's herd mentality — action driven by crowd energy, not your timeline.
+
+**Cool-down questions:**
+
+• Would I buy this if nobody posted about it?
+• What happens to my plan if the price drops 30% next month?
+• Is this money I might need for rent, prom, or repairs?
+
+Missing one hype cycle doesn't end your financial life. FOMO trades have ended emergency funds.`,
+        callout: {
+          label: "Reality check",
+          text: "Screenshots show winners. They rarely show the losses, fees, or taxes on the same timeline.",
         },
       },
       {

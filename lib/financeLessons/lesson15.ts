@@ -18,7 +18,7 @@ export const financeLesson15: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/fl-15.png",
         imageAlt: "Teen deciding between a used car listing and a transit pass on a laptop, realistic decision moment",
-        body: `Big purchases aren't just "Can I afford the monthly payment?" Decision Pros ask better questions — about total cost, risk, and what else that money could do.\n\nHere's the roadmap:\n\n• **A true-ish story** about a "great deal" that wasn't.\n• **A reusable decision framework**, **phone/car tradeoffs**, and **housing tradeoffs** — three core concepts, each with a quick check.\n• A **worked example** totaling a real car's true cost, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (estimating total cost of ownership with real math), a **buy vs alternatives comparison**, and a **behavioral trap** to avoid.\n• **Habits**, how this connects to national money standards, a reflection pause, a **mini-case**, and a mixed **check yourself**.\n\nPrestige is optional. Clarity is the skill.`,
+        body: `Big purchases aren't just "Can I afford the monthly payment?" Decision Pros ask better questions — about total cost, risk, and what else that money could do.\n\nHere's the roadmap:\n\n• **A true-ish story** about a "great deal" that wasn't.\n• **A reusable decision framework**, **phone/car tradeoffs**, and **housing tradeoffs** — three core concepts, each with a quick check.\n• A **worked example** totaling a real car's true cost, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (estimating total cost of ownership with real math), a **buy vs alternatives comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a reflection pause, a **mini-case**, and a mixed **check yourself**.\n\nPrestige is optional. Clarity is the skill.`,
         callout: {
           label: "Why it matters",
           text: "One oversized car payment or phone plan can quietly block saving, classes, or moving for a better opportunity.",
@@ -205,16 +205,6 @@ export const financeLesson15: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this is on the checklist",
-        title: "How this connects to national money standards",
-        body: `The **Jump$tart Coalition** and **Council for Economic Education** standards treat big purchase decisions as a cross-cutting skill — pulling from **Spending and Saving** (budgeting for a major cost) and **Financial Decision Making** more broadly (using tradeoffs and opportunity cost, not just gut feeling).\n\nThe specific skills from this lesson map directly:\n\n• Using a **repeatable framework** instead of an emotional, one-off decision.\n• Calculating **total cost of ownership**, not just a headline monthly number.\n• Weighing **opportunity cost** — what else that money or commitment could do.\n• Recognizing **behavioral traps** (payment-size illusion, sunk cost) that push people toward worse decisions.\n\nThis is the exact "can this student make a major purchase decision responsibly" checkpoint these standards are designed to measure.`,
-        callout: {
-          label: "Good to know",
-          text: "The framework in this lesson works for far more than phones and cars — it's the same structure adults use for major purchases at any age.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on...",
@@ -239,6 +229,108 @@ export const financeLesson15: AILessonConfig = {
           explanation:
             "Total cost, income reality, and a genuine alternative (a cheaper cash purchase) all belong in the comparison — plus a cooling-off period before signing, not a quick yes based on the ad's monthly number.",
         },
+      },
+      {
+        id: "worked-numbers",
+        kicker: "Do the math",
+        title: "Tyler's used car — 5-year total cost sketch",
+        body: `**Purchase:** $8,500 used sedan.
+**Tax/title/fees:** ~$600.
+**Insurance:** $165/month → **$1,980/year**.
+**Gas:** $120/month → **$1,440/year**.
+**Maintenance fund:** $80/month → **$960/year**.
+
+**Year-one cash need (beyond payment):** ~$1,980 + $1,440 + $960 = **$4,380** ongoing + $9,100 upfront if paid cash.
+
+**Financed $8,500 at 7% for 48 months:** ~**$205/month** payment → $9,840 paid on car + still insurance/gas/maint.
+
+**Decision Pro move:** If Tyler nets $1,100/month, car ownership might consume **>50%** — transit + occasional rideshare may beat "affordable payment" marketing.`,
+        bullets: [
+          "**Payment** is one line in car math.",
+          "Insurance for teen drivers is often the surprise giant.",
+          "Maintenance sinking fund prevents credit-card repair spirals.",
+        ],
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you sign",
+        title: "Big purchase contract checklist — car, phone, lease",
+        body: `Tyler-level decisions need the same pause:
+
+• **Total price** — Not monthly payment only.
+• **APR & term** — Longer loan = more interest total.
+• **Insurance quote** — Real number for your age/zip before you buy the car.
+• **Warranty & return** — What's covered? Can you cancel phone contract?
+• **Lease break fees** — If you might move for college.
+• **Add-ons** — Fabric protection, extended warranty — often overpriced.
+• **Cooling-off** — Sleep on it 24–48 hours for non-emergency buys.
+
+If the seller won't let you take paperwork home, that's information too.`,
+        callout: {
+          label: "Watch out",
+          text: "Payment-size illusion: $299/month for 72 months on a $22,000 car can cost thousands in interest vs. a cheaper used option.",
+        },
+      },
+      {
+        id: "second-scenario",
+        kicker: "Phone lens",
+        title: "Phone plan total — device + 24 months",
+        body: `**Option A — "Free" phone on 24-month plan:**
+Device payment **$25/month** + plan **$55/month** = **$80/month** × 24 = **$1,920** + taxes/fees.
+
+**Option B — Keep phone, prepaid plan:**
+$35/month × 24 = **$840** + $120 screen repair = **$960** total.
+
+**Option C — Buy mid-range outright $400 + $35 plan:** $400 + $840 = **$1,240**.
+
+**Tradeoff:** Shiny new vs. $680–$680 saved over two years — one month of rent in many cities.
+
+Decision Pro framework: name **total cost**, **timeline**, **opportunity cost** vs. laptop fund.`,
+        checkIn: {
+          prompt: "A carrier ad highlights $0 down and $30/month for the newest phone. Best first question?",
+          choices: [
+            "What color should I get?",
+            "What's the total 24-month cost including plan, taxes, and fees?",
+            "Can I finance two phones so friends match?",
+            "Whether the phone will impress people at school",
+          ],
+          correctIndex: 1,
+          explanation:
+            'Total cost of ownership exposes whether "$30/month" is a bargain or a multi-year contract trap.',
+        },
+      },
+      {
+        id: "behavioral-trap-2",
+        kicker: "Watch your brain",
+        title: "Payment-size illusion — why $19.99/month sells",
+        body: `Marketers slice big numbers into **monthly bites** so your brain compares $19.99 to a coffee, not to $480 over two years.
+
+**Defense:** Multiply any monthly figure by the **full term**, add taxes/fees, then compare to your **net monthly income**.
+
+If one phone contract is **6%** of take-home pay, okay maybe. If car+phone+subscriptions hit **40%**, mobility becomes a money trap.`,
+        callout: {
+          label: "Try this",
+          text: "List every subscription and device payment. Sum 12-month totals on one line. That's your real \"monthly lifestyle\" number.",
+        },
+      },
+      {
+        id: "tradeoff-table",
+        kicker: "Housing",
+        title: "Rent scenarios — solo vs roommates vs commute",
+        body: `**Solo apartment:** $1,100 rent + $120 utilities = **$1,220/month** — privacy, full cost.
+
+**Roommates (2):** $700 rent share + $60 utilities = **$760/month** — less space, shared chores.
+
+**Live at home, commute:** $200 transit + $100 family chip-in = **$300/month** — less independence, lowest cash burn.
+
+**Opportunity cost:** Solo costs **$920/month** more than living at home — $11,040/year that could fund college credits or emergency fund.
+
+No shame in any path — but **housing is the biggest lever** most teens will pull in year one.`,
+        bullets: [
+          "Compare **all-in** monthly housing, not rent alone.",
+          "Roommates reduce cost; add roommate agreement clarity.",
+          "Commute time is also a **cost** — hours you can't work or study.",
+        ],
       },
       {
         id: "check-yourself",

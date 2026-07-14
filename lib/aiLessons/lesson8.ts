@@ -120,6 +120,16 @@ export const aiLesson8: AILessonConfig = {
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "What happens when the context window fills up",
+        body: `Imagine you're debugging homework with a chatbot and paste in a long article, your notes, and three follow-up questions — all in one conversation.\n\nThe model has a **context window** — a fixed limit on how many tokens it can "see" at once. As the chat grows, the oldest material falls out of view. The model doesn't warn you loudly; it just quietly loses access to the beginning.\n\nSo when you ask "what did the article say about Chapter 3?" the model might invent an answer — not from malice, but because Chapter 3 left the window three messages ago. **Hallucination here isn't random — it's a memory limit.**\n\nFix: summarize key facts yourself, start a fresh chat for new topics, or paste only the relevant chunk.`,
+        callout: {
+          label: "Notice this",
+          text: "Long chats aren't unlimited memory. Context limits are a common, predictable cause of confident wrong answers.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth-busting",
         title: "\"If it sounds confident, it must be right\"",
@@ -140,6 +150,22 @@ export const aiLesson8: AILessonConfig = {
           correctIndex: 1,
           explanation:
             "This exact assumption caused a real lawyer to submit fake case citations to a federal court — proof that tone is not a reliable signal of truth.",
+        },
+      },
+      {
+        id: "red-flags",
+        kicker: "Red flags",
+        title: "LLM red flags that should trigger verification",
+        body: `Some outputs should automatically lower your trust — even when the tone sounds perfect:`,
+        bullets: [
+          "**Specific facts with no source** — dates, statistics, court cases, or quotes that sound precise but can't be traced.",
+          "**Confident answers about niche or very recent events** — training data has a cutoff; the model may fill gaps with plausible fiction.",
+          "**Long conversations where early details suddenly \"change\"** — a sign the context window dropped older messages.",
+          "**Legal, medical, or safety advice stated as definitive** — high-stakes domains where hallucinations can cause real harm.",
+        ],
+        callout: {
+          label: "Default response",
+          text: "When you spot these red flags, verify independently before acting — especially if someone else's safety or rights are involved.",
         },
       },
       {
@@ -194,7 +220,7 @@ export const aiLesson8: AILessonConfig = {
         title: "When a hallucination had real legal consequences",
         body: `The lawyer's case from the start of this lesson wasn't a one-time fluke — it became one of the most widely cited real-world examples of LLM hallucination causing tangible harm. A federal judge issued a public order describing exactly what went wrong and imposed sanctions, and the case has since been used to update guidance for legal professionals using AI tools.\n\nWhat makes this case so useful for learning is that it happened to someone whose entire profession is built on verifying facts and citing sources carefully — and the confident, fluent tone of the AI's fabricated citations was still convincing enough to slip through.\n\nThe takeaway isn't "never use AI for research." It's that **verification is not optional**, no matter how polished or confident the output sounds, and no matter how experienced you are.`,
         callout: {
-          label: "CSTA 2-IC-20 connection",
+          label: "Why this matters",
           text: "This case is a direct, real example of evaluating how a computing tool's limitations can create serious personal and professional consequences.",
         },
       },
@@ -210,10 +236,14 @@ export const aiLesson8: AILessonConfig = {
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why school cares about this",
-        title: "This is knowledge-construction, for real",
-        body: `Verifying claims instead of accepting the most confident-sounding answer is **ISTE 1.3, Knowledge Constructor** — critically curating information, evaluating accuracy, and choosing trustworthy sources. The lawyer's case is a real, high-stakes example of what happens when that step gets skipped.\n\nIt also connects to **CSTA 2-IC-20**: understanding how the limitations of a computing tool can lead to real personal, professional, and even legal consequences — not just an abstract "the AI can be wrong" warning.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Treat chatbots like powerful draft tools",
+        body: `For school and life this month, try this workflow:\n\n1. **Ask** for a first draft or explanation.\n2. **Check** anything factual against a trusted source.\n3. **Rewrite** in your own words what you actually understood.\n4. **Disclose** when your teacher or teammate needs to know AI helped.\n\nYou're not avoiding AI — you're using it the way a language model is actually built: as a pattern predictor, not an infallible expert.`,
+        callout: {
+          label: "Transfer this",
+          text: "Tokens, context limits, and hallucinations don't go away when the semester ends. This workflow does.",
+        },
       },
       {
         id: "reflection-prompt",

@@ -229,16 +229,6 @@ export const digitalLesson5: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "This is creative communication, adapted for your audience",
-        body: `This whole lesson lives inside the **ISTE Creative Communicator** standard: communicating clearly by choosing the platforms, tools, and formats that fit your intended message and audience. Deciding between a text, an email, and a call — and adjusting your tone for a friend versus a teacher — is exactly that standard in daily practice.\n\nIt also connects to **CSTA's "Impacts of Computing"** strand, since these communication tools (chat, email, video calls) reshape how relationships and workplaces function compared to the past — and knowing their norms is part of being an informed user of computing systems.\n\nAnd choosing warmth and clarity over careless shorthand is a quiet but real act of **ISTE Digital Citizenship** — treating the person on the other end of a message with the same respect you'd want back.`,
-        callout: {
-          label: "Why it matters",
-          text: "Recruiters, admissions officers, and managers often decide whether you seem reliable from a single message — these \"soft skills\" are really just communication skills, applied.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
@@ -274,6 +264,38 @@ export const digitalLesson5: AILessonConfig = {
           correctIndex: 3,
           explanation:
             "CC ('carbon copy') is visible to everyone, while BCC ('blind carbon copy') copies someone privately so others can't see them.",
+        },
+      },
+      {
+        id: "before-after-messages",
+        kicker: "Before & after",
+        title: "Same message, two ways — which one gets answered?",
+        body: `**Before (vague, easy to ignore):**\n\`hey can u help me with the thing for class thx\`\n\n**After (clear, respectful, easy to act on):**\n\`Hi Ms. Rivera — I'm stuck on question 4 of the lab (the graph part). Could I come by during office hours tomorrow, or would email work? Thanks, Jordan.\`\n\nWhat changed?\n\n• **Specific subject** — the reader knows exactly what "the thing" is.\n• **Clear ask** — office hours or email, not "help me somehow."\n• **Appropriate tone** — polite without being stiff or slangy.\n• **Sign-off with a name** — so the teacher knows who's asking.\n\nThis isn't about being formal for fun. Busy people (teachers, coaches, hiring managers) answer messages they can understand in five seconds. Vague messages get buried.`,
+        callout: {
+          label: "Try this week",
+          text: "Rewrite one vague message you need to send — add the topic, the specific ask, and your name. Send the 'after' version and notice whether you get a faster reply.",
+        },
+        checkIn: {
+          prompt: "A teacher hasn't replied to your first email about a recommendation letter. Which follow-up fits this lesson?",
+          choices: [
+            "??? hello??? did u see this",
+            "A polite follow-up restating the deadline, what you need, and thanking them for their time",
+            "Reply-all to the whole class asking if anyone else's teacher is ignoring them",
+            "Send the same vague email five more times",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A clear, polite follow-up with the deadline restated is professional and easy to act on — exactly the kind of message this lesson teaches.",
+        },
+      },
+      {
+        id: "send-checklist",
+        kicker: "Checklist",
+        title: "Five seconds before you hit Send",
+        body: `Run this mini checklist on anything that matters — a teacher email, a group project update, or a message to a coach:\n\n1. **Right person?** — glance at To/CC; reply-all only if everyone truly needs it.\n2. **Right tone?** — would this sound okay if the recipient read it aloud?\n3. **Clear ask?** — can they answer in one action, or do they have to guess what you want?\n4. **Proofread once** — especially names, dates, and attachments.\n5. **Would I be okay if this were forwarded?** — screenshots and forwards happen.\n\nFive seconds. That's the difference between "got it, see you Thursday" and three days of confused back-and-forth.`,
+        callout: {
+          label: "Watch out",
+          text: "Autocorrect, voice-to-text, and rushing are how 'I'd love to interview' becomes 'I'd love to interrogate.' One quick read catches most disasters.",
         },
       },
       {

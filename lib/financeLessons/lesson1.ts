@@ -217,12 +217,6 @@ export const financeLesson1: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Bigger picture",
-        title: "Why schools teach this",
-        body: `National personal finance standards for your grade band (the ones behind courses like this one) list setting spending and saving goals as a core skill — not because adults love spreadsheets, but because naming a horizon and a number is one of the habits most linked to feeling in control of money for the rest of your life. You're not learning a school topic; you're practicing a decision skill you'll use every payday from here on.`,
-      },
-      {
         id: "reflect",
         kicker: "Pause",
         title: "Before you move on — think",
@@ -242,6 +236,42 @@ export const financeLesson1: AILessonConfig = {
         callout: {
           label: "Why it matters",
           text: "Real financial decisions rarely involve just one goal. Sequencing priorities — instead of funding whichever one feels loudest — is the actual skill this lesson is building.",
+        },
+      },
+      {
+        id: "second-scenario",
+        kicker: "Round two",
+        title: "Jordan's next Friday — same paycheck, different plan",
+        body: `Remember Jordan's $180 Friday from the hook? Here's the same situation with one SMART-ish goal added: save **$60** for a laptop charger before the next paycheck in three weeks.
+
+**Without a plan (what happened):** $140 spent, $40 left, charger goal unfunded.
+
+**With pay-yourself-first:**
+• $60 moves to savings immediately → **$120** left to spend.
+• Jordan still buys the concert ticket ($45) and eats out with friends ($35) → **$40** cushion remains.
+• Charger goal: **on track** after one paycheck instead of zero progress.
+
+Same income, same wants — but the goal competed on payday instead of hoping for leftovers that never showed up.`,
+        bullets: [
+          "**$60 first** → goal funded before wants get a head start.",
+          "**$120 spending room** → fun still happens, just with a ceiling.",
+          "**$40 cushion** → small surprise expenses don't wreck the week.",
+        ],
+        callout: {
+          label: "Try this",
+          text: "Pick one goal and one paycheck amount. Run both versions — plan first vs. spend first — on paper. Which ending feels less stressful?",
+        },
+        checkIn: {
+          prompt: "Jordan nets $180 and wants $60 toward a charger in three weeks. Which move best matches pay-yourself-first from this lesson?",
+          choices: [
+            "Spend through the weekend, then save whatever is left Sunday night",
+            "Transfer $60 to savings as soon as the deposit hits, then budget the remaining $120",
+            "Skip the concert entirely because any fun spending breaks the goal",
+            "Wait until the charger price drops — goals without deadlines usually fund themselves",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Pay-yourself-first moves the goal amount before everyday spending competes. Skipping all fun or waiting for a price drop avoids the habit this lesson recommends.",
         },
       },
       {

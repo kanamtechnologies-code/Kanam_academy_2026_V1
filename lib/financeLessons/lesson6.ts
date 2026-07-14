@@ -218,16 +218,6 @@ export const financeLesson6: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "How this connects to national standards",
-        body: `This lesson builds skills from the **Jump$tart Coalition / CEE (Council for Economic Education) 2021 National Standards for Personal Finance Education**, specifically the **Saving** domain.\n\nBy the end of this lesson, you're practicing standards-aligned skills such as:\n\n• Explaining how **tracking cash flow** supports financial decision-making.\n• Distinguishing between **planned savings** (sinking funds) and **emergency preparedness**.\n• Describing why a **starter emergency fund** reduces reliance on high-cost borrowing.\n\nThese are the same reasoning skills adults use when they build a household emergency fund or plan for a big annual expense like insurance or holidays.`,
-        callout: {
-          label: "Good to know",
-          text: "The habit of separating \"planned\" money from \"just-in-case\" money is one of the most protective financial habits there is — at any age.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on...",
@@ -253,6 +243,56 @@ export const financeLesson6: AILessonConfig = {
           correctIndex: 2,
           explanation:
             "A flat tire blocking work is a textbook emergency: necessary and unpredictable. Using the emergency fund (and replenishing it after) is far cheaper than a payday-style loan and protects the cleats fund for its own scheduled goal.",
+        },
+      },
+      {
+        id: "second-scenario",
+        kicker: "Round two",
+        title: "Amara's tracking week — what the log revealed",
+        body: `Amara tracked every purchase for seven days. Net pay that week: **$155**. Here's what the log showed:
+
+• **Needs (actual):** $62 gas, $12 lunch at school (could pack) = $74
+• **Wants (surprises):** $18 app subscription she'd forgotten, $23 vending + coffee, $14 impulse online add-on = $55
+• **Savings transfer (planned):** $40 — happened only 2 of 5 days
+• **Unlogged cash:** $20 "misc" with no memory of where it went
+
+**Total out:** $189 on $155 income → $34 came from prior balance (cushion shrink).
+
+Without tracking, Amara would have said "I barely spent anything." With tracking, she found **$33** in reducible wants + **$20** mystery spend — enough to fund her $40 sinking fund consistently next week.`,
+        bullets: [
+          "Forgotten **subscriptions** are classic leaks.",
+          "**Misc** without labels hides real patterns.",
+          "Tracking isn't punishment — it's a flashlight.",
+        ],
+        callout: {
+          label: "Try this",
+          text: "Run a 3-day mini-log. Circle one recurring want you could trim without ruining your week.",
+        },
+      },
+      {
+        id: "worked-numbers",
+        kicker: "Do the math",
+        title: "Starter emergency fund — how fast can $300 happen?",
+        body: `**Goal:** $300 starter emergency fund. **Income:** $130 net every two weeks (6 paychecks in 12 weeks).
+
+**Plan A — $25/paycheck:** $25 × 6 = **$150** in 12 weeks (halfway — still useful).
+
+**Plan B — $50/paycheck:** $50 × 6 = **$300** on time — tight if needs are $90/paycheck on $130.
+
+**Plan C — $30/paycheck + $50 from one extra shift:** $30 × 6 = $180, + $50 = **$230** — close; extend 2 weeks or trim one want line.
+
+Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes vs. $0 when a tire or phone screen cracks.`,
+        checkIn: {
+          prompt: "You net $130 biweekly and want $300 in 12 weeks. Which plan hits the target on schedule without assuming magic leftovers?",
+          choices: [
+            "$20/paycheck and hope nothing unexpected happens",
+            "$50/paycheck automated on payday",
+            "Save only what's left after all spending each Sunday",
+            "Skip the fund until income doubles",
+          ],
+          correctIndex: 1,
+          explanation:
+            "$50 × 6 = $300. $20/paycheck only reaches $120. Leftover saving and waiting for higher income delay the cushion this lesson recommends starting now.",
         },
       },
       {

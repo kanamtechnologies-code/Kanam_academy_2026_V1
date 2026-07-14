@@ -228,16 +228,6 @@ export const financeLesson9: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "How this connects to national standards",
-        body: `This lesson lines up with the **Jump$tart Coalition** and **Council for Economic Education (CEE) 2021 National Standards for Personal Financial Literacy** — specifically the **Saving** strand (understanding interest, compound growth, and the time value of money) and it previews the **Investing** strand that starts next lesson.\n\nWhy that matters practically: these are the same core ideas that show up on financial-literacy assessments, in banking apps, and in real adult conversations about money. Learning them now — with plain language instead of jargon — means you're not starting from zero later.\n\nThis is general financial education, not personalized financial advice for your specific situation.`,
-        callout: {
-          label: "Standards note",
-          text: "Growth Saver skills (interest, compounding, pay yourself first) build the foundation the Investing lesson builds on next.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on…",
@@ -257,6 +247,67 @@ export const financeLesson9: AILessonConfig = {
         callout: {
           label: "Try this",
           text: "Sketch your own 'two summers' plan: a starting weekly amount, and one rule for what happens if your income goes up.",
+        },
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you open",
+        title: "Savings account questions — before you deposit",
+        body: `Opening a savings spot for goals or an emergency fund? Ask these with a trusted adult:
+
+• **APY** — Annual percentage yield; how much interest does the balance earn?
+• **Compounding frequency** — Daily/monthly compounding adds up slightly faster.
+• **Transfer rules** — How many withdrawals per month before fees?
+• **Minimum balance** — Any fee if you dip below?
+• **Linked accounts** — Easy transfer from checking on payday?
+• **FDIC/NCUA** — Is the institution insured?
+• **Goal labels** — Can you nickname accounts ("phone repair," "emergency")?
+
+Higher APY helps, but **automating deposits** usually beats hunting another 0.1% if you won't save consistently.`,
+        callout: {
+          label: "Pro tip",
+          text: "Set automation first, then optimize APY. A great rate you never fund is still $0 saved.",
+        },
+      },
+      {
+        id: "worked-tradeoff",
+        kicker: "Do the math",
+        title: "Maria's two summers — compound growth side by side",
+        body: `**Summer 1 — Start at 16:** Save **$50/month** for 9 months → $450 principal. At **4% APY** compounded monthly, year-end balance ≈ **$460** (interest small but real).
+
+**Summer 2 — Wait until 25:** Same $50/month habit starts 9 years later. By age 26, only **9 months** of contributions = $450 principal again — but she missed 9 years of small compounding on earlier deposits.
+
+**Illustrative 9-year head start** on $50/month at 4%: roughly **$6,000+** contributed plus earned interest vs. starting at 25 with zero balance.
+
+Compounding rewards **time + consistency**, not lottery wins.`,
+        bullets: [
+          "Small amounts **early** beat large amounts **late** for growth.",
+          "Interest on savings is modest — the habit is the engine.",
+          "Phone-repair money stays accessible; don't lock emergency funds away.",
+        ],
+      },
+      {
+        id: "second-scenario",
+        kicker: "Round two",
+        title: "Jordan's cracked screen — fund now vs. borrow",
+        body: `Jordan needs a **$120** screen repair. Options:
+
+• **Sinking fund (had $100 saved):** Pay $100 + $20 from next paycheck → **$0 debt**, 1-week wait.
+• **BNPL $120 over 4 payments:** $30/payment — but if a fee or missed payment triggers, cost rises.
+• **Skip repair, use old phone:** $0 cash, but can't access work schedule app reliably → **opportunity cost** on income.
+
+The lesson isn't "never borrow." It's matching the tool to the timeline: short needs with a sinking fund beat BNPL stacking when you can plan even a few weeks ahead.`,
+        checkIn: {
+          prompt: "You need $120 in 3 weeks and already have $70 in a labeled repair fund. Best saving-habit move?",
+          choices: [
+            "Drain the repair fund for something else and BNPL the screen",
+            "Add $25 from the next two paychecks to top up the fund, then pay cash",
+            "Wait until you have $500 saved before any repair",
+            "Put it on a high-APR card because emergencies don't count",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Topping up a sinking fund and paying cash avoids BNPL fees and keeps the repair fund doing its job.",
         },
       },
       {

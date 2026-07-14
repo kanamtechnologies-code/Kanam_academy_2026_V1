@@ -214,16 +214,6 @@ export const cyberLesson8: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "How this connects to real standards",
-        body: `This lesson connects to recognized standards in a direct way:\n\n• **CSTA 3A-NI-08** (Networks and the Internet) asks students to describe tradeoffs of various security measures, including things like firewalls and cryptographic approaches, and how they affect users and network availability — exactly the default-deny/default-allow and segmentation tradeoffs covered today.\n• **CSTA 3A-NI-06** (Networks and the Internet) asks students to recommend security measures to protect networks based on feasibility and impact — the robotics team's remediation plan (change credentials, disable remote access, add segmentation) is that recommendation process in action.\n• **ISTE Digital Citizen (1.2c)** connects to managing digital security responsibly — configuring shared systems (like a club server) with the same seriousness as personal accounts.\n\nFirewalls and configuration might sound like purely technical IT topics, but the reasoning underneath — weighing tradeoffs, recommending proportionate protections, failing safely — is exactly the kind of defender judgment these standards are built to develop.`,
-        callout: {
-          label: "Why it matters",
-          text: "\"Which failure direction is safer?\" is a question that shows up far beyond networking — it's a genuinely transferable way of evaluating any system with unknowns.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
@@ -236,6 +226,76 @@ export const cyberLesson8: AILessonConfig = {
         image: "/images/lessons/cs-8-5.png",
         imageAlt: "Smart security camera app screen showing factory default login credentials still active after a year",
         body: `**The situation:** A family sets up a smart security camera to watch their front porch, following the quick-start guide that gets it working in minutes. The guide mentions changing the default password "for better security," but the family is focused on just getting the camera running before a trip, and plans to come back and update the settings "once things settle down."\n\nA year later, a relative helping set up a second camera notices the first camera is still using its factory-default login, exactly as installed — and that it's configured to allow remote viewing from anywhere on the internet, a setting that made initial setup convenient but was never revisited afterward.\n\n**Apply what you've learned:**\n\n• **Risky default:** The factory-default credentials were never changed — a well-known category of risky default from this lesson, no different in principle from the robotics team's server.\n• **Default-allow thinking:** The camera's out-of-the-box configuration favored easy remote access over safety by default — a real-world example of default-allow rather than default-deny.\n• **The "later" trap:** "Once things settle down" had no owner or date attached — exactly the pattern from the defender-trap section that turns temporary gaps into permanent ones.\n• **Fix going forward:** Change the default password immediately, review whether remote access from anywhere is actually needed, and — since this is a home network — consider whether guest devices and smart home devices should sit on a separate segment from personal computers.\n\nThis case shows that risky defaults aren't limited to servers and school systems — the exact same patterns apply to ordinary smart home devices, which is exactly why "secure by default" matters for everyone, not just IT departments.`,
+      },
+      {
+        id: "firewall-decisions",
+        kicker: "Decision checklist",
+        title: "Firewall decisions without becoming a network admin",
+        body: `You may not configure enterprise firewalls yet — but you can apply the same questions defenders ask:
+
+**For any service exposed to a network:**
+• Who needs to reach it — specific people, or literally anyone on the internet?
+• What happens if this port/service is left open by default?
+• Is there a narrower way to grant access (VPN, specific IP range, auth gate)?
+
+**Default-deny mindset for personal/club gear:**
+• Change default admin passwords before anything joins the network.
+• Disable remote administration you do not actively use.
+• Turn off unused file-sharing or casting features.
+
+**Comparison — exposure levels:**
+• **Intentional public** — school website meant for the world; hardened, monitored, patched.
+• **Internal only** — gradebook, club budget; should not be reachable from random café Wi-Fi.
+• **Accidental public** — smart camera with default settings; fix before harm finds it.
+
+Every open service is a doorway. Defenders count doorways on purpose, not by accident.`,
+        checkIn: {
+          prompt: "Why do defenders prefer default-deny over default-allow?",
+          choices: [
+            "Default-deny makes networks faster",
+            "Forgotten rules in default-deny fail toward more restriction, which is usually safer than failing open",
+            "Default-allow is illegal for schools",
+            "Firewalls only work in default-deny mode",
+          ],
+          correctIndex: 1,
+          explanation:
+            "When mistakes happen, default-deny tends to block unexpected traffic instead of accidentally exposing it — a safer failure direction.",
+        },
+      },
+      {
+        id: "config-audit-walkthrough",
+        kicker: "Scenario walkthrough",
+        title: "A two-minute exposure audit for club gear",
+        body: `**Scenario:** The robotics team sets up a practice server on a laptop in the club room. Someone enabled "share to network" so teammates could pull files quickly. Weeks later, the laptop still runs, still shares, still uses the factory admin password on the router.
+
+**Defender walkthrough:**
+1. **Inventory** — list devices that listen for inbound connections (laptop share, router admin, any IoT).
+2. **Defaults** — factory passwords on router and camera? Change before use.
+3. **Need check** — is continuous network sharing still required, or was it a one-day event?
+4. **Segment** — can practice gear sit on a separate VLAN or guest network away from sponsor financial docs?
+5. **Document** — note who owns the device and review date on the club calendar.
+
+**What to do next:** disable sharing when the event ends, rotate router admin password, confirm firewall rules block inbound from the public internet if not required.
+
+Most "we got lucky" incidents are really unattended exposure that nobody reviewed.`,
+        callout: {
+          label: "Defender view",
+          text: "Convenience settings (open sharing, remote admin) are fine temporarily — with an owner and an expiry date.",
+        },
+      },
+      {
+        id: "segmentation-scenario",
+        kicker: "See it in action",
+        title: "When segmentation limits the blast radius",
+        body: `**Scenario:** A guest presenter joins school Wi-Fi with a laptop that has outdated software. Malware on that device starts probing other machines on the same flat network.
+
+**Without segmentation:** probes may reach student laptops, lab machines, and possibly internal file shares — one bad device, wide ripple.
+
+**With segmentation:** guest Wi-Fi cannot route to staff file servers or admin tools; probes hit a dead end at the network boundary.
+
+**Defender takeaway:** segmentation is the network version of least privilege — zones match trust level. You can advocate for it even as a student: "Should guest devices share the same network as sensitive club financial folders?"
+
+**What to do next if you suspect a compromised device on shared Wi-Fi:** disconnect it, report to IT, avoid plugging unknown USB devices into your machine, and do not spread files from the suspect device.`,
       },
       {
         id: "check-yourself",
@@ -373,7 +433,7 @@ export const cyberLesson8: AILessonConfig = {
     },
     {
       id: "q8",
-      question: "Why does CSTA's Networks and the Internet standard ask students to describe tradeoffs of security measures like firewalls, rather than just define what a firewall is?",
+      question: "Why is it more useful to describe tradeoffs of security measures like firewalls than to just define what a firewall is?",
       choices: [
         "Because tradeoffs don't actually exist in real security decisions",
         "Because firewalls have no effect on network availability at all",

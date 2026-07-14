@@ -124,6 +124,16 @@ Now do this one:
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "Iterating a prompt three times",
+        body: `Watch how iteration turns a mediocre answer into a useful one.\n\n**Draft 1:** "Explain photosynthesis." → Too long, too technical.\n\n**Draft 2:** "Explain photosynthesis for a 9th grader in 5 bullet points." → Better length, still missing the lab connection.\n\n**Draft 3:** "Same as before, but connect each step to what we'd observe in a spinach-leaf lab, and end with one study question I should be able to answer." → Now it's actually useful for *your* class.\n\nIteration isn't failure — it's normal. Professional teams prompt, review, and refine constantly. Your third prompt is usually the one that earns trust.`,
+        callout: {
+          label: "Notice this",
+          text: "Stopping after one vague prompt and calling the AI \"useless\" skips the skill that actually makes it helpful.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth check",
         title: "'Step by step' isn't the same as 'actually correct'",
@@ -143,6 +153,22 @@ Now do this one:
           correctIndex: 1,
           explanation:
             "Step-by-step prompting helps the model reason more carefully, but it can still land on a wrong answer — always double-check what matters.",
+        },
+      },
+      {
+        id: "red-flags",
+        kicker: "Red flags",
+        title: "When better prompts still aren't enough",
+        body: `Leveled-up prompting helps — but it can't fix everything. Red flags that mean you should stop relying on the AI alone:`,
+        bullets: [
+          "**You keep getting different factual answers** on the same question — a sign you need an independent source, not a fourth prompt.",
+          "**The task requires your own lived experience** — college essays about your values, personal reflections, original art direction.",
+          "**You're iterating to avoid doing the thinking** — polishing someone else's draft instead of building your own understanding.",
+          "**The output sounds perfect but you can't explain it** — if you couldn't teach it to a friend, you don't own the learning yet.",
+        ],
+        callout: {
+          label: "Honest check",
+          text: "Better prompts make AI a stronger assistant — not a substitute for your judgment or your voice.",
         },
       },
       {
@@ -167,6 +193,30 @@ Now do this one:
           "Ask it to check the answer against your original instructions.",
           "Still verify anything factual yourself — self-critique isn't fact-checking.",
         ],
+      },
+      {
+        id: "decision-checklist",
+        kicker: "Decision checklist",
+        title: "Should I iterate the prompt or step away?",
+        body: `When an AI answer isn't right yet, run this quick checklist before prompting again:`,
+        bullets: [
+          "**Is the task clear?** If not, fix Role / Task / Context / Format first.",
+          "**Is the error factual?** If yes, verify externally — don't prompt your way to a true answer.",
+          "**Is the error about your voice or understanding?** If yes, rewrite yourself — iteration won't install real learning.",
+          "**Am I on attempt 3+ with the same gap?** If yes, change strategy: new source, teacher question, or peer review.",
+        ],
+        checkIn: {
+          prompt: "The AI gives you two different dates for the same historical event on repeated prompts. Best next step?",
+          choices: [
+            "Keep prompting until it picks one date confidently",
+            "Verify the date in a trusted history source, then use that verified fact going forward",
+            "Average the two dates the AI gave you",
+            "Assume the longer answer must be correct",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Inconsistent factual answers are a red flag for hallucination. Independent verification — not more prompting — is the right move.",
+        },
       },
       {
         id: "comparison",
@@ -216,10 +266,14 @@ Now do this one:
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "Iteration is computational thinking, too",
-        body: `• **ISTE 1.5 — Computational Thinker:** iterative refinement — trying something, evaluating the result, and adjusting — is the same loop used in testing and debugging code. You're practicing it every time you steer an AI answer.\n• **ISTE 1.3 — Knowledge Constructor:** deciding *which* follow-up will actually improve an answer requires evaluating what's missing or wrong — an active, critical use of information rather than passive acceptance.\n• **CSTA Impacts of Computing:** noticing where iteration helps learning versus where it can replace your own thinking connects directly to responsible, reflective use of computing tools.\n\nThe "regenerate and hope" habit isn't computational thinking. Deliberate, reasoned follow-ups are.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Use iteration on your next real assignment",
+        body: `Pick one upcoming homework task and plan three prompt rounds in advance:\n\n1. **Explore** — ask for an outline or explanation to see gaps in your understanding.\n2. **Focus** — tighten role, format, and constraints to match the rubric.\n3. **Own it** — close the AI, rewrite in your voice, and verify any facts before submitting.\n\nThat rhythm — explore, focus, own — keeps AI in the assistant lane where it belongs.`,
+        callout: {
+          label: "Transfer this",
+          text: "Iteration plus verification plus your own rewrite is the difference between using AI and being used by it.",
+        },
       },
       {
         id: "reflection-prompt",
@@ -373,7 +427,7 @@ Now do this one:
     },
     {
       id: "q8",
-      question: "How does iterating on AI answers connect to computational thinking (ISTE 1.5)?",
+      question: "How does iterating on AI answers connect to computational thinking?",
       choices: [
         "It doesn't relate to computer science at all",
         "Only writing code from scratch counts as computational thinking",

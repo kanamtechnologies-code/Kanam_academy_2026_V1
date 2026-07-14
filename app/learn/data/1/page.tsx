@@ -226,17 +226,6 @@ const daLesson1: DataLessonConfig = {
         },
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `This lesson builds foundational data literacy that shows up across your schoolwork, not just in this course.`,
-        bullets: [
-          "**CSTA 2-DA-08** — Collect data and transform it into a more useful, organized form (tables of rows and columns).",
-          "**CSTA 2-DA-07** — Represent data using an organized structure so it can be interpreted by people and computers.",
-          "**ISTE Knowledge Constructor** — Using digital tools (SQL) to curate information from data sources into meaningful answers.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "Before you move on, think about this",
@@ -266,6 +255,33 @@ const daLesson1: DataLessonConfig = {
           choices: ["LIMIT, SELECT, FROM", "FROM, SELECT, LIMIT", "SELECT, FROM, LIMIT"],
           correctIndex: 2,
           explanation: "The standard order is SELECT (columns) → FROM (table) → LIMIT (row count) — exactly the order you've been building queries in today.",
+        },
+      },
+      {
+        id: "read-results",
+        kicker: "Analyst habits",
+        title: "Read the result table, not just the query",
+        body: `Running a query is only half the job. A good analyst always reads what came back and asks two quick questions: *How many rows?* and *Are these the columns I asked for?*\n\nRun this query and check the result table below. You asked for 3 rows — does the row count say 3? You asked for every column — do you see \`order_id\`, \`student_name\`, \`item\`, and \`price\`? If either answer is "no," the query or your expectation needs fixing before you trust the answer.`,
+        code: `SELECT *\nFROM lunch_orders\nLIMIT 3;`,
+        codeCaption: "Peek at three rows, then read what came back",
+        table: {
+          columns: ["order_id", "student_name", "item", "price"],
+          values: [
+            [1, "Alex", "Pizza slice", 3.5],
+            [2, "Jordan", "Salad", 4.0],
+            [3, "Sam", "Chicken wrap", 5.25],
+          ],
+          rowCount: 3,
+        },
+        checkIn: {
+          prompt: "This result shows rowCount: 3 and four column names. What does that tell you?",
+          choices: [
+            "The query failed because 3 is less than 8",
+            "LIMIT worked — you got 3 rows and all four columns you asked for with SELECT *",
+            "SELECT * only returns three columns when LIMIT is 3",
+          ],
+          correctIndex: 1,
+          explanation: "LIMIT 3 capped the rows at three, and SELECT * returned every column. Row count and column names together confirm the query behaved as expected.",
         },
       },
       {

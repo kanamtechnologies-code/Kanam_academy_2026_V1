@@ -199,17 +199,6 @@ const daLesson7: DataLessonConfig = {
         body: `Right after writing any JOIN, check the row count against what you expect. If it's way bigger than expected, you probably forgot the \`ON\` clause or mismatched the key — fix it before building anything more complex on top.`,
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `Connecting related datasets is a hallmark of real-world computational thinking.`,
-        bullets: [
-          "**CSTA 3A-DA-12** — Create computational models that represent relationships among elements of data from different sources.",
-          "**CSTA 3A-DA-10** — Use data analysis techniques to identify patterns across combined datasets.",
-          "**ISTE Computational Thinker** — Decomposing a complex question into smaller, connected data problems.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "Find a shared key in your own life",
@@ -235,6 +224,49 @@ const daLesson7: DataLessonConfig = {
           choices: ["FROM orders JOIN students ON orders.student_id = students.student_id;", "FROM orders JOIN students;", "FROM orders, students WHERE student_id;"],
           correctIndex: 0,
           explanation: "A proper JOIN needs an ON clause that names the shared key on both sides — here, orders.student_id = students.student_id.",
+        },
+      },
+      {
+        id: "join-preview",
+        kicker: "Analyst habits",
+        title: "Explore both tables before you JOIN",
+        body: `Before stitching tables together, peek at each one separately. Run \`SELECT * FROM students LIMIT 3;\` and \`SELECT * FROM orders LIMIT 3;\` to see what columns exist and spot the shared key.\n\nIn this lesson, both tables carry \`student_id\` — that's your link. If you can't find a column that appears in both tables, you can't JOIN them yet. Exploring first prevents the classic mistake of joining on the wrong column.`,
+        code: `-- Peek at each table first\nSELECT * FROM students;\nSELECT * FROM orders;`,
+        codeCaption: "Know your tables before combining them",
+      },
+      {
+        id: "join-walkthrough-price",
+        kicker: "Query walkthrough",
+        title: "A second JOIN — names attached to prices",
+        body: `The orders table stores prices but only student IDs. The students table stores names but no prices. This JOIN attaches each name to its order's price so you can read a human-friendly receipt.\n\nAfter the join, scan the result: five rows (one per order), three columns (name, item, price). Alex appears twice because Alex placed two orders — that's correct, not a JOIN bug.`,
+        code: `SELECT students.student_name,\n       orders.item,\n       orders.price\nFROM orders\nJOIN students\n  ON orders.student_id = students.student_id;`,
+        codeCaption: "Every order with the student's real name",
+        table: {
+          columns: ["student_name", "item", "price"],
+          values: [
+            ["Alex", "Pizza slice", 3.5],
+            ["Jordan", "Salad", 4.0],
+            ["Sam", "Chicken wrap", 5.25],
+            ["Alex", "Fruit cup", 2.75],
+            ["Riley", "Burger", 4.75],
+          ],
+          rowCount: 5,
+        },
+      },
+      {
+        id: "join-mistake-wrong-key",
+        kicker: "Common SQL mistake",
+        title: "Joining on the wrong column",
+        body: `A JOIN only works when the \`ON\` clause compares the **same kind of ID** on both sides. Joining \`orders.order_id\` to \`students.student_id\` would pair unrelated rows — order #101 is not student #101.\n\nAlways ask: "Does this key mean the same thing in both tables?" Here, \`student_id\` in orders points to \`student_id\` in students. That's a real link. \`order_id\` is a different kind of number entirely.`,
+        checkIn: {
+          prompt: "orders has order_id and student_id. Which ON clause correctly links to students?",
+          choices: [
+            "ON orders.order_id = students.student_id",
+            "ON orders.student_id = students.student_id",
+            "ON orders.item = students.student_name",
+          ],
+          correctIndex: 1,
+          explanation: "student_id in orders references student_id in students — the same person. order_id is a different identifier and would produce nonsense matches.",
         },
       },
       {

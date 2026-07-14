@@ -38,7 +38,7 @@ export const digitalLesson15: AILessonConfig = {
         id: "why-it-matters",
         kicker: "Real stakes",
         title: "What happens when these skills are missing",
-        body: `It's easy to assume "I'll pick this up when I need it." But small gaps show up at exactly the wrong moments:\n\n• **A messy résumé or blank portfolio** can knock you out of consideration before anyone even talks to you, regardless of how capable you actually are.\n• **Fumbling a shared spreadsheet or doc** in front of a team on day one signals unpreparedness, even if you're a fast learner once shown.\n• **A confusing or overly casual email** to a professor, admissions officer, or hiring manager can get ignored or answered last, simply because it's harder to act on.\n• **Struggling with a video call or chat tool** during a remote interview or internship can cost you time and confidence exactly when you need to make a good impression.\n\nNone of these require deep expertise to fix — just the baseline comfort this lesson builds. A little preparation now removes a lot of unnecessary friction later.\n\nThis lesson also lives inside **ISTE's Creative Communicator** standard — choosing the platforms, tools, and formats (a spreadsheet, a professional email, a shared doc) that actually fit your audience and purpose at work.`,
+        body: `It's easy to assume "I'll pick this up when I need it." But small gaps show up at exactly the wrong moments:\n\n• **A messy résumé or blank portfolio** can knock you out of consideration before anyone even talks to you, regardless of how capable you actually are.\n• **Fumbling a shared spreadsheet or doc** in front of a team on day one signals unpreparedness, even if you're a fast learner once shown.\n• **A confusing or overly casual email** to a professor, admissions officer, or hiring manager can get ignored or answered last, simply because it's harder to act on.\n• **Struggling with a video call or chat tool** during a remote interview or internship can cost you time and confidence exactly when you need to make a good impression.\n\nNone of these require deep expertise to fix — just the baseline comfort this lesson builds. A little preparation now removes a lot of unnecessary friction later.\n\nThe skill underneath is choosing the platforms, tools, and formats (a spreadsheet, a professional email, a shared doc) that actually fit your audience and purpose at work.`,
         callout: {
           label: "Why it matters",
           text: "Employers rarely expect you to already know their specific tools. What they do expect is comfort with the general category — documents, spreadsheets, email, and video calls — so training you takes days, not months.",
@@ -288,6 +288,58 @@ B6 instantly becomes 66    # you re-do ZERO math by hand`,
         callout: {
           label: "Try this today",
           text: "Pick just ONE item from this checklist to actually complete this week — a portfolio doc, a self-search, or learning =SUM(). Small, specific action beats a long mental to-do list.",
+        },
+      },
+      {
+        id: "email-scenario-2",
+        kicker: "Mini scenario",
+        title: "Second case: the recommendation-letter follow-up",
+        body: `Taylor asked a teacher for a recommendation letter two weeks ago. The deadline is in five days. No reply. Taylor is tempted to send "??? did u get my email???"\n\n**Before:** vague, emotional follow-up that makes the teacher feel nagged and still doesn't say what's needed.\n\n**After:** short, professional note — subject line restates the deadline, body thanks them, mentions the portal link and the due date, offers to resend materials, signs off with full name.\n\nThe teacher replies within an hour: "Thanks for the reminder — submitting tonight."\n\nWork communication isn't about being fancy. It's about making it **easy for a busy person to say yes** and know exactly what you need.`,
+        callout: {
+          label: "Try this week",
+          text: "Save a follow-up email template in your notes app — greeting, purpose, deadline, thanks, sign-off. Customize in thirty seconds when you need it.",
+        },
+        checkIn: {
+          prompt: "Which subject line best fits a professional follow-up about a recommendation letter due Friday?",
+          choices: [
+            "hello??",
+            "Reminder: Recommendation letter due Friday, March 14 — Taylor Kim",
+            "URGENT READ NOW",
+            "yo",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A clear subject with the deadline and your name helps busy readers prioritize and act — exactly what professional email habits teach.",
+        },
+      },
+      {
+        id: "spreadsheet-before-after",
+        kicker: "Before & after",
+        title: "Tracking applications: chaos vs. one sheet",
+        body: `**Before:** deadlines in head, passwords on sticky notes, three portals with different logins, missed one essay because "I thought it was next week."\n\n**After:** one spreadsheet — columns for school/program, deadline, status, login email, documents needed, date submitted. Sorted by due date. Checked twice a week.\n\nSame student, same opportunities — wildly different stress level.\n\nYou don't need advanced formulas on day one. You need **one honest home base** that shows what's due before you're in panic mode.`,
+        callout: {
+          label: "Try this week",
+          text: "Start a simple tracker with five rows — even if you only have five applications. Building the habit early beats building it during the busiest week.",
+        },
+      },
+      {
+        id: "work-red-flags",
+        kicker: "Red flags",
+        title: "Digital habits that make you look unprepared",
+        body: `These show up in internships, first jobs, and even serious volunteer roles:\n\n• **No subject line** or subject lines that say "hi."\n• **Attachments named** \`document1.pdf\` — reviewers can't tell files apart.\n• **Reply-all accidents** on threads with dozens of people.\n• **Missing deadlines** because they lived only in your head, not a shared calendar or sheet.\n• **"I don't know how to share a doc"** on day three of a remote project — collaboration tools are baseline now.\n• **Public drama** on accounts linked to your real name.\n\nThe fix isn't perfection. It's noticing which red flags are yours and closing them **before** someone hiring you notices first.`,
+        callout: {
+          label: "Watch out",
+          text: "Employers often forgive inexperience. They rarely forgive careless communication on something you had time to prepare.",
+        },
+      },
+      {
+        id: "career-try-week",
+        kicker: "Try this week",
+        title: "Three career habits you can start this week",
+        body: `Pick one — or do all three if you're feeling ambitious:\n\n1. **Draft one professional email** — even if you don't send it yet. Recommendation request, internship inquiry, or thank-you to a mentor. Use the greeting → purpose → ask → sign-off shape.\n2. **Build a five-row tracker** — scholarships, jobs, or college tasks with deadlines and status columns.\n3. **Share one doc properly** — set permissions, use Suggesting mode, and practice finding version history on a real group assignment.\n\nNone of these require a job title. They're the habits hiring managers mean when they say "strong communicator" and "comfortable with digital tools" — and they're the same habits that make senior year less chaotic.`,
+        callout: {
+          label: "Pro tip",
+          text: "After you send a professional email, save a anonymized version as a template. Future applications get faster every time you reuse the structure.",
         },
       },
       {

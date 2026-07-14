@@ -18,7 +18,7 @@ export const cyberLesson12: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-12.png",
         imageAlt: "SOC-style monitors with calm alert banners and a runbook binder labeled Incident Response",
-        body: `Prevention is great — until something slips through. Then you need **detection**, **logs**, and a calm **incident response** plan. Today you'll learn how defenders notice trouble and recover without making things worse.\n\nHere's our roadmap:\n\n• **Why logs matter** — the black box recorder of systems.\n• **What to log** — and how to protect logs from tampering.\n• **Detection vs prevention** — both are needed.\n• **Basic IR steps** — identify, contain, eradicate, recover, lessons learned.\n• **Evidence preservation** — why panic-wiping makes things worse.\n• **Who to tell** — escalation without chaos.\n• **Tabletop drills** — practicing calm response before a real incident.\n• A mini playbook for school/club incidents.\n\nThis lesson builds the **Detect** and **Respond** side of the NIST NICE framework, pairing with the **Protect** habits from Lesson 11. It's about thinking clearly under pressure — a core cyber skill.`,
+        body: `Prevention is great — until something slips through. Then you need **detection**, **logs**, and a calm **incident response** plan. Today you'll learn how defenders notice trouble and recover without making things worse.\n\nHere's our roadmap:\n\n• **Why logs matter** — the black box recorder of systems.\n• **What to log** — and how to protect logs from tampering.\n• **Detection vs prevention** — both are needed.\n• **Basic IR steps** — identify, contain, eradicate, recover, lessons learned.\n• **Evidence preservation** — why panic-wiping makes things worse.\n• **Who to tell** — escalation without chaos.\n• **Tabletop drills** — practicing calm response before a real incident.\n• A mini playbook for school/club incidents.\n\nThis lesson pairs with the hardening habits from Lesson 11 — prevention first, then calm detection and response when something slips through. It's about thinking clearly under pressure — a core cyber skill.`,
         callout: {
           label: "Why it matters",
           text: "Many organizations fail not because they never get attacked, but because nobody knows what to do next — or they destroy the evidence while panicking.",
@@ -272,6 +272,63 @@ export const cyberLesson12: AILessonConfig = {
           label: "Try this week",
           text: "Run a tiny tabletop drill with a friend, family member, or club: pick one scenario and talk through the five IR steps out loud.",
         },
+      },
+      {
+        id: "incident-decisions",
+        kicker: "Decision checklist",
+        title: "First-hour incident decisions",
+        body: `When something goes wrong, the first hour sets the tone. Work this order:
+
+**1. Identify** — What account, device, or service is affected? What symptoms?
+**2. Contain** — Sign out sessions, disconnect from network, revoke suspicious app access — stop spread before deep investigation.
+**3. Preserve** — Screenshot timestamps, save headers, do not wipe devices yet.
+**4. Escalate** — IT, advisor, platform support — with facts, not accusations.
+**5. Communicate carefully** — need-to-know updates; avoid posting raw indicators publicly while active.
+
+**Comparison — panic vs procedure:**
+• Panic: mass password resets without logging what changed, deleting emails, blaming classmates.
+• Procedure: contain, document, notify, recover from known-good state, lessons learned.
+
+Calm is a skill. Tabletop drills exist so your brain has a path before adrenaline arrives.`,
+      },
+      {
+        id: "log-review-habits",
+        kicker: "Defender habits",
+        title: "Reading logs you actually have access to",
+        body: `You may not have a SOC dashboard — but many services show useful history:
+
+• **Email** — recent sign-ins, forwarding rules, connected apps.
+• **Cloud drives** — sharing changes, anonymous viewers, edit history.
+• **Social platforms** — login locations, authorized third-party apps.
+• **School portals** — grade or schedule access logs if exposed to students.
+
+**Weekly habit (five minutes):** scan login activity on primary email; remove unknown connected apps; confirm sharing links still match intent.
+
+**After an incident:** export or screenshot logs before attackers remove them; note timezone and device names.
+
+Logs tell stories backward. The habit is looking before you need them urgently at midnight.`,
+        callout: {
+          label: "Watch out",
+          text: "Attackers often add email forwarding rules or recovery emails first — check those before assuming \"nothing looks wrong.\"",
+        },
+      },
+      {
+        id: "post-incident-reporting",
+        kicker: "What to do next",
+        title: "Writing a useful post-incident summary",
+        body: `**Template defenders appreciate:**
+
+• **What happened** — one plain sentence.
+• **When noticed** — date/time/timezone.
+• **Scope** — which accounts, devices, data types.
+• **Containment steps taken** — password changes, sessions revoked, device isolated.
+• **Evidence saved** — screenshots, headers, log exports.
+• **Open questions** — what still unknown.
+• **Lessons learned** — one control to add (MFA, sharing audit, backup test).
+
+**Scenario:** Club Instagram posted spam links for an hour. Summary: unauthorized login from new city at 2:14 a.m.; president revoked sessions at 7:30 a.m.; MFA enabled; sponsors notified with plain-language explanation; monthly login review added to officer checklist.
+
+Good summaries help the next officer avoid repeating the same Tuesday.`,
       },
       {
         id: "ready",

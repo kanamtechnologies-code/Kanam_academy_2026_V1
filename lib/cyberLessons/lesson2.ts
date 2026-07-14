@@ -209,16 +209,6 @@ export const cyberLesson2: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "How this connects to real standards",
-        body: `This lesson lines up directly with recognized cybersecurity education standards:\n\n• **CSTA 3A-NI-06** (Networks and the Internet) asks students to recommend security measures — like MFA, based on factors such as feasibility and impact — exactly what you did when comparing MFA factor types today.\n• **CSTA 3A-NI-07** (Networks and the Internet) asks students to compare security measures, considering tradeoffs between usability and security — the push-prompt-vs-hardware-key comparison you just walked through is that standard in action.\n• **ISTE Digital Citizen (1.2c)** asks students to manage personal data and maintain digital privacy and security — the exact skill you're building by auditing your own accounts' authentication setup.\n\nThe "usability vs. security" tradeoff is worth remembering by name: a hardware key is more secure but less convenient than a push prompt; an SMS code is more convenient but less secure. Recognizing that tradeoff — instead of assuming "more secure automatically means better for everyone" — is a mark of real security literacy.`,
-        callout: {
-          label: "Why it matters",
-          text: "Standards like these exist because employers and colleges want to know students can reason about tradeoffs, not just recite definitions.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
@@ -231,6 +221,34 @@ export const cyberLesson2: AILessonConfig = {
         image: "/images/lessons/cs-2-5.png",
         imageAlt: "Shared laptop on a table at a debate tournament with a login screen still showing a previous student's session",
         body: `**The situation:** At a weekend debate tournament, four teammates share one school laptop to research and submit materials. Priya logs in first with her password (no MFA — she never got around to enabling it) to check email. She finishes, closes the lid, and hands the laptop to a teammate for the next round.\n\nHours later, Priya notices an email was sent from her account that she didn't write — a message to a coach with an attached, oddly-named file. Nobody on the team admits to sending it, and Priya can't remember for certain whether she actually logged out or just closed the lid.\n\n**Apply what you've learned:**\n\n• **Authentication gap:** Priya's account only required a password — one factor. Without MFA, anyone who found her session still active (or somehow obtained her password) could act as her.\n• **Session issue:** Closing a laptop lid often does not end an active session the way logging out does. The next person to open it may still be "authenticated" as Priya.\n• **CIA impact:** An email sent without her knowledge is an **Integrity** problem (unauthorized action taken under her identity) and could become a **Confidentiality** problem if the attached file contained anything sensitive.\n\n**Defender fix going forward:** always log out (not just close the lid) on shared devices, and enable MFA on the account so a leftover session or guessed password isn't enough on its own.`,
+      },
+      {
+        id: "lockout-recovery",
+        kicker: "Decision checklist",
+        title: "What to do after suspicious login alerts",
+        body: `Unexpected login alerts are common — some are false alarms, some are early warnings. Work this checklist calmly:
+
+**1. Deny** any MFA prompt you did not personally start.
+**2. Open the account** through the official app or site — not through links inside the alert email.
+**3. Review recent activity** — new devices, forwarded mail rules, changed recovery phone.
+**4. Change the password** from a device you trust if anything looks unfamiliar.
+**5. Turn on MFA** if it was off, choosing the strongest option the service offers.
+**6. Check linked accounts** — email takeovers often become stepping stones to other services.
+**7. Report** to IT or a trusted adult if it is a school account or money is involved.
+
+The trap to avoid: clicking "secure your account" inside the alert itself before you have verified the alert is genuine. That link might be the attack.`,
+        checkIn: {
+          prompt: "You receive an unexpected MFA push notification you did not request. What is the best first step?",
+          choices: [
+            "Approve it so the notifications stop",
+            "Deny it and then review account activity through the official app or site",
+            "Reply to the notification with your password to prove it's you",
+            "Ignore it completely without checking anything",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Deny unexpected prompts, then investigate through a trusted channel — approving out of annoyance is exactly what prompt bombing exploits.",
+        },
       },
       {
         id: "check-yourself",
@@ -371,7 +389,7 @@ export const cyberLesson2: AILessonConfig = {
     },
     {
       id: "q8",
-      question: "Why do standards like CSTA's Networks and the Internet concept ask students to compare security measures rather than just list them?",
+      question: "Why is it more useful to compare security measures than to just list their definitions?",
       choices: [
         "Because real security decisions involve tradeoffs between usability and protection, which requires comparison, not memorization",
         "Because listing definitions is more useful than reasoning about tradeoffs",

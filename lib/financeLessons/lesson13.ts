@@ -18,7 +18,7 @@ export const financeLesson13: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/fl-13.png",
         imageAlt: "Teen with a W-2 form and a summer job pay stubs folder at a desk with a parent nearby",
-        body: `Your first paycheck can feel like a plot twist: the number on the hiring poster isn't the number you take home. Today's a deep dive — as a Tax Rookie, not a CPA.\n\nHere's the roadmap:\n\n• **A true-ish story** about a first paycheck surprise.\n• **Why taxes exist**, **gross vs net pay**, **W-2 vs 1099**, and **filing basics** — three core concepts, each with a quick check.\n• A **worked example** reading a real stub, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (reading a W-4 and planning for gig income), a **W-2 vs 1099 comparison**, and a **behavioral trap** to avoid.\n• **Habits**, how this connects to national money standards, a reflection pause, a **mini-case**, and a mixed **check yourself**.\n\nThis is general education. Rules change and depend on your situation — trusted adults and official resources beat random videos.`,
+        body: `Your first paycheck can feel like a plot twist: the number on the hiring poster isn't the number you take home. Today's a deep dive — as a Tax Rookie, not a CPA.\n\nHere's the roadmap:\n\n• **A true-ish story** about a first paycheck surprise.\n• **Why taxes exist**, **gross vs net pay**, **W-2 vs 1099**, and **filing basics** — three core concepts, each with a quick check.\n• A **worked example** reading a real stub, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (reading a W-4 and planning for gig income), a **W-2 vs 1099 comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a reflection pause, a **mini-case**, and a mixed **check yourself**.\n\nThis is general education. Rules change and depend on your situation — trusted adults and official resources beat random videos.`,
         callout: {
           label: "Why it matters",
           text: "Understanding withholdings and forms helps you budget, avoid panic, and spot bad advice when you start earning.",
@@ -206,16 +206,6 @@ export const financeLesson13: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this is on the checklist",
-        title: "How this connects to national money standards",
-        body: `Groups like the **Jump$tart Coalition** and the **Council for Economic Education** publish national standards for personal financial education, and **Earning Income** is one of the core pillars — right alongside spending, saving, credit, investing, and risk management.\n\nWithin that pillar, the specific skills you just practiced show up directly:\n\n• Explaining **why governments collect taxes** and how that connects to your paycheck.\n• Distinguishing **gross pay from net pay**, and reading a pay stub.\n• Comparing **employee (W-2) vs contractor-style (1099) work**, including how taxes are handled differently.\n• Building **filing and recordkeeping awareness** for W-2s and 1099s.\n\nThis isn't trivia for its own sake — it's the exact "can this student handle their first paycheck responsibly" checkpoint that these standards are designed to measure.`,
-        callout: {
-          label: "Good to know",
-          text: "If your class or state references financial literacy standards, this lesson maps to the Earning Income domain almost line for line.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on...",
@@ -240,6 +230,112 @@ export const financeLesson13: AILessonConfig = {
           explanation:
             "1099-style payments often arrive with no withholding, but that doesn't mean no eventual tax responsibility — apps generally don't withhold for you, so setting money aside and keeping records is the proactive habit.",
         },
+      },
+      {
+        id: "worked-numbers",
+        kicker: "Do the math",
+        title: "Malik's W-2 vs 1099 mix — estimated quarterly gap",
+        body: `Malik earns **$9,000** from a W-2 job (taxes withheld) plus **$1,200** from freelance graphic work (1099, no withholding).
+
+**Illustrative awareness math:** If roughly **15%** should be set aside for federal+state on the 1099 slice: 15% × $1,200 ≈ **$180** he should plan for (actual rates vary — this is educational rounding).
+
+**Without planning:** Malik spends the full $1,200, files taxes, and owes **$180** plus possible penalties — a spring surprise.
+
+**With sinking fund habit:** Moves **$45/month** into a "taxes" label → $180 saved in 4 months.
+
+W-2 vs 1099 isn't just labels — it's **who holds the tax money until filing**.`,
+        bullets: [
+          "Withholding on W-2 ≠ taxes handled on 1099 income.",
+          "Set aside a **percentage** of 1099 deposits on payday.",
+          "A trusted adult or tax preparer helps the first filing year.",
+        ],
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you file",
+        title: "First tax filing — gather this before you submit",
+        body: `Not a filing guide — a **gather checklist** with a trusted adult:
+
+• **W-2** from each employer (arrives by late January).
+• **1099-NEC** if freelance > $600 from a client (rules can vary).
+• **1098-T** if college (tuition statement).
+• **Bank interest** forms if savings earned enough.
+• **ID + SSN** — never email these unencrypted to random "helpers."
+• **Direct deposit info** for refunds — triple-check routing numbers.
+• **Prior year return** if you filed before.
+
+File through reputable software or a preparer. Ignore "instant refund" pop-ups that are actually high-fee loans.`,
+        callout: {
+          label: "Watch out",
+          text: "Refund anticipation loans borrow against your own refund — with fees. Waiting for direct deposit is usually cheaper.",
+        },
+      },
+      {
+        id: "second-scenario",
+        kicker: "Round two",
+        title: "The paycheck plot twist — overtime week",
+        body: `Malik usually nets **$240** biweekly. One busy period: extra shifts push gross up, but taxes withheld jump too — net **$310** instead of expected **$280**.
+
+**Trap:** Treating the whole $310 as "bonus to spend."
+
+**Plan:**
+• Needs stay fixed.
+• Move **$40** to tax sinking fund (1099 side gig same month).
+• **$30** to emergency fund.
+• Remaining bump → one named want, not lifestyle reset.
+
+Irregular income weeks are where **budgets flex** instead of break.`,
+        checkIn: {
+          prompt: "Malik's net pay jumps $30 this period from extra hours. Best Tax Rookie move?",
+          choices: [
+            "Assume taxes are identical every check — spend the difference",
+            "Notice withholding changed, assign the extra on purpose (tax fund, savings, or planned want)",
+            "Quit tracking because overtime makes budgets impossible",
+            "Skip W-4 updates forever — withholding fixes itself",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Extra income still needs a job on the budget. Withholding may change; purposeful assignment beats accidental lifestyle creep.",
+        },
+      },
+      {
+        id: "behavioral-trap-2",
+        kicker: "Watch your brain",
+        title: "Refund windfall — spending next year's money",
+        body: `A **$800 refund** feels like free money. Often it's your own over-withholding returned — money you could have had in smaller chunks last year.
+
+**Trap:** Blowing the refund on wants, then struggling all summer.
+
+**Plan:** Split — **50%** goals/emergency, **30%** needs backlog, **20%** guilt-free fun (adjust with a trusted adult).
+
+Refunds aren't failures — but they're lumpy income that needs a plan like any paycheck.`,
+        callout: {
+          label: "Pro tip",
+          text: "If refunds are huge every year, revisit W-4 withholding with an adult — smoother cash flow beats one annual spike.",
+        },
+      },
+      {
+        id: "tradeoff-table",
+        kicker: "Compare",
+        title: "DIY file vs preparer — teen-relevant tradeoffs",
+        body: `**DIY free file (simple W-2 only):**
+• Cost: **$0–$30** software.
+• Time: 1–3 hours learning.
+• Risk: Errors if you rush; good for single W-2, standard deduction.
+
+**Paid preparer:**
+• Cost: **$80–$200+**.
+• Time: 1 appointment.
+• Benefit: Help with 1099, education credits, state quirks.
+
+**Tradeoff:** If Malik has W-2 + 1099 + college credits, preparer cost may be less than penalty interest from mistakes. If single W-2, DIY builds literacy.
+
+Neither choice is universal — match complexity to support.`,
+        bullets: [
+          "Simple return = good learning project.",
+          "Mixed income = ask for help early.",
+          "Never pay a preparer a % of your refund.",
+        ],
       },
       {
         id: "check-yourself",

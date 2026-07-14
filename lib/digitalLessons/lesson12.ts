@@ -257,25 +257,55 @@ export const digitalLesson12: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "This is data literacy — a core ISTE standard",
-        body: `Everything in this lesson lines up with a specific expectation for digitally literate students: the **ISTE Digital Citizen** standard, which asks you to manage your personal data to maintain privacy and security, and to understand how the technology you use collects and uses your information.\n\nIt also connects to **CSTA's "Impacts of Computing"** strand, since deciding which permissions to grant and how a data-collection system actually works is exactly the kind of critical thinking about computing systems that strand asks for — not just using an app, but understanding what it does with what you give it.\n\nAnd reading a privacy policy or a permission request with a skeptical, questioning eye — instead of clicking "Allow" automatically — is a form of **ISTE Knowledge Constructor**: evaluating the accuracy and purpose of information sources, including the ones asking to collect your data.`,
-        checkIn: {
-          prompt: "Which ISTE-aligned habit did this lesson focus on building?",
-          choices: [
-            "Avoiding all technology so nothing can collect data",
-            "Trusting that popular apps only request permissions they truly need",
-            "Accepting permission requests quickly so apps work without friction",
-            "Managing your personal data thoughtfully and questioning what technology collects and why",
-          ],
-          correctIndex: 3,
-          explanation:
-            "The ISTE Digital Citizen standard is about managing your data to protect your privacy and security — exactly the skill this lesson builds through permissions, settings, and smart sharing choices.",
-        },
+        id: "permission-audit",
+        kicker: "Checklist",
+        title: "Your 15-minute app permission audit",
+        body: `Open your phone's settings and walk through your most-used apps:\n\n1. **Location** — does this app need it always, only while using, or never?\n2. **Camera / mic** — games and calculators usually don't need always-on access.\n3. **Contacts / photos** — grant only if the app's core job requires it.\n4. **Tracking / ads** — turn off cross-app tracking where you can (especially on social apps).\n5. **Old apps** — delete ones you haven't opened in six months; they may still be collecting data.\n\nYou're not trying to go off-grid. You're cutting off the data hoses that don't serve you — especially before college apps or job searches when your digital life gets more public.`,
         callout: {
-          label: "Why it matters",
-          text: "Questioning a permission request or a privacy setting isn't paranoia — it's the same critical-thinking habit that makes you a sharper reader of any system that asks something of you, online or off.",
+          label: "Try this week",
+          text: "Fix permissions on your top three apps this week — not all fifty at once. Small, real changes beat a privacy resolution you abandon by Friday.",
+        },
+        checkIn: {
+          prompt: "A flashlight app requests access to your contacts, microphone, and location 'for full features.' What should you do?",
+          choices: [
+            "Grant everything so the app works",
+            "Deny unnecessary permissions or delete the app — a flashlight doesn't need your contacts",
+            "Assume all apps need all permissions",
+            "Share the app in group chat",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Grant the least permissions needed for the app to do its job. A flashlight app asking for contacts and mic is a major red flag — deny or delete.",
+        },
+      },
+      {
+        id: "overshare-scenario-2",
+        kicker: "Mini scenario",
+        title: "Second case: the vacation post problem",
+        body: `The Chen family leaves for a week-long trip. Their teen posts airport selfies with the house address visible in a delivery package on the counter, plus a "see you in seven days!" caption.\n\n**Before:** post goes public, a stranger now knows the family is away and roughly where they live.\n\n**After:** post waits until they're home, or shares a generic travel photo with no address, tags, or "we're gone" timing — close friends already knew the plan through private channels.\n\nOversharing isn't just about embarrassing photos. **Timing + location + empty house** is a privacy pattern burglars and scammers literally watch for. You don't have to stop sharing joy — just separate public posts from security clues.`,
+        callout: {
+          label: "Watch out",
+          text: "Stories and location tags feel temporary, but screenshots aren't. If you wouldn't want a stranger to know you're gone, don't broadcast it publicly.",
+        },
+      },
+      {
+        id: "privacy-before-after",
+        kicker: "Before & after",
+        title: "Privacy settings: default vs. intentional",
+        body: `**Before (defaults):** public profile, location on for every app, birthday and school visible, old posts searchable, "free" quiz app selling data to advertisers, same password on six accounts.\n\n**After (intentional):** friends-only on personal accounts, location only when needed, birthday/year hidden on public profiles, annual self-search and cleanup, privacy settings reviewed twice a year, unique passwords on important accounts.\n\nSame person, same apps — wildly different risk level. Companies design defaults to collect more, not to protect more. **Intentional** means you chose what to share instead of letting the app's business model choose for you.`,
+        callout: {
+          label: "Pro tip",
+          text: "Set a recurring calendar reminder — 'privacy check' in January and July. Twice a year beats a panicked settings scramble the night before applications go live.",
+        },
+      },
+      {
+        id: "data-red-flags",
+        kicker: "Red flags",
+        title: "When an app or site wants too much",
+        body: `These are signs your data is the product — not the service:\n\n• **"Sign in with Google/Facebook"** on a site that doesn't need your identity for its job.\n• **Long, vague privacy policies** with no plain summary — especially if they sell data to "partners."\n• **Quizzes that ask for your first car, street, and mother's maiden name** — those are often security-question answers.\n• **Free VPNs or browser extensions** with no clear business model — if you're not paying, inspect what they're collecting.\n• **"We need your contacts to help you find friends"** from a brand-new app nobody's heard of.\n\nWhen you spot these, ask: **what are they getting, and what am I actually getting?** Sometimes the trade isn't worth it.`,
+        callout: {
+          label: "Try this week",
+          text: "Read one app's privacy label (or the first screen of its policy) for an app you use daily. Just one — you'll never unsee how much data it collects.",
         },
       },
       {

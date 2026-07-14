@@ -223,16 +223,6 @@ export const financeLesson11: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "How this connects to national standards",
-        body: `This lesson lines up with the **Jump$tart Coalition** and **Council for Economic Education (CEE) 2021 National Standards for Personal Financial Literacy** — specifically the **Managing Risk** strand: understanding insurance as risk transfer, comparing premium and deductible tradeoffs, and recognizing how auto, renters, and health coverage apply to everyday situations.\n\nThese concepts are foundational whether you're a passenger today or signing your own policy in a few years — the vocabulary and comparison skills transfer directly.`,
-        callout: {
-          label: "Standards note",
-          text: "This is general education about how insurance works, not a recommendation for any specific insurer or policy.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on…",
@@ -252,6 +242,86 @@ export const financeLesson11: AILessonConfig = {
         callout: {
           label: "Try this",
           text: "Ask whoever manages your household's auto policy what the deductible actually is. Most teens have never been told this number.",
+        },
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you sign",
+        title: "Insurance policy checklist — read before you pay",
+        body: `Auto, renters, or health — policies are contracts. With a trusted adult, check:
+
+• **Premium** — Monthly/annual cost.
+• **Deductible** — What you pay out of pocket before coverage kicks in on a claim.
+• **Coverage limits** — Maximum the policy pays per incident or year.
+• **Exclusions** — What's NOT covered (floods, certain drivers, roommates' stuff)?
+• **Liability limits** — If you hurt someone or damage property, how much protection?
+• **Discounts** — Good student, bundling, safety courses — real or marketing?
+• **Claim process** — How do you report? Photos needed?
+
+Cheapest premium isn't always cheapest **total risk** if deductible is crushing.`,
+        callout: {
+          label: "Watch out",
+          text: "Skipping renters insurance to save $12/month can mean replacing $2,000 of stuff alone after one bad leak.",
+        },
+      },
+      {
+        id: "worked-tradeoff",
+        kicker: "Tradeoff table",
+        title: "Auto policy A vs B — premium vs deductible",
+        body: `**Policy A:** Premium **$140/month**, deductible **$250**.
+**Policy B:** Premium **$95/month**, deductible **$1,000**.
+
+**If no claims:** B saves $45/month × 12 = **$540/year** — looks like a win.
+
+**If one $3,000 fender-bender:**
+• A: You pay **$250**, insurer covers rest (simplified).
+• B: You pay **$1,000** out of pocket.
+
+**Net after one accident:** B's year savings ($540) minus extra $750 deductible = **$210 worse off** than A with one claim.
+
+Low premium + high deductible is a bet you won't need the coverage. Sometimes that's fine; sometimes it's a trap for tight cash buffers.`,
+        bullets: [
+          "**Premium** = price of the policy.",
+          "**Deductible** = your share when something happens.",
+          "Match deductible to an emergency fund you actually have.",
+        ],
+      },
+      {
+        id: "second-scenario",
+        kicker: "Renters lens",
+        title: "First apartment — what renters insurance actually covers",
+        body: `Deja signs a lease with three roommates. Landlord's insurance covers the **building**, not Deja's laptop (**$900**), bike (**$400**), or clothes if there's a break-in or fire.
+
+**Renters policy (~$15/month illustrative):** May cover personal property, temporary housing if unit is unlivable, liability if someone trips in her room.
+
+**Without it:** Replacing $1,300 of stuff from savings she planned for car costs.
+
+**Tradeoff:** $180/year premium vs. risking a four-figure loss. Not mandatory everywhere — but a deliberate choice, not an accident of ignorance.`,
+        checkIn: {
+          prompt: "Your roommate's flood damages your $600 console and $200 textbooks. Landlord fixes the floor. Who typically replaces your stuff?",
+          choices: [
+            "Landlord's building policy automatically covers all tenants' belongings",
+            "Your renters policy (if you bought one) or you pay out of pocket",
+            "The roommate always pays 100% regardless of fault",
+            "College financial aid replaces electronics",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Building insurance covers structure, not personal property. Renters insurance or personal funds cover your belongings.",
+        },
+      },
+      {
+        id: "behavioral-trap-2",
+        kicker: "Watch your brain",
+        title: "Skipping coverage to \"save\" — the penny-wise trap",
+        body: `Dropping renters or driving uninsured (illegal in most places) frees cash **this month** but moves catastrophic risk to **future you**.
+
+**Behavioral pattern:** Low-probability events feel impossible until they're not. One stolen backpack + laptop can erase months of sinking-fund work.
+
+**Healthier move:** Price the **worst realistic case** — could you cover it from emergency fund? If not, insurance or higher savings is the rational trade.`,
+        callout: {
+          label: "Why it matters",
+          text: "Insurance doesn't make life risk-free — it caps how big one bad day can hit your goals.",
         },
       },
       {

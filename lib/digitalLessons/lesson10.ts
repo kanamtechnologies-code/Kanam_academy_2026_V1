@@ -279,6 +279,48 @@ export const digitalLesson10: AILessonConfig = {
         },
       },
       {
+        id: "can-i-use-scenario",
+        kicker: "Mini scenario",
+        title: "Second case: the scholarship video soundtrack",
+        body: `Priya is editing a two-minute scholarship video. She finds a trending song on a random "free music" site with no license info and wants to drop it in.\n\n**Before:** downloads the track, posts the video, gets a copyright strike — or the portal mutes the audio.\n\n**After:** checks the license, finds a **Creative Commons** or platform-provided royalty-free track with clear terms, saves the attribution line in her credits slide, and exports with captions.\n\nSame video, different outcome. Copyright isn't about being paranoid — it's about making sure your hard work doesn't get silenced or disqualified because of a 30-second soundtrack choice.`,
+        callout: {
+          label: "Try this week",
+          text: "Bookmark one legitimate free-media source (your school's library page, Creative Commons search, or a platform audio library) before your next project — not during it.",
+        },
+        checkIn: {
+          prompt: "A site says 'free download' but shows no license, no creator name, and no terms. Can you safely use the music in a public scholarship video?",
+          choices: [
+            "Yes — 'free download' means free to use anywhere",
+            "Yes — if you credit 'the internet' in small text",
+            "No — without clear permission or license terms, you don't have the right to use it publicly",
+            "Yes — nonprofit school projects are always fair use",
+          ],
+          correctIndex: 2,
+          explanation:
+            "'Free to download' is not the same as 'free to use in your video.' You need clear license terms or explicit permission before using someone else's creative work.",
+        },
+      },
+      {
+        id: "attribution-before-after",
+        kicker: "Before & after",
+        title: "Credit done wrong vs. credit done right",
+        body: `**Before (not enough):**\n\`Image: Google\` or \`Music: unknown\` or no credit at all because "it's just for school."\n\n**After (actually useful):**\n\`Photo: "Sunset over harbor" by Jane Doe, CC BY 2.0, via Flickr — cropped and color-adjusted.\`\n\`Music: "Soft Horizon" by AudioArtist, licensed from YouTube Audio Library.\`\n\nGood attribution answers three questions: **what** did you use, **who** made it, and **where/how** did you get permission to use it?\n\nSloppy credit is how plagiarism accusations start — even when you didn't mean to steal. Precise credit is how you show you're trustworthy, in class and in portfolios.`,
+        callout: {
+          label: "Pro tip",
+          text: "Keep a 'sources' doc while you edit — paste links and license info as you go. Hunting for credits at 11 p.m. is how 'Image: Google' happens.",
+        },
+      },
+      {
+        id: "plagiarism-red-flags",
+        kicker: "Red flags",
+        title: "When your project is drifting into plagiarism",
+        body: `These habits feel small in the moment but cause big problems on essays, videos, and portfolios:\n\n• **Copy-paste with light rewording** — if the structure and ideas aren't yours, changing a few words doesn't fix it.\n• **AI-generated paragraphs with no disclosure** when your teacher or portal requires transparency.\n• **Stock images with watermarks** — screenshotting around a watermark isn't a workaround.\n• **"I'll add credits later"** — later often never comes, and the export ships without them.\n• **Using a classmate's slide layout verbatim** including their original wording — shared templates still need your own content and credit where required.\n\n**Fix pattern:** build from sources you can name, keep a running credit list, and when in doubt ask *before* you submit — not after you get flagged.`,
+        callout: {
+          label: "Watch out",
+          text: "Plagiarism rules apply to images and music too, not just essays. A beautiful video with an uncredited soundtrack is the same category of problem.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",

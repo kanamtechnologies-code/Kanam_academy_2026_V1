@@ -414,13 +414,19 @@ print("Hello! I am " + name)
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "This lesson meets a real CS standard",
-        body: `This isn't just a fun exercise — it's aligned to a real computer science learning standard used in classrooms nationwide.\n\n**CSTA 2-AP-11**: *Create clearly named variables that represent different data types and perform operations on their values.*\n\nToday you created a clearly named variable (\`name\`), gave it a data type (a string), and performed an operation on it (joining it with \`+\`). That's exactly what this standard asks for — you just did real, standards-aligned computer science.`,
-        callout: {
-          label: "Standard",
-          text: "CSTA 2017, Algorithms & Programming, Level 2 (grades 6–8): 2-AP-11 — Create clearly named variables that represent different data types and perform operations on their values.",
+        id: "before-you-code",
+        kicker: "Before you code",
+        title: "A quick checklist for your first program",
+        body: `Before you head to the exercises, run through this short checklist — it's the same order pros use when starting any new program:\n\n1. **Name the data first** — what text do you need to remember? (your name)\n2. **Store it** — write the variable line with quotes around the text.\n3. **Build the message** — glue the greeting and the variable with \`+\`.\n4. **Show it** — wrap the whole sentence in \`print()\`.\n5. **Run and read** — if the output looks wrong, reread each line before changing anything.`,
+        bullets: [
+          "If you can't explain what a line does, simplify before adding more.",
+          "Check quotes and spaces first — those two cause most first-lesson bugs.",
+        ],
+        checkIn: {
+          prompt: "You're about to write your first program. What should you decide FIRST?",
+          choices: ["Which print color to use", "What text you need to store (like your name)", "How many loops to run"],
+          correctIndex: 1,
+          explanation: "Start with the data — once you know what to remember, the variable line and greeting almost write themselves.",
         },
       },
       {

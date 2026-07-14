@@ -238,16 +238,6 @@ export const digitalLesson8: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "This is digital citizenship, straight from ISTE",
-        body: `This entire lesson lives inside the **ISTE Digital Citizen** standard, which asks students to recognize their rights and responsibilities in a connected world and to act safely, legally, and ethically online — including recognizing and responding to harmful behavior.\n\nIt also connects strongly to **ISTE Global Collaborator**: working respectfully with people from different backgrounds and perspectives in shared online spaces, which is exactly what treating every username as a real person requires.\n\nAnd choosing to support a target, save evidence, and report — rather than staying silent or piling on — reflects **CSTA's "Impacts of Computing"** strand, which asks students to recognize how their own choices inside computing systems affect other people, not just themselves.`,
-        callout: {
-          label: "Why it matters",
-          text: "Digital citizenship isn't a school buzzword — it's the same respect and responsibility that keeps any shared space, online or off, safe for the people in it.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
@@ -283,6 +273,48 @@ export const digitalLesson8: AILessonConfig = {
           correctIndex: 0,
           explanation:
             "Good digital citizenship isn't only avoiding harm — it's actively helping, including others, and improving the shared space for everyone.",
+        },
+      },
+      {
+        id: "citizen-checklist",
+        kicker: "Checklist",
+        title: "The good-citizen quick check",
+        body: `Before you post, comment, or pile on in a thread, run this five-point check:\n\n1. **True?** — would I share this if I had to cite a source?\n2. **Kind?** — would I say this to the person's face?\n3. **Useful?** — does this add something, or just add heat?\n4. **Fair?** — am I treating others the way I'd want to be treated online?\n5. **Permanent?** — could I explain this post in two years?\n\nYou won't pass every check every time — nobody does. But running the list on high-stakes moments (drama, politics, someone getting called out) keeps you from becoming the person everyone screenshots later.`,
+        callout: {
+          label: "Try this week",
+          text: "Pick one heated thread you'd normally jump into and run the checklist first. Notice whether your reply changes — that's citizenship in action.",
+        },
+        checkIn: {
+          prompt: "A classmate is getting roasted in a group chat for a mistake they already apologized for. What's the most digitally literate move?",
+          choices: [
+            "Add your own joke so you fit in",
+            "Screenshot and share it to a bigger audience",
+            "Don't pile on — either stay out of it or defend basic kindness, depending on what's safe for you",
+            "Assume online drama doesn't affect real life",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Good digital citizenship includes not amplifying cruelty. Staying out of a pile-on — or pushing back on kindness — is a real skill, not just 'being nice.'",
+        },
+      },
+      {
+        id: "upstander-scenario",
+        kicker: "Mini scenario",
+        title: "Second case: the group chat pile-on",
+        body: `A new student joins the class group chat. Within an hour, someone posts an old, embarrassing photo of them with the caption "welcome to our school lol." Reactions roll in fast.\n\n**Before:** everyone treats silence as agreement, the new student stops replying, the photo stays up all week.\n\n**After:** one person DMs the poster: "Not cool — take it down." Another changes the subject with a normal question about homework. A third tells a trusted adult if it doesn't stop. The photo comes down within an hour.\n\nBeing an **upstander** doesn't always mean a public hero speech. Sometimes it's a private DM, a subject change, or reporting when needed. The goal is the same: don't let cruelty be the default setting of your digital spaces.`,
+        callout: {
+          label: "Watch out",
+          text: "Laughing along without posting still counts as piling on. Silence signals permission. A small interrupt — even 'hey, not cool' — can break the pattern.",
+        },
+      },
+      {
+        id: "digital-rights-red-flags",
+        kicker: "Red flags",
+        title: "When 'digital citizenship' is being tested",
+        body: `Some online moments are citizenship pop quizzes — easy to fail if you're on autopilot:\n\n• **"It's just a joke"** after someone is clearly hurt — humor isn't a free pass for cruelty.\n• **Pressure to share someone's private info** (address, screenshots, DMs) — that's not loyalty, it's harm.\n• **"Everyone's doing it"** as the only reason to join a pile-on — popularity isn't ethics.\n• **Fake accounts used to harass** — anonymity doesn't make it less real for the target.\n• **Ignoring platform rules** because "they'll never know" — reports and bans are real.\n\nWhen you spot these, slow down. The digitally fluent move is almost never "join faster." It's pause, protect, report, or step away.`,
+        callout: {
+          label: "Pro tip",
+          text: "Save evidence (screenshots, links, timestamps) if you report harassment — but don't forward humiliating content wider just to 'prove' it happened.",
         },
       },
       {

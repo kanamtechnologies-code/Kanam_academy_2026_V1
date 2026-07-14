@@ -17,7 +17,7 @@ export const financeLesson16: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/fl-16.png",
         imageAlt: "Capstone desk: calendar for first year after high school, budget notebook, and a checklist titled Money plan",
-        body: `This is your **Financial Literacy capstone**. You'll turn the whole track into one usable plan for your **first year after high school** — not a 30-year retirement fantasy, but a Money Planner blueprint you could actually run.\n\nHere's the roadmap:\n\n• **Jordan's scenario** — the first-year situation you'll build a plan around.\n• **Earning & spending**, **saving & investing**, and **credit & risk** — the six Jump$tart pillars grouped into three concepts, each with a quick check.\n• A **worked example** building Jordan's actual numbers, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (stress-testing a plan against a shock), a **college-path vs work-path comparison**, and a **behavioral trap** to avoid.\n• **Habits**, how this connects to national money standards, a reflection pause, a second **mini-case**, and a mixed **check yourself**.\n\nBy the end, you should sound like someone who owns their next year of money decisions.`,
+        body: `This is your **Financial Literacy capstone**. You'll turn the whole track into one usable plan for your **first year after high school** — not a 30-year retirement fantasy, but a Money Planner blueprint you could actually run.\n\nHere's the roadmap:\n\n• **Jordan's scenario** — the first-year situation you'll build a plan around.\n• **Earning & spending**, **saving & investing**, and **credit & risk** — the core money skills from this track, grouped into three concepts, each with a quick check.\n• A **worked example** building Jordan's actual numbers, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (stress-testing a plan against a shock), a **college-path vs work-path comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a reflection pause, a second **mini-case**, and a mixed **check yourself**.\n\nBy the end, you should sound like someone who owns their next year of money decisions.`,
         callout: {
           label: "Why it matters",
           text: "Knowledge without a plan fades. A one-page plan with dates and amounts becomes a habit system — especially when life gets busier after graduation.",
@@ -203,16 +203,6 @@ export const financeLesson16: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this is on the checklist",
-        title: "How this capstone connects to national money standards",
-        body: `The **Jump\$tart Coalition** and **Council for Economic Education** publish six core pillars of personal financial education: **Earning Income, Spending, Saving, Managing Credit, Investing,** and **Risk Management.** This capstone is designed to touch all six at once, the way real life does — nobody's first year is neatly divided into six separate chapters.\n\nSpecifically, you just practiced:\n\n• Earning and spending together in a realistic monthly budget.\n• Saving and investing kept on separate timelines with separate rules.\n• Credit discipline and risk management as protection, not paperwork.\n• Stress-testing and comparison thinking — applying a structure across different life paths.\n\nThis is the "can this student run their own finances for a full year" checkpoint the whole track has been building toward.`,
-        callout: {
-          label: "Good to know",
-          text: "If your class or state references financial literacy standards, this capstone is designed to map to all six Jump$tart pillars in a single applied project.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on...",
@@ -239,12 +229,167 @@ export const financeLesson16: AILessonConfig = {
         },
       },
       {
+        id: "ask-before-sign",
+        kicker: "Before you sign",
+        title: "First-year contracts — lease, phone, car note",
+        body: `Jordan's first year will include paperwork that outlasts the excitement. With a trusted adult, verify:
+
+• **Lease:** Total monthly rent + utilities + deposit + break fee.
+• **Phone:** 24-month total, not teaser monthly rate.
+• **Car:** Insurance quoted for Jordan's age before buying.
+• **School loans:** Gift vs borrow lines separated.
+• **Subscriptions:** Cancel dates for trials.
+
+Capstone habit: **no same-day signature** on multi-year money commitments unless it's a true emergency.`,
+        callout: {
+          label: "Watch out",
+          text: "First-year income is often uneven — long contracts signed in September can hurt by February.",
+        },
+      },
+      {
+        id: "worked-numbers",
+        kicker: "Do the math",
+        title: "Jordan month 1 — low week vs high week budget",
+        body: `**Low week net:** $200. **High week net:** $380. **Average planning target:** $260/week.
+
+**Month 1 plan (4 weeks, mixed):**
+• Needs (phone, transit, food baseline): **$420**
+• Emergency auto-save: **$40** ($10/low weeks, $15/high weeks)
+• Goals (certification fund): **$80**
+• Wants cap: **$100**
+• **Total planned:** $640 on **$1,160** realistic month income → **$520** buffer for irregular weeks + true expenses.
+
+Budget on **low weeks**, enjoy flexibility on high weeks — not the reverse.`,
+        bullets: [
+          "Plan from **conservative** income; surplus goes to goals.",
+          "Automate emergency saves even if small.",
+          "Wants cap prevents friend-group drift.",
+        ],
+      },
+      {
+        id: "second-scenario",
+        kicker: "College path",
+        title: "Jordan on campus — aid, work-study, and scam texts",
+        body: `Campus Jordan: **$3,200** gift aid, **$2,500** loans/year, work-study **10 hrs/week** at ~$11/hr ≈ **$110/week** gross in term.
+
+**Plan tweaks:**
+• Label loan money separately — not spending cash.
+• Work-study hours capped — off-campus job only if GPA holds.
+• Scam defense: financial aid office never asks for login codes by text.
+
+**Month 3 test:** Lost work-study hours during break → pulls from emergency fund, not credit card for groceries.`,
+        checkIn: {
+          prompt: "Campus Jordan gets a text to 'verify aid' with a one-time bank code. Best capstone move?",
+          choices: [
+            "Reply immediately — aid deadlines are urgent",
+            "Treat as scam; contact financial aid through the official portal you navigate yourself",
+            "Forward code to roommate to double-check",
+            "Post screenshot on social to warn others before calling the bank",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Scam defense is core capstone: verify through official channels you find yourself; never send one-time codes.",
+        },
+      },
+      {
+        id: "tradeoff-table",
+        kicker: "Compare",
+        title: "Work-path vs college-path year-one money levers",
+        body: `**Work-path Jordan (full-time-ish job):**
+• Higher cash flow, fewer aid forms.
+• Rent + transport costs hit fast.
+• Benefits eligibility possible earlier.
+
+**College-path Jordan:**
+• Lower immediate income, more gift aid potential.
+• Loan discipline required — don't treat loans as income.
+• Time tradeoff: study vs extra hours.
+
+**Shared defenses:** Emergency fund, scam radar, cooling-off on contracts, monthly review date.
+
+Your path isn't "better" — your **plan honesty** is.`,
+        bullets: [
+          "Match plan to **actual** income pattern.",
+          "Loans are **debt**, not bonus cash.",
+          "Both paths need emergency and scam layers.",
+        ],
+      },
+      {
+        id: "behavioral-trap-2",
+        kicker: "Watch your brain",
+        title: "Social spending creep — the friend-group tax",
+        body: `Month 2: friends upgrade nights out. Jordan's wants line was **$100**; actual **$185**. No single huge purchase — just drift.
+
+**Capstone fix:**
+• Name a **social budget** aloud to friends.
+• Suggest cheaper anchors (game night, campus events).
+• Review bank app **weekly** — creep shows early.
+
+Independence doesn't require keeping up with every group habit.`,
+        callout: {
+          label: "Why it matters",
+          text: "Lifestyle creep in year one is quiet and social. Monthly reviews catch it before it becomes normal.",
+        },
+      },
+      {
+        id: "worked-tradeoff",
+        kicker: "Stress test",
+        title: "Shock month — lost hours + $300 car repair",
+        body: `**Baseline plan:** $200 emergency fund target growing $40/month.
+
+**Shock:** 8 lost hours (−$120 income) + **$300** repair.
+
+**Without plan:** Credit card + minimum payment spiral.
+
+**With plan:**
+• Emergency fund covers **$200** (drains fund — rebuild next).
+• Trim wants **$100** over two weeks.
+• Pick up one shift (+$90).
+• Delay phone upgrade 2 months.
+
+Plan survives — uncomfortable but not catastrophic. That's the capstone bar.`,
+        bullets: [
+          "Stress-test **before** life does it for you.",
+          "Rebuild emergency fund after use — non-negotiable.",
+          "Delay upgrades instead of stacking BNPL.",
+        ],
+      },
+      {
+        id: "monthly-review",
+        kicker: "Habit",
+        title: "The 15-minute monthly money review — template",
+        body: `Put a recurring calendar note: **same day each month**, 15 minutes.
+
+**Review checklist:**
+1. **Income in** — matches expected net range?
+2. **Savings out** — emergency + goals automated?
+3. **Wants vs cap** — any creep?
+4. **Subscriptions** — still using them?
+5. **Credit** — balance manageable? Paid on time?
+6. **Scams** — any weird texts or job offers?
+7. **One adjustment** — single change for next month.
+
+Jordan's sticky-note plan works because it's **reviewed**, not because it's pretty.`,
+        checkIn: {
+          prompt: "Which capstone habit best keeps a 12-month plan alive after graduation?",
+          choices: [
+            "Rebuild the color spreadsheet once and never open it again",
+            "A monthly 15-minute review that adjusts one line based on real income and spending",
+            "Assume motivation from graduation day lasts all year",
+            "Only check money when something breaks",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Living plans have review dates and small adjustments — not one-time spreadsheets or crisis-only attention.",
+        },
+      },
+      {
         id: "check-yourself",
         kicker: "Check yourself",
         title: "Mixed review: pulling the whole track together",
         body: `One more check before the full knowledge check — this one mixes ideas from across the entire Financial Literacy track, the way a real first year would.`,
         checkIn: {
-          prompt: "Which 12-month plan element best shows genuine synthesis of all six Jump$tart pillars?",
+          prompt: "Which 12-month plan element best shows you pulled together earning, spending, saving, investing, credit, and risk?",
           choices: [
             "Only listing a dream income target with no supporting actions",
             "Goals with amounts, budget/auto-save rules, emergency milestones, credit/scam/decision gates, and monthly review dates that catch lifestyle creep",

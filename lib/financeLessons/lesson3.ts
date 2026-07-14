@@ -215,12 +215,6 @@ export const financeLesson3: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Bigger picture",
-        title: "Why schools teach this",
-        body: `National personal finance standards group this under "Earning Income" — gross versus net pay, payroll withholding, and understanding how your skills affect what you can earn. Schools teach it because your first confusing pay stub shouldn't be the first time anyone explains it to you, and because your income potential is something you can actually grow, not just something that happens to you.`,
-      },
-      {
         id: "reflect",
         kicker: "Pause",
         title: "Before you move on — think",
@@ -240,6 +234,32 @@ export const financeLesson3: AILessonConfig = {
         callout: {
           label: "Why it matters",
           text: "Real income decisions combine human capital, gross-vs-net thinking, and lifestyle-creep awareness all at once — exactly like this lesson's tools are designed for.",
+        },
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you sign",
+        title: "First-job paperwork: questions worth asking",
+        body: `Starting a first job means forms — W-4, direct deposit, maybe uniform or equipment policies. None of this is scary if you know what to check **before** you sign.
+
+**Ask before you sign checklist:**
+
+• **Pay rate & schedule** — What's the hourly rate? How many hours are typical? Is overtime paid differently?
+• **Pay timing** — Weekly or biweekly? Which day does direct deposit hit?
+• **Deductions preview** — Will taxes be withheld? Any uniform or equipment costs taken from checks?
+• **Direct deposit** — Which account? Can you split deposits (e.g., $40 to savings, rest to checking)?
+• **W-4 basics** — You're telling the employer how much tax to withhold; a trusted adult can help you choose withholding settings.
+• **Pay stub access** — How do you view stubs online? Save them where you'll find them at tax time.
+
+Educational only — not tax advice. The goal is reading paperwork calmly instead of rushing because "everyone else signed already."`,
+        bullets: [
+          "**Gross rate** on the offer letter ≠ **net deposit** in your account.",
+          "Splitting direct deposit is a pay-yourself-first move on day one.",
+          "If a line item on your first stub looks wrong, ask early — fixes are easier upfront.",
+        ],
+        callout: {
+          label: "Pro tip",
+          text: "Photograph or save your first pay stub. Compare it to what you expected from the offer letter — that's how you learn gross vs. net for real.",
         },
       },
       {

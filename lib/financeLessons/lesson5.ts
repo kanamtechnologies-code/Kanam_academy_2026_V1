@@ -217,16 +217,6 @@ export const financeLesson5: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "How this connects to national standards",
-        body: `This lesson builds skills from the **Jump$tart Coalition / CEE (Council for Economic Education) 2021 National Standards for Personal Finance Education**, specifically the **Spending** domain.\n\nBy the end of this lesson, you're practicing standards-aligned skills such as:\n\n• Creating a **spending plan** that reflects income, needs, wants, and goals.\n• Comparing **budgeting strategies** (like 50/30/20 versus zero-based) and evaluating trade-offs.\n• Explaining how a plan must **adapt** when income or expenses change.\n\nThese aren't just classroom checkboxes — they're the exact reasoning skills adults use when they build household budgets, apply for loans, or plan for a big purchase. You're getting the practice now.`,
-        callout: {
-          label: "Good to know",
-          text: "Standards-aligned doesn't mean stiff. The goal is the same real-world skill your teacher and this app are both aiming at: a plan you'll actually use.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on...",
@@ -252,6 +242,55 @@ export const financeLesson5: AILessonConfig = {
           correctIndex: 2,
           explanation:
             "Zero-based thinking means assigning every dollar — including the leftover $35 — a job on purpose, then checking whether the want still fits without abandoning needs or draining a goal, rather than reaching for BNPL or raiding the goal first.",
+        },
+      },
+      {
+        id: "worked-tradeoff",
+        kicker: "Tradeoff table",
+        title: "Deja's $260 paycheck — three ways to assign it",
+        body: `Deja nets **$260** this period. Fixed needs: phone **$45**, gas **$50**. Goals: laptop fund **$60**. Wants budget: **$70**. Unassigned so far: **$35**. A friend invites her on a **$60** weekend trip.
+
+**Option A — Wants first:** Fund the full trip ($60), pull $25 from laptop goal → laptop drops to $35 this period, needs still covered.
+
+**Option B — Zero-based assign:** Give the $35 a job (e.g., $20 fun buffer + $15 emergency micro-fund), negotiate a cheaper trip ($40), skip extra spending next week.
+
+**Option C — BNPL the gap:** Pay $35 cash now, finance $25 → trip happens, but adds a future payment plus possible fees.
+
+None is "morally wrong," but the **tradeoffs** differ: A slows a named goal, B protects goals and needs with communication, C buys now and bills later.`,
+        bullets: [
+          "**Unassigned dollars** are decisions waiting to happen.",
+          "Cheaper trip + clear limits beats hidden future payments.",
+          "Zero-based means every dollar gets a name before FOMO names it for you.",
+        ],
+        callout: {
+          label: "Why it matters",
+          text: "Budgets don't ban fun — they make the cost of fun visible before you commit.",
+        },
+      },
+      {
+        id: "behavioral-trap-2",
+        kicker: "Watch your brain",
+        title: "The \"I deserve it\" trap after a hard week",
+        body: `After a brutal week — exams, extra shifts, family stress — **"I deserve it"** spending can blow a budget without feeling impulsive. You *did* work hard. The trap is treating that feeling as permission to skip the plan entirely.
+
+**Healthier pattern:**
+
+• Keep a small **guilt-free wants** line ($15–$30) for hard weeks.
+• If the treat costs more, **trade** — move money from another want category, don't raid needs or goals silently.
+• Say the **opportunity cost** once: "This $45 meal out pushes laptop fund back one paycheck."
+
+Rewarding yourself is fine. Using "deserve" to bypass every category is how budgets die quietly.`,
+        checkIn: {
+          prompt: "After finals, Jordan wants a $55 game purchase but already assigned that money to a $50 bus-pass sinking fund. Best budget-honest move?",
+          choices: [
+            "Buy anyway — hard work means the budget doesn't apply this week",
+            "Skip the bus pass; gaming reduces stress more than commuting",
+            "Decide consciously: delay the game one period, shrink another want, or revise next month's wants cap — but don't silently steal from the sinking fund",
+            "Put both on a credit card so the budget still 'looks' balanced",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Conscious tradeoffs keep the budget alive. Silent raids on sinking funds or needs create bigger problems next period.",
         },
       },
       {

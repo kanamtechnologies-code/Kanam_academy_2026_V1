@@ -18,7 +18,7 @@ export const cyberLesson11: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-11.png",
         imageAlt: "Laptop installing security updates with a progress bar and a phone awaiting updates",
-        body: `Attackers love soft targets: outdated software, leftover services nobody uses, and devices with no backup plan. **Hardening** is the defender's craft of making systems tougher *before* something goes wrong.\n\nHere's our roadmap:\n\n• **Patching & updates** — closing known holes quickly.\n• **Disable unused services** — less surface area to attack.\n• **IoT hardening** — locking down new devices before they join the network.\n• **Secure defaults** — start locked down, open only what you need.\n• **Vulnerability prioritization** — deciding what to fix first.\n• **Backups & inventory** — your recovery lifeline.\n• **Change management** — making hardening changes safely, without breaking things.\n• A simple hardening checklist for school, home, and clubs.\n\nThis maps directly to the **Protect** function of the NIST NICE framework — no exploit recipes, just practical defense you can actually do.`,
+        body: `Attackers love soft targets: outdated software, leftover services nobody uses, and devices with no backup plan. **Hardening** is the defender's craft of making systems tougher *before* something goes wrong.\n\nHere's our roadmap:\n\n• **Patching & updates** — closing known holes quickly.\n• **Disable unused services** — less surface area to attack.\n• **IoT hardening** — locking down new devices before they join the network.\n• **Secure defaults** — start locked down, open only what you need.\n• **Vulnerability prioritization** — deciding what to fix first.\n• **Backups & inventory** — your recovery lifeline.\n• **Change management** — making hardening changes safely, without breaking things.\n• A simple hardening checklist for school, home, and clubs.\n\nNo exploit recipes — just practical defense you can actually do.`,
         callout: {
           label: "Why it matters",
           text: "Most breaches exploit known, fixable weaknesses — missing updates, default passwords, forgotten devices. Hardening is unglamorous and incredibly effective.",
@@ -272,6 +272,66 @@ export const cyberLesson11: AILessonConfig = {
           label: "Myth check",
           text: "Hardening isn't only for servers in a data center. Phones, Chromebooks, home routers, and club laptops all benefit from the same mindset.",
         },
+      },
+      {
+        id: "patch-priorities",
+        kicker: "Decision checklist",
+        title: "Patch priorities when everything says \"update available\"",
+        body: `Not every update feels equally urgent. Defenders triage:
+
+**Patch today (or enable auto-update):**
+• Operating system security updates.
+• Browser updates.
+• Apps that handle logins, payments, or file sync.
+
+**Patch this week:**
+• Productivity tools and communication apps.
+• Router firmware if vendor notes security fixes.
+
+**Review monthly:**
+• IoT devices, infrequently used apps, club-shared laptops sitting in a closet.
+
+**Comparison — delay costs:**
+• **OS/browser delay** — known public exploits may already target the hole.
+• **IoT delay** — device becomes silent botnet member or network entry point.
+• **"I'll restart later" delay** — postpones fixes that only apply after reboot.
+
+Hardening is maintenance, not a one-time project. Calendar reminders beat good intentions.`,
+        callout: {
+          label: "Try this week",
+          text: "Pick one device you have been postponing updates on. Enable auto-update or schedule a restart tonight.",
+        },
+      },
+      {
+        id: "backup-verify",
+        kicker: "Scenario walkthrough",
+        title: "Verifying backups before you need them",
+        body: `**Scenario:** The media club backs up final projects to cloud storage every Friday. Ransomware hits a laptop on Tuesday. They discover the backup folder was empty — uploads failed silently for three weeks.
+
+**Defender walkthrough:**
+1. **3-2-1 mindset** — three copies, two media types, one off-site (cloud counts off-site).
+2. **Test restore** — monthly, actually open one file from backup on a different device.
+3. **Monitor failures** — alert if sync errors appear; empty folders are a signal.
+4. **Versioning** — cloud tools with version history help recover from ransomware that encrypts synced files.
+5. **Separate credentials** — backup account protected with MFA, not same password as daily login.
+
+**What to do next after ransomware:** contain (disconnect), report, restore from known-good backup — do not pay on impulse; involve trusted adults and IT.`,
+      },
+      {
+        id: "hardening-myths",
+        kicker: "Myth check",
+        title: "Hardening myths that leave gaps",
+        body: `• **"New device = secure device."** Factory defaults often include default passwords and extra services — harden on day one.
+• **"Antivirus means I can skip updates."** AV does not replace patching known vulnerabilities.
+• **"Backups in the cloud are automatic forever."** Sync failures, account lockouts, and ransomware targeting synced folders happen — verify restores.
+• **"We are too small to harden."** Small clubs are soft targets with valuable sponsor lists and social reach.
+
+Hardening is choosing fewer doorways, keeping them patched, and proving you can recover — not buying the most expensive tool.`,
+        bullets: [
+          "Unbox → change defaults → update → backup → review quarterly.",
+          "Test restores, not just uploads.",
+          "Inventory who admins each device.",
+        ],
       },
       {
         id: "ready",

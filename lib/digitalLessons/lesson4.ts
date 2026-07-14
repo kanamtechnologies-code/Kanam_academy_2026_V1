@@ -228,16 +228,6 @@ export const digitalLesson4: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "This is digital citizenship at its core",
-        body: `Everything in this lesson maps directly onto the **ISTE Digital Citizen** standard: managing your personal information safely, and — critically — evaluating the accuracy, perspective, and reliability of digital media before trusting or sharing it. SIFT and lateral reading are literally that standard turned into a step-by-step routine.\n\nIt also connects to **ISTE Knowledge Constructor**, since verifying sources and cross-checking coverage is exactly how you responsibly curate information rather than just consuming whatever appears first.\n\nAnd it connects to **CSTA's "Impacts of Computing"** strand: understanding how algorithms amplify emotional content (true or false) helps you see *why* misinformation spreads the way it does — a system-level insight, not just a personal willpower problem.`,
-        callout: {
-          label: "Why it matters",
-          text: "Fact-checkers, journalists, and researchers all use SIFT and lateral reading professionally. You're not just learning a school skill — you're learning their actual workflow.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
@@ -273,6 +263,38 @@ export const digitalLesson4: AILessonConfig = {
           correctIndex: 0,
           explanation:
             "Both SIFT and lateral reading are built around verifying a source from the outside — checking other coverage, tracing the original, and investigating who's behind it — rather than trusting the page's own claims about itself.",
+        },
+      },
+      {
+        id: "sift-practice",
+        kicker: "Try it yourself",
+        title: "SIFT in 90 seconds: a second mini scenario",
+        body: `A classmate DMs you a screenshot: "BREAKING — our school is canceling finals because of a water-main break." The post has no link, no date, and the account name looks like a random fan page, not the school.\n\nRun SIFT out loud:\n\n• **Stop** — finals news is high-stakes; don't forward yet.\n• **Investigate the source** — is this the official school account or a random page?\n• **Find other coverage** — check the school website, your email, or the district page. Do *they* say the same thing?\n• **Trace to the original** — if there's no original announcement, treat the screenshot as unverified rumor.\n\n**Before:** panic-forwarding to three group chats in ten seconds.\n**After:** two minutes of checking, then sharing only what the official site actually says — or saying "I can't confirm this yet."`,
+        callout: {
+          label: "Try this week",
+          text: "The next time a shocking school or local headline hits your feed, run SIFT before you share — even if everyone else is already forwarding it.",
+        },
+        checkIn: {
+          prompt: "The screenshot has no link and the account isn't official, but three friends already shared it. What's the strongest SIFT move?",
+          choices: [
+            "Share it too so you aren't left out",
+            "Assume screenshots are always official",
+            "Stop, check the school's official channels, and only repeat what they actually confirm",
+            "Comment 'fake' without checking anything",
+          ],
+          correctIndex: 2,
+          explanation:
+            "SIFT's whole point is to verify before you spread. Official channels — the school site, email, or district page — are where high-stakes news should be confirmed.",
+        },
+      },
+      {
+        id: "misinfo-red-flags",
+        kicker: "Red flags",
+        title: "Headlines and posts that should slow you down",
+        body: `Some patterns show up again and again in false or twisted content. When you see these, treat them as a yellow light — not proof something is fake, but proof to **check before you share**:\n\n• **ALL CAPS + extreme urgency** — "SHARE BEFORE THEY DELETE THIS!!!"\n• **No original source** — a screenshot, meme, or clip with no link to where it came from.\n• **Too perfect for your side** — if a story makes your team look 100% right and the other side look cartoonishly evil, bias may be doing the steering.\n• **Asks for money or passwords** — real news doesn't need your login to "unlock the full story."\n• **Emotion-first, facts-second** — designed to make you angry or scared before you think.\n\nRed flags don't mean "ignore forever." They mean **SIFT first, share second** — especially before college rumors, scholarship "opportunities," or anything involving personal info.`,
+        callout: {
+          label: "Watch out",
+          text: "The most shareable posts are often the least verified. If something makes you want to hit Share instantly, that's your cue to pause — not to speed up.",
         },
       },
       {

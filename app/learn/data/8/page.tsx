@@ -189,17 +189,6 @@ const daLesson8: DataLessonConfig = {
         body: `Build big queries the same way every time: start with SELECT + FROM, run it, then add one clause at a time (WHERE, then GROUP BY, then HAVING, then ORDER BY), re-running after each addition. If something breaks, you'll know exactly which clause caused it.`,
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `Combining multiple filters and aggregates is advanced computational thinking.`,
-        bullets: [
-          "**CSTA 3A-DA-10** — Use data analysis tools and techniques to identify patterns in data representing complex systems.",
-          "**CSTA 3A-DA-11** — Build toward interactive data visualizations by first shaping precise, filtered result sets.",
-          "**ISTE Computational Thinker** — Formulating multi-step problems into an ordered sequence of operations.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "Think of your own threshold question",
@@ -226,6 +215,42 @@ const daLesson8: DataLessonConfig = {
           correctIndex: 0,
           explanation: "Filtering individual rows by price (before grouping) is WHERE's job. HAVING would come after GROUP BY to filter on COUNT(*) > 1.",
         },
+      },
+      {
+        id: "having-vs-where-deep",
+        kicker: "Go one level deeper",
+        title: "WHERE trims rows; HAVING trims groups",
+        body: `Imagine filtering a pile of lunch receipts. \`WHERE price > 4\` throws away individual receipts under $4 **before** you sort them into piles by item. \`HAVING COUNT(*) > 1\` throws away entire piles that only had one receipt **after** you've counted each pile.\n\nYou can't use \`HAVING\` to filter a single row's price — that's \`WHERE\`'s job. And you can't use \`WHERE COUNT(*) > 1\` — aggregates only work after grouping, which is \`HAVING\`'s territory.`,
+        code: `SELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nWHERE price >= 3\nGROUP BY item\nHAVING COUNT(*) > 1\nORDER BY order_count DESC;`,
+        codeCaption: "Filter rows, group, filter groups, sort",
+        table: {
+          columns: ["item", "order_count"],
+          values: [
+            ["Pizza slice", 2],
+            ["Salad", 2],
+          ],
+          rowCount: 2,
+        },
+        checkIn: {
+          prompt: "You want items ordered MORE THAN ONCE. Which clause belongs after GROUP BY?",
+          choices: ["WHERE COUNT(*) > 1", "HAVING COUNT(*) > 1", "ORDER BY COUNT(*) > 1"],
+          correctIndex: 1,
+          explanation: "COUNT(*) is an aggregate computed during grouping, so filtering on it requires HAVING — which runs after GROUP BY.",
+        },
+      },
+      {
+        id: "clause-stack-walkthrough",
+        kicker: "Query walkthrough",
+        title: "Stacking four clauses on lunch_orders",
+        body: `Question: *"Which items priced $4 or more were ordered more than once, ranked by popularity?"*\n\nBreak it down: \`WHERE price >= 4\` keeps pricey orders → \`GROUP BY item\` bundles by menu item → \`HAVING COUNT(*) > 1\` drops one-off items → \`ORDER BY order_count DESC\` puts the winner first.\n\nRead the two-row result: Pizza slice and Salad each appear twice among the pricier orders. That's a complete, stacked analyst answer.`,
+        code: `SELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nWHERE price >= 4\nGROUP BY item\nHAVING COUNT(*) > 1\nORDER BY order_count DESC;`,
+        codeCaption: "Four clauses, one sharp question",
+      },
+      {
+        id: "read-grouped-results",
+        kicker: "Analyst habits",
+        title: "Grouped results need a different read",
+        body: `When your result has been grouped, each row represents a **category**, not a single order. Don't look for student names — look for the group label (\`item\`) and the aggregate (\`order_count\`).\n\nAsk: "Does each row represent one thing I'm comparing?" If yes, the grouping worked. If you still see individual orders mixed in, you probably forgot \`GROUP BY\` or included an ungrouped column.`,
       },
       {
         id: "ready",

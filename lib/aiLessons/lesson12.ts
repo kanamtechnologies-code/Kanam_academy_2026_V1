@@ -138,6 +138,16 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "Two students, same math problem",
+        body: `Both students use AI on the same algebra assignment.\n\n**Student A** asks: "Solve these 10 problems and show steps." They paste the answers and submit. They learned nothing — and can't explain the work in class the next day.\n\n**Student B** asks: "I'm stuck on problem 4. Explain the strategy for factoring this type of trinomial without giving me the final answer." They work through three problems themselves, use AI only for strategy hints, and write a one-line disclosure. They can teach the method to a friend afterward.\n\nSame tool. Different intent. That's the entire help-vs-cheating line in one example.`,
+        callout: {
+          label: "Notice this",
+          text: "The honest test: did AI help you learn and think, or do the thinking for you?",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth check",
         title: "\"If it's not explicitly banned, it's automatically fine\"",
@@ -157,6 +167,22 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
           correctIndex: 1,
           explanation:
             "Silence on AI usually doesn't mean 'anything goes.' Standard honesty expectations likely still apply — when in doubt, ask.",
+        },
+      },
+      {
+        id: "red-flags",
+        kicker: "Red flags",
+        title: "Signs you've crossed from help into cheating",
+        body: `Watch for these red flags in your own workflow:`,
+        bullets: [
+          "**You can't explain the submission** if a teacher asks how you got it.",
+          "**You pasted output without changing a single word** on work graded for your thinking.",
+          "**You're using AI to bypass a skill the assignment is designed to build** — like writing, problem-solving, or analysis.",
+          "**You'd panic if you had to redo the task without AI** — a sign you outsourced the learning, not just the formatting.",
+        ],
+        callout: {
+          label: "Recovery move",
+          text: "If you spot these in yourself, step back, redo the core thinking, and disclose honestly. That's integrity repair — not too late if you act before submission.",
         },
       },
       {
@@ -181,6 +207,30 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
           "State clearly what you did yourself.",
           "If writing the disclosure feels uncomfortable, that discomfort is a signal worth listening to.",
         ],
+      },
+      {
+        id: "decision-checklist",
+        kicker: "Decision checklist",
+        title: "Four questions before you use AI on schoolwork",
+        body: `Run this checklist on every assignment — even when the teacher didn't mention AI:`,
+        bullets: [
+          "**What's the learning goal?** (Practice writing? Build argument skills? Memorize facts?)",
+          "**Does my plan preserve that goal?** (AI for brainstorming ≠ AI for final draft.)",
+          "**What does my teacher expect?** (When unsure, ask — guessing wrong is riskier than asking.)",
+          "**Could I disclose this use proudly?** (If you'd hide it, that's a signal to rethink.)",
+        ],
+        checkIn: {
+          prompt: "You want AI help on an essay graded for your original analysis. Which use is most likely on the \"help\" side of the line?",
+          choices: [
+            "Having AI write the full essay from your one-sentence topic",
+            "Using AI to suggest counterarguments, then writing your own analysis and disclosure note",
+            "Pasting AI paragraphs directly because they sound smarter than your draft",
+            "Submitting AI output and hoping the teacher doesn't notice",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Brainstorming support while you write and analyze yourself — plus honest disclosure — keeps the learning goal intact. Full AI authorship or hidden use crosses the line.",
+        },
       },
       {
         id: "comparison",
@@ -231,10 +281,14 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "Academic integrity is digital citizenship in action",
-        body: `• **ISTE 1.2 — Digital Citizen:** acting safely, legally, and ethically with technology directly includes how you use AI on schoolwork — this is one of the clearest real-world applications of that standard.\n• **CSTA Impacts of Computing:** understanding how a technology (AI) changes the meaning of "doing your own work," and the social effects of that shift on trust and fairness in a classroom, is exactly what this standard is about.\n• **ISTE 1.3 — Knowledge Constructor:** using AI to build genuine understanding (quizzing, feedback) rather than to bypass the construction of knowledge altogether is the difference this whole lesson is built around.\n\nThe help-vs-cheating line isn't just a school rule — it's a live example of navigating a new technology's impact responsibly.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Write your personal AI-use sentence",
+        body: `Finish this sentence for yourself — seriously, decide your version now:\n\n*"I use AI to ______, but I never use it to ______."*\n\nExample: *"I use AI to brainstorm outlines and check grammar, but I never use it to write analysis I'm graded on."*\n\nYour sentence becomes a quick decision rule when you're tired at midnight and tempted to take a shortcut. Write it somewhere you'll see it before your next big assignment.`,
+        callout: {
+          label: "Transfer this",
+          text: "Personal rules beat vague guilt. You'll thank yourself when the gray-area moment actually arrives.",
+        },
       },
       {
         id: "reflection-prompt",
@@ -395,7 +449,7 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
     },
     {
       id: "q8",
-      question: "How does the help-vs-cheating question connect to being a good digital citizen (ISTE 1.2)?",
+      question: "How does the help-vs-cheating question connect to being a good digital citizen?",
       choices: [
         "It doesn't relate to digital citizenship at all",
         "Using technology ethically, safely, and legally — including AI on schoolwork — is a direct, real-world example of digital citizenship",
@@ -404,7 +458,7 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       ],
       correctIndex: 1,
       explanation:
-        "Navigating AI's role in your schoolwork honestly and responsibly is a concrete, everyday application of the Digital Citizen standard.",
+        "Navigating AI's role in your schoolwork honestly and responsibly is a concrete, everyday digital citizenship habit.",
     },
   ],
   reflection: {

@@ -17,7 +17,7 @@ export const cyberLesson1: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-1.png",
         imageAlt: "Student desk with laptop showing a cybersecurity overview dashboard, shield icon, and notebook titled Ethics",
-        body: `Your school account, your phone photos, your group's shared docs — all of that is information someone might want to steal, change, or lock away. **Cybersecurity** is the practice of protecting that information, the systems that hold it, and the people who use it.\n\nHere's our roadmap:\n\n• **What cybersecurity means** — protecting data, systems, and people.\n• **The CIA Triad** — Confidentiality, Integrity, and Availability at a high level.\n• **Careers in cyber** — analyst, SOC, and ethical roles (big picture only).\n• **Ethics and authorized use** — why "just because you can" is never enough.\n• **A worked example, a myth, and a mini case** — so the ideas stick, not just the vocabulary.\n• **How this connects to real standards** — this isn't just opinion; it's recognized computer science and digital citizenship content.\n\nNo experience needed. Every new word gets explained the moment it shows up. This track stays **defensive and educational** — we learn how defenders think, not how to break things.`,
+        body: `Your school account, your phone photos, your group's shared docs — all of that is information someone might want to steal, change, or lock away. **Cybersecurity** is the practice of protecting that information, the systems that hold it, and the people who use it.\n\nHere's our roadmap:\n\n• **What cybersecurity means** — protecting data, systems, and people.\n• **The CIA Triad** — Confidentiality, Integrity, and Availability at a high level.\n• **Careers in cyber** — analyst, SOC, and ethical roles (big picture only).\n• **Ethics and authorized use** — why "just because you can" is never enough.\n• **A worked example, a myth, and a mini case** — so the ideas stick, not just the vocabulary.\n\nNo experience needed. Every new word gets explained the moment it shows up. This track stays **defensive and educational** — we learn how defenders think, not how to break things.`,
         callout: {
           label: "Why it matters",
           text: "Almost every job, scholarship, and college workflow now touches accounts and online systems. Knowing the basics of cybersecurity helps you protect yourself — and helps you spot when something feels off.",
@@ -191,16 +191,6 @@ export const cyberLesson1: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "How this connects to real standards",
-        body: `This lesson isn't just opinion — it's built to support recognized computer science and digital citizenship standards, so what you're learning here counts toward real academic goals.\n\n• **CSTA 3A-IC-24** (Impacts of Computing) asks students to evaluate the ways computing impacts personal, ethical, social, economic, and cultural practices — exactly what you did when you mapped CIA goals and layers onto real school scenarios today.\n• **CSTA 3A-IC-30** (Impacts of Computing) asks students to evaluate the social and economic implications of privacy in the context of safety, law, or ethics — the core idea behind today's ethics and authorized-use content.\n• **ISTE Digital Citizen (1.2)** asks students to manage personal data, maintain digital privacy and security, and engage in safe, legal, and ethical behavior online — the same "permission first, report don't exploit" mindset from this lesson.\n\nKnowing the standard names isn't the point — understanding *why* teachers and curriculum designers treat this material seriously is. Cybersecurity literacy is now considered a core part of being a responsible digital citizen, not an optional extra.`,
-        callout: {
-          label: "Why it matters",
-          text: "When a teacher or counselor says a class \"covers cybersecurity standards,\" this is the kind of content they mean — practical judgment, not just definitions.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
@@ -213,6 +203,24 @@ export const cyberLesson1: AILessonConfig = {
         image: "/images/lessons/cs-1-5.png",
         imageAlt: "Laptop showing a shared cloud folder with multiple student names and an edit-access warning icon",
         body: `**The situation:** A group of four students sets up a shared cloud folder for a semester-long project. To save time, one student sets the sharing permission to "anyone with the link can edit" instead of choosing specific people. The link gets forwarded a few times — to a study group chat, then to a friend outside the group "just to see the outline."\n\nA week before the deadline, the group discovers that a slide they'd finished was edited by someone none of them recognize, and a paragraph of their research summary is now missing. Nobody can tell for certain who made the change, because the folder's access log just shows "Anonymous."\n\n**Apply what you've learned:**\n\n• **Layers involved:** the project files are **data**; the cloud folder is the **system**; everyone who received the forwarded link is part of the **people** layer.\n• **CIA goals affected:** the missing paragraph is an **Integrity** failure (content changed without authorization); the inability to identify who changed it is also a **Confidentiality**/accountability gap, since the folder was more open than intended.\n• **Defender action:** tighten sharing to specific people only, restore the missing content from version history if the tool supports it, and treat "anyone with the link" as a setting to use rarely and intentionally — not as a shortcut.\n\nThis exact pattern — convenient sharing settings turning into an unclear mess — is one you'll see again once we cover access control and least privilege later in this track.`,
+      },
+      {
+        id: "reporting-habits",
+        kicker: "What to do next",
+        title: "Reporting habits when something feels off",
+        body: `When a login alert, odd message, or shared-folder surprise lands in your lap, defenders follow a short reporting habit — not a panic spiral.
+
+**1. Pause and verify** through a channel you trust (official app, known IT number, face-to-face with a teacher).
+**2. Write down what you saw** — time, account, device, exact wording of the alert, and whether you clicked anything.
+**3. Tell the right contact** — school IT/help desk, a trusted adult, or the account owner for club tools.
+**4. Protect others** — if it was a phishing message, report it so defenders can warn classmates before the same lure spreads.
+**5. Follow up** — change passwords, enable MFA, and check recovery settings if IT or the adult confirms it was real.
+
+Reporting is not tattling. It is how organizations learn about problems early enough to help everyone else. "I wasn't sure, so I stayed quiet" often means the same scam reaches twenty more people by lunch.`,
+        callout: {
+          label: "Defender view",
+          text: "A useful report is specific: what happened, when, on which account or device, and what you already tried. Vague panic messages are harder for IT to act on.",
+        },
       },
       {
         id: "check-yourself",
@@ -231,7 +239,7 @@ export const cyberLesson1: AILessonConfig = {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Cybersecurity** protects **data**, **systems**, and **people**.\n• Defenders aim for **Confidentiality**, **Integrity**, and **Availability** (the CIA Triad).\n• Careers include **analysts**, **SOC** teams, and **ethical/authorized** testing roles — always with permission.\n• **Authorized use only** is the ethical line; "I meant well" is not the same as "I had permission."\n• This content connects to real **CSTA** and **ISTE** digital-citizenship standards — it's core, not extra.\n• High school students already depend on digital accounts — these skills matter now.\n\nWhen you're ready, switch to the **Knowledge check**, then write a short reflection about why cybersecurity matters in your life.`,
+        body: `Quick recap:\n\n• **Cybersecurity** protects **data**, **systems**, and **people**.\n• Defenders aim for **Confidentiality**, **Integrity**, and **Availability** (the CIA Triad).\n• Careers include **analysts**, **SOC** teams, and **ethical/authorized** testing roles — always with permission.\n• **Authorized use only** is the ethical line; "I meant well" is not the same as "I had permission."\n• High school students already depend on digital accounts — these skills matter now.\n\nWhen you're ready, switch to the **Knowledge check**, then write a short reflection about why cybersecurity matters in your life.`,
       },
     ],
   },
@@ -351,11 +359,11 @@ export const cyberLesson1: AILessonConfig = {
         "They don't — cybersecurity is purely technical",
         "Because ethics only matters after college",
         "Because technical skills replace the need for permission",
-        "Because protecting data, systems, and people involves privacy, permission, and impacts on real people, which standards like CSTA's Impacts of Computing address",
+        "Because protecting data, systems, and people involves privacy, permission, and impacts on real people — not just technical tools",
       ],
       correctIndex: 3,
       explanation:
-        "Cybersecurity touches real people's privacy and rights, which is why recognized standards connect it to ethics, law, and digital citizenship — not just technical skill.",
+        "Cybersecurity touches real people's privacy and rights, which is why it includes ethics, law, and digital citizenship — not just technical skill.",
     },
   ],
   reflection: {

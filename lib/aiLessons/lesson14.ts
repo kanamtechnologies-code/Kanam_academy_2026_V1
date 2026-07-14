@@ -130,6 +130,16 @@ Action: pause → never share codes → call real number / safe word → report 
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "The group chat image that wasn't real",
+        body: `Someone drops a photo in a group chat: a classmate "caught" doing something embarrassing. It looks real — lighting, background, facial expression all check out.\n\nBut the classmate swears they weren't there. A closer look: weird ear blending, inconsistent shadows, fingers that don't quite line up. It was **AI-generated or heavily AI-edited** — shared without consent.\n\nThe harm landed immediately: rumors, drama, a student afraid to come to school. The technology wasn't exotic; the **privacy and consent failure** was.\n\nDefense isn't only technical detection — it's a culture of **ask before you share, especially when a real person's dignity is on the line.**`,
+        callout: {
+          label: "Notice this",
+          text: "Deepfakes don't only target celebrities. Ordinary students can be victims when sharing outruns verification.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth check",
         title: "\"I'd definitely recognize a deepfake\" and \"only celebrities get targeted\"",
@@ -149,6 +159,22 @@ Action: pause → never share codes → call real number / safe word → report 
           correctIndex: 1,
           explanation:
             "Deepfake harassment and scams have hit everyday people, not just public figures. Private accounts reduce risk but don't make spoofing \"impossible.\"",
+        },
+      },
+      {
+        id: "red-flags",
+        kicker: "Red flags",
+        title: "Privacy and scam red flags",
+        body: `Pause when you see any of these — online, in DMs, or on a phone call:`,
+        bullets: [
+          "**Urgent money request + voice or video \"proof\"** — classic deepfake scam pattern.",
+          "**App asks for more data than the task needs** — especially photos, contacts, or microphone access.",
+          "**\"We'll delete your data\" with no clear policy** — deletion promises without specifics.",
+          "**Pressure to share someone's image or voice \"as a joke\"** — consent still matters.",
+        ],
+        callout: {
+          label: "First move",
+          text: "Pause, verify through a separate channel, and protect data before you click, share, or send money.",
         },
       },
       {
@@ -173,6 +199,30 @@ Action: pause → never share codes → call real number / safe word → report 
           "Investigate the poster's account, not just the content.",
           "Ask 'who benefits if I believe and share this?'",
         ],
+      },
+      {
+        id: "decision-checklist",
+        kicker: "Decision checklist",
+        title: "Before you paste into an AI tool",
+        body: `Use this checklist whenever you're about to share text, images, or audio with an AI service:`,
+        bullets: [
+          "**Is it mine to share?** (My work, my photo — or someone else's private material?)",
+          "**Could this identify me or someone else?** (Names, locations, medical info, passwords?)",
+          "**Does this tool need this much data for the task?** (If not, trim it.)",
+          "**Would I be okay if this sat on a server I don't control?** (Assume copies are possible.)",
+        ],
+        checkIn: {
+          prompt: "You want AI help editing a friend's private journal entry they sent you. Best move?",
+          choices: [
+            "Paste the whole entry — they sent it to you, so it's fine",
+            "Ask your friend if they're okay with you putting their private writing into an AI tool; if not, help without uploading it",
+            "Paste it but delete their name, so it's anonymous",
+            "Use AI silently — they'll never know",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Receiving a message isn't the same as consent to upload it to a third-party AI service. Ask first — or help without exposing their private words to another platform.",
+        },
       },
       {
         id: "comparison",
@@ -203,6 +253,22 @@ Action: pause → never share codes → call real number / safe word → report 
         },
       },
       {
+        id: "what-good-looks-like",
+        kicker: "What good looks like",
+        title: "A healthy AI privacy setup",
+        body: `You don't need paranoia — you need habits. Good practice looks like:`,
+        bullets: [
+          "**Minimal sharing** — only the data the task actually requires.",
+          "**Separate accounts** for school vs. personal experiments when possible.",
+          "**Permission hygiene** — review app access a few times a year.",
+          "**Verify-before-share** on surprising media — especially of real people.",
+        ],
+        callout: {
+          label: "Realistic goal",
+          text: "Perfect privacy is rare. Thoughtful defaults plus quick verification beats ignoring the risks.",
+        },
+      },
+      {
         id: "ethics",
         kicker: "Ethics moment",
         title: "Making a deepfake of someone without consent is not a harmless joke",
@@ -223,10 +289,14 @@ Action: pause → never share codes → call real number / safe word → report 
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "Privacy and consent are core digital citizenship",
-        body: `• **ISTE 1.2 — Digital Citizen:** managing your personal data and digital footprint, and acting safely, ethically, and legally online, is precisely what this lesson trains — including how you treat other people's data and likeness.\n• **CSTA Impacts of Computing:** understanding how a technology (generative AI) creates new privacy and safety risks, and who is affected by those risks, is a direct application of analyzing computing's impact on individuals and society.\n• **ISTE 1.3 — Knowledge Constructor:** evaluating the accuracy and source of digital content — especially media that could be AI-generated — before trusting or sharing it is a real information-literacy skill.\n\nThese aren't just "internet safety" rules; they're the same standards that frame how computer science education treats technology's effect on real people.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Protect your footprint this week",
+        body: `Three concrete actions you can do in under 15 minutes total:\n\n1. **Review permissions** on one app you use with AI features.\n2. **Remove one old post** with location or personal details you wouldn't share today.\n3. **Agree with friends** on a no-sharing rule for AI-made images of each other without explicit okay.\n\nSmall steps compound. Your future self — and your friends — benefit when you treat digital footprints as real-world reputation.`,
+        callout: {
+          label: "Transfer this",
+          text: "Privacy and consent habits protect you in AI chats, social feeds, and group chats alike.",
+        },
       },
       {
         id: "reflection-prompt",
@@ -387,7 +457,7 @@ Action: pause → never share codes → call real number / safe word → report 
     },
     {
       id: "q8",
-      question: "How does this lesson's content connect to being a responsible digital citizen (ISTE 1.2)?",
+      question: "How does this lesson's content connect to being a responsible digital citizen?",
       choices: [
         "It doesn't relate — privacy is a separate topic from digital citizenship",
         "Digital citizenship mainly means posting politely and nothing else",
@@ -396,7 +466,7 @@ Action: pause → never share codes → call real number / safe word → report 
       ],
       correctIndex: 2,
       explanation:
-        "Protecting your own data, critically evaluating media, and respecting other people's privacy and consent are exactly what the Digital Citizen standard describes.",
+        "Protecting your own data, critically evaluating media, and respecting other people's privacy and consent are core digital citizenship habits.",
     },
   ],
   reflection: {

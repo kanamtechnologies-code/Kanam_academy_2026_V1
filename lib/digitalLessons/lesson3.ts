@@ -238,16 +238,6 @@ export const digitalLesson3: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "This is knowledge construction in action",
-        body: `Everything in this lesson is the **ISTE Knowledge Constructor** standard in practice: using digital tools to plan and carry out research, and curating information from a variety of sources while judging their relevance and accuracy. Choosing keywords, applying operators, and running a credibility scan are exactly the "critically curate" and "conduct research" pieces of that standard.\n\nLearning that search engines rank pages using an **index** and an algorithm — and that sponsored results and AI summaries are shaped by business models, not pure truth — also connects to **CSTA's "Impacts of Computing"** strand: understanding how the design of a computing system shapes what information reaches people.\n\nBuilding the habit of checking who published something before trusting it is also a core **ISTE Digital Citizen** skill you'll expand further in the next lesson on misinformation.`,
-        callout: {
-          label: "Why it matters",
-          text: "Search literacy isn't a school-only skill — journalists, researchers, and analysts all use the exact same keyword-and-operator approach professionally.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
@@ -283,6 +273,28 @@ export const digitalLesson3: AILessonConfig = {
           correctIndex: 3,
           explanation:
             "Sharp keywords, refined with an operator when needed, is the single highest-leverage search skill — it's the difference between Devon's 20-minute search and a 30-second one.",
+        },
+      },
+      {
+        id: "search-red-flags",
+        kicker: "Red flags",
+        title: "Search results that should make you pause",
+        body: `Even a great search can surface results that look helpful but aren't. Watch for these red flags before you click or cite:\n\n• **No date on a time-sensitive topic** — scholarship rules, health advice, and tech tutorials go stale fast. Undated pages are a gamble.\n• **The URL doesn't match the claim** — a site called \`official-scholarship-win.xyz\` is not the same as the real organization's domain.\n• **Every result says the exact same shocking thing** — that can mean a rumor is echoing, not that it's verified.\n• **Only one obscure blog has the answer** — if nobody else credible mentions it, treat it as unconfirmed until you check elsewhere.\n\nWhen you spot a red flag, don't throw away the whole search — refine it. Add a site: operator, try a more official keyword, or open a second tab and **read laterally** (check what other sources say about the same claim).`,
+        callout: {
+          label: "Try this week",
+          text: "Next time a result feels 'too perfect,' open one more tab and search the claim itself — not just the headline. Thirty extra seconds is cheap insurance.",
+        },
+        checkIn: {
+          prompt: "You search 'free laptop for every high school senior 2026' and every top result is a blog you've never heard of, with no links to an official program. What should you do?",
+          choices: [
+            "Share it immediately — if it's trending, it must be real",
+            "Assume search engines only show true results",
+            "Treat it as unverified and look for an official source (school, government, or the actual company) before believing or sharing",
+            "Stop using search engines entirely",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Echoing blogs without official sources is a classic misinformation pattern. The smart move is to verify with a credible, official source before you believe or pass it on.",
         },
       },
       {

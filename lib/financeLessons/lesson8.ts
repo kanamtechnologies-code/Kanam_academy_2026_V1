@@ -220,16 +220,6 @@ export const financeLesson8: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "How this connects to national standards",
-        body: `This lesson builds skills from the **Jump$tart Coalition / CEE (Council for Economic Education) 2021 National Standards for Personal Finance Education**, specifically the **Managing Credit** domain.\n\nBy the end of this lesson, you're practicing standards-aligned skills such as:\n\n• Explaining **principal, interest, and APR** and how they interact over time.\n• Analyzing why **minimum payments** and certain short-term loan products can be costly.\n• Comparing **debt payoff strategies** and their trade-offs.\n\nThese are the same reasoning skills adults use when deciding how to pay off a card, evaluate a loan offer, or avoid a predatory short-term product.`,
-        callout: {
-          label: "Good to know",
-          text: "This isn't about fearing all borrowing — a student loan or car loan can be a reasonable tool. It's about being able to read the terms and run the math yourself.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on...",
@@ -255,6 +245,69 @@ export const financeLesson8: AILessonConfig = {
           correctIndex: 2,
           explanation:
             "Paying more than the minimum while pausing new charges is the most direct way to shrink principal faster and reduce total interest — opening a new card doesn't touch the existing balance at all, and minimums are a floor, not a fast payoff plan.",
+        },
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you sign",
+        title: "Borrowing checklist: ask before you accept any loan",
+        body: `Buy-now-pay-later, store financing, personal loans, and credit cards all share one rule: **read before you tap Accept**.
+
+**Ask before you sign:**
+
+• **Total repayment** — Not just the monthly payment: what's the full amount if I pay on schedule?
+• **APR** — Annual rate; compare across offers.
+• **Term length** — How many months? Longer often means more total interest.
+• **Fees** — Late fees, origination fees, prepayment penalties?
+• **Variable vs fixed** — Can the rate change?
+• **What happens if I miss one payment?** Penalty APR? Collections?
+• **Do I need this now?** Could sinking-fund saving work instead?
+
+If you can't answer those from the paperwork, pause — with a trusted adult if you're under 18.`,
+        callout: {
+          label: "Watch out",
+          text: "\"$25/month\" marketing hides total cost. Always multiply payment × months + fees.",
+        },
+      },
+      {
+        id: "worked-tradeoff",
+        kicker: "Tradeoff table",
+        title: "Priya's $600 weekend — three payoff paths",
+        body: `Priya put **$600** on a card at **22% APR**. Minimum payment **$25/month**. Rough math if she only pays minimums: years of payments and **$300+** in interest (illustrative — real statements vary).
+
+**Path 1 — Minimum only:** Lowest stress now, highest total cost later.
+
+**Path 2 — Avalanche ($75/month):** Targets this high-rate debt → pays off faster, less interest.
+
+**Path 3 — Pause new BNPL + $100/month:** Stops stacking new holes while digging out.
+
+**Opportunity cost of Path 1:** Every $25 minimum month is $25 not going to savings, car fund, or experiences she chooses on purpose.`,
+        bullets: [
+          '**Minimum** = staying in debt longer, not "being responsible."',
+          "Stopping new BNPL is part of the payoff plan.",
+          "Total cost beats monthly payment size.",
+        ],
+      },
+      {
+        id: "second-scenario",
+        kicker: "Compare offers",
+        title: "Two loan offers — which costs less total?",
+        body: `**Offer A:** $800 borrowed, **18% APR**, 12 months, payment about **$73/month** → total repaid roughly **$876**.
+
+**Offer B:** $800 borrowed, **0% promo APR** for 6 months, then **24% APR** if not paid in full → if Priya only pays $67/month, she may still owe principal when the promo ends — then interest hits hard.
+
+**0% promos** aren't free if you miss the payoff window. Always map the **calendar**: Can you clear $800 in six months at $134/month? If not, Offer A's steady 18% might be clearer than a ticking promo bomb.`,
+        checkIn: {
+          prompt: "An $800 BNPL offer is 0% for 6 months, then 24% APR on any remaining balance. You can afford $100/month. What's the risk?",
+          choices: [
+            "You'll automatically be fine because 0% means free money",
+            "You may still owe principal when the promo ends, and the higher APR kicks in on what's left",
+            "APR only matters for mortgages, not teen purchases",
+            "Paying $100/month always clears any BNPL plan regardless of terms",
+          ],
+          correctIndex: 1,
+          explanation:
+            "0% promos expire. If balance remains, the back-end APR can be brutal. Run the month-by-month payoff against the promo deadline.",
         },
       },
       {

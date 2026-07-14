@@ -210,16 +210,6 @@ export const cyberLesson5: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "How this connects to real standards",
-        body: `This lesson connects directly to recognized security education standards:\n\n• **CSTA 3A-NI-06** (Networks and the Internet) explicitly calls out security measures like two-factor authentication and biometric verification as recommended defenses based on feasibility and impact — exactly the MFA comparison you worked through today.\n• **CSTA 3A-NI-07** (Networks and the Internet) asks students to compare security measures, considering tradeoffs between usability and security — the "SMS is convenient but weaker, hardware keys are stronger but less convenient" comparison from this lesson.\n• **ISTE Digital Citizen (1.2c)** asks students to manage personal data and maintain digital privacy and security — the entire password/MFA hygiene habit set from this lesson.\n\nThese standards exist because credential hygiene is one of the most measurable, teachable defender skills — and one of the most common places real incidents actually begin.`,
-        callout: {
-          label: "Why it matters",
-          text: "When adults talk about \"basic cyber hygiene,\" this lesson — password uniqueness, MFA, and breach response — is almost always what they mean.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
@@ -232,6 +222,68 @@ export const cyberLesson5: AILessonConfig = {
         image: "/images/lessons/cs-5-5.png",
         imageAlt: "Sticky note with a shared password stuck to a shared laptop, next to a breach notification email on screen",
         body: `**The situation:** A four-person project team creates one shared login for a design tool so everyone can contribute to the same file. To make it easy to remember, they choose a password close to one member's existing personal password, and write it on a sticky note attached to a shared laptop in the school library.\n\nMonths later, that design tool announces a data breach. One teammate, Priya, recognizes the shared password immediately — because it's nearly identical to her own personal email password, which she'd suggested as the base "for simplicity."\n\n**Apply what you've learned:**\n\n• **Reuse risk:** Because the shared password was a close variation of Priya's real password, the breach now threatens her personal email too — the exact trap from this lesson's defender-trap section.\n• **Shared-account risk:** Nobody can be sure who else may have written the sticky-note password down elsewhere, or shared it further — a preview of access-control problems you'll cover in a later lesson.\n• **Correct response:** Priya should treat this as a full breach-response situation for her own email (change the password to something genuinely new, check for MFA), and the team should replace the shared tool password with something unrelated to anyone's personal credentials — ideally with individual logins instead of one shared one.\n\nThis case shows how convenience shortcuts — a shared password based on a personal one, written on a sticky note — can turn a minor breach into a personal one.`,
+      },
+      {
+        id: "mfa-priority",
+        kicker: "Decision checklist",
+        title: "Which accounts get MFA first?",
+        body: `You cannot flip MFA on everywhere in one afternoon — defenders prioritize by blast radius.
+
+**Tier 1 — enable today:**
+• Primary email (recovery path for almost everything else).
+• Banking or payment apps if you use them.
+• School portal and college-application accounts.
+
+**Tier 2 — this week:**
+• Cloud storage with group projects or personal documents.
+• Social accounts tied to your real name or club officer role.
+• Password manager account itself.
+
+**Tier 3 — when offered:**
+• Games and entertainment — especially if tied to real email or payment methods.
+
+**Comparison of factor strength (when you have a choice):**
+• Hardware key / authenticator app → strongest everyday options.
+• Push prompts → convenient; deny anything you did not start.
+• SMS codes → better than password alone, but weaker than app codes.
+
+One strong email + MFA pairing prevents a single gaming-site breach from becoming a full identity takeover — exactly Theo's lesson.`,
+        checkIn: {
+          prompt: "Why should primary email often be the first account to receive MFA?",
+          choices: [
+            "Email is never targeted by attackers",
+            "Email is commonly the recovery path for many other accounts",
+            "MFA on email makes passwords unnecessary everywhere",
+            "Schools require MFA only on email",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Compromised email often becomes the key to reset passwords on other services — protecting email first limits cascade damage.",
+        },
+      },
+      {
+        id: "breach-notification",
+        kicker: "Scenario walkthrough",
+        title: "Reading a breach notification like a defender",
+        body: `**Scenario:** A game forum you used years ago emails: "We experienced a security incident. Some usernames and password hashes may have been exposed."
+
+**Defender reading — what matters:**
+• **Was your password unique?** If yes, change it on that site only. If no, change it everywhere you reused it — starting with email.
+• **Was MFA on?** If yes, stolen hashes are far less useful to an attacker.
+• **What data was exposed?** Email alone enables targeted phishing; payment data needs card issuer contact.
+• **Is the email itself real?** Open the site directly — do not click "reset password" inside a breach email until you verify the sender.
+
+**What to do next:**
+1. Change affected passwords to new, unique ones.
+2. Turn on MFA.
+3. Watch for phishing pretending to "help" with the breach.
+4. Tell a trusted adult if a school or financial account was involved.
+
+Breach emails are stressful; the checklist turns panic into ordered steps.`,
+        callout: {
+          label: "Watch out",
+          text: "Attackers send fake breach notifications too. Verify through the company's official site or app, not only through the email link.",
+        },
       },
       {
         id: "check-yourself",
@@ -370,7 +422,7 @@ export const cyberLesson5: AILessonConfig = {
     },
     {
       id: "q8",
-      question: "Why does CSTA's Networks and the Internet standard specifically mention two-factor authentication and biometric verification as recommended security measures?",
+      question: "Why are two-factor authentication and biometric verification commonly recommended security measures?",
       choices: [
         "Because passwords are no longer used by any real system",
         "Because biometric verification eliminates all risk on its own",
@@ -379,7 +431,7 @@ export const cyberLesson5: AILessonConfig = {
       ],
       correctIndex: 3,
       explanation:
-        "Standards focus on measures students can meaningfully compare and reason about — exactly the MFA tradeoffs practiced in this lesson.",
+        "The useful skill is comparing measures you can actually reason about — exactly the MFA tradeoffs practiced in this lesson.",
     },
   ],
   reflection: {

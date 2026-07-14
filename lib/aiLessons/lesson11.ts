@@ -139,6 +139,16 @@ Verdict: do NOT cite until confirmed by a real source`,
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "Catching a fake citation before submission",
+        body: `A student asks an AI for sources on renewable energy. It returns:\n\n*"Martinez, K. (2022). Solar grid efficiency in coastal cities. Journal of Applied Energy Studies, 14(3), 201–218."*\n\nLooks perfect — author, year, journal, page numbers. A verification pass takes 90 seconds:\n\n1. Search the journal name — does it exist?\n2. Search the author plus title — any real record?\n3. Check a library database or Google Scholar.\n\nNothing turns up. The citation was **hallucinated** — plausible formatting, fictional content. Submitting it could mean a zero and a integrity conversation.\n\nThe fix isn't "never use AI for research." It's **verify every source exists before you cite it.**`,
+        callout: {
+          label: "Notice this",
+          text: "Hallucinated citations are one of the most common and most dangerous AI mistakes in school work.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth check",
         title: "\"It would tell me if it wasn't sure\"",
@@ -158,6 +168,22 @@ Verdict: do NOT cite until confirmed by a real source`,
           correctIndex: 1,
           explanation:
             "A hallucination can be repeated consistently because it comes from the same flawed pattern each time — repetition isn't verification.",
+        },
+      },
+      {
+        id: "red-flags",
+        kicker: "Red flags",
+        title: "High-risk tasks — verify every time",
+        body: `Some tasks deserve automatic skepticism, no matter how confident the AI sounds:`,
+        bullets: [
+          "**Citations, quotes, and statistics** — easy to fabricate, costly if wrong.",
+          "**Medical, legal, or safety instructions** — errors can harm you or someone else.",
+          "**Breaking news and fast-moving events** — training cutoffs and thin evidence.",
+          "**Claims about specific people** — accusations, awards, arrests, or quotes attributed to real individuals.",
+        ],
+        callout: {
+          label: "Rule of thumb",
+          text: "Higher stakes + harder to check = lower trust by default. Verify first, act second.",
         },
       },
       {
@@ -182,6 +208,30 @@ Verdict: do NOT cite until confirmed by a real source`,
           "Look for the same claim on at least one independent, trusted site.",
           "Zero independent footprint = strong signal it may be invented.",
         ],
+      },
+      {
+        id: "decision-checklist",
+        kicker: "Decision checklist",
+        title: "The 60-second verification pass",
+        body: `Before you use or share an AI answer, run this quick pass:`,
+        bullets: [
+          "**Source check** — Can I find this fact in at least one independent, trusted place?",
+          "**Date check** — Is the information current enough for this decision?",
+          "**Logic check** — Does the claim make sense, or does it only sound polished?",
+          "**Share check** — If I'm wrong, who gets hurt when I pass this along?",
+        ],
+        checkIn: {
+          prompt: "A classmate wants to repost an AI-generated quote attributed to a famous scientist. What's the AI-smart move?",
+          choices: [
+            "Repost it — the scientist probably said something like that",
+            "Verify the quote in a reliable biography or official source before sharing",
+            "Ask the same AI if the quote is real and trust its answer",
+            "Repost with extra emojis so people know it's informal",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Attributed quotes are high-risk for hallucination. Independent verification before sharing is the responsible habit — asking the same AI is circular and unreliable.",
+        },
       },
       {
         id: "comparison",
@@ -232,10 +282,14 @@ Verdict: do NOT cite until confirmed by a real source`,
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "Verification is a core digital-citizenship skill",
-        body: `• **ISTE 1.3 — Knowledge Constructor:** critically evaluating information, checking sources, and using trusted digital tools to build knowledge is the exact skill this lesson trains.\n• **ISTE 1.2 — Digital Citizen:** being a responsible participant online includes not spreading unverified claims and understanding how information (and misinformation) travels.\n• **CSTA Impacts of Computing:** understanding how AI systems can produce confident but false output — and the real-world consequences of that — is directly about how computing affects individuals and society.\n\nThis isn't just an "AI lesson" habit; it's the same critical-evaluation skill you'll use for research, news, and social media for the rest of your life.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Be the person who pauses the group chat",
+        body: `When friends share shocking screenshots, "facts," or viral claims this week, practice saying:\n\n*"Wait — let's check that before we spread it."*\n\nThen run one fast verification step together: search the claim, check the original source, look for coverage from a trusted outlet.\n\nYou don't have to be annoying about it — but one person who verifies before sharing protects the whole group from becoming a rumor engine.`,
+        callout: {
+          label: "Transfer this",
+          text: "Verification is a social skill, not just a solo study habit. It protects everyone who would have believed you.",
+        },
       },
       {
         id: "reflection-prompt",
@@ -396,7 +450,7 @@ Verdict: do NOT cite until confirmed by a real source`,
     },
     {
       id: "q8",
-      question: "How does fact-checking AI output connect to being a good digital citizen (ISTE 1.2/1.3)?",
+      question: "How does fact-checking AI output connect to being a good digital citizen?",
       choices: [
         "It doesn't relate to digital citizenship",
         "Critically evaluating information and not spreading unverified claims are core digital citizenship and knowledge-construction skills",
@@ -405,7 +459,7 @@ Verdict: do NOT cite until confirmed by a real source`,
       ],
       correctIndex: 1,
       explanation:
-        "Evaluating sources critically (Knowledge Constructor) and acting responsibly with information you share (Digital Citizen) are exactly what verification practices this lesson.",
+        "Evaluating sources critically and acting responsibly with information you share are exactly the verification practices this lesson builds.",
     },
   ],
   reflection: {

@@ -18,7 +18,7 @@ export const cyberLesson9: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-9.png",
         imageAlt: "Two locked boxes and two keys on a desk illustrating encryption concepts for students",
-        body: `You've used encryption thousands of times without noticing — every time a padlock shows up in a browser, a messaging app says "end-to-end encrypted," or a password is stored as a scrambled hash. Today you'll learn the **ideas** behind that protection, not how to break it.\n\nHere's our roadmap:\n\n• **What cryptography is for** — protecting confidentiality and checking integrity.\n• **Symmetric encryption** — one shared secret key.\n• **Asymmetric encryption** — public and private key pairs, plus digital signatures.\n• **Hashing** — one-way fingerprints for integrity (and why passwords aren't stored as plain text).\n• **Key management** — why protecting the key matters as much as the algorithm.\n• **Trust chains** — how encryption connects to certificates (bridge to next lesson).\n• **Limits** — what crypto does *not* fix.\n\nThis is defender knowledge: you need to know what "encrypted" really promises so you can choose tools wisely and spot marketing hype. NIST's cybersecurity awareness framing calls this a **Protect**-category skill — safeguarding data through cryptographic controls.`,
+        body: `You've used encryption thousands of times without noticing — every time a padlock shows up in a browser, a messaging app says "end-to-end encrypted," or a password is stored as a scrambled hash. Today you'll learn the **ideas** behind that protection, not how to break it.\n\nHere's our roadmap:\n\n• **What cryptography is for** — protecting confidentiality and checking integrity.\n• **Symmetric encryption** — one shared secret key.\n• **Asymmetric encryption** — public and private key pairs, plus digital signatures.\n• **Hashing** — one-way fingerprints for integrity (and why passwords aren't stored as plain text).\n• **Key management** — why protecting the key matters as much as the algorithm.\n• **Trust chains** — how encryption connects to certificates (bridge to next lesson).\n• **Limits** — what crypto does *not* fix.\n\nThis is defender knowledge: you need to know what "encrypted" really promises so you can choose tools wisely and spot marketing hype. Understanding what encryption actually promises helps you choose tools wisely and spot marketing hype that oversells protection.`,
         callout: {
           label: "Why it matters",
           text: "Crypto is a core building block of modern security. Understanding it helps you trust the right systems — and question claims that sound too perfect.",
@@ -276,6 +276,46 @@ export const cyberLesson9: AILessonConfig = {
         callout: {
           label: "Try this week",
           text: "Notice one place you already rely on crypto (HTTPS padlock, encrypted messaging, device lock). Ask: what would still go wrong if someone phished my password, and how would MFA help?",
+        },
+      },
+      {
+        id: "crypto-decisions",
+        kicker: "Decision checklist",
+        title: "Choosing crypto protections in everyday tools",
+        body: `When a tool says "encrypted," ask what job it is actually doing:
+
+• **In transit** — HTTPS or encrypted chat protects content on the wire.
+• **At rest** — device encryption or encrypted storage protects files if the device is stolen.
+• **Integrity** — hashes or signatures prove a file or update was not tampered with.
+• **Authentication** — signatures prove who approved a message or update.
+
+**Comparison — what each tool typically gives you:**
+• Browser padlock → mainly confidentiality + integrity of the connection to that server.
+• Encrypted messaging app → confidentiality of message content between endpoints (if implemented well).
+• Password hash on server → protects stored credentials, not your live session.
+• File checksum published by vendor → integrity check for downloads.
+
+Crypto answers specific questions. List which questions matter for the data you are handling, then pick tools that address those — not whichever app has the best marketing.`,
+      },
+      {
+        id: "key-leak-response",
+        kicker: "What to do next",
+        title: "If a shared key or passphrase leaks",
+        body: `**Scenario:** A club officer posts the team's encryption passphrase in a public group chat by mistake.
+
+**Immediate steps:**
+1. **Rotate** — generate a new key/passphrase and re-encrypt or re-share files through a safer channel.
+2. **Revoke** — remove access for anyone who should no longer have the old key.
+3. **Assume compromise** — treat anything protected only by the old key as potentially readable.
+4. **Notify** — tell the advisor and affected members what rotated and when.
+5. **Log** — note the incident in club records (date, what leaked, what changed).
+
+**Myth:** "We deleted the chat message, so we're fine." Screenshots, notifications, and backups may already exist.
+
+Key leaks are process problems, not math problems. Rotation speed matters more than debating cipher strength.`,
+        callout: {
+          label: "Defender view",
+          text: "Treat passphrases like house keys — if one copy lands in the wrong hands, you change the lock, not just hope nobody noticed.",
         },
       },
       {

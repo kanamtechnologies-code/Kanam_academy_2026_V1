@@ -18,7 +18,7 @@ export const financeLesson14: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/fl-14.png",
         imageAlt: "High school senior comparing college offer letters and net price on a laptop with a family member",
-        body: `College marketing loves big campus photos. Aid Navigators look at **numbers**: what it costs *you*, what doesn't need repayment, and what becomes debt.\n\nHere's the roadmap:\n\n• **A true-ish story** about two offer letters that looked nothing alike.\n• **Sticker vs net price**, **grants vs loans**, and **FAFSA awareness** — three core concepts, each with a quick check.\n• A **worked example** reading a real offer letter, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (reading appeal letters and net-price calculators), a **grants vs loans comparison**, and a **behavioral trap** to avoid.\n• **Habits**, how this connects to national money standards, a reflection pause, a **mini-case**, and a mixed **check yourself**.\n\nNo school-rank hype — just clear money thinking for senior year and beyond.`,
+        body: `College marketing loves big campus photos. Aid Navigators look at **numbers**: what it costs *you*, what doesn't need repayment, and what becomes debt.\n\nHere's the roadmap:\n\n• **A true-ish story** about two offer letters that looked nothing alike.\n• **Sticker vs net price**, **grants vs loans**, and **FAFSA awareness** — three core concepts, each with a quick check.\n• A **worked example** reading a real offer letter, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (reading appeal letters and net-price calculators), a **grants vs loans comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a reflection pause, a **mini-case**, and a mixed **check yourself**.\n\nNo school-rank hype — just clear money thinking for senior year and beyond.`,
         callout: {
           label: "Why it matters",
           text: "Two schools with similar sticker prices can differ by thousands in net cost. Comparing offers carefully can change your debt for years.",
@@ -206,16 +206,6 @@ export const financeLesson14: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this is on the checklist",
-        title: "How this connects to national money standards",
-        body: `The **Jump$tart Coalition** and **Council for Economic Education** national standards treat paying for education as a bridge between two pillars: **Earning Income** (since education is often an investment in future earning) and **Managing Credit** (since student loans are, functionally, credit).\n\nThe specific skills from this lesson map directly:\n\n• Distinguishing **sticker price from net price**, and reading a real offer letter.\n• Comparing **gift aid vs debt**, including renewability and risk.\n• Building **FAFSA awareness** without guaranteeing outcomes.\n• Practicing a **structured comparison** across multiple offers before deciding.\n\nThis is the exact "can this student make an informed borrowing decision before signing" checkpoint these standards are designed to measure.`,
-        callout: {
-          label: "Good to know",
-          text: "Every specific number in this lesson is illustrative — real offers, forms, and aid rules vary and change. The comparison habit is the transferable skill.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on...",
@@ -240,6 +230,112 @@ export const financeLesson14: AILessonConfig = {
           explanation:
             "A one-time grant can make year one look deceptively affordable. Projecting all four years — and confirming renewal terms directly with each school — beats deciding on sticker price or a single year's gift aid total alone.",
         },
+      },
+      {
+        id: "worked-numbers",
+        kicker: "Do the math",
+        title: "Sofia's net price — grants vs loans on the same letter",
+        body: `**State U offer (simplified):**
+• Sticker tuition + fees: **$28,000**
+• Grant (gift): **-$8,000**
+• Scholarship (gift): **-$3,000**
+• Subsidized loan (borrow): **-$5,500**
+• Unsubsidized loan (borrow): **-$2,000**
+
+**Net price (gift aid only):** $28,000 - $11,000 = **$17,000** out of pocket or other aid.
+
+**Loans ($7,500)** reduce bill now but must be **repaid with interest** — they're not discounts.
+
+**Four-year gift aid:** $11,000 × 4 = **$44,000** help.
+**Four-year loans if repeated:** $7,500 × 4 = **$30,000** debt before interest.
+
+Read the letter twice: once for **net price**, once for **debt stack**.`,
+        bullets: [
+          "**Gift aid** lowers cost; **loans** delay cost.",
+          "Multiply each line by **4 years** (or program length).",
+          "Appeal letters can adjust grants — loans rarely shrink by asking nicely alone.",
+        ],
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you sign",
+        title: "Financial aid & loan promissory notes — ask these",
+        body: `Before accepting aid packages or signing loan papers with a trusted adult:
+
+• **Gift vs loan** — Which lines never need repayment?
+• **Interest rate & type** — Subsidized vs unsubsidized; fixed rate?
+• **Repayment start** — When do payments begin after leaving school?
+• **Total borrowed** — Four-year stack, not just freshman year.
+• **Work-study** — Hours expected? Affects schedule.
+• **Satisfactory progress** — GPA/credits to keep aid.
+• **Appeal process** — If family income changed, can you ask for review?
+
+Signing without reading is how **$30k** freshman stacks become **$120k** surprises.`,
+        callout: {
+          label: "Watch out",
+          text: "A big \"total aid\" number that is mostly loans is a debt package, not a scholarship win.",
+        },
+      },
+      {
+        id: "second-scenario",
+        kicker: "Another school",
+        title: "Community college path — net price comparison",
+        body: `**Private college sticker:** $52,000. **Gift aid:** $20,000. **Loans offered:** $8,000. **Net after gifts:** $32,000/year still — heavy even after aid.
+
+**Community college:** $4,800 tuition + $1,200 fees = **$6,000**. Transfer to State U for years 3–4.
+
+**Tradeoffs:**
+• CC: Lower debt, live at home maybe, slower "four-year campus" experience.
+• Private freshman year: Campus life now, higher loan stack.
+
+No moral winner — but **net price over 4 years**, not sticker prestige, funds your post-grad life.`,
+        checkIn: {
+          prompt: "School A offers $15,000 in loans labeled 'aid.' School B offers $15,000 in grants. What's the key difference?",
+          choices: [
+            "They're the same — aid is aid",
+            "Grants are gift money; loans must be repaid with interest",
+            "Loans are always better because you get cash faster",
+            "Grants only matter for graduate school",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Gift aid reduces what you pay. Loans are borrowing — same label on a letter doesn't make them equal.",
+        },
+      },
+      {
+        id: "behavioral-trap-2",
+        kicker: "Watch your brain",
+        title: "Prestige anchor — when brand blinds the math",
+        body: `**Prestige anchor:** A famous school name makes a **$40,000** net price feel reasonable because "everyone respects it." Your future self pays the loans, not the logo.
+
+**Cool-down move:** Build two columns — **net 4-year cost** vs. **programs you actually want** (major, internships, location). If a cheaper school wins on both, prestige is noise.
+
+Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo rarely is.`,
+        callout: {
+          label: "Why it matters",
+          text: "Aid Navigator skill is comparing net prices across paths — CC transfer, in-state, work-study — not chasing the most famous envelope.",
+        },
+      },
+      {
+        id: "tradeoff-table",
+        kicker: "Compare",
+        title: "Work-study vs part-time job — hours and flexibility",
+        body: `**Federal work-study (illustrative $2,800/year cap):**
+• Often on-campus, may align with class schedule.
+• Earnings don't always count the same on next year's FAFSA (policy details vary — verify with aid office).
+• Pay may be modest but convenient.
+
+**Off-campus retail ($13/hr, 12 hrs/week):**
+• **$202/week gross**, more schedule juggling.
+• Full income visible for future aid calculations.
+• May pay more per hour than campus jobs.
+
+**Tradeoff:** Convenience and aid math vs. higher pay and flexibility. Run hours against study time — flunking costs more than any job earns.`,
+        bullets: [
+          "More hours ≠ automatically better if GPA suffers.",
+          "Ask aid office how earnings affect **next year's** package.",
+          "Combine work-study with summer saving for best of both.",
+        ],
       },
       {
         id: "check-yourself",

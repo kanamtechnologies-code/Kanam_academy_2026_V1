@@ -18,7 +18,7 @@ export const cyberLesson10: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-10.png",
         imageAlt: "Browser address bar with HTTPS padlock on a school portal laptop screen",
-        body: `That little padlock in your browser is one of the most important security signals online — and one of the most misunderstood. Today you'll learn what **HTTPS**, **certificates**, and **trust** actually mean from a defender's point of view.\n\nHere's our roadmap:\n\n• **HTTP vs HTTPS** — plain vs protected web traffic.\n• **Certificates** — digital ID cards for websites.\n• **Certificate Authorities (CAs)** — who vouch for those IDs.\n• **Certificate lifecycle** — issuance, expiration, renewal, and revocation.\n• **What the padlock means** — and what it never promised.\n• **MITM awareness** — why attackers want to sit in the middle.\n• **Browser warnings** — reading them like a defender, not ignoring them.\n• **When padlock isn't enough** — phishing pages can have HTTPS too.\n\nThis maps to the **Protect** and **Identify** functions of NIST's cybersecurity framing — recognizing legitimate connections and reducing exposure to fake ones. You'll leave able to read the padlock like a defender, not like a superstition.`,
+        body: `That little padlock in your browser is one of the most important security signals online — and one of the most misunderstood. Today you'll learn what **HTTPS**, **certificates**, and **trust** actually mean from a defender's point of view.\n\nHere's our roadmap:\n\n• **HTTP vs HTTPS** — plain vs protected web traffic.\n• **Certificates** — digital ID cards for websites.\n• **Certificate Authorities (CAs)** — who vouch for those IDs.\n• **Certificate lifecycle** — issuance, expiration, renewal, and revocation.\n• **What the padlock means** — and what it never promised.\n• **MITM awareness** — why attackers want to sit in the middle.\n• **Browser warnings** — reading them like a defender, not ignoring them.\n• **When padlock isn't enough** — phishing pages can have HTTPS too.\n\nYou'll learn to recognize legitimate connections and reduce exposure to fake ones — reading the padlock like a defender, not like a superstition.`,
         callout: {
           label: "Why it matters",
           text: "Scammers love people who think \"padlock = safe forever.\" Knowing the real meaning helps you spot fake login pages that still show HTTPS.",
@@ -216,7 +216,7 @@ export const cyberLesson10: AILessonConfig = {
         id: "browser-warnings-example",
         kicker: "See it in action",
         title: "Deciding when a warning is worth escalating",
-        body: `Not every warning needs a security team — but pattern-matching helps you know when to escalate:\n\n• **One-time, resolves on reload, on a site you already trust** → likely a minor glitch; keep an eye out, no need to panic.\n• **Persistent warning on a login page for something sensitive (school, bank, email)** → stop, don't log in, tell IT/a trusted adult, try again later or through a bookmarked/official link.\n• **Warning appears right after clicking a link from an unexpected text/email** → treat this as a likely phishing attempt; close the tab, don't proceed.\n• **Certificate name doesn't match the site you meant to visit at all** → strong signal something is wrong; leave immediately.\n\nBuilding this kind of judgment — instead of either ignoring every warning or panicking at every warning — is exactly the "Identify" and "Protect" mindset defenders practice daily.`,
+        body: `Not every warning needs a security team — but pattern-matching helps you know when to escalate:\n\n• **One-time, resolves on reload, on a site you already trust** → likely a minor glitch; keep an eye out, no need to panic.\n• **Persistent warning on a login page for something sensitive (school, bank, email)** → stop, don't log in, tell IT/a trusted adult, try again later or through a bookmarked/official link.\n• **Warning appears right after clicking a link from an unexpected text/email** → treat this as a likely phishing attempt; close the tab, don't proceed.\n• **Certificate name doesn't match the site you meant to visit at all** → strong signal something is wrong; leave immediately.\n\nBuilding this kind of judgment — instead of either ignoring every warning or panicking at every warning — is exactly the calm recognition-and-protection habit defenders practice daily.`,
         checkIn: {
           prompt: "You click a link from an unexpected text message and immediately get a certificate warning. What's the best response?",
           choices: [
@@ -267,6 +267,63 @@ export const cyberLesson10: AILessonConfig = {
           label: "Try this week",
           text: "The next time you log into something important, run the five-point checklist out loud in your head before you type your password.",
         },
+      },
+      {
+        id: "cert-decisions",
+        kicker: "Decision checklist",
+        title: "Certificate warning decisions under pressure",
+        body: `Browser certificate warnings are annoying — and sometimes life-saving. Use this decision guide:
+
+**If warning appears on a routine news site:** stop, do not click through, try later or use a known-good network.
+**If warning appears during banking or school login:** stop completely — verify URL, try cellular data, contact official support through a known number.
+**If warning appears only on school Wi-Fi but not cellular:** report to IT — possible captive portal or misconfigured inspection, not something to bypass casually.
+
+**Comparison — warning types (plain language):**
+• **Name mismatch** — certificate does not match the domain you typed; high risk of impersonation.
+• **Expired** — server admin mistake or neglected maintenance; treat as untrusted until fixed.
+• **Untrusted issuer** — browser does not recognize who vouched for the site; do not enter credentials.
+
+Clicking "Advanced → proceed anyway" on sensitive pages is how defenders lose — not how they troubleshoot.`,
+      },
+      {
+        id: "login-network-walkthrough",
+        kicker: "Scenario walkthrough",
+        title: "Choosing where to log in",
+        body: `**Scenario:** Sam needs to pay a club invoice through the school's payment portal at a coffee shop. The padlock is green. Is that enough?
+
+**Walkthrough:**
+1. **Padlock check** — HTTPS is on; connection to the server is encrypted.
+2. **Domain check** — URL exactly matches the known school domain, no lookalike.
+3. **Network check** — public café Wi-Fi adds risk of surrounding hostile devices; cellular hotspot is safer for high-sensitivity payments if available.
+4. **MFA check** — payment portal requires second factor; good.
+5. **Entry path** — Sam typed the URL from a bookmark, not from a random email link.
+
+**Decision:** proceed on HTTPS with correct domain, prefer cellular if possible, deny any unexpected MFA prompts during payment.
+
+HTTPS is one layer. Network choice and MFA are others — the walkthrough names all three before Sam types a password.`,
+        checkIn: {
+          prompt: "HTTPS is active on a login page at a coffee shop. What additional factor should Sam still consider?",
+          choices: [
+            "Nothing — padlock means completely safe",
+            "Whether the network environment and domain are trustworthy, plus MFA status",
+            "Whether to disable browser warnings for speed",
+            "Whether HTTP would be faster",
+          ],
+          correctIndex: 1,
+          explanation:
+            "HTTPS encrypts the connection but does not eliminate network risk or phishing domains — layered checks still matter.",
+        },
+      },
+      {
+        id: "trust-myths-extra",
+        kicker: "Myth check",
+        title: "HTTPS trust myths defenders retire early",
+        body: `• **"Green padlock = honest company."** Phishing sites obtain certificates too; the padlock only speaks to the connection, not motives.
+• **"HTTP is fine for quick logins."** Credentials sent over HTTP can be read by anyone on the path — always prefer HTTPS for logins.
+• **"Certificate warnings are always broken school Wi-Fi — ignore them."** Sometimes yes, sometimes MITM or misconfiguration — report, do not habitually bypass on sensitive sites.
+• **"I can check the padlock after I log in."** Check before you type secrets, not after.
+
+Build the habit: address bar first, warnings second, network third, MFA fourth — then credentials.`,
       },
       {
         id: "ready",

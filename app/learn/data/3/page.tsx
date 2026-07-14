@@ -194,17 +194,6 @@ const daLesson3: DataLessonConfig = {
         body: `When you run a DISTINCT query, always compare the result count to the total row count. If DISTINCT barely shrinks the numbers, that column probably has few repeats. If it shrinks a lot, you've found a genuinely repetitive column — useful to know before you build charts or summaries from it later.`,
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `Cleaning duplicate values is a core step in preparing data for analysis.`,
-        bullets: [
-          "**CSTA 2-DA-08** — Transform data (removing duplicates) to make it more useful and reliable.",
-          "**CSTA 3A-DA-10** — Use data analysis techniques like DISTINCT to identify the true set of values in a system.",
-          "**ISTE Computational Thinker** — Breaking down a dataset to find its essential, non-repeating structure.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "Where have you seen a 'clean list'?",
@@ -230,6 +219,32 @@ const daLesson3: DataLessonConfig = {
           choices: ["SELECT DISTINCT item, price FROM lunch_orders;", "SELECT DISTINCT price, item FROM lunch_orders;", "SELECT item, DISTINCT price FROM lunch_orders;"],
           correctIndex: 0,
           explanation: "DISTINCT sits right after SELECT, and listing item before price puts item first in the result — exactly what's needed here.",
+        },
+      },
+      {
+        id: "distinct-walkthrough",
+        kicker: "Query walkthrough",
+        title: "DISTINCT on lunch_orders — before and after",
+        body: `The full \`lunch_orders\` table has 8 rows, but only 6 unique items were ordered (Pizza slice appears twice, Salad appears twice). Without \`DISTINCT\`, a plain \`SELECT item\` returns all 8 rows including repeats. With \`DISTINCT\`, SQL collapses duplicates and hands back 6 rows — one per unique item.\n\nAlways compare the row count to what you expect. If you asked "how many different items exist?" and got 8 rows back, you probably forgot \`DISTINCT\`.`,
+        code: `SELECT DISTINCT item\nFROM lunch_orders;`,
+        codeCaption: "Six unique items from eight orders",
+        table: {
+          columns: ["item"],
+          values: [
+            ["Pizza slice"],
+            ["Salad"],
+            ["Chicken wrap"],
+            ["Fruit cup"],
+            ["Yogurt parfait"],
+            ["Burger"],
+          ],
+          rowCount: 6,
+        },
+        checkIn: {
+          prompt: "lunch_orders has 8 rows but only 6 unique items. How many rows should SELECT DISTINCT item return?",
+          choices: ["8 — DISTINCT doesn't remove anything", "6 — one row per unique item", "1 — DISTINCT always returns one row"],
+          correctIndex: 1,
+          explanation: "DISTINCT removes duplicate values, so six different items produce six rows — even though the original table had eight orders.",
         },
       },
       {

@@ -132,6 +132,16 @@ export const aiLesson4: AILessonConfig = {
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "Turning a movie review into numbers",
+        body: `Representation shows up everywhere — not just in school data.\n\nA streaming app wants to recommend films. It can't feed the AI your whole personality, so it represents each movie as a **feature vector**:\n\n\`[genre: comedy, runtime: 98 min, rating: PG-13, lead_actor_popularity: 72]\`\n\nAnd it represents *you* as:\n\n\`[watched_comedies: 14, avg_watch_time: 67%, skipped_horror: 9]\`\n\nThe model matches patterns between those vectors. Useful — but notice what's missing: whether you loved the *story*, whether a friend recommended it, whether the film handled a topic sensitively. The numbers capture behavior, not meaning.\n\nThat's representation loss again — and it explains why recommendations sometimes feel "close but wrong."`,
+        callout: {
+          label: "Notice this",
+          text: "Whenever an AI judges or recommends, ask what got turned into numbers and what got left out.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth-busting",
         title: "\"Numbers are objective, so the data must be fair\"",
@@ -206,7 +216,7 @@ export const aiLesson4: AILessonConfig = {
         title: "A real risk-scoring tool and its representation problem",
         body: `In 2016, journalists investigated a risk-assessment tool used in some U.S. courts to help predict whether a defendant might reoffend. The investigation found the tool was significantly more likely to incorrectly flag Black defendants as "high risk" compared to white defendants with similar actual outcomes.\n\nPart of the underlying issue was representation: the tool relied on features correlated with a person's past contact with the justice system — arrests, in a system where policing patterns themselves are not applied evenly across communities. Feeding that history back into a "risk" prediction can quietly recreate old patterns of unequal treatment, dressed up as an objective number.\n\nThis doesn't mean every data-driven tool is unfair — it means representation choices deserve real scrutiny, especially when the stakes involve someone's freedom, opportunities, or safety.`,
         callout: {
-          label: "CSTA 2-IC-21 connection",
+          label: "Why this matters",
           text: "This case is a widely studied example of bias in technology design — a direct application of evaluating fairness in how a system was built.",
         },
       },
@@ -222,10 +232,14 @@ export const aiLesson4: AILessonConfig = {
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why school cares about this",
-        title: "This is data literacy in action",
-        body: `Today you practiced **CSTA 2-DA-07**, representing data using an encoding scheme (tokens, feature vectors), and **CSTA 2-DA-08**, thinking critically about how data is collected and transformed to be more useful — or, in the risk-score case, how it can be transformed in ways that are *less* fair.\n\nYou also practiced **CSTA 2-IC-21**, discussing bias in the design of an existing technology. Honestly, once you can spot a proxy variable or ask "what got left out," you're doing something most adults never learned to do — reading a dataset the way a critical thinker does, not just a spreadsheet user.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Ask \"what got left out?\" at school",
+        body: `When a grade, attendance alert, or app recommendation feels off, ask the representation question:\n\n**What numbers did the system see, and what important reality never made it into the data?**\n\nMaybe a bad week at home isn't in the feature vector. Maybe a zip code quietly stands in for income. Maybe a single test score stands in for months of effort.\n\nYou won't always have access to the full dataset — but asking the question keeps you from treating every number as the whole truth.`,
+        callout: {
+          label: "Transfer this",
+          text: "Representation loss is unavoidable. The skill is noticing when what's missing actually matters for the decision being made.",
+        },
       },
       {
         id: "reflection-prompt",

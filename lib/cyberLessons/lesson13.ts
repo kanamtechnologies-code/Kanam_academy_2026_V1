@@ -274,6 +274,89 @@ export const cyberLesson13: AILessonConfig = {
         },
       },
       {
+        id: "headline-drill",
+        kicker: "Scenario walkthrough",
+        title: "Running the three-question drill on a headline",
+        body: `**Headline:** "Regional hospital reports outage after cyber incident."
+
+**Question 1 — Impact:** Availability hit (care delayed); possible confidentiality/integrity if records involved.
+**Question 2 — Signals:** Unexpected downtime, possible ransom note, abnormal admin logins (defenders investigate).
+**Question 3 — Controls:** Segmentation, backups, MFA on remote access, IR plan, monitoring — which were present or missing?
+
+You are not solving the case from a news clip. You are practicing the analyst reflex: impact → signals → controls. That reflex is what turns scary headlines into learnable patterns instead of vague fear.`,
+        checkIn: {
+          prompt: "In the defender three-question drill, what does the second question focus on?",
+          choices: [
+            "How much the attacker earned",
+            "What signs defenders might look for or might have missed",
+            "Which exploit code was used",
+            "Whether the company deserved it",
+          ],
+          correctIndex: 1,
+          explanation:
+            "The second question trains you to think about detection signals and observability — defender skills, not attack recipes.",
+        },
+      },
+      {
+        id: "ransom-decisions",
+        kicker: "Decision checklist",
+        title: "Ransomware decisions without paying on impulse",
+        body: `If screens lock or files rename with ransom notes:
+
+**Do immediately:**
+• Disconnect from network (pull ethernet / disable Wi-Fi) to limit spread.
+• Report to IT/trusted adult — do not negotiate alone.
+• Check whether clean backups exist and when they were last tested.
+
+**Do not by default:**
+• Pay ransom without organizational guidance — payment does not guarantee recovery and funds crime.
+• Delete ransom notes or wipe devices before responders advise.
+
+**Comparison — recovery paths:**
+• **Tested offline backup** — strongest student/club-level recovery.
+• **Cloud versioning** — may help if ransomware did not encrypt all synced copies.
+• **Paying ransom** — last-resort organizational decision with legal and ethical implications, not a solo click.
+
+Lesson 11 backups and Lesson 12 IR meet here — preparation beats panic.`,
+      },
+      {
+        id: "supply-chain-habits",
+        kicker: "Defender habits",
+        title: "Supply-chain habits for extensions and apps",
+        body: `Before installing anything new:
+
+• Does the publisher match the official source?
+• Do requested permissions match the app's job?
+• Is it actively maintained (recent updates)?
+• Can you accomplish the task without installing at all?
+
+**Quarterly review:** list installed browser extensions and phone apps tied to school/club work — remove what you do not use.
+
+**Reporting:** if a compromised extension is suspected, report through school IT and remove it before telling others to install a "replacement" you have not verified.
+
+Supply-chain risk is boring until one bad extension reads every page you visit — then it is everyone's problem.`,
+        bullets: [
+          "Fewer installs = smaller attack surface.",
+          "Permissions are promises — read them.",
+          "Official store ≠ automatic safety; still review.",
+        ],
+      },
+      {
+        id: "pattern-myths",
+        kicker: "Myth check",
+        title: "Attack-pattern myths defenders should drop",
+        body: `• **"Knowing attack names makes me a hacker."** Pattern names are vocabulary for defense — like knowing "fire" does not make you an arsonist.
+• **"DDoS is the same as any outage."** Similar symptom, different intent and response — escalation to providers and comms plans matter for DDoS.
+• **"Ransomware only hits big companies."** Schools and clubs with weak backups are attractive too.
+• **"Injection is only a programmer problem."** Users still matter — suspicious input in forms and uploads is everyone's watch item.
+
+Stay in the defender lane: impact, signals, controls, reporting.`,
+        callout: {
+          label: "Defender view",
+          text: "When classmates ask \"how would someone do that?\" redirect to \"what would we notice and what control would help?\"",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",

@@ -221,12 +221,6 @@ export const financeLesson2: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Bigger picture",
-        title: "Why schools teach this",
-        body: `National personal finance standards for your age group specifically call out telling needs from wants, understanding opportunity cost, and recognizing how advertising and media shape spending choices. That's not a random list — those three skills are exactly what stand between an ad's countdown timer and a decision that still matches your own goals tomorrow morning.`,
-      },
-      {
         id: "reflect",
         kicker: "Pause",
         title: "Before you move on — think",
@@ -246,6 +240,36 @@ export const financeLesson2: AILessonConfig = {
         callout: {
           label: "Why it matters",
           text: "Recognizing which \"urgent\" deadline is real (a phone bill) versus manufactured (a recurring type of game sale) is the core skill of resisting advertising influence.",
+        },
+      },
+      {
+        id: "behavioral-trap",
+        kicker: "Watch your brain",
+        title: "Scarcity marketing: when \"almost gone\" hijacks tradeoffs",
+        body: `**Scarcity marketing** uses limited time, limited stock, or countdown timers to make a want feel like a need-right-now. Marcus's sneaker drop is a textbook setup: red timer, "only a few left," and a price that barely fits his real obligations.
+
+How it tricks tradeoff thinking:
+
+• **Fake urgency** — "20 minutes left" replaces "do I actually need this?"
+• **Social proof** — "everyone's buying" makes skipping feel like losing status.
+• **Price anchoring** — the listed price becomes the only number you see, not the $60 insurance payment four days away.
+
+You can't delete scarcity pressure, but you can slow it: name the **opportunity cost** out loud, check whether the timer is real (refresh the page — many "limited" drops restock), and use a 24-hour rule for non-essential buys over an amount you pick.`,
+        callout: {
+          label: "Watch out",
+          text: "A countdown timer is a sales tool, not a calendar of your actual priorities. If it disappeared, would you still want the purchase tomorrow?",
+        },
+        checkIn: {
+          prompt: "Marcus has $85, needs $60 for a shared car-insurance payment in four days, and sees a $80 sneaker drop ending in 20 minutes. What's the strongest tradeoff-aware response?",
+          choices: [
+            "Buy now — missing the drop costs more than missing the insurance payment",
+            "Pause, name what he'd give up (insurance cushion + opportunity cost), and decide if sneakers beat that",
+            "Assume the timer means the shoes are an investment that will rise in value",
+            "Buy on credit so cash stays available for insurance",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Tradeoff thinking names what you give up. Timers create urgency; they don't change whether a want outranks a near-term obligation.",
         },
       },
       {

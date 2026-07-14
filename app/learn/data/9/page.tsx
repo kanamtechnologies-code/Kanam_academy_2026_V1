@@ -212,18 +212,6 @@ const daLesson9: DataLessonConfig = {
         body: `Before trusting or sharing any bar chart — yours or someone else's — glance at the y-axis. Does it start at zero? If not, ask why, and mentally correct for the exaggeration before drawing any conclusions.`,
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `Building and reading visualizations is a core data-science and math skill.`,
-        bullets: [
-          "**CSTA 3A-DA-11** — Create interactive data visualizations using software tools to help others understand real-world phenomena.",
-          "**CSTA 2-DA-07** — Represent data using multiple encoding schemes, including charts.",
-          "**Common Core Math (statistics bridge)** — Display and interpret categorical data using bar graphs.",
-          "**ISTE Knowledge Constructor** — Curating information from data and presenting it meaningfully to others.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "Find a bar chart and question its axis",
@@ -250,6 +238,44 @@ const daLesson9: DataLessonConfig = {
           correctIndex: 0,
           explanation: "A chart needs a label column (item) and a number column (order_count), produced by grouping and counting — exactly this query's shape.",
         },
+      },
+      {
+        id: "chart-shape-walkthrough",
+        kicker: "Query walkthrough",
+        title: "The exact query shape every bar chart needs",
+        body: `Charts don't read raw order rows — they need a **label column** and a **number column**. This query collapses eight individual orders into six item categories, each with a count.\n\nRead the result before looking at any chart: \`item\` is text (the label), \`order_count\` is a number (the height). If either column is missing or misnamed, the chart won't render or will mislead.`,
+        code: `SELECT item,\n       COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item\nORDER BY order_count DESC;`,
+        codeCaption: "Label + number, sorted for impact",
+        table: {
+          columns: ["item", "order_count"],
+          values: [
+            ["Pizza slice", 2],
+            ["Salad", 2],
+            ["Chicken wrap", 1],
+            ["Fruit cup", 1],
+            ["Yogurt parfait", 1],
+            ["Burger", 1],
+          ],
+          rowCount: 6,
+        },
+      },
+      {
+        id: "sort-for-story",
+        kicker: "Analyst habits",
+        title: "Sort before you chart — the story changes",
+        body: `The same data tells a different story depending on sort order. Alphabetical by item name hides the winner. \`ORDER BY order_count DESC\` puts the most popular items first — so the tallest bar leads and your audience sees the headline immediately.\n\nTry running the query both ways in the exercises and compare how the chart feels. Sorting is an editorial choice, not just a technical one.`,
+        checkIn: {
+          prompt: "You want the bar chart to highlight the most-ordered item first. Which ORDER BY is best?",
+          choices: ["ORDER BY item", "ORDER BY order_count DESC", "ORDER BY order_count"],
+          correctIndex: 1,
+          explanation: "DESC puts the highest count first, so the winning item's bar leads the chart and the ranking is obvious at a glance.",
+        },
+      },
+      {
+        id: "chart-ethics-truncate",
+        kicker: "Data ethics moment",
+        title: "LIMIT can hide the full story",
+        body: `Adding \`LIMIT 3\` to a bar chart query shows only the top three items — which is great for a "Top 3 menu items" headline, but misleading if you present it as "what students order." The other three items still exist; they're just cut off.\n\nWhenever you limit results for a chart, say so in the title or caption. Honest analysts show what's included *and* what's left out.`,
       },
       {
         id: "ready",

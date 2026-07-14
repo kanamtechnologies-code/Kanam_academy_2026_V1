@@ -223,16 +223,6 @@ export const digitalLesson6: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "This is creative communication and digital citizenship together",
-        body: `Collaborating well in the cloud draws on two ISTE standards at once. It's **Creative Communicator**, because choosing the right collaboration tools, sharing settings, and meeting habits is about communicating effectively with a specific audience — your team. It's also **Digital Citizen**, because respecting permissions, not overwriting someone else's work, and being careful with sharing links are all about acting responsibly in a shared digital space.\n\nIt connects to **CSTA's "Impacts of Computing"** strand too: real-time collaboration tools have genuinely changed how teams — and entire companies — operate, letting people work together across time zones and locations in ways that weren't possible before the cloud.`,
-        callout: {
-          label: "Why it matters",
-          text: "Employers explicitly list \"collaboration tools\" as an expected skill in job postings. What you're practicing here is literally on real job descriptions.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
@@ -268,6 +258,38 @@ export const digitalLesson6: AILessonConfig = {
           correctIndex: 0,
           explanation:
             "Cloud docs keep a version history of every change, so you can roll back and restore the section exactly as it was.",
+        },
+      },
+      {
+        id: "collab-scenario-2",
+        kicker: "Mini scenario",
+        title: "Second case: the 'who deleted my paragraph?' panic",
+        body: `A group is co-editing a shared Google Doc for a presentation. Maya opens it and screams in the group chat: "Someone deleted my whole section!" Two teammates start blaming each other. The deadline is tonight.\n\n**Before (chaos):** accusations in the chat, no one knows what happened, Maya retypes everything from memory.\n\n**After (calm):** the team lead opens **version history**, sees the section was accidentally removed twelve minutes ago, clicks **Restore this version**, and posts in chat: "Fixed — it was an accidental delete, not sabotage. Please use **Suggesting mode** for big edits from now on."\n\nSame tools, different habits. Version history turned a blame spiral into a two-minute fix. Suggesting mode would have prevented the overwrite in the first place.`,
+        callout: {
+          label: "Try this week",
+          text: "On your next shared doc, turn on Suggesting mode before anyone edits — and bookmark where version history lives. Knowing both before a crisis is the whole point.",
+        },
+        checkIn: {
+          prompt: "A teammate's work vanished from a shared doc but nobody admits deleting it. What's the first tool to open?",
+          choices: [
+            "Start a new doc from scratch",
+            "Version history — to see what changed and restore an earlier version",
+            "Reply-all to the whole school",
+            "Change everyone's password",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Version history shows exactly what changed and when, and lets you restore earlier versions — it's the fastest way to undo accidental deletes in shared docs.",
+        },
+      },
+      {
+        id: "kickoff-checklist",
+        kicker: "Checklist",
+        title: "Your 5-minute group-project kickoff",
+        body: `Before anyone writes a single sentence, spend five minutes on structure — it saves hours of chaos later:\n\n1. **One home base** — pick the shared doc/slide deck and link it in one pinned message.\n2. **Roles** — who owns research, slides, speaking, and final proofread?\n3. **Permissions** — can everyone edit, or should some people comment only?\n4. **Naming** — agree on a file name and folder so nothing ends up as \`final_FINAL2.pptx\`.\n5. **Deadline map** — when is the draft due internally, and when is the real deadline?\n\nGroups that skip this step almost always hit "wait, which version is the real one?" the night before. Groups that do it once usually don't.`,
+        callout: {
+          label: "Pro tip",
+          text: "Put the kickoff checklist directly at the top of the shared doc. Future-you at 11 p.m. will be grateful it's right there.",
         },
       },
       {

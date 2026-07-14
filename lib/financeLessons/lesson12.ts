@@ -218,16 +218,6 @@ export const financeLesson12: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "How this connects to national standards",
-        body: `This lesson lines up with the **Jump$tart Coalition** and **Council for Economic Education (CEE) 2021 National Standards for Personal Financial Literacy** — specifically the **Managing Risk** strand, including consumer protection and fraud awareness: recognizing scam patterns, understanding identity theft, and knowing conceptual paths for consumer complaints.\n\nThese are practical, transferable skills — the same red-flag checklist works whether the scam arrives by text, email, phone call, or DM, today or a decade from now.`,
-        callout: {
-          label: "Standards note",
-          text: "This is general education about fraud patterns, not legal advice — laws and consumer resources vary by location.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on…",
@@ -247,6 +237,88 @@ export const financeLesson12: AILessonConfig = {
         callout: {
           label: "Try this",
           text: "If a deal, job, or prize sounds unusually generous with almost no effort required, treat that gap itself as the first red flag — before you even check anything else.",
+        },
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you click",
+        title: "Before you pay a stranger online — verify checklist",
+        body: `Scholarship fees, fake jobs, marketplace deals — run this list:
+
+• **Who contacted whom?** Did they seek you out with urgency?
+• **Payment method** — Wire, gift cards, crypto only? Huge red flag.
+• **Verify independently** — Find the company's real phone/site yourself; don't use links in the message.
+• **Too-good returns** — Guaranteed doubling? Scam pattern.
+• **Personal info** — SSN, bank login, one-time codes are not for DMs.
+• **Pressure** — "Act in 10 minutes" is a tactic, not a fact.
+• **Receipt trail** — Legit merchants give real order confirmations you can look up.
+
+When in doubt, pause and ask a trusted adult. Speed is the scammer's friend.`,
+        callout: {
+          label: "Watch out",
+          text: "Real banks never ask for your one-time login code in a text. Ever.",
+        },
+      },
+      {
+        id: "worked-tradeoff",
+        kicker: "Annotate this",
+        title: "Second scam text — line-by-line flags",
+        body: `**Message:** "CONGRATS! U won $2,500 scholarship. Pay $35 processing to unlock. Link: bit.ly/win-big-now. Reply SSN last4 to confirm."
+
+• **Unsolicited win** — you didn't apply? Flag.
+• **Fee to get money** — legitimate aid doesn't charge unlock fees.
+• **Shortened link** — hides real destination.
+• **SSN in chat** — never.
+• **Spelling/grammar** — sloppy, but not required for scams; urgency is.
+
+**Cost of clicking:** $35 lost + possible identity theft cleanup = hundreds of hours.
+
+**Cost of pausing:** 5 minutes verifying with your school's aid office.`,
+        bullets: [
+          "**Fees to release prizes** = scam pattern.",
+          "Verify through a channel **you** find.",
+          "Scholarships you earn don't demand gift cards.",
+        ],
+      },
+      {
+        id: "second-scenario",
+        kicker: "Case study",
+        title: "The fake job offer — $45/hour remote data entry",
+        body: `**Ad:** $45/hour, no experience, "send $89 for training kit." **Interview** happens only over chat. **Check** arrives for $1,200 — they ask you to Zelle $900 back for "equipment" and keep $300.
+
+**What's happening:** Fake check bounces after you send real money. Classic.
+
+**Safer job search:**
+• Applications on known company sites.
+• Never pay to start work.
+• Wait for check clearance before sending money anywhere (often never send).
+
+One avoided scam beats ten "side hustle" tips.`,
+        checkIn: {
+          prompt: "A remote employer sends a check and asks you to wire part back for equipment. Best move?",
+          choices: [
+            "Wire immediately — checks clear instantly in all cases",
+            "Stop — likely fake check scam; don't send funds",
+            "Send a smaller amount to test if they're legit",
+            "Share your bank login so they can verify the check faster",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Overpayment + wire-back is a classic fake-check scam. Real employers don't ask you to forward money from a new check.",
+        },
+      },
+      {
+        id: "behavioral-trap-2",
+        kicker: "Watch your brain",
+        title: "Shame and sunk cost — why victims stay quiet",
+        body: `After falling for a scam, **shame** whispers: "I'm stupid — don't tell anyone." Scammers count on that silence so they can keep operating.
+
+**Sunk cost** adds: "I already sent $50 — sending $20 more might fix it." It won't.
+
+**Better responses:** Tell a trusted adult, bank, or platform immediately. Document messages. Block and report. You're not alone — reporting helps the next student.`,
+        callout: {
+          label: "Pro tip",
+          text: "Talking early limits damage. Silence lets stolen info spread.",
         },
       },
       {

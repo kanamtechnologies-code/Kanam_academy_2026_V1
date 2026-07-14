@@ -465,20 +465,6 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
 
   const workspacePanelRef = React.useRef<HTMLDivElement | null>(null);
 
-  const goToNextExercise = () => {
-    if (activeIndex < lesson.exercises.length - 1) {
-      setActiveIndex((i) => i + 1);
-      setQueryResult(null);
-      setRunError(null);
-      setLastFeedback("");
-      setLastFeedbackSuccess(false);
-      setTerminalOutput("");
-      requestAnimationFrame(() => {
-        workspacePanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    }
-  };
-
   const scheduleCascadeToNext = (fromIndex: number) => {
     if (fromIndex >= lesson.exercises.length - 1) return;
     window.setTimeout(() => {

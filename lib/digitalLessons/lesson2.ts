@@ -240,16 +240,6 @@ export const digitalLesson2: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "This is knowledge construction, not just tidiness",
-        body: `Organizing files well isn't just neat-freak behavior — it's a core piece of the **ISTE Knowledge Constructor** standard, which asks students to curate resources and organize information from digital sources so it's actually usable later. A clear folder structure and naming system is exactly that: turning scattered digital stuff into something you (or a teammate) can actually find and use.\n\nUnderstanding sync, backups, and version history also connects to **CSTA's "Impacts of Computing"** strand — recognizing how the design of a system (like cloud sync spreading a delete to every device) affects real outcomes for real people, for better or worse.\n\nAnd choosing to export a real PDF instead of just renaming a file connects to being a responsible **ISTE Digital Citizen** — taking the extra step to do things correctly rather than the fast, sloppy way, especially when it affects someone else (a reviewer, a teammate, a teacher).`,
-        callout: {
-          label: "Why it matters",
-          text: "The habits in this lesson — naming, folders, real backups — are the same organizational skills valued in research, software teams, and any job that touches digital files.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
@@ -285,6 +275,28 @@ export const digitalLesson2: AILessonConfig = {
           correctIndex: 1,
           explanation:
             "Sync keeps devices matching, which includes deletions. Without a truly separate backup copy, one accidental delete can wipe out the file everywhere at once.",
+        },
+      },
+      {
+        id: "file-checklist",
+        kicker: "Checklist",
+        title: "Your 60-second file hygiene check",
+        body: `Before you close a laptop or hand in a project, run this quick checklist on the file you're about to submit or share:\n\n1. **Right file?** — open it once and skim the first line to confirm it's the version you meant (not last week's draft).\n2. **Right name?** — something a teacher or teammate can recognize (\`Smith_Essay_Final.pdf\`, not \`Document3.docx\`).\n3. **Right format?** — does the portal or person need a PDF, a Google Doc link, or a specific extension?\n4. **Right folder?** — saved somewhere you'll find it again, not lost in Downloads.\n5. **Backed up?** — if it matters, is there a copy in cloud storage or a separate backup, not just on one device?\n\nSixty seconds now beats a midnight panic when the portal won't accept \`homework(2).docx\` and you can't remember which version is which.`,
+        callout: {
+          label: "Try this week",
+          text: "Rename and re-save one messy file in your Downloads folder using a clear name and a proper folder. One small cleanup builds the habit faster than promising to 'organize everything later.'",
+        },
+        checkIn: {
+          prompt: "You're uploading a scholarship essay and the portal says 'PDF only, max 5 MB.' You have a 12 MB Word doc named \`essayFINAL.docx\`. What's the best next move?",
+          choices: [
+            "Rename the file to \`essayFINAL.pdf\` and upload it",
+            "Email the Word doc and hope they accept it",
+            "Export or save as PDF, compress if needed, and rename clearly before uploading",
+            "Upload the Word doc anyway — file type doesn't matter",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Renaming an extension doesn't convert the file. You need to actually export as PDF and check the size limit — then use a clear filename so reviewers know what they're opening.",
         },
       },
       {

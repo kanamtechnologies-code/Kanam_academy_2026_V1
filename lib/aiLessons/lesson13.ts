@@ -126,6 +126,16 @@ export const aiLesson13: AILessonConfig = {
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "When hiring tools favored one word over another",
+        body: `Some companies used resume-screening AI trained on past hires. The historical data reflected old patterns — including times when certain roles went mostly to men.\n\nThe model learned subtle signals: verbs like "executed" or "built" correlated with hired male candidates; "supported" or "helped" appeared more on resumes from women. Neither word is better — but the **training data treated past hires as the definition of "qualified."**\n\nSo the AI downranked strong resumes that didn't match the old pattern — not because anyone typed "discriminate," but because **bias was baked into the examples.**\n\nFixing it required new labels, fairer training data, and testing across groups — not just trusting the score.`,
+        callout: {
+          label: "Notice this",
+          text: "Bias often enters through historical examples treated as neutral truth.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth check",
         title: "\"Bias means someone did it on purpose\"",
@@ -145,6 +155,22 @@ export const aiLesson13: AILessonConfig = {
           correctIndex: 1,
           explanation:
             "Most real-world AI bias is unintentional, arising from data gaps or unnoticed proxies — but the impact on affected people is still real.",
+        },
+      },
+      {
+        id: "red-flags",
+        kicker: "Red flags",
+        title: "Bias red flags in everyday AI",
+        body: `Learn to spot these warning signs — in apps, school tools, and news about AI:`,
+        bullets: [
+          "**\"Trained on historical data\" with no fairness testing** — history includes old unfair patterns.",
+          "**Works great in demos but fails for certain accents, skin tones, or names** — a sign of representation gaps.",
+          "**One overall score with no breakdown by group** — may hide unequal error rates.",
+          "**\"The algorithm is neutral — we don't see race/gender\"** — proxy variables can carry the same information.",
+        ],
+        callout: {
+          label: "Ask anyway",
+          text: "If a system affects real opportunities, asking \"fair for whom?\" isn't optional — it's due diligence.",
         },
       },
       {
@@ -169,6 +195,30 @@ export const aiLesson13: AILessonConfig = {
           "A field doesn't need to be labeled 'race' or 'gender' to act like a proxy for one.",
           "Test outcomes across groups — don't just trust that a field 'sounds neutral.'",
         ],
+      },
+      {
+        id: "decision-checklist",
+        kicker: "Decision checklist",
+        title: "Fairness questions before trusting a system",
+        body: `When an AI makes or influences a decision about people, ask:`,
+        bullets: [
+          "**Who built it, and on whose data?**",
+          "**Who was included in testing — and who was left out?**",
+          "**Who wins when it's right, and who gets hurt when it's wrong?**",
+          "**Is there a human appeal path** when someone disagrees with the output?",
+        ],
+        checkIn: {
+          prompt: "A school considers an AI attendance tool. Which question best targets fairness?",
+          choices: [
+            "Does the app have a colorful interface?",
+            "Was it tested across different home situations, devices, and connectivity limits — not just ideal lab conditions?",
+            "Is it cheaper than the old system?",
+            "Does it use the word AI in the marketing?",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Fairness testing across real-world variation — homes, devices, connectivity — catches bias and access gaps that demo-only testing misses.",
+        },
       },
       {
         id: "comparison",
@@ -198,6 +248,22 @@ export const aiLesson13: AILessonConfig = {
         },
       },
       {
+        id: "what-good-looks-like",
+        kicker: "What good looks like",
+        title: "Signs a team is taking bias seriously",
+        body: `You can't audit every model yourself — but you can recognize responsible practice when you see it:`,
+        bullets: [
+          "**Published testing across demographic groups**, not just one accuracy number.",
+          "**Clear human override** when the system gets it wrong.",
+          "**Transparent feature choices** — what data is used and why.",
+          "**Ongoing monitoring after launch**, not a one-time launch-day test.",
+        ],
+        callout: {
+          label: "Your role",
+          text: "When these signs are missing on a high-stakes tool, skepticism is reasonable — and speaking up is part of being AI-literate.",
+        },
+      },
+      {
         id: "ethics",
         kicker: "Ethics moment",
         title: "Fairness is a value choice, not just a math problem",
@@ -218,10 +284,14 @@ export const aiLesson13: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "This is the heart of Societal Impact standards",
-        body: `• **CSTA Impacts of Computing (2-IC-20, 2-IC-21, 3A-IC-25/29):** analyzing how computing innovations like AI can have beneficial and harmful effects, and how bias in data and algorithms can affect equity, is exactly the content this standard targets.\n• **CSTA Data & Analysis (2-DA-07/08):** understanding how data representativeness affects the conclusions a system can draw connects directly to this lesson's core mechanism.\n• **ISTE 1.2 — Digital Citizen:** recognizing how technology can create unequal impacts, and advocating for fairness, is part of being a responsible digital citizen.\n\nBias and fairness aren't a side topic bolted onto AI class — they're one of the central reasons Societal Impact is a required strand of computer science education.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Notice uneven AI treatment this week",
+        body: `Pay attention to one AI system you use — face filters, voice assistants, search autocomplete, anything.\n\nDoes it work equally well for you and for friends with different accents, names, hair types, or devices? If not, name the gap out loud instead of assuming someone "isn't using it right."\n\nUneven performance is often a **data and testing problem**, not a user problem. Noticing it is how ordinary users push for fairer systems.`,
+        callout: {
+          label: "Transfer this",
+          text: "Bias isn't only a headline story. It's also the small, repeated friction you and your friends experience — or don't.",
+        },
       },
       {
         id: "reflection-prompt",
@@ -382,16 +452,16 @@ export const aiLesson13: AILessonConfig = {
     },
     {
       id: "q8",
-      question: "How does studying AI bias connect to CSTA's 'Impacts of Computing' standard?",
+      question: "Why does studying AI bias matter beyond just 'how the model works'?",
       choices: [
-        "It doesn't connect — bias is unrelated to computing impact standards",
-        "Analyzing how a computing innovation like AI can create unequal effects on different groups is exactly what that standard addresses",
-        "Impacts of Computing only covers hardware, not software or AI",
-        "This standard is only relevant to professional programmers",
+        "It doesn't matter — bias is unrelated to how computing affects people",
+        "Analyzing how a computing innovation like AI can create unequal effects on different groups helps you think critically about technology's impact",
+        "Bias only matters for hardware, not software or AI",
+        "Bias questions only matter to professional programmers",
       ],
       correctIndex: 1,
       explanation:
-        "Understanding how AI systems can produce beneficial or harmful, and sometimes unequal, effects on people is a core focus of the Impacts of Computing standard.",
+        "Understanding how AI systems can produce beneficial or harmful, and sometimes unequal, effects on people is part of thinking critically about technology's impact.",
     },
   ],
   reflection: {

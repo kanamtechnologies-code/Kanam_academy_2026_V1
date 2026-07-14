@@ -195,7 +195,7 @@ export const aiLesson3: AILessonConfig = {
         title: "When facial recognition gets it wrong — for real people",
         body: `In 2020, a man in Detroit was wrongly arrested after a facial recognition system matched surveillance footage to his driver's license photo — a match that turned out to be incorrect. He spent nearly 30 hours in custody for a crime he didn't commit, based partly on a perception system's mistaken output.\n\nResearch around the same time (a widely cited study nicknamed "Gender Shades") tested several major facial recognition systems and found they were significantly less accurate at identifying darker-skinned faces, especially darker-skinned women, than lighter-skinned faces — largely because the training and testing datasets underrepresented those groups.\n\nThis connects directly to what you learned about perception: an AI's "sight" is only as good as the numbers it was trained and tested on. When testing leaves out certain groups, the system's mistakes don't land evenly — they concentrate on the people least represented in the data.`,
         callout: {
-          label: "CSTA 2-IC-21 connection",
+          label: "Why this matters",
           text: "Discussing bias and accessibility in the design of existing technologies is exactly the skill this real case asks you to practice.",
         },
       },
@@ -211,10 +211,14 @@ export const aiLesson3: AILessonConfig = {
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why school cares about this",
-        title: "This is exactly what CSTA wants you to notice",
-        body: `The Detroit case and the soap dispenser story you read earlier are both textbook examples of **CSTA 2-IC-21**: discussing bias and accessibility in the design of existing technologies. You're not just learning "how cameras work" — you're learning to ask *who was this system tested on, and who got left out?*\n\nThis also ties to **ISTE 1.5, Computational Thinker** — breaking a system down into its real steps (capture → convert to numbers → match patterns) so you can reason about exactly where and why it fails, instead of just shrugging and saying "the AI is glitchy."`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "When perception fails, check the input first",
+        body: `This week, the next time face unlock, photo search, or a voice assistant misbehaves, run this quick checklist before blaming "broken AI":\n\n1. **Lighting or noise?** Dim rooms and background music degrade the numbers the AI receives.\n2. **Angle or distance?** Extreme angles change pixel patterns.\n3. **Tested on people like you?** If failures repeat for certain accents or skin tones, that's a fairness gap, not user error.\n\nFixing the input fixes many failures. Recognizing a fairness gap is a different — and important — response.`,
+        callout: {
+          label: "Transfer this",
+          text: "Blame the input first, then ask who the system was tested on. That two-step habit travels to every perception tool you'll ever use.",
+        },
       },
       {
         id: "reflection-prompt",
@@ -229,7 +233,7 @@ export const aiLesson3: AILessonConfig = {
         body: `The "Gender Shades" research project, published in 2018, tested commercial facial-analysis systems from several major tech companies. The results showed a clear pattern: the systems performed with over 99% accuracy for lighter-skinned men, but accuracy dropped sharply — in some cases below 70% — for darker-skinned women.\n\nThe cause traced right back to perception basics: the training and benchmark datasets used to build and evaluate these systems were overwhelmingly made up of lighter-skinned faces, mostly male. The AI hadn't "chosen" to be biased — it simply never saw enough varied examples to build reliable patterns for everyone.\n\nAfter the research went public, several companies changed how they collected training and testing data, and some paused or limited certain facial recognition products. It's a rare example of a fairness problem in AI perception leading directly to real, documented changes in industry practice — proof that noticing the gap is the first step to closing it.`,
         callout: {
           label: "Why this case matters",
-          text: "This is CSTA 2-IC-21 in action: a documented technology bias, traced to its root cause, that led to real accountability and change.",
+          text: "This is a documented technology bias, traced to its root cause, that led to real accountability and change — the kind of impact analysis you should practice whenever a system affects real people.",
         },
       },
       {

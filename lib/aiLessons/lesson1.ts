@@ -213,8 +213,8 @@ export const aiLesson1: AILessonConfig = {
         title: "Who benefits when AI sounds more powerful than it is?",
         body: `Overselling AI isn't just an annoying habit — it can cause real harm. If a company markets a narrow tool as if it "understands" your emotions, health, or safety, people may trust it with decisions it was never built to handle.\n\nThis is sometimes called **AI-washing** — dressing up an ordinary or narrow tool in impressive-sounding AI language to boost sales or hype, without being honest about its real limits.\n\nAs a critical thinker, your job isn't to be anti-AI or pro-AI — it's to ask clear questions: *What can this tool actually do? What happens if it's wrong? Who profits from me believing more than that?* Asking these questions is a form of digital literacy that protects you and the people around you.`,
         callout: {
-          label: "CSTA 2-IC-20 connection",
-          text: "Evaluating how computing tools affect people's decisions and trust is exactly the kind of impact-thinking this standard asks you to practice.",
+          label: "Why this matters",
+          text: "Evaluating how computing tools affect people's decisions and trust is exactly the kind of impact-thinking this lesson asks you to practice.",
         },
       },
       {
@@ -229,10 +229,14 @@ export const aiLesson1: AILessonConfig = {
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why school cares about this",
-        title: "This isn't just \"computer stuff\" — it's a real skill",
-        body: `Real talk: your school (and honestly, most adults) is still catching up on AI. That's exactly why courses like this exist — computer science standards now expect you to be able to **evaluate how computing impacts people** (that's CSTA 2-IC-20) and **spot bias or accessibility issues in how tech gets built** (CSTA 2-IC-21). You just practiced both today when you questioned AI hype and compared narrow vs. general AI honestly.\n\nThere's also a digital-citizenship standard, ISTE 1.3, about being a smart "knowledge constructor" — someone who checks sources and doesn't just believe the flashiest claim. That's literally the hype detector you built a few slides ago.\n\nYou're not just learning trivia for a quiz. You're building a skill that will matter in every part of your life where AI shows up — which, spoiler, is basically everywhere from here on out.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Take the hype detector into your week",
+        body: `Next time a headline, ad, or classmate claims an AI tool "thinks like a human" or "can do anything," pause and run the two questions from this lesson:\n\n1. **What specific job is it actually doing?** (Recommending songs? Summarizing notes? Sorting spam?)\n2. **Who benefits if I believe it's more powerful than that?**\n\nIf you can't name the one job or the beneficiary feels like a sales pitch, you've spotted hype — not a reason to panic, just a reason to stay clear-headed.`,
+        callout: {
+          label: "Transfer this",
+          text: "This same two-question check works for AI claims at school, in the news, and in ads for years to come — not just in this lesson.",
+        },
       },
       {
         id: "reflection-prompt",

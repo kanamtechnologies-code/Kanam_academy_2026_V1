@@ -455,13 +455,31 @@ else:
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "This lesson meets a real CS standard",
-        body: `**CSTA 2-AP-12** (compound conditionals) continues here, and **CSTA 3A-AP-15**: *Justify the selection of specific control structures when tradeoffs involve implementation, readability, and program performance.*\n\nChoosing an \`elif\` chain instead of several separate \`if\` statements — and explaining *why* it's the better choice for mutually exclusive outcomes — is exactly the kind of justification this standard asks for.`,
+        id: "rule-ordering",
+        kicker: "Think it through",
+        title: "Why rule order is a design choice",
+        body: `When you chain \`if\` → \`elif\` → \`else\`, you're not just writing rules — you're designing **priority**. Python checks from top to bottom and stops at the first match.\n\nThat means a broad rule placed too high can accidentally "steal" inputs meant for a more specific rule below it. Grading scripts always check the highest grade first (90+ before 80+) for exactly this reason.\n\nBefore you add a new \`elif\`, ask: *"Could this condition also match inputs meant for a rule below me?"*`,
+        code: `# Wrong order — Excellent never runs\nif score >= 60:\n    print("Pass")\nelif score >= 90:\n    print("Excellent")\n\n# Right order — most specific first\nif score >= 90:\n    print("Excellent")\nelif score >= 60:\n    print("Pass")`,
+        codeCaption: "Most specific rules belong near the top",
+        checkIn: {
+          prompt: "Why should the highest grade threshold (>= 90) be checked before the lower one (>= 60)?",
+          choices: [
+            "Python requires descending order",
+            "A score of 95 satisfies BOTH >= 60 and >= 90, so the first match wins",
+            "It doesn't matter — Python checks every elif anyway",
+          ],
+          correctIndex: 1,
+          explanation: "Since 95 also satisfies >= 60, placing that rule first would always print Pass and never reach Excellent.",
+        },
+      },
+      {
+        id: "transfer-real-apps",
+        kicker: "Transfer",
+        title: "Where elif chains show up in real apps",
+        body: `You've been building name-based rules, but the same chain shape powers tons of everyday software:\n\n• **Streaming apps** — if plan == "premium": HD; elif plan == "basic": SD; else: free with ads.\n• **Games** — if health <= 0: game over; elif health < 25: low-health warning; else: keep playing.\n• **Chat filters** — if message contains banned word: block; elif message is empty: ignore; else: deliver.\n\nThe pattern is always the same: check conditions in priority order, do the first match, skip the rest.`,
         callout: {
-          label: "Standards",
-          text: "CSTA 2017: 2-AP-12 (Level 2, compound conditionals) and 3A-AP-15 (Level 3A, justify control structure choices).",
+          label: "Design tip",
+          text: "When you design a rule chain, list your rules on paper first — then order them from most specific to most general before you write any code.",
         },
       },
       {

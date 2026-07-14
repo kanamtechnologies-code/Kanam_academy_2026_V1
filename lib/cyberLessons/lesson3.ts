@@ -217,16 +217,6 @@ export const cyberLesson3: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "How this connects to real standards",
-        body: `This lesson maps directly onto recognized cybersecurity standards:\n\n• **CSTA 3A-NI-05** (Networks and the Internet) asks students to give examples illustrating how sensitive data can be affected by malware and other attacks — the exact skill you practiced across today's worked example and mini case.\n• **CSTA 3A-NI-06** (Networks and the Internet) asks students to recommend security measures based on factors like efficiency, feasibility, and ethical impact — which is what you did when comparing first-response steps and backup strategies.\n• **ISTE Digital Citizen (1.2b)** asks students to engage in safe, legal, and ethical behavior when using technology — the "don't experiment, isolate and report" mindset from this lesson's response steps.\n\nRecognizing malware categories isn't trivia for its own sake — it's the vocabulary that lets you describe a real problem clearly to IT, a parent, or a teacher, which is exactly what these standards are designed to build.`,
-        callout: {
-          label: "Why it matters",
-          text: "Clear vocabulary speeds up real help. \"I think this is ransomware\" gets a faster, more accurate response than \"my computer is being weird.\"",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
@@ -239,6 +229,34 @@ export const cyberLesson3: AILessonConfig = {
         image: "/images/lessons/cs-3-5.png",
         imageAlt: "Group chat on a phone with a shared file labeled homework helper and a suspicious warning triangle",
         body: `**The situation:** A file called "HomeworkHelper.exe" starts circulating in a class group chat, promising to auto-generate outlines for essays. Several classmates download and run it. A few days later, three of those classmates report the same odd symptoms: unexpected browser pop-ups, a strange new program in their startup list, and — for one student — a locked file they can no longer open, with a text file demanding payment to unlock it.\n\n**Apply what you've learned:**\n\n• **Category:** The file's disguise (something appealing that tricks people into running it) is a classic **trojan** pattern. The payload varied by student — some got adware-like symptoms, and one appears to have received **ransomware**.\n• **Spread path:** This matches the "risky download" and social-sharing spread path — the file spread through trust in the group chat, not through a network worm or an email attachment.\n• **Response:** The student with locked files should isolate the device immediately, avoid paying, and check whether backups exist to restore from. All affected students should reset passwords from a clean device and tell a trusted adult or IT so the source file can be flagged before more classmates download it.\n\nThis case shows why "a friend shared it" doesn't make a file safe — trojans specifically rely on that kind of trust to spread.`,
+      },
+      {
+        id: "malware-reporting",
+        kicker: "What to do next",
+        title: "Reporting malware signs at school or home",
+        body: `If a device starts acting like Devon's laptop — pop-ups, slowdowns, mystery installs — defenders report in a way that helps, not harms.
+
+**Do report:**
+• Strange pop-ups offering to "clean" or "speed up" the machine.
+• Files you did not download appearing on desktop or downloads.
+• Friends mentioning the same sketchy link in a group chat.
+• Ransom notes or locked screens.
+
+**In your report, include:**
+• What you were doing right before symptoms started.
+• Whether you clicked a link, opened an attachment, or plugged in a USB drive.
+• Device name and whether it is personal or school-managed.
+
+**Do not:**
+• Run random "fixer" tools suggested by the pop-up itself.
+• Wipe the device before IT asks — that can erase evidence.
+• Share infected files with classmates "to warn them" without guidance.
+
+Early, specific reports let defenders isolate one bad download before it becomes a club-wide outbreak.`,
+        callout: {
+          label: "Watch out",
+          text: "Pop-ups that offer to remove malware are a classic trap — they often are the malware, or they charge money for a fake scan.",
+        },
       },
       {
         id: "check-yourself",
@@ -378,7 +396,7 @@ export const cyberLesson3: AILessonConfig = {
     },
     {
       id: "q8",
-      question: "Why does CSTA's Networks and the Internet standard emphasize giving examples of how malware affects sensitive data, rather than just naming malware types?",
+      question: "Why is it more useful to give examples of how malware affects sensitive data than to just name malware types?",
       choices: [
         "Because naming types is more important than understanding impact",
         "Because understanding real impact on data (Confidentiality, Integrity, Availability) is what helps you respond appropriately, not just recognize a word",
@@ -387,7 +405,7 @@ export const cyberLesson3: AILessonConfig = {
       ],
       correctIndex: 1,
       explanation:
-        "Standards emphasize applied understanding — connecting malware categories to real data impact — because that's what drives an appropriate, calm response.",
+        "Applied understanding — connecting malware categories to real data impact — is what drives an appropriate, calm response.",
     },
   ],
   reflection: {

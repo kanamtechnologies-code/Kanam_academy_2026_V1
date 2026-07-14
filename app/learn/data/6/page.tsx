@@ -204,17 +204,6 @@ const daLesson6: DataLessonConfig = {
         body: `Whenever you share an average, try to also share the count and the total (or the range with MIN/MAX). "Average price $3.84, based on 8 orders ranging from $2.75 to $5.25" tells a far more honest story than "average price $3.84" alone.`,
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `Summarizing data with aggregates connects directly to math and data-science standards.`,
-        bullets: [
-          "**CSTA 3A-DA-10** — Use data analysis tools and techniques (aggregation) to identify patterns in data.",
-          "**CSTA 2-DA-09** — Refine computational models (summaries) based on the data generated.",
-          "**Common Core Math (statistics bridge)** — Summarizing and describing a data set with measures like count, sum, and mean.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "What's a number you already trust blindly?",
@@ -240,6 +229,37 @@ const daLesson6: DataLessonConfig = {
           choices: ["SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item ORDER BY order_count DESC;", "SELECT item, COUNT(*) FROM lunch_orders;", "SELECT SUM(price) FROM lunch_orders GROUP BY item;"],
           correctIndex: 0,
           explanation: "This groups orders by item, counts each group, names the count, and sorts so the most popular item leads — exactly the recipe for a popularity ranking.",
+        },
+      },
+      {
+        id: "avg-walkthrough",
+        kicker: "Query walkthrough",
+        title: "AVG turns many prices into one number",
+        body: `\`SUM(price)\` adds every order together. \`AVG(price)\` divides that total by how many orders there were — giving you the typical lunch price.\n\nOn \`lunch_orders\`, eight orders sum to about $31.75, so the average is roughly $3.97. One query, one row, one answer. That's the power of aggregate functions: many rows in, one summary number out.`,
+        code: `SELECT AVG(price) AS avg_price\nFROM lunch_orders;`,
+        codeCaption: "One number summarizing all eight orders",
+        table: {
+          columns: ["avg_price"],
+          values: [[3.96875]],
+          rowCount: 1,
+        },
+        output: "1 row returned · 1 column · avg_price ≈ 3.97",
+      },
+      {
+        id: "group-by-mistake",
+        kicker: "Common SQL mistake",
+        title: "Mixing grouped and ungrouped columns",
+        body: `When you use \`GROUP BY item\`, every column in your \`SELECT\` list must either be **in the GROUP BY** or wrapped in an **aggregate** like \`COUNT(*)\` or \`SUM(price)\`.\n\nWriting \`SELECT student_name, item, COUNT(*) FROM lunch_orders GROUP BY item\` breaks because \`student_name\` isn't grouped — SQL doesn't know which student to show when Pizza slice appears twice. Fix it by grouping only what you need, or dropping columns that vary within a group.`,
+        bullets: [
+          "Safe: `SELECT item, COUNT(*) ... GROUP BY item` — item is the group key.",
+          "Broken: `SELECT student_name, item, COUNT(*) ... GROUP BY item` — student_name varies inside a group.",
+          "Rule of thumb: if it's not in GROUP BY, wrap it in COUNT/SUM/AVG/MAX/MIN.",
+        ],
+        checkIn: {
+          prompt: "Which SELECT list is valid with GROUP BY item?",
+          choices: ["SELECT item, student_name, COUNT(*)", "SELECT item, COUNT(*) AS order_count", "SELECT student_name, COUNT(*)"],
+          correctIndex: 1,
+          explanation: "item is in the GROUP BY, and COUNT(*) is an aggregate — both are allowed. student_name without grouping would break the query.",
         },
       },
       {

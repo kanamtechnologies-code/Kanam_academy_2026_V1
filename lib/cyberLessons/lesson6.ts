@@ -214,16 +214,6 @@ export const cyberLesson6: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "How this connects to real standards",
-        body: `Today's material supports recognized standards in a very direct way:\n\n• **CSTA 3A-NI-07** (Networks and the Internet) asks students to compare security measures, considering tradeoffs between usability and security — exactly the admin/standard-user/shared-account comparison you just worked through.\n• **CSTA 3A-NI-06** (Networks and the Internet) asks students to recommend security measures based on feasibility and ethical impact — the RBAC and least-privilege redesign of the robotics club account is that recommendation in practice.\n• **ISTE Computational Thinker (1.5c)** asks students to break problems into component parts and develop descriptive models — RBAC itself is a model that breaks "who can do what" into roles and permissions, a genuinely computational way of thinking about organizations.\n\nAccess control might feel like an "IT department" topic, but the underlying skill — modeling a system as roles and permissions instead of one big pile of trust — is a transferable computational thinking skill.`,
-        callout: {
-          label: "Why it matters",
-          text: "This is one of the clearest places where cybersecurity and computer science thinking overlap directly — modeling systems, not just following rules.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
@@ -236,6 +226,60 @@ export const cyberLesson6: AILessonConfig = {
         image: "/images/lessons/cs-6-5.png",
         imageAlt: "School yearbook club dashboard showing an admin account belonging to a graduated student highlighted in red",
         body: `**The situation:** A school yearbook club uses a shared design platform. Two years ago, the then-editor-in-chief was given full admin rights to set everything up. She graduated last spring. This year's editor discovers, while reviewing account settings for an unrelated reason, that the graduated student's account is still active with full admin permissions — including the ability to delete the entire year's project files.\n\nNobody had removed it, because nobody had been assigned the task of reviewing access when she left. She hasn't logged in since graduating and almost certainly isn't trying to cause any harm — but the access itself is still a real risk: if her personal email were ever compromised, an attacker could potentially reach the yearbook platform too.\n\n**Apply what you've learned:**\n\n• **Offboarding gap:** This is a textbook missed offboarding step — access should have been revoked when her role ended, not discovered by accident a year later.\n• **Least privilege violation:** Full admin rights for a role that's fundamentally about content creation, not systems management, was likely more access than necessary even while she was active.\n• **Fix going forward:** Remove the former student's access immediately, and set up a recurring calendar reminder (a periodic access review) tied to graduation dates, so this doesn't happen again next year.\n\nThis case shows why "nobody remembered to do it" is a process failure, not a one-time mistake — which is exactly why a scheduled review matters more than good intentions alone.`,
+      },
+      {
+        id: "offboarding-checklist",
+        kicker: "Decision checklist",
+        title: "Offboarding checklist when someone leaves a role",
+        body: `When a club officer graduates, a teammate quits, or a contractor finishes, access should shrink the same day — not "eventually."
+
+**Within 24 hours:**
+• Remove or downgrade their account in shared tools (Drive, email aliases, social logins).
+• Rotate shared passwords they knew (club Wi-Fi, shared drives, treasurer spreadsheets).
+• Revoke admin rights on devices or routers they configured.
+• Update the access log — who removed what, when.
+
+**Within one week:**
+• Review forwarding rules and recovery contacts on shared accounts.
+• Confirm no "temporary" access was left behind as permanent.
+
+**Comparison — reactive vs proactive offboarding:**
+• Reactive: wait for an incident, then scramble — often after harm is done.
+• Proactive: treat departure like returning a physical key — immediate, documented, expected.
+
+Least privilege is not only about what people get on day one. It is about what they keep on day last.`,
+        bullets: [
+          "Departures are access-control events, not just social goodbyes.",
+          "Rotate shared secrets when membership changes.",
+          "Document who removed access and when.",
+        ],
+      },
+      {
+        id: "role-creep-scenario",
+        kicker: "Scenario walkthrough",
+        title: "Stopping role creep before it becomes normal",
+        body: `**Scenario:** The robotics club treasurer needs Drive edit access to the budget folder. Six months later, they still have admin on the club Gmail "because it's convenient," and two new members inherited old shared passwords from a group chat.
+
+**Defender walkthrough:**
+1. **Name the drift** — temporary access became permanent; shared passwords replaced individual accounts.
+2. **Map to risk** — one compromised treasurer login now controls email, Drive, and possibly payments.
+3. **Reset to least privilege** — treasurer gets edit on budget only; president keeps admin; Gmail admin reserved for advisor + one officer.
+4. **Individual identities** — each member gets their own login; retire the shared password.
+5. **Calendar review** — quarterly 15-minute access audit on the club calendar.
+
+Role creep feels efficient until something goes wrong. The fix is boring process — which is why it works.`,
+        checkIn: {
+          prompt: "Why is a shared club password considered weaker than individual accounts with role-based permissions?",
+          choices: [
+            "Shared passwords are easier to remember",
+            "Individual accounts make it clear who did what and allow removing one person without resetting everyone",
+            "Shared passwords are required by most cloud tools",
+            "Role-based access is only for large companies",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Individual identities improve accountability and let you offboard one person without invalidating access for the whole group.",
+        },
       },
       {
         id: "check-yourself",
@@ -375,7 +419,7 @@ export const cyberLesson6: AILessonConfig = {
     },
     {
       id: "q8",
-      question: "Why does CSTA's Networks and the Internet standard ask students to compare security measures like access models, rather than just define them?",
+      question: "Why is it more useful to compare security measures like access models than to just define them?",
       choices: [
         "Because all access control models are equally secure in every situation",
         "Because only IT professionals ever need to compare these models",

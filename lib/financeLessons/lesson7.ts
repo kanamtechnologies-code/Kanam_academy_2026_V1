@@ -208,16 +208,6 @@ export const financeLesson7: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "How this connects to national standards",
-        body: `This lesson builds skills from the **Jump$tart Coalition / CEE (Council for Economic Education) 2021 National Standards for Personal Finance Education**, specifically the **Managing Credit** domain.\n\nBy the end of this lesson, you're practicing standards-aligned skills such as:\n\n• Explaining the **purpose and content** of credit reports and credit scores.\n• Summarizing, at an overview level, the **factors that influence** a credit score.\n• Identifying **rights and free resources** (like annual credit reports) available to consumers.\n\nThese are the same reasoning skills adults use before applying for an apartment, a car loan, or their first real credit card.`,
-        callout: {
-          label: "Good to know",
-          text: "Understanding credit calmly — instead of fearfully or carelessly — is one of the most protective financial literacy skills for young adults.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on...",
@@ -243,6 +233,71 @@ export const financeLesson7: AILessonConfig = {
           correctIndex: 0,
           explanation:
             "Becoming an authorized user on a long-standing, responsibly managed account can help with length of history and payment history — a stronger overview-level starting point than a same-day discount, and instant approval reflects marketing speed, not an assessment of her credit.",
+        },
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you sign",
+        title: "First credit step: questions before any card or loan",
+        body: `Whether it's an authorized-user offer, a secured card, or a store card at checkout — pause before signing.
+
+**Ask before you sign:**
+
+• **Interest rate (APR)** — What rate applies if I carry a balance?
+• **Fees** — Annual fee? Late fee amount? Foreign transaction fee?
+• **Credit limit** — What's the cap, and can it change?
+• **Reporting** — Will my payment history report to credit bureaus (important for building history)?
+• **Authorized user rules** — If I'm added to a parent's card, can I spend without their approval? Who pays?
+• **Penalty APR** — Does one late payment trigger a higher rate?
+• **Grace period** — How many days to pay in full before interest kicks in?
+
+Educational only. The goal is reading terms, not maximizing rewards or gaming the system.`,
+        callout: {
+          label: "Watch out",
+          text: "A 20% off today's purchase is a marketing discount, not a credit strategy. Run the APR and fee math before chasing checkout deals.",
+        },
+      },
+      {
+        id: "worked-tradeoff",
+        kicker: "Do the math",
+        title: "Utilization in numbers — Sofia's two paths",
+        body: `**Sofia's authorized-user card:** $2,000 limit, $150 balance → utilization = $150 ÷ $2,000 = **7.5%** (low — generally favorable).
+
+**If Sofia spends $400 more for a laptop on that card before paying down:** Balance $550 → utilization **27.5%** — still under common 30% guidance, but climbing.
+
+**Store card alternative:** $500 limit, $0 start, charges $480 for laptop → utilization **96%** — high utilization can signal risk even if she plans to pay it off.
+
+**Lesson tie-in:** Starting with a long, low-utilization authorized-user history beats a maxed-out new account for overview-level credit factors — even if the store discount looks tempting today.`,
+        bullets: [
+          "**Utilization** = balance ÷ limit (lower is generally better).",
+          "One big purchase can spike utilization overnight.",
+          'Pay-down timing matters — not just whether you "intend" to pay.',
+        ],
+      },
+      {
+        id: "second-scenario",
+        kicker: "Another look",
+        title: "Tyler's apartment surprise — 12 months later",
+        body: `Tyler learned a landlord checked credit after a denied application. Twelve months later, he's 19 with a thin file: one student-store card, $300 limit, usually $40–$80 balance, always paid on time.
+
+**Current utilization:** $80 ÷ $300 ≈ **27%** — acceptable range.
+
+**Mistake to avoid:** Opening two more cards before applying → hard inquiries + temptation to spend.
+
+**Smarter sequence:** Pull his free report, confirm on-time history, pay down to **under $60** (20%) before applying, bring proof of income + references.
+
+Credit isn't a personality score — it's a **track record** landlords and lenders read as risk signal.`,
+        checkIn: {
+          prompt: "Before applying for housing, Tyler has a $300-limit card at $80 balance, paid on time. What's the most credit-literate prep step?",
+          choices: [
+            "Open three new cards to raise total limits tonight",
+            "Check his report, lower utilization if needed, and document on-time payments",
+            "Max the card to show he can handle debt",
+            "Avoid checking his report — inquiries hurt more than utilization",
+          ],
+          correctIndex: 1,
+          explanation:
+            "On-time history plus manageable utilization and knowing what's on the report beats rapid new applications or maxing the card.",
         },
       },
       {

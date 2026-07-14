@@ -388,13 +388,21 @@ print("Nice to meet you, " + name)
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "This lesson meets a real CS standard",
-        body: `**CSTA 2-AP-17**: *Systematically test and refine programs using a range of test cases.*\n\nWhen you run your listening helper with more than one name and confirm the output changes correctly for each, you're doing exactly what this standard describes: testing your program against a *range* of inputs, not just one lucky case.`,
-        callout: {
-          label: "Standard",
-          text: "CSTA 2017, Algorithms & Programming, Level 2: 2-AP-17 — Systematically test and refine programs using a range of test cases.",
+        id: "bug-walkthrough-prompt",
+        kicker: "Bug walkthrough",
+        title: "When input() crashes before you can type",
+        body: `One of the most common crashes in this lesson happens when the question inside \`input()\` isn't wrapped in quotes. Python then thinks each word is a variable name — and since those variables don't exist, the program stops immediately.\n\nCompare the broken and fixed versions below. The only difference is quotes around the prompt text, but that tiny change is the difference between a crash and a working helper.`,
+        code: `# Broken — no quotes around the prompt\nname = input(What is your name?)\n\n# Fixed — quotes tell Python this is text\nname = input("What is your name? ")\nprint("Nice to meet you, " + name)`,
+        codeCaption: "Missing quotes on the prompt is a classic first-week bug",
+        checkIn: {
+          prompt: "Why does `input(What is your name?)` crash?",
+          choices: [
+            "input() only works with numbers",
+            "Python thinks What, is, your, and name are variable names that don't exist",
+            "You need two input() lines instead of one",
+          ],
+          correctIndex: 1,
+          explanation: "Without quotes, Python treats each word as a variable reference. Since those variables were never created, it raises an error.",
         },
       },
       {

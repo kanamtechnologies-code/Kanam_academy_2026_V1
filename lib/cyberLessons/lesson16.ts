@@ -261,6 +261,119 @@ export const cyberLesson16: AILessonConfig = {
         },
       },
       {
+        id: "greenwood-phish-drill",
+        kicker: "Scenario walkthrough",
+        title: "Greenwood drill: the sponsor-list phish",
+        body: `**Injected scenario:** A DM to the Greenwood president: "Urgent — sponsor PDF needed for audit tonight. Use this link." Domain is one character off the real sponsor portal.
+
+**Walkthrough using your toolkit:**
+1. **Pause** — urgency + unexpected link.
+2. **Verify** — call/text sponsor using saved contact, not DM.
+3. **Contain** — do not enter credentials; warn officers not to click.
+4. **Report** — advisor + IT if school email involved.
+5. **Recover** — if anyone clicked, revoke sessions, rotate passwords, audit Drive sharing.
+
+**Plan tie-in:** Your one-pager should already list incident contacts and "verify financial requests out-of-band" — this drill tests whether those lines are real or decoration.`,
+      },
+      {
+        id: "greenwood-sharing-audit",
+        kicker: "Decision checklist",
+        title: "Greenwood: 15-minute sharing audit script",
+        body: `Officers run this monthly:
+
+**Drive / cloud:**
+• List shared links; downgrade "anyone with link" to named people.
+• Check anonymous viewers on budget and sponsor folders.
+• Confirm graduated members removed.
+
+**Email:**
+• Review forwarding rules and connected apps.
+• Confirm MFA on club Gmail.
+
+**Social:**
+• Review admin roles; remove unused apps with post access.
+
+**Log results** in the risk register row for public exposure — note date and finder initials.
+
+Short, scheduled audits beat heroic all-nighters before sponsors notice a leak.`,
+        bullets: [
+          "Named sharing only for sponsor data.",
+          "Remove graduated officers same week.",
+          "Log each audit date in the register.",
+        ],
+      },
+      {
+        id: "greenwood-backup-test",
+        kicker: "See it in action",
+        title: "Greenwood: proving backups work",
+        body: `**Scenario:** Final video project due Friday. Club relies on cloud sync. Capstone task: actually restore one file to a different device this week.
+
+**Steps:**
+1. Pick a non-critical file; download or restore copy to officer laptop.
+2. Note how long it took and who had access.
+3. If restore fails, fix sync or add second copy before finals crunch.
+4. Document in plan: backup owner, frequency, last successful test date.
+
+Capstone points are not for writing "we back up" — they are for showing a tested restore timestamp.`,
+        checkIn: {
+          prompt: "Why is a tested restore stronger evidence than saying \"we use cloud sync\"?",
+          choices: [
+            "Cloud sync never fails",
+            "A tested restore proves recovery works before a crisis, not just that uploads usually happen",
+            "Restores are only for IT staff",
+            "Backups matter only for ransomware",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Testing proves the recovery path works — sync errors and ransomware targeting synced folders happen without warning.",
+        },
+      },
+      {
+        id: "greenwood-ir-tabletop",
+        kicker: "Scenario walkthrough",
+        title: "Greenwood tabletop: Instagram takeover at midnight",
+        body: `**Tabletop prompt:** At 12:30 a.m., club Instagram posts scam links. President wakes up to DMs from followers.
+
+**Round 1 — Identify:** unauthorized login from new city; president still has email access.
+**Round 2 — Contain:** revoke sessions, change password, enable MFA, post brief "we were compromised, ignore prior posts" once account secured.
+**Round 3 — Eradicate/recover:** remove malicious posts, check connected apps, scan officer devices for malware if phishing link was clicked.
+**Round 4 — Lessons learned:** add login review to monthly audit; document in register.
+
+Run tabletops aloud with your team — capstone plans survive contact with reality when officers have rehearsed calm steps.`,
+      },
+      {
+        id: "handoff-plan",
+        kicker: "What to do next",
+        title: "Handing the plan to next year's officers",
+        body: `Security plans fail at officer turnover unless handoff is explicit:
+
+• **Pass the one-pager** plus risk register with review dates.
+• **Transfer recovery codes** through advisor-supervised session — never group chat.
+• **15-minute walkthrough** — MFA locations, backup owner, incident contacts.
+• **First-month task** — new president runs sharing audit on week two.
+
+**Comparison — decay vs continuity:**
+• Decay: new officers inherit passwords in DMs and no written plan.
+• Continuity: dated doc, named owners, scheduled first audit.
+
+Your capstone is not only Greenwood's present — it is Greenwood's memory.`,
+        callout: {
+          label: "Defender view",
+          text: "Write the plan so a stranger officer next year can follow it without you in the room.",
+        },
+      },
+      {
+        id: "capstone-myths-extra",
+        kicker: "Myth check",
+        title: "Last myths before you present Greenwood",
+        body: `• **"More tools = better capstone."** Habits, owners, and review dates beat a shopping list.
+• **"We are too small for IR steps."** Midnight Instagram takeover is small-scale but real — contain and document anyway.
+• **"Perfect plan or don't present."** Acknowledge residual risk with dated next steps — sponsors respect honesty.
+• **"Security ends after this assignment."** Greenwood's register review date is what keeps it alive.
+
+Present like a defender: specific risks, specific controls, specific owners, specific dates.`,
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn — defend Greenwood",

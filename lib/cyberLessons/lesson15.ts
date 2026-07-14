@@ -263,6 +263,90 @@ export const cyberLesson15: AILessonConfig = {
         },
       },
       {
+        id: "control-selection",
+        kicker: "Decision checklist",
+        title: "Picking controls when you cannot do everything",
+        body: `Risk assessment ends in choices. Use this filter:
+
+**1. Match control type to gap:**
+• Missing prevention → MFA, patching, least privilege.
+• Missing detection → login alerts, sharing audits, log review.
+• Missing correction → backups, IR playbook, recovery contacts.
+• Missing governance → written owners, review dates.
+
+**2. Estimate cost vs impact reduction** — a 20-minute MFA setup beating a high-impact risk is a bargain.
+
+**3. Name an owner** — "someone should" is not a control.
+
+**Comparison — control strength:**
+• **Weak:** verbal reminder to "be careful."
+• **Medium:** quarterly sharing audit with calendar invite.
+• **Strong:** MFA + unique passwords + automated login alerts on club email.
+
+Perfect security is not the goal — prioritized, owned controls are.`,
+        checkIn: {
+          prompt: "A club's top risk is Gmail takeover via phishing. Which control bundle best matches mitigate?",
+          choices: [
+            "Hope officers stay careful",
+            "MFA, unique passwords, and login alerts with a named owner to review monthly",
+            "Delete the Gmail account",
+            "Accept the risk without documentation",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Mitigate means applying preventive and detective controls with ownership — not vague hope or silent acceptance.",
+        },
+      },
+      {
+        id: "register-maintenance",
+        kicker: "Defender habits",
+        title: "Keeping a risk register alive",
+        body: `Registers die when treated as one-time homework. Keep them useful:
+
+• **Review quarterly** — 15 minutes on the club calendar.
+• **Update on change** — new tool, new officer, new sponsor data, new incident.
+• **Close or downgrade** — when controls work, note evidence (e.g., "MFA enabled 3/12").
+• **Escalate new risks** — don't wait for annual review if something obvious appears.
+
+**Scenario:** Treasurer role adds payment app. Register row added same week: asset = payment account; threat = credential theft; control = MFA + advisor approval for payouts; owner = treasurer; review next month.
+
+Living registers beat polished posters nobody updates.`,
+        callout: {
+          label: "Pro tip",
+          text: "Link the review meeting invite to the register doc so future officers inherit the habit, not just the file.",
+        },
+      },
+      {
+        id: "residual-scenario",
+        kicker: "Scenario walkthrough",
+        title: "Naming residual risk honestly",
+        body: `**Scenario:** Robotics club mitigates public Drive link risk by switching to named sharing and monthly audits. Residual risk remains: an officer account could still be phished.
+
+**Honest residual statement:** "We reduced accidental public exposure; we still face targeted phishing against officers. Residual impact: sponsor list leak. Planned next control: phishing-resistant MFA on Gmail by next quarter."
+
+**Why honesty matters:** sponsors and advisors trust teams that admit remaining gaps and show dated plans — not teams claiming "we're 100% secure now."
+
+**What to do next:** document residual risk in the register, assign owner for next control, set review date.
+
+Risk management is transparency plus follow-through, not a one-time score.`,
+      },
+      {
+        id: "risk-myths-extra",
+        kicker: "Myth check",
+        title: "Risk assessment myths in student organizations",
+        body: `• **"Risk registers are corporate paperwork."** Five rows in a shared doc is enough for a club.
+• **"Low likelihood means ignore."** Low likelihood × high impact (sponsor data leak) still ranks.
+• **"Transfer means insurance only."** Transfer can mean using a school's official payment system instead of personal Venmo.
+• **"Accept means do nothing."** Accept is a documented choice with approval — not neglect.
+
+Decision quality beats document length. One honest page wins.`,
+        bullets: [
+          "Rank by likelihood AND impact.",
+          "Every row needs an owner and date.",
+          "Residual risk is normal — name it.",
+        ],
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",

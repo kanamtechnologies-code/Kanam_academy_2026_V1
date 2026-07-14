@@ -446,13 +446,18 @@ else:
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "This lesson meets a real CS standard",
-        body: `**CSTA 2-AP-12**: *Design and iteratively develop programs that combine control structures, including nested loops and compound conditionals.*\n\n\`if\`/\`else\` is your first **control structure** — code that controls *which* instructions run, instead of just running every line in order. Every more advanced program you build from here on will combine control structures like this one.`,
-        callout: {
-          label: "Standard",
-          text: "CSTA 2017, Algorithms & Programming, Level 2: 2-AP-12 — Design and iteratively develop programs that combine control structures, including compound conditionals.",
+        id: "worked-example-2",
+        kicker: "Worked example",
+        title: "Same code, two different outcomes",
+        body: `The power of \`if\`/\`else\` is that **one program** can behave differently depending on the input. Run this mentally twice — once with \`Alex\` and once with \`Sam\`.\n\n**Run 1:** \`name\` holds \`"Alex"\`. The condition \`name == "Alex"\` is True, so the \`if\` branch runs.\n\n**Run 2:** \`name\` holds \`"Sam"\`. The condition is False, so Python skips the \`if\` block and runs \`else\` instead.\n\nSame code, two different greetings — that's decision-making in action.`,
+        code: `name = input("What is your name? ")\n\nif name == "Alex":\n    print("Welcome back, Alex!")\nelse:\n    print("Hello, " + name + "!")`,
+        codeCaption: "Trace both paths before you run",
+        output: `# If you type Alex:\nWelcome back, Alex!\n\n# If you type Sam:\nHello, Sam!`,
+        checkIn: {
+          prompt: 'If the user types "Jordan", which branch runs?',
+          choices: ["The if branch (Welcome back, Alex!)", "The else branch (Hello, Jordan!)", "Both branches run"],
+          correctIndex: 1,
+          explanation: "Jordan is not equal to Alex, so the if condition is False and the else branch prints the general greeting.",
         },
       },
       {

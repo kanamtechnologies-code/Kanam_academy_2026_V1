@@ -262,6 +262,79 @@ export const cyberLesson14: AILessonConfig = {
         },
       },
       {
+        id: "posting-decisions",
+        kicker: "Decision checklist",
+        title: "Before you post: a five-second privacy check",
+        body: `Run this before posting photos, schedules, or achievements:
+
+**1. Audience** — Public, friends-only, or custom list?
+**2. Location** — Visible now or delayed?
+**3. Identifiers** — badges, IDs, room numbers, license plates in frame?
+**4. Metadata** — Will you email the raw file or export a scrubbed copy?
+**5. Duration** — Should this story expire, or live forever?
+
+**Comparison — post types:**
+• **Victory photo with badge + school name** — high OSINT value for targeted scams.
+• **Delayed trip recap** — lower real-time risk.
+• **Private doc link** — confidentiality depends on sharing settings, not the caption.
+
+Five seconds beats months of cleanup after a spear-phishing email that knows your exact schedule.`,
+      },
+      {
+        id: "metadata-walkthrough",
+        kicker: "Scenario walkthrough",
+        title: "Cleaning metadata before sharing event photos",
+        body: `**Scenario:** The club president emails raw photos from a sponsor event to an external newsletter. Embedded metadata still includes GPS coordinates of the school media room and camera serial info.
+
+**Walkthrough:**
+1. **Inspect** — preview metadata in OS or export tool before sending.
+2. **Strip or export** — use "export for web" or remove location/device fields.
+3. **Caption carefully** — text can leak what metadata no longer does.
+4. **Recipient check** — confirm newsletter inbox is correct; BCC large lists when appropriate.
+5. **Retention** — agree how long external partners keep files.
+
+**What to do next if metadata already sent:** notify recipient, request deletion of originals, rotate any sensitive locations if safety concern exists, update club checklist.
+
+Privacy is content *and* container — captions are visible; metadata is the silent passenger.`,
+      },
+      {
+        id: "family-agreements-extra",
+        kicker: "What to do next",
+        title: "Family and team agreements that stick",
+        body: `Agreements fail when they are vague. Try concrete rules:
+
+• **No real-time travel posts** until the group is home.
+• **Ask before tagging** minors or teammates in public posts.
+• **Club account** — two officers plus advisor know recovery codes; no DMs asking for codes.
+• **Photo review** — officer scans for badges/IDs before club pages publish.
+
+**Comparison — vague vs concrete:**
+• Vague: "Be careful online."
+• Concrete: "Event photos post Sunday; location tags off; IDs cropped."
+
+Write one rule your club or family can actually enforce this month — not ten rules nobody remembers.`,
+        callout: {
+          label: "Try this week",
+          text: "Search your name once ethically; pick one setting or habit to change based on what you find.",
+        },
+      },
+      {
+        id: "privacy-myths-extra",
+        kicker: "Myth check",
+        title: "Privacy myths that leave real crumbs",
+        body: `• **"Only famous people get OSINT'd."** Scammers build targeted lures from ordinary public posts.
+• **"Private account = fully private."** Screenshots, reshares, and compromised friend accounts still leak.
+• **"Deleting a post deletes it everywhere."** Copies, caches, and downloads may remain.
+• **"I'll worry about privacy in college."** College apps, jobs, and club officer roles come before graduation.
+
+Defender privacy is reducing useful crumbs and verifying urgent requests — not living offline.`,
+        bullets: [
+          "Assume public means public forever.",
+          "Metadata travels with files unless you remove it.",
+          "Verify odd requests out-of-band.",
+        ],
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",

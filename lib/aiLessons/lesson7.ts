@@ -127,6 +127,16 @@ export const aiLesson7: AILessonConfig = {
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "Old AI classifies; generative AI creates",
+        body: `Compare two tools you might use the same afternoon:\n\n**Photo organizer (older pattern):** You upload 500 pictures. The AI **classifies** each one — "beach," "birthday," "pet" — based on patterns it learned. It sorts; it doesn't invent new photos.\n\n**Image generator (generative):** You type "sunset over a mountain lake in watercolor style." The AI **creates** a new image by predicting pixel patterns that match that description — pixels that never existed as one photograph.\n\nBoth use pattern prediction. The difference is the output: **label an existing thing** vs. **produce something new**. That difference changes the ethics questions — especially around consent, copyright, and what's real.`,
+        callout: {
+          label: "Notice this",
+          text: "Generative doesn't mean imaginative in a human sense. It means statistically assembling new outputs from learned patterns.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth-busting",
         title: "\"If it's AI-generated, it's completely original\"",
@@ -147,6 +157,22 @@ export const aiLesson7: AILessonConfig = {
           correctIndex: 1,
           explanation:
             "Generative AI remixes patterns from real training data. That's exactly why questions about crediting and compensating original creators remain active and unresolved.",
+        },
+      },
+      {
+        id: "red-flags",
+        kicker: "Red flags",
+        title: "Four warning signs with generative AI",
+        body: `Generative tools are powerful — and easy to misuse. Watch for these red flags:`,
+        bullets: [
+          "**\"It's original, so it's fine to use.\"** Generated content can still closely imitate real people's work or likeness without permission.",
+          "**\"If the AI made it, nobody owns it.\"** Training data came from real creators; ownership and credit questions don't disappear.",
+          "**\"It looks real, so it is real.\"** Generated text, images, and audio can be completely fabricated while looking authentic.",
+          "**\"I can share anything the AI creates.\"** Privacy and consent rules still apply — especially with images or voices of real people.",
+        ],
+        callout: {
+          label: "Pause when you see these",
+          text: "Creation power without verification and consent thinking is where generative AI gets people into real trouble.",
         },
       },
       {
@@ -201,8 +227,8 @@ export const aiLesson7: AILessonConfig = {
         title: "Artists and authors take the question to court",
         body: `Starting in 2023, several groups of visual artists, photographers, and authors filed lawsuits against major AI companies, arguing that their copyrighted work had been used to train generative models without permission or payment — and that the resulting tools could now produce work that competed directly with their own.\n\nThe companies involved have generally argued that training an AI on publicly available work is a new kind of use that existing copyright law doesn't clearly forbid — a genuinely contested legal question that courts are still working through as of this lesson.\n\nWhatever side eventually "wins" in court, the underlying ethical question is one you can reason about right now: is it fair to build a powerful tool by studying someone's life's work without asking them? There isn't a settled answer yet — which is exactly why understanding the mechanism (patterns learned from real human data) matters more than repeating a simple verdict.`,
         callout: {
-          label: "CSTA 2-IC-20 connection",
-          text: "Evaluating how a computing technology affects economic and cultural practices — like the livelihoods of artists and writers — is precisely this standard's focus.",
+          label: "Why this matters",
+          text: "Evaluating how a computing technology affects economic and cultural practices — like the livelihoods of artists and writers — is precisely this lesson's focus.",
         },
       },
       {
@@ -217,10 +243,14 @@ export const aiLesson7: AILessonConfig = {
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why school cares about this",
-        title: "You're debating a live issue, not a settled one",
-        body: `When you reason through the artists'-lawsuit case, you're practicing **CSTA 2-IC-20**: evaluating how computing affects real economic and cultural practices. This isn't a textbook hypothetical — it's an active legal and ethical debate happening in courts right now, and your generation will help decide where the norms end up settling.\n\nWriting strong, structured prompts is also **ISTE 1.5, Computational Thinker** — breaking a fuzzy creative request into clear, specific parts a system (or a person) can actually act on.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Before you post something AI-made",
+        body: `Use this three-step check before sharing generative content — memes, study visuals, project images, anything:\n\n1. **Could this resemble a real person without their consent?** (Face, voice, signature style)\n2. **Would I be okay if someone generated something like this using *my* likeness?**\n3. **Am I labeling it honestly** so viewers know it was AI-generated?\n\nGenerative AI makes creation fast. These questions make creation responsible.`,
+        callout: {
+          label: "Transfer this",
+          text: "The speed of generation is permanent. The habit of pausing before you post is what keeps you in control of it.",
+        },
       },
       {
         id: "reflection-prompt",

@@ -234,28 +234,6 @@ export const digitalLesson16: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "The full ISTE map behind this entire track",
-        body: `Now that you've finished all sixteen lessons, here's how they line up with the **ISTE Standards for Students** as a whole — the same framework schools use to define digital literacy:\n\n• **Empowered Learner** — setting goals and using technology strategically to manage your own learning, wellbeing, and productivity (wellbeing, career, and troubleshooting lessons).\n• **Digital Citizen** — managing your footprint and data, and acting safely and ethically in online communities (footprint, citizenship, and privacy lessons).\n• **Knowledge Constructor** — evaluating the accuracy and purpose of information sources before trusting or sharing them (information-literacy lessons).\n• **Innovative Designer / Creative Communicator** — using the right tools and formats to create and share content for a real audience (content-creation and career lessons).\n• **Computational Thinker** — breaking problems into smaller parts and using a repeatable process to solve them (troubleshooting and foundations lessons).\n• **Global Collaborator** — working respectfully with others across shared digital spaces (communication and collaboration lessons).\n\nYou didn't just complete a track — you practiced every one of these standards in a real, applied way.`,
-        checkIn: {
-          prompt: "Across this entire track, which best describes how the ISTE Standards for Students actually showed up in your lessons?",
-          choices: [
-            "They only apply to computer science majors",
-            "Spread across the whole track — from judging information to managing your footprint to troubleshooting calmly to collaborating respectfully",
-            "Only in one single lesson about coding",
-            "ISTE standards are unrelated to anything in this track",
-          ],
-          correctIndex: 1,
-          explanation:
-            "Nearly every lesson in this track mapped to a specific ISTE standard — information literacy, digital citizenship, computational thinking, collaboration, and more — practiced in realistic, everyday situations.",
-        },
-        callout: {
-          label: "Why it matters",
-          text: "These standards aren't abstract school labels — they're a checklist of exactly the instincts you now carry into everyday digital decisions, at school, at home, and eventually at work.",
-        },
-      },
-      {
         id: "mini-case",
         kicker: "Mini case study",
         title: "Case study: Jordan's application week",
@@ -291,7 +269,7 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
         id: "check-yourself",
         kicker: "Check yourself",
         title: "One last check before the final knowledge check",
-        body: `Before the final graded questions, see if you can explain each of these in one sentence:\n\n• What it means for digital literacy areas to work "together" rather than as separate boxes?\n• One myth about being a "digital native" that this capstone corrected?\n• The difference between a vague goal and a real action-plan step?\n• One ISTE standard this track practiced, and where you saw it in action?\n\nIf all four feel solid, you've genuinely earned the **Digitally Fluent** badge waiting at the end of this lesson.`,
+        body: `Before the final graded questions, see if you can explain each of these in one sentence:\n\n• What it means for digital literacy areas to work "together" rather than as separate boxes?\n• One myth about being a "digital native" that this capstone corrected?\n• The difference between a vague goal and a real action-plan step?\n• One digital skill from this track you will use this month, and where?\n\nIf all four feel solid, you've genuinely earned the **Digitally Fluent** badge waiting at the end of this lesson.`,
         checkIn: {
           prompt: "A classmate says digital literacy is 'just about not getting hacked.' Which statement best captures what 'real digital literacy' means?",
           choices: [
@@ -306,10 +284,104 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
         },
       },
       {
+        id: "areas-checklist",
+        kicker: "Checklist",
+        title: "Your eight-area fluency check",
+        body: `Use this capstone checklist anytime a digital moment feels messy — most real decisions touch more than one box:\n\n1. **Foundations** — do I understand what's actually happening (device, file, network)?\n2. **Information** — is this claim verified, or am I reacting to a headline?\n3. **Communication** — is my message clear, kind, and going to the right people?\n4. **Footprint** — would I be fine if a stranger saw what I'm about to post?\n5. **Creating** — am I using and crediting content legally and accessibly?\n6. **Security** — is anyone rushing me to share passwords, money, or personal data?\n7. **Wellbeing** — is this feed or app draining my focus or sleep?\n8. **Work skills** — am I organized, professional, and using the right tool for the job?\n\nYou don't run all eight consciously every time. But pausing on even **two or three** in a high-stakes moment is what separates fluency from autopilot.`,
+        callout: {
+          label: "Try this week",
+          text: "Pick one real decision you made online this week and mark which areas it touched. You'll be surprised how often it's more than one.",
+        },
+        checkIn: {
+          prompt: "A viral post asks you to share before verifying, and the account wants your email to 'unlock the full story.' Which areas fire together?",
+          choices: [
+            "Only security",
+            "Only information literacy",
+            "Several — information, security, citizenship, and likely wellbeing (urgency)",
+            "None — it's just social media",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Capstone fluency is spotting overlap. Scammy viral posts routinely hit information literacy, security, citizenship, and attention manipulation at once.",
+        },
+      },
+      {
+        id: "fluency-scenario-2",
+        kicker: "Mini scenario",
+        title: "Second case: the internship offer DM",
+        body: `A senior gets a DM: "Congrats — you've been selected for a paid remote internship! Just pay a $50 'processing fee' and send your ID photo today." The profile looks professional. The deadline is tonight.\n\nWatch the toolkit fire:\n\n• **Security** — fees + ID photos + urgency = scam shape.\n• **Information** — no official company site, no interview, no verifiable contact.\n• **Footprint** — sending ID photos to a stranger creates long-term identity risk.\n• **Communication** — a real employer uses official email channels, not pressure DMs.\n• **Work skills** — a real opportunity has a paper trail, not just a countdown.\n\n**Before:** panic-pay and hand over ID.\n**After:** don't click, search the company name + "scam," report the profile, tell a trusted adult. No fee, no ID, no regret.`,
+        callout: {
+          label: "Watch out",
+          text: "Real internships don't ask for upfront fees or ID photos over DM. If it feels like a dream offer with a tonight deadline, that's the urgency talking — not a hiring manager.",
+        },
+      },
+      {
+        id: "track-red-flags",
+        kicker: "Red flags",
+        title: "Sixteen lessons, one pattern: slow down when you see these",
+        body: `Across this entire track, the same red flags keep showing up. When you spot them, pause:\n\n• **Urgency + secrecy** — "act now, don't tell anyone."\n• **Too good to be true** — free money, instant wins, dream offers with no process.\n• **Vague messages** — unclear asks that waste everyone's time.\n• **Permission grabs** — apps or sites wanting more data than their job requires.\n• **Emotion-first content** — designed to make you angry or scared before you think.\n• **Permanent-public by default** — posting things you wouldn't want a stranger to find later.\n• **One-layer troubleshooting** — blaming the whole device when the error message points somewhere specific.\n• **Uncredited or stolen content** — "I'll add credit later" on work that represents you.\n\nFluency isn't memorizing sixteen separate lists. It's recognizing that these patterns are the **same habit wearing different costumes**.`,
+        callout: {
+          label: "Try this week",
+          text: "When you notice one red flag this week, name which lesson it connects to. That naming habit is how separate lessons merge into one instinct.",
+        },
+      },
+      {
+        id: "junior-senior-map",
+        kicker: "Next chapter",
+        title: "Where to aim next — by where you are now",
+        body: `The same toolkit, different next steps depending on your chapter:\n\n**Younger teens — build the base:**\n• Strong passwords + 2FA on email and school accounts.\n• Fact-check before sharing; kindness in group chats.\n• Basic file organization and calm troubleshooting.\n\n**Seniors — raise the stakes:**\n• Footprint audit before applications; clean PDF exports.\n• Application tracker with real deadlines.\n• Professional email practice; portfolio link ready to share.\n• Scam radar on scholarships, housing, and "internship" DMs.\n\n**Everyone — keep forever:**\n• Lifelong learning mindset; small specific plans, not vague resolutions.\n• Wellbeing habits that protect sleep and focus during crunch weeks.\n\nYou don't have to do everything at once. Pick the column that fits **this month**, not your whole life.`,
+        callout: {
+          label: "Why it matters",
+          text: "Digital readiness isn't one finish line. It's the right next step for the life you're actually in — freshman year, senior spring, or first job search.",
+        },
+      },
+      {
+        id: "lifelong-habits",
+        kicker: "Habits",
+        title: "Five habits that never go out of date",
+        body: `Apps will change. These habits won't:\n\n1. **Pause before you share** anything high-stakes — news, drama, personal info.\n2. **Read the clue** — error messages, permissions, domain names, license terms.\n3. **Search yourself twice a year** — and clean up what strangers shouldn't see first.\n4. **Protect sleep and focus** — charge devices away from bed during crunch weeks.\n5. **Learn one new tool on purpose** each year — spreadsheet formula, password manager, portfolio platform.\n\nYou already practiced all five across this track. The capstone job is to keep them **automatic**, not to cram more facts.`,
+        callout: {
+          label: "Try this week",
+          text: "Choose one of the five habits above and set a recurring reminder. Fluency is maintenance, not a one-time achievement.",
+        },
+      },
+      {
+        id: "worked-2",
+        kicker: "Worked example",
+        title: "A second plan: senior year crunch week",
+        body: `Meet Jordan, a senior with three deadlines in five days. Instead of one vague "get organized" goal, Jordan writes three **finishable** steps:\n\n**Step 1 — Security (30 min):** turn on 2FA for email and the college portal; move passwords into a manager.\n\n**Step 2 — Work skills (45 min):** build a five-row application tracker; export résumé as \`Lastname_Resume.pdf\` under 5 MB.\n\n**Step 3 — Wellbeing (starting tonight):** phone charges in the kitchen; one 40-minute focus block before scrolling.\n\nNotice: each step has a **time estimate** and a **clear done signal**. That's what makes a capstone plan real instead of inspirational wallpaper.`,
+        callout: {
+          label: "Pro tip",
+          text: "Add a 'when' to every step — 'this weekend,' 'before Friday,' 'starting tonight.' A step without a when is usually a step that doesn't happen.",
+        },
+        checkIn: {
+          prompt: "Which capstone plan step is strongest?",
+          choices: [
+            "\"Be more organized online\"",
+            "\"Use technology responsibly\"",
+            "\"Build a five-row application tracker and export my résumé as a PDF under 5 MB by Thursday\"",
+            "\"Try harder with digital stuff\"",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Strong plan steps are specific, measurable, and time-bound. A tracker plus a properly exported PDF is something you can actually finish and verify.",
+        },
+      },
+      {
+        id: "reflection-prompt",
+        kicker: "Pause and think",
+        title: "Before the knowledge check — picture yourself in six months",
+        body: `Close your eyes for thirty seconds. It's six months from now.\n\n• What digital habit do you hope is **automatic** by then — pausing before sharing, reading error messages, running a footprint check?\n• What **not-yet** from your audit will you have turned into a yes?\n• What **new tool or risk** might have appeared that you won't have a lesson for — and how will you handle it?\n\nThe third question is the whole point of capstone thinking. You won't have a Kanam slide for every future app or scam. But you *will* have the habits to pause, verify, protect, and learn — which is exactly what **adaptive expertise** and being a **self-directed learner** mean in plain English.\n\nYou'll write your formal three-step plan in the reflection after the knowledge check. For now, just notice: you're not leaving this track as someone who memorized facts. You're leaving as someone who knows how to **keep going**.`,
+        callout: {
+          label: "Reflect",
+          text: "The best capstone outcome isn't a perfect score. It's catching yourself using a habit without thinking — and smiling because it worked.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn — finish strong",
-        body: `This is the finish line of the entire Digital Literacy track. You can now navigate technology, judge information, communicate and create, protect yourself, stay healthy, troubleshoot calmly, and bring real skills to school, college apps, internships, and a future career — and you understand that true digital literacy is all of that working *together*, for life, guided by the same ISTE standards schools use to define it.\n\nTake the final knowledge check (it pulls from the whole track), then write your own **3-step digital-readiness action plan** in the reflection to earn your **Digitally Fluent** badge.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict). Congratulations — you've become exactly the kind of capable, responsible, lifelong digital learner the real world needs.`,
+        body: `This is the finish line of the entire Digital Literacy track. You can now navigate technology, judge information, communicate and create, protect yourself, stay healthy, troubleshoot calmly, and bring real skills to school, college apps, internships, and a future career — and you understand that true digital literacy is all of that working *together*, for life.\n\nTake the final knowledge check (it pulls from the whole track), then write your own **3-step digital-readiness action plan** in the reflection to earn your **Digitally Fluent** badge.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict). Congratulations — you've become exactly the kind of capable, responsible, lifelong digital learner the real world needs.`,
       },
     ],
   },
@@ -421,16 +493,16 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
     },
     {
       id: "q8",
-      question: "Looking back at the whole track, which ISTE standard most closely matches learning to pause, check sources, and evaluate accuracy before sharing information?",
+      question: "Looking back at the whole track, which habit most closely matches learning to pause, check sources, and evaluate accuracy before sharing information?",
       choices: [
-        "Global Collaborator",
-        "Innovative Designer",
-        "Empowered Learner",
-        "Knowledge Constructor",
+        "Posting first so your friends can fact-check for you later",
+        "Trusting whatever appears at the top of a search or feed",
+        "Designing a logo before reading the assignment",
+        "Judging whether a source is accurate and useful before you trust or share it",
       ],
       correctIndex: 3,
       explanation:
-        "The ISTE Knowledge Constructor standard is about evaluating the accuracy, perspective, and usefulness of information sources before trusting or sharing them — exactly what the information-literacy lessons practiced.",
+        "Evaluating the accuracy, perspective, and usefulness of information sources before trusting or sharing them is exactly what the information-literacy lessons practiced.",
     },
   ],
   reflection: {

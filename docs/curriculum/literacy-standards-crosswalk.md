@@ -1,6 +1,6 @@
 # Literacy tracks — standards crosswalk (expanded lessons)
 
-Kanam Academy literacy lessons target **~18 interactive slides** (15–25 range) plus knowledge checks and practice.
+Kanam Academy literacy lessons target **18–25 interactive slides** by topic weight (early lessons shorter, advanced/capstone lessons longer), plus knowledge checks and practice. Students do not see standards citations in the slide decks — this crosswalk is for instructors and curriculum mapping only.
 
 ## Financial Literacy (`fl-1`…`fl-16`)
 

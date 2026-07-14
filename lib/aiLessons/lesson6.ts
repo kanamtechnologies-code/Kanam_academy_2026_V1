@@ -125,6 +125,28 @@ export const aiLesson6: AILessonConfig = {
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "When 95% accuracy still fails badly",
+        body: `Imagine a medical screening AI tested on 1,000 patients. It correctly identifies 950 healthy patients and misses 50 who actually need follow-up. The headline says **"95% accurate!"**\n\nBut flip the perspective: for the 50 patients who needed help, the AI failed **100% of them** in that slice. If those misses are concentrated in one demographic group because the test set underrepresented them, the shiny number hides a serious fairness problem.\n\nThis is why AI teams report more than one metric — and why you should ask **"accurate for whom, on what kinds of examples?"** not just "what's the accuracy?"`,
+        callout: {
+          label: "Notice this",
+          text: "A single accuracy number can look great while hiding the failures that matter most for real people.",
+        },
+        checkIn: {
+          prompt: "Why can a 95% overall accuracy score still hide a serious problem?",
+          choices: [
+            "Because accuracy is always fake in AI marketing",
+            "Because the failures might cluster on the cases or groups that matter most, even while most easy cases look fine",
+            "Because 95% is mathematically impossible for any real model",
+            "Because accuracy only applies to image models, not text",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Overall accuracy averages across all cases. If hard cases or underrepresented groups fail disproportionately, the headline number can look fine while the real harm concentrates where testing was weakest.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth-busting",
         title: "\"A high score means I can trust it\"",
@@ -215,10 +237,14 @@ export const aiLesson6: AILessonConfig = {
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why school cares about this",
-        title: "This is exactly the skill of a computational thinker",
-        body: `Breaking down "95% accurate" into training vs. test performance, false positives vs. false negatives, is **ISTE 1.5, Computational Thinker** at work — decomposing a claim into its real parts instead of reacting to the headline number.\n\nIt also connects to **CSTA 2-IC-20**: evaluating how a computing tool's real-world impact (like a medical AI's treatment suggestions) depends on decisions made far upstream, in training and testing, long before you ever see the confident final output.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Don't trust one shiny metric",
+        body: `Next time you hear "this AI is 99% accurate," ask follow-ups before believing it:\n\n• **Tested on what?** Data that looks like real life, or only easy cases?\n• **Failed how?** Random glitches or repeated patterns for certain groups?\n• **Confident when wrong?** A system that sounds sure while failing is more dangerous than one that admits uncertainty.\n\nThese questions work for school tools, health apps, and anything else that claims a score proves it's "ready."`,
+        callout: {
+          label: "Transfer this",
+          text: "Testing and metrics aren't just for engineers — they're your shield against overconfident AI claims.",
+        },
       },
       {
         id: "reflection-prompt",

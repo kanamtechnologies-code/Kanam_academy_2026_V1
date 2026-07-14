@@ -260,13 +260,27 @@ export const lesson6: PythonLessonConfig = {
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "This lesson meets a real CS standard",
-        body: `**CSTA 2-AP-12**: *Design and iteratively develop programs that combine control structures, including nested loops and compound conditionals.*\n\nNesting an \`if\` inside a \`for\` loop is literally what this standard describes: combining control structures. You're not just using loops and conditionals separately anymore — you're combining them into one structure.`,
+        id: "print-flip-order",
+        kicker: "Common bug",
+        title: "Print first, then flip — or the pattern shifts",
+        body: `The **order** of print and flip inside your loop changes the whole pattern. If you flip \`message\` *before* printing, you'll always print the already-flipped value — shifting the pattern by one step.\n\nBuild the habit: **print what you have, then update for next turn.** Trace two turns on paper before running to confirm the order is right.`,
+        code: `# Correct — print, then flip\nmessage = "ping"\nfor i in range(2):\n    print(message)\n    if message == "ping":\n        message = "pong"\n    else:\n        message = "ping"\n\n# Wrong order — flip before print shifts everything\n# (Don't do this until you understand why!)`,
+        codeCaption: "Order matters inside the loop body",
+        checkIn: {
+          prompt: "You want the first line printed to be `ping`. Should you flip message before or after printing?",
+          choices: ["Before printing", "After printing", "Order doesn't matter"],
+          correctIndex: 1,
+          explanation: "Print the current value first, then flip so the next turn uses the updated value.",
+        },
+      },
+      {
+        id: "transfer-real-apps",
+        kicker: "Transfer",
+        title: "Loops + rules power everyday patterns",
+        body: `The ping/pong pattern you built isn't just a classroom exercise — it's the same structure behind:\n\n• **Traffic lights** — loop through cycles; rule checks current color; flip to the next state.\n• **Turn indicators in games** — loop through rounds; rule checks whose turn; flip the active player.\n• **Loading animations** — loop through frames; rule picks the next frame; update the display.\n\nEvery one of these is: repeat → check a rule → update state → show result.`,
         callout: {
-          label: "Standard",
-          text: "CSTA 2017, Algorithms & Programming, Level 2: 2-AP-12 — combining control structures, including nested structures.",
+          label: "Big idea",
+          text: "Combining loops with rules is how programs simulate anything that changes over time — games, animations, and chatbots all start here.",
         },
       },
       {

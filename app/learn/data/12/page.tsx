@@ -205,17 +205,6 @@ const daLesson12: DataLessonConfig = {
         body: `Whenever you build or read a histogram, add up the bar heights and compare them to the total number of records. If they don't match, a value was dropped, double-counted, or landed outside your bins — investigate before trusting the shape.`,
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `Understanding distributions is central to both data science and statistics.`,
-        bullets: [
-          "**Common Core Math (statistics bridge)** — Summarizing numerical data sets by describing center, spread, and overall shape.",
-          "**CSTA 3A-DA-10** — Use data analysis techniques to identify patterns in data representing complex systems.",
-          "**ISTE Computational Thinker** — Recognizing structural differences between comparison charts and distribution charts.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "Picture the shape of your own data",
@@ -241,6 +230,44 @@ const daLesson12: DataLessonConfig = {
           choices: ["Comparing sales of Pizza, Salad, and Burger", "Showing a budget split into categories", "Seeing how 30 students' quiz scores are spread across the 0-100 range"],
           correctIndex: 2,
           explanation: "Seeing the spread of ONE numeric column (scores) across ranges is exactly what a histogram is built for — the other two involve named categories or a whole-split, which fit bar or pie charts instead.",
+        },
+      },
+      {
+        id: "histogram-walkthrough",
+        kicker: "Query walkthrough",
+        title: "One column in — spread out on the chart",
+        body: `A histogram needs only one numeric column: \`score\`. Each student's score becomes a dot, and the chart bins them into ranges (0–10, 11–20, etc.) to show where scores cluster.\n\nUnlike a bar chart, you don't GROUP BY anything in SQL for a basic histogram — just return the raw numbers and let the chart handle the binning. The query is simpler; reading the result requires thinking about **spread** instead of categories.`,
+        code: `SELECT score\nFROM quiz_scores;`,
+        codeCaption: "Every score, one column — the histogram does the rest",
+      },
+      {
+        id: "spread-read-clusters",
+        kicker: "Analyst habits",
+        title: "Look for clusters, gaps, and outliers",
+        body: `When you read a histogram, scan for three things:\n\n• **Clusters** — where do most scores pile up? (Maybe most students scored 70–85.)\n• **Gaps** — are there empty bins nobody landed in?\n• **Outliers** — dots far from the main cloud (a single score of 15 when everyone else is above 60).\n\nA distribution isn't just "high" or "low" — its **shape** tells you whether the class was mostly prepared, split into two groups, or dragged down by a few stragglers.`,
+      },
+      {
+        id: "max-min-spread",
+        kicker: "Second example",
+        title: "Measuring spread with MAX and MIN",
+        body: `The histogram shows shape visually. \`MAX(score)\` and \`MIN(score)\` put numbers on the spread: the highest and lowest scores in the dataset.\n\nTogether they tell you the **range** — how far apart the extremes are. A range of 85–92 means a tight, high-performing group. A range of 15–98 means huge variation worth investigating.`,
+        code: `SELECT MAX(score) AS top_score,\n       MIN(score) AS low_score\nFROM quiz_scores;`,
+        codeCaption: "Two numbers framing the spread",
+      },
+      {
+        id: "outlier-ethics",
+        kicker: "Data ethics moment",
+        title: "Outliers are people, not just dots",
+        body: `That lone dot at the bottom of a histogram? That's a real student who scored far below everyone else. Before sharing a distribution chart publicly, ask whether highlighting the outlier helps or humiliates.\n\nSometimes the right move is to report the class median without naming individuals. Data about spread should inform teaching — not shame.`,
+        checkIn: {
+          prompt: "A histogram shows one student scored 12 while everyone else scored 70+. What's the responsible next step?",
+          choices: [
+            "Label the student in the chart title so everyone knows",
+            "Consider whether the chart should be shared publicly at all, and focus on class-wide patterns instead",
+            "Delete the outlier row from the data",
+          ],
+          correctIndex: 1,
+          explanation: "Outliers represent real people. The responsible move is to think about privacy and purpose before sharing — not to expose or erase individuals.",
         },
       },
       {

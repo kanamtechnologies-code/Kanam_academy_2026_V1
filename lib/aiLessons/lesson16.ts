@@ -128,6 +128,16 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "Same checklist, different tool: a study chatbot",
+        body: `Run the adoption checklist on a homework chatbot a class might adopt.\n\n**Define the job:** "Help students understand concepts — not submit graded work."\n\n**Test on real examples:** Try actual unit questions. Does it teach, or just hand over answers?\n\n**Check risks:** Hallucinated facts? Privacy of pasted essays? Unequal access for students without home internet?\n\n**Human rules:** Teachers review sample sessions; students disclose use; tutors available for students who need offline help.\n\n**Decide:** Maybe **limit** to teacher-approved practice modes instead of open-ended "write my essay" — adopt with guardrails, not blind trust.\n\nDifferent tool than a video feed — **same citizenship muscles.**`,
+        callout: {
+          label: "Notice this",
+          text: "The checklist transfers because the questions are about impact, not brand names.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth check",
         title: "The last three myths worth retiring for good",
@@ -150,6 +160,23 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
         },
       },
       {
+        id: "red-flags",
+        kicker: "Red flags",
+        title: "Capstone red flags — walk away signals",
+        body: `When evaluating any AI tool for yourself or your community, these are strong **reject or limit** signals:`,
+        bullets: [
+          "**No way to verify outputs** on topics where errors cause real harm.",
+          "**Collects sensitive data without a clear, readable policy.**",
+          "**No human appeal or override** when the system is wrong about a person.",
+          "**Marketed as \"fully automatic\" for decisions that need human judgment** — grading, discipline, medical, legal.",
+          "**Encourages hiding AI use** instead of disclosure and learning.",
+        ],
+        callout: {
+          label: "Citizen move",
+          text: "Naming these red flags out loud — to friends, teachers, or family — is part of being AI-smart, not just personally careful.",
+        },
+      },
+      {
         id: "try-it",
         kicker: "Your turn",
         title: "Start your capstone right now",
@@ -169,6 +196,31 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
           "Data provenance and consent questions transfer across every new AI product.",
           "This is the skill that keeps working long after this course ends.",
         ],
+      },
+      {
+        id: "decision-checklist",
+        kicker: "Decision checklist",
+        title: "The five-step adoption checklist — full version",
+        body: `Your capstone framework, ready to apply anywhere:`,
+        bullets: [
+          "**1. Define the job** — What problem are we solving? What is AI *not* allowed to decide?",
+          "**2. Test on real examples** — Use actual school/life cases, not shiny demos.",
+          "**3. Check accuracy, bias, and privacy** — Where could it be wrong or unfair? What data leaves your control?",
+          "**4. Set human review and disclosure rules** — Who double-checks? When do users say AI helped?",
+          "**5. Decide: adopt, limit, or reject** — With clear reasons, not hype or fear.",
+        ],
+        checkIn: {
+          prompt: "Your school is excited about a new AI grading tool. Which step should come BEFORE deciding to adopt it?",
+          choices: [
+            "Announce adoption in the newsletter",
+            "Define the job, test on real student work, and check accuracy, bias, and privacy risks",
+            "Disable all human grading immediately",
+            "Trust the vendor's marketing video",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Evidence before verdict: define the purpose, test realistically, and examine risks — then decide. Marketing and hype skip the steps that protect students.",
+        },
       },
       {
         id: "comparison",
@@ -199,6 +251,23 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
         },
       },
       {
+        id: "what-good-looks-like",
+        kicker: "What good looks like",
+        title: "Your responsible-use guidelines — starter template",
+        body: `Strong personal guidelines usually include five elements. Adapt this template for your capstone:`,
+        bullets: [
+          "**Understand** — I know what the tool is a specialist at, and what it is not.",
+          "**Direct** — I prompt with clear role, task, context, format, and constraints.",
+          "**Verify** — I check high-stakes facts before I use or share them.",
+          "**Protect** — I share minimal data and respect others' consent and privacy.",
+          "**Act ethically** — I disclose when it matters, credit fairly, and consider who is affected.",
+        ],
+        callout: {
+          label: "Make it yours",
+          text: "Generic rules are a start. The best guidelines name *your* actual tools, classes, and non-negotiables.",
+        },
+      },
+      {
         id: "ethics",
         kicker: "Ethics moment",
         title: "Your responsibility doesn't end when the course does",
@@ -219,16 +288,38 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "How this capstone ties the whole standards map together",
-        body: `• **ISTE 1.5 — Computational Thinker:** decomposing any AI tool into specialist task, data, risks, and rules is the same decomposition skill used throughout this course.\n• **ISTE 1.3 — Knowledge Constructor:** critically evaluating AI-generated content and sources, rather than accepting them passively, runs through nearly every lesson you've completed.\n• **ISTE 1.2 — Digital Citizen:** managing your digital footprint, respecting others' consent and privacy, and thinking about broader societal effects are all part of the ethics threads you've practiced.\n• **CSTA Impacts of Computing:** analyzing how AI creates both benefits and risks for different people and groups — bias, privacy, the future of work — has been a throughline of this entire course.\n\nYou haven't just learned "AI facts" — you've built a transferable, standards-aligned way of thinking about any computing technology, old or new.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Take citizenship beyond this course",
+        body: `AI literacy doesn't end when you earn the badge. Three ways to carry it forward:\n\n1. **Teach one habit** to a friend or family member this month (verify before sharing, privacy check, disclosure).\n2. **Ask one fairness question** when your school or a platform rolls out a new AI feature.\n3. **Re-run the adoption checklist** the next time *you* are excited about a new tool — excitement is when bad decisions happen.\n\nBeing AI-smart is contagious in a good way. You become the thoughtful person others trust when something looks too good to be true.`,
+        callout: {
+          label: "Transfer this",
+          text: "Citizenship means your choices affect others — not just your own screen time.",
+        },
       },
       {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on...",
         body: `Look back at everything you've learned, from Lesson 1's "what even is AI?" to today. What's the single idea from this whole course you're most likely to actually use in real life over the next year?\n\nHold that thought — it's a great note to weave into your full capstone reflection at the end of this lesson.`,
+      },
+      {
+        id: "extra-check-in-1",
+        kicker: "Skill check",
+        title: "Which course skill fits this situation?",
+        body: `Quick scenario practice — connect the right habit to the situation.`,
+        checkIn: {
+          prompt: "A classmate uses AI to write their entire lab report and says \"everyone does it.\" Which response reflects AI-smart citizenship?",
+          choices: [
+            "Stay silent — not your problem",
+            "Explain how disclosure, learning goals, and verification matter, and suggest a healthier way to use AI on science work",
+            "Report them immediately without any conversation",
+            "Copy their approach so you don't fall behind",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Citizenship combines honesty about learning goals, ethical use, and constructive conversation — not silence, copying, or reflexive punishment without context.",
+        },
       },
       {
         id: "mini-case",
@@ -246,6 +337,24 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
           correctIndex: 1,
           explanation:
             "The group combined careful prompting, fact verification, ethical caution around imitating a real artist's style, and honest disclosure — the full AI-Smart Citizen toolkit in action.",
+        },
+      },
+      {
+        id: "extra-check-in-2",
+        kicker: "Skill check",
+        title: "Pull three skills from the whole course",
+        body: `One more integrated scenario before your final knowledge check.`,
+        checkIn: {
+          prompt: "You're evaluating a new AI tutor for math practice. Which combination matches the capstone approach?",
+          choices: [
+            "Adopt immediately because it says AI on the homepage",
+            "Define the learning job, test it on real homework problems, check privacy and hallucination risks, set disclosure rules, then decide whether to adopt or limit",
+            "Reject all AI tools without trying any",
+            "Let the AI grade itself and skip human review",
+          ],
+          correctIndex: 1,
+          explanation:
+            "The adoption checklist — define, test, check risks, set human rules, then decide — is the capstone skill set in one answer.",
         },
       },
       {

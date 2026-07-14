@@ -125,6 +125,16 @@ export const aiLesson5: AILessonConfig = {
         },
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "Training a spam filter, step by step",
+        body: `Machine learning in action — a second walkthrough you'll recognize from your inbox.\n\n**Step 1 — Collect labeled examples.** Thousands of emails marked "spam" or "not spam" by humans.\n\n**Step 2 — Extract features.** Words like "winner," "click now," sender reputation, number of links.\n\n**Step 3 — Train.** The model learns which feature patterns usually appear in spam.\n\n**Step 4 — Predict.** A new email arrives; the model outputs "94% spam."\n\n**Step 5 — Learn from mistakes.** When a school newsletter lands in spam, someone labels it correctly and the model updates.\n\nSame learning loop as Lesson 1's cat-or-dog example — different job, same idea: **learn patterns from labeled examples, then predict on new ones.**`,
+        callout: {
+          label: "Notice this",
+          text: "The quality of the labels matters. If humans mislabeled examples during training, the model learns the wrong patterns.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth-busting",
         title: "\"The AI just figures out the truth on its own\"",
@@ -199,8 +209,8 @@ export const aiLesson5: AILessonConfig = {
         title: "Why the hiring tool got scrapped — and why that was the right call",
         body: `The company behind the resume-screening tool made a notable decision: rather than try to patch the bias after the fact, they shut the project down entirely once they confirmed the pattern couldn't be reliably fixed.\n\nThis matters because it shows accountability in action — recognizing that a tool trained on biased historical data can encode that bias so deeply that it's genuinely difficult to remove, even with good intentions. Sometimes the most responsible move isn't a patch — it's stopping and rebuilding the approach from the ground up.\n\nThe deeper lesson for you: training data is never "just data." It's a record of real decisions, made by real people, with real histories — and an AI trained on it will happily repeat that history unless someone actively checks for it.`,
         callout: {
-          label: "CSTA 2-IC-20 connection",
-          text: "Evaluating how computing decisions affect economic opportunity (like who gets hired) is exactly this standard's focus.",
+          label: "Why this matters",
+          text: "Evaluating how computing decisions affect economic opportunity (like who gets hired) is exactly this lesson's focus.",
         },
       },
       {
@@ -215,10 +225,14 @@ export const aiLesson5: AILessonConfig = {
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why school cares about this",
-        title: "This is the heart of computational thinking",
-        body: `Designing a training set, spotting class imbalance, and asking "who's represented?" is **ISTE 1.5, Computational Thinker** in action — breaking down a real system, identifying the data involved, and reasoning through what it will actually produce.\n\nIt also connects to **CSTA 2-IC-20**, evaluating how a computing tool (like a hiring AI) affects real economic outcomes for real people. This isn't abstract — decisions like the one that scrapped the hiring tool now shape how companies build AI responsibly.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Every AI answer traces back to examples",
+        body: `When an AI tool surprises you — great or terrible — ask:\n\n**What examples probably trained this behavior?**\n\nA chatbot that writes formal essays was trained on formal text. A photo filter that lightens skin may have been trained on images where lighter skin dominated. A recommendation feed that pushes drama was trained on people who binge drama.\n\nThe examples don't excuse unfair outcomes — but they explain them. And explaining them is the first step to questioning whether the right examples were used.`,
+        callout: {
+          label: "Transfer this",
+          text: "Training data is the hidden curriculum every AI learns from. Asking about it is a lifelong literacy skill.",
+        },
       },
       {
         id: "reflection-prompt",

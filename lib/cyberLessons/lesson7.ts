@@ -202,16 +202,6 @@ export const cyberLesson7: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "How this connects to real standards",
-        body: `This lesson is a close match for a specific, well-known standard:\n\n• **CSTA 3A-NI-04** (Networks and the Internet) asks students to evaluate the scalability and reliability of networks by describing the relationship between routers, switches, servers, topology, and addressing — essentially the entire client → LAN → router → WAN → DNS → server model you built today.\n• **ISTE Computational Thinker (1.5c)** asks students to break problems into component parts and develop descriptive models — exactly what you did by breaking "the internet is down" into distinct, testable hops.\n\nThis lesson may feel more technical than others in the track, but the underlying skill — decomposing a vague complaint into a structured model with distinct parts — is a core computational thinking skill that transfers well beyond networking.`,
-        callout: {
-          label: "Why it matters",
-          text: "Being able to say \"it's probably DNS, not the router\" instead of \"everything is broken\" is a genuinely valuable, transferable troubleshooting skill.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
@@ -224,6 +214,69 @@ export const cyberLesson7: AILessonConfig = {
         image: "/images/lessons/cs-7-5.png",
         imageAlt: "School IT helpdesk screen showing a DNS resolver status alert while some sites still load by IP address",
         body: `**The situation:** One Tuesday morning, students across the school report that "the whole internet is down." The help desk is flooded with tickets. But a closer look reveals something odd: students can still successfully join video calls that were already running, and one tech-savvy teacher notices that typing a raw IP address for the school's own file server still works — while typing almost any website name fails.\n\n**Apply what you've learned:**\n\n• **Symptom pattern:** "Raw IP works, names fail" is the exact DNS triage signal from this lesson — not a full network or WAN outage.\n• **Why some things still worked:** Already-connected video calls didn't need a fresh name lookup mid-call, which is why they kept running even as new name-based connections failed.\n• **Root cause (likely):** The school's DNS resolver service had an issue — possibly overloaded, misconfigured, or temporarily unreachable — while the LAN, router, and WAN connection to the internet were otherwise fine.\n• **Fix and confirmation:** IT restarts or reconfigures the DNS resolver, then checks resolver logs briefly afterward to confirm that name lookups are succeeding again before declaring the issue resolved.\n\nThis case shows why "everything is down" tickets are often less specific — and less accurate — than a report like "sites load by IP but not by name," which points defenders straight to the right hop.`,
+      },
+      {
+        id: "connectivity-triage",
+        kicker: "Decision checklist",
+        title: "Connectivity triage: what to try before \"it's all broken\"",
+        body: `Before opening a vague help ticket, run this defender-friendly triage:
+
+**1. Scope** — Is it one site, one app, or everything?
+**2. Device** — Does another device on the same network work?
+**3. Name vs number** — Does a raw IP or alternate DNS test change the result?
+**4. Path narration** — Can you say where it fails: device, LAN, router, WAN, DNS, server?
+**5. Recent change** — New VPN, new Wi-Fi, VPN just turned off, software update?
+
+**What to report to IT:**
+• "One site fails, others work" vs "nothing resolves by name."
+• "IP address works, domain name does not" → strong DNS signal.
+• Time started and what you already tried.
+
+**Comparison — vague vs useful reports:**
+• Vague: "Wi-Fi is broken."
+• Useful: "Connected to GuestWiFi; google.com fails; 8.8.8.8 works; started after lunch."
+
+Useful reports get solved faster — even from students who are not network engineers.`,
+        callout: {
+          label: "Pro tip",
+          text: "If only one site fails, suspect that site or your DNS path — not necessarily the entire internet.",
+        },
+      },
+      {
+        id: "dns-walkthrough",
+        kicker: "Scenario walkthrough",
+        title: "Walking a DNS failure like Nate did",
+        body: `**Scenario:** Nate needs a research article before class. library.edu will not load, but the campus file server IP still opens, and classmates on cellular data can reach the site fine.
+
+**Step 1 — Narrow the fault:** His device + school Wi-Fi + name-based lookups are failing together. Cellular works → problem is likely local network or DNS, not the remote server dying globally.
+
+**Step 2 — Test DNS specifically:** IT suggests trying a known resolver or IP test. When the IP works but the name does not, DNS moves to the top of the suspect list.
+
+**Step 3 — Report precisely:** "library.edu fails on school Wi-Fi; IP works; cellular works" gives IT a DNS-shaped ticket, not a generic outage flood.
+
+**Step 4 — Safe workaround:** Use cellular for the urgent task if policy allows, while IT fixes resolver service — not a permanent habit, but a conscious tradeoff.
+
+**Step 5 — After fix:** Confirm name lookups work again before closing the ticket.
+
+This is defender networking: observe, narrow, report, confirm — without touching systems you are not authorized to change.`,
+      },
+      {
+        id: "network-trust",
+        kicker: "Myth check",
+        title: "Network trust myths worth retiring",
+        body: `A few beliefs cause risky choices on real networks:
+
+• **"School Wi-Fi is automatically safe because it's school Wi-Fi."** Shared networks still require HTTPS, MFA, and caution about sensitive logins — other compromised devices may share the LAN.
+• **"VPN replaces HTTPS."** VPN protects the tunnel to its endpoint; it does not prove the website at the other end is honest.
+• **"If the icon shows full bars, security is fine."** Signal strength measures radio connection, not trustworthiness of peers on the network.
+• **"Guest networks are always isolated."** Isolation depends on configuration — assume less access is safer and still use HTTPS.
+
+Defender habit: treat **network choice** and **destination trust** as separate decisions every time you log in somewhere important.`,
+        bullets: [
+          "Bars ≠ security.",
+          "VPN ≠ site trust.",
+          "HTTPS + MFA still matter on campus Wi-Fi.",
+        ],
       },
       {
         id: "check-yourself",
@@ -364,7 +417,7 @@ export const cyberLesson7: AILessonConfig = {
     },
     {
       id: "q8",
-      question: "Why does CSTA's Networks and the Internet standard emphasize describing the relationship between routers, servers, topology, and addressing, rather than just defining each term separately?",
+      question: "Why is it more useful to describe how routers, servers, topology, and addressing work together than to just define each term separately?",
       choices: [
         "Because isolated definitions are more useful than understanding how the pieces connect",
         "Because memorizing each term separately is enough for real troubleshooting",

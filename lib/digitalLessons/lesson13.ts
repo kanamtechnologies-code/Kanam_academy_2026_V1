@@ -38,7 +38,7 @@ export const digitalLesson13: AILessonConfig = {
         id: "why-it-matters",
         kicker: "Real stakes",
         title: "This isn't just about feeling a little tired",
-        body: `It's tempting to file "healthy tech habits" under minor self-care advice. But the effects compound in ways that touch real outcomes:\n\n• **Grades and test performance** track closely with sleep and focus quality — a rested, focused brain simply performs better under pressure, including during exams and timed application essays.\n• **Mood and mental health** are measurably affected by heavy passive scrolling and social comparison, especially during already-stressful seasons like college decisions.\n• **Physical strain adds up silently.** "Tech neck," eye strain, and stiff wrists rarely feel dramatic day to day — they build slowly over years of small posture habits.\n• **Attention is a skill employers and colleges notice**, whether it's finishing a timed exam, staying present in an interview, or meeting a deadline without a dozen distracted restarts.\n\nNone of this is about guilt. It's about noticing that a few specific, learnable habits protect things you already care about — grades, mood, friendships, and how you show up for the things that matter.\n\nThis is also where **ISTE's Empowered Learner** standard lives: setting personal goals and using technology strategically to manage your own learning, focus, and wellbeing, instead of letting a device's defaults manage you.`,
+        body: `It's tempting to file "healthy tech habits" under minor self-care advice. But the effects compound in ways that touch real outcomes:\n\n• **Grades and test performance** track closely with sleep and focus quality — a rested, focused brain simply performs better under pressure, including during exams and timed application essays.\n• **Mood and mental health** are measurably affected by heavy passive scrolling and social comparison, especially during already-stressful seasons like college decisions.\n• **Physical strain adds up silently.** "Tech neck," eye strain, and stiff wrists rarely feel dramatic day to day — they build slowly over years of small posture habits.\n• **Attention is a skill employers and colleges notice**, whether it's finishing a timed exam, staying present in an interview, or meeting a deadline without a dozen distracted restarts.\n\nNone of this is about guilt. It's about noticing that a few specific, learnable habits protect things you already care about — grades, mood, friendships, and how you show up for the things that matter.\n\nThe skill underneath is practical: set personal goals and use technology on purpose to manage your own learning, focus, and wellbeing — instead of letting a device's defaults manage you.`,
         callout: {
           label: "Why it matters",
           text: "You don't need to overhaul your whole life. The handful of habits in this lesson are chosen because they have an outsized effect on focus, mood, and sleep for a small amount of effort.",
@@ -292,6 +292,58 @@ export const digitalLesson13: AILessonConfig = {
         callout: {
           label: "Try this today",
           text: "Set this check-in as a recurring reminder — weekly during a stressful season, monthly otherwise. A quick honest glance beats a New Year's resolution that fades by February.",
+        },
+      },
+      {
+        id: "sleep-scenario",
+        kicker: "Mini scenario",
+        title: "Second case: the exam-week scroll trap",
+        body: `It's 11:30 p.m. the night before a big exam. Riley tells themselves "just five more minutes" on a feed, then looks up and it's 1:15 a.m. Alarm is set for 6. Riley's brain feels foggy before the test even starts.\n\n**Before:** phone on the nightstand, no wind-down, sleep sacrificed for content that wasn't even memorable.\n\n**After:** phone charges in the kitchen, 20-minute wind-down (stretching, reading a paper page, or quiet music), alarm across the room so snooze isn't automatic. Riley still isn't perfect — but sleeps enough to think clearly.\n\nWellbeing isn't about becoming a monk. It's about protecting the basics — especially sleep — during the weeks when your brain is the tool you need most.`,
+        callout: {
+          label: "Try this week",
+          text: "Pick one school night to charge your phone outside your bedroom. Notice how you feel the next morning — that's data you can actually use.",
+        },
+        checkIn: {
+          prompt: "Riley loses two hours to late-night scrolling before an exam. What's the most direct wellbeing fix to try first?",
+          choices: [
+            "Download more apps to track productivity",
+            "Move the phone out of the bedroom and set a wind-down routine before bed",
+            "Drink more caffeine the next morning",
+            "Accept that sleep doesn't affect test performance",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Late-night scrolling is often a phone-in-bedroom habit. Charging elsewhere plus a wind-down routine attacks the root cause, not just the morning-after fog.",
+        },
+      },
+      {
+        id: "screen-before-after",
+        kicker: "Before & after",
+        title: "Same evening, two screen habits",
+        body: `**Before:** notifications on for everything, phone face-up on the desk while studying, every buzz breaks focus, "break" means passive scrolling for 40 minutes, bedtime pushed later without noticing.\n\n**After:** non-essential notifications off, phone in another room during focus blocks, breaks are timed and mostly offline, one intentional check-in with friends, screens away 30 minutes before sleep.\n\nSame homework, same apps — completely different energy at 10 p.m.\n\nThe second version isn't boring; it's **designed**. You chose when tech interrupts you instead of letting every app compete for your attention all day.`,
+        callout: {
+          label: "Pro tip",
+          text: "Start with one focus block and one notification category turned off. Overhauling everything at once is how wellbeing plans die by Wednesday.",
+        },
+      },
+      {
+        id: "comparison-red-flags",
+        kicker: "Red flags",
+        title: "Feeds that are hurting more than helping",
+        body: `Not every bad screen habit looks like "too many hours." Some red flags are about *how* you feel:\n\n• **You close the app feeling worse** than when you opened it — envy, anxiety, or shame.\n• **You compare your real life to everyone else's highlight reel** and forget that's what it is.\n• **You can't remember what you just scrolled** — passive input with zero payoff.\n• **You avoid posting or participating** because the space feels judgmental or performative.\n• **You keep checking "just once more"** even though you already know nothing new is there.\n\nWhen you notice these, the fix isn't always "quit forever." Sometimes it's **mute, unfollow, or set a time box** — curating your feed the way you'd curate who sits at your lunch table.`,
+        callout: {
+          label: "Watch out",
+          text: "Algorithms optimize for engagement, not your wellbeing. If a feed consistently drains you, the app isn't broken — it's working as designed. You're allowed to redesign your side of it.",
+        },
+      },
+      {
+        id: "focus-checklist",
+        kicker: "Checklist",
+        title: "Your exam-week focus plan",
+        body: `During high-stakes weeks, don't rely on willpower — use a simple plan:\n\n1. **One focus block daily** — 25–45 minutes, phone in another room, one task only.\n2. **Notifications off** for non-essential apps until exams end.\n3. **Sleep anchor** — same bedtime ±30 minutes, even if work isn't perfect.\n4. **Movement break** — five minutes away from screens every hour.\n5. **End-of-day shutdown** — write tomorrow's top task so your brain can stop looping.\n\nThis isn't about being robotic. It's about protecting the basics when your future-you is taking the test, not doomscrolling at 1 a.m.`,
+        callout: {
+          label: "Try this week",
+          text: "Write the plan on paper and tape it inside your planner or laptop lid. Visible beats virtuous.",
         },
       },
       {

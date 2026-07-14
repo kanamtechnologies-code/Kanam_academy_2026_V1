@@ -38,7 +38,7 @@ export const digitalLesson14: AILessonConfig = {
         id: "why-it-matters",
         kicker: "Real stakes",
         title: "Why calm troubleshooting is worth learning on purpose",
-        body: `It's easy to treat "my thing is broken" moments as just bad luck. But how you respond has real consequences:\n\n• **Panicked clicking makes problems worse.** Randomly tapping buttons, force-quitting mid-save, or reinstalling before understanding the issue can turn a small glitch into lost work.\n• **Deadlines don't pause for tech problems.** A college portal freezing at 11:58 p.m. feels catastrophic in the moment — a calm process gets you unstuck faster than panic ever will.\n• **Every tech job assumes this skill.** No employer expects you to know every error message by heart; they expect you to stay level-headed and work through it methodically.\n• **It transfers everywhere.** The exact same process — describe, isolate, try simple fixes, ask well — works on group project conflicts and everyday problems, not just computers.\n\nThe goal isn't to never hit a problem again. It's to have a reliable process so a problem is an annoyance, not a crisis.\n\nThis whole process is also the **ISTE Computational Thinker** standard in action: developing and using a repeatable strategy — describe, isolate, test, ask well — to understand and solve problems, the same core move computer scientists use every day.`,
+        body: `It's easy to treat "my thing is broken" moments as just bad luck. But how you respond has real consequences:\n\n• **Panicked clicking makes problems worse.** Randomly tapping buttons, force-quitting mid-save, or reinstalling before understanding the issue can turn a small glitch into lost work.\n• **Deadlines don't pause for tech problems.** A college portal freezing at 11:58 p.m. feels catastrophic in the moment — a calm process gets you unstuck faster than panic ever will.\n• **Every tech job assumes this skill.** No employer expects you to know every error message by heart; they expect you to stay level-headed and work through it methodically.\n• **It transfers everywhere.** The exact same process — describe, isolate, try simple fixes, ask well — works on group project conflicts and everyday problems, not just computers.\n\nThe goal isn't to never hit a problem again. It's to have a reliable process so a problem is an annoyance, not a crisis.\n\nThat process is computational thinking in everyday clothes: develop and use a repeatable strategy — describe, isolate, test, ask well — to understand and solve problems, the same core move computer scientists use every day.`,
         callout: {
           label: "Why it matters",
           text: "The difference between someone who 'freaks out' at tech and someone who 'is good with computers' is almost never knowledge — it's whether they have a calm process to fall back on.",
@@ -287,6 +287,58 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
         callout: {
           label: "Try this today",
           text: "Save this checklist somewhere accessible right now, before you need it. The best time to find a checklist is before the stressful moment, not during it.",
+        },
+      },
+      {
+        id: "troubleshoot-scenario-2",
+        kicker: "Mini scenario",
+        title: "Second case: the portal upload that keeps failing",
+        body: `Diego tries to upload a scholarship PDF. The portal says "upload failed" with no other detail. He refreshes wildly, blames his laptop, and almost gives up.\n\n**Before:** random clicking, no error reading, considers buying a new computer.\n\n**After:** reads the tiny error text ("max 5 MB"), checks file size (12 MB), compresses the PDF, tries a different browser when the first still glitches, succeeds on attempt three.\n\nSame portal, same file — different process. Troubleshooting means **reading the actual clue**, changing one variable at a time, and not upgrading hardware before you've checked the obvious.`,
+        callout: {
+          label: "Try this week",
+          text: "Next time something fails online, screenshot the exact error message before you click away. That one habit saves more time than any guesswork.",
+        },
+        checkIn: {
+          prompt: "A site says 'upload failed' and the help text mentions a 5 MB limit. Your file is 12 MB. What's the smartest next step?",
+          choices: [
+            "Buy a new laptop",
+            "Compress or resize the file to meet the limit, then retry",
+            "Keep uploading the same file until it works",
+            "Assume the site is hacked",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Read the error, match your fix to the actual constraint. A file over the size limit needs compression or resizing — not new hardware.",
+        },
+      },
+      {
+        id: "error-before-after",
+        kicker: "Before & after",
+        title: "Reading error messages: panic vs. process",
+        body: `**Before:** sees red text, closes the tab, declares "technology hates me," asks someone else to fix it without saying what the screen said.\n\n**After:** reads the full message, copies or screenshots it, googles the exact phrase in quotes, tries the simplest fix first (refresh, restart app, check file type/size, try another browser), writes down what worked.\n\nError messages are ugly, but they're **clues** — not insults. The pros aren't calmer because errors never happen. They're calmer because they treat every error as information.`,
+        callout: {
+          label: "Pro tip",
+          text: "Search the exact error text in quotes plus the app name. You're almost never the first person to see that message.",
+        },
+      },
+      {
+        id: "troubleshoot-red-flags",
+        kicker: "Red flags",
+        title: "When you're troubleshooting the wrong thing",
+        body: `These habits feel productive but waste time:\n\n• **Fixing hardware before reading the error** — especially for upload/login issues that are usually account, file, or browser problems.\n• **Changing five things at once** — if it works, you don't know what fixed it; if it fails, you're more confused.\n• **Ignoring the exact wording** — "invalid file type" and "file too large" need different fixes.\n• **Assuming it's malware instantly** — most daily glitches are mundane (cache, permissions, outdated app).\n• **Giving up before the second browser** — many school portals behave differently in Chrome vs. Safari vs. Edge.\n\n**Better pattern:** read → google the exact error → change one thing → retry → escalate (ask IT, teacher, or official help) with the screenshot attached.`,
+        callout: {
+          label: "Watch out",
+          text: "If a popup asks you to call a random phone number or install unknown software to 'fix' a virus, that's the scam — not the solution. Close it and use official support channels.",
+        },
+      },
+      {
+        id: "help-escalation",
+        kicker: "Checklist",
+        title: "When to ask for help — and how to make it fast",
+        body: `Knowing when to escalate is a troubleshooting skill too. Ask for help when:\n\n• You've tried the basic chain (refresh, restart app, restart device, different browser) and the same error persists.\n• The problem affects official deadlines — scholarship portals, exam logins, job applications.\n• You see signs of a real security issue — unknown charges, emails you didn't send, locked accounts.\n\n**How to make help fast:**\n1. Screenshot the exact error.\n2. Say what you already tried.\n3. Include device, browser, and file type/size if relevant.\n4. Share the deadline calmly.\n\n"I tried Chrome and Safari, compressed the PDF to 4 MB, still get 'upload failed' — screenshot attached, deadline Friday" gets you a useful answer. "My computer is broken" doesn't.`,
+        callout: {
+          label: "Try this week",
+          text: "Practice writing a one-sentence help request with a screenshot for a small issue this week — so the habit exists before a high-stakes one hits.",
         },
       },
       {

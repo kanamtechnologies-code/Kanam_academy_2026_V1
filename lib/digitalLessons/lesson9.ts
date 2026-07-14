@@ -276,6 +276,38 @@ export const digitalLesson9: AILessonConfig = {
         },
       },
       {
+        id: "design-before-after",
+        kicker: "Before & after",
+        title: "Same slide deck, two versions",
+        body: `**Before:** one font, one giant paragraph per slide, neon yellow text on white, a stretched clipart image, no alt text, exported as a fuzzy screenshot.\n\n**After:** one clear title per slide, three bullet points max, dark text on a light background, a sharp image at the right size, alt text added, exported as PDF for the teacher portal.\n\nSame information. Completely different experience for the audience — and for a teacher grading at 10 p.m.\n\nThe "after" version didn't take longer because the creator was more talented. It took longer because they ran a short checklist: headings, contrast, image size, accessibility, export format. That's the skill this lesson is building.`,
+        callout: {
+          label: "Try this week",
+          text: "Take one old slide or post and rebuild just the title slide using the 'after' rules. If the first slide looks professional, the rest of the project usually follows.",
+        },
+        checkIn: {
+          prompt: "Your club flyer looks fine on your phone but the text is tiny and faint when projected in the auditorium. What's the most likely fix?",
+          choices: [
+            "Add more text so people have more to read",
+            "Increase contrast and font size so it's readable at a distance — design for the real viewing situation",
+            "Use five more fonts for variety",
+            "Export as a screenshot so nothing can be changed",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Design has to work in the real context where people see it. High contrast and readable type size matter especially for projection and auditorium viewing.",
+        },
+      },
+      {
+        id: "export-red-flags",
+        kicker: "Red flags",
+        title: "Export mistakes that wreck good work",
+        body: `You can nail the content and still lose points — or miss a deadline — with the wrong export. Watch for these:\n\n• **Renaming instead of converting** — changing \`.docx\` to \`.pdf\` in the filename doesn't make it a PDF.\n• **Huge file sizes** — a 25 MB photo in a 5 MB portal limit will fail every time.\n• **Layout that breaks on other devices** — fancy Word art that looks wrong when opened on a Chromebook.\n• **Missing accessibility** — video with no captions, images with no alt text, color-only labels.\n• **Wrong aspect ratio** — a vertical phone video cropped into a horizontal slide looks awkward and unprofessional.\n\n**Fix pattern:** check the destination's rules first (file type, size, dimensions), then export on purpose — don't guess at the last second.`,
+        callout: {
+          label: "Watch out",
+          text: "College and scholarship portals often list exact upload rules in small text. Read them before you design — not five minutes before the deadline.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",

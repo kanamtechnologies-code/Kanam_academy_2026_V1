@@ -227,16 +227,6 @@ export const digitalLesson1: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "This is computational thinking, not just \"tech trivia\"",
-        body: `Everything in this lesson connects to a real skill that goes far beyond computers.\n\nWhen you broke a device down into hardware, software, CPU, RAM, storage, and network — and then used that breakdown to diagnose a problem — you were practicing **computational thinking**: breaking a complex system into smaller parts to understand and solve problems. That's part of the **ISTE Computational Thinker** standard, which asks students to understand how automated systems work and use that understanding to troubleshoot.\n\nIt also connects to **CSTA's "Impacts of Computing"** strand, which asks you to think about how computing systems affect daily life — like how a data center on the other side of the world can affect whether your video loads at home tonight.\n\nAnd because you're learning to question assumptions (like "the cloud is magic" or "strong Wi-Fi means the internet is fine"), you're also building **ISTE Digital Citizen** habits: making informed decisions about the technology you depend on, instead of just trusting it blindly.`,
-        callout: {
-          label: "Why it matters",
-          text: "These aren't just school-lesson labels. Breaking a system into parts to solve a problem is the same skill engineers, IT support staff, and careful shoppers use every single day.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
@@ -272,6 +262,28 @@ export const digitalLesson1: AILessonConfig = {
           correctIndex: 1,
           explanation:
             "The whole lesson is one repeated move: break a confusing system into its parts (hardware vs. software, RAM vs. storage, app vs. device vs. network vs. internet) so you can understand — and fix — what's really going on.",
+        },
+      },
+      {
+        id: "red-flags",
+        kicker: "Red flags",
+        title: "Before you panic: three signs it's NOT a hardware disaster",
+        body: `When a device acts weird, people often jump straight to "it's broken forever." These three red flags usually mean the fix is simpler than it feels:\n\n• **Only one app is stuck** while everything else works — that's almost always a software/app problem, not dead hardware.\n• **Restarting fixes it temporarily** — if a reboot clears the lag, the physical parts are probably fine; something in software or memory got overloaded.\n• **Other devices on the same Wi-Fi work fine** — that points away from your laptop's hardware and toward your device's settings or the local network.\n\nThe opposite red flag — **every app on every device on the same network fails at once** — is your clue to look at the router or wider internet, not to blame one laptop's screen.\n\nPair this with the four-layer chain from earlier: red flags tell you which layer to check first so you don't waste time (or money) on the wrong fix.`,
+        callout: {
+          label: "Try this week",
+          text: "Next time something glitches, pause and ask: is it one app, the whole device, or every device on the network? That one question often tells you the whole story.",
+        },
+        checkIn: {
+          prompt: "Your phone's camera app crashes every time you open it, but texting, browsing, and other apps work normally. What's the most likely layer?",
+          choices: [
+            "The phone's screen hardware is permanently broken",
+            "The wider internet is down",
+            "The camera app (software), since only that one program fails",
+            "The cloud has deleted your photos",
+          ],
+          correctIndex: 2,
+          explanation:
+            "When a single app misbehaves while everything else runs fine, the problem is almost always that specific app — not the whole device or the internet.",
         },
       },
       {

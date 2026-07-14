@@ -204,16 +204,6 @@ export const cyberLesson4: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "How this connects to real standards",
-        body: `Today's content aligns with recognized standards in ways that go beyond simple vocabulary:\n\n• **CSTA 3A-NI-06** (Networks and the Internet) asks students to recommend security measures for various scenarios based on factors like feasibility and ethical impact — exactly the "verify, then report" recommendation you practiced across today's examples.\n• **CSTA 3A-IC-30** (Impacts of Computing) asks students to evaluate the social and economic implications of privacy in the context of safety, law, or ethics — directly relevant to phishing and scam awareness, which sits at the intersection of technology, safety, and personal responsibility.\n• **ISTE Digital Citizen (1.2b)** asks students to engage in safe, legal, and ethical behavior when using technology — the report-don't-click habit is a textbook example of safe digital citizenship in action.\n\nThese standards exist because phishing and scams are one of the most common ways real people — students included — actually experience harm online, far more often than sophisticated technical attacks.`,
-        callout: {
-          label: "Why it matters",
-          text: "This is one of the most \"used in real life\" lessons in the whole track — most people encounter a phishing attempt long before they encounter any other topic in this unit.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
@@ -226,6 +216,48 @@ export const cyberLesson4: AILessonConfig = {
         image: "/images/lessons/cs-4-5.png",
         imageAlt: "Student on the phone at a desk with a laptop showing a remote-access prompt and a sticky note saying verify first",
         body: `**The situation:** During a busy school week, a student named Malik gets a phone call from someone claiming to be from the school's IT help desk. The caller says Malik's laptop has been "flagged for a virus" and needs immediate remote access to fix it before it "spreads to the school network." The caller sounds calm, professional, and even knows Malik's name and grade level.\n\nMalik hesitates — he doesn't remember requesting any IT help, but the caller sounds legitimate and mentions urgency ("before it spreads"). The caller asks Malik to install a remote-access tool and read back a code that appears on his screen.\n\n**Apply what you've learned:**\n\n• **Channel:** This is **vishing** — a phone call used to build pressure and trust in real time.\n• **Pretext:** The caller's story ("your laptop is flagged, I need remote access now") is a classic **pretexting** setup — inventing urgency to justify an unusual request.\n• **Red flags:** Malik didn't request help, the request is urgent, and it asks for remote access plus a code — both of which real IT support typically arranges through official, pre-established channels, not a surprise phone call.\n\n**Defender action:** Malik should end the call, and independently contact the school's IT department using a number he already knows is legitimate (from the school website or a staff directory) to check if any ticket or flag actually exists. If it doesn't, he should report the call.`,
+      },
+      {
+        id: "decision-tree",
+        kicker: "Decision checklist",
+        title: "A phishing decision tree in plain language",
+        body: `When a message feels off, walk this tree instead of clicking first:
+
+**Step 1 — Channel check:** Did this arrive by email, text, call, or DM? Note the channel; each has different verify paths.
+**Step 2 — Urgency check:** Does it threaten loss, shame, or a deadline in the next hour? Urgency is a red flag, not a reason to rush.
+**Step 3 — Request check:** Does it ask for passwords, MFA codes, money, remote access, or unusual file opens? Stop — legitimate services rarely ask this way inbound.
+**Step 4 — Identity check:** Even familiar names can be compromised accounts. Verify through a different channel.
+**Step 5 — Action:** Report through official school/club channels; delete or quarantine the message; warn teammates if IT confirms a campaign.
+
+This tree is slow on purpose. Thirty seconds of verification beats weeks of account recovery.`,
+        bullets: [
+          "Urgency + secrecy = pause.",
+          "Codes and passwords never go outbound to inbound callers.",
+          "Verify, then act — not the reverse.",
+        ],
+      },
+      {
+        id: "recovery-walkthrough",
+        kicker: "Scenario walkthrough",
+        title: "After you almost clicked — what to do next",
+        body: `**Scenario:** Aaliyah hovered over a scholarship link, felt something was wrong, and closed the tab without entering credentials. Smart pause — but now what?
+
+**If you did NOT enter credentials:**
+• Screenshot the message headers if your school asks for them.
+• Report to IT or a counselor using the official reporting channel.
+• Warn your study group only after IT confirms it is a known campaign — avoid forwarding the malicious link itself.
+
+**If you DID enter credentials:**
+• Change that password immediately from a trusted device.
+• Enable MFA if available.
+• Check recovery email and phone for unauthorized changes.
+• Tell IT or a trusted adult the same day — shame delays help attackers, not defenders.
+
+Almost clicking is still useful intelligence. Defenders want to know which lures are circulating while they still can block them.`,
+        callout: {
+          label: "Myth check",
+          text: "\"I didn't fall for it, so there's nothing to report\" is false — your near-miss helps defenders protect classmates who might click next.",
+        },
       },
       {
         id: "check-yourself",
@@ -359,7 +391,7 @@ export const cyberLesson4: AILessonConfig = {
     },
     {
       id: "q8",
-      question: "Why do cybersecurity standards connect phishing awareness to both safety/ethics and technical security measures?",
+      question: "Why does phishing awareness involve both safety/ethics and technical security measures?",
       choices: [
         "Because phishing is a purely technical problem with no human element",
         "Because ethics only applies to malware, not phishing",
@@ -368,7 +400,7 @@ export const cyberLesson4: AILessonConfig = {
       ],
       correctIndex: 3,
       explanation:
-        "Phishing succeeds by manipulating people, not by breaking code — which is exactly why standards frame it as both a security and a digital-citizenship topic.",
+        "Phishing succeeds by manipulating people, not by breaking code — which is why it is both a security skill and a digital-citizenship habit.",
     },
   ],
   reflection: {

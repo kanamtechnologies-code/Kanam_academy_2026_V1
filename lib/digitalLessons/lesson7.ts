@@ -222,16 +222,6 @@ export const digitalLesson7: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Where this fits",
-        title: "This is digital citizenship, with a knowledge-building twist",
-        body: `Managing your footprint is a central piece of the **ISTE Digital Citizen** standard: managing your personal data to maintain privacy and security, and being aware of the permanence of your online actions and their effects on others and yourself.\n\nBuilding a positive footprint on purpose — a portfolio of projects, writing, or code you're proud of — is also the **ISTE Knowledge Constructor** standard in action: curating and publishing resources that demonstrate meaningful learning, in a way others can find and evaluate.\n\nAnd understanding *why* screenshots, archives, and algorithms make deletion unreliable connects to **CSTA's "Impacts of Computing"** strand — recognizing how the technical design of the internet (copying, caching, sharing) shapes real consequences for real people, long after a single post.`,
-        callout: {
-          label: "Why it matters",
-          text: "Many employers, scholarship committees, and admissions officers search candidates online before deciding — this isn't a hypothetical, it's standard practice.",
-        },
-      },
-      {
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
@@ -267,6 +257,48 @@ export const digitalLesson7: AILessonConfig = {
           correctIndex: 1,
           explanation:
             "The 'would I be okay with them seeing this?' test catches posts that could hurt your reputation with the people who actually check it.",
+        },
+      },
+      {
+        id: "footprint-audit",
+        kicker: "Checklist",
+        title: "Your 10-minute footprint audit",
+        body: `Do this twice a year — or a few weeks before any application deadline:\n\n1. **Search your name** the way a stranger would (name + school or town).\n2. **Check each public profile** — what's the first thing someone sees?\n3. **Review old posts** — anything you'd cringe to explain in an interview?\n4. **Tighten privacy** on accounts meant for friends only.\n5. **Add one positive piece** — a project link, portfolio page, or thoughtful post about work you care about.\n\nYou're not trying to erase yourself from the internet. You're making sure *you* control the story strangers see first — not a random meme from three years ago.`,
+        callout: {
+          label: "Try this week",
+          text: "Google yourself once this week and screenshot what a stranger would see on page one. That single snapshot tells you whether your footprint needs a tune-up.",
+        },
+        checkIn: {
+          prompt: "You search your name and an old, unflattering public post from two years ago is the first result. What's the smartest move?",
+          choices: [
+            "Delete every account and never go online again",
+            "Ignore it — nobody checks social media",
+            "Delete or restrict the old post, then build newer positive content that represents you now",
+            "Create a fake name and hope for the best",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Old public posts stay visible until you act on them. Cleaning up what you can and adding positive content is how you take control of your reputation.",
+        },
+      },
+      {
+        id: "before-after-footprint",
+        kicker: "Before & after",
+        title: "Two applicants, two footprints",
+        body: `**Applicant A (reactive):** never searched their own name, left old drama posts public, username is \`chaos_king_2019\`, no portfolio — just vibes.\n\n**Applicant B (intentional):** searched their name last month, tightened privacy on personal accounts, username is consistent and professional enough, public portfolio link shows a science-fair project and a volunteer club role.\n\nSame grades, similar activities. Who gets the benefit of the doubt when a scholarship reader Googles them at midnight?\n\nFootprint management isn't about being fake. It's about deciding what strangers see *first* — and making sure your best work isn't buried under your messiest moment.`,
+        callout: {
+          label: "Watch out",
+          text: "\"Private\" accounts aren't always private — screenshots, tags, and friends-of-friends can still spread. Assume anything you post *could* be seen by someone you want to impress.",
+        },
+      },
+      {
+        id: "mini-case-2",
+        kicker: "Mini scenario",
+        title: "Case study: the tagged photo before the interview",
+        body: `Sam has a college alumni interview on Friday. On Wednesday, a friend tags Sam in a party photo from last weekend — public, searchable, and not the vibe Sam wants a reader to see first.\n\n**Before:** Sam ignores it, hopes nobody notices, and spends interview day anxious.\n\n**After:** Sam untags and asks the friend to set the album to friends-only, then spends twenty minutes updating a simple portfolio page with a recent project photo and a short bio. Interview day, Sam searches their own name and the project page is what shows up first.\n\nSmall moves, big difference. The photo didn't have to disappear from Sam's life — it just didn't need to be the *first* thing a stranger found.`,
+        callout: {
+          label: "Pro tip",
+          text: "Untagging and privacy tweaks take minutes. Regret during an interview lasts longer. Handle tags the same week they appear, not the night before.",
         },
       },
       {

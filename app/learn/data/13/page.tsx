@@ -210,17 +210,6 @@ const daLesson13: DataLessonConfig = {
         body: `Make this a reflex every time you see a scatter plot, in class or in the news: identify the x-axis, the y-axis, and the tilt of the cloud — then ask out loud, "is this a clue, or is someone claiming it's a cause?" That one habit will make you a much more careful reader of data.`,
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `Reading relationships between two variables connects data science with statistical reasoning.`,
-        bullets: [
-          "**CSTA 3A-DA-11** — Create interactive data visualizations to reveal relationships between variables.",
-          "**Common Core Math (statistics bridge)** — Interpreting patterns of association in bivariate data.",
-          "**ISTE Computational Thinker** — Distinguishing correlation from causation when analyzing data.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "What relationship would you want to test?",
@@ -247,6 +236,55 @@ const daLesson13: DataLessonConfig = {
           correctIndex: 2,
           explanation: "A scatter plot can reveal a strong tendency for two numbers to move together, but correlation alone is never enough to prove that one causes the other.",
         },
+      },
+      {
+        id: "scatter-walkthrough",
+        kicker: "Query walkthrough",
+        title: "Two numbers per row become one dot each",
+        body: `A scatter plot needs exactly two numeric columns from each row. Here, \`study_minutes\` maps to the x-axis (horizontal) and \`score\` maps to the y-axis (vertical). Every student in \`study_log\` becomes one dot placed by their two values.\n\nRead the result table first: each row is a person with two numbers. That's the raw material the chart will plot — no grouping, no counting, just pairs.`,
+        code: `SELECT study_minutes, score\nFROM study_log\nORDER BY study_minutes;`,
+        codeCaption: "One dot per student, two coordinates each",
+      },
+      {
+        id: "correlation-read-tilt",
+        kicker: "Analyst habits",
+        title: "Read the cloud's tilt, not individual dots",
+        body: `Don't fixate on one student's dot. Step back and look at the **overall cloud**:\n\n• **Tilt up and to the right** → positive relationship (more study tends to go with higher scores).\n• **Tilt down and to the right** → negative relationship.\n• **No clear tilt** → weak or no relationship.\n\nThe pattern across all dots is the finding. Any single dot is just one data point.`,
+        checkIn: {
+          prompt: "Dots trend upward from left to right. What does that suggest?",
+          choices: [
+            "Studying definitely causes higher scores",
+            "Students who studied more tend to score higher, but causation isn't proven",
+            "The chart type is wrong",
+          ],
+          correctIndex: 1,
+          explanation: "An upward tilt shows a positive relationship — the two numbers tend to move together. But correlation alone never proves one causes the other.",
+        },
+      },
+      {
+        id: "causation-trap",
+        kicker: "Common misconception",
+        title: "Ice cream and sunscreen both spike in July",
+        body: `Two things can move together without one causing the other. Ice cream sales and sunscreen sales both rise in summer — not because eating ice cream makes you buy sunscreen, but because **warm weather** drives both.\n\nThe same trap applies here: students who study more may score higher, but maybe confident students both study more *and* test well for other reasons. A scatter plot shows **relationship**; proving **cause** needs a controlled experiment or much deeper evidence.`,
+        bullets: [
+          "Correlation = two numbers tend to move together.",
+          "Causation = changing one actually changes the other.",
+          "Never jump from a scatter plot tilt to a cause-and-effect claim.",
+        ],
+      },
+      {
+        id: "outlier-dot-read",
+        kicker: "Go one level deeper",
+        title: "One dot far from the cloud deserves a question",
+        body: `Sometimes a single dot sits far from the main trend — a student who studied 90 minutes but scored 40, or someone who barely studied but aced the test. Outliers don't break the relationship, but they **complicate** it.\n\nAsk: Is this a data entry error? A student who was sick on test day? A genius who didn't need to study? Outliers are clues for follow-up questions, not reasons to throw away the chart.`,
+      },
+      {
+        id: "top-studier-query",
+        kicker: "Second example",
+        title: "Finding the longest study session",
+        body: `Relationship charts answer "do these move together?" Ranking queries answer "who is the extreme?" — a different but related question.\n\nTo find who studied the most, sort by \`study_minutes DESC\` and keep one row. This combines the scatter plot's x-axis variable with a name column for a concrete answer.`,
+        code: `SELECT student_name, study_minutes, score\nFROM study_log\nORDER BY study_minutes DESC\nLIMIT 1;`,
+        codeCaption: "Who studied the longest?",
       },
       {
         id: "ready",

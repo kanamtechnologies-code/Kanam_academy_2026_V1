@@ -204,17 +204,6 @@ const daLesson5: DataLessonConfig = {
         body: `Before you write ORDER BY, say the ranking rule out loud: "most expensive first" or "alphabetical by name." This tiny habit prevents the classic mistake of sorting ascending when you meant descending, or vice versa.`,
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `Ranking and ordering data is a key data-analysis skill.`,
-        bullets: [
-          "**CSTA 3A-DA-10** — Use data analysis techniques (sorting and ranking) to identify patterns in data.",
-          "**CSTA 2-DA-09** — Refine how data is organized and presented based on the question being asked.",
-          "**ISTE Computational Thinker** — Formulating ordered comparisons to solve real ranking problems.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "What would YOUR leaderboard sort by?",
@@ -240,6 +229,35 @@ const daLesson5: DataLessonConfig = {
           choices: ["SELECT * FROM lunch_orders ORDER BY price LIMIT 1;", "SELECT * FROM lunch_orders ORDER BY price DESC LIMIT 1;", "SELECT * FROM lunch_orders LIMIT 1;"],
           correctIndex: 0,
           explanation: "Sorting ascending (the default, no DESC) puts the cheapest first, and LIMIT 1 keeps just that single row.",
+        },
+      },
+      {
+        id: "top-n-walkthrough",
+        kicker: "Query walkthrough",
+        title: "Building a Top 3 leaderboard step by step",
+        body: `A leaderboard needs three ingredients: sort by the stat that matters (\`ORDER BY price DESC\`), pick only the columns you want to display, and cap the list (\`LIMIT 3\`).\n\nRead the result like a real ranking: Sam's Chicken wrap leads at $5.25, Taylor's Burger is second at $4.75, Jordan and Jamie tie for salad at $4.00. When two rows share the same value, SQL keeps both — your "Top 3" might actually show four rows if there's a tie at the cutoff.`,
+        code: `SELECT student_name, item, price\nFROM lunch_orders\nORDER BY price DESC\nLIMIT 3;`,
+        codeCaption: "Top 3 most expensive orders",
+        table: {
+          columns: ["student_name", "item", "price"],
+          values: [
+            ["Sam", "Chicken wrap", 5.25],
+            ["Taylor", "Burger", 4.75],
+            ["Jordan", "Salad", 4.0],
+          ],
+          rowCount: 3,
+        },
+      },
+      {
+        id: "read-ranked-results",
+        kicker: "Analyst habits",
+        title: "After sorting, scan the first and last row",
+        body: `Whenever you \`ORDER BY\`, make a two-second habit of checking the **top row** (did the expected winner land first?) and, if you didn't use \`LIMIT\`, the **bottom row** (does the last entry make sense?).\n\nIf Sam's wrap should be most expensive but Alex's pizza slice appears first, your sort direction is probably wrong — you may have forgotten \`DESC\`. Catching that before you share a "Top Spender" list saves real embarrassment.`,
+        checkIn: {
+          prompt: "You wanted the MOST expensive order first but got the cheapest. What's the most likely fix?",
+          choices: ["Add LIMIT 1", "Change ORDER BY price to ORDER BY price DESC", "Remove the FROM clause"],
+          correctIndex: 1,
+          explanation: "Without DESC, ORDER BY sorts ascending (lowest first). Adding DESC flips it so the highest price leads.",
         },
       },
       {

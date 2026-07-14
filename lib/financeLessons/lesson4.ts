@@ -216,12 +216,6 @@ export const financeLesson4: AILessonConfig = {
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Bigger picture",
-        title: "Why schools teach this",
-        body: `National personal finance standards group this under "Saving" — using insured accounts, understanding debit versus credit, and recognizing fees. It's on the standards list because a bank account is one of the very first adult financial tools most people ever use, and small early habits (or fee mistakes) here tend to stick for years.`,
-      },
-      {
         id: "reflect",
         kicker: "Pause",
         title: "Before you move on — think",
@@ -241,6 +235,69 @@ export const financeLesson4: AILessonConfig = {
         callout: {
           label: "Why it matters",
           text: "Real account decisions rarely have one obviously correct answer — they have a clear comparison process, which is exactly what this lesson built.",
+        },
+      },
+      {
+        id: "ask-before-sign",
+        kicker: "Before you sign",
+        title: "Opening an account: questions to ask (with a trusted adult)",
+        body: `Banks and credit unions compete for teen accounts — marketing can sound identical. Use this checklist with a trusted adult before opening anything.
+
+**Ask before you sign:**
+
+• **Monthly fees** — Is there a maintenance fee? What balance or activity waives it?
+• **Overdraft** — Is overdraft "protection" optional? What does each overdraft event cost?
+• **ATM access** — Which ATMs are free? What's the fee for out-of-network withdrawals?
+• **Debit card rules** — Daily limits? Foreign transaction fees if you travel?
+• **Savings rules** — Transfer limits, minimum balance, interest rate (even if small).
+• **Mobile alerts** — Can you get low-balance texts before a purchase declines?
+• **Insurance** — Is the institution **FDIC** (bank) or **NCUA** (credit union) insured?
+
+No brand endorsements here — the skill is comparing real costs, not picking the coolest card design.`,
+        callout: {
+          label: "Watch out",
+          text: "\"Free student checking\" sometimes means free only if you meet direct-deposit or balance rules. Read the fee schedule, not just the brochure headline.",
+        },
+      },
+      {
+        id: "second-scenario",
+        kicker: "Do the math",
+        title: "Two accounts, one year of fees — worked comparison",
+        body: `**Account A (fee-light):** $0 monthly fee with $300 average balance, 2 free out-of-network ATM uses/month, $0 overdraft if you opt out.
+
+**Account B (fee-heavy):** $12/month maintenance unless $1,500 minimum daily balance, $3 per out-of-network ATM, $35 overdraft per covered transaction.
+
+**Scenario:** You keep about $400 average, use out-of-network ATMs 4 times/month (campus + home), and overdraft once in a messy month.
+
+**Account A year-one estimate:**
+• Maintenance: $0
+• Extra ATM (2 over free): maybe $5–$10 total if $2.50 each
+• Overdraft: $0 (opted out — card declines instead)
+• **Rough total: under $15**
+
+**Account B year-one estimate:**
+• Maintenance: $0 (you stay above minimum some months) OR $144 if you dip below often
+• ATM: 4 × $3 × 12 = **$144**
+• One overdraft: **$35**
+• **Rough total: $179–$323**
+
+Same student, same habits — fee structure alone can cost a concert ticket or two months of phone bill money.`,
+        bullets: [
+          "**ATM habits** matter as much as monthly fees.",
+          "Opting **out** of overdraft coverage can save $35 surprises.",
+          'A "free" account with expensive ATMs isn\'t free for your life.',
+        ],
+        checkIn: {
+          prompt: "You average $400 in checking and use out-of-network ATMs weekly. Which factor will likely cost you more over a year?",
+          choices: [
+            "A $0 monthly fee account with $3 out-of-network ATM charges",
+            "A $12/month fee you always avoid by keeping $1,500 daily",
+            "FDIC insurance premiums paid by the customer",
+            "A debit card with a cool design but no fee schedule listed",
+          ],
+          correctIndex: 0,
+          explanation:
+            "Weekly out-of-network ATM use adds up fast ($3 × ~52 ≈ $156). FDIC insurance doesn't charge customers. A fee you always avoid isn't your real cost.",
         },
       },
       {

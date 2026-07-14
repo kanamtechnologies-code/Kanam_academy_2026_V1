@@ -135,6 +135,16 @@ in under 80 words total (format + constraint)."`,
         codeCaption: "Same topic — very different results",
       },
       {
+        id: "second-example",
+        kicker: "Second example",
+        title: "Same history question, two prompts",
+        body: `**Vague prompt:** "Tell me about the Civil War."\n→ You get a generic, way-too-long summary with no connection to your actual assignment.\n\n**Strong prompt:**\n• **Role:** AP History study partner\n• **Task:** Explain three causes of the Civil War\n• **Context:** I'm preparing for a 10-minute class discussion; I already know it happened 1861–1865\n• **Format:** Three bullet points, one sentence each, plain language\n• **Constraint:** No dates unless essential; flag anything disputed by historians\n\n→ You get focused, usable notes you can actually rehearse from.\n\nSame AI. Different instruction quality. The second prompt respects the model's limits and your actual goal.`,
+        callout: {
+          label: "Notice this",
+          text: "Prompting isn't tricking the AI — it's communicating clearly so the pattern-matcher has useful signals to work with.",
+        },
+      },
+      {
         id: "misconception",
         kicker: "Myth check",
         title: "There's no secret magic word",
@@ -154,6 +164,22 @@ in under 80 words total (format + constraint)."`,
           correctIndex: 1,
           explanation:
             "A rambling prompt can bury the details that matter. The goal is clarity and useful specifics, not sheer length.",
+        },
+      },
+      {
+        id: "red-flags",
+        kicker: "Red flags",
+        title: "Prompting habits that cause trouble",
+        body: `Avoid these common prompting mistakes — they lead to weak answers or ethical headaches:`,
+        bullets: [
+          "**Pasting someone else's private messages or essays** without permission — you're sharing their data, not just asking a question.",
+          "**Asking the AI to impersonate a real teacher, doctor, or friend** — deceptive role-play can mislead others.",
+          "**One vague sentence for a complex task** — then blaming the AI when the answer misses the point.",
+          "**Skipping constraints on tone and audience** — then getting output that's too advanced, too casual, or wrong for the situation.",
+        ],
+        callout: {
+          label: "Better move",
+          text: "Clear task + honest context + respect for privacy beats any \"secret phrase\" every time.",
         },
       },
       {
@@ -231,10 +257,14 @@ in under 80 words total (format + constraint)."`,
         },
       },
       {
-        id: "standards-connect",
-        kicker: "Why this counts",
-        title: "This is real computer science, not just a chatbot trick",
-        body: `Prompting connects directly to skills computer science education cares about:\n\n• **ISTE 1.5 — Computational Thinker:** breaking a fuzzy goal (a good essay, a workout plan) into precise, ordered instructions is exactly the decomposition and algorithmic thinking this standard describes — you're just giving the "algorithm" to an AI instead of a computer program.\n• **ISTE 1.3 — Knowledge Constructor:** deciding what context and constraints to provide means actively curating and evaluating information, not passively accepting whatever comes back first.\n• **CSTA Impacts of Computing:** understanding how the words you choose change a computing system's output is a small but real example of how design choices shape technology's impact on people.\n\nYou're not just "getting better at chatbots" — you're practicing computational thinking that transfers to coding, data, and any tool that takes instructions.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Build one reusable prompt template",
+        body: `Save a personal template you can adapt for school projects:\n\n\`Role: [who the AI should act as]\nTask: [exactly what you need]\nContext: [what you already know + the real situation]\nFormat: [bullets / table / paragraph / step-by-step]\nConstraints: [length, tone, what to avoid]\`\n\nNext time you're stuck on homework, fill in the brackets instead of typing one vague line. You'll get better answers faster — and you'll stay in control of what the AI is actually doing for you.`,
+        callout: {
+          label: "Transfer this",
+          text: "Good prompting is a communication skill, not a cheat code. The template works in any AI tool that accepts text instructions.",
+        },
       },
       {
         id: "reflection-prompt",
@@ -394,7 +424,7 @@ in under 80 words total (format + constraint)."`,
     },
     {
       id: "q8",
-      question: "How does writing good prompts connect to computational thinking (ISTE 1.5)?",
+      question: "How does writing good prompts connect to computational thinking?",
       choices: [
         "It doesn't — prompting isn't related to computer science",
         "Only writing actual code counts as computational thinking",

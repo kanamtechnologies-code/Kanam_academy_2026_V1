@@ -168,7 +168,7 @@ export const aiLesson2: AILessonConfig = {
         imageAlt: "A diverse group of workers labeling and reviewing data behind the scenes of an AI system",
         callout: {
           label: "Why this matters",
-          text: "This work is often outsourced, underpaid, and emotionally difficult — especially content moderation. Knowing this humanizes the tech and connects directly to CSTA's focus on the social and economic impacts of computing.",
+          text: "This work is often outsourced, underpaid, and emotionally difficult — especially content moderation. Knowing this humanizes the tech and reminds you that computing has real social and economic impacts on people.",
         },
       },
       {
@@ -204,8 +204,8 @@ export const aiLesson2: AILessonConfig = {
         title: "The real cost of 'free': a documented case",
         body: `In 2023, workers who had been hired to review disturbing content for a major social media company in Nairobi, Kenya sued over the psychological toll of the job — spending entire shifts reviewing graphic, violent material flagged by AI systems so it never reached ordinary users' feeds.\n\nThis case matters here because it shows the two ideas from this lesson connecting directly: the AI that keeps your feed feeling "clean" often relies on human moderators working in difficult conditions, frequently in countries with weaker labor protections and lower pay than where the company is based.\n\nThis isn't a reason to feel guilty about using apps — it's a reason to be a more informed user. Understanding the full pipeline (data → labor → AI → your feed) is part of genuine AI literacy, not just knowing how the algorithm works.`,
         callout: {
-          label: "CSTA 2-IC-20 connection",
-          text: "Evaluating how computing impacts economic and social practices — including the labor of the people who build and maintain it — is core to this standard.",
+          label: "Why this matters",
+          text: "Evaluating how computing impacts economic and social practices — including the labor of the people who build and maintain it — is core to this lesson.",
         },
       },
       {
@@ -220,10 +220,14 @@ export const aiLesson2: AILessonConfig = {
         ],
       },
       {
-        id: "standards-connect",
-        kicker: "Why school cares about this",
-        title: "This connects straight to real standards",
-        body: `You just practiced **CSTA 2-DA-08** — collecting and thinking about data (in this case, your own app data) to make it more useful and reliable to *you*, the decision-maker. You also practiced **CSTA 2-IC-20**, evaluating how computing affects personal and economic life, when you looked at the "free app" business model and the labor behind it.\n\nHonestly, this is one of those school standards that isn't just theoretical — it's the exact skill that keeps you from getting endlessly played by an app that's optimized against your best interests. Knowing the deal is power.`,
+        id: "transfer-to-life",
+        kicker: "Use it for real",
+        title: "Audit the deal before you scroll",
+        body: `Before opening a "free" app tonight, ask three quick questions you learned here:\n\n• **What data am I trading for convenience?** (Location? Contacts? Watch history?)\n• **What is the AI optimizing for?** (Watch time? Clicks? Purchases?)\n• **Who does the invisible work behind this?** (Labelers? Moderators?)\n\nYou don't have to delete the app — but naming the trade puts you back in charge of when and how you use it.`,
+        callout: {
+          label: "Transfer this",
+          text: "Every recommendation, autocomplete, and filter you see this week is a prediction built on data and human labor. Spotting that pattern is the skill.",
+        },
       },
       {
         id: "reflection-prompt",

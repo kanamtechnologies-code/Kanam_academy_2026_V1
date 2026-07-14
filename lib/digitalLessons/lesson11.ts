@@ -285,6 +285,48 @@ export const digitalLesson11: AILessonConfig = {
         },
       },
       {
+        id: "phishing-scenario-2",
+        kicker: "Mini scenario",
+        title: "Second case: the 'verify your account' email",
+        body: `Alex gets an email: "Your college portal account will be locked in 2 hours. Click here to verify." The link goes to \`college-portal-security.xyz\` — not the real school domain. The logo looks perfect.\n\n**Before:** Alex clicks, types their password, and hands it to a scammer.\n\n**After:** Alex doesn't click. Opens a new tab, types the real portal URL manually, logs in normally (no lock warning), and reports the phishing email to IT.\n\nSame inbox, different habit. Phishing wins when urgency tricks you into clicking. Security wins when you **go to the source yourself** instead of trusting the link in the message.`,
+        callout: {
+          label: "Try this week",
+          text: "Practice the 'open a fresh tab and type the URL yourself' move once this week — even on a legitimate email — so it's muscle memory when a fake one arrives.",
+        },
+        checkIn: {
+          prompt: "The email threatens account lockout in two hours and the link domain doesn't match the real school site. What's the safest move?",
+          choices: [
+            "Click fast before the account locks",
+            "Reply with your password to prove it's you",
+            "Ignore the link, open the real site manually, and report the suspicious email",
+            "Forward it to friends so they're warned",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Urgency plus a mismatched domain is a classic phishing pattern. Open the real site yourself and report the email — never type credentials into a link from the message.",
+        },
+      },
+      {
+        id: "password-before-after",
+        kicker: "Before & after",
+        title: "Account security: weak setup vs. strong setup",
+        body: `**Before:** one password used everywhere, no 2FA, security questions answered with public info ("What's your pet's name?" — visible on Instagram), passwords saved in a group chat "just in case."\n\n**After:** unique passwords via a **password manager**, **2FA** on email and school accounts, security questions answered with random phrases only you know, recovery codes saved offline.\n\nThe "after" setup takes about thirty minutes once. The "before" setup costs you months if one site gets breached and attackers try that same password everywhere else — including your email, college portal, and bank app.\n\nStrong security isn't about paranoia. It's about making one breach stay *one breach*.`,
+        callout: {
+          label: "Try this week",
+          text: "Turn on 2FA for your email this week — it's the account everything else resets through. If you protect one account, make it that one.",
+        },
+      },
+      {
+        id: "scam-red-flags",
+        kicker: "Red flags",
+        title: "Messages that should trigger your scam alarm",
+        body: `Scammers reuse the same psychological tricks. When you see these, slow down:\n\n• **Extreme urgency** — "act in the next hour or lose everything."\n• **Unusual payment methods** — gift cards, crypto, wire transfers, Zelle to a stranger.\n• **Too good to be true** — free laptops, instant scholarships, "you've already won."\n• **Spelling/domain mismatches** — official logos on unofficial URLs.\n• **Requests for passwords or 2FA codes** — real companies never ask for these by message.\n• **Pressure to keep it secret** — "don't tell your parents/teacher/bank."\n\nNone of these prove a scam alone — but two or more together? Treat it as guilty until verified through an official channel you opened yourself.`,
+        callout: {
+          label: "Watch out",
+          text: "DMs and texts feel personal, so they bypass your skepticism. Scammers know that. Apply the same red-flag checklist to texts that you do to sketchy emails.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",

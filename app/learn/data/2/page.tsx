@@ -201,17 +201,6 @@ const daLesson2: DataLessonConfig = {
         ],
       },
       {
-        id: "standards",
-        kicker: "Standards connect",
-        title: "Why this lesson counts",
-        body: `Choosing the right subset of data is a core data-literacy skill.`,
-        bullets: [
-          "**CSTA 2-DA-08** — Transform data into a more useful and reliable form by selecting exactly what's relevant.",
-          "**CSTA 2-DA-07** — Represent data through a chosen, organized structure (a focused result set).",
-          "**ISTE Computational Thinker** — Breaking a big table down into the exact pieces needed to solve a problem.",
-        ],
-      },
-      {
         id: "reflection",
         kicker: "Reflection",
         title: "Think about a screen you use every day",
@@ -242,6 +231,25 @@ const daLesson2: DataLessonConfig = {
           correctIndex: 0,
           explanation: "Listing exactly two columns controls the width, and LIMIT 3 controls the height — together they shape a small, focused result.",
         },
+      },
+      {
+        id: "output-walkthrough",
+        kicker: "Query walkthrough",
+        title: "Watch row count and column count change together",
+        body: `This query asks for **two columns** and **at most four rows**. After it runs, check both dimensions of the result table.\n\n**Width:** only \`student_name\` and \`price\` appear — not \`order_id\` or \`item\`.\n\n**Height:** exactly four rows come back, even though the full table has eight.\n\nChanging \`LIMIT\` affects height only. Changing the \`SELECT\` list affects width only. Keeping those two checks separate is how analysts catch mistakes fast.`,
+        code: `SELECT student_name, price\nFROM lunch_orders\nLIMIT 4;`,
+        codeCaption: "Two columns, four rows — check both",
+        table: {
+          columns: ["student_name", "price"],
+          values: [
+            ["Alex", 3.5],
+            ["Jordan", 4.0],
+            ["Sam", 5.25],
+            ["Riley", 2.75],
+          ],
+          rowCount: 4,
+        },
+        output: "2 columns returned · 4 rows returned",
       },
       {
         id: "ready",
