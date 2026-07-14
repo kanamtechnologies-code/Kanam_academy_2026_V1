@@ -8,7 +8,8 @@ Both tracks are structured as **8-week programs** (two sessions per week) design
 
 - [Python & AI Foundations Track](python-track.md) — **8 weeks**, 13 interactive lessons (fundamentals focus)
 - [Data Analyst Track](data-analyst-track.md) — **8 weeks**, 14 interactive lessons (data-visualization focus)
-- [Master Standards Alignment Matrix](standards-alignment.md) — accreditation crosswalk
+- [Master Standards Alignment Matrix](standards-alignment.md) — accreditation crosswalk (CSTA / ISTE / CCSS)
+- [Literacy tracks standards crosswalk](literacy-standards-crosswalk.md) — Jump$tart/CEE finance + AI/Cyber/Digital literacy
 
 ---
 
@@ -35,6 +36,7 @@ standards below; the full crosswalk is in [standards-alignment.md](standards-ali
 | **CSTA PK-12 Standards** | **Draft 3.0** (launch summer 2026) | Forward-compatibility mapping (MS/HS bands) so the curriculum stays current through the next revision. |
 | **Common Core State Standards — Mathematics** | Statistics & Probability (6.SP, 7.SP, 8.SP) and High School (S-ID) | Cross-curricular alignment for the data-visualization strand. |
 | **ISTE Standards for Students** | 2016 | Knowledge Constructor, Computational Thinker, Creative Communicator. |
+| **National Standards for Personal Financial Education** | Jump$tart / CEE **2021** | Primary alignment for Financial Literacy (`fl-1`…`fl-16`). See [literacy-standards-crosswalk.md](literacy-standards-crosswalk.md). |
 
 > **Why two CSTA editions?** The 2017 standards are the ones currently referenced by state
 > adoptions and accreditation bodies. CSTA's next revision (Draft 3.0) publishes in summer 2026 and

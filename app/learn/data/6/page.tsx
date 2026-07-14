@@ -20,7 +20,7 @@ const daLesson6: DataLessonConfig = {
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -35,7 +35,31 @@ const daLesson6: DataLessonConfig = {
         },
       },
       {
-        id: "aggregate",
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "The headline hiding behind a million rows",
+        body: `A news app doesn't show you a million individual purchase records to say a company had a good quarter — it shows you one headline: "$2.3M in sales this month." That single number is the result of an aggregate query squeezing an enormous table down to one meaningful summary.\n\nEvery "average rating," "total downloads," or "points per game" you've ever read started life as thousands of individual rows before someone ran COUNT, SUM, or AVG on them.`,
+        callout: {
+          label: "Spot it",
+          text: "Next time you see a big summary number in the news or an app, think about the pile of raw rows it must have been squeezed down from.",
+        },
+      },
+      {
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**Aggregate function** — a function that combines many rows into one summary number (COUNT, SUM, AVG).",
+          "**COUNT(*)** — counts how many rows match.",
+          "**SUM** — adds up every value in a number column.",
+          "**AVG** — calculates the average (mean) of a number column.",
+          "**GROUP BY** — splits rows into groups, then runs the aggregate separately on each group.",
+          "**Alias (AS)** — a friendly name given to a result column.",
+        ],
+      },
+      {
+        id: "concept-1",
         kicker: "The summary functions",
         title: "COUNT, SUM, and AVG",
         body: `These are called **aggregate functions** — "aggregate" just means "combine many things into one." Each one takes a whole column and squeezes it down to a **single** number for the entire table.\n\nThe three workhorses:\n\n• \`COUNT(*)\` — *how many* rows there are.\n• \`SUM(price)\` — *add up* every value in a number column.\n• \`AVG(price)\` — the *average* (mean) of a number column.\n\nThink of a teacher with a stack of quizzes: \`COUNT\` is "how many students turned one in," \`SUM\` is "all the points added together," and \`AVG\` is "the class average." The \`AS\` keyword renames each result so the answer reads nicely.`,
@@ -46,13 +70,27 @@ const daLesson6: DataLessonConfig = {
           values: [[8, 30.75, 3.84]],
           rowCount: 1,
         },
-        callout: {
-          label: "Common misconception",
-          text: "`COUNT` and `SUM` are not the same! `COUNT(*)` tells you **how many rows** (8 orders), while `SUM(price)` **adds up the values** inside a column ($30.75). One counts records, the other totals dollars.",
+        checkIn: {
+          prompt: "What does COUNT(*) tell you about a table?",
+          choices: ["The total price of everything", "How many rows there are", "The average value in a column"],
+          correctIndex: 1,
+          explanation: "COUNT(*) simply counts rows — it doesn't look at any particular column's values, unlike SUM or AVG.",
         },
       },
       {
-        id: "groupby",
+        id: "concept-2",
+        kicker: "COUNT vs SUM",
+        title: "Counting records vs. totaling values",
+        body: `\`COUNT\` and \`SUM\` are not the same, even though they can produce similarly-sized numbers. \`COUNT(*)\` tells you **how many rows** (8 orders), while \`SUM(price)\` **adds up the values** inside a column ($30.75). One counts records, the other totals dollars.`,
+        checkIn: {
+          prompt: "A table has 8 orders totaling $30.75. What would SUM(price) return?",
+          choices: ["8", "30.75", "3.84"],
+          correctIndex: 1,
+          explanation: "SUM adds up every value in the price column — the total dollar amount, not the number of rows.",
+        },
+      },
+      {
+        id: "concept-3",
         kicker: "Break it down",
         title: "GROUP BY summarizes per category",
         body: `A single grand total is useful, but the real power comes from breaking it down **per category**. \`GROUP BY\` splits the rows into groups that share a value, then runs your aggregate on **each group** separately.\n\nImagine sorting a pile of orders into labeled bins — one bin per menu item — then counting how many are in each bin. \`GROUP BY item\` with \`COUNT(*)\` does exactly that, telling you how popular each item is.\n\nThe result has a **label column** (the category) and a **number column** (the summary) — the perfect shape for a bar chart later. Below is a preview; the full result has one row per unique item.`,
@@ -73,9 +111,15 @@ const daLesson6: DataLessonConfig = {
           "`AS` renames the result column so it's readable.",
           "`GROUP BY x` → one summary row per value of `x`.",
         ],
-        callout: {
-          label: "Common misconception",
-          text: "When you mix a normal column with an aggregate — like `SELECT item, COUNT(*)` — that normal column has to appear in `GROUP BY`. Forgetting `GROUP BY item` is the #1 beginner mistake here, and SQL will complain or give a confusing answer.",
+        checkIn: {
+          prompt: "SELECT item, COUNT(*) FROM lunch_orders GROUP BY item; — what does each result row represent?",
+          choices: [
+            "One single lunch order",
+            "One unique item, with the count of orders for it",
+            "The whole table at once",
+          ],
+          correctIndex: 1,
+          explanation: "GROUP BY item bundles all orders of the same item into one row, and COUNT(*) reports how many orders landed in each bundle.",
         },
       },
       {
@@ -100,6 +144,110 @@ const daLesson6: DataLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "You can `ORDER BY` the renamed aggregate column (`order_count`) just like any other column. Combining `GROUP BY` with `ORDER BY ... DESC` is the standard recipe for \"most popular,\" \"top sellers,\" and \"busiest day.\"",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "Forgetting GROUP BY is the #1 mistake",
+        body: `When you mix a normal column with an aggregate — like \`SELECT item, COUNT(*)\` — that normal column has to appear in \`GROUP BY\`. Forgetting \`GROUP BY item\` is the #1 beginner mistake here, and SQL will complain or give a confusing answer.`,
+        checkIn: {
+          prompt: "SELECT item, COUNT(*) FROM lunch_orders; (with NO GROUP BY) — what's the problem?",
+          choices: [
+            "Nothing, it works exactly like GROUP BY item",
+            "SQL doesn't know how to pair one item label with a count of ALL rows — it needs GROUP BY to define the groups",
+            "COUNT(*) can only be used with WHERE",
+          ],
+          correctIndex: 1,
+          explanation: "Mixing a plain column with an aggregate requires GROUP BY to define what each summary row represents — without it, the query is ambiguous or errors out.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Predict the average",
+        body: `Before the exercises, predict: is the average lunch price closer to $3, $4, or $5? Look at the sample prices you've seen in past lessons (2.75, 3.00, 3.50, 4.00, 4.75, 5.25...) and make a rough guess.\n\nOnce you're in the workspace, try \`SELECT AVG(price) FROM lunch_orders;\` and see how close your estimate was.`,
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Go one level deeper",
+        title: "MIN and MAX round out your toolkit",
+        body: `Beyond COUNT, SUM, and AVG, SQL also has \`MIN\` (the smallest value) and \`MAX\` (the largest value) in a column. \`SELECT MIN(price), MAX(price) FROM lunch_orders;\` instantly tells you the cheapest and priciest orders — no ORDER BY or LIMIT needed.`,
+        bullets: [
+          "`MIN(price)` — the lowest value in the price column.",
+          "`MAX(price)` — the highest value in the price column.",
+          "Together, MIN and MAX describe the full **range** of your data.",
+        ],
+      },
+      {
+        id: "comparison",
+        kicker: "Compare & contrast",
+        title: "Aggregate without GROUP BY vs. with GROUP BY",
+        body: `The same aggregate function behaves very differently depending on whether GROUP BY is present.`,
+        bullets: [
+          "**No GROUP BY** — the aggregate runs once, over the WHOLE table, producing a single summary row.",
+          "**With GROUP BY** — the aggregate runs once PER GROUP, producing one summary row per unique value.",
+        ],
+        checkIn: {
+          prompt: "SELECT COUNT(*) FROM lunch_orders; (no GROUP BY) — how many rows does this return?",
+          choices: ["1 row — a single grand total", "8 rows — one per order", "6 rows — one per item"],
+          correctIndex: 0,
+          explanation: "Without GROUP BY, the aggregate summarizes the entire table into exactly one row.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "Averages can hide outliers",
+        body: `Averages can hide outliers. One very expensive order can pull the average up — always look at counts and totals too, not just the average alone.\n\nA class with an average grade of 80% could mean everyone scored close to 80, or it could mean half the class scored 100 and half scored 60. The average alone doesn't tell you which.`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "Always report more than one summary number",
+        body: `Whenever you share an average, try to also share the count and the total (or the range with MIN/MAX). "Average price $3.84, based on 8 orders ranging from $2.75 to $5.25" tells a far more honest story than "average price $3.84" alone.`,
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Summarizing data with aggregates connects directly to math and data-science standards.`,
+        bullets: [
+          "**CSTA 3A-DA-10** — Use data analysis tools and techniques (aggregation) to identify patterns in data.",
+          "**CSTA 2-DA-09** — Refine computational models (summaries) based on the data generated.",
+          "**Common Core Math (statistics bridge)** — Summarizing and describing a data set with measures like count, sum, and mean.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "What's a number you already trust blindly?",
+        body: `Think of a summary statistic you see regularly — your GPA, a batting average, a follower count. Do you know how many individual records go into calculating it? Could an outlier be skewing it without your knowledge?`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The bake sale's profit report",
+        body: `A bake sale table \`sales\` has columns \`item_name\` and \`amount\`. The organizer wants to know: total money raised, the number of items sold, and which item sold most often.\n\nWhich three queries (or one combined query) would answer all three parts of that request?`,
+        callout: {
+          label: "Apply it",
+          text: "SELECT SUM(amount) AS total_raised, COUNT(*) AS items_sold FROM sales; for the totals, then SELECT item_name, COUNT(*) AS sold FROM sales GROUP BY item_name ORDER BY sold DESC LIMIT 1; for the top seller.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's confirm COUNT, SUM, and GROUP BY are all locked in.`,
+        checkIn: {
+          prompt: "Which query gives the total number of orders PER ITEM, most popular first?",
+          choices: [
+            "SELECT item, COUNT(*) FROM lunch_orders;",
+            "SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item ORDER BY order_count DESC;",
+            "SELECT SUM(price) FROM lunch_orders GROUP BY item;",
+          ],
+          correctIndex: 1,
+          explanation: "This groups orders by item, counts each group, names the count, and sorts so the most popular item leads — exactly the recipe for a popularity ranking.",
         },
       },
       {

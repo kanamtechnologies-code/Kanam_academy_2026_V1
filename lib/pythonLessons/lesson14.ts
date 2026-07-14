@@ -283,6 +283,38 @@ export const lesson14: PythonLessonConfig = {
           label: "Hour plan",
           text: "5–10 min design → ~30 min Build + Run → ~15 min Adventure playtest → ~10 min polish + friend demo.",
         },
+        checkIn: {
+          prompt: "Why fill out the design sheet before writing any code?",
+          choices: [
+            "It's required by Python and the program won't run otherwise",
+            "A clear character, quest, and keywords make the code you write next much easier to plan and debug",
+            "It has no real effect on the code",
+          ],
+          correctIndex: 1,
+          explanation: "Fuzzy stories make messy code. Deciding your character, quest, and keywords up front means every if/elif branch has a clear job before you type it.",
+        },
+      },
+      {
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "Game NPCs are rule-based bots, just like yours",
+        body: `Every time a video game character says the same three lines no matter what you type, or a store's website chatbot answers "track my order" but gets confused by anything else, you're looking at a rule-based bot — exactly the kind you're building today. Keyword in, matching rule found, reply and memory update out.\n\nBig AI chat assistants are far more advanced, but the core loop — take input, match it against known patterns, respond, remember what happened — traces straight back to the simple \`if/elif/else\` structure you already know.`,
+        callout: {
+          label: "Why it matters",
+          text: "You're not just doing a school exercise — you're building a miniature version of the same pattern that powers real customer-service bots and game characters.",
+        },
+      },
+      {
+        id: "glossary",
+        kicker: "Vocabulary",
+        title: "Words you'll use today",
+        body: `A quick refresher on the vocabulary this capstone combines.`,
+        bullets: [
+          "**Rule-based AI** — a program that maps specific inputs to specific outputs using hand-written rules (if/elif/else), not machine learning.",
+          "**Character memory** — a dictionary describing who your bot is (name, role, world facts).",
+          "**Event log** — a list that grows every time something happens, recording the story so far.",
+          "**Fallback (else)** — the catch-all reply for anything that doesn't match a known keyword.",
+        ],
       },
       {
         id: "skills",
@@ -298,6 +330,16 @@ export const lesson14: PythonLessonConfig = {
         callout: {
           label: "Common stuck points",
           text: "Forgot elif (need if AND elif AND else). Append outside the branch (indent under if). Empty test_messages list. Dictionary missing quotes around keys. Used PRINT instead of print.",
+        },
+        checkIn: {
+          prompt: "What TWO things should happen inside every if/elif/else branch of respond()?",
+          choices: [
+            "Only a print() reply",
+            "Only a quest_log.append(...)",
+            "Both a print() reply AND a quest_log.append(...)",
+          ],
+          correctIndex: 2,
+          explanation: "Each branch needs to speak to the player (print) AND record that the rule fired (append) — skipping either one breaks the checklist.",
         },
       },
       {
@@ -363,6 +405,98 @@ Ask for help if you are stuck.
         callout: {
           label: "If Adventure says \"build first\"",
           text: "Your respond() function still needs if/elif/else. Go back to Build, finish the brain, Run & check, then return.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "Your bot doesn't \"understand\" anything",
+        body: `It's easy to feel like your bot is actually understanding what players type, especially once it replies smoothly. It isn't. It's checking whether a specific substring (like \`"quest"\`) appears in the lowercased text, then running a pre-written reply. There's no comprehension — just pattern matching you designed by hand.\n\nThis matters for AI safety: knowing exactly *how* a system works (rules you wrote) versus assuming it "understands" is the difference between using AI responsibly and being fooled by it.`,
+        checkIn: {
+          prompt: 'Your bot replies well to "quest" but gets confused by "what\'s my mission?" What\'s actually happening?',
+          choices: [
+            "The bot understood the meaning but chose not to respond correctly",
+            "The exact keyword \"quest\" isn't in that sentence, so no if/elif branch matched, and else caught it",
+            "Python is broken",
+          ],
+          correctIndex: 1,
+          explanation: "Rule-based bots only match the literal keywords you coded. \"What's my mission?\" doesn't contain \"quest\", so it falls through to else — the bot isn't reasoning, it's pattern-matching.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it — predict",
+        title: "Predict the log before you test it",
+        body: `Suppose your \`test_messages\` list is \`["hello", "banana", "quest"]\` and your rules append \`"greeted"\`, \`"confused"\`, and \`"quest given"\` respectively. Before running it, predict exactly what \`quest_log\` will contain at the end — in order.`,
+        checkIn: {
+          prompt: 'With test_messages = ["hello", "banana", "quest"], what will quest_log look like at the end?',
+          choices: [
+            '["confused", "greeted", "quest given"]',
+            '["greeted", "confused", "quest given"]',
+            '["quest given", "confused", "greeted"]',
+          ],
+          correctIndex: 1,
+          explanation: "append() adds to the list in the exact order respond() is called, which matches the order of test_messages: greeted, confused, quest given.",
+        },
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Level up",
+        title: "One brain, two front doors",
+        body: `Notice that \`respond(player_input)\` doesn't know or care whether it's being called from the Build \`for\` loop or from a real person typing in Adventure mode. Both are just calls to the same function with a string argument. This is a powerful idea: once you write a function correctly, it works no matter *where* the input comes from — a fixed test list, a live player, or eventually a webpage form.`,
+      },
+      {
+        id: "comparison",
+        kicker: "Two ways to do it",
+        title: "Fixed tests vs. live play",
+        body: `Build mode replays the same \`test_messages\` every single Run — perfectly repeatable, which makes debugging fast because you always know exactly what should happen. Adventure mode is the opposite: unpredictable human input, which is exactly what reveals gaps your fixed tests never would (like a player typing nothing at all, or something totally unexpected). Real products need both: repeatable tests to catch bugs, and real users to catch what tests miss.`,
+        checkIn: {
+          prompt: "Why do real products need both a fixed test list AND live human testing?",
+          choices: [
+            "Fixed tests are repeatable and catch known bugs fast; live testing reveals unpredictable gaps fixed tests can't anticipate",
+            "Fixed tests are only for looks; only live testing matters",
+            "Live testing is unnecessary once fixed tests pass",
+          ],
+          correctIndex: 0,
+          explanation: "Fixed tests give fast, repeatable bug-catching, while live human testing surfaces the unpredictable edge cases that a predetermined list can never fully cover.",
+        },
+      },
+      {
+        id: "habits",
+        kicker: "Coder habits",
+        title: "Test the weird input on purpose",
+        body: `Professional developers deliberately test the strangest inputs they can think of — empty strings, gibberish, emoji, all-caps — because that's where bugs hide. Your \`else\` branch and your \`"banana"\` test message are doing exactly this on a small scale. Keep this habit: whenever you build anything that takes user input, ask "what's the weirdest thing someone could type here?" and test it.`,
+      },
+      {
+        id: "standards-connect",
+        kicker: "Why this counts",
+        title: "This capstone meets real CS standards",
+        body: `**CSTA 3A-AP-13**: *Create prototypes that use algorithms to solve computational problems by leveraging prior knowledge and personal interests.*\n\n**CSTA 3A-AP-17**: *Decompose problems into smaller components through systematic analysis, using constructs such as procedures, modules, and/or objects.*\n\nYou designed your own character and quest (personal interest), broke the problem into a dictionary, a list, a function, and rules (decomposition), and combined them into one working prototype.`,
+        callout: {
+          label: "Standard",
+          text: "CSTA 2017, Algorithms & Programming, Level 3A (grades 9–10): 3A-AP-13 and 3A-AP-17.",
+        },
+      },
+      {
+        id: "mini-case",
+        kicker: "Real world",
+        title: "Customer service bots start exactly like this",
+        body: `Many real customer-service chat widgets begin life as a rule-based system almost identical to yours: a dictionary of business info, a list logging what the customer asked, a function matching keywords like "refund" or "shipping," and an else branch that hands off to a human. Companies scale up from there — but the core structure is the same one you just built.`,
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you play",
+        body: `Let's confirm the capstone pattern is locked in.`,
+        checkIn: {
+          prompt: "What's the purpose of including a nonsense test message like \"banana\" in test_messages?",
+          choices: [
+            "It's just a joke and has no real purpose",
+            "It proves your else branch works and handles unexpected input gracefully",
+            "Python requires at least one nonsense string",
+          ],
+          correctIndex: 1,
+          explanation: "A nonsense message is the only way to prove your else branch actually runs and gives a kind, sensible fallback reply.",
         },
       },
       {

@@ -107,7 +107,7 @@ export const lesson12: PythonLessonConfig = {
   aiSafetyMoment:
     "AI safety: AI systems can act fast — but only based on their rules. If rules are missing or poorly written, AI can behave incorrectly or cause harm. Responsible AI means setting clear limits, thinking about consequences, and testing rules carefully.",
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -122,17 +122,25 @@ export const lesson12: PythonLessonConfig = {
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "Put rules inside your skill",
-        body: `You can already build skills (functions) and feed them details (parameters). Now you'll add **rules** so a function can react *differently* depending on the value it's given.\n\nThink of a game enemy. A good game doesn't attack mindlessly — it follows rules: *if the player is close, attack; otherwise, wait.* The enemy isn't "thinking" — it's following instructions you wrote.\n\nThat's exactly how AI **guardrails** work. The function checks a condition and chooses what to do — and it never guesses.`,
-        callout: {
-          label: "Common misconception",
-          text: "Rules don't make a program 'smart' or give it opinions. `if`/`else` just compares values and follows the path you laid out — every time, exactly the same way.",
-        },
+        id: "hook-story",
+        kicker: "Think about it",
+        title: "A game enemy that follows rules, not instinct",
+        body: `Think about a game enemy. A good game doesn't attack mindlessly — it follows rules: *if the player is close, attack; otherwise, wait.* The enemy isn't "thinking" — it's following instructions a programmer wrote.\n\nThat's exactly how AI **guardrails** work. Today you'll combine what you already know (functions and parameters) with a new power: rules that decide what happens.`,
       },
       {
-        id: "rule",
+        id: "glossary",
+        kicker: "Vocabulary",
+        title: "Words you'll use today",
+        body: `New vocabulary for this lesson.`,
+        bullets: [
+          "**Condition** — a statement that evaluates to True or False, like `enemy == \"dragon\"`.",
+          "**Branch** — the block of code that runs when a condition is True (if) or False (else).",
+          "**==** — the comparison operator, asking \"are these equal?\" (different from `=`, which assigns).",
+          "**Guardrail** — a rule that limits or guides what a program (or AI) is allowed to do.",
+        ],
+      },
+      {
+        id: "concept-1",
         kicker: "Building block #1",
         title: "if / else inside a function",
         body: `Inside a function, an \`if\` statement checks a **condition** — something that's either true or false. If it's true, the indented lines under the \`if\` run. If it's false, the lines under \`else\` run instead.\n\nNotice the structure: \`if\` and \`else\` are indented *inside* the function, and each one has its own indented \`print\`. Only one branch runs per call.\n\nSame function, same parameter — but the output changes because of the rule.`,
@@ -143,9 +151,19 @@ export const lesson12: PythonLessonConfig = {
           label: "Watch out",
           text: "Both the `if` and `else` lines end with a colon `:`, and the code inside each must be indented further. Forgetting a colon or the indentation is the classic `if`/`else` error.",
         },
+        checkIn: {
+          prompt: "Inside a function, where must the if/else statements and their print lines be placed?",
+          choices: [
+            "Anywhere in the file — indentation doesn't matter",
+            "Indented inside the function, with each branch's print further indented",
+            "Only after the function is called",
+          ],
+          correctIndex: 1,
+          explanation: "if/else must be indented inside the function body, and each branch's code (like print) must be indented one level further under it.",
+        },
       },
       {
-        id: "compare",
+        id: "concept-2",
         kicker: "Building block #2",
         title: "Checking with ==",
         body: `The double equals \`==\` asks a question: *"are these two things the same?"* It's very different from a single \`=\`, which **stores** a value.\n\n• \`enemy = "dragon"\` *puts* the text dragon into \`enemy\`.\n• \`enemy == "dragon"\` *checks* whether \`enemy\` already holds dragon, and answers \`True\` or \`False\`.\n\nThat True/False answer is what your \`if\` uses to decide which branch to run.`,
@@ -153,10 +171,20 @@ export const lesson12: PythonLessonConfig = {
           label: "Common misconception",
           text: "Using one `=` instead of `==` inside an `if` is a super common bug. Remember: one equals *assigns*, two equals *compares*.",
         },
+        checkIn: {
+          prompt: 'What does `enemy == "dragon"` do?',
+          choices: [
+            "Stores the text \"dragon\" into enemy",
+            "Checks whether enemy already equals \"dragon\", returning True or False",
+            "Deletes the enemy variable",
+          ],
+          correctIndex: 1,
+          explanation: "== is a comparison, not an assignment. It checks whether the two values are equal and returns True or False.",
+        },
       },
       {
-        id: "design",
-        kicker: "Think like a coder",
+        id: "concept-3",
+        kicker: "Building block #3",
         title: "Parameters inform, rules decide",
         body: `Keep the two roles crystal clear in your head:\n\n• The **parameter** brings information *into* the function.\n• The **rule** (\`if\`/\`else\`) decides what to *do* with that information.\n• The function follows the rule exactly — no guessing, no improvising.\n\nWhen something behaves wrong, check the rule first: is the condition checking the right value? Is the right branch printing the right message?`,
         bullets: [
@@ -168,9 +196,19 @@ export const lesson12: PythonLessonConfig = {
           label: "Responsible AI",
           text: "AI acts fast, but only on its rules. Missing or careless rules can cause harm. Set clear limits, think about consequences, and test every branch.",
         },
+        checkIn: {
+          prompt: "In a parameterized function with if/else rules, what decides which branch runs?",
+          choices: [
+            "The function randomly picks one",
+            "The condition, evaluated against the parameter's current value",
+            "Whichever branch is written first always runs",
+          ],
+          correctIndex: 1,
+          explanation: "The if condition is checked against the parameter's value for that specific call — that comparison result determines which branch executes.",
+        },
       },
       {
-        id: "worked",
+        id: "worked-example",
         kicker: "Worked example",
         title: "Build a rule-driven skill, step by step",
         body: `Let's build a rule-driven skill from scratch.\n\n**Step 1 — Define with a parameter.** Create \`attack(enemy)\` so a value can flow in.\n\n**Step 2 — Add the rule.** Use \`if enemy == "dragon":\` to handle the dangerous case, and \`else:\` for everything else. Give each branch its own \`print\`.\n\n**Step 3 — Test both paths.** Call the function twice — once with the special value, once with a normal one — and predict each result before you run.`,
@@ -180,6 +218,107 @@ export const lesson12: PythonLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "Before pressing Run, predict which branch each call will take. Checking your prediction against the real output is how coders catch bugs early.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "Rules don't make code 'smart'",
+        body: `Rules don't make a program "smart" or give it opinions. \`if\`/\`else\` just compares values and follows the path you laid out — every time, exactly the same way, with no judgment or creativity involved.\n\nEven the most sophisticated AI guardrails are, underneath, built from this same simple pattern: check a condition, follow the matching branch.`,
+      },
+      {
+        id: "try-it",
+        kicker: "Try it — predict",
+        title: "Predict the branch",
+        body: `Trace this function carefully. Check the parameter value against the condition before deciding which branch runs.`,
+        code: `def check_age(age):\n    if age >= 13:\n        print("Access granted")\n    else:\n        print("Access denied")\n\ncheck_age(10)`,
+        codeCaption: "Which message prints for age 10?",
+        checkIn: {
+          prompt: "What does this program print?",
+          choices: ["Access granted", "Access denied", "Nothing prints"],
+          correctIndex: 1,
+          explanation: "10 is not >= 13, so the condition is False and the else branch runs, printing \"Access denied\".",
+        },
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Level up",
+        title: "elif adds more than two paths",
+        body: `\`if\`/\`else\` only gives you two paths. When you need a third (or fourth) option, add \`elif\` ("else if") between them. Python checks each condition top to bottom and runs the first one that matches — the same rule-order lesson from earlier in the course applies here too.`,
+        code: `def attack(enemy):\n    if enemy == "dragon":\n        print("Too strong! Run!")\n    elif enemy == "boss":\n        print("Use your special move!")\n    else:\n        print("You attack the " + enemy + "!")`,
+        codeCaption: "Three paths instead of two",
+      },
+      {
+        id: "comparison",
+        kicker: "Two ways to do it",
+        title: "A function with a rule vs. without one",
+        body: `Compare a plain function that always says the same thing versus one with a rule that reacts to its parameter. The rule-based version is far more useful, because it changes behavior instead of repeating the same output for every input.`,
+        code: `# No rule — same output every time\ndef attack_plain(enemy):\n    print("You attack the " + enemy + "!")\n\n# With a rule — output depends on the situation\ndef attack_smart(enemy):\n    if enemy == "dragon":\n        print("Too strong! Run!")\n    else:\n        print("You attack the " + enemy + "!")`,
+        codeCaption: "Rules let a function react, not just repeat",
+      },
+      {
+        id: "debug-habit",
+        kicker: "Debugging habit",
+        title: "If the same message always prints, check ==",
+        body: `If your function seems to always take the same branch no matter what you pass in, the most common cause is a typo in the condition — often using \`=\` instead of \`==\`, or misspelling the value being compared. Check the condition line first.`,
+        checkIn: {
+          prompt: "Your function always prints the if-branch message, even when you expect the else-branch to run. What should you check first?",
+          choices: [
+            "Whether the condition uses == (comparison) correctly, not = (assignment) or a typo",
+            "Whether Python needs to be reinstalled",
+            "Whether the function has too many parameters",
+          ],
+          correctIndex: 0,
+          explanation: "A condition that's always True (like using = instead of ==, or comparing to the wrong value) will make the if-branch run every time regardless of input.",
+        },
+      },
+      {
+        id: "habits",
+        kicker: "Coder habits",
+        title: "Predict before you run",
+        body: `Before pressing Run, say out loud (or write down) which branch you expect to execute and why. This habit — predicting before checking — is one of the fastest ways to build a correct mental model of how your code behaves, and it makes surprises much easier to notice and debug.`,
+        bullets: [
+          "Predict which branch will run before pressing Run.",
+          "Double-check `==` vs `=` whenever a condition behaves unexpectedly.",
+          "Test every branch at least once, not just the one you expect to be common.",
+        ],
+      },
+      {
+        id: "standards-connect",
+        kicker: "Why this counts",
+        title: "This lesson meets a real CS standard",
+        body: `**CSTA 2-AP-12**: *Design and iteratively develop programs that combine control structures, including nested loops and compound conditionals.*\n\nCombining a function, a parameter, and if/else logic is exactly this kind of combined control structure — each piece works together to produce context-aware behavior.`,
+        callout: {
+          label: "Standard",
+          text: "CSTA 2017, Algorithms & Programming, Level 2 (grades 6–8): 2-AP-12 — combine control structures like conditionals within programs.",
+        },
+      },
+      {
+        id: "reflection-prompt",
+        kicker: "Reflect",
+        title: "Think it through",
+        body: `*Think of a rule an app enforces on you — an age requirement, a password check, a content filter. What condition does it check, and what happens in each branch (allowed vs. not allowed)?*`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Real world",
+        title: "Login screens are if/else in disguise",
+        body: `Every login screen runs a rule like: *if the password matches, let the user in; else, show an error.* The parameter is the password you typed, and the whole system is a function with a rule inside — precisely the pattern you just learned.`,
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you build",
+        body: `Let's confirm the rules pattern is locked in.`,
+        checkIn: {
+          prompt: "Who decides what an if/else rule checks and does — the program or the human who wrote it?",
+          choices: [
+            "The program decides on its own",
+            "The human who wrote the code — the program just follows the rule exactly",
+            "Neither — it's random",
+          ],
+          correctIndex: 1,
+          explanation: "The human author writes the condition and both branches. The program never improvises — it always follows the written rule exactly.",
         },
       },
       {

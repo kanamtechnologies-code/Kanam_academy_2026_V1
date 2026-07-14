@@ -95,7 +95,7 @@ export const lesson6: PythonLessonConfig = {
     },
   ],
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -110,17 +110,24 @@ export const lesson6: PythonLessonConfig = {
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "Loop + rule = a pattern",
-        body: `On their own, a loop and a rule are useful but limited. A loop alone repeats the *exact same thing* every time — boring. A rule alone makes *one* decision and stops. The magic happens when you put them together.\n\nThink of a DJ on a dance floor: the **loop** is the steady beat that keeps repeating, and the **rule** is the DJ deciding "on every fourth beat, drop the bass." Repetition plus a decision equals a groove — a pattern.\n\nIn code: the loop controls *how many times* something happens, and the rule controls *what* happens each time. Put a rule **inside** a loop, and out comes a repeating, predictable pattern.`,
-        callout: {
-          label: "Common misconception",
-          text: "A pattern doesn't need brand-new code each turn. It comes from the *same* rule being re-checked over and over inside a loop — the repetition is what makes it a pattern.",
-        },
+        id: "hook-story",
+        kicker: "Think about it",
+        title: "A DJ dropping the beat",
+        body: `Picture a DJ at a party. The **beat** keeps repeating steadily — that's the loop. But the DJ also has a **rule**: "on every fourth beat, drop the bass." The beat alone is just repetition. The rule alone is just one decision. Put the rule *inside* the beat, checked every single time, and you get a groove — a pattern people can dance to.\n\nToday you're the DJ. Your loop is the beat, and the \`if\` you tuck inside it is the rule that turns plain repetition into something with structure.`,
       },
       {
-        id: "nest",
+        id: "glossary",
+        kicker: "Vocabulary",
+        title: "Words you'll use today",
+        body: `New vocabulary for this lesson.`,
+        bullets: [
+          "**Nesting** — placing one structure (like an if) inside another (like a for loop).",
+          "**Pattern** — a predictable, repeating result created by a loop + a rule.",
+          "**Double indentation** — indenting twice: once for the loop, once more for the rule inside it.",
+        ],
+      },
+      {
+        id: "concept-1",
         kicker: "Building block #1",
         title: "Put an if inside a for",
         body: `When an \`if\` lives **inside** a loop, the rule gets checked **every single turn** of the loop. So instead of deciding once, your program decides again and again — and that's exactly how the pattern forms.\n\nThe tricky part is the indentation, which now has **two levels**. Picture nested boxes: the \`for\` is the big outer box, the \`if\` sits indented inside it, and the \`print\` sits indented *again* inside the \`if\`. Each level of indentation says "I belong to the thing above me."\n\nRead the example carefully: the loop runs 5 times, and on each turn the rule checks "is the counter equal to 2?" Only turn number 2 gets the special message; the rest fall to the \`else\`.`,
@@ -131,9 +138,15 @@ export const lesson6: PythonLessonConfig = {
           label: "Watch out",
           text: "Code inside an `if` that's inside a `for` needs to be indented **twice** (about 8 spaces). One level puts it in the loop; the second level puts it in the rule.",
         },
+        checkIn: {
+          prompt: "In a for loop with an if inside it, how many levels of indentation does the print inside the if need?",
+          choices: ["One level", "Two levels", "Zero — no indentation needed"],
+          correctIndex: 1,
+          explanation: "One level of indentation puts the code inside the loop; a second level puts it inside the if that's nested within the loop.",
+        },
       },
       {
-        id: "inside-outside",
+        id: "concept-2",
         kicker: "The key idea",
         title: "Inside the loop vs. outside the loop",
         body: `Where you place the rule changes everything. A rule **inside** the loop is checked on every turn, so it can produce a different result each time — a pattern. A rule placed **outside** (not indented under the \`for\`) runs only **once**, before or after the loop, so there's no pattern at all.\n\nIt's the difference between a referee who checks the rules on every single play versus one who checks them once at the start of the game and then walks away. The first creates a fair, repeating structure; the second misses everything that happens later.\n\nSo if your output isn't forming a repeating pattern, the very first thing to check is: *is my rule actually indented inside the loop?*`,
@@ -146,9 +159,15 @@ export const lesson6: PythonLessonConfig = {
           label: "Common misconception",
           text: "If your output never changes, the rule is probably *outside* the loop. A rule must be indented under the `for` to run every turn.",
         },
+        checkIn: {
+          prompt: "If a rule is placed OUTSIDE the loop (not indented under for), how many times is it checked?",
+          choices: ["Every turn of the loop", "Only once, total", "Twice"],
+          correctIndex: 1,
+          explanation: "A rule outside the loop isn't part of its repeating body, so it's checked only a single time — no pattern forms.",
+        },
       },
       {
-        id: "alternating",
+        id: "concept-3",
         kicker: "Pattern you'll build",
         title: "Flip a value to alternate ping and pong",
         body: `One of the most satisfying loop-plus-rule patterns is **alternating** — ping, pong, ping, pong. Instead of checking the loop counter \`i\`, you keep a **message** variable and flip it each turn.\n\nSet \`message = "ping"\` before the loop. Each turn: print the current message, then use \`if message == "ping":\` to swap it to \`"pong"\`, and \`else:\` to swap back. The variable **remembers** what to print next — that's what makes the pattern bounce.\n\nThis is the same shape you'll use in the exercises: a starting value, a loop, a rule inside with **double indentation**, and an update so the next turn is different.`,
@@ -159,9 +178,19 @@ export const lesson6: PythonLessonConfig = {
           label: "Watch out",
           text: "Put `message = \"ping\"` **before** the loop, not inside it. Resetting each turn would erase the flip and stick the pattern on one word.",
         },
+        checkIn: {
+          prompt: 'If `message = "ping"` is placed INSIDE the loop (reset every turn), what happens to the pattern?',
+          choices: [
+            "It alternates perfectly, same as before",
+            "It gets stuck printing ping every single turn",
+            "It causes an error",
+          ],
+          correctIndex: 1,
+          explanation: "Resetting message to \"ping\" every turn erases the flip from the previous turn, so the pattern never actually alternates.",
+        },
       },
       {
-        id: "worked",
+        id: "worked-example",
         kicker: "Worked example",
         title: "Let's predict the ping/pong pattern",
         body: `Let's build and trace the alternating pattern step by step — the same one you'll practice in the exercises.\n\n**Step 1 — Set the start.** \`message = "ping"\` before the loop.\n\n**Step 2 — Loop five times.** \`for i in range(5):\` with the rule indented inside.\n\n**Step 3 — Print, then flip.** Each turn prints the current word, then swaps \`message\` to the opposite.\n\n**Step 4 — Trace it.** ping (flip→pong), pong (flip→ping), ping, pong, ping. Five lines, alternating the whole way.`,
@@ -171,6 +200,105 @@ export const lesson6: PythonLessonConfig = {
         callout: {
           label: "AI connection",
           text: "AI makes predictions by finding patterns in data. If the pattern it learns is biased or incomplete, its predictions will be too — so humans must choose patterns carefully.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "A pattern doesn't need new code each turn",
+        body: `On their own, a loop and a rule are useful but limited. A loop alone repeats the *exact same thing* every time — boring. A rule alone makes *one* decision and stops. The magic happens when you put them together.\n\nA pattern doesn't need brand-new code each turn. It comes from the *same* rule being re-checked over and over inside a loop — the repetition, combined with a value that changes, is what makes it a pattern.`,
+      },
+      {
+        id: "try-it",
+        kicker: "Try it — predict",
+        title: "Trace turns 0–4 before you run",
+        body: `Here's the same alternating pattern, but this time starting on \`"pong"\` instead of \`"ping"\`. Trace through five turns in your head before checking.`,
+        code: `message = "pong"\nfor i in range(5):\n    if message == "ping":\n        print("ping")\n        message = "pong"\n    else:\n        print("pong")\n        message = "ping"`,
+        codeCaption: "What five lines print, starting from pong?",
+        checkIn: {
+          prompt: "What are the first two lines printed, in order?",
+          choices: ["ping, pong", "pong, ping", "pong, pong"],
+          correctIndex: 1,
+          explanation: "Since message starts as \"pong\", the else branch runs first (printing pong and flipping to ping), then the if branch runs next (printing ping).",
+        },
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Level up",
+        title: "Patterns can use the counter AND a flag",
+        body: `You've seen two different ways to build a pattern: checking the loop counter \`i\` directly (like "is this turn number 2?"), or flipping a separate \`message\` variable each turn. Real programs often combine both — using the counter for *some* rules and a flag variable for others, all inside the same loop.\n\nThe key skill is the same either way: a rule, checked every turn, that can produce a different result depending on what it finds.`,
+      },
+      {
+        id: "comparison",
+        kicker: "Two ways to do it",
+        title: "Counter-based vs. flag-based patterns",
+        body: `Compare checking \`i\` directly against flipping a separate variable. The counter approach is great when the pattern depends on *which turn number* it is (like "every 3rd turn"). The flag approach is great when the pattern should simply *alternate* regardless of the turn number.`,
+        code: `# Counter-based: special on turn 2 only\nfor i in range(5):\n    if i == 2:\n        print("Special!")\n    else:\n        print("Turn " + str(i))\n\n# Flag-based: alternates every turn\nmessage = "ping"\nfor i in range(5):\n    if message == "ping":\n        print("ping")\n        message = "pong"\n    else:\n        print("pong")\n        message = "ping"`,
+        codeCaption: "Different rules, both inside a loop",
+      },
+      {
+        id: "debug-habit",
+        kicker: "Debugging habit",
+        title: "Trace turn by turn on paper",
+        body: `When a loop-plus-rule pattern isn't behaving the way you expect, the best debugging tool is a pencil and paper (or just careful thinking): write down the variable's value *before* each turn, what gets printed, and its value *after* the flip.\n\nDoing this for even 2–3 turns almost always reveals exactly where your logic went wrong — usually a reset in the wrong place or a flip that's missing.`,
+        checkIn: {
+          prompt: "Your ping/pong pattern prints ping every single time instead of alternating. What should you check FIRST?",
+          choices: [
+            "Whether range() has the right number",
+            "Whether the message = \"pong\" flip is actually inside the if/else and properly indented",
+            "Whether print() is spelled correctly",
+          ],
+          correctIndex: 1,
+          explanation: "If the flip line is missing, mis-indented, or outside the if/else, message never actually changes, so it prints the same value every turn.",
+        },
+      },
+      {
+        id: "habits",
+        kicker: "Coder habits",
+        title: "Predict before you run",
+        body: `Good coders don't just run code — they **predict** what will happen first, then compare the output to their prediction. This one habit turns every bug into a learning moment: if your prediction was wrong, you now know exactly where your mental model needs fixing.`,
+        bullets: [
+          "Trace at least 2–3 turns by hand before pressing Run.",
+          "Compare your prediction to the real output — a mismatch tells you exactly where to look.",
+          "Double indentation is the #1 thing to check when a nested rule misbehaves.",
+        ],
+      },
+      {
+        id: "standards-connect",
+        kicker: "Why this counts",
+        title: "This lesson meets a real CS standard",
+        body: `**CSTA 2-AP-12**: *Design and iteratively develop programs that combine control structures, including nested loops and compound conditionals.*\n\nNesting an \`if\` inside a \`for\` loop is literally what this standard describes: combining control structures. You're not just using loops and conditionals separately anymore — you're combining them into one structure.`,
+        callout: {
+          label: "Standard",
+          text: "CSTA 2017, Algorithms & Programming, Level 2: 2-AP-12 — combining control structures, including nested structures.",
+        },
+      },
+      {
+        id: "reflection-prompt",
+        kicker: "Reflect",
+        title: "Think it through",
+        body: `*Think of a real pattern that alternates, like walking (left foot, right foot, left foot...) or a crosswalk light (walk, don't walk, walk...). What is the "rule" being checked each time, and what "flips" after each turn?*`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Real world",
+        title: "Striped tables use this exact pattern",
+        body: `Ever notice how spreadsheet or website tables often alternate row colors — white, gray, white, gray? That's a loop (going through each row) with a rule inside it (check if the row number is even or odd) that flips the color each time.\n\nIt's the exact same ping/pong shape you built today, just applied to colors instead of words.`,
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you build",
+        body: `Let's confirm the nested pattern is locked in.`,
+        checkIn: {
+          prompt: "Which is required for a loop-plus-rule pattern to actually alternate output?",
+          choices: [
+            "The rule must be outside the loop",
+            "The rule must be inside the loop AND update a value that changes what happens next turn",
+            "You only need the loop — rules are optional",
+          ],
+          correctIndex: 1,
+          explanation: "The rule needs to live inside the loop (checked every turn) and also update the value it's checking, so the next turn behaves differently.",
         },
       },
       {

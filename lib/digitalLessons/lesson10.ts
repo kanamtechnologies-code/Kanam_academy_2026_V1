@@ -10,7 +10,7 @@ export const digitalLesson10: AILessonConfig = {
   prevHref: "/learn/digital/9",
   nextHref: "/learn/digital/11",
   lessonModule: {
-    durationLabel: "~11–12 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -35,6 +35,16 @@ export const digitalLesson10: AILessonConfig = {
         },
       },
       {
+        id: "why-it-matters",
+        kicker: "Real stakes",
+        title: "Why this actually matters — real consequences, not scare tactics",
+        body: `It's easy to think "it's just a school project, who cares?" But copyright and honesty rules follow you into every part of digital life:\n\n• **Videos get muted or taken down.** Platforms scan uploads automatically for copyrighted music and clips. Use the wrong song in a class video and it might get silently muted — right when you wanted to show it off.\n• **Schools treat plagiarism seriously.** Copying text or ideas without credit can mean a failing grade, and colleges can rescind admission offers over serious academic dishonesty discovered later.\n• **Creators can send takedown requests.** If you post someone's copyrighted work without permission, they (or their platform) can have it removed — sometimes with a strike against your account.\n• **Employers and colleges notice sloppy sourcing.** A portfolio or essay with unattributed work signals carelessness, exactly what you don't want strangers judging you on.\n\nNone of this requires being scared of every project. It just means treating "whose work is this, and do I have permission?" as a normal first question — not an afterthought.`,
+        callout: {
+          label: "Why it matters",
+          text: "The habit of asking permission and giving credit costs you seconds now. Skipping it can cost you a grade, a video, an account, or a reputation later. The math heavily favors the habit.",
+        },
+      },
+      {
         id: "copyright",
         kicker: "The big idea",
         title: "Copyright: the creator owns it the moment they make it",
@@ -44,6 +54,28 @@ export const digitalLesson10: AILessonConfig = {
         callout: {
           label: "Common misconception",
           text: "\"If it's on Google Images or anywhere on the internet, it's free to use.\" False. Almost everything online was made by someone who owns the copyright. Being easy to find or download does NOT mean you have permission to reuse it.",
+        },
+      },
+      {
+        id: "copyright-myths",
+        kicker: "Myth-busting",
+        title: "Three more copyright myths, cleared up",
+        body: `Beyond "if it's online, it's free," a few more myths cause real trouble:\n\n**Myth: "It's fine if I don't make money from it."** Copyright applies whether or not you profit. A non-commercial school video can still infringe on copyright — money isn't the deciding factor.\n\n**Myth: "Changing a few pixels or words makes it mine."** A small edit to someone else's photo, song, or paragraph doesn't erase their copyright. Courts look at how much of the *original creative expression* remains recognizable, not whether you technically altered something.\n\n**Myth: "There's no copyright symbol (©), so it's not protected."** Copyright is **automatic** the moment something original is created — no symbol, registration, or notice is required. Assume everything is protected unless you have a specific reason to think otherwise (like a stated license or public domain status).\n\nNoticing a pattern? Almost every copyright myth tries to find a shortcut around getting permission. There usually isn't one.`,
+        checkIn: {
+          prompt: "You use a photo for a nonprofit school fundraiser video, without permission, believing it's fine because you're not making money. Is that accurate?",
+          choices: [
+            "Yes — copyright only applies to commercial, for-profit use",
+            "No — copyright applies whether or not money is involved; you still need permission or a license",
+            "Yes, as long as it's for a good cause",
+            "No, but only because it's a video and not a photo",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Copyright protection doesn't depend on whether you're making money. A nonprofit or school purpose doesn't remove the need for permission or a proper license.",
+        },
+        callout: {
+          label: "Watch out",
+          text: "\"I didn't see a copyright symbol\" is not a legal shield. Copyright exists automatically the second original work is created — no © symbol required.",
         },
       },
       {
@@ -63,6 +95,28 @@ export const digitalLesson10: AILessonConfig = {
         },
       },
       {
+        id: "licenses-practice",
+        kicker: "Apply it",
+        title: "Decode a license before you use it",
+        body: `Creative Commons licenses stack their letters together, so you can read a combination like a short code. Let's decode a few:\n\n• **CC BY** — Attribution only. Use it for anything, even commercially, as long as you credit the creator.\n• **CC BY-NC** — Attribution + NonCommercial. Credit the creator, and don't use it to make money (so a paid product is out, but a free school project is fine).\n• **CC BY-NC-ND** — Attribution + NonCommercial + NoDerivatives. Credit the creator, no money-making use, AND you can't edit or remix it — share it exactly as-is.\n• **CC0** — "No rights reserved." The creator has waived all rights; it behaves like public domain.\n\nNotice each added letter *removes* a freedom, not adds one. The fewer letters, the more you're allowed to do.`,
+        checkIn: {
+          prompt: "A photo is licensed CC BY-NC-ND. Which use is allowed?",
+          choices: [
+            "Selling prints of it for profit",
+            "Editing it heavily and reposting the remix",
+            "Using it unchanged in a free school presentation, with credit to the creator",
+            "Using it however you want since it's technically 'free'",
+          ],
+          correctIndex: 2,
+          explanation:
+            "NC blocks commercial use and ND blocks changing the work, but using it as-is, for free, with proper attribution, fits within a CC BY-NC-ND license.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "When you see a CC license, read it left to right: the letters after BY only ever take away freedoms (NC, SA, ND) — they never grant extra ones beyond attribution.",
+        },
+      },
+      {
         id: "fair-use-plagiarism",
         kicker: "Two big traps",
         title: "Fair use is narrow — and credit isn't a free pass",
@@ -73,13 +127,79 @@ export const digitalLesson10: AILessonConfig = {
         },
       },
       {
+        id: "fair-use-test",
+        kicker: "Go deeper",
+        title: "The four questions courts actually ask about fair use",
+        body: `Fair use feels vague because it genuinely is a judgment call — but it's not a total mystery. Courts weigh four factors together:\n\n1. **Purpose** — is it for commentary, criticism, teaching, or parody (favors fair use), or just to avoid paying for something (doesn't)?\n2. **Nature of the work** — using a small piece of a factual news article leans more toward fair use than copying a highly creative song or film.\n3. **Amount used** — quoting one sentence to discuss it is very different from copying an entire chapter or full song.\n4. **Effect on the market** — does your use replace the need for someone to buy the original? If people could watch your video instead of paying for the movie, that weighs heavily against fair use.\n\nA quick real-world test: reacting to 15 seconds of a song to critique its lyrics leans toward fair use. Uploading the entire song as "background music" for your video does not — you used the whole thing, for a purpose unrelated to commentary, and it doesn't need permission-based licensing that a real license would require.`,
+        checkIn: {
+          prompt: "You use the ENTIRE runtime of a popular song as unremarked background music in your class video, purely because you like it. Which fair-use factor most clearly weighs AGAINST you?",
+          choices: [
+            "The purpose is commentary or criticism",
+            "You used the whole song for a purpose unrelated to commentary, and using the entire piece leans against fair use",
+            "The song is a factual work, not creative",
+            "It has no effect on the market at all",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Using an entire creative work as plain background music — not for commentary, criticism, or parody — is exactly the kind of full, unrelated use that weighs against fair use.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "If you're not sure fair use applies, don't gamble on it — use licensed or public domain media instead. Fair use is meant as a narrow safety net, not a first-choice strategy.",
+        },
+      },
+      {
         id: "ai-attribution",
         kicker: "Crediting properly",
         title: "How to attribute — and who owns AI-generated work?",
         body: `When you *are* allowed to use something, give a clear attribution. A good one usually names four things, sometimes remembered as **TASL**:\n\n• **Title** — what the work is called\n• **Author** — who made it (the creator)\n• **Source** — where you found it (a link)\n• **License** — what license it's under (e.g., CC BY)\n\nExample: *"Sunrise Over Hills" by Jordan Lee, from Unsplash, used under the Unsplash License.*\n\n**What about AI-generated content?** This is new and the rules are still being worked out. Some key points: in many places, work created *purely* by AI may **not** be copyrightable the way human work is, because there's no human author. Tools also have their own terms about what you can do with their output. And it's good practice — and increasingly required at school and work — to **disclose when you used AI**, just like any other source. College honor codes and internship employers often care a lot about this.`,
+        checkIn: {
+          prompt: "You generate an image with an AI tool for a class project. Which statement is most accurate?",
+          choices: [
+            "AI-generated content is automatically copyrighted exactly like human-made work, no questions asked",
+            "In many places, purely AI-generated work may not get the same copyright protection as human-created work, and you should still disclose that you used AI",
+            "Using AI means you never need to credit anything",
+            "AI tools have no terms of service governing their output",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Because there's no human author, purely AI-generated content often isn't copyrightable the same way human work is — and disclosing AI use is expected practice at school and work, just like citing any other source.",
+        },
         callout: {
           label: "Pro tip",
           text: "When in doubt, over-credit and ask. A clear note like \"Image generated with [AI tool]\" or a full attribution line costs you nothing and protects you. Silence is what gets people into trouble.",
+        },
+      },
+      {
+        id: "level-up-vocabulary",
+        kicker: "Level up",
+        title: "A few more words worth knowing",
+        body: `A handful of advanced terms show up once you start dealing with real-world copyright situations. You don't need these to follow today's lesson, but they'll make you sound (and be) informed:\n\n• **DMCA** — the **Digital Millennium Copyright Act**, a U.S. law that gives platforms a formal process for copyright complaints and removals.\n• **Takedown notice** — a formal request a copyright owner sends to a platform asking for infringing content to be removed.\n• **Derivative work** — something new created *from* an existing copyrighted work, like a remix, a translation, or a fan edit. Making one usually still needs the original creator's permission.\n• **Remix culture** — the broader trend of creators building on, sampling, and reworking existing media. It's common online, but it doesn't erase copyright — many remixers still seek permission or use licensed/public-domain source material.\n• **Royalty** — a payment made to a creator each time their licensed work is used or sold.\n\nKnowing these terms means you'll understand *why* a video got pulled, or what a "cease and desist" email is actually about, instead of just feeling confused.`,
+        callout: {
+          label: "Pro tip",
+          text: "If you ever get a takedown notice or copyright warning, don't panic or ignore it. Read exactly what it says, remove the flagged content if you don't have a legitimate license, and ask a trusted adult or teacher if you're unsure what to do next.",
+        },
+      },
+      {
+        id: "can-i-use-it",
+        kicker: "Decision framework",
+        title: "\"Can I use this?\" — a simple 3-question flowchart",
+        body: `Before you drop any photo, song, or clip into your project, run it through three quick questions in order:\n\n**Question 1 — Do I have explicit permission?** Is it licensed (Creative Commons, royalty-free site, public domain), or did the creator say yes directly? If yes, go to Question 2. If no, don't use it — or check if it might genuinely qualify as narrow fair use.\n\n**Question 2 — What are the rules?** Does the license require attribution? Ban commercial use? Forbid edits? Note every condition — you must follow *all* of them, not just the ones that are convenient.\n\n**Question 3 — Did I write the credit?** Even when a license doesn't strictly require it, crediting well (Title, Author, Source, License) is good practice and protects you from an honest mistake looking like plagiarism.\n\nIf you can answer all three clearly, you're in the clear. If you're stuck on Question 1, that's your answer: find something else, or ask.`,
+        checkIn: {
+          prompt: "You found a great photo but can't find any license information, statement of permission, or public domain status anywhere. What should you do?",
+          choices: [
+            "Use it anyway since it's probably fine",
+            "Assume you don't have permission and either find a clearly licensed alternative or contact the creator to ask",
+            "Use it and just avoid crediting it so no one notices",
+            "Use it only if you change the colors slightly",
+          ],
+          correctIndex: 1,
+          explanation:
+            "No license information means you can't confirm permission — and copyright is the default assumption for anything original. When in doubt, find a clearly licensed source or ask the creator directly.",
+        },
+        callout: {
+          label: "Watch out",
+          text: "\"I couldn't find any rules, so I assumed it was fine\" is backwards. No visible license means assume full copyright protection, not the opposite.",
         },
       },
       {
@@ -127,15 +247,47 @@ export const digitalLesson10: AILessonConfig = {
         },
       },
       {
+        id: "worked-2",
+        kicker: "Worked example",
+        title: "Using a CC-licensed photo in a scholarship essay slide, step by step",
+        body: `Now a higher-stakes version: you want a photo for a scholarship application slide deck. Let's do it right, step by step.\n\n**Step 1 — Search a licensed source.** You find a striking mountain photo on a Creative Commons search site.\n\n**Step 2 — Read the exact license.** It's marked **CC BY 4.0** — attribution required, but otherwise usable, including for something as important as a scholarship submission.\n\n**Step 3 — Check resolution and fit.** You confirm the resolution is high enough not to blur when placed full-slide, and it fits your slide's theme without needing heavy edits (which could raise ND concerns on other licenses).\n\n**Step 4 — Write the TASL credit.** *"Misty Ridge" by S. Okafor, from Wikimedia Commons, licensed CC BY 4.0.* You place it in small text in the corner of the slide, or on a dedicated credits slide at the end.\n\n**Step 5 — Double-check before submitting.** You confirm the license text is visible somewhere in your final submission, not just in your notes — a credit only "counts" if the reviewer can actually see it.\n\nSame process as the class video — just with more riding on getting it right.`,
+        checkIn: {
+          prompt: "You use a CC BY 4.0 photo in your scholarship slide deck but only wrote the credit in your personal notes, not anywhere in the actual submitted deck. Is that sufficient attribution?",
+          choices: [
+            "Yes — as long as you know where it came from, that's enough",
+            "No — the attribution needs to be visible in the actual work you submit, not just in private notes",
+            "Yes — CC BY doesn't actually require attribution",
+            "No, because CC BY photos can never be used in slide decks",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Attribution has to be visible to whoever views your finished work — a credit hidden in personal notes doesn't fulfill a CC BY license or protect you from a plagiarism concern.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Keep a simple running list of every image, song, and clip you use in a project, with its license and credit line, as you go. Writing it down later from memory is where mistakes creep in.",
+        },
+      },
+      {
+        id: "credit-checklist",
+        kicker: "Take action",
+        title: "Your before-you-submit credit checklist",
+        body: `Turn today's whole lesson into a habit you can run in under a minute, right before you submit or post anything that isn't 100% your own:\n\n1. **Source check** — where exactly did this photo, song, or clip come from? Can you name it?\n2. **Permission check** — is it licensed, public domain, or clearly free to use? If you're not sure, treat it as copyrighted.\n3. **Rules check** — does the license require attribution, ban commercial use, or forbid edits? Follow every condition, not just the easy ones.\n4. **Credit check** — did you write a visible TASL credit (Title, Author, Source, License) somewhere the viewer can actually see it?\n5. **Honesty check** — if you used AI for any part of it, did you disclose that, the way you'd cite any other source?\n\nFive quick questions, and you've covered copyright, licensing, and plagiarism in one pass.`,
+        callout: {
+          label: "Try this today",
+          text: "Run this checklist on the very next project you turn in — even if it's just double-checking a single photo. The habit sticks fastest when you apply it to something real.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You now know how to use the internet's content without stealing it. Quick recap:\n\n• **Copyright** means the creator automatically owns their work — you usually can't just reuse it.\n• A **license** is permission with rules; **Creative Commons** offers free licenses with conditions; **public domain** is free for all.\n• **Fair use** is narrow and case-by-case — not a blanket school excuse.\n• **Plagiarism** is claiming others' work as yours; fix it with **attribution** (Title, Author, Source, License) — but credit alone doesn't make use legal.\n• **AI-generated** content has its own evolving rules — disclose when you use it.\n• For scholarships, college apps, and portfolios: use licensed media and write the credits.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then write a quick reflection.`,
+        body: `You now know how to use the internet's content without stealing it. Quick recap:\n\n• **Copyright** means the creator automatically owns their work — you usually can't just reuse it, whether or not money is involved.\n• A **license** is permission with rules; **Creative Commons** offers free licenses with conditions (more letters = fewer freedoms); **public domain** is free for all.\n• **Fair use** is narrow and weighed on purpose, nature, amount, and market effect — not a blanket school excuse.\n• **Plagiarism** is claiming others' work as yours; fix it with **attribution** (Title, Author, Source, License) — but credit alone doesn't make use legal.\n• **AI-generated** content has its own evolving rules — disclose when you use it.\n• When unsure, run the **3-question flowchart**: permission? rules? credit written? For scholarships, college apps, and portfolios: use licensed media and write visible credits.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then write a quick reflection.`,
       },
     ],
   },
   bigIdeas: [
-    "**Copyright** means the creator automatically owns their work — you usually need permission to reuse it.",
+    "**Copyright** means the creator automatically owns their work — you usually need permission to reuse it, regardless of money.",
     "A **license** is permission with rules; **Creative Commons** and **public domain** make some work free to use under conditions.",
     "**Fair use** is narrow, and **credit** fixes plagiarism but doesn't make an illegal use legal — especially on scholarship videos and portfolios.",
   ],
@@ -144,12 +296,12 @@ export const digitalLesson10: AILessonConfig = {
     { term: "License", definition: "Permission from the owner to use their work, with rules you must follow." },
     { term: "Creative Commons", definition: "A set of free, ready-made licenses creators use to share work under clear conditions like attribution or non-commercial." },
     { term: "Public domain", definition: "Work that's free for anyone to use without permission, usually because copyright expired or was waived." },
-    { term: "Fair use", definition: "A limited, case-by-case exception that sometimes allows small uses of copyrighted work for things like commentary, news, or teaching." },
+    { term: "Fair use", definition: "A limited, case-by-case exception weighed on purpose, nature, amount used, and market effect — for things like commentary, news, or teaching." },
     { term: "Plagiarism", definition: "Passing off someone else's work or ideas as your own — an honesty problem fixed by giving credit." },
     { term: "Attribution", definition: "Crediting a source clearly, usually with the Title, Author, Source, and License (TASL)." },
   ],
   realWorld:
-    "Whether you're posting a video, writing a report, designing for a job, or submitting a scholarship clip, the same rules apply: use **licensed** or **public domain** media, respect **copyright**, and write a clear **attribution**. Skipping it gets videos muted, posts removed, and reputations damaged.",
+    "Whether you're posting a video, writing a report, designing for a job, or submitting a scholarship clip, the same rules apply: use **licensed** or **public domain** media, respect **copyright**, and write a clear, visible **attribution**. Skipping it gets videos muted, posts removed, and reputations damaged.",
   quiz: [
     {
       id: "q1",
@@ -215,6 +367,45 @@ export const digitalLesson10: AILessonConfig = {
       correctIndex: 2,
       explanation:
         "Changing a work slightly doesn't make it yours, and credit only fixes plagiarism. You still need a license or permission to legally use copyrighted content.",
+    },
+    {
+      id: "q6",
+      question: "A photo is licensed CC BY-NC-ND. Which use fits within that license?",
+      choices: [
+        "Selling printed copies of it",
+        "Remixing it heavily into a new collage",
+        "Using it completely unchanged in a free class presentation, with credit given",
+        "Using it any way you like since it's 'free'",
+      ],
+      correctIndex: 2,
+      explanation:
+        "NC blocks commercial use and ND blocks changes, but using the work as-is, for free, with attribution, fits a CC BY-NC-ND license.",
+    },
+    {
+      id: "q7",
+      question: "You use an entire copyrighted song, unedited, as background music in a video purely because you like it — no commentary or critique involved. Which fair-use factor weighs most clearly against you?",
+      choices: [
+        "The purpose is commentary or parody",
+        "You used the whole work for a purpose unrelated to commentary or criticism",
+        "The song is non-creative and factual",
+        "There's no possible effect on the market for the song",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Using an entire creative work as unremarked background music — with no commentary, criticism, or transformation — is exactly the kind of use that weighs against fair use.",
+    },
+    {
+      id: "q8",
+      question: "You find a photo with no visible license, statement of permission, or public domain notice anywhere. What's the safest move?",
+      choices: [
+        "Use it and assume it's fine since you searched a bit",
+        "Assume it's still under copyright and either find a clearly licensed alternative or ask the creator directly",
+        "Use it but skip crediting it so it's less noticeable",
+        "Use it only if you convert it to a different file type",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Copyright protection is automatic and the default assumption. No visible license means you don't have confirmed permission — find a clearly licensed source or ask first.",
     },
   ],
   reflection: {

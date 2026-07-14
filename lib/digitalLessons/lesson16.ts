@@ -9,7 +9,7 @@ export const digitalLesson16: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/15",
   lessonModule: {
-    durationLabel: "~12–14 min capstone",
+    durationLabel: "~20–25 min capstone",
     sections: [
       {
         id: "intro",
@@ -21,6 +21,16 @@ export const digitalLesson16: AILessonConfig = {
         callout: {
           label: "Why it matters",
           text: "New apps, platforms, and risks will keep appearing your whole life. The mindset you build today — staying capable, safe, and always learning — never goes out of date, no matter what technology comes next.",
+        },
+      },
+      {
+        id: "hook-story",
+        kicker: "Real moment",
+        title: "One ordinary Tuesday, sixteen lessons later",
+        body: `It's an ordinary Tuesday for Alex, a junior juggling a scholarship deadline. A text claiming to be from "the scholarship board" asks for a login and a fee — Alex recognizes the pressure-and-urgency pattern from the security lessons and reports it instead of clicking. An hour later, the scholarship portal won't accept a PDF; instead of panicking, Alex reads the exact error, resizes the file, and tries a different browser — troubleshooting, calmly. That evening, a shocking claim about a local event spreads through a group chat; Alex pauses to check the source before sharing it, remembering how misinformation actually spreads.\n\nNone of this felt like "using a checklist." It felt like instinct — because it was. Alex didn't consciously recall sixteen separate lessons; the habits had already merged into how Alex naturally moves through a digital day.\n\nThat's the whole point of this capstone: not to memorize more facts, but to notice that the toolkit is already working, quietly, in moments exactly like this one.`,
+        callout: {
+          label: "Keep this in mind",
+          text: "You don't have to feel like an expert for these habits to already be working. Noticing when they kick in — like Alex did — is what turns knowledge into fluency.",
         },
       },
       {
@@ -47,7 +57,7 @@ export const digitalLesson16: AILessonConfig = {
         id: "together",
         kicker: "The big idea",
         title: "Real digital literacy is all the areas working together",
-        body: `Here's the insight that ties the whole track together: these areas aren't separate boxes. **Real digital literacy is them working as one.**\n\nWatch how they connect in a single moment. You see a shocking post and want to share it. Real digital literacy means you instantly draw on *several* areas at once:\n\n• **Find & judge information** — is this actually true, or misinformation?\n• **Footprint & citizenship** — what does sharing this say about me, and is it kind?\n• **Security & privacy** — is this a scam or a trick to grab my data?\n• **Wellbeing** — is this feed just trying to hijack my attention?\n\nOne everyday decision, four areas firing together. That's the difference between memorizing facts and being genuinely *fluent*. A truly digitally literate person doesn't run a checklist consciously — these habits blend into good instincts.\n\nYour goal isn't to recall each lesson. It's to let them merge into how you naturally move through a digital world.`,
+        body: `Here's the insight that ties the whole track together: these areas aren't separate boxes. **Real digital literacy is them working as one.**\n\nWatch how they connect in a single moment. You see a shocking post and want to share it. Real digital literacy means you instantly draw on *several* areas at once:\n\n• **Find & judge information** — is this actually true, or misinformation?\n• **Footprint & citizenship** — what does sharing this say about me, and is it kind?\n• **Security & privacy** — is this a scam or a trick to grab my data?\n• **Wellbeing** — is this feed just trying to hijack my attention?\n\nOne everyday decision, four areas firing together. That's the difference between memorizing facts and being genuinely *fluent*. A truly digitally literate person doesn't run a checklist consciously — these habits blend into good instincts, exactly like they did for Alex.\n\nYour goal isn't to recall each lesson. It's to let them merge into how you naturally move through a digital world.`,
         bullets: [
           "The areas overlap — most real choices use several at once.",
           "Fluency means the habits blend into instincts.",
@@ -59,6 +69,50 @@ export const digitalLesson16: AILessonConfig = {
           label: "Common misconception",
           text: "\"Being digitally literate is just about staying safe.\" Safety is only one piece. It's equally about creating, communicating, collaborating, judging information, and bringing real skills to work and life.",
         },
+        checkIn: {
+          prompt: "You see a shocking post in a group chat and feel the urge to share it instantly before a college interview tomorrow. Which response shows real digital literacy — several skills firing at once?",
+          choices: [
+            "Share immediately so others see it fast",
+            "Check if it's true, consider what sharing says about you, watch for scams, and notice if the feed is hijacking your attention",
+            "Assume anything dramatic must be real",
+            "Ignore it because all posts are fake",
+          ],
+          correctIndex: 1,
+          explanation:
+            "One real decision draws on information literacy, citizenship, security, and wellbeing together. That blend of habits is what fluency looks like in action.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Which areas does this moment actually touch?",
+        body: `Practice spotting the overlap yourself. A classmate DMs you a link to a "free gift card" quiz that also asks you to enter your school email and share it with five friends to unlock the prize.\n\nWalk through which areas of your toolkit light up:\n\n• **Security & privacy** — a "free gift card" that asks for your email and pressures you to share it fast has classic scam signals.\n• **Find & judge information** — is this a real company, or does the link/domain look off?\n• **Footprint & citizenship** — forwarding it to five friends spreads the risk to them too, without their consent.\n• **Wellbeing** — the countdown timer and "unlock now!" urgency is a deliberate attention-grabbing trick.\n\nFour areas, one link. That's not a coincidence — most everyday digital decisions are like this once you know to look.`,
+        checkIn: {
+          prompt: "A 'free gift card' link asks for your school email and urges you to forward it to five friends before a countdown ends. How many of your toolkit areas does this single moment actually touch?",
+          choices: [
+            "None — it's just a harmless quiz",
+            "Only security, since it's asking for information",
+            "Several at once — security/privacy, judging information, citizenship (spreading risk to friends), and wellbeing (urgency tricks)",
+            "Only wellbeing, because of the countdown timer",
+          ],
+          correctIndex: 2,
+          explanation:
+            "A single scam-style link routinely touches multiple areas at once: security (data grab), information literacy (is it real?), citizenship (forwarding risk to others), and wellbeing (manufactured urgency).",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "When something online feels urgent, free, and asks you to share it fast, treat that combination itself as a signal — it's the classic shape of a scam, regardless of the specific prize.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Myth-busting",
+        title: "Two myths that quietly undercut digital literacy",
+        body: `Two comfortable myths are worth killing before you finish this track.\n\n**Myth 1 — "I grew up with a phone, so I already know all this."** Using apps fluently isn't the same as judging information, protecting your privacy, or managing your footprint well. Being fast at swiping and typing is a different skill from being thoughtful about what you swipe past or type. Plenty of "digital natives" fall for scams, overshare, or doomscroll — comfort with technology doesn't automatically include wisdom about it.\n\n**Myth 2 — "I finished this track, so I'm done learning this stuff."** Tools, scams, and platforms keep changing. The habits you built here — pause before sharing, question a permission, audit your footprint — are durable, but the specific apps and tricks you'll face in five years don't exist yet. The finish line here is a mindset, not a stopping point.\n\nBoth myths share a root: mistaking familiarity or a completed course for mastery. Real digital literacy keeps being practiced.`,
+        callout: {
+          label: "Myth check",
+          text: "Growing up online builds speed, not automatically judgment. Finishing a track builds a foundation, not a finish line. Both need ongoing, deliberate practice.",
+        },
       },
       {
         id: "audit",
@@ -68,6 +122,28 @@ export const digitalLesson16: AILessonConfig = {
         callout: {
           label: "Be honest",
           text: "This audit only helps if you're real with yourself. Nobody else sees it. A truthful 'not-yet' that you fix beats a fake 'yes' that leaves you exposed.",
+        },
+        checkIn: {
+          prompt: "You're honestly filling out the self-audit and get several 'not-yet' answers. What does that mean?",
+          choices: [
+            "You failed the track and need to redo it",
+            "Nothing — the audit doesn't matter either way",
+            "You've found your real roadmap — those 'not-yet' answers become the specific next steps in your action plan",
+            "You should give up on digital literacy entirely",
+          ],
+          correctIndex: 2,
+          explanation:
+            "The self-audit isn't graded. Its whole purpose is to surface honest gaps so your action plan targets exactly what needs work, instead of vague, unfocused effort.",
+        },
+      },
+      {
+        id: "level-up-vocabulary",
+        kicker: "Level up",
+        title: "A few last words worth knowing",
+        body: `A handful of terms describe the mindset behind everything you've built. Quick, plain definitions to carry forward:\n\n• **Transferable skill** — a skill learned in one context (like troubleshooting a laptop) that works in totally different contexts too (like debugging a group-project conflict).\n• **Adaptive expertise** — being good not just at solving familiar problems, but at figuring out unfamiliar ones by applying the same underlying process.\n• **Self-directed learner** — someone who notices a skill gap and goes and closes it, without waiting to be assigned a lesson on it.\n• **Digital resilience** — bouncing back calmly from a scam attempt, a tech glitch, or an online conflict instead of being derailed by it.\n\nNotice that none of these are about knowing more facts. They're about how you *respond* when the facts run out — which is exactly what happens the moment a brand-new app or scam shows up next year.`,
+        callout: {
+          label: "Tip",
+          text: "If you remember only one of these words, make it **self-directed learner**. It's the single habit that keeps every other skill in this track current for the rest of your life.",
         },
       },
       {
@@ -86,6 +162,48 @@ export const digitalLesson16: AILessonConfig = {
           label: "Common misconception",
           text: "\"Now I'm done learning this.\" Digital literacy is ongoing — new tools and risks appear constantly. The real skill is staying a lifelong learner who keeps taking the next small step.",
         },
+        checkIn: {
+          prompt: "Which is the strongest example of a good action-plan step for a senior preparing applications?",
+          choices: [
+            "\"Be safer online\"",
+            "\"Get better at tech\"",
+            "\"Set up a password manager and turn on 2FA for my email and college portal this weekend\"",
+            "\"Use the internet less, somehow\"",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Good plan steps are specific, doable, and have a clear finish. 'Turn on 2FA for my email and college portal this weekend' can actually be done; vague goals like 'be safer' can't.",
+        },
+      },
+      {
+        id: "comparison",
+        kicker: "Side by side",
+        title: "You, before and after this track",
+        body: `A quick, honest snapshot of the shift this track was actually going for.`,
+        table: {
+          columns: ["Moment", "Before this track", "After this track"],
+          values: [
+            ["A shocking post appears", "Share first, ask questions later (if ever)", "Pause, check the source, consider what sharing says about you"],
+            ["An app asks for a permission", "Tap 'Allow' without reading it", "Ask whether the app's job actually needs it"],
+            ["A tech problem appears", "Panic, click randomly, or give up", "Describe it, isolate it, try simple fixes, search the exact error"],
+            ["A message to a teacher or boss", "Casual, unclear, no clear ask", "Clear subject, purpose, specific ask, polite sign-off"],
+          ],
+          rowCount: 4,
+        },
+        callout: {
+          label: "Why it matters",
+          text: "None of the 'after' column requires being a genius or an expert. It requires the habits you've now practiced across sixteen lessons — which is exactly why they're worth keeping.",
+        },
+      },
+      {
+        id: "real-world-trap",
+        kicker: "Real-world trap",
+        title: "The 'I'll deal with it later' trap",
+        body: `Here's a trap that catches even people who finished this whole track: knowing the right habit, but pushing it off until a deadline forces the issue.\n\n• Knowing you should turn on 2FA, but doing it only *after* an account gets compromised.\n• Knowing your public profile needs a cleanup, but only searching your own name the night before a scholarship interview.\n• Knowing a portfolio would help your applications, but never starting one until a form specifically asks for a link.\n\nEach of these is completely fixable in minutes — the problem isn't difficulty, it's timing. Doing them *before* they're urgent turns a stressful scramble into a five-minute task you barely notice. The whole value of an action plan (from a few sections ago) is turning "I should do that sometime" into "I did that on this specific date."`,
+        callout: {
+          label: "Watch out",
+          text: "If you notice yourself thinking 'I know I should fix this, I'll do it later,' that's the exact moment to open your action plan and put a real date on it instead.",
+        },
       },
       {
         id: "next-chapter",
@@ -102,12 +220,56 @@ export const digitalLesson16: AILessonConfig = {
           label: "Pro tip",
           text: "Your plan should fit on one sticky note. If it needs a novel, it's too big — shrink it until each step is doable in one sitting.",
         },
+        checkIn: {
+          prompt: "Why is 'lifelong learning' the key mindset for digital literacy after you finish this track?",
+          choices: [
+            "Because once you finish this track, you're done learning",
+            "Because tools, apps, and risks keep changing, so you keep taking new small steps",
+            "Because only experts need to keep learning",
+            "Because technology never changes",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Digital life constantly evolves, so digital literacy is never 'finished.' Staying a lifelong learner who keeps taking the next step is what keeps you capable and job-ready.",
+        },
+      },
+      {
+        id: "standards-connect",
+        kicker: "Where this fits",
+        title: "The full ISTE map behind this entire track",
+        body: `Now that you've finished all sixteen lessons, here's how they line up with the **ISTE Standards for Students** as a whole — the same framework schools use to define digital literacy:\n\n• **Empowered Learner** — setting goals and using technology strategically to manage your own learning, wellbeing, and productivity (wellbeing, career, and troubleshooting lessons).\n• **Digital Citizen** — managing your footprint and data, and acting safely and ethically in online communities (footprint, citizenship, and privacy lessons).\n• **Knowledge Constructor** — evaluating the accuracy and purpose of information sources before trusting or sharing them (information-literacy lessons).\n• **Innovative Designer / Creative Communicator** — using the right tools and formats to create and share content for a real audience (content-creation and career lessons).\n• **Computational Thinker** — breaking problems into smaller parts and using a repeatable process to solve them (troubleshooting and foundations lessons).\n• **Global Collaborator** — working respectfully with others across shared digital spaces (communication and collaboration lessons).\n\nYou didn't just complete a track — you practiced every one of these standards in a real, applied way.`,
+        checkIn: {
+          prompt: "Across this entire track, which best describes how the ISTE Standards for Students actually showed up in your lessons?",
+          choices: [
+            "Only in one single lesson about coding",
+            "Spread across the whole track — from judging information to managing your footprint to troubleshooting calmly to collaborating respectfully",
+            "They only apply to computer science majors",
+            "ISTE standards are unrelated to anything in this track",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Nearly every lesson in this track mapped to a specific ISTE standard — information literacy, digital citizenship, computational thinking, collaboration, and more — practiced in realistic, everyday situations.",
+        },
+        callout: {
+          label: "Why it matters",
+          text: "These standards aren't abstract school labels — they're a checklist of exactly the instincts you now carry into everyday digital decisions, at school, at home, and eventually at work.",
+        },
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "Case study: Jordan's application week",
+        body: `It's the busiest week of Jordan's senior year: three scholarship deadlines in five days. Watch how the whole toolkit shows up, one moment at a time.\n\n**Monday —** A "congratulations, you're pre-selected!" text arrives with a link. Jordan recognizes the too-good-to-be-true pattern, doesn't click, and reports it. *(Security)*\n\n**Tuesday —** A college portal rejects Jordan's PDF résumé. Instead of panicking, Jordan reads the exact error ("file exceeds 5 MB"), compresses it, and resubmits. *(Troubleshooting)*\n\n**Wednesday —** A teacher hasn't replied to a recommendation-letter request. Jordan sends a polite follow-up with a clear subject line and the deadline restated, rather than a vague "did you see my email???" text. *(Communication)*\n\n**Thursday —** Jordan searches their own name before an interview and finds an old, unflattering public post — and quietly deletes it with a day to spare. *(Footprint)*\n\n**Friday —** Exhausted, Jordan feels the pull to doomscroll at midnight before a final deadline, but instead sets a focus timer for one last hour, then sleeps. *(Wellbeing)*\n\nNo single lesson saved Jordan's week. All of them, together, did.`,
+        callout: {
+          label: "Pro tip",
+          text: "Notice that none of Jordan's moves were dramatic or heroic. They were small, calm, practiced habits — exactly the kind this whole track was built to make automatic.",
+        },
       },
       {
         id: "worked",
         kicker: "Worked example",
         title: "Fill out a digital-readiness plan, step by step",
-        body: `Let's model exactly what *you'll* do in the reflection. Meet Maya, finishing this track as a junior. Watch her turn an honest audit into a tiny, real plan.\n\n**Step 1 — Audit honestly.** Maya checks herself: passwords reused across sites (not-yet), footprint mostly fine (sort-of), healthy habits weak — scrolls in bed every night (not-yet), spreadsheet skills basically none (not-yet), professional email awkward (not-yet).\n\n**Step 2 — Pick the most important gaps.** She can't fix everything at once, so she chooses three that matter most to her: security, sleep, and a work skill tied to applications.\n\n**Step 3 — Write specific, doable steps.** Not "be safer" — actual actions:`,
+        body: `Let's model exactly what *you'll* do in the reflection. Meet Maya, finishing this track as a junior. Watch her turn an honest audit into a tiny, real plan.\n\n**Step 1 — Audit honestly.** Maya checks herself: passwords reused across sites (not-yet), footprint mostly fine (sort-of), healthy habits weak — scrolls in bed every night (not-yet), spreadsheet skills basically none (not-yet), professional email awkward (not-yet).\n\n**Step 2 — Pick the most important gaps.** She can't fix everything at once, so she chooses three that matter most to her: security, sleep, and a work skill tied to applications.\n\n**Step 3 — Write specific, doable steps.** Not "be safer," but actual actions:`,
         code: `MAYA'S DIGITAL-READINESS PLAN
 1. Security:  Set up a password manager + turn on 2FA for email
               and college portal.  (This weekend)
@@ -126,10 +288,28 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
         },
       },
       {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One last check before the final knowledge check",
+        body: `Before the final graded questions, see if you can explain each of these in one sentence:\n\n• What it means for digital literacy areas to work "together" rather than as separate boxes?\n• One myth about being a "digital native" that this capstone corrected?\n• The difference between a vague goal and a real action-plan step?\n• One ISTE standard this track practiced, and where you saw it in action?\n\nIf all four feel solid, you've genuinely earned the **Digitally Fluent** badge waiting at the end of this lesson.`,
+        checkIn: {
+          prompt: "A classmate says digital literacy is 'just about not getting hacked.' Which statement best captures what 'real digital literacy' means?",
+          choices: [
+            "Knowing how to stay safe online and nothing else",
+            "All the areas — foundations, information, communication, footprint, creating, security, wellbeing, and work skills — working together",
+            "Being able to code",
+            "Owning the newest devices",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Digital literacy is many overlapping areas working as one. Safety is just one piece alongside creating, communicating, judging information, and career skills.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn — finish strong",
-        body: `This is the finish line of the entire Digital Literacy track. You can now navigate technology, judge information, communicate and create, protect yourself, stay healthy, troubleshoot calmly, and bring real skills to school, college apps, internships, and a future career — and you understand that true digital literacy is all of that working *together*, for life.\n\nTake the final knowledge check (it pulls from the whole track), then write your own **3-step digital-readiness action plan** in the reflection to earn your **Digitally Fluent** badge.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict). Congratulations — you've become exactly the kind of capable, responsible, lifelong digital learner the real world needs.`,
+        body: `This is the finish line of the entire Digital Literacy track. You can now navigate technology, judge information, communicate and create, protect yourself, stay healthy, troubleshoot calmly, and bring real skills to school, college apps, internships, and a future career — and you understand that true digital literacy is all of that working *together*, for life, guided by the same ISTE standards schools use to define it.\n\nTake the final knowledge check (it pulls from the whole track), then write your own **3-step digital-readiness action plan** in the reflection to earn your **Digitally Fluent** badge.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict). Congratulations — you've become exactly the kind of capable, responsible, lifelong digital learner the real world needs.`,
       },
     ],
   },
@@ -143,6 +323,7 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
     { term: "Digital toolkit", definition: "The full set of skills and habits you've built — from security to creativity to career skills — ready to use." },
     { term: "Digital readiness", definition: "How prepared you are for school, life, and work in a digital world — measured by an honest self-audit and a plan." },
     { term: "Lifelong learning", definition: "The habit of continually picking up new tools and skills as technology and risks keep changing." },
+    { term: "Adaptive expertise", definition: "Being good at figuring out unfamiliar problems by applying the same underlying process, not just recalling familiar answers." },
   ],
   realWorld:
     "The most valuable people in any workplace aren't the ones who know every tool — they're the ones who can learn any tool, stay safe, communicate clearly, and adapt. This capstone is your launchpad for exactly that — whether your next step is high school, college, an internship, or a first job.",
@@ -211,6 +392,45 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
       correctIndex: 1,
       explanation:
         "Digital life constantly evolves, so digital literacy is never 'finished.' Staying a lifelong learner who keeps taking the next step is what keeps you capable and job-ready.",
+    },
+    {
+      id: "q6",
+      question: "A friend says 'I grew up with a phone, so I already know all this digital literacy stuff.' What does this capstone say about that idea?",
+      choices: [
+        "It's completely true — using apps fluently means you're automatically digitally literate",
+        "Being fast and comfortable with apps is a different skill from judging information, protecting privacy, and managing a footprint well",
+        "Only people over 40 need to learn digital literacy",
+        "Digital natives never fall for scams",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Comfort with technology (swiping, typing, using apps) doesn't automatically include the judgment skills this track builds — many 'digital natives' still fall for scams or overshare.",
+    },
+    {
+      id: "q7",
+      question: "You know you should turn on 2FA and clean up your footprint, but keep putting it off until 'later.' What does this lesson call that trap, and what's the fix?",
+      choices: [
+        "It's not a real trap — waiting has no downside",
+        "The 'I'll deal with it later' trap — the fix is putting a specific date on the action in your plan instead of leaving it vague",
+        "You should never make an action plan",
+        "Only professionals need to worry about timing",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Knowing the right habit isn't enough if it keeps getting pushed off. Turning 'I should do that sometime' into a dated, specific action-plan step is what actually closes the gap.",
+    },
+    {
+      id: "q8",
+      question: "Looking back at the whole track, which ISTE standard most closely matches learning to pause, check sources, and evaluate accuracy before sharing information?",
+      choices: [
+        "Knowledge Constructor",
+        "Innovative Designer",
+        "Global Collaborator",
+        "Empowered Learner",
+      ],
+      correctIndex: 0,
+      explanation:
+        "The ISTE Knowledge Constructor standard is about evaluating the accuracy, perspective, and usefulness of information sources before trusting or sharing them — exactly what the information-literacy lessons practiced.",
     },
   ],
   reflection: {

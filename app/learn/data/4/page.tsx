@@ -15,7 +15,7 @@ const daLesson4: DataLessonConfig = {
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -30,7 +30,30 @@ const daLesson4: DataLessonConfig = {
         },
       },
       {
-        id: "match",
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "The filter button you tap without thinking",
+        body: `Shopping for shoes online, you tap "Under $50" and "Size 9" without a second thought. Instantly the page shrinks from 4,000 products to 12. That felt instant — but underneath, the store's database just ran a \`WHERE\` clause with two conditions combined.\n\nEvery filter chip, every "in stock only" toggle, every "4 stars and up" checkbox you've ever tapped is exactly the skill you're about to learn today.`,
+        callout: {
+          label: "Notice it",
+          text: "Next time you filter a shopping or streaming app, try to guess what the WHERE clause behind it might look like in plain English.",
+        },
+      },
+      {
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**Condition** — a true-or-false test SQL checks on every row, like `price > 4`.",
+          "**WHERE clause** — the part of a query that keeps only rows passing a condition.",
+          "**Comparison operator** — a symbol like `=`, `>`, `<`, `>=` that compares values.",
+          "**Boundary value** — the exact edge number in a comparison, like the `4` in `price >= 4`.",
+          "**AND / OR** — words that combine two or more conditions into one rule.",
+        ],
+      },
+      {
+        id: "concept-1",
         kicker: "Match text",
         title: "WHERE keeps only matching rows",
         body: `Add \`WHERE\` right after the table name, then a **condition** — a true-or-false test SQL runs on every row. Rows that pass the test stay; the rest are filtered out. Think of \`WHERE\` like a bouncer checking each row against a rule.\n\nTo match **text**, wrap the value in **single quotes** and use a single \`=\`. The quotes tell SQL "this is a text value to match," not the name of a column.\n\nThe query below keeps only the rows where \`item\` is exactly "Salad" — and out of 8 orders, just 2 make it through.`,
@@ -44,16 +67,18 @@ const daLesson4: DataLessonConfig = {
           ],
           rowCount: 2,
         },
-        callout: {
-          label: "Common misconception",
-          text: "In SQL, you test for a match with a **single** `=`, not the double `==` used in many programming languages. And text always needs single quotes: `WHERE item = 'Salad'` works, but `WHERE item = Salad` makes SQL look for a *column* named Salad and fail.",
+        checkIn: {
+          prompt: "Which is the correct way to filter for text matching 'Burger'?",
+          choices: ["WHERE item = Burger", "WHERE item = 'Burger'", "WHERE item == \"Burger\""],
+          correctIndex: 1,
+          explanation: "Text values in SQL need single quotes and a single equals sign — WHERE item = 'Burger' is correct.",
         },
       },
       {
-        id: "compare",
-        kicker: "Compare & combine",
-        title: "Numbers, AND, and OR",
-        body: `For **numbers**, you skip the quotes and can compare with \`>\` (greater than), \`<\` (less than), \`>=\` (greater than or equal), and \`<=\` (less than or equal). So \`WHERE price > 4\` keeps only the pricier orders.\n\nWhen one rule isn't enough, **combine** conditions. \`AND\` means *both* must be true (it narrows your results). \`OR\` means *at least one* must be true (it widens them). It's like filters on a shopping site: checking more "AND" boxes shows fewer items; "OR" between options shows more.\n\nThe example below finds orders that cost more than $4 — exactly 2 of them.`,
+        id: "concept-2",
+        kicker: "Compare numbers",
+        title: "Comparing numbers with > and >=",
+        body: `For **numbers**, you skip the quotes and can compare with \`>\` (greater than), \`<\` (less than), \`>=\` (greater than or equal), and \`<=\` (less than or equal). So \`WHERE price > 4\` keeps only the pricier orders.\n\nThe example below finds orders that cost more than $4 — exactly 2 of them.`,
         code: `SELECT *\nFROM lunch_orders\nWHERE price > 4;`,
         codeCaption: "Orders more expensive than $4",
         table: {
@@ -64,14 +89,32 @@ const daLesson4: DataLessonConfig = {
           ],
           rowCount: 2,
         },
+        checkIn: {
+          prompt: "Two orders are priced exactly $4.00. Does WHERE price > 4 include them?",
+          choices: ["Yes, > includes the boundary", "No, > is strictly greater, so exactly 4 is excluded", "Only one of them"],
+          correctIndex: 1,
+          explanation: "The `>` operator means strictly greater than — a value exactly equal to 4 does not pass. Use `>=` to include the boundary.",
+        },
+      },
+      {
+        id: "concept-3",
+        kicker: "Combine conditions",
+        title: "AND narrows, OR widens",
+        body: `When one rule isn't enough, **combine** conditions. \`AND\` means *both* must be true (it narrows your results). \`OR\` means *at least one* must be true (it widens them). It's like filters on a shopping site: checking more "AND" boxes shows fewer items; "OR" between options shows more.`,
         bullets: [
           "**Text** needs single quotes: `WHERE item = 'Salad'`.",
           "**Numbers** don't: `WHERE price > 4`.",
           "`AND` = both true (narrower); `OR` = at least one true (wider).",
         ],
-        callout: {
-          label: "Common misconception",
-          text: "`>` and `>=` are different at the boundary. `WHERE price > 4` skips the $4.00 salads, but `WHERE price >= 4` includes them. When a result count surprises you, check whether your comparison should include the edge value.",
+        checkIn: {
+          prompt: "WHERE item = 'Salad' OR item = 'Burger' — what does this return?",
+          choices: [
+            "Only rows where BOTH item = 'Salad' AND item = 'Burger' are true (impossible, so 0 rows)",
+            "Every row that is either a Salad or a Burger order",
+            "Every row except Salads and Burgers",
+          ],
+          correctIndex: 1,
+          explanation: "OR widens the filter: a row passes if at least one condition is true, so both Salad and Burger orders come through.",
         },
       },
       {
@@ -94,6 +137,116 @@ const daLesson4: DataLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "When you filter, predict the row count *before* you run it (\"I expect about 4 orders\"). If the real result is wildly different, your condition probably isn't saying what you meant.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "Quotes, single equals, and boundary traps",
+        body: `Three small mistakes cause almost every WHERE error beginners hit.`,
+        bullets: [
+          "Use a **single** `=` to test for a match, not the double `==` from other programming languages.",
+          "Text always needs single quotes: `WHERE item = 'Salad'`, never `WHERE item = Salad`.",
+          "`>` and `>=` behave differently right at the boundary value — always double-check which one your question needs.",
+        ],
+        checkIn: {
+          prompt: "What's wrong with `WHERE item = Salad` (no quotes)?",
+          choices: [
+            "Nothing, it works fine",
+            "SQL will think Salad is a column name, not a text value, and it will fail",
+            "It should use == instead of =",
+          ],
+          correctIndex: 1,
+          explanation: "Without quotes, SQL treats \"Salad\" as if it were a column name rather than a text value — the query breaks.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Predict, then flip >= to >",
+        body: `Before the exercises, predict: how many rows will \`WHERE price >= 4\` return versus \`WHERE price > 4\`? You already saw the answer in the worked example — but try predicting it again from scratch, then verify once you're in the workspace.\n\nAs a bonus challenge, predict what \`WHERE price <= 3\` would return before you try it.`,
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Go one level deeper",
+        title: "Not equal, and stacking three conditions",
+        body: `SQL also has \`!=\` (or sometimes \`<>\`), meaning "not equal to." \`WHERE item != 'Salad'\` keeps every order *except* salads.\n\nYou can also stack more than two conditions: \`WHERE price > 3 AND price < 5 AND item != 'Burger'\` reads naturally, left to right, as three rules that must ALL be true at once.`,
+        bullets: [
+          "`!=` means \"not equal to\" — the opposite of `=`.",
+          "You can chain multiple `AND`s to narrow a filter step by step.",
+          "Mixing `AND` and `OR` in one line gets tricky fast — for now, keep each WHERE to one type of combination.",
+        ],
+      },
+      {
+        id: "comparison",
+        kicker: "Compare & contrast",
+        title: "WHERE vs. LIMIT — two very different filters",
+        body: `It's tempting to think LIMIT and WHERE do similar jobs since both shrink your results — but they work in completely different ways.`,
+        bullets: [
+          "**LIMIT** — blindly grabs the first N rows in whatever order they come, with no regard for their content.",
+          "**WHERE** — checks the actual content of every row and keeps only the ones matching a real condition.",
+          "LIMIT 3 might miss the exact rows you care about; WHERE always finds them, no matter where they sit in the table.",
+        ],
+        checkIn: {
+          prompt: "You want ALL the salad orders, no matter how many there are. Should you use LIMIT or WHERE?",
+          choices: ["LIMIT", "WHERE", "Either one works the same"],
+          correctIndex: 1,
+          explanation: "WHERE checks content and returns every row that matches, however many there are. LIMIT would just grab the first few rows regardless of what's in them.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "What does your filter leave out?",
+        body: `Filters decide what you see — and just as importantly, what you *don't* see. A biased or careless filter can hide important rows without anyone noticing.\n\nBefore you trust a filtered result, always ask: *what does this WHERE clause leave out, and could that change the conclusion?* A report on "average grade" that quietly filters out failing students, for example, tells a misleadingly rosy story.`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "State your filter in plain English first",
+        body: `Before writing a WHERE clause, say the rule out loud in plain English: "orders that cost $4 or more." Then translate it directly into SQL. This habit prevents the classic mix-up between \`>\` and \`>=\`, and between \`AND\` and \`OR\`.`,
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Filtering is a foundational computational thinking skill.`,
+        bullets: [
+          "**CSTA 2-DA-08** — Transform and filter data to make it more useful for a specific question.",
+          "**CSTA 3A-DA-10** — Use data analysis techniques (filtering with conditions) to identify patterns.",
+          "**ISTE Computational Thinker** — Formulating a problem in a way that lets a computer test conditions and produce answers.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "Think of a filter you'd design",
+        body: `If you ran the school store's database, what's one WHERE clause you'd write to help the manager make a decision — "items priced under $2 that are running low," for example? Write your condition in plain English first, then try converting it to SQL syntax.`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The library's overdue books",
+        body: `The school library has a table \`checkouts\` with columns \`book_title\`, \`student_name\`, and \`days_overdue\`. The librarian wants to know: *"Which checkouts are more than 7 days overdue?"*\n\nWrite the condition (in plain English or SQL) that answers this. What's the difference between using \`>\` 7 and \`>=\` 7 here — and which one actually matches "more than 7 days"?`,
+        callout: {
+          label: "Apply it",
+          text: "SELECT * FROM checkouts WHERE days_overdue > 7; — \"more than 7\" means the boundary value itself (exactly 7) should NOT be included.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's confirm text matching, number comparisons, and AND/OR are all locked in.`,
+        checkIn: {
+          prompt: "Which condition finds orders that are BOTH priced over $3 AND are salads?",
+          choices: [
+            "WHERE price > 3 OR item = 'Salad'",
+            "WHERE price > 3 AND item = 'Salad'",
+            "WHERE price = 3 AND item = Salad",
+          ],
+          correctIndex: 1,
+          explanation: "AND requires both conditions to be true at once, narrowing the results to only salads priced above $3 — with the text value properly quoted.",
         },
       },
       {

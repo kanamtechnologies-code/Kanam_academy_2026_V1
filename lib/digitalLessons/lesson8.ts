@@ -10,7 +10,7 @@ export const digitalLesson8: AILessonConfig = {
   prevHref: "/learn/digital/7",
   nextHref: "/learn/digital/9",
   lessonModule: {
-    durationLabel: "~11–12 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -25,6 +25,16 @@ export const digitalLesson8: AILessonConfig = {
         },
       },
       {
+        id: "hook-story",
+        kicker: "Real moment",
+        title: "\"That didn't sound like him at all\" — a lobby pile-on",
+        body: `Deshawn is known as one of the nicest guys in his friend group. After a rough loss in a ranked game, a stranger's comment sets him off, and he fires back something genuinely cruel in the lobby chat — the kind of thing his friends have never heard him say out loud. Two other strangers pile on with laughing-face reactions. The original player leaves the match and doesn't queue up again for weeks.\n\nLater, Deshawn feels embarrassed. "That's not even how I talk," he tells a friend. He's right — it isn't how he talks *in person*. But typed, in the heat of a loss, with no face to see and strangers egging him on, it came out anyway.\n\nNobody in that lobby was secretly a bad person. They just hit the exact conditions — anonymity, frustration, an audience — that make ordinary people say crueler things online than they ever would face-to-face. This lesson is about recognizing those conditions before they take over.`,
+        callout: {
+          label: "Keep this in mind",
+          text: "Feeling instant regret after typing something cruel is common — which is exactly why it helps to know the pattern ahead of time, not just after the damage is done.",
+        },
+      },
+      {
         id: "glossary",
         kicker: "Let's break down the words",
         title: "The words we'll use — in plain English",
@@ -35,7 +45,7 @@ export const digitalLesson8: AILessonConfig = {
         },
       },
       {
-        id: "what",
+        id: "concept-1",
         kicker: "The big idea",
         title: "Digital citizenship: real people, real impact",
         body: `**Digital citizenship** means using technology responsibly, safely, and respectfully — being a good "citizen" of online communities the same way you try to be a good member of your school or town.\n\nHere's the analogy to hold onto: an online community is a **shared space, like a school hallway.** Your behavior in it affects everyone else there. Slam into people and spread nastiness, and the whole hallway feels unsafe. Hold the door and help someone, and the space feels better for everyone.\n\nThe core truth behind digital citizenship is simple but easy to forget: **there's a real person on the other side of every screen.** Every username is a human with feelings, a bad day sometimes, and people who care about them. Good digital citizens never lose sight of that.`,
@@ -43,9 +53,21 @@ export const digitalLesson8: AILessonConfig = {
           label: "Watch out",
           text: "It's easy to treat usernames and avatars like they aren't real people. That gap — forgetting there's a human on the other end — is where most online cruelty begins.",
         },
+        checkIn: {
+          prompt: "What core idea sits at the center of digital citizenship, according to this lesson?",
+          choices: [
+            "Posting as often as possible builds a good reputation",
+            "There's a real person with real feelings on the other side of every screen",
+            "Online spaces have no real effect on people's lives",
+            "Usernames make everyone anonymous and unaffected",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Digital citizenship starts with remembering that every username is a real human being — that's the truth most online cruelty forgets.",
+        },
       },
       {
-        id: "disinhibition",
+        id: "concept-2",
         kicker: "Concept",
         title: "Why people say crueler things online",
         body: `Have you noticed people saying things online they'd never say to your face? There's a name for it: the **online disinhibition effect.**\n\nWhen we talk in person, we see the other person's face — their hurt, their surprise, their tears. That instant feedback naturally holds us back from being cruel. Online, that feedback disappears. You don't see the person flinch. You might be anonymous, or just far away. So the normal brakes on our behavior loosen, and people type things that are harsher, meaner, and more reckless than they'd ever speak aloud.\n\nKnowing this effect exists is powerful, because you can **catch yourself.** When you feel the urge to fire off something cutting, remember: a real person will read it, and you'd probably never say it to their face. Naming the effect helps you beat it.`,
@@ -53,49 +75,99 @@ export const digitalLesson8: AILessonConfig = {
           label: "Common misconception",
           text: "\"It's just online, so it doesn't really count.\" The disinhibition effect makes online words feel weightless, but they land on real people and can hurt just as much as words said in person.",
         },
-      },
-      {
-        id: "cyberbullying",
-        kicker: "Concept",
-        title: "Cyberbullying and the harm it causes",
-        body: `**Cyberbullying** is using technology to repeatedly hurt, harass, or humiliate someone. It takes many forms:\n\n• **Harassment** — sending mean, threatening, or repeated hurtful messages.\n• **Exclusion** — deliberately leaving someone out of a group chat or game to hurt them.\n• **Spreading rumors** — posting lies or embarrassing content about someone.\n• **Impersonation** — pretending to be someone to damage their reputation.\n\nThe harm is real and serious. Because online attacks can be public, constant, and follow someone home on their phone, cyberbullying can cause deep anxiety, depression, and isolation. There's no "safe" place to escape it the way you can sometimes walk away from a problem in person.\n\nAnd "it was just a joke" is not a defense. If it hurts the person on the receiving end, it counts — intent doesn't erase impact.`,
-        callout: {
-          label: "Common misconception",
-          text: "\"It's just a joke.\" Whether something is bullying is measured by its impact on the target, not by whether the sender found it funny. Real harm counts even when harm wasn't 'meant.'",
+        checkIn: {
+          prompt: "In a game lobby, someone types something they'd never say face-to-face. What is the 'online disinhibition effect'?",
+          choices: [
+            "A setting that speeds up your internet",
+            "The tendency to say crueler things online because you can't see the other person's reaction",
+            "A type of computer virus",
+            "A rule that bans all comments",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Without seeing someone's face, our normal brakes on cruelty loosen — so people type things online they'd never say in person.",
         },
       },
       {
-        id: "line",
-        kicker: "Everyday example",
-        title: "Where's the line? Joking around vs. bullying",
-        body: `Friends tease each other — that's normal, and not every joke is bullying. So how do you tell the difference? Two simple questions help.\n\n**1. Is it mutual?** Real banter goes *both ways* and everyone's smiling. If one person is always the target and never laughing, it's not a two-way joke anymore.\n\n**2. Does it stop when asked?** A friend who's teasing will back off the second you say "okay, that's enough." Someone who keeps going — or does it *more* because it bothers you — has crossed the line.\n\nQuick gut-check examples:\n\n• Two friends swapping silly nicknames they both find funny → **fine.**\n• The group keeps posting an unflattering photo of one classmate after they asked everyone to stop → **bullying.**\n• Leaving one person out of the chat on purpose, again and again, to hurt them → **bullying (exclusion),** even though no one "said" anything mean.\n\nWhen you're unsure, watch the target's reaction, not the joker's. Their feelings are the real measure.`,
-        callout: {
-          label: "Watch out",
-          text: "\"They're being too sensitive\" is how a lot of bullying gets excused. If someone asks you to stop and you don't, that's no longer a joke — it's a choice to keep hurting them.",
-        },
-      },
-      {
-        id: "upstander",
+        id: "concept-3",
         kicker: "Concept",
-        title: "Be an upstander, not a bystander",
-        body: `When you see someone being targeted, you have a choice. A **bystander** sees it happen and does nothing — and silence can feel to the victim like everyone agrees with the bully. An **upstander** steps in to help.\n\nBeing an upstander doesn't mean starting a fight. It means:\n\n• **Don't pile on.** Don't like, share, or laugh at the cruel post — that fuels it.\n• **Support the target.** A simple private message — "Hey, that wasn't okay. You good?" — means a lot.\n• **Save evidence.** Screenshot what's happening before anyone deletes it.\n• **Report it,** and **tell a trusted adult** if it's serious.\n\nYou don't have to be loud or heroic. Quietly refusing to join in, checking on the person, and reporting the behavior is exactly what an upstander does — and it can change everything for the person being targeted.`,
+        title: "Cyberbullying — and the choice everyone faces",
+        body: `**Cyberbullying** is using technology to repeatedly hurt, harass, or humiliate someone. It takes many forms:\n\n• **Harassment** — sending mean, threatening, or repeated hurtful messages.\n• **Exclusion** — deliberately leaving someone out of a group chat or game to hurt them.\n• **Spreading rumors** — posting lies or embarrassing content about someone.\n• **Impersonation** — pretending to be someone to damage their reputation.\n\nThe harm is real and serious, and it can follow someone home on their phone with no "safe" place to escape it. And "it was just a joke" is not a defense — if it hurts the person on the receiving end, it counts, because impact matters more than intent.\n\nWhen you *see* it happening, you have a choice. A **bystander** watches and does nothing — and silence can feel to the victim like everyone agrees with the bully. An **upstander** steps in: doesn't pile on, supports the target, saves evidence, and reports it.`,
         image: "/images/lessons/dl-8-2.png",
         imageAlt: "Smartphone group chat with one person privately messaging support to a targeted classmate while a report menu is open",
         bullets: [
           "**Bystander** = watches and does nothing.",
           "**Upstander** = doesn't pile on, supports the target, saves evidence, reports.",
-          "A short private 'you okay?' message can mean a lot.",
+          "\"It's just a joke\" isn't a defense — impact matters more than intent.",
         ],
         callout: {
           label: "Common misconception",
           text: "\"Ignoring cyberbullying is the only thing I can do.\" You have real options: don't amplify it, support the target privately, save evidence, report, and tell an adult.",
         },
+        checkIn: {
+          prompt: "You see someone being bullied in a class group chat. What does an UPSTANDER do?",
+          choices: [
+            "Like the post so it's not awkward",
+            "Ignore it completely and hope it stops",
+            "Avoid piling on, support the target, save evidence, and report it",
+            "Join in so you don't become the next target",
+          ],
+          correctIndex: 2,
+          explanation:
+            "An upstander refuses to fuel the harm, checks on the target, screenshots evidence, reports it, and tells a trusted adult if it's serious.",
+        },
       },
       {
-        id: "report",
-        kicker: "Concept",
+        id: "worked-example",
+        kicker: "Worked example",
+        title: "You witness bullying in a group chat — what now?",
+        body: `Someone in your class group chat starts mocking a classmate, Priya, posting a screenshot of her and calling her names. Others are laughing with 😂 reactions. Here's the upstander response, step by step.\n\n**Step 1 — Don't share or like it.** Reacting or forwarding it spreads the harm and tells the bully they have an audience. Stay out of the pile-on completely.\n\n**Step 2 — Check on Priya.** Send her a private message: "Hey, what they posted wasn't okay. I've got your back — are you doing alright?" That support matters more than you'd think.\n\n**Step 3 — Save evidence.** Screenshot the messages *before* anyone deletes them, so there's proof of what happened.\n\n**Step 4 — Report and block.** Use the app's report tool to flag the posts, and block the person if they come after you for stepping in.\n\n**Step 5 — Tell a trusted adult.** Show the screenshots to a teacher, counselor, or parent — especially since it's targeting a specific person and others joined in.\n\nYou didn't have to start a fight. You refused to fuel it, supported the target, and got help — that's exactly what an upstander does.`,
+        image: "/images/lessons/dl-8-3.png",
+        imageAlt: "Phone interface showing steps: crossed-out share button, private supportive message, screenshot, report flag, and contacting a trusted adult",
+        callout: {
+          label: "Pro tip",
+          text: "Decide *now* that you'll be an upstander, before you're ever in the moment. Having a plan — don't pile on, check in, screenshot, report, tell an adult — makes it far easier to act when it counts.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Myth-busting",
+        title: "Two myths that let people off the hook",
+        body: `Two comfortable myths make cruelty online feel less serious than it is.\n\n**Myth 1 — "I didn't say anything mean, I just reacted / shared it."** Laughing-emoji reactions, shares, and even silent screenshots that get passed around all fuel a pile-on. You don't have to type a single cruel word to amplify harm — an audience is part of what makes bullying feel powerful to the person doing it.\n\n**Myth 2 — "Reporting someone is snitching."** Reporting isn't betrayal — it's the online version of telling a hallway monitor about a real fight. Platforms build report tools specifically so communities can flag harm that breaks the rules. Using them protects people, including possibly you someday.\n\nBoth myths let people feel like bystanders instead of participants. Reacting to harm and staying silent about serious harm are both choices with real effects.`,
+        callout: {
+          label: "Myth check",
+          text: "A laughing reaction on a cruel post isn't neutral — it's an audience reaction, and audiences are exactly what fuel online pile-ons. Silence isn't neutral either when reporting could help.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Bystander, amplifier, or upstander? Sort three reactions",
+        body: `Someone posts an unkind photo of a classmate in a group chat with a mocking caption. Three different classmates react. Sort each one.\n\n• **Classmate A** reacts with a laughing emoji and moves on. → **Amplifier** — a reaction still fuels the pile-on, even without typing a word.\n• **Classmate B** sees it, feels uncomfortable, but says nothing and scrolls past. → **Bystander** — no harm added, but no help given either.\n• **Classmate C** doesn't react to the post, privately messages the target "that wasn't okay, you good?", screenshots it, and reports it. → **Upstander** — refuses to fuel it and actively helps.\n\nNotice: being a bystander is better than amplifying, but it still isn't the same as actually helping. The upstander is the only one of the three who changes the outcome for the person being targeted.`,
+        checkIn: {
+          prompt: "A classmate reacts with a laughing emoji to a mean post but doesn't type anything themselves. What role does that play?",
+          choices: [
+            "It's neutral and has no effect since no words were typed",
+            "It still amplifies the harm, because reactions are a visible audience that fuels a pile-on",
+            "It automatically counts as reporting the post",
+            "It cancels out the original mean post",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Reactions like laughing emojis are a visible, low-effort way to fuel a pile-on. You don't need to type a cruel word to amplify harm — being an audience is part of what makes it feel powerful to a bully.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Before you react to any post, pause and ask: 'if the target could see who reacted, would I be okay being on that list?' That one pause prevents a lot of accidental amplifying.",
+        },
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Deeper skill",
         title: "Report, block, and keep communities healthy",
         body: `Every major platform gives you tools to protect yourself and others — learn where they are *before* you need them.\n\n• **Report** — flags content to the platform for breaking the rules. Look for "..." menus or a "Report" option on posts and profiles.\n• **Block** — stops someone from contacting or seeing you. It's not rude; it's a boundary.\n• **Tell a trusted adult** — a parent, teacher, or counselor — especially if there are threats or it won't stop.\n\nTwo more things matter here. **Hate speech** — attacking people for their race, religion, gender, or identity — is especially harmful and is against the rules on most platforms (and can break the law). And being a good citizen isn't only about stopping bad things; it's about **positive participation**: helping others, sharing good information, being inclusive and respectful of differences, and getting involved in communities and causes you care about.\n\nFinally, know that actions have **consequences** — schools can discipline cyberbullying, and serious cases (threats, harassment, hate speech) can have legal consequences too.`,
+        image: "/images/lessons/dl-8-4.png",
+        imageAlt: "Close-up of a phone messaging app with Report and Block options open below a conversation thread",
         bullets: [
           "**Report** harmful content; **block** people who target you.",
           "Tell a trusted adult about threats or anything that won't stop.",
@@ -108,7 +180,37 @@ export const digitalLesson8: AILessonConfig = {
         },
       },
       {
-        id: "escalate",
+        id: "comparison",
+        kicker: "Side by side",
+        title: "Bystander vs. upstander, action by action",
+        body: `The same moment, two very different sets of choices — laid out side by side.`,
+        table: {
+          columns: ["Moment", "Bystander", "Upstander"],
+          values: [
+            ["Sees a cruel post", "Scrolls past silently", "Refuses to like, share, or comment on it"],
+            ["Notices the target is upset", "Doesn't check in", "Sends a private supportive message"],
+            ["The post keeps escalating", "Waits and hopes it stops", "Screenshots it as evidence"],
+            ["The behavior continues", "Never tells anyone", "Reports it and tells a trusted adult"],
+          ],
+          rowCount: 4,
+        },
+        callout: {
+          label: "Why it matters",
+          text: "Neither column requires being loud or confrontational. The upstander column is just a series of small, doable choices — the kind anyone can make, including you.",
+        },
+      },
+      {
+        id: "real-world-trap",
+        kicker: "Real-world trap",
+        title: "The 'it's just a reaction' trap",
+        body: `Here's a trap that feels harmless in the moment: reacting to a cruel post with a laughing emoji, a 💀, or even a quote-share that pokes fun — without adding a single unkind word yourself.\n\nIt feels like you're not really "doing" anything. But from the target's point of view, every reaction is a visible name on a public pile-on. A post with 40 laughing reactions feels far worse to receive than one with zero — and you contributed one of those 40, even silently.\n\nThe same trap shows up at work later: forwarding a mean email "just to show a friend," or reacting with a laughing emoji to a coworker being mocked in a group chat. The habit of thinking "I didn't create the harm, I just reacted to it" doesn't hold up — reactions are participation, not neutral observation.`,
+        callout: {
+          label: "Watch out",
+          text: "If you wouldn't want your name on the list of people who reacted to a cruel post, don't react to it — even with something that feels small, like an emoji.",
+        },
+      },
+      {
+        id: "habits",
         kicker: "Decision framework",
         title: "Support, report, or escalate? A clear decision guide",
         body: `Not every rough moment needs the same response. Use this ladder — it works in school chats *and* later in workplace channels:\n\n**Level 1 — One-time rude comment, no threat.** Don't pile on. Optionally reply calmly or ignore. Check on the person privately if they seem hurt.\n**Level 2 — Repeated targeting, exclusion, or rumor-spreading.** Don't amplify. Support the target. Screenshot. Report in-app. Tell a trusted adult at school.\n**Level 3 — Threats, hate speech, sexual harassment, or "I'm going to hurt you."** Same upstander steps *plus* escalate immediately to a trusted adult (and, if needed, platform report + school admin). Do not handle Level 3 alone.\n\n**Workplace / internship note:** Companies have codes of conduct. Harassment in Slack, Discord, or email can get people fired — and reporting through HR or a manager is the adult version of telling a trusted adult. The skills transfer.\n\n**Decision shortcut:** If you're asking "is this serious enough?" — screenshot first, support the person, and tell an adult. Better to over-report safety than under-report harm.`,
@@ -122,31 +224,79 @@ export const digitalLesson8: AILessonConfig = {
           label: "Try this week",
           text: "Decide your upstander plan *before* you need it: (1) don't react publicly, (2) private check-in, (3) screenshot, (4) report, (5) tell an adult if it's repeated or scary. Write those five steps in your notes app.",
         },
+        checkIn: {
+          prompt: "Someone claims an anonymous account means they can harass a classmate (or coworker) with no consequences. Why is that a dangerous myth?",
+          choices: [
+            "Anonymous accounts can't post anything",
+            "People are less anonymous than they think, and serious harassment can be traced by platforms, schools, or police",
+            "Anonymity makes the internet slower",
+            "It's actually true — nothing can be traced",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Platforms, schools, and law enforcement can often trace serious harassment, threats, and hate speech — and there are real disciplinary and legal consequences.",
+        },
       },
       {
-        id: "worked",
-        kicker: "Worked example",
-        title: "You witness bullying in a group chat — what now?",
-        body: `Someone in your class group chat starts mocking a classmate, Priya, posting a screenshot of her and calling her names. Others are laughing with 😂 reactions. Here's the upstander response, step by step.\n\n**Step 1 — Don't share or like it.** Reacting or forwarding it spreads the harm and tells the bully they have an audience. Stay out of the pile-on completely.\n\n**Step 2 — Check on Priya.** Send her a private message: "Hey, what they posted wasn't okay. I've got your back — are you doing alright?" That support matters more than you'd think.\n\n**Step 3 — Save evidence.** Screenshot the messages *before* anyone deletes them, so there's proof of what happened.\n\n**Step 4 — Report and block.** Use the app's report tool to flag the posts, and block the person if they come after you for stepping in.\n\n**Step 5 — Tell a trusted adult.** Show the screenshots to a teacher, counselor, or parent — especially since it's targeting a specific person and others joined in.\n\nYou didn't have to start a fight. You refused to fuel it, supported the target, and got help — that's exactly what an upstander does.`,
-        image: "/images/lessons/dl-8-3.png",
-        imageAlt: "Phone interface showing steps: crossed-out share button, private supportive message, screenshot, report flag, and contacting a trusted adult",
+        id: "standards-connect",
+        kicker: "Where this fits",
+        title: "This is digital citizenship, straight from ISTE",
+        body: `This entire lesson lives inside the **ISTE Digital Citizen** standard, which asks students to recognize their rights and responsibilities in a connected world and to act safely, legally, and ethically online — including recognizing and responding to harmful behavior.\n\nIt also connects strongly to **ISTE Global Collaborator**: working respectfully with people from different backgrounds and perspectives in shared online spaces, which is exactly what treating every username as a real person requires.\n\nAnd choosing to support a target, save evidence, and report — rather than staying silent or piling on — reflects **CSTA's "Impacts of Computing"** strand, which asks students to recognize how their own choices inside computing systems affect other people, not just themselves.`,
+        callout: {
+          label: "Why it matters",
+          text: "Digital citizenship isn't a school buzzword — it's the same respect and responsibility that keeps any shared space, online or off, safe for the people in it.",
+        },
+      },
+      {
+        id: "reflection-prompt",
+        kicker: "Pause and think",
+        title: "Before you move on — a quick gut-check",
+        body: `Think back to Deshawn's lobby pile-on from the start of this lesson.\n\n• Have you ever typed something in a chat, comment, or lobby that came out harsher than you meant — because you couldn't see the other person's face?\n• Has there been a moment where you could have been the upstander, but stayed a bystander instead?\n\nThere's a full reflection question at the end of this lesson. For now, just notice: the disinhibition effect doesn't make someone a bad person — it makes a moment feel lower-stakes than it actually is. Naming it in advance is what lets you catch it next time.`,
+        callout: {
+          label: "Reflect",
+          text: "Being an upstander isn't about being fearless. It's about having a plan ready before the moment arrives, so you don't have to decide from scratch under pressure.",
+        },
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "Case study: harassment in an internship Slack channel",
+        body: `Two summer interns, Maya and Josh, are in the same company Slack channel. A third intern starts posting mocking comments and mean nicknames aimed at Maya every time she asks a question, and a couple of other people react with laughing emojis.\n\n**Josh's first instinct** is to stay out of it — it's not his problem, and calling it out in front of everyone feels awkward. But he remembers the upstander plan: don't react publicly, check in privately, save evidence, report if it continues.\n\nHe sends Maya a quick DM: "Hey, that wasn't cool. You okay?" He screenshots a few of the messages. When it happens again the next day, he flags it to his manager, who escalates it to HR. The intern posting the comments gets a formal warning; Maya later tells Josh the private check-in was what actually helped most.\n\nThe tools were the same ones from this lesson — don't amplify, support privately, screenshot, report — just running inside a company Slack instead of a class group chat.`,
         callout: {
           label: "Pro tip",
-          text: "Decide *now* that you'll be an upstander, before you're ever in the moment. Having a plan — don't pile on, check in, screenshot, report, tell an adult — makes it far easier to act when it counts.",
+          text: "Workplaces have HR and codes of conduct instead of teachers and school counselors, but the upstander steps barely change. Learning this pattern now pays off well beyond school.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before the full knowledge check",
+        body: `Quick self-test before the graded questions — can you explain, in one sentence each?\n\n• What the online disinhibition effect is, and why naming it helps?\n• The five things an upstander does, in order?\n• Why a reaction (not just a comment) can still count as amplifying harm?\n• One example of positive digital participation?\n\nIf all four feel solid, you're ready for the graded Knowledge Check.`,
+        checkIn: {
+          prompt: "Which of these is positive digital participation — in school chats or later at a first job?",
+          choices: [
+            "Excluding people you don't like from chats",
+            "Sharing rumors quickly",
+            "Helping others, sharing good information, and being inclusive and respectful",
+            "Reacting 😂 to mean posts",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Good digital citizenship isn't only avoiding harm — it's actively helping, including others, and improving the shared space for everyone.",
         },
       },
       {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've learned what it means to be a good **digital citizen**: remember there's a real person behind every screen, watch out for the **disinhibition effect** that makes people crueler online, recognize **cyberbullying** and its real harm, and choose to be an **upstander** — don't pile on, support the target, save evidence, report, and tell an adult. Use the escalate ladder when you're unsure how serious something is.\n\nMost of all, participate positively. Every helpful, kind, inclusive thing you do online makes the shared space better for everyone in it.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on one way you'll be a better digital citizen this week.`,
+        body: `You've learned what it means to be a good **digital citizen**: remember there's a real person behind every screen, watch out for the **disinhibition effect** that makes people crueler online, recognize **cyberbullying** and its real harm, and choose to be an **upstander** — don't pile on (not even with a reaction), support the target, save evidence, report, and tell an adult. Use the escalate ladder when you're unsure how serious something is.\n\nMost of all, participate positively. Every helpful, kind, inclusive thing you do online makes the shared space better for everyone in it.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on one way you'll be a better digital citizen this week.`,
       },
     ],
   },
   bigIdeas: [
     "**Digital citizenship** = using tech responsibly and kindly, remembering there's a real person behind every screen.",
     "The **online disinhibition effect** makes people crueler when they can't see the other person's face.",
-    "Be an **upstander**: don't pile on, support the target, save evidence, report, and tell a trusted adult.",
+    "Be an **upstander**: don't pile on (even with a reaction), support the target, save evidence, report, and tell a trusted adult.",
   ],
   keyTerms: [
     { term: "Digital citizenship", definition: "Using technology responsibly, safely, and respectfully in online communities." },
@@ -223,6 +373,45 @@ export const digitalLesson8: AILessonConfig = {
       correctIndex: 2,
       explanation:
         "Good digital citizenship isn't only avoiding harm — it's actively helping, including others, and improving the shared space for everyone.",
+    },
+    {
+      id: "q6",
+      question: "A classmate reacts with a laughing emoji to a cruel post but doesn't type any words themselves. According to this lesson, what role does that play?",
+      choices: [
+        "None — reactions without words are completely neutral",
+        "It still amplifies the harm, since reactions are a visible audience that fuels a pile-on",
+        "It automatically reports the post to the platform",
+        "It only counts if the reaction is a specific emoji",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Reacting to a cruel post — even silently — is a visible form of participation that fuels a pile-on. It's a myth that only typed words count as amplifying harm.",
+    },
+    {
+      id: "q7",
+      question: "A teammate hesitates to report a serious threat because they think 'reporting is snitching.' What's the better way to think about it?",
+      choices: [
+        "They're right — reporting is always a betrayal",
+        "Reporting is a tool built into platforms specifically so communities can flag harm that breaks the rules and protect people",
+        "Reporting should only ever be used for spam",
+        "Reporting guarantees the person will be arrested immediately",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Reporting isn't betrayal — it's the intended way to flag content that breaks platform rules, and it's a core upstander move, especially for serious threats or hate speech.",
+    },
+    {
+      id: "q8",
+      question: "In the internship Slack case study, what actually helped Maya most?",
+      choices: [
+        "Josh reacting publicly with an angry emoji in the channel",
+        "Josh's private check-in message, alongside screenshotting and reporting the behavior",
+        "Everyone staying quiet so it wouldn't escalate",
+        "Maya being told to handle it entirely on her own",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Josh's private support message, combined with saving evidence and reporting to his manager, mirrored the same upstander steps that work in school chats — and Maya said the private check-in mattered most.",
     },
   ],
   reflection: {

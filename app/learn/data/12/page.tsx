@@ -24,7 +24,7 @@ const daLesson12: DataLessonConfig = {
     title: "How quiz scores are spread out",
   },
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -39,17 +39,46 @@ const daLesson12: DataLessonConfig = {
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "A histogram shows how numbers are spread out",
-        body: `A **histogram** takes one big pile of numbers and shows their **shape** — where most values land, and how far they stretch from low to high.\n\nPicture sorting a deck of test papers into labeled trays: a 50s tray, a 60s tray, a 70s tray, and so on. After sorting, you don't even read the scores — you just look at which trays are *fullest*. The tall stacks show where the class clustered; the empty trays show ranges nobody hit. A histogram is exactly that, drawn as bars.\n\nIt looks like a bar chart, but it answers a different question: not *"compare these named categories"* but *"how is this one set of numbers distributed?"* That's a subtle but huge difference.`,
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "The 'grade curve' everyone talks about",
+        body: `After a big test, someone always asks "did the teacher curve it?" What they're really asking about is the **shape** of the score distribution — did most people cluster around a B, or was it spread evenly from F to A?\n\nA teacher answering that question honestly would sort every score into a histogram, exactly like you're about to build.`,
         callout: {
-          label: "Common misconception",
-          text: "A histogram is not a bar chart with numbers on the bottom. A bar chart compares *separate things* (pizza vs. salad). A histogram chops *one number line* into ranges and counts how many values fall in each. Different question, different chart.",
+          label: "Notice it",
+          text: "Next time you hear about a grade curve or a \"typical\" range for something, picture the histogram underneath that claim.",
         },
       },
       {
-        id: "anatomy",
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**Histogram** — a chart showing how one set of numbers is spread across ranges.",
+          "**Bin** — an equal-width range that values get sorted into (like 70–80).",
+          "**Distribution** — the overall shape of how values are spread out.",
+          "**Cluster** — a range where many values land, shown as a tall bar.",
+          "**Spread / range** — how far values stretch from lowest to highest.",
+        ],
+      },
+      {
+        id: "concept-1",
+        kicker: "The big idea",
+        title: "A histogram shows how numbers are spread out",
+        body: `A **histogram** takes one big pile of numbers and shows their **shape** — where most values land, and how far they stretch from low to high.\n\nPicture sorting a deck of test papers into labeled trays: a 50s tray, a 60s tray, a 70s tray, and so on. After sorting, you don't even read the scores — you just look at which trays are *fullest*. The tall stacks show where the class clustered; the empty trays show ranges nobody hit. A histogram is exactly that, drawn as bars.\n\nIt looks like a bar chart, but it answers a different question: not *"compare these named categories"* but *"how is this one set of numbers distributed?"* That's a subtle but huge difference.`,
+        checkIn: {
+          prompt: "What question does a histogram answer?",
+          choices: [
+            "Which named category is biggest?",
+            "How is one set of numbers spread out, and where do they cluster?",
+            "How does a number change over time?",
+          ],
+          correctIndex: 1,
+          explanation: "A histogram reveals the shape of a single numeric column's distribution — where values cluster and how far they spread.",
+        },
+      },
+      {
+        id: "concept-2",
         kicker: "How to read it",
         title: "Numbers get sorted into bins",
         body: `Here's the histogram you'll build from 16 quiz scores. Read it in three parts:\n\n• The x-axis is split into equal ranges called **bins** (every 10 points: 50–60, 60–70, …).\n• Each bar's **height** is **how many** scores fall in that bin.\n• The bars **touch**, because the ranges are continuous — there's no gap between 70–80 and 80–90.\n\nThe tall bars show where scores **cluster** (here, the 70s and 80s), while the short bars at the edges show the few very low and very high scores. The whole *shape* tells you the class story at a glance.`,
@@ -64,9 +93,19 @@ const daLesson12: DataLessonConfig = {
             rowCount: 16,
           },
         },
+        checkIn: {
+          prompt: "Why do histogram bars touch, with no gaps between them?",
+          choices: [
+            "It's just a stylistic choice",
+            "Because the bins represent continuous ranges of ONE number line, with no gaps between ranges",
+            "Because there's only one bar total",
+          ],
+          correctIndex: 1,
+          explanation: "Bins carve up a single continuous number line into adjoining ranges (like 70-80, 80-90) — there's no gap between them, so the bars touch.",
+        },
       },
       {
-        id: "when",
+        id: "concept-3",
         kicker: "Choose wisely",
         title: "Histogram vs. bar chart",
         body: `These two charts look like twins, so this is the part people get wrong most often. The trick is to ask what's on the x-axis: *separate names* or *ranges of one number?*`,
@@ -75,25 +114,11 @@ const daLesson12: DataLessonConfig = {
           "**Use a bar chart** to compare separate, named categories.",
           "Histogram bars **touch**; bar-chart bars have **gaps** between categories.",
         ],
-        callout: {
-          label: "Common misconception",
-          text: "There's no single \"correct\" histogram — bin size changes the whole picture. Very wide bins blur real differences together; very narrow bins make random noise look like a pattern. Always try a sensible bin width before trusting the shape.",
-        },
-      },
-      {
-        id: "data",
-        kicker: "Your dataset",
-        title: "The data you'll use: quiz_scores",
-        body: `The **quiz_scores** table has one row per student with a single number, **score** (sample rows below). There are 16 students in all, with scores from 58 up to 100.\n\nThe good news: you don't group or count anything yourself. You just return the **score** column, and the chart sorts the values into bins automatically. Your job is to read the resulting shape.`,
-        table: {
-          columns: ["student_name", "score"],
-          values: [
-            ["Alex", 72],
-            ["Jordan", 85],
-            ["Sam", 90],
-            ["Quinn", 100],
-          ],
-          rowCount: 4,
+        checkIn: {
+          prompt: "Your x-axis will show 'Pizza,' 'Salad,' and 'Burger.' Histogram or bar chart?",
+          choices: ["Histogram", "Bar chart", "Either works identically"],
+          correctIndex: 1,
+          explanation: "Named, separate categories (not ranges of one number) call for a bar chart, not a histogram.",
         },
       },
       {
@@ -114,6 +139,120 @@ const daLesson12: DataLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "A histogram's bars must add up to the total count. Here 2 + 4 + 1 + 1 = 8, the number of scores. If your bars don't sum to your row count, a value got dropped or double-counted.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "Bin size changes the whole picture",
+        body: `There's no single "correct" histogram — bin size changes the whole picture. Very wide bins blur real differences together; very narrow bins make random noise look like a pattern. Always try a sensible bin width before trusting the shape.`,
+        checkIn: {
+          prompt: "If you used a bin size of 50 instead of 10 for the quiz scores, what would likely happen?",
+          choices: [
+            "The histogram would show more detail",
+            "Most scores would blur into one or two giant bins, hiding the real clustering",
+            "Nothing would change",
+          ],
+          correctIndex: 1,
+          explanation: "A bin size that's too wide lumps very different scores together, hiding the real shape of the distribution.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Predict where the class clustered",
+        body: `Before the exercises, look at the 16 quiz scores in the concept-2 chart above. Predict which 10-point bin has the MOST scores — the 70s, 80s, or 90s? Then check your prediction once you see the actual histogram in the exercises.`,
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Go one level deeper",
+        title: "Just return the raw numbers — no grouping needed",
+        body: `The **quiz_scores** table has one row per student with a single number, **score**. The good news: you don't group or count anything yourself. You just return the **score** column, and the chart sorts the values into bins automatically. Your job is to read the resulting shape, not to build it manually.`,
+        table: {
+          columns: ["student_name", "score"],
+          values: [
+            ["Alex", 72],
+            ["Jordan", 85],
+            ["Sam", 90],
+            ["Quinn", 100],
+          ],
+          rowCount: 4,
+        },
+      },
+      {
+        id: "comparison",
+        kicker: "Compare & contrast",
+        title: "MIN/MAX vs. the full histogram shape",
+        body: `MIN and MAX (from Lesson 6) tell you the edges of your data — the lowest and highest scores. A histogram tells you much more: not just the edges, but everything *between* them.`,
+        bullets: [
+          "**MIN(score), MAX(score)** — just two numbers: the low and high edges.",
+          "**Histogram** — the full shape: where scores cluster, thin out, or spread evenly.",
+          "Two datasets can share the same MIN and MAX but have completely different shapes.",
+        ],
+        checkIn: {
+          prompt: "Two classes both have scores ranging from 60 to 100. Does that mean their histograms look the same?",
+          choices: [
+            "Yes, same min/max always means same shape",
+            "No — one class could cluster tightly around 80 while the other spreads evenly across the whole range",
+            "It's impossible to have the same min/max with different data",
+          ],
+          correctIndex: 1,
+          explanation: "MIN and MAX only describe the edges. The histogram reveals the shape in between, which can look completely different even with identical edges.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "Bin size can be chosen to tell a story",
+        body: `Histogram shape depends on bin size. Very wide bins can hide real differences; very narrow ones can make noise look meaningful. Choose bins that tell the truth, not the story you want. If someone picks an unusually wide or narrow bin size, ask why — it might be hiding (or exaggerating) something.`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "Check that your bars sum to your row count",
+        body: `Whenever you build or read a histogram, add up the bar heights and compare them to the total number of records. If they don't match, a value was dropped, double-counted, or landed outside your bins — investigate before trusting the shape.`,
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Understanding distributions is central to both data science and statistics.`,
+        bullets: [
+          "**Common Core Math (statistics bridge)** — Summarizing numerical data sets by describing center, spread, and overall shape.",
+          "**CSTA 3A-DA-10** — Use data analysis techniques to identify patterns in data representing complex systems.",
+          "**ISTE Computational Thinker** — Recognizing structural differences between comparison charts and distribution charts.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "Picture the shape of your own data",
+        body: `Think of a number you could collect about your friend group — heights, ages, hours of sleep, screen time. Would you expect it to cluster tightly around one value, or spread out evenly? Why?`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The track team's race times",
+        body: `A track coach has a table \`race_times\` with one row per runner and a column \`seconds\`. The coach wants to see whether most runners finished close together or if times were spread widely.\n\nWhat single-column query would let the coach see this shape as a histogram?`,
+        callout: {
+          label: "Apply it",
+          text: "SELECT seconds FROM race_times; — no grouping needed. Returning the raw number column lets the histogram bin it automatically.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's confirm bins and the histogram-vs-bar distinction are locked in.`,
+        checkIn: {
+          prompt: "Which scenario calls for a HISTOGRAM rather than a bar chart?",
+          choices: [
+            "Comparing sales of Pizza, Salad, and Burger",
+            "Seeing how 30 students' quiz scores are spread across the 0-100 range",
+            "Showing a budget split into categories",
+          ],
+          correctIndex: 1,
+          explanation: "Seeing the spread of ONE numeric column (scores) across ranges is exactly what a histogram is built for — the other two involve named categories or a whole-split, which fit bar or pie charts instead.",
         },
       },
       {

@@ -24,7 +24,7 @@ const daLesson9: DataLessonConfig = {
     title: "Orders per item",
   },
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -39,17 +39,45 @@ const daLesson9: DataLessonConfig = {
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "A bar chart compares things side by side",
-        body: `A table full of numbers is accurate but slow to read — your brain has to compare each value to every other value, one by one. A **bar chart** does that comparison *for* you by turning each number into a bar. The tallest bar is the biggest value, no math required.\n\nThink of bars as runners lined up at a finish line. One glance tells you who's ahead, who's behind, and by how much. That's why bar charts are everywhere: they convert "compare these amounts" into "just look."\n\nUse a bar chart whenever you want to **compare separate categories** — which lunch item is most popular, which game has the most players, which month had the most rain. Each category gets its own bar.`,
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "Why your eye jumps straight to the tallest bar",
+        body: `Look at any sports standings graphic on TV — a row of bars for each team's wins. You don't read a single number; your eye is instantly drawn to the tallest bar. That's not an accident of design, it's basic human vision: we compare lengths and heights almost instantly, far faster than we compare digits in a list of numbers.\n\nThat's the entire reason bar charts exist, and why you're about to learn to build one from a SQL query.`,
         callout: {
-          label: "Common misconception",
-          text: "A bar chart compares *separate categories*, not steps in time. If your x-axis is days or months in order, you usually want a line chart instead — bars side by side hide the up-and-down trend.",
+          label: "Notice it",
+          text: "Next time you glance at a bar chart, notice how quickly you find the biggest and smallest bars — often before you've even read the axis labels.",
         },
       },
       {
-        id: "anatomy",
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**x-axis** — the horizontal line along the bottom of a chart, usually showing labels/categories.",
+          "**y-axis** — the vertical line, usually showing the number/value.",
+          "**Chart-ready query** — a query result shaped as a label column plus a number column.",
+          "**Category** — a distinct group being compared, like each lunch item.",
+        ],
+      },
+      {
+        id: "concept-1",
+        kicker: "The big idea",
+        title: "A bar chart compares things side by side",
+        body: `A table full of numbers is accurate but slow to read — your brain has to compare each value to every other value, one by one. A **bar chart** does that comparison *for* you by turning each number into a bar. The tallest bar is the biggest value, no math required.\n\nThink of bars as runners lined up at a finish line. One glance tells you who's ahead, who's behind, and by how much. That's why bar charts are everywhere: they convert "compare these amounts" into "just look."\n\nUse a bar chart whenever you want to **compare separate categories** — which lunch item is most popular, which game has the most players, which month had the most rain. Each category gets its own bar.`,
+        checkIn: {
+          prompt: "What's the main job of a bar chart?",
+          choices: [
+            "To show how one number changes over time",
+            "To compare amounts across separate categories at a glance",
+            "To show parts of one whole",
+          ],
+          correctIndex: 1,
+          explanation: "A bar chart's superpower is letting your eye instantly compare separate categories by the height of their bars.",
+        },
+      },
+      {
+        id: "concept-2",
         kicker: "How to read it",
         title: "Every bar chart has a label and a value",
         body: `Here's the exact chart you'll build in this lesson. Every bar chart is made of just two parts, and once you see them you can read any bar chart ever made.\n\n• The **labels** along the bottom (the **x-axis**) name each category — here, the **item**.\n• The **height** of each bar (the **y-axis**) shows the **number** — here, how many orders.\n\nTaller bar = bigger number. That's the whole idea. Notice the two tallest bars (Pizza slice and Salad) jump out immediately — that's the comparison happening automatically.`,
@@ -68,9 +96,15 @@ const daLesson9: DataLessonConfig = {
             rowCount: 6,
           },
         },
+        checkIn: {
+          prompt: "In a bar chart, what does the HEIGHT of a bar represent?",
+          choices: ["The category's name", "The number/value for that category", "The order it appears in"],
+          correctIndex: 1,
+          explanation: "The x-axis carries the labels (categories); the height of each bar (the y-axis) carries the number being compared.",
+        },
       },
       {
-        id: "when",
+        id: "concept-3",
         kicker: "Choose wisely",
         title: "When to use a bar chart (and when not to)",
         body: `Picking the right chart is half the skill of a data analyst. The wrong chart can hide the answer or even mislead people. Here's the cheat sheet:`,
@@ -79,25 +113,15 @@ const daLesson9: DataLessonConfig = {
           "**Use a line chart** instead when your x-axis is time (orders each day).",
           "**Use a pie chart** instead when you're showing parts of one whole (each item's share of all orders).",
         ],
-        callout: {
-          label: "Common misconception",
-          text: "A bar chart's bars look honest, but if the y-axis doesn't start at zero, a tiny difference can look enormous. Before you trust (or share) a bar chart, always check where the bottom of the scale begins.",
-        },
-      },
-      {
-        id: "data",
-        kicker: "Your dataset",
-        title: "The data you'll use: lunch_orders",
-        body: `You'll work with the **lunch_orders** table — one row per order, like the four sample rows below. Raw, it's just a list; a bar chart needs it summarized.\n\nTo get there, you'll **GROUP BY item** and **COUNT** the orders. That produces exactly two columns: a **label** column (item) and a **number** column (order_count) — the recipe every chart needs.`,
-        table: {
-          columns: ["student_name", "item", "price"],
-          values: [
-            ["Alex", "Pizza slice", 3.5],
-            ["Jordan", "Salad", 4.0],
-            ["Sam", "Chicken wrap", 5.25],
-            ["Casey", "Pizza slice", 3.5],
+        checkIn: {
+          prompt: "You want to show 'orders per day this week.' Is a bar chart the best fit?",
+          choices: [
+            "Yes, always use bar charts",
+            "No — since the x-axis is time in order, a line chart shows the trend better",
+            "No — a pie chart is required for anything with numbers",
           ],
-          rowCount: 4,
+          correctIndex: 1,
+          explanation: "When the x-axis is time, a line chart reveals the trend (rising, falling) far better than separate bars — you'll learn this chart in Lesson 11.",
         },
       },
       {
@@ -121,8 +145,30 @@ const daLesson9: DataLessonConfig = {
         },
       },
       {
-        id: "sort-rank",
-        kicker: "Shape the chart",
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "A cropped axis can make a small gap look huge",
+        body: `A bar chart's bars look honest, but if the y-axis doesn't start at zero, a tiny difference can look enormous. Before you trust (or share) a bar chart, always check where the bottom of the scale begins.`,
+        checkIn: {
+          prompt: "Two bars have values 48 and 50, but the y-axis starts at 47 instead of 0. What happens?",
+          choices: [
+            "The bars will look nearly identical, as they should",
+            "The tiny 2-unit difference will look dramatically exaggerated",
+            "SQL will refuse to run the query",
+          ],
+          correctIndex: 1,
+          explanation: "Starting the y-axis above zero exaggerates small differences — a classic way charts can visually mislead even when the underlying numbers are correct.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Sketch the bars before you query",
+        body: `Look back at the lunch_orders data from earlier lessons. Before opening the exercises, sketch (on paper or in your head) roughly how tall each item's bar should be, based on order counts you've already seen. Then build the real query and compare.`,
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Go one level deeper",
         title: "Sort and limit so the chart tells a ranking",
         body: `A bar chart is clearest when the tallest bars lead. After \`GROUP BY item\` and \`COUNT(*) AS order_count\`, add \`ORDER BY order_count DESC\` so the most popular items appear first — your eye reads it like a top-10 list.\n\nSometimes you want a **focused** story instead of every category. \`LIMIT 3\` keeps only the top three rows after sorting, which is perfect for a "top 3 lunch items" chart without clutter. Remember: **sort first, then LIMIT** — otherwise you might grab three random rows, not the top three.`,
         bullets: [
@@ -130,6 +176,92 @@ const daLesson9: DataLessonConfig = {
           "`LIMIT N` after sorting — keep only the top N categories.",
           "Sort + limit changes what story the chart tells — use it on purpose.",
         ],
+      },
+      {
+        id: "comparison",
+        kicker: "Compare & contrast",
+        title: "Raw table vs. chart-ready query",
+        body: `The data you'll use is the **lunch_orders** table — one row per order. Raw, it's just a list; a bar chart needs it summarized first.`,
+        table: {
+          columns: ["student_name", "item", "price"],
+          values: [
+            ["Alex", "Pizza slice", 3.5],
+            ["Jordan", "Salad", 4.0],
+            ["Sam", "Chicken wrap", 5.25],
+            ["Casey", "Pizza slice", 3.5],
+          ],
+          rowCount: 4,
+        },
+        bullets: [
+          "**Raw table** — one row per order, no summary. Not chart-ready.",
+          "**Chart-ready query** — `GROUP BY item` + `COUNT(*)` produces exactly a label column + a number column.",
+        ],
+        checkIn: {
+          prompt: "Why can't you chart the raw lunch_orders table directly?",
+          choices: [
+            "You can — any table can be charted as-is",
+            "It has one row per order, not one summarized row per category, so it needs GROUP BY + COUNT first",
+            "Charts only work on tables with exactly 2 rows",
+          ],
+          correctIndex: 1,
+          explanation: "A chart needs exactly one row per category (a label + a number). The raw table has one row per order, so it must be summarized with GROUP BY first.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "Charts persuade — use that power honestly",
+        body: `Charts persuade. Truncating an axis or cherry-picking bars can mislead — show the full, honest picture. If you only show the "top 3" bars without mentioning there were 20 categories total, you might be telling a much rosier (or scarier) story than the full data supports.`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "Always check where the y-axis starts",
+        body: `Before trusting or sharing any bar chart — yours or someone else's — glance at the y-axis. Does it start at zero? If not, ask why, and mentally correct for the exaggeration before drawing any conclusions.`,
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Building and reading visualizations is a core data-science and math skill.`,
+        bullets: [
+          "**CSTA 3A-DA-11** — Create interactive data visualizations using software tools to help others understand real-world phenomena.",
+          "**CSTA 2-DA-07** — Represent data using multiple encoding schemes, including charts.",
+          "**Common Core Math (statistics bridge)** — Display and interpret categorical data using bar graphs.",
+          "**ISTE Knowledge Constructor** — Curating information from data and presenting it meaningfully to others.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "Find a bar chart and question its axis",
+        body: `Find a bar chart in the wild — a news article, a school report, a game stats screen. Does the y-axis start at zero? Are the bars sorted in a way that emphasizes a particular story? Would the chart look different with an honest axis?`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The talent show's vote tally",
+        body: `A talent show collected audience votes in a table \`votes\` with one row per vote and a column \`act_name\`. The host wants a bar chart showing which act got the most votes, ranked highest to lowest.\n\nWhat query would produce the chart-ready result, sorted correctly?`,
+        callout: {
+          label: "Apply it",
+          text: "SELECT act_name, COUNT(*) AS vote_count FROM votes GROUP BY act_name ORDER BY vote_count DESC; — exactly the label + number shape, sorted for a clean ranking.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's confirm the chart-ready recipe is locked in.`,
+        checkIn: {
+          prompt: "Which query produces a proper chart-ready result for 'orders per item'?",
+          choices: [
+            "SELECT * FROM lunch_orders;",
+            "SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item;",
+            "SELECT item FROM lunch_orders ORDER BY item;",
+          ],
+          correctIndex: 1,
+          explanation: "A chart needs a label column (item) and a number column (order_count), produced by grouping and counting — exactly this query's shape.",
+        },
       },
       {
         id: "ready",

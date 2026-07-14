@@ -6,7 +6,6 @@ import Link from "next/link";
 import {
   BookOpen,
   CheckCircle2,
-  ChevronRight,
   Code2,
   Lightbulb,
   ListChecks,
@@ -401,6 +400,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
     }
 
     const codeOk = activeExercise.validate(activeCode, run, {});
+    const completedFromIndex = activeIndex;
 
     if (kind === "predict") {
       const prediction = predictionByExercise[activeExercise.id] ?? "";
@@ -437,9 +437,11 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
         formatPythonTerminal(`✓ ${activeExercise.successMessage}\n\n${body}`, terminalPrompt)
       );
       setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
-      if (activeIndex === lesson.exercises.length - 1) {
+      if (completedFromIndex === lesson.exercises.length - 1) {
         setLessonComplete(true);
         trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
+      } else {
+        scheduleCascadeToNext(completedFromIndex);
       }
       return;
     }
@@ -481,9 +483,11 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
       setTerminalOutput(formatPythonTerminal(`✓ ${activeExercise.successMessage}\n\n${body}`, terminalPrompt));
       setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
 
-      if (activeIndex === lesson.exercises.length - 1) {
+      if (completedFromIndex === lesson.exercises.length - 1) {
         setLessonComplete(true);
         trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
+      } else {
+        scheduleCascadeToNext(completedFromIndex);
       }
     } else {
       setLastFeedbackSuccess(false);
@@ -496,6 +500,8 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
     }
   };
 
+  const workspacePanelRef = React.useRef<HTMLDivElement | null>(null);
+
   const goToNextExercise = () => {
     if (activeIndex < lesson.exercises.length - 1) {
       setActiveIndex((i) => i + 1);
@@ -503,7 +509,25 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
       setLastFeedback("");
       setLastFeedbackSuccess(false);
       setTerminalOutput("");
+      requestAnimationFrame(() => {
+        workspacePanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
     }
+  };
+
+  /** After a success, cascade the next exercise into focus. */
+  const scheduleCascadeToNext = (fromIndex: number) => {
+    if (fromIndex >= lesson.exercises.length - 1) return;
+    window.setTimeout(() => {
+      setActiveIndex(fromIndex + 1);
+      setRunError(null);
+      setLastFeedback("");
+      setLastFeedbackSuccess(false);
+      setTerminalOutput("");
+      requestAnimationFrame(() => {
+        workspacePanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }, 750);
   };
 
   const handlePlayTurnsChange = (turns: number) => {
@@ -881,7 +905,11 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
               </Card>
             ) : (
               <>
-                <Card data-tour="lesson-exercise" className="border-slate-300 shadow-lg">
+                <Card
+                  ref={workspacePanelRef}
+                  data-tour="lesson-exercise"
+                  className="scroll-mt-24 border-slate-300 shadow-lg"
+                >
                   <CardHeader className="pb-2">
                     <CardTitle className="flex items-center gap-2 text-base">
                       <Code2 className="h-5 w-5 text-[var(--brand)]" />
@@ -1117,16 +1145,12 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                             Run &amp; check
                           </Button>
                           {canAdvance ? (
-                            <Button
+                            <p
                               key={`next-${activeExercise.id}`}
-                              type="button"
-                              size="lg"
-                              className="kanam-data-next-exercise-btn min-h-11 w-full shadow-md sm:w-auto"
-                              onClick={goToNextExercise}
+                              className="flex min-h-11 items-center text-sm font-semibold text-[var(--brand)]"
                             >
-                              Next exercise
-                              <ChevronRight className="kanam-data-next-chevron h-4 w-4" />
-                            </Button>
+                              Nice — opening the next exercise…
+                            </p>
                           ) : null}
                           <Button
                             type="button"
@@ -1154,7 +1178,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                                 <p className="kanam-data-success-body">{lastFeedback}</p>
                                 {canAdvance ? (
                                   <p className="mt-2 text-xs font-bold uppercase tracking-wide text-[var(--brand)]">
-                                    Ready for the next exercise →
+                                    Opening the next exercise…
                                   </p>
                                 ) : lessonComplete ? (
                                   <p className="mt-2 text-xs font-bold uppercase tracking-wide text-[var(--brand)]">

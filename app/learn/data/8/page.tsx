@@ -15,7 +15,7 @@ const daLesson8: DataLessonConfig = {
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -30,17 +30,45 @@ const daLesson8: DataLessonConfig = {
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "Stack clauses to ask sharper questions",
-        body: `A single clause answers a simple question. The real power of SQL shows up when you **combine** clauses in one query, because each one hands its result to the next.\n\nThink of an assembly line. The rows roll in, \`WHERE\` throws out the ones you don't want, \`GROUP BY\` bundles the survivors into piles, \`HAVING\` tosses out piles that are too small, and \`ORDER BY\` lines up what's left from biggest to smallest. Each station does one job and passes the result down the line.\n\nThis lesson adds the last station — \`HAVING\` — which filters **groups** after you've summarized them. Once you have it, you can ask almost any "which ones cross this threshold?" question.`,
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "\"Trending\" is a HAVING clause in disguise",
+        body: `A video platform doesn't call a video "trending" just because it exists — it's trending because it crossed some threshold: more than 10,000 views *this week*. That's a filter applied to a **summary** (total views per video), not to any single row of raw watch data.\n\nAny time you see a badge like "Bestseller," "Popular," or "Trending," a HAVING-style filter is almost certainly running behind the scenes on a count or a sum.`,
         callout: {
-          label: "Common misconception",
-          text: "You might think you need separate queries for filtering, grouping, and sorting. You don't — one query runs all of them in a fixed order. Learning that order is the whole game.",
+          label: "Spot it",
+          text: "Next time you see a \"trending\" or \"bestseller\" label, ask: what's the threshold, and what's it counting?",
         },
       },
       {
-        id: "where-vs-having",
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**HAVING** — filters groups AFTER they've been summarized by GROUP BY.",
+          "**Clause order** — the fixed sequence SQL processes a query in: SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY.",
+          "**Threshold** — a cutoff value used in a filter, like \"more than 1.\"",
+          "**Stacked query** — a single query that combines several clauses to answer a precise question.",
+        ],
+      },
+      {
+        id: "concept-1",
+        kicker: "The big idea",
+        title: "Stack clauses to ask sharper questions",
+        body: `A single clause answers a simple question. The real power of SQL shows up when you **combine** clauses in one query, because each one hands its result to the next.\n\nThink of an assembly line. The rows roll in, \`WHERE\` throws out the ones you don't want, \`GROUP BY\` bundles the survivors into piles, \`HAVING\` tosses out piles that are too small, and \`ORDER BY\` lines up what's left from biggest to smallest. Each station does one job and passes the result down the line.\n\nThis lesson adds the last station — \`HAVING\` — which filters **groups** after you've summarized them. Once you have it, you can ask almost any "which ones cross this threshold?" question.`,
+        checkIn: {
+          prompt: "In what order does SQL process a query's clauses?",
+          choices: [
+            "ORDER BY → WHERE → GROUP BY → HAVING",
+            "WHERE → GROUP BY → HAVING → ORDER BY",
+            "HAVING → WHERE → GROUP BY → ORDER BY",
+          ],
+          correctIndex: 1,
+          explanation: "Rows are filtered first (WHERE), then bundled into groups (GROUP BY), then those groups are filtered (HAVING), and finally the survivors are sorted (ORDER BY).",
+        },
+      },
+      {
+        id: "concept-2",
         kicker: "The key distinction",
         title: "WHERE filters rows, HAVING filters groups",
         body: `This is the heart of the lesson, so slow down here. \`WHERE\` and \`HAVING\` both filter — but they filter at **different moments**.\n\n• \`WHERE\` runs **before** grouping — it looks at individual **rows**, one at a time.\n• \`HAVING\` runs **after** grouping — it looks at the **summary** of each group, like a count or a sum.\n\nHere's the analogy: imagine sorting your class into teams. \`WHERE\` is the rule you apply to *each student* before teams form ("only students in grade 8"). \`HAVING\` is the rule you apply to *each finished team* ("only teams with more than 5 players"). You literally cannot ask the team-size question until the teams exist.\n\nThat's why you can't put \`COUNT(*)\` in a \`WHERE\`: at that point no groups have formed yet, so the count doesn't exist. \`HAVING\` is the tool built for exactly that job.`,
@@ -49,13 +77,15 @@ const daLesson8: DataLessonConfig = {
           "`HAVING COUNT(*) > 1` → keeps *groups* that appear more than once.",
           "Clause order: `SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY`.",
         ],
-        callout: {
-          label: "Common misconception",
-          text: "Writing `WHERE COUNT(*) > 1` is the classic trap — it errors out every time. The count doesn't exist before grouping, so a count filter must live in HAVING.",
+        checkIn: {
+          prompt: "Which filter would you use to keep only STUDENTS priced individually over $4 (before any grouping)?",
+          choices: ["HAVING price > 4", "WHERE price > 4", "ORDER BY price > 4"],
+          correctIndex: 1,
+          explanation: "WHERE filters individual rows before any grouping happens — exactly what's needed to filter by a single row's price.",
         },
       },
       {
-        id: "having",
+        id: "concept-3",
         kicker: "Filter the groups",
         title: "Find items ordered more than once",
         body: `Let's see \`HAVING\` in action on our \`lunch_orders\` table. We want the **repeat favorites** — items that more than one person ordered.\n\nThe recipe reads almost like English: group the orders by item, count each group, then keep only the groups whose count is greater than 1. \`HAVING COUNT(*) > 1\` is the line doing the group-level filtering, and \`ORDER BY\` puts the most popular on top.`,
@@ -68,6 +98,16 @@ const daLesson8: DataLessonConfig = {
             ["Salad", 2],
           ],
           rowCount: 2,
+        },
+        checkIn: {
+          prompt: "Why can't you write WHERE COUNT(*) > 1 instead of HAVING COUNT(*) > 1?",
+          choices: [
+            "You can — they're interchangeable",
+            "COUNT(*) doesn't exist yet when WHERE runs, since grouping hasn't happened",
+            "WHERE only works with text, not numbers",
+          ],
+          correctIndex: 1,
+          explanation: "WHERE runs before GROUP BY, so there's no count to filter on yet. HAVING runs after grouping, when the count actually exists.",
         },
       },
       {
@@ -88,6 +128,111 @@ const daLesson8: DataLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "Build big queries the same way: start with SELECT + FROM, run it, then add one clause at a time and re-run. If it breaks, you know exactly which clause caused it.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "The classic WHERE COUNT(*) trap",
+        body: `Writing \`WHERE COUNT(*) > 1\` is the classic trap — it errors out every time. The count doesn't exist before grouping, so a count filter must live in \`HAVING\`.`,
+        checkIn: {
+          prompt: "Which of these queries is written correctly?",
+          choices: [
+            "SELECT item, COUNT(*) FROM lunch_orders WHERE COUNT(*) > 1 GROUP BY item;",
+            "SELECT item, COUNT(*) FROM lunch_orders GROUP BY item HAVING COUNT(*) > 1;",
+            "SELECT item, COUNT(*) FROM lunch_orders HAVING COUNT(*) > 1 GROUP BY item;",
+          ],
+          correctIndex: 1,
+          explanation: "GROUP BY must come before HAVING, and the count filter belongs in HAVING, not WHERE, since it depends on the grouped totals.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Predict which items survive",
+        body: `Before the exercises, look back at the lunch_orders data from earlier lessons. Predict: which items would survive a filter of \`HAVING COUNT(*) >= 1\` versus \`HAVING COUNT(*) > 1\`? (Hint: one of those thresholds keeps every item, the other narrows it down.)`,
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Go one level deeper",
+        title: "HAVING works with SUM and AVG too, not just COUNT",
+        body: `HAVING isn't limited to COUNT. You could write \`HAVING SUM(price) > 10\` to keep only items whose combined sales exceeded $10, or \`HAVING AVG(price) > 4\` to keep only groups whose average price is above $4. Any aggregate function can be the subject of a HAVING filter.`,
+        bullets: [
+          "`HAVING COUNT(*) > 1` — groups appearing more than once.",
+          "`HAVING SUM(price) > 10` — groups whose total exceeds $10.",
+          "`HAVING AVG(price) > 4` — groups whose average exceeds $4.",
+        ],
+      },
+      {
+        id: "comparison",
+        kicker: "Compare & contrast",
+        title: "A query WITHOUT HAVING vs. WITH HAVING",
+        body: `Seeing the same query with and without HAVING side by side makes the effect crystal clear.`,
+        bullets: [
+          "**Without HAVING** — `GROUP BY item` alone returns ALL 6 unique items, no matter how popular.",
+          "**With HAVING COUNT(*) > 1** — only the 2 items ordered more than once survive.",
+          "HAVING never changes what the groups ARE — it only decides which finished groups make it into the final result.",
+        ],
+        checkIn: {
+          prompt: "If you remove HAVING COUNT(*) > 1 from the worked example query, what happens?",
+          choices: [
+            "The query errors out",
+            "You get all 6 unique items instead of just the 2 repeated ones",
+            "Nothing changes — the result is identical",
+          ],
+          correctIndex: 1,
+          explanation: "Removing HAVING removes the group-level filter, so every group (all 6 unique items) shows up instead of just the ones with more than one order.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "A sharp question can still mislead",
+        body: `A sharp question can still mislead if the data is incomplete. Always ask: *is anything missing from this table?* A HAVING filter that looks precise ("items ordered more than once") is only as trustworthy as the data feeding it — if some orders were never recorded, your "repeat favorites" list could be wrong.`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "Build queries one clause at a time",
+        body: `Build big queries the same way every time: start with SELECT + FROM, run it, then add one clause at a time (WHERE, then GROUP BY, then HAVING, then ORDER BY), re-running after each addition. If something breaks, you'll know exactly which clause caused it.`,
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Combining multiple filters and aggregates is advanced computational thinking.`,
+        bullets: [
+          "**CSTA 3A-DA-10** — Use data analysis tools and techniques to identify patterns in data representing complex systems.",
+          "**CSTA 3A-DA-11** — Build toward interactive data visualizations by first shaping precise, filtered result sets.",
+          "**ISTE Computational Thinker** — Formulating multi-step problems into an ordered sequence of operations.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "Think of your own threshold question",
+        body: `What's a "which ones cross this threshold?" question you'd like to ask about something in your own life — songs you've replayed more than 10 times, games you've played more than 5 hours, friends you've texted more than 20 times this week? Try phrasing it with GROUP BY and HAVING in mind.`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The school store's restock list",
+        body: `The school store's \`sales\` table logs one row per item sold. The manager wants a restock list: **only items that sold more than 3 times this month**, most-sold first.\n\nWalk through the clause order: which comes first, GROUP BY or HAVING? What aggregate function do you need?`,
+        callout: {
+          label: "Apply it",
+          text: "SELECT item_name, COUNT(*) AS sold FROM sales GROUP BY item_name HAVING COUNT(*) > 3 ORDER BY sold DESC;",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's confirm the WHERE vs. HAVING distinction is fully locked in.`,
+        checkIn: {
+          prompt: "You want orders priced over $3, THEN grouped by item, THEN only groups with more than 1 order. Which clause handles the price filter?",
+          choices: ["HAVING price > 3", "WHERE price > 3", "ORDER BY price > 3"],
+          correctIndex: 1,
+          explanation: "Filtering individual rows by price (before grouping) is WHERE's job. HAVING would come after GROUP BY to filter on COUNT(*) > 1.",
         },
       },
       {

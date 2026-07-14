@@ -15,7 +15,7 @@ const daLesson2: DataLessonConfig = {
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -30,7 +30,29 @@ const daLesson2: DataLessonConfig = {
         },
       },
       {
-        id: "star",
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "Why apps never show you the whole database",
+        body: `Open any sports app and tap a player's card. You see a name, a photo, and maybe three stats. You do **not** see their internal player ID, their sign-up date, or a dozen other columns the app's database actually stores.\n\nThat's not an accident — it's a deliberate query. Someone decided *exactly* which columns matter for that screen and wrote a \`SELECT\` that grabs only those. Every polished screen you've ever used hides a focused query just like the ones you're about to write.`,
+        callout: {
+          label: "Notice it",
+          text: "Next time you open an app, ask yourself: what columns am I NOT seeing, and why might the designer have left them out?",
+        },
+      },
+      {
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**Full query** — a complete SQL statement with at least SELECT and FROM.",
+          "**Sample** — a small slice of rows pulled from a bigger table, usually with LIMIT.",
+          "**Column list** — the comma-separated names after SELECT.",
+          "**Trailing comma** — an extra comma left at the end of a list, a common typo that breaks a query.",
+        ],
+      },
+      {
+        id: "concept-1",
         kicker: "Two ways to SELECT",
         title: "Every column, or just the ones you need",
         body: `There are two flavors of \`SELECT\`. \`SELECT *\` returns **every** column — handy when you want the full picture. But most of the time you only care about a few fields, so you list them **by name**, separated by commas.\n\nThink of ordering at a restaurant. \`SELECT *\` is like saying "bring me one of everything on the menu." Listing columns by name — \`SELECT student_name, item\` — is ordering exactly the two dishes you actually want.\n\nFewer columns means a cleaner, faster, easier-to-read answer. The query below skips \`order_id\` and \`price\` and shows just who ordered and what they got.`,
@@ -46,13 +68,19 @@ const daLesson2: DataLessonConfig = {
           ],
           rowCount: 4,
         },
-        callout: {
-          label: "Common misconception",
-          text: "The commas go **between** column names, not after the last one. `SELECT student_name, item` is correct; `SELECT student_name, item,` (with a trailing comma) will cause an error because SQL expects another column name after it.",
+        checkIn: {
+          prompt: "You only care about student_name and price. Which SELECT is best?",
+          choices: [
+            "SELECT * FROM lunch_orders;",
+            "SELECT student_name, price FROM lunch_orders;",
+            "SELECT student_name price FROM lunch_orders;",
+          ],
+          correctIndex: 1,
+          explanation: "Listing the exact columns you need, separated by a comma, keeps the result focused on just student_name and price.",
         },
       },
       {
-        id: "limit",
+        id: "concept-2",
         kicker: "Stay tidy",
         title: "LIMIT keeps big answers short",
         body: `Real tables can have thousands — even millions — of rows. You almost never want them all dumped on screen at once. \`LIMIT\` caps how many rows come back, which is perfect for peeking at data without loading everything.\n\nThink of \`LIMIT 5\` like scrolling only the first few results instead of the entire feed. It's fast, it's tidy, and it's how analysts safely sample a giant table before running a bigger question.\n\nLeaving \`LIMIT\` off means "give me **all** the rows." Our lunch table has 8 rows, so with no \`LIMIT\` you'll get all 8. Add \`LIMIT 3\` and you'll get just the first 3.`,
@@ -62,9 +90,23 @@ const daLesson2: DataLessonConfig = {
           "End every query with a semicolon `;`.",
           "`LIMIT 5` → at most 5 rows, even from a giant table.",
         ],
-        callout: {
-          label: "Common misconception",
-          text: "`LIMIT` controls **rows** (how many records), not **columns** (how many fields). To control columns, change your `SELECT` list. To control rows, change your `LIMIT` (or add a `WHERE`, which you'll meet soon).",
+        checkIn: {
+          prompt: "If a table has 8 rows and you write a query with NO LIMIT, how many rows come back?",
+          choices: ["0", "All 8", "Exactly 5"],
+          correctIndex: 1,
+          explanation: "No LIMIT means \"give me everything.\" With 8 rows in the table, that's all 8.",
+        },
+      },
+      {
+        id: "concept-3",
+        kicker: "Rows vs. columns, revisited",
+        title: "LIMIT and SELECT control two different things",
+        body: `It's easy to blur these two together when you're new, so let's separate them cleanly. \`SELECT\` controls **which columns** appear — the width of your result table. \`LIMIT\` controls **how many rows** appear — the height of your result table.\n\nChanging one never affects the other. Adding a third column to your \`SELECT\` list doesn't change your row count, and lowering your \`LIMIT\` doesn't remove any columns.`,
+        checkIn: {
+          prompt: "You want FEWER rows in your result. Which keyword should you change?",
+          choices: ["SELECT", "LIMIT", "FROM"],
+          correctIndex: 1,
+          explanation: "LIMIT controls row count. SELECT controls which columns show, and FROM names the table — neither affects how many rows you get back.",
         },
       },
       {
@@ -87,6 +129,126 @@ const daLesson2: DataLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "Read your result table like a checklist: does the **row count** match what you expected, and are the **column names** the ones you asked for? Those two checks catch most mistakes instantly.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "Trailing commas and mixed-up controls",
+        body: `Two mistakes cause most of the errors beginners see this lesson.`,
+        bullets: [
+          "The commas go **between** column names, not after the last one. `SELECT student_name, item,` (trailing comma) is broken.",
+          "`LIMIT` controls **rows** (how many records), not **columns** (how many fields). To change columns, edit your `SELECT` list instead.",
+        ],
+        checkIn: {
+          prompt: "What's wrong with `SELECT student_name, item, FROM lunch_orders;`?",
+          choices: [
+            "Nothing, it will run fine",
+            "There's a trailing comma after \"item\" with nothing after it",
+            "FROM should come before SELECT",
+          ],
+          correctIndex: 1,
+          explanation: "SQL expects another column name after every comma. A trailing comma with nothing after it causes an error.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Guess the row count before you run",
+        body: `Before the exercises, predict the row count for this query: \`SELECT item FROM lunch_orders LIMIT 6;\` (the table has 8 rows total).\n\nThen predict this one: \`SELECT item, price FROM lunch_orders;\` with no LIMIT at all. Once you're in the workspace, run both and see if your predictions held up.`,
+        callout: {
+          label: "Why this helps",
+          text: "Predicting first turns every query into a mini-experiment. If your prediction is wrong, you'll remember the correct rule far better than if you'd just read it.",
+        },
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Go one level deeper",
+        title: "Column order still matters, even with fewer columns",
+        body: `When you list specific columns, the order you type them in is the order they appear in the result — just like with \`SELECT *\` vs. named columns. \`SELECT price, student_name\` puts price first; \`SELECT student_name, price\` puts the name first.\n\nThis becomes a real design choice once you're picking your own columns: lead with whichever fact matters most for the question you're answering.`,
+      },
+      {
+        id: "comparison",
+        kicker: "Compare & contrast",
+        title: "SELECT * vs. a focused SELECT",
+        body: `Both are valid — the trick is knowing when to reach for each one.`,
+        bullets: [
+          "**SELECT \\*** — great for a first look at a brand-new table, when you don't yet know what matters.",
+          "**SELECT a, b** — better once you know exactly what you need; faster, cleaner, and safer.",
+          "Professionals rarely ship a final report with `SELECT *` — they narrow it down once they understand the data.",
+        ],
+        checkIn: {
+          prompt: "You're exploring a brand-new table for the first time. What's the better first move?",
+          choices: [
+            "SELECT * LIMIT 5 — peek at everything first",
+            "Immediately write a 10-column focused SELECT",
+            "Skip straight to filtering with WHERE",
+          ],
+          correctIndex: 0,
+          explanation: "When a table is unfamiliar, a quick SELECT * with a small LIMIT is the standard first move — you narrow the columns down once you understand what's there.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "Selecting less is often more responsible",
+        body: `When you query real data at school or at work, only select columns you're allowed to see — not extra private fields just because they're available. If a table has a column like "home address" or "grade average" that isn't relevant to your question, leave it out of your SELECT list.\n\nThis is the same skill you just practiced — being deliberate about which columns to grab — applied to privacy instead of just tidiness.`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "Build the habit: name your columns on purpose",
+        body: `Starting today, try to avoid reflexively typing \`SELECT *\` for every query. Pause for a second and ask: *what do I actually need to answer this question?*`,
+        bullets: [
+          "Ask the question first, then pick columns that answer it — not the other way around.",
+          "If your result table has columns you're not using, trim your SELECT list next time.",
+        ],
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Choosing the right subset of data is a core data-literacy skill.`,
+        bullets: [
+          "**CSTA 2-DA-08** — Transform data into a more useful and reliable form by selecting exactly what's relevant.",
+          "**CSTA 2-DA-07** — Represent data through a chosen, organized structure (a focused result set).",
+          "**ISTE Computational Thinker** — Breaking a big table down into the exact pieces needed to solve a problem.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "Think about a screen you use every day",
+        body: `Pick an app or website you use daily. What are 2–3 columns of data it's probably storing about you that it never actually shows you on screen? Why might the designers have chosen to hide those from view?`,
+        callout: {
+          label: "Journal it",
+          text: "Write down your guess. There's no single right answer — the goal is practicing the habit of thinking in columns.",
+        },
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The yearbook committee's request",
+        body: `The yearbook committee has a table \`students\` with columns \`student_id\`, \`student_name\`, \`grade\`, \`homeroom\`, and \`emergency_contact\`. They ask you for "a list of student names and grades for the yearbook captions" — nothing else.\n\nWhich columns should your SELECT include, and which should it deliberately leave out? Why does leaving out \`emergency_contact\` matter here, beyond just tidiness?`,
+        callout: {
+          label: "Apply it",
+          text: "SELECT student_name, grade FROM students; — exactly what was asked for, and nothing sensitive tagging along.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's confirm the two controls are locked in: SELECT for columns, LIMIT for rows.`,
+        checkIn: {
+          prompt: "Which query returns exactly 2 columns and at most 3 rows from an 8-row table?",
+          choices: [
+            "SELECT * FROM lunch_orders LIMIT 3;",
+            "SELECT student_name, item FROM lunch_orders LIMIT 3;",
+            "SELECT student_name, item, price, order_id FROM lunch_orders;",
+          ],
+          correctIndex: 1,
+          explanation: "Listing exactly two columns controls the width, and LIMIT 3 controls the height — together they shape a small, focused result.",
         },
       },
       {

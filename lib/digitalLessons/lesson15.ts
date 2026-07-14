@@ -10,7 +10,7 @@ export const digitalLesson15: AILessonConfig = {
   prevHref: "/learn/digital/14",
   nextHref: "/learn/digital/16",
   lessonModule: {
-    durationLabel: "~11–12 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -35,6 +35,16 @@ export const digitalLesson15: AILessonConfig = {
         },
       },
       {
+        id: "why-it-matters",
+        kicker: "Real stakes",
+        title: "What happens when these skills are missing",
+        body: `It's easy to assume "I'll pick this up when I need it." But small gaps show up at exactly the wrong moments:\n\n• **A messy résumé or blank portfolio** can knock you out of consideration before anyone even talks to you, regardless of how capable you actually are.\n• **Fumbling a shared spreadsheet or doc** in front of a team on day one signals unpreparedness, even if you're a fast learner once shown.\n• **A confusing or overly casual email** to a professor, admissions officer, or hiring manager can get ignored or answered last, simply because it's harder to act on.\n• **Struggling with a video call or chat tool** during a remote interview or internship can cost you time and confidence exactly when you need to make a good impression.\n\nNone of these require deep expertise to fix — just the baseline comfort this lesson builds. A little preparation now removes a lot of unnecessary friction later.\n\nThis lesson also lives inside **ISTE's Creative Communicator** standard — choosing the platforms, tools, and formats (a spreadsheet, a professional email, a shared doc) that actually fit your audience and purpose at work.`,
+        callout: {
+          label: "Why it matters",
+          text: "Employers rarely expect you to already know their specific tools. What they do expect is comfort with the general category — documents, spreadsheets, email, and video calls — so training you takes days, not months.",
+        },
+      },
+      {
         id: "everywhere",
         kicker: "The big idea",
         title: "Digital skills aren't just for 'tech jobs'",
@@ -42,6 +52,28 @@ export const digitalLesson15: AILessonConfig = {
         callout: {
           label: "Common misconception",
           text: "\"Digital skills only matter for programmers.\" In reality, nearly every job — healthcare, trades, retail, art, sports — now relies on digital tools. Strong digital skills make you more valuable in *any* field.",
+        },
+      },
+      {
+        id: "everywhere-practice",
+        kicker: "Apply it",
+        title: "Spot the digital skill in three 'non-tech' jobs",
+        body: `Let's find the hidden digital skill in careers that don't sound "techy" at all:\n\n• **A veterinarian** — logs patient records digitally, schedules appointments in software, and often emails clients test results and care instructions.\n• **A construction project manager** — tracks budgets and timelines in spreadsheets, shares blueprints and schedules through cloud file storage, and coordinates crews over group chat apps.\n• **A florist running a small shop** — manages online orders, posts on social media to attract customers, and tracks inventory and expenses digitally instead of on paper.\n\nNotice the pattern: none of these are "tech jobs," yet all three fail without basic digital comfort. The specific software varies, but the underlying skills — organizing digital information, communicating clearly online, and using a spreadsheet — transfer across almost any career you can imagine.`,
+        checkIn: {
+          prompt: "A friend wants to become a florist and says 'I don't need any digital skills for that.' Which is the most accurate response?",
+          choices: [
+            "They're right — florists never touch computers",
+            "Even a small flower shop typically uses digital tools for orders, social media marketing, and tracking inventory or expenses",
+            "Digital skills are only useful for careers in software engineering",
+            "Only large companies need any digital skills at all",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Nearly every modern business, including a small flower shop, relies on digital tools for orders, marketing, and basic bookkeeping — digital skills show up far beyond obvious 'tech jobs.'",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "When researching any career you're curious about, search '[job title] daily tasks' — you'll almost always spot software, spreadsheets, or digital communication hiding in the description.",
         },
       },
       {
@@ -57,6 +89,28 @@ export const digitalLesson15: AILessonConfig = {
         callout: {
           label: "Common misconception",
           text: "\"My social media has nothing to do with getting hired.\" Many employers (and some colleges) search candidates online. A messy public footprint can cost you an offer — and a clean one plus a portfolio can win you one.",
+        },
+      },
+      {
+        id: "presence-practice",
+        kicker: "Apply it",
+        title: "Compare two portfolio 'starter' options",
+        body: `You don't need a fancy website to start a portfolio. Compare two realistic starting points:\n\n• **Option A — a single organized document or slide deck** listing 3–5 things you've made (a school project, a design, code, a video), each with one sentence describing what it is and what you did.\n• **Option B — nothing, because "I don't have anything impressive enough yet."**\n\nOption A wins every time, even with modest projects, because it gives a reader concrete evidence instead of empty claims. "I'm good with design" (Option B's vibe) is forgettable. "Here's a flyer I designed for my club's fundraiser, and here's the before/after" (Option A) is memorable and specific.\n\nThe lesson: **a small, real portfolio beats an imagined perfect one that never gets started.**`,
+        checkIn: {
+          prompt: "You've made a few small class projects but think none are impressive enough to be worth showing anyone. What's the better move?",
+          choices: [
+            "Wait until you have something truly impressive before starting a portfolio",
+            "Put together even a simple document listing a few real projects with a sentence each — concrete evidence beats waiting for perfection",
+            "Never mention any of your projects to anyone",
+            "Only include projects that already won an award",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A modest, real portfolio gives readers concrete evidence of your skills. Waiting for a 'perfect' project means you show up with nothing — a much weaker position than a simple, honest starter portfolio.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Start your portfolio document today, even if it only has one project in it. It's far easier to add a second project to an existing list than to build one from scratch under time pressure later.",
         },
       },
       {
@@ -94,6 +148,28 @@ export const digitalLesson15: AILessonConfig = {
         },
       },
       {
+        id: "spreadsheets-practice",
+        kicker: "Level up",
+        title: "Two more formulas worth knowing: COUNT and IF",
+        body: `\`=SUM()\` and \`=AVERAGE()\` cover a lot, but two more formulas come up constantly once you start using spreadsheets for real tracking:\n\n• \`=COUNT()\` — counts how many cells in a range contain a number. Useful for questions like "how many shifts did I work this month?" when each shift is logged as a row.\n• \`=IF()\` — checks a condition and returns one thing if it's true, another if it's false. For example, \`=IF(B2>=90,"Pass","Review")\` looks at cell B2 and returns "Pass" if it's 90 or more, and "Review" otherwise.\n\nThe pattern behind all spreadsheet formulas is the same: **describe what you want calculated or checked, and the cell does it for every row instantly.** Once you're comfortable with \`=SUM()\` and \`=AVERAGE()\`, \`=COUNT()\` and \`=IF()\` are a small, natural next step — and they're exactly the kind of "one level up" skill that stands out on a résumé.`,
+        checkIn: {
+          prompt: "You want a spreadsheet to automatically show 'Pass' for any test score of 90 or above, and 'Review' otherwise. Which formula type does that job?",
+          choices: [
+            "=SUM()",
+            "=AVERAGE()",
+            "=IF(), because it checks a condition and returns different results depending on whether it's true or false",
+            "=COUNT()",
+          ],
+          correctIndex: 2,
+          explanation:
+            "=IF() is built exactly for this: check a condition (score >= 90) and return one result if true, another if false — turning a manual judgment call into something the spreadsheet does automatically.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "You don't need to memorize formula syntax perfectly. Knowing that '=IF() checks a condition' and '=COUNT() counts entries' is enough to search for the exact syntax confidently when you need it.",
+        },
+      },
+      {
         id: "collab",
         kicker: "Concept",
         title: "Calendars, remote collaboration, and reading data",
@@ -101,6 +177,50 @@ export const digitalLesson15: AILessonConfig = {
         callout: {
           label: "Pro tip",
           text: "When you join any team, learn their tools and naming habits early — where files live, which chat channel is for what. Fitting into a team's system fast is a quiet superpower that makes you look reliable.",
+        },
+      },
+      {
+        id: "collab-practice",
+        kicker: "Apply it",
+        title: "Scenario: a remote internship's first week",
+        body: `You just started a remote summer internship. Your supervisor sends a message in a chat app: *"Can you take a look at the Q3 budget draft and share your thoughts by Friday?"* Let's walk through the digital skills this one message actually requires.\n\n• **Chat literacy** — reply promptly and clearly, and acknowledge the deadline ("Got it, I'll review it by Thursday and share notes.") rather than leaving it unanswered.\n• **Shared file access** — find the budget file in whatever shared drive or tool the team uses, and confirm you have the right permissions to comment.\n• **Basic data literacy** — actually read the numbers critically: does a total look right? Is a chart comparing things fairly?\n• **Calendar awareness** — if you need a call to discuss it, propose a specific time that doesn't clash with anything else on your calendar.\n\nOne short message, four quiet digital skills — exactly the kind of moment where a little preparation from this lesson pays off immediately.`,
+        checkIn: {
+          prompt: "Your remote internship supervisor messages you in a chat app asking you to review a budget file by Friday. What's the best first response?",
+          choices: [
+            "Ignore the message until Friday and hope you remember",
+            "Reply promptly acknowledging the task and deadline, then locate the shared file and confirm you can access it",
+            "Reply only with 'ok' and nothing else",
+            "Forward the message to a friend to handle instead",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A clear, prompt acknowledgment shows reliability, and confirming file access early avoids a last-minute scramble — both are basic but highly valued remote-collaboration habits.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "In any remote role, replying quickly with even a short acknowledgment ('Got it, will do by Thursday') builds trust fast — silence, even when you're planning to do the work, reads as unreliable.",
+        },
+      },
+      {
+        id: "level-up-vocabulary",
+        kicker: "Level up",
+        title: "A few more workplace words worth knowing",
+        body: `A handful of terms come up once you start reading job listings or joining a real team. Quick, plain-language versions:\n\n• **Async (asynchronous) communication** — messages or updates that don't require an immediate reply, like a written status update instead of a live meeting. Being clear in writing matters more when communication is async.\n• **Version history** — a record of every past change to a shared document, letting you see or restore an earlier version if something gets deleted or messed up.\n• **Onboarding** — the process of learning a new job's tools, systems, and expectations when you first start.\n• **Soft skills** — non-technical strengths like communication, reliability, and teamwork, which employers consistently rank as highly as technical skills.\n• **Deliverable** — a specific piece of work you're expected to produce and hand off, like a finished report or a completed design.\n\nThese words show up constantly in job postings and team conversations — recognizing them means you won't have to guess what's being asked of you.`,
+        checkIn: {
+          prompt: "A job posting says the role relies heavily on 'async communication.' What does that suggest about how you'll need to communicate?",
+          choices: [
+            "You'll never need to write anything down",
+            "You'll often need to write clear, complete updates that others can understand without an immediate live conversation",
+            "You'll only communicate through video calls",
+            "Communication skills won't matter for this role",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Async communication means messages and updates often need to stand on their own, clearly, since a reply might not come right away — making clear writing especially important.",
+        },
+        callout: {
+          label: "Tip",
+          text: "If a job posting or team's culture leans heavily async, practice writing short, complete status updates now — it's a skill that reads as 'professional' the moment you start.",
         },
       },
       {
@@ -149,22 +269,44 @@ B6 instantly becomes 66    # you re-do ZERO math by hand`,
         },
       },
       {
+        id: "career-checklist",
+        kicker: "Take action",
+        title: "Your career-readiness quick check",
+        body: `Run through these six quick questions to see where you already stand, and what's worth building next:\n\n1. **Portfolio** — do I have even one document listing real things I've made?\n2. **Footprint** — have I searched my own name recently to see what's public?\n3. **Email** — could I write a clear, professional email with a specific subject and ask right now?\n4. **Spreadsheets** — do I know what \`=SUM()\` and \`=AVERAGE()\` do, and could I build a simple tracker?\n5. **Collaboration** — am I comfortable with a shared doc, a chat tool, and a video call?\n6. **Growth mindset** — do I treat "I don't know this yet" as a starting point rather than a wall?\n\nYou don't need a "yes" on all six today. Picking just one "not-yet" and turning it into a "yes" this month is exactly what career readiness looks like in practice.`,
+        checkIn: {
+          prompt: "Running through this checklist, you realize you've never actually searched your own name online. What's the most useful next step?",
+          choices: [
+            "Skip it — it doesn't matter what's publicly findable about you",
+            "Search your own name and any public usernames now, the way an employer or admissions reader might",
+            "Delete every social media account immediately without looking first",
+            "Wait until after you've already applied somewhere to check",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A quick self-search shows you exactly what a stranger — including a future employer or admissions reader — would find, giving you the chance to fix anything before it matters, not after.",
+        },
+        callout: {
+          label: "Try this today",
+          text: "Pick just ONE item from this checklist to actually complete this week — a portfolio doc, a self-search, or learning =SUM(). Small, specific action beats a long mental to-do list.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've leveled up for the working world: digital skills matter in **every** career, a clean **online presence** and a **portfolio** help you get hired, **professional email** gets replies from busy adults, the **productivity suite** — especially **spreadsheets** with \`=SUM()\` and \`=AVERAGE()\` — does real work for you, and **calendars, remote tools, and data literacy** keep teams running. On top of that, use **AI honestly** and keep **upskilling**, because tech never stops changing.\n\nNone of this requires being a "computer genius." It requires being prepared and willing to learn — which, after this track, absolutely describes you.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on one career-ready skill you want to build first.`,
+        body: `You've leveled up for the working world: digital skills matter in **every** career, a clean **online presence** and a **portfolio** help you get hired, **professional email** gets replies from busy adults, the **productivity suite** — especially **spreadsheets** with \`=SUM()\`, \`=AVERAGE()\`, \`=COUNT()\`, and \`=IF()\` — does real work for you, and **calendars, remote tools, and data literacy** keep teams running. On top of that, use **AI honestly** and keep **upskilling**, because tech never stops changing.\n\nNone of this requires being a "computer genius." It requires being prepared and willing to learn — which, after this track, absolutely describes you.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on one career-ready skill you want to build first.`,
       },
     ],
   },
   bigIdeas: [
     "Digital skills are the **'reading and writing' of work** — needed in nearly every career, not just tech.",
-    "A clean **online presence**, a **portfolio**, and clear **professional email** help you get hired; spreadsheets with \`=SUM()\`/\`=AVERAGE()\` do real work and **auto-update**.",
+    "A clean **online presence**, a **portfolio**, and clear **professional email** help you get hired; spreadsheets with \`=SUM()\`/\`=AVERAGE()\`/\`=IF()\` do real work and **auto-update**.",
     "Use **AI honestly** and keep **upskilling** — the top career skill is learning how to learn.",
   ],
   keyTerms: [
     { term: "Productivity suite", definition: "A set of workplace tools for documents, presentations (slides), and spreadsheets." },
     { term: "Spreadsheet", definition: "A grid of rows, columns, and cells that stores data and computes with formulas — a super-powered calculator + table." },
-    { term: "Formula (=SUM / =AVERAGE)", definition: "An instruction in a spreadsheet cell that calculates automatically; =SUM() adds a range and =AVERAGE() averages it." },
+    { term: "Formula (=SUM / =AVERAGE / =IF)", definition: "An instruction in a spreadsheet cell that calculates automatically; =SUM() adds a range, =AVERAGE() averages it, and =IF() checks a condition." },
     { term: "Professional online presence", definition: "What employers find when they search you — your footprint, portfolio, and profiles like LinkedIn." },
     { term: "Remote collaboration", definition: "Working with a team across locations using chat (Slack/Teams), video (Zoom), and shared files." },
     { term: "Upskilling", definition: "Regularly learning new tools and skills throughout your career as technology changes." },
@@ -236,6 +378,45 @@ B6 instantly becomes 66    # you re-do ZERO math by hand`,
       correctIndex: 1,
       explanation:
         "AI is a powerful work tool, but the rules still apply: verify, protect sensitive data, and be honest. Blind trust or dishonesty can damage your reputation fast.",
+    },
+    {
+      id: "q6",
+      question: "You want a spreadsheet to automatically display 'Pass' for a score of 90 or higher, and 'Review' otherwise. Which formula is built for that?",
+      choices: [
+        "=SUM()",
+        "=AVERAGE()",
+        "=IF(), because it checks a condition and returns different results based on whether it's true or false",
+        "=COUNT()",
+      ],
+      correctIndex: 2,
+      explanation:
+        "=IF() evaluates a condition and returns one result if it's true and another if it's false — exactly the kind of automatic decision-making this scenario calls for.",
+    },
+    {
+      id: "q7",
+      question: "You've made a few modest class projects but think none are impressive enough for a portfolio yet. What's the better move?",
+      choices: [
+        "Wait indefinitely for a 'perfect' project before starting anything",
+        "Put together a simple document listing the real projects you have, with a sentence describing each one",
+        "Never show anyone any of your work",
+        "Only include projects that already won a formal award",
+      ],
+      correctIndex: 1,
+      explanation:
+        "A modest, honest portfolio with real evidence beats an imagined perfect one that never gets started. Concrete examples, even small ones, are more persuasive than vague claims.",
+    },
+    {
+      id: "q8",
+      question: "Your remote internship supervisor messages you in a chat app asking you to review a file by Friday. What's the best first response?",
+      choices: [
+        "Say nothing until Friday and hope you remember on your own",
+        "Reply promptly acknowledging the task and deadline, then confirm you can access the shared file",
+        "Reply with just 'ok' and nothing else",
+        "Forward the request to someone else without saying anything",
+      ],
+      correctIndex: 1,
+      explanation:
+        "A clear, prompt acknowledgment builds trust, and confirming file access early avoids a last-minute scramble — both are simple but highly valued remote-collaboration habits.",
     },
   ],
   reflection: {

@@ -15,7 +15,7 @@ const daLesson5: DataLessonConfig = {
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -30,7 +30,29 @@ const daLesson5: DataLessonConfig = {
         },
       },
       {
-        id: "orderby",
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "Behind every leaderboard is a sort",
+        body: `Open any video game's high-score screen. The names at the top didn't get there by luck of the alphabet — someone ran a query that sorted every player's score from highest to lowest, then kept only the top few.\n\nChange one thing — sort by "fastest time" instead of "highest score" — and the exact same table of players produces a completely different leaderboard. The data didn't change. The **sort** did.`,
+        callout: {
+          label: "Notice it",
+          text: "Next time you see a \"Top 10\" or \"trending now\" list, ask yourself: sorted by what column, in which direction?",
+        },
+      },
+      {
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**ORDER BY** — the clause that sorts your result rows by a column.",
+          "**Ascending (ASC)** — smallest to largest, or A to Z. The default direction.",
+          "**Descending (DESC)** — largest to smallest, or Z to A.",
+          "**Top N** — the recipe of sorting, then LIMITing, to get the best (or worst) few results.",
+        ],
+      },
+      {
+        id: "concept-1",
         kicker: "Sort it",
         title: "ORDER BY arranges the rows",
         body: `Add \`ORDER BY\` after your table (and after any \`WHERE\`), then name the column to sort on. By default SQL sorts **ascending** — smallest number first, or A-to-Z for text.\n\nThink of lining up a deck of cards from lowest to highest, or arranging your contacts alphabetically. \`ORDER BY\` does that to your rows automatically.\n\nIn the query below we sort by \`price\`, so the cheapest lunch (the Fruit cup at $2.75) floats right to the top.`,
@@ -46,16 +68,36 @@ const daLesson5: DataLessonConfig = {
           ],
           rowCount: 4,
         },
-        callout: {
-          label: "Common misconception",
-          text: "`ORDER BY` only **rearranges** rows — it never removes any. That's different from `WHERE`, which filters rows out. Sorting keeps all 8 orders; it just changes the order they're listed in.",
+        checkIn: {
+          prompt: "By default, does ORDER BY sort ascending or descending?",
+          choices: ["Ascending (smallest/A first)", "Descending (largest/Z first)", "It picks randomly"],
+          correctIndex: 0,
+          explanation: "Ascending is the default direction — smallest numbers or earliest letters come first unless you add DESC.",
         },
       },
       {
-        id: "desc",
+        id: "concept-2",
         kicker: "Find the top",
-        title: "DESC + LIMIT = top results",
-        body: `To answer "most" or "highest" questions, flip the sort with \`DESC\` (short for *descending* — largest first). Then add \`LIMIT\` to keep just the top few. \`ORDER BY ... DESC\` followed by \`LIMIT N\` is the classic recipe for a "Top N" list.\n\nIt's exactly how a game builds its high-score board: sort everyone's score from highest to lowest, then show only the top 3 (or 10, or 100).\n\nBelow we sort by \`price DESC\` and \`LIMIT 3\` to crown the three most expensive orders.`,
+        title: "DESC flips the direction",
+        body: `To answer "most" or "highest" questions, flip the sort with \`DESC\` (short for *descending* — largest first).\n\nIt's exactly how a game builds its high-score board: sort everyone's score from highest to lowest so the winner lands right at the top.`,
+        code: `SELECT student_name, item, price\nFROM lunch_orders\nORDER BY price DESC;`,
+        codeCaption: "Most expensive first",
+        bullets: [
+          "`ORDER BY price` → ascending (small → large).",
+          "`ORDER BY price DESC` → descending (large → small).",
+        ],
+        checkIn: {
+          prompt: "You want the most expensive order to appear FIRST. What do you add?",
+          choices: ["Nothing — ascending already does this", "DESC after the column name", "LIMIT 1 by itself"],
+          correctIndex: 1,
+          explanation: "DESC reverses the default ascending order, so the largest value — the most expensive order — appears first.",
+        },
+      },
+      {
+        id: "concept-3",
+        kicker: "Top N recipe",
+        title: "ORDER BY then LIMIT builds a leaderboard",
+        body: `\`ORDER BY ... DESC\` followed by \`LIMIT N\` is the classic recipe for a "Top N" list — sort everything first, then keep only the top few.\n\nBelow we sort by \`price DESC\` and \`LIMIT 3\` to crown the three most expensive orders.`,
         code: `SELECT student_name, item, price\nFROM lunch_orders\nORDER BY price DESC\nLIMIT 3;`,
         codeCaption: "The 3 most expensive orders",
         table: {
@@ -67,14 +109,15 @@ const daLesson5: DataLessonConfig = {
           ],
           rowCount: 3,
         },
-        bullets: [
-          "`ORDER BY price` → ascending (small → large).",
-          "`ORDER BY price DESC` → descending (large → small).",
-          "`ORDER BY` then `LIMIT` → the top (or bottom) N.",
-        ],
-        callout: {
-          label: "Common misconception",
-          text: "`LIMIT 3` alone does **not** give you the \"top 3\" — it just grabs the first 3 rows in whatever order they happen to be. You only get a real Top 3 when you `ORDER BY` *first*, then `LIMIT`.",
+        checkIn: {
+          prompt: "What is the correct ORDER of operations for a 'Top 3' query?",
+          choices: [
+            "LIMIT 3 first, then ORDER BY",
+            "ORDER BY first (to rank everything), then LIMIT 3 (to keep the top)",
+            "It doesn't matter which comes first",
+          ],
+          correctIndex: 1,
+          explanation: "You must sort the full set first so the ranking is correct, THEN limit to the top rows — otherwise LIMIT might grab random rows before they're sorted.",
         },
       },
       {
@@ -96,6 +139,115 @@ const daLesson5: DataLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "Want the single winner instead of a top 3? Keep the same `ORDER BY ... DESC` and just change `LIMIT 3` to `LIMIT 1`. Want the *cheapest* instead? Drop `DESC` so it sorts ascending.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "LIMIT alone is not a leaderboard",
+        body: `The most common mistake in this lesson: assuming \`LIMIT 3\` by itself gives you the "top 3." It doesn't — it just grabs the first 3 rows in whatever order they happen to already be in, which is often arbitrary.`,
+        bullets: [
+          "`ORDER BY` only **rearranges** rows — it never removes any, unlike `WHERE`.",
+          "`LIMIT 3` alone does **not** give you the top 3 — you need `ORDER BY` first.",
+        ],
+        checkIn: {
+          prompt: "SELECT * FROM lunch_orders LIMIT 3; (with no ORDER BY) — what do you get?",
+          choices: [
+            "The 3 most expensive orders",
+            "Some 3 rows, in no guaranteed meaningful order",
+            "The 3 cheapest orders",
+          ],
+          correctIndex: 1,
+          explanation: "Without ORDER BY, LIMIT just grabs the first rows it happens to encounter — not necessarily the highest, lowest, or most meaningful ones.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Predict who's on top",
+        body: `Before the exercises, predict: if you sort \`lunch_orders\` by \`student_name\` (text, not price), who appears first? Remember, ascending order for text means alphabetical, A first.\n\nOnce in the workspace, try \`SELECT student_name FROM lunch_orders ORDER BY student_name;\` and check your guess.`,
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Go one level deeper",
+        title: "Sorting by more than one column",
+        body: `You can sort by multiple columns at once: \`ORDER BY item, price DESC\` first groups rows alphabetically by item, then within each item, sorts by price from high to low. This is called a **tiebreaker** sort — the second column decides ties left over from the first.`,
+        bullets: [
+          "The first column listed is the main sort.",
+          "Any column after it breaks ties within the first sort.",
+          "Each column can have its own direction — ASC or DESC independently.",
+        ],
+      },
+      {
+        id: "comparison",
+        kicker: "Compare & contrast",
+        title: "ORDER BY vs. WHERE — sorting is not filtering",
+        body: `These two clauses are often confused because they both change what your result looks like — but they do fundamentally different jobs.`,
+        bullets: [
+          "**WHERE** — removes rows that don't match a condition. Fewer rows come out than went in.",
+          "**ORDER BY** — rearranges all the rows that survive; the row count never changes because of it.",
+          "You can use both together: filter first with WHERE, then sort what's left with ORDER BY.",
+        ],
+        checkIn: {
+          prompt: "If a table has 8 rows and you only add ORDER BY (no WHERE), how many rows come back?",
+          choices: ["Still all 8, just rearranged", "Fewer than 8", "Exactly 1"],
+          correctIndex: 0,
+          explanation: "ORDER BY never removes rows — it only changes their order. All 8 rows are still there, just rearranged.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "Rankings feel objective, but they aren't",
+        body: `A ranking looks like an indisputable fact, but it's always built on a choice: which column did you sort by? "Best" student by grade average is a very different ranking than "best" student by attendance or effort.\n\nWhenever you publish a ranking, choose the sorting column honestly and **say which one you used** — never let a "Top 10" imply more objectivity than it actually has.`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "Always name the sort column out loud",
+        body: `Before you write ORDER BY, say the ranking rule out loud: "most expensive first" or "alphabetical by name." This tiny habit prevents the classic mistake of sorting ascending when you meant descending, or vice versa.`,
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Ranking and ordering data is a key data-analysis skill.`,
+        bullets: [
+          "**CSTA 3A-DA-10** — Use data analysis techniques (sorting and ranking) to identify patterns in data.",
+          "**CSTA 2-DA-09** — Refine how data is organized and presented based on the question being asked.",
+          "**ISTE Computational Thinker** — Formulating ordered comparisons to solve real ranking problems.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "What would YOUR leaderboard sort by?",
+        body: `Think of something you'd like to rank in your own life — favorite songs, workout times, video game scores. What column would you sort by, and would you choose ascending or descending? Would the ranking change a lot if you picked a different column?`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The talent show's judging table",
+        body: `A talent show recorded scores in a table \`performances\` with columns \`act_name\` and \`judge_score\`. The host wants to announce the top 3 acts on stage, from third place up to first.\n\nWhat query would produce exactly that ranking? Careful — think about whether the host wants the winner announced first or last in your result order.`,
+        callout: {
+          label: "Apply it",
+          text: "SELECT act_name, judge_score FROM performances ORDER BY judge_score DESC LIMIT 3; — the winner appears first in the result, so the host may want to read the list backward on stage.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's confirm ORDER BY, DESC, and the Top N recipe are all locked in.`,
+        checkIn: {
+          prompt: "Which query finds the SINGLE cheapest lunch order?",
+          choices: [
+            "SELECT * FROM lunch_orders ORDER BY price DESC LIMIT 1;",
+            "SELECT * FROM lunch_orders ORDER BY price LIMIT 1;",
+            "SELECT * FROM lunch_orders LIMIT 1;",
+          ],
+          correctIndex: 1,
+          explanation: "Sorting ascending (the default, no DESC) puts the cheapest first, and LIMIT 1 keeps just that single row.",
         },
       },
       {

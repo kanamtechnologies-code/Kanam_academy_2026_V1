@@ -298,6 +298,9 @@ export function AILessonCanvas({
     trackProgress("lesson_opened");
   }, [deviceId, userId, studentDbId, trackProgress]);
 
+  const challengePanelRef = React.useRef<HTMLDivElement | null>(null);
+  const activityNavRef = React.useRef<HTMLDivElement | null>(null);
+
   const selectChoice = (choiceIndex: number) => {
     if (!activeQuestion || lessonComplete) return;
     if (correctIds.has(activeQuestion.id)) return; // already locked correct
@@ -305,6 +308,12 @@ export function AILessonCanvas({
     trackProgress("run", { questionId: activeQuestion.id, choiceIndex });
     if (choiceIndex === activeQuestion.correctIndex) {
       setCorrectIds((prev) => new Set(prev).add(activeQuestion.id));
+      // Cascade to the next quiz question after a short beat.
+      if (activeIndex < totalQuestions - 1) {
+        window.setTimeout(() => {
+          setActiveIndex((i) => Math.min(i + 1, totalQuestions - 1));
+        }, 700);
+      }
     }
   };
 
@@ -331,10 +340,37 @@ export function AILessonCanvas({
   const currentSelection = activeQuestion ? selected[activeQuestion.id] : undefined;
   const activeActivity = activities[activeActivityIndex];
 
+  const scrollActivityIntoView = React.useCallback((idx: number) => {
+    requestAnimationFrame(() => {
+      activityNavRef.current
+        ?.querySelector(`[data-activity-idx="${idx}"]`)
+        ?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      challengePanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, []);
+
   const markActivityDone = (activityId: string, payload?: Record<string, unknown>) => {
     setActivityDoneIds((prev) => new Set(prev).add(activityId));
     trackProgress("run", { activityId, kind: "bonus", ...payload });
+
+    const idx = activities.findIndex((a) => a.id === activityId);
+    if (idx >= 0 && idx < activities.length - 1) {
+      // Cascade: unlock and surface the next challenge automatically.
+      window.setTimeout(() => {
+        const next = idx + 1;
+        setActiveActivityIndex(next);
+        scrollActivityIntoView(next);
+      }, 750);
+    }
   };
+
+  React.useEffect(() => {
+    if (!allCorrect || activities.length === 0) return;
+    // When practice unlocks, bring it into view.
+    window.setTimeout(() => {
+      challengePanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 400);
+  }, [allCorrect, activities.length]);
 
   /** TEMP testing helper — remove before shipping. */
   const tempPassCurrentStep = () => {
@@ -354,9 +390,7 @@ export function AILessonCanvas({
     const act = activities[activeActivityIndex];
     if (act && !activityDoneIds.has(act.id)) {
       markActivityDone(act.id, { tempSkip: true });
-      if (activeActivityIndex < activities.length - 1) {
-        setActiveActivityIndex((i) => i + 1);
-      }
+      // markActivityDone cascades to the next challenge automatically
     }
   };
 
@@ -689,7 +723,10 @@ export function AILessonCanvas({
               </Card>
 
               {allCorrect && activities.length > 0 ? (
-                <Card className="border-violet-200 bg-violet-50/40 shadow-md">
+                <Card
+                  ref={challengePanelRef}
+                  className="scroll-mt-24 border-violet-200 bg-violet-50/40 shadow-md"
+                >
                   <CardHeader className="pb-2">
                     <CardTitle className="flex items-center gap-2 text-base">
                       <Sparkles className="h-5 w-5 text-violet-600" />
@@ -713,11 +750,11 @@ export function AILessonCanvas({
                                       : "Challenge"
                         )
                         .join(" · ")}{" "}
-                      — finish each one to complete the lesson.
+                      — finish each one to complete the lesson. The next challenge opens automatically.
                     </p>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div className="flex flex-wrap gap-2">
+                    <div ref={activityNavRef} className="flex flex-wrap gap-2">
                       {activities.map((activity, idx) => {
                         const done = activityDoneIds.has(activity.id);
                         const active = idx === activeActivityIndex;
@@ -741,9 +778,13 @@ export function AILessonCanvas({
                           <button
                             key={activity.id}
                             type="button"
+                            data-activity-idx={idx}
                             disabled={locked && !done}
                             onClick={() => {
-                              if (!locked || done) setActiveActivityIndex(idx);
+                              if (!locked || done) {
+                                setActiveActivityIndex(idx);
+                                scrollActivityIntoView(idx);
+                              }
                             }}
                             className={cn(
                               "flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors",
@@ -757,7 +798,9 @@ export function AILessonCanvas({
                             )}
                           >
                             {done ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
-                            <span className="opacity-80">{kindLabel}:</span> {activity.title}
+                            <span>
+                              {idx + 1}. {kindLabel}
+                            </span>
                           </button>
                         );
                       })}
@@ -837,16 +880,9 @@ export function AILessonCanvas({
 
                         {activityDoneIds.has(activeActivity.id) &&
                         activeActivityIndex < activities.length - 1 ? (
-                          <div className="mt-4">
-                            <Button
-                              type="button"
-                              className="h-11"
-                              onClick={() => setActiveActivityIndex((i) => i + 1)}
-                            >
-                              Next challenge
-                              <ChevronRight className="h-4 w-4" />
-                            </Button>
-                          </div>
+                          <p className="mt-3 text-sm font-semibold text-violet-700">
+                            Nice — opening the next challenge…
+                          </p>
                         ) : null}
                       </div>
                     ) : null}

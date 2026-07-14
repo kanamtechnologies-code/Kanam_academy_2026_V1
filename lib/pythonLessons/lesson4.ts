@@ -288,7 +288,7 @@ else:
   ],
 
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -303,17 +303,25 @@ else:
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "More rules, smarter helper",
-        body: `An \`if\`/\`else\` is a fork in the road — two directions. But what if there are *five* directions? You can't capture that with a single yes/no question.\n\nThat's where \`elif\` comes in. It lets your helper follow **a whole list of rules**, checking them one after another until it finds the one that fits. Imagine a flowchart with several diamond-shaped decision points stacked in a row: "Is it this? No. Is it that? No. Is it the other thing? Yes!" — and it acts on the first match.\n\nAdding more rules can make an AI *seem* clever, but never forget: every rule, and the order they're in, was decided by a human.`,
-        callout: {
-          label: "Common misconception",
-          text: "Adding lots of rules doesn't make a program \"think.\" It just handles more situations. The intelligence is in *how carefully a human designed and ordered the rules*.",
-        },
+        id: "hook-story",
+        kicker: "Think about it",
+        title: "Airport security, but for code",
+        body: `Ever notice the signs at airport security? "First class this way. Priority boarding this way. Everyone else, that line over there." Every traveler is checked against the *first* line they qualify for, and once they're sorted, nobody double-checks the other signs.\n\nThat's the exact shape of the code you're building today: a chain of rules, checked *in order*, where the first one that fits wins and the rest get skipped entirely. Miss this and you might build a chain where the wrong "line" catches everyone.`,
       },
       {
-        id: "elif",
+        id: "glossary",
+        kicker: "Vocabulary",
+        title: "Words you'll use today",
+        body: `New vocabulary for this lesson.`,
+        bullets: [
+          "**elif** — short for \"else if\"; an extra rule checked only if the ones above were False.",
+          "**Rule chain** — an if / elif / ... / else sequence checked in order.",
+          "**First match wins** — Python stops checking as soon as one rule is True.",
+          "**Fallback** — the else branch that catches everything the other rules missed.",
+        ],
+      },
+      {
+        id: "concept-1",
         kicker: "Building block #1",
         title: "elif adds more choices",
         body: `\`elif\` (say it "ell-if") sits **between** \`if\` and \`else\`. You can stack as many \`elif\` rules as you want, one after another.\n\nHere's the key: each \`elif\` is only checked if **all the rules above it were False**. It's like a series of doors in a hallway — you only try the next door if the previous one was locked. The moment a door opens (a rule is True), you walk through it and stop trying the rest.\n\nNotice that \`elif\` is one word, and like \`if\` and \`else\`, its line ends with a colon \`:\` and has indented code underneath.`,
@@ -324,9 +332,19 @@ else:
           label: "Watch out",
           text: "Use `elif`, not a second separate `if`. Two separate `if` statements both get checked, which can run *two* messages by accident. `elif` guarantees only one path runs.",
         },
+        checkIn: {
+          prompt: "Why is `elif` different from writing a second, separate `if`?",
+          choices: [
+            "There's no difference — they behave identically",
+            "elif is only checked if the earlier rules were False; a separate if is always checked",
+            "elif can only be used with numbers",
+          ],
+          correctIndex: 1,
+          explanation: "elif belongs to the same chain, so it's skipped once an earlier rule matches. A separate if is checked independently, which can run extra branches by accident.",
+        },
       },
       {
-        id: "order",
+        id: "concept-2",
         kicker: "The key idea",
         title: "Python checks rules top to bottom",
         body: `This is the most important part of the whole lesson. Python reads your rules **in order, from the top down**. The **first** rule that turns out True runs — and then Python **stops checking** everything below it.\n\nThink of airport security lines with signs: "First class here, then priority, then everyone else." You join the *first* line you qualify for and never look at the others. Your rules work the same way.\n\nThis means the *order* of your rules changes how your program behaves. A rule placed too early can "grab" inputs that were meant for a rule lower down — and that lower rule will never get a turn.`,
@@ -339,9 +357,33 @@ else:
           label: "Common misconception",
           text: "If a rule that matches *everyone* is placed first, none of the rules below it will ever run — even if they're written perfectly. Careful ordering is what keeps an AI's behavior correct.",
         },
+        checkIn: {
+          prompt: "If a rule chain has 3 elif branches and the FIRST if matches, what happens to the rest?",
+          choices: [
+            "All of them still run",
+            "Python skips the rest — only the first match runs",
+            "Python runs a random one",
+          ],
+          correctIndex: 1,
+          explanation: "Once a rule matches, Python stops checking the chain. Only the first true branch runs.",
+        },
       },
       {
-        id: "worked",
+        id: "concept-3",
+        kicker: "Building block #2",
+        title: "The catch-all else still comes last",
+        body: `Just like Lesson 3, \`else\` remains your fallback — it runs only if **every single rule above it** (the \`if\` and all the \`elif\`s) came back False. No matter how many \`elif\`s you stack, there's still only ever one \`else\`, and it always goes last.\n\nA well-designed chain almost always ends with \`else\`, so there's a graceful catch-all reply for any input you didn't specifically plan for.`,
+        code: `if name == "Alex":\n    print("Welcome back, Alex!")\nelif name == "Jordan":\n    print("Hey Jordan!")\nelif name == "Sam":\n    print("Hi Sam!")\nelse:\n    print("Hello there!")`,
+        codeCaption: "Any number of elifs, but only one else, always last",
+        checkIn: {
+          prompt: "Where must else appear in an if / elif chain?",
+          choices: ["First, before if", "Anywhere in the middle", "Last, after all the if/elif branches"],
+          correctIndex: 2,
+          explanation: "else is the final fallback and must come after all if/elif checks — it has no condition of its own.",
+        },
+      },
+      {
+        id: "worked-example",
         kicker: "Worked example",
         title: "Let's build a rule chain together",
         body: `Let's assemble a three-way helper step by step and watch how order matters.\n\n**Step 1 — Listen.** Ask for a name with \`input()\` and store it in \`name\`.\n\n**Step 2 — First rule.** \`if name == "Alex":\` runs only for Alex.\n\n**Step 3 — Second rule.** \`elif name == "Jordan":\` is checked *only if* the name wasn't Alex.\n\n**Step 4 — Catch-all.** \`else:\` handles every other name, so nobody is left without a reply.\n\nRun it three times — "Alex", "Jordan", and "Riley" — and you'll see three different messages, each from a different branch of the chain.`,
@@ -351,6 +393,107 @@ else:
         callout: {
           label: "Pro tip",
           text: "To really test a rule chain, feed it one input for *each* branch. If you have three paths, try three inputs and confirm you get three different results.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "More rules ≠ smarter AI",
+        body: `An \`if\`/\`else\` is a fork in the road — two directions. But what if there are *five* directions? You can't capture that with a single yes/no question. \`elif\` lets your helper follow **a whole list of rules**, checking them one after another until it finds the one that fits.\n\nAdding more rules can make an AI *seem* clever, but never forget: every rule, and the order they're in, was decided by a human. Adding lots of rules doesn't make a program "think" — it just handles more situations. The intelligence is in *how carefully a human designed and ordered the rules*.`,
+      },
+      {
+        id: "try-it",
+        kicker: "Try it — predict",
+        title: "Trace the chain before you run it",
+        body: `Here's a finished chain. This time the name is \`"Jordan"\`. Trace it: which rule is checked first? Does it match? If not, which one does?`,
+        code: `name = "Jordan"\nif name == "Alex":\n    print("Welcome back, Alex!")\nelif name == "Jordan":\n    print("Hey Jordan, good to see you!")\nelse:\n    print("Hello there!")`,
+        codeCaption: "What will this print for Jordan?",
+        checkIn: {
+          prompt: "What exact line prints for Jordan?",
+          choices: ["Welcome back, Alex!", "Hey Jordan, good to see you!", "Hello there!"],
+          correctIndex: 1,
+          explanation: "The if for Alex fails, so Python checks the elif for Jordan — that matches, so its message prints and else is skipped.",
+        },
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Level up",
+        title: "Combine conditions with and / or",
+        body: `Rule chains get even more powerful when a single condition checks *more than one thing at once*, using \`and\` or \`or\`.\n\n\`and\` requires **both** sides to be True. \`or\` only needs **one** side to be True. These are called **compound conditionals**, and they let you write rules like "if the name is Alex AND the mood is happy" without needing a separate elif for every combination.`,
+        code: `if name == "Alex" and mood == "happy":\n    print("Great to see you smiling, Alex!")`,
+        codeCaption: "A compound conditional using and",
+      },
+      {
+        id: "comparison",
+        kicker: "Two ways to do it",
+        title: "elif chain vs. separate if statements",
+        body: `Compare a proper \`elif\` chain to a set of separate, independent \`if\` statements. Both *can* look similar, but the elif chain guarantees exactly one branch runs, while separate ifs are each checked on their own — which can cause more than one message to print if you're not careful.\n\nUse an \`elif\` chain whenever the outcomes are mutually exclusive — grades, difficulty tiers, or one name matching one message. Use separate \`if\`s only when you genuinely want to check unrelated things independently.`,
+        code: `# elif chain — exactly one message\nif name == "Alex":\n    print("A")\nelif name == "Jordan":\n    print("B")\nelse:\n    print("C")\n\n# separate ifs — could print more than one\nif name == "Alex":\n    print("A")\nif name != "Jordan":\n    print("C")`,
+        codeCaption: "Separate ifs can accidentally overlap",
+      },
+      {
+        id: "debug-habit",
+        kicker: "Debugging habit",
+        title: "Suspect rule order first",
+        body: `If your chain seems to always land on the wrong branch, the very first thing to check is **order**. Look for a rule near the top that might be too broad and is "catching" inputs meant for a rule further down.\n\nA good habit: read your chain top to bottom out loud, like a checklist, and ask "would this input get caught here before it reaches the rule I actually wanted?"`,
+        checkIn: {
+          prompt: "Jordan keeps getting the Alex message instead of the Jordan message. What's the most likely cause?",
+          choices: [
+            "Python is broken",
+            "A rule above the Jordan check is too broad and matches Jordan by mistake",
+            "elif doesn't work with names",
+          ],
+          correctIndex: 1,
+          explanation: "Since the first matching rule wins, an overly broad rule placed earlier in the chain can accidentally catch inputs meant for a later rule.",
+        },
+      },
+      {
+        id: "habits",
+        kicker: "Coder habits",
+        title: "Test every branch you added",
+        body: `Every time you add a new \`elif\`, test it with an input specifically designed to hit that exact branch — not just your original two test cases.\n\nA chain with 3 branches needs at least 3 different test inputs before you can trust it. Skipping this step is how "it worked when I tested it" bugs sneak into real projects.`,
+        bullets: [
+          "One test input per branch, minimum.",
+          "Read the chain top-down and ask what could go wrong with ordering.",
+          "When adding a new elif, re-test the branches above it too — they shouldn't change.",
+        ],
+      },
+      {
+        id: "standards-connect",
+        kicker: "Why this counts",
+        title: "This lesson meets a real CS standard",
+        body: `**CSTA 2-AP-12** (compound conditionals) continues here, and **CSTA 3A-AP-15**: *Justify the selection of specific control structures when tradeoffs involve implementation, readability, and program performance.*\n\nChoosing an \`elif\` chain instead of several separate \`if\` statements — and explaining *why* it's the better choice for mutually exclusive outcomes — is exactly the kind of justification this standard asks for.`,
+        callout: {
+          label: "Standards",
+          text: "CSTA 2017: 2-AP-12 (Level 2, compound conditionals) and 3A-AP-15 (Level 3A, justify control structure choices).",
+        },
+      },
+      {
+        id: "reflection-prompt",
+        kicker: "Reflect",
+        title: "Think it through",
+        body: `*Think of a grading scale (A/B/C/D/F) or a game's difficulty tiers. Why does the ORDER you check the ranges matter? What would go wrong if you checked "F" before "A"?*`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Real world",
+        title: "Grading scripts are elif chains",
+        body: `A script that turns a numeric score into a letter grade is a textbook \`elif\` chain: if score >= 90, "A"; elif score >= 80, "B"; and so on, ending with an \`else\` for anything below the lowest cutoff.\n\nNotice it has to check from **highest to lowest** — checking "is it above 60?" first would incorrectly catch every single A, B, C, and D student too.`,
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you build",
+        body: `Let's confirm the rule-chain pattern is locked in.`,
+        checkIn: {
+          prompt: "A chain has: if score >= 60 (print Pass) elif score >= 90 (print Excellent) else (print Fail). What's wrong?",
+          choices: [
+            "Nothing is wrong",
+            "The broader rule (>= 60) is placed before the more specific rule (>= 90), so Excellent never runs",
+            "elif needs to come before if",
+          ],
+          correctIndex: 1,
+          explanation: "Since 90+ also satisfies >= 60, the first (broader) rule always wins and the more specific Excellent branch never gets a chance to run.",
         },
       },
       {

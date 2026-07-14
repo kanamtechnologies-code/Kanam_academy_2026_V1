@@ -10,7 +10,7 @@ export const digitalLesson14: AILessonConfig = {
   prevHref: "/learn/digital/13",
   nextHref: "/learn/digital/15",
   lessonModule: {
-    durationLabel: "~11–12 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -35,6 +35,16 @@ export const digitalLesson14: AILessonConfig = {
         },
       },
       {
+        id: "why-it-matters",
+        kicker: "Real stakes",
+        title: "Why calm troubleshooting is worth learning on purpose",
+        body: `It's easy to treat "my thing is broken" moments as just bad luck. But how you respond has real consequences:\n\n• **Panicked clicking makes problems worse.** Randomly tapping buttons, force-quitting mid-save, or reinstalling before understanding the issue can turn a small glitch into lost work.\n• **Deadlines don't pause for tech problems.** A college portal freezing at 11:58 p.m. feels catastrophic in the moment — a calm process gets you unstuck faster than panic ever will.\n• **Every tech job assumes this skill.** No employer expects you to know every error message by heart; they expect you to stay level-headed and work through it methodically.\n• **It transfers everywhere.** The exact same process — describe, isolate, try simple fixes, ask well — works on group project conflicts and everyday problems, not just computers.\n\nThe goal isn't to never hit a problem again. It's to have a reliable process so a problem is an annoyance, not a crisis.\n\nThis whole process is also the **ISTE Computational Thinker** standard in action: developing and using a repeatable strategy — describe, isolate, test, ask well — to understand and solve problems, the same core move computer scientists use every day.`,
+        callout: {
+          label: "Why it matters",
+          text: "The difference between someone who 'freaks out' at tech and someone who 'is good with computers' is almost never knowledge — it's whether they have a calm process to fall back on.",
+        },
+      },
+      {
         id: "mindset",
         kicker: "The big idea",
         title: "The troubleshooting mindset: stay calm, it's fixable",
@@ -42,6 +52,28 @@ export const digitalLesson14: AILessonConfig = {
         callout: {
           label: "Common misconception",
           text: "\"I'm just bad at tech.\" There's no tech gene. People who seem great at it are usually just calm and systematic — they follow steps instead of panicking. That's a skill you can learn today.",
+        },
+      },
+      {
+        id: "mindset-practice",
+        kicker: "Apply it",
+        title: "Catch the panic response in the moment",
+        body: `Let's make the mindset concrete. Picture this: five minutes before a deadline, a form won't submit and shows a red error. Two possible reactions:\n\n• **The panic response:** frantically click submit ten more times, refresh mid-typing and lose your answers, close the tab entirely and reopen from scratch, or immediately assume "everything is broken forever."\n• **The calm response:** take one breath, actually read what the error says, and remind yourself "this is probably a common, fixable issue" before touching anything else.\n\nThe calm response isn't about suppressing stress — it's about not letting stress skip the one step (reading the actual error) that usually points straight to the fix. Panic clicking often deletes the exact information (the error message, your typed answers) that would have solved the problem in seconds.`,
+        checkIn: {
+          prompt: "A form shows a red error five minutes before your deadline. Which response follows the troubleshooting mindset from this lesson?",
+          choices: [
+            "Immediately close the tab and start completely over without reading the error",
+            "Click submit rapidly ten times in a row",
+            "Pause, read exactly what the error says, and treat it as a common, likely-fixable issue rather than a disaster",
+            "Assume the entire internet is broken and give up",
+          ],
+          correctIndex: 2,
+          explanation:
+            "The troubleshooting mindset starts with staying calm enough to actually read the clue in front of you — the error message — instead of reacting with panic that often destroys useful information like unsaved answers.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "When you feel the panic urge to click frantically, try naming it out loud: 'I'm panicking, let me just read this first.' That tiny pause is often the whole fix.",
         },
       },
       {
@@ -65,6 +97,28 @@ export const digitalLesson14: AILessonConfig = {
         },
       },
       {
+        id: "process-practice",
+        kicker: "Apply it",
+        title: "Run the process on a real scenario",
+        body: `Let's practice the five-step process on a new problem: **your video call keeps freezing during an online tutoring session.**\n\n**1. Describe it precisely.** "The video freezes every few minutes but the audio keeps going, then it catches back up." (Much better than "it's glitchy.")\n\n**2. What changed?** Did you just switch Wi-Fi networks, update the app, or add a new browser tab streaming music in the background?\n\n**3. Isolate it.** Does it happen on this call only, or on every call? Does it happen on Wi-Fi but not on cellular data? Each answer rules something in or out.\n\n**4. Try simple fixes.** Close other tabs and apps using bandwidth, move closer to the router, restart the call, or restart the device.\n\n**5. Search the exact error** if one appears (like "connection unstable"), or search "[app name] video freezing but audio works."\n\nNotice how each step narrows the possibilities instead of guessing randomly.`,
+        checkIn: {
+          prompt: "During a video call, the video freezes every few minutes but audio keeps working fine. According to the process, what should you check next?",
+          choices: [
+            "Immediately buy a new laptop",
+            "What recently changed (new tabs, network switch, app update) and whether it happens on every call or just this one",
+            "Nothing — freezing video always means the device is permanently broken",
+            "Delete the app and never use video calls again",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Following the process means checking what changed and isolating whether the issue is specific to this call/network/app, rather than jumping to a drastic conclusion.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Bandwidth-heavy background activity (another device streaming, a big download running) is one of the most common, most overlooked causes of video call freezing. Check it before assuming your device is broken.",
+        },
+      },
+      {
         id: "restart",
         kicker: "Concept",
         title: "Why 'turn it off and on again' actually works",
@@ -85,6 +139,28 @@ export const digitalLesson14: AILessonConfig = {
         },
       },
       {
+        id: "level-up-vocabulary",
+        kicker: "Level up",
+        title: "A few more troubleshooting words worth knowing",
+        body: `A handful of terms show up once you start reading tech support articles or talking to an IT desk. Quick, plain-language versions:\n\n• **Reproduce the bug** — making the problem happen again on purpose, in a controlled way, so you (or someone helping you) can actually study it instead of chasing something random.\n• **Cache** — a folder of temporary saved data websites and apps use to load faster. A corrupted cache can cause weird glitches; "clearing the cache" is a common, safe fix.\n• **Safe mode** — a stripped-down way of starting a device with only essential parts running, useful for figuring out if an add-on or app (not the core system) is causing a problem.\n• **Clean install / factory reset** — wiping a device back to its original settings. It's a last resort, not a first move, and it's exactly why backups matter.\n• **Ticket** — a tracked support request, common at schools, colleges, and workplaces, that documents a problem and its status until it's resolved.\n\nKnowing these means an IT desk's instructions ("clear your cache," "try safe mode," "I've opened a ticket") won't feel like a foreign language.`,
+        checkIn: {
+          prompt: "IT support asks you to 'reproduce the bug' before they can help further. What are they actually asking you to do?",
+          choices: [
+            "Buy a new device",
+            "Make the exact problem happen again, in a way you can describe step by step, so they can understand and study it",
+            "Delete all your files",
+            "Ignore the problem entirely",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Reproducing a bug means triggering it again on purpose and noting the exact steps. That turns a vague 'it's broken sometimes' into a clear, checkable pattern a helper can actually work with.",
+        },
+        callout: {
+          label: "Tip",
+          text: "If you can reliably make a problem happen the same way twice, you're most of the way to either fixing it yourself or writing a great help request.",
+        },
+      },
+      {
         id: "decomposition",
         kicker: "Concept",
         title: "Break it down — and explain it to a rubber duck",
@@ -92,6 +168,28 @@ export const digitalLesson14: AILessonConfig = {
         callout: {
           label: "Pro tip",
           text: "Keep a tiny \"what I tried\" list as you go: restarted (no change), checked Wi-Fi (fine), searched the error (found a thread). This saves you from looping — and becomes the heart of a great help request.",
+        },
+      },
+      {
+        id: "decomposition-practice",
+        kicker: "Apply it",
+        title: "Break down a scary, vague problem",
+        body: `Let's decompose a genuinely stressful one: **"my whole college application portal account is broken."** That sentence alone is too big to act on. Split it up:\n\n• Can I **log in** at all, or does it fail before that?\n• If I can log in, does the problem happen on **every page**, or just one (like the upload page)?\n• Does it happen on **this device only**, or also on my phone or a friend's computer?\n• Does it happen in **every browser**, or just one?\n• Is there a **specific error message**, or does it just look frozen?\n\nSuddenly "everything is broken" becomes a short list of yes/no questions you can actually check one at a time — and probably solve, or at least describe clearly to a help desk, in a few minutes.`,
+        checkIn: {
+          prompt: "You say 'my whole college portal account is broken,' but haven't checked anything specific yet. What's the best next move using decomposition?",
+          choices: [
+            "Assume the entire portal is down for everyone and give up",
+            "Break it into small, checkable questions — can I log in? does it happen on every page? every device? every browser?",
+            "Immediately create a brand new account",
+            "Call the college and demand a refund",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Decomposition turns one overwhelming, vague problem into a short list of specific, checkable questions — each answer narrows down what's actually wrong.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "If you're too stressed to decompose a problem in your head, try literally saying it out loud to a rubber duck, a pet, or a friend — narrating it slowly often reveals the missing check on its own.",
         },
       },
       {
@@ -145,6 +243,50 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
         callout: {
           label: "Pro tip",
           text: "Notice step 3 did the heavy lifting: because the phone worked, you knew the problem was the laptop, not the network. Isolating *where* a problem lives saves you from fixing the wrong thing.",
+        },
+      },
+      {
+        id: "worked-2",
+        kicker: "Worked example",
+        title: "A college portal upload failure — walk it through",
+        body: `Now a higher-stakes version: it's the night before a scholarship deadline, and the portal rejects your transcript PDF. Let's run the same calm process.\n\n**Step 1 — Describe it.** "Uploading my transcript.pdf gives the error: 'File exceeds 5 MB limit.'"\n\n**Step 2 — What changed?** Nothing on my end changed — this is just the first time I've tried uploading this specific file.\n\n**Step 3 — Isolate it.** The error is specific and file-related, not a login or network issue — so the fix should focus on the file itself, not my Wi-Fi or the portal being "down."\n\n**Step 4 — Try simple fixes first.** Compress the PDF using a free online PDF compressor, or re-export it at a lower quality setting from the original document. Re-check the file size before re-uploading.\n\n**Step 5 — Search the exact error if it's unclear.** Searching "[portal name] file exceeds 5 MB limit" might reveal the portal's own recommended compression tool.\n\n**Step 6 — If it's still stuck close to the deadline, ask for help well.** Email the help desk with exactly what you were doing, the exact error, and what you already tried — and mention the deadline clearly so they understand the urgency.\n\nSame process, higher stakes — which is exactly why staying calm and methodical (instead of panic-refreshing) matters most here.`,
+        checkIn: {
+          prompt: "A scholarship portal says 'File exceeds 5 MB limit' when you try to upload your transcript PDF the night before the deadline. What's the best first move?",
+          choices: [
+            "Assume the portal is broken and email an angry complaint immediately",
+            "Compress or re-export the PDF at a smaller file size, since the error specifically names the file size as the problem",
+            "Keep resubmitting the exact same file repeatedly",
+            "Give up on the scholarship entirely",
+          ],
+          correctIndex: 1,
+          explanation:
+            "The error message directly names the cause: the file is too large. Reading it and acting on it — compressing or re-exporting the file — is far faster than panicking or resubmitting the same oversized file.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Test uploads for anything high-stakes a day or two before the deadline, not the night of. That gives you time to troubleshoot calmly instead of racing the clock.",
+        },
+      },
+      {
+        id: "troubleshoot-checklist",
+        kicker: "Take action",
+        title: "Your go-to troubleshooting checklist",
+        body: `Keep this short list somewhere you'll actually see it — a notes app, a sticky note — so it's ready the next time something breaks:\n\n1. **Pause.** Take one breath before touching anything else.\n2. **Describe it precisely** — what exactly is happening, in specific words.\n3. **What changed recently?**\n4. **Isolate it** — one app, one device, or everywhere?\n5. **Try the simplest fixes first** — restart, check connections, check for updates.\n6. **Read and search the exact error message.**\n7. **If still stuck, write a good help request** — what you were doing, expected, saw, and tried.\n\nSeven steps, but you rarely need all of them — most problems get solved by step 5. Having the list ready means you never have to remember it under stress.`,
+        checkIn: {
+          prompt: "You're mid-panic over a broken app and can't remember what to do first. According to this checklist, what's actually step one?",
+          choices: [
+            "Immediately uninstall and reinstall everything",
+            "Pause and take a breath before touching anything else",
+            "Call every tech support number you can find at once",
+            "Assume the device is permanently broken",
+          ],
+          correctIndex: 1,
+          explanation:
+            "The checklist deliberately starts with pausing, because a calm start is what makes every later step (describing, isolating, reading the error) actually effective instead of rushed and error-prone.",
+        },
+        callout: {
+          label: "Try this today",
+          text: "Save this checklist somewhere accessible right now, before you need it. The best time to find a checklist is before the stressful moment, not during it.",
         },
       },
       {
@@ -235,6 +377,45 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       correctIndex: 2,
       explanation:
         "A good help request states what you were doing, what you expected, what actually happened (exact error), and what you already tried — so the helper can solve it fast.",
+    },
+    {
+      id: "q6",
+      question: "IT support asks you to 'reproduce the bug' before helping further. What are they asking you to do?",
+      choices: [
+        "Buy new hardware immediately",
+        "Make the exact problem happen again in a describable, repeatable way so it can actually be studied",
+        "Ignore the problem and hope it goes away",
+        "Delete the app permanently",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Reproducing a bug means triggering it again on purpose and noting the exact steps, turning a vague complaint into a clear, checkable pattern a helper can work with.",
+    },
+    {
+      id: "q7",
+      question: "You say 'my whole college portal account is broken' without checking anything specific. What does decomposition suggest as the next step?",
+      choices: [
+        "Assume the entire portal is down for everyone and give up",
+        "Break it into small, checkable questions — can I log in? Does it happen on every page, device, and browser?",
+        "Create a brand-new account immediately",
+        "Call the college and demand a refund",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Decomposition turns one overwhelming, vague problem into a short list of specific, checkable questions, each of which narrows down what's actually going on.",
+    },
+    {
+      id: "q8",
+      question: "Five minutes before a deadline, a form shows a red error. Which response best matches the troubleshooting mindset from this lesson?",
+      choices: [
+        "Click submit rapidly over and over without reading anything",
+        "Close the tab immediately and start completely over from scratch",
+        "Pause, read exactly what the error says, and treat it as a likely common, fixable issue",
+        "Assume the whole internet is broken and give up",
+      ],
+      correctIndex: 2,
+      explanation:
+        "The troubleshooting mindset starts with staying calm enough to read the error message — the exact clue that panic-clicking or restarting from scratch would otherwise destroy or skip past.",
     },
   ],
   reflection: {

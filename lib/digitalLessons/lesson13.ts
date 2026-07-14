@@ -10,7 +10,7 @@ export const digitalLesson13: AILessonConfig = {
   prevHref: "/learn/digital/12",
   nextHref: "/learn/digital/14",
   lessonModule: {
-    durationLabel: "~11–12 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -35,6 +35,16 @@ export const digitalLesson13: AILessonConfig = {
         },
       },
       {
+        id: "why-it-matters",
+        kicker: "Real stakes",
+        title: "This isn't just about feeling a little tired",
+        body: `It's tempting to file "healthy tech habits" under minor self-care advice. But the effects compound in ways that touch real outcomes:\n\n• **Grades and test performance** track closely with sleep and focus quality — a rested, focused brain simply performs better under pressure, including during exams and timed application essays.\n• **Mood and mental health** are measurably affected by heavy passive scrolling and social comparison, especially during already-stressful seasons like college decisions.\n• **Physical strain adds up silently.** "Tech neck," eye strain, and stiff wrists rarely feel dramatic day to day — they build slowly over years of small posture habits.\n• **Attention is a skill employers and colleges notice**, whether it's finishing a timed exam, staying present in an interview, or meeting a deadline without a dozen distracted restarts.\n\nNone of this is about guilt. It's about noticing that a few specific, learnable habits protect things you already care about — grades, mood, friendships, and how you show up for the things that matter.\n\nThis is also where **ISTE's Empowered Learner** standard lives: setting personal goals and using technology strategically to manage your own learning, focus, and wellbeing, instead of letting a device's defaults manage you.`,
+        callout: {
+          label: "Why it matters",
+          text: "You don't need to overhaul your whole life. The handful of habits in this lesson are chosen because they have an outsized effect on focus, mood, and sleep for a small amount of effort.",
+        },
+      },
+      {
         id: "active-passive",
         kicker: "The big idea",
         title: "Not all screen time is the same",
@@ -50,6 +60,28 @@ export const digitalLesson13: AILessonConfig = {
         },
       },
       {
+        id: "active-passive-practice",
+        kicker: "Apply it",
+        title: "Sort your own last hour of screen time",
+        body: `Let's make the active-vs-passive idea concrete. Think honestly about the last hour or two you spent on a screen, and sort what you did:\n\n• **Clearly active:** editing a video, writing an essay draft, video-calling a friend with real conversation, coding, drawing digitally.\n• **A gray zone worth noticing:** watching an educational video you chose deliberately (more active than a random autoplay feed, less active than making something yourself).\n• **Clearly passive:** an autoplay feed you didn't choose to keep watching, refreshing the same app over and over out of habit rather than intent.\n\nThe goal isn't a perfect score — it's noticing the pattern. If almost your entire recent screen time falls in the "clearly passive" bucket, that's useful information, not a reason for guilt. It just tells you where the easiest win might be.`,
+        checkIn: {
+          prompt: "You spend two hours on your phone: 20 minutes texting a friend about weekend plans, and 100 minutes on an autoplay video feed you didn't intend to keep watching. What does the active/passive framework suggest?",
+          choices: [
+            "Both activities count the same, so there's nothing to notice here",
+            "The texting was more active/connecting, while the long autoplay stretch was mostly passive — a good candidate to notice and maybe trim",
+            "Neither counts as real screen time",
+            "The autoplay time was actually more valuable because it lasted longer",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Judging screen time by kind, not just total minutes, highlights that the long autoplay stretch was passive and not something you actively chose minute by minute — exactly the kind of pattern worth noticing.",
+        },
+        callout: {
+          label: "Try this today",
+          text: "Tonight, glance at your phone's screen-time report and sort the top two or three apps into active or passive. You'll likely spot your biggest opportunity in under a minute.",
+        },
+      },
+      {
         id: "attention",
         kicker: "Concept",
         title: "Apps are designed to grab your attention — on purpose",
@@ -59,6 +91,28 @@ export const digitalLesson13: AILessonConfig = {
         callout: {
           label: "Watch out",
           text: "Feeling like you \"can't stop\" isn't a sign that something's wrong with you. These apps are engineered by experts to be hard to put down. That's exactly why design tricks like turning off notifications work better than just trying harder.",
+        },
+      },
+      {
+        id: "attention-practice",
+        kicker: "Apply it",
+        title: "Spot the attention tricks in your own apps",
+        body: `Let's name the specific tricks at work in apps you probably already use:\n\n• **A feed with no visible "end"** — you can always scroll one more time. That's **infinite scroll**, engineered to remove the natural stopping point your brain relies on.\n• **A video that starts counting down to the next one automatically** — that's **autoplay**, designed to remove the moment where you'd normally decide whether to keep watching.\n• **A red badge or number on an app icon** — a visual nudge specifically designed to feel slightly uncomfortable until you tap it and make it go away.\n• **"Streaks"** that reset if you don't open an app today — a mechanic borrowed directly from habit-forming game design, built to create a small sense of loss if you skip a day.\n\nNaming these tricks when you see them takes away some of their power — it turns an invisible nudge into a visible, conscious choice.`,
+        checkIn: {
+          prompt: "A social app shows a small red number badge on its icon every time there's new activity, even if it's minor. What design trick is this, and why does it work?",
+          choices: [
+            "It's a security feature meant to warn you about hacking attempts",
+            "It's a deliberate attention-grabbing nudge — the badge creates a small discomfort that motivates you to open the app and 'clear' it",
+            "It's required by law for every app to display",
+            "It has no real effect on behavior",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Badges and unread counters are intentionally designed to create a small itch to check the app. Recognizing the trick — rather than reacting to it automatically — is the first step to deciding on purpose whether to check.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Turning off badge numbers (not just notifications) removes one of the sneakiest attention triggers, since it works even when your phone is silent and sitting face-down.",
         },
       },
       {
@@ -76,6 +130,18 @@ export const digitalLesson13: AILessonConfig = {
         kicker: "Concept",
         title: "Screens and sleep don't mix well at night",
         body: `Sleep is when your brain saves memories, repairs your body, and resets your mood. Wreck your sleep and *everything* gets harder — focus, patience, even how funny your friends seem.\n\nLate-night screens hurt sleep in two ways:\n\n• **The content keeps your brain switched on.** One more video, one more message, one more level — your mind stays alert when it should be winding down.\n• **Bright screens can confuse your body clock.** Bright light late at night can make your brain think it's still daytime, so it's slower to feel sleepy.\n\nThe fix is a **wind-down routine**: put screens away a bit before bed and do something calm — read, stretch, listen to music, talk to family. A simple, powerful move is to **charge your phone outside your bedroom** (or at least across the room), so it's not the last thing you see at night or the first thing you grab in the morning.`,
+        checkIn: {
+          prompt: "You watch exciting, fast-paced videos right up until the moment you try to fall asleep, and then find it hard to actually fall asleep. What's the most likely explanation?",
+          choices: [
+            "Videos have no effect on sleep at all",
+            "Engaging content keeps your brain alert, and bright light late at night can also confuse your body's sense of when to feel sleepy",
+            "You simply need a louder alarm in the morning",
+            "It only matters what app you're using, not the content or the light",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Late-night screens hurt sleep in two ways at once: stimulating content keeps your mind alert, and bright light can delay your body's natural signal that it's time to wind down.",
+        },
         callout: {
           label: "Common misconception",
           text: "\"Screens before bed don't affect me — I fall asleep fine.\" You might fall asleep, but late-night scrolling often makes your sleep shorter and lower-quality. You feel it the next day as grogginess, not always at bedtime.",
@@ -92,6 +158,28 @@ export const digitalLesson13: AILessonConfig = {
         },
       },
       {
+        id: "comparison-practice",
+        kicker: "Apply it",
+        title: "Scenario: college decision day scrolling",
+        body: `It's college decision season. Your feed fills up with celebration posts — acceptance letters, confetti, "so blessed" captions. You're still waiting on decisions and start to spiral a little. Let's think it through.\n\n• **Notice the highlight-reel effect.** You're seeing only the acceptances people chose to post — not the rejections, the waiting, or the stress that came before. The full picture is far messier than the feed shows.\n• **Notice FOMO doing its job.** The urge to keep refreshing "just in case" is exactly the itch these apps are built to create — checking more doesn't make decisions arrive faster.\n• **Choose a response, don't just react.** Reasonable options include: muting the specific accounts posting the most during this stretch, setting a specific check-in time instead of constant refreshing, or talking to a friend offline about how you're actually feeling.\n\nNone of this means you can't be happy for friends — it means separating "being glad for someone" from "measuring your own worth against an edited highlight reel."`,
+        checkIn: {
+          prompt: "During college decision season, you feel worse every time you check your feed full of acceptance posts. What's a reasonable, healthy response?",
+          choices: [
+            "Check the feed even more often to make sure you don't miss anything",
+            "Temporarily mute the accounts posting the most, or set specific check-in times instead of constant refreshing",
+            "Assume your own results don't matter since everyone else already got in somewhere",
+            "Post something fake to feel better",
+          ],
+          correctIndex: 1,
+          explanation:
+            "You can't control a feed's content, but you can control your exposure to it during a hard stretch — muting or scheduling check-ins protects your mood without requiring you to quit social media entirely.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "During any high-stress season — decision day, finals, tryouts — give yourself permission to temporarily mute or unfollow, even people you like. You can always follow back later; protecting your mood now is not a betrayal.",
+        },
+      },
+      {
         id: "body",
         kicker: "Concept",
         title: "Take care of your body, not just your brain",
@@ -104,6 +192,28 @@ export const digitalLesson13: AILessonConfig = {
         callout: {
           label: "Watch out",
           text: "Signs of overuse to notice in yourself: sore eyes or headaches, a stiff neck, trouble sleeping, feeling anxious when you can't check your phone, or skipping things you used to love. These are cues to adjust — not reasons to feel guilty.",
+        },
+      },
+      {
+        id: "level-up-vocabulary",
+        kicker: "Level up",
+        title: "A few more wellbeing words worth knowing",
+        body: `A handful of terms show up once you start reading about attention and habits online. Quick, plain-language versions:\n\n• **Variable reward** — a reward that arrives unpredictably (sometimes a great post, sometimes nothing) instead of every single time. Unpredictable rewards are especially "sticky" for habit formation, which is part of why feeds are so hard to put down.\n• **Digital minimalism** — the practice of intentionally choosing a small number of tools that truly add value, and removing the rest, rather than keeping every app "just in case."\n• **Doomscrolling** — repeatedly scrolling negative or distressing news or content, often without meaning to, and often feeling worse afterward.\n• **Screen-time report** — the built-in feature on most phones that shows exactly how long you spent in each app, useful for the kind of self-audit this lesson keeps coming back to.\n• **Digital wellbeing / digital detox** — general terms for intentionally managing (or temporarily reducing) tech use to protect mood, focus, or sleep.\n\nYou don't need to use every term — recognizing them helps you understand *why* an app behaves the way it does.`,
+        checkIn: {
+          prompt: "A feed sometimes shows you something amazing and sometimes nothing interesting at all, on an unpredictable schedule. Why does this specific pattern make it hard to stop checking?",
+          choices: [
+            "Unpredictable ('variable') rewards are especially habit-forming compared to a reward you'd get every single time",
+            "It has no special effect compared to a predictable reward",
+            "It's designed to be equally exciting every single time you check",
+            "Variable rewards only affect video games, not social feeds",
+          ],
+          correctIndex: 0,
+          explanation:
+            "Unpredictable, variable rewards are a well-known habit-forming pattern — not knowing whether this check will be the 'good one' keeps people checking more than a reward that arrived reliably every time would.",
+        },
+        callout: {
+          label: "Tip",
+          text: "Naming a pattern like 'variable reward' when you notice it in an app is a small but real form of power — it turns an invisible hook into something you can consciously decide how to respond to.",
         },
       },
       {
@@ -141,16 +251,60 @@ export const digitalLesson13: AILessonConfig = {
         },
       },
       {
+        id: "worked-2",
+        kicker: "Worked example",
+        title: "Building an exam-week focus plan, step by step",
+        body: `Now let's apply the same routine-building process to a higher-stakes week: finals or a big application deadline. Step by step:\n\n**Step 1 — Map the real demands.** List what actually needs deep focus this week — three exams, one essay, one form. Everything else is lower priority for now.\n\n**Step 2 — Schedule focus blocks like appointments.** Put 60–90 minute blocks directly on your calendar for each high-stakes task, phone in another room, Do Not Disturb on. Treat them as unmovable, the way you'd treat a class.\n\n**Step 3 — Protect sleep on purpose.** Instead of "I'll sleep when I'm done," pick a firm bedtime for the week and build your study blocks around it, not the other way around — a rested brain studies faster anyway.\n\n**Step 4 — Pre-decide your comparison-app plan.** Since decision or grade anxiety tends to spike during exam weeks, decide in advance: will you mute certain accounts, check social media only after your focus blocks, or take a full break for the week?\n\n**Step 5 — Review after the week.** Notice which parts of the plan actually held and which slipped — that's useful data for your next high-stakes week, not a reason to abandon the plan entirely.`,
+        checkIn: {
+          prompt: "During finals week, you keep telling yourself 'I'll sleep once I finish studying,' and end up staying up later each night while feeling less focused. What does this lesson suggest instead?",
+          choices: [
+            "Keep pushing sleep later — focus doesn't depend on sleep",
+            "Pick a firm bedtime in advance and build study blocks around it, since a rested brain studies more effectively",
+            "Study only right before bed for maximum retention",
+            "Sleep has no connection to exam performance",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Treating sleep as a fixed anchor — rather than an afterthought — protects focus and memory during exactly the weeks when you need them most. A tired brain studies more slowly and makes more mistakes.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Write your exam-week plan down before the week starts, not during it. Deciding your bedtime and focus blocks in a calm moment beats deciding them at 11 p.m. while already exhausted.",
+        },
+      },
+      {
+        id: "wellbeing-checklist",
+        kicker: "Take action",
+        title: "Your quick digital-wellbeing check-in",
+        body: `Use this short check-in any time you notice you're feeling foggy, cranky, or glued to your phone more than you'd like:\n\n1. **Active vs. passive** — was most of my recent screen time creating/connecting, or passive scrolling?\n2. **Notifications** — are non-essential notifications and badges still buzzing me all day?\n3. **Sleep** — did screens push my bedtime later than I meant, or keep me up once I was already in bed?\n4. **Comparison** — has a feed made me feel worse about my own life lately, and do I need to mute something for a while?\n5. **Body** — any tech neck, eye strain, or stiffness building up that a posture or break habit could fix?\n\nYou don't need a perfect score. Even noticing one honest "not-yet" and adjusting it is the whole point of this check-in.`,
+        checkIn: {
+          prompt: "You run this check-in and realize notifications are still buzzing you constantly, even though you 'meant' to turn most of them off weeks ago. What's the most useful next step?",
+          choices: [
+            "Feel guilty and give up on the whole idea",
+            "Actually go into settings right now and turn off the non-essential notifications, since noticing the gap is only useful if you act on it",
+            "Ignore it since notifications don't really matter",
+            "Buy a new phone",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A check-in only helps if it leads to a small action. Noticing that notifications are still on is useful exactly because it points to one concrete, doable fix you can make right now.",
+        },
+        callout: {
+          label: "Try this today",
+          text: "Set this check-in as a recurring reminder — weekly during a stressful season, monthly otherwise. A quick honest glance beats a New Year's resolution that fades by February.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got the full picture: **not all screen time is equal** (creating beats consuming), apps are **designed** to grab your attention so it's not your fault it's hard to stop, "multitasking" is really focus-killing **task-switching**, screens hurt **sleep**, feeds are **highlight reels** that fuel comparison and FOMO, and your **body** needs good posture, eye breaks, and movement. Protect focus blocks especially during college apps, exams, and remote work.\n\nThe goal was never to fear technology — it's to use it on purpose. Spend your attention budget where *you* want it to go.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then jot a quick reflection about one healthy-tech habit you'll start this week.`,
+        body: `You've got the full picture: **not all screen time is equal** (creating beats consuming), apps are **designed** to grab your attention using tricks like infinite scroll and variable rewards, so it's not your fault it's hard to stop, "multitasking" is really focus-killing **task-switching**, screens hurt **sleep**, feeds are **highlight reels** that fuel comparison and FOMO, and your **body** needs good posture, eye breaks, and movement. Protect focus blocks especially during college apps, exams, and remote work.\n\nThe goal was never to fear technology — it's to use it on purpose. Spend your attention budget where *you* want it to go.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then jot a quick reflection about one healthy-tech habit you'll start this week.`,
       },
     ],
   },
   bigIdeas: [
     "Not all screen time is equal — **creating and connecting** beats passive scrolling.",
-    "Apps are **designed** to capture your attention, so set up your phone to fight back for you.",
+    "Apps are **designed** to capture your attention using tricks like infinite scroll and variable rewards, so set up your phone to fight back for you.",
     "Protect your **sleep, focus, mood, and body**: wind down, single-task, and take movement and eye breaks — especially during high-stakes school and work seasons.",
   ],
   keyTerms: [
@@ -228,6 +382,45 @@ export const digitalLesson13: AILessonConfig = {
       correctIndex: 1,
       explanation:
         "The 20-20-20 rule rests the eye muscles that strain from staring at something close: every 20 minutes, look 20 feet away for 20 seconds.",
+    },
+    {
+      id: "q6",
+      question: "An app shows you a great post sometimes and nothing interesting other times, on an unpredictable schedule. Why does this specific pattern make it especially hard to stop checking?",
+      choices: [
+        "Unpredictable ('variable') rewards are known to be especially habit-forming compared to a reward that arrives every single time",
+        "It has no different effect than a reward you'd always receive",
+        "It only affects people who play video games",
+        "Predictable rewards are always more addictive than unpredictable ones",
+      ],
+      correctIndex: 0,
+      explanation:
+        "Variable, unpredictable rewards are a well-studied habit-forming pattern — not knowing if 'this check' will be the good one keeps people checking more than a reliable reward would.",
+    },
+    {
+      id: "q7",
+      question: "During college decision season, you feel worse every time you check a feed full of acceptance posts. What's a reasonable, healthy response?",
+      choices: [
+        "Check even more often so you don't miss anything",
+        "Temporarily mute the accounts posting the most, or set specific check-in times instead of constant refreshing",
+        "Conclude your own results don't matter because everyone else already got in somewhere",
+        "Post something misleading to feel better",
+      ],
+      correctIndex: 1,
+      explanation:
+        "You can't control what a feed shows, but you can control your exposure during a hard stretch. Muting accounts or scheduling check-ins protects your mood without requiring you to quit social media.",
+    },
+    {
+      id: "q8",
+      question: "During finals week, you keep saying 'I'll sleep once I finish studying' and end up staying up later each night while feeling less focused. What does this lesson recommend instead?",
+      choices: [
+        "Keep pushing sleep later since focus has no connection to sleep",
+        "Pick a firm bedtime in advance and build study blocks around it, since a rested brain studies more effectively",
+        "Only study right before bed for best retention",
+        "Sleep only matters during summer break",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Treating sleep as a fixed anchor rather than an afterthought protects focus and memory exactly when you need them most — a tired brain studies more slowly and makes more mistakes.",
     },
   ],
   reflection: {

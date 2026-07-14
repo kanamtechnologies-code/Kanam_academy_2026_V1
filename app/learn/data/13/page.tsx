@@ -24,7 +24,7 @@ const daLesson13: DataLessonConfig = {
     title: "Study time vs. quiz score",
   },
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -47,6 +47,30 @@ const daLesson13: DataLessonConfig = {
           label: "Common misconception",
           text: "Don't judge a relationship from one or two dots — read the whole cloud. A single high-scoring student who barely studied doesn't break the trend; it's just one point. The pattern of *all* the dots is what matters.",
         },
+        checkIn: {
+          prompt: "If the cloud of dots tilts up and to the right, what does that mean?",
+          choices: [
+            "The two numbers have no relationship",
+            "As one number goes up, the other tends to go up too — a positive relationship",
+            "The data must be wrong",
+          ],
+          correctIndex: 1,
+          explanation: "An upward-tilting cloud means the two values tend to rise together — that's what a positive relationship looks like on a scatter plot.",
+        },
+      },
+      {
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**Scatter plot** — a chart that places one dot per record using two numbers at once.",
+          "**Positive relationship** — as one number rises, the other tends to rise too (dots trend up-right).",
+          "**Negative relationship** — as one number rises, the other tends to fall (dots trend down-right).",
+          "**Outlier** — a dot far away from the rest of the cloud.",
+          "**Correlation** — a measurable tendency for two numbers to move together.",
+          "**Causation** — one thing actually *making* another thing happen (correlation alone never proves this).",
+        ],
       },
       {
         id: "anatomy",
@@ -63,6 +87,16 @@ const daLesson13: DataLessonConfig = {
             ],
             rowCount: 12,
           },
+        },
+        checkIn: {
+          prompt: "On this scatter plot, what does each individual dot represent?",
+          choices: [
+            "The average score of the whole class",
+            "One student, placed by both their study minutes and their score",
+            "One minute of study time",
+          ],
+          correctIndex: 1,
+          explanation: "A scatter plot needs two numbers per record. Each dot represents one student, positioned using both of their values at once.",
         },
       },
       {
@@ -115,6 +149,115 @@ const daLesson13: DataLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "Before claiming \"X causes Y,\" ask: could a third thing cause both? Could the cause run the other way? Good analysts report what the dots *show* and stay honest about what they can't prove. To name the **extreme dot** (most study time, highest score), use `ORDER BY study_minutes DESC LIMIT 1` — same top-one recipe as a leaderboard.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "A relationship is a clue, never proof",
+        body: `The single biggest trap with scatter plots is jumping from "these two things move together" to "one of them causes the other." Ice cream sales and drowning incidents both rise in the summer — they're correlated — but ice cream doesn't cause drownings. The hidden third factor is **hot weather**, which drives both.\n\nWhen you see study time and scores trending together, it's tempting to say "studying more *causes* better scores." That's *probably* true here, but a scatter plot alone can't prove it — it only shows that the two numbers tend to move together.`,
+        checkIn: {
+          prompt: "Ice cream sales and drowning incidents both rise in summer, and they're correlated. What's really going on?",
+          choices: [
+            "Ice cream causes drowning",
+            "Drowning causes people to buy ice cream",
+            "A third factor (hot weather) drives both, even though neither causes the other",
+          ],
+          correctIndex: 2,
+          explanation: "This is a classic example of correlation without causation — a hidden third variable (hot weather) increases both ice cream sales and swimming (and therefore drowning risk).",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it — predict",
+        title: "Predict the shape of the cloud",
+        body: `Before the exercises, picture two students: one studied 10 minutes and scored 55; another studied 75 minutes and scored 92. If you added ten more students following the same overall pattern from today's chart, where would most of their dots land relative to those two?`,
+        checkIn: {
+          prompt: "Given the trend so far, where would a student who studied 65 minutes most likely land?",
+          choices: [
+            "Close to the low-score corner, near 55",
+            "Somewhere in the upper-middle area, scoring noticeably higher than 55 but maybe just under 92",
+            "Exactly at 92, no matter what",
+          ],
+          correctIndex: 1,
+          explanation: "Since the trend is positive, a study time between the two examples (65 minutes) would likely land with a score between them too — higher than the low end, but not guaranteed to hit the very top.",
+        },
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Level up",
+        title: "Tight cloud vs. loose cloud",
+        body: `Not every positive relationship looks the same. Some scatter plots show dots that hug a clean, narrow line — a **strong** relationship. Others show dots scattered loosely in a general upward direction — a **weak** relationship. Both can technically be "positive," but a tight cloud is much more convincing evidence than a loose, scattered one.\n\nWhen you read a scatter plot, don't just ask "up or down?" — also ask "how tightly do the dots hug the trend?"`,
+      },
+      {
+        id: "comparison",
+        kicker: "Two ways to do it",
+        title: "Scatter plot vs. line chart",
+        body: `A line chart connects points **in time order** to show a single number changing. A scatter plot places dots by **two different numbers** with no time axis at all — it's not about "when," it's about "how do these two things relate?"\n\nIf your x-axis is time, reach for a line chart. If your x-axis is a second measurement (like study minutes), reach for a scatter plot.`,
+        checkIn: {
+          prompt: "You have data on temperature and ice cream sales for each of 30 days. Which chart best shows if they're related?",
+          choices: [
+            "A line chart of temperature over time",
+            "A scatter plot with temperature on one axis and sales on the other",
+            "A pie chart of total sales",
+          ],
+          correctIndex: 1,
+          explanation: "To see whether two numbers (temperature and sales) are related to each other, a scatter plot — not a time-based line chart or a whole-to-parts pie chart — is the right tool.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "Cherry-picking dots tells a false story",
+        body: `A scatter plot can suggest a relationship that isn't really there — or hide an outlier that skews the picture. It's tempting to zoom in on just the dots that support your point and ignore the rest. Responsible analysts report the *whole* cloud, including inconvenient outliers, and they never claim a relationship proves a cause.`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "Always ask: clue or cause?",
+        body: `Make this a reflex every time you see a scatter plot, in class or in the news: identify the x-axis, the y-axis, and the tilt of the cloud — then ask out loud, "is this a clue, or is someone claiming it's a cause?" That one habit will make you a much more careful reader of data.`,
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Reading relationships between two variables connects data science with statistical reasoning.`,
+        bullets: [
+          "**CSTA 3A-DA-11** — Create interactive data visualizations to reveal relationships between variables.",
+          "**Common Core Math (statistics bridge)** — Interpreting patterns of association in bivariate data.",
+          "**ISTE Computational Thinker** — Distinguishing correlation from causation when analyzing data.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "What relationship would you want to test?",
+        body: `Think of two numbers in your own life that might be related — hours of sleep and mood, screen time and homework grades, practice time and a skill you're learning. If you tracked both for a month, what pattern would you predict: positive, negative, or none at all?`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The basketball coach's dilemma",
+        body: `A basketball coach tracks each player's \`practice_minutes\` and their \`free_throw_pct\` in a table called \`player_stats\`. The coach notices a positive relationship and wants to require more practice for everyone.\n\nWhat should the coach keep in mind before concluding practice *causes* better shooting?`,
+        callout: {
+          label: "Apply it",
+          text: "The relationship is a real clue worth acting on, but the coach should stay curious: are the players who already practice more also the most motivated or naturally skilled? A scatter plot shows the pattern — it doesn't rule out other explanations.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's confirm the relationship-reading rules are fully locked in.`,
+        checkIn: {
+          prompt: "A scatter plot shows a strong positive relationship between two numbers. What can you safely conclude?",
+          choices: [
+            "One number definitely causes the other to change",
+            "The two numbers tend to move together, but that alone doesn't prove causation",
+            "The chart type is wrong and should be a bar chart instead",
+          ],
+          correctIndex: 1,
+          explanation: "A scatter plot can reveal a strong tendency for two numbers to move together, but correlation alone is never enough to prove that one causes the other.",
         },
       },
       {

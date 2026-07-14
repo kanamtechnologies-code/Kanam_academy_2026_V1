@@ -94,7 +94,7 @@ export const lesson11: PythonLessonConfig = {
   aiSafetyMoment:
     "AI safety: AI systems respond to the information they are given. If details are missing or unclear, output can be wrong. Responsible AI means giving clear information, checking results, and remembering AI does not guess your intent.",
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -109,17 +109,24 @@ export const lesson11: PythonLessonConfig = {
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "One skill, many details",
-        body: `Last lesson your function did the *exact same thing* every time you called it. Useful — but limited.\n\nThink about a game controller's attack button. You don't build a brand-new button for every enemy. You press the *same* button and the game uses it on whoever you're facing. The "who" is extra information you supply in the moment.\n\nThat extra information is a **parameter**: a value you hand to a function so it knows what to do *this* time. One skill, many different details.`,
-        callout: {
-          label: "Common misconception",
-          text: "A parameter doesn't store one fixed value forever. It's an empty slot that gets filled with whatever you pass in *each time you call* the function.",
-        },
+        id: "hook-story",
+        kicker: "Think about it",
+        title: "One attack button, endless enemies",
+        body: `Think about a game controller's attack button. You don't build a brand-new button for every enemy in the game. You press the *same* button, and the game figures out who you're facing and applies the attack to them.\n\nThat "who" is information supplied in the moment — not baked into the button itself. Today you'll learn to build functions that work the same way.`,
       },
       {
-        id: "param",
+        id: "glossary",
+        kicker: "Vocabulary",
+        title: "Words you'll use today",
+        body: `New vocabulary for this lesson.`,
+        bullets: [
+          "**Parameter** — the placeholder name inside a function's parentheses, e.g. `enemy` in `def attack(enemy):`.",
+          "**Argument** — the actual value passed in when the function is called, e.g. `\"goblin\"` in `attack(\"goblin\")`.",
+          "**Flexible function** — one function that produces different results depending on the argument passed in.",
+        ],
+      },
+      {
+        id: "concept-1",
         kicker: "Building block #1",
         title: "A parameter is a blank to fill in",
         body: `To give a function a parameter, put a name inside its parentheses: \`def attack(enemy):\`. That name, \`enemy\`, is the **parameter** — a blank waiting to be filled.\n\nInside the function, the parameter behaves just like a variable. You can use \`enemy\` in your \`print\` message, even though you don't yet know what its value will be.\n\nThe function simply *waits*. It won't have a real value for \`enemy\` until you call it and pass one in.`,
@@ -129,9 +136,15 @@ export const lesson11: PythonLessonConfig = {
           label: "Watch out",
           text: "Inside the function, always use the parameter *name* you chose (`enemy`), not a specific value like `\"goblin\"`. Hard-coding a value defeats the whole point of a parameter.",
         },
+        checkIn: {
+          prompt: "In `def attack(enemy):`, what is `enemy`?",
+          choices: ["An argument", "A parameter — a placeholder waiting for a value", "A print statement"],
+          correctIndex: 1,
+          explanation: "enemy is the parameter: a placeholder name in the function definition that receives a real value when the function is called.",
+        },
       },
       {
-        id: "pass",
+        id: "concept-2",
         kicker: "Building block #2",
         title: "Pass a value when you call",
         body: `When you **call** the function, you put a value inside the parentheses: \`attack("goblin")\`. That value is called an **argument**, and it slides right into the parameter blank.\n\nSo \`enemy\` becomes \`"goblin"\` for that one call. Call it again with \`"dragon"\` and \`enemy\` becomes \`"dragon"\`. Same skill, different result each time — all decided by you.`,
@@ -147,19 +160,35 @@ export const lesson11: PythonLessonConfig = {
           label: "Common misconception",
           text: "People mix up the two words: the **parameter** is the blank in the definition (`enemy`); the **argument** is the real value you pass when calling (`\"goblin\"`).",
         },
+        checkIn: {
+          prompt: 'In `attack("dragon")`, what is `"dragon"` called?',
+          choices: ["A parameter", "An argument", "A function"],
+          correctIndex: 1,
+          explanation: '"dragon" is the argument — the actual value passed into the function when it\'s called, filling the enemy parameter.',
+        },
       },
       {
-        id: "reuse",
-        kicker: "Why it matters",
+        id: "concept-3",
+        kicker: "Building block #3",
         title: "One flexible function beats many copies",
         body: `Without parameters, you'd need a separate function for every situation — \`attack_goblin()\`, \`attack_dragon()\`, \`attack_boss()\` — each a near-identical copy. That's a lot of repeated code, and a nightmare to update.\n\nWith **one** parameterized function, you write the attack logic a single time and feed it different enemies. Want to change how attacks work? Edit one function and every call improves at once.\n\nThis is the same idea behind real software: flexible, reusable building blocks instead of copy-paste.`,
         callout: {
           label: "Pro tip",
           text: "Name your parameters after the *kind* of thing they hold — `enemy`, `song`, `username` — so anyone reading the call knows what value belongs there.",
         },
+        checkIn: {
+          prompt: "Why is one function with a parameter usually better than three separate functions (attack_goblin, attack_dragon, attack_boss)?",
+          choices: [
+            "It runs faster",
+            "One flexible function avoids repeated near-identical code and is easier to update",
+            "Python doesn't allow more than one function",
+          ],
+          correctIndex: 1,
+          explanation: "A single parameterized function avoids duplicated logic — you write and maintain the behavior once instead of in three separate places.",
+        },
       },
       {
-        id: "worked",
+        id: "worked-example",
         kicker: "Worked example",
         title: "Build a flexible skill, step by step",
         body: `Let's build a flexible skill and feed it different details.\n\n**Step 1 — Define with a parameter.** Create \`attack\` with one parameter, \`enemy\`.\n\n**Step 2 — Use the parameter.** Inside, print a message that includes \`enemy\` joined with \`+\`.\n\n**Step 3 — Call with different arguments.** Run the same function three times with three enemies and watch the output change.`,
@@ -169,6 +198,112 @@ export const lesson11: PythonLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "Watch the spaces inside the quotes — `\"You attack the \"` has a space after *the* so the words don't mash into the enemy name.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "A parameter isn't a fixed value",
+        body: `A common misconception: thinking a parameter stores one fixed value forever, the way a regular variable might feel like it does. It doesn't.\n\nA parameter is an **empty slot** that gets refilled with whatever value you pass in *each time you call* the function. The same parameter name, \`enemy\`, holds \`"goblin"\` during one call and \`"dragon"\` during the next — it never "remembers" a previous call.`,
+      },
+      {
+        id: "try-it",
+        kicker: "Try it — predict",
+        title: "Predict the output",
+        body: `Trace this program. Pay close attention to which argument fills the parameter on each call.`,
+        code: `def greet(name):\n    print("Hello, " + name + "!")\n\ngreet("Maya")\ngreet("Diego")`,
+        codeCaption: "What prints for each call?",
+        checkIn: {
+          prompt: "What does this program print?",
+          choices: [
+            "Hello, name!\nHello, name!",
+            "Hello, Maya!\nHello, Diego!",
+            "Hello, Diego!\nHello, Maya!",
+          ],
+          correctIndex: 1,
+          explanation: 'The first call fills name with "Maya", the second with "Diego" — in that order.',
+        },
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Level up",
+        title: "Functions can take more than one parameter",
+        body: `A function isn't limited to one parameter. You can list several, separated by commas: \`def attack(enemy, weapon):\`. Each parameter gets filled by the matching argument, in the same order you list them — first argument fills the first parameter, second argument fills the second.`,
+        code: `def attack(enemy, weapon):\n    print("You attack the " + enemy + " with your " + weapon + "!")\n\nattack("dragon", "sword")`,
+        codeCaption: "Two parameters, filled in order",
+        output: `You attack the dragon with your sword!`,
+      },
+      {
+        id: "comparison",
+        kicker: "Two ways to do it",
+        title: "Separate functions vs. one parameterized function",
+        body: `Compare writing three separate attack functions versus one function with a parameter. The parameterized version is shorter and easier to extend — adding a new enemy just means one more call, not a whole new function.`,
+        code: `# Separate functions — repeats the same logic three times\ndef attack_goblin():\n    print("You attack the goblin!")\ndef attack_dragon():\n    print("You attack the dragon!")\n\n# One parameterized function — same logic, reused\ndef attack(enemy):\n    print("You attack the " + enemy + "!")\nattack("goblin")\nattack("dragon")`,
+        codeCaption: "One flexible function replaces many near-duplicates",
+      },
+      {
+        id: "debug-habit",
+        kicker: "Debugging habit",
+        title: "If output doesn't change, check your arguments",
+        body: `If you call the same function twice and get the *same* output both times, check the arguments you passed. A common mistake is accidentally calling the function with the same value twice, or forgetting to use the parameter inside the print statement at all.`,
+        checkIn: {
+          prompt: "You call `attack(\"goblin\")` and `attack(\"dragon\")`, but both print the exact same message. What should you check first?",
+          choices: [
+            "Whether the print statement inside the function actually uses the enemy parameter",
+            "Whether Python is installed correctly",
+            "Whether the function has too many parameters",
+          ],
+          correctIndex: 0,
+          explanation: "If the print statement hard-codes a value instead of using the parameter, every call will produce identical output regardless of the argument.",
+        },
+      },
+      {
+        id: "habits",
+        kicker: "Coder habits",
+        title: "Match parameter names to their purpose",
+        body: `Choose parameter names that describe *what kind* of value belongs there — \`enemy\`, \`username\`, \`score\` — rather than vague names like \`x\` or \`thing\`. A clear parameter name acts like a mini instruction manual for anyone calling your function.`,
+        bullets: [
+          "Name parameters after the kind of value they hold, not something vague.",
+          "Always use the parameter name inside the function body — never hard-code a specific value.",
+          "If output doesn't change between calls, check that different arguments were actually passed.",
+        ],
+      },
+      {
+        id: "standards-connect",
+        kicker: "Why this counts",
+        title: "This lesson meets a real CS standard",
+        body: `**CSTA 3A-AP-15**: *Justify the selection of specific control structures based on implementation, readability, and performance tradeoffs.*\n\nChoosing one parameterized function over three separate near-duplicate functions is exactly this kind of justified design choice — it improves readability and makes future changes far easier to implement.`,
+        callout: {
+          label: "Standard",
+          text: "CSTA 2017, Algorithms & Programming, Level 3A (grades 9–10): 3A-AP-15 — justify control structure choices for readability and maintainability.",
+        },
+      },
+      {
+        id: "reflection-prompt",
+        kicker: "Reflect",
+        title: "Think it through",
+        body: `*Think of a real-life "function" you perform the same way every time but with different details — like making a sandwich (same steps, different fillings). What's the "parameter" in that everyday process?*`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Real world",
+        title: "One \"send message\" function, billions of messages",
+        body: `Every time you send a text, the app doesn't write brand-new code for your specific message. It calls one \`send_message()\` function with parameters like \`recipient\` and \`text\` — the same function handles every message sent by every user, because the details are passed in as arguments.`,
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you build",
+        body: `Let's confirm the parameter pattern is locked in.`,
+        checkIn: {
+          prompt: "What's the difference between a parameter and an argument?",
+          choices: [
+            "There is no difference — they're the same thing",
+            "A parameter is the placeholder in the function definition; an argument is the real value passed in when calling",
+            "A parameter is used only in loops",
+          ],
+          correctIndex: 1,
+          explanation: "The parameter (like `enemy`) lives in the def line as a placeholder. The argument (like `\"goblin\"`) is the real value supplied at call time.",
         },
       },
       {

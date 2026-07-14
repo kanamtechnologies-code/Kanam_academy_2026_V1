@@ -10,13 +10,13 @@ export const digitalLesson11: AILessonConfig = {
   prevHref: "/learn/digital/10",
   nextHref: "/learn/digital/12",
   lessonModule: {
-    durationLabel: "~11–12 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `Your accounts hold your messages, photos, money, games, and your whole social life — and for older teens, also college portals, scholarship logins, and job applications. Attackers know that — and they have easy, automated ways to break in if you let them. Today you'll learn how to lock them out.\n\nHere's our roadmap:\n\n• **Strong, unique passwords** — and why reusing one is so dangerous.\n• **Password managers** — let software do the hard part.\n• **Two-factor authentication (2FA)** — a second lock attackers can't pick.\n• **Phishing and scams** — spotting fake messages designed to trick you.\n• **Malware** — what it is and how it sneaks in.\n• **Senior stretch** — locking down email, college portals, and spotting fake internship offers.\n\nThis isn't paranoia — it's a basic life skill. Getting hacked can mean lost accounts, stolen money, embarrassing posts, or identity theft. A few simple habits make you a *much* harder target than most people online.`,
+        body: `Your accounts hold your messages, photos, money, games, and your whole social life — and for older teens, also college portals, scholarship logins, and job applications. Attackers know that — and they have easy, automated ways to break in if you let them. Today you'll learn how to lock them out.\n\nHere's our roadmap:\n\n• **Strong, unique passwords** — and why reusing one is so dangerous.\n• **Password managers** — let software do the hard part.\n• **Two-factor authentication (2FA)** — a second lock attackers can't pick.\n• **Phishing and scams** — spotting fake messages designed to trick you.\n• **Malware and public Wi-Fi** — what to avoid and why.\n• **Senior stretch** — locking down email, college portals, and spotting fake internship offers.\n\nThis isn't paranoia — it's a basic life skill. Getting hacked can mean lost accounts, stolen money, embarrassing posts, or identity theft. A few simple habits make you a *much* harder target than most people online.`,
         image: "/images/lessons/dl-11.png",
         imageAlt: "A phone showing a fake 'your account is locked' text next to a shield with a padlock and a second-step verification code",
         callout: {
@@ -32,6 +32,16 @@ export const digitalLesson11: AILessonConfig = {
         callout: {
           label: "Pro tip",
           text: "You don't need to be \"good with computers\" to be safe online. The handful of habits in this lesson protect you more than any technical skill — they're about being a little careful, not a tech genius.",
+        },
+      },
+      {
+        id: "why-it-matters",
+        kicker: "Real stakes",
+        title: "What actually happens when an account gets taken over",
+        body: `It's tempting to think "I don't have anything worth stealing." But account takeovers cause real, immediate damage:\n\n• **Your identity gets borrowed.** Attackers post as you, message your friends asking for money, or send scam links from your own account — because people trust messages from someone they know.\n• **One account unlocks others.** If your email is compromised, an attacker can use "Forgot password?" to reset your other accounts one by one.\n• **Money and opportunities disappear.** Stolen banking apps, gift cards, or even a hijacked college portal account can cause real financial and academic damage.\n• **It takes real time to undo.** Recovering a hacked account, canceling cards, and warning friends who got scam messages "from you" can eat up days you don't have during a busy school or application season.\n\nThe good news: the handful of habits in this lesson block the vast majority of these attacks before they ever start.`,
+        callout: {
+          label: "Why it matters",
+          text: "Attackers run automated tools that try millions of leaked passwords a minute across thousands of sites. You're not being targeted personally most of the time — you're just one of many doors they're jiggling to see which ones are unlocked.",
         },
       },
       {
@@ -53,13 +63,69 @@ export const digitalLesson11: AILessonConfig = {
         },
       },
       {
+        id: "passwords-practice",
+        kicker: "Apply it",
+        title: "Spot the stronger password",
+        body: `Strength isn't about how "complicated" a password *looks* — it's mostly about **length** plus true unpredictability. Let's compare a few real examples:\n\n• \`Summer2024!\` — looks decent (capital, number, symbol) but it's a common pattern (season + year + symbol) that cracking software specifically checks for first. Short and predictable.\n• \`Tr0ub4dor&3\` — has plenty of symbols but is still fairly short, and swapping letters for look-alike numbers is another pattern attackers' tools already expect.\n• \`copper-lantern-quiet-otter-42\` — long, made of unrelated words plus a number, easy for a human to remember, and extremely hard for a computer to guess because there's no common pattern to exploit.\n\nThe lesson: length and genuine randomness beat "looks complicated." A password manager (coming up next) can generate something even more random than you'd bother typing by hand — for accounts where you don't need to memorize it at all.`,
+        checkIn: {
+          prompt: "Which of these is the strongest password for an important account like email?",
+          choices: [
+            "Summer2024!",
+            "Tr0ub4dor&3",
+            "copper-lantern-quiet-otter-42",
+            "P@ssword",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Length and genuine unpredictability beat 'looks complicated.' A long string of unrelated words (a passphrase) is far harder for cracking software to guess than short, pattern-following passwords with symbols swapped in.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "If a password is easy for you to say out loud as a little story ('copper lantern, quiet otter'), it's usually easy to remember and hard for a computer to guess — a great sign you're on the right track.",
+        },
+      },
+      {
         id: "managers-2fa",
         kicker: "Tools that protect you",
         title: "Password managers and two-factor authentication",
         body: `"A different strong password for *every* account? I can't remember all those!" You're right — and you don't have to.\n\nA **password manager** is an app that **generates** long random unique passwords for each account and **stores** them safely, locked behind one strong master password (or your fingerprint/face). You only remember *one* password; it remembers the rest. Examples include Bitwarden, 1Password, and the managers built into your browser or phone.\n\nThen add a second lock: **two-factor authentication (2FA)**, also called **MFA** (multi-factor authentication). It means logging in needs **two things**:\n\n• **Something you know** — your password.\n• **Something you have** — a code from an app, a text, or a tap on your phone.\n\nSo even if a thief steals your password, they *still* can't get in without your phone.\n\n**Lock down recovery too.** Attackers often skip your password and go for the side door: **account recovery**. Review your **recovery email and phone** on important accounts — use addresses *you* control, not an old number a friend might still have. Turn on **2FA** for recovery options when offered, and save **backup codes** somewhere safe (not in the same app you're protecting). A weak recovery path lets someone reset your password even if the main password was strong. It's like a door that needs both a key *and* a second deadbolt that only you can reach. An **authenticator app** (like Google Authenticator or Authy) is more secure than text-message codes, but any 2FA is far better than none.`,
+        checkIn: {
+          prompt: "Your friend has a strong, unique password for their email, but their recovery phone number belongs to an old phone they no longer own. What's the risk?",
+          choices: [
+            "None — the password alone is all that matters",
+            "Someone who gets that old phone number could potentially use it to reset the account, bypassing the strong password",
+            "Recovery numbers can never be used to reset an account",
+            "It only matters if 2FA is turned off completely",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A weak or outdated recovery path is a side door around even a strong password. Keeping recovery email/phone current — and protected with 2FA when possible — closes that gap.",
+        },
         callout: {
           label: "Common misconception",
           text: "\"2FA is an annoying hassle that's not worth it.\" It adds a few seconds at login but blocks the vast majority of account takeovers — because a stolen password alone is no longer enough. It's one of the single best things you can turn on today.",
+        },
+      },
+      {
+        id: "2fa-types",
+        kicker: "Go deeper",
+        title: "Not all 2FA is equally strong",
+        body: `Once you commit to using 2FA everywhere, it helps to know the options aren't identical:\n\n• **SMS (text message) codes** — better than nothing, but the weakest option. A rare but real attack called **SIM swapping** lets a scammer trick your phone carrier into moving your number to their device, letting them receive your codes.\n• **Authenticator apps** (Google Authenticator, Authy, or your password manager's built-in option) — generate codes directly on your device, with no phone number involved to hijack. Stronger than SMS.\n• **Security keys** — small physical devices (or your phone's built-in passkey feature) that you tap or plug in to confirm it's really you. The strongest common option, since there's no code to phish at all.\n\nYou don't need the strongest option for every account. The real lesson is simpler: **any 2FA beats no 2FA**, and for your most important accounts (email especially), upgrading from SMS to an authenticator app when possible closes a real gap.`,
+        checkIn: {
+          prompt: "Which of these 2FA methods is generally considered the weakest, though still better than no 2FA at all?",
+          choices: [
+            "A physical security key",
+            "An authenticator app that generates codes on your device",
+            "SMS text-message codes, due to risks like SIM swapping",
+            "There is no difference between any 2FA methods",
+          ],
+          correctIndex: 2,
+          explanation:
+            "SMS codes can be intercepted through attacks like SIM swapping, where a scammer moves your phone number to their own device. Authenticator apps and security keys don't have that specific weakness.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Don't let 'which 2FA is best' stop you from turning on any 2FA today. Perfect is the enemy of done — SMS 2FA on every account beats a perfect plan you never actually set up.",
         },
       },
       {
@@ -79,6 +145,28 @@ export const digitalLesson11: AILessonConfig = {
         },
       },
       {
+        id: "phishing-practice",
+        kicker: "Apply it",
+        title: "Spot the phishing red flags",
+        body: `Let's practice on a real-feeling example. You get a text: *"KANAM ACCOUNT ALERT: Unusual sign-in detected. Verify now within 15 minutes or your account will be permanently suspended: kanam-secure-verify.net/login"*\n\nCount the red flags with me:\n\n• **Urgency and a countdown** — "within 15 minutes" is designed to make you panic-click before thinking.\n• **A threat** — "permanently suspended" raises the emotional stakes on purpose.\n• **A suspicious domain** — \`kanam-secure-verify.net\` is NOT the real Kanam Academy website; a scammer just put a familiar word in a fake domain.\n• **A request to "verify" through a link someone sent you**, instead of the app or site you'd normally use.\n\nEvery one of these is a classic pattern, not a coincidence. Real security alerts don't need you to click a mystery link in the next 15 minutes.`,
+        checkIn: {
+          prompt: "A text says: 'URGENT: Your account will be suspended in 15 min unless you verify at kanam-secure-verify.net.' What's the safest response?",
+          choices: [
+            "Click the link immediately since 15 minutes isn't much time",
+            "Reply with your password to prove your identity quickly",
+            "Don't click it — go directly to the real site or app yourself by typing the address you already know",
+            "Forward it to friends so they can click it and check if it's real",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Urgency, threats, and an unfamiliar domain are classic phishing signs. The safe move is always to go to the real site or app yourself, never through a link in the suspicious message.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Make it a rule: you never 'verify,' 'confirm,' or 'log in' through a link someone sent you — text, email, or DM. You only ever go to accounts through an app you opened yourself or a bookmark you saved.",
+        },
+      },
+      {
         id: "malware",
         kicker: "Nasty software",
         title: "Malware and the habits that keep you safe",
@@ -86,6 +174,38 @@ export const digitalLesson11: AILessonConfig = {
         callout: {
           label: "Common misconception",
           text: "\"Only sketchy or illegal sites get you hacked, and I'd never fall for a scam.\" Overconfidence is exactly what scammers count on. Real-looking ads, hacked legit sites, and clever messages fool smart, careful people every day. Staying a little skeptical is the skill.",
+        },
+      },
+      {
+        id: "public-wifi",
+        kicker: "Go deeper",
+        title: "Public Wi-Fi: convenient, but handle with care",
+        body: `Coffee shop, airport, or school library Wi-Fi is genuinely useful — but "open" networks (no password, or a password everyone shares) have a specific risk: **other people on the same network can sometimes see unencrypted traffic**, meaning what you're sending could theoretically be watched.\n\nA few practical habits fix most of the risk:\n\n• **Check for HTTPS.** Look for the little lock icon and "https://" in your browser's address bar — it means your connection to that specific site is encrypted, even on public Wi-Fi. Most modern sites use it by default.\n• **Save sensitive logins for trusted networks** when you can — banking, college portals, tax or financial aid sites are worth waiting for home or a trusted network.\n• **A VPN** (Virtual Private Network) encrypts your whole connection, adding a layer of protection on any network — useful, though not required for casual browsing.\n• **Turn off auto-connect** to open Wi-Fi networks so your device doesn't silently join a risky network without you noticing.\n\nNone of this means avoid public Wi-Fi entirely — it means use it thoughtfully for lower-stakes browsing, and be a bit more careful with your most sensitive logins.`,
+        checkIn: {
+          prompt: "You're at a coffee shop on open Wi-Fi and need to log into your college financial aid portal before a deadline. What's the safest approach?",
+          choices: [
+            "Never use public Wi-Fi for anything, ever, even in an emergency",
+            "Log in normally — public Wi-Fi has no real risk",
+            "If possible, wait for trusted Wi-Fi or use your phone's cellular data; if you must use it now, confirm the site shows https:// and consider a VPN",
+            "Ask a stranger at the coffee shop to log in for you",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Public Wi-Fi isn't automatically dangerous, but sensitive logins deserve extra caution: prefer trusted networks or cellular data when you can, and confirm HTTPS (or use a VPN) if you must use open Wi-Fi.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "Your phone's cellular data (not Wi-Fi at all) is often the safest option for a quick sensitive login when you're out and about — no shared network involved.",
+        },
+      },
+      {
+        id: "level-up-vocabulary",
+        kicker: "Level up",
+        title: "A few more security words worth knowing",
+        body: `A handful of terms come up once you start reading about real breaches and scams. Quick definitions so nothing surprises you later:\n\n• **Brute force attack** — a program that tries huge numbers of password guesses automatically until one works. Length is your main defense against this.\n• **Keylogger** — malware that secretly records every key you press, capturing passwords as you type them.\n• **Social engineering** — tricking a *person* (not a computer) into giving up access, like a scammer calling and pretending to be IT support.\n• **Zero-day** — a security flaw that's discovered and exploited before the company has released a fix for it. It's why keeping software updated matters even when nothing seems wrong yet.\n• **Two-step vs. two-factor** — sometimes used loosely, but true 2FA means two genuinely *different types* of proof (like a password plus a physical device), not just two passwords.\n\nYou don't need to memorize these — recognizing them when you see them in a headline or a security setting is the real goal.`,
+        callout: {
+          label: "Tip",
+          text: "If a setting menu ever uses one of these words and you're not sure what it means, that's exactly what this glossary is for — come back and check rather than guessing or skipping it.",
         },
       },
       {
@@ -133,16 +253,48 @@ export const digitalLesson11: AILessonConfig = {
         },
       },
       {
+        id: "worked-2",
+        kicker: "Worked example",
+        title: "Securing a shared family device, step by step",
+        body: `Now a different, everyday scenario: your family shares a laptop that everyone uses for schoolwork, streaming, and now your first job applications. Let's lock it down properly, step by step.\n\n**Step 1 — Separate accounts, not one shared login.** If the laptop only has one login, each person's browser history, saved passwords, and autofill get mixed together. Set up **separate user profiles** if the device supports it.\n\n**Step 2 — Sign out of sensitive accounts when done.** On a shared device, closing the browser tab isn't the same as **logging out**. Explicitly sign out of email, banking, or a college portal after each use.\n\n**Step 3 — Don't let the browser save passwords on a shared profile.** Saved autofill passwords on a shared login mean anyone using that profile can access your accounts. Use a personal password manager app instead, locked behind your own master password.\n\n**Step 4 — Turn on 2FA everywhere you can.** Even if someone else gets into a saved session, 2FA on your important accounts adds a barrier a shared device alone doesn't have.\n\n**Step 5 — Lock the device when you walk away.** A quick lock-screen habit (a password, PIN, or fingerprint) stops a sibling — or anyone else — from picking up where you left off while you're still logged in.\n\nA shared device isn't automatically unsafe — it just needs a few extra, deliberate habits.`,
+        checkIn: {
+          prompt: "You use a shared family laptop to check your college portal, then close the browser tab without signing out. What's the risk?",
+          choices: [
+            "None — closing the tab is the same as logging out",
+            "The next person to use that browser profile could still be logged into your account",
+            "The laptop will automatically delete your account",
+            "There's no risk since the laptop is shared with family",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Closing a tab often leaves you still signed in behind the scenes. On a shared device, explicitly signing out (not just closing the tab) is what actually protects your account.",
+        },
+        callout: {
+          label: "Pro tip",
+          text: "If a device is shared, treat 'sign out' as a habit every single time, the same way you'd lock a shared door. It takes two seconds and closes a real gap.",
+        },
+      },
+      {
+        id: "security-checklist",
+        kicker: "Take action",
+        title: "Your 5-question security check-in",
+        body: `Make this a habit you run every few months, or any time something feels off:\n\n1. **Reuse check** — am I using the same password on more than one account? If so, which one gets fixed first?\n2. **2FA check** — is 2FA turned on for my email and any account with money or high stakes attached?\n3. **Recovery check** — is my recovery email/phone current and something only I control?\n4. **Message check** — has anything urgent, threatening, or "too good to be true" landed in my inbox or texts lately? Did I verify it independently instead of clicking?\n5. **Device check** — do I sign out of accounts on shared or public devices, and keep my own devices updated?\n\nFive quick questions, run occasionally, catch most of the gaps before they become real problems.`,
+        callout: {
+          label: "Try this today",
+          text: "Pick just your email account and answer all five questions for it right now. Email is the single highest-leverage account to get right first.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You're now a much harder target than most people online. Quick recap:\n\n• Use **strong, unique** passwords — **passphrases** beat short complex ones, and reusing one password puts every account at risk.\n• Let a **password manager** generate and remember them for you.\n• Turn on **2FA** so a stolen password isn't enough to get in.\n• Spot **phishing/smishing** by their urgency, fake sender addresses, and shady links — and never share a 2FA code.\n• Avoid **malware** by updating software, installing only from trusted sources, and not clicking surprise links or attachments.\n• Lock down **email** and high-stakes portals; treat fake internship offers as phishing until proven real.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then write a quick reflection about your own security habits.`,
+        body: `You're now a much harder target than most people online. Quick recap:\n\n• Use **strong, unique** passwords — **passphrases** beat short complex ones, and reusing one password puts every account at risk.\n• Let a **password manager** generate and remember them for you.\n• Turn on **2FA** so a stolen password isn't enough to get in — authenticator apps and security keys beat SMS when you have the option.\n• Spot **phishing/smishing** by their urgency, fake sender addresses, and shady links — and never share a 2FA code.\n• Avoid **malware** by updating software, installing only from trusted sources, and being careful with sensitive logins on public Wi-Fi.\n• Lock down **email** and high-stakes portals, secure shared devices deliberately, and treat fake internship offers as phishing until proven real.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then write a quick reflection about your own security habits.`,
       },
     ],
   },
   bigIdeas: [
     "Use **strong, unique** passwords (passphrases) — reusing one lets a single breach unlock every account.",
-    "A **password manager** stores them and **2FA** adds a second lock, so a stolen password isn't enough.",
+    "A **password manager** stores them and **2FA** adds a second lock, so a stolen password isn't enough — authenticator apps and security keys beat plain SMS.",
     "**Phishing** scams rely on urgency and fake links — check the sender, preview links, and never share 2FA codes (including fake internship emails).",
   ],
   keyTerms: [
@@ -220,6 +372,45 @@ export const digitalLesson11: AILessonConfig = {
       correctIndex: 0,
       explanation:
         "Malware usually sneaks in through risky downloads and clicks. Sticking to official stores, avoiding surprise links and attachments, and installing updates (which patch security holes) keeps you much safer.",
+    },
+    {
+      id: "q6",
+      question: "Between SMS text codes, an authenticator app, and a physical security key for 2FA, which statement is most accurate?",
+      choices: [
+        "They're all exactly equally secure in every situation",
+        "SMS codes are generally weaker due to risks like SIM swapping, while authenticator apps and security keys are stronger — but any 2FA beats none",
+        "SMS codes are the strongest possible option",
+        "2FA is never worth using regardless of type",
+      ],
+      correctIndex: 1,
+      explanation:
+        "SMS codes can be intercepted through attacks like SIM swapping. Authenticator apps and security keys avoid that specific weakness — but the most important step is turning on some form of 2FA at all.",
+    },
+    {
+      id: "q7",
+      question: "You need to log into your financial aid portal but you're only near open public Wi-Fi at a coffee shop. What's the safest approach?",
+      choices: [
+        "Log in immediately — public Wi-Fi is exactly as safe as home Wi-Fi",
+        "Prefer cellular data or trusted Wi-Fi if possible; if you must use public Wi-Fi, confirm the site uses https:// or use a VPN",
+        "Ask a stranger to log in on their device instead",
+        "Never use the internet again for financial aid",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Public Wi-Fi isn't automatically dangerous, but sensitive logins deserve extra caution — prefer cellular data or a trusted network, and confirm HTTPS (or use a VPN) if you must use open Wi-Fi.",
+    },
+    {
+      id: "q8",
+      question: "On a shared family laptop, you close the browser tab after checking your email but don't explicitly sign out. What's the concern?",
+      choices: [
+        "Closing a tab always logs you out completely, so there's no concern",
+        "The next person using that same browser profile could still be signed into your account",
+        "The laptop automatically deletes the account after one use",
+        "Shared devices can never be made secure",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Closing a tab often leaves your session active behind the scenes. On shared devices, explicitly signing out — not just closing the tab — is the habit that actually protects your account.",
     },
   ],
   reflection: {

@@ -24,7 +24,7 @@ const daLesson10: DataLessonConfig = {
     title: "Each item's share of all orders",
   },
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -39,17 +39,45 @@ const daLesson10: DataLessonConfig = {
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "A pie chart shows parts of one whole",
-        body: `A **pie chart** is a circle cut into slices. The whole circle is **100%** of something, and each slice is one part's **share** of that whole.\n\nThe perfect mental picture is an actual pizza. The whole pizza is everything; each slice is a fraction of it; and all the slices together always add back up to one complete pizza. If your data doesn't work like that — if the parts don't sum to a meaningful whole — a pie is the wrong tool.\n\nUse a pie when you want to answer: *"Out of everything, how much is each piece?"* Examples: how a budget is split, or what share of all lunch orders each item makes up. The question is about **proportion**, not raw comparison.`,
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "Your phone already shows you a pie chart weekly",
+        body: `Check your phone's screen-time report. It doesn't tell you "you used Messages 45 minutes" as a lonely fact — it shows that 45 minutes as a **slice** of your entire day, next to slices for games, social media, and everything else.\n\nThat's a pie chart doing its exact job: not comparing apps to some external benchmark, but showing how *your one day* got divided up.`,
         callout: {
-          label: "Common misconception",
-          text: "A pie chart is *not* just a round bar chart. It only makes sense when every slice is part of the same whole. If your numbers don't add up to one total (like temperatures or test scores), a pie will mislead — use a bar chart.",
+          label: "Notice it",
+          text: "Next time you see a budget breakdown or screen-time report, check: do the slices actually add up to one meaningful whole (a full day, a full budget)?",
         },
       },
       {
-        id: "anatomy",
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**Slice / wedge** — one piece of a pie chart, representing one category's share.",
+          "**Whole** — the total that all slices must add up to (100%).",
+          "**Share / proportion** — a part's size relative to the whole.",
+          "**3-D tilt** — a visual trick that distorts slice sizes and should generally be avoided.",
+        ],
+      },
+      {
+        id: "concept-1",
+        kicker: "The big idea",
+        title: "A pie chart shows parts of one whole",
+        body: `A **pie chart** is a circle cut into slices. The whole circle is **100%** of something, and each slice is one part's **share** of that whole.\n\nThe perfect mental picture is an actual pizza. The whole pizza is everything; each slice is a fraction of it; and all the slices together always add back up to one complete pizza. If your data doesn't work like that — if the parts don't sum to a meaningful whole — a pie is the wrong tool.\n\nUse a pie when you want to answer: *"Out of everything, how much is each piece?"* Examples: how a budget is split, or what share of all lunch orders each item makes up. The question is about **proportion**, not raw comparison.`,
+        checkIn: {
+          prompt: "What must be true for a pie chart to make sense?",
+          choices: [
+            "The slices must all be the same size",
+            "The slices must add up to one meaningful whole",
+            "There must be at least 10 slices",
+          ],
+          correctIndex: 1,
+          explanation: "A pie chart only makes sense when every slice is a genuine part of the same total — otherwise the \"100%\" framing is meaningless.",
+        },
+      },
+      {
+        id: "concept-2",
         kicker: "How to read it",
         title: "Slices add up to the whole",
         body: `This is the pie you'll build from \`lunch_orders\`. Read it in three parts:\n\n• Each **slice** is one **item** (the label).\n• The **size** of the slice is that item's **count** (the number).\n• All the slices together make **one whole** — every order appears in exactly one slice.\n\nA bigger slice means a bigger share. Here Pizza slice and Salad each take a wider wedge (2 orders out of 8 = 25% each), while the single-order items take thin slices. Your eye reads "share of the total" automatically.`,
@@ -68,9 +96,15 @@ const daLesson10: DataLessonConfig = {
             rowCount: 6,
           },
         },
+        checkIn: {
+          prompt: "In the chart above, Pizza slice and Salad each have 2 orders out of 8 total. What share is that?",
+          choices: ["10% each", "25% each", "50% each"],
+          correctIndex: 1,
+          explanation: "2 out of 8 orders is one-quarter of the total, which is 25% — that's why those two slices are noticeably wider than the single-order items.",
+        },
       },
       {
-        id: "when",
+        id: "concept-3",
         kicker: "Choose wisely",
         title: "When a pie works — and when it lies",
         body: `Pie charts are the most *misused* chart there is, so use them carefully. The trouble is that human eyes are bad at comparing the sizes of wedges — we're much better at comparing bar heights.`,
@@ -79,25 +113,15 @@ const daLesson10: DataLessonConfig = {
           "**Avoid a pie** when slices don't add up to a whole — use a bar chart to compare instead.",
           "**Avoid a pie** with many tiny slices — they're impossible to compare by eye.",
         ],
-        callout: {
-          label: "Common misconception",
-          text: "More slices does *not* mean a better pie. With 8+ near-equal wedges, nobody can tell which is biggest — a sorted bar chart would be clearer. And a 3-D tilt that puffs up the front slice is a classic way charts fool people. Keep pies flat, simple, and few.",
-        },
-      },
-      {
-        id: "data",
-        kicker: "Your dataset",
-        title: "The data you'll use: lunch_orders",
-        body: `You'll use the same **lunch_orders** table (sample rows below). The pie-ready query is the same shape as a bar query: **COUNT** orders **GROUP BY item**, giving a label + a number.\n\nThe extra move for a pie is checking the **whole** with one more count of every order. Knowing the total (8 orders) lets you read each slice as a real share — 2 out of 8 is one quarter of the pie.`,
-        table: {
-          columns: ["student_name", "item", "price"],
-          values: [
-            ["Alex", "Pizza slice", 3.5],
-            ["Jordan", "Salad", 4.0],
-            ["Morgan", "Yogurt parfait", 3.0],
-            ["Taylor", "Burger", 4.75],
+        checkIn: {
+          prompt: "You have 15 nearly-equal categories to show. Is a pie chart a good choice?",
+          choices: [
+            "Yes, more slices always means more detail",
+            "No — with that many similar-sized slices, a sorted bar chart is much easier to read",
+            "Yes, but only if it's 3-D",
           ],
-          rowCount: 4,
+          correctIndex: 1,
+          explanation: "Human eyes struggle to compare many similarly-sized wedges. A sorted bar chart makes the ranking obvious where a crowded pie would not.",
         },
       },
       {
@@ -119,6 +143,106 @@ const daLesson10: DataLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "Before choosing a pie, add up your numbers. If the total is a meaningful whole (a full day, all orders, the entire budget), a pie fits. If not, reach for a bar chart.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "More slices ≠ a better pie",
+        body: `More slices does *not* mean a better pie. With 8+ near-equal wedges, nobody can tell which is biggest — a sorted bar chart would be clearer. And a 3-D tilt that puffs up the front slice is a classic way charts fool people. Keep pies flat, simple, and few.`,
+        checkIn: {
+          prompt: "Why should you generally avoid 3-D pie charts?",
+          choices: [
+            "They take longer to load",
+            "The tilt visually distorts slice sizes, making some look bigger or smaller than their real share",
+            "They can only show 2 slices",
+          ],
+          correctIndex: 1,
+          explanation: "The 3-D perspective exaggerates the front slices and shrinks the back ones visually, even though the underlying numbers haven't changed — a classic misleading chart trick.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Check the whole before you trust the pie",
+        body: `Before the exercises, practice the habit: for any pie you're about to build, add up the numbers first and ask "does this total mean something real?" For \`lunch_orders\`, the total is every order placed — a meaningful whole. Predict what that total will be before you query \`COUNT(*)\`.`,
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Go one level deeper",
+        title: "The same query powers a bar OR a pie",
+        body: `Notice something powerful: the exact same SQL query — \`SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item;\` — can feed either a bar chart or a pie chart. The data doesn't decide the chart type; **you** do, based on the question you're asking (compare amounts vs. show shares of a whole).`,
+      },
+      {
+        id: "comparison",
+        kicker: "Compare & contrast",
+        title: "Bar chart vs. pie chart, side by side",
+        body: `You'll use the same lunch_orders data both lessons — but the question changes the right chart.`,
+        bullets: [
+          "**Bar chart (Lesson 9)** — \"Which item is most popular?\" A comparison question.",
+          "**Pie chart (this lesson)** — \"What share of all orders does each item represent?\" A proportion question.",
+          "Same query shape (label + number), different question, different chart.",
+        ],
+        checkIn: {
+          prompt: "Your question is 'What percentage of our budget goes to snacks?' Which chart fits best?",
+          choices: ["Bar chart", "Pie chart", "Neither — this can't be charted"],
+          correctIndex: 1,
+          explanation: "\"Percentage of budget\" is explicitly a share-of-a-whole question — exactly what a pie chart is built to show.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "A tilted pie can tilt the truth",
+        body: `Pie charts can mislead when slices don't add up to one whole, or when a 3-D tilt makes the front slice look bigger. Keep it flat and make sure the parts sum to 100%. When you present a pie, double-check both the math (do the parts sum correctly?) and the visual honesty (is anything distorted?).`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "Add up the numbers before you chart them",
+        body: `Before building any pie chart, manually add up your category totals. If they don't sum to something meaningful, stop — a pie chart is the wrong tool, and reaching for a bar chart instead will serve your audience better.`,
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Reading proportional data is both a computer science and math skill.`,
+        bullets: [
+          "**CSTA 3A-DA-11** — Create interactive data visualizations to help others understand a phenomenon (like proportions).",
+          "**Common Core Math (statistics bridge)** — Understanding statistical variability and representing data with appropriate displays.",
+          "**ISTE Knowledge Constructor** — Evaluating the accuracy and reliability of a visual representation of information.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "Would your own data make a good pie?",
+        body: `Think of a set of numbers from your own life — allowance spending categories, hours in your week, points scored per teammate. Do they add up to a meaningful whole? Would a pie chart actually help someone understand them, or would a bar chart tell the story better?`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The class fundraiser's expense report",
+        body: `A class fundraiser tracked expenses in a table \`expenses\` with columns \`category\` and \`amount\`. The treasurer wants to show parents "where the money went" — decorations, snacks, prizes, supplies.\n\nIs a pie chart appropriate here? What would you check first before building it?`,
+        callout: {
+          label: "Apply it",
+          text: "SELECT category, SUM(amount) AS total FROM expenses GROUP BY category; — then confirm the totals sum to the whole fundraiser budget before charting as a pie.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's confirm the whole-vs-share concept is locked in.`,
+        checkIn: {
+          prompt: "Your data is 'average temperature in 5 cities.' Is a pie chart appropriate?",
+          choices: [
+            "Yes, any 5 numbers can be a pie",
+            "No — temperatures don't add up to a meaningful whole, so a bar chart fits better",
+            "Yes, but only if all 5 cities have the same temperature",
+          ],
+          correctIndex: 1,
+          explanation: "Temperatures are independent measurements, not parts of one total — summing them wouldn't mean anything. A bar chart compares them honestly instead.",
         },
       },
       {

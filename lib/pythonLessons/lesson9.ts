@@ -83,7 +83,7 @@ export const lesson9: PythonLessonConfig = {
   aiSafetyMoment:
     "AI safety: Organized memory makes AI systems more powerful. Mistakes in labels or data can cause problems. Responsible AI means choosing labels carefully, checking stored information, and not saving things that shouldn't be saved.",
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -98,17 +98,25 @@ export const lesson9: PythonLessonConfig = {
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "Why labels beat positions",
-        body: `A list remembers many things, but it remembers them by **position** — item 0, item 1, item 2. That's fine for a simple row, but it gets confusing fast. Was the email in position 2 or position 3?\n\nA **dictionary** fixes this by giving every value a **label**. Instead of "the thing in position 2," you ask for \`profile["email"]\`. The label tells you — and anyone reading your code — exactly what the value means.\n\nPicture a cabinet of labeled drawers: one drawer \`"name"\`, one \`"age"\`, one \`"favorite_color"\`. You never count — you just read the label and open the right drawer.`,
-        callout: {
-          label: "Common misconception",
-          text: "A dictionary doesn't keep things in number order the way a list does. You don't look things up by position (`profile[0]`) — you look them up by their **key** (`profile[\"name\"]`).",
-        },
+        id: "hook-story",
+        kicker: "Think about it",
+        title: "A contact card, not a pile of sticky notes",
+        body: `Imagine your phone's contact card for a friend: Name, Phone, Birthday, each clearly labeled. Now imagine instead you had a pile of sticky notes with just "555-1234" and "June 3" and no labels — you'd have to guess which note means what.\n\nA list is the pile of sticky notes. A dictionary is the labeled contact card. Today you'll learn to build the second kind of memory.`,
       },
       {
-        id: "keyvalue",
+        id: "glossary",
+        kicker: "Vocabulary",
+        title: "Words you'll use today",
+        body: `New vocabulary for this lesson.`,
+        bullets: [
+          "**Dictionary** — a container that stores information as key–value pairs, using curly braces `{}`.",
+          "**Key** — the label used to store and find a value.",
+          "**Value** — the actual piece of information stored under a key.",
+          "**KeyError** — the error Python raises when you ask for a key that doesn't exist.",
+        ],
+      },
+      {
+        id: "concept-1",
         kicker: "Building block #1",
         title: "Keys and values",
         body: `A dictionary uses **curly braces** \`{}\` instead of square brackets. Each entry is a pair: a **key** (the label) and a **value** (the information it points to).\n\nYou store a value by writing its key in square brackets and assigning to it: \`profile["name"] = "Alex"\`. Read that as *"in the profile, set the name drawer to Alex."*\n\nLater, you get the value back by using the same key. The key is how you both **save** and **find** information.`,
@@ -119,9 +127,15 @@ export const lesson9: PythonLessonConfig = {
           label: "Watch out",
           text: "Curly braces `{}` make a dictionary; square brackets `[]` make a list. Mixing them up is one of the most common beginner slip-ups.",
         },
+        checkIn: {
+          prompt: "Which symbol creates an empty dictionary?",
+          choices: ["`[]`", "`{}`", "`()`"],
+          correctIndex: 1,
+          explanation: "Curly braces {} create a dictionary. Square brackets [] create a list.",
+        },
       },
       {
-        id: "read",
+        id: "concept-2",
         kicker: "Building block #2",
         title: "Read a value back by its key",
         body: `Once a value is stored, you read it back by its key — \`profile["name"]\` hands you \`"Alex"\`. You can drop that straight into a sentence with \`+\`, just like you joined strings in earlier lessons.\n\nThis is exactly how apps personalize what you see: they look up your stored info by its label and slot it into a message like *"Welcome back, Alex!"*`,
@@ -132,10 +146,16 @@ export const lesson9: PythonLessonConfig = {
           label: "Pro tip",
           text: "Reading a value with `profile[\"name\"]` does **not** remove it — the value stays in the dictionary so you can use it again and again.",
         },
+        checkIn: {
+          prompt: "After `profile[\"name\"] = \"Alex\"`, does `profile[\"name\"]` remove the value once read?",
+          choices: ["Yes, it deletes it after reading", "No, it stays in the dictionary for reuse"],
+          correctIndex: 1,
+          explanation: "Reading a dictionary value doesn't remove it — you can read the same key as many times as you like.",
+        },
       },
       {
-        id: "exact",
-        kicker: "Gotcha",
+        id: "concept-3",
+        kicker: "Building block #3",
         title: "Keys must match exactly",
         body: `Python is **literal** — it matches keys *exactly*. To read a value, you must spell the key the same way you stored it: same letters, same capitalization, same quotes. \`profile["Name"]\` and \`profile["name"]\` are two completely different keys to Python.\n\nIf you ask for a key that doesn't exist, Python stops and shows a **KeyError**. That's not the computer being mean — it's telling you the label it was asked for isn't on any drawer.`,
         bullets: [
@@ -147,9 +167,19 @@ export const lesson9: PythonLessonConfig = {
           label: "Common misconception",
           text: "A `KeyError` almost always means a typo or a capitalization mismatch in your key — not that your data disappeared. Check the spelling first.",
         },
+        checkIn: {
+          prompt: 'If you stored `profile["Name"] = "Alex"`, what happens when you read `profile["name"]`?',
+          choices: [
+            "It works fine — Python ignores capitalization",
+            "It raises a KeyError, because \"Name\" and \"name\" are different keys",
+            "It returns an empty string",
+          ],
+          correctIndex: 1,
+          explanation: "Python keys are case-sensitive. \"Name\" and \"name\" are two different keys, so asking for the wrong one raises a KeyError.",
+        },
       },
       {
-        id: "worked",
+        id: "worked-example",
         kicker: "Worked example",
         title: "Build a profile, step by step",
         body: `Let's build a character profile from scratch and use it in a sentence.\n\n**Step 1 — Start empty.** Make an empty dictionary called \`profile\` with \`{}\`.\n\n**Step 2 — Add labeled info.** Store two key–value pairs: a name and a favorite color.\n\n**Step 3 — Use it.** Read values back by their keys and join them into a friendly message with \`+\`.`,
@@ -159,6 +189,108 @@ export const lesson9: PythonLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "You can store as many key–value pairs as you like. Real apps keep dozens of them in a single profile dictionary.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "Dictionaries aren't ordered by position",
+        body: `A list remembers many things, but it remembers them by **position** — item 0, item 1, item 2. A common misconception is that dictionaries work the same way. They don't.\n\nA **dictionary** gives every value a **label**, not a position. Instead of "the thing in position 2," you ask for \`profile["email"]\`. You never count — you just read the label and open the right drawer.`,
+      },
+      {
+        id: "try-it",
+        kicker: "Try it — predict",
+        title: "Predict the printed line",
+        body: `Trace this snippet carefully. Pay attention to exactly which key gets read in the final print.`,
+        code: `pet = {}\npet["name"] = "Rex"\npet["type"] = "dog"\nprint(pet["type"] + " named " + pet["name"])`,
+        codeCaption: "What does the print statement output?",
+        checkIn: {
+          prompt: "What does this program print?",
+          choices: ["Rex named dog", "dog named Rex", "type named name"],
+          correctIndex: 1,
+          explanation: 'pet["type"] is "dog" and pet["name"] is "Rex", so the print joins them as "dog named Rex".',
+        },
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Level up",
+        title: "You can check if a key exists",
+        body: `Before reading a key that might not exist, you can check first with \`in\`: \`if "email" in profile:\` runs the code inside only if that key is actually present. This avoids a \`KeyError\` crash and lets your program handle missing information gracefully.`,
+        code: `profile = {}\nprofile["name"] = "Alex"\nif "email" in profile:\n    print(profile["email"])\nelse:\n    print("No email on file")`,
+        codeCaption: "Check before you read",
+        output: `No email on file`,
+      },
+      {
+        id: "comparison",
+        kicker: "Two ways to do it",
+        title: "List vs. dictionary for the same data",
+        body: `Compare storing a name and color in a list versus a dictionary. With a list, you must remember that position 0 is the name and position 1 is the color — easy to mix up. With a dictionary, the label tells you directly.`,
+        code: `# List — must remember position 0 = name, 1 = color\ninfo = ["Alex", "blue"]\nprint(info[0])\n\n# Dictionary — the label says what it is\nprofile = {}\nprofile["name"] = "Alex"\nprofile["favorite_color"] = "blue"\nprint(profile["name"])`,
+        codeCaption: "Dictionaries make intent explicit",
+      },
+      {
+        id: "debug-habit",
+        kicker: "Debugging habit",
+        title: "Read the KeyError message carefully",
+        body: `When Python raises a \`KeyError\`, it tells you exactly which key was missing. Read that message first — it usually points straight at a typo or a capitalization mismatch, saving you from guessing where the bug is.`,
+        checkIn: {
+          prompt: 'Your code crashes with `KeyError: \'Name\'` but you stored `profile["name"]`. What\'s the likely bug?',
+          choices: [
+            "The dictionary is broken and needs to be recreated",
+            "A capitalization mismatch — you're reading \"Name\" but stored \"name\"",
+            "Dictionaries can only hold one key",
+          ],
+          correctIndex: 1,
+          explanation: "The KeyError message tells you exactly which key was missing — here it's a capitalization mismatch between \"Name\" and \"name\".",
+        },
+      },
+      {
+        id: "habits",
+        kicker: "Coder habits",
+        title: "Keep key names short and consistent",
+        body: `Use short, lowercase, consistent key names like \`"name"\`, \`"age"\`, \`"email"\` throughout your program. Consistent naming means you never have to stop and wonder whether you used \`"Name"\` or \`"name"\` somewhere else in your code.`,
+        bullets: [
+          "Use lowercase, consistent key names throughout a program.",
+          "Check `\"key\" in dictionary` before reading a key that might be missing.",
+          "Read KeyError messages carefully — they name the missing key directly.",
+        ],
+      },
+      {
+        id: "standards-connect",
+        kicker: "Why this counts",
+        title: "This lesson meets a real CS standard",
+        body: `**CSTA 3A-AP-13**: *Create prototypes that use algorithms to solve computational problems by leveraging prior knowledge and personal interests.*\n\nBuilding a profile dictionary is exactly this kind of prototype — you're organizing real information (names, favorites, stats) the way a real app would, using a data structure suited to the problem.`,
+        callout: {
+          label: "Standard",
+          text: "CSTA 2017, Algorithms & Programming, Level 3A (grades 9–10): 3A-AP-13 — build prototypes using algorithms and prior knowledge.",
+        },
+      },
+      {
+        id: "reflection-prompt",
+        kicker: "Reflect",
+        title: "Think it through",
+        body: `*Think about your phone's contact list. What labels (keys) does each contact have? Why would it be confusing if contacts were just stored as an unlabeled list of numbers and names?*`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Real world",
+        title: "Every app profile is a dictionary",
+        body: `Your social media bio, a video game character sheet, and a shopping site's account settings are all dictionaries under the hood: labeled fields like \`"username"\`, \`"level"\`, or \`"shipping_address"\`, each holding a specific value the app can look up instantly by name.`,
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you build",
+        body: `Let's confirm the dictionary pattern is locked in.`,
+        checkIn: {
+          prompt: "What's the key difference between a list and a dictionary?",
+          choices: [
+            "Lists use `{}`, dictionaries use `[]`",
+            "Lists look up items by position; dictionaries look up items by a labeled key",
+            "There is no real difference",
+          ],
+          correctIndex: 1,
+          explanation: "Lists are ordered and accessed by numeric position; dictionaries are accessed by a named key that describes what the value means.",
         },
       },
       {

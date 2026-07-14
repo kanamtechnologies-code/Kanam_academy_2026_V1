@@ -24,7 +24,7 @@ const daLesson11: DataLessonConfig = {
     title: "Orders per day this week",
   },
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -39,17 +39,46 @@ const daLesson11: DataLessonConfig = {
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "A line chart shows change over time",
-        body: `A **line chart** connects dots in order to show how a number **goes up and down over time**.\n\nThe connecting line is the secret sauce. With separate bars, your eye has to hop from one to the next; with a line, the *slope* does the work — a steep upward line screams "growing fast," a downward slope says "dropping." You read direction instantly, the way you'd read a hiking trail going uphill or down.\n\nUse a line chart whenever your x-axis is **time** — days, weeks, months, years. It lets you spot the **trend**: is the number rising, falling, or bouncing around? That's a question a bar chart simply can't answer as clearly.`,
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "The moment a video 'goes viral' is a line's slope",
+        body: `Creators obsess over one shape: the view-count line on a new video. A slow, flat line means it's fading. A line that suddenly turns almost vertical means it's "going viral" — and that word literally describes the **slope** of a line chart, not any single number.\n\nEvery trending chart, growth graph, or "our stock is up" headline is really just someone reading the slope of a line.`,
         callout: {
-          label: "Common misconception",
-          text: "A line chart is only honest when the x-axis is *ordered* — usually time. Don't connect dots across unordered categories like \"pizza, salad, burger\"; the rising-and-falling line would imply a trend that doesn't exist. For unordered categories, use a bar chart.",
+          label: "Notice it",
+          text: "Next time you hear \"growing fast\" or \"dropping,\" picture the line chart underneath — is the slope steep, flat, or heading down?",
         },
       },
       {
-        id: "anatomy",
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**Trend** — the general direction a line is heading: up, down, or flat.",
+          "**Slope** — how steep the line is between two points; steeper means faster change.",
+          "**Peak** — the highest point on a line chart.",
+          "**Dip** — a lower point on a line chart, often a temporary drop.",
+          "**Time-ordered** — data sorted so time runs correctly from earliest to latest.",
+        ],
+      },
+      {
+        id: "concept-1",
+        kicker: "The big idea",
+        title: "A line chart shows change over time",
+        body: `A **line chart** connects dots in order to show how a number **goes up and down over time**.\n\nThe connecting line is the secret sauce. With separate bars, your eye has to hop from one to the next; with a line, the *slope* does the work — a steep upward line screams "growing fast," a downward slope says "dropping." You read direction instantly, the way you'd read a hiking trail going uphill or down.\n\nUse a line chart whenever your x-axis is **time** — days, weeks, months, years. It lets you spot the **trend**: is the number rising, falling, or bouncing around? That's a question a bar chart simply can't answer as clearly.`,
+        checkIn: {
+          prompt: "What makes a line chart different from a bar chart?",
+          choices: [
+            "Line charts can only show one data point",
+            "The connecting line reveals a trend/slope across ordered time steps",
+            "Line charts don't need a y-axis",
+          ],
+          correctIndex: 1,
+          explanation: "The connecting line is what lets your eye read direction and speed of change (the slope) — something separate bars can't show as clearly.",
+        },
+      },
+      {
+        id: "concept-2",
         kicker: "How to read it",
         title: "Time runs left to right",
         body: `Here's the line you'll build — one week of cafeteria orders. Read it in three parts:\n\n• The **x-axis** (bottom) is **time**: Monday → Sunday, always in order.\n• The **y-axis** shows the **number** of orders.\n• The **shape of the line** is the story: it climbs steadily to Friday's **peak** (80 orders), then **drops** hard over the weekend.\n\nFollowing the line, you instantly see the school-week build-up and the weekend slump — no number-crunching needed. That's the power of plotting time left to right.`,
@@ -69,9 +98,15 @@ const daLesson11: DataLessonConfig = {
             rowCount: 7,
           },
         },
+        checkIn: {
+          prompt: "Looking at the chart, which day is the peak?",
+          choices: ["Monday", "Friday", "Sunday"],
+          correctIndex: 1,
+          explanation: "Friday has the highest point on the line (80 orders) — that's the peak of the week's trend.",
+        },
       },
       {
-        id: "when",
+        id: "concept-3",
         kicker: "Choose wisely",
         title: "When to use a line chart",
         body: `The key question is simple: *is my x-axis time?* If yes, a line chart is almost always your best friend. If no, reach for something else.`,
@@ -80,25 +115,15 @@ const daLesson11: DataLessonConfig = {
           "**Use a bar** instead for separate categories that aren't in time order.",
           "**Always sort by time** (`ORDER BY day_num`) so the line reads left to right.",
         ],
-        callout: {
-          label: "Common misconception",
-          text: "People assume any line chart is trustworthy. But if the days are out of order, or the y-axis is stretched (or doesn't start at zero), a tiny change can look like a giant spike. Keep time in order and always check the scale.",
-        },
-      },
-      {
-        id: "data",
-        kicker: "Your dataset",
-        title: "The data you'll use: daily_orders",
-        body: `The **daily_orders** table has one row per day (sample rows below). Three columns matter:\n\n• **day_num** — a number (Mon = 1 … Sun = 7) that keeps the days in the *correct* order. This is the unsung hero: sorting by it guarantees an honest line.\n• **weekday** — the label shown on the x-axis.\n• **orders** — the number the line follows up and down.`,
-        table: {
-          columns: ["day_num", "weekday", "orders"],
-          values: [
-            [1, "Mon", 42],
-            [2, "Tue", 55],
-            [3, "Wed", 48],
-            [4, "Thu", 63],
+        checkIn: {
+          prompt: "Your data is 'sales by region' (North, South, East, West). Is a line chart appropriate?",
+          choices: [
+            "Yes, any numeric data works with a line",
+            "No — regions aren't in time order, so a bar chart compares them more honestly",
+            "Yes, but only if there are exactly 4 regions",
           ],
-          rowCount: 4,
+          correctIndex: 1,
+          explanation: "Regions have no natural time order, so connecting them with a line would imply a trend that doesn't exist. A bar chart is the honest choice here.",
         },
       },
       {
@@ -120,6 +145,116 @@ const daLesson11: DataLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "Always sort by the time column, not the label's alphabet. Sorting weekdays alphabetically would put Fri before Mon and scramble the trend into nonsense — `ORDER BY day_num` keeps time honest. To find the **busiest single day**, sort by the number instead: `ORDER BY orders DESC LIMIT 1`.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "An out-of-order line tells a false story",
+        body: `People assume any line chart is trustworthy. But if the days are out of order, or the y-axis is stretched (or doesn't start at zero), a tiny change can look like a giant spike. Keep time in order and always check the scale.`,
+        checkIn: {
+          prompt: "If you sort daily_orders by weekday ALPHABETICALLY instead of by day_num, what happens?",
+          choices: [
+            "Nothing changes — the trend still reads correctly",
+            "Fri would appear before Mon, scrambling the real week-long trend into nonsense",
+            "The chart would refuse to render",
+          ],
+          correctIndex: 1,
+          explanation: "Alphabetical order (Fri, Mon, Sat, Sun, Thu, Tue, Wed) has nothing to do with actual time order, so the line would zig-zag meaninglessly instead of showing the real weekly trend.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Predict the shape before you chart it",
+        body: `Before the exercises, look at the Mon–Sun order numbers from the concept-2 chart above and predict: does the line rise, fall, or do both across the week? Sketch the rough shape on paper, then build the real query and compare against your sketch.`,
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Go one level deeper",
+        title: "The hidden helper column: day_num",
+        body: `The **daily_orders** table has one row per day, but the real trick is the **day_num** column — a number (Mon = 1 … Sun = 7) that keeps the days in the *correct* order. This is the unsung hero: sorting by it guarantees an honest line, even though the chart only displays the **weekday** label, not the number itself.`,
+        table: {
+          columns: ["day_num", "weekday", "orders"],
+          values: [
+            [1, "Mon", 42],
+            [2, "Tue", 55],
+            [3, "Wed", 48],
+            [4, "Thu", 63],
+          ],
+          rowCount: 4,
+        },
+      },
+      {
+        id: "comparison",
+        kicker: "Compare & contrast",
+        title: "Line chart vs. bar chart, same numbers",
+        body: `Imagine the exact same 7 numbers (42, 55, 48, 63, 80, 30, 25) shown two ways.`,
+        bullets: [
+          "**As a bar chart** — you can compare which day was busiest, but the week's *flow* is harder to see.",
+          "**As a line chart** — the climb toward Friday and the weekend crash are immediately obvious.",
+          "Same data, same numbers — the chart type changes which question gets answered clearly.",
+        ],
+        checkIn: {
+          prompt: "Which chart type makes it easiest to see a week-long BUILD-UP toward a peak day?",
+          choices: ["A pie chart", "A line chart, sorted by day_num", "A bar chart, sorted alphabetically"],
+          correctIndex: 1,
+          explanation: "A line chart's connected slope is specifically good at showing gradual build-ups and drop-offs across ordered time steps.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "Uneven time steps can distort a trend",
+        body: `Line charts can mislead if the time steps are uneven or the y-axis doesn't start at zero. A small rise can be made to look like a huge spike — always check the axis. If one gap on your x-axis is "1 day" and another is secretly "1 month," the slope between them is meaningless.`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "Sort by the real time column, never the label",
+        body: `Make this a reflex: whenever you build a line chart, sort by the underlying time number (like day_num), not by the text label. This one habit prevents almost every line-chart mistake you'll ever make.`,
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Reading trends over time connects data science with mathematical reasoning about rate of change.`,
+        bullets: [
+          "**CSTA 3A-DA-11** — Create interactive data visualizations to reveal trends over time.",
+          "**Common Core Math (statistics bridge)** — Interpreting patterns of association and change in bivariate/time-based data.",
+          "**ISTE Computational Thinker** — Analyzing how ordered data reveals patterns not visible in unordered lists.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "What trend line would you want to see?",
+        body: `Think of a number in your life you'd like to track over time — hours of sleep, video game high scores, minutes of exercise. If you plotted it day by day for a month, what trend would you predict: rising, falling, or bouncing around?`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The school play's ticket sales",
+        body: `A school play tracks ticket sales in a table \`ticket_sales\` with columns \`day_num\`, \`sale_date\`, and \`tickets_sold\`, one row per day leading up to opening night. The drama teacher wants to see the sales trend to know when to push more advertising.\n\nWhat query would produce a correctly time-ordered line chart?`,
+        callout: {
+          label: "Apply it",
+          text: "SELECT sale_date, tickets_sold FROM ticket_sales ORDER BY day_num; — sorting by the numeric day_num guarantees the line reads in true chronological order.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's confirm the time-ordering rule is fully locked in.`,
+        checkIn: {
+          prompt: "Which is the correct way to build an honest weekly trend line from daily_orders?",
+          choices: [
+            "SELECT weekday, orders FROM daily_orders ORDER BY weekday;",
+            "SELECT weekday, orders FROM daily_orders ORDER BY day_num;",
+            "SELECT weekday, orders FROM daily_orders;",
+          ],
+          correctIndex: 1,
+          explanation: "Sorting by day_num (the numeric time order) guarantees Monday through Sunday appear in true chronological order, not alphabetical order.",
         },
       },
       {

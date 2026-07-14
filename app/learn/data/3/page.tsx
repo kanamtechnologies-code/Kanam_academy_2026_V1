@@ -15,7 +15,7 @@ const daLesson3: DataLessonConfig = {
   previewTable: "lunch_orders",
   seedData: LUNCH_ORDERS_SEED,
   lessonModule: {
-    durationLabel: "~8 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -30,7 +30,29 @@ const daLesson3: DataLessonConfig = {
         },
       },
       {
-        id: "order",
+        id: "hook",
+        kicker: "Real-world hook",
+        title: "Why the dropdown menu isn't 400 items long",
+        body: `Open any shopping app's filter menu — "Size," "Color," "Brand." Behind the scenes, there might be 50,000 products, but the Color dropdown only lists each color **once**: Red, Blue, Green, not "Red" repeated a thousand times.\n\nSomeone wrote a query with \`DISTINCT\` to build that clean list. Without it, every dropdown, every filter, and every autocomplete suggestion on the internet would be a scrolling nightmare of duplicates.`,
+        callout: {
+          label: "Spot it",
+          text: "Next time you see a clean dropdown list, remember: a raw table almost never has each value exactly once — DISTINCT made it that way.",
+        },
+      },
+      {
+        id: "glossary",
+        kicker: "Key vocabulary",
+        title: "New words for this lesson",
+        body: `A few terms will make today's ideas click faster.`,
+        bullets: [
+          "**DISTINCT** — a keyword that removes duplicate rows from a result.",
+          "**Unique value** — a value that appears only once in a list, after duplicates are removed.",
+          "**Column order** — the left-to-right sequence of columns you list after SELECT.",
+          "**Combination (combo)** — a pairing of values across multiple columns, like item + price together.",
+        ],
+      },
+      {
+        id: "concept-1",
         kicker: "You're in control",
         title: "Column order is up to you",
         body: `The order you list columns in \`SELECT\` is the exact order they appear in the result table. SQL doesn't care what order the columns are stored in — *you* decide how the answer reads.\n\nThink of it like arranging photos in a collage: the same pictures look different depending on what you put first. \`SELECT item, student_name\` leads with the food; \`SELECT student_name, item\` leads with the person. Same data, different emphasis.\n\nGood analysts put the **most important column first**, because people read left to right and notice the leading column most.`,
@@ -45,9 +67,15 @@ const daLesson3: DataLessonConfig = {
           ],
           rowCount: 3,
         },
+        checkIn: {
+          prompt: "SELECT price, item FROM lunch_orders; — which column appears FIRST in the result?",
+          choices: ["item", "price", "Whichever is stored first in the database"],
+          correctIndex: 1,
+          explanation: "SQL shows columns in the exact order you list them after SELECT — here, price comes first because it's listed first.",
+        },
       },
       {
-        id: "distinct",
+        id: "concept-2",
         kicker: "Remove duplicates",
         title: "DISTINCT shows each value once",
         body: `Our table has 8 orders, but some items repeat — two students ordered "Pizza slice" and two ordered "Salad." If you just \`SELECT item\`, you'd see those repeats. \`SELECT DISTINCT item\` collapses them so each item appears **only once** — basically a clean menu of what was ordered.\n\nPicture writing down every snack people bring to a party. \`DISTINCT\` is like crossing out duplicates so your shopping list shows each snack a single time, no matter how many people brought it.\n\nThat's why our 8 orders shrink to just **6** unique items below.`,
@@ -65,9 +93,23 @@ const daLesson3: DataLessonConfig = {
           ],
           rowCount: 6,
         },
-        callout: {
-          label: "Common misconception",
-          text: "`DISTINCT` looks at the **whole row** you selected, not just one column. `SELECT DISTINCT item` finds unique items, but `SELECT DISTINCT item, price` finds unique **item-and-price combos** — so a value can appear more than once if its partner column differs.",
+        checkIn: {
+          prompt: "8 orders include 2 Pizza slices and 2 Salads. How many rows does SELECT DISTINCT item return?",
+          choices: ["8", "6", "4"],
+          correctIndex: 1,
+          explanation: "DISTINCT collapses the duplicate 'Pizza slice' and 'Salad' rows down to one each, so 8 orders become 6 unique items.",
+        },
+      },
+      {
+        id: "concept-3",
+        kicker: "DISTINCT with multiple columns",
+        title: "DISTINCT looks at the whole row you selected",
+        body: `Here's the twist that surprises most beginners: \`DISTINCT\` doesn't just look at one column — it looks at the **combination** of every column you selected. \`SELECT DISTINCT item\` finds unique items, but \`SELECT DISTINCT item, price\` finds unique **item-and-price pairs**.\n\nThat means a value like "Pizza slice" could still appear twice in a multi-column DISTINCT query, *if* it had two different prices attached to it. DISTINCT is checking whether the whole row is a repeat, not just one piece of it.`,
+        checkIn: {
+          prompt: "If two students both ordered a Pizza slice at the SAME price, how many rows does SELECT DISTINCT item, price show for it?",
+          choices: ["2 rows — one per student", "1 row — the combo is identical", "0 rows"],
+          correctIndex: 1,
+          explanation: "DISTINCT checks the full combination of selected columns. If item AND price match exactly, it's treated as one repeated combo and shown once.",
         },
       },
       {
@@ -92,6 +134,110 @@ const daLesson3: DataLessonConfig = {
         callout: {
           label: "Pro tip",
           text: "`DISTINCT` always comes right after `SELECT`, never in the middle of your column list. Write `SELECT DISTINCT item, price`, not `SELECT item, DISTINCT price`.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "DISTINCT isn't a per-column filter",
+        body: `The biggest trap in this lesson: thinking \`DISTINCT\` applies separately to each column you list. It doesn't — it applies to the **entire combination** at once.`,
+        checkIn: {
+          prompt: "Where must DISTINCT be placed in a query?",
+          choices: [
+            "Right after SELECT, before the column list",
+            "Right before FROM",
+            "In front of any single column, anywhere in the list",
+          ],
+          correctIndex: 0,
+          explanation: "DISTINCT always goes immediately after SELECT and applies to the whole row of selected columns — not in front of an individual column name.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it yourself",
+        title: "Predict the unique count",
+        body: `Before the exercises, predict: how many unique prices are there across the 8 lunch orders? (Hint: some items share the same price, like the two $4.00 salads.)\n\nWrite your guess, then once you're in the workspace try \`SELECT DISTINCT price FROM lunch_orders;\` and check your prediction.`,
+      },
+      {
+        id: "deeper-skill",
+        kicker: "Go one level deeper",
+        title: "Combine DISTINCT with ORDER BY",
+        body: `You'll meet \`ORDER BY\` properly in the next lesson, but here's a preview: \`DISTINCT\` and sorting play nicely together. \`SELECT DISTINCT item FROM lunch_orders ORDER BY item;\` gives you a clean, unique, **alphabetized** menu — exactly the shape a dropdown or filter list wants.`,
+        bullets: [
+          "DISTINCT removes duplicates first.",
+          "Any sorting you add happens on the already-shrunk list.",
+          "This combo is the standard recipe behind almost every filter menu you've ever used.",
+        ],
+      },
+      {
+        id: "comparison",
+        kicker: "Compare & contrast",
+        title: "DISTINCT vs. GROUP BY (a sneak peek)",
+        body: `You'll learn \`GROUP BY\` in a later lesson, but it's worth knowing DISTINCT has a cousin. Both can produce a list of unique values — but GROUP BY also lets you calculate something *about* each group (like a count), while DISTINCT only removes duplicates.`,
+        bullets: [
+          "**DISTINCT** — just removes duplicate rows. No extra math.",
+          "**GROUP BY** (coming soon) — bundles rows into groups AND lets you count, sum, or average within each group.",
+        ],
+        checkIn: {
+          prompt: "You just want a plain list of every unique item — no counts needed. What's the simplest tool?",
+          choices: ["DISTINCT", "GROUP BY with COUNT", "ORDER BY alone"],
+          correctIndex: 0,
+          explanation: "When you only need unique values with no extra calculation, DISTINCT is the simplest, most direct tool for the job.",
+        },
+      },
+      {
+        id: "ethics",
+        kicker: "Data ethics moment",
+        title: "Fewer columns is often safer, too",
+        body: `Selecting fewer columns isn't just about tidiness — it's also about privacy. Only pull the data you actually need, especially when a table's columns hold private information like addresses, grades, or contact details.\n\nA \`DISTINCT\` list of, say, unique cities customers live in can be genuinely useful for planning — but a full list of every customer's exact home address is a very different, much riskier thing to pull.`,
+      },
+      {
+        id: "habits",
+        kicker: "Analyst habits",
+        title: "Sanity-check your DISTINCT results",
+        body: `When you run a DISTINCT query, always compare the result count to the total row count. If DISTINCT barely shrinks the numbers, that column probably has few repeats. If it shrinks a lot, you've found a genuinely repetitive column — useful to know before you build charts or summaries from it later.`,
+      },
+      {
+        id: "standards",
+        kicker: "Standards connect",
+        title: "Why this lesson counts",
+        body: `Cleaning duplicate values is a core step in preparing data for analysis.`,
+        bullets: [
+          "**CSTA 2-DA-08** — Transform data (removing duplicates) to make it more useful and reliable.",
+          "**CSTA 3A-DA-10** — Use data analysis techniques like DISTINCT to identify the true set of values in a system.",
+          "**ISTE Computational Thinker** — Breaking down a dataset to find its essential, non-repeating structure.",
+        ],
+      },
+      {
+        id: "reflection",
+        kicker: "Reflection",
+        title: "Where have you seen a 'clean list'?",
+        body: `Think of a dropdown, autocomplete list, or filter menu you've used recently — course names in a school portal, genres in a music app, sizes in a shopping app. That list almost certainly came from a DISTINCT (or similar) query on a much bigger, messier table underneath.`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Mini case study",
+        title: "The club fair sign-up sheet",
+        body: `A club fair collected sign-ups in a table \`signups\` with columns \`student_name\` and \`club_name\`. Many students signed up for multiple clubs, so the table has far more rows than there are actual clubs.\n\nThe fair organizer asks: "Can you get me a simple list of every club that had at least one sign-up, with no repeats?" Which single keyword solves this in one line?`,
+        callout: {
+          label: "Apply it",
+          text: "SELECT DISTINCT club_name FROM signups; — a clean, repeat-free list of every club, no matter how many students signed up for each one.",
+        },
+      },
+      {
+        id: "check-yourself",
+        kicker: "Check yourself",
+        title: "One more check before you dive in",
+        body: `Let's make sure column order and DISTINCT are both locked in.`,
+        checkIn: {
+          prompt: "Which query lists each unique item ALONGSIDE its price, with item shown first?",
+          choices: [
+            "SELECT DISTINCT price, item FROM lunch_orders;",
+            "SELECT DISTINCT item, price FROM lunch_orders;",
+            "SELECT item, DISTINCT price FROM lunch_orders;",
+          ],
+          correctIndex: 1,
+          explanation: "DISTINCT sits right after SELECT, and listing item before price puts item first in the result — exactly what's needed here.",
         },
       },
       {

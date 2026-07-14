@@ -19,6 +19,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { QueryResult } from "@/lib/sqlRunner";
 import { cn } from "@/lib/utils";
 
+export type LessonModuleCheckIn = {
+  prompt: string;
+  choices: string[];
+  correctIndex: number;
+  explanation: string;
+};
+
 export type LessonModuleSection = {
   id: string;
   /** Small label shown above the title, e.g. "Real world". */
@@ -40,6 +47,11 @@ export type LessonModuleSection = {
   /** Example console / query output shown in a terminal-style block. */
   output?: string;
   callout?: { label: string; text: string };
+  /**
+   * Optional mid-lesson checkpoint. Learners must answer correctly before
+   * advancing — keeps reading from becoming a pure skim-through.
+   */
+  checkIn?: LessonModuleCheckIn;
 };
 
 export type LessonModuleData = {
@@ -92,13 +104,42 @@ export function LessonModule({
 }) {
   const sections = module.sections;
   const [index, setIndex] = React.useState(0);
+  const [maxReached, setMaxReached] = React.useState(0);
+  const [checkInDone, setCheckInDone] = React.useState<Record<string, boolean>>({});
+  const [checkInPick, setCheckInPick] = React.useState<Record<string, number>>({});
   const topRef = React.useRef<HTMLDivElement | null>(null);
   const section = sections[index];
   const isLast = index === sections.length - 1;
   const isFirst = index === 0;
 
+  const sectionCheckInClear = !section.checkIn || Boolean(checkInDone[section.id]);
+  const canAdvance = sectionCheckInClear;
+
   const goTo = (next: number) => {
-    setIndex(Math.max(0, Math.min(sections.length - 1, next)));
+    const clamped = Math.max(0, Math.min(sections.length - 1, next));
+    // Only allow jumping to sections already reached (no skipping ahead via dots).
+    if (clamped > maxReached) return;
+    setIndex(clamped);
+    topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const answerCheckIn = (choiceIndex: number) => {
+    if (!section.checkIn || checkInDone[section.id]) return;
+    setCheckInPick((prev) => ({ ...prev, [section.id]: choiceIndex }));
+    if (choiceIndex === section.checkIn.correctIndex) {
+      setCheckInDone((prev) => ({ ...prev, [section.id]: true }));
+    }
+  };
+
+  const goNext = () => {
+    if (!canAdvance) return;
+    if (isLast) {
+      onStart();
+      return;
+    }
+    const next = index + 1;
+    setMaxReached((m) => Math.max(m, next));
+    setIndex(next);
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -119,14 +160,15 @@ export function LessonModule({
                 key={s.id}
                 type="button"
                 aria-label={`Go to section ${i + 1}`}
+                disabled={i > maxReached}
                 onClick={() => goTo(i)}
                 className={cn(
                   "h-2.5 rounded-full transition-all",
                   i === index
                     ? "w-6 bg-[var(--brand)]"
-                    : i < index
+                    : i <= maxReached
                       ? "w-2.5 bg-[var(--brand)]/50"
-                      : "w-2.5 bg-slate-200"
+                      : "w-2.5 cursor-not-allowed bg-slate-200"
                 )}
               />
             ))}
@@ -217,6 +259,56 @@ export function LessonModule({
                   </div>
                 </div>
               ) : null}
+
+              {section.checkIn ? (
+                <div className="rounded-2xl border border-[var(--brand)]/25 bg-[var(--brand)]/5 p-4 sm:p-5">
+                  <p className="text-xs font-black uppercase tracking-wide text-[var(--brand-2)]">
+                    Quick check
+                  </p>
+                  <p className="mt-2 text-[16px] font-semibold leading-snug text-slate-900 sm:text-[17px]">
+                    {section.checkIn.prompt}
+                  </p>
+                  <div className="mt-3 grid gap-2">
+                    {section.checkIn.choices.map((choice, ci) => {
+                      const picked = checkInPick[section.id];
+                      const done = checkInDone[section.id];
+                      const isCorrect = ci === section.checkIn!.correctIndex;
+                      const isWrongPick = picked === ci && !isCorrect;
+                      return (
+                        <button
+                          key={ci}
+                          type="button"
+                          disabled={Boolean(done)}
+                          onClick={() => answerCheckIn(ci)}
+                          className={cn(
+                            "min-h-11 rounded-xl border px-3.5 py-2.5 text-left text-[15px] font-medium transition-colors sm:text-base",
+                            done && isCorrect
+                              ? "border-emerald-400 bg-emerald-50 text-emerald-950"
+                              : isWrongPick
+                                ? "border-rose-300 bg-rose-50 text-rose-900"
+                                : "border-slate-200 bg-white text-slate-800 hover:border-[var(--brand)]/40 hover:bg-white"
+                          )}
+                        >
+                          {choice}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {checkInDone[section.id] ? (
+                    <p className="mt-3 text-sm leading-relaxed text-emerald-900">
+                      {section.checkIn.explanation}
+                    </p>
+                  ) : pickedWrong(section, checkInPick) ? (
+                    <p className="mt-3 text-sm font-medium text-rose-800">
+                      Not quite — try another option.
+                    </p>
+                  ) : (
+                    <p className="mt-3 text-xs font-semibold text-slate-500">
+                      Answer to unlock Next.
+                    </p>
+                  )}
+                </div>
+              ) : null}
             </>
           );
 
@@ -240,7 +332,9 @@ export function LessonModule({
               {hasMedia ? (
                 <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
                   <div className="space-y-5 lg:order-1">{prose}</div>
-                  <div className="space-y-4 lg:order-2 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto">{media}</div>
+                  <div className="space-y-4 lg:order-2 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto">
+                    {media}
+                  </div>
                 </div>
               ) : (
                 <div className="mx-auto max-w-3xl space-y-5">{prose}</div>
@@ -263,6 +357,9 @@ export function LessonModule({
 
           <p className="order-first text-center text-xs font-semibold text-slate-500 sm:order-none">
             Section {index + 1} of {sections.length}
+            {sections.length >= 15 ? (
+              <span className="ml-1 font-medium text-slate-400">(slide)</span>
+            ) : null}
           </p>
 
           {isLast ? (
@@ -270,7 +367,8 @@ export function LessonModule({
               type="button"
               data-tour="lesson-module-start"
               className="min-h-11 w-full scroll-mb-28 shadow-sm sm:w-auto"
-              onClick={onStart}
+              onClick={goNext}
+              disabled={!canAdvance}
             >
               <Rocket className="h-4 w-4" />
               {startLabel}
@@ -280,7 +378,8 @@ export function LessonModule({
               type="button"
               data-tour="lesson-module-next"
               className="min-h-11 w-full scroll-mb-28 shadow-sm sm:w-auto"
-              onClick={() => goTo(index + 1)}
+              onClick={goNext}
+              disabled={!canAdvance}
             >
               Next
               <ArrowRight className="h-4 w-4" />
@@ -290,6 +389,16 @@ export function LessonModule({
       </CardContent>
     </Card>
   );
+}
+
+function pickedWrong(
+  section: LessonModuleSection,
+  checkInPick: Record<string, number>
+): boolean {
+  if (!section.checkIn) return false;
+  const pick = checkInPick[section.id];
+  if (pick === undefined) return false;
+  return pick !== section.checkIn.correctIndex;
 }
 
 /** Inline-only rich text for list items / callouts (no paragraph wrapping). */

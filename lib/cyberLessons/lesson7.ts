@@ -10,7 +10,7 @@ export const cyberLesson7: AILessonConfig = {
   prevHref: "/learn/cyber/6",
   nextHref: "/learn/cyber/8",
   lessonModule: {
-    durationLabel: "~10–12 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,14 +18,24 @@ export const cyberLesson7: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-7.png",
         imageAlt: "Home router, laptop, and phone on a desk with simple LAN cables suggesting a network",
-        body: `Cyber defenders don't just think about passwords — they think about **paths**. Data travels through networks, and every hop is a place something can be protected… or exposed.\n\nHere's our roadmap:\n\n• **IP addresses** — numerical addresses for devices on a network.\n• **Routers** — devices that forward traffic between networks.\n• **LAN vs WAN** — local networks vs wide-area networks.\n• **DNS** — how human-friendly names become addresses.\n• **Ports** — numbered doorways to services on a device.\n• **Client-server** — who asks and who answers.\n• **Why defenders care** — spotting where risk lives along the path.\n\nThis is awareness for high-school cyber — not a networking engineering lab or attack guide.`,
+        body: `Cyber defenders don't just think about passwords — they think about **paths**. Data travels through networks, and every hop is a place something can be protected… or exposed.\n\nHere's our roadmap:\n\n• **IP addresses** — numerical addresses for devices on a network.\n• **Routers** — devices that forward traffic between networks.\n• **LAN vs WAN** — local networks vs wide-area networks.\n• **DNS** — how human-friendly names become addresses.\n• **Ports** — numbered doorways to services on a device.\n• **Client-server** — who asks and who answers.\n• **A worked example, a myth, and a mini case** — practicing the path model on realistic \"why won't this load?\" moments.\n• **Why defenders care** — spotting where risk lives along the path.\n\nThis is awareness for high-school cyber — not a networking engineering lab or attack guide.`,
         callout: {
           label: "Why it matters",
           text: "When a site won't load or a scam link looks weird, networking basics help you ask better questions: DNS? path? local Wi-Fi? remote service?",
         },
       },
       {
-        id: "words",
+        id: "hook-story",
+        kicker: "A quick story",
+        title: "The library Wi-Fi that \"isn't working\"",
+        body: `During a study session at the public library, Nate's laptop shows full Wi-Fi bars, but nothing will load — not the school portal, not search, nothing. He tells the librarian "the internet is down," and she says, a little too calmly, "Try typing a raw address instead of the name and see what happens."\n\nNate tries it — and a page actually loads when he types a numeric address directly, even though typing the normal website name still fails completely. That's strange: if the internet were truly "down," *nothing* should load, numeric address or not.\n\nBy the end of this lesson, you'll be able to explain exactly why Nate's laptop could reach a numeric address but not a name — and why that specific pattern points defenders toward one particular part of the network path, rather than a total outage.`,
+        callout: {
+          label: "Notice",
+          text: "\"The internet is down\" is often imprecise. Nate's situation was actually a specific, narrower problem — and naming it correctly is the whole point of this lesson.",
+        },
+      },
+      {
+        id: "glossary",
         kicker: "Let's break down the words",
         title: "Network words in plain English",
         body: `• **Network** — connected devices that can exchange data.\n• **IP address** — a numeric label that helps identify a device on a network (like a street address for packets).\n• **Router** — a device that directs traffic between networks (home Wi-Fi to the internet, for example).\n• **LAN (Local Area Network)** — a network in a limited area like a home, classroom, or school building.\n• **WAN (Wide Area Network)** — a network spanning larger distances; the internet is the largest WAN most people use.\n• **DNS (Domain Name System)** — the internet's phonebook that maps names like \`example.com\` to IP addresses.\n• **Port** — a number that helps a computer deliver traffic to the right service (web, email, remote admin, etc.).\n• **Client / Server** — the requester and the responder in many network conversations.`,
@@ -35,7 +45,7 @@ export const cyberLesson7: AILessonConfig = {
         },
       },
       {
-        id: "ip-router-lan-wan",
+        id: "concept-1",
         kicker: "Addresses and neighborhoods",
         title: "IP addresses, routers, LAN vs WAN",
         image: "/images/lessons/cs-7-2.png",
@@ -50,19 +60,38 @@ export const cyberLesson7: AILessonConfig = {
           label: "Watch out",
           text: "Public café Wi-Fi is a LAN you share with strangers. Treat sensitive logins carefully — prefer trusted networks and MFA-backed accounts.",
         },
+        checkIn: {
+          prompt: "Nate's laptop was connected to the library's Wi-Fi. That Wi-Fi network itself is best described as a:",
+          choices: ["WAN", "LAN", "DNS server", "Port"],
+          correctIndex: 1,
+          explanation:
+            "The library's local Wi-Fi network is a LAN — a network limited to that building, connected to the wider internet (WAN) through a router.",
+        },
       },
       {
-        id: "dns",
+        id: "concept-2",
         kicker: "The phonebook",
         title: "DNS turns names into numbers",
-        body: `Humans remember names. Computers route with numbers. **DNS (Domain Name System)** translates a domain name you type into an IP address a computer can contact.\n\nConceptual flow:\n1. You enter a website name in a browser.\n2. Your device asks DNS (through configured resolvers) for the matching IP.\n3. With the IP, your device can request the page from a server.\n\n**DNS triage tip:** If users can open sites by **raw IP** but **not by name**, and basic connectivity (like ping to a known address) still works, suspect **DNS / name resolution** first — not the firewall for web traffic. Check resolver settings and **resolver logs** briefly after a fix to confirm recovery.\n\nWhy defenders care about DNS:\n• If DNS is wrong or tampered with, you might be sent to the **wrong** IP even though the name looks familiar — a confidentiality and integrity risk.\n• Phishing sites often use lookalike domain names; reading the name carefully still matters before you trust a page.\n• Outages labeled \"the internet is down\" are sometimes really \"DNS isn't resolving names,\" while raw connectivity partially works.\n\nYou won't configure enterprise DNS here. You'll recognize that **name → address translation is a trust point** on the path.`,
+        body: `Humans remember names. Computers route with numbers. **DNS (Domain Name System)** translates a domain name you type into an IP address a computer can contact.\n\nConceptual flow:\n1. You enter a website name in a browser.\n2. Your device asks DNS (through configured resolvers) for the matching IP.\n3. With the IP, your device can request the page from a server.\n\n**DNS triage tip:** If users can open sites by **raw IP** but **not by name**, and basic connectivity (like ping to a known address) still works, suspect **DNS / name resolution** first — not the firewall for web traffic. Check resolver settings and **resolver logs** briefly after a fix to confirm recovery.\n\nWhy defenders care about DNS:\n• If DNS is wrong or tampered with, you might be sent to the **wrong** IP even though the name looks familiar — a confidentiality and integrity risk.\n• Phishing sites often use lookalike domain names; reading the name carefully still matters before you trust a page.\n• Outages labeled "the internet is down" are sometimes really "DNS isn't resolving names," while raw connectivity partially works.\n\nYou won't configure enterprise DNS here. You'll recognize that **name → address translation is a trust point** on the path.`,
         callout: {
           label: "Why it matters",
           text: "A perfect password doesn't help if you typed the right-looking name and landed on an impostor site. DNS and domain names are part of authentication in the real world — \"am I talking to who I think I am?\"",
         },
+        checkIn: {
+          prompt: "Nate could load a page using a raw numeric address but not by typing the website's name. What does that pattern most strongly suggest?",
+          choices: [
+            "A total internet outage with nothing reachable at all",
+            "A likely DNS / name-resolution problem, since raw connectivity still worked",
+            "A broken keyboard",
+            "A firewall blocking every single website",
+          ],
+          correctIndex: 1,
+          explanation:
+            "\"IP works, name fails\" is the classic DNS triage signal — the network path is fine, but name-to-address translation isn't completing.",
+        },
       },
       {
-        id: "ports-client-server",
+        id: "concept-3",
         kicker: "Services and conversations",
         title: "Ports and client-server (concept level)",
         body: `A single device can run many services. **Ports** are numbered endpoints that help sort traffic to the right service — think apartment numbers inside a building address.\n\nAwareness examples (not a config lab):\n• Web traffic commonly uses ports associated with HTTP/HTTPS (you'll see **80** and **443** called out next lesson).\n• Remote administration services use other well-known ports (you'll hear **22** discussed as something defenders pay attention to — not something to expose casually).\n\n**Client-server** roles:\n• Your laptop browser is often the **client** (asks).\n• The website's computer is the **server** (answers).\nMany apps hide this, but the pattern is everywhere: game client ↔ game server, email app ↔ mail server.\n\nDefenders care which services are listening on which ports because each open service is a potential doorway that must be authenticated, authorized, updated, and monitored.`,
@@ -70,14 +99,59 @@ export const cyberLesson7: AILessonConfig = {
           label: "Common misconception",
           text: "\"Ports\" are not physical holes in your laptop. They're software numbers used in networking. Closing risk is about controlling which services are exposed — often via firewalls (next lesson).",
         },
+        checkIn: {
+          prompt: "When Nate's browser requests a web page from a library server, which role does his browser play?",
+          choices: ["Server", "Client", "Router", "DNS resolver"],
+          correctIndex: 1,
+          explanation:
+            "The browser is the client — it initiates the request. The remote website's computer is the server that responds.",
+        },
       },
       {
-        id: "defender-paths",
+        id: "worked-example",
+        kicker: "Step by step",
+        title: "Diagnosing Nate's library Wi-Fi like a defender",
+        body: `Let's formally walk through Nate's situation using the path model.\n\n**Step 1 — Confirm the symptom.** Full Wi-Fi bars (LAN connection looks fine), typed website name fails, but a raw numeric IP address loads successfully.\n\n**Step 2 — Rule out total outage.** If nothing at all loaded — not even a raw IP — that would suggest a deeper path or connectivity issue (LAN, router, or the WAN link itself). That's not what happened here.\n\n**Step 3 — Apply the DNS triage rule.** "IP works, name fails" points squarely at **DNS / name resolution** — the library's resolver isn't successfully translating names to addresses, even though the rest of the path (LAN → router → WAN → server) is working.\n\n**Step 4 — Recommend next steps.** IT staff would check the library's configured DNS resolver settings, and briefly review resolver logs after any fix to confirm names start resolving again.\n\n**Step 5 — Communicate clearly.** Instead of telling the librarian "the internet is down," Nate can now say: "It looks like a DNS issue — I can reach sites by IP address but not by name." That sentence alone would likely save an IT staffer real troubleshooting time.\n\nThis is the core defender skill of this lesson: turning a vague complaint into a specific, path-based diagnosis.`,
+        checkIn: {
+          prompt: "Why does Step 2 (ruling out total outage) matter before jumping to a DNS conclusion?",
+          choices: [
+            "It doesn't matter — you should always assume DNS first",
+            "Because if raw IPs also failed to load, the problem would more likely be earlier in the path (LAN/router/WAN), not DNS specifically",
+            "Because DNS problems always mean the router is broken",
+            "Because total outages are impossible on library Wi-Fi",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Confirming that at least raw connectivity works helps narrow the problem specifically to name resolution, rather than a broader path failure.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: "\"Wi-Fi bars mean the internet works\"",
+        body: `Full Wi-Fi signal bars only tell you that your device has a good local radio connection to the **access point** — the very first hop in a much longer path. They say nothing about whether the router is working, whether the WAN connection beyond it is up, or whether DNS is resolving names correctly.\n\nThis is exactly why Nate's situation felt confusing: strong bars, but broken names. The bars measured the LAN connection, which was fine. The actual problem was further along the path, at the DNS step.\n\nThe accurate mental model: connectivity is a **chain of hops** (device → LAN → router → WAN → DNS → server), and any single hop can fail while the others work perfectly. "Full bars" only confirms the very first link in that chain.`,
+        callout: {
+          label: "Reframe it",
+          text: "Instead of \"my Wi-Fi bars are full, so the problem must be the website,\" try: \"my Wi-Fi bars only tell me about the first hop — let me check where in the path things actually break.\"",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Your turn",
+        title: "Try it yourself: narrate a connectivity failure",
+        body: `Think of a real time something "wouldn't connect" for you — a game that couldn't reach its server, a video call that failed, a site that wouldn't load.\n\nUsing this lesson's vocabulary, narrate what likely happened, step by step:\n\n1. **Device** — was your device itself connected to Wi-Fi/LAN at all?\n2. **Router** — did other devices on the same network also have trouble, suggesting a router-level issue?\n3. **WAN** — could you reach *some* things but not others, suggesting the problem was further out?\n4. **DNS** — did names fail while raw addresses (if you could test) might have worked?\n5. **Server** — could the *specific* remote service have been down, unrelated to your network at all?\n\nYou probably can't run a full diagnostic without more information — but just naming a plausible hop, instead of saying "the internet was broken," is the actual skill this lesson is building.`,
+        callout: {
+          label: "Keep it real",
+          text: "If you genuinely don't know which hop failed, that's fine — \"probably the router or the remote server, not my device\" is still a much more useful statement than \"everything was broken.\"",
+        },
+      },
+      {
+        id: "deeper-skill",
         kicker: "Think like a scout",
-        title: "Why defenders map network paths",
-        image: "/images/lessons/cs-7-3.png",
-        imageAlt: "Whiteboard sketch of packets traveling client to DNS to server with defender checkpoints",
-        body: `Put the pieces together into a defender's mental model:\n\n**Device (client)** → **LAN / Wi-Fi** → **Router** → **NAT / firewalls** → **Internet (WAN)** → **DNS lookup** → **Server** on an **IP:port** → response packets back.\n\nQuestions defenders ask along that path:\n• Are we on a trusted network?\n• Is the domain legitimate?\n• Is the service supposed to be reachable from here?\n• Is traffic protected in transit when it needs to be?\n• Do **logs at hops** show strange clients talking to strange ports?\n\n**VPN awareness:** A **VPN** protects the tunnel between you and the VPN endpoint — it does **not** automatically make every website trustworthy. You still need HTTPS, careful domain checks, and MFA. A VPN on café Wi-Fi helps; trusting a sketchy download site because \"I'm on VPN\" does not.\n\nYou don't need to run offensive scans. You need to understand that **security controls exist at multiple hops** — passwords on accounts, permissions on servers, filters on firewalls, updates on software, and user judgment on phishing links.\n\nNetworking literacy turns \"it broke\" into \"the failure might be local Wi-Fi, DNS, the remote server, or something in between.\"`,
+        title: "Going deeper: why defenders map network paths",
+        image: "/images/lessons/cs-7-4.png",
+        imageAlt: "Whiteboard sketch of packets traveling client to DNS to server with defender checkpoints and a VPN tunnel icon",
+        body: `Put the pieces together into a defender's mental model:\n\n**Device (client)** → **LAN / Wi-Fi** → **Router** → **NAT / firewalls** → **Internet (WAN)** → **DNS lookup** → **Server** on an **IP:port** → response packets back.\n\nQuestions defenders ask along that path:\n• Are we on a trusted network?\n• Is the domain legitimate?\n• Is the service supposed to be reachable from here?\n• Is traffic protected in transit when it needs to be?\n• Do **logs at hops** show strange clients talking to strange ports?\n\n**VPN awareness:** A **VPN** protects the tunnel between you and the VPN endpoint — it does **not** automatically make every website trustworthy. You still need HTTPS, careful domain checks, and MFA. A VPN on café Wi-Fi helps; trusting a sketchy download site because "I'm on VPN" does not.\n\nYou don't need to run offensive scans. You need to understand that **security controls exist at multiple hops** — passwords on accounts, permissions on servers, filters on firewalls, updates on software, and user judgment on phishing links.\n\nNetworking literacy turns "it broke" into "the failure might be local Wi-Fi, DNS, the remote server, or something in between."`,
         bullets: [
           "Map the path: client → LAN → router → WAN → server.",
           "DNS is a trust and availability point.",
@@ -90,10 +164,90 @@ export const cyberLesson7: AILessonConfig = {
         },
       },
       {
+        id: "comparison",
+        kicker: "Side by side",
+        title: "Comparing LAN, WAN, and VPN scope",
+        body: `These three terms are easy to blur together — a quick comparison of what each one actually covers:\n\n• **LAN** — a network limited to one physical area (a home, a library, a school building). Devices on the same LAN can often reach each other directly.\n• **WAN** — a network spanning wide distances, connecting many separate LANs together; the internet is the largest example most people use daily.\n• **VPN** — not a physical network at all, but an encrypted **tunnel** layered on top of whatever network you're actually using (LAN or WAN). It protects the connection between you and the VPN's endpoint, but the destination website is still just as trustworthy (or untrustworthy) as it was before.\n\nThe key distinction: LAN and WAN describe *where* a network physically/logically reaches. A VPN describes *how protected* your traffic is along part of that path — it doesn't erase the LAN/WAN structure underneath it.`,
+        checkIn: {
+          prompt: "Which statement correctly describes what a VPN actually protects?",
+          choices: [
+            "It makes every website you visit automatically trustworthy",
+            "It protects the tunnel between your device and the VPN endpoint, but doesn't guarantee the destination site is safe",
+            "It replaces the need for DNS entirely",
+            "It converts a WAN into a LAN",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A VPN encrypts and protects your connection to its endpoint. You still need HTTPS, domain checks, and good judgment about the destination itself.",
+        },
+      },
+      {
+        id: "defender-trap-or-myth",
+        kicker: "Don't fall for this",
+        title: "The trap: \"I'm on a VPN, so this download is safe\"",
+        body: `A dangerous trap that mixes up two different kinds of protection: confusing "my connection is encrypted" with "the thing I'm downloading is trustworthy."\n\nImagine someone on a VPN downloading a "free" tool from an unfamiliar site (echoing the malware lesson's story). The VPN genuinely does protect that traffic from casual eavesdropping on the local network — but it says absolutely nothing about whether the file itself is safe, or whether the site is run by someone trustworthy.\n\nThe trap works because VPN branding often uses words like "secure" and "protected," which can bleed into a general feeling of "I'm safe now" that doesn't actually apply to every kind of risk.\n\nThe fix: keep VPN protection and destination trustworthiness as two completely separate questions. A VPN answers "is my connection to this endpoint protected from eavesdropping?" It does not answer "should I trust this website or download?"`,
+        callout: {
+          label: "Watch out",
+          text: "\"I'm on VPN\" is a reasonable answer to \"is my café Wi-Fi traffic protected?\" It is not a reasonable answer to \"should I trust this random download site?\"",
+        },
+      },
+      {
+        id: "habits",
+        kicker: "Bring it together",
+        title: "Habits that build networking literacy",
+        body: `Practical habits from today's lesson:\n\n• **Narrate the path** when something fails to load, instead of saying "the internet is broken."\n• **Try a raw IP address** (when reasonable) to check whether the issue is DNS-specific vs. a broader outage.\n• **Treat VPN and destination trust as separate questions** — a VPN protects the tunnel, not the website at the other end.\n• **Read domain names carefully**, since DNS and lookalike domains are trust points attackers target.\n• **Report clearly** — "IP works, name fails" is far more useful to IT than "nothing works."\n\nYou don't need to become a network engineer. You need enough vocabulary to describe problems precisely — which is exactly what turns you from someone who says "it's broken" into someone defenders can actually work with.`,
+        callout: {
+          label: "Why it matters",
+          text: "Clear, path-aware descriptions of a problem often get it solved faster than any technical fix you could attempt yourself.",
+        },
+      },
+      {
+        id: "standards-connect",
+        kicker: "Where this fits",
+        title: "How this connects to real standards",
+        body: `This lesson is a close match for a specific, well-known standard:\n\n• **CSTA 3A-NI-04** (Networks and the Internet) asks students to evaluate the scalability and reliability of networks by describing the relationship between routers, switches, servers, topology, and addressing — essentially the entire client → LAN → router → WAN → DNS → server model you built today.\n• **ISTE Computational Thinker (1.5c)** asks students to break problems into component parts and develop descriptive models — exactly what you did by breaking "the internet is down" into distinct, testable hops.\n\nThis lesson may feel more technical than others in the track, but the underlying skill — decomposing a vague complaint into a structured model with distinct parts — is a core computational thinking skill that transfers well beyond networking.`,
+        callout: {
+          label: "Why it matters",
+          text: "Being able to say \"it's probably DNS, not the router\" instead of \"everything is broken\" is a genuinely valuable, transferable troubleshooting skill.",
+        },
+      },
+      {
+        id: "reflection-prompt",
+        kicker: "Pause and reflect",
+        title: "Quick gut-check before you continue",
+        body: `Before the mini case and knowledge check: the next time something "won't connect" for you, will you default back to "the internet is down," or will you try narrating the path — device, LAN, router, WAN, DNS, server — the way Nate eventually did? No need to answer out loud, just notice your honest instinct.`,
+      },
+      {
+        id: "mini-case",
+        kicker: "Case file",
+        title: "Mini case: the school-wide \"outage\" that wasn't",
+        image: "/images/lessons/cs-7-5.png",
+        imageAlt: "School IT helpdesk screen showing a DNS resolver status alert while some sites still load by IP address",
+        body: `**The situation:** One Tuesday morning, students across the school report that "the whole internet is down." The help desk is flooded with tickets. But a closer look reveals something odd: students can still successfully join video calls that were already running, and one tech-savvy teacher notices that typing a raw IP address for the school's own file server still works — while typing almost any website name fails.\n\n**Apply what you've learned:**\n\n• **Symptom pattern:** "Raw IP works, names fail" is the exact DNS triage signal from this lesson — not a full network or WAN outage.\n• **Why some things still worked:** Already-connected video calls didn't need a fresh name lookup mid-call, which is why they kept running even as new name-based connections failed.\n• **Root cause (likely):** The school's DNS resolver service had an issue — possibly overloaded, misconfigured, or temporarily unreachable — while the LAN, router, and WAN connection to the internet were otherwise fine.\n• **Fix and confirmation:** IT restarts or reconfigures the DNS resolver, then checks resolver logs briefly afterward to confirm that name lookups are succeeding again before declaring the issue resolved.\n\nThis case shows why "everything is down" tickets are often less specific — and less accurate — than a report like "sites load by IP but not by name," which points defenders straight to the right hop.`,
+      },
+      {
+        id: "check-yourself",
+        kicker: "Before you go",
+        title: "Check yourself",
+        body: `Quick self-check: can you list the path from device to server in order (device → LAN → router → WAN → DNS → server)? Can you explain why "raw IP works, name fails" points to DNS specifically? If yes, you're ready for the knowledge check.`,
+        checkIn: {
+          prompt: "In the mini case, why did already-connected video calls keep working during the DNS issue, while new website visits failed?",
+          choices: [
+            "Video calls don't use the internet at all",
+            "Already-established connections didn't need a fresh DNS name lookup, while new connections to named sites did",
+            "Video calls are immune to all network problems",
+            "The router was completely offline for everyone",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Once a connection is already established, it typically doesn't need to re-resolve a domain name — which is why existing calls survived while new name-based lookups failed.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **IP addresses** locate devices; **private IPs** (192.168.x.x) stay local, not globally routable.\n• **Routers**, **NAT**, and **firewalls** connect and filter between networks.\n• **LAN** is local; **WAN** spans wide areas (internet).\n• **DNS** maps names to IPs — IP works but names fail → check DNS and resolver logs.\n• **VPN** protects the tunnel, not destination trustworthiness.\n• **Ports** target services; **clients** ask and **servers** answer.\n• Defenders care about the whole **path** and **logs at hops**.\n\nNext: firewalls, common ports as awareness, secure defaults, and simple segmentation.\n\nTake the **Knowledge check**, then reflect on a time a network path failed in your life.`,
+        body: `Quick recap:\n\n• **IP addresses** locate devices; **private IPs** (192.168.x.x) stay local, not globally routable.\n• **Routers**, **NAT**, and **firewalls** connect and filter between networks.\n• **LAN** is local; **WAN** spans wide areas (internet).\n• **DNS** maps names to IPs — IP works but names fail → check DNS and resolver logs.\n• **VPN** protects the tunnel, not destination trustworthiness — keep those two questions separate.\n• **Ports** target services; **clients** ask and **servers** answer.\n• Defenders care about the whole **path** and **logs at hops**, and narrate failures precisely instead of saying \"it's all broken.\"\n\nNext: firewalls, common ports as awareness, secure defaults, and simple segmentation.\n\nTake the **Knowledge check**, then reflect on a time a network path failed in your life.`,
       },
     ],
   },
@@ -181,6 +335,45 @@ export const cyberLesson7: AILessonConfig = {
       correctIndex: 1,
       explanation:
         "Ports identify services. Exposed services need updates, access control, and often firewall filtering.",
+    },
+    {
+      id: "q6",
+      question: "A device can load a website by typing its raw IP address, but not by typing its name. What should a defender suspect first?",
+      choices: [
+        "A totally dead network connection",
+        "A DNS / name-resolution problem",
+        "A broken keyboard",
+        "A hardware failure in the monitor",
+      ],
+      correctIndex: 1,
+      explanation:
+        "\"IP works, name fails\" is the classic signal that DNS resolution — not general connectivity — is the likely problem.",
+    },
+    {
+      id: "q7",
+      question: "Why doesn't using a VPN automatically make a sketchy download site trustworthy?",
+      choices: [
+        "A VPN protects the tunnel to its endpoint, but says nothing about the trustworthiness of the destination site or file",
+        "VPNs always block downloads entirely",
+        "VPNs remove the need for HTTPS and careful judgment",
+        "VPNs only work on LANs, not WANs",
+      ],
+      correctIndex: 0,
+      explanation:
+        "VPN protection and destination trustworthiness are separate questions — a VPN doesn't vet the site or file at the other end.",
+    },
+    {
+      id: "q8",
+      question: "Why does CSTA's Networks and the Internet standard emphasize describing the relationship between routers, servers, topology, and addressing, rather than just defining each term separately?",
+      choices: [
+        "Because isolated definitions are more useful than understanding how the pieces connect",
+        "Because real troubleshooting requires understanding how the pieces work together as a path, so you can localize where a failure actually occurred",
+        "Because networking terms never relate to each other in practice",
+        "Because this only matters for professional network engineers",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Modeling the relationships between network components — as a path — is what lets you localize a problem (like DNS vs. router vs. server) instead of just labeling everything \"broken.\"",
     },
   ],
   reflection: {

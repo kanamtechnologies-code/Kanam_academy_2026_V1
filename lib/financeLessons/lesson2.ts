@@ -3,14 +3,14 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const financeLesson2: AILessonConfig = {
   id: "fl-2",
   title: "2. Needs, Wants & Tradeoffs",
-  goal: "Tell needs from wants in everyday teen decisions, explain opportunity cost, and practice delayed gratification without pretending wants are \"bad.\"",
+  goal: "Tell needs from wants in everyday teen decisions, explain opportunity cost, spot advertising's influence, and practice delayed gratification without pretending wants are \"bad.\"",
   xpReward: 100,
   badge: "Tradeoff Thinker",
   dashboardHref: "/dashboard",
   prevHref: "/learn/finance/1",
   nextHref: "/learn/finance/3",
   lessonModule: {
-    durationLabel: "~10–12 min lesson",
+    durationLabel: "~20–25 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,17 +18,27 @@ export const financeLesson2: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/fl-2.png",
         imageAlt: "Teen comparing a grocery receipt and a takeout bag on a kitchen counter, deciding what to buy",
-        body: `Every dollar you spend is a choice — even when it feels automatic. Today you'll practice seeing those choices clearly: what's a **need**, what's a **want**, what you give up when you pick one option (**opportunity cost**), and how waiting can change the deal.\n\nHere's our roadmap:\n\n• **Needs vs. wants** — and why the line can blur.\n• **Tradeoffs** — you rarely get everything at once.\n• **Opportunity cost** — the real price of \"yes.\"\n• **Values again** — same paycheck, different choices.\n• **Delayed gratification** — waiting on purpose, not forever.\n\nThis is not about shaming fun. It's about making tradeoffs visible so you stay in control.`,
+        body: `Every dollar you spend is a choice — even when it feels automatic. Today you'll practice seeing those choices clearly: what's a **need**, what's a **want**, what you give up when you pick one option (**opportunity cost**), and how advertising quietly nudges which one feels more urgent.\n\nHere's our roadmap:\n\n• **Needs vs. wants** — and why the line can blur.\n• **Tradeoffs** — you rarely get everything at once.\n• **Opportunity cost** — the real price of \"yes.\"\n• **A worked example** — putting a number on what you gave up.\n• **A common myth** — busted, about sales and \"free\" savings.\n• **Advertising's influence** — how marketing rebrands wants as needs.\n• **A full case study** — practice deciding like a real person.\n\nThis is not about shaming fun. It's about making tradeoffs visible so you stay in control.`,
         callout: {
           label: "Why it matters",
           text: "People who can name the tradeoff before they spend are less likely to feel regret later — and more likely to fund the goals they said mattered.",
         },
       },
       {
+        id: "hook",
+        kicker: "Real talk",
+        title: "The sneaker drop at 11:58 p.m.",
+        body: `Two minutes before a limited sneaker drop, Marcus is staring at his phone. The countdown timer is red. A push notification says **\"Only a few pairs left — don't miss out.\"** His stomach tightens a little, even though thirty minutes ago he wasn't thinking about sneakers at all.\n\nHe has $85. Rent for his car insurance payment (his parents split it with him) is due in four days and costs $60. The sneakers are $80.\n\nNothing about the countdown timer knows anything about Marcus's insurance payment. It's not designed to. It's designed to make "later" feel like "too late." That gap — between what a timer wants you to feel and what your actual situation requires — is exactly what this lesson is about.`,
+        callout: {
+          label: "Keep this in mind",
+          text: "We'll come back to timers, drops, and \"limited stock\" messaging later in this lesson — with a name for what they're doing to your brain.",
+        },
+      },
+      {
         id: "words",
         kicker: "Let's break down the words",
         title: "A quick plain-English glossary",
-        body: `Core words for this lesson:\n\n• A **need** is something required for health, safety, or basic functioning in your situation (food, shelter, required school fees, gas to get to work).\n• A **want** is something you'd like but could live without for now (newest sneakers, extra streaming, upgrade snacks).\n• A **tradeoff** is giving up one option to get another.\n• **Opportunity cost** is the next-best thing you give up when you choose.\n• **Delayed gratification** means waiting for a better or more important result instead of grabbing the immediate reward.\n\nNeeds and wants can shift with context — that's normal. The skill is noticing which is which *for this decision*.`,
+        body: `Core words for this lesson:\n\n• A **need** is something required for health, safety, or basic functioning in your situation (food, shelter, required school fees, gas to get to work).\n• A **want** is something you'd like but could live without for now (newest sneakers, extra streaming, upgrade snacks).\n• A **tradeoff** is giving up one option to get another.\n• **Opportunity cost** is the next-best thing you give up when you choose.\n• **Delayed gratification** means waiting for a better or more important result instead of grabbing the immediate reward.\n• **Advertising influence** is the effect marketing has on making a want feel urgent or necessary.\n• **Scarcity marketing** is a tactic that uses limited time or limited stock to pressure a fast decision.\n\nNeeds and wants can shift with context — that's normal. The skill is noticing which is which *for this decision*.`,
         callout: {
           label: "Pro tip",
           text: "Ask: \"What happens if I wait two weeks?\" If life still works, it was probably closer to a want than a need.",
@@ -50,6 +60,18 @@ export const financeLesson2: AILessonConfig = {
           label: "Watch out",
           text: "Marketing loves to rebrand wants as needs (\"You deserve this\"). Pause and ask whether skipping it actually harms health, safety, or required responsibilities.",
         },
+        checkIn: {
+          prompt: "In this lesson, a basic phone plan for getting to work safely leans toward which label?",
+          choices: [
+            "A want — all phones are optional upgrades",
+            "A need — it supports basic functioning in your situation",
+            "Neither — needs and wants don't apply to teens",
+            "A need only if it's the newest flagship model",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A functional phone plan for work and safety is closer to a need; the newest flagship upgrade is usually the want.",
+        },
       },
       {
         id: "tradeoffs",
@@ -59,6 +81,18 @@ export const financeLesson2: AILessonConfig = {
         callout: {
           label: "Why it matters",
           text: "Learning the tradeoff habit now prepares you for bigger decisions later — a used car, college, your first apartment.",
+        },
+        checkIn: {
+          prompt: "What is the best description of a tradeoff?",
+          choices: [
+            "A sign that you failed at budgeting",
+            "Giving up one option in order to get another, because resources are limited",
+            "Something that only happens to people with low income",
+            "A type of bank fee",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Tradeoffs are a normal result of limited money, time, and energy — not a personal failure.",
         },
       },
       {
@@ -77,6 +111,78 @@ export const financeLesson2: AILessonConfig = {
           label: "Pro tip",
           text: "Say the tradeoff in one sentence before you buy: \"If I get this, I'm choosing it instead of ___.\" If that sentence stings, reconsider.",
         },
+        checkIn: {
+          prompt: "You spend $60 on a new game instead of adding $60 to your car fund. What is the opportunity cost?",
+          choices: [
+            "Only the fun you have playing the game",
+            "The next-best use of that $60 — progress toward the car fund",
+            "Zero, because the game was on sale",
+            "Whatever your friends spent that weekend",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Opportunity cost is the next-best alternative you gave up — here, $60 toward your car fund.",
+        },
+      },
+      {
+        id: "worked-example",
+        kicker: "Do the math",
+        title: "Putting a number on \"what I gave up\"",
+        body: `Opportunity cost is easier to feel once you actually calculate it. Try this with a real decision.\n\n**The choice:** Spend **$45** on a concert ticket this weekend, or add it to a car fund that needs **$450** more.\n\n**Step 1 — Frame the alternative.** $45 toward the car fund would be **10%** of what's still needed ($45 ÷ $450).\n\n**Step 2 — Convert to time.** If you save about $60 a month toward the car fund, $45 is roughly **3 weeks** of progress.\n\n**Step 3 — Name it plainly.** \"Buying this ticket costs me about three weeks of car-fund progress.\"\n\n**Step 4 — Decide with the real number in front of you.** Maybe three weeks is worth it for this specific concert. Maybe it isn't. Either answer can be correct — the point is that you're deciding with the actual cost visible, not guessing.\n\nThis is the same math you'll use for bigger decisions later: rent versus roommates, a car payment versus a bus pass, a semester of full-time work versus part-time plus classes.`,
+        callout: {
+          label: "Try this",
+          text: "Next time you're deciding on a $20+ purchase, convert it into \"weeks of progress\" on a goal you're funding. The number often changes the decision.",
+        },
+      },
+      {
+        id: "misconception",
+        kicker: "Myth, busted",
+        title: "\"It's on sale, so it's basically free money saved\"",
+        body: `A common myth: if something is 40% off, buying it \"saves\" you money. But you only save money compared to *not buying it at all* if you were already planning to buy it at full price. If you weren't planning to buy it, a sale doesn't save you anything — it just moves money out of your account that would have stayed there.\n\nA $50 item at 40% off costs $30. That's real money leaving your account — not $20 magically appearing in your savings. The opportunity cost of that $30 is exactly the same as any other $30 purchase: whatever else that $30 could have funded.\n\nSales can be genuinely useful when they're for something you already needed. The myth breaks when \"it's a good deal\" becomes the *reason* to buy something you weren't planning to buy.`,
+        callout: {
+          label: "Watch out",
+          text: "\"You saved $20!\" messaging is designed to make spending feel like winning. Ask: would I have bought this anyway, at any price? If not, there's no savings — just spending.",
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it",
+        title: "Practice: label it and name the cost",
+        body: `Priya has $70. A limited-time flash sale email just landed for a $65 jacket she's never mentioned wanting before. She also has a $40 field trip fee due in two weeks that her family expects her to help cover.\n\nWork through it in your head: Is the jacket closer to a need or a want? What's the opportunity cost if she buys it? What happens to the field trip fee?`,
+        checkIn: {
+          prompt: "What's the strongest read of Priya's situation?",
+          choices: [
+            "The jacket is a need because it's on sale right now",
+            "The jacket is a want, and buying it would put the required field trip fee at risk — that's the opportunity cost",
+            "There's no tradeoff since both items are affordable individually",
+            "Sales always outrank required fees",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A sale doesn't change whether something is a need. Since the jacket was never a stated priority and the field trip fee is required and due soon, buying the jacket risks not covering the fee — that's the real opportunity cost.",
+        },
+      },
+      {
+        id: "advertising",
+        kicker: "Spot the nudge",
+        title: "How advertising turns wants into \"needs\"",
+        image: "/images/lessons/fl-2-4.png",
+        imageAlt: "Phone screen showing a flash-sale countdown timer and limited stock warning next to a shopping cart",
+        body: `Advertising's job is to make a want feel urgent, necessary, or identity-defining. That's not automatically evil — it's how the ad is designed to work. Recognizing the tactic doesn't mean you can never enjoy a product; it means you get to decide with clear eyes instead of on autopilot.\n\nCommon tactics to recognize:\n\n• **Scarcity** — \"only 3 left,\" countdown timers, \"drops tonight only.\" Designed to create urgency that skips your normal decision process.\n• **Social proof** — \"everyone's wearing this,\" influencer hauls. Designed to make a want feel like a requirement to fit in.\n• **\"You deserve this\" framing** — reframes a want as something you're owed, especially after a hard week.\n• **Anchoring** — showing a crossed-out \"original price\" to make the sale price feel like a steal, even if the original price was inflated.\n\nThe fix isn't cynicism about every ad. It's a pause: \"Would I want this if there were no timer, no influencer, and no crossed-out price?\"`,
+        callout: {
+          label: "Pro tip",
+          text: "If an ad is working on you, you'll feel a small urgency spike. That feeling is useful information — it means it's a good moment to slow down, not speed up.",
+        },
+      },
+      {
+        id: "comparison",
+        kicker: "Compare",
+        title: "Two responses to a flash sale",
+        body: `Same flash sale, two different responses — and very different results over a year.\n\n**Response A — Buy in the moment.** You act while the countdown timer is running. You avoid the discomfort of missing out, but you also skip checking your actual budget, goals, or whether you wanted this an hour ago. Over a year, moments like this add up quietly.\n\n**Response B — Screenshot and wait 24 hours.** You save the item or add it to a cart, then walk away. If you still want it tomorrow with the same enthusiasm, and it fits your plan, you buy it then (many sales tactics create fake time pressure that doesn't actually expire the way the timer claims). If the pull faded, you just kept the money.\n\nResponse B doesn't ban buying things. It just moves the decision outside the artificial pressure the ad created.`,
+        callout: {
+          label: "Try this week",
+          text: "Set yourself a personal rule: any non-essential purchase over an amount you choose gets a 24-hour wait, no exceptions for \"but it's ending soon.\"",
+        },
       },
       {
         id: "delayed",
@@ -87,28 +193,88 @@ export const financeLesson2: AILessonConfig = {
           label: "Watch out",
           text: "\"I'll start saving after I treat myself\" often becomes never. Flip it: small goal contribution first, then the treat if it still fits.",
         },
+        checkIn: {
+          prompt: "Which approach to delayed gratification matches this lesson?",
+          choices: [
+            "Never allow any fun — discipline means zero wants",
+            "Fund your goal first, then spend guilt-free on a planned want",
+            "Wait forever with no plan — that's real discipline",
+            "Treat yourself first, then save whatever is left",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Balanced delayed gratification protects goals first, then schedules planned fun — not misery or avoidance.",
+        },
       },
       {
-        id: "practice",
-        kicker: "Try it",
-        title: "A quick decision framework",
-        body: `Use this when you're unsure:\n\n**1. Label** — Need, want, or gray area?\n**2. Check goals** — Does this help, hurt, or ignore a goal you named?\n**3. Name the opportunity cost** — What else could this money/time do?\n**4. Choose timing** — Buy now, wait, or scale down?\n**5. Decide and own it** — If you buy the want, enjoy it without rewriting history. If you skip it, credit yourself for funding the goal.\n\nExample: New headphones on sale vs. putting $80 toward a car fund. If the car is your medium-term priority and current headphones work, waiting (or buying a cheaper pair later) may win. If headphones are required for a class and yours broke, that leans need — still shop for value.`,
+        id: "habits",
+        kicker: "Make it automatic",
+        title: "Habits that keep tradeoffs conscious",
+        body: `Use this checklist when you're unsure about a purchase:\n\n• **Label it** — need, want, or gray area?\n• **Check goals** — does this help, hurt, or ignore a goal you named?\n• **Name the opportunity cost** — what else could this money or time do?\n• **Spot the nudge** — is a countdown, \"limited stock,\" or influencer post creating fake urgency?\n• **Choose timing** — buy now, wait 24 hours, or scale down?\n• **Decide and own it** — if you buy the want, enjoy it without rewriting history. If you skip it, credit yourself for funding the goal.\n\nRepeating this five-second mental checklist is what turns \"Tradeoff Thinker\" from a badge into an actual habit.`,
         callout: {
           label: "Try this week",
           text: "Before one non-essential purchase, write the opportunity cost in your notes app. That 10-second habit builds Tradeoff Thinker instincts.",
         },
       },
       {
+        id: "standards-connect",
+        kicker: "Bigger picture",
+        title: "Why schools teach this",
+        body: `National personal finance standards for your age group specifically call out telling needs from wants, understanding opportunity cost, and recognizing how advertising and media shape spending choices. That's not a random list — those three skills are exactly what stand between an ad's countdown timer and a decision that still matches your own goals tomorrow morning.`,
+      },
+      {
+        id: "reflect",
+        kicker: "Pause",
+        title: "Before you move on — think",
+        body: `Take 30 seconds before continuing. You don't need to write anything yet — just think it through.\n\nRecall the last purchase over $20 you made that you didn't fully plan. Was it a need, a want, or a gray area? Was any part of the decision nudged by a sale, a timer, or seeing someone else buy something similar? What would you do differently if you replayed that exact moment with today's tools?\n\nThere's no grade on this one. The goal is noticing your own patterns, because patterns are what you can actually change.`,
+        callout: {
+          label: "Try this",
+          text: "If a pattern came to mind (like flash sales getting you every time), write yourself one rule to test next time it happens.",
+        },
+      },
+      {
+        id: "mini-case",
+        kicker: "Full scenario",
+        title: "Tyler's game night dilemma",
+        image: "/images/lessons/fl-2-5.png",
+        imageAlt: "Teen looking at a laptop showing a video game storefront sale banner next to a jar labeled car fund",
+        body: `Tyler has $95 in checking. Here's what's happening at once:\n\n• A video game he's wanted for months just dropped to **$35** for a "48-hour sale only" — real interest, but not urgent; the game isn't going anywhere permanently.\n• His car fund needs **$400** more, and he's been adding $50 every two weeks (about 8 more paychecks to go).\n• A friend is hosting a game night this weekend and asked everyone to chip in **$10** for snacks — a small, social, low-cost want.\n• Tyler's phone bill of **$25** auto-drafts in 3 days — a required need.\n\nWalk through it: which item is the true need? Which want has real, sustained interest versus manufactured urgency from the "48-hour" framing? What happens to the car fund pace if Tyler buys the game this week versus waiting for a future sale (which are common for games and rarely truly "only 48 hours")?\n\nA reasonable sequence: cover the phone bill (need) and the game night contribution (small, social, easily affordable want) without disrupting the car fund pace, then decide on the game with a 24–48 hour pause — since the "sale ends" urgency is mostly manufactured and similar sales tend to recur. If Tyler still wants it after the pause and it doesn't touch the car fund, that's a values-aligned yes.`,
+        callout: {
+          label: "Why it matters",
+          text: "Recognizing which \"urgent\" deadline is real (a phone bill) versus manufactured (a recurring type of game sale) is the core skill of resisting advertising influence.",
+        },
+      },
+      {
+        id: "recap",
+        kicker: "Check yourself",
+        title: "Quick recap — could you explain this?",
+        body: `Before the Knowledge check, see if you can explain each of these in your own words:\n\n• **Needs** support basic functioning; **wants** add enjoyment or upgrades — and gray areas are normal.\n• **Opportunity cost** is the next-best thing you give up when you choose.\n• A **sale** only "saves" money if you were already planning that purchase at full price.\n• **Advertising tactics** like scarcity and social proof are designed to create urgency — noticing them is the skill.\n• **Delayed gratification** means waiting on purpose, with a plan — not forever, and not never having fun.\n\nIf any of those feel shaky, scroll back to that section before continuing.`,
+        checkIn: {
+          prompt: "A flash sale banner says \"Only 2 left — ends in 10 minutes!\" What's the smartest response from this lesson?",
+          choices: [
+            "Buy immediately since the countdown proves it's a great deal",
+            "Recognize the scarcity tactic, and ask whether you'd still want this without the timer",
+            "Assume all countdown timers are lies and never trust any sale",
+            "Ignore your budget since it's a small purchase",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Scarcity messaging is designed to rush a decision. Pausing to ask if the want exists independent of the timer restores your normal decision process.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Needs** support basic functioning; **wants** add enjoyment or upgrades.\n• **Tradeoffs** are normal because money and time are limited.\n• **Opportunity cost** is the next-best option you give up.\n• **Delayed gratification** is waiting on purpose — with a plan, not forever.\n• Values and goals help you choose when both options look tempting.\n\nWhen you're ready, switch to the **Knowledge check**, then reflect on a recent tradeoff you made.`,
+        body: `Quick recap:\n\n• **Needs** support basic functioning; **wants** add enjoyment or upgrades.\n• **Tradeoffs** are normal because money and time are limited.\n• **Opportunity cost** is the next-best option you give up.\n• **Advertising** uses scarcity, social proof, and framing to make wants feel urgent — spotting it restores your choice.\n• **Delayed gratification** is waiting on purpose — with a plan, not forever.\n\nWhen you're ready, switch to the **Knowledge check**, then reflect on a recent tradeoff you made.`,
       },
     ],
   },
   bigIdeas: [
     "**Needs** support basic functioning; **wants** are optional or upgrades — and gray areas are normal.",
     "**Opportunity cost** is the next-best thing you give up when you choose.",
+    "A sale only \"saves\" money if you were already planning that purchase at full price.",
+    "**Advertising tactics** like scarcity and social proof are designed to make wants feel urgent — noticing them restores your choice.",
     "**Delayed gratification** means waiting on purpose so your spending matches your goals.",
   ],
   keyTerms: [
@@ -117,7 +283,10 @@ export const financeLesson2: AILessonConfig = {
     { term: "Tradeoff", definition: "Giving up one option in order to get another." },
     { term: "Opportunity cost", definition: "The value of the next-best alternative you did not choose." },
     { term: "Delayed gratification", definition: "Waiting for a later, better-aligned reward instead of taking the immediate one." },
-    { term: "Scarcity", definition: "The reality that money, time, and resources are limited." },
+    { term: "Scarcity marketing", definition: "Advertising that uses limited time or limited stock to pressure a fast decision." },
+    { term: "Social proof", definition: "A persuasion tactic that uses \"everyone else has this\" to make a want feel necessary." },
+    { term: "Anchoring", definition: "Showing an inflated \"original price\" so a sale price feels like a bigger deal than it is." },
+    { term: "Scarcity (economics)", definition: "The reality that money, time, and resources are limited." },
     { term: "Impulse buy", definition: "A purchase made quickly without checking goals or opportunity cost." },
   ],
   realWorld:
@@ -151,6 +320,33 @@ export const financeLesson2: AILessonConfig = {
     },
     {
       id: "q3",
+      question:
+        "A $60 jacket is marked 50% off, so it costs $30. You weren't planning to buy a jacket. What is the most accurate way to think about this?",
+      choices: [
+        "You saved $30, so it's basically free money in your pocket",
+        "You are spending $30 you weren't planning to spend — that's the real cost, not a savings",
+        "Sale prices never count as real spending",
+        "The discount cancels out any opportunity cost",
+      ],
+      correctIndex: 1,
+      explanation:
+        "A discount only \"saves\" money compared to buying at full price. If the purchase wasn't already planned, the sale price is still new spending with a real opportunity cost.",
+    },
+    {
+      id: "q4",
+      question: "Which tactic is an example of scarcity marketing?",
+      choices: [
+        "A store simply listing its everyday regular price",
+        "A countdown timer and \"only 2 left\" messaging designed to rush a decision",
+        "A price comparison chart with no urgency language",
+        "A return policy explained in plain language",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Scarcity marketing uses limited time or limited stock framing to create urgency and skip your normal decision process.",
+    },
+    {
+      id: "q5",
       question: "What does delayed gratification mean in personal finance?",
       choices: [
         "Never spending on anything fun",
@@ -163,7 +359,7 @@ export const financeLesson2: AILessonConfig = {
         "Delayed gratification is purposeful waiting — not lifelong denial of every want.",
     },
     {
-      id: "q4",
+      id: "q6",
       question: "Why can needs and wants be a gray area?",
       choices: [
         "Because finance words have no meaning",
@@ -176,7 +372,21 @@ export const financeLesson2: AILessonConfig = {
         "The same category (like a phone) can include a functional need and a luxury upgrade want. Context matters.",
     },
     {
-      id: "q5",
+      id: "q7",
+      question:
+        "Priya sees a \"48-hour flash sale\" for something she never mentioned wanting before, while a required field trip fee is due soon. What's the strongest move?",
+      choices: [
+        "Buy the sale item immediately since the deadline is real",
+        "Pause, recognize the sale's urgency is likely manufactured, and protect money for the required fee first",
+        "Assume the sale item is now a need because it's discounted",
+        "Split the money evenly with no regard for which is required",
+      ],
+      correctIndex: 1,
+      explanation:
+        "A required fee with a real deadline should generally be protected before an unplanned want, especially one framed with manufactured urgency.",
+    },
+    {
+      id: "q8",
       question: "Which approach best shows conscious tradeoff thinking?",
       choices: [
         "Buying first and figuring out goals later",
@@ -191,7 +401,7 @@ export const financeLesson2: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Describe a recent purchase (or almost-purchase). Was it a need, want, or gray area? What was the opportunity cost?",
-    placeholder: "Example: I almost bought a $70 hoodie. It was a want. Opportunity cost was two weeks of gas money…",
+      "Describe a recent purchase (or almost-purchase). Was it a need, want, or gray area? What was the opportunity cost, and was any part of the decision nudged by advertising?",
+    placeholder: "Example: I almost bought a $70 hoodie during a flash sale. It was a want. Opportunity cost was two weeks of gas money…",
   },
 };
