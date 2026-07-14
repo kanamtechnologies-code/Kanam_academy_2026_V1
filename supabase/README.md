@@ -51,9 +51,9 @@ Expected: `{"ok":true,"studentsSample":[]}`
 
 In Supabase → **Authentication → URL Configuration**:
 
-1. **Site URL** = your live app origin (e.g. `https://kanam-academy-2026-v1.vercel.app`), not `http://localhost:3000`.
+1. **Site URL** = your live app origin (e.g. `https://learn.kanamacademy.com`), not `http://localhost:3000`.
 2. **Redirect URLs** must allow (wildcards are fine):
-   - `https://kanam-academy-2026-v1.vercel.app/**`
+   - `https://learn.kanamacademy.com/**`
    - `http://localhost:3000/**` (local only)
 3. The app sends reset emails with redirect:
    - `/welcome/reset-password`
