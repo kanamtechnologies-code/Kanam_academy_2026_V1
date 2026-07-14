@@ -73,6 +73,21 @@ function findVisibleTarget(selector: string): HTMLElement | null {
   return null;
 }
 
+/** Render tour copy with **bold** highlights for key terms. */
+function renderTourRichText(text: string) {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} className="font-bold text-slate-900">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <React.Fragment key={i}>{part}</React.Fragment>;
+  });
+}
+
 export const SpotlightTour = React.forwardRef<
   SpotlightTourHandle,
   {
@@ -638,11 +653,13 @@ const SpotlightTourInner = React.forwardRef<
                 <p className="mt-1 text-base font-extrabold tracking-tight text-slate-900 sm:text-[17px]">
                   {step.title}
                 </p>
-                <p className="mt-2 text-[15px] leading-[1.65] text-slate-700">{step.body}</p>
+                <p className="mt-2 text-[15px] leading-[1.65] text-slate-700">
+                  {renderTourRichText(step.body)}
+                </p>
                 {step.action ? (
                   <p className="mt-3 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold leading-snug text-emerald-950">
                     <span className="font-extrabold text-emerald-800">Try this: </span>
-                    {step.action}
+                    {renderTourRichText(step.action)}
                   </p>
                 ) : null}
               </div>

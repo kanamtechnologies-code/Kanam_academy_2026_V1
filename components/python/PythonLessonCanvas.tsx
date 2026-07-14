@@ -171,6 +171,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
 
   const [predictionByExercise, setPredictionByExercise] = React.useState<Record<string, string>>({});
   const [exerciseResetToken, setExerciseResetToken] = React.useState(0);
+  const [lessonModuleResetKey, setLessonModuleResetKey] = React.useState(0);
   const [projectChecks, setProjectChecks] = React.useState<Record<string, boolean>>({});
   const [playTurns, setPlayTurns] = React.useState(0);
   const [projectWorkspace, setProjectWorkspace] = React.useState<"build" | "play">("build");
@@ -668,7 +669,16 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
   return (
     <LessonAccessGate lessonId={lesson.id}>
     <WelcomeBackground>
-      {lesson.guidedTour ? <GuestLessonTour onRequestView={setView} /> : null}
+      {lesson.guidedTour ? (
+        <GuestLessonTour
+          onRequestView={setView}
+          onTourComplete={() => {
+            setView("lesson");
+            setActiveIndex(0);
+            setLessonModuleResetKey((k) => k + 1);
+          }}
+        />
+      ) : null}
       <div
         className={cn(
           "mx-auto max-w-[1400px] transition-all duration-300",
@@ -765,6 +775,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
         {lesson.lessonModule && view === "lesson" ? (
           <div data-tour="lesson-module">
             <LessonModule
+              key={`lesson-module-${lessonModuleResetKey}`}
               module={lesson.lessonModule}
               onStart={() => setView("exercises")}
               startLabel={isProject ? "Start the project" : "Start the exercises"}

@@ -7,14 +7,13 @@ function hasNameVariable(code: string) {
 }
 
 /**
- * Guided demo — thorough instructional slice of Lesson 1.
- * Audience: middle/high school learners + parents/educators previewing.
- * Pedagogy: objective → mental model → worked example → practice.
+ * Guided demo — a shorter, faithful slice of Lesson 1.
+ * Same pedagogy and exercise kinds; sized for a product walkthrough.
  */
 export const demoLesson: PythonLessonConfig = {
   id: "lesson-1",
   title: "Quickstart: Meet Your AI Helper",
-  goal: "By the end of this demo you can store a name in a variable, print a full sentence with +, and fix a common beginner bug — the same first skills students use in Week 1.",
+  goal: "By the end of this demo you can store a name, print a full sentence with +, and fix a common beginner bug — the same first skills students use in Week 1.",
   xpReward: 50,
   badge: "The Awakener",
   dashboardHref: "/welcome",
@@ -27,18 +26,18 @@ export const demoLesson: PythonLessonConfig = {
 Welcome to Kanam Academy.
 
 **Who this is for**
-Students learning AI + Python for the first time — and parents or educators who want to see the real classroom canvas.
+Students learning AI + Python for the first time — and parents or educators who want to see the real classroom screen.
 
 **Learning goal (today)**
 Teach a computer to introduce itself in one clear sentence.
 
-**Big idea (also a core AI idea)**
-Computers and AI systems do **not** guess. They follow your instructions exactly, in order. If the output is wrong, the instructions need to be clearer — that is debugging.
+**Big idea**
+Computers and AI helpers do **not** guess. They follow your instructions exactly, in order. If the output is wrong, the instructions need to be clearer — that is what debugging means.
 
 **What you will build**
-1. A **variable** that stores a name (memory)
-2. A **print()** line that shows a full greeting (output)
-3. The **+** operator that joins text into one sentence
+1. A **variable** that stores a name
+2. A **print()** line that shows a full greeting
+3. The **+** sign that joins text into one sentence
 
 **Target program**
 name = "Alex"
@@ -50,35 +49,32 @@ The console prints one line that includes the name, with a space after "am".
 Click **Got it, let's go!** when you're ready to learn, then practice.`,
   kidExplain: [
     {
-      title: "Learning objective",
-      text: "Store text in a **variable**, show it with **print()**, and join pieces with **+** so your helper says a full sentence.",
+      title: "Variables = labeled containers",
+      text: 'A **variable** is a labeled box that stores information. In `name = "Alex"`, the label is `name` and the value inside is `"Alex"`.',
     },
     {
-      title: "Mental model: labeled boxes",
-      text: 'A **variable** is a labeled box. In `name = "Alex"`, the label is `name` and the value inside is `"Alex"`. The `=` means **assign** (put this value in the box) — not “equals” like in math.',
+      title: "The assignment sign (=)",
+      text: "In Python, `=` does not mean “equals” like in math. It means **assign** — put this value into the labeled box.",
     },
     {
-      title: "Strings need quotes",
-      text: 'Quotes tell Python “this is text.” Programmers call text a **string**. Without quotes, Python thinks you mean another variable name and gets confused.',
+      title: 'What are strings (" ")?',
+      text: "Quotes tell Python: “This is text.” In coding, text is called a **string**. Without quotes, Python thinks you mean another variable name.",
     },
     {
-      title: "print() is the voice",
-      text: "A variable stays invisible until you show it. `print(...)` is how the program speaks to the screen. It must be lowercase `print` — `Print` is a different word to Python.",
+      title: "The glue (+)",
+      text: 'The `+` joins pieces of text. `"Hello! I am " + name` creates one message. Python does not add spaces for you — put the space inside the quotes.',
     },
     {
-      title: "Glue with + (and put spaces yourself)",
-      text: '`"Hello! I am " + name` tapes two strips of text together. Python will **not** add spaces for you. The space after `am` must live inside the quotes.',
-    },
-    {
-      title: "AI connection",
-      text: "Chatbots and game NPCs also store information and follow rules. You’re learning the same building blocks — just smaller and clearer.",
+      title: "AI idea: instructions → behavior",
+      text: "Your AI helper will only do what you tell it. If the output is wrong, the instructions (code) need to be clearer.",
     },
   ],
   steps: [
-    "Read the lesson sections (objective → idea → building blocks → worked example).",
+    "Read the lesson pages (words → building blocks → worked example → ready).",
     'Practice 1: fill in `name = "____"` and keep the print line.',
     "Practice 2: reorder the two lines so memory comes before output.",
     "Practice 3: fix the capitalization bug (`Print` → `print`).",
+    "Practice 4: predict what a finished program will print.",
     "Read the console after every Run & check — that feedback is part of learning.",
   ],
   cfu: [
@@ -95,7 +91,7 @@ Click **Got it, let's go!** when you're ready to learn, then practice.`,
     {
       question: "If the output is wrong, did the computer 'mess up'?",
       answer:
-        "Almost never. The computer did exactly what it was told. Debugging means rereading your instructions and making them clearer — the same habit used in real AI and software work.",
+        "Almost never. The computer did exactly what it was told. Debugging means rereading your instructions and making them clearer.",
     },
   ],
   tryThis: [
@@ -121,7 +117,7 @@ Click **Got it, let's go!** when you're ready to learn, then practice.`,
     {
       command: "+",
       summary:
-        "Joins (concatenates) strings. Put any spaces you want inside the quotes yourself.",
+        "Joins strings together. Put any spaces you want inside the quotes yourself.",
       example: '"Hello! I am " + name',
     },
     {
@@ -137,22 +133,19 @@ Click **Got it, let's go!** when you're ready to learn, then practice.`,
       title: "Exercise 1 — Fill in the name",
       focusCommand: "name =",
       commandExplain:
-        "First you give the program a memory. Fill the blank so the box labeled name holds a real name in quotes. The print line is already written — it will use whatever you store.",
-      goal: "Replace ____ with a name (keep the quotes), like Alex. Keep the print line as-is.",
-      starterCode: `# Step 1: store a name in a labeled box (variable)
+        "A variable stores text in a labeled box. Fill in the blank so name holds a name, then the print line will greet with it.",
+      goal: "Replace ____ with a name (keep the quotes), like Alex.",
+      starterCode: `# Fill in the blank 👇
 name = "____"
-
-# Step 2: show a full sentence using that name
 print("Hello! I am " + name)
 `,
       solutionCode: `name = "Alex"
 print("Hello! I am " + name)
 `,
-      hint: 'Put letters between the quotes, like name = "Alex". Leave the space after "am " alone — that space is intentional.',
-      successMessage:
-        "Excellent — you gave the program memory and it spoke a full sentence. That is how helpers introduce themselves.",
+      hint: 'Put a name between the quotes, e.g. name = "Alex". Keep the space after "am ".',
+      successMessage: "Nice — you stored a name and printed a greeting!",
       failureMessage:
-        'Need name = "YourName" (with quotes) and print("Hello! I am " + name) with a space after "am ".',
+        'Need name = "..." and print("Hello! I am " + name) with a space after "am ".',
       validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
         if (!hasNameVariable(code)) return false;
@@ -165,18 +158,17 @@ print("Hello! I am " + name)
       id: "demo-ex-parsons",
       kind: "parsons",
       title: "Exercise 2 — Reorder the intro",
-      focusCommand: "order of instructions",
+      focusCommand: "name = + print()",
       commandExplain:
-        "Programs run top to bottom. If you print before you store the name, the box is empty (or missing). Drag the lines into the order a careful instructor would write them.",
-      goal: "Put memory first, then output. Press Run & check.",
+        "These lines make an AI helper introduce itself — but they're scrambled. Put them in the right order.",
+      goal: "Reorder the lines, then Run & check.",
       starterCode: "",
       solutionCode: `name = "Alex"
 print("Hello! I am " + name)`,
       parsonsLines: ['name = "Alex"', 'print("Hello! I am " + name)'],
-      hint: "Ask: what must exist before print can use it? Create the variable first.",
-      successMessage:
-        "Strong sequencing — you stored information before you used it. That habit scales to every longer program.",
-      failureMessage: "Variable first (memory), then print (output).",
+      hint: "Create the variable first, then print using it.",
+      successMessage: "Nice ordering — your helper introduced itself!",
+      failureMessage: "Variable first, then print the greeting with + name.",
       validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
         if (!hasNameVariable(code)) return false;
@@ -188,22 +180,20 @@ print("Hello! I am " + name)`,
       id: "demo-ex-debug",
       kind: "debug",
       title: "Exercise 3 — Fix the greeting bug",
-      focusCommand: "print() capitalization",
+      focusCommand: "print()",
       commandExplain:
-        "This almost works — but Python is picky about spelling. Professionals debug by reading the error, finding the exact mismatch, and fixing one small thing. Your job: make the greeting print correctly for Alex.",
-      goal: "Repair the bug so the console shows Hello! I am Alex",
-      starterCode: `# Almost right — find the capitalization mistake
-name = "Alex"
+        "This program is supposed to say hello with the name, but something's wrong. Fix it.",
+      goal: "Repair the bug so it prints a greeting that includes Alex.",
+      starterCode: `name = "Alex"
 Print("Hello! I am " + name)
 `,
       solutionCode: `name = "Alex"
 print("Hello! I am " + name)
 `,
       debugHint: "capitalization",
-      hint: "Python commands are lowercase. Compare Print with print carefully.",
-      successMessage:
-        "Bug fixed. You practiced a real skill: noticing that Print and print are not the same to a computer.",
-      failureMessage: "Change Print(...) to lowercase print(...).",
+      hint: "Python commands are lowercase.",
+      successMessage: "Bug fixed — lowercase print() works.",
+      failureMessage: "Use lowercase print(...), not Print(...).",
       validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
         if (!hasNameVariable(code)) return false;
@@ -211,87 +201,190 @@ print("Hello! I am " + name)
         return /Hello! I am\s+Alex/.test(run.stdout.join("\n"));
       },
     },
+    {
+      id: "demo-ex-predict",
+      kind: "predict",
+      title: "Exercise 4 — Predict the output",
+      focusCommand: "trace the code",
+      commandExplain:
+        "Read this finished program. Predict exactly what it will print — before you see the answer.",
+      goal: "Type your prediction, then Run & check.",
+      starterCode: `name = "Sam"
+print("Hello! I am " + name)
+`,
+      solutionCode: `name = "Sam"
+print("Hello! I am " + name)
+`,
+      codeReadOnly: true,
+      predictionPrompt: "What exact line will print?",
+      acceptedPredictions: ["Hello! I am Sam", "hello! i am sam"],
+      hint: "Replace name with Sam inside the sentence.",
+      successMessage: "Great tracing — you predicted the output.",
+      failureMessage: "Look at the string and the variable value carefully.",
+      validate: (code: string, run: MiniRunResult) => {
+        if (rejectsUppercasePrint(code)) return false;
+        return /Hello! I am\s+Sam/.test(run.stdout.join("\n"));
+      },
+    },
   ],
   lessonModule: {
-    durationLabel: "~5–7 min guided demo",
+    durationLabel: "~6–8 min guided demo",
     sections: [
       {
-        id: "objectives",
+        id: "intro",
         kicker: "Start here",
-        title: "What you will learn in this demo",
-        body: `This is the **same lesson canvas** students use in Kanam’s AI + Python track — not a toy slideshow.\n\n**By the end you will be able to:**\n\n• Explain what a **variable** is (a labeled place to store information)\n• Use **print()** to show a message on the screen\n• Join text with **+** so a helper can say a full sentence\n• Fix one common beginner bug (capitalization)\n\nYou’ll learn first, then practice in three short exercise types used in class: **fill**, **reorder**, and **debug**.`,
+        title: "What you'll learn today",
+        body: `This is the **same lesson screen** students use in class — not a toy slideshow.\n\nBy the end of this demo you'll have built a tiny **AI helper** that introduces itself — something like *"Hello! I am Alex."*\n\nYou'll learn three building blocks every program uses:\n\n• **Variables** — how a program remembers information\n• **print()** — how a program shows something on screen\n• **+** — how a program joins pieces of text into one message\n\nThen you'll practice with the same exercise kinds used in Week 1: **Fill**, **Reorder**, **Debug**, and **Predict**.`,
         image: "/images/lessons/py-1-hello.png",
-        imageAlt: "A friendly robot waving — your first AI helper",
+        imageAlt: "A friendly robot waving and saying hello",
         callout: {
           label: "Who this is for",
-          text: "Students new to coding, plus parents and educators evaluating the product. Progress saves on this device — no account required for the demo.",
+          text: "Students new to coding, plus parents and educators previewing the product. Progress saves on this device — no account required for the demo.",
         },
       },
       {
-        id: "why",
-        kicker: "The big idea",
-        title: "Computers (and AI) follow instructions exactly",
-        body: `Here’s the most important idea in coding — and in AI: **computers do not guess.** They follow your instructions *exactly*, in the order you write them.\n\nThink of giving directions to an extremely literal friend. “Make a sandwich” is too vague. “Take two slices of bread, spread peanut butter on one…” works. A computer is that friend, times a million: precise, fast, and unable to fill in blanks for you.\n\nThat is *good news*. When something goes wrong, the computer didn’t randomly break — your **instructions** need to be clearer. Debugging is rereading the recipe.`,
+        id: "glossary",
+        kicker: "Vocabulary",
+        title: "Words you'll use today",
+        body: `A few new words will come up often. Keep this list handy — you'll see these terms again in class.`,
+        bullets: [
+          "**Variable** — a labeled box that stores a piece of information, like `name`.",
+          "**String** — text wrapped in quotes, like `\"Alex\"`.",
+          "**Assign (`=`)** — put a value into a variable. `name = \"Alex\"` puts `\"Alex\"` in `name`.",
+          "**print()** — the command that displays something on the screen.",
+          "**+** — glues two pieces of text together into one message.",
+        ],
         callout: {
-          label: "Common misconception",
-          text: 'Beginners often think “the computer messed up.” Almost always, the code did exactly what it was told — it just wasn’t told quite what we meant.',
+          label: "Tip",
+          text: "You don't need to memorize these yet — just notice them as they come up. By the end they'll feel natural.",
         },
       },
       {
-        id: "variables",
+        id: "concept-1",
         kicker: "Building block #1",
         title: "A variable is a labeled box",
-        body: `A **variable** stores a piece of information so your program can remember it and use it later.\n\nPicture lockers: each has a **label** (name) and something **inside** (value). In the line below, the label is \`name\` and the value is the text \`"Alex"\`.\n\nThe \`=\` sign trips people up. In Python it does **not** mean “equals” like in math. It means **assign**: put the value on the right into the box on the left.`,
+        body: `A **variable** stores a piece of information so your program can remember it and use it later.\n\nPicture a row of lockers. Each locker has a **label** (a name) and something **inside** (a value). In the line below, the label is \`name\` and the value inside is the text \`"Alex"\`.\n\nThe \`=\` sign trips almost everyone up at first. In Python it does **not** mean "equals" like in math. It means **assign**: put the value on the right into the box on the left.`,
         code: `name = "Alex"`,
-        codeCaption: "Create a variable called name",
+        codeCaption: "Make a variable called name",
         bullets: [
-          '**Quotes** `" "` tell Python *this is text* — called a **string**.',
-          "Without quotes, Python thinks you’re naming another variable.",
+          '**Quotes** `" "` tell Python *this is text* — programmers call text a **string**.',
+          "Without quotes, Python thinks you're naming another variable and gets confused.",
           "Good names use letters, numbers, and underscores — no spaces (`my_name`, not `my name`).",
         ],
         callout: {
-          label: "Check yourself",
-          text: '`name` (no quotes) is the box. `"name"` (with quotes) is just the letters n-a-m-e. Totally different to Python.',
+          label: "Common misconception",
+          text: '`name` (no quotes) is the labeled box. `"name"` (with quotes) is just the letters n-a-m-e as text. They are completely different to Python.',
+        },
+        checkIn: {
+          prompt: 'What does `name = "Alex"` do?',
+          choices: [
+            "Stores the text Alex inside a box called name",
+            "Checks whether name equals Alex",
+            "Prints the word Alex to the screen",
+          ],
+          correctIndex: 0,
+          explanation:
+            "= assigns — it stores the value on the right inside the box on the left. Nothing is printed or compared yet.",
         },
       },
       {
-        id: "print",
+        id: "concept-2",
         kicker: "Building block #2",
         title: "print() puts words on the screen",
-        body: `A variable stores information, but it stays *invisible* until you choose to show it. \`print(...)\` is how your program *says something* to the screen.\n\nWhen you put a variable inside \`print()\`, Python opens the box and shows what’s inside — so \`print(name)\` displays \`Alex\`, not the word “name”.\n\nPython is picky about spelling: it must be lowercase \`print\`, never \`Print\` or \`PRINT\`. To a computer those are three different words.`,
+        body: `A variable stores information, but it stays *invisible* until you choose to show it. \`print(...)\` is how your program *says something* to the screen.\n\nWhen you put a variable inside \`print()\`, Python opens the box and shows what's inside — so \`print(name)\` displays \`Alex\`, not the word "name".\n\nPython is picky about spelling: it must be lowercase \`print\`, never \`Print\` or \`PRINT\`. To a computer those are three different words.`,
         code: `name = "Alex"\nprint(name)`,
-        codeCaption: "Open the box and show what’s inside",
+        codeCaption: "Open the box and show what's inside",
         output: `Alex`,
         callout: {
           label: "Watch out",
-          text: '`print(name)` shows the value (`Alex`). `print("name")` would show the word name. Quotes change the meaning.',
+          text: '`print(name)` shows the value inside the box (`Alex`). `print("name")` would literally show the word `name`. The quotes are the difference.',
+        },
+        checkIn: {
+          prompt: 'If `name = "Alex"`, what does `print(name)` show?',
+          choices: ["name", "Alex", '"name"'],
+          correctIndex: 1,
+          explanation:
+            "print(name) with no quotes opens the box and shows what's stored inside it — Alex, not the word name.",
         },
       },
       {
-        id: "glue",
+        id: "concept-3",
         kicker: "Building block #3",
         title: "Glue text together with +",
-        body: `Right now your helper can only say a name. To say a full sentence, join pieces of text with \`+\`. Programmers call this **concatenation** — gluing strings end to end.\n\nImagine taping two strips of paper: \`"Hello! I am "\` + \`"Alex"\` becomes \`Hello! I am Alex\`.\n\nThe #1 beginner trap: Python will **not** add spaces for you. The space between “am” and the name must live *inside* the quotes.`,
+        body: `Right now your helper can only say a name. To make it say a full sentence, you join pieces of text with \`+\`.\n\nImagine taping two strips of paper together: \`"Hello! I am "\` + \`"Alex"\` becomes one strip that reads \`Hello! I am Alex\`.\n\nThe #1 beginner trap: Python will **not** add spaces for you. So the space between "am" and your name has to live *inside* the quotes.`,
         code: `name = "Alex"\nprint("Hello! I am " + name)`,
         codeCaption: "Join a greeting and the name",
         output: `Hello! I am Alex`,
         callout: {
-          label: "Common mistake",
-          text: 'If you write `"Hello! I am"` with no space after `am`, you get `Hello! I amAlex`. Put the space inside the quotes: `"Hello! I am "`.',
+          label: "Common misconception",
+          text: 'If you write `"Hello! I am"` with no space after `am`, you get `Hello! I amAlex` mashed together. Put the space inside the quotes: `"Hello! I am "`.',
+        },
+        checkIn: {
+          prompt: 'Why does `"Hello! I am" + name` print `Hello! I amAlex` (no space)?',
+          choices: [
+            "Python is broken",
+            "The variable name is spelled wrong",
+            "+ never adds spaces — the space must be typed inside the quotes",
+          ],
+          correctIndex: 2,
+          explanation:
+            "Python glues text exactly as written. If you want a space, you must put it inside the quotes yourself.",
         },
       },
       {
-        id: "worked",
+        id: "worked-example",
         kicker: "Worked example",
-        title: "Build it line by line (then practice)",
-        body: `Professionals don’t write perfect programs on the first try — they build in small steps and check the result.\n\n**Step 1 — Store the name.** Make a box called \`name\`. Nothing prints yet; you’re just remembering.\n\n**Step 2 — Glue the sentence.** Inside \`print()\`, join \`"Hello! I am "\` with \`name\` using \`+\`.\n\n**Step 3 — Run it.** Python reads top to bottom: fill the box, then build and show the sentence.`,
+        title: "Let's build it together, line by line",
+        body: `Watch how the three blocks combine into one working program.\n\n**Step 1 — Store the name.** Make a box called \`name\` and put text inside it. Nothing prints yet; you're just remembering it.\n\n**Step 2 — Glue the sentence.** Inside \`print()\`, join the greeting \`"Hello! I am "\` with the \`name\` box using \`+\`. Notice the space inside the quotes after "am".\n\n**Step 3 — Run it.** Python reads top to bottom: it fills the box, then builds and shows the sentence.`,
         code: `# Step 1: remember the name\nname = "Alex"\n\n# Step 2 & 3: build the sentence and show it\nprint("Hello! I am " + name)`,
-        codeCaption: "Finished program with comments",
+        codeCaption: "The finished program, with comments explaining each part",
         output: `Hello! I am Alex`,
         callout: {
-          label: "How class works",
-          text: "Next you’ll practice three ways: fill a blank, reorder lines, and fix a bug — the same exercise kinds used in Week 1. Tap Start the exercises when you’re ready.",
+          label: "Pro tip",
+          text: "Lines starting with `#` are comments — notes for humans that Python ignores. Good programmers use them to explain why their code does something.",
         },
+      },
+      {
+        id: "misconception",
+        kicker: "Common misconception",
+        title: '"The computer messed up" — or did it?',
+        body: `Here's the most important idea in coding — and in AI: **computers do not guess.** They follow your instructions *exactly*, in the exact order you write them.\n\nThink of giving instructions to an extremely literal friend. If you say "make a sandwich" they're stuck — but if you say "take two slices of bread, spread peanut butter on one…," they can do it. A computer is that friend, times a million: precise, fast, and unable to fill in the blanks for you.\n\nThat is *good news*. When something goes wrong, the computer didn't "break" — your **instructions** just need to be clearer. Debugging is simply rereading your recipe.`,
+        callout: {
+          label: "Common misconception",
+          text: 'Beginners often think "the computer messed up." Almost always, the code did exactly what it was told — it just wasn\'t told quite what we meant. Fixing code = fixing instructions.',
+        },
+      },
+      {
+        id: "try-it",
+        kicker: "Try it — predict",
+        title: "Before you run it, predict it",
+        body: `Real coders read code *before* they run it, and guess what will happen. Look at this snippet: the name box holds \`"Maya"\`, then the greeting is glued together with \`+\`.\n\nTrace it in your head: what text is inside \`name\`? What does the printed sentence look like once the two pieces are joined?`,
+        code: `name = "Maya"\nprint("Hello! I am " + name)`,
+        codeCaption: "What will this print?",
+        checkIn: {
+          prompt: "What exact line will this program print?",
+          choices: ["Hello! I am Maya", "Hello! I am name", "Maya Hello! I am"],
+          correctIndex: 0,
+          explanation:
+            'The name box holds "Maya", so joining "Hello! I am " + name produces Hello! I am Maya.',
+        },
+      },
+      {
+        id: "habits",
+        kicker: "Coder habits",
+        title: "Habits that make every lesson easier",
+        body: `A few small habits will help you in every future lesson:\n\n• **Name variables clearly.** \`name\` is better than \`x\` — anyone reading your code knows what it holds.\n• **Test after every change.** Write one or two lines, run, confirm it works, then continue.\n• **Read before you run.** Predicting the output before pressing Run helps you catch mistakes early.`,
+        bullets: [
+          "Clear names beat clever names.",
+          "Small steps, tested often, beat big leaps.",
+          "Read the console after every Run & check — that feedback is part of learning.",
+        ],
+      },
+      {
+        id: "ready",
+        kicker: "Ready",
+        title: "Now it's your turn",
+        body: `You've met the three building blocks: a **variable** to remember, **print()** to show, and **+** to join text.\n\nIn the exercises you'll build this program one piece at a time — fill a blank, reorder lines, fix a bug, and predict an output — then run it to watch your AI helper come to life with *your* name.\n\nIf something looks off, remember: the computer did exactly what you told it, so just reread your instructions.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

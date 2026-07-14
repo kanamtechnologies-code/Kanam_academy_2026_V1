@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kanam Academy — Email One Pager (static)</title>
+  <title>Kanam Academy — One Pager (Email)</title>
   <style>
     @page { size: letter; margin: 0; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,33 +25,29 @@
     }
     .page {
       width: 8.5in;
-      min-height: 11in;
-      padding: 0.42in 0.48in 0.38in;
+      height: 11in;
+      padding: 0.32in 0.4in 0.28in;
       position: relative;
       overflow: hidden;
-      page-break-after: always;
     }
-    .page:last-child { page-break-after: auto; }
-
-    /* ── Header ── */
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 14px;
+      gap: 12px;
+      margin-bottom: 10px;
     }
-    .logo-wrap { display: flex; align-items: center; gap: 14px; }
-    .logo { height: 52px; width: auto; }
+    .logo-wrap { display: flex; align-items: center; gap: 10px; }
+    .logo { height: 42px; width: auto; }
     .brand-text h1 {
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 900;
       letter-spacing: -0.02em;
       color: var(--brand-2);
       line-height: 1.1;
     }
     .brand-text p {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--muted);
       margin-top: 2px;
       font-weight: 600;
@@ -59,115 +55,91 @@
     .tagline-pill {
       background: linear-gradient(135deg, var(--brand-2), var(--brand));
       color: #fff;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 8px 14px;
+      padding: 7px 12px;
       border-radius: 999px;
       white-space: nowrap;
     }
-
-    /* ── Hero band ── */
     .hero {
       background: linear-gradient(135deg, #0f6e57 0%, #18a16d 55%, #2bb87d 100%);
-      border-radius: 14px;
-      padding: 16px 18px;
+      border-radius: 12px;
+      padding: 12px 14px;
       color: #fff;
-      margin-bottom: 14px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -30px; top: -30px;
-      width: 180px; height: 180px;
-      background: radial-gradient(circle, rgba(216,192,122,0.35), transparent 70%);
-      border-radius: 50%;
+      margin-bottom: 9px;
     }
     .hero h2 {
-      font-size: 17px;
+      font-size: 14.5px;
       font-weight: 900;
       line-height: 1.25;
-      max-width: 92%;
-      position: relative;
-      z-index: 1;
+      max-width: 95%;
     }
     .hero p {
-      font-size: 10.5px;
-      opacity: 0.92;
-      margin-top: 6px;
-      max-width: 88%;
-      line-height: 1.45;
-      position: relative;
-      z-index: 1;
+      font-size: 9.5px;
+      opacity: 0.93;
+      margin-top: 5px;
+      max-width: 95%;
+      line-height: 1.4;
     }
-
-    /* ── Two-column intro ── */
     .intro-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 14px;
+      gap: 8px;
+      margin-bottom: 9px;
     }
     .card {
       border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 12px 13px;
+      border-radius: 10px;
+      padding: 8px 10px;
       background: var(--soft);
     }
     .card h3 {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--brand-2);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .card p {
-      font-size: 9.5px;
-      line-height: 1.5;
+      font-size: 8.5px;
+      line-height: 1.4;
       color: var(--muted);
     }
     .card strong { color: var(--ink); }
-
-    /* ── Screenshots ── */
     .screenshots {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 14px;
+      gap: 6px;
+      margin-bottom: 9px;
     }
     .shot {
       border: 1px solid var(--line);
-      border-radius: 10px;
+      border-radius: 8px;
       overflow: hidden;
       background: #fff;
-      box-shadow: 0 2px 8px rgba(15,110,87,0.08);
     }
     .shot img {
       width: 100%;
-      height: 72px;
+      height: 52px;
       object-fit: cover;
       object-position: top center;
       display: block;
     }
     .shot figcaption {
-      font-size: 8px;
+      font-size: 7px;
       font-weight: 700;
       color: var(--brand-2);
-      padding: 5px 7px;
+      padding: 3px 5px;
       text-align: center;
-      background: #fff;
     }
-
-    /* ── Programs ── */
     .section-title {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 900;
       color: var(--brand-2);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       gap: 8px;
@@ -176,115 +148,125 @@
       content: "";
       flex: 1;
       height: 2px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      border-radius: 2px;
+      background: var(--accent);
+      border-radius: 1px;
     }
     .programs {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 14px;
+      gap: 5px;
+      margin-bottom: 8px;
     }
     .program {
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 9px 10px;
+      border-radius: 8px;
+      padding: 5px 7px;
       display: grid;
-      grid-template-columns: 36px 1fr;
-      gap: 8px;
+      grid-template-columns: 30px 1fr;
+      gap: 6px;
       align-items: start;
       background: #fff;
     }
     .program-icon {
-      width: 36px; height: 36px;
-      border-radius: 9px;
+      width: 30px; height: 30px;
+      border-radius: 7px;
       display: grid;
       place-items: center;
-      font-size: 18px;
-      background: linear-gradient(135deg, rgba(24,161,109,0.12), rgba(216,192,122,0.18));
+      color: #0f6e57;
+      background: #e8f6ef;
+      border: 1px solid #b7e0c9;
     }
+    .program-icon svg { display: block; width: 18px; height: 18px; }
     .program h4 {
-      font-size: 9.5px;
+      font-size: 8.5px;
       font-weight: 800;
       color: var(--ink);
-      line-height: 1.25;
+      line-height: 1.2;
     }
     .program .meta {
-      font-size: 8px;
+      font-size: 7px;
       color: var(--brand);
       font-weight: 700;
-      margin-top: 2px;
+      margin-top: 1px;
     }
     .program p {
       grid-column: 2;
-      font-size: 8.2px;
+      font-size: 7.3px;
       color: var(--muted);
-      line-height: 1.4;
-      margin-top: -2px;
+      line-height: 1.3;
+      margin-top: -1px;
     }
-
-    /* ── Flow ── */
     .flow {
       display: flex;
       align-items: stretch;
-      gap: 4px;
-      margin-bottom: 14px;
+      gap: 3px;
+      margin-bottom: 8px;
     }
     .flow-step {
       flex: 1;
       background: var(--soft);
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 8px 6px;
+      border-radius: 7px;
+      padding: 6px 4px;
       text-align: center;
     }
     .flow-step .num {
-      width: 18px; height: 18px;
+      width: 16px; height: 16px;
       border-radius: 50%;
       background: var(--brand);
       color: #fff;
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 800;
       display: grid;
       place-items: center;
-      margin: 0 auto 4px;
+      margin: 0 auto 3px;
     }
     .flow-step strong {
       display: block;
-      font-size: 8.5px;
+      font-size: 8px;
       color: var(--brand-2);
     }
     .flow-step span {
-      font-size: 7.5px;
+      font-size: 7px;
       color: var(--muted);
-      line-height: 1.3;
+      line-height: 1.25;
       display: block;
-      margin-top: 2px;
+      margin-top: 1px;
     }
     .flow-arrow {
       display: grid;
       place-items: center;
       color: var(--accent);
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 900;
-      padding-top: 14px;
+      padding-top: 10px;
     }
-
-    /* ── Why + stats ── */
+    .instructors {
+      border: 1px solid #cfe8da;
+      border-left: 3px solid var(--accent);
+      background: #f3faf6;
+      border-radius: 9px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      font-size: 8.5px;
+      line-height: 1.4;
+      color: var(--muted);
+    }
+    .instructors strong { color: var(--brand-2); }
     .bottom-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 12px;
-      margin-bottom: 12px;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 8px;
+      margin-bottom: 7px;
     }
     .bullets { list-style: none; }
     .bullets li {
-      font-size: 8.5px;
-      line-height: 1.45;
+      font-size: 7.8px;
+      line-height: 1.35;
       color: var(--muted);
-      padding-left: 12px;
+      padding-left: 11px;
       position: relative;
-      margin-bottom: 5px;
+      margin-bottom: 3px;
     }
     .bullets li::before {
       content: "✓";
@@ -292,205 +274,168 @@
       left: 0;
       color: var(--brand);
       font-weight: 900;
-      font-size: 9px;
+      font-size: 8px;
     }
     .bullets strong { color: var(--ink); }
     .stats {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6px;
+      gap: 5px;
     }
     .stat {
       border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 8px;
+      border-radius: 7px;
+      padding: 6px;
       text-align: center;
-      background: linear-gradient(180deg, #fff, var(--soft));
+      background: #fff;
     }
     .stat .val {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 900;
       color: var(--brand-2);
       line-height: 1;
     }
     .stat .lbl {
+      font-size: 7px;
+      color: var(--muted);
+      margin-top: 2px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 7px;
+    }
+    .badge {
+      font-size: 6.8px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #fff;
+      color: var(--brand-2);
+    }
+    .deploy {
       font-size: 7.5px;
       color: var(--muted);
-      margin-top: 3px;
-      font-weight: 600;
-      line-height: 1.25;
+      line-height: 1.4;
+      margin-bottom: 8px;
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
     }
-
-    /* ── Static contact block (email blast — no links/buttons) ── */
-    .contact-box {
+    .deploy strong { color: var(--brand-2); }
+    .footer {
       background: linear-gradient(135deg, var(--brand-2), #126b52);
-      border-radius: 12px;
-      padding: 14px 16px;
+      border-radius: 10px;
+      padding: 10px 12px;
       color: #fff;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+    .footer h3 {
+      font-size: 10.5px;
+      font-weight: 900;
+      margin-bottom: 3px;
+    }
+    .footer p {
+      font-size: 8px;
+      opacity: 0.92;
+      line-height: 1.4;
+    }
+    .footer .contact {
+      font-size: 7.5px;
+      opacity: 0.88;
       margin-top: 4px;
     }
+    .cta-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    a.cta {
+      background: #fff;
+      color: var(--brand-2);
+      border: 1.5px solid var(--accent);
+      font-size: 7.5px;
+      font-weight: 800;
+      padding: 6px 10px;
+      border-radius: 7px;
+      text-align: center;
+      white-space: nowrap;
+      text-decoration: none;
+      display: block;
+    }
+    a.cta.outline {
+      background: transparent;
+      border: 1.5px solid var(--accent);
+      color: #fff;
+    }
+    .footer a.inline-link {
+      color: #fff;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .contact-box {
+      background: linear-gradient(135deg, var(--brand-2), #126b52);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: #fff;
+    }
     .contact-box h3 {
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 900;
-      margin-bottom: 8px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      margin-bottom: 6px;
     }
     .contact-grid {
       display: grid;
       grid-template-columns: auto 1fr;
-      gap: 3px 12px;
-      font-size: 9px;
-      line-height: 1.5;
+      gap: 3px 10px;
+      font-size: 8px;
     }
-    .contact-grid dt {
-      font-weight: 800;
-      opacity: 0.85;
-    }
-    .contact-grid dd {
-      font-weight: 600;
-      opacity: 0.95;
-    }
+    .contact-grid dt { opacity: 0.75; font-weight: 700; }
+    .contact-grid dd { font-weight: 700; }
     .contact-note {
+      margin-top: 7px;
       font-size: 7.5px;
-      opacity: 0.75;
-      margin-top: 8px;
+      opacity: 0.9;
       line-height: 1.4;
-      border-top: 1px solid rgba(255,255,255,0.2);
-      padding-top: 8px;
     }
 
-    /* ── Page 2 ── */
-    .page2-hero-img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      border: 1px solid var(--line);
-    }
-    .audience-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-    .audience {
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 10px;
-      background: var(--soft);
-    }
-    .audience h4 {
-      font-size: 9px;
-      font-weight: 800;
-      color: var(--brand-2);
-      margin-bottom: 5px;
-    }
-    .audience p {
-      font-size: 8px;
-      color: var(--muted);
-      line-height: 1.45;
-    }
-    .standards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-bottom: 14px;
-    }
-    .badge {
-      font-size: 7.5px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: #fff;
-      color: var(--brand-2);
-    }
-    .capstones {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-    .capstone {
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-    }
-    .capstone img {
-      width: 100%;
-      height: 64px;
-      object-fit: cover;
-    }
-    .capstone div {
-      padding: 7px 9px;
-      background: #fff;
-    }
-    .capstone strong {
-      font-size: 8.5px;
-      color: var(--brand-2);
-      display: block;
-    }
-    .capstone span {
-      font-size: 7.5px;
-      color: var(--muted);
-      line-height: 1.35;
-      display: block;
-      margin-top: 2px;
-    }
-    .deploy-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 8.5px;
-      margin-bottom: 14px;
-    }
-    .deploy-table td {
-      padding: 6px 8px;
-      border-bottom: 1px solid var(--line);
-      vertical-align: top;
-    }
-    .deploy-table td:first-child {
-      font-weight: 800;
-      color: var(--brand-2);
-      width: 28%;
-    }
-    .deploy-table td:last-child { color: var(--muted); }
-    .copyright {
-      text-align: center;
-      font-size: 7.5px;
-      color: #94a3b8;
-      margin-top: 8px;
-    }
   </style>
 </head>
 <body>
-  <!-- PAGE 1 -->
+
   <div class="page">
     <header class="header">
       <div class="logo-wrap">
         <img class="logo" src="../public/images/Logo.png" alt="Kanam Academy" />
         <div class="brand-text">
           <h1>Kanam Academy</h1>
-          <p>Browser-based CS, AI &amp; data skills · Grades 6–10</p>
+          <p>Browser-based CS, AI &amp; data skills · Grades 6–12</p>
         </div>
       </div>
-      <div class="tagline-pill">Move forward</div>
+      <div class="tagline-pill">Move forward.</div>
     </header>
 
     <section class="hero">
       <h2>Interactive learning that explains, checks, and corrects itself — built for schools, programs, and families.</h2>
-      <p>Four structured 8-week pathways. Real Python &amp; SQL in the browser. XP, badges, and capstone projects — with standards-aligned documentation for reviewers.</p>
+      <p>Six structured 8-week pathways. Real Python &amp; SQL in the browser. XP, badges, and capstones — plus a guided demo anyone can try before they enroll.</p>
     </section>
 
     <div class="intro-grid">
       <div class="card">
         <h3>The challenge</h3>
-        <p>Students need credible pathways into <strong>coding, AI, data, and digital citizenship</strong> — not unstructured screen time. Schools need programs that are <strong>measurable and manageable</strong> without a dedicated CS teacher.</p>
+        <p>Students need credible pathways into <strong>coding, AI, data, cybersecurity, money skills, and digital citizenship</strong> — not unstructured screen time. Schools need programs that are <strong>measurable and manageable</strong>.</p>
       </div>
       <div class="card">
         <h3>The answer</h3>
-        <p><strong>Kanam Academy</strong> delivers 59 interactive lessons across four tracks. Learners run real code, get instant feedback, and progress on a visible roadmap — <strong>no software to install</strong>.</p>
+        <p><strong>Kanam Academy</strong> delivers <strong>92 interactive lessons</strong> across six tracks with instant feedback, a visible roadmap, and <strong>no software to install</strong>.</p>
       </div>
     </div>
 
@@ -509,178 +454,120 @@
       </figure>
     </figure>
 
-    <h3 class="section-title">Four programs · one platform</h3>
+    <h3 class="section-title">Six programs · one platform</h3>
     <div class="programs">
       <div class="program">
-        <div class="program-icon">🧠</div>
+        <div class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><rect x="2" y="2" width="6.5" height="6.5" rx="1.25" fill="currentColor"/><rect x="15.5" y="2" width="6.5" height="6.5" rx="1.25" fill="currentColor"/><rect x="8.75" y="15.5" width="6.5" height="6.5" rx="1.25" fill="#d8c07a"/><path d="M8.5 5.25h7" stroke="currentColor" stroke-width="2.75" stroke-linecap="square"/><path d="M5.25 8.5v5.25c0 1.4 1.1 2.5 2.5 2.5h1" stroke="currentColor" stroke-width="2.75" stroke-linecap="square"/><path d="M18.75 8.5v4c0 1.25-.9 2.25-2.15 2.25H14" stroke="currentColor" stroke-width="2.75" stroke-linecap="square"/></svg></div>
         <div>
           <h4>AI Literacy</h4>
           <div class="meta">16 lessons · 8 weeks</div>
         </div>
-        <p>Prompt responsibly, verify outputs, navigate bias, privacy &amp; academic integrity.</p>
+        <p>Prompt responsibly, verify outputs, bias, privacy &amp; academic integrity.</p>
       </div>
       <div class="program">
-        <div class="program-icon">🌐</div>
+        <div class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><rect x="2.5" y="3.5" width="19" height="14" rx="2" fill="currentColor"/><rect x="5.5" y="6.5" width="8" height="2.75" rx="0.6" fill="#fff"/><rect x="5.5" y="11" width="5" height="2.75" rx="0.6" fill="#d8c07a"/><rect x="8.5" y="19" width="7" height="2.5" rx="0.6" fill="currentColor"/></svg></div>
         <div>
           <h4>Digital Literacy</h4>
           <div class="meta">16 lessons · 8 weeks</div>
         </div>
-        <p>Search critically, communicate online, protect privacy, create ethically, career-ready skills.</p>
+        <p>Search, communicate online, protect privacy, create ethically, career-ready skills.</p>
       </div>
       <div class="program">
-        <div class="program-icon">🤖</div>
+        <div class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><path d="M12 2L3.5 5.75v5.5c0 5.1 3.45 9.7 8.5 11.25 5.05-1.55 8.5-6.15 8.5-11.25v-5.5L12 2z" fill="currentColor"/><rect x="10.25" y="9.25" width="3.5" height="7" rx="1.1" fill="#d8c07a"/><circle cx="12" cy="9.75" r="2.4" fill="#d8c07a"/></svg></div>
+        <div>
+          <h4>Cybersecurity</h4>
+          <div class="meta">16 lessons · 8 weeks</div>
+        </div>
+        <p>Threats, passwords, networks, encryption → <strong>defend-the-scenario</strong> capstone.</p>
+      </div>
+      <div class="program">
+        <div class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><rect x="2.5" y="13.5" width="5" height="7.5" rx="1.1" fill="currentColor"/><rect x="9.5" y="8" width="5" height="13" rx="1.1" fill="currentColor"/><rect x="16.5" y="3" width="5" height="18" rx="1.1" fill="#d8c07a"/></svg></div>
+        <div>
+          <h4>Financial Literacy</h4>
+          <div class="meta">16 lessons · 8 weeks</div>
+        </div>
+        <p>Budgets, credit, saving, investing, scams → <strong>first-year money plan</strong>.</p>
+      </div>
+      <div class="program">
+        <div class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><rect x="5" y="6.5" width="14" height="12.5" rx="2.25" fill="currentColor"/><rect x="8.5" y="2" width="3" height="4.5" rx="0.7" fill="currentColor"/><rect x="12.5" y="2" width="3" height="4.5" rx="0.7" fill="#d8c07a"/><rect x="7.75" y="10.25" width="3.25" height="3.25" rx="0.7" fill="#fff"/><rect x="13" y="10.25" width="3.25" height="3.25" rx="0.7" fill="#d8c07a"/><rect x="8.5" y="15.75" width="7" height="1.75" rx="0.5" fill="#fff"/></svg></div>
         <div>
           <h4>AI + Python Starter Pack</h4>
           <div class="meta">14 lessons · 8 weeks</div>
         </div>
-        <p>Variables → logic → loops → functions → <strong>Build Your AI NPC</strong> capstone.</p>
+        <p>Variables → logic → loops → functions → <strong>AI NPC</strong> capstone.</p>
       </div>
       <div class="program">
-        <div class="program-icon">📊</div>
+        <div class="program-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><rect x="2.5" y="3" width="19" height="5" rx="1.25" fill="currentColor"/><rect x="2.5" y="9.5" width="19" height="5" rx="1.25" fill="currentColor"/><rect x="2.5" y="16" width="11" height="5" rx="1.25" fill="currentColor"/><rect x="15" y="16" width="6.5" height="5" rx="1.25" fill="#d8c07a"/></svg></div>
         <div>
           <h4>Data Analyst Track</h4>
           <div class="meta">14 lessons · 8 weeks</div>
         </div>
-        <p>SQL queries, summaries, charts (bar, pie, line, histogram, scatter) → <strong>data project</strong>.</p>
+        <p>SQL, summaries, charts → <strong>full data project</strong> students can present.</p>
       </div>
     </div>
 
     <h3 class="section-title">How every lesson works</h3>
     <div class="flow">
-      <div class="flow-step"><div class="num">1</div><strong>Learn it</strong><span>Short lesson module, plain language</span></div>
+      <div class="flow-step"><div class="num">1</div><strong>Learn it</strong><span>Short lesson module</span></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="num">2</div><strong>Do it</strong><span>4 auto-graded exercises</span></div>
+      <div class="flow-step"><div class="num">2</div><strong>Do it</strong><span>Auto-graded practice</span></div>
       <div class="flow-arrow">→</div>
-      <div class="flow-step"><div class="num">3</div><strong>Reflect</strong><span>Ethics + check-for-understanding</span></div>
+      <div class="flow-step"><div class="num">3</div><strong>Reflect</strong><span>Ethics + check-in</span></div>
       <div class="flow-arrow">→</div>
       <div class="flow-step"><div class="num">4</div><strong>Earn</strong><span>XP, badges &amp; progress</span></div>
+    </div>
+
+    <div class="instructors">
+      <strong>Led by industry professionals.</strong>
+      Every Kanam instructor brings years of real-world experience in technology, data, cybersecurity, and related fields — so students learn from people who have done the work, not just read about it.
     </div>
 
     <div class="bottom-grid">
       <div>
         <h3 class="section-title">Why schools &amp; partners choose Kanam</h3>
         <ul class="bullets">
-          <li><strong>Standards-aligned</strong> — CSTA (L2/L3A), K–12 CS Framework, ISTE, Common Core Math</li>
-          <li><strong>Evidence of mastery</strong> — auto-graded code/SQL, capstones, progress reporting</li>
+          <li><strong>Industry instructors</strong> — professionals with years of hands-on experience</li>
+          <li><strong>Standards-aligned</strong> — CSTA, ISTE, Common Core Math, Jump$tart</li>
+          <li><strong>Evidence of mastery</strong> — auto-graded practice, capstones, progress reporting</li>
           <li><strong>Flexible delivery</strong> — live cohort, hybrid, self-paced, homeschool</li>
-          <li><strong>Low staff burden</strong> — coach's notes, explainers, instructor dashboard</li>
-          <li><strong>Pilot-ready</strong> — demo mode for families &amp; decision-makers</li>
+          <li><strong>Pilot-ready</strong> — guided interactive demo for families &amp; decision-makers</li>
         </ul>
       </div>
       <div class="stats">
-        <div class="stat"><div class="val">59</div><div class="lbl">Interactive lessons</div></div>
-        <div class="stat"><div class="val">4</div><div class="lbl">Learning tracks</div></div>
-        <div class="stat"><div class="val">6–10</div><div class="lbl">Grade band</div></div>
+        <div class="stat"><div class="val">92</div><div class="lbl">Interactive lessons</div></div>
+        <div class="stat"><div class="val">6</div><div class="lbl">Learning tracks</div></div>
+        <div class="stat"><div class="val">6–12</div><div class="lbl">Grade band</div></div>
         <div class="stat"><div class="val">0</div><div class="lbl">Software installs</div></div>
       </div>
     </div>
 
-    <div class="contact-box">
-      <h3>Get in touch</h3>
-      <dl class="contact-grid">
-        <dt>Email</dt><dd>hello@kanam-academy.com</dd>
-        <dt>Web</dt><dd>kanam-academy.com</dd>
-        <dt>Phone</dt><dd>[Your phone number]</dd>
-        <dt>Contact</dt><dd>[Your Name], [Title]</dd>
-      </dl>
-      <p class="contact-note">
-        Schedule a demo · Request the curriculum &amp; standards packet · Start a pilot — reply to your Kanam Academy email or use the contact details above.
-      </p>
-    </div>
-  </div>
-
-  <!-- PAGE 2 -->
-  <div class="page">
-    <header class="header">
-      <div class="logo-wrap">
-        <img class="logo" src="../public/images/Logo.png" alt="Kanam Academy" />
-        <div class="brand-text">
-          <h1>Built for every stakeholder</h1>
-          <p>Parents · Administrators · Program buyers · Instructors</p>
-        </div>
-      </div>
-      <div class="tagline-pill">Move forward</div>
-    </header>
-
-    <img class="page2-hero-img" src="../public/images/screenshots/welcome.png" alt="Kanam Academy welcome experience" />
-
-    <div class="audience-grid">
-      <div class="audience">
-        <h4>For parents</h4>
-        <p>Visible progress, ethics woven into every coding lesson, no downloads, and a demo mode to preview before enrolling.</p>
-      </div>
-      <div class="audience">
-        <h4>For administrators</h4>
-        <p>8-week scope &amp; sequence, accreditation documentation, per-student progress data, works on Chromebooks.</p>
-      </div>
-      <div class="audience">
-        <h4>For program buyers</h4>
-        <p>Four complementary tracks, flexible licensing, capstone outcomes, pilot-friendly onboarding.</p>
-      </div>
-    </div>
-
-    <h3 class="section-title">Standards &amp; frameworks</h3>
-    <div class="standards">
-      <span class="badge">CSTA K–12 CS (2017 · L2 &amp; L3A)</span>
+    <div class="meta-row">
+      <span class="badge">CSTA K–12 CS</span>
       <span class="badge">K–12 CS Framework</span>
-      <span class="badge">ISTE Standards for Students</span>
-      <span class="badge">Common Core Math · Statistics</span>
-      <span class="badge">CSTA Draft 3.0 (forward map)</span>
+      <span class="badge">ISTE</span>
+      <span class="badge">Common Core Math</span>
+      <span class="badge">Jump$tart</span>
+      <span class="badge">Chromebook-ready</span>
+      <span class="badge">~8 weeks / program</span>
     </div>
 
-    <h3 class="section-title">Capstone outcomes students can show</h3>
-    <div class="capstones">
-      <div class="capstone">
-        <img src="../public/images/lessons/py-6-pattern.png" alt="Python AI NPC" />
-        <div><strong>AI + Python</strong><span>Rule-based AI NPC that listens, decides, remembers &amp; responds</span></div>
-      </div>
-      <div class="capstone">
-        <img src="../public/images/lessons/da-14-project.png" alt="Data project" />
-        <div><strong>Data Analyst</strong><span>Full investigation: query → summarize → chart → conclusion</span></div>
-      </div>
-      <div class="capstone">
-        <img src="../public/images/lessons/ai-9-prompt.png" alt="AI prompting" />
-        <div><strong>AI Literacy</strong><span>Personal plan for using AI ethically at school &amp; home</span></div>
-      </div>
-      <div class="capstone">
-        <img src="../public/images/lessons/dl-11.png" alt="Digital security" />
-        <div><strong>Digital Literacy</strong><span>Personal digital toolkit: safety, skills &amp; career readiness</span></div>
-      </div>
-    </div>
-
-    <h3 class="section-title">Deployment at a glance</h3>
-    <table class="deploy-table">
-      <tr><td>Audience</td><td>Grades 6–10 (ages 11–16) · written for grade 6 readability with 9–10 extensions</td></tr>
-      <tr><td>Pacing</td><td>~8 weeks per program · 2 sessions/week · self-paced or mentor-supported</td></tr>
-      <tr><td>Technology</td><td>Cloud web app · browser-only · secure accounts · instructor dashboard</td></tr>
-      <tr><td>Delivery models</td><td>Live cohort · hybrid/flipped · after-school blocks · homeschool/co-op · site license</td></tr>
-      <tr><td>Licensing</td><td>Site license · per-class · per-seat · enrichment packages · PD add-on (optional)</td></tr>
-    </table>
-
-    <figure class="screenshots">
-      <figure class="shot">
-        <img src="../public/images/screenshots/sql-workspace.png" alt="SQL workspace" />
-        <figcaption>Real SQL in-browser</figcaption>
-      </figure>
-      <figure class="shot">
-        <img src="../public/images/lessons/lesson-histogram.png" alt="Chart visualization" />
-        <figcaption>Data visualizations</figcaption>
-      </figure>
-      <figure class="shot">
-        <img src="../public/images/pexels-olia-danilevich-4974916.jpg" alt="Students learning" />
-        <figcaption>Built for young learners</figcaption>
-      </figure>
-    </figure>
+    <p class="deploy">
+      <strong>Deployment:</strong>
+      Grades 6–12 · live, hybrid, after-school, or self-paced ·
+      site / per-class / per-seat licensing ·
+      instructor dashboard &amp; standards crosswalk available on request
+    </p>
 
     <div class="contact-box">
-      <h3>Kanam Academy — Move forward.</h3>
+      <h3>Ready to see it live?</h3>
       <dl class="contact-grid">
-        <dt>Email</dt><dd>hello@kanam-academy.com</dd>
-        <dt>Web</dt><dd>kanam-academy.com</dd>
-        <dt>Org</dt><dd>[Organization Name]</dd>
+        <dt>Contact</dt><dd>Tory Thompson, President &amp; CEO</dd>
+        <dt>Email</dt><dd>info@kanamacademy.com</dd>
+        <dt>Web</dt><dd>kanamacademy.com</dd>
+        <dt>Demo</dt><dd>kanam-academy-2026-v1.vercel.app/demo</dd>
       </dl>
       <p class="contact-note">
-        © 2026 Kanam Academy. Curriculum documentation &amp; standards crosswalk available on request.
+        Try the interactive demo · Schedule a walkthrough · Start a pilot — reply to your Kanam Academy email or use the contact details above.
       </p>
     </div>
   </div>

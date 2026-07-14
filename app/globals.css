@@ -404,16 +404,13 @@ body {
 .kanam-track-tab .kanam-track-tab-icon {
   display: grid;
   place-items: center;
-  width: 1.9rem;
-  height: 1.9rem;
+  width: 2.05rem;
+  height: 2.05rem;
   border-radius: 0.72rem;
-  border: 1px solid rgb(148 163 184 / 0.36);
-  background:
-    linear-gradient(160deg, #ffffff 0%, rgb(241 245 249) 100%);
+  border: 1px solid rgb(var(--brand-rgb) / 0.28);
+  background: #e8f6ef;
   color: rgb(var(--brand-2-rgb));
-  box-shadow:
-    0 1px 0 rgb(255 255 255 / 1) inset,
-    0 2px 6px rgb(15 23 42 / 0.05);
+  box-shadow: none;
   transition:
     background 160ms ease,
     border-color 160ms ease,
@@ -448,25 +445,21 @@ body {
     linear-gradient(
       145deg,
       rgb(var(--brand-2-rgb) / 0.98) 0%,
-      rgb(var(--brand-rgb) / 0.96) 58%,
-      rgb(var(--accent-rgb) / 0.88) 140%
+      rgb(var(--brand-rgb) / 0.96) 100%
     ) !important;
-  border-color: rgb(var(--accent-rgb) / 0.65);
+  border-color: rgb(var(--brand-rgb) / 0.75);
   color: white !important;
   box-shadow:
-    0 1px 0 rgb(255 255 255 / 0.3) inset,
-    0 12px 26px rgb(var(--brand-2-rgb) / 0.32),
-    0 0 0 1px rgb(var(--accent-rgb) / 0.28);
+    0 1px 0 rgb(255 255 255 / 0.25) inset,
+    0 12px 26px rgb(var(--brand-2-rgb) / 0.32);
   transform: translateY(-1px);
 }
 
 .kanam-track-tabs [data-state="active"] .kanam-track-tab-icon {
-  border-color: rgb(255 255 255 / 0.4);
-  background: rgb(255 255 255 / 0.2);
+  border-color: rgb(255 255 255 / 0.45);
+  background: rgb(255 255 255 / 0.18);
   color: white;
-  box-shadow:
-    0 1px 0 rgb(255 255 255 / 0.4) inset,
-    0 6px 14px rgb(15 23 42 / 0.14);
+  box-shadow: none;
 }
 
 .kanam-track-tabs [data-state="active"] .kanam-track-tab-meta {

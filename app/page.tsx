@@ -358,7 +358,7 @@ export default function Home() {
                   className="kanam-track-tab flex h-full min-h-[4.25rem] w-full flex-col items-center justify-center gap-1.5 whitespace-normal rounded-[0.95rem] px-1.5 py-2.5 text-center sm:min-h-[4.5rem] sm:gap-2 sm:px-2"
                 >
                   <span className="kanam-track-tab-icon shrink-0">
-                    <TrackIcon trackId={track.id} className="h-3.5 w-3.5" />
+                    <TrackIcon trackId={track.id} className="h-4 w-4" />
                   </span>
                   <span className="kanam-track-tab-label text-[11px] leading-snug sm:text-xs md:text-[13px]">
                     {label}

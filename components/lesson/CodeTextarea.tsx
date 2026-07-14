@@ -1,4 +1,5 @@
 import * as React from "react";
+import { blankZoneAtCaret } from "@/lib/pythonStarter";
 
 function escapeHtml(s: string) {
   return (s ?? "")
@@ -67,10 +68,36 @@ export function CodeTextarea({
   const textareaRef = React.useRef<HTMLTextAreaElement | null>(null);
   const preRef = React.useRef<HTMLPreElement | null>(null);
   const lineNoRef = React.useRef<HTMLPreElement | null>(null);
+  const pendingCaret = React.useRef<number | null>(null);
 
   const html = React.useMemo(() => highlightPythonToHtml(value), [value]);
   const [heightPx, setHeightPx] = React.useState<number>(minHeightPx);
   const [needsScroll, setNeedsScroll] = React.useState<boolean>(false);
+
+  const commitWithCaret = React.useCallback(
+    (next: string, caret: number) => {
+      pendingCaret.current = caret;
+      onChange(next);
+    },
+    [onChange]
+  );
+
+  const replaceBlankIfNeeded = (
+    ta: HTMLTextAreaElement,
+    insertion: string
+  ): boolean => {
+    if (disabled) return false;
+    const selStart = ta.selectionStart;
+    const selEnd = ta.selectionEnd;
+    const blank = blankZoneAtCaret(ta.value, selStart);
+    if (!blank) return false;
+    if (selStart === blank.start && selEnd === blank.end) return false;
+    if (selStart !== selEnd && (selStart < blank.start || selEnd > blank.end)) return false;
+    const next =
+      ta.value.slice(0, blank.start) + insertion + ta.value.slice(blank.end);
+    commitWithCaret(next, blank.start + insertion.length);
+    return true;
+  };
 
   const syncScroll = () => {
     const ta = textareaRef.current;
@@ -107,6 +134,12 @@ export function CodeTextarea({
 
     setHeightPx((prev) => (prev === clamped ? prev : clamped));
     setNeedsScroll(raw > maxHeightPx + 2);
+
+    if (pendingCaret.current !== null) {
+      const caret = pendingCaret.current;
+      pendingCaret.current = null;
+      ta.setSelectionRange(caret, caret);
+    }
 
     // Ensure scroll positions stay in sync after resize.
     syncScroll();
@@ -153,6 +186,30 @@ export function CodeTextarea({
         ref={textareaRef}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        onBeforeInput={(e) => {
+          const ne = e.nativeEvent as InputEvent;
+          if (ne.inputType !== "insertText" && ne.inputType !== "insertCompositionText") return;
+          if (!ne.data) return;
+          if (replaceBlankIfNeeded(e.currentTarget, ne.data)) e.preventDefault();
+        }}
+        onPaste={(e) => {
+          const text = e.clipboardData.getData("text");
+          if (!text) return;
+          const insertion = text.replace(/\r\n/g, "\n").split("\n")[0] ?? text;
+          if (replaceBlankIfNeeded(e.currentTarget, insertion)) e.preventDefault();
+        }}
+        onKeyDown={(e) => {
+          if (e.key !== "Backspace" && e.key !== "Delete") return;
+          const ta = e.currentTarget;
+          if (ta.selectionStart !== ta.selectionEnd) return;
+          const blank = blankZoneAtCaret(ta.value, ta.selectionStart);
+          if (!blank) return;
+          e.preventDefault();
+          commitWithCaret(
+            ta.value.slice(0, blank.start) + ta.value.slice(blank.end),
+            blank.start
+          );
+        }}
         onFocus={onFocus}
         onScroll={syncScroll}
         disabled={disabled}

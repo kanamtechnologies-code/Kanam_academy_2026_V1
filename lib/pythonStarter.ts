@@ -22,6 +22,13 @@ export function findBlankTokenZones(code: string): TypingZone[] {
   return zones;
 }
 
+/** Blank zone containing the caret (inclusive of both edges). */
+export function blankZoneAtCaret(code: string, caret: number): TypingZone | null {
+  return (
+    findBlankTokenZones(code).find((z) => caret >= z.start && caret <= z.end) ?? null
+  );
+}
+
 /**
  * Map each ____ in the starter to a highlight zone after blanks were removed.
  * Used as a fallback once the learner has started replacing blanks.

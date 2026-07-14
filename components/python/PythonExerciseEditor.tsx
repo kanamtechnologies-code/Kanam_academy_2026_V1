@@ -2,11 +2,23 @@
 
 import * as React from "react";
 import {
+  blankZoneAtCaret,
   hasBlankTokens,
   selectionForIncompleteCode,
   type TypingZone,
 } from "@/lib/pythonStarter";
 import { cn } from "@/lib/utils";
+
+function replaceBlankToken(
+  code: string,
+  blank: TypingZone,
+  replacement: string
+): { code: string; caret: number } {
+  return {
+    code: code.slice(0, blank.start) + replacement + code.slice(blank.end),
+    caret: blank.start + replacement.length,
+  };
+}
 
 function escapeHtml(s: string) {
   return (s ?? "")
@@ -126,10 +138,75 @@ export function PythonExerciseEditor({
     syncScroll();
   }, [value, minHeightPx, maxHeightPx, showLineNumbers, lineCount]);
 
+  const commitValue = React.useCallback(
+    (next: string, caret: number) => {
+      pendingSelection.current = { start: caret, end: caret };
+      onChange(next);
+    },
+    [onChange]
+  );
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const start = e.target.selectionStart;
     pendingSelection.current = { start, end: start };
     onChange(e.target.value);
+  };
+
+  /**
+   * If the caret is inside a ____ blank (without the whole blank selected),
+   * typing/pasting replaces the blank instead of inserting into the underscores.
+   */
+  const handleBeforeInput = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    if (readOnly) return;
+    const ne = e.nativeEvent as InputEvent;
+    if (ne.inputType !== "insertText" && ne.inputType !== "insertCompositionText") return;
+    const data = ne.data;
+    if (!data) return;
+
+    const ta = e.currentTarget;
+    const selStart = ta.selectionStart;
+    const selEnd = ta.selectionEnd;
+    const blank = blankZoneAtCaret(ta.value, selStart);
+    if (!blank) return;
+    // Whole blank already selected — browser replaces it normally.
+    if (selStart === blank.start && selEnd === blank.end) return;
+    // Selection spans outside this blank — don't interfere.
+    if (selStart !== selEnd && (selStart < blank.start || selEnd > blank.end)) return;
+
+    e.preventDefault();
+    const { code, caret } = replaceBlankToken(ta.value, blank, data);
+    commitValue(code, caret);
+  };
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    if (readOnly) return;
+    const ta = e.currentTarget;
+    const selStart = ta.selectionStart;
+    const selEnd = ta.selectionEnd;
+    const blank = blankZoneAtCaret(ta.value, selStart);
+    if (!blank) return;
+    if (selStart === blank.start && selEnd === blank.end) return;
+    if (selStart !== selEnd && (selStart < blank.start || selEnd > blank.end)) return;
+
+    const text = e.clipboardData.getData("text");
+    if (!text) return;
+    e.preventDefault();
+    // Fill blanks are single-token answers — keep the first line only.
+    const insertion = text.replace(/\r\n/g, "\n").split("\n")[0] ?? text;
+    const { code, caret } = replaceBlankToken(ta.value, blank, insertion);
+    commitValue(code, caret);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (readOnly) return;
+    if (e.key !== "Backspace" && e.key !== "Delete") return;
+    const ta = e.currentTarget;
+    if (ta.selectionStart !== ta.selectionEnd) return;
+    const blank = blankZoneAtCaret(ta.value, ta.selectionStart);
+    if (!blank) return;
+    e.preventDefault();
+    const { code, caret } = replaceBlankToken(ta.value, blank, "");
+    commitValue(code, caret);
   };
 
   // If a click lands outside a green zone, snap into the nearest blank/slot.
@@ -217,6 +294,9 @@ export function PythonExerciseEditor({
           ref={textareaRef}
           value={value}
           onChange={handleChange}
+          onBeforeInput={handleBeforeInput}
+          onPaste={handlePaste}
+          onKeyDown={handleKeyDown}
           onFocus={handleFocus}
           onClick={snapCaretIntoZone}
           onScroll={syncScroll}
@@ -250,7 +330,7 @@ export function PythonExerciseEditor({
             <span className="kanam-sql-typing-gap-inner">&nbsp;</span>
           </span>
           {hasBlankTokens(value)
-            ? "Replace each ____ in the green highlighted area"
+            ? "Just type in the green area — ____ is replaced for you"
             : "Type in the green highlighted area"}
         </p>
       ) : null}
