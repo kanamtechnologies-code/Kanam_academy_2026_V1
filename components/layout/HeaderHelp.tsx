@@ -20,7 +20,7 @@ export function HeaderHelp() {
     <Button
       asChild
       variant="outline"
-      className="min-h-11 border-white/60 bg-white/90 px-3 text-[color:var(--brand-2)] hover:bg-white sm:px-4"
+      className="min-h-11 border-white/60 bg-white/90 px-3 text-[color:var(--brand-2)] hover:bg-white sm:px-4 dark:border-white/60 dark:bg-white/90 dark:text-[color:var(--brand-2)] dark:hover:bg-white"
     >
       <Link href="/help" aria-label="Help">
         <HelpCircle className="h-4 w-4 sm:hidden" />

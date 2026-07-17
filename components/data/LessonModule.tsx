@@ -21,16 +21,7 @@ import { ResultTable } from "@/components/data/ResultTable";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Notice } from "@/components/ui/notice";
-import {
-  buildSectionSpeechText,
-  buildSpeechWords,
-  chunkSpeechText,
-  localWordIndex,
-  pickBrowserVoice,
-  type SpeechWord,
-  wordIndexAtChar,
-  wordIndexAtTime,
-} from "@/lib/lessonSpeech";
+import { buildSectionSpeechText, chunkSpeechText, pickBrowserVoice } from "@/lib/lessonSpeech";
 import type { QueryResult } from "@/lib/sqlRunner";
 import { cn } from "@/lib/utils";
 
@@ -74,84 +65,7 @@ export type LessonModuleData = {
   sections: LessonModuleSection[];
 };
 
-function highlightWordClass(isActive: boolean, isPast: boolean) {
-  return cn(
-    "rounded-[0.2em] transition-colors duration-150",
-    isActive && "bg-[rgb(var(--accent-rgb)/0.55)] font-semibold text-slate-950 shadow-sm",
-    !isActive && isPast && "text-slate-800",
-    !isActive && !isPast && "text-inherit"
-  );
-}
-
-/** activeLocalIndex: null = off; -1 = upcoming; n = current word; >= length = all past */
-function renderHighlightedPlain(
-  text: string,
-  activeLocalIndex: number | null,
-  className?: string
-) {
-  const parts = text.split(/(\s+)/);
-  let wordIdx = 0;
-  return (
-    <span className={className}>
-      {parts.map((part, i) => {
-        if (!part) return null;
-        if (/^\s+$/.test(part)) return <span key={i}>{part}</span>;
-        const isActive = activeLocalIndex === wordIdx;
-        const isPast =
-          activeLocalIndex !== null && activeLocalIndex >= 0 && wordIdx < activeLocalIndex;
-        const node = (
-          <span key={i} className={highlightWordClass(isActive, isPast)}>
-            {part}
-          </span>
-        );
-        wordIdx += 1;
-        return node;
-      })}
-    </span>
-  );
-}
-
-function renderHighlightedRichText(text: string, activeLocalIndex: number | null) {
-  let wordIdx = 0;
-
-  const paint = (raw: string, keyPrefix: string, Wrapper?: "strong" | "code") => {
-    const parts = raw.split(/(\s+)/);
-    return parts.map((part, j) => {
-      if (!part) return null;
-      if (/^\s+$/.test(part)) return <span key={`${keyPrefix}-s-${j}`}>{part}</span>;
-      const isActive = activeLocalIndex === wordIdx;
-      const isPast =
-        activeLocalIndex !== null && activeLocalIndex >= 0 && wordIdx < activeLocalIndex;
-      const cls = highlightWordClass(isActive, isPast);
-      wordIdx += 1;
-      if (Wrapper === "strong") {
-        return (
-          <strong key={`${keyPrefix}-w-${j}`} className={cn("font-bold text-slate-900", cls)}>
-            {part}
-          </strong>
-        );
-      }
-      if (Wrapper === "code") {
-        return (
-          <code
-            key={`${keyPrefix}-w-${j}`}
-            className={cn(
-              "rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[0.9em] text-emerald-800",
-              cls
-            )}
-          >
-            {part}
-          </code>
-        );
-      }
-      return (
-        <span key={`${keyPrefix}-w-${j}`} className={cls}>
-          {part}
-        </span>
-      );
-    });
-  };
-
+function renderRichText(text: string) {
   return text.split("\n").map((line, i) => {
     if (line.trim() === "") return <div key={i} className="h-3" />;
     const parts = line.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
@@ -163,29 +77,26 @@ function renderHighlightedRichText(text: string, activeLocalIndex: number | null
         {parts.map((part, j) => {
           if (part.startsWith("**") && part.endsWith("**")) {
             return (
-              <React.Fragment key={`b-${i}-${j}`}>
-                {paint(part.slice(2, -2), `b-${i}-${j}`, "strong")}
-              </React.Fragment>
+              <strong key={j} className="font-bold text-slate-900">
+                {part.slice(2, -2)}
+              </strong>
             );
           }
           if (part.startsWith("`") && part.endsWith("`")) {
             return (
-              <React.Fragment key={`c-${i}-${j}`}>
-                {paint(part.slice(1, -1), `c-${i}-${j}`, "code")}
-              </React.Fragment>
+              <code
+                key={j}
+                className="rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[0.9em] text-emerald-800"
+              >
+                {part.slice(1, -1)}
+              </code>
             );
           }
-          return (
-            <React.Fragment key={`t-${i}-${j}`}>{paint(part, `t-${i}-${j}`)}</React.Fragment>
-          );
+          return <React.Fragment key={j}>{part}</React.Fragment>;
         })}
       </p>
     );
   });
-}
-
-function renderRichText(text: string) {
-  return renderHighlightedRichText(text, null);
 }
 
 export function LessonModule({
@@ -207,8 +118,6 @@ export function LessonModule({
   const audioCacheRef = React.useRef<Map<string, string>>(new Map());
   const chunkQueueRef = React.useRef<string[]>([]);
   const chunkIndexRef = React.useRef(0);
-  const chunkWordOffsetsRef = React.useRef<number[]>([]);
-  const speechWordsRef = React.useRef<SpeechWord[]>([]);
   const neuralAvailableRef = React.useRef<boolean | null>(null);
   const section = sections[index];
   const isLast = index === sections.length - 1;
@@ -217,13 +126,6 @@ export function LessonModule({
   const [speechState, setSpeechState] = React.useState<"idle" | "loading" | "speaking" | "paused">(
     "idle"
   );
-  const [highlightWordIndex, setHighlightWordIndex] = React.useState<number | null>(null);
-  const listening = speechState === "speaking" || speechState === "paused" || speechState === "loading";
-  const titleWordActive = localWordIndex(speechWordsRef.current, highlightWordIndex, "title");
-  const bodyWordActive = localWordIndex(speechWordsRef.current, highlightWordIndex, "body");
-  const bulletsWordActive = localWordIndex(speechWordsRef.current, highlightWordIndex, "bullets");
-  const calloutWordActive = localWordIndex(speechWordsRef.current, highlightWordIndex, "callout");
-  const checkInWordActive = localWordIndex(speechWordsRef.current, highlightWordIndex, "checkIn");
 
   const sectionCheckInClear = !section.checkIn || Boolean(checkInDone[section.id]);
   const canAdvance = sectionCheckInClear;
@@ -242,16 +144,16 @@ export function LessonModule({
     if (audio) {
       audio.onended = null;
       audio.onerror = null;
-      audio.ontimeupdate = null;
       audio.pause();
       audio.removeAttribute("src");
-      audio.load();
+      try {
+        audio.load();
+      } catch {
+        // ignore
+      }
     }
     chunkQueueRef.current = [];
     chunkIndexRef.current = 0;
-    chunkWordOffsetsRef.current = [];
-    speechWordsRef.current = [];
-    setHighlightWordIndex(null);
     setSpeechState("idle");
   });
 
@@ -321,20 +223,9 @@ export function LessonModule({
     const voices = window.speechSynthesis.getVoices();
     const preferred = pickBrowserVoice(voices);
     if (preferred) utterance.voice = preferred;
-    utterance.onboundary = (event) => {
-      if (event.name && event.name !== "word") return;
-      setHighlightWordIndex(wordIndexAtChar(speechWordsRef.current, event.charIndex));
-    };
-    utterance.onend = () => {
-      setSpeechState("idle");
-      setHighlightWordIndex(null);
-    };
-    utterance.onerror = () => {
-      setSpeechState("idle");
-      setHighlightWordIndex(null);
-    };
+    utterance.onend = () => setSpeechState("idle");
+    utterance.onerror = () => setSpeechState("idle");
     setSpeechState("speaking");
-    setHighlightWordIndex(0);
     window.speechSynthesis.speak(utterance);
   });
 
@@ -343,7 +234,6 @@ export function LessonModule({
     const text = chunks[at];
     if (!text) {
       setSpeechState("idle");
-      setHighlightWordIndex(null);
       return;
     }
 
@@ -351,42 +241,31 @@ export function LessonModule({
       if (at === 0) setSpeechState("loading");
       const url = await fetchNeuralUrl(text);
       if (!url) {
-        playBrowserSpeech(chunks.join(" "));
+        playBrowserSpeech(buildSectionSpeechText(section));
         return;
       }
 
       const audio = audioRef.current ?? new Audio();
       audioRef.current = audio;
       chunkIndexRef.current = at;
-      const chunkWords = text.match(/\S+/g) ?? [];
-      const baseOffset = chunkWordOffsetsRef.current[at] ?? 0;
 
-      audio.ontimeupdate = () => {
-        if (!audio.duration || !Number.isFinite(audio.duration)) return;
-        const local = wordIndexAtTime(chunkWords, audio.duration, audio.currentTime);
-        setHighlightWordIndex(baseOffset + local);
-      };
       audio.onended = () => {
         const next = at + 1;
         if (next < chunks.length) {
           void playNeuralChunk(next);
         } else {
           setSpeechState("idle");
-          setHighlightWordIndex(null);
         }
       };
-      audio.onerror = () => {
-        setSpeechState("idle");
-        setHighlightWordIndex(null);
-      };
+      audio.onerror = () => setSpeechState("idle");
+
       audio.src = url;
       setSpeechState("speaking");
-      setHighlightWordIndex(baseOffset);
       await audio.play();
       const upcoming = chunks[at + 1];
       if (upcoming) void fetchNeuralUrl(upcoming).catch(() => null);
     } catch {
-      playBrowserSpeech(chunks.join(" "));
+      playBrowserSpeech(buildSectionSpeechText(section));
     }
   });
 
@@ -394,17 +273,8 @@ export function LessonModule({
     const text = buildSectionSpeechText(section);
     if (!text) return;
     stopListening();
-    speechWordsRef.current = buildSpeechWords(section);
-    const chunks = chunkSpeechText(text);
-    chunkQueueRef.current = chunks;
+    chunkQueueRef.current = chunkSpeechText(text);
     chunkIndexRef.current = 0;
-    let offset = 0;
-    chunkWordOffsetsRef.current = chunks.map((chunk) => {
-      const start = offset;
-      offset += chunk.match(/\S+/g)?.length ?? 0;
-      return start;
-    });
-    setHighlightWordIndex(0);
 
     if (neuralAvailableRef.current === false) {
       playBrowserSpeech(text);
@@ -565,56 +435,26 @@ export function LessonModule({
 
           const prose = (
             <>
-              <div className="space-y-3">
-                {listening
-                  ? renderHighlightedRichText(section.body, bodyWordActive)
-                  : renderRichText(section.body)}
-              </div>
+              <div className="space-y-3">{renderRichText(section.body)}</div>
 
               {section.bullets && section.bullets.length > 0 ? (
                 <ul className="space-y-2.5">
-                  {(() => {
-                    let offset = 0;
-                    return section.bullets!.map((b, i) => {
-                      const plain = `${i + 1}. ${b.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/`([^`]+)`/g, "$1")}`;
-                      const count = plain.match(/\S+/g)?.length ?? 0;
-                      let active: number | null = null;
-                      if (listening && bulletsWordActive !== null) {
-                        if (bulletsWordActive < offset) active = -1;
-                        else if (bulletsWordActive >= offset + count) active = count;
-                        else active = bulletsWordActive - offset;
-                      }
-                      offset += count;
-                      return (
-                        <li
-                          key={i}
-                          className="flex items-start gap-2.5 text-[16px] leading-[1.7] text-slate-700 sm:text-[17px]"
-                        >
-                          <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[var(--brand)]" />
-                          <span>
-                            {listening ? renderHighlightedPlain(plain, active) : renderInline(b)}
-                          </span>
-                        </li>
-                      );
-                    });
-                  })()}
+                  {section.bullets.map((b, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-2.5 text-[16px] leading-[1.7] text-slate-700 sm:text-[17px]"
+                    >
+                      <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[var(--brand)]" />
+                      <span>{renderInline(b)}</span>
+                    </li>
+                  ))}
                 </ul>
               ) : null}
 
               {section.callout ? (
                 <Notice compact variant="info" title={section.callout.label}>
                   <p className="text-[15px] leading-relaxed text-slate-700 sm:text-base">
-                    {listening && calloutWordActive !== null
-                      ? (() => {
-                          const labelCount =
-                            `${section.callout!.label}.`.match(/\S+/g)?.length ?? 0;
-                          const active =
-                            calloutWordActive < labelCount
-                              ? -1
-                              : calloutWordActive - labelCount;
-                          return renderHighlightedPlain(section.callout!.text, active);
-                        })()
-                      : renderInline(section.callout.text)}
+                    {renderInline(section.callout.text)}
                   </p>
                 </Notice>
               ) : null}
@@ -625,16 +465,7 @@ export function LessonModule({
                     Quick check
                   </p>
                   <p className="mt-2 text-[16px] font-semibold leading-snug text-slate-900 sm:text-[17px]">
-                    {listening && checkInWordActive !== null
-                      ? (() => {
-                          const prefixCount = "Quick check.".match(/\S+/g)?.length ?? 2;
-                          const active =
-                            checkInWordActive < prefixCount
-                              ? -1
-                              : checkInWordActive - prefixCount;
-                          return renderHighlightedPlain(section.checkIn!.prompt, active);
-                        })()
-                      : section.checkIn.prompt}
+                    {section.checkIn.prompt}
                   </p>
                   <div className="mt-3 grid gap-2">
                     {section.checkIn.choices.map((choice, ci) => {
@@ -757,9 +588,7 @@ export function LessonModule({
                   ) : null}
                 </div>
                 <h2 className="mt-3 text-[1.65rem] font-black leading-tight tracking-tight text-slate-900 sm:text-3xl md:text-[2rem]">
-                  {listening
-                    ? renderHighlightedPlain(section.title, titleWordActive)
-                    : section.title}
+                  {section.title}
                 </h2>
               </div>
 

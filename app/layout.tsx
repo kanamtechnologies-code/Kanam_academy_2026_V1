@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 
 import { AppChrome } from "@/components/layout/AppChrome";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,11 +31,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} min-h-dvh overflow-x-hidden bg-slate-50 text-slate-900 antialiased`}
+        className={`${inter.variable} min-h-dvh overflow-x-hidden bg-background text-foreground antialiased`}
       >
-        <AppChrome>{children}</AppChrome>
+        <ThemeProvider>
+          <AppChrome>{children}</AppChrome>
+        </ThemeProvider>
       </body>
     </html>
   );

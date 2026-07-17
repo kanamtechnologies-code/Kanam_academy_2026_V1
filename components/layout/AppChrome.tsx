@@ -6,6 +6,7 @@ import { AuthActions } from "@/components/layout/AuthActions";
 import { HeaderBrand } from "@/components/layout/HeaderBrand";
 import { HeaderHelp } from "@/components/layout/HeaderHelp";
 import { HeaderVideo } from "@/components/layout/HeaderVideo";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export function AppChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -35,6 +36,7 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
           <HeaderBrand />
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
             <AuthActions />
+            <ThemeToggle />
             <HeaderHelp />
           </div>
         </div>

@@ -10,7 +10,7 @@ export function HeaderBrand() {
       href="/welcome"
       aria-label="Kanam Academy"
       className={[
-        "group inline-flex items-center rounded-2xl border border-[rgb(var(--accent-rgb)/0.95)] bg-white/95 px-2 py-1.5 sm:px-2.5 sm:py-2",
+        "group inline-flex items-center rounded-2xl border border-[rgb(var(--accent-rgb)/0.95)] bg-white/95 px-3 py-2 sm:px-3.5 sm:py-2.5",
         "shadow-lg shadow-slate-950/10",
         "transform-gpu transition-all duration-200 ease-out motion-reduce:transition-none",
         "hover:-translate-y-[1px] hover:bg-white hover:shadow-xl hover:shadow-slate-950/15",
@@ -19,11 +19,11 @@ export function HeaderBrand() {
       ].join(" ")}
     >
       <Image
-        src="/images/kanam-logo-nav.png"
+        src="/images/kanam-logo-clean-white.png"
         alt=""
-        width={400}
-        height={170}
-        className="h-9 w-auto object-contain sm:h-11"
+        width={348}
+        height={104}
+        className="h-8 w-auto object-contain sm:h-9"
         priority
       />
       <span className="sr-only">Kanam Academy</span>

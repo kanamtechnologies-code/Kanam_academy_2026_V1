@@ -15,29 +15,30 @@ const VARIANT: Record<
   lock: {
     icon: Lock,
     shell:
-      "border-[rgb(var(--accent-rgb)/0.45)] bg-gradient-to-br from-white via-[rgb(var(--accent-rgb)/0.12)] to-[rgb(var(--brand-rgb)/0.08)]",
+      "border-[rgb(var(--accent-rgb)/0.45)] bg-gradient-to-br from-white via-[rgb(var(--accent-rgb)/0.12)] to-[rgb(var(--brand-rgb)/0.08)] dark:from-slate-900 dark:via-[rgb(var(--accent-rgb)/0.14)] dark:to-[rgb(var(--brand-rgb)/0.12)]",
     iconWrap: "bg-[rgb(var(--brand-2-rgb)/0.12)] ring-[rgb(var(--accent-rgb)/0.55)]",
     iconClass: "text-[var(--brand-2)]",
   },
   info: {
     icon: Info,
     shell:
-      "border-[rgb(var(--brand-rgb)/0.28)] bg-gradient-to-br from-white via-[rgb(var(--brand-rgb)/0.08)] to-[rgb(var(--accent-rgb)/0.1)]",
+      "border-[rgb(var(--brand-rgb)/0.28)] bg-gradient-to-br from-white via-[rgb(var(--brand-rgb)/0.08)] to-[rgb(var(--accent-rgb)/0.1)] dark:from-slate-900 dark:via-[rgb(var(--brand-rgb)/0.14)] dark:to-[rgb(var(--accent-rgb)/0.12)]",
     iconWrap: "bg-[rgb(var(--brand-rgb)/0.12)] ring-[rgb(var(--brand-rgb)/0.35)]",
     iconClass: "text-[var(--brand-2)]",
   },
   success: {
     icon: CheckCircle2,
     shell:
-      "border-[rgb(var(--brand-rgb)/0.4)] bg-gradient-to-br from-white via-[rgb(var(--brand-rgb)/0.12)] to-emerald-50/80",
+      "border-[rgb(var(--brand-rgb)/0.4)] bg-gradient-to-br from-white via-[rgb(var(--brand-rgb)/0.12)] to-emerald-50/80 dark:from-slate-900 dark:via-[rgb(var(--brand-rgb)/0.16)] dark:to-emerald-950/60",
     iconWrap: "bg-[rgb(var(--brand-rgb)/0.14)] ring-[rgb(var(--brand-rgb)/0.4)]",
     iconClass: "text-[var(--brand)]",
   },
   danger: {
     icon: AlertCircle,
-    shell: "border-rose-200/90 bg-gradient-to-br from-white via-rose-50/90 to-orange-50/50",
-    iconWrap: "bg-rose-100/90 ring-rose-200",
-    iconClass: "text-rose-700",
+    shell:
+      "border-rose-200/90 bg-gradient-to-br from-white via-rose-50/90 to-orange-50/50 dark:border-rose-500/40 dark:from-slate-900 dark:via-rose-950/70 dark:to-orange-950/40",
+    iconWrap: "bg-rose-100/90 ring-rose-200 dark:bg-rose-950/80 dark:ring-rose-500/40",
+    iconClass: "text-rose-700 dark:text-rose-300",
   },
 };
 

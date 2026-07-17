@@ -42,7 +42,7 @@ export type SpeechWord = {
 
 export function buildSectionSpeechSegments(section: SpeechSection): SpeechSegment[] {
   const segments: SpeechSegment[] = [];
-  if (section.kicker) segments.push({ id: "kicker", text: stripForSpeech(section.kicker) });
+  // Skip kickers ("Start here") — they're UI chrome, not lesson prose to highlight.
   segments.push({ id: "title", text: stripForSpeech(section.title) });
   if (section.body) segments.push({ id: "body", text: stripForSpeech(section.body) });
   if (section.bullets?.length) {
@@ -118,22 +118,40 @@ export function wordIndexAtChar(words: SpeechWord[], charIndex: number) {
   return idx;
 }
 
-/** Character-weighted timing with slight pauses after punctuation. */
-export function wordIndexAtTime(words: string[], durationSec: number, currentTimeSec: number) {
-  if (!words.length || durationSec <= 0) return 0;
-  const weights = words.map((w) => {
+/** Relative weights so longer words / punctuation hold the highlight a bit longer. */
+export function speechWordWeights(words: string[]) {
+  return words.map((w) => {
     const base = Math.max(1, w.replace(/[^A-Za-z0-9]/g, "").length || w.length);
     const pause = /[.!?;:]$/.test(w) ? 2.4 : /,$/.test(w) ? 1.4 : 1;
     return base * pause;
   });
+}
+
+/** Map 0–1 playback progress onto a word index. */
+export function wordIndexAtProgress(words: string[], progress: number) {
+  if (!words.length) return 0;
+  const weights = speechWordWeights(words);
   const total = weights.reduce((a, b) => a + b, 0) || 1;
-  const target = Math.min(1, Math.max(0, currentTimeSec / durationSec)) * total;
+  const target = Math.min(1, Math.max(0, progress)) * total;
   let acc = 0;
   for (let i = 0; i < weights.length; i += 1) {
     acc += weights[i];
     if (target <= acc) return i;
   }
   return words.length - 1;
+}
+
+/** Character-weighted timing with slight pauses after punctuation. */
+export function wordIndexAtTime(words: string[], durationSec: number, currentTimeSec: number) {
+  if (!words.length || durationSec <= 0) return 0;
+  return wordIndexAtProgress(words, currentTimeSec / durationSec);
+}
+
+/** Fallback duration when audio metadata is missing (~2.8 words/sec for clear TTS). */
+export function estimateSpeechDurationSec(words: string[]) {
+  const weights = speechWordWeights(words);
+  const total = weights.reduce((a, b) => a + b, 0);
+  return Math.max(1.2, total / 9.5);
 }
 
 /**

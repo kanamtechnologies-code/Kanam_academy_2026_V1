@@ -22,10 +22,10 @@ const buttonVariants = cva(
         default:
           "bg-[var(--brand)] text-white hover:bg-[var(--brand-2)] focus-visible:ring-[var(--brand)]",
         secondary:
-          "bg-slate-100 text-slate-900 hover:bg-slate-200",
+          "bg-slate-100 text-slate-900 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-700",
         outline:
-          "border border-slate-200 bg-white hover:bg-slate-50",
-        ghost: "hover:bg-slate-100",
+          "border border-slate-200 bg-white hover:bg-slate-50 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-50 dark:hover:bg-slate-800",
+        ghost: "hover:bg-slate-100 dark:hover:bg-slate-800",
       },
       size: {
         default: "h-10 px-4 py-2",
