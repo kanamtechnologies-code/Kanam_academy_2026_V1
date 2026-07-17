@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import { isInstructorRole, postSignInPath } from "@/lib/roles";
+import { isInstructorRole, postSignInPath, safeNextPath } from "@/lib/roles";
 
 type EnsureProfileResponse = {
   ok?: boolean;
@@ -156,9 +156,14 @@ export default function WelcomePage() {
           );
         }
 
+        const next =
+          typeof window !== "undefined"
+            ? safeNextPath(new URLSearchParams(window.location.search).get("next"))
+            : null;
+
         if (isInstructorRole(user)) {
           setInstructorSignInOpen(false);
-          router.push(postSignInPath(user));
+          router.push(next && next.startsWith("/billing") ? next : postSignInPath(user));
           return;
         }
 
@@ -168,11 +173,11 @@ export default function WelcomePage() {
           if (!ensureRes.ok || !ensureJson?.ok) {
             throw new Error(ensureJson?.error || "Signed in, but could not load your profile.");
           }
-          router.push("/dashboard");
+          router.push(next || "/dashboard");
           return;
         }
 
-        router.push("/dashboard");
+        router.push(next || "/dashboard");
       } catch (error: unknown) {
         const msg = errorMessage(error, "Sign-in failed.");
         if (mode === "instructor") setInstructorError(msg);

@@ -112,13 +112,39 @@ export default function BillingClient() {
 
   const canceled = searchParams.get("canceled") === "1";
   const featuredTrack = searchParams.get("track")?.trim() ?? "";
+  /** Marketing deep-links: plan=subscription|track|tutoring, tutoring=trial|session|bundle4|… */
+  const plan = searchParams.get("plan")?.trim() ?? "";
+  const tutoringSku = searchParams.get("tutoring")?.trim() ?? "";
+  const section =
+    searchParams.get("section")?.trim() ||
+    (plan === "subscription"
+      ? "subscription"
+      : plan === "tutoring" || tutoringSku
+        ? "tutoring"
+        : plan === "track" || featuredTrack
+          ? "tracks"
+          : "");
   const ownedTracks = new Set((status?.tracks ?? []).map((t) => t.track_slug));
 
   React.useEffect(() => {
-    if (!featuredTrack) return;
-    const el = document.getElementById(`track-${featuredTrack}`);
+    const targetId =
+      featuredTrack
+        ? `track-${featuredTrack}`
+        : tutoringSku
+          ? `tutoring-${tutoringSku}`
+          : section === "subscription"
+            ? "subscription"
+            : section === "tutoring"
+              ? "tutoring"
+              : section === "tracks"
+                ? "tracks"
+                : section === "plans"
+                  ? "plans"
+                  : "";
+    if (!targetId) return;
+    const el = document.getElementById(targetId);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [featuredTrack, status]);
+  }, [featuredTrack, tutoringSku, section, status]);
 
   return (
     <main className="w-full">
@@ -179,9 +205,15 @@ export default function BillingClient() {
           <div className="mb-6 rounded-2xl border border-red-400/30 bg-red-950/40 px-4 py-3 text-sm text-red-100">
             <p>{error}</p>
             <p className="mt-2">
-              <Link href="/welcome" className="font-semibold text-[var(--accent)] underline underline-offset-4">
+              <Link
+                href={`/welcome?next=${encodeURIComponent(
+                  `/billing${searchParams.toString() ? `?${searchParams.toString()}` : ""}`
+                )}`}
+                className="font-semibold text-[var(--accent)] underline underline-offset-4"
+              >
                 Sign in or create an account
               </Link>
+              {" — then return here to checkout."}
             </p>
           </div>
         ) : null}
@@ -237,7 +269,15 @@ export default function BillingClient() {
 
         <div id="plans" className="mt-14 space-y-16 scroll-mt-8">
           {/* Family subscription */}
-          <section className="grid items-stretch gap-0 overflow-hidden rounded-[2rem] border border-[rgb(var(--accent-rgb)/0.22)] bg-[rgb(var(--brand-deep-rgb)/0.55)] shadow-[0_30px_90px_rgba(0,0,0,0.4)] lg:grid-cols-2">
+          <section
+            id="subscription"
+            className={[
+              "scroll-mt-8 grid items-stretch gap-0 overflow-hidden rounded-[2rem] border bg-[rgb(var(--brand-deep-rgb)/0.55)] shadow-[0_30px_90px_rgba(0,0,0,0.4)] lg:grid-cols-2",
+              section === "subscription"
+                ? "border-[rgb(var(--accent-rgb)/0.55)] ring-1 ring-[rgb(var(--accent-rgb)/0.35)]"
+                : "border-[rgb(var(--accent-rgb)/0.22)]",
+            ].join(" ")}
+          >
             <div className="relative min-h-[280px] lg:min-h-full">
               <Image
                 src="/images/billing/billing-subscription-premium.png"
@@ -353,8 +393,15 @@ export default function BillingClient() {
           </section>
 
           {/* Tutoring */}
-          <section>
-            <div className="relative mb-8 overflow-hidden rounded-[2rem] border border-[rgb(var(--accent-rgb)/0.22)]">
+          <section id="tutoring" className="scroll-mt-8">
+            <div
+              className={[
+                "relative mb-8 overflow-hidden rounded-[2rem] border",
+                section === "tutoring"
+                  ? "border-[rgb(var(--accent-rgb)/0.55)] ring-1 ring-[rgb(var(--accent-rgb)/0.35)]"
+                  : "border-[rgb(var(--accent-rgb)/0.22)]",
+              ].join(" ")}
+            >
               <div className="relative min-h-[220px] sm:min-h-[280px]">
                 <Image
                   src="/images/billing/billing-tutoring-premium.png"
@@ -383,7 +430,13 @@ export default function BillingClient() {
               {TUTORING.map((item) => (
                 <div
                   key={item.sku}
-                  className="flex flex-col rounded-3xl border border-[rgb(var(--accent-rgb)/0.18)] bg-[rgb(var(--brand-deep-rgb)/0.55)] px-5 py-5 shadow-[0_16px_48px_rgba(0,0,0,0.25)]"
+                  id={`tutoring-${item.sku}`}
+                  className={[
+                    "flex scroll-mt-8 flex-col rounded-3xl border bg-[rgb(var(--brand-deep-rgb)/0.55)] px-5 py-5 shadow-[0_16px_48px_rgba(0,0,0,0.25)]",
+                    tutoringSku === item.sku
+                      ? "border-[rgb(var(--accent-rgb)/0.55)] bg-[rgb(var(--accent-rgb)/0.12)] ring-1 ring-[rgb(var(--accent-rgb)/0.35)]"
+                      : "border-[rgb(var(--accent-rgb)/0.18)]",
+                  ].join(" ")}
                 >
                   <p className="text-sm font-medium text-[#c5d2cb]">{item.label}</p>
                   <p className="mt-2 text-3xl font-semibold tracking-tight text-[var(--accent)]" style={displayFont()}>

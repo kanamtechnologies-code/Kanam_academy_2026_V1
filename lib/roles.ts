@@ -33,3 +33,21 @@ export function isInstructorRole(user: UserWithRole): boolean {
 export function postSignInPath(user: UserWithRole): "/instructor" | "/dashboard" {
   return isInstructorRole(user) ? "/instructor" : "/dashboard";
 }
+
+/**
+ * Safe in-app redirect from `?next=` (marketing → billing checkout flow).
+ * Only allows same-origin relative paths.
+ */
+export function safeNextPath(raw: string | null | undefined): string | null {
+  if (!raw) return null;
+  let decoded = raw;
+  try {
+    decoded = decodeURIComponent(raw);
+  } catch {
+    return null;
+  }
+  if (!decoded.startsWith("/")) return null;
+  if (decoded.startsWith("//")) return null;
+  if (decoded.includes("://")) return null;
+  return decoded;
+}

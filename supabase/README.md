@@ -99,7 +99,9 @@ Save the template, then request a **new** reset email (old links still use the p
    - Events: `checkout.session.completed`, `customer.subscription.created`,
      `customer.subscription.updated`, `customer.subscription.deleted`,
      `invoice.paid`, `invoice.payment_failed`
-6. Temporary buy UI: `/billing`
+6. Buy UI: `/billing` (supports marketing deep-links:
+   `?plan=subscription|track|tutoring`, `?track=<slug>`, `?tutoring=trial|session|bundle4|bundle8|bundle16`)
+7. Marketing site Buy buttons → `https://learn.kanamacademy.com/billing?...`
 
 ## 5) Safety note
 
