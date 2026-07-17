@@ -246,6 +246,14 @@ export function AILessonCanvas({
         const uid = data.user?.id ?? "";
         setUserId(uid);
         if (!uid) return;
+        const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+        const ensureJson = (await ensureRes.json()) as {
+          student?: { id?: string };
+        };
+        if (ensureJson?.student?.id) {
+          setStudentDbId(String(ensureJson.student.id));
+          return;
+        }
         const { data: student } = await supabase
           .from("students")
           .select("id")
@@ -308,12 +316,7 @@ export function AILessonCanvas({
     trackProgress("run", { questionId: activeQuestion.id, choiceIndex });
     if (choiceIndex === activeQuestion.correctIndex) {
       setCorrectIds((prev) => new Set(prev).add(activeQuestion.id));
-      // Cascade to the next quiz question after a short beat.
-      if (activeIndex < totalQuestions - 1) {
-        window.setTimeout(() => {
-          setActiveIndex((i) => Math.min(i + 1, totalQuestions - 1));
-        }, 700);
-      }
+      // Learner advances with the "Next question" button (no auto-skip).
     }
   };
 
@@ -352,16 +355,14 @@ export function AILessonCanvas({
   const markActivityDone = (activityId: string, payload?: Record<string, unknown>) => {
     setActivityDoneIds((prev) => new Set(prev).add(activityId));
     trackProgress("run", { activityId, kind: "bonus", ...payload });
+    // Learner advances with the "Next challenge" button (no auto-skip).
+  };
 
-    const idx = activities.findIndex((a) => a.id === activityId);
-    if (idx >= 0 && idx < activities.length - 1) {
-      // Cascade: unlock and surface the next challenge automatically.
-      window.setTimeout(() => {
-        const next = idx + 1;
-        setActiveActivityIndex(next);
-        scrollActivityIntoView(next);
-      }, 750);
-    }
+  const goToNextActivity = () => {
+    if (activeActivityIndex >= activities.length - 1) return;
+    const next = activeActivityIndex + 1;
+    setActiveActivityIndex(next);
+    scrollActivityIntoView(next);
   };
 
   React.useEffect(() => {
@@ -390,7 +391,9 @@ export function AILessonCanvas({
     const act = activities[activeActivityIndex];
     if (act && !activityDoneIds.has(act.id)) {
       markActivityDone(act.id, { tempSkip: true });
-      // markActivityDone cascades to the next challenge automatically
+      if (activeActivityIndex < activities.length - 1) {
+        goToNextActivity();
+      }
     }
   };
 
@@ -755,7 +758,7 @@ export function AILessonCanvas({
                                       : "Challenge"
                         )
                         .join(" · ")}{" "}
-                      — finish each one to complete the lesson. The next challenge opens automatically.
+                      — finish each one to complete the lesson. Use Next challenge after each success.
                     </p>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -885,9 +888,17 @@ export function AILessonCanvas({
 
                         {activityDoneIds.has(activeActivity.id) &&
                         activeActivityIndex < activities.length - 1 ? (
-                          <p className="mt-3 text-sm font-semibold text-violet-700">
-                            Nice — opening the next challenge…
-                          </p>
+                          <div className="mt-4 flex w-full flex-col gap-2 sm:flex-row">
+                            <Button
+                              type="button"
+                              size="lg"
+                              className="kanam-data-next-exercise-btn min-h-11 w-full shadow-md sm:w-auto"
+                              onClick={goToNextActivity}
+                            >
+                              Next challenge
+                              <ChevronRight className="kanam-data-next-chevron h-4 w-4" />
+                            </Button>
+                          </div>
                         ) : null}
                       </div>
                     ) : null}

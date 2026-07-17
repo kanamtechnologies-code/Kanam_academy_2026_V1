@@ -295,9 +295,20 @@ export function LessonModule({
                     })}
                   </div>
                   {checkInDone[section.id] ? (
-                    <p className="mt-3 text-sm leading-relaxed text-emerald-900">
-                      {section.checkIn.explanation}
-                    </p>
+                    <div className="mt-3 space-y-3">
+                      <p className="text-sm leading-relaxed text-emerald-900">
+                        {section.checkIn.explanation}
+                      </p>
+                      <Button
+                        type="button"
+                        size="lg"
+                        className="kanam-data-next-exercise-btn min-h-11 w-full shadow-md sm:w-auto"
+                        onClick={goNext}
+                      >
+                        {isLast ? startLabel : "Next"}
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </div>
                   ) : pickedWrong(section, checkInPick) ? (
                     <p className="mt-3 text-sm font-medium text-rose-800">
                       Not quite — try another option.

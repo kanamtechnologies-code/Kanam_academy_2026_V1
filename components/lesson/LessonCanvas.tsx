@@ -945,6 +945,17 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
         const uid = data.user?.id ?? "";
         setUserId(uid);
         if (!uid) return;
+        const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+        const ensureJson = (await ensureRes.json()) as {
+          student?: { id?: string; display_name?: string };
+        };
+        if (ensureJson?.student?.id) {
+          setStudentDbId(String(ensureJson.student.id));
+          if (ensureJson.student.display_name) {
+            setStudentName(String(ensureJson.student.display_name));
+          }
+          return;
+        }
         const { data: student } = await supabase
           .from("students")
           .select("id, display_name")

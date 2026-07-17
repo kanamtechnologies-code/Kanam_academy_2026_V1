@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import { isInstructorRole, postSignInPath } from "@/lib/roles";
+import { isInstructorRole, isParentRole, postSignInPath } from "@/lib/roles";
 
 const USER_NAME_KEY = "kanam.userName";
 type EnsureProfileResponse = { ok?: boolean; error?: string };
@@ -140,7 +140,7 @@ export default function WelcomeReturningPage() {
 
                       const { data: me } = await supabase.auth.getUser();
                       const user = me.user;
-                      if (isInstructorRole(user)) {
+                      if (isInstructorRole(user) || isParentRole(user)) {
                         router.push(postSignInPath(user));
                         return;
                       }
@@ -172,7 +172,7 @@ export default function WelcomeReturningPage() {
                       } catch {
                         // ignore
                       }
-                      router.push("/dashboard");
+                      router.push(postSignInPath(user));
                     } catch (error: unknown) {
                       setError(errorMessage(error, "Something went wrong."));
                     }

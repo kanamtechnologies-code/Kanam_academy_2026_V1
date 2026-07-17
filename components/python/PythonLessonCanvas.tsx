@@ -6,6 +6,7 @@ import Link from "next/link";
 import {
   BookOpen,
   CheckCircle2,
+  ChevronRight,
   Code2,
   Lightbulb,
   ListChecks,
@@ -213,6 +214,12 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
         const uid = data.user?.id ?? "";
         setUserId(uid);
         if (!uid) return;
+        const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+        const ensureJson = (await ensureRes.json()) as { student?: { id?: string } };
+        if (ensureJson?.student?.id) {
+          setStudentDbId(String(ensureJson.student.id));
+          return;
+        }
         const { data: student } = await supabase
           .from("students")
           .select("id")
@@ -450,8 +457,6 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
       if (completedFromIndex === lesson.exercises.length - 1) {
         setLessonComplete(true);
         trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
-      } else {
-        scheduleCascadeToNext(completedFromIndex);
       }
       return;
     }
@@ -496,9 +501,8 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
       if (completedFromIndex === lesson.exercises.length - 1) {
         setLessonComplete(true);
         trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
-      } else {
-        scheduleCascadeToNext(completedFromIndex);
       }
+      // Stay on this exercise so the learner can read feedback, then use Next exercise.
     } else {
       setLastFeedbackSuccess(false);
       setLastFeedback(activeExercise.failureMessage);
@@ -519,21 +523,6 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
         workspacePanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     }
-  };
-
-  /** After a success, cascade the next exercise into focus. */
-  const scheduleCascadeToNext = (fromIndex: number) => {
-    if (fromIndex >= lesson.exercises.length - 1) return;
-    window.setTimeout(() => {
-      setActiveIndex(fromIndex + 1);
-      setRunError(null);
-      setLastFeedback("");
-      setLastFeedbackSuccess(false);
-      setTerminalOutput("");
-      requestAnimationFrame(() => {
-        workspacePanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    }, 750);
   };
 
   const handlePlayTurnsChange = (turns: number) => {
@@ -1168,12 +1157,16 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                             Run &amp; check
                           </Button>
                           {canAdvance ? (
-                            <p
+                            <Button
                               key={`next-${activeExercise.id}`}
-                              className="flex min-h-11 items-center text-sm font-semibold text-[var(--brand)]"
+                              type="button"
+                              size="lg"
+                              className="kanam-data-next-exercise-btn min-h-11 w-full shadow-md sm:w-auto"
+                              onClick={goToNextExercise}
                             >
-                              Nice — opening the next exercise…
-                            </p>
+                              Next exercise
+                              <ChevronRight className="kanam-data-next-chevron h-4 w-4" />
+                            </Button>
                           ) : null}
                           <Button
                             type="button"
@@ -1199,7 +1192,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                                 <p className="kanam-data-success-body">{lastFeedback}</p>
                                 {canAdvance ? (
                                   <p className="mt-2 text-xs font-bold uppercase tracking-wide text-[var(--brand)]">
-                                    Opening the next exercise…
+                                    Tap Next exercise when you&apos;re ready
                                   </p>
                                 ) : lessonComplete ? (
                                   <p className="mt-2 text-xs font-bold uppercase tracking-wide text-[var(--brand)]">

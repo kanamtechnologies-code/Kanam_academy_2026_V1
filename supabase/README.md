@@ -18,6 +18,7 @@ Open Supabase → **SQL Editor** and run these files in order:
 
 1. `supabase/schema.sql` (core app tables — if not already applied)
 2. `supabase/billing.sql` (Stripe customers, subscriptions, track entitlements, tutoring credits)
+3. `supabase/households.sql` (parent households, kid profiles, PIN + RLS)
 
 If a previous run failed partway through, it is safe to re-run (tables use `if not exists`, policies use `drop policy if exists`).
 
@@ -27,7 +28,7 @@ After it succeeds, confirm tables exist:
 select tablename from pg_tables where schemaname = 'public' order by tablename;
 ```
 
-You should see core tables plus: `billing_customers`, `billing_subscriptions`, `billing_webhook_events`, `track_entitlements`, `tutoring_credits`.
+You should see core tables plus: `billing_customers`, `billing_subscriptions`, `billing_webhook_events`, `track_entitlements`, `tutoring_credits`, `households`, `household_members`.
 
 ### Self-paced / async cohort
 

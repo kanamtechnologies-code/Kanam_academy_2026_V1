@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import { isInstructorRole, postSignInPath, safeNextPath } from "@/lib/roles";
+import { isInstructorRole, isParentRole, postSignInPath, safeNextPath } from "@/lib/roles";
 
 type EnsureProfileResponse = {
   ok?: boolean;
@@ -167,6 +167,11 @@ export default function WelcomePage() {
           return;
         }
 
+        if (isParentRole(user)) {
+          router.push(next && next.startsWith("/billing") ? next : postSignInPath(user));
+          return;
+        }
+
         if (mode === "learner") {
           const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
           const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
@@ -177,7 +182,7 @@ export default function WelcomePage() {
           return;
         }
 
-        router.push(next || "/dashboard");
+        router.push(next || postSignInPath(user));
       } catch (error: unknown) {
         const msg = errorMessage(error, "Sign-in failed.");
         if (mode === "instructor") setInstructorError(msg);
@@ -308,11 +313,38 @@ export default function WelcomePage() {
             </div>
           </div>
 
+          {/* Parent entry */}
+          <motion.div
+            {...cardEnter(0.0)}
+            className={[glassCardBase, "mt-4 p-4 sm:p-5"].join(" ")}
+          >
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0">
+                <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--brand-2)]">
+                  Family account
+                </p>
+                <h2 className="mt-1 text-lg font-black tracking-tight text-slate-900 sm:text-xl">
+                  I&apos;m a parent
+                </h2>
+                <p className="mt-1 text-sm text-slate-600">
+                  One login for you — kid profiles with optional PINs. Family plan unlocks all kids.
+                </p>
+              </div>
+              <Button
+                className="h-11 shrink-0 rounded-xl px-5 font-semibold"
+                onClick={() => router.push("/welcome/parent")}
+              >
+                <Users className="h-4 w-4" />
+                Create family account
+              </Button>
+            </div>
+          </motion.div>
+
           {/* Main cards */}
           <div className="mt-4 grid gap-6 lg:grid-cols-2 xl:gap-8">
               {/* New learner (priority) */}
               <motion.div
-                {...cardEnter(0.0)}
+                {...cardEnter(0.05)}
                 whileHover={{ y: -8 }}
                 className={[glassCardBase, "p-5 sm:p-6 md:p-8"].join(" ")}
               >

@@ -29,9 +29,18 @@ export function isInstructorRole(user: UserWithRole): boolean {
   return role === "instructor" || role === "teacher";
 }
 
+/** True when the user owns a household (parent login for kid profiles). */
+export function isParentRole(user: UserWithRole): boolean {
+  return readUserRole(user) === "parent";
+}
+
 /** Where to send a user immediately after sign-in. */
-export function postSignInPath(user: UserWithRole): "/instructor" | "/dashboard" {
-  return isInstructorRole(user) ? "/instructor" : "/dashboard";
+export function postSignInPath(
+  user: UserWithRole
+): "/instructor" | "/parent" | "/dashboard" {
+  if (isInstructorRole(user)) return "/instructor";
+  if (isParentRole(user)) return "/parent";
+  return "/dashboard";
 }
 
 /**

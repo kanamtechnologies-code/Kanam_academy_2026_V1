@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import { isInstructorRole } from "@/lib/roles";
+import { isInstructorRole, isParentRole } from "@/lib/roles";
 import {
   isGuestMode,
 } from "@/lib/guestProgress";
@@ -122,7 +122,15 @@ export default function Home() {
       const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
       const ensureJson = (await ensureRes.json()) as {
         student?: { id?: string; display_name?: string };
+        needsChildSelect?: boolean;
+        role?: string;
       };
+
+      if (isParentRole(userData.user) && (ensureJson.needsChildSelect || !ensureJson?.student?.id)) {
+        router.replace("/parent");
+        return;
+      }
+
       const studentId = String(ensureJson?.student?.id ?? "");
       const displayName = String(ensureJson?.student?.display_name ?? "");
       if (studentId) setStudentDbId(studentId);
@@ -191,6 +199,14 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="min-h-11 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 sm:w-auto"
+                  asChild
+                >
+                  <Link href="/parent">Family account</Link>
+                </Button>
                 <Button
                   type="button"
                   variant="outline"

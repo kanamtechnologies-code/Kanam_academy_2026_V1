@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { LogOut, UserRound, Users } from "lucide-react";
 
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import { isInstructorRole } from "@/lib/roles";
+import { isInstructorRole, isParentRole } from "@/lib/roles";
 import { USER_NAME_KEY, isGuestMode, setGuestMode } from "@/lib/guestProgress";
 
 const chipBase =
@@ -24,6 +24,7 @@ export function AuthActions() {
   const [signedIn, setSignedIn] = React.useState(false);
   const [guest, setGuest] = React.useState(false);
   const [instructor, setInstructor] = React.useState(false);
+  const [parent, setParent] = React.useState(false);
 
   React.useEffect(() => {
     // Welcome is the exit destination — clear leftover guest mode so "Exit demo" never shows here.
@@ -61,8 +62,10 @@ export function AuthActions() {
         const { data: userData } = await supabase.auth.getUser();
         if (!mounted) return;
         setInstructor(isInstructorRole(userData.user));
+        setParent(isParentRole(userData.user));
       } else {
         setInstructor(false);
+        setParent(false);
       }
       setLoading(false);
     })();
@@ -72,9 +75,11 @@ export function AuthActions() {
       if (session) {
         supabase.auth.getUser().then(({ data: userData }) => {
           setInstructor(isInstructorRole(userData.user));
+          setParent(isParentRole(userData.user));
         });
       } else {
         setInstructor(false);
+        setParent(false);
       }
     });
 
@@ -125,6 +130,17 @@ export function AuthActions() {
 
   return (
     <div className="flex items-center gap-1.5 sm:gap-2">
+      {parent ? (
+        <Link
+          href="/parent"
+          className={`${chipBase} border border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-white/20`}
+          aria-label="Switch child / parent hub"
+        >
+          <Users className="h-4 w-4" />
+          <span className="hidden md:inline">Switch child</span>
+          <span className="md:hidden">Kids</span>
+        </Link>
+      ) : null}
       {instructor ? (
         <Link
           href="/instructor"

@@ -1,5 +1,12 @@
 import { NextResponse } from "next/server";
 
+import {
+  activeStudentIdFromUser,
+  getHouseholdForOwner,
+  listHouseholdKids,
+} from "@/lib/households";
+import { isInstructorRole, isParentRole } from "@/lib/roles";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -12,7 +19,6 @@ type UserMetadata = {
 function firstNameFromEmail(email: string) {
   const local = (email.split("@")[0] ?? "").trim();
   if (!local) return "Student";
-  // Keep it kid-friendly: stop at separators and capitalize first letter.
   const base = local.split(/[._-]/)[0] ?? local;
   const clean = base.replace(/[^a-zA-Z0-9]/g, "");
   const name = clean || "Student";
@@ -26,7 +32,66 @@ export async function POST() {
   const user = data.user;
   if (!user) return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
 
-  // If profile exists, return it.
+  if (isInstructorRole(user)) {
+    return NextResponse.json({ ok: true, role: "instructor", student: null }, { status: 200 });
+  }
+
+  // Parent: never auto-create a students row on the parent Auth user.
+  if (isParentRole(user)) {
+    let admin: ReturnType<typeof createSupabaseAdminClient>;
+    try {
+      admin = createSupabaseAdminClient();
+    } catch (e: unknown) {
+      return NextResponse.json(
+        { ok: false, error: e instanceof Error ? e.message : "Server misconfigured." },
+        { status: 500 }
+      );
+    }
+
+    const household = await getHouseholdForOwner(admin, user.id);
+    if (!household?.id) {
+      return NextResponse.json(
+        {
+          ok: true,
+          role: "parent",
+          needsHousehold: true,
+          student: null,
+        },
+        { status: 200 }
+      );
+    }
+
+    const kids = await listHouseholdKids(admin, household.id);
+    let activeId =
+      activeStudentIdFromUser(user) ||
+      (household.active_student_id ? String(household.active_student_id) : null);
+
+    if (activeId && !kids.some((k) => k.id === activeId)) {
+      activeId = null;
+    }
+
+    if (!activeId && kids.length === 1) {
+      activeId = kids[0].id;
+    }
+
+    const active = activeId ? kids.find((k) => k.id === activeId) : null;
+
+    return NextResponse.json(
+      {
+        ok: true,
+        role: "parent",
+        household: { id: household.id, name: household.name },
+        kids,
+        needsChildSelect: !active,
+        student: active
+          ? { id: active.id, display_name: active.display_name }
+          : null,
+      },
+      { status: 200 }
+    );
+  }
+
+  // Self-serve student path (unchanged).
   const { data: existing, error: findErr } = await supabase
     .from("students")
     .select("id, display_name")
@@ -38,10 +103,9 @@ export async function POST() {
   }
 
   if (existing?.id) {
-    return NextResponse.json({ ok: true, student: existing }, { status: 200 });
+    return NextResponse.json({ ok: true, role: "student", student: existing }, { status: 200 });
   }
 
-  // Create minimal profile row. Note: some DBs require device_id; keep it non-empty.
   const userMetadata = (user.user_metadata ?? {}) as UserMetadata;
   const first =
     (userMetadata.first_name && String(userMetadata.first_name).trim()) ||
@@ -70,6 +134,5 @@ export async function POST() {
     );
   }
 
-  return NextResponse.json({ ok: true, student: inserted }, { status: 200 });
+  return NextResponse.json({ ok: true, role: "student", student: inserted }, { status: 200 });
 }
-

@@ -6,6 +6,7 @@ import Link from "next/link";
 import {
   BookOpen,
   CheckCircle2,
+  ChevronRight,
   Database,
   Lightbulb,
   ListChecks,
@@ -235,6 +236,12 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
         const uid = data.user?.id ?? "";
         setUserId(uid);
         if (!uid) return;
+        const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+        const ensureJson = (await ensureRes.json()) as { student?: { id?: string } };
+        if (ensureJson?.student?.id) {
+          setStudentDbId(String(ensureJson.student.id));
+          return;
+        }
         const { data: student } = await supabase
           .from("students")
           .select("id")
@@ -434,9 +441,8 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
       if (completedFromIndex === lesson.exercises.length - 1) {
         setLessonComplete(true);
         trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
-      } else {
-        scheduleCascadeToNext(completedFromIndex);
       }
+      // Stay on this exercise so the learner can read feedback, then use Next exercise.
       return;
     }
 
@@ -451,9 +457,8 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
       if (completedFromIndex === lesson.exercises.length - 1) {
         setLessonComplete(true);
         trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
-      } else {
-        scheduleCascadeToNext(completedFromIndex);
       }
+      // Stay on this exercise so the learner can read feedback, then use Next exercise.
     } else {
       setLastFeedbackSuccess(false);
       setLastFeedback(activeExercise.failureMessage);
@@ -465,19 +470,17 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
 
   const workspacePanelRef = React.useRef<HTMLDivElement | null>(null);
 
-  const scheduleCascadeToNext = (fromIndex: number) => {
-    if (fromIndex >= lesson.exercises.length - 1) return;
-    window.setTimeout(() => {
-      setActiveIndex(fromIndex + 1);
-      setQueryResult(null);
-      setRunError(null);
-      setLastFeedback("");
-      setLastFeedbackSuccess(false);
-      setTerminalOutput("");
-      requestAnimationFrame(() => {
-        workspacePanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    }, 750);
+  const goToNextExercise = () => {
+    if (activeIndex >= lesson.exercises.length - 1) return;
+    setActiveIndex((i) => i + 1);
+    setQueryResult(null);
+    setRunError(null);
+    setLastFeedback("");
+    setLastFeedbackSuccess(false);
+    setTerminalOutput("");
+    requestAnimationFrame(() => {
+      workspacePanelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   };
 
   const progressPercent = lessonComplete
@@ -855,12 +858,16 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                             Run &amp; check
                           </Button>
                           {canAdvance ? (
-                            <p
+                            <Button
                               key={`next-${activeExercise.id}`}
-                              className="flex min-h-11 items-center text-sm font-semibold text-[var(--brand)]"
+                              type="button"
+                              size="lg"
+                              className="kanam-data-next-exercise-btn min-h-11 w-full shadow-md sm:w-auto"
+                              onClick={goToNextExercise}
                             >
-                              Nice — opening the next exercise…
-                            </p>
+                              Next exercise
+                              <ChevronRight className="kanam-data-next-chevron h-4 w-4" />
+                            </Button>
                           ) : null}
                           <Button
                             type="button"
@@ -886,7 +893,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                                 <p className="kanam-data-success-body">{lastFeedback}</p>
                                 {canAdvance ? (
                                   <p className="mt-2 text-xs font-bold uppercase tracking-wide text-[var(--brand)]">
-                                    Opening the next exercise…
+                                    Tap Next exercise when you&apos;re ready
                                   </p>
                                 ) : lessonComplete ? (
                                   <p className="mt-2 text-xs font-bold uppercase tracking-wide text-[var(--brand)]">

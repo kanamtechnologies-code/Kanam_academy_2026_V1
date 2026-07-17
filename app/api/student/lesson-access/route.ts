@@ -4,6 +4,7 @@ import { getAsyncClassCode } from "@/lib/asyncClass";
 import { accessFromEntitlements, loadBillingEntitlements } from "@/lib/billing/access";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
 import { unionEnabledLessonIds } from "@/lib/classAssignments";
+import { resolveLearnerForUser } from "@/lib/resolveLearner";
 import { TRACKS } from "@/lib/tracks";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -83,28 +84,38 @@ export async function GET() {
     );
   }
 
-  const { data: student, error: studentErr } = await admin
-    .from("students")
-    .select("id")
-    .eq("user_id", user.id)
-    .maybeSingle();
-
-  if (studentErr) {
-    return NextResponse.json({ ok: false, error: studentErr.message }, { status: 500 });
+  // Billing stays on the Auth user (parent payer). Progress/class on active learner.
+  let learner;
+  try {
+    learner = await resolveLearnerForUser(user, admin);
+  } catch (e: unknown) {
+    return NextResponse.json(
+      { ok: false, error: e instanceof Error ? e.message : "Could not resolve learner." },
+      { status: 500 }
+    );
   }
 
-  if (!student?.id) {
-    const access = await withEntitlements(admin, user.id, {
+  const billingUserId = learner.billingUserId;
+
+  if (!learner.studentId) {
+    const access = await withEntitlements(admin, billingUserId, {
       classIds: [],
       isAsyncCohort: false,
     });
-    return NextResponse.json({ ok: true, access }, { status: 200 });
+    return NextResponse.json(
+      {
+        ok: true,
+        access,
+        needsChildSelect: learner.isParent,
+      },
+      { status: 200 }
+    );
   }
 
   const { data: enrollments, error: enrollErr } = await admin
     .from("class_enrollments")
     .select("class_id")
-    .eq("student_id", student.id);
+    .eq("student_id", learner.studentId);
 
   if (enrollErr) {
     return NextResponse.json({ ok: false, error: enrollErr.message }, { status: 500 });
@@ -115,7 +126,7 @@ export async function GET() {
     .filter(Boolean);
 
   if (classIds.length === 0) {
-    const access = await withEntitlements(admin, user.id, {
+    const access = await withEntitlements(admin, billingUserId, {
       classIds: [],
       isAsyncCohort: false,
     });
@@ -153,7 +164,7 @@ export async function GET() {
 
   // Pure async / self-paced cohort → billing entitlements decide access.
   if (teacherClassIds.length === 0) {
-    const access = await withEntitlements(admin, user.id, {
+    const access = await withEntitlements(admin, billingUserId, {
       classIds,
       isAsyncCohort: asyncClassIds.length > 0,
     });
@@ -175,7 +186,7 @@ export async function GET() {
 
   // Teacher class with zero assignments: don't brick learners — fall back to entitlements.
   if (enabledLessonIds.length === 0) {
-    const access = await withEntitlements(admin, user.id, {
+    const access = await withEntitlements(admin, billingUserId, {
       classIds,
       isAsyncCohort: false,
     });
@@ -183,7 +194,7 @@ export async function GET() {
   }
 
   // Teacher-gated: instructor assignments win (school / program model).
-  const entitlements = await loadBillingEntitlements(admin, user.id).catch(() => ({
+  const entitlements = await loadBillingEntitlements(admin, billingUserId).catch(() => ({
     hasActiveSubscription: false,
     unlockedTrackSlugs: [] as StudentLessonAccess["unlockedTrackSlugs"],
   }));
