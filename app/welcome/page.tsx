@@ -264,21 +264,29 @@ export default function WelcomePage() {
                   <span>Welcome to Kanam Academy</span>
                 </span>
               </h1>
-              <div className="mt-2 space-y-0.5 text-sm font-medium leading-snug text-slate-800 sm:text-base">
-                <p>Glad you’re here.</p>
+              <div className="mt-2 space-y-1.5 text-sm font-medium leading-snug text-slate-800 sm:text-base">
+                <p>Glad you’re here. Pick how you want to enter:</p>
                 <p>
                   <span className="kanam-text-pop-strong font-extrabold text-[color:var(--brand)]">
-                    New student
+                    Student
                   </span>
-                  : enter your email and class code to get started.
+                  {" — "}
+                  your own email login for school or self-paced learning.
+                </p>
+                <p>
+                  <span className="kanam-text-pop-strong font-extrabold text-[color:var(--brand-2)]">
+                    Parent
+                  </span>
+                  {" — "}
+                  one login, kid profiles with optional PINs, Family plan for the whole household.
                 </p>
                 <p>
                   <span className="kanam-text-pop-strong font-extrabold text-[color:var(--accent)]">
-                    Returning learner
+                    Returning
                   </span>
-                  : sign in.
+                  {" — "}
+                  sign in with the same email (students and parents).
                 </p>
-                <p>Parents and educators: try the guided lesson demo to preview what students see.</p>
               </div>
             </div>
 
@@ -287,11 +295,11 @@ export default function WelcomePage() {
                 Demo mode
               </p>
               <p className="mt-2 text-base font-black tracking-tight text-slate-900">
-                Just testing? Try a guided lesson — no account needed.
+                Just browsing? Try a guided lesson — no account needed.
               </p>
               <p className="mt-1 text-sm text-slate-600">
-                A guided classroom lesson: objectives, building blocks, a worked example, then fill /
-                reorder / debug. Built for students, parents, and educators.
+                Preview a classroom-style lesson (objectives, practice, checks). Educators and
+                parents can use this before creating a real account.
               </p>
 
               <div className="mt-4">
@@ -349,14 +357,26 @@ export default function WelcomePage() {
                 className={[glassCardBase, "p-5 sm:p-6 md:p-8"].join(" ")}
               >
                 <p className="kanam-text-pop-strong text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--brand-2)]">
-                  New student
+                  Student account
                 </p>
                 <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-900">
                   I’m a new student
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Every student needs a class code. Use your teacher&apos;s code, or get a
-                  self-paced code below.
+                  Create your own login with email and a class code. Use a teacher code for school,
+                  or get a self-paced code to learn on your own — then unlock tracks with a plan
+                  or purchase when you&apos;re ready.
+                </p>
+                <p className="mt-2 text-xs leading-relaxed text-slate-500">
+                  Parent managing kids? Use{" "}
+                  <button
+                    type="button"
+                    className="font-semibold text-emerald-800 underline underline-offset-2"
+                    onClick={() => router.push("/welcome/parent")}
+                  >
+                    Create family account
+                  </button>{" "}
+                  instead — kids don&apos;t need their own email.
                 </p>
 
                 {newError ? (
@@ -379,7 +399,7 @@ export default function WelcomePage() {
                     <Input
                       value={newEmail}
                       onChange={(e) => setNewEmail(e.target.value)}
-                      placeholder="e.g. student@school.org"
+                      placeholder="e.g. you@school.org"
                       type="email"
                       name="kanam-new-student-email"
                       autoComplete="off"
@@ -511,9 +531,16 @@ export default function WelcomePage() {
                 </div>
 
                 <div className="mt-4 rounded-2xl border border-white/50 bg-white/40 p-4">
-                  <p className="text-sm font-extrabold tracking-tight text-slate-900">Need help?</p>
+                  <p className="text-sm font-extrabold tracking-tight text-slate-900">After you sign up</p>
                   <p className="mt-1 text-sm text-slate-700">
-                    Stuck? Open{" "}
+                    You&apos;ll land on your learning hub. Open tracks you&apos;ve unlocked, or go to{" "}
+                    <Link
+                      className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
+                      href="/billing"
+                    >
+                      Billing
+                    </Link>{" "}
+                    for the Family plan or individual tracks. Need help?{" "}
                     <Link
                       className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
                       href="/help"
@@ -532,13 +559,14 @@ export default function WelcomePage() {
                 className={[glassCardBase, "p-5 sm:p-6 md:p-8"].join(" ")}
               >
                 <p className="kanam-text-pop-strong text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--accent)]">
-                  Returning learner
+                  Returning
                 </p>
                 <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-900">
-                  Sign in fast
+                  Sign in
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Enter your email and jump right back to your dashboard.
+                  Students go to the learning hub. Parents go to the family hub to pick a child.
+                  Instructors go to the instructor dashboard.
                 </p>
 
                 {returningError ? (
@@ -556,13 +584,15 @@ export default function WelcomePage() {
                     <Input
                       value={returningEmail}
                       onChange={(e) => setReturningEmail(e.target.value)}
-                      placeholder='e.g. student@school.org'
+                      placeholder="e.g. you@email.com"
                       type="email"
                       name="kanam-returning-email"
                       autoComplete="username"
                       className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
                     />
-                    <p className="text-xs text-slate-600">Use the same email you used before.</p>
+                    <p className="text-xs text-slate-600">
+                      Student, parent, or instructor email — same one you signed up with.
+                    </p>
                   </div>
 
                   <div className="space-y-1.5">
