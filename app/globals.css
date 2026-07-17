@@ -65,12 +65,24 @@ body {
   .bg-white\/50,
   .bg-white\/60,
   .bg-white\/70,
+  .bg-white\/75,
   .bg-white\/80,
   .bg-white\/85,
   .bg-white\/90,
   .bg-white\/95
 ) {
   background-color: rgb(2 6 23 / 0.92) !important;
+}
+/* Light emerald chips / callouts used in demo + tour */
+.dark body > :not(header) :is(.bg-emerald-50) {
+  background-color: rgb(2 44 34 / 0.85) !important;
+}
+.dark body > :not(header) :is(.text-emerald-800, .text-emerald-950) {
+  color: #a7f3d0 !important;
+}
+.dark body > :not(header) :is(.border-emerald-200, .ring-emerald-100) {
+  border-color: rgb(52 211 153 / 0.35) !important;
+  --tw-ring-color: rgb(52 211 153 / 0.3) !important;
 }
 .dark body > :not(header) :is(input, textarea)::placeholder {
   color: #94a3b8 !important;

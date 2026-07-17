@@ -79,7 +79,7 @@ function renderTourRichText(text: string) {
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
       return (
-        <strong key={i} className="font-bold text-slate-900">
+        <strong key={i} className="font-bold text-slate-900 dark:text-emerald-200">
           {part.slice(2, -2)}
         </strong>
       );
@@ -634,38 +634,43 @@ const SpotlightTourInner = React.forwardRef<
             ref={cardRef}
             data-tour-card="true"
             className={[
-              "pointer-events-auto rounded-2xl border bg-white shadow-xl",
+              "pointer-events-auto rounded-2xl border shadow-xl",
               "border-[rgb(var(--accent-rgb)/0.55)]",
               "ring-1 ring-[rgb(var(--accent-rgb)/0.25)]",
               "bg-gradient-to-br from-white via-white to-[rgb(var(--accent-rgb)/0.08)]",
+              "dark:border-[rgb(var(--accent-rgb)/0.5)]",
+              "dark:from-slate-950 dark:via-slate-950 dark:to-slate-900",
+              "dark:ring-[rgb(var(--accent-rgb)/0.35)]",
             ].join(" ")}
           >
             <div className="flex items-start gap-3 p-4 sm:p-5">
-              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[var(--accent)]/12 ring-1 ring-[var(--accent)]/20">
-                <div className="text-slate-900">
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[var(--accent)]/12 ring-1 ring-[var(--accent)]/20 dark:bg-[var(--accent)]/20">
+                <div className="text-slate-900 dark:text-slate-50">
                   {step.icon ?? <MousePointerClick className="h-5 w-5" />}
                 </div>
               </div>
               <div className="min-w-0">
-                <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[color:var(--brand-2)]">
+                <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[color:var(--brand-2)] dark:text-[color:var(--brand-2-ink)]">
                   How to use Kanam
                 </p>
-                <p className="mt-1 text-base font-extrabold tracking-tight text-slate-900 sm:text-[17px]">
+                <p className="mt-1 text-base font-extrabold tracking-tight text-slate-900 sm:text-[17px] dark:text-slate-50">
                   {step.title}
                 </p>
-                <p className="mt-2 text-[15px] leading-[1.65] text-slate-700">
+                <p className="mt-2 text-[15px] leading-[1.65] text-slate-700 dark:text-slate-200">
                   {renderTourRichText(step.body)}
                 </p>
                 {step.action ? (
-                  <p className="mt-3 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold leading-snug text-emerald-950">
-                    <span className="font-extrabold text-emerald-800">Try this: </span>
+                  <p className="mt-3 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold leading-snug text-emerald-950 dark:border-emerald-400/40 dark:bg-emerald-950/70 dark:text-emerald-50">
+                    <span className="font-extrabold text-emerald-800 dark:text-emerald-300">
+                      Try this:{" "}
+                    </span>
                     {renderTourRichText(step.action)}
                   </p>
                 ) : null}
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 border-t border-slate-200 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5">
+            <div className="flex flex-col gap-3 border-t border-slate-200 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5 dark:border-slate-700">
               <div className="flex items-center gap-2">
                 <div className="flex gap-1" aria-hidden>
                   {steps.map((s, i) => (
@@ -677,12 +682,12 @@ const SpotlightTourInner = React.forwardRef<
                           ? "w-5 bg-[var(--brand)]"
                           : i < idx
                             ? "w-1.5 bg-[var(--brand)]/50"
-                            : "w-1.5 bg-slate-200",
+                            : "w-1.5 bg-slate-200 dark:bg-slate-600",
                       ].join(" ")}
                     />
                   ))}
                 </div>
-                <p className="text-xs font-medium text-slate-500">
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-300">
                   Step {idx + 1} of {steps.length}
                 </p>
               </div>
@@ -692,7 +697,7 @@ const SpotlightTourInner = React.forwardRef<
                   variant="outline"
                   size="sm"
                   onClick={markDoneAndClose}
-                  className="min-h-11 border-slate-200 bg-white text-slate-700 hover:bg-slate-50 sm:min-h-9"
+                  className="min-h-11 border-slate-200 bg-white text-slate-700 hover:bg-slate-50 sm:min-h-9 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
                 >
                   Skip tour
                 </Button>
@@ -709,11 +714,11 @@ const SpotlightTourInner = React.forwardRef<
               </div>
             </div>
             {holeAllowsClicks ? (
-              <p className="border-t border-slate-100 px-4 py-2 text-center text-xs font-medium text-slate-500 sm:px-5">
+              <p className="border-t border-slate-100 px-4 py-2 text-center text-xs font-medium text-slate-500 sm:px-5 dark:border-slate-700 dark:text-slate-300">
                 Follow the gold arrow to continue
               </p>
             ) : (
-              <div className="border-t border-slate-100 px-4 py-3 sm:px-5">
+              <div className="border-t border-slate-100 px-4 py-3 sm:px-5 dark:border-slate-700">
                 <Button type="button" size="sm" className="min-h-11 w-full" onClick={goNext}>
                   {idx >= steps.length - 1 ? "Start practicing" : "Next"}
                 </Button>

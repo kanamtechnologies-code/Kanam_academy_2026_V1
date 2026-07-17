@@ -121,8 +121,8 @@ export default function DemoEntryPage() {
               </div>
             </div>
 
-            <div className="rounded-[28px] border border-white/60 bg-white/75 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.04)] backdrop-blur-2xl">
-              <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-slate-500">
+            <div className="rounded-[28px] border border-white/60 bg-white/75 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.04)] backdrop-blur-2xl dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
+              <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-300">
                 What you&apos;ll do
               </p>
               <ul className="mt-3 space-y-3">
@@ -155,25 +155,25 @@ export default function DemoEntryPage() {
                     transition={{ delay: 0.12 + i * 0.05 }}
                     className="flex gap-3"
                   >
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-emerald-50 text-emerald-800 ring-1 ring-emerald-100">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-emerald-50 text-emerald-800 ring-1 ring-emerald-100 dark:bg-emerald-950/80 dark:text-emerald-300 dark:ring-emerald-500/30">
                       <item.icon className="h-5 w-5" />
                     </span>
                     <span>
-                      <span className="block text-sm font-extrabold text-slate-900">
+                      <span className="block text-sm font-extrabold text-slate-900 dark:text-slate-50">
                         {item.title}
                       </span>
-                      <span className="text-sm text-slate-600">{item.body}</span>
+                      <span className="text-sm text-slate-600 dark:text-slate-300">{item.body}</span>
                     </span>
                   </motion.li>
                 ))}
               </ul>
-              <p className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-500">
+              <p className="mt-4 flex items-center gap-2 text-xs font-medium text-slate-500 dark:text-slate-300">
                 <Bug className="h-3.5 w-3.5" />
                 Same exercise kinds as Week 1 of the Python track.
               </p>
               <button
                 type="button"
-                className="mt-3 inline-flex min-h-11 items-center text-xs font-semibold text-slate-500 underline underline-offset-2 hover:text-slate-800"
+                className="mt-3 inline-flex min-h-11 items-center text-xs font-semibold text-slate-500 underline underline-offset-2 hover:text-slate-800 dark:text-slate-300 dark:hover:text-slate-100"
                 onClick={() => {
                   resetGuestProgress();
                 }}
