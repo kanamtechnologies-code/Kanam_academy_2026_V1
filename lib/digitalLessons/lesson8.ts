@@ -2,10 +2,10 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson8: AILessonConfig = {
   id: "dl-8",
-  title: "8. Being a Good Digital Citizen",
-  goal: "Act responsibly, safely, and kindly in online communities — showing empathy, standing up to cyberbullying, reporting harm, and contributing positively.",
+  title: "8. Equity, Access & Harm Reduction Online",
+  goal: "Evaluate equity and access deficits and online harm; use upstanding and reporting practices to reduce bias and harm in digital spaces while refining systems and norms for broader participation.",
   xpReward: 400,
-  badge: "Digital Citizen",
+  badge: "Equity Advocate",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/7",
   nextHref: "/learn/digital/9",
@@ -15,8 +15,8 @@ export const digitalLesson8: AILessonConfig = {
       {
         id: "intro",
         kicker: "Start here",
-        title: "What you'll learn today",
-        body: `Every group chat, comment section, and game lobby is a community of real people. Being a **good digital citizen** means treating those spaces — and the people in them — with the same care you'd want in person.\n\nHere's our roadmap:\n\n• **Digital citizenship** — using tech responsibly and kindly.\n• **Why people get crueler online** — the "disinhibition effect."\n• **Cyberbullying** — what it is and the real harm it causes.\n• **Bystander vs. upstander** — and exactly what an upstander does.\n• **Reporting, blocking, and positive participation** — plus a clear escalate-or-support decision guide.\n\nThis is the most important lesson in the track, because it's about how you treat people. The internet runs on millions of small choices — and yours can make someone's day worse or genuinely better. The same habits matter in school chats *and* in workplace Slack channels later.`,
+        title: "Online harm is also a systems problem",
+        body: `“Be nice online” is not enough. Digital spaces can exclude people through design, access requirements, language, disability barriers, recommendation systems, harassment, and rules that are enforced unevenly. Harm reduction means evaluating what is happening, protecting people in the moment, and improving the practices or systems that made harm easier.\n\nYou will identify equity and access deficits, compare responses to online harm, use reporting and upstanding strategies, and propose changes that reduce bias or broaden participation. These skills apply to a class group chat, a gaming community, a school platform, and a future workplace.`,
         image: "/images/lessons/dl-8.png",
         imageAlt: "Laptop and phone showing a group chat and a game lobby with people connected through messaging apps",
         callout: {
@@ -37,8 +37,8 @@ export const digitalLesson8: AILessonConfig = {
       {
         id: "glossary",
         kicker: "Let's break down the words",
-        title: "The words we'll use — in plain English",
-        body: `This lesson uses a few terms that might be new. Here they are in everyday language.\n\n• **Digital citizenship** — being a good "citizen" of online spaces: using tech responsibly, safely, and kindly.\n• **Disinhibition effect** — a fancy name for a simple thing: people act *bolder and meaner* online because they can't see the other person's face.\n• **Cyberbullying** — using technology to repeatedly hurt, harass, exclude, or humiliate someone.\n• **Bystander** — someone who *sees* harm happening and does *nothing*.\n• **Upstander** — someone who *steps in* to help: refusing to join in, supporting the target, saving proof, and reporting.\n• **Hate speech** — attacking people for things like their race, religion, gender, or identity. It's especially harmful and usually against the rules and the law.\n\nThe two to really hold onto are **bystander** vs. **upstander** — the whole lesson builds toward choosing to be an upstander.`,
+        title: "Vocabulary for equity and harm reduction",
+        body: `• **Equity** — fairness that accounts for different starting conditions and barriers; it is not simply giving everyone the identical option.\n• **Access deficit** — a barrier that prevents people from fully using or benefiting from a digital space, tool, or service.\n• **Bias** — a pattern that unfairly favors, excludes, or harms some people or groups.\n• **Harm reduction** — actions that lessen damage now while addressing conditions that allow harm to continue.\n• **Upstander** — a person who refuses to amplify harm and takes a safe, useful action to support a target or improve the situation.\n• **Reporting pathway** — the platform, school, workplace, or community process that can investigate and respond to harm.`,
         callout: {
           label: "Tip",
           text: "Don't worry about memorizing definitions. The ideas behind them are what matter, and they'll stick as you read the examples.",
@@ -47,30 +47,30 @@ export const digitalLesson8: AILessonConfig = {
       {
         id: "concept-1",
         kicker: "The big idea",
-        title: "Digital citizenship: real people, real impact",
-        body: `**Digital citizenship** means using technology responsibly, safely, and respectfully — being a good "citizen" of online communities the same way you try to be a good member of your school or town.\n\nHere's the analogy to hold onto: an online community is a **shared space, like a school hallway.** Your behavior in it affects everyone else there. Slam into people and spread nastiness, and the whole hallway feels unsafe. Hold the door and help someone, and the space feels better for everyone.\n\nThe core truth behind digital citizenship is simple but easy to forget: **there's a real person on the other side of every screen.** Every username is a human with feelings, a bad day sometimes, and people who care about them. Good digital citizens never lose sight of that.`,
+        title: "Evaluate who can participate—and who is pushed out",
+        body: `Start with evidence, not assumptions. Ask who can access the device, account, content, meeting time, language, captions, moderation help, and reporting tools. Then ask who bears more risk when a space is hostile or poorly designed.\n\nFor example, a required video meeting at one fixed time may exclude students with jobs, caregiving, weak home internet, or different time zones. A school form that works only with a mouse creates a barrier for some keyboard or screen-reader users. A group chat that mocks accents, names, or identities can make participation technically possible but socially unsafe.\n\nEquity is not a vague promise to treat everyone well. It is an evaluation of barriers and a choice to change conditions so more people can participate meaningfully.`,
         callout: {
           label: "Watch out",
           text: "It's easy to treat usernames and avatars like they aren't real people. That gap — forgetting there's a human on the other end — is where most online cruelty begins.",
         },
         checkIn: {
-          prompt: "What core idea sits at the center of digital citizenship, according to this lesson?",
+          prompt: "Which question best evaluates whether a digital space has an equity or access deficit?",
           choices: [
-            "Online spaces have no real effect on people's lives",
-            "There's a real person with real feelings on the other side of every screen",
-            "Usernames make everyone anonymous and unaffected",
-            "Posting as often as possible builds a good reputation",
+            "Who can participate fully, who is blocked, and what condition creates that barrier?",
+            "Which user posts the most often?",
+            "How many emojis does the group chat use?",
+            "Can every participant attend the same live meeting?",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
-            "Digital citizenship starts with remembering that every username is a real human being — that's the truth most online cruelty forgets.",
+            "Equity evaluation looks for participation barriers and the conditions causing them—not just whether a space has active users.",
         },
       },
       {
         id: "concept-2",
         kicker: "Concept",
-        title: "Why people say crueler things online",
-        body: `Have you noticed people saying things online they'd never say to your face? There's a name for it: the **online disinhibition effect.**\n\nWhen we talk in person, we see the other person's face — their hurt, their surprise, their tears. That instant feedback naturally holds us back from being cruel. Online, that feedback disappears. You don't see the person flinch. You might be anonymous, or just far away. So the normal brakes on our behavior loosen, and people type things that are harsher, meaner, and more reckless than they'd ever speak aloud.\n\nKnowing this effect exists is powerful, because you can **catch yourself.** When you feel the urge to fire off something cutting, remember: a real person will read it, and you'd probably never say it to their face. Naming the effect helps you beat it.`,
+        title: "Design choices can amplify harm",
+        body: `Online disinhibition matters, but it is not the whole explanation for harm. Platform and community choices can reward outrage, make pile-ons easy, hide reporting tools, or leave targets to do all the work. An anonymous reply feature, a public quote-share, an algorithm that boosts conflict, or weak moderation can change how quickly bias and harassment spread.\n\nEvaluate the system as well as individual behavior. If a harmful post gets hundreds of reactions, the issue is not only the original author. It may also involve reaction design, audience incentives, moderation delays, unclear rules, and bystanders who were never taught a safer response.\n\nThat analysis leads to better solutions: reduce amplification, add clear reporting, preserve evidence responsibly, improve moderation, and create accessible ways to participate without becoming a target.`,
         callout: {
           label: "Common misconception",
           text: "\"It's just online, so it doesn't really count.\" The disinhibition effect makes online words feel weightless, but they land on real people and can hurt just as much as words said in person.",
@@ -326,9 +326,10 @@ export const digitalLesson8: AILessonConfig = {
     ],
   },
   bigIdeas: [
-    "**Digital citizenship** = using tech responsibly and kindly, remembering there's a real person behind every screen.",
-    "The **online disinhibition effect** makes people crueler when they can't see the other person's face.",
-    "Be an **upstander**: don't pile on (even with a reaction), support the target, save evidence, report, and tell a trusted adult.",
+    "Equity requires evaluating who can participate, who is excluded, and which system conditions create the barrier.",
+    "Online harm can be amplified by people, platform design, group norms, and weak response pathways.",
+    "Upstanding is harm reduction: do not amplify, support safely, document, report, and escalate when needed.",
+    "Digital communities can refine permissions, accessibility, moderation, and norms to reduce bias and broaden participation.",
   ],
   keyTerms: [
     { term: "Digital citizenship", definition: "Using technology responsibly, safely, and respectfully in online communities." },
@@ -339,7 +340,7 @@ export const digitalLesson8: AILessonConfig = {
     { term: "Reporting/Blocking", definition: "Platform tools to flag harmful content and stop someone from contacting you." },
   ],
   realWorld:
-    "Workplaces and online communities have codes of conduct, and people are fired, banned, or even charged over harassment and hate speech. Being a good digital citizen isn't just kind — it protects your future, too.",
+    "Schools, workplaces, platforms, and governments make choices about accessibility, moderation, data, and reporting. People entering careers in design, healthcare, law, business, education, and computing all need to evaluate whether those choices distribute benefits and harms fairly.",
   quiz: [
     {
       id: "q1",
@@ -448,7 +449,7 @@ export const digitalLesson8: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Describe one specific way you'll act as an upstander or contribute positively online this week.",
-    placeholder: "Example: If I see someone getting piled on in a chat, I'll message them privately to check in instead of staying silent…",
+      "Identify one equity, access, or harm problem in a digital space you use. What evidence would you gather, what immediate upstanding action is safe, and what change to the system or group norm would reduce the problem?",
+    placeholder: "Example: Our club meetings only happen live after school. I would ask who is excluded, post notes and comments afterward, and create an asynchronous way to vote on decisions.",
   },
 };

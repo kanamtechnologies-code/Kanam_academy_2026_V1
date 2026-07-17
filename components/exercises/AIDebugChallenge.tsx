@@ -132,9 +132,13 @@ export function AIDebugChallenge({
       ) : null}
 
       {checked && !isCorrect ? (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950" role="alert">
-          <p className="font-semibold">Not that bug — look again.</p>
-          <p className="mt-1">Pick a different answer. The explanation unlocks when you find the bug.</p>
+        <div className="kanam-data-retry-banner" role="alert">
+          <div>
+            <p className="kanam-data-retry-title">Not that bug — look again.</p>
+            <p className="kanam-data-retry-body">
+              Pick a different answer. The explanation unlocks when you find the bug.
+            </p>
+          </div>
         </div>
       ) : null}
 

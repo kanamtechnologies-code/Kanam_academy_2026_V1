@@ -7,15 +7,30 @@ import {
   ArrowRight,
   BookOpen,
   CheckCircle2,
-  Lightbulb,
+  Loader2,
+  Pause,
+  Play,
   Rocket,
+  Square,
   TerminalSquare,
+  Volume2,
 } from "lucide-react";
 
 import { ChartPanel, type ChartConfig } from "@/components/data/ChartPanel";
 import { ResultTable } from "@/components/data/ResultTable";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Notice } from "@/components/ui/notice";
+import {
+  buildSectionSpeechText,
+  buildSpeechWords,
+  chunkSpeechText,
+  localWordIndex,
+  pickBrowserVoice,
+  type SpeechWord,
+  wordIndexAtChar,
+  wordIndexAtTime,
+} from "@/lib/lessonSpeech";
 import type { QueryResult } from "@/lib/sqlRunner";
 import { cn } from "@/lib/utils";
 
@@ -59,7 +74,84 @@ export type LessonModuleData = {
   sections: LessonModuleSection[];
 };
 
-function renderRichText(text: string) {
+function highlightWordClass(isActive: boolean, isPast: boolean) {
+  return cn(
+    "rounded-[0.2em] transition-colors duration-150",
+    isActive && "bg-[rgb(var(--accent-rgb)/0.55)] font-semibold text-slate-950 shadow-sm",
+    !isActive && isPast && "text-slate-800",
+    !isActive && !isPast && "text-inherit"
+  );
+}
+
+/** activeLocalIndex: null = off; -1 = upcoming; n = current word; >= length = all past */
+function renderHighlightedPlain(
+  text: string,
+  activeLocalIndex: number | null,
+  className?: string
+) {
+  const parts = text.split(/(\s+)/);
+  let wordIdx = 0;
+  return (
+    <span className={className}>
+      {parts.map((part, i) => {
+        if (!part) return null;
+        if (/^\s+$/.test(part)) return <span key={i}>{part}</span>;
+        const isActive = activeLocalIndex === wordIdx;
+        const isPast =
+          activeLocalIndex !== null && activeLocalIndex >= 0 && wordIdx < activeLocalIndex;
+        const node = (
+          <span key={i} className={highlightWordClass(isActive, isPast)}>
+            {part}
+          </span>
+        );
+        wordIdx += 1;
+        return node;
+      })}
+    </span>
+  );
+}
+
+function renderHighlightedRichText(text: string, activeLocalIndex: number | null) {
+  let wordIdx = 0;
+
+  const paint = (raw: string, keyPrefix: string, Wrapper?: "strong" | "code") => {
+    const parts = raw.split(/(\s+)/);
+    return parts.map((part, j) => {
+      if (!part) return null;
+      if (/^\s+$/.test(part)) return <span key={`${keyPrefix}-s-${j}`}>{part}</span>;
+      const isActive = activeLocalIndex === wordIdx;
+      const isPast =
+        activeLocalIndex !== null && activeLocalIndex >= 0 && wordIdx < activeLocalIndex;
+      const cls = highlightWordClass(isActive, isPast);
+      wordIdx += 1;
+      if (Wrapper === "strong") {
+        return (
+          <strong key={`${keyPrefix}-w-${j}`} className={cn("font-bold text-slate-900", cls)}>
+            {part}
+          </strong>
+        );
+      }
+      if (Wrapper === "code") {
+        return (
+          <code
+            key={`${keyPrefix}-w-${j}`}
+            className={cn(
+              "rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[0.9em] text-emerald-800",
+              cls
+            )}
+          >
+            {part}
+          </code>
+        );
+      }
+      return (
+        <span key={`${keyPrefix}-w-${j}`} className={cls}>
+          {part}
+        </span>
+      );
+    });
+  };
+
   return text.split("\n").map((line, i) => {
     if (line.trim() === "") return <div key={i} className="h-3" />;
     const parts = line.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
@@ -71,26 +163,29 @@ function renderRichText(text: string) {
         {parts.map((part, j) => {
           if (part.startsWith("**") && part.endsWith("**")) {
             return (
-              <strong key={j} className="font-bold text-slate-900">
-                {part.slice(2, -2)}
-              </strong>
+              <React.Fragment key={`b-${i}-${j}`}>
+                {paint(part.slice(2, -2), `b-${i}-${j}`, "strong")}
+              </React.Fragment>
             );
           }
           if (part.startsWith("`") && part.endsWith("`")) {
             return (
-              <code
-                key={j}
-                className="rounded-md bg-slate-100 px-1.5 py-0.5 font-mono text-[0.9em] text-emerald-800"
-              >
-                {part.slice(1, -1)}
-              </code>
+              <React.Fragment key={`c-${i}-${j}`}>
+                {paint(part.slice(1, -1), `c-${i}-${j}`, "code")}
+              </React.Fragment>
             );
           }
-          return <span key={j}>{part}</span>;
+          return (
+            <React.Fragment key={`t-${i}-${j}`}>{paint(part, `t-${i}-${j}`)}</React.Fragment>
+          );
         })}
       </p>
     );
   });
+}
+
+function renderRichText(text: string) {
+  return renderHighlightedRichText(text, null);
 }
 
 export function LessonModule({
@@ -108,17 +203,254 @@ export function LessonModule({
   const [checkInDone, setCheckInDone] = React.useState<Record<string, boolean>>({});
   const [checkInPick, setCheckInPick] = React.useState<Record<string, number>>({});
   const topRef = React.useRef<HTMLDivElement | null>(null);
+  const audioRef = React.useRef<HTMLAudioElement | null>(null);
+  const audioCacheRef = React.useRef<Map<string, string>>(new Map());
+  const chunkQueueRef = React.useRef<string[]>([]);
+  const chunkIndexRef = React.useRef(0);
+  const chunkWordOffsetsRef = React.useRef<number[]>([]);
+  const speechWordsRef = React.useRef<SpeechWord[]>([]);
+  const neuralAvailableRef = React.useRef<boolean | null>(null);
   const section = sections[index];
   const isLast = index === sections.length - 1;
   const isFirst = index === 0;
+  const [speechSupported, setSpeechSupported] = React.useState(true);
+  const [speechState, setSpeechState] = React.useState<"idle" | "loading" | "speaking" | "paused">(
+    "idle"
+  );
+  const [highlightWordIndex, setHighlightWordIndex] = React.useState<number | null>(null);
+  const listening = speechState === "speaking" || speechState === "paused" || speechState === "loading";
+  const titleWordActive = localWordIndex(speechWordsRef.current, highlightWordIndex, "title");
+  const bodyWordActive = localWordIndex(speechWordsRef.current, highlightWordIndex, "body");
+  const bulletsWordActive = localWordIndex(speechWordsRef.current, highlightWordIndex, "bullets");
+  const calloutWordActive = localWordIndex(speechWordsRef.current, highlightWordIndex, "callout");
+  const checkInWordActive = localWordIndex(speechWordsRef.current, highlightWordIndex, "checkIn");
 
   const sectionCheckInClear = !section.checkIn || Boolean(checkInDone[section.id]);
   const canAdvance = sectionCheckInClear;
+  /** Every slide-deck check-in must be answered before exercises unlock. */
+  const allCheckInsDone = sections.every((s) => !s.checkIn || Boolean(checkInDone[s.id]));
+  const canStartPractice = isLast && canAdvance && allCheckInsDone && maxReached >= sections.length - 1;
+
+  const stopBrowserSpeech = () => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+  };
+
+  const stopListening = React.useEffectEvent(() => {
+    stopBrowserSpeech();
+    const audio = audioRef.current;
+    if (audio) {
+      audio.onended = null;
+      audio.onerror = null;
+      audio.ontimeupdate = null;
+      audio.pause();
+      audio.removeAttribute("src");
+      audio.load();
+    }
+    chunkQueueRef.current = [];
+    chunkIndexRef.current = 0;
+    chunkWordOffsetsRef.current = [];
+    speechWordsRef.current = [];
+    setHighlightWordIndex(null);
+    setSpeechState("idle");
+  });
+
+  React.useEffect(() => {
+    setSpeechSupported(
+      typeof window !== "undefined" &&
+        ((typeof window.speechSynthesis !== "undefined" &&
+          typeof window.SpeechSynthesisUtterance !== "undefined") ||
+          typeof Audio !== "undefined")
+    );
+    if (typeof Audio !== "undefined" && !audioRef.current) {
+      audioRef.current = new Audio();
+    }
+  }, []);
+
+  React.useEffect(() => {
+    stopListening();
+  }, [index, section.id]);
+
+  React.useEffect(() => {
+    const cache = audioCacheRef.current;
+    return () => {
+      stopListening();
+      for (const url of cache.values()) URL.revokeObjectURL(url);
+      cache.clear();
+    };
+  }, []);
+
+  const fetchNeuralUrl = React.useEffectEvent(async (text: string) => {
+    const cached = audioCacheRef.current.get(text);
+    if (cached) return cached;
+
+    const res = await fetch("/api/lesson/speak", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
+
+    if (res.status === 503) {
+      neuralAvailableRef.current = false;
+      return null;
+    }
+    if (!res.ok) {
+      throw new Error("Could not generate narration");
+    }
+
+    neuralAvailableRef.current = true;
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    audioCacheRef.current.set(text, url);
+    return url;
+  });
+
+  const playBrowserSpeech = React.useEffectEvent((text: string) => {
+    if (
+      typeof window === "undefined" ||
+      !window.speechSynthesis ||
+      !window.SpeechSynthesisUtterance
+    ) {
+      setSpeechState("idle");
+      return;
+    }
+    stopBrowserSpeech();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.96;
+    utterance.pitch = 1;
+    const voices = window.speechSynthesis.getVoices();
+    const preferred = pickBrowserVoice(voices);
+    if (preferred) utterance.voice = preferred;
+    utterance.onboundary = (event) => {
+      if (event.name && event.name !== "word") return;
+      setHighlightWordIndex(wordIndexAtChar(speechWordsRef.current, event.charIndex));
+    };
+    utterance.onend = () => {
+      setSpeechState("idle");
+      setHighlightWordIndex(null);
+    };
+    utterance.onerror = () => {
+      setSpeechState("idle");
+      setHighlightWordIndex(null);
+    };
+    setSpeechState("speaking");
+    setHighlightWordIndex(0);
+    window.speechSynthesis.speak(utterance);
+  });
+
+  const playNeuralChunk = React.useEffectEvent(async (at: number) => {
+    const chunks = chunkQueueRef.current;
+    const text = chunks[at];
+    if (!text) {
+      setSpeechState("idle");
+      setHighlightWordIndex(null);
+      return;
+    }
+
+    try {
+      if (at === 0) setSpeechState("loading");
+      const url = await fetchNeuralUrl(text);
+      if (!url) {
+        playBrowserSpeech(chunks.join(" "));
+        return;
+      }
+
+      const audio = audioRef.current ?? new Audio();
+      audioRef.current = audio;
+      chunkIndexRef.current = at;
+      const chunkWords = text.match(/\S+/g) ?? [];
+      const baseOffset = chunkWordOffsetsRef.current[at] ?? 0;
+
+      audio.ontimeupdate = () => {
+        if (!audio.duration || !Number.isFinite(audio.duration)) return;
+        const local = wordIndexAtTime(chunkWords, audio.duration, audio.currentTime);
+        setHighlightWordIndex(baseOffset + local);
+      };
+      audio.onended = () => {
+        const next = at + 1;
+        if (next < chunks.length) {
+          void playNeuralChunk(next);
+        } else {
+          setSpeechState("idle");
+          setHighlightWordIndex(null);
+        }
+      };
+      audio.onerror = () => {
+        setSpeechState("idle");
+        setHighlightWordIndex(null);
+      };
+      audio.src = url;
+      setSpeechState("speaking");
+      setHighlightWordIndex(baseOffset);
+      await audio.play();
+      const upcoming = chunks[at + 1];
+      if (upcoming) void fetchNeuralUrl(upcoming).catch(() => null);
+    } catch {
+      playBrowserSpeech(chunks.join(" "));
+    }
+  });
+
+  const startListening = React.useEffectEvent(() => {
+    const text = buildSectionSpeechText(section);
+    if (!text) return;
+    stopListening();
+    speechWordsRef.current = buildSpeechWords(section);
+    const chunks = chunkSpeechText(text);
+    chunkQueueRef.current = chunks;
+    chunkIndexRef.current = 0;
+    let offset = 0;
+    chunkWordOffsetsRef.current = chunks.map((chunk) => {
+      const start = offset;
+      offset += chunk.match(/\S+/g)?.length ?? 0;
+      return start;
+    });
+    setHighlightWordIndex(0);
+
+    if (neuralAvailableRef.current === false) {
+      playBrowserSpeech(text);
+      return;
+    }
+    void playNeuralChunk(0);
+  });
+
+  const toggleListen = () => {
+    if (!speechSupported) return;
+    if (speechState === "loading") return;
+
+    const audio = audioRef.current;
+    if (speechState === "speaking") {
+      if (audio && !audio.paused) {
+        audio.pause();
+        setSpeechState("paused");
+        return;
+      }
+      if (typeof window !== "undefined" && window.speechSynthesis?.speaking) {
+        window.speechSynthesis.pause();
+        setSpeechState("paused");
+      }
+      return;
+    }
+
+    if (speechState === "paused") {
+      if (audio?.src) {
+        void audio.play().then(() => setSpeechState("speaking"));
+        return;
+      }
+      if (typeof window !== "undefined" && window.speechSynthesis) {
+        window.speechSynthesis.resume();
+        setSpeechState("speaking");
+      }
+      return;
+    }
+
+    startListening();
+  };
 
   const goTo = (next: number) => {
     const clamped = Math.max(0, Math.min(sections.length - 1, next));
     // Only allow jumping to sections already reached (no skipping ahead via dots).
     if (clamped > maxReached) return;
+    stopListening();
     setIndex(clamped);
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -132,11 +464,14 @@ export function LessonModule({
   };
 
   const goNext = () => {
-    if (!canAdvance) return;
     if (isLast) {
+      if (!canStartPractice) return;
+      stopListening();
       onStart();
       return;
     }
+    if (!canAdvance) return;
+    stopListening();
     const next = index + 1;
     setMaxReached((m) => Math.max(m, next));
     setIndex(next);
@@ -230,34 +565,58 @@ export function LessonModule({
 
           const prose = (
             <>
-              <div className="space-y-3">{renderRichText(section.body)}</div>
+              <div className="space-y-3">
+                {listening
+                  ? renderHighlightedRichText(section.body, bodyWordActive)
+                  : renderRichText(section.body)}
+              </div>
 
               {section.bullets && section.bullets.length > 0 ? (
                 <ul className="space-y-2.5">
-                  {section.bullets.map((b, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2.5 text-[16px] leading-[1.7] text-slate-700 sm:text-[17px]"
-                    >
-                      <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[var(--brand)]" />
-                      <span>{renderInline(b)}</span>
-                    </li>
-                  ))}
+                  {(() => {
+                    let offset = 0;
+                    return section.bullets!.map((b, i) => {
+                      const plain = `${i + 1}. ${b.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/`([^`]+)`/g, "$1")}`;
+                      const count = plain.match(/\S+/g)?.length ?? 0;
+                      let active: number | null = null;
+                      if (listening && bulletsWordActive !== null) {
+                        if (bulletsWordActive < offset) active = -1;
+                        else if (bulletsWordActive >= offset + count) active = count;
+                        else active = bulletsWordActive - offset;
+                      }
+                      offset += count;
+                      return (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2.5 text-[16px] leading-[1.7] text-slate-700 sm:text-[17px]"
+                        >
+                          <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[var(--brand)]" />
+                          <span>
+                            {listening ? renderHighlightedPlain(plain, active) : renderInline(b)}
+                          </span>
+                        </li>
+                      );
+                    });
+                  })()}
                 </ul>
               ) : null}
 
               {section.callout ? (
-                <div className="flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 p-4 sm:p-5">
-                  <Lightbulb className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" />
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-wide text-amber-800">
-                      {section.callout.label}
-                    </p>
-                    <p className="mt-1.5 text-[15px] leading-relaxed text-amber-950 sm:text-base">
-                      {renderInline(section.callout.text)}
-                    </p>
-                  </div>
-                </div>
+                <Notice compact variant="info" title={section.callout.label}>
+                  <p className="text-[15px] leading-relaxed text-slate-700 sm:text-base">
+                    {listening && calloutWordActive !== null
+                      ? (() => {
+                          const labelCount =
+                            `${section.callout!.label}.`.match(/\S+/g)?.length ?? 0;
+                          const active =
+                            calloutWordActive < labelCount
+                              ? -1
+                              : calloutWordActive - labelCount;
+                          return renderHighlightedPlain(section.callout!.text, active);
+                        })()
+                      : renderInline(section.callout.text)}
+                  </p>
+                </Notice>
               ) : null}
 
               {section.checkIn ? (
@@ -266,7 +625,16 @@ export function LessonModule({
                     Quick check
                   </p>
                   <p className="mt-2 text-[16px] font-semibold leading-snug text-slate-900 sm:text-[17px]">
-                    {section.checkIn.prompt}
+                    {listening && checkInWordActive !== null
+                      ? (() => {
+                          const prefixCount = "Quick check.".match(/\S+/g)?.length ?? 2;
+                          const active =
+                            checkInWordActive < prefixCount
+                              ? -1
+                              : checkInWordActive - prefixCount;
+                          return renderHighlightedPlain(section.checkIn!.prompt, active);
+                        })()
+                      : section.checkIn.prompt}
                   </p>
                   <div className="mt-3 grid gap-2">
                     {section.checkIn.choices.map((choice, ci) => {
@@ -330,13 +698,68 @@ export function LessonModule({
           return (
             <div className="space-y-6">
               <div>
-                {section.kicker ? (
-                  <span className="inline-block rounded-full bg-[var(--brand)]/10 px-3 py-1 text-xs font-black uppercase tracking-wide text-[var(--brand-2)]">
-                    {section.kicker}
-                  </span>
-                ) : null}
+                <div className="flex flex-wrap items-center gap-2">
+                  {section.kicker ? (
+                    <span className="inline-block rounded-full bg-[var(--brand)]/10 px-3 py-1 text-xs font-black uppercase tracking-wide text-[var(--brand-2)]">
+                      {section.kicker}
+                    </span>
+                  ) : null}
+                  {speechSupported ? (
+                    <div className="ml-auto flex items-center gap-1.5 sm:ml-0">
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        className="h-9 border-[var(--brand)]/25 bg-white/80 text-[var(--brand-2)]"
+                        onClick={toggleListen}
+                        disabled={speechState === "loading"}
+                        aria-label={
+                          speechState === "loading"
+                            ? "Preparing narration"
+                            : speechState === "speaking"
+                              ? "Pause reading this slide"
+                              : speechState === "paused"
+                                ? "Resume reading this slide"
+                                : "Listen to this slide"
+                        }
+                      >
+                        {speechState === "loading" ? (
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        ) : speechState === "speaking" ? (
+                          <Pause className="h-3.5 w-3.5" />
+                        ) : speechState === "paused" ? (
+                          <Play className="h-3.5 w-3.5" />
+                        ) : (
+                          <Volume2 className="h-3.5 w-3.5" />
+                        )}
+                        {speechState === "loading"
+                          ? "Preparing…"
+                          : speechState === "speaking"
+                            ? "Pause"
+                            : speechState === "paused"
+                              ? "Resume"
+                              : "Listen"}
+                      </Button>
+                      {speechState !== "idle" ? (
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="ghost"
+                          className="h-9 text-slate-600"
+                          onClick={() => stopListening()}
+                          aria-label="Stop reading"
+                        >
+                          <Square className="h-3.5 w-3.5" />
+                          Stop
+                        </Button>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </div>
                 <h2 className="mt-3 text-[1.65rem] font-black leading-tight tracking-tight text-slate-900 sm:text-3xl md:text-[2rem]">
-                  {section.title}
+                  {listening
+                    ? renderHighlightedPlain(section.title, titleWordActive)
+                    : section.title}
                 </h2>
               </div>
 
@@ -379,7 +802,12 @@ export function LessonModule({
               data-tour="lesson-module-start"
               className="min-h-11 w-full scroll-mb-28 shadow-sm sm:w-auto"
               onClick={goNext}
-              disabled={!canAdvance}
+              disabled={!canStartPractice}
+              title={
+                canStartPractice
+                  ? undefined
+                  : "Finish every slide and answer all lesson questions first"
+              }
             >
               <Rocket className="h-4 w-4" />
               {startLabel}

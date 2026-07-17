@@ -38,6 +38,10 @@ import { CYBER_INTERACTIVE_BY_LESSON } from "@/lib/cyberLessons/interactiveExerc
 import { FINANCE_INTERACTIVE_BY_LESSON } from "@/lib/financeLessons/interactiveExercises";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
+import {
+  readLessonModuleUnlocked,
+  writeLessonModuleUnlocked,
+} from "@/lib/lessonModuleUnlock";
 import { cn } from "@/lib/utils";
 
 export type AIQuizQuestion = {
@@ -187,6 +191,7 @@ export function AILessonCanvas({
 }) {
   const [animateIn, setAnimateIn] = React.useState(false);
   const [view, setView] = React.useState<"lesson" | "quiz">("lesson");
+  const [lessonUnlocked, setLessonUnlocked] = React.useState(false);
 
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [selected, setSelected] = React.useState<Record<string, number>>({});
@@ -210,9 +215,20 @@ export function AILessonCanvas({
   }, [lesson.id]);
 
   React.useEffect(() => {
+    const unlocked = readLessonModuleUnlocked(lesson.id);
+    setLessonUnlocked(unlocked);
     const requested = new URLSearchParams(window.location.search).get("view");
-    if (requested === "exercises" || requested === "quiz") setView("quiz");
-    else if (requested === "lesson") setView("lesson");
+    if ((requested === "exercises" || requested === "quiz") && unlocked) {
+      setView("quiz");
+    } else {
+      setView("lesson");
+    }
+  }, [lesson.id]);
+
+  const openQuiz = React.useCallback(() => {
+    writeLessonModuleUnlocked(lesson.id);
+    setLessonUnlocked(true);
+    setView("quiz");
   }, [lesson.id]);
 
   React.useEffect(() => {
@@ -517,12 +533,23 @@ export function AILessonCanvas({
           </button>
           <button
             type="button"
-            onClick={() => setView("quiz")}
+            onClick={() => {
+              if (!lessonUnlocked) return;
+              setView("quiz");
+            }}
+            disabled={!lessonUnlocked}
+            title={
+              lessonUnlocked
+                ? undefined
+                : "Finish the lesson slides and answer every question first"
+            }
             className={cn(
               "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
-              view === "quiz"
+              view === "quiz" && lessonUnlocked
                 ? "bg-[var(--brand)] text-white shadow-sm"
-                : "text-slate-600 hover:bg-slate-100"
+                : lessonUnlocked
+                  ? "text-slate-600 hover:bg-slate-100"
+                  : "cursor-not-allowed text-slate-400"
             )}
           >
             <ListChecks className="h-4 w-4" />
@@ -530,8 +557,8 @@ export function AILessonCanvas({
           </button>
         </div>
 
-        {view === "lesson" ? (
-          <LessonModule module={lesson.lessonModule} onStart={() => setView("quiz")} />
+        {view === "lesson" || !lessonUnlocked ? (
+          <LessonModule module={lesson.lessonModule} onStart={openQuiz} />
         ) : (
           <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
             <div className="space-y-3 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
@@ -539,8 +566,8 @@ export function AILessonCanvas({
                 <LessonAside
                   title="Big ideas"
                   defaultOpen
-                  icon={<Lightbulb className="h-5 w-5 text-amber-500" />}
-                  className="border-amber-200 bg-amber-50/40"
+                  icon={<Lightbulb className="h-5 w-5 text-[var(--accent)]" />}
+                  className="border-[rgb(var(--accent-rgb)/0.45)] bg-[rgb(var(--accent-rgb)/0.1)]"
                 >
                   <ul className="space-y-2">
                     {lesson.bigIdeas.map((idea, i) => (
@@ -699,15 +726,14 @@ export function AILessonCanvas({
                             </div>
                           </div>
                         ) : (
-                          <div
-                            className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900"
-                            role="alert"
-                          >
-                            <p className="font-semibold">Not quite — try again.</p>
-                            <p className="mt-1">
-                              Reread the question and pick a different answer. The full explanation
-                              unlocks when you get it right.
-                            </p>
+                          <div className="kanam-data-retry-banner" role="alert">
+                            <div>
+                              <p className="kanam-data-retry-title">Not quite — try again.</p>
+                              <p className="kanam-data-retry-body">
+                                Reread the question and pick a different answer. The full
+                                explanation unlocks when you get it right.
+                              </p>
+                            </div>
                           </div>
                         )
                       ) : null}

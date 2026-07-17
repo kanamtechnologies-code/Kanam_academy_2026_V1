@@ -43,9 +43,21 @@ Public adoption packet (printable): marketing site `/one-pager/standards` — *K
 | 2-DA-07 | Represent data using multiple encoding schemes / formats | 2 | D1; P9 |
 | 2-DA-08 | Collect data with tools and **transform** it to be useful | 2 | D2–D13 |
 | 2-DA-09 | Refine models/analysis based on generated data | 2 | D8, D14 |
-| 3A-DA-10 | Evaluate tradeoffs in how data is organized/stored | 3A | D3, D7 |
+| 3A-DA-10 | Evaluate tradeoffs in how data is organized/stored | 3A | D3, D7; **dl-2** |
 | 3A-DA-11 | **Create data visualizations** with software tools | 3A | D9, D10, D11, D12, D13, D14 |
 | 3A-DA-12 | Represent relationships among data elements | 3A | D7, D13, D14 |
+
+### Computing Systems & Networks (literacy + Cyber)
+
+| Code | Standard (abbrev.) | Level | Lessons |
+| --- | --- | :---: | --- |
+| 3A-CS-01 | Explain abstractions in everyday computing systems | 3A | **dl-1** |
+| 3A-CS-02 | Compare application software, system software, hardware layers | 3A | **dl-1** |
+| 3A-CS-03 | Develop systematic troubleshooting guidelines others can use | 3A | **dl-14** |
+| 3A-NI-04 | Evaluate/describe network scalability & reliability (routers, servers, addressing) | 3A | Cyber primary; **dl-3** literacy depth |
+| 3A-NI-05 | Examples of malware/attacks affecting sensitive data | 3A | Cyber; **dl-11** awareness |
+| 3A-NI-06 | Recommend security measures (efficiency, feasibility, ethics) | 3A | Cyber; **dl-11** awareness |
+| 3A-NI-07/08 | Usability–security tradeoffs; explain cybersecurity recommendations | 3A | Cyber; **dl-12** light |
 
 ## 3. CSTA 2017 — Impacts of Computing
 
@@ -54,12 +66,15 @@ Public adoption packet (printable): marketing site `/one-pager/standards` — *K
 | 2-IC-20 | Compare tradeoffs of computing technologies | 2 | P1–P13 (AI ethics moments) |
 | 2-IC-21 | Discuss bias & accessibility in design | 2 | P13; D9 |
 | 2-IC-22 | Collaborate via crowdsourcing/surveys (collecting input) | 2 | P2 |
-| 3A-IC-25 | Test & refine artifacts to reduce bias | 3A | P13; D9 |
-| 3A-IC-29 | Privacy concerns in data collection/generation | 3A | D-track data-ethics moments |
-| 3A-IC-30 | Social/economic implications of privacy | 3A | D-track data-ethics moments |
+| 3A-IC-24 | Evaluate computing impacts on personal/ethical/social/economic/cultural practices | 3A | **dl-4, dl-7, dl-8, dl-13, dl-15, dl-16** |
+| 3A-IC-25 | Test & refine artifacts to reduce bias / equity deficits | 3A | P13; D9; **dl-8, dl-9, dl-16** |
+| 3A-IC-27 | Collaboration tools across cultures & career fields | 3A | **dl-5, dl-6, dl-15** |
+| 3A-IC-28 | Beneficial & harmful effects of intellectual property laws | 3A | **dl-10** |
+| 3A-IC-29 | Privacy concerns in automated / nonevident data collection | 3A | D-track ethics; **dl-12** |
+| 3A-IC-30 | Social/economic implications of privacy (safety/law/ethics) | 3A | D-track ethics; **dl-12, dl-16** |
 
-> Every lesson ends with an **ethics moment** (AI ethics in the Python track; data ethics in the Data
-> track), giving recurring, assessable coverage of the Impacts of Computing concept.
+> Digital Literacy (`dl-*`) is the primary HS home for Level 3A Impacts. CS tracks still end lessons
+> with ethics moments. Full Digital map: [digital-literacy-csta.md](digital-literacy-csta.md).
 
 ## 4. Common Core State Standards — Mathematics (cross-curricular)
 
@@ -112,13 +127,12 @@ Legacy Draft 3.0 data codes that still inform our Data track design:
 | --- | --- | --- |
 | Algorithms & Programming | **Comprehensive** (2-AP-10→19, minor gaps at 2-AP-16/18) | **Strong** (13, 14, 15, 16, 17, 18, 23) |
 | Data & Analysis | **Comprehensive** (2-DA-07/08/09) | **Strong** (10, 11, 12) |
-| Impacts of Computing | **Strong** (20, 21, 22) | **Good** (25, 29, 30) |
-| Computing Systems | Light | Light |
-| Networks & the Internet | Light | Light |
+| Impacts of Computing | **Strong** (20, 21, 22) | **Strong** (24–30 via Digital Literacy + ethics moments) |
+| Computing Systems | Light | **Good** (dl-1, dl-14; Cyber complements) |
+| Networks & the Internet | Light | **Strong** via Cyber + Digital awareness (dl-3, dl-11, dl-12) |
 
-**Accreditation positioning:** Kanam Academy provides comprehensive, standards-aligned coverage of the
-two CSTA concepts most central to data literacy and programming fundamentals — **Algorithms &
-Programming** and **Data & Analysis** — across CSTA Levels 2 and 3A, with recurring **Impacts of
-Computing** integration and **Common Core** mathematics cross-alignment. Computing Systems and Networks
-are intentionally light and would be supplied by a partner course where a full CSTA-comprehensive
-sequence is required.
+**Accreditation positioning:** Kanam Academy provides comprehensive, standards-aligned coverage of
+**Algorithms & Programming** and **Data & Analysis** (CS tracks), plus a high-school **Digital Literacy**
+track that owns Level 3A **Impacts of Computing** with Computing Systems and Networks literacy.
+**Cybersecurity** supplies deeper Networks & Security specialty depth. **Common Core** mathematics
+cross-alignment remains for the Data track.

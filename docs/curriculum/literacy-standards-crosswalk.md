@@ -40,6 +40,29 @@ Aligned to **National Standards for Personal Financial Education (Jump$tart / CE
 
 ## Digital Literacy (`dl-1`…`dl-16`)
 
-- **ISTE Standards for Students (2024)** — Digital Citizen, Knowledge Constructor, Creative Communicator, Computational Thinker
-- Complements CSTA Impacts of Computing (privacy, ethics, collaboration)
-- **CSTA 2026 forward:** Computing & Society + Systems & Security habits (accounts, privacy, scams)
+**Primary:** CSTA 2017 **Level 3A** (grades 9–10, all students) — Impacts of Computing, Computing Systems, Networks & the Internet (awareness), Data & Analysis (storage tradeoffs).  
+**Secondary:** ISTE 2024 (Digital Citizen, Knowledge Constructor, Creative Communicator).  
+**Stretch:** Selected Level 3B Impacts (equity/access; evaluate artifacts for benefit/harm).  
+**Full map:** [digital-literacy-csta.md](digital-literacy-csta.md).  
+**Boundary:** Cybersecurity owns deeper NI defense / IR; Digital stays citizenship + systems literacy + recommend-at-awareness-depth.
+
+| Lesson | Focus | Primary CSTA 3A |
+| --- | --- | --- |
+| dl-1 | Systems layers & abstraction (hardware / OS / apps) | 3A-CS-01, 3A-CS-02 |
+| dl-2 | Local vs cloud storage organization tradeoffs | 3A-DA-10 |
+| dl-3 | Networks literacy + finding information online | 3A-NI-04 (awareness) |
+| dl-4 | Evaluate claims / misinfo as cultural practice | 3A-IC-24 |
+| dl-5 | Digital communication for school & work | 3A-IC-27 (prep) |
+| dl-6 | Collaboration tools across cultures & careers | 3A-IC-27 |
+| dl-7 | Identity, reputation & social practice | 3A-IC-24 |
+| dl-8 | Equity, access & harm reduction online | 3A-IC-24, 3A-IC-25 (+ 3B-IC-26 stretch) |
+| dl-9 | Accessible creation; reduce bias/equity deficits | 3A-IC-25 |
+| dl-10 | IP laws: benefits, harms & credit | 3A-IC-28 |
+| dl-11 | Everyday threats; recommend security measures | 3A-NI-05, 3A-NI-06 |
+| dl-12 | Automated collection; privacy ethics & tradeoffs | 3A-IC-29, 3A-IC-30 |
+| dl-13 | Computing impacts on wellbeing & agency | 3A-IC-24 |
+| dl-14 | Systematic troubleshooting guidelines | 3A-CS-03 |
+| dl-15 | Computing, careers & connected workplaces | 3A-IC-24, 3A-IC-27 |
+| dl-16 | Capstone: evaluate impacts & act | Integrated (+ 3B-IC-25 stretch) |
+
+**CSTA 2026 forward:** Computing & Society + Systems & Security habits (accounts, privacy, scams) at awareness depth.

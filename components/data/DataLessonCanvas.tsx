@@ -30,6 +30,7 @@ import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Notice } from "@/components/ui/notice";
 import { Progress } from "@/components/ui/progress";
 import {
   createLessonDatabase,
@@ -46,6 +47,10 @@ import { cn } from "@/lib/utils";
 import { PredictionInput } from "@/components/exercises/PredictionInput";
 import { ParsonsLines } from "@/components/exercises/ParsonsLines";
 import { predictionSoftMatches } from "@/lib/exercises/normalizePrediction";
+import {
+  readLessonModuleUnlocked,
+  writeLessonModuleUnlocked,
+} from "@/lib/lessonModuleUnlock";
 import type { Database as SqlDatabase } from "sql.js";
 
 export type DataExplainItem = { title: string; text: string };
@@ -143,14 +148,30 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
   const [view, setView] = React.useState<"lesson" | "exercises">(
     lesson.lessonModule ? "lesson" : "exercises"
   );
+  const [lessonUnlocked, setLessonUnlocked] = React.useState(() =>
+    lesson.lessonModule ? false : true
+  );
 
   React.useEffect(() => {
-    if (!lesson.lessonModule) return;
-    const requested = new URLSearchParams(window.location.search).get("view");
-    if (requested === "exercises" || requested === "lesson") {
-      setView(requested);
+    if (!lesson.lessonModule) {
+      setLessonUnlocked(true);
+      return;
     }
-  }, [lesson.lessonModule]);
+    const unlocked = readLessonModuleUnlocked(lesson.id);
+    setLessonUnlocked(unlocked);
+    const requested = new URLSearchParams(window.location.search).get("view");
+    if (requested === "exercises" && unlocked) {
+      setView("exercises");
+    } else if (requested === "lesson" || requested === "exercises") {
+      setView("lesson");
+    }
+  }, [lesson.lessonModule, lesson.id]);
+
+  const openExercises = React.useCallback(() => {
+    writeLessonModuleUnlocked(lesson.id);
+    setLessonUnlocked(true);
+    setView("exercises");
+  }, [lesson.id]);
   const [db, setDb] = React.useState<SqlDatabase | null>(null);
   const [dbLoading, setDbLoading] = React.useState(true);
   const [dbError, setDbError] = React.useState<string | null>(null);
@@ -583,12 +604,23 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
             </button>
             <button
               type="button"
-              onClick={() => setView("exercises")}
+              onClick={() => {
+                if (!lessonUnlocked) return;
+                setView("exercises");
+              }}
+              disabled={!lessonUnlocked}
+              title={
+                lessonUnlocked
+                  ? undefined
+                  : "Finish the lesson slides and answer every question first"
+              }
               className={cn(
                 "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
-                view === "exercises"
+                view === "exercises" && lessonUnlocked
                   ? "bg-[var(--brand)] text-white shadow-sm"
-                  : "text-slate-600 hover:bg-slate-100"
+                  : lessonUnlocked
+                    ? "text-slate-600 hover:bg-slate-100"
+                    : "cursor-not-allowed text-slate-400"
               )}
             >
               <ListChecks className="h-4 w-4" />
@@ -597,8 +629,8 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
           </div>
         ) : null}
 
-        {lesson.lessonModule && view === "lesson" ? (
-          <LessonModule module={lesson.lessonModule} onStart={() => setView("exercises")} />
+        {lesson.lessonModule && (view === "lesson" || !lessonUnlocked) ? (
+          <LessonModule module={lesson.lessonModule} onStart={openExercises} />
         ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
           <div className="space-y-3 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
@@ -678,9 +710,9 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                 </CardContent>
               </Card>
             ) : dbError ? (
-              <Card className="border-red-200 bg-red-50">
-                <CardContent className="py-6 text-red-800">{dbError}</CardContent>
-              </Card>
+              <Notice variant="danger" role="alert" title="Couldn’t load the sample database">
+                {dbError}
+              </Notice>
             ) : (
               <>
                 {lesson.previewTable ? (
@@ -903,14 +935,9 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                               </div>
                             </div>
                           ) : (
-                            <p
-                              className={cn(
-                                "rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900"
-                              )}
-                              role="alert"
-                            >
-                              {lastFeedback}
-                            </p>
+                            <div className="kanam-data-retry-banner" role="alert">
+                              <p className="kanam-data-retry-body">{lastFeedback}</p>
+                            </div>
                           )
                         ) : null}
 

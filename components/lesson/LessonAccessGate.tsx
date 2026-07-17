@@ -3,9 +3,10 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Lock, Users } from "lucide-react";
+import { Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Notice } from "@/components/ui/notice";
 import { trackIdForLesson } from "@/lib/billing/access";
 import { isGuestMode } from "@/lib/guestProgress";
 import { isLessonOpenForStudent } from "@/lib/tracks";
@@ -92,20 +93,22 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
 
   if (needsChildSelect) {
     return (
-      <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center gap-4 px-4 py-16 text-center">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 ring-1 ring-emerald-200">
-          <Users className="h-7 w-7 text-emerald-800" />
-        </div>
-        <h1 className="text-2xl font-black tracking-tight text-slate-900">
-          Choose a child first
-        </h1>
-        <p className="text-sm text-slate-600">
-          Progress saves to a kid profile. Pick who is learning in the parent hub, then open
-          the lesson again.
-        </p>
-        <Button asChild>
-          <Link href="/parent?pick=1">Go to parent hub</Link>
-        </Button>
+      <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center px-4 py-16">
+        <Notice
+          variant="lock"
+          title="Choose a child first"
+          action={
+            <Button asChild size="sm" variant="outline" className="border-[var(--brand)]/35 bg-white/80">
+              <Link href="/parent?pick=1">
+                <Users className="h-3.5 w-3.5" />
+                Go to parent hub
+              </Link>
+            </Button>
+          }
+        >
+          Progress saves to a kid profile. Pick who is learning in the parent hub, then open the
+          lesson again.
+        </Notice>
       </div>
     );
   }
@@ -119,41 +122,45 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
       !access?.classRestricted;
 
     return (
-      <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center gap-4 px-4 py-16 text-center">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-100 ring-1 ring-amber-200">
-          <Lock className="h-7 w-7 text-amber-800" />
-        </div>
-        <h1 className="text-2xl font-black tracking-tight text-slate-900">
-          {checkFailed
-            ? "Couldn’t verify access"
-            : isPaywall
-              ? "Unlock this track to continue"
-              : "Lesson not assigned yet"}
-        </h1>
-        <p className="text-sm text-slate-600">
+      <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center px-4 py-16">
+        <Notice
+          variant={checkFailed ? "danger" : "lock"}
+          role={checkFailed ? "alert" : "status"}
+          title={
+            checkFailed
+              ? "Couldn’t verify access"
+              : isPaywall
+                ? "Unlock this track to continue"
+                : "Lesson not assigned yet"
+          }
+          action={
+            <>
+              {isPaywall || checkFailed ? (
+                <Button asChild size="sm">
+                  <Link href={billingHref}>
+                    {isPaywall ? "View plans & unlock" : "Go to billing"}
+                  </Link>
+                </Button>
+              ) : null}
+              <Button asChild size="sm" variant="outline" className="bg-white/80">
+                <Link href={isGuestMode() ? "/demo" : "/dashboard"}>
+                  {isGuestMode() ? "Back to demo" : "Back to dashboard"}
+                </Link>
+              </Button>
+            </>
+          }
+        >
           {checkFailed
             ? "We couldn’t confirm your lesson access. Refresh, or open Billing if you just purchased."
             : isPaywall
               ? "Subscribe for all tracks, or buy this learning path to open its lessons. Live tutoring is sold separately."
               : "Your instructor hasn’t turned this lesson on for your class yet. Check your dashboard for lessons that are currently available."}
-        </p>
-        {access?.classRestricted && access.classIds?.length ? (
-          <p className="text-xs text-slate-500">
-            You&apos;re enrolled in a class — only assigned lessons are open.
-          </p>
-        ) : null}
-        <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
-          {isPaywall || checkFailed ? (
-            <Button asChild>
-              <Link href={billingHref}>{isPaywall ? "View plans & unlock" : "Go to billing"}</Link>
-            </Button>
+          {access?.classRestricted && access.classIds?.length ? (
+            <p className="mt-2 text-xs text-slate-500">
+              You&apos;re enrolled in a class — only assigned lessons are open.
+            </p>
           ) : null}
-          <Button asChild variant={isPaywall || checkFailed ? "outline" : "default"}>
-            <Link href={isGuestMode() ? "/demo" : "/dashboard"}>
-              {isGuestMode() ? "Back to demo" : "Back to dashboard"}
-            </Link>
-          </Button>
-        </div>
+        </Notice>
       </div>
     );
   }

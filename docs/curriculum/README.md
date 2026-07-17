@@ -10,19 +10,21 @@ Both tracks are structured as **8-week programs** (two sessions per week) design
 - [Data Analyst Track](data-analyst-track.md) — **8 weeks**, 14 interactive lessons (data-visualization focus)
 - [Master Standards Alignment Matrix](standards-alignment.md) — accreditation crosswalk (CSTA / ISTE / CCSS)
 - [Literacy tracks standards crosswalk](literacy-standards-crosswalk.md) — Jump$tart/CEE finance + AI/Cyber/Digital literacy
+- [Digital Literacy — CSTA HS map](digital-literacy-csta.md) — Level 3A Impacts / Systems / Networks / Data for grades 9–10
 
 ---
 
 ## 1. Audience and grade band
 
-Kanam Academy targets **late middle school through early high school (grades 6–10, ages 11–16)**.
-Content is written at a reading level appropriate for grade 6 while reaching the conceptual depth
-expected at grades 9–10, so a single classroom with mixed readiness can be served.
+Kanam Academy targets **late middle school through high school**. Python and Data tracks keep a
+mixed-readiness path (plain language + 3A stretch). **Digital Literacy** and **Cybersecurity** are
+written primarily for **high school Level 3A** (grades 9–10), with selected 3B Impacts stretch.
 
 | Band | CSTA Level | Typical age | How Kanam serves it |
 | --- | --- | --- | --- |
-| Middle school | Level 2 (grades 6–8) | 11–14 | Core path for every lesson; plain-language explainers, guided fill-in-the-blanks |
-| Early high school | Level 3A (grades 9–10) | 14–16 | "From-scratch" challenges, capstones, and extension prompts ("Try This") reach 3A depth |
+| Middle school | Level 2 (grades 6–8) | 11–14 | Core path for Python/Data; plain-language explainers |
+| Early high school | Level 3A (grades 9–10) | 14–16 | Primary design target for Digital Literacy + Cybersecurity; CS capstones |
+| Later high school | Level 3B (specialty) | 16–18 | Stretch evaluation in Digital (equity/IP/privacy) and Cyber elective depth |
 
 ## 2. Standards framework
 

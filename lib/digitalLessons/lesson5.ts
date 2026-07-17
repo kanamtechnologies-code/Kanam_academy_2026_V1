@@ -2,10 +2,10 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson5: AILessonConfig = {
   id: "dl-5",
-  title: "5. Communicate Clearly & Kindly Online",
-  goal: "Communicate effectively and respectfully across email, chat, and posts — understanding tone, audience, netiquette, and the difference between casual and professional messages.",
+  title: "5. Digital Communication for School & Work",
+  goal: "Evaluate the audience, channel, and tone for school, work, and public messages; use professional email and chat norms to make clear, actionable requests.",
   xpReward: 250,
-  badge: "Clear Communicator",
+  badge: "Pro Communicator",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/4",
   nextHref: "/learn/digital/6",
@@ -15,8 +15,8 @@ export const digitalLesson5: AILessonConfig = {
       {
         id: "intro",
         kicker: "Start here",
-        title: "What you'll learn today",
-        body: `You send messages all day — texts to friends, posts in a group chat, maybe an email to a teacher or a coach. It feels easy. But have you ever had a message blow up because someone "took it the wrong way"? That happens because typed words carry no voice, no face, and no body language.\n\nHere's our roadmap:\n\n• **Pick the right channel** — when to chat, when to email, when to just call.\n• **Netiquette** — the unwritten rules of behaving well online.\n• **Why tone gets lost** — and how ALL CAPS, sarcasm, and emojis change your meaning.\n• **Write clear messages** — good subject lines, a clear "ask," and a real professional email.\n• **Audience switch** — friend chat vs. teacher, college, or first-job email.\n\nThese are the exact skills that make group projects smoother, get faster replies from busy adults, and help you land and keep your first job or internship.`,
+        title: "Communication is a design decision",
+        body: `A message is not “good” just because it is polite. It has to work for a specific **audience**, **purpose**, and **channel**. A three-word chat can be perfect for a teammate who needs a quick update and a poor choice for a teacher, internship supervisor, or public audience that needs a record.\n\nIn this lesson, you will evaluate communication choices for school, work, and public posts. You will compare email, chat, meetings, and public comments; test how tone changes meaning; and build messages that make a clear request, update, or decision possible.\n\nThose choices affect more than feelings. They affect whether a group project moves forward, whether an application office can help you, and whether people trust you with responsibility.`,
         image: "/images/lessons/dl-5.png",
         imageAlt: "Smartphone chat thread beside a laptop open to a professional email draft in a browser",
         callout: {
@@ -37,8 +37,8 @@ export const digitalLesson5: AILessonConfig = {
       {
         id: "glossary",
         kicker: "Let's break down the words",
-        title: "The words we'll use — in plain English",
-        body: `Before we dive in, here are the few terms that pop up in this lesson. Don't memorize them — just get the gist, and they'll click as we go.\n\n• **Channel** — the *tool* you use to send a message: a text, a chat app, an email, or a video call. Each one fits a different situation.\n• **Netiquette** — short for "internet etiquette." It just means good manners online, like not yelling and not being rude.\n• **Tone** — the *feeling* behind your words. Out loud you hear it in someone's voice; in text it's invisible, so the reader has to guess it.\n• **Audience** — *who* you're talking to. You'd message your best friend differently than a teacher or a future boss.\n• **Subject line** — the one-line summary at the very top of an email that tells the reader what it's about before they open it.\n\nThat's the whole vocabulary list. Now let's see each one in action.`,
+        title: "Vocabulary for deliberate communication",
+        body: `• **Audience** — the people who will receive, forward, or be affected by a message.\n• **Channel** — the communication path: chat, email, meeting, shared-document comment, or public post.\n• **Tone** — the attitude a reader infers from word choice, punctuation, timing, and format.\n• **Context** — the background a recipient needs to understand what is being asked or decided.\n• **Asynchronous** — communication people can read and answer later, such as email or comments.\n• **Professional norm** — a shared expectation that helps work move reliably, such as naming a deadline, replying to an assigned task, or checking recipients before sending.`,
         callout: {
           label: "Tip",
           text: "If a word ever feels confusing later, flip back to this list. Knowing the words is half the battle.",
@@ -47,8 +47,8 @@ export const digitalLesson5: AILessonConfig = {
       {
         id: "concept-1",
         kicker: "The big idea",
-        title: "Choose the right channel for the message",
-        body: `Not every message belongs in the same place. Picking the right **channel** (the tool you use to communicate) is half of communicating well.\n\n• **Quick chat / text** — best for short, casual, fast back-and-forth. "Running 5 min late." "Did practice get moved?"\n• **Email** — best for anything important, formal, or that needs a record: messaging a teacher, applying for something, or sending details people will need later.\n• **Call or video** — best when something is urgent, emotional, or complicated, where typing would cause confusion or hurt feelings.\n\nA good rule: the more important, sensitive, or detailed the message, the more you should move from chat toward email or a call. Firing off "can we talk about my grade???" at 11pm in a chat app lands very differently than a calm, clear email the next morning.`,
+        title: "Compare channels before you send",
+        body: `Choose a channel by evaluating four factors: **urgency, complexity, permanence, and audience reach**.\n\n• **Chat** works for short coordination: “I uploaded my section; can you review it by 6?” It is fast, but key decisions can disappear in a busy thread.\n• **Email** works when a message needs context, a record, attachments, or a response from a teacher, employer, program, or client.\n• **A meeting or call** works when a decision is complex, emotions are rising, or several people need to resolve an issue together. Follow it with a written summary if the decision matters.\n• **A public post** reaches widely and can be copied outside its original audience. It should not be the default channel for a private concern, complaint, or request for help.\n\nThe strongest choice is not always the fastest one. It is the one that lets the intended audience understand and act.`,
         bullets: [
           "**Chat/text** = quick and casual.",
           "**Email** = important, formal, or needs a paper trail.",
@@ -59,7 +59,7 @@ export const digitalLesson5: AILessonConfig = {
           text: "Big or emotional topics rarely go well over text. If you feel your heart racing while typing, that's a sign to slow down — or pick up the phone instead.",
         },
         checkIn: {
-          prompt: "You need a two-day extension from your teacher and want it in writing for your records. Which channel fits best?",
+          prompt: "You need a two-day extension and want the decision, deadline, and reason documented. Which channel best fits?",
           choices: [
             "A comment on their social media post",
             "Shouting it across the classroom",
@@ -74,8 +74,8 @@ export const digitalLesson5: AILessonConfig = {
       {
         id: "concept-2",
         kicker: "The unwritten rules",
-        title: "Netiquette: how to behave in online spaces",
-        body: `**Netiquette** is just "internet etiquette" — the basic norms of polite online behavior. Nobody hands you a rulebook, but people definitely notice when you break them.\n\nThe core ideas are simple:\n\n• **Be respectful** — treat people the way you'd want to be treated.\n• **Don't shout** — typing in ALL CAPS reads as yelling (more on that next).\n• **Stay on topic** — don't derail a group chat or thread.\n• **Don't spam** — avoid blasting the same message over and over.\n• **Respect people's time** — get to the point and reply when you say you will.\n\nA single test covers most of it: **"Would I say this to their face?"** If the answer is no, don't type it. The screen can make us braver and ruder than we'd ever be in person — netiquette is about closing that gap.`,
+        title: "Professional norms make messages usable",
+        body: `Professional digital norms are not about sounding overly formal. They reduce missed work and prevent avoidable confusion.\n\nUse a descriptive subject or opening line. State the purpose early. Include the relevant course, project, or deadline. Reply in the same thread when the history matters. Confirm ownership instead of assuming someone else will act. Before sending, check the recipient list, attachment, links, and whether the channel exposes information too broadly.\n\nA professional message can still sound like you. The standard is not “perfect grammar at all times.” The standard is that the audience can tell what happened, what you need, and what happens next.`,
         callout: {
           label: "Common misconception",
           text: "Texting your teacher or boss the same way you text your best friend feels friendly, but it often reads as careless or disrespectful. Match your style to who you're talking to.",
@@ -307,10 +307,10 @@ export const digitalLesson5: AILessonConfig = {
     ],
   },
   bigIdeas: [
-    "Match the **channel** to the message: chat for quick, email for important, a call for sensitive.",
-    "Text **erases tone**, so readers fill it in — ALL CAPS, sarcasm, and one-word replies can flip your meaning.",
-    "Clear messages have a strong **subject line**, get to the point, and make the **ask** obvious.",
-    "Great communicators **switch styles** for friends vs. teachers vs. colleges and workplaces.",
+    "Evaluate **urgency, complexity, permanence, and audience reach** to choose a channel.",
+    "Tone is inferred in text; clear wording and context reduce harmful or costly misreadings.",
+    "Professional email and chat norms make requests, updates, and decisions easy to act on.",
+    "A message for a friend, teacher, employer, or public audience needs different evidence and formality.",
   ],
   keyTerms: [
     { term: "Netiquette", definition: "The basic norms of polite, respectful behavior online — 'internet etiquette.'" },
@@ -430,7 +430,7 @@ export const digitalLesson5: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Think of a message you sent recently that could have been misread. How would you rewrite it so the tone and the ask are clearer?",
-    placeholder: "Example: I texted 'k' to my groupmate — I'll rewrite it as 'Sounds good, thanks! I'll start the slides tonight.'",
+      "Choose a real school, work, or public-post scenario. Which channel would you use, who is the audience, and how would you adjust tone and context so the recipient can act?",
+    placeholder: "Example: For an internship schedule question, I would email my supervisor with the date, shift, and a specific request rather than post in the team chat.",
   },
 };

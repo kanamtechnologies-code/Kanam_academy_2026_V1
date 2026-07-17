@@ -13,6 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Notice } from "@/components/ui/notice";
 import { TRACKS } from "@/lib/tracks";
 
 type AssignmentLesson = {
@@ -117,9 +118,9 @@ export function ClassAssignmentsDialog({
         </DialogHeader>
 
         {error ? (
-          <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+          <Notice compact variant="danger" role="alert">
             {error}
-          </div>
+          </Notice>
         ) : null}
 
         {loading ? (

@@ -36,6 +36,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { predictionSoftMatches } from "@/lib/exercises/normalizePrediction";
+import {
+  readLessonModuleUnlocked,
+  writeLessonModuleUnlocked,
+} from "@/lib/lessonModuleUnlock";
 import { canPlayAdventure } from "@/lib/pythonLessons/adventurePlay";
 import { runMiniPython, type MiniRunResult } from "@/lib/pythonRunner";
 import {
@@ -149,6 +153,12 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
   const [view, setView] = React.useState<"lesson" | "exercises">(
     lesson.lessonModule ? "lesson" : "exercises"
   );
+  /** True after finishing the slide deck (or restored from a prior completion). */
+  const [lessonUnlocked, setLessonUnlocked] = React.useState(() =>
+    lesson.lessonModule ? false : true
+  );
+  /** Demo tour may preview the Exercises tab before the deck is finished. */
+  const [tourPreviewExercises, setTourPreviewExercises] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [codeByExercise, setCodeByExercise] = React.useState<Record<string, string>>(() =>
     Object.fromEntries(lesson.exercises.map((ex) => [ex.id, ex.starterCode]))
@@ -185,12 +195,38 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
   }, [lesson.id]);
 
   React.useEffect(() => {
-    if (!lesson.lessonModule) return;
-    const requested = new URLSearchParams(window.location.search).get("view");
-    if (requested === "exercises" || requested === "lesson") {
-      setView(requested);
+    if (!lesson.lessonModule) {
+      setLessonUnlocked(true);
+      return;
     }
-  }, [lesson.lessonModule]);
+    const unlocked = readLessonModuleUnlocked(lesson.id);
+    setLessonUnlocked(unlocked);
+    const requested = new URLSearchParams(window.location.search).get("view");
+    if (requested === "exercises" && unlocked) {
+      setView("exercises");
+    } else if (requested === "lesson" || requested === "exercises") {
+      setView("lesson");
+    }
+  }, [lesson.lessonModule, lesson.id]);
+
+  const openExercises = React.useCallback(() => {
+    writeLessonModuleUnlocked(lesson.id);
+    setLessonUnlocked(true);
+    setTourPreviewExercises(false);
+    setView("exercises");
+  }, [lesson.id]);
+
+  const requestView = React.useCallback((next: "lesson" | "exercises") => {
+    if (next === "exercises") {
+      setTourPreviewExercises(true);
+      setView("exercises");
+      return;
+    }
+    setTourPreviewExercises(false);
+    setView("lesson");
+  }, []);
+
+  const canShowExercises = lessonUnlocked || tourPreviewExercises;
 
   React.useEffect(() => {
     try {
@@ -660,8 +696,9 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
     <WelcomeBackground>
       {lesson.guidedTour ? (
         <GuestLessonTour
-          onRequestView={setView}
+          onRequestView={requestView}
           onTourComplete={() => {
+            setTourPreviewExercises(false);
             setView("lesson");
             setActiveIndex(0);
             setLessonModuleResetKey((k) => k + 1);
@@ -747,12 +784,23 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
             <button
               type="button"
               data-tour="lesson-tab-exercises"
-              onClick={() => setView("exercises")}
+              onClick={() => {
+                if (!lessonUnlocked) return;
+                setView("exercises");
+              }}
+              disabled={!lessonUnlocked}
+              title={
+                lessonUnlocked
+                  ? undefined
+                  : "Finish the lesson slides and answer every question first"
+              }
               className={cn(
                 "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
-                view === "exercises"
+                view === "exercises" && canShowExercises
                   ? "bg-[var(--brand)] text-white shadow-sm"
-                  : "text-slate-600 hover:bg-slate-100"
+                  : lessonUnlocked
+                    ? "text-slate-600 hover:bg-slate-100"
+                    : "cursor-not-allowed text-slate-400"
               )}
             >
               <ListChecks className="h-4 w-4" />
@@ -761,12 +809,12 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
           </div>
         ) : null}
 
-        {lesson.lessonModule && view === "lesson" ? (
+        {lesson.lessonModule && (view === "lesson" || !canShowExercises) ? (
           <div data-tour="lesson-module">
             <LessonModule
               key={`lesson-module-${lessonModuleResetKey}`}
               module={lesson.lessonModule}
-              onStart={() => setView("exercises")}
+              onStart={openExercises}
               startLabel={isProject ? "Start the project" : "Start the exercises"}
             />
           </div>
@@ -855,9 +903,9 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                 title="Project checklist"
                 defaultOpen
                 icon={<Trophy className="h-5 w-5 text-[var(--accent)]" />}
-                className="border-[rgb(var(--accent-rgb)/0.55)] bg-amber-50/40"
+                className="border-[rgb(var(--accent-rgb)/0.55)] bg-[rgb(var(--accent-rgb)/0.1)]"
               >
-                <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-amber-900">
+                <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--brand-2)]">
                   {lesson.project.timeLabel}
                 </p>
                 <ul className="space-y-2">
@@ -924,8 +972,8 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                   <CardContent className="space-y-4">
                     {isProject && lesson.project ? (
                       <div className="space-y-3">
-                        <div className="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-4">
-                          <p className="text-xs font-black uppercase tracking-wide text-amber-900">
+                        <div className="rounded-2xl border border-[rgb(var(--accent-rgb)/0.45)] bg-gradient-to-br from-white via-[rgb(var(--accent-rgb)/0.14)] to-[rgb(var(--brand-rgb)/0.1)] p-4">
+                          <p className="text-xs font-black uppercase tracking-wide text-[var(--brand-2)]">
                             Capstone mission · {lesson.project.timeLabel}
                           </p>
                           <p className="mt-1 text-lg font-black tracking-tight text-slate-900">
@@ -1202,12 +1250,9 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                               </div>
                             </div>
                           ) : (
-                            <p
-                              className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900"
-                              role="alert"
-                            >
-                              {lastFeedback}
-                            </p>
+                            <div className="kanam-data-retry-banner" role="alert">
+                              <p className="kanam-data-retry-body">{lastFeedback}</p>
+                            </div>
                           )
                         ) : null}
 

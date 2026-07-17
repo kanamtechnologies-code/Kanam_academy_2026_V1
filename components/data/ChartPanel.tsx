@@ -82,15 +82,17 @@ function scatterData(result: QueryResult, xKey: string, yKey: string) {
 
 function MissingColumns({ cols, className }: { cols: string[]; className?: string }) {
   return (
-    <div className={cn("rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900", className)}>
-      Chart needs{" "}
-      {cols.map((c, i) => (
-        <React.Fragment key={c}>
-          {i > 0 ? " and " : ""}
-          <strong>{c}</strong>
-        </React.Fragment>
-      ))}{" "}
-      in your query results.
+    <div className={cn("kanam-data-retry-banner", className)}>
+      <p className="kanam-data-retry-body">
+        Chart needs{" "}
+        {cols.map((c, i) => (
+          <React.Fragment key={c}>
+            {i > 0 ? " and " : ""}
+            <strong className="text-slate-900">{c}</strong>
+          </React.Fragment>
+        ))}{" "}
+        in your query results.
+      </p>
     </div>
   );
 }

@@ -185,16 +185,19 @@ export function AdventurePlayPanel({
           </div>
 
           {questLog ? (
-            <div className="border-t border-violet-100 bg-amber-50/60 px-4 py-2">
-              <p className="text-[10px] font-black uppercase tracking-wide text-amber-900">
+            <div className="border-t border-violet-100 bg-[rgb(var(--brand-rgb)/0.06)] px-4 py-2">
+              <p className="text-[10px] font-black uppercase tracking-wide text-[var(--brand-2)]">
                 Quest log (memory)
               </p>
-              <p className="mt-0.5 font-mono text-xs text-amber-950">{questLog}</p>
+              <p className="mt-0.5 font-mono text-xs text-slate-800">{questLog}</p>
             </div>
           ) : null}
 
           {error ? (
-            <p className="border-t border-amber-200 bg-amber-50 px-4 py-2 text-xs text-amber-900" role="alert">
+            <p
+              className="border-t border-[rgb(var(--brand-rgb)/0.25)] bg-[rgb(var(--accent-rgb)/0.12)] px-4 py-2 text-xs text-slate-800"
+              role="alert"
+            >
               {error}
             </p>
           ) : null}

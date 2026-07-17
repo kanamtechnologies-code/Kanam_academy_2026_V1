@@ -18,6 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, isParentRole, postSignInPath, safeNextPath } from "@/lib/roles";
 
@@ -230,29 +231,38 @@ export default function WelcomePage() {
       <div className="flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full items-center justify-center px-4 py-5 sm:py-6 md:px-10">
         <div className="mx-auto w-full max-w-[1400px]">
           {resetLinkError ? (
-            <div className="mb-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-900 shadow-[0_12px_30px_rgba(0,0,0,0.05)]">
-              <p>{resetLinkError}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <Button
-                  type="button"
-                  className="h-10"
-                  onClick={() => {
-                    setForgotOpen(true);
-                    setForgotStatus("idle");
-                    setForgotError(null);
-                  }}
-                >
-                  Request a new reset link
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="h-10"
-                  onClick={() => setResetLinkError(null)}
-                >
-                  Dismiss
-                </Button>
-              </div>
+            <div className="mb-4">
+              <Notice
+                variant="danger"
+                role="alert"
+                title="Reset link problem"
+                action={
+                  <>
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={() => {
+                        setForgotOpen(true);
+                        setForgotStatus("idle");
+                        setForgotError(null);
+                      }}
+                    >
+                      Request a new reset link
+                    </Button>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="bg-white/80"
+                      onClick={() => setResetLinkError(null)}
+                    >
+                      Dismiss
+                    </Button>
+                  </>
+                }
+              >
+                {resetLinkError}
+              </Notice>
             </div>
           ) : null}
 
@@ -380,13 +390,17 @@ export default function WelcomePage() {
                 </p>
 
                 {newError ? (
-                  <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-800">
-                    {newError}
+                  <div className="mt-5">
+                    <Notice compact variant="danger" role="alert">
+                      {newError}
+                    </Notice>
                   </div>
                 ) : null}
                 {requestCodeMsg ? (
-                  <div className="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-medium text-emerald-900">
-                    {requestCodeMsg}
+                  <div className="mt-5">
+                    <Notice compact variant="success">
+                      {requestCodeMsg}
+                    </Notice>
                   </div>
                 ) : null}
 
@@ -570,8 +584,10 @@ export default function WelcomePage() {
                 </p>
 
                 {returningError ? (
-                  <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-800">
-                    {returningError}
+                  <div className="mt-4">
+                    <Notice compact variant="danger" role="alert">
+                      {returningError}
+                    </Notice>
                   </div>
                 ) : null}
 
@@ -640,17 +656,16 @@ export default function WelcomePage() {
                           </DialogHeader>
 
                           {forgotError ? (
-                            <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+                            <Notice compact variant="danger" role="alert">
                               {forgotError}
-                            </div>
+                            </Notice>
                           ) : null}
 
                           {forgotStatus === "sent" ? (
-                            <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
-                              Check your email for the reset link. Open it once in your browser
-                              (Gmail/Outlook sometimes preview the link and expire it). Don’t reuse
-                              an older reset email.
-                            </div>
+                            <Notice compact variant="success" title="Check your email">
+                              Open the reset link once in your browser (Gmail/Outlook sometimes
+                              preview the link and expire it). Don’t reuse an older reset email.
+                            </Notice>
                           ) : null}
 
                           <div className="space-y-2">
@@ -744,26 +759,25 @@ export default function WelcomePage() {
                     )}
                   </Button>
 
-                  <div className="rounded-2xl border border-amber-200/80 bg-amber-50/80 p-4">
-                    <p className="text-sm font-extrabold tracking-tight text-amber-950">
-                      Educator or instructor?
-                    </p>
-                    <p className="mt-1 text-xs text-amber-900/80">
-                      Use a separate sign-in for your instructor dashboard.
-                    </p>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className={[
-                        "mt-3 h-11 w-full rounded-xl px-5 text-sm font-extrabold",
-                        "border-amber-300 bg-white text-amber-950 hover:bg-amber-100/60",
-                      ].join(" ")}
-                      onClick={openInstructorSignIn}
-                    >
-                      <Users className="h-4 w-4" />
-                      Instructor sign in
-                    </Button>
-                  </div>
+                  <Notice
+                    compact
+                    variant="info"
+                    title="Educator or instructor?"
+                    action={
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        className="w-full border-[var(--brand)]/30 bg-white/80 sm:w-auto"
+                        onClick={openInstructorSignIn}
+                      >
+                        <Users className="h-4 w-4" />
+                        Instructor sign in
+                      </Button>
+                    }
+                  >
+                    Use a separate sign-in for your instructor dashboard.
+                  </Notice>
 
                   <button
                     type="button"
@@ -789,9 +803,9 @@ export default function WelcomePage() {
                       </DialogHeader>
 
                       {instructorError ? (
-                        <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+                        <Notice compact variant="danger" role="alert">
                           {instructorError}
-                        </div>
+                        </Notice>
                       ) : null}
 
                       <div className="grid gap-3">
@@ -883,15 +897,15 @@ export default function WelcomePage() {
                       </DialogHeader>
 
                       {instrCreateError ? (
-                        <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+                        <Notice compact variant="danger" role="alert">
                           {instrCreateError}
-                        </div>
+                        </Notice>
                       ) : null}
 
                       {instrCreateStatus === "created" ? (
-                        <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-950">
+                        <Notice compact variant="success">
                           Instructor account created. Use the instructor sign-in window to continue.
-                        </div>
+                        </Notice>
                       ) : null}
 
                       <div className="grid gap-3">

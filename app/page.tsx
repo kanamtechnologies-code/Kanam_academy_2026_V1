@@ -18,6 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, isParentRole } from "@/lib/roles";
 import {
@@ -347,43 +348,52 @@ export default function Home() {
         </Dialog>
 
         {lessonAccess.classRestricted ? (
-          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
-            You&apos;re in a class — your instructor controls which lessons are open. Locked lessons
-            show as <span className="font-bold">Not assigned</span>.
-          </div>
+          <Notice variant="info" title="Class assignments control access">
+            Your instructor chooses which lessons are open. Locked lessons show as{" "}
+            <span className="font-semibold text-slate-800">Not assigned</span>.
+          </Notice>
         ) : lessonAccess.hasActiveSubscription ? (
-          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-950">
-            Your <span className="font-bold">family subscription</span> is active — all tracks are
-            unlocked.{" "}
-            <Link href="/billing" className="font-bold underline underline-offset-2">
-              Manage billing
-            </Link>
-          </div>
+          <Notice
+            variant="success"
+            title="Family subscription active"
+            action={
+              <Link
+                href="/billing"
+                className="text-sm font-bold text-[var(--brand-2)] underline underline-offset-2"
+              >
+                Manage billing
+              </Link>
+            }
+          >
+            All tracks are unlocked for every learner on this account.
+          </Notice>
         ) : lessonAccess.entitlementRestricted ? (
-          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
-            {(lessonAccess.unlockedTrackSlugs?.length ?? 0) > 0 ? (
-              <>
-                You&apos;ve unlocked{" "}
-                <span className="font-bold">
-                  {lessonAccess.unlockedTrackSlugs!.length} track
-                  {lessonAccess.unlockedTrackSlugs!.length === 1 ? "" : "s"}
-                </span>
-                . Other paths stay locked until you subscribe or buy them.{" "}
-              </>
-            ) : (
-              <>
-                Tracks stay locked until you <span className="font-bold">subscribe</span> or buy a
-                path.{" "}
-              </>
-            )}
-            <Link href="/billing" className="font-bold underline underline-offset-2">
-              View plans
-            </Link>
-          </div>
+          <Notice
+            variant="lock"
+            title={
+              (lessonAccess.unlockedTrackSlugs?.length ?? 0) > 0
+                ? `${lessonAccess.unlockedTrackSlugs!.length} track${
+                    lessonAccess.unlockedTrackSlugs!.length === 1 ? "" : "s"
+                  } unlocked`
+                : "Tracks are locked"
+            }
+            action={
+              <Link
+                href="/billing"
+                className="text-sm font-bold text-[var(--brand-2)] underline underline-offset-2"
+              >
+                View plans
+              </Link>
+            }
+          >
+            {(lessonAccess.unlockedTrackSlugs?.length ?? 0) > 0
+              ? "Other paths stay locked until you subscribe or buy them."
+              : "Subscribe for the Family plan, or buy a learning path to open lessons."}
+          </Notice>
         ) : lessonAccess.isAsyncCohort ? (
-          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-950">
-            You&apos;re learning <span className="font-bold">self-paced</span>. Go at your own speed.
-          </div>
+          <Notice variant="info" title="Self-paced learning">
+            Go at your own speed — unlock tracks from Billing when you&apos;re ready.
+          </Notice>
         ) : null}
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-3">

@@ -133,14 +133,14 @@ export const AI_LITERACY_WEEKS: WeekPlan[] = [
 ];
 
 export const DIGITAL_LITERACY_WEEKS: WeekPlan[] = [
-  { week: 1, theme: "Digital Foundations", focus: "How devices, software, and the internet actually work — and how to manage your files." },
-  { week: 2, theme: "Finding & Judging Information", focus: "Search smart, then tell reliable information from misinformation." },
-  { week: 3, theme: "Communicating & Collaborating", focus: "Communicate clearly and kindly online and work together in the cloud." },
-  { week: 4, theme: "Digital Identity & Citizenship", focus: "Your digital footprint, reputation, and being a positive digital citizen." },
-  { week: 5, theme: "Creating Digital Content", focus: "Make and edit content, and use it legally with proper credit." },
-  { week: 6, theme: "Staying Safe & Secure", focus: "Strong security habits and protecting your privacy and personal data." },
-  { week: 7, theme: "Wellbeing & Problem-Solving", focus: "Healthy tech habits, plus troubleshooting tech problems like a pro." },
-  { week: 8, theme: "Digital Skills for the Real World", focus: "Workplace-ready digital skills and your personal digital toolkit." },
+  { week: 1, theme: "Computing Systems Foundations", focus: "Abstraction layers, hardware/software/OS, and data storage tradeoffs (CSTA 3A CS + DA)." },
+  { week: 2, theme: "Networks & Information Integrity", focus: "How networks move data, search fluently, and evaluate claims in a computing culture." },
+  { week: 3, theme: "Connected Communication & Work", focus: "Professional digital communication and collaboration across teams, cultures, and careers." },
+  { week: 4, theme: "Identity, Culture & Equity", focus: "Reputation and footprint — then evaluate computing’s cultural impacts and equity deficits." },
+  { week: 5, theme: "Creation, Accessibility & IP", focus: "Build more accessible artifacts and explain IP law’s benefits and harms for innovation." },
+  { week: 6, theme: "Privacy, Security & Tradeoffs", focus: "Everyday threats, recommend controls, and evaluate automated data collection and privacy ethics." },
+  { week: 7, theme: "Agency: Wellbeing & Troubleshooting", focus: "Personal impacts of computing, plus systematic troubleshooting guidelines others can reuse." },
+  { week: 8, theme: "Futures & Capstone", focus: "Connected workplaces and careers — then evaluate impacts and ship a personal action plan." },
 ];
 
 export const CYBERSECURITY_WEEKS: WeekPlan[] = [
@@ -230,22 +230,22 @@ const AI_LITERACY_LESSONS: LessonRow[] = [
 ];
 
 const DIGITAL_LITERACY_LESSONS: LessonRow[] = [
-  { id: "dl-1", title: "How Computers & the Internet Work", href: "/learn/digital/1", xp: 50, badgeName: "Tech Foundations", badgeIcon: "", week: 1, session: 1, hasLesson: true },
-  { id: "dl-2", title: "Files, Folders & the Cloud", href: "/learn/digital/2", xp: 100, badgeName: "File Wrangler", badgeIcon: "", week: 1, session: 2, hasLesson: true },
-  { id: "dl-3", title: "Search Like a Pro", href: "/learn/digital/3", xp: 150, badgeName: "Search Sleuth", badgeIcon: "", week: 2, session: 1, hasLesson: true },
-  { id: "dl-4", title: "Is It True? Spotting Misinformation", href: "/learn/digital/4", xp: 200, badgeName: "Truth Seeker", badgeIcon: "", week: 2, session: 2, hasLesson: true },
-  { id: "dl-5", title: "Communicate Clearly & Kindly Online", href: "/learn/digital/5", xp: 250, badgeName: "Clear Communicator", badgeIcon: "", week: 3, session: 1, hasLesson: true },
-  { id: "dl-6", title: "Collaborate in the Cloud", href: "/learn/digital/6", xp: 300, badgeName: "Team Player", badgeIcon: "", week: 3, session: 2, hasLesson: true },
-  { id: "dl-7", title: "Your Digital Footprint & Reputation", href: "/learn/digital/7", xp: 350, badgeName: "Footprint Keeper", badgeIcon: "", week: 4, session: 1, hasLesson: true },
-  { id: "dl-8", title: "Being a Good Digital Citizen", href: "/learn/digital/8", xp: 400, badgeName: "Digital Citizen", badgeIcon: "", week: 4, session: 2, hasLesson: true },
-  { id: "dl-9", title: "Create & Edit Digital Content", href: "/learn/digital/9", xp: 450, badgeName: "Content Creator", badgeIcon: "", week: 5, session: 1, hasLesson: true },
-  { id: "dl-10", title: "Copyright, Licensing & Giving Credit", href: "/learn/digital/10", xp: 500, badgeName: "Credit Giver", badgeIcon: "", week: 5, session: 2, hasLesson: true },
-  { id: "dl-11", title: "Passwords, Scams & Account Security", href: "/learn/digital/11", xp: 550, badgeName: "Security Guard", badgeIcon: "", week: 6, session: 1, hasLesson: true },
-  { id: "dl-12", title: "Protect Your Privacy & Data", href: "/learn/digital/12", xp: 600, badgeName: "Privacy Protector", badgeIcon: "", week: 6, session: 2, hasLesson: true },
-  { id: "dl-13", title: "Healthy Tech Habits & Digital Wellbeing", href: "/learn/digital/13", xp: 650, badgeName: "Balance Keeper", badgeIcon: "", week: 7, session: 1, hasLesson: true },
-  { id: "dl-14", title: "Troubleshoot Like a Tech Pro", href: "/learn/digital/14", xp: 700, badgeName: "Problem Solver", badgeIcon: "", week: 7, session: 2, hasLesson: true },
-  { id: "dl-15", title: "Digital Skills for Work & Career", href: "/learn/digital/15", xp: 750, badgeName: "Career Ready", badgeIcon: "", week: 8, session: 1, hasLesson: true },
-  { id: "dl-16", title: "Capstone: Your Digital Toolkit", href: "/learn/digital/16", xp: 800, badgeName: "Digitally Fluent", badgeIcon: "", week: 8, session: 2, hasLesson: true },
+  { id: "dl-1", title: "Computing Systems: Layers & Abstraction", href: "/learn/digital/1", xp: 50, badgeName: "Systems Thinker", badgeIcon: "", week: 1, session: 1, hasLesson: true },
+  { id: "dl-2", title: "Data Storage Tradeoffs: Local, Cloud & Organization", href: "/learn/digital/2", xp: 100, badgeName: "Storage Strategist", badgeIcon: "", week: 1, session: 2, hasLesson: true },
+  { id: "dl-3", title: "Networks & Finding Information Online", href: "/learn/digital/3", xp: 150, badgeName: "Network Navigator", badgeIcon: "", week: 2, session: 1, hasLesson: true },
+  { id: "dl-4", title: "Evaluating Claims in a Computing Culture", href: "/learn/digital/4", xp: 200, badgeName: "Critical Evaluator", badgeIcon: "", week: 2, session: 2, hasLesson: true },
+  { id: "dl-5", title: "Digital Communication for School & Work", href: "/learn/digital/5", xp: 250, badgeName: "Pro Communicator", badgeIcon: "", week: 3, session: 1, hasLesson: true },
+  { id: "dl-6", title: "Collaboration Across Teams, Cultures & Careers", href: "/learn/digital/6", xp: 300, badgeName: "Connected Collaborator", badgeIcon: "", week: 3, session: 2, hasLesson: true },
+  { id: "dl-7", title: "Digital Identity, Reputation & Social Practice", href: "/learn/digital/7", xp: 350, badgeName: "Identity Steward", badgeIcon: "", week: 4, session: 1, hasLesson: true },
+  { id: "dl-8", title: "Equity, Access & Harm Reduction Online", href: "/learn/digital/8", xp: 400, badgeName: "Equity Advocate", badgeIcon: "", week: 4, session: 2, hasLesson: true },
+  { id: "dl-9", title: "Accessible Creation & Bias in Digital Artifacts", href: "/learn/digital/9", xp: 450, badgeName: "Inclusive Creator", badgeIcon: "", week: 5, session: 1, hasLesson: true },
+  { id: "dl-10", title: "Intellectual Property: Innovation Tradeoffs & Credit", href: "/learn/digital/10", xp: 500, badgeName: "IP Analyst", badgeIcon: "", week: 5, session: 2, hasLesson: true },
+  { id: "dl-11", title: "Everyday Threats & Security Recommendations", href: "/learn/digital/11", xp: 550, badgeName: "Security Recommender", badgeIcon: "", week: 6, session: 1, hasLesson: true },
+  { id: "dl-12", title: "Privacy, Automated Collection & Ethical Tradeoffs", href: "/learn/digital/12", xp: 600, badgeName: "Privacy Evaluator", badgeIcon: "", week: 6, session: 2, hasLesson: true },
+  { id: "dl-13", title: "Computing Impacts on Wellbeing & Personal Agency", href: "/learn/digital/13", xp: 650, badgeName: "Agency Builder", badgeIcon: "", week: 7, session: 1, hasLesson: true },
+  { id: "dl-14", title: "Systematic Troubleshooting Others Can Reuse", href: "/learn/digital/14", xp: 700, badgeName: "Troubleshoot Designer", badgeIcon: "", week: 7, session: 2, hasLesson: true },
+  { id: "dl-15", title: "Computing, Careers & Connected Workplaces", href: "/learn/digital/15", xp: 750, badgeName: "Workplace Ready", badgeIcon: "", week: 8, session: 1, hasLesson: true },
+  { id: "dl-16", title: "Capstone: Evaluate Impacts & Act", href: "/learn/digital/16", xp: 800, badgeName: "Impact Evaluator", badgeIcon: "", week: 8, session: 2, hasLesson: true },
 ];
 
 const CYBERSECURITY_LESSONS: LessonRow[] = [
@@ -297,7 +297,7 @@ export const TRACKS: Track[] = [
   {
     id: "digital-literacy",
     title: "Digital Literacy",
-    subtitle: "Use technology safely, smartly, and ready for work",
+    subtitle: "Evaluate systems, information, privacy, and digital citizenship — CSTA Level 3A",
     icon: "",
     lessons: DIGITAL_LITERACY_LESSONS,
   },

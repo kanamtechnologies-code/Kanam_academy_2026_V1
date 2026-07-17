@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   BookOpen,
@@ -16,7 +15,6 @@ import {
 import { motion } from "framer-motion";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DEMO_LESSON_TOUR_FLAG } from "@/components/demo/GuestLessonTour";
 import { setGuestMode, setGuestName, resetGuestProgress } from "@/lib/guestProgress";
@@ -45,6 +43,7 @@ export default function DemoEntryPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 280, damping: 26 }}
+            className="text-center"
           >
             <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-[color:var(--brand-2)]">
               Interactive demo
@@ -53,30 +52,18 @@ export default function DemoEntryPage() {
               Try a real Kanam lesson
               <span className="block text-[color:var(--brand)]">guided, step by step</span>
             </h1>
-            <p className="mt-4 max-w-xl text-base font-medium leading-relaxed text-slate-700 md:text-lg">
+            <p className="mx-auto mt-4 max-w-xl text-base font-medium leading-relaxed text-slate-700 md:text-lg">
               Start with a short product tour that teaches the canvas — tabs, coach note, editor,
               Run &amp; check, and console — then practice a real Python lesson. Built for students,
               parents, and educators.
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-2">
-              <Badge className="border border-emerald-200 bg-emerald-50 text-emerald-900">
-                Live Python canvas
-              </Badge>
-              <Badge className="border border-amber-200 bg-amber-50 text-amber-950">
-                Guided tour
-              </Badge>
-              <Badge variant="outline" className="border-slate-300 bg-white/80">
-                Fill · Reorder · Debug
-              </Badge>
-            </div>
-
-            <div className="mt-8">
+            <div className="mt-8 flex justify-center">
               <Button
                 size="lg"
                 disabled={starting}
                 className={[
-                  "h-14 w-full rounded-2xl px-7 text-base font-extrabold sm:w-auto",
+                  "h-14 w-full max-w-sm rounded-2xl px-7 text-base font-extrabold sm:w-auto",
                   "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
                   "text-[var(--accent)] shadow-lg shadow-emerald-900/20 hover:brightness-[1.05]",
                   "transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0",
@@ -92,15 +79,6 @@ export default function DemoEntryPage() {
                 )}
               </Button>
             </div>
-
-            <p className="mt-4">
-              <Link
-                href="/welcome"
-                className="inline-flex min-h-11 items-center text-sm font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-900"
-              >
-                Back to Welcome
-              </Link>
-            </p>
           </motion.div>
 
           <motion.div

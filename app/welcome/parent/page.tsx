@@ -8,6 +8,7 @@ import { ArrowRight, Loader2, Users } from "lucide-react";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 function errorMessage(error: unknown, fallback: string) {
@@ -102,8 +103,10 @@ export default function WelcomeParentPage() {
           </p>
 
           {error ? (
-            <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-              {error}
+            <div className="mt-4">
+              <Notice compact variant="danger" role="alert">
+                {error}
+              </Notice>
             </div>
           ) : null}
 

@@ -97,12 +97,14 @@ export function AIParsonsChallenge({
       ) : null}
 
       {feedback === "wrong" ? (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950" role="alert">
-          <p className="font-semibold">Order isn&apos;t fully right yet.</p>
-          <p className="mt-1">
-            Steps pulsing green are already correct — leave those and move the others, then check
-            again.
-          </p>
+        <div className="kanam-data-retry-banner" role="alert">
+          <div>
+            <p className="kanam-data-retry-title">Order isn&apos;t fully right yet.</p>
+            <p className="kanam-data-retry-body">
+              Steps pulsing green are already correct — leave those and move the others, then check
+              again.
+            </p>
+          </div>
         </div>
       ) : null}
 

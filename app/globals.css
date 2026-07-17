@@ -812,6 +812,40 @@ body {
   color: rgb(15 80 55);
 }
 
+/* Soft “try again” feedback — brand-aligned, not amber alert chrome */
+.kanam-data-retry-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgb(var(--brand-rgb) / 0.28);
+  background: linear-gradient(
+    135deg,
+    rgb(255 255 255 / 0.95),
+    rgb(var(--accent-rgb) / 0.14),
+    rgb(var(--brand-rgb) / 0.08)
+  );
+  color: rgb(30 41 59);
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+}
+
+.kanam-data-retry-banner > p:first-child,
+.kanam-data-retry-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  color: rgb(15 23 42);
+}
+
+.kanam-data-retry-body {
+  margin-top: 0.2rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: rgb(71 85 105);
+}
+
 .kanam-data-terminal-success {
   border: 2px solid rgb(var(--brand-rgb) / 0.45);
   background: linear-gradient(180deg, rgb(6 40 28) 0%, rgb(8 52 36) 100%);

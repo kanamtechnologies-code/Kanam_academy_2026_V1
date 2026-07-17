@@ -7,7 +7,9 @@ import { BookOpen, CheckCircle2, ListChecks, Lock, Play, Trophy } from "lucide-r
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Notice } from "@/components/ui/notice";
 import { PremiumBadge, PremiumBadgeMark } from "@/components/badges/PremiumBadge";
+import { readLessonModuleUnlocked } from "@/lib/lessonModuleUnlock";
 import {
   type Track,
   isLessonOpenForStudent,
@@ -53,27 +55,20 @@ export function TrackRoadmap({
   if (locked) {
     return (
       <div className="space-y-6">
-        <Card className="border-amber-200 bg-gradient-to-r from-amber-50 to-yellow-50 shadow-sm">
-          <CardContent className="flex flex-col items-start gap-4 p-6 md:flex-row md:items-center">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-amber-100 ring-1 ring-amber-200">
-              <Lock className="h-6 w-6 text-amber-700" />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-base font-black tracking-tight text-amber-950">
-                {track.title} is locked
-              </p>
-              <p className="mt-1 text-sm text-amber-900/90">
-                {lockMessage ??
-                  "Complete the recommended Python lessons first to unlock this track."}
-              </p>
-            </div>
-            {lockCtaHref ? (
-              <Button asChild className="shrink-0">
+        <Notice
+          variant="lock"
+          title={`${track.title} is locked`}
+          action={
+            lockCtaHref ? (
+              <Button asChild size="sm">
                 <Link href={lockCtaHref}>{lockCtaLabel ?? "Go to Python lessons"}</Link>
               </Button>
-            ) : null}
-          </CardContent>
-        </Card>
+            ) : undefined
+          }
+        >
+          {lockMessage ??
+            "Complete the recommended Python lessons first to unlock this track."}
+        </Notice>
 
         <div className="opacity-60">
           <TrackRoadmapContent
@@ -210,6 +205,7 @@ function TrackRoadmapContent({
   }, [lessonRestricted, enabledLessonIds, completedIds]);
 
   const { nextLesson } = trackProgress(completedIds, track.lessons, { openLessonIds });
+  const [activityLockNoticeId, setActivityLockNoticeId] = React.useState<string | null>(null);
 
   return (
     <>
@@ -345,40 +341,80 @@ function TrackRoadmapContent({
                         </div>
 
                         {lesson.hasLesson && canStart ? (
-                          <div className="mt-4 grid gap-3 border-t border-slate-100 pt-4 md:grid-cols-2">
-                            <Button
-                              asChild
-                              size="lg"
-                              className="h-auto min-h-11 justify-start gap-3 py-3"
-                            >
-                              <Link href={`${lesson.href}?view=lesson`}>
-                                <BookOpen className="h-5 w-5 shrink-0" />
-                                <span className="flex flex-col items-start leading-tight">
-                                  <span className="text-[10px] font-bold uppercase tracking-wide text-white/80">
-                                    Step 1 · Learn it
+                          <div className="mt-4 space-y-3 border-t border-slate-100 pt-4">
+                            <div className="grid gap-3 md:grid-cols-2">
+                              <Button
+                                asChild
+                                size="lg"
+                                className="h-auto min-h-11 justify-start gap-3 py-3"
+                              >
+                                <Link
+                                  href={`${lesson.href}?view=lesson`}
+                                  onClick={() => setActivityLockNoticeId(null)}
+                                >
+                                  <BookOpen className="h-5 w-5 shrink-0" />
+                                  <span className="flex flex-col items-start leading-tight">
+                                    <span className="text-[10px] font-bold uppercase tracking-wide text-white/80">
+                                      Step 1 · Learn it
+                                    </span>
+                                    <span className="text-sm font-black">Open the Lesson</span>
                                   </span>
-                                  <span className="text-sm font-black">Open the Lesson</span>
-                                </span>
-                              </Link>
-                            </Button>
-                            <Button
-                              asChild
-                              size="lg"
-                              variant="outline"
-                              className="h-auto min-h-11 justify-start gap-3 border-[var(--brand)]/40 py-3 text-[var(--brand-2)] hover:bg-[var(--brand)]/5"
-                            >
-                              <Link href={`${lesson.href}?view=exercises`}>
-                                <ListChecks className="h-5 w-5 shrink-0" />
-                                <span className="flex flex-col items-start leading-tight">
-                                  <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
-                                    Step 2 · Practice
+                                </Link>
+                              </Button>
+                              {completed || readLessonModuleUnlocked(lesson.id) ? (
+                                <Button
+                                  asChild
+                                  size="lg"
+                                  variant="outline"
+                                  className="h-auto min-h-11 justify-start gap-3 border-[var(--brand)]/40 py-3 text-[var(--brand-2)] hover:bg-[var(--brand)]/5"
+                                >
+                                  <Link href={`${lesson.href}?view=exercises`}>
+                                    <ListChecks className="h-5 w-5 shrink-0" />
+                                    <span className="flex flex-col items-start leading-tight">
+                                      <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
+                                        Step 2 · Practice
+                                      </span>
+                                      <span className="text-sm font-black">
+                                        {completed ? "Review the Activity" : "Do the Activity"}
+                                      </span>
+                                    </span>
+                                  </Link>
+                                </Button>
+                              ) : (
+                                <Button
+                                  type="button"
+                                  size="lg"
+                                  variant="outline"
+                                  className="h-auto min-h-11 justify-start gap-3 border-slate-300 py-3 text-slate-600"
+                                  onClick={() => setActivityLockNoticeId(lesson.id)}
+                                >
+                                  <Lock className="h-5 w-5 shrink-0 text-slate-500" />
+                                  <span className="flex flex-col items-start leading-tight">
+                                    <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
+                                      Step 2 · Practice
+                                    </span>
+                                    <span className="text-sm font-black">Do the Activity</span>
                                   </span>
-                                  <span className="text-sm font-black">
-                                    {completed ? "Review the Activity" : "Do the Activity"}
-                                  </span>
-                                </span>
-                              </Link>
-                            </Button>
+                                </Button>
+                              )}
+                            </div>
+                            {activityLockNoticeId === lesson.id ? (
+                              <Notice
+                                variant="lock"
+                                title="Exercises are locked"
+                                action={
+                                  <Button asChild size="sm" variant="outline" className="border-[var(--brand)]/35 bg-white/80 text-[var(--brand-2)] hover:bg-white">
+                                    <Link href={`${lesson.href}?view=lesson`}>
+                                      <BookOpen className="h-3.5 w-3.5" />
+                                      Open the Lesson
+                                    </Link>
+                                  </Button>
+                                }
+                              >
+                                Finish the lesson slides and answer every question first. Then
+                                practice unlocks.
+                              </Notice>
+                            ) : null}
                           </div>
                         ) : null}
                       </CardContent>

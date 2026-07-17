@@ -10,6 +10,7 @@ import { WelcomeVideoFader } from "@/components/welcome/WelcomeVideoFader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, isParentRole, postSignInPath } from "@/lib/roles";
 
@@ -84,9 +85,9 @@ export default function WelcomeReturningPage() {
                 </div>
 
                 {error ? (
-                  <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+                  <Notice compact variant="danger" role="alert">
                     {error}
-                  </div>
+                  </Notice>
                 ) : null}
 
                 <div className="space-y-3">

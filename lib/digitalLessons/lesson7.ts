@@ -2,10 +2,10 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson7: AILessonConfig = {
   id: "dl-7",
-  title: "7. Your Digital Footprint & Reputation",
-  goal: "Understand what a digital footprint is, that online actions can be permanent and public, and how to manage your online reputation for school, jobs, and life.",
+  title: "7. Digital Identity, Reputation & Social Practice",
+  goal: "Evaluate how a digital footprint and reputation affect personal, social, and economic practices, including college admissions, hiring, scholarships, and participation in online communities.",
   xpReward: 350,
-  badge: "Footprint Keeper",
+  badge: "Identity Steward",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/6",
   nextHref: "/learn/digital/8",
@@ -15,8 +15,8 @@ export const digitalLesson7: AILessonConfig = {
       {
         id: "intro",
         kicker: "Start here",
-        title: "What you'll learn today",
-        body: `Every time you post, like, search, or sign up for something, you leave a mark online. Added up, all those marks become your **digital footprint** — and it follows you in ways that can help or hurt for years.\n\nHere's our roadmap:\n\n• **What a digital footprint is** — the trail of data you leave behind.\n• **Active vs. passive** — what you post vs. what's quietly collected about you.\n• **Permanence** — why "delete" doesn't really erase things.\n• **Who's looking** — colleges, scholarships, employers, coaches — and the myth of "private."\n• **Managing your reputation** — building a *positive* footprint on purpose, including a simple portfolio habit.\n\nThis isn't about scaring you off the internet. It's about being the author of your own story online instead of letting a random old post tell it for you.`,
+        title: "Your identity is shaped in systems",
+        body: `Your digital identity is more than a list of posts. It includes profiles, tags, search results, data collected about your activity, and the stories people make from those traces. Those stories can influence personal relationships, social participation, and economic opportunities such as college admission, scholarships, housing, internships, and hiring.\n\nThis lesson asks you to evaluate—not panic about—those impacts. You will distinguish what you control from what others and platforms control, compare the likely effects of different identity choices, and create a realistic reputation practice that reflects your values and work.`,
         image: "/images/lessons/dl-7.png",
         imageAlt: "Laptop search results for a person's name next to a smartphone profile screen showing posts and privacy settings",
         callout: {
@@ -37,8 +37,8 @@ export const digitalLesson7: AILessonConfig = {
       {
         id: "glossary",
         kicker: "Let's break down the words",
-        title: "The words we'll use — in plain English",
-        body: `A few terms run through this whole lesson. Here they are in plain language so they're easy to follow.\n\n• **Digital footprint** — the *trail of data you leave behind* as you use the internet: posts, likes, comments, searches, sign-ups, and more.\n• **Active footprint** — the stuff you *choose* to put online on purpose, like a post or a photo.\n• **Passive footprint** — data quietly *collected about you* without you posting it, like your location or what you click.\n• **Permanence** — the fact that online things can *stick around* even after you delete them.\n• **Reputation** — the overall impression people get of you from your footprint.\n• **Privacy settings** — the controls that limit *who can see* your stuff. Helpful, but not a magic shield.\n\nKeep these in your back pocket — we'll use them right away.`,
+        title: "Vocabulary for identity and impact",
+        body: `• **Digital identity** — the picture of you created by your accounts, content, data traces, and other people’s posts.\n• **Digital footprint** — the data trail connected to your online activity.\n• **Active footprint** — content you intentionally publish or share.\n• **Passive footprint** — data collected through use, such as clicks, location, device signals, or viewing time.\n• **Reputation** — the conclusion people or systems draw from available information about you.\n• **Context collapse** — when one post reaches audiences with different expectations, such as friends, family, teachers, employers, or strangers.`,
         callout: {
           label: "Tip",
           text: "The two big ones to remember are **active** (what you post) and **passive** (what's collected about you). Almost everything else builds on those.",
@@ -47,14 +47,14 @@ export const digitalLesson7: AILessonConfig = {
       {
         id: "concept-1",
         kicker: "The big idea",
-        title: "Your digital footprint is the trail you leave online",
-        body: `A **digital footprint** is the trail of data you leave behind as you use the internet — your posts, comments, photos, likes, searches, sign-ups, and more. Some of it you create on purpose. A lot of it you don't even notice.\n\nHere's a useful image: a digital footprint is like **footprints in wet cement**. In the moment they seem harmless and temporary — but they harden, and they stay. The goofy comment, the angry reply, the photo from a party: years later they can still be there, set in place, exactly like the post that resurfaced in Sam's interview.\n\nThe internet has a long memory. That's not all bad — a great project or a helpful post sticks around too. The goal isn't to leave *no* footprint (impossible). It's to be aware that you're always leaving one, and to shape it on purpose.`,
+        title: "Evaluate identity across audiences",
+        body: `The same post can have different effects across audiences. A joke that makes sense to close friends can read as unprofessional to an admissions reviewer who lacks the context. A public project write-up can help a scholarship committee see your skills, while an old public argument can cause someone to question your judgment—even if it does not show your whole character.\n\nThis is not an argument that every student must build a public brand. It is an argument for evaluating visibility and likely impact. Ask: Who can reasonably see this? What context will they have? What conclusion could they draw? Does this represent the identity I want connected to this opportunity or community?`,
         callout: {
           label: "Watch out",
           text: "You're building your footprint right now, with every post and search — not just when you decide to 'be careful.' Awareness in the moment is what keeps it from hardening into something you regret.",
         },
         checkIn: {
-          prompt: "A scholarship committee googles your name. What is a 'digital footprint'?",
+          prompt: "A scholarship committee searches your name. What does a digital footprint include?",
           choices: [
             "A type of password",
             "The speed of your internet connection",
@@ -69,8 +69,8 @@ export const digitalLesson7: AILessonConfig = {
       {
         id: "concept-2",
         kicker: "Two kinds of footprint",
-        title: "Active footprint vs. passive footprint",
-        body: `Your footprint comes in two flavors, and most people only think about one of them.\n\n• **Active footprint** — the stuff you *choose* to put out there: posts, photos, comments, videos, profiles, messages. You're the author.\n• **Passive footprint** — the data that's *collected about you* without you actively posting it: your likes, what you click, how long you watch, your location, your search history, the sites you visit.\n\nA footprint forms quietly, all day, through ordinary habits — not just big, dramatic posts. Walk through one normal Tuesday: a morning search gets logged (passive); a lunchtime selfie gets posted and tagged with a location (active *and* passive); an evening comment gets typed (active); signing up for a new app with your email creates both kinds at once. By bedtime, dozens of marks have been added without "doing" anything unusual.\n\nUnderstanding both halves matters: you can control your active footprint directly, and you can limit your passive one through privacy settings and smarter choices about what apps you let track you.`,
+        title: "Control is shared, not total",
+        body: `You have meaningful control over an **active footprint**—what you publish, comment on, or attach to a profile. You have less direct control over a **passive footprint**—data that platforms collect, inferences made from behavior, old copies, search indexing, or content posted by other people.\n\nThat difference matters when evaluating responsibility. You can improve a privacy setting, ask to be untagged, choose a new username, or publish a project you are proud of. You cannot guarantee that a screenshot disappears or that every algorithm treats people fairly. A responsible identity practice combines action with realistic limits rather than blaming someone for every trace connected to them.`,
         bullets: [
           "**Active** = what you post on purpose.",
           "**Passive** = what's collected about you (likes, location, search history).",
@@ -310,10 +310,10 @@ export const digitalLesson7: AILessonConfig = {
     ],
   },
   bigIdeas: [
-    "Your **digital footprint** is the trail of data you leave online — and it tends to stick around.",
-    "It's both **active** (what you post) and **passive** (likes, location, search history collected about you).",
-    "**Delete rarely means gone**, and \"private\" doesn't guarantee secrecy — real people check your footprint.",
-    "Build a **positive footprint** on purpose: a portfolio and helpful posts do more than hiding the bad stuff.",
+    "Digital identity affects personal relationships, social participation, and economic opportunities.",
+    "Evaluate a post or profile by audience, context, visibility, and the conclusion it could invite.",
+    "Footprints include active choices and passive or third-party traces, so control is meaningful but incomplete.",
+    "A reputation practice can protect privacy while making valued work and growth visible.",
   ],
   keyTerms: [
     { term: "Digital footprint", definition: "The trail of data you leave online through posts, likes, searches, and activity." },
@@ -324,7 +324,7 @@ export const digitalLesson7: AILessonConfig = {
     { term: "Privacy settings", definition: "Controls that limit who can see your content — helpful, but not a guarantee of true secrecy." },
   ],
   realWorld:
-    "Many employers, scholarship committees, and admissions officers search candidates online before deciding. A clean, positive footprint — including a portfolio of work you're proud of — can be the quiet edge that gets you the offer.",
+    "Admissions offices, scholarship committees, employers, and communities often use online information to make quick judgments. Evaluate that practice critically: it can surface real work, but it can also lack context and reproduce bias. Your goal is to make informed choices, not to perform perfection.",
   quiz: [
     {
       id: "q1",
@@ -433,7 +433,7 @@ export const digitalLesson7: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "After thinking about your own footprint, name one thing you'll clean up and one positive thing you could add.",
-    placeholder: "Example: I'll untag myself from some old photos, and I'll post the coding project I finished last month…",
+      "Evaluate one part of your digital identity through a personal, social, and economic lens. What can you change, what is outside your control, and what practice would better represent you?",
+    placeholder: "Example: I can review an old public username and add my robotics project to a portfolio; I cannot control every old tag, so I will request removal when needed.",
   },
 };

@@ -7,6 +7,7 @@ import { CreditCard, Loader2, Plus, Shield, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isParentRole } from "@/lib/roles";
 
@@ -247,8 +248,10 @@ function ParentHubClient() {
             first kid under a parent login so you can add siblings.
           </p>
           {error ? (
-            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-              {error}
+            <div className="mt-4">
+              <Notice variant="danger" role="alert" title="Something went wrong">
+                {error}
+              </Notice>
             </div>
           ) : null}
           <div className="mt-4 space-y-1.5">
@@ -291,9 +294,12 @@ function ParentHubClient() {
           </p>
 
           {pickChild ? (
-            <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-950">
-              Choose who is learning below (enter a PIN if that child has one), then tap{" "}
-              <strong>Open learning</strong>. Progress only saves after a child is selected.
+            <div className="mt-4">
+              <Notice variant="lock" title="Choose a child to continue">
+                Pick who is learning below (enter a PIN if that child has one), then tap{" "}
+                <span className="font-semibold text-slate-800">Open learning</span>. Progress only
+                saves after a child is selected.
+              </Notice>
             </div>
           ) : null}
 
@@ -311,13 +317,17 @@ function ParentHubClient() {
           </div>
 
           {error ? (
-            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
-              {error}
+            <div className="mt-4">
+              <Notice variant="danger" role="alert" title="Something went wrong">
+                {error}
+              </Notice>
             </div>
           ) : null}
           {msg ? (
-            <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
-              {msg}
+            <div className="mt-4">
+              <Notice variant="success" title="Updated">
+                {msg}
+              </Notice>
             </div>
           ) : null}
 

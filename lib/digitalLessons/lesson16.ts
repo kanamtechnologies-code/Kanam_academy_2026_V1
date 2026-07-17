@@ -2,10 +2,10 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson16: AILessonConfig = {
   id: "dl-16",
-  title: "16. Capstone: Your Digital Toolkit",
-  goal: "Pull the whole Digital Literacy track together — review the big areas, self-assess your digital habits, and build a personal 'digital readiness' action plan for school, life, college apps, first jobs, and a future career in tech.",
+  title: "16. Capstone: Evaluate Impacts & Act",
+  goal: "Synthesize computing systems, data, networks, and impacts-of-computing themes to evaluate a personal or community digital practice, maximize benefits, minimize harms, and publish an evidence-based action-plan portfolio.",
   xpReward: 800,
-  badge: "Digitally Fluent",
+  badge: "Impact Evaluator",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/15",
   lessonModule: {
@@ -14,33 +14,13 @@ export const digitalLesson16: AILessonConfig = {
       {
         id: "intro",
         kicker: "Start here",
-        title: "What you'll learn today",
+        title: "Build an evidence-based action portfolio",
         body: `This is it — the capstone for your entire Digital Literacy journey. You started with "how does the internet even work?" and you've arrived at something powerful: you can navigate the digital world *thoughtfully*, *safely*, and *capably*. Today you turn all of that into a toolkit you'll carry for life.\n\nHere's the plan for your capstone:\n\n• A fast recap of every area you've mastered.\n• Why real digital literacy is all those areas **working together**.\n• A **self-audit** checklist to honestly rate your habits.\n• Building your **personal digital-readiness action plan**.\n• A **next-chapter map** for younger teens *and* seniors heading to college, internships, or a first job.\n\nThis is where everything you've learned becomes a set of habits and a plan — the difference between *knowing* about digital life and *living* it well.`,
         image: "/images/lessons/dl-16.png",
         imageAlt: "A graduate holding a toolkit, surrounded by icons for safety, communication, creativity, and career",
         callout: {
           label: "Why it matters",
           text: "New apps, platforms, and risks will keep appearing your whole life. The mindset you build today — staying capable, safe, and always learning — never goes out of date, no matter what technology comes next.",
-        },
-      },
-      {
-        id: "hook-story",
-        kicker: "Real moment",
-        title: "One ordinary Tuesday, sixteen lessons later",
-        body: `It's an ordinary Tuesday for Alex, a junior juggling a scholarship deadline. A text claiming to be from "the scholarship board" asks for a login and a fee — Alex recognizes the pressure-and-urgency pattern from the security lessons and reports it instead of clicking. An hour later, the scholarship portal won't accept a PDF; instead of panicking, Alex reads the exact error, resizes the file, and tries a different browser — troubleshooting, calmly. That evening, a shocking claim about a local event spreads through a group chat; Alex pauses to check the source before sharing it, remembering how misinformation actually spreads.\n\nNone of this felt like "using a checklist." It felt like instinct — because it was. Alex didn't consciously recall sixteen separate lessons; the habits had already merged into how Alex naturally moves through a digital day.\n\nThat's the whole point of this capstone: not to memorize more facts, but to notice that the toolkit is already working, quietly, in moments exactly like this one.`,
-        callout: {
-          label: "Keep this in mind",
-          text: "You don't have to feel like an expert for these habits to already be working. Noticing when they kick in — like Alex did — is what turns knowledge into fluency.",
-        },
-      },
-      {
-        id: "glossary",
-        kicker: "Quick start",
-        title: "Let's break down the words first",
-        body: `Your capstone pulls the whole track together, so a few key words show up again. Here they are in plain language — quick reminders, not new material.\n\n• **Digital literacy** — being able to use technology safely, capably, and responsibly across all of digital life.\n• **Digital toolkit** — the full set of skills and habits you've built, ready to grab when you need them.\n• **Digital readiness** — how prepared you are for school, life, and work online (measured by an honest self-check and a plan).\n• **Two-factor authentication (2FA)** — a second proof of identity (like a code texted to your phone) on top of your password, so a stolen password alone can't get into your account.\n• **Password manager** — a secure app that creates and remembers strong, unique passwords for you.\n• **Portfolio** — a small collection of projects that *shows* what you can do.\n• **Lifelong learning** — the habit of always picking up new tools as technology and risks keep changing.\n\nThese are old friends by now. Let's see how far you've actually come.`,
-        callout: {
-          label: "Tip",
-          text: "If any of these feel fuzzy, that's totally normal — the recap and self-audit coming up will jog your memory and show you exactly which one to brush up on next.",
         },
       },
       {
@@ -386,14 +366,15 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
     ],
   },
   bigIdeas: [
-    "Digital literacy spans **eight areas** — foundations, information, communication, footprint, creating, security, wellbeing, and work skills.",
-    "Real fluency is those areas **working together** as instincts — and it's about creating and connecting, not just safety.",
-    "Be a **lifelong digital learner**: audit honestly, then take small, specific next steps in a personal action plan for school, college, or work.",
+    "A responsible evaluation connects **computing systems, data, networks, and social impacts** instead of treating a digital practice as one isolated choice.",
+    "Strong recommendations identify stakeholders, weigh benefits against harms and access tradeoffs, and use evidence that can be checked.",
+    "An action-plan portfolio makes a claim, names a measure of success, assigns a timeline and owner, and schedules revision when evidence changes.",
   ],
   keyTerms: [
     { term: "Digital literacy", definition: "The ability to use technology safely, capably, and responsibly across every part of digital life." },
-    { term: "Digital toolkit", definition: "The full set of skills and habits you've built — from security to creativity to career skills — ready to use." },
-    { term: "Digital readiness", definition: "How prepared you are for school, life, and work in a digital world — measured by an honest self-audit and a plan." },
+    { term: "Stakeholder", definition: "A person or group affected by a computing practice, including users, nonusers, families, workers, and a community." },
+    { term: "Impact evaluation", definition: "A structured judgment of how a computing practice affects people, systems, access, benefits, and harms." },
+    { term: "Action-plan portfolio", definition: "A concise collection of a claim, evidence, tradeoff analysis, recommendation, success measure, and revision date." },
     { term: "Lifelong learning", definition: "The habit of continually picking up new tools and skills as technology and risks keep changing." },
     { term: "Adaptive expertise", definition: "Being good at figuring out unfamiliar problems by applying the same underlying process, not just recalling familiar answers." },
   ],
@@ -507,7 +488,7 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
   ],
   reflection: {
     prompt:
-      "CAPSTONE: Write your own 3-step digital-readiness action plan. For each step, name the area (e.g. security, footprint, wellbeing, work skills, professional email), the specific action you'll take, and when you'll do it. If you're a senior, include at least one step tied to college apps, scholarships, internships, or a first job.",
-    placeholder: "1) Security: set up a password manager + 2FA this weekend. 2) Wellbeing: charge my phone outside my room starting tonight. 3) Work skills: learn =SUM() and draft one professional email next week…",
+      "CAPSTONE PORTFOLIO: Choose one personal or community digital practice. State your claim; identify stakeholders; use evidence from at least two course themes (CS, DA, NI, or IC); evaluate one benefit, one harm, and one access tradeoff; recommend a concrete action; and name a measure plus date to review whether it worked.",
+    placeholder: "Practice + claim: … Stakeholders: … Evidence/themes: … Benefit/harm/access tradeoff: … Action + owner: … Success measure + review date: …",
   },
 };

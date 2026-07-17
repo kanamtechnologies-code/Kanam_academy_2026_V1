@@ -1,14 +1,14 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, IdCard, School, UserRound } from "lucide-react";
+import { ArrowRight, ChevronDown, Loader2, UserRound } from "lucide-react";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
-import { WelcomeShell } from "@/components/welcome/WelcomeShell";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 const USER_NAME_KEY = "kanam.userName";
@@ -22,17 +22,21 @@ function errorMessage(error: unknown, fallback: string) {
   return fallback;
 }
 
+function isAsyncCode(code: string) {
+  return code.trim().toUpperCase() === "KANAM-ASYNC";
+}
+
 export default function WelcomeProfilePage() {
   const router = useRouter();
-  const [animateIn, setAnimateIn] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [showOptional, setShowOptional] = React.useState(false);
 
   const [classCode, setClassCode] = React.useState("");
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const [grade, setGrade] = React.useState<string>("");
+  const [grade, setGrade] = React.useState("");
   const [schoolName, setSchoolName] = React.useState("");
   const [parentName, setParentName] = React.useState("");
   const [parentEmail, setParentEmail] = React.useState("");
@@ -41,13 +45,6 @@ export default function WelcomeProfilePage() {
   const [confirmPassword, setConfirmPassword] = React.useState("");
 
   React.useEffect(() => {
-    setAnimateIn(false);
-    const t = window.setTimeout(() => setAnimateIn(true), 10);
-    return () => window.clearTimeout(t);
-  }, []);
-
-  React.useEffect(() => {
-    // Prefill from /welcome (query params) or localStorage (best-effort).
     let qpEmail = "";
     let qpClass = "";
     try {
@@ -69,101 +66,242 @@ export default function WelcomeProfilePage() {
     }
   }, []);
 
+  const onSubmit = async () => {
+    setError(null);
+    const cc = classCode.trim();
+    const trimmedFirst = firstName.trim();
+    const trimmedLast = lastName.trim();
+    const trimmedEmail = email.trim().toLowerCase();
+
+    if (!cc) {
+      setError("A class code is required. Go back and tap “Get a self-paced code” if you need one.");
+      return;
+    }
+    if (!trimmedFirst) {
+      setError("Enter your first name.");
+      return;
+    }
+    if (!trimmedLast) {
+      setError("Enter your last name.");
+      return;
+    }
+    if (!trimmedEmail || !trimmedEmail.includes("@")) {
+      setError("Enter a valid email address.");
+      return;
+    }
+    if (!password || password.length < 8) {
+      setError("Password must be at least 8 characters.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const supabase = createSupabaseBrowserClient();
+      if (!supabase) throw new Error("Account creation is unavailable in demo mode.");
+
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          classCode: cc,
+          email: trimmedEmail,
+          password,
+          firstName: trimmedFirst,
+          lastName: trimmedLast,
+          grade: grade || undefined,
+          schoolName: schoolName.trim() || undefined,
+          parentName: parentName.trim() || undefined,
+          parentEmail: parentEmail.trim() || undefined,
+          parentPhone: parentPhone.trim() || undefined,
+        }),
+      });
+      const json = (await res.json()) as SignupResponse;
+      if (!res.ok || !json?.ok) {
+        throw new Error(json?.error || "Could not create account.");
+      }
+
+      const { error: signInErr } = await supabase.auth.signInWithPassword({
+        email: trimmedEmail,
+        password,
+      });
+      if (signInErr) throw new Error(signInErr.message);
+
+      const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+      const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
+      if (!ensureRes.ok || !ensureJson?.ok) {
+        throw new Error(
+          ensureJson?.error || "Account created, but could not load your student profile."
+        );
+      }
+
+      try {
+        window.localStorage.setItem(USER_NAME_KEY, trimmedFirst);
+        window.localStorage.setItem("kanam.classCode", cc);
+        window.localStorage.setItem("kanam.onboardingEmail", trimmedEmail);
+      } catch {
+        // ignore
+      }
+
+      router.push("/dashboard");
+    } catch (e: unknown) {
+      setError(errorMessage(e, "Something went wrong."));
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <WelcomeBackground>
-      <div
-        className={[
-          "flex min-h-[calc(100dvh-160px)] w-full items-center justify-start px-4 md:px-10",
-          "transition-all duration-300 ease-out",
-          animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
-        ].join(" ")}
-      >
-        <WelcomeShell
-          title="Create your student account"
-          subtitle="Your own login for school or self-paced learning. Progress saves to this profile."
-        >
-          <div className="grid w-full gap-6 lg:grid-cols-3 lg:items-stretch">
-            <Card className="kanam-glow-card lg:col-span-2">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-white">
-                  <IdCard className="h-5 w-5 text-white/95" />
-                  Profile details
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {error ? (
-                  <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
-                    {error}
-                  </div>
-                ) : null}
+      <div className="mx-auto flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full max-w-xl flex-col justify-center px-4 py-10">
+        <div className="rounded-3xl border border-white/50 bg-white/85 p-6 shadow-xl backdrop-blur-md sm:p-8">
+          <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--brand-2)]">
+            Student account
+          </p>
+          <h1 className="mt-3 flex items-center gap-2 text-2xl font-black tracking-tight text-slate-900">
+            <UserRound className="h-6 w-6 text-emerald-700" />
+            Finish your signup
+          </h1>
+          <p className="mt-2 text-sm leading-relaxed text-slate-600">
+            Your own email login for school or self-paced learning. Progress and XP save to this
+            profile. Parents managing kids should use a{" "}
+            <Link
+              href="/welcome/parent"
+              className="font-semibold text-emerald-800 underline underline-offset-2"
+            >
+              family account
+            </Link>{" "}
+            instead.
+          </p>
 
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-1.5 sm:col-span-2">
-                    <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Class code <span className="text-amber-200">*</span>
-                    </label>
-                    <Input
-                      value={classCode}
-                      onChange={(e) => setClassCode(e.target.value)}
-                      placeholder="Teacher code or self-paced code"
-                      className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
-                    />
-                    <p className="mt-1 text-xs text-white/85">
-                      Required. Teacher codes join a class with assigned lessons. Self-paced codes
-                      put you in the shared async cohort — unlock tracks from Billing after signup.
-                    </p>
-                  </div>
-                </div>
+          {error ? (
+            <div className="mt-4">
+              <Notice compact variant="danger" role="alert">
+                {error}
+              </Notice>
+            </div>
+          ) : null}
 
-                <div className="grid gap-4 sm:grid-cols-2">
+          <div className="mt-6 grid gap-3">
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-slate-700">
+                Class code <span className="text-emerald-700">*</span>
+              </label>
+              <Input
+                value={classCode}
+                onChange={(e) => setClassCode(e.target.value)}
+                placeholder="Teacher code or KANAM-ASYNC"
+                className="h-11"
+                autoCapitalize="characters"
+              />
+              <p className="text-xs text-slate-500">
+                {isAsyncCode(classCode)
+                  ? "Self-paced cohort — unlock tracks from Billing after you create your account."
+                  : "Teacher codes join a class with assigned lessons. Self-paced? Use KANAM-ASYNC from the welcome screen."}
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <label className="text-sm font-semibold text-slate-700">
+                  First name <span className="text-emerald-700">*</span>
+                </label>
+                <Input
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="First name"
+                  className="h-11"
+                  autoComplete="given-name"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-sm font-semibold text-slate-700">
+                  Last name <span className="text-emerald-700">*</span>
+                </label>
+                <Input
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Last name"
+                  className="h-11"
+                  autoComplete="family-name"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-slate-700">
+                Email <span className="text-emerald-700">*</span>
+              </label>
+              <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="e.g. you@school.org"
+                className="h-11"
+                autoComplete="email"
+              />
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <label className="text-sm font-semibold text-slate-700">
+                  Password <span className="text-emerald-700">*</span>
+                </label>
+                <Input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  placeholder="At least 8 characters"
+                  className="h-11"
+                  autoComplete="new-password"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-sm font-semibold text-slate-700">
+                  Confirm <span className="text-emerald-700">*</span>
+                </label>
+                <Input
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  type="password"
+                  placeholder="Type it again"
+                  className="h-11"
+                  autoComplete="new-password"
+                />
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="mt-1 flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-left text-sm font-semibold text-slate-800 hover:bg-slate-50"
+              onClick={() => setShowOptional((v) => !v)}
+              aria-expanded={showOptional}
+            >
+              <span>Optional details (grade, school, guardian contact)</span>
+              <ChevronDown
+                className={[
+                  "h-4 w-4 shrink-0 text-slate-500 transition-transform",
+                  showOptional ? "rotate-180" : "",
+                ].join(" ")}
+              />
+            </button>
+
+            {showOptional ? (
+              <div className="grid gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4">
+                <p className="text-xs text-slate-600">
+                  These map to your student profile in the database. Guardian fields are contact
+                  only — they do not create a parent login.
+                </p>
+                <div className="grid gap-3 sm:grid-cols-2">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      First name <span className="text-amber-200">*</span>
-                    </label>
-                    <Input
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      placeholder="First name"
-                      autoComplete="given-name"
-                      className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Last name <span className="text-amber-200">*</span>
-                    </label>
-                    <Input
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
-                      placeholder="Last name"
-                      autoComplete="family-name"
-                      className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5 sm:col-span-2">
-                    <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Email address <span className="text-amber-200">*</span>
-                    </label>
-                    <Input
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="e.g. you@school.org"
-                      type="email"
-                      autoComplete="email"
-                      className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Grade (optional)
-                    </label>
+                    <label className="text-sm font-semibold text-slate-700">Grade</label>
                     <select
                       value={grade}
                       onChange={(e) => setGrade(e.target.value)}
-                      className="h-14 w-full rounded-xl border-2 border-white/20 bg-white/90 px-3 text-base font-semibold text-slate-900 focus:outline-none focus:ring-4 focus:ring-white/20"
+                      className="h-11 w-full rounded-md border border-input bg-white px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
                     >
                       <option value="">Choose…</option>
                       {GRADES.map((g) => (
@@ -173,241 +311,93 @@ export default function WelcomeProfilePage() {
                       ))}
                     </select>
                   </div>
-                </div>
-
-                <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Password <span className="text-amber-200">*</span>
-                    </label>
+                    <label className="text-sm font-semibold text-slate-700">School</label>
                     <Input
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="At least 8 characters"
-                      type="password"
-                      autoComplete="new-password"
-                      className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
-                    />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Confirm password <span className="text-amber-200">*</span>
-                    </label>
-                    <Input
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="Type it again"
-                      type="password"
-                      autoComplete="new-password"
-                      className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
+                      value={schoolName}
+                      onChange={(e) => setSchoolName(e.target.value)}
+                      placeholder="School name"
+                      className="h-11 bg-white"
                     />
                   </div>
                 </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                    School (optional)
-                  </label>
+                <div className="grid gap-3 sm:grid-cols-2">
                   <Input
-                    value={schoolName}
-                    onChange={(e) => setSchoolName(e.target.value)}
-                    placeholder="Your school name"
-                    className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
+                    value={parentName}
+                    onChange={(e) => setParentName(e.target.value)}
+                    placeholder="Guardian name"
+                    className="h-11 bg-white"
+                  />
+                  <Input
+                    value={parentEmail}
+                    onChange={(e) => setParentEmail(e.target.value)}
+                    type="email"
+                    placeholder="Guardian email"
+                    className="h-11 bg-white"
+                  />
+                  <Input
+                    value={parentPhone}
+                    onChange={(e) => setParentPhone(e.target.value)}
+                    placeholder="Guardian phone"
+                    className="h-11 bg-white sm:col-span-2"
                   />
                 </div>
-
-                <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
-                  <div className="flex items-center gap-2">
-                    <UserRound className="h-4 w-4 text-white/90" />
-                    <p className="text-sm font-extrabold tracking-tight text-white">
-                      Parent / guardian contact (optional)
-                    </p>
-                  </div>
-                  <p className="mt-1 text-sm text-white/85">
-                    Contact info only — this does <span className="font-semibold">not</span> create
-                    a family login. Parents who want kid profiles under one account should use{" "}
-                    <button
-                      type="button"
-                      className="font-semibold text-amber-200 underline underline-offset-2"
-                      onClick={() => router.push("/welcome/parent")}
-                    >
-                      Create family account
-                    </button>{" "}
-                    instead.
-                  </p>
-
-                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                    <Input
-                      value={parentName}
-                      onChange={(e) => setParentName(e.target.value)}
-                      placeholder="Parent name"
-                      className="h-12 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
-                    />
-                    <Input
-                      value={parentEmail}
-                      onChange={(e) => setParentEmail(e.target.value)}
-                      placeholder="Parent email"
-                      type="email"
-                      className="h-12 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
-                    />
-                    <Input
-                      value={parentPhone}
-                      onChange={(e) => setParentPhone(e.target.value)}
-                      placeholder="Parent phone"
-                      className="h-12 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25 sm:col-span-2"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                  <Button
-                    variant="outline"
-                    className="h-12 border-white/30 bg-white/10 text-white hover:bg-white/15"
-                    onClick={() => router.push("/welcome")}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    size="lg"
-                    disabled={saving}
-                    className={[
-                      "h-14 rounded-2xl px-7 text-base font-extrabold tracking-tight",
-                      "shadow-xl shadow-emerald-900/25",
-                      "bg-gradient-to-r from-emerald-700 via-emerald-600 to-emerald-700",
-                      "text-white hover:brightness-[1.04]",
-                      "focus-visible:ring-4 focus-visible:ring-white/20",
-                    ].join(" ")}
-                    onClick={async () => {
-                      setError(null);
-                      const cc = classCode.trim();
-                      const trimmedFirst = firstName.trim();
-                      const trimmedLast = lastName.trim();
-                      const trimmedEmail = email.trim();
-                      if (!cc) {
-                        setError(
-                          "A class code is required. Go back and tap “Get a self-paced code” if you do not have a teacher code."
-                        );
-                        return;
-                      }
-                      if (!trimmedFirst) {
-                        setError("Please enter your first name.");
-                        return;
-                      }
-                      if (!trimmedLast) {
-                        setError("Please enter your last name.");
-                        return;
-                      }
-                      if (!trimmedEmail || !trimmedEmail.includes("@")) {
-                        setError("Please enter a valid email address.");
-                        return;
-                      }
-                      if (!password || password.length < 8) {
-                        setError("Password must be at least 8 characters.");
-                        return;
-                      }
-                      if (password !== confirmPassword) {
-                        setError("Passwords do not match.");
-                        return;
-                      }
-                      setSaving(true);
-                      try {
-                        const supabase = createSupabaseBrowserClient();
-                        if (!supabase) throw new Error("Account creation is unavailable in demo mode.");
-                        // Create user server-side (auto-confirm; avoids Supabase email rate limits),
-                        // then sign in normally to establish a real session in the browser.
-                        const res = await fetch("/api/auth/signup", {
-                          method: "POST",
-                          headers: { "content-type": "application/json" },
-                          body: JSON.stringify({
-                            classCode: cc,
-                            email: trimmedEmail,
-                            password,
-                            firstName: trimmedFirst,
-                            lastName: trimmedLast,
-                            grade: grade || undefined,
-                            schoolName: schoolName.trim() || undefined,
-                            parentName: parentName.trim() || undefined,
-                            parentEmail: parentEmail.trim() || undefined,
-                            parentPhone: parentPhone.trim() || undefined,
-                          }),
-                        });
-                        const json = (await res.json()) as SignupResponse;
-                        if (!res.ok || !json?.ok) {
-                          throw new Error(json?.error || "Could not create account.");
-                        }
-
-                        const { error: signInErr } = await supabase.auth.signInWithPassword({
-                          email: trimmedEmail,
-                          password,
-                        });
-                        if (signInErr) throw new Error(signInErr.message);
-
-                        // Ensure profile exists (creates minimal row if needed).
-                        const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
-                        const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
-                        if (!ensureRes.ok || !ensureJson?.ok) {
-                          throw new Error(
-                            ensureJson?.error ||
-                              "Account created, but could not create/load your student profile."
-                          );
-                        }
-
-                        try {
-                          // App greets by first name only
-                          window.localStorage.setItem(USER_NAME_KEY, trimmedFirst);
-                        } catch {
-                          // ignore
-                        }
-                        router.push("/dashboard");
-                      } catch (error: unknown) {
-                        setError(errorMessage(error, "Something went wrong."));
-                      } finally {
-                        setSaving(false);
-                      }
-                    }}
-                  >
-                    Create student account <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="kanam-glow-card flex h-full flex-col">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-white">
-                  <School className="h-5 w-5 text-white/95" />
-                  What you get
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 text-white/90">
-                <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
-                  <p className="text-sm font-extrabold tracking-tight text-white">Your own learning hub</p>
-                  <p className="mt-1 text-sm">
-                    Six tracks (AI, digital, cyber, finance, Python, data). Progress and XP save to
-                    this account.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
-                  <p className="text-sm font-extrabold tracking-tight text-white">Class or self-paced</p>
-                  <p className="mt-1 text-sm">
-                    Teacher codes unlock assigned lessons. Self-paced learners unlock tracks with a
-                    Family plan or single-track purchase.
-                  </p>
-                </div>
-                <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
-                  <p className="text-sm font-extrabold tracking-tight text-white">Family accounts</p>
-                  <p className="mt-1 text-sm">
-                    Need siblings under one parent login? Go back and choose{" "}
-                    <span className="font-semibold text-white">I&apos;m a parent</span> — don&apos;t
-                    create separate student emails for each kid.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+              </div>
+            ) : null}
           </div>
-        </WelcomeShell>
+
+          <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+            <Button
+              type="button"
+              variant="outline"
+              className="h-12 sm:w-auto"
+              onClick={() => router.push("/welcome")}
+              disabled={saving}
+            >
+              Back
+            </Button>
+            <Button
+              type="button"
+              disabled={saving}
+              aria-busy={saving}
+              className="h-12 flex-1 text-base font-semibold"
+              onClick={onSubmit}
+            >
+              {saving ? (
+                <>
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                  Creating…
+                </>
+              ) : (
+                <>
+                  Create student account <ArrowRight className="h-4 w-4" />
+                </>
+              )}
+            </Button>
+          </div>
+
+          <div className="mt-5 rounded-2xl border border-slate-200 bg-white/60 p-4 text-sm text-slate-600">
+            <p className="font-extrabold text-slate-900">After signup</p>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              <li>You&apos;ll land on your learning hub.</li>
+              <li>
+                Self-paced learners unlock tracks via{" "}
+                <Link href="/billing" className="font-semibold text-emerald-800 underline">
+                  Billing
+                </Link>
+                .
+              </li>
+              <li>
+                Already have siblings? Convert later from the dashboard, or start with a{" "}
+                <Link href="/welcome/parent" className="font-semibold text-emerald-800 underline">
+                  family account
+                </Link>
+                .
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </WelcomeBackground>
   );
 }
-

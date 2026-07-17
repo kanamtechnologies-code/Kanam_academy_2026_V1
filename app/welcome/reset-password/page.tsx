@@ -2,13 +2,14 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { KeyRound, Loader2, ShieldCheck } from "lucide-react";
+import { KeyRound, Loader2 } from "lucide-react";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { WelcomeShell } from "@/components/welcome/WelcomeShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 function readHashTokens(): { access_token: string; refresh_token: string; type: string } | null {
@@ -157,31 +158,32 @@ export default function ResetPasswordPage() {
               ) : null}
 
               {error ? (
-                <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-800">
-                  {error}
-                  <div className="mt-4">
-                    <Button onClick={() => router.push("/welcome")} className="h-11">
+                <Notice
+                  variant="danger"
+                  role="alert"
+                  title="Couldn’t reset password"
+                  action={
+                    <Button onClick={() => router.push("/welcome")} size="sm">
                       Back to Welcome
                     </Button>
-                  </div>
-                </div>
+                  }
+                >
+                  {error}
+                </Notice>
               ) : null}
 
               {done ? (
-                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-medium text-emerald-900">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="h-4 w-4" />
-                    Password updated!
-                  </div>
-                  <p className="mt-2 text-sm">
-                    Go back to the welcome screen and sign in with your new password.
-                  </p>
-                  <div className="mt-4">
-                    <Button onClick={() => router.push("/welcome")} className="h-12">
+                <Notice
+                  variant="success"
+                  title="Password updated!"
+                  action={
+                    <Button onClick={() => router.push("/welcome")} size="sm">
                       Back to Welcome
                     </Button>
-                  </div>
-                </div>
+                  }
+                >
+                  Go back to the welcome screen and sign in with your new password.
+                </Notice>
               ) : null}
 
               {ready && sessionOk && !done ? (

@@ -1,426 +1,47 @@
 import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
+const check = (prompt: string, choices: string[], correctIndex: number, explanation: string) => ({
+  prompt, choices, correctIndex, explanation,
+});
+
 export const digitalLesson1: AILessonConfig = {
   id: "dl-1",
-  title: "1. How Computers & the Internet Work",
-  goal: "Understand the basic parts of a computer (hardware vs software), what an operating system does, and how the internet, web, and cloud move information.",
+  title: "1. Computing Systems: Layers & Abstraction",
+  goal: "Explain how abstractions hide implementation in everyday devices, and compare application software, system software, and hardware layers.",
   xpReward: 50,
-  badge: "Tech Foundations",
+  badge: "Systems Thinker",
   dashboardHref: "/dashboard",
   nextHref: "/learn/digital/2",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25 min lesson",
     sections: [
-      {
-        id: "intro",
-        kicker: "Start here",
-        title: "What you'll learn today",
-        body: `You use a computer or phone every day — texting friends, watching videos, gaming, turning in homework. But what's actually happening inside that glass-and-metal rectangle? Today you'll pull back the curtain. No experience needed — every new word gets explained the moment it shows up.\n\nHere's our roadmap:\n\n• **Hardware vs. software** — the physical parts vs. the instructions that bring them to life.\n• **CPU, RAM, and storage** — the kitchen analogy that makes the insides stick.\n• **The operating system** — the manager between you and the hardware.\n• **Internet, web, and cloud** — how a message or video actually reaches your screen.\n• **Real traps, real habits** — a myth-busting round, a buying trap, and a fix-it framework.\n• **Where this fits** — how these skills connect to bigger thinking habits you'll use for life.\n\nThis isn't trivia. Understanding how devices work makes you faster, harder to fool, and more confident — whether you're unfreezing a Chromebook before class, comparing laptop specs for college, or answering a "tech literacy" question on a job or internship application.`,
-        image: "/images/lessons/dl-1.png",
-        imageAlt: "Open laptop beside a smartphone, with a home Wi-Fi router and ethernet cable visible in the background",
-        callout: {
-          label: "Why it matters",
-          text: "When something breaks — a slow phone, a website that won't load — knowing the parts involved helps you figure out what's wrong instead of guessing, panicking, or paying for a fix you don't need.",
-        },
-      },
-      {
-        id: "hook-story",
-        kicker: "Real moment",
-        title: "The night the Chromebook died — 20 minutes before the deadline",
-        body: `Jordan's history essay is due at midnight. At 11:40 p.m., the Chromebook screen freezes mid-sentence. Jordan mashes keys, closes the lid, reopens it, and starts to panic — is the essay gone? Is the *whole computer* broken? Should they email the teacher right now?\n\nHere's the twist: Jordan didn't need to panic, and they definitely didn't need a new laptop. The essay was saved in the cloud the whole time. One app had frozen — not the device, not the internet, not the essay. A ten-second restart brought everything back, essay intact.\n\nThe difference between "everything is broken, I'm doomed" and "oh, it's just the app, easy fix" is exactly what this lesson teaches: knowing which *layer* — app, device, network, or internet — is actually causing the problem. By the end, a frozen screen at 11:40 p.m. won't feel like an emergency anymore.`,
-        callout: {
-          label: "Keep this in mind",
-          text: "Almost every 'my computer is broken!' moment is really one small, specific thing going wrong — not the whole machine failing. This lesson teaches you to find that one thing fast.",
-        },
-      },
-      {
-        id: "glossary",
-        kicker: "Let's break down the words",
-        title: "A quick plain-English glossary",
-        body: `Before we dive in, here are the words we'll use a lot — explained simply, so nothing feels like a foreign language later. Don't memorize these; just read them once and they'll click as we go.\n\n• A **device** is any computer-like gadget you use: a phone, tablet, laptop, desktop, or a school Chromebook.\n• A **program** (or **app**, short for *application*) is a set of instructions that does a job — like the camera app, a game, or a web browser.\n• **Data** is just information stored as numbers a computer can handle — your photos, texts, and saved games are all data.\n• A **network** is a group of devices connected so they can send each other data — like everyone's phones connected to the same Wi-Fi.\n\nThat's it. Every other term in this lesson gets defined the first time it appears, right where you meet it.`,
-        callout: {
-          label: "Pro tip",
-          text: "If a tech word ever confuses you, swap in its plain-English meaning. \"Open the application\" simply means \"open the app.\" Most jargon is just a fancy label for something simple.",
-        },
-      },
-      {
-        id: "concept-1",
-        kicker: "The big idea",
-        title: "Hardware is what you can touch. Software is the instructions.",
-        body: `Every computer is really two things working together:\n\n• **Hardware** is the physical stuff — the parts you could actually hold or knock on. The screen, keyboard, battery, chips, and cables are all hardware.\n• **Software** is the set of instructions that tells the hardware what to do. It's not physical — you can't hold software in your hand. Your games, your browser, TikTok, and the menus you tap are all software.\n\nHere's an easy way to remember it: hardware is like a **musical instrument**, and software is the **sheet music**. A guitar (hardware) can't play anything by itself. The music (software) tells it exactly what to do. And the *same* guitar can play a thousand different songs, just like the *same* phone can run thousands of different apps.\n\nNeither one is useful alone. Hardware without software is a fancy paperweight. Software without hardware is just an idea that can't run anywhere.`,
-        image: "/images/lessons/dl-1-2.png",
-        imageAlt: "Split photo: a physical laptop keyboard and phone on the left; browser tabs and app icons on a screen on the right",
-        callout: {
-          label: "Watch out",
-          text: "People often blame \"the computer\" when something goes wrong, but it's usually the software (an app or the operating system) that's frozen — not the physical hardware. Knowing the difference helps you fix it faster.",
-        },
-        checkIn: {
-          prompt: "Jordan's Chromebook screen froze on one essay app, but the keyboard and screen still lit up fine. What does that suggest?",
-          choices: [
-            "The hardware is destroyed and needs replacing",
-            "The battery is dead",
-            "There is no way to know without a repair shop",
-            "Most likely a software problem (the app), since the physical hardware is still responding",
-          ],
-          correctIndex: 3,
-          explanation:
-            "If the physical parts (screen lighting up, keys registering) still work, the freeze is almost always in software — a stuck app or the OS — not broken hardware.",
-        },
-      },
-      {
-        id: "concept-2",
-        kicker: "Inside the machine",
-        title: "CPU, RAM, and storage — a kitchen analogy",
-        body: `Three parts do most of the heavy lifting inside any computer. Don't worry about the technical names — picture a busy **kitchen** and they'll stick:\n\n• **CPU (the chef / the brain)** — CPU stands for **C**entral **P**rocessing **U**nit. It does the actual thinking and calculating. Like a chef, it follows the recipe step by step and does the real work. A faster chef cooks more dishes per minute; a faster CPU does more tasks per second.\n• **RAM (the counter space)** — RAM stands for **R**andom **A**ccess **M**emory. It's short-term memory: the stuff the computer is using *right now*. Like the counter space a chef spreads ingredients on, more RAM means you can work on more things at once. But when you turn the machine off, RAM is wiped clean — just like a counter gets cleared at the end of the night.\n• **Storage (the pantry / filing cabinet)** — This is long-term memory that *keeps* your files, photos, and apps even when the power is off. Like a pantry full of labeled jars, it holds everything until you need it. "Hard drives" and "SSDs" are just two types of storage.\n\nOne more pair to know: **input** and **output** devices. **Input** sends information *into* the computer (keyboard, mouse, touchscreen, microphone, camera). **Output** sends information *out* to you (screen, speakers, printer). Tapping a key is input; the letter appearing on screen is output.`,
-        bullets: [
-          "**CPU** = the brain that does the thinking. Measured in speed.",
-          "**RAM** = short-term memory for what you're doing right now. Wiped when powered off.",
-          "**Storage** = long-term memory that keeps your files even when off.",
-          "**Input** brings info in (typing); **output** sends info out to you (the screen).",
-        ],
-        callout: {
-          label: "Common misconception",
-          text: "RAM and storage are NOT the same thing, even though both are \"memory.\" If your phone is out of storage, you can't save new photos. If it's low on RAM, it gets slow and laggy when juggling apps. Different problems, different fixes.",
-        },
-        checkIn: {
-          prompt: "Your Chromebook is laggy with 15 tabs open, but you still have 40GB of free space for files. What's most likely low?",
-          choices: ["RAM", "Storage", "The CPU's battery", "Wi-Fi signal"],
-          correctIndex: 0,
-          explanation:
-            "RAM is short-term memory for what you're doing right now. Juggling many tabs fills it up and causes lag, while storage is about saved files — which is fine here.",
-        },
-      },
-      {
-        id: "concept-3",
-        kicker: "The manager",
-        title: "The operating system runs the whole show",
-        body: `If the CPU is the chef, who's the **manager** keeping the whole kitchen organized? That's the **operating system (OS)** — the main program that runs your entire device and lets everything else work.\n\nThe operating system sits between *you* and the *hardware*. When you tap an app, the OS makes the screen respond, hands the app some RAM to use, finds your files in storage, and keeps all the apps from crashing into each other. You're almost certainly using one of these right now:\n\n• **Windows** and **macOS** — on laptops and desktops.\n• **ChromeOS** — on Chromebooks, common in schools.\n• **iOS** (iPhone/iPad) and **Android** (most other phones) — on mobile devices.\n\nOn top of the OS run your **apps** — smaller programs built for specific jobs, like a browser, a game, or a notes app. Think of it like a school: the OS is the principal keeping the whole building running, and the apps are the individual classes happening inside it.`,
-        callout: {
-          label: "Pro tip",
-          text: "When an app misbehaves, closing and reopening it (or restarting the whole device) gives the operating system a fresh start to clean up the mess. That's why \"have you turned it off and on again?\" actually works so often.",
-        },
-        checkIn: {
-          prompt: "What is the main job of an operating system like Windows, macOS, or ChromeOS?",
-          choices: [
-            "It only connects you to the internet",
-            "It manages the hardware and lets apps run on top of it",
-            "It's just another app, like a game",
-            "It permanently stores your photos",
-          ],
-          correctIndex: 1,
-          explanation:
-            "The OS sits between you and the hardware, handing out RAM, coordinating storage, and keeping apps from crashing into each other. Apps then run on top of it.",
-        },
-      },
-      {
-        id: "worked-example",
-        kicker: "Worked example",
-        title: "What really happens when you open a video",
-        body: `Let's trace a single tap, from your finger to a playing video, step by step. There's no magic — just clients, packets, and servers doing their jobs.\n\n**Step 1 — You make a request.** You tap a video in an app. Your device (the **client**) sends a request out through your Wi-Fi to your **router** (the box at home or school that connects your devices to the internet). The router passes it to your **internet company** and onto the internet.\n\n**Step 2 — The request finds the server.** The request travels across the internet until it reaches the **server** (a computer in a **data center**) that stores that video.\n\n**Step 3 — The server replies in packets.** The server chops the video into thousands of tiny **packets** — small labeled chunks of data — and sends them back toward you, each labeled with its order.\n\n**Step 4 — Your device reassembles and plays.** Your device collects the packets, puts them back in order, and the **CPU** processes them while **RAM** holds the part that's playing right now. The screen (an **output** device) shows you the video. This all happens in seconds — and it often starts playing before every packet has even arrived, which is why videos sometimes pause to "buffer" (wait for more packets to catch up).`,
-        image: "/images/lessons/dl-1-3.png",
-        imageAlt: "Smartphone requesting a video; data travels as packets from a remote server through a home router back to the phone screen",
-        callout: {
-          label: "Pro tip",
-          text: "When a video keeps buffering, packets are arriving too slowly — usually a weak connection between you and the server, not a problem with your screen or your CPU. That's why moving closer to the router often fixes it.",
-        },
-      },
-      {
-        id: "misconception",
-        kicker: "Myth-busting",
-        title: "\"The cloud\" is not magic, and Wi-Fi is not the internet",
-        body: `Two of the most common tech myths, cleared up for good.\n\n**Myth 1: "The cloud" is magic, floating data.** It's not. **"The cloud"** is just **other people's powerful computers (servers) sitting in giant warehouses called data centers**, which you reach over the internet. When you "save to the cloud," your file is really being stored on a real, physical server somewhere. If those data centers lose power, "the cloud" goes down too — because it's a place, not a sky.\n\n**Myth 2: Strong Wi-Fi bars mean you have internet.** They don't. **Wi-Fi** is only the *wireless hop* between your device and your **router** — the box that connects your home or school to the internet. The router then has to reach the wider internet through your internet company. You can have full Wi-Fi bars and still have zero internet if the connection *beyond* the router is down. That's why "restart the router" fixes so many "the internet is broken" complaints — it's often just that one hop resetting.`,
-        callout: {
-          label: "Myth check",
-          text: "\"The cloud\" is real servers in real buildings, and \"strong Wi-Fi\" only proves the local hop is fine — not the whole path to the internet. Two separate things people constantly mix up.",
-        },
-      },
-      {
-        id: "try-it",
-        kicker: "Try it yourself",
-        title: "Diagnose the layer: app, device, network, or internet?",
-        body: `Time to practice the exact skill from Jordan's story. For each situation below, ask: is this an **app** problem, a **device** problem, a **network (Wi-Fi/router)** problem, or an **internet-beyond-the-router** problem?\n\n• A single game keeps crashing, but everything else on your phone works fine → likely the **app**.\n• Your whole laptop is sluggish across every program you open → likely the **device** (RAM or too many background apps).\n• Your phone shows full Wi-Fi bars, but no page will load, and other people's devices on the same Wi-Fi also can't load anything → likely the **internet beyond the router**.\n• Only your device can't connect, but your sibling's phone on the same Wi-Fi works fine → likely your **device's network settings**, not the wider internet.\n\nNotice the pattern: you're always narrowing down which *layer* is involved before you try to fix anything. That's the whole troubleshooting skill in one sentence.`,
-        checkIn: {
-          prompt: "Only YOUR laptop can't load any websites, but every other device on the same home Wi-Fi loads pages fine. What's the most likely layer?",
-          choices: [
-            "The router itself is broken",
-            "The wider internet beyond the router is down",
-            "Something with your specific device or its network settings",
-            "The cloud has gone offline",
-          ],
-          correctIndex: 2,
-          explanation:
-            "If other devices on the same network work fine, the internet and router are clearly fine — the problem is isolated to your one device.",
-        },
-      },
-      {
-        id: "deeper-skill",
-        kicker: "Deeper skill",
-        title: "Reading a URL: the internet, the web, and one address bar",
-        body: `Now let's go one layer deeper. **The internet** is the giant global **network** — millions of computers physically connected, like the **roads** connecting every town. **The web** (short for World Wide Web) is just *one thing* that travels on those roads: the pages and sites you open in a **browser**, like the **cars** driving on the roads. The web is a *part* of the internet, not the whole thing — your texts, video calls, and app updates all use the internet without being "the web."\n\nA **URL** is a web address, and once you can read one, you can size up a site in two seconds:\n\n• \`https://\` — the \`s\` means the connection is encrypted (scrambled so others can't easily snoop on it in transit).\n• \`kanam.academy\` — the **domain**, which is the site's actual name/owner.\n• \`/learn/digital\` — the specific page path *inside* that site.\n\nSo \`https://kanam.academy/learn/digital\` reads as: securely connect to Kanam Academy's site, then open its \`/learn/digital\` page. Learning to glance at the domain before you trust a page is a skill you'll use constantly — including in the misinformation and safety lessons ahead.`,
-        image: "/images/lessons/dl-1-4.png",
-        imageAlt: "Close-up of a browser address bar with the https, domain name, and page path sections highlighted in different colors",
-        callout: {
-          label: "Pro tip",
-          text: "Before typing personal info into any site, glance at the domain in the address bar. A URL like \`kanam-academy-login.xyz\` is not the same site as \`kanam.academy\`, even if the page looks identical.",
-        },
-      },
-      {
-        id: "comparison",
-        kicker: "Side by side",
-        title: "RAM vs. storage — and internet vs. web",
-        body: `Two quick comparisons that lock in the ideas above for good.`,
-        table: {
-          columns: ["", "RAM", "Storage"],
-          values: [
-            ["Keeps data when powered off?", "No — wiped clean", "Yes — stays permanently"],
-            ["What it holds", "What you're using right now", "Files, photos, apps long-term"],
-            ["Low on it causes...", "Laggy, slow multitasking", "\"Storage full\" — can't save new files"],
-            ["Kitchen analogy", "Counter space", "Pantry / filing cabinet"],
-          ],
-          rowCount: 4,
-        },
-        bullets: [
-          "**Internet** = the global network of connected computers (the roads).",
-          "**Web** = pages you view in a browser — one thing that travels on the internet (the cars).",
-          "You can use the internet (texting, gaming) without ever opening a browser.",
-        ],
-        callout: {
-          label: "Why it matters",
-          text: "Mixing these up leads to bad guesses when troubleshooting: someone with a full hard drive might restart their device hoping to \"clear space\" — which won't work, because restarting clears RAM, not storage.",
-        },
-      },
-      {
-        id: "real-world-trap",
-        kicker: "Real-world trap",
-        title: "The laptop-buying trap: don't get fooled by specs",
-        body: `Whenever you (or a family member) shop for a laptop for school, college, or a first job, ads throw around numbers that sound impressive but mean nothing without context. Here's the trap, and how to dodge it:\n\n• **Trap:** "1TB of storage!!" sounds huge, but if the laptop only has 4GB of RAM, it will still feel painfully slow running a browser with many tabs plus video calls — because storage and RAM solve completely different problems.\n• **Trap:** Comparing CPU "speed" numbers across totally different CPU brands/generations, which isn't a fair apples-to-apples comparison.\n• **The fix:** Match specs to the actual use. Heavy multitasking (browser + docs + Zoom) → prioritize more **RAM**. Big video/photo projects → prioritize more **storage**. Video editing or coding → a faster **CPU** matters more.\n\nOnce you know what each part actually does, "specs" stop being intimidating alphabet soup and become a simple checklist you can use with confidence — whether you're picking a $300 Chromebook or a $1,500 laptop for a design program.`,
-        callout: {
-          label: "Watch out",
-          text: "A salesperson (or an ad) emphasizing only ONE spec, like storage size, is a hint to ask about the others. A great deal on storage with terrible RAM is still a bad laptop for multitasking.",
-        },
-      },
-      {
-        id: "habits",
-        kicker: "Decision framework",
-        title: "When something breaks: check the chain",
-        body: `Most "my computer is broken" moments aren't mysterious — they're a weak link in a short chain. Use this order before you panic or blame the wrong part:\n\n**1. Is it the app?** Force-quit and reopen. If only one app is stuck, the hardware is probably fine.\n**2. Is it the device?** Restart. That clears RAM and gives the OS a clean slate. Still frozen after a restart? Note whether storage is full (can't save) vs. everything lagging (often RAM or too many apps).\n**3. Is it the local network?** Check Wi-Fi bars, try turning Wi-Fi off/on, or move closer to the **router**. Can other devices on the same Wi-Fi load sites?\n**4. Is it beyond your house?** If every device is offline, the problem may be the internet company or a wider outage — not your laptop.\n\nThis is the exact chain that would have saved Jordan ten minutes of panic at 11:40 p.m. Practice naming the layer out loud — app, device, Wi-Fi/router, or wider internet — and random frustration turns into a real diagnosis.`,
-        bullets: [
-          "App stuck → restart the app first.",
-          "Whole device laggy → restart; check RAM vs. storage.",
-          "Only online stuff fails → check Wi-Fi, then the router, then the wider internet.",
-        ],
-        callout: {
-          label: "Try this week",
-          text: "Once this week, when something feels \"broken,\" name the layer out loud: app, device, Wi-Fi/router, or internet beyond the router. That one habit turns random frustration into a real diagnosis.",
-        },
-        checkIn: {
-          prompt: "You restart your whole laptop, but a single app is still frozen while everything else runs fine. What should you check next?",
-          choices: [
-            "Force-quit and reopen just that one app",
-            "Unplug the router",
-            "Assume the CPU is permanently broken",
-            "Buy a new laptop immediately",
-          ],
-          correctIndex: 0,
-          explanation:
-            "When only one app misbehaves after a restart, the fix is usually to force-quit and relaunch that specific app — the device and OS are working fine.",
-        },
-      },
-      {
-        id: "reflection-prompt",
-        kicker: "Pause and think",
-        title: "Before you move on — a quick gut-check",
-        body: `Take thirty seconds before continuing. Think about the last time a device of yours acted up — froze, ran slow, or wouldn't connect.\n\n• Which layer was it really — app, device, network, or wider internet?\n• Did you (or whoever "fixed" it) actually target that layer, or just guess and hope?\n\nYou don't need to write anything down yet — there's a full reflection question waiting for you at the end of this lesson, after the knowledge check. For now, just notice: most tech panic comes from not knowing which layer to blame. You now do.`,
-        callout: {
-          label: "Reflect",
-          text: "Naming the layer out loud — even just in your head — is often the entire fix. It turns \"everything is broken\" into \"oh, it's just the app.\"",
-        },
-      },
-      {
-        id: "mini-case",
-        kicker: "Mini case study",
-        title: "Case study: the school Wi-Fi goes down before finals",
-        body: `It's the morning of finals week. The whole school's Wi-Fi drops right as students try to load an online exam. Panic spreads in the hallway: "Is the internet broken? Is it just our building? Did someone hack the school?"\n\nHere's how the IT staff actually diagnosed it, using the exact chain from this lesson:\n\n**1. App check —** Multiple totally different apps (the exam portal, email, everything) failed at once, so it's clearly not one broken app.\n\n**2. Device check —** Both Chromebooks *and* teacher laptops *and* phones on Wi-Fi failed, so it's not one broken device either.\n\n**3. Network check —** Every device that failed was on the same building's Wi-Fi network. Devices on cellular data (not Wi-Fi) still worked fine. That's the big clue: the problem is the **local network** — likely the router or the school's internet connection — not a wider, national internet outage.\n\n**4. Fix —** IT restarted the building's main router/modem. Within minutes, Wi-Fi (and the exam portal) came back for everyone.\n\nNotice: nobody needed to be a computer expert. They just followed the same four-layer chain you just learned, and it pointed straight at the real problem.`,
-        callout: {
-          label: "Pro tip",
-          text: "When troubleshooting for a group (a classroom, a family), ask who else is affected. If it's everyone on the same network, that's a strong clue the issue is the network — not any one device.",
-        },
-      },
-      {
-        id: "check-yourself",
-        kicker: "Check yourself",
-        title: "One more check before the full knowledge check",
-        body: `Let's make sure the big ideas from this lesson are locked in before you move to the full Knowledge Check.\n\nQuick self-test: can you explain, in one sentence each —\n\n• The difference between hardware and software?\n• Why RAM and storage are NOT the same thing?\n• Why "the cloud" is not magic?\n• The four-layer chain for troubleshooting (app → device → network → wider internet)?\n\nIf you can answer all four, you're genuinely ready. If one felt shaky, scroll back to that section — it's worth the thirty seconds now, before the graded questions.`,
-        checkIn: {
-          prompt: "Which single idea ties together almost everything in this lesson?",
-          choices: [
-            "Every tech problem means you need a new device",
-            "Breaking a system into layers (hardware/software, RAM/storage, app/device/network/internet) helps you understand and fix it",
-            "Wi-Fi bars always guarantee a working internet connection",
-            "The cloud is a physical place in the sky",
-          ],
-          correctIndex: 1,
-          explanation:
-            "The whole lesson is one repeated move: break a confusing system into its parts (hardware vs. software, RAM vs. storage, app vs. device vs. network vs. internet) so you can understand — and fix — what's really going on.",
-        },
-      },
-      {
-        id: "red-flags",
-        kicker: "Red flags",
-        title: "Before you panic: three signs it's NOT a hardware disaster",
-        body: `When a device acts weird, people often jump straight to "it's broken forever." These three red flags usually mean the fix is simpler than it feels:\n\n• **Only one app is stuck** while everything else works — that's almost always a software/app problem, not dead hardware.\n• **Restarting fixes it temporarily** — if a reboot clears the lag, the physical parts are probably fine; something in software or memory got overloaded.\n• **Other devices on the same Wi-Fi work fine** — that points away from your laptop's hardware and toward your device's settings or the local network.\n\nThe opposite red flag — **every app on every device on the same network fails at once** — is your clue to look at the router or wider internet, not to blame one laptop's screen.\n\nPair this with the four-layer chain from earlier: red flags tell you which layer to check first so you don't waste time (or money) on the wrong fix.`,
-        callout: {
-          label: "Try this week",
-          text: "Next time something glitches, pause and ask: is it one app, the whole device, or every device on the network? That one question often tells you the whole story.",
-        },
-        checkIn: {
-          prompt: "Your phone's camera app crashes every time you open it, but texting, browsing, and other apps work normally. What's the most likely layer?",
-          choices: [
-            "The phone's screen hardware is permanently broken",
-            "The wider internet is down",
-            "The camera app (software), since only that one program fails",
-            "The cloud has deleted your photos",
-          ],
-          correctIndex: 2,
-          explanation:
-            "When a single app misbehaves while everything else runs fine, the problem is almost always that specific app — not the whole device or the internet.",
-        },
-      },
-      {
-        id: "ready",
-        kicker: "Ready",
-        title: "Now it's your turn",
-        body: `You've just toured a whole computer and the internet it lives on. Quick recap:\n\n• **Hardware** is the physical parts; **software** is the instructions. The **CPU** thinks, **RAM** is short-term memory, **storage** keeps your files.\n• The **operating system** is the manager between you and the hardware, and **apps** run on top of it.\n• The **internet** is the global network (the roads); the **web** is the pages you view in a **browser** (the cars). Data travels as **packets** between your device (the **client**) and **servers**.\n• **"The cloud"** is just real servers in data centers, and strong Wi-Fi doesn't guarantee the wider internet is working.\n• When something fails, check the chain: **app → device → Wi-Fi/router → wider internet.**\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then write a quick reflection about a device you use.`,
-      },
+      { id: "start", kicker: "Start here", title: "A device is a stack", body: `A Chromebook can run a browser, save a group-project deck, and play audio because several layers cooperate. You do not need to control every circuit to make good decisions about a system.\n\nThis lesson asks: **which layer is responsible for what?** That question helps you compare tools, explain failures, and recommend proportionate fixes.`, image: "/images/lessons/dl-1.png", imageAlt: "Laptop and phone representing everyday computing layers" },
+      { id: "abstraction", kicker: "Core concept", title: "Abstraction makes complexity usable", body: `An **abstraction** gives you useful control while hiding implementation details. Tapping “submit” on a college application does not require you to route network traffic or write bits to storage.\n\nAn abstraction is a purposeful simplification, not magic. It reveals what a user needs and hides detail until that detail matters.`, checkIn: check("Why is a submit button an abstraction?", ["It exposes every server setting", "It lets a user request an action without managing the underlying implementation", "It eliminates all dependencies", "It replaces hardware"], 1, "The interface simplifies a complex operation; the underlying system still exists and can still fail.") },
+      { id: "layers", kicker: "Compare", title: "Three layers, different responsibilities", body: `**Hardware** is physical: processor, memory, storage, screen, keyboard, radio, and battery. **System software**, especially an operating system, manages those shared resources. **Application software** serves a user goal: a browser, spreadsheet, editor, or messaging app.\n\nApplications request services; the operating system coordinates them; hardware performs physical operations.`, image: "/images/lessons/dl-1-2.png", imageAlt: "Physical device and application screen" },
+      { id: "hardware", kicker: "Hardware", title: "Resources have specialized jobs", body: `A processor executes instructions. **RAM** holds active work for quick access and is temporary. **Storage** keeps files when power is off. Input hardware captures actions; output hardware presents results.\n\nA device with abundant storage can still struggle with many tabs if RAM is constrained. A fast processor cannot restore a file that was never saved.`, bullets: ["Processor: executes instructions.", "RAM: temporary workspace for active tasks.", "Storage: persistent files and applications."], checkIn: check("A Chromebook slows during a video meeting with many tabs open, but storage is mostly empty. Which constraint is most plausible?", ["RAM", "Storage", "Screen brightness", "File naming"], 0, "Many active tabs compete for temporary working memory; free storage does not remove that pressure.") },
+      { id: "os", kicker: "System software", title: "The operating system coordinates the system", body: `The **operating system (OS)** schedules processor time, allocates memory, manages files and devices, and provides security boundaries. It gives applications standard ways to use a camera, store a document, or display a window.\n\nThis is why an OS update can improve compatibility for many applications at once—and why an app update is not the same thing as an OS update.`, checkIn: check("Which statement best compares an OS with an application?", ["An OS is a single-purpose app", "An OS manages shared resources and provides services applications use", "An OS is only needed online", "Applications directly control every hardware part"], 1, "Applications focus on user tasks; the OS coordinates the shared system beneath them.") },
+      { id: "example", kicker: "Trace the layers", title: "Opening a shared presentation", body: `A teammate taps a presentation link. The browser requests the file. The OS gives the browser network access, memory, and a display window. Network hardware sends and receives data. The processor renders slides and the screen displays them.\n\nEach layer contributes, but no layer must expose its full implementation to the one above it. That separation lets the same web app work across many devices.`, image: "/images/lessons/dl-1-3.png", imageAlt: "Device connecting to a remote service" },
+      { id: "interface", kicker: "Interfaces", title: "Interfaces are agreements between layers", body: `An **interface** is an agreed way for one layer to request a service from another. A browser requests a file; it does not need to know how every network chip transmits a signal.\n\nInterfaces make systems modular. Developers can improve a lower layer without forcing every user to relearn the upper layer, provided the interface continues to work.` },
+      { id: "hidden", kicker: "Evaluate", title: "Hidden does not mean unimportant", body: `A cloud-save button hides server location, account permissions, network availability, and storage policies. Those details matter if a group project contains private information or if an internship requires work offline.\n\nEvaluate an abstraction by asking: What does it simplify? What does it hide? What happens if the service, account, or connection fails?`, checkIn: check("A cloud editor is easy for a team to use, but the campus connection fails before a deadline. What is the strongest evaluation?", ["Cloud tools never store files", "Its sharing benefit is real, but access depends on accounts and network service", "Cloud tools remove every reliability tradeoff", "The screen is responsible"], 1, "A sound evaluation recognizes both a benefit and the dependency the abstraction hides.") },
+      { id: "compare", kicker: "Compare", title: "A first-job scheduling app", body: `The **application** lets you view shifts and request time off. The **OS** manages notifications, storage permission, and processor time. The **hardware** supplies the touchscreen, storage chip, network radio, and battery.\n\nA missing notification may be an app setting, an OS permission, or a connectivity issue. Compare evidence before changing settings.` },
+      { id: "tradeoffs", kicker: "Tradeoffs", title: "High-level tools are not automatically best", body: `A template lets a student publish a résumé without designing every component. That speed is valuable. The same template may constrain layout, collect account data, or become unavailable when its service is down.\n\nThe best tool is not always the one that exposes the most detail. It is the one whose hidden complexity and limits fit the task.`, table: { columns: ["Question", "High-level tool", "Lower-level control"], values: [["Speed to begin", "Usually faster", "Usually slower"], ["Control over details", "Often limited", "Often greater"], ["Need to know implementation", "Less", "More"]], rowCount: 3 } },
+      { id: "recommend", kicker: "Recommendation", title: "Recommend from a use case, not a slogan", body: `Two students are choosing devices. One needs browser research, video meetings, and shared documents; the other edits high-resolution portfolio video. “More storage” alone is not a sufficient recommendation.\n\nCompare workload, RAM, processor performance, storage, battery life, portability, and budget. Explain which resource supports each need.`, checkIn: check("Which recommendation is strongest for a student who edits high-resolution portfolio video and carries a device all day?", ["Choose only the largest storage number", "Compare processor, memory, storage, and battery against the workload", "Assume every Chromebook is equally suited", "Ignore hardware because apps do all work"], 1, "A defensible recommendation connects resources to a specific workload and constraint.") },
+      { id: "diagnose", kicker: "Troubleshoot", title: "Test the smallest plausible layer first", body: `Define the symptom; compare what still works; identify the narrowest plausible layer; change one thing; retest. If only one app fails, begin there. If every app fails after an OS update, investigate the system layer. If the device cannot power on, inspect hardware and power.\n\nAvoid changing five settings at once. A fix you cannot explain is difficult to repeat.`, checkIn: check("Which sequence best preserves evidence and minimizes disruption?", ["Reset every device and reinstall unrelated software", "Identify what works, test the affected layer, make one change, then retest", "Assume expensive hardware failed", "Change settings until the symptom disappears"], 1, "Controlled, narrow tests lead to stronger conclusions and fewer new problems.") },
+      { id: "impact", kicker: "Impact", title: "Abstraction shapes participation", body: `Accessible interfaces can let more people complete school, work, and civic tasks without specialist knowledge. Opaque systems can also make it hard to challenge errors, understand data collection, or recover from service failures.\n\nWhen a platform becomes essential for college applications or first-job scheduling, reliable access and clear support affect opportunity.` },
+      { id: "ready", kicker: "Synthesize", title: "Explain the stack", body: `Application software supports a user task; system software coordinates shared resources; hardware performs physical operations. Abstractions and interfaces make that stack usable, but they also hide dependencies worth evaluating.\n\nUse this model to explain a device decision or targeted troubleshooting step.`, checkIn: check("Which claim best captures systems thinking?", ["Every layer performs the same job", "Abstractions hide detail while layers divide responsibilities, helping people evaluate and diagnose systems", "Hardware is the only layer that matters", "Interfaces eliminate all tradeoffs"], 1, "Layered models turn vague technology claims into explanations that can be tested and improved.") },
     ],
   },
-  bigIdeas: [
-    "**Hardware** is the physical parts you can touch; **software** is the instructions that run on it.",
-    "The **CPU** thinks, **RAM** is short-term memory, and **storage** keeps files long-term.",
-    "The **internet** is the global network; the **web** is the pages you view in a browser; **the cloud** is real servers in data centers.",
-    "When something breaks, check the chain: **app → device → network → wider internet.**",
-  ],
-  keyTerms: [
-    { term: "Hardware", definition: "The physical parts of a computer you can touch, like the screen, keyboard, and chips." },
-    { term: "Software", definition: "The instructions that tell the hardware what to do, like apps and the operating system." },
-    { term: "Operating System", definition: "The main software (Windows, macOS, ChromeOS, iOS, Android) that manages the hardware and runs your apps." },
-    { term: "CPU", definition: "The Central Processing Unit — the 'brain' that does the computer's thinking and calculations." },
-    { term: "RAM", definition: "Random Access Memory — fast short-term memory for what the computer is doing right now. It clears when powered off." },
-    { term: "Server", definition: "A powerful computer that 'serves' data to other devices (clients) when they request it." },
-    { term: "The Cloud", definition: "Real, powerful computers (servers) in data centers that you reach over the internet — not the sky." },
-    { term: "Browser", definition: "An app like Chrome, Safari, or Firefox that fetches and displays web pages." },
-  ],
-  realWorld:
-    "Streaming a show, submitting a scholarship form online, and saving a photo to Google Photos all rely on the same chain: your device (**client**) sends **packets** over the **internet** to a **server** in a **data center** (\"the cloud\") and back.",
+  bigIdeas: ["**Abstraction** gives people useful controls while hiding implementation details.", "**Application software**, **system software**, and **hardware** have distinct responsibilities.", "Interfaces let layers work together and make computing systems modular.", "Evaluate benefits and hidden dependencies; diagnose the smallest plausible layer first."],
+  keyTerms: [{ term: "Abstraction", definition: "A simplified model or interface that hides implementation details while preserving useful control." }, { term: "Hardware", definition: "Physical computing components such as processors, storage, displays, and network radios." }, { term: "System software", definition: "Software, including an operating system, that manages hardware and provides services for applications." }, { term: "Application software", definition: "Software designed for user tasks, such as a browser, spreadsheet, or scheduling app." }, { term: "Operating system", definition: "System software that manages resources, devices, files, security, and application execution." }, { term: "Interface", definition: "An agreed way for a person or one system layer to request services from another." }],
+  realWorld: "Submitting a college application may feel like one click, but it relies on a browser, operating-system services, hardware, accounts, and network access.",
   quiz: [
-    {
-      id: "q1",
-      question: "You're filling out a college application on a laptop. Which of these is software, not hardware?",
-      choices: [
-        "The screen that shows the form",
-        "The keyboard you type on",
-        "The battery inside the laptop",
-        "The web browser you use to open the application portal",
-      ],
-      correctIndex: 3,
-      explanation:
-        "A web browser is a set of instructions (software). The keyboard, screen, and battery are all physical parts you can touch, which makes them hardware.",
-    },
-    {
-      id: "q2",
-      question: "During a group project, your Chromebook gets slow and laggy with lots of tabs and docs open, but you still have plenty of free space for files. What is most likely running low?",
-      choices: [
-        "Storage",
-        "Wi-Fi signal",
-        "RAM",
-        "The CPU's battery",
-      ],
-      correctIndex: 2,
-      explanation:
-        "RAM is short-term memory for what you're doing right now. Juggling many apps and tabs fills up RAM and causes lag. Storage is about saving files long-term, which is fine here since there's free space.",
-    },
-    {
-      id: "q3",
-      question: "Your first-job training video won't play, but your phone still shows strong Wi-Fi. What does that tell you?",
-      choices: [
-        "Your phone's CPU is broken",
-        "Strong Wi-Fi only means a good link to the local router — the internet beyond the router could still be down",
-        "The cloud has permanently deleted the video",
-        "Wi-Fi and the internet are the same thing, so the internet must be fine",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Wi-Fi is the wireless hop to your router. The router still has to reach the wider internet. Strong Wi-Fi bars don't guarantee that path is working.",
-    },
-    {
-      id: "q4",
-      question: "Which statement about the internet and the web is correct?",
-      choices: [
-        "The internet is the global network, and the web is the pages you view in a browser",
-        "The web is the global network, and the internet is one part of it",
-        "They are exactly the same thing",
-        "The web works without the internet",
-      ],
-      correctIndex: 0,
-      explanation:
-        "The internet is the giant global network (the roads). The web is just one thing that travels on it — the pages you open in a browser (the cars). The web is a part of the internet, not the whole thing.",
-    },
-    {
-      id: "q5",
-      question: "A scholarship portal says your essay is saved 'in the cloud.' Where is it really?",
-      choices: [
-        "Inside your Wi-Fi router",
-        "Only on your own device's storage",
-        "Floating in the sky as data",
-        "On a real server in a data center that you reach over the internet",
-      ],
-      correctIndex: 3,
-      explanation:
-        "\"The cloud\" is just real, powerful computers (servers) in data centers owned by companies. You reach them over the internet — there's nothing magical or sky-based about it.",
-    },
-    {
-      id: "q6",
-      question: "A laptop ad brags about '1TB of storage!' but says nothing about RAM. Based on this lesson, why should that make you cautious?",
-      choices: [
-        "More storage always means more RAM automatically",
-        "1TB of storage guarantees a fast CPU",
-        "Storage handles long-term files, but low RAM can still make the laptop laggy during multitasking regardless of storage size",
-        "Storage and RAM are the same thing, so it doesn't matter",
-      ],
-      correctIndex: 2,
-      explanation:
-        "RAM and storage solve different problems. A laptop can have huge storage and still feel painfully slow if it doesn't have enough RAM for multitasking.",
-    },
-    {
-      id: "q7",
-      question: "In the school Wi-Fi case study, IT noticed that phones on cellular data still worked while every device on the building's Wi-Fi failed. What did that tell them?",
-      choices: [
-        "The problem could not be diagnosed without a repair shop",
-        "The problem was the local network (Wi-Fi/router), not a single device or a nationwide internet outage",
-        "The problem was one broken laptop",
-        "The problem was a single frozen app",
-      ],
-      correctIndex: 1,
-      explanation:
-        "Because only devices on that specific Wi-Fi network failed, while devices on cellular data worked, the issue was isolated to the local network layer — pointing straight at the router or building connection.",
-    },
-    {
-      id: "q8",
-      question: "Before typing a password into a site, this lesson recommends checking which part of the URL first?",
-      choices: [
-        "The number of tabs you have open",
-        "How fast the page loaded",
-        "The color of the page background",
-        "The domain name in the address bar, to confirm it matches the real site you intend to visit",
-      ],
-      correctIndex: 3,
-      explanation:
-        "Reading the domain in the address bar (like kanam.academy vs. a lookalike domain) is a quick way to catch fake or copycat sites before entering sensitive information.",
-    },
+    { id: "q1", question: "Which comparison is accurate?", choices: ["A browser is hardware because it displays a form", "A browser is application software; an OS provides services it uses; a screen is hardware", "An OS is hardware because it starts first", "A screen is system software"], correctIndex: 1, explanation: "The browser supports a user task, the OS coordinates resources, and the screen presents output." },
+    { id: "q2", question: "Why is a share button an abstraction?", choices: ["It exposes server settings", "It lets a user request sharing without managing storage and network implementation", "It guarantees access forever", "It replaces the OS"], correctIndex: 1, explanation: "The interface simplifies a complex service but does not remove dependencies." },
+    { id: "q3", question: "Why does an OS matter to several applications?", choices: ["It gives each app ownership of hardware", "It coordinates memory, storage, devices, and security services", "It is only a visual theme", "It replaces applications"], correctIndex: 1, explanation: "An OS manages resources that multiple applications need." },
+    { id: "q4", question: "A team chooses a cloud slide tool. Which tradeoff should they evaluate?", choices: ["Whether it hides the keyboard", "Whether account access and network availability could prevent work at a critical time", "Whether it removes storage needs", "Whether it makes the OS unnecessary"], correctIndex: 1, explanation: "Shared access is valuable, but it depends on services and permissions." },
+    { id: "q5", question: "Which device recommendation is most defensible?", choices: ["Pick only the largest storage number", "Match processor, RAM, storage, battery, and portability to the workload", "Assume every device supports every media task", "Ignore hardware"], correctIndex: 1, explanation: "Recommendations should connect resources to actual requirements." },
+    { id: "q6", question: "A single browser extension breaks one web app. What should happen first?", choices: ["Replace every device", "Test the extension or browser layer before resetting the whole system", "Assume storage failed", "Change every setting at once"], correctIndex: 1, explanation: "The symptom is isolated to a narrow layer, so test that layer first." },
+    { id: "q7", question: "What is the main benefit of thinking in layers?", choices: ["It proves hardware never fails", "It helps isolate likely causes and choose a proportionate next test", "It lets you skip evidence", "It guarantees a quick fix"], correctIndex: 1, explanation: "Layered reasoning replaces vague blame with evidence-based action." },
   ],
-  reflection: {
-    prompt:
-      "Pick a device you used today. Name one piece of its hardware and one piece of software, and explain what the operating system does for it.",
-    placeholder: "Example: My laptop's hardware is the screen; the software is Chrome; the OS (Windows) manages them both…",
-  },
+  reflection: { prompt: "Choose a device task you use for school, college planning, or work. Explain the application, system software, and hardware involved; identify one useful abstraction and one dependency it hides.", placeholder: "A browser submits my application; ChromeOS manages memory and network access; the Wi-Fi radio transmits data. The submit button hides the network steps, but it depends on my account and connection…" },
 };

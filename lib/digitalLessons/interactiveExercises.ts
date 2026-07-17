@@ -5,9 +5,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl1-parsons",
       kind: "parsons",
-      title: "Packet journey",
+      title: "Layered request journey",
       prompt:
-        "You hit send on a message. Reorder how data typically travels from your device to a server in the cloud.",
+        "You open a shared presentation. Reorder the layers that make the request and response usable.",
       languageLabel: "process",
       lines: [
         "Your app turns the message into digital data",
@@ -29,8 +29,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl1-debug",
       kind: "debug",
-      title: "Device myth",
-      prompt: "A classmate posts this explanation. Spot the real mistake.",
+      title: "Layer confusion",
+      prompt: "A classmate explains a Chromebook freeze. Spot the real mistake.",
       contentLabel: "Buggy claim",
       buggyContent:
         '"RAM and storage are the same thing — both permanently keep your files, photos, and apps even after you shut the laptop down. The OS is optional; hardware runs apps by itself."',
@@ -50,9 +50,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl1-predict",
       kind: "predict",
-      title: "Where's the file?",
+      title: "Choose the first test",
       prompt:
-        "Predict where the document actually lives after this save — local only, cloud only, or both synced.",
+        "Predict the most useful first layer to test in a device problem.",
       scenario:
         "You edit a paper in a browser-based Docs app while online.\nYou click Save / it auto-saves.\nYour laptop's Downloads folder is empty; you never exported a copy.",
       acceptedAnswers: [
@@ -73,9 +73,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl2-parsons",
       kind: "parsons",
-      title: "Backup habit",
+      title: "Storage decision",
       prompt:
-        "You finished a scholarship essay. Put a solid save-and-backup sequence in order.",
+        "You finished a scholarship essay. Reorder a plan that protects access, integrity, and recovery.",
       languageLabel: "process",
       lines: [
         "Save the working file with a clear name and folder",
@@ -97,8 +97,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl2-debug",
       kind: "debug",
-      title: "File fail",
-      prompt: "This student's file plan keeps breaking. What's the real bug?",
+      title: "Storage-plan gap",
+      prompt: "This student's storage plan is weak. What's the main problem?",
       contentLabel: "Buggy plan",
       buggyContent:
         'Folder: Desktop\nessay_FINAL_FINAL2 (no extension showing)\nHabit: "I only hit Save, never Save As. I renamed .docx to .jpg so it looks smaller. Cloud backup? I\'ll do it the night before it\'s due."',
@@ -116,7 +116,7 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl2-predict",
       kind: "predict",
-      title: "Open attempt",
+      title: "Recovery outcome",
       prompt: "Predict what happens when they double-click this file.",
       scenario:
         "File name shown: budget_report.pdf\nThey renamed it from budget_report.xlsx by only changing the letters after the dot.\nThey did not export or convert in Excel/Sheets.\nThey double-click to open.",
@@ -136,9 +136,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl3-parsons",
       kind: "parsons",
-      title: "Search workflow",
+      title: "Network-aware search workflow",
       prompt:
-        "You need reliable sources for a research paper. Reorder a pro search process.",
+        "You need current internship information. Reorder a network-aware, evidence-based search process.",
       languageLabel: "process",
       lines: [
         "Define the question and pick precise keywords",
@@ -160,8 +160,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl3-debug",
       kind: "debug",
-      title: "Search slip",
-      prompt: "This search strategy keeps returning junk. Spot the bug.",
+      title: "Result-ranking trap",
+      prompt: "This search strategy mistakes ranking for trust. Spot the bug.",
       contentLabel: "Buggy search",
       buggyContent:
         'Query: best phones ever!!!! buy now cheap???\nSettings: first result only, ignore date and site filters\nRule: "If it\'s #1 on the page, it must be the most trustworthy source."',
@@ -181,7 +181,7 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl3-predict",
       kind: "predict",
-      title: "Query effect",
+      title: "Query and source effect",
       prompt: "Predict which result set will be narrower and more on-topic.",
       scenario:
         "Goal: find .gov pages about teen sleep and screens from the last 5 years.\nQuery A: sleep screens teens\nQuery B: \"screen time\" sleep teens site:.gov after:2021\nSame search engine, no ads clicked.",
@@ -203,9 +203,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl4-parsons",
       kind: "parsons",
-      title: "SIFT check",
+      title: "Claim-and-platform check",
       prompt:
-        "A viral claim hits your feed. Put a SIFT-style verification sequence in order.",
+        "A scholarship claim spreads through your feed. Put a SIFT-style verification sequence in order.",
       languageLabel: "process",
       lines: [
         "Stop — don't share while emotions are high",
@@ -225,8 +225,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl4-debug",
       kind: "debug",
-      title: "Trust trap",
-      prompt: "This verification habit is broken. What's wrong?",
+      title: "Culture-and-trust trap",
+      prompt: "This claim-evaluation habit is broken. What's wrong?",
       contentLabel: "Buggy habit",
       buggyContent:
         'Post: shocking health claim with a dramatic screenshot\nCheck: "The site has a logo and a Comments section, so it\'s legit. I only read that one page. If it feels true, I share it to warn people."',
@@ -246,7 +246,7 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl4-predict",
       kind: "predict",
-      title: "Share outcome",
+      title: "Rumor outcome",
       prompt:
         "Predict the most likely outcome if they share now without checking.",
       scenario:
@@ -267,9 +267,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl5-parsons",
       kind: "parsons",
-      title: "Email build",
+      title: "Channel and email plan",
       prompt:
-        "You're emailing a teacher or internship contact. Reorder a clear message structure.",
+        "You evaluated email as the right channel for a teacher or internship contact. Reorder a professional, actionable message structure.",
       languageLabel: "process",
       lines: [
         "Write a specific subject line that states the purpose",
@@ -291,8 +291,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl5-debug",
       kind: "debug",
-      title: "Tone bug",
-      prompt: "This message is going to a counselor. Spot the real problem.",
+      title: "Audience mismatch",
+      prompt: "This message is going to a counselor. Identify the audience, tone, and context problem.",
       contentLabel: "Buggy email",
       buggyContent:
         "Subject: hey\n\nyo can u fix my schedule rn thx\n-sent from my phone",
@@ -310,8 +310,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl5-predict",
       kind: "predict",
-      title: "Reply vibe",
-      prompt: "Predict how the recipient is most likely to read this chat message.",
+      title: "Tone consequence",
+      prompt: "Predict how the recipient is most likely to read this chat message and why a different channel may help.",
       scenario:
         "Group project chat after a teammate misses a deadline.\nMessage sent: \"Wow. Cool. Thanks for nothing.\"\nNo emoji clarifying joke. Sender meant sarcasm about the situation, not a personal attack.\nRecipient is stressed and skimming on their phone.",
       acceptedAnswers: [
@@ -330,9 +330,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl6-parsons",
       kind: "parsons",
-      title: "Share safely",
+      title: "Connected team setup",
       prompt:
-        "Your team starts a shared project doc. Put a smart collaboration setup in order.",
+        "Your team includes people with different schedules and access needs. Put an inclusive, accountable collaboration setup in order.",
       languageLabel: "process",
       lines: [
         "Create the file in a shared drive or team folder",
@@ -354,8 +354,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl6-debug",
       kind: "debug",
-      title: "Permission bug",
-      prompt: "This share setting caused a mess. What's the real bug?",
+      title: "Access and permission gap",
+      prompt: "This share setting caused a mess. What access, accountability, and inclusion choices are missing?",
       contentLabel: "Buggy share",
       buggyContent:
         "Doc: Senior Capstone — grades & private feedback notes\nLink: Anyone with the link → Editor\nPosted the link in a public class Discord\nNo owner assigned; comments disabled; version history ignored after a wipe",
@@ -375,8 +375,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl6-predict",
       kind: "predict",
-      title: "History fix",
-      prompt: "Predict the best first recovery move.",
+      title: "Recover and coordinate",
+      prompt: "Predict the best first recovery move, then the collaboration practice that prevents repeat confusion.",
       scenario:
         "Shared slides for a group presentation.\nOvernight, large sections were deleted and replaced with placeholder text.\nNobody knows who edited last.\nThe file still exists in the same Drive folder with version history enabled.",
       acceptedAnswers: [
@@ -397,9 +397,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl7-parsons",
       kind: "parsons",
-      title: "Footprint audit",
+      title: "Identity impact audit",
       prompt:
-        "You're cleaning up before college apps and job searches. Reorder a digital footprint review.",
+        "You're evaluating your digital identity before college applications, scholarships, and job searches. Reorder a footprint and reputation review.",
       languageLabel: "process",
       lines: [
         "List accounts where you post or appear (active footprint)",
@@ -421,8 +421,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl7-debug",
       kind: "debug",
-      title: "Reputation myth",
-      prompt: "This advice about footprints is wrong. Spot the bug.",
+      title: "Identity-control myth",
+      prompt: "This advice about digital identity is incomplete. Spot the control and context mistake.",
       contentLabel: "Buggy advice",
       buggyContent:
         '"Private stories vanish forever after 24 hours, so colleges and employers can never see anything. Tagged photos don\'t count. Only your main feed matters — delete nothing."',
@@ -442,8 +442,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl7-predict",
       kind: "predict",
-      title: "Search result",
-      prompt: "Predict what a careful reviewer is most likely to find first.",
+      title: "Economic impact",
+      prompt: "Predict what a careful reviewer is most likely to find first and how it could affect an opportunity.",
       scenario:
         "Applicant uses the same username on a public gaming forum and a résumé email.\nOld forum posts include trash-talk with slurs from three years ago, still public.\nMain Instagram is set to private and looks polished.\nReviewer Googles the username from the résumé.",
       acceptedAnswers: [
@@ -464,9 +464,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl8-parsons",
       kind: "parsons",
-      title: "Upstander steps",
+      title: "Harm-reduction response",
       prompt:
-        "You see targeted harassment in a group chat. Put a responsible response in order.",
+        "You see targeted harassment in a group chat. Put a harm-reduction response in order without amplifying the attack.",
       languageLabel: "process",
       lines: [
         "Recognize the behavior as harmful, not \"just a joke\"",
@@ -488,8 +488,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl8-debug",
       kind: "debug",
-      title: "Bystander bug",
-      prompt: "This response plan fails the target. What's wrong?",
+      title: "Equity response gap",
+      prompt: "This response plan fails the target and leaves harmful conditions in place. What's wrong?",
       contentLabel: "Buggy plan",
       buggyContent:
         "Group chat: repeated insults and fake accounts targeting one student\nPlan: \"Ignore it forever. If I screenshot and post it publicly with laughing emojis, I'm helping. Reporting is snitching. The target should just log off.\"",
@@ -507,8 +507,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl8-predict",
       kind: "predict",
-      title: "Report path",
-      prompt: "Predict the most appropriate next action.",
+      title: "Escalation pathway",
+      prompt: "Predict the most appropriate next action when online harm creates a safety risk.",
       scenario:
         "A student receives repeated threatening DMs from an anonymous account.\nThey already blocked once; new accounts keep appearing.\nSchool handbook lists a counselor and online-safety report form.\nThe messages include specific threats about seeing them at school tomorrow.",
       acceptedAnswers: [
@@ -527,37 +527,37 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl9-parsons",
       kind: "parsons",
-      title: "Design pass",
+      title: "Inclusive revision pass",
       prompt:
-        "You're finishing a slide deck for class. Reorder a content-quality checklist.",
+        "A club post excludes some viewers. Reorder a test-and-refine workflow.",
       languageLabel: "process",
       lines: [
-        "Clarify the one main idea per slide or section",
-        "Apply consistent fonts, spacing, and hierarchy",
-        "Check contrast so text is readable on the background",
-        "Add alt text or captions for key images/media",
-        "Proofread and test on phone and laptop screens",
+        "Define the audience, purpose, and where the artifact will be used",
+        "Build readable headings, labels, contrast, and alternatives to color-only meaning",
+        "Add purposeful alt text and accurate captions or a transcript",
+        "Export in a format that preserves structure and access features",
+        "Test the final artifact in real viewing conditions and revise barriers",
       ],
       lineExplanations: [
-        "Clarify one main idea per slide or section before decorating. Hierarchy and design can't rescue a cluttered message. Cause: clear content job; effect: every visual choice can support that idea.",
-        "Apply consistent fonts, spacing, and hierarchy next so the eye knows what matters. Random styles fight the main idea you just set. Consistency is how structure becomes readable at a glance.",
-        "Check contrast so text stays readable on the background. Low contrast fails classmates on phones and anyone with vision differences. Pretty colors that hide words break the communication job.",
-        "Add alt text or captions for key images and media so more people can access the meaning. Missing alternatives leave out screen-reader users and anyone who can't see the graphic. Accessibility belongs in the checklist, not as optional extra credit.",
-        "Proofread and test on phone and laptop screens last. Typos and layout breaks often appear only on smaller displays. Final QA confirms the deck works where your audience will actually view it.",
+        "Start by naming audience, purpose, device, and context. You cannot judge access without knowing who needs the information and how they will encounter it.",
+        "Next build structure and visual access into the source: real headings, labels, readable contrast, and more than color alone. These choices reduce barriers before export.",
+        "Then add text alternatives that communicate media's purpose. Alt text and reviewed captions give people access to meaning, not merely a compliance label.",
+        "Export deliberately because a final file can lose links, reading order, or captions. The audience receives the export, not your editor view.",
+        "Finally test on a phone, with zoom or grayscale, and in other real conditions. Use what fails to revise the artifact rather than assuming your first draft works for everyone.",
       ],
       explanation:
-        "Strong content isn't decoration — it's hierarchy, readability, and accessibility so more people can actually use what you made.",
+        "Inclusive creation is iterative: anticipate barriers, export carefully, test with real conditions, and refine when evidence shows an equity deficit.",
     },
     {
       id: "dl9-debug",
       kind: "debug",
-      title: "Access miss",
+      title: "Equity deficit",
       prompt: "This design will fail part of the audience. Spot the bug.",
       contentLabel: "Buggy slide",
       buggyContent:
-        "Title in light yellow on white\nBody: 8pt decorative font, walls of text\nChart: red vs green only, no labels\nImages: no alt text; auto-playing music with no transcript\nCreator note: \"Looks fine on my monitor — accessibility is optional extra credit.\"",
+        "Title in light yellow on white\nBody: tiny decorative font in one long text box\nChart: red vs green only, no labels\nImages: generic alt text; auto-captions never checked\nCreator note: \"It works on my laptop, so the audience can adapt.\"",
       choices: [
-        "Poor contrast, tiny text, color-only meaning, and missing alt/captions block access",
+        "Poor contrast, weak structure, color-only meaning, and untested alternatives create an equity deficit",
         "Alt text is only for printed posters, never digital slides",
         "Decorative fonts always improve readability for every reader",
         "Accessibility tools ban the use of any images in school work",
@@ -565,23 +565,23 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       correctIndex: 0,
       hint: "Who gets left out when contrast, size, and descriptions are ignored?",
       explanation:
-        "Accessibility is part of good design: contrast, readable type, text alternatives, and not relying on color alone. It helps classmates, judges, and future coworkers.",
+        "The artifact gives some audiences less access to its message. Test contrast, structure, labels, alt text, and captions before export.",
     },
     {
       id: "dl9-predict",
       kind: "predict",
-      title: "Screen test",
+      title: "Export test",
       prompt: "Predict the most common viewer complaint.",
       scenario:
-        "Infographic posted for a club fundraiser.\nHuge background photo, thin white text over bright areas.\nQR code in a corner at very low contrast.\nMost people will view it on phones between classes.",
+        "Club report exported as an image-only PDF.\nHeadings and links no longer work; charts use color alone.\nThe team never opens the final file on a phone or with zoom.\nMost people will view it on phones between classes.",
       acceptedAnswers: [
-        "hard to read",
-        "can't read the text",
-        "low contrast unreadable",
-        "text and qr hard to see",
+        "hard to navigate or read",
+        "structure is lost",
+        "image-only pdf is inaccessible",
+        "charts are unclear",
       ],
       explanation:
-        "Phone screens + low contrast = skipped message. If people can't read the ask or scan the code, the design failed its job.",
+        "An image-only export can lose selectable text, structure, links, and alternatives. Testing the final artifact reveals whether access features survived.",
       placeholder: "What's the complaint?",
     },
   ],
@@ -590,37 +590,37 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl10-parsons",
       kind: "parsons",
-      title: "Credit flow",
+      title: "IP tradeoff review",
       prompt:
-        "You want to use an image in a school video. Put a responsible licensing check in order.",
+        "You want to use an image in a public scholarship video. Reorder a responsible IP decision.",
       languageLabel: "process",
       lines: [
-        "Identify the work and who holds the rights",
-        "Check the license (all rights reserved, Creative Commons, public domain)",
-        "Confirm your use fits the license or fair use limits for your context",
-        "Follow required attribution and link rules",
-        "If unclear or restricted, get permission or choose another asset",
+        "Identify the work, creator, and your planned audience or purpose",
+        "Check permission, license conditions, or public-domain status",
+        "Weigh creator benefit, access, cost, and whether a licensed alternative is available",
+        "Choose a permitted use and record visible attribution requirements",
+        "Disclose meaningful AI assistance and verify your final credits",
       ],
       lineExplanations: [
-        "Identify the work and who holds the rights before you drop an image into the video. Copyright is automatic; guessing ownership invites takedowns. Cause: unknown rights; effect: you know whom the rules apply to.",
-        "Check the license next — all rights reserved, Creative Commons, or public domain. Licenses spell out permission; without reading them you can't know what's allowed. This step turns a found file into a legal decision.",
-        "Confirm your planned use fits that license or fair-use limits for your school context. \"It's for class\" is not a blank check for public uploads of full songs or movie stills. Scope and purpose decide whether reuse is okay.",
-        "Follow required attribution and link rules when the license demands credit. CC BY and similar licenses fail if you skip the creator name or license notice. Compliance is part of using the work, not a courtesy.",
-        "If rights are unclear or restricted, get permission or pick another asset. Hoping for the best after publishing is how projects get blocked. A clean alternative is safer than a risky clip you can't defend.",
+        "Identify the source and planned use first. The decision changes when a project is public, commercial, educational, or private.",
+        "Next read actual permissions. Copyright is automatic; a download button or search result is not a license.",
+        "Then analyze the tradeoff: IP can support the creator's income and control, while access and remix may benefit from a clear alternative license.",
+        "Choose a permitted option and document its conditions. Credit supports honesty, but it does not replace permission.",
+        "Finally disclose meaningful AI assistance and inspect visible credits before publishing. Transparency lets an audience evaluate the work honestly.",
       ],
       explanation:
-        "Copyright is automatic; licenses spell out permission. CC and fair use have conditions — attribution and scope matter, including for AI-generated assets.",
+        "IP analysis asks more than “did I credit it?” It weighs creator control, access, innovation, permission, and transparent AI-assisted work.",
     },
     {
       id: "dl10-debug",
       kind: "debug",
-      title: "License lie",
+      title: "Tradeoff error",
       prompt: "This credit plan is unsafe. What's the bug?",
       contentLabel: "Buggy plan",
       buggyContent:
-        "Used a popular song + movie stills in a public YouTube essay\nAlso pasted AI-generated art labeled as \"original photos I took\"\nNote: \"It's for education so fair use covers everything forever. CC means I can skip attribution.\"",
+        "Used a popular song + movie stills in a public YouTube essay\nAlso pasted AI-generated art labeled as \"original photos I took\"\nNote: \"Creators should control everything forever, so students never need access; but my school project can use any media without permission.\"",
       choices: [
-        "Fair use isn't automatic for any school-ish upload; CC still needs its terms; don't mislabel AI",
+        "The plan ignores both sides of the tradeoff: permission and creator control matter, while access has lawful paths; AI use must be disclosed",
         "Any classroom purpose erases all copyright worldwide",
         "Creative Commons always means zero credit and commercial reuse",
         "AI images have no rules and can be claimed as personal photographs",
@@ -628,7 +628,7 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       correctIndex: 0,
       hint: "Does \"school project\" automatically equal unlimited public reuse?",
       explanation:
-        "Fair use is a limited, case-by-case analysis — not a free pass for full songs on public channels. CC requires following the specific license. Misrepresenting AI as your photos is dishonest.",
+        "A good decision neither treats IP as unlimited control nor as permission to take anything. Use lawful alternatives, follow license terms, and disclose AI assistance.",
     },
     {
       id: "dl10-predict",
@@ -653,26 +653,26 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl11-parsons",
       kind: "parsons",
-      title: "Account lock",
+      title: "Security recommendation",
       prompt:
-        "You're securing a new email used for college and job apps. Reorder a strong setup.",
+        "A school wants to protect student portal accounts. Reorder a recommendation that weighs safety, feasibility, and ethics.",
       languageLabel: "process",
       lines: [
-        "Create a long unique password (or passphrase) you won't reuse",
-        "Store it in a password manager, not a notes app titled Passwords",
-        "Turn on two-factor authentication (2FA)",
-        "Review recovery email/phone so only you control resets",
-        "Stay alert for phishing that tries to steal the new credentials",
+        "Name the threat and sensitive data at risk",
+        "Choose proportionate controls such as unique passwords, MFA, updates, or backups",
+        "Check whether people can use the controls with available devices and support",
+        "Limit collection and offer accessible recovery or help paths",
+        "Explain the recommendation and how people should report suspicious activity",
       ],
       lineExplanations: [
-        "Create a long unique password or passphrase you won't reuse elsewhere. Reuse lets one breach unlock email, shopping, and school accounts through credential stuffing. Uniqueness is the foundation every other control builds on.",
-        "Store that password in a password manager, not a notes app titled Passwords. Managers make strong unique secrets usable; plaintext notes are easy to steal or leak. You need a safe home before you depend on the credential daily.",
-        "Turn on two-factor authentication so a stolen password alone often isn't enough. 2FA blocks many takeover attempts after the password exists and is stored well. Cause: password might leak; effect: a second factor still protects the inbox.",
-        "Review recovery email and phone so only you control resets. Weak recovery paths let attackers bypass a strong login. Locking recovery closes the side door into the same account.",
-        "Stay alert for phishing that tries to steal the new credentials anyway. Urgency emails and fake login pages bypass passwords and 2FA if you type secrets into the wrong site. Ongoing vigilance keeps the setup from being undone by one click.",
+        "Start with the actual threat and data at risk so the control is proportionate rather than a generic checklist.",
+        "Choose layered measures that reduce the most likely harm, such as MFA for account takeover or updates for known software risks.",
+        "Test feasibility: a solution fails if people lack compatible devices, time, language support, or a way to recover access.",
+        "Add ethical safeguards by collecting no more verification data than needed and offering accessible help instead of exclusion.",
+        "End with clear reporting and response guidance. Awareness and official support are safer than attempting technical investigation alone.",
       ],
       explanation:
-        "Unique passwords stop breach dominoes; managers make them usable; 2FA blocks many stolen-password logins; phishing still tries to bypass all of it.",
+        "A defensible security recommendation connects threat, control, feasibility, and ethics. This is awareness depth; Cybersecurity goes deeper into technical defense.",
     },
     {
       id: "dl11-debug",
@@ -698,18 +698,18 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl11-predict",
       kind: "predict",
-      title: "Reuse risk",
+      title: "Recommendation outcome",
       prompt: "Predict the most likely security outcome.",
       scenario:
-        "Same password used for a gaming site, school email, and a shopping account.\nGaming site announces a breach; password hashes leaked.\nShopping account has no 2FA.\nAttackers try leaked passwords on other popular sites.",
+        "Student portal has password-only login.\nMany students share family devices and some do not have reliable phone service.\nThe school wants fewer account takeovers without excluding students.\nA proposal adds MFA plus backup codes and a staffed recovery option.",
       acceptedAnswers: [
-        "other accounts get hacked",
-        "credential stuffing succeeds",
-        "email or shopping account compromised",
-        "reused password unlocks more accounts",
+        "reduces takeovers with accessible support",
+        "safer and feasible",
+        "mfa plus recovery",
+        "layered account security",
       ],
       explanation:
-        "Credential stuffing tests leaked passwords everywhere you reused them. One breach becomes many takeovers without unique passwords and 2FA.",
+        "MFA reduces the harm from stolen passwords, while backup codes and staffed recovery address access constraints. It is stronger than a password-only rule without being needlessly exclusionary.",
       placeholder: "What happens next?",
       imageSrc: "/images/lessons/dl-ex-phishing.png",
       imageAlt: "Warning about reused passwords after a data breach",
@@ -720,37 +720,37 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl12-parsons",
       kind: "parsons",
-      title: "Privacy pass",
+      title: "Privacy tradeoff review",
       prompt:
-        "Before installing a new app, put a privacy review in order.",
+        "A school is considering a new wellness app. Put an ethical privacy review in order.",
       languageLabel: "process",
       lines: [
-        "Ask what data the app actually needs for its job",
-        "Check permission requests (camera, mic, contacts, location)",
-        "Review cookie/tracking choices in browser or app settings",
-        "Limit oversharing in profiles and posts tied to the account",
-        "Revisit permissions later and revoke what you no longer need",
+        "Define the service benefit and the data it proposes to collect automatically",
+        "Identify privacy, equity, safety, and economic risks for affected people",
+        "Compare less invasive ways to provide the same benefit",
+        "Set limits for consent, access, security, sharing, and retention",
+        "Explain the policy and provide review, correction, or opt-out paths",
       ],
       lineExplanations: [
-        "Ask what data the app actually needs for its job before you install or grant access. A flashlight doesn't need contacts; questioning purpose sets the privacy baseline. Cause: clear function; effect: you can spot overreach.",
-        "Check permission requests for camera, mic, contacts, and location against that need. Excess permissions expand what the app can collect if compromised or sold. Matching permission to function is the practical privacy filter.",
-        "Review cookie and tracking choices in browser or app settings so you aren't accepting all trackers by default. Trackers stitch browsing into ad profiles across sites. This step limits the trail after the app is on your device.",
-        "Limit oversharing in profiles and posts tied to the account — address, schedule, empty-house vacation dates. Permissions don't stop what you volunteer publicly. Cause: public personal details; effect: easier scams or physical risk.",
-        "Revisit permissions later and revoke what you no longer need. Privacy is ongoing, not a one-time install decision. Revoking unused access shrinks your exposure as habits and apps change.",
+        "Start with a specific benefit and data inventory. Automated collection can be useful, so evaluation should identify rather than assume its purpose.",
+        "Then identify harms: breaches, inaccurate inference, surveillance, unequal access, and data sharing can affect groups differently.",
+        "Compare alternatives before accepting broad collection. Data minimization can often deliver the service without precise location, contacts, or indefinite tracking.",
+        "Build safeguards into the design: meaningful consent, narrow access, encryption, limited sharing, and a defined retention period.",
+        "Finish with transparency and accountability. People need understandable choices and a path to review, correct, or challenge harmful data practices.",
       ],
       explanation:
-        "Privacy is ongoing: minimize data, question permissions, manage cookies/trackers, and avoid volunteering extras that apps didn't need.",
+        "Privacy evaluation weighs benefits against social, economic, safety, legal, and ethical risks—then recommends proportionate safeguards.",
     },
     {
       id: "dl12-debug",
       kind: "debug",
-      title: "Overshare bug",
+      title: "Collection blind spot",
       prompt: "This privacy setup is broken. Spot the mistake.",
       contentLabel: "Buggy settings",
       buggyContent:
-        "Flashlight app: allowed Contacts, Mic, Location Always, full photo library\nBrowser: Accept all cookies on every site\nBio: full home address, class schedule, vacation dates while house is empty\nAttitude: \"If I have nothing to hide, permissions don't matter.\"",
+        "Wellness app: collects mood, sleep, precise location, contacts, and full browsing history forever\nPolicy: one long consent screen; data may be shared with unnamed partners\nAttitude: \"The service might help, so more data is always better.\"",
       choices: [
-        "Excess permissions, blanket cookies, and public personal details create real risk",
+        "The proposal ignores necessity, meaningful consent, retention, and risks from linking sensitive data",
         "Flashlight apps legally require contacts and always-on location",
         "Posting vacation dates publicly always improves home security",
         "Accepting all cookies deletes your data from advertisers",
@@ -758,25 +758,25 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       correctIndex: 0,
       hint: "Does a flashlight need your contacts — and who can use an empty-house post?",
       explanation:
-        "Permissions should match function. Cookies enable tracking across sites. Oversharing schedules and addresses helps scammers and thieves — privacy isn't only for people with secrets.",
+        "Potential benefit does not justify unlimited collection. A defensible policy limits data to the stated purpose and gives people real safeguards.",
       imageSrc: "/images/lessons/dl-ex-privacy.png",
       imageAlt: "Phone permission prompts and privacy toggles",
     },
     {
       id: "dl12-predict",
       kind: "predict",
-      title: "Cookie trail",
+      title: "Policy outcome",
       prompt: "Predict what advertisers can do more easily after this choice.",
       scenario:
-        "Student visits three shopping sites and a news site in one evening.\nOn each, they click \"Accept all\" for cookies/trackers.\nThey use the same browser profile, not private mode.\nLater, unrelated sites show ads for the exact products they browsed.",
+        "A transit app needs location to provide turn-by-turn directions.\nIt requests location only while navigation is active, explains the purpose, and deletes route history after a short period.\nUsers can review settings later.\nThe app does not collect contacts or browsing history.",
       acceptedAnswers: [
-        "track across sites",
-        "cross-site tracking",
-        "targeted ads follow them",
-        "advertisers follow browsing",
+        "data minimization",
+        "proportionate collection",
+        "privacy-protective design",
+        "limited data collection",
       ],
       explanation:
-        "Third-party cookies/trackers stitch browsing into a profile. Accept-all makes cross-site targeting easier; limiting trackers reduces that trail.",
+        "The policy connects collection to a clear function, limits timing and retention, and avoids unrelated data. It provides useful service with fewer privacy costs.",
       placeholder: "What can they do?",
       imageSrc: "/images/lessons/dl-ex-privacy.png",
       imageAlt: "Browser cookie consent and cross-site tracking illustration",
@@ -787,16 +787,16 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl13-parsons",
       kind: "parsons",
-      title: "Boundary plan",
+      title: "Agency experiment",
       prompt:
         "Sleep and focus have been slipping. Reorder a realistic tech-habits reset.",
       languageLabel: "process",
       lines: [
-        "Notice which apps steal time, sleep, or mood",
-        "Set concrete boundaries (no-phone wind-down, app limits, focus blocks)",
-        "Change the environment (charger outside bedroom, notifications off)",
-        "Replace scroll time with one offline or restorative option",
-        "Review after a week and adjust what actually stuck",
+        "Name the goal and the benefit this computing practice provides",
+        "Collect evidence about its focus, sleep, attention, or ergonomic cost",
+        "Design one condition change (defaults, notifications, workspace, or routine)",
+        "Test the strategy while preserving the useful part of the practice",
+        "Review evidence after a week and refine the strategy",
       ],
       lineExplanations: [
         "Notice which apps steal time, sleep, or mood before you rewrite your whole routine. Awareness names the real competitors so boundaries aren't vague. Cause: specific drains identified; effect: a target for change.",
@@ -806,18 +806,18 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Review after a week and adjust what actually stuck. Healthy tech use is iterative, not a one-shot vow. Feedback lets you keep what works and rewrite what didn't.",
       ],
       explanation:
-        "Healthy tech use is designed, not wished: awareness → boundaries → environment → replacement habits → iterate. Comparison feeds need the same intentional limits.",
+        "Personal agency is an evidence loop: evaluate the benefit and cost, redesign conditions, test, then refine. The aim is not to reject technology but to use it on purpose.",
     },
     {
       id: "dl13-debug",
       kind: "debug",
-      title: "Sleep myth",
-      prompt: "This wellbeing plan won't work. What's the bug?",
+      title: "One-size-fits-all myth",
+      prompt: "This wellbeing plan misses the evaluation step. What's the bug?",
       contentLabel: "Buggy plan",
       buggyContent:
         "Goal: better sleep and less comparison stress\nPlan: scroll in bed until 2 a.m. \"to relax,\" keep all notifications on overnight, measure self-worth by likes, delete nothing — \"discipline alone will fix it without changing settings.\"",
       choices: [
-        "Late-night scrolling, constant alerts, and like-based worth need boundary and environment changes",
+        "It treats all use as harmful and never identifies the desired benefit, context, or evidence for whether a strategy works",
         "Notifications improve deep sleep by keeping the brain alert",
         "Comparing likes is proven to increase REM sleep",
         "Phone chargers in bed are required for healthy circadian rhythm",
@@ -830,15 +830,15 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl13-predict",
       kind: "predict",
-      title: "Night effect",
-      prompt: "Predict the most likely next-day effect.",
+      title: "Agency evidence",
+      prompt: "Predict what evidence would show this strategy needs revision.",
       scenario:
         "Weeknight routine: phone in bed, bright screen, social feed until past midnight.\nAlarm for early class.\nNo Do Not Disturb; group chats ping overnight.\nSame pattern repeats most school nights.",
       acceptedAnswers: [
         "tired and unfocused",
-        "sleep debt / fatigue",
         "worse focus next day",
-        "groggy and distracted",
+        "sleep is disrupted",
+        "strategy needs revision",
       ],
       explanation:
         "Late light, social stimulation, and overnight pings cut sleep quality. Next-day focus, mood, and performance usually take the hit.",
@@ -850,16 +850,16 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl14-parsons",
       kind: "parsons",
-      title: "Debug steps",
+      title: "Reusable job-aid",
       prompt:
         "Wi-Fi works for others but your laptop won't load a site. Reorder systematic troubleshooting.",
       languageLabel: "process",
       lines: [
-        "Define the problem precisely (what fails, since when, on which device)",
-        "Check the obvious (cables, Wi-Fi icon, airplane mode, correct network)",
-        "Isolate variables (try another site, device, or network)",
-        "Apply one fix at a time (refresh, restart, forget/rejoin Wi-Fi)",
-        "Document what worked or escalate with clear details",
+        "Define the symptom, expected behavior, and recent change",
+        "Isolate the app, operating system, device, and network layers",
+        "Research an official source and an independent credible source",
+        "Run one safe test at a time and record the result",
+        "Publish steps, evidence, and an escalation path another person can reuse",
       ],
       lineExplanations: [
         "Define the problem precisely — what fails, since when, on which device — before changing settings. Vague \"the internet is broken\" leads to random panic fixes. A clear symptom statement focuses every later test.",
@@ -869,7 +869,7 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Document what worked or escalate with clear details for the next helper. Without notes, the same failure returns and support starts from zero. Recording the fix closes the troubleshooting loop.",
       ],
       explanation:
-        "Pros don't random-click. They define, check basics, isolate, change one thing at a time, then record the fix — same mindset as debugging code.",
+        "A strong troubleshooting guide lets another user reproduce the diagnosis: define, isolate layers, compare sources, test one variable, and document evidence plus escalation.",
     },
     {
       id: "dl14-debug",
@@ -913,16 +913,16 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl15-parsons",
       kind: "parsons",
-      title: "Pro presence",
+      title: "Connected-work readiness",
       prompt:
         "You're preparing for internships or a first job. Reorder a career-ready digital setup.",
       languageLabel: "process",
       lines: [
-        "Clean public profiles and choose a professional email address",
-        "Organize files and a simple portfolio or work samples folder",
-        "Practice core tools (docs, sheets, calendar, video meeting basics)",
-        "Set remote-work habits (mute/unmute, camera framing, shared agendas)",
-        "Keep communication timely and documented for teammates",
+        "Evaluate the access needs and constraints of a connected workplace",
+        "Build a professional presence and organized portfolio/work-samples folder",
+        "Choose productivity tools that fit the data, task, and collaborators",
+        "Set remote norms for agendas, accessible notes, ownership, and availability",
+        "Keep timely, searchable updates that teammates can reuse",
       ],
       lineExplanations: [
         "Clean public profiles and choose a professional email first — reviewers often search you before they open your samples. partyking2009@ and chaotic banners undercut otherwise strong skills. Cause: first impression online; effect: you look hireable before they meet you.",
@@ -932,7 +932,7 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Keep communication timely and documented for teammates so managers aren't left on read. Clear status beats \"idk lol\" when trust is the currency of remote work. Ongoing documentation closes the career-ready loop.",
       ],
       explanation:
-        "Career digital skills are presence + organization + tool fluency + remote etiquette. Spreadsheets and clear messages matter as much as any platform trend.",
+        "Connected workplaces create opportunity and access tradeoffs. Readiness combines professional presence, fit-for-purpose tools, and explicit norms that make remote collaboration dependable and inclusive.",
     },
     {
       id: "dl15-debug",
@@ -976,16 +976,16 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
     {
       id: "dl16-parsons",
       kind: "parsons",
-      title: "Toolkit audit",
+      title: "Impact action portfolio",
       prompt:
         "Capstone time: build your personal digital action plan. Reorder the audit.",
       languageLabel: "process",
       lines: [
-        "Inventory devices, accounts, files, and key habits",
-        "Score risks (security, privacy, footprint, wellbeing, collaboration)",
-        "Pick 3 high-impact fixes you can finish this week",
-        "Schedule habits (backups, updates, password/2FA checks, boundaries)",
-        "Revisit monthly and adjust the plan as school/work changes",
+        "Define a personal or community digital practice and its stakeholders",
+        "Gather evidence across systems, data, networks, and social impacts",
+        "Evaluate benefits, harms, and access tradeoffs",
+        "Recommend one action with an owner, timeline, and success measure",
+        "Review evidence on the scheduled date and refine the portfolio",
       ],
       lineExplanations: [
         "Inventory devices, accounts, files, and key habits first so the audit is based on reality, not \"I'm fine.\" You can't prioritize blind spots you haven't listed. Cause: complete map; effect: risks become visible.",
@@ -995,18 +995,18 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Revisit monthly and adjust as school or work changes. New accounts, devices, and stressors shift the risk map. Iteration keeps the personal digital action plan useful instead of outdated notes.",
       ],
       explanation:
-        "Fluency isn't one quiz — it's a living toolkit: inventory → prioritize → act → maintain. Small recurring habits beat one dramatic cleanup.",
+        "Impact evaluation is a living portfolio: define → gather evidence → weigh tradeoffs → act → measure and revise. It connects CS, DA, NI, and IC themes.",
     },
     {
       id: "dl16-debug",
       kind: "debug",
-      title: "Plan gap",
-      prompt: "This \"capstone plan\" looks complete but isn't. Spot the bug.",
+      title: "Portfolio gap",
+      prompt: "This capstone portfolio looks complete but cannot support a recommendation. Spot the bug.",
       contentLabel: "Buggy action plan",
       buggyContent:
         "Audit notes: \"I'm fine.\"\nFixes: none scheduled\nSecurity: still reusing one password, 2FA off\nFiles: no backup\nFootprint: never searched own name\nWellbeing: phone in bed every night\nClosing line: \"I'll remember all 16 lessons mentally — writing a plan is unnecessary.\"",
       choices: [
-        "No concrete fixes or schedule; real risks remain unaddressed without a written plan",
+        "It has no stakeholders, evidence, tradeoff analysis, success measure, or review date, so the recommendation cannot be evaluated",
         "Mental notes automatically enable 2FA on every account",
         "Skipping backups is best practice for capstone portfolios",
         "Searching your own name is illegal in most states",

@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Mail, ShieldAlert } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Notice } from "@/components/ui/notice";
 
 export default function HelpPage() {
   const supportEmail = "support@kanamacademy.com";
@@ -21,47 +22,46 @@ export default function HelpPage() {
         </p>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <section className="rounded-2xl border border-emerald-200 bg-emerald-50/80 p-5 md:col-span-2">
-            <h2 className="text-base font-extrabold tracking-tight text-slate-900">
-              Parents &amp; family accounts
-            </h2>
-            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-700">
-              <li>
-                <strong>One parent login</strong> — kids are profiles under your account, not
-                separate emails. Create one at{" "}
-                <Link
-                  className="font-semibold text-emerald-800 underline underline-offset-2"
-                  href="/welcome/parent"
-                >
-                  /welcome/parent
-                </Link>
-                .
-              </li>
-              <li>
-                <strong>Switch who is learning</strong> — open{" "}
-                <Link
-                  className="font-semibold text-emerald-800 underline underline-offset-2"
-                  href="/parent"
-                >
-                  Parent hub
-                </Link>
-                , pick a child (enter their PIN if set), then go to lessons. The header shows
-                “Learning as …” when a child is active.
-              </li>
-              <li>
-                <strong>Forgot a kid PIN?</strong> Sign in as the parent → Parent hub → Reset PIN
-                for that child. PINs are not the same as your login password.
-              </li>
-              <li>
-                <strong>Progress is per child.</strong> Resetting progress on the dashboard only
-                affects the active kid profile.
-              </li>
-              <li>
-                <strong>Already have a student account?</strong> Open Parent hub → Convert to
-                family account to keep billing and turn your current profile into the first kid.
-              </li>
-            </ul>
-          </section>
+          <div className="md:col-span-2">
+            <Notice variant="info" title="Parents & family accounts">
+              <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-slate-700">
+                <li>
+                  <strong>One parent login</strong> — kids are profiles under your account, not
+                  separate emails. Create one at{" "}
+                  <Link
+                    className="font-semibold text-[var(--brand-2)] underline underline-offset-2"
+                    href="/welcome/parent"
+                  >
+                    /welcome/parent
+                  </Link>
+                  .
+                </li>
+                <li>
+                  <strong>Switch who is learning</strong> — open{" "}
+                  <Link
+                    className="font-semibold text-[var(--brand-2)] underline underline-offset-2"
+                    href="/parent"
+                  >
+                    Parent hub
+                  </Link>
+                  , pick a child (enter their PIN if set), then go to lessons. The header shows
+                  “Learning as …” when a child is active.
+                </li>
+                <li>
+                  <strong>Forgot a kid PIN?</strong> Sign in as the parent → Parent hub → Reset PIN
+                  for that child. PINs are not the same as your login password.
+                </li>
+                <li>
+                  <strong>Progress is per child.</strong> Resetting progress on the dashboard only
+                  affects the active kid profile.
+                </li>
+                <li>
+                  <strong>Already have a student account?</strong> Open Parent hub → Convert to
+                  family account to keep billing and turn your current profile into the first kid.
+                </li>
+              </ul>
+            </Notice>
+          </div>
 
           <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-base font-extrabold tracking-tight text-slate-900">
@@ -102,19 +102,10 @@ export default function HelpPage() {
             </ul>
           </section>
 
-          <section className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
-            <div className="flex items-start gap-3">
-              <div className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-amber-200/70 text-amber-900">
-                <ShieldAlert className="h-5 w-5" />
-              </div>
-              <div>
-                <h2 className="text-base font-extrabold tracking-tight text-slate-900">Quick safety note</h2>
-                <p className="mt-1 text-sm text-slate-700">
-                  Never share your password in chat. If you need help, share only your email and class code.
-                </p>
-              </div>
-            </div>
-          </section>
+          <Notice variant="lock" title="Quick safety note">
+            Never share your password in chat. If you need help, share only your email and class
+            code.
+          </Notice>
         </div>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -126,7 +117,7 @@ export default function HelpPage() {
 
           <Button
             asChild
-            className="h-11 bg-[rgb(var(--accent-rgb)/0.92)] text-amber-950 hover:bg-[rgb(var(--accent-rgb)/0.98)]"
+            className="h-11 bg-[rgb(var(--accent-rgb)/0.92)] text-slate-950 hover:bg-[rgb(var(--accent-rgb)/0.98)]"
           >
             <a href={`mailto:${supportEmail}?subject=${encodeURIComponent("Kanam Academy help")}`}>
               <Mail className="h-4 w-4" />

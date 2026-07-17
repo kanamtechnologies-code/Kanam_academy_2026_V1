@@ -2,10 +2,10 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson14: AILessonConfig = {
   id: "dl-14",
-  title: "14. Troubleshoot Like a Tech Pro",
-  goal: "Solve everyday technology problems with a calm, logical process — the same problem-solving pros use — and know how to find help and ask good questions when college portals, job sites, or shared docs break.",
+  title: "14. Systematic Troubleshooting Others Can Reuse",
+  goal: "Develop a reusable troubleshooting job-aid that isolates app, operating system, device, and network layers; compares credible sources; and documents steps others can test.",
   xpReward: 700,
-  badge: "Problem Solver",
+  badge: "Troubleshoot Designer",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/13",
   nextHref: "/learn/digital/15",
@@ -79,15 +79,15 @@ export const digitalLesson14: AILessonConfig = {
       {
         id: "process",
         kicker: "Concept",
-        title: "A systematic process you can run every time",
+        title: "Develop a job-aid others can run",
         body: `When something breaks, resist the urge to randomly click. Run these steps in order:\n\n**1. Describe the problem clearly.** What exactly is happening? "It's broken" isn't useful. "When I open the app, it shows a white screen and closes after 3 seconds" is gold.\n\n**2. Ask: what changed?** Did you just update something, install an app, plug in a new device, or change a setting? New problems usually have a recent cause.\n\n**3. Isolate it.** Does it happen *everywhere* or just one place? If only one app has no internet but others work, the problem is that app — not your Wi-Fi. Narrowing *where* the problem lives is half the battle.\n\n**4. Try the simplest fixes first.** In order: restart/reboot the device, check connections (cables, Wi-Fi), make sure it's charged, and check for updates. These cheap, fast steps fix a huge share of problems.\n\n**Browser acting weird after you installed something?** A new **browser extension** (ad blocker, coupon tool, theme) can break sites — login pages, college portals, and Google Docs included. Disable extensions one at a time (or turn them all off), refresh, and retest. If the problem started right after an install, that's a strong clue.\n\n**5. Search the EXACT error message.** Copy the precise wording into a search engine. Odds are someone has hit the same error and posted the fix.\n\nWork top to bottom. Don't jump to dramatic fixes when a restart would've done it.`,
         bullets: [
           "**Describe** the problem precisely.",
           "Ask **what changed** recently.",
-          "**Isolate** it — one app/device, or everywhere?",
+          "**Isolate layers** — app, operating system, device, or network?",
           "Try **simple fixes first** (restart, connections, charge, update).",
           "**Disable new browser extensions** if a site broke after install.",
-          "**Search the exact error message.**",
+          "**Compare credible sources** and document the tested result.",
         ],
         image: "/images/lessons/dl-14-2.png",
         imageAlt: "A simple five-step troubleshooting flowchart: describe, what changed, isolate, simple fixes, search the error",
@@ -350,16 +350,17 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
     ],
   },
   bigIdeas: [
-    "Troubleshooting is a **skill, not a talent** — stay calm and assume it's fixable.",
-    "Run a **process**: describe it, ask what changed, isolate it, try simple fixes first, then search the exact error.",
-    "Error messages are **clues**, restarting clears stuck states, and a **good help request** says what you did, expected, saw, and tried — including for portals and shared docs.",
+    "Troubleshooting is a **reusable process**: define the symptom, form a hypothesis, and change one variable at a time.",
+    "Isolate the **app, operating system, device, and network** layers before recommending a fix.",
+    "A strong job-aid compares credible sources and records evidence, safe steps, results, and an escalation path for the next user.",
   ],
   keyTerms: [
-    { term: "Troubleshooting", definition: "A calm, systematic process for finding and fixing the cause of a technology problem." },
+    { term: "Troubleshooting job-aid", definition: "A documented, reusable guide that helps another person diagnose, test, and safely escalate a technology problem." },
     { term: "Reboot / restart", definition: "Turning a device off and on to clear stuck temporary states and start fresh — without deleting your files." },
     { term: "Error message", definition: "A note from the computer describing what went wrong; a clue to read and search, not an insult to fear." },
     { term: "Decomposition", definition: "Breaking one big problem into smaller, checkable parts — a core computational-thinking skill." },
-    { term: "Isolating the problem", definition: "Narrowing down whether an issue happens everywhere or in just one app or device." },
+    { term: "Layer isolation", definition: "Testing whether an issue originates in an app, operating system, device component, or network." },
+    { term: "Evidence log", definition: "A record of symptoms, tests, sources, changes, results, and next steps that makes troubleshooting reproducible." },
     { term: "Good help request", definition: "A request that states what you were doing, what you expected, what actually happened, and what you already tried." },
   ],
   realWorld:
@@ -472,7 +473,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
   ],
   reflection: {
     prompt:
-      "Think of a tech problem you've faced (or one you have now) — Wi-Fi, a portal upload, a shared Doc, or a frozen app. Walk it through the process: how would you describe it, what changed, how could you isolate it, and what simple fixes would you try first?",
-    placeholder: "Example: My game keeps crashing. It started after an update… I'd check if other apps crash too, then restart and reinstall…",
+      "Create a short troubleshooting job-aid for a real issue (Wi-Fi, portal upload, shared document, or frozen app). Include: a precise symptom; tests that isolate app/OS/device/network layers; two credible sources to compare; one safe test at a time; and what a future user should document or do if it still fails.",
+    placeholder: "Symptom: … Layer tests: … Sources: official support + … Test/result log: … Escalate when: …",
   },
 };

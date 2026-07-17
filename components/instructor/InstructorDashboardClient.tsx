@@ -17,6 +17,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Notice } from "@/components/ui/notice";
 import { readUserRole } from "@/lib/roles";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
@@ -259,9 +260,9 @@ export function InstructorDashboardClient() {
               </DialogHeader>
 
               {createError ? (
-                <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+                <Notice compact variant="danger" role="alert">
                   {createError}
-                </div>
+                </Notice>
               ) : null}
 
               <div className="grid gap-3">
@@ -306,8 +307,10 @@ export function InstructorDashboardClient() {
       </div>
 
       {error ? (
-        <div className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-800">
-          {error}
+        <div className="mt-6">
+          <Notice variant="danger" role="alert">
+            {error}
+          </Notice>
         </div>
       ) : null}
 
@@ -507,9 +510,9 @@ export function InstructorDashboardClient() {
           </DialogHeader>
 
           {deleteError ? (
-            <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+            <Notice compact variant="danger" role="alert">
               {deleteError}
-            </div>
+            </Notice>
           ) : null}
 
           <DialogFooter className="gap-2 sm:gap-0">

@@ -2,10 +2,10 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson15: AILessonConfig = {
   id: "dl-15",
-  title: "15. Digital Skills for Work & Career",
-  goal: "Build the digital skills employers expect in almost every modern job — professional communication and email, a positive online presence, productivity and spreadsheet basics, remote collaboration, and readiness for college apps, internships, and first jobs.",
+  title: "15. Computing, Careers & Connected Workplaces",
+  goal: "Evaluate how computing connectivity affects career opportunity and workplace practices, then apply professional presence, productivity tools, and remote-collaboration norms for high school-to-work transitions.",
   xpReward: 750,
-  badge: "Career Ready",
+  badge: "Workplace Ready",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/14",
   nextHref: "/learn/digital/16",
@@ -15,7 +15,7 @@ export const digitalLesson15: AILessonConfig = {
       {
         id: "intro",
         kicker: "Start here",
-        title: "What you'll learn today",
+        title: "Connected work changes opportunity and expectations",
         body: `Whatever you end up doing — nurse, designer, engineer, mechanic, musician, business owner — you'll use digital tools every single day. The skills in this lesson are the ones employers quietly assume you already have. Today you'll get a head start on them.\n\nHere's our roadmap:\n\n• **Why digital skills matter in *every* career** — not just "tech jobs."\n• **A positive professional online presence** — your footprint and a simple portfolio.\n• **The productivity suite** — docs, slides, and especially **spreadsheets** (with real formulas).\n• **Calendars, remote collaboration, and data literacy.**\n• **Professional email** for teachers, counselors, colleges, and employers.\n• **Using AI at work honestly** and keeping a **growth mindset** as tech changes.\n\nThink of this as a sneak peek at "adulting" in a digital workplace — especially if you're aiming for college, an internship, a first job, or a career *in tech*.`,
         image: "/images/lessons/dl-15.png",
         imageAlt: "A teen at a laptop with a spreadsheet, a video-call window, and a tidy online profile",
@@ -47,7 +47,7 @@ export const digitalLesson15: AILessonConfig = {
       {
         id: "everywhere",
         kicker: "The big idea",
-        title: "Digital skills aren't just for 'tech jobs'",
+        title: "Connectivity reshapes careers — unevenly",
         body: `It's tempting to think computer skills only matter if you want to be a programmer. That hasn't been true for a long time.\n\nA nurse charts patient data in software. A chef manages orders and inventory on a tablet. A farmer tracks crops in spreadsheets. A barber books clients in an app. A small-business owner does invoices, email, and social media. Almost every modern job runs on digital tools.\n\nThat's why digital skills are the new **"reading and writing" of the workplace** — a baseline everyone is assumed to have. No one lists "can read" on a résumé; soon "can use a spreadsheet and send a clear email" will feel just as basic.\n\nThe good news: you've already built a lot of this in earlier lessons (clear communication, online safety, judging information). Now we connect those to the world of work — with special focus on what it means to work **in tech**, where these skills go from "nice" to "essential."`,
         callout: {
           label: "Common misconception",
@@ -172,7 +172,7 @@ export const digitalLesson15: AILessonConfig = {
       {
         id: "collab",
         kicker: "Concept",
-        title: "Calendars, remote collaboration, and reading data",
+        title: "Remote collaboration is a shared system",
         body: `Modern work is also about *coordinating* with people, often from different places. A few more workplace essentials:\n\n• **Calendars & scheduling.** Digital calendars hold meetings, deadlines, and reminders. Managing your own time — blocking focus time, not double-booking — is a skill bosses notice immediately. Seniors: put college deadlines, scholarship due dates, and interview times on a calendar you actually check.\n• **Remote-collaboration tools.** Teams work together using chat tools (like **Slack** or **Microsoft Teams**), video calls (like **Zoom**), and **shared files** that multiple people edit at once. Knowing these means you can join a team and contribute on day one.\n• **Staying organized.** Clear file names, sensible folders, and saving to the cloud (from earlier lessons) keep a whole team unblocked.\n• **Basic data literacy.** A lot of work involves reading a chart or a number *critically*: What does this actually show? Is the comparison fair? Could it mislead? You don't need to be a statistician — just thoughtful.\n\nThese are the everyday gears of a digital workplace. Being comfortable with them lets you focus on doing great work instead of fighting the tools.`,
         callout: {
           label: "Pro tip",
@@ -351,16 +351,17 @@ B6 instantly becomes 66    # you re-do ZERO math by hand`,
     ],
   },
   bigIdeas: [
-    "Digital skills are the **'reading and writing' of work** — needed in nearly every career, not just tech.",
-    "A clean **online presence**, a **portfolio**, and clear **professional email** help you get hired; spreadsheets with \`=SUM()\`/\`=AVERAGE()\`/\`=IF()\` do real work and **auto-update**.",
-    "Use **AI honestly** and keep **upskilling** — the top career skill is learning how to learn.",
+    "Computing connectivity changes career access, productivity, and collaboration — with benefits and equity tradeoffs worth evaluating.",
+    "A professional presence, portfolio, clear communication, and fit-for-purpose productivity tools make work visible, organized, and trustworthy.",
+    "Remote teams rely on explicit norms: timely acknowledgement, accessible documentation, clear ownership, and respect for availability.",
   ],
   keyTerms: [
     { term: "Productivity suite", definition: "A set of workplace tools for documents, presentations (slides), and spreadsheets." },
     { term: "Spreadsheet", definition: "A grid of rows, columns, and cells that stores data and computes with formulas — a super-powered calculator + table." },
     { term: "Formula (=SUM / =AVERAGE / =IF)", definition: "An instruction in a spreadsheet cell that calculates automatically; =SUM() adds a range, =AVERAGE() averages it, and =IF() checks a condition." },
     { term: "Professional online presence", definition: "What employers find when they search you — your footprint, portfolio, and profiles like LinkedIn." },
-    { term: "Remote collaboration", definition: "Working with a team across locations using chat (Slack/Teams), video (Zoom), and shared files." },
+    { term: "Connected workplace", definition: "A workplace where networked tools connect people, information, customers, and services across locations." },
+    { term: "Remote collaboration norms", definition: "Shared expectations for clear updates, ownership, documentation, accessibility, response time, and respectful use of others' time." },
     { term: "Upskilling", definition: "Regularly learning new tools and skills throughout your career as technology changes." },
   ],
   realWorld:
@@ -473,7 +474,7 @@ B6 instantly becomes 66    # you re-do ZERO math by hand`,
   ],
   reflection: {
     prompt:
-      "Which career-ready digital skill from this lesson do you most want to build first — spreadsheets, a portfolio, a clean online presence, professional email, or collaboration tools? Why that one, and what's a small first step?",
-    placeholder: "Example: I'll learn =SUM() and =AVERAGE() by making a spreadsheet to track my savings, so I get comfortable before I ever need it for a job…",
+      "Evaluate one connected-work practice you expect to use in a class, job, or internship. Name one benefit and one tradeoff (including access or equity), then write a professional norm or tool choice that makes collaboration clearer and more inclusive.",
+    placeholder: "Practice: shared project chat. Benefit: … Tradeoff: … Norm/tool choice: I will … because …",
   },
 };

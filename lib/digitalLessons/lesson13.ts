@@ -2,10 +2,10 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson13: AILessonConfig = {
   id: "dl-13",
-  title: "13. Healthy Tech Habits & Digital Wellbeing",
-  goal: "Build healthy technology habits — balancing screen time, protecting your focus and sleep, caring for your mental health, and using your body well — including during college apps, exams, and first-job remote work.",
+  title: "13. Computing Impacts on Wellbeing & Personal Agency",
+  goal: "Evaluate how computing affects focus, sleep, attention, ergonomics, and connection; then design and refine strategies that preserve benefits while reducing avoidable harms.",
   xpReward: 650,
-  badge: "Balance Keeper",
+  badge: "Agency Builder",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/12",
   nextHref: "/learn/digital/14",
@@ -355,20 +355,21 @@ export const digitalLesson13: AILessonConfig = {
     ],
   },
   bigIdeas: [
-    "Not all screen time is equal — **creating and connecting** beats passive scrolling.",
-    "Apps are **designed** to capture your attention using tricks like infinite scroll and variable rewards, so set up your phone to fight back for you.",
-    "Protect your **sleep, focus, mood, and body**: wind down, single-task, and take movement and eye breaks — especially during high-stakes school and work seasons.",
+    "Evaluate a computing practice by its **purpose, benefit, cost, setting, and effect on different people** — not minutes alone.",
+    "Personal agency means noticing how defaults, recommendations, alerts, and physical setup shape behavior, then changing conditions to support a chosen goal.",
+    "Purposeful computing can support learning, creativity, connection, and accessibility; test and refine strategies that protect focus, sleep, attention, and ergonomics.",
   ],
   keyTerms: [
-    { term: "Digital wellbeing", definition: "Using technology in a way that supports — rather than harms — your mental and physical health." },
-    { term: "Active vs. passive screen time", definition: "Active = creating, learning, or connecting; passive = scrolling and watching on autopilot." },
-    { term: "Attention / notifications", definition: "Your limited daily focus, which apps try to capture — often through buzzing notifications and the dopamine loop." },
+    { term: "Personal agency", definition: "The capacity to make informed choices and shape conditions around your goals, rather than relying only on willpower." },
+    { term: "Computing impact", definition: "A change a computing practice creates for people, routines, relationships, access, or working conditions." },
+    { term: "Attention environment", definition: "The notifications, interface defaults, devices, people, and spaces competing for your focus." },
+    { term: "Purposeful use", definition: "Technology use chosen for a stated benefit, such as creating, learning, coordinating, connecting, or accessing support." },
     { term: "FOMO", definition: "'Fear of missing out' — the anxious feeling that something better is happening without you." },
     { term: "Ergonomics", definition: "Setting up your tech and your body (posture, screen height) so long-term use doesn't hurt you." },
     { term: "20-20-20 rule", definition: "Every 20 minutes, look at something 20 feet away for 20 seconds to rest your eyes." },
   ],
   realWorld:
-    "Tech companies hire focus and attention experts, but so do the people who thrive: workers who protect deep-focus time, sleep well, and take breaks consistently do better and burn out less. Learning this now is a career skill, not just a teen one — and it pays off during college apps and first jobs.",
+    "Students and workers increasingly negotiate notification norms, remote-work boundaries, accessible tools, and ergonomic workspaces. The durable skill is evaluating a specific practice, preserving its benefits, and redesigning conditions when its costs outweigh them.",
   quiz: [
     {
       id: "q1",
@@ -477,7 +478,7 @@ export const digitalLesson13: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Pick ONE healthy-tech habit from this lesson to start this week (for example: charging your phone outside your room, a 30-minute focus block for homework or college apps, or turning off non-essential notifications). Which will you choose, and when will you do it?",
-    placeholder: "Example: I'll charge my phone in the kitchen at night so I stop scrolling in bed and sleep better…",
+      "Evaluate one computing practice in your week. What benefit does it provide, what cost do you observe (focus, sleep, attention, connection, or ergonomics), and what agency strategy will you test? State what evidence you will review after a week and how you will refine the plan.",
+    placeholder: "Practice: … Benefit: … Cost/context: … Strategy: … Evidence after one week: … Revision if needed: …",
   },
 };

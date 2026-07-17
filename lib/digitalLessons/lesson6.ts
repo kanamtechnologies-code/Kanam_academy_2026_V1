@@ -2,10 +2,10 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson6: AILessonConfig = {
   id: "dl-6",
-  title: "6. Collaborate in the Cloud",
-  goal: "Work together effectively using shared documents, comments, version history, and video meetings — the way modern schools and workplaces operate.",
+  title: "6. Collaboration Across Teams, Cultures & Careers",
+  goal: "Compare collaboration tools and methods that increase connectivity across cultures and career fields; use comments, version history, permissions, and meetings to coordinate responsible teamwork.",
   xpReward: 300,
-  badge: "Team Player",
+  badge: "Connected Collaborator",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/5",
   nextHref: "/learn/digital/7",
@@ -15,8 +15,8 @@ export const digitalLesson6: AILessonConfig = {
       {
         id: "intro",
         kicker: "Start here",
-        title: "What you'll learn today",
-        body: `Group projects used to mean huddling around one laptop or emailing files back and forth until nobody knew which copy was real. Today, schools and workplaces run on the **cloud** — shared documents that live online, where a whole team can work at the same time from anywhere.\n\nHere's our roadmap:\n\n• **Real-time collaboration** — many people editing one living document.\n• **Permissions** — who can view, comment, or edit, and why "least access" is smart.\n• **Comments and suggestions** — disagreeing without deleting someone's work.\n• **Version history** — seeing who changed what, and undoing mistakes.\n• **Meeting etiquette + a kickoff checklist** — so group work (and internships) don't melt down.\n\nThis is exactly how remote teams build real products. Learn it now and you'll walk into your first job or internship already knowing how the work actually happens.`,
+        title: "Collaboration connects more than one room",
+        body: `Digital collaboration can connect a student team across class periods, a nonprofit with volunteers in several cities, or a workplace across time zones and cultures. The tool alone does not make that connection equitable or effective. Teams must compare tools, set access intentionally, document decisions, and make room for people with different schedules, languages, devices, and communication styles.\n\nYou will evaluate when to use shared documents, chat, task boards, comments, version history, and meetings. You will also practice collaboration habits that work in group projects, internships, and careers where teammates may not share the same location or background.`,
         image: "/images/lessons/dl-6.png",
         imageAlt: "Laptop showing a shared Google Doc with multiple named cursors editing live; phone with a video meeting thumbnail",
         callout: {
@@ -37,8 +37,8 @@ export const digitalLesson6: AILessonConfig = {
       {
         id: "glossary",
         kicker: "Let's break down the words",
-        title: "The words we'll use — in plain English",
-        body: `This lesson has a handful of terms. Here they are in everyday language so nothing trips you up later.\n\n• **Real-time collaboration** — several people editing the *same* document at the *same time*, live. You can watch each other type.\n• **Permissions** — what each person is *allowed* to do with a shared file: just look at it (view), leave notes (comment), or change it (edit).\n• **Comment** — a sticky note attached to a spot in the document. It doesn't change the text; it starts a conversation.\n• **Suggestion** — a *proposed* edit the author can accept or reject, instead of changing their words directly.\n• **Version history** — an automatic timeline of every change, showing who edited what and when — and letting you roll back.\n• **Shared drive** — one online folder the whole team uses to store and find files in a single place.\n\nGot the gist? Good. Now let's see how teams actually use these — starting with what "the cloud" really means here: files and programs that live on the internet, on **servers** in data centers, instead of only on one device. That's exactly what makes it possible for a whole team to reach and edit the same file at once.`,
+        title: "Vocabulary for connected work",
+        body: `• **Synchronous collaboration** — people working together at the same time, such as in a live meeting or co-editing session.\n• **Asynchronous collaboration** — people contributing on their own schedules through comments, recorded updates, or shared tasks.\n• **Permissions** — the access a person has to view, comment on, edit, or manage a file.\n• **Version history** — a record of changes that can be compared or restored.\n• **Decision log** — a short written record of what a team decided, why, and who owns the next step.\n• **Inclusive practice** — a team choice that reduces barriers caused by time zone, language, bandwidth, disability, role, or access to devices.`,
         callout: {
           label: "Tip",
           text: "You don't have to memorize these now. They'll make more sense once you see them in the examples coming up.",
@@ -47,14 +47,14 @@ export const digitalLesson6: AILessonConfig = {
       {
         id: "concept-1",
         kicker: "The big idea",
-        title: "A shared doc is a whiteboard everyone can write on at once",
-        body: `**Real-time collaboration** means several people can open the same document — in tools like **Google Docs** or **Microsoft 365** — and edit it together, live. You can literally watch your teammate's cursor move and type while you work in another paragraph.\n\nPicture a giant **whiteboard everyone can write on at the same time, from anywhere**. Instead of each person keeping their own copy, there's one true version that everyone shares. No emailing attachments. No "wait, which file is the newest?" Everyone is always looking at the latest version automatically — this is exactly what would have saved the group from the slide chaos in the story above.\n\nThis changes how teams work. You split up sections, write at the same time, and the document updates instantly for everyone. The document becomes a shared space, not a thing you pass around.`,
+        title: "Compare collaboration methods, not just apps",
+        body: `A shared document gives a team one source of truth, but it is not always the best method by itself.\n\nUse **live co-editing** for a short planning session or a problem that benefits from immediate discussion. Use **comments and suggestions** when people need time to review, translate, or think before responding. Use a **task board** when ownership and deadlines matter more than drafting. Use a **meeting** for complex decisions, then post a written summary for people who could not attend. Use **chat** for quick coordination—not as the only place where important decisions live.\n\nComparing these methods prevents a common access problem: requiring every teammate to be online at the same time, with the same bandwidth and confidence speaking up.`,
         callout: {
           label: "Common misconception",
           text: "Emailing files back and forth named things like \"essay_v2_FINAL_real.docx\" feels organized, but it causes version chaos — people edit different copies and good work gets lost. One shared doc avoids the whole mess.",
         },
         checkIn: {
-          prompt: "Your group keeps emailing 'report_v2_final' files and nobody knows which is newest. Why is one shared document better?",
+          prompt: "Your group keeps emailing 'report_v2_final' files and nobody knows which is newest. Why is a shared document usually the stronger starting point?",
           choices: [
             "Shared docs can't be edited",
             "Email is more expensive",
@@ -69,8 +69,8 @@ export const digitalLesson6: AILessonConfig = {
       {
         id: "concept-2",
         kicker: "Concept",
-        title: "Permissions: view, comment, or edit",
-        body: `When you share a document, you choose what other people are allowed to do. These are called **permissions**, and there are usually three levels:\n\n• **View** — the person can read it but not change anything.\n• **Comment** — the person can leave notes and suggestions but not edit the text directly.\n• **Edit** — the person can change the document however they want.\n\nA smart habit (used in real workplaces) is to grant the **least access someone needs** to do their job. If a classmate just needs to read your draft, give them "view," not "edit." If a teammate is helping revise, "comment" or "edit" makes sense. Less access means fewer accidental deletions and better security.\n\nYou can also share with specific people or with "anyone with the link." Sharing a link publicly is convenient but riskier — anyone who finds it gets in.`,
+        title: "Permissions are a participation decision",
+        body: `Permissions shape who can participate and who can be harmed by a mistake. **View** enables access to information. **Comment** enables feedback without changing the artifact. **Edit** enables direct contribution. Owners also need to consider who can invite others, download copies, or see private notes.\n\nGrant the least access needed, then revisit it as roles change. A mentor may need comment access; a teammate responsible for a section may need edit access; a public audience may need view access only. “Anyone with the link can edit” can be convenient, but it can exclude accountability and expose sensitive work.\n\nAccess also has an equity side: make sure the team does not assume everyone has the same account, device, bandwidth, or ability to join a live session. Offer an alternate way to review or contribute when needed.`,
         image: "/images/lessons/dl-6-2.png",
         imageAlt: "Laptop share dialog showing View, Comment, and Edit permission options for a cloud document",
         bullets: [
@@ -301,10 +301,10 @@ export const digitalLesson6: AILessonConfig = {
     ],
   },
   bigIdeas: [
-    "A **shared doc** is one living version everyone edits at once — no more emailing files around.",
-    "Set the right **permissions** (view/comment/edit) and grant the least access needed.",
-    "**Comments, suggestions, and version history** let teams disagree safely and undo mistakes.",
-    "A shared doc solves version chaos, not coordination — pair it with a real kickoff conversation.",
+    "Compare live, asynchronous, and documented methods to match a team’s task, culture, and access needs.",
+    "Permissions determine both participation and risk; grant and review access deliberately.",
+    "Comments, suggestions, and version history preserve ideas, accountability, and recovery options.",
+    "Meetings work best with an agenda, inclusive participation, and a written decision record.",
   ],
   keyTerms: [
     { term: "Real-time collaboration", definition: "Multiple people editing the same document live, at the same time, from anywhere." },
@@ -315,7 +315,7 @@ export const digitalLesson6: AILessonConfig = {
     { term: "Screen share", definition: "Showing your screen in a video meeting so others see exactly what you mean." },
   ],
   realWorld:
-    "Software teams, newsrooms, and marketing groups all build their work in shared docs with comments, suggestions, and version history. Knowing this workflow means you can contribute on day one of an internship or job.",
+    "Healthcare teams, design studios, nonprofits, research groups, and software companies coordinate across roles, locations, and cultures. Tool fluency matters, but the career skill is choosing methods that let people contribute and understand decisions.",
   quiz: [
     {
       id: "q1",
@@ -424,7 +424,7 @@ export const digitalLesson6: AILessonConfig = {
   ],
   reflection: {
     prompt:
-      "Think of a group project you've done. Which cloud tool — shared editing, comments/suggestions, or version history — would have helped the most, and how?",
-    placeholder: "Example: Our slides got messed up when two people edited offline. A single shared deck with version history would've saved us…",
+      "Evaluate a group project or team activity. Which method would improve connectivity or reduce an access barrier: live editing, comments, a task board, version history, or a meeting with a decision log? Explain why.",
+    placeholder: "Example: Comments plus a written decision log would let teammates with jobs after school contribute without missing decisions made in a live call.",
   },
 };

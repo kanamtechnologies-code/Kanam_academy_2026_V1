@@ -103,9 +103,13 @@ export function AIPredictChallenge({
       ) : null}
 
       {feedback === "wrong" ? (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950" role="alert">
-          <p className="font-semibold">Not quite — rethink and try again.</p>
-          <p className="mt-1">We won&apos;t show the answer yet. Use the scenario and try a clearer prediction.</p>
+        <div className="kanam-data-retry-banner" role="alert">
+          <div>
+            <p className="kanam-data-retry-title">Not quite — rethink and try again.</p>
+            <p className="kanam-data-retry-body">
+              We won&apos;t show the answer yet. Use the scenario and try a clearer prediction.
+            </p>
+          </div>
         </div>
       ) : null}
 

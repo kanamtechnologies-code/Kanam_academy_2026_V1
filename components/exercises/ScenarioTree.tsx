@@ -4,7 +4,6 @@ import * as React from "react";
 import { CheckCircle2, GitBranch } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export type ScenarioChoice = {
   id: string;
@@ -107,22 +106,26 @@ export function ScenarioTree({
       </div>
 
       {node.ending || (finished && node.ending) ? (
-        <div
-          className={cn(
-            "rounded-2xl border p-4",
-            node.ending?.isSuccess !== false
-              ? "border-emerald-200 bg-emerald-50"
-              : "border-amber-200 bg-amber-50"
-          )}
-        >
-          <div className="flex items-start gap-2">
-            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />
+        node.ending?.isSuccess !== false ? (
+          <div className="kanam-data-success-banner" role="status">
+            <CheckCircle2 className="kanam-data-success-icon" aria-hidden />
             <div>
-              <p className="font-bold text-slate-900">{node.ending?.title ?? "Scenario complete"}</p>
-              <p className="mt-1 text-sm text-slate-700">{node.ending?.body}</p>
+              <p className="kanam-data-success-title">
+                {node.ending?.title ?? "Scenario complete"}
+              </p>
+              <p className="kanam-data-success-body">{node.ending?.body}</p>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="kanam-data-retry-banner" role="status">
+            <div>
+              <p className="kanam-data-retry-title">
+                {node.ending?.title ?? "Scenario complete"}
+              </p>
+              <p className="kanam-data-retry-body">{node.ending?.body}</p>
+            </div>
+          </div>
+        )
       ) : (
         <>
           <p className="text-base font-semibold text-slate-900">{node.prompt}</p>
