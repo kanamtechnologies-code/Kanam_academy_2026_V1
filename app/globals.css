@@ -3,14 +3,15 @@
 :root {
   /* Brand palette (from Logo.png) */
   --brand: #18a16d; /* green */
-  --brand-2: #0f6e57; /* deep teal */
+  --brand-2: #247864; /* deep teal — match marketing site */
   --accent: #d8c07a; /* warm gold */
   --brand-rgb: 24 161 109;
-  --brand-2-rgb: 15 110 87;
+  --brand-2-rgb: 36 120 100;
   --accent-rgb: 216 192 122;
 
   --background: #f8fafc; /* slate-50 */
   --foreground: #0f172a; /* slate-900 */
+  --muted: #5b6b64;
 }
 
 @theme inline {
