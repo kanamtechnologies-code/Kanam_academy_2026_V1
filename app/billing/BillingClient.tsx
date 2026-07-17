@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
@@ -110,216 +111,303 @@ export default function BillingClient() {
   }
 
   const canceled = searchParams.get("canceled") === "1";
+  const ownedTracks = new Set((status?.tracks ?? []).map((t) => t.track_slug));
 
   return (
-    <main className="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-      <section className="relative overflow-hidden rounded-[1.5rem] border border-[rgb(var(--brand-2-rgb)/0.2)] bg-gradient-to-br from-[rgb(var(--brand-2-rgb)/1)] via-[rgb(var(--brand-rgb)/0.92)] to-[rgb(var(--brand-2-rgb)/0.88)] px-6 py-8 text-white sm:px-8 sm:py-10">
-        <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_20%_20%,white_0,transparent_45%),radial-gradient(circle_at_85%_10%,rgb(var(--accent-rgb)/0.9)_0,transparent_35%)]" />
-        <div className="relative">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
-            Family &amp; learner billing
+    <main className="w-full">
+      {/* Full-bleed premium hero */}
+      <section className="relative min-h-[78vh] overflow-hidden border-b border-[rgb(var(--accent-rgb)/0.2)]">
+        <Image
+          src="/images/billing/billing-hero-premium.png"
+          alt=""
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(7,26,20,0.92)_0%,rgba(11,47,36,0.78)_48%,rgba(7,26,20,0.45)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,rgba(216,192,122,0.18),transparent_55%)]" />
+
+        <div className="relative mx-auto flex min-h-[78vh] w-full max-w-6xl flex-col justify-end px-4 pb-14 pt-24 sm:px-6 sm:pb-20">
+          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
+            Kanam Academy
           </p>
           <h1
-            className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl"
+            className="mt-3 max-w-xl text-4xl font-semibold leading-[1.05] tracking-tight text-[#f7f3e8] sm:text-5xl lg:text-6xl"
             style={displayFont()}
           >
-            Clear plans. Real progress.
+            Invest in the next step.
           </h1>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base">
-            Subscribe for all tracks, buy one full track (16 sessions / 8 weeks), or add live
-            1:1 tutoring. You’ll pay securely with Stripe — access unlocks on this account.
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-[#d7e0db] sm:text-lg">
+            Family access, full tracks, and private tutoring — secured by Stripe, unlocked on
+            this account.
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href="#plans"
+              className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--accent)] px-7 text-sm font-semibold text-[#14201c] shadow-[0_0_0_1px_rgba(216,192,122,0.35),0_12px_40px_rgba(216,192,122,0.2)] transition hover:brightness-105"
+            >
+              View plans
+            </a>
+            <button
+              type="button"
+              onClick={openPortal}
+              disabled={busy === "portal"}
+              className="inline-flex h-12 items-center justify-center rounded-full border border-[rgb(var(--accent-rgb)/0.45)] bg-white/5 px-7 text-sm font-semibold text-[#f3efe4] backdrop-blur-sm transition hover:bg-white/10 disabled:opacity-50"
+            >
+              {busy === "portal" ? "Opening…" : "Manage billing"}
+            </button>
+          </div>
         </div>
       </section>
 
-      {canceled ? (
-        <p className="mt-4 rounded-xl border border-[rgb(var(--accent-rgb)/0.45)] bg-[rgb(var(--accent-rgb)/0.18)] px-4 py-3 text-sm text-[#14201c]">
-          Checkout canceled — no charge. Pick a plan whenever you’re ready.
-        </p>
-      ) : null}
-
-      {error ? (
-        <div className="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
-          <p>{error}</p>
-          <p className="mt-2">
-            <Link href="/welcome" className="font-semibold underline underline-offset-4">
-              Sign in or create an account
-            </Link>
+      <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
+        {canceled ? (
+          <p className="mb-6 rounded-2xl border border-[rgb(var(--accent-rgb)/0.35)] bg-[rgb(var(--accent-rgb)/0.1)] px-4 py-3 text-sm text-[#f3efe4]">
+            Checkout canceled — no charge. Pick a plan whenever you’re ready.
           </p>
-        </div>
-      ) : null}
+        ) : null}
 
-      <section className="mt-8 overflow-hidden rounded-[1.5rem] border border-zinc-900/10 bg-white/90 shadow-[0_16px_40px_rgba(15,23,42,0.08)]">
-        <div className="border-b border-zinc-900/8 bg-gradient-to-br from-[rgb(var(--brand-2-rgb)/0.12)] via-white to-[rgb(var(--accent-rgb)/0.14)] px-6 py-6 sm:px-8">
-          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-[var(--brand-2)]">
-            Your access
-          </p>
-          <h2 className="mt-1 text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl" style={displayFont()}>
-            What’s unlocked on this account
-          </h2>
+        {error ? (
+          <div className="mb-6 rounded-2xl border border-red-400/30 bg-red-950/40 px-4 py-3 text-sm text-red-100">
+            <p>{error}</p>
+            <p className="mt-2">
+              <Link href="/welcome" className="font-semibold text-[var(--accent)] underline underline-offset-4">
+                Sign in or create an account
+              </Link>
+            </p>
+          </div>
+        ) : null}
+
+        {/* Access strip */}
+        <section className="rounded-3xl border border-[rgb(var(--accent-rgb)/0.2)] bg-[rgb(var(--brand-deep-rgb)/0.65)] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-md sm:p-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
+                Your access
+              </p>
+              <h2 className="mt-1 text-2xl font-semibold tracking-tight text-[#f7f3e8]" style={displayFont()}>
+                What’s unlocked
+              </h2>
+            </div>
+            <button
+              type="button"
+              onClick={openPortal}
+              disabled={busy === "portal"}
+              className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--accent-rgb)/0.35)] px-4 text-sm font-semibold text-[var(--accent)] transition hover:bg-[rgb(var(--accent-rgb)/0.08)] disabled:opacity-50"
+            >
+              {busy === "portal" ? "Opening…" : "Customer portal"}
+            </button>
+          </div>
+
           {!status ? (
-            <p className="mt-3 text-sm text-[var(--muted)]">Loading…</p>
+            <p className="mt-5 text-sm text-[var(--muted)]">Loading…</p>
           ) : (
-            <dl className="mt-4 grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl bg-white/80 px-4 py-4 ring-1 ring-zinc-900/8">
+            <dl className="mt-6 grid gap-3 sm:grid-cols-3">
+              <div className="rounded-2xl border border-white/10 bg-black/20 px-4 py-4">
                 <dt className="text-sm text-[var(--muted)]">Subscription</dt>
-                <dd className="mt-1 text-base font-semibold text-zinc-950">
+                <dd className="mt-1 text-base font-semibold text-[#f7f3e8]">
                   {status.hasActiveSubscription
                     ? `Active (${status.subscription?.status})`
                     : "None"}
                 </dd>
               </div>
-              <div className="rounded-2xl bg-white/80 px-4 py-4 ring-1 ring-zinc-900/8">
+              <div className="rounded-2xl border border-white/10 bg-black/20 px-4 py-4">
                 <dt className="text-sm text-[var(--muted)]">Track unlocks</dt>
-                <dd className="mt-1 text-base font-semibold text-zinc-950">
+                <dd className="mt-1 text-base font-semibold text-[#f7f3e8]">
                   {(status.tracks ?? []).map((t) => t.track_slug).join(", ") || "None"}
                 </dd>
               </div>
-              <div className="rounded-2xl bg-white/80 px-4 py-4 ring-1 ring-zinc-900/8">
+              <div className="rounded-2xl border border-white/10 bg-black/20 px-4 py-4">
                 <dt className="text-sm text-[var(--muted)]">Tutoring sessions left</dt>
-                <dd className="mt-1 text-base font-semibold text-zinc-950">
+                <dd className="mt-1 text-base font-semibold text-[#f7f3e8]">
                   {status.tutoringSessionsRemaining ?? 0}
                 </dd>
               </div>
             </dl>
           )}
-          <button
-            type="button"
-            onClick={openPortal}
-            disabled={busy === "portal"}
-            className="mt-4 inline-flex h-10 items-center justify-center rounded-xl border border-[rgb(var(--brand-2-rgb)/0.25)] bg-white px-4 text-sm font-semibold text-[var(--brand-2)] transition hover:bg-[rgb(var(--brand-2-rgb)/0.06)] disabled:opacity-50"
-          >
-            {busy === "portal" ? "Opening…" : "Manage billing"}
-          </button>
-        </div>
+        </section>
 
-        <div className="divide-y divide-zinc-900/10">
-          <div className="px-6 py-7 sm:px-8">
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-[var(--brand-2)]">
-              Platform
-            </p>
-            <h3 className="mt-1 text-xl font-semibold text-zinc-950 sm:text-2xl" style={displayFont()}>
-              Family subscription
-            </h3>
-            <p className="mt-2 max-w-2xl text-sm text-zinc-600">
-              Monthly access to all six learning tracks — progress, XP, and browser-ready
-              lessons. Live tutoring is separate.
-            </p>
-            <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
+        <div id="plans" className="mt-14 space-y-16 scroll-mt-8">
+          {/* Family subscription */}
+          <section className="grid items-stretch gap-0 overflow-hidden rounded-[2rem] border border-[rgb(var(--accent-rgb)/0.22)] bg-[rgb(var(--brand-deep-rgb)/0.55)] shadow-[0_30px_90px_rgba(0,0,0,0.4)] lg:grid-cols-2">
+            <div className="relative min-h-[280px] lg:min-h-full">
+              <Image
+                src="/images/billing/billing-subscription-premium.png"
+                alt=""
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#071a14] via-transparent to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-[#0b2f24]/80" />
+            </div>
+            <div className="flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-12">
+              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
+                Platform
+              </p>
+              <h3 className="mt-2 text-3xl font-semibold tracking-tight text-[#f7f3e8]" style={displayFont()}>
+                Family subscription
+              </h3>
+              <p className="mt-3 max-w-md text-sm leading-relaxed text-[#c5d2cb] sm:text-base">
+                Monthly access to all six learning tracks — progress, XP, and browser-ready
+                lessons. Live tutoring is separate.
+              </p>
+              <div className="mt-8 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <p className="text-sm text-[var(--muted)]">Per month</p>
+                  <p className="text-4xl font-semibold tracking-tight text-[var(--accent)]" style={displayFont()}>
+                    $30
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  disabled={Boolean(busy) || status?.hasActiveSubscription}
+                  onClick={() => startCheckout({ kind: "subscription" })}
+                  className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--accent)] px-7 text-sm font-semibold text-[#14201c] transition hover:brightness-105 disabled:opacity-50"
+                >
+                  {status?.hasActiveSubscription
+                    ? "Already subscribed"
+                    : busy?.includes("subscription")
+                      ? "Redirecting…"
+                      : "Subscribe"}
+                </button>
+              </div>
+            </div>
+          </section>
+
+          {/* Tracks */}
+          <section>
+            <div className="grid gap-6 lg:grid-cols-[1.05fr_1fr] lg:items-end">
               <div>
-                <p className="text-sm text-[var(--muted)]">Per month</p>
-                <p className="text-3xl font-semibold tracking-tight text-zinc-950" style={displayFont()}>
-                  $30
+                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
+                  Or buy one track
+                </p>
+                <h3 className="mt-2 text-3xl font-semibold tracking-tight text-[#f7f3e8]" style={displayFont()}>
+                  Full learning tracks
+                </h3>
+                <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#c5d2cb] sm:text-base">
+                  One-time unlock for a complete program — designed as 16 sessions over 8 weeks.
                 </p>
               </div>
-              <button
-                type="button"
-                disabled={Boolean(busy) || status?.hasActiveSubscription}
-                onClick={() => startCheckout({ kind: "subscription" })}
-                className="inline-flex h-11 items-center justify-center rounded-xl bg-[var(--brand)] px-6 text-sm font-semibold text-white transition hover:bg-[var(--brand-2)] disabled:opacity-50"
-              >
-                {status?.hasActiveSubscription
-                  ? "Already subscribed"
-                  : busy?.includes("subscription")
-                    ? "Redirecting…"
-                    : "Subscribe"}
-              </button>
+              <div className="relative hidden h-44 overflow-hidden rounded-3xl border border-[rgb(var(--accent-rgb)/0.2)] lg:block">
+                <Image
+                  src="/images/billing/billing-tracks-premium.png"
+                  alt=""
+                  fill
+                  className="object-cover object-center"
+                  sizes="40vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-l from-[#071a14]/40 to-transparent" />
+              </div>
             </div>
-          </div>
 
-          <div className="px-6 py-7 sm:px-8">
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-[var(--brand-2)]">
-              Or buy one track
-            </p>
-            <h3 className="mt-1 text-xl font-semibold text-zinc-950 sm:text-2xl" style={displayFont()}>
-              Full learning tracks
-            </h3>
-            <p className="mt-2 max-w-2xl text-sm text-zinc-600">
-              One-time unlock for a complete program — designed as 16 sessions over 8 weeks.
-            </p>
-            <ul className="mt-5 divide-y divide-zinc-900/8">
-              {TRACKS.map((track) => (
-                <li
-                  key={track.slug}
-                  className="flex flex-wrap items-center justify-between gap-3 py-3"
-                >
-                  <div>
-                    <p className="font-semibold text-zinc-950">{track.name}</p>
-                    <p className="text-xs text-[var(--muted)]">Full track · 16 sessions · 8 weeks</p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-lg font-semibold text-[var(--brand-2)]" style={displayFont()}>
-                      {track.price}
-                    </span>
-                    <button
-                      type="button"
-                      disabled={Boolean(busy)}
-                      onClick={() =>
-                        startCheckout({ kind: "track", trackSlug: track.slug })
-                      }
-                      className="inline-flex h-10 items-center justify-center rounded-xl border border-[rgb(var(--brand-2-rgb)/0.25)] bg-[rgb(var(--brand-2-rgb)/0.06)] px-4 text-sm font-semibold text-[var(--brand-2)] transition hover:bg-[rgb(var(--brand-2-rgb)/0.12)] disabled:opacity-50"
-                    >
-                      Buy
-                    </button>
-                  </div>
-                </li>
-              ))}
+            <ul className="mt-8 divide-y divide-white/10 overflow-hidden rounded-3xl border border-[rgb(var(--accent-rgb)/0.18)] bg-[rgb(var(--brand-deep-rgb)/0.55)]">
+              {TRACKS.map((track) => {
+                const owned = ownedTracks.has(track.slug);
+                return (
+                  <li
+                    key={track.slug}
+                    className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 sm:px-7"
+                  >
+                    <div>
+                      <p className="font-semibold text-[#f7f3e8]">{track.name}</p>
+                      <p className="text-xs text-[var(--muted)]">
+                        Full track · 16 sessions · 8 weeks
+                        {owned ? " · Owned" : ""}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xl font-semibold text-[var(--accent)]" style={displayFont()}>
+                        {track.price}
+                      </span>
+                      <button
+                        type="button"
+                        disabled={Boolean(busy) || owned}
+                        onClick={() =>
+                          startCheckout({ kind: "track", trackSlug: track.slug })
+                        }
+                        className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--accent-rgb)/0.4)] bg-[rgb(var(--accent-rgb)/0.08)] px-5 text-sm font-semibold text-[var(--accent)] transition hover:bg-[rgb(var(--accent-rgb)/0.16)] disabled:opacity-45"
+                      >
+                        {owned ? "Owned" : busy?.includes(track.slug) ? "…" : "Buy"}
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
-          </div>
+          </section>
 
-          <div className="px-6 py-7 sm:px-8">
-            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-[var(--brand-2)]">
-              Best results
-            </p>
-            <h3 className="mt-1 text-xl font-semibold text-zinc-950 sm:text-2xl" style={displayFont()}>
-              1:1 live tutoring
-            </h3>
-            <p className="mt-2 max-w-2xl text-sm text-zinc-600">
-              Private sessions with a Kanam instructor — work through a full lesson and
-              exercises, then leave with clear next steps. Never included in subscription or
-              track price.
-            </p>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Tutoring */}
+          <section>
+            <div className="relative mb-8 overflow-hidden rounded-[2rem] border border-[rgb(var(--accent-rgb)/0.22)]">
+              <div className="relative min-h-[220px] sm:min-h-[280px]">
+                <Image
+                  src="/images/billing/billing-tutoring-premium.png"
+                  alt=""
+                  fill
+                  className="object-cover object-[center_30%]"
+                  sizes="100vw"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,26,20,0.92)_0%,rgba(11,47,36,0.55)_55%,rgba(7,26,20,0.35)_100%)]" />
+                <div className="relative flex h-full min-h-[220px] flex-col justify-end px-6 py-8 sm:min-h-[280px] sm:px-10 sm:py-10">
+                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
+                    Best results
+                  </p>
+                  <h3 className="mt-2 max-w-lg text-3xl font-semibold tracking-tight text-[#f7f3e8]" style={displayFont()}>
+                    1:1 live tutoring
+                  </h3>
+                  <p className="mt-3 max-w-lg text-sm leading-relaxed text-[#d7e0db] sm:text-base">
+                    Private sessions with a Kanam instructor — full lesson, exercises, and clear
+                    next steps. Never included in subscription or track price.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {TUTORING.map((item) => (
                 <div
                   key={item.sku}
-                  className="flex flex-col rounded-2xl bg-zinc-50 px-4 py-4 ring-1 ring-zinc-900/8"
+                  className="flex flex-col rounded-3xl border border-[rgb(var(--accent-rgb)/0.18)] bg-[rgb(var(--brand-deep-rgb)/0.55)] px-5 py-5 shadow-[0_16px_48px_rgba(0,0,0,0.25)]"
                 >
-                  <p className="text-sm font-medium text-zinc-600">{item.label}</p>
-                  <p className="mt-1 text-2xl font-semibold tracking-tight text-zinc-950" style={displayFont()}>
+                  <p className="text-sm font-medium text-[#c5d2cb]">{item.label}</p>
+                  <p className="mt-2 text-3xl font-semibold tracking-tight text-[var(--accent)]" style={displayFont()}>
                     {item.price}
                   </p>
-                  <p className="mt-1 text-xs text-zinc-500">{item.note}</p>
+                  <p className="mt-2 text-xs text-[var(--muted)]">{item.note}</p>
                   <button
                     type="button"
                     disabled={Boolean(busy)}
                     onClick={() =>
                       startCheckout({ kind: "tutoring", tutoringSku: item.sku })
                     }
-                    className="mt-4 inline-flex h-10 items-center justify-center rounded-xl bg-[var(--brand)] px-4 text-sm font-semibold text-white transition hover:bg-[var(--brand-2)] disabled:opacity-50"
+                    className="mt-5 inline-flex h-11 items-center justify-center rounded-full bg-[var(--brand)] px-4 text-sm font-semibold text-white transition hover:bg-[var(--brand-2)] disabled:opacity-50"
                   >
-                    Buy
+                    {busy?.includes(item.sku) ? "Redirecting…" : "Buy"}
                   </button>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         </div>
-      </section>
 
-      <p className="mt-8 text-center text-sm text-[var(--muted)]">
-        Questions?{" "}
-        <a
-          href="mailto:info@kanamacademy.com"
-          className="font-semibold text-[var(--brand-2)] underline-offset-4 hover:underline"
-        >
-          info@kanamacademy.com
-        </a>
-        {" · "}
-        <Link href="/welcome" className="font-semibold text-[var(--brand-2)] underline-offset-4 hover:underline">
-          Back to lessons
-        </Link>
-      </p>
+        <p className="mt-14 text-center text-sm text-[var(--muted)]">
+          Questions?{" "}
+          <a
+            href="mailto:info@kanamacademy.com"
+            className="font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
+          >
+            info@kanamacademy.com
+          </a>
+          {" · "}
+          <Link
+            href="/welcome"
+            className="font-semibold text-[var(--accent)] underline-offset-4 hover:underline"
+          >
+            Back to lessons
+          </Link>
+        </p>
+      </div>
     </main>
   );
 }

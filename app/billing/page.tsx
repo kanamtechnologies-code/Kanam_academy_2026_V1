@@ -6,7 +6,7 @@ export default function BillingPage() {
   return (
     <Suspense
       fallback={
-        <main className="mx-auto w-full max-w-5xl px-4 py-14 text-sm text-[var(--muted)]">
+        <main className="mx-auto w-full max-w-6xl px-4 py-14 text-sm text-[var(--muted)]">
           Loading billing…
         </main>
       }
