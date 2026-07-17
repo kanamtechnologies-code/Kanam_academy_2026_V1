@@ -113,7 +113,7 @@ export default function WelcomePage() {
   });
 
   const glassCardBase =
-    "rounded-[32px] bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out";
+    "rounded-[32px] bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)]";
 
   const signInWith = React.useCallback(
     async (mode: "learner" | "instructor", creds: { email: string; password: string }) => {
@@ -300,7 +300,7 @@ export default function WelcomePage() {
               </div>
             </div>
 
-            <div className="w-full rounded-[28px] border border-white/60 bg-white/70 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.04)] backdrop-blur-2xl lg:justify-self-end">
+            <div className="w-full rounded-[28px] border border-white/60 bg-white/70 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.04)] backdrop-blur-2xl dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)] lg:justify-self-end">
               <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-600">
                 Demo mode
               </p>
@@ -741,7 +741,7 @@ export default function WelcomePage() {
                       "h-12 w-full rounded-xl px-6 text-base font-semibold",
                       "transition-all duration-300 ease-out",
                       "active:scale-95",
-                      "bg-[#E9D5A3] text-[var(--brand-2)] hover:brightness-110",
+                      "bg-[#E9D5A3] text-[#0f513f] hover:brightness-110 dark:text-[#0f513f]",
                       "shadow-[0_20px_50px_rgba(0,0,0,0.04)]",
                       "focus-visible:ring-4 focus-visible:ring-emerald-500/25",
                     ].join(" ")}

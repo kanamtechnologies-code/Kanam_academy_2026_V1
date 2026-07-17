@@ -157,7 +157,7 @@ export default function WelcomeProfilePage() {
   return (
     <WelcomeBackground>
       <div className="mx-auto flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full max-w-xl flex-col justify-center px-4 py-10">
-        <div className="rounded-3xl border border-white/50 bg-white/85 p-6 shadow-xl backdrop-blur-md sm:p-8">
+        <div className="rounded-3xl border border-white/50 bg-white/85 p-6 shadow-xl backdrop-blur-md dark:border-white/15 dark:bg-slate-900/90 sm:p-8">
           <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--brand-2)]">
             Student account
           </p>

@@ -24,10 +24,13 @@
   color-scheme: dark;
   --background: #0b1220;
   --foreground: #e2e8f0;
-  --muted: #94a3b8;
+  --muted: #cbd5e1;
   --surface: #111827;
   --surface-2: #1e293b;
   --border: #334155;
+  /* Text/icons on dark surfaces (keep --brand* for gradients & gold buttons) */
+  --brand-ink: #4ade80;
+  --brand-2-ink: #6ee7b7;
 }
 
 @theme inline {
@@ -56,8 +59,28 @@ body {
 .dark body > :not(header) :is(.bg-white) {
   background-color: var(--surface) !important;
 }
+/* Glass / translucent whites used on welcome + lesson shells */
+.dark body > :not(header) :is(
+  .bg-white\/40,
+  .bg-white\/50,
+  .bg-white\/60,
+  .bg-white\/70,
+  .bg-white\/80,
+  .bg-white\/85,
+  .bg-white\/90,
+  .bg-white\/95
+) {
+  background-color: rgb(2 6 23 / 0.92) !important;
+}
+.dark body > :not(header) :is(input, textarea)::placeholder {
+  color: #94a3b8 !important;
+  opacity: 1;
+}
 .dark body > :not(header) :is(.bg-slate-50) {
   background-color: var(--background) !important;
+}
+.dark body > :not(header) :is(.bg-slate-50\/80) {
+  background-color: rgb(15 23 42 / 0.8) !important;
 }
 .dark body > :not(header) :is(.bg-slate-100) {
   background-color: var(--surface-2) !important;
@@ -69,22 +92,30 @@ body {
   color: #f1f5f9 !important;
 }
 .dark body > :not(header) :is(.text-slate-800, .text-slate-700) {
-  color: #cbd5e1 !important;
+  color: #e2e8f0 !important;
 }
 .dark body > :not(header) :is(.text-slate-600) {
-  color: #94a3b8 !important;
+  color: #cbd5e1 !important;
 }
 .dark body > :not(header) :is(.text-slate-500) {
   color: #94a3b8 !important;
 }
 .dark body > :not(header) :is(.text-slate-400) {
-  color: #64748b !important;
+  color: #94a3b8 !important;
 }
 .dark body > :not(header) :is(.border-slate-100, .border-slate-200) {
   border-color: var(--border) !important;
 }
 .dark body > :not(header) :is(.border-slate-300) {
   border-color: #475569 !important;
+}
+.dark body > :not(header) :is(
+  .border-white\/40,
+  .border-white\/50,
+  .border-white\/60,
+  .border-white\/65
+) {
+  border-color: rgb(148 163 184 / 0.28) !important;
 }
 .dark body > :not(header) :is(.divide-slate-100, .divide-slate-200) > :not([hidden]) ~ :not([hidden]) {
   border-color: var(--border) !important;
@@ -103,6 +134,32 @@ body {
 }
 .dark body > :not(header) :is(.hover\:bg-slate-200:hover) {
   background-color: #475569 !important;
+}
+/* Soft “pop” shadows read as white haze on dark — use depth instead */
+.dark .kanam-text-pop-strong {
+  text-shadow:
+    0 1px 0 rgba(2, 6, 23, 0.65),
+    0 2px 12px rgba(2, 6, 23, 0.45);
+}
+
+/* Deep brand greens → bright ink on dark surfaces (skip gold CTA chips) */
+.dark body > :not(header) :is(
+  .text-\[color\:var\(--brand\)\],
+  .text-\[var\(--brand\)\]
+):not(.bg-\[\#E9D5A3\]):not([class*="bg-[#E9D5A3]"]) {
+  color: var(--brand-ink) !important;
+}
+.dark body > :not(header) :is(
+  .text-\[color\:var\(--brand-2\)\],
+  .text-\[var\(--brand-2\)\]
+):not(.bg-\[\#E9D5A3\]) {
+  color: var(--brand-2-ink) !important;
+}
+.dark body > :not(header) :is(.text-emerald-700, .text-emerald-800, .text-emerald-900) {
+  color: #6ee7b7 !important;
+}
+.dark body > :not(header) :is(.hover\:text-emerald-900:hover) {
+  color: #a7f3d0 !important;
 }
 
 /* Comfortable tap targets + safe-area padding on notched phones */

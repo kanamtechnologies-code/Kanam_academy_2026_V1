@@ -5,7 +5,13 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
-    <NextThemesProvider attribute="class" defaultTheme="light" enableSystem={false} storageKey="kanam-theme">
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem={false}
+      storageKey="kanam-theme"
+      disableTransitionOnChange
+    >
       {children}
     </NextThemesProvider>
   );
