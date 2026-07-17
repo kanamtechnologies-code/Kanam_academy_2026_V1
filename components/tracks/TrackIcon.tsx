@@ -96,7 +96,7 @@ const TRACK_GLYPHS: Record<Track["id"], (props: GlyphProps) => ReactElement> = {
   "digital-literacy": DigitalLiteracyGlyph,
   cybersecurity: CybersecurityGlyph,
   "financial-literacy": FinancialLiteracyGlyph,
-  "python-starter": PythonStarterGlyph,
+  "ai-python": PythonStarterGlyph,
   "data-analyst": DataAnalystGlyph,
 };
 
@@ -117,6 +117,6 @@ export const TRACK_ICON_SVG: Record<Track["id"], string> = {
   "digital-literacy": `<svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><rect x="2.5" y="3.5" width="19" height="14" rx="2" fill="currentColor"/><rect x="5.5" y="6.5" width="8" height="2.75" rx="0.6" fill="#fff"/><rect x="5.5" y="11" width="5" height="2.75" rx="0.6" fill="#d8c07a"/><rect x="8.5" y="19" width="7" height="2.5" rx="0.6" fill="currentColor"/></svg>`,
   cybersecurity: `<svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><path d="M12 2L3.5 5.75v5.5c0 5.1 3.45 9.7 8.5 11.25 5.05-1.55 8.5-6.15 8.5-11.25v-5.5L12 2z" fill="currentColor"/><rect x="10.25" y="9.25" width="3.5" height="7" rx="1.1" fill="#d8c07a"/><circle cx="12" cy="9.75" r="2.4" fill="#d8c07a"/></svg>`,
   "financial-literacy": `<svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><rect x="2.5" y="13.5" width="5" height="7.5" rx="1.1" fill="currentColor"/><rect x="9.5" y="8" width="5" height="13" rx="1.1" fill="currentColor"/><rect x="16.5" y="3" width="5" height="18" rx="1.1" fill="#d8c07a"/></svg>`,
-  "python-starter": `<svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><rect x="5" y="6.5" width="14" height="12.5" rx="2.25" fill="currentColor"/><rect x="8.5" y="2" width="3" height="4.5" rx="0.7" fill="currentColor"/><rect x="12.5" y="2" width="3" height="4.5" rx="0.7" fill="#d8c07a"/><rect x="7.75" y="10.25" width="3.25" height="3.25" rx="0.7" fill="#fff"/><rect x="13" y="10.25" width="3.25" height="3.25" rx="0.7" fill="#d8c07a"/><rect x="8.5" y="15.75" width="7" height="1.75" rx="0.5" fill="#fff"/></svg>`,
+  "ai-python": `<svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><rect x="5" y="6.5" width="14" height="12.5" rx="2.25" fill="currentColor"/><rect x="8.5" y="2" width="3" height="4.5" rx="0.7" fill="currentColor"/><rect x="12.5" y="2" width="3" height="4.5" rx="0.7" fill="#d8c07a"/><rect x="7.75" y="10.25" width="3.25" height="3.25" rx="0.7" fill="#fff"/><rect x="13" y="10.25" width="3.25" height="3.25" rx="0.7" fill="#d8c07a"/><rect x="8.5" y="15.75" width="7" height="1.75" rx="0.5" fill="#fff"/></svg>`,
   "data-analyst": `<svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true"><rect x="2.5" y="3" width="19" height="5" rx="1.25" fill="currentColor"/><rect x="2.5" y="9.5" width="19" height="5" rx="1.25" fill="currentColor"/><rect x="2.5" y="16" width="11" height="5" rx="1.25" fill="currentColor"/><rect x="15" y="16" width="6.5" height="5" rx="1.25" fill="#d8c07a"/></svg>`,
 };

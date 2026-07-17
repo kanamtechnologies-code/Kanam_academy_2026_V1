@@ -3,14 +3,14 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const cyberLesson12: AILessonConfig = {
   id: "cs-12",
   title: "12. Logging, Monitoring & Incidents",
-  goal: "Explain why logs matter, what to log, contrast detection vs prevention, walk through basic incident response steps including evidence preservation, know who to notify, and practice calm response through tabletop drills.",
+  goal: "Recommend detection and incident-response measures for realistic scenarios by efficiency and feasibility; design a simple IR playbook with clear roles; and justify what to log, preserve, escalate, and practice before a real incident.",
   xpReward: 600,
   badge: "Incident Ready",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/11",
   nextHref: "/learn/cyber/13",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,10 +18,10 @@ export const cyberLesson12: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-12.png",
         imageAlt: "SOC-style monitors with calm alert banners and a runbook binder labeled Incident Response",
-        body: `Prevention is great — until something slips through. Then you need **detection**, **logs**, and a calm **incident response** plan. Today you'll learn how defenders notice trouble and recover without making things worse.\n\nHere's our roadmap:\n\n• **Why logs matter** — the black box recorder of systems.\n• **What to log** — and how to protect logs from tampering.\n• **Detection vs prevention** — both are needed.\n• **Basic IR steps** — identify, contain, eradicate, recover, lessons learned.\n• **Evidence preservation** — why panic-wiping makes things worse.\n• **Who to tell** — escalation without chaos.\n• **Tabletop drills** — practicing calm response before a real incident.\n• A mini playbook for school/club incidents.\n\nThis lesson pairs with the hardening habits from Lesson 11 — prevention first, then calm detection and response when something slips through. It's about thinking clearly under pressure — a core cyber skill.`,
+        body: `Prevention is great — until something slips through. Then you need **detection**, **logs**, and a calm **incident response** plan. Today you'll **recommend** what to monitor and how to respond by **efficiency and feasibility**, and design a playbook with **roles** — not how to attack systems.\n\nHere's our roadmap:\n\n• **Why logs matter** — timelines over guesswork.\n• **What to log (feasibly)** — prioritize high-value signals; protect retention.\n• **Detection vs prevention** — recommend both layers for scenarios.\n• **IR playbook with roles** — identify → contain → eradicate → recover → lessons.\n• **Evidence preservation** — why panic-wiping makes things worse.\n• **Escalation** — who to tell, with efficient reports.\n• **Tabletop drills** — find gaps before adrenaline arrives.\n\nPairs with Lesson 11 hardening: prevent first, then detect and respond when something slips through.`,
         callout: {
           label: "Why it matters",
-          text: "Many organizations fail not because they never get attacked, but because nobody knows what to do next — or they destroy the evidence while panicking.",
+          text: "Many teams fail not because they never get hit, but because nobody owns the next step — or they destroy evidence while panicking.",
         },
       },
       {
@@ -71,7 +71,7 @@ export const cyberLesson12: AILessonConfig = {
         id: "detect-vs-prevent",
         kicker: "Two layers",
         title: "Prevention reduces hits; detection catches what slips through",
-        body: `**Prevention** tries to stop attacks: patching, MFA, phishing training, least privilege, hardening.\n\n**Detection** assumes something may still happen: monitoring failed logins, odd file sharing, antivirus alerts, \"new login from nowhere\" notices.\n\n**Detection example — credential stuffing / impossible travel:**\n\n• Many **failed logins** from one address, then one **success** — a pattern that can mean someone guessed or reused a stolen password list.\n• **Successful logins from far-away places minutes apart** — sometimes called **impossible travel** when the timing doesn't fit normal human movement.\n• Defenders **correlate login, VPN, and MFA logs** around the success time to confirm scope: Was MFA challenged? Did VPN connect from the same region? What changed after the success?\n\nA strong defense uses both prevention and detection. A locked door (prevention) plus an alarm (detection) beats either alone.`,
+        body: `**Prevention** tries to stop attacks: patching, MFA, phishing training, least privilege, hardening.\n\n**Detection** assumes something may still happen: monitoring failed logins, odd file sharing, antivirus alerts, \"new login from nowhere\" notices.\n\n**Recommend for scenarios (efficiency first):**\n• **Credential stuffing pattern** — many failed logins then one success → contain (reset/revoke/MFA) before deep forensics.\n• **Impossible travel** — successful logins from far-away places minutes apart → investigate MFA status and post-login changes (forwarding rules, recovery email).\n• **Feasible club detection** — enable login alerts + five-minute weekly auth review; skip building custom SIEM rules nobody will maintain.\n\nA locked door (prevention) plus an alarm (detection) beats either alone. Recommend both, sized to the team.`,
         callout: {
           label: "Common misconception",
           text: "\"We have strong passwords, so we don't need monitoring.\" Credentials still get phished. Detection catches the unusual sign-in afterward.",
@@ -101,15 +101,15 @@ export const cyberLesson12: AILessonConfig = {
         title: "Choosing what to log — and protecting it from tampering",
         image: "/images/lessons/cs-12-4.png",
         imageAlt: "Simple diagram of login logs access logs and change logs feeding into one timeline",
-        body: `Not everything needs logging, and not every log needs to be kept forever — but a few categories matter most for typical students, families, and clubs:\n\n• **Authentication logs** — who signed in, when, from where, and whether MFA was used.\n• **Access logs** — who opened, downloaded, or shared sensitive files.\n• **Change logs** — when settings, permissions, or admin roles were modified.\n• **Alert logs** — antivirus detections, "new device" or "new login" notices.\n\n**Retention** (how long you keep logs) matters too — logs deleted after a week can't help you investigate something noticed a month later. And **protecting logs from tampering** matters: if an attacker who compromises an account can also delete the logs of their own activity, investigators lose the evidence right when they need it most. Where possible, prefer platforms that keep activity logs the account owner can't simply erase.`,
+        body: `Not everything needs logging, and not every log needs to be kept forever. **Recommend by efficiency and feasibility** — clubs and families rarely have a SOC, so pick high-signal, low-effort sources:\n\n• **Authentication logs** — who signed in, when, from where, MFA used? (usually the highest ROI first check)\n• **Access / sharing logs** — who opened, downloaded, or shared sensitive files.\n• **Change logs** — settings, permissions, admin roles, forwarding rules.\n• **Alert logs** — antivirus, \"new device,\" \"new login\" notices.\n\n**Efficiency tradeoffs:** Logging *everything* forever is rarely feasible (storage, privacy, noise). Recommend focusing retention on auth + sharing/change history (e.g., 30–90 days where the platform allows) rather than dumping every click. Prefer platforms whose activity history an attacker can't freely erase.\n\nIf you can only check one thing after a suspicious event, recommend login/auth history first — most signal per minute.`,
         bullets: [
-          "Prioritize authentication, access, and change logs.",
-          "Longer retention helps catch slow-moving problems.",
+          "Prioritize authentication, access, and change logs for feasibility.",
+          "Retention long enough to investigate delayed discoveries — not infinite.",
           "Logs an attacker can freely delete are much less useful.",
         ],
         callout: {
           label: "Defender view",
-          text: "If you can only check one thing after a suspicious event, check the authentication/login history first — it usually tells you the most, fastest.",
+          text: "Efficient detection is the five-minute weekly login review — not building a dashboard nobody will watch.",
         },
       },
       {
@@ -136,7 +136,7 @@ export const cyberLesson12: AILessonConfig = {
         title: "Basic incident response steps",
         image: "/images/lessons/cs-12-2.png",
         imageAlt: "Five step cards: Identify Contain Eradicate Recover Lessons on a classroom table",
-        body: `Here's a simple IR loop used widely (wording varies, idea is stable):\n\n**1. Identify** — Confirm something real is wrong. Gather symptoms: alert text, weird charges, ransomware note, locked account.\n**2. Contain** — Stop the bleeding. Disconnect a compromised device from Wi-Fi if appropriate, revoke sessions, reset passwords, pause risky sharing — without destroying needed evidence when you can help it.\n**3. Eradicate** — Remove the cause: malware cleanup with proper tools/IT help, close the exposed setting, remove the malicious OAuth app.\n**4. Recover** — Restore from clean backups, re-enable services carefully, verify systems work.\n**5. Lessons learned** — What failed? What will you change (MFA, training, patching, logging)?\n\nYou may not run all steps alone — but knowing the order keeps you from skipping straight to \"reinstall everything\" in a panic.`,
+        body: `Here's a simple IR loop used widely (wording varies, idea is stable):\n\n**1. Identify** — Confirm something real is wrong. Gather symptoms: alert text, weird charges, ransomware note, locked account.\n**2. Contain** — Stop the bleeding. Disconnect a compromised device from Wi-Fi if appropriate, revoke sessions, reset passwords, pause risky sharing — without destroying needed evidence when you can help it.\n**3. Eradicate** — Remove the cause: malware cleanup with proper tools/IT help, close the exposed setting, remove the malicious OAuth app.\n**4. Recover** — Restore from clean backups, re-enable services carefully, verify systems work.\n**5. Lessons learned** — What failed? What will you change (MFA, training, patching, logging)?\n\n**Playbook design with roles (recommend names, not vibes):**\n• **Reporter** — first person who notices; captures screenshots/time; does not wipe yet.\n• **Account owner / tech lead** — runs contain steps (password, sessions, MFA, sharing).\n• **Sponsor / IT escalatee** — notified early for school-managed or money-impacting incidents.\n• **Communicator** — one person approved to tell members/followers what is safe to say.\n\nFeasible club playbooks fit on one page. Knowing the order — and who owns each step — beats \"reinstall everything\" panic.`,
         callout: {
           label: "Defender view",
           text: "Containment before cleanup matters. If you only wipe one laptop while the attacker still has your email session cookie, they may walk right back in.",
@@ -232,10 +232,10 @@ export const cyberLesson12: AILessonConfig = {
         id: "mini-playbook",
         kicker: "School & club ready",
         title: "A mini playbook you can actually use",
-        body: `Example: club social account starts posting spam.\n\n• **Identify** — Confirm posts aren't from a teammate; check login/session history.\n• **Contain** — Log out other sessions, change password, enable MFA, remove unknown connected apps.\n• **Eradicate** — Delete malicious posts; check bio/links for attacker changes.\n• **Recover** — Restore branding; announce briefly if followers were put at risk (with sponsor approval).\n• **Lessons** — Unique password + MFA + fewer admins next time.\n\nSame skeleton works for shared drives, Discord servers, and school email — adjust who you notify.`,
+        body: `Example: club social account starts posting spam. **Recommend measures by efficiency:**\n\n• **Identify (Reporter)** — Confirm posts aren't from a teammate; check login/session history (fastest signal).\n• **Contain (Account owner)** — Revoke sessions, change password, enable MFA, remove unknown apps — before rewriting the bio.\n• **Eradicate** — Delete malicious posts; check bio/links/forwarding-like settings.\n• **Recover (Communicator + sponsor)** — Restore branding; brief approved notice if followers were at risk.\n• **Lessons** — Unique password + MFA + fewer admins; add a monthly login review (feasible five-minute detection).\n\nSame skeleton works for shared drives, Discord, and school email — adjust roles and who you escalate to. Efficiency means contain access first; cosmetic cleanup second.`,
         callout: {
           label: "Myth check",
-          text: "Incident response isn't only for Fortune 500 SOCs. Student clubs and families need simple playbooks too.",
+          text: "Incident response isn't only for Fortune 500 SOCs. Student clubs and families need simple playbooks with named roles too.",
         },
       },
       {
@@ -277,19 +277,19 @@ export const cyberLesson12: AILessonConfig = {
         id: "incident-decisions",
         kicker: "Decision checklist",
         title: "First-hour incident decisions",
-        body: `When something goes wrong, the first hour sets the tone. Work this order:
+        body: `When something goes wrong, the first hour sets the tone. Work this order **with roles**:
 
-**1. Identify** — What account, device, or service is affected? What symptoms?
-**2. Contain** — Sign out sessions, disconnect from network, revoke suspicious app access — stop spread before deep investigation.
-**3. Preserve** — Screenshot timestamps, save headers, do not wipe devices yet.
-**4. Escalate** — IT, advisor, platform support — with facts, not accusations.
-**5. Communicate carefully** — need-to-know updates; avoid posting raw indicators publicly while active.
+**1. Identify (Reporter)** — What account, device, or service is affected? What symptoms?
+**2. Contain (Account owner)** — Sign out sessions, disconnect if needed, revoke suspicious apps — stop spread before deep investigation.
+**3. Preserve (Reporter + owner)** — Screenshot timestamps; do not wipe yet.
+**4. Escalate (Sponsor/IT path)** — facts, not accusations.
+**5. Communicate (one Communicator)** — need-to-know updates only.
 
 **Comparison — panic vs procedure:**
-• Panic: mass password resets without logging what changed, deleting emails, blaming classmates.
-• Procedure: contain, document, notify, recover from known-good state, lessons learned.
+• Panic: wipe everything, blast social posts, blame classmates, skip containment.
+• Procedure: contain → preserve → escalate → recover → lessons — efficient use of the first hour.
 
-Calm is a skill. Tabletop drills exist so your brain has a path before adrenaline arrives.`,
+Calm is a skill. Tabletop drills exist so roles and order are practiced before adrenaline arrives.`,
       },
       {
         id: "log-review-habits",
@@ -334,14 +334,14 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Logs** create timelines defenders can trust; choose what to log and protect it from tampering.\n• **Prevention** and **detection** work together — watch for **credential stuffing** and **impossible-travel** patterns.\n• IR basics: **identify → contain → eradicate → recover → lessons**.\n• **Preserve evidence** (screenshots, timeline) before drastic cleanup like a factory reset.\n• Know **who to tell** and avoid panic moves that make recovery harder.\n• **Tabletop drills** find gaps calmly, before a real incident.\n\nTake the **Knowledge check**, then reflect on an incident scenario and your first three actions.`,
+        body: `Quick recap:\n\n• **Recommend** high-ROI logs (auth, sharing/change) with feasible retention — not \"log everything.\"\n• **Prevention + detection** together; size detection to efficiency (alerts + short reviews).\n• **IR playbook with roles**: identify → contain → eradicate → recover → lessons (Reporter, owner, escalatee, Communicator).\n• **Preserve evidence** before panic-wiping; escalate with facts.\n• **Tabletop drills** find ownership gaps before a real incident.\n\nTake the **Knowledge check**, then justify an IR recommendation for a scenario.`,
       },
     ],
   },
   bigIdeas: [
-    "**Logs** and **monitoring** turn security events into timelines defenders can investigate — choosing what to log and protecting it from tampering matters.",
-    "**Prevention** reduces incidents; **detection** and **IR** handle what still gets through, with **evidence preservation** protecting your ability to investigate.",
-    "A simple IR loop — identify, contain, eradicate, recover, lessons — plus knowing who to tell and practicing with **tabletop drills** beats panic.",
+    "**Recommend** what to log and monitor by efficiency — auth and change/sharing history beat unwatched dashboards.",
+    "**Prevention** reduces hits; **detection** and **IR** handle what slips through, with **evidence preservation** protecting investigation.",
+    "A feasible IR playbook names **roles** and the order identify → contain → eradicate → recover → lessons — rehearsed in **tabletop drills**.",
   ],
   keyTerms: [
     { term: "Log", definition: "An automatic record of system or account events used for investigation and monitoring." },
@@ -362,16 +362,16 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
   quiz: [
     {
       id: "q1",
-      question: "Why do logs matter during an incident?",
+      question: "A club can spend five minutes a week on detection. Which recommendation is most efficient and feasible?",
       choices: [
-        "They help reconstruct what happened with times, accounts, and actions",
-        "They automatically patch every vulnerability",
-        "They replace the need for MFA",
-        "They make phishing emails illegal",
+        "Build a full custom SIEM and log every click forever",
+        "Enable login alerts and review authentication/sharing-change history weekly; keep retention long enough to investigate delayed finds",
+        "Turn logging off to save space — prevention alone is enough",
+        "Only monitor after a breach is already confirmed on social media",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
-        "Logs provide the timeline and evidence defenders need to understand and respond to incidents.",
+        "Recommend high-ROI signals sized to the team. Unwatched mega-logging is inefficient; no logging is worse.",
     },
     {
       id: "q2",
@@ -388,16 +388,16 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
     },
     {
       id: "q3",
-      question: "In basic IR order, what should usually come right after identifying a real incident?",
+      question: "Club Instagram starts posting spam. Which first-hour recommendation best matches IR order and roles?",
       choices: [
-        "Post every detail on social media",
-        "Skip straight to lessons learned",
-        "Contain the damage / limit spread",
-        "Delete all logs immediately",
+        "Communicator posts a long public thread naming suspected classmates before containment",
+        "Factory-reset the president's phone immediately, then check login history later",
+        "Reporter screenshots posts/times; account owner contains (revoke sessions, reset password, MFA, remove unknown apps); escalate to sponsor — cleanup of posts after access is cut",
+        "Skip contain and jump to lessons learned over pizza",
       ],
       correctIndex: 2,
       explanation:
-        "After identify, contain — stop the bleeding before cleanup and recovery.",
+        "Efficient IR: preserve briefly, contain access with a clear owner, escalate — cosmetic cleanup after the bleeding stops.",
     },
     {
       id: "q4",
@@ -427,16 +427,16 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
     },
     {
       id: "q6",
-      question: "Why is evidence preservation (like screenshots and timelines) important before a full factory reset?",
+      question: "A shared laptop looks infected. Why recommend screenshots/timeline before a factory reset when IT may investigate?",
       choices: [
-        "It isn't important — resetting immediately is always best",
-        "It preserves the information needed to understand scope and cause before cleanup destroys it",
-        "It guarantees the attacker will be caught",
+        "Resetting immediately is always best — evidence never matters for clubs",
+        "Preservation keeps scope/cause reconstructable; wiping first can destroy the only clues about what was accessed",
+        "Screenshots guarantee the attacker will be arrested",
         "It replaces the need to tell anyone about the incident",
       ],
       correctIndex: 1,
       explanation:
-        "Panic-wiping can erase the exact evidence needed to determine what happened and whether other systems were affected.",
+        "Panic-wiping can erase evidence needed to determine impact. Ask IT what to preserve when feasible.",
     },
     {
       id: "q7",
@@ -453,21 +453,21 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
     },
     {
       id: "q8",
-      question: "Two logins to the same account happen eight minutes apart from very distant locations. What pattern is this, and what should happen?",
+      question: "Two logins eight minutes apart from distant cities appear on school email. Which response recommendation is best justified?",
       choices: [
-        "This is normal and needs no response",
-        "This means the account has too much storage",
-        "This always means the internet provider made an error, so ignore it",
-        "This is 'impossible travel' — treat it as likely compromise and investigate/contain quickly",
+        "Ignore it — location data is always wrong",
+        "Delete the account permanently as step one",
+        "Treat as likely impossible-travel compromise: contain (sessions/password/MFA), check forwarding rules and recent changes, notify IT for a school account",
+        "Wait two weeks to see if more alerts arrive",
       ],
-      correctIndex: 3,
+      correctIndex: 2,
       explanation:
-        "Impossible travel is a strong detection signal for account compromise and should trigger rapid investigation and containment.",
+        "Impossible travel is a strong detection signal. Recommend rapid contain + scoped checks + escalation for managed accounts.",
     },
   ],
   reflection: {
     prompt:
-      "Imagine your personal email shows a login you don't recognize. List your first three actions in order, what you would preserve as evidence, and who you might tell if it were a school-managed account instead.",
-    placeholder: "Example: 1) Screenshot the alert… 2) Change password + check MFA… 3) Revoke other sessions… For school email I'd also tell…",
+      "Design a one-page IR playbook for your club or family for this scenario: shared cloud drive suddenly shared publicly, noticed three days later. Recommend (1) what to log/monitor going forward for efficiency, (2) first-hour steps in order with named roles, (3) what to preserve before cleanup, and (4) one detection habit that is feasible to keep monthly. Justify why your plan is efficient enough that people will actually follow it.",
+    placeholder: "Example: Roles — Reporter… Owner… Sponsor… First hour: … Logging going forward: … Monthly habit: … Justification: …",
   },
 };

@@ -2,15 +2,15 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const cyberLesson3: AILessonConfig = {
   id: "cs-3",
-  title: "3. Malware & the Threat Landscape",
-  goal: "Recognize common malware categories conceptually, understand high-level threat-actor motivations, explain how malware often spreads at a defender level, and list safe habits that reduce risk.",
+  title: "3. Malware Impact on Sensitive Data",
+  goal: "Analyze how malware categories affect the Confidentiality, Integrity, and Availability of sensitive data; give case-based examples of impact; and recommend feasible defender responses that reduce risk without unauthorized experimentation.",
   xpReward: 150,
   badge: "Threat Spotter",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/2",
   nextHref: "/learn/cyber/4",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,10 +18,10 @@ export const cyberLesson3: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-3.png",
         imageAlt: "Laptop warning dialog about suspicious download next to USB drive and email attachment icons",
-        body: `**Malware** is short for *malicious software* — programs designed to harm devices, steal data, spy, or disrupt. You do not need to know how to build it. You need to recognize categories and respond like a defender.\n\nHere's our roadmap:\n\n• **Malware types** — virus, worm, trojan, ransomware, spyware, adware (concepts).\n• **Threat actors** — who causes harm and why (high level).\n• **How malware spreads** — common paths, explained for defenders.\n• **First response steps** — isolate, observe, scan, reset from clean device, restore.\n• **A worked example, a myth, and a mini case** — so this stays practical, not just vocabulary.\n• **Defender habits** — updates, caution with unknown files, and reporting.\n\nThis lesson stays educational and defensive. We talk about what malware *does* and how to *reduce risk* — not how to create or launch attacks.`,
+        body: `**Malware** is short for *malicious software* — programs designed to harm devices, steal data, spy, or disrupt. In this lesson you will **analyze impact on sensitive data**, map symptoms to CIA goals, and **recommend** defender responses — not build or launch malware.\n\nHere's our roadmap:\n\n• **Malware types** — virus, worm, trojan, ransomware, spyware, adware — analyzed by data impact, not just names.\n• **Threat actors** — how motivations shape which sensitive data is targeted.\n• **How malware spreads** — common paths defenders watch for (no exploit steps).\n• **First response steps** — isolate, observe, scan, reset from clean device, restore.\n• **A worked example, a myth, and a mini case** — case analysis depth for real scenarios.\n• **Defender habits** — updates, caution with unknown files, backups, and reporting.\n\nThis lesson stays educational and defensive. Focus on **impact analysis** and **risk reduction** — never on creating or launching attacks.`,
         callout: {
           label: "Why it matters",
-          text: "Knowing the category helps you communicate clearly: \"I think this might be ransomware\" tells support something different than \"my browser keeps popping up ads.\"",
+          text: "Analyzing impact — \"this ransomware locks grade files (Availability) and may have stolen them first (Confidentiality)\" — helps you recommend the right urgency and recovery path, not just name a category.",
         },
       },
       {
@@ -38,7 +38,7 @@ export const cyberLesson3: AILessonConfig = {
         id: "glossary",
         kicker: "Let's break down the words",
         title: "Threat landscape vocabulary",
-        body: `• **Malware** — software written to cause harm or unwanted effects on purpose.\n• **Threat landscape** — the overall picture of risks, attackers, and techniques defenders worry about right now.\n• **Threat actor** — a person or group that poses a cyber threat (from scam operators to nation-state teams).\n• **Payload** — what the malware is meant to do once it runs (steal, encrypt, spy, annoy).\n• **Update / patch** — a fix from a software maker that closes known weaknesses.\n\nYou won't need exploit details — just the labels defenders use when they talk about risk.`,
+        body: `• **Malware** — software written to cause harm or unwanted effects on purpose.\n• **Threat landscape** — the overall picture of risks, attackers, and techniques defenders worry about right now.\n• **Threat actor** — a person or group that poses a cyber threat (from scam operators to nation-state teams).\n• **Payload** — what the malware is meant to do once it runs (steal, encrypt, spy, annoy).\n• **Update / patch** — a fix from a software maker that closes known weaknesses.\n\nStay defensive: use the labels defenders use when they talk about risk and data impact — never exploit steps.`,
         callout: {
           label: "Pro tip",
           text: "If news headlines confuse you, ask: What was the goal — steal data, lock files for money, spy, or just disrupt? That goal often maps to a malware category.",
@@ -50,7 +50,7 @@ export const cyberLesson3: AILessonConfig = {
         title: "Virus, worm, trojan, ransomware, spyware, adware",
         image: "/images/lessons/cs-3-2.png",
         imageAlt: "Clean educational cards naming ransomware, spyware, trojan, and worm without scary gore",
-        body: `These names get used loosely in everyday speech. Here's the classroom version — conceptual, not a how-to:\n\n• **Virus** — malware that typically needs a host file or program and user action to help it spread to other files.\n• **Worm** — malware known for spreading across networks more on its own, often without someone opening each new copy.\n• **Trojan** — malware that *disguises* itself as something useful or interesting so a person is tricked into running it. Named after the Trojan Horse story.\n• **Ransomware** — malware that blocks access to files or systems (often by locking them) and demands payment to restore access. Paying is risky and not a guarantee — defenders focus on backups and prevention.\n• **Spyware** — malware designed to watch what you do and steal information (keystrokes, browsing, credentials) secretly.\n• **Adware** — unwanted software that floods you with ads; sometimes bundled with other junk and may track you. Annoying, and it can be a warning sign of a messy, risky install.\n\nReal incidents can blend categories. A trojan might deliver ransomware. Defenders care about **impact** and **response**, not perfect taxonomy debates.`,
+        body: `These names get used loosely in everyday speech. Here's the classroom version — conceptual, not a how-to:\n\n• **Virus** — malware that typically needs a host file or program and user action to help it spread to other files.\n• **Worm** — malware known for spreading across networks more on its own, often without someone opening each new copy.\n• **Trojan** — malware that *disguises* itself as something useful or interesting so a person is tricked into running it. Named after the Trojan Horse story.\n• **Ransomware** — malware that blocks access to files or systems (often by locking them) and demands payment to restore access. Paying is risky and not a guarantee — defenders focus on backups and prevention.\n• **Spyware** — malware designed to watch what you do and steal information (keystrokes, browsing, credentials) secretly.\n• **Adware** — unwanted software that floods you with ads; sometimes bundled with other junk and may track you. Annoying, and it can be a warning sign of a messy, risky install.\n\nReal incidents can blend categories. A trojan might deliver ransomware. Defenders care about **impact** and **response**, not perfect taxonomy debates.\n\n**Analyze impact on sensitive data (CIA lens):**\n• **Spyware** on a school laptop can siphon saved browser passwords, counselor messages, or scholarship drafts → primarily **Confidentiality** of personal/academic data.\n• **Ransomware** that encrypts a shared class project folder → primarily **Availability** of coursework; if operators also steal a copy first (\"double extortion\" pattern), **Confidentiality** is hit too.\n• **Adware/trojan** that rewrites browser settings or injects unwanted extensions → **Integrity** of the system configuration, and sometimes a stepping stone to credential theft.\n• **Worms** amplify whatever payload they carry across a lab network — one infected USB habit can cascade Availability/Confidentiality failures for many students.\n\nWhen you analyze a case, ask: *Which sensitive data exists on this device? Which CIA goal is hit first? What recommendation limits further damage?*`,
         bullets: [
           "**Trojan** → tricks you into running it.",
           "**Worm** → spreads across networks more autonomously.",
@@ -78,8 +78,8 @@ export const cyberLesson3: AILessonConfig = {
       {
         id: "concept-2",
         kicker: "Who and why",
-        title: "Threat actors and motivations (high level)",
-        body: `Not every threat looks the same because not every actor wants the same outcome:\n\n• **Criminals seeking money** — scams, ransomware, stealing accounts to sell or abuse.\n• **Scammers / social engineers** — trick people (often without fancy malware).\n• **Insiders** — someone who already has some access and misuses it (accidentally or on purpose).\n• **Hacktivists** — motivated by a cause or protest (still unauthorized and often illegal).\n• **Nation-state / advanced groups** — higher resources, often espionage or disruption (you mainly see these in news about large organizations).\n• **Script kiddies** — less-skilled people using tools others made — still capable of harm, still unauthorized.\n\nMotivations drive what you might observe: money goals often mean ransomware or account theft; spying means stealthy spyware; disruption means outages.\n\nFor high school defenders, the practical point is simple: **assume someone out there wants access to accounts and devices**, and build habits accordingly — without needing to profile every actor on earth.`,
+        title: "Threat actors and motivations: why sensitive data is targeted",
+        body: `Not every threat looks the same because not every actor wants the same outcome:\n\n• **Criminals seeking money** — scams, ransomware, stealing accounts to sell or abuse.\n• **Scammers / social engineers** — trick people (often without fancy malware).\n• **Insiders** — someone who already has some access and misuses it (accidentally or on purpose).\n• **Hacktivists** — motivated by a cause or protest (still unauthorized and often illegal).\n• **Nation-state / advanced groups** — higher resources, often espionage or disruption (you mainly see these in news about large organizations).\n• **Script kiddies** — less-skilled people using tools others made — still capable of harm, still unauthorized.\n\nMotivations drive what you might observe: money goals often mean ransomware or account theft; spying means stealthy spyware; disruption means outages.\n\n**Case analysis angle:** A criminal targeting student email is often after password-reset power (other accounts, gift cards, scam pivots) — sensitive data is a stepping stone. An insider who misuses access to gradebooks hits Integrity of academic records. A hacktivist defacing a school site hits Availability/Integrity of public information. Matching motivation → likely data impact helps you recommend which controls matter most (backups for ransomware, least privilege for insiders, MFA for account theft).\n\nFor high school defenders: **assume someone wants access to accounts and devices holding sensitive data**, and recommend layered habits accordingly — without needing to profile every actor on earth.`,
         callout: {
           label: "Why it matters",
           text: "Understanding motivation helps prioritize. Protecting a personal gaming account and protecting a hospital network both matter, but organizations with valuable data attract different levels of attention.",
@@ -101,7 +101,7 @@ export const cyberLesson3: AILessonConfig = {
         id: "concept-3",
         kicker: "How it shows up",
         title: "How malware spreads — defender view",
-        body: `At a high level, malware needs a way onto a device and a way to run. Common conceptual paths defenders watch for:\n\n• **Risky downloads and fake apps** — software that isn't what it claims to be (trojan pattern).\n• **Email / message attachments and links** — especially unexpected ones (often tied to phishing, next lesson).\n• **Removable media** — unknown USB drives from untrusted sources.\n• **Unpatched software** — old apps/OS versions with known weaknesses that worms and other malware abuse *after* vendors have published fixes.\n• **Bundled junk installers** — "free" tools that sneak extra unwanted software.\n\nNotice what's *not* in this lesson: step-by-step exploit instructions. Defenders don't need those to act. They need to recognize risky situations and reduce exposure.\n\nIf a device acts strangely — mass pop-ups, unknown programs, files suddenly inaccessible, browser hijacks — treat it seriously: disconnect from sensitive accounts if needed, and get help from a trusted adult or IT support rather than "experimenting" further.`,
+        body: `Malware needs a way onto a device and a way to run. Common paths defenders watch for when analyzing how sensitive data gets exposed:\n\n• **Risky downloads and fake apps** — software that isn't what it claims to be (trojan pattern).\n• **Email / message attachments and links** — especially unexpected ones (often tied to phishing, next lesson).\n• **Removable media** — unknown USB drives from untrusted sources.\n• **Unpatched software** — old apps/OS versions with known weaknesses that worms and other malware abuse *after* vendors have published fixes.\n• **Bundled junk installers** — "free" tools that sneak extra unwanted software.\n\nNotice what's *not* in this lesson: step-by-step exploit instructions. Defenders don't need those to act. They need to analyze risky situations, estimate data impact, and recommend exposure reduction.\n\nIf a device acts strangely — mass pop-ups, unknown programs, files suddenly inaccessible, browser hijacks — treat it seriously: disconnect from sensitive accounts if needed, and get help from a trusted adult or IT support rather than "experimenting" further.`,
         callout: {
           label: "Common misconception",
           text: "\"I have a Mac / Chromebook / phone, so I'm safe.\" No major consumer platform is immune. Risk levels differ, but habits still matter on every device.",
@@ -178,7 +178,7 @@ export const cyberLesson3: AILessonConfig = {
         id: "comparison",
         kicker: "Side by side",
         title: "Comparing malware categories by primary impact",
-        body: `Now that you know the categories, comparing them by their *main* effect helps you react faster in the moment:\n\n• **Ransomware** → primary hit is **Availability** (you can't reach your files/systems); may also threaten Confidentiality if data is stolen first.\n• **Spyware** → primary hit is **Confidentiality** (information is secretly taken); usually stays hidden rather than announcing itself.\n• **Adware** → primary hit is annoyance/**Integrity** (unwanted changes to browser/settings); often a warning sign of a risky install rather than the worst-case outcome.\n• **Worms** → primary concern is **spread speed** across a network, which can escalate whatever payload they carry.\n• **Trojans** → primary concern is the **delivery trick** — the disguise is the dangerous part, and the actual payload could be any of the above.\n\nThis comparison is why category names matter: knowing "this smells like ransomware" versus "this smells like adware" changes how urgently you isolate the device and who you call first.`,
+        body: `Now that you know the categories, comparing them by their *main* effect helps you react faster in the moment:\n\n• **Ransomware** → primary hit is **Availability** (you can't reach your files/systems); may also threaten Confidentiality if data is stolen first.\n• **Spyware** → primary hit is **Confidentiality** (information is secretly taken); usually stays hidden rather than announcing itself.\n• **Adware** → primary hit is annoyance/**Integrity** (unwanted changes to browser/settings); often a warning sign of a risky install rather than the worst-case outcome.\n• **Worms** → primary concern is **spread speed** across a network, which can escalate whatever payload they carry.\n• **Trojans** → primary concern is the **delivery trick** — the disguise is the dangerous part, and the actual payload could be any of the above.\n\nThis comparison is why category names matter: knowing "this smells like ransomware" versus "this smells like adware" changes how urgently you isolate the device and who you call first.\n\n**Recommend from impact, not fear:** If sensitive transcripts or health forms may have been exposed (spyware / possible data theft), recommend password resets from a clean device and reporting so accounts can be monitored — even if files still open. If files are locked (ransomware), recommend isolate-first and backup restore planning — not payment. Feasible student-level recommendations beat dramatic but unauthorized "I'll clean the whole network myself" impulses.`,
         checkIn: {
           prompt: "Which malware category's primary impact is most directly an Availability crisis for the victim?",
           choices: ["Adware", "Spyware", "Ransomware", "None — malware never affects Availability"],
@@ -220,7 +220,7 @@ export const cyberLesson3: AILessonConfig = {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
-        body: `Before the mini case and knowledge check, think honestly: have you ever clicked through an installer quickly, the way Devon did, without really checking what it was adding? Most people have. What would you do differently next time, now that you know the "bundled junk installer" and "scareware pop-up" patterns by name?`,
+        body: `Before the mini case and knowledge check, think honestly: have you ever clicked through an installer quickly, the way Devon did, without really checking what it was adding? Most people have. If that install had also stolen a saved school password, which CIA goal would matter most — and what feasible recommendation would you make for yourself next time?`,
       },
       {
         id: "mini-case",
@@ -228,7 +228,7 @@ export const cyberLesson3: AILessonConfig = {
         title: "Mini case: the group chat \"homework helper\"",
         image: "/images/lessons/cs-3-5.png",
         imageAlt: "Group chat on a phone with a shared file labeled homework helper and a suspicious warning triangle",
-        body: `**The situation:** A file called "HomeworkHelper.exe" starts circulating in a class group chat, promising to auto-generate outlines for essays. Several classmates download and run it. A few days later, three of those classmates report the same odd symptoms: unexpected browser pop-ups, a strange new program in their startup list, and — for one student — a locked file they can no longer open, with a text file demanding payment to unlock it.\n\n**Apply what you've learned:**\n\n• **Category:** The file's disguise (something appealing that tricks people into running it) is a classic **trojan** pattern. The payload varied by student — some got adware-like symptoms, and one appears to have received **ransomware**.\n• **Spread path:** This matches the "risky download" and social-sharing spread path — the file spread through trust in the group chat, not through a network worm or an email attachment.\n• **Response:** The student with locked files should isolate the device immediately, avoid paying, and check whether backups exist to restore from. All affected students should reset passwords from a clean device and tell a trusted adult or IT so the source file can be flagged before more classmates download it.\n\nThis case shows why "a friend shared it" doesn't make a file safe — trojans specifically rely on that kind of trust to spread.`,
+        body: `**The situation:** A file called "HomeworkHelper.exe" starts circulating in a class group chat, promising to auto-generate outlines for essays. Several classmates download and run it. A few days later, three of those classmates report the same odd symptoms: unexpected browser pop-ups, a strange new program in their startup list, and — for one student — a locked file they can no longer open, with a text file demanding payment to unlock it.\n\n**Apply what you've learned:**\n\n• **Category:** The file's disguise (something appealing that tricks people into running it) is a classic **trojan** pattern. The payload varied by student — some got adware-like symptoms, and one appears to have received **ransomware**.\n• **Spread path:** This matches the "risky download" and social-sharing spread path — the file spread through trust in the group chat, not through a network worm or an email attachment.\n• **Response:** The student with locked files should isolate the device immediately, avoid paying, and check whether backups exist to restore from. All affected students should reset passwords from a clean device and tell a trusted adult or IT so the source file can be flagged before more classmates download it.\n\n**Sensitive-data impact analysis:** Even before the ransom note, classmates who ran the file may have exposed saved passwords or open school portals on those devices (Confidentiality). The locked file is an Availability crisis for that student's work. The altered startup list is an Integrity failure on the system configuration.\n\nThis case shows why "a friend shared it" doesn't make a file safe — trojans specifically rely on that kind of trust to spread — and why defenders analyze *which data and which CIA goal* before recommending next steps.`,
       },
       {
         id: "malware-reporting",
@@ -280,14 +280,14 @@ Early, specific reports let defenders isolate one bad download before it becomes
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Malware** is malicious software; categories include **virus, worm, trojan, ransomware, spyware, adware**.\n• **Threat actors** have different motivations — money, disruption, spying, ideology — which shapes what defenders see.\n• Spread often involves risky downloads, messages, unpatched software, and social tricks — including trusted-looking group chat files.\n• **First response:** isolate → observe → scan → password reset from clean device → restore.\n• **Ransomware:** isolate first; recover from offline/immutable backups — not payment.\n• Watch for **scareware** pop-ups that offer to "fix" a problem they may have caused.\n• Defender habits: **update**, **don't run unknown files**, trusted sources, backups, and **report**.\n\nNext up: social engineering and phishing — because many malware and account-theft incidents start with tricking a human.\n\nTake the **Knowledge check**, then reflect on one habit you'll strengthen this week.`,
+        body: `Quick recap:\n\n• **Malware** is malicious software; categories include **virus, worm, trojan, ransomware, spyware, adware** — analyze each by **CIA impact on sensitive data**, not vocab alone.\n• **Threat actors** have different motivations — money, disruption, spying, ideology — which shapes which data is targeted.\n• Spread often involves risky downloads, messages, unpatched software, and social tricks — including trusted-looking group chat files.\n• **First response:** isolate → observe → scan → password reset from clean device → restore.\n• **Ransomware:** isolate first; recover from offline/immutable backups — not payment; watch for Confidentiality hits if data was stolen first.\n• Watch for **scareware** pop-ups that offer to "fix" a problem they may have caused.\n• **Recommend** feasible habits: **update**, **don't run unknown files**, trusted sources, backups, and **report**.\n\nNext up: social engineering and phishing — because many malware and account-theft incidents start with tricking a human.\n\nTake the **Knowledge check**, then reflect with a justified recommendation tied to data impact.`,
       },
     ],
   },
   bigIdeas: [
-    "**Malware** is software designed to harm; different categories cause different impacts (lock, spy, trick, spread).",
-    "**Threat actors** are motivated by goals like money or disruption — understanding the goal helps interpret risk.",
-    "Defenders reduce risk with **updates**, caution toward **unknown files**, trusted sources, **backups**, and fast reporting.",
+    "**Malware** harms devices and sensitive data differently — analyze Confidentiality, Integrity, and Availability impact by category.",
+    "**Threat actors** are motivated by goals like money or disruption — matching motivation to likely data impact helps interpret risk.",
+    "Defenders **recommend** updates, caution toward **unknown files**, trusted sources, **backups**, and fast reporting — never unauthorized experimentation.",
   ],
   keyTerms: [
     { term: "Malware", definition: "Malicious software designed to harm devices, steal data, spy, or disrupt." },
@@ -299,35 +299,36 @@ Early, specific reports let defenders isolate one bad download before it becomes
     { term: "Threat Actor", definition: "A person or group that poses a cybersecurity threat." },
     { term: "Patch / Update", definition: "A vendor fix that closes known security weaknesses in software." },
     { term: "Immutable backup", definition: "A backup copy that cannot be altered or deleted by ransomware during an attack." },
+    { term: "Double Extortion", definition: "A ransomware pattern where operators both lock data (Availability) and threaten to leak a stolen copy (Confidentiality) unless paid — payment is still risky and not recommended." },
   ],
   realWorld:
     "A fake \"homework helper\" installer that secretly steals saved browser passwords is a **trojan** delivering **spyware**-like harm — prevented more by cautious downloads and updates than by memorizing malware source code.",
   quiz: [
     {
       id: "q1",
-      question: "Which malware type is best described as \"disguised as something useful to trick you into running it\"?",
+      question: "A \"homework helper\" installer from a group chat later correlates with stolen browser-saved school passwords. Which analysis best connects category to sensitive-data impact?",
       choices: [
-        "A worm, which spreads across a network with little user action",
-        "A patch, which fixes a known software weakness",
-        "A trojan",
-        "A firewall rule blocking unwanted traffic",
-      ],
-      correctIndex: 2,
-      explanation:
-        "A trojan pretends to be desirable software so a person willingly runs it. That social trick is the defining idea at this level.",
-    },
-    {
-      id: "q2",
-      question: "Ransomware mainly threatens which CIA goal first for the victim?",
-      choices: [
-        "Confidentiality only — it always just reads data quietly",
-        "Availability — you can't reach your files or systems",
-        "Integrity only — it silently corrects spelling mistakes",
-        "None — ransomware only affects hardware, not data",
+        "A worm automatically patched the passwords, improving Integrity",
+        "A trojan-style disguise likely delivered spyware-like theft — Confidentiality of credentials and linked academic accounts is the primary impact to analyze",
+        "Adware never affects sensitive data, only screen brightness",
+        "A firewall rule blocked unwanted traffic, so no data impact is possible",
       ],
       correctIndex: 1,
       explanation:
-        "Ransomware typically blocks access, which is an Availability crisis. It may also threaten Confidentiality if data is stolen, but the hallmark is lockout.",
+        "Trojans trick users into running code; if credentials are stolen afterward, analyze Confidentiality impact on sensitive accounts — not just the funny install name.",
+    },
+    {
+      id: "q2",
+      question: "Ransomware locks a shared scholarship folder and the note threatens to publish the essays if unpaid. Which evaluation best describes the sensitive-data impact?",
+      choices: [
+        "Only Integrity is affected because essays might have typos",
+        "Primarily Availability (locked files), with an added Confidentiality threat if stolen copies are leaked — recommend isolate + backup recovery, not payment",
+        "Only hardware is affected; essays are not sensitive data",
+        "Availability improves because locked files can't be edited",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Classic ransomware hits Availability; double-extortion-style threats also put Confidentiality at risk. Defenders recommend containment and clean backups — payment is not a reliable or recommended plan.",
     },
     {
       id: "q3",
@@ -344,16 +345,16 @@ Early, specific reports let defenders isolate one bad download before it becomes
     },
     {
       id: "q4",
-      question: "Why might criminals use ransomware?",
+      question: "A money-motivated threat actor targets student laptops holding college application drafts. Which recommendation best matches that motivation and data risk?",
       choices: [
-        "Often for financial gain by demanding payment",
-        "To practice inside an authorized school lab environment",
-        "To improve Availability for the victim's organization",
-        "Because using malware is a required certification step",
+        "Ignore backups — money motives never affect Availability of files",
+        "Recommend offline/immutable backups, cautious downloads, and early reporting — because ransomware/account theft for profit commonly destroys Availability and can expose Confidentiality of application materials",
+        "Practice launching ransomware in an unauthorized school lab",
+        "Disable updates so nothing changes unexpectedly",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
-        "At a high level, many ransomware operators are motivated by money. That does not mean paying is safe or recommended.",
+        "Matching motivation (money) to likely tactics (ransomware/account theft) lets you recommend feasible controls that protect the sensitive application data students actually hold.",
     },
     {
       id: "q5",
@@ -410,7 +411,7 @@ Early, specific reports let defenders isolate one bad download before it becomes
   ],
   reflection: {
     prompt:
-      "Which malware category worries you most for your own devices (ransomware, spyware, trojan, etc.), and which one defender habit will you improve this week to reduce that risk?",
-    placeholder: "Example: Ransomware worries me because of school files — I'll turn on backups and stop downloading random installers…",
+      "Pick one malware category and one type of sensitive data you store (grades, essays, photos, passwords). Analyze which CIA goal that malware would hit first, then recommend one feasible control this week and explain why it is proportionate to that impact.",
+    placeholder: "Example: Spyware vs. saved browser passwords hits Confidentiality first. I'd recommend a password manager + MFA on school email and stop installing random converters, because…",
   },
 };

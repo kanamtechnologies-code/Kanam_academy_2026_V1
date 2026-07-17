@@ -2,15 +2,15 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const cyberLesson7: AILessonConfig = {
   id: "cs-7",
-  title: "7. Networking for Defenders",
-  goal: "Explain IP addresses, routers, LAN vs WAN, DNS, ports, and client-server roles conceptually, and describe why defenders care about network paths.",
+  title: "7. Network Architecture for Defenders",
+  goal: "Evaluate how routers, switches, servers, topology, and addressing affect network scalability and reliability; describe impacts of bandwidth, load, delay, and topology; and diagnose path failures like DNS vs link issues — without attack techniques.",
   xpReward: 350,
   badge: "Net Scout",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/6",
   nextHref: "/learn/cyber/8",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,10 +18,10 @@ export const cyberLesson7: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-7.png",
         imageAlt: "Home router, laptop, and phone on a desk with simple LAN cables suggesting a network",
-        body: `Cyber defenders don't just think about passwords — they think about **paths**. Data travels through networks, and every hop is a place something can be protected… or exposed.\n\nHere's our roadmap:\n\n• **IP addresses** — numerical addresses for devices on a network.\n• **Routers** — devices that forward traffic between networks.\n• **LAN vs WAN** — local networks vs wide-area networks.\n• **DNS** — how human-friendly names become addresses.\n• **Ports** — numbered doorways to services on a device.\n• **Client-server** — who asks and who answers.\n• **A worked example, a myth, and a mini case** — practicing the path model on realistic \"why won't this load?\" moments.\n• **Why defenders care** — spotting where risk lives along the path.\n\nThis is awareness for high-school cyber — not a networking engineering lab or attack guide.`,
+        body: `Cyber defenders don't just think about passwords — they **evaluate network architecture**: how devices connect, how traffic is addressed, and what makes a design scale or fail under load.\n\nHere's our roadmap:\n\n• **Addressing** — IP (private/public), MAC vs IP briefly, why packets need locators.\n• **Switches vs routers** — local forwarding vs connecting networks.\n• **Topology** — star, bus, mesh; evaluate reliability tradeoffs.\n• **Servers & roles** — what different servers do on the path.\n• **Bandwidth, load, delay** — how capacity and congestion affect reliability.\n• **LAN vs WAN, DNS, ports, client-server** — path literacy for diagnosis.\n• **A worked example, a myth, and a mini case** — turning \"it's down\" into a path-based evaluation.\n\nDefensive only: architecture and diagnosis — not scanning, exploitation, or bypass guides.`,
         callout: {
           label: "Why it matters",
-          text: "When a site won't load or a scam link looks weird, networking basics help you ask better questions: DNS? path? local Wi-Fi? remote service?",
+          text: "When a site won't load — or a design must survive a busy game night — you evaluate topology, addressing, and capacity, not just \"Wi-Fi bars.\"",
         },
       },
       {
@@ -38,34 +38,66 @@ export const cyberLesson7: AILessonConfig = {
         id: "glossary",
         kicker: "Let's break down the words",
         title: "Network words in plain English",
-        body: `• **Network** — connected devices that can exchange data.\n• **IP address** — a numeric label that helps identify a device on a network (like a street address for packets).\n• **Router** — a device that directs traffic between networks (home Wi-Fi to the internet, for example).\n• **LAN (Local Area Network)** — a network in a limited area like a home, classroom, or school building.\n• **WAN (Wide Area Network)** — a network spanning larger distances; the internet is the largest WAN most people use.\n• **DNS (Domain Name System)** — the internet's phonebook that maps names like \`example.com\` to IP addresses.\n• **Port** — a number that helps a computer deliver traffic to the right service (web, email, remote admin, etc.).\n• **Client / Server** — the requester and the responder in many network conversations.`,
+        body: `• **Network** — connected devices that can exchange data.\n• **IP address** — a numeric label that helps locate a device on a network (logical address for routing).\n• **MAC address** — a hardware identifier used on a local link; switches often forward using MAC, while routers forward using IP.\n• **Switch** — a device that forwards frames within a LAN, typically connecting many devices in the same local network.\n• **Router** — a device that forwards traffic **between** networks (e.g., LAN ↔ internet).\n• **Topology** — the arrangement of how devices and links are connected (star, bus, mesh, and hybrids).\n• **Bandwidth** — roughly how much data a link can carry per unit time (capacity).\n• **Scalability** — how well a design keeps working as users, devices, or traffic grow.\n• **LAN / WAN** — local area vs wide-area networks; the internet is the largest WAN most people use.\n• **DNS** — maps names like \`example.com\` to IP addresses.\n• **Port** — a number that delivers traffic to the right service on a device.\n• **Client / Server** — requester and responder in many network conversations.`,
         callout: {
           label: "Pro tip",
-          text: "If networking jargon overwhelms you, keep the map metaphor: addresses (IP), roads (links), intersections (routers), phonebook (DNS), suite numbers (ports).",
+          text: "Map metaphor: street address (IP), name tag on the local floor (MAC), hallways (switches), inter-building roads (routers), phonebook (DNS), suite numbers (ports).",
         },
       },
       {
         id: "concept-1",
         kicker: "Addresses and neighborhoods",
-        title: "IP addresses, routers, LAN vs WAN",
+        title: "Addressing, LAN/WAN, and path boundaries",
         image: "/images/lessons/cs-7-2.png",
         imageAlt: "Diagram-style photo props: LAN inside home, WAN cloud beyond the router",
-        body: `Every device that talks on a network needs a way to be found. An **IP address** is that locator. You don't need to memorize formats — just know devices use IPs so packets know where to go.\n\n**Private vs public IPs:** Ranges like **192.168.x.x** (and similar private ranges) are used **inside** local networks. They are **not globally routable** on the public internet — your home router uses **NAT (Network Address Translation)** to let many private devices share one public address outward. That means 192.168.1.5 in your house is not the same as 192.168.1.5 in someone else's house.\n\nYour home or school **LAN** connects nearby devices — phones, laptops, printers — often through Wi-Fi access points and a **router**. The router is the gateway that helps your LAN reach other networks.\n\nBeyond your building is the wider world: a **WAN**. The **internet** is a giant mesh of networks. When you stream a video, packets leave your LAN through your router, cross **firewalls and NAT boundaries**, and arrive at a remote server.\n\nDefender intuition:\n• Compromising a device on a LAN can threaten neighbors on that same local network if controls are weak.\n• Traffic leaving your LAN toward the internet crosses paths you don't fully control — which is why encryption on websites and careful trust decisions matter.\n• **Logs at hops** (router, firewall, server) help defenders reconstruct who talked to whom.`,
+        body: `Every device that talks on a network needs a way to be found. **Evaluate addressing** in two layers:\n\n• **IP address** — logical locator used so packets can be routed across networks.\n• **MAC address** — hardware-ish identifier used on a local link. On a LAN, a **switch** often decides where to send a frame using MAC learning; once traffic must leave that network, a **router** decides the next hop using IP.\n\n**Private vs public IPs:** Ranges like **192.168.x.x** (and similar private ranges) stay **inside** local networks — not globally routable. Your gateway **router** uses **NAT** so many private devices share one public address outward. 192.168.1.5 at home is not the same device as 192.168.1.5 at school.\n\n**LAN vs WAN:** A **LAN** connects nearby devices (home, library, school wing). A **WAN** spans sites; the **internet** is a huge interconnection of networks. Streaming video: device → LAN (often via switch/AP) → router → WAN path → remote **server**.\n\n**Defender evaluation:**\n• Same-LAN neighbors can often reach each other if segmentation is weak — shared café Wi-Fi is a trust decision.\n• Traffic beyond your router crosses paths you don't control — encryption and careful destination trust matter.\n• **Logs at hops** (switch/AP, router, firewall, server) help reconstruct who talked to whom when reliability or security fails.`,
         bullets: [
-          "**Private IPs** (e.g. 192.168.x.x) stay local — not globally unique on the internet.",
-          "**Router + NAT + firewalls** sit in the path between LAN and WAN.",
-          "**LAN** → local (home/school). **WAN** → wide area (including the internet).",
+          "**MAC** helps local (switch) forwarding; **IP** helps between-network (router) forwarding.",
+          "**Private IPs** stay local; **NAT + router** mediate LAN ↔ WAN.",
+          "**LAN** = local; **WAN** = wide (including the internet).",
         ],
         callout: {
           label: "Watch out",
           text: "Public café Wi-Fi is a LAN you share with strangers. Treat sensitive logins carefully — prefer trusted networks and MFA-backed accounts.",
         },
         checkIn: {
-          prompt: "Nate's laptop was connected to the library's Wi-Fi. That Wi-Fi network itself is best described as a:",
-          choices: ["WAN", "LAN", "DNS server", "Port"],
+          prompt: "A school buys a device that connects 24 classroom computers so they can reach each other on the same floor, and a separate device that connects that floor to the district internet link. Which pairing is correct?",
+          choices: [
+            "Both devices are only DNS servers",
+            "Floor device ≈ switch (LAN forwarding); internet-edge device ≈ router (between networks)",
+            "Floor device ≈ WAN; edge device ≈ MAC address",
+            "Both must be the same device type because IP and MAC are identical",
+          ],
           correctIndex: 1,
           explanation:
-            "The library's local Wi-Fi network is a LAN — a network limited to that building, connected to the wider internet (WAN) through a router.",
+            "Switches forward within a LAN; routers forward between networks (LAN ↔ WAN/internet). MAC vs IP support those different jobs.",
+        },
+      },
+      {
+        id: "network-architecture",
+        kicker: "Architecture",
+        title: "Switches, topology, servers, and reliability",
+        body: `**Evaluate architecture** the way CSTA 3A-NI-04 / 3B-NI-03 expect: devices, topology, addressing, and performance factors — not just vocabulary.\n\n**Switch vs router (compare):**\n• **Switch** — connects many devices in one LAN; forwards locally; a failure here often knocks out that segment's local connectivity.\n• **Router** — connects different networks; chooses paths between them; also a common place for NAT/firewall policy. A router failure can isolate an entire LAN from the WAN even if local switching still works.\n\n**Topology (evaluate reliability):**\n• **Star** — devices link to a central switch/AP. Simple and common; **single point of failure** at the center (one dead switch can isolate many clients).\n• **Bus** (legacy idea) — shared backbone; conceptually simple, but a backbone fault or contention can affect many stations.\n• **Mesh** — multiple paths between nodes. **More resilient** (alternate routes if one link fails) and often **more expensive/complex** to build and manage.\n• Real campuses are **hybrids**: star-like closets feeding redundant uplinks toward core routers.\n\n**Server roles on the path:** DNS servers translate names; web/app servers answer clients; file/auth servers hold campus resources; each is a reliability and security dependency — overload or misconfig at one role feels like \"the internet is down\" even when links are fine.\n\n**Bandwidth, load, delay — impacts:**\n• **Bandwidth** = capacity. Too little for the crowd → congestion.\n• **Load** = how much of that capacity is in use (game night, testing week).\n• **Delay (latency)** = how long packets take; rises under congestion or long/poor paths.\n• **Scalability** = whether adding users/devices still meets performance goals — more APs/switches, better uplinks, redundant paths, and appropriately placed servers all affect the answer.\n\n**Defender recommendation pattern:** prefer designs with clear LAN/WAN boundaries, redundant critical links where outages hurt learning, and servers sized/placed so DNS and auth aren't single silent choke points. Next lesson adds firewalls on those boundaries.`,
+        bullets: [
+          "**Switch** = within LAN; **router** = between networks.",
+          "**Star** is simple but center-critical; **mesh** adds alternate paths at cost/complexity.",
+          "**Bandwidth / load / delay / topology** jointly determine reliability under growth.",
+        ],
+        callout: {
+          label: "Evaluate",
+          text: "Ask: If this switch dies, who is cut off? If DNS is overloaded, what still works? Those questions are architecture evaluation — not attack skills.",
+        },
+        checkIn: {
+          prompt: "A library uses one central switch for all wired seats (star). On a busy afternoon, that switch fails. Which evaluation is most accurate?",
+          choices: [
+            "Mesh topology guarantees this never happens, so it must have been DNS",
+            "Star's central device is a single point of failure — many local clients lose LAN connectivity even if the WAN link is healthy",
+            "Routers never matter in a star, so the WAN must also be down",
+            "Bandwidth always increases when a switch fails",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Star topologies concentrate risk at the center. Evaluating reliability means naming that tradeoff — simplicity vs single-point failure.",
         },
       },
       {
@@ -93,18 +125,23 @@ export const cyberLesson7: AILessonConfig = {
       {
         id: "concept-3",
         kicker: "Services and conversations",
-        title: "Ports and client-server (concept level)",
-        body: `A single device can run many services. **Ports** are numbered endpoints that help sort traffic to the right service — think apartment numbers inside a building address.\n\nAwareness examples (not a config lab):\n• Web traffic commonly uses ports associated with HTTP/HTTPS (you'll see **80** and **443** called out next lesson).\n• Remote administration services use other well-known ports (you'll hear **22** discussed as something defenders pay attention to — not something to expose casually).\n\n**Client-server** roles:\n• Your laptop browser is often the **client** (asks).\n• The website's computer is the **server** (answers).\nMany apps hide this, but the pattern is everywhere: game client ↔ game server, email app ↔ mail server.\n\nDefenders care which services are listening on which ports because each open service is a potential doorway that must be authenticated, authorized, updated, and monitored.`,
+        title: "Ports, clients, and server roles on the path",
+        body: `A single host can run many services. **Ports** are numbered endpoints that deliver traffic to the right service — suite numbers inside a building (IP) address.\n\n**Examples defenders reason about (not an attack guide):**\n• Web services commonly use **80/443** (HTTP/HTTPS) — next lesson ties these to firewall allow/deny choices.\n• Remote administration services use other well-known ports — defenders treat them as high-impact doorways to authenticate, authorize, and avoid exposing casually.\n\n**Client-server and server roles:**\n• Your browser is often the **client** (asks); a web host is a **server** (answers).\n• Other server roles on real paths: **DNS** (names→IPs), **file/auth** (campus resources), **app/game** backends. Evaluating reliability means asking which role failed — overloaded DNS can look like a total outage while switches and WAN links are fine.\n\nEach listening service is a doorway that needs updates, access control, and often firewall policy. Architecture decides where those servers sit; configuration (next lesson) decides who may reach them.`,
         callout: {
           label: "Common misconception",
-          text: "\"Ports\" are not physical holes in your laptop. They're software numbers used in networking. Closing risk is about controlling which services are exposed — often via firewalls (next lesson).",
+          text: "\"Ports\" are not physical holes in your laptop. They're software numbers. Controlling exposure is about which services are reachable — often via firewalls (next lesson) — not about \"hacking ports.\"",
         },
         checkIn: {
-          prompt: "When Nate's browser requests a web page from a library server, which role does his browser play?",
-          choices: ["Server", "Client", "Router", "DNS resolver"],
+          prompt: "Students report \"the internet is down,\" but the WAN link and core switch look healthy while the campus DNS servers are overloaded. What does that imply for evaluating the outage?",
+          choices: [
+            "Server roles don't affect reliability if switches work",
+            "A critical server role (DNS) can break name-based access even when topology and bandwidth on the links are fine",
+            "Only routers can cause user-visible failures",
+            "Ports are physical holes that must have melted",
+          ],
           correctIndex: 1,
           explanation:
-            "The browser is the client — it initiates the request. The remote website's computer is the server that responds.",
+            "Scalability/reliability evaluation includes servers on the path — DNS load can dominate the user experience independently of link health.",
         },
       },
       {
@@ -139,10 +176,10 @@ export const cyberLesson7: AILessonConfig = {
         id: "try-it",
         kicker: "Your turn",
         title: "Try it yourself: narrate a connectivity failure",
-        body: `Think of a real time something "wouldn't connect" for you — a game that couldn't reach its server, a video call that failed, a site that wouldn't load.\n\nUsing this lesson's vocabulary, narrate what likely happened, step by step:\n\n1. **Device** — was your device itself connected to Wi-Fi/LAN at all?\n2. **Router** — did other devices on the same network also have trouble, suggesting a router-level issue?\n3. **WAN** — could you reach *some* things but not others, suggesting the problem was further out?\n4. **DNS** — did names fail while raw addresses (if you could test) might have worked?\n5. **Server** — could the *specific* remote service have been down, unrelated to your network at all?\n\nYou probably can't run a full diagnostic without more information — but just naming a plausible hop, instead of saying "the internet was broken," is the actual skill this lesson is building.`,
+        body: `Think of a real time something "wouldn't connect" — game server, video call, site load.\n\n**Evaluate the architecture**, step by step:\n\n1. **Device / LAN** — connected at all? Could a local **switch**/AP failure explain many clients failing together (star center)?\n2. **Router** — LAN works but WAN doesn't?\n3. **Bandwidth/load/delay** — worked off-peak but failed when everyone joined?\n4. **DNS server role** — names fail while raw IP works?\n5. **App server** — one service down while others work?\n\nNaming a plausible hop and factor (topology vs capacity vs DNS) is the skill — not unauthorized probing.`,
         callout: {
           label: "Keep it real",
-          text: "If you genuinely don't know which hop failed, that's fine — \"probably the router or the remote server, not my device\" is still a much more useful statement than \"everything was broken.\"",
+          text: "\"Lab switch (star center) or DNS under load — not my laptop\" is already a stronger evaluation than \"everything was broken.\"",
         },
       },
       {
@@ -151,16 +188,16 @@ export const cyberLesson7: AILessonConfig = {
         title: "Going deeper: why defenders map network paths",
         image: "/images/lessons/cs-7-4.png",
         imageAlt: "Whiteboard sketch of packets traveling client to DNS to server with defender checkpoints and a VPN tunnel icon",
-        body: `Put the pieces together into a defender's mental model:\n\n**Device (client)** → **LAN / Wi-Fi** → **Router** → **NAT / firewalls** → **Internet (WAN)** → **DNS lookup** → **Server** on an **IP:port** → response packets back.\n\nQuestions defenders ask along that path:\n• Are we on a trusted network?\n• Is the domain legitimate?\n• Is the service supposed to be reachable from here?\n• Is traffic protected in transit when it needs to be?\n• Do **logs at hops** show strange clients talking to strange ports?\n\n**VPN awareness:** A **VPN** protects the tunnel between you and the VPN endpoint — it does **not** automatically make every website trustworthy. You still need HTTPS, careful domain checks, and MFA. A VPN on café Wi-Fi helps; trusting a sketchy download site because "I'm on VPN" does not.\n\nYou don't need to run offensive scans. You need to understand that **security controls exist at multiple hops** — passwords on accounts, permissions on servers, filters on firewalls, updates on software, and user judgment on phishing links.\n\nNetworking literacy turns "it broke" into "the failure might be local Wi-Fi, DNS, the remote server, or something in between."`,
+        body: `Put architecture evaluation into one defender model:\n\n**Device (client)** → **LAN (AP/switch, topology)** → **Router (NAT / firewalls)** → **Internet (WAN)** → **DNS server** → **Application server** on **IP:port** → responses back.\n\n**Evaluate along the path:**\n• Trusted network? Legitimate domain?\n• Is the service supposed to be reachable from here?\n• Is capacity (bandwidth) enough for current load, or is delay spiking?\n• Would a star-center failure or a missing redundant uplink explain a wide outage?\n• Do **logs at hops** (switch, router, DNS, app server) localize the fault?\n\n**VPN:** protects the tunnel to its endpoint — not destination trustworthiness. HTTPS, domain checks, and MFA still matter.\n\nDefenders place controls at multiple hops — credentials, permissions, firewall filters, updates, and user judgment. Path literacy turns \"it broke\" into a reasoned hypothesis: local switch? router/WAN? DNS load? remote server?`,
         bullets: [
-          "Map the path: client → LAN → router → WAN → server.",
-          "DNS is a trust and availability point.",
-          "Ports identify services that must be protected.",
-          "Defenders place controls at multiple hops.",
+          "Map: client → LAN (switch/AP) → router → WAN → DNS → server.",
+          "Topology and capacity affect reliability under load.",
+          "DNS and other server roles are availability points.",
+          "Localize failures with path + logs — not vague outage labels.",
         ],
         callout: {
           label: "Try this week",
-          text: "When a page fails to load, narrate the path out loud: device, Wi-Fi/LAN, router, internet, DNS, remote server. Guess which hop failed — then check simple fixes (Wi-Fi, retry, different network).",
+          text: "When a page fails, narrate architecture: device, LAN/switch, router, WAN, DNS, server — and whether it smells like capacity, topology, or name resolution.",
         },
       },
       {
@@ -195,17 +232,17 @@ export const cyberLesson7: AILessonConfig = {
         id: "habits",
         kicker: "Bring it together",
         title: "Habits that build networking literacy",
-        body: `Practical habits from today's lesson:\n\n• **Narrate the path** when something fails to load, instead of saying "the internet is broken."\n• **Try a raw IP address** (when reasonable) to check whether the issue is DNS-specific vs. a broader outage.\n• **Treat VPN and destination trust as separate questions** — a VPN protects the tunnel, not the website at the other end.\n• **Read domain names carefully**, since DNS and lookalike domains are trust points attackers target.\n• **Report clearly** — "IP works, name fails" is far more useful to IT than "nothing works."\n\nYou don't need to become a network engineer. You need enough vocabulary to describe problems precisely — which is exactly what turns you from someone who says "it's broken" into someone defenders can actually work with.`,
+        body: `Practical habits from today's lesson:\n\n• **Evaluate architecture** — switch vs router, topology risk, server roles — when diagnosing outages.\n• **Narrate the path** instead of \"the internet is broken.\"\n• **Test name vs IP** (when reasonable) to separate DNS from link failures.\n• **Separate VPN protection from destination trust.**\n• **Report with factors:** \"star switch in lab A down\" or \"DNS overloaded; WAN OK\" beats \"nothing works.\"\n\nPrecise architecture language is what makes you useful to defenders and IT — not running unauthorized scans.`,
         callout: {
           label: "Why it matters",
-          text: "Clear, path-aware descriptions of a problem often get it solved faster than any technical fix you could attempt yourself.",
+          text: "Clear evaluations of topology, addressing, and capacity get incidents solved faster than vague outage tickets.",
         },
       },
       {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
-        body: `Before the mini case and knowledge check: the next time something "won't connect" for you, will you default back to "the internet is down," or will you try narrating the path — device, LAN, router, WAN, DNS, server — the way Nate eventually did? No need to answer out loud, just notice your honest instinct.`,
+        body: `Before the mini case and knowledge check: justify a recommendation. Your school can afford either a second uplink (more mesh-like redundancy toward the ISP) or a faster single switch in one lab. For a campus that loses whole wings when one closet switch dies, which investment better improves reliability/scalability — and why?`,
       },
       {
         id: "mini-case",
@@ -236,7 +273,7 @@ export const cyberLesson7: AILessonConfig = {
 • Vague: "Wi-Fi is broken."
 • Useful: "Connected to GuestWiFi; google.com fails; 8.8.8.8 works; started after lunch."
 
-Useful reports get solved faster — even from students who are not network engineers.`,
+Useful reports get solved faster when they evaluate architecture factors, not just \"Wi-Fi.\"`,
         callout: {
           label: "Pro tip",
           text: "If only one site fails, suspect that site or your DNS path — not necessarily the entire internet.",
@@ -282,7 +319,7 @@ Defender habit: treat **network choice** and **destination trust** as separate d
         id: "check-yourself",
         kicker: "Before you go",
         title: "Check yourself",
-        body: `Quick self-check: can you list the path from device to server in order (device → LAN → router → WAN → DNS → server)? Can you explain why "raw IP works, name fails" points to DNS specifically? If yes, you're ready for the knowledge check.`,
+        body: `Quick self-check: can you contrast switch vs router, name a topology reliability tradeoff (e.g., star vs mesh), and explain why "raw IP works, name fails" points to DNS? If yes, you're ready for the knowledge check.`,
         checkIn: {
           prompt: "In the mini case, why did already-connected video calls keep working during the DNS issue, while new website visits failed?",
           choices: [
@@ -300,68 +337,73 @@ Defender habit: treat **network choice** and **destination trust** as separate d
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **IP addresses** locate devices; **private IPs** (192.168.x.x) stay local, not globally routable.\n• **Routers**, **NAT**, and **firewalls** connect and filter between networks.\n• **LAN** is local; **WAN** spans wide areas (internet).\n• **DNS** maps names to IPs — IP works but names fail → check DNS and resolver logs.\n• **VPN** protects the tunnel, not destination trustworthiness — keep those two questions separate.\n• **Ports** target services; **clients** ask and **servers** answer.\n• Defenders care about the whole **path** and **logs at hops**, and narrate failures precisely instead of saying \"it's all broken.\"\n\nNext: firewalls, common ports as awareness, secure defaults, and simple segmentation.\n\nTake the **Knowledge check**, then reflect on a time a network path failed in your life.`,
+        body: `Quick recap:\n\n• **Addressing:** IP for routing between networks; MAC for local-link forwarding; private IPs stay local behind NAT.\n• **Switch vs router:** LAN forwarding vs connecting networks.\n• **Topology:** star (simple, center-critical), bus (shared backbone idea), mesh (alternate paths, more complex) — evaluate reliability tradeoffs.\n• **Servers:** DNS, web/app, file/auth roles affect scalability under load.\n• **Bandwidth / load / delay** shape user experience as networks grow.\n• **DNS** — IP works, name fails → name resolution; **VPN** ≠ destination trust.\n• Defenders **evaluate the architecture path** and report precisely.\n\nNext: firewalls, ports, secure defaults, and segmentation.\n\nTake the **Knowledge check**, then justify an architecture recommendation.`,
       },
     ],
   },
   bigIdeas: [
-    "Networks move data using **IPs**, **routers**, and **LAN/WAN** boundaries.",
-    "**DNS** maps names to addresses; **ports** direct traffic to services in a **client-server** exchange.",
-    "Defenders think in **paths** — each hop is a place to protect Availability, Integrity, and Confidentiality.",
+    "**Evaluate** networks via **switches, routers, servers, topology, and addressing** — not isolated vocabulary.",
+    "**Bandwidth, load, delay, and topology** jointly determine **scalability and reliability** under real use.",
+    "Defenders diagnose with **paths** — local LAN gear, edge routers, DNS/server roles, and WAN — to localize failures.",
   ],
   keyTerms: [
-    { term: "IP Address", definition: "A numeric identifier that helps locate a device on a network." },
+    { term: "IP Address", definition: "A numeric identifier that helps locate a device on a network for routing." },
+    { term: "MAC Address", definition: "A hardware identifier used on a local link; switches often forward using MAC learning." },
+    { term: "Switch", definition: "A device that forwards traffic within a LAN, connecting many local devices." },
     { term: "Router", definition: "A device that forwards data between different networks." },
+    { term: "Topology", definition: "How devices and links are arranged (e.g., star, bus, mesh) — affects failure modes." },
+    { term: "Bandwidth", definition: "The data capacity of a link over time — a key factor in congestion and delay." },
+    { term: "Scalability", definition: "How well a network design continues to meet needs as users, devices, or traffic grow." },
     { term: "LAN", definition: "Local Area Network — a network in a limited area like a home or school." },
     { term: "WAN", definition: "Wide Area Network — a network spanning large distances; the internet is a major example." },
     { term: "DNS", definition: "Domain Name System — maps human-friendly domain names to IP addresses." },
     { term: "Port", definition: "A number that helps deliver network traffic to a specific service on a device." },
     { term: "Client", definition: "The device or program that requests data or services." },
-    { term: "Server", definition: "The device or program that responds to client requests." },
+    { term: "Server", definition: "The device or program that responds to client requests (web, DNS, file, etc.)." },
     { term: "Private IP", definition: "An address used inside a local network (e.g. 192.168.x.x) that is not globally routable on the public internet." },
     { term: "NAT", definition: "Network Address Translation — lets many private devices share one public IP when reaching the internet." },
   ],
   realWorld:
-    "Opening a homework portal: your **client** asks **DNS** for the site's **IP**, traffic leaves your **LAN** through a **router** onto the **WAN**, and a **server** answers on a service **port** — usually a secure web service.",
+    "Opening a homework portal: your **client** asks **DNS** for an **IP**; traffic crosses a **LAN** (often via **switch**/AP), a **router** onto the **WAN**, and reaches a **server** on a service **port** — reliability depends on topology and capacity along that path.",
   quiz: [
     {
       id: "q1",
-      question: "What is the main job of DNS?",
+      question: "What is the main job of DNS, and how can DNS load affect reliability even when links are fine?",
       choices: [
-        "Map domain names to IP addresses",
+        "Map domain names to IP addresses — overloaded DNS can break name-based access while switches/WAN still work",
         "Encrypt all traffic between a client and a server",
         "Block malicious IP addresses the way a firewall does",
         "Assign a permanent private IP address to every device",
       ],
       correctIndex: 0,
       explanation:
-        "DNS is the phonebook that turns names people type into IP addresses computers use. Encryption, filtering, and address assignment are separate jobs handled by other parts of the path.",
+        "DNS translates names to IPs; as a server role on the path, its capacity is part of scalability/reliability evaluation.",
     },
     {
       id: "q2",
-      question: "Which statement best describes a LAN?",
+      question: "Comparing a switch and a router, which evaluation is correct?",
       choices: [
-        "The wide network connecting many separate schools across a whole country",
-        "A network limited to a local area like a home or school",
-        "A backup method for storing hashed passwords offline",
-        "An encrypted tunnel used for remote access to a private network",
+        "Both only store passwords; neither forwards traffic",
+        "A switch typically forwards within a LAN; a router forwards between networks (e.g., LAN ↔ internet)",
+        "A router only works with MAC addresses; a switch only works with DNS",
+        "They are identical devices with different brand names",
       ],
       correctIndex: 1,
       explanation:
-        "LAN means Local Area Network — nearby devices sharing a local network. A network spanning many separate sites is closer to a WAN, and an encrypted remote-access tunnel describes a VPN.",
+        "Switches interconnect local devices; routers connect different networks — a core architecture distinction for defenders.",
     },
     {
       id: "q3",
-      question: "What does a router commonly do in a home network?",
+      question: "A lab uses a star topology with one closet switch. Why might that design hurt reliability under failure?",
       choices: [
-        "Store every device's password in plain text for convenience",
-        "Automatically encrypt every file saved on the local network",
-        "Forward traffic between your local network and other networks like the internet",
-        "Translate domain names into IP addresses instead of DNS",
+        "Star topologies never fail, so bandwidth must be infinite",
+        "The center is a single point of failure — if that switch dies, many clients lose local connectivity",
+        "Mesh is always worse than star for every campus",
+        "Topology never interacts with scalability or delay",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
-        "Routers direct traffic between networks — typically your LAN and your ISP/internet path. Translating names to addresses is DNS's job, not the router's.",
+        "Star is simple to manage but concentrates risk at the hub — evaluate that tradeoff when recommending designs.",
     },
     {
       id: "q4",
@@ -378,16 +420,16 @@ Defender habit: treat **network choice** and **destination trust** as separate d
     },
     {
       id: "q5",
-      question: "Why do defenders care about ports conceptually?",
+      question: "Which factor set best explains why a network that works for 30 users fails for 300 during testing week?",
       choices: [
-        "Each service listening on a port is a potential doorway that must be protected and monitored",
-        "Closing every port on a device guarantees it can never be attacked",
-        "Ports only matter for devices connected over Wi-Fi, not wired connections",
-        "Ports matter only for servers, never for everyday laptops or phones",
+        "Bandwidth and load (and resulting delay) exceeded what the design scaled for — topology/server placement may also bottleneck",
+        "Closing every port guarantees infinite scalability",
+        "Ports only matter on Wi-Fi, so wired labs never congest",
+        "Private IP addresses stop working above 50 users automatically",
       ],
       correctIndex: 0,
       explanation:
-        "Ports identify services. Exposed services need updates, access control, and often firewall filtering — closing unused ones helps, but no single step guarantees zero risk.",
+        "Scalability evaluation weighs capacity, congestion/delay, topology, and server roles as usage grows.",
     },
     {
       id: "q6",
@@ -404,34 +446,34 @@ Defender habit: treat **network choice** and **destination trust** as separate d
     },
     {
       id: "q7",
-      question: "Why doesn't using a VPN automatically make a sketchy download site trustworthy?",
+      question: "Why might a mesh-like design with redundant uplinks improve reliability compared with a single star uplink to the ISP?",
       choices: [
-        "A VPN also scans every downloaded file for malware automatically",
-        "A VPN blocks access to any site with a bad reputation",
-        "A VPN protects the tunnel to its endpoint, but says nothing about the trustworthiness of the destination site or file",
-        "A VPN removes the need to check for HTTPS on a site",
+        "Mesh always reduces bandwidth to zero",
+        "Alternate paths can keep traffic flowing if one link fails — at the cost of more complexity/expense",
+        "Redundant links delete the need for IP addresses",
+        "Star topologies cannot exist on school campuses",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
-        "VPN protection and destination trustworthiness are separate questions — a VPN doesn't vet the site or file at the other end, scan downloads, or replace HTTPS.",
+        "Evaluating topology means weighing resilience (alternate paths) against cost and operational complexity.",
     },
     {
       id: "q8",
-      question: "Why is it more useful to describe how routers, servers, topology, and addressing work together than to just define each term separately?",
+      question: "Why evaluate routers, switches, servers, topology, and addressing together instead of memorizing isolated definitions?",
       choices: [
-        "Because isolated definitions are more useful than understanding how the pieces connect",
-        "Because memorizing each term separately is enough for real troubleshooting",
-        "Because networking terms never actually relate to each other in practice",
-        "Because real troubleshooting requires understanding how the pieces work together as a path, so you can localize where a failure actually occurred",
+        "Isolated definitions are enough for real outage diagnosis",
+        "These pieces never interact in practice",
+        "Only professional engineers may discuss topology",
+        "Reliability and scalability emerge from how the pieces interact as a path — so you can localize failures and justify design tradeoffs",
       ],
       correctIndex: 3,
       explanation:
-        "Modeling the relationships between network components — as a path — is what lets you localize a problem (like DNS vs. router vs. server) instead of just labeling everything \"broken.\"",
+        "CSTA-style network reasoning is about relationships — path + capacity + topology — not flashcard terms alone.",
     },
   ],
   reflection: {
     prompt:
-      "Describe a recent time something \"wouldn't connect.\" Using lesson words (LAN, router, DNS, client/server), guess which part of the path might have been the problem and why.",
-    placeholder: "Example: My phone had Wi-Fi bars but no sites loaded — maybe DNS or the path beyond the router, because other LAN features still seemed fine…",
+      "Recommend a small architecture improvement for a place you know (home, school lab, club). Compare star vs more redundant links, switch vs router roles, and justify how your choice improves reliability or scalability under load — including one tradeoff (cost/complexity).",
+    placeholder: "Example: Our lab is a pure star on one switch — I'd recommend a spare uplink/redundant path for exams week even if it costs more to manage…",
   },
 };

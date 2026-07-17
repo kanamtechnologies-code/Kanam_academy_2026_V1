@@ -3,14 +3,14 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const cyberLesson6: AILessonConfig = {
   id: "cs-6",
   title: "6. Access Control & Least Privilege",
-  goal: "Distinguish authentication from authorization in practice, explain RBAC and least privilege, contrast admin vs user accounts, and describe risks of shared accounts.",
+  goal: "Recommend least-privilege designs with usability tradeoffs; compare RBAC approaches and admin vs standard accounts; and evaluate shared-account risks for accountability and offboarding.",
   xpReward: 300,
   badge: "Gatekeeper",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/5",
   nextHref: "/learn/cyber/7",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,7 +18,7 @@ export const cyberLesson6: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-6.png",
         imageAlt: "School portal with role badges Student Teacher Admin and a least-privilege lock icon",
-        body: `Logging in is only half the story. Once you're in, **access control** decides which doors open.\n\nHere's our roadmap:\n\n• **Authentication vs. authorization** — a quick rematch with sharper examples.\n• **RBAC** — Role-Based Access Control in plain English.\n• **Least privilege** — give the minimum access needed to do the job.\n• **Access lifecycle** — temporary grants, offboarding, and periodic review.\n• **Admin vs. user accounts** — why everyday work shouldn't use "keys to the castle."\n• **A worked example, a myth, and a mini case** — so this becomes a habit, not a definition.\n• **Shared accounts** — why "one login for the whole club" creates lasting problems.\n\nThese ideas show up in school portals, cloud docs, workplace tools, and games with moderator roles.`,
+        body: `Logging in is only half the story. Once you're in, **access control** decides which doors open. Today you'll **compare** designs and **recommend** least privilege with real usability tradeoffs.\n\nHere's our roadmap:\n\n• **Authentication vs. authorization** — prove identity, then grant permissions.\n• **RBAC** — compare role-based designs vs ad-hoc / shared logins.\n• **Least privilege** — recommend minimum access; weigh convenience against blast radius.\n• **Access lifecycle** — temporary grants, offboarding, and periodic review.\n• **Admin vs. standard accounts** — when elevation is justified and when it isn't.\n• **A worked example, a myth, and a mini case** — redesigning access like a defender.\n• **Shared accounts** — why "one login for the whole club" fails accountability.\n\nThese decisions show up in school portals, cloud docs, workplace tools, and games with moderator roles.`,
         callout: {
           label: "Why it matters",
           text: "Many breaches aren't genius break-ins — they're ordinary accounts that had far more power than they needed.",
@@ -72,28 +72,28 @@ export const cyberLesson6: AILessonConfig = {
         title: "RBAC — Role-Based Access Control",
         image: "/images/lessons/cs-6-2.png",
         imageAlt: "Access control board mapping roles to permissions with colored badges",
-        body: `**RBAC (Role-Based Access Control)** assigns permissions to **roles**, then assigns people to roles — instead of hand-crafting every permission for every person from scratch.\n\nExample roles in a school LMS:\n• **Student** — submit work, view own grades.\n• **Teacher** — create assignments, grade class sections.\n• **Counselor** — view certain student records needed for support.\n• **IT Admin** — manage accounts and system settings.\n\nWhen a new student joins, they get the Student role and inherit that toolbelt. When a teacher leaves, removing the Teacher role (or disabling the account) is cleaner than hunting through dozens of one-off permissions.\n\nRBAC isn't the only access model in industry, but it's the one you'll hear most in intro cyber and CompTIA-style fundamentals — and it matches how clubs, jobs, and games already think about "mod" vs "member."`,
+        body: `**Compare access approaches** before recommending one:\n\n| Approach | How it works | Strength | Tradeoff |\n|---|---|---|---|\n| **Ad-hoc permissions** | Hand-craft every person's access | Flexible in tiny teams | Hard to audit; errors multiply |\n| **Shared login** | One password for the group | Fast to set up | No accountability; messy offboarding |\n| **RBAC** | Permissions → **roles** → people | Scales; clear "what can Teachers do?" | Needs role design + periodic review |\n\n**RBAC example (school LMS):** Student (submit, view own grades), Teacher (create/grade), Counselor (limited records), IT Admin (accounts/settings). New student → Student role. Teacher leaves → remove role or disable account — cleaner than hunting one-off grants.\n\n**Recommendation:** prefer RBAC + individual identities for anything that outlives a single event. Accept a bit more setup; you gain auditability and clean offboarding — exactly what the robotics club lacked.`,
         bullets: [
-          "Permissions attach to **roles**.",
-          "People are assigned **roles**.",
+          "Permissions attach to **roles**; people get roles.",
           "Changing someone's job → change their role.",
           "Easier to audit: \"What can Teachers do?\"",
+          "Compare RBAC vs shared logins before choosing convenience.",
         ],
         callout: {
           label: "Watch out",
           text: "Role creep happens when people collect old roles over time (\"just leave me as admin too\"). Periodic cleanups are part of real security hygiene.",
         },
         checkIn: {
-          prompt: "If the robotics club had used RBAC with individual accounts instead of one shared login, what would have been different?",
+          prompt: "A club wants \"one shared owner password\" vs \"individual logins with Poster / Officer roles.\" Which recommendation is better justified, and why?",
           choices: [
-            "Nothing — RBAC doesn't affect accountability",
-            "Each person would have their own identity and role, so the mystery post could be traced to a specific account",
-            "RBAC would have prevented all social media posts",
-            "RBAC only applies to school gradebooks, not clubs",
+            "Shared password — RBAC never applies outside big companies",
+            "Individual accounts + RBAC — actions are attributable and you can remove one person without resetting everyone",
+            "Give everyone admin so nobody waits for permissions",
+            "Disable all accounts and post only from personal phones",
           ],
           correctIndex: 1,
           explanation:
-            "RBAC with individual logins preserves accountability — actions are tied to a specific person's role and identity, not one anonymous shared account.",
+            "RBAC with individual identities preserves accountability and supports least-privilege offboarding — shared owner passwords fail both.",
         },
       },
       {
@@ -102,22 +102,22 @@ export const cyberLesson6: AILessonConfig = {
         title: "Least privilege — minimum access to do the job",
         image: "/images/lessons/cs-6-3.png",
         imageAlt: "Two accounts on a laptop: everyday user vs admin, with a sticky note Use admin only when needed",
-        body: `**Least privilege** means each user, account, and program should get only the permissions required for legitimate work — not every permission available.\n\nWhy defenders love it:\n• **Mistakes do less damage.** Accidental deletes are limited.\n• **Malware / stolen sessions do less damage.** If your everyday account can't install system-wide software, some attacks stall.\n• **Insiders have less blast radius.** Curiosity clicks don't open every file in the organization.\n\nSchool/life applications:\n• Use a standard user account for browsing and homework; reserve admin for installs when needed.\n• Share cloud docs as **view** or **comment** unless someone truly needs **edit**.\n• Club social media: not every member needs the owner login.\n\nLeast privilege feels slightly inconvenient in the moment — and saves careers later.`,
+        body: `**Least privilege** means each user, account, and program gets only the permissions required for legitimate work — not every permission "just in case."\n\n**Why recommend it (evaluate impact):**\n• **Mistakes do less damage** — accidental deletes stay limited.\n• **Stolen sessions / malware do less damage** — everyday accounts that can't install system-wide software stall many attacks.\n• **Insider blast radius shrinks** — curiosity doesn't open every file.\n\n**Usability tradeoff (be honest):** least privilege means occasional "please grant edit for this week" requests. That friction is the cost of not running every bad day at maximum power.\n\n**Admin vs standard account — compare:**\n• **Standard user** — default for browsing, homework, docs. Recommend for daily work.\n• **Admin** — installs, system settings, managing others. Recommend **just-in-time elevation**, then return to standard.\n\nSchool/life: share docs as **view/comment** unless edit is required; club social — contributor roles for most, owner for few. Least privilege feels slightly inconvenient — and is the design you should recommend when asked.`,
         callout: {
           label: "Common misconception",
           text: "\"Make me admin so I never have to ask again\" sounds efficient. It usually means every future mistake runs with maximum power.",
         },
         checkIn: {
-          prompt: "Applying least privilege to the robotics club's social media account would most likely mean:",
+          prompt: "An officer asks for permanent admin \"so we stop filing permission tickets.\" What recommendation best balances usability and risk?",
           choices: [
-            "Giving every member the owner-level password for convenience",
-            "Giving most members a limited \"contributor\" role for posting, while only one or two officers hold full owner access",
-            "Removing the account's password entirely",
-            "Letting former members keep access indefinitely",
+            "Grant permanent admin — tickets are never worth the security cost",
+            "Keep standard accounts for daily work; grant temporary elevated access for defined tasks with a review/expiry date",
+            "Remove the account's password entirely to reduce friction",
+            "Let former members keep access indefinitely so they can help later",
           ],
           correctIndex: 1,
           explanation:
-            "Least privilege means most members get only the access needed to post, while higher-impact controls stay limited to a small, accountable group.",
+            "Just-in-time elevation preserves least privilege while still solving real work needs — permanent admin maximizes blast radius for convenience.",
         },
       },
       {
@@ -179,18 +179,18 @@ export const cyberLesson6: AILessonConfig = {
         id: "comparison",
         kicker: "Side by side",
         title: "Comparing admin, standard user, and shared accounts",
-        body: `A clear side-by-side of the three account patterns from this lesson:\n\n• **Admin account** — powerful, can change system settings and manage others; best used briefly and only when needed, then set aside for daily work.\n• **Standard user account** — limited, everyday-appropriate access; the right default for most tasks, since mistakes and malware do less damage here.\n• **Shared account** — one login used by multiple people; convenient to set up, but breaks accountability (who did what?) and makes offboarding messy (whose access do we even remove?).\n\nThe pattern worth remembering: **individual identity + role-appropriate permission** beats both "give everyone admin" and "just share one login." It takes a little more setup, but it's the only option that keeps accountability and easy offboarding intact.`,
+        body: `**Recommend a design** by comparing account patterns:\n\n| Pattern | When it fits | Risk if overused |\n|---|---|---|\n| **Admin account** | Brief elevation for installs/settings | Everyday use → every mistake/malware runs at max power |\n| **Standard user** | Default daily work | Slightly more "ask for permission" friction |\n| **Shared account** | Almost never for ongoing work | No who-did-what; offboarding requires password roulette |\n| **Individual + RBAC** | Clubs, LMS, cloud drives | Small setup cost; needs periodic role review |\n\n**Recommendation:** individual identity + role-appropriate permission. Accept setup friction; reject "everyone admin" and "one sticky-note login" unless the resource is truly ephemeral and low-impact — and even then, plan expiry.`,
         checkIn: {
-          prompt: "What is the core accountability problem with shared accounts, as shown in the robotics club story?",
+          prompt: "Which design would you recommend for a yearbook platform used across school years, and why?",
           choices: [
-            "Shared accounts are always technically impossible to hack",
-            "Actions taken through a shared login can't be traced to a specific individual, and offboarding is unclear",
-            "Shared accounts automatically enable stronger MFA",
-            "There is no real problem with shared accounts",
+            "One shared admin password passed down each spring — simplest handoff",
+            "Individual accounts with Editor/Designer/Adviser roles, plus offboarding at graduation — accountability and least privilege across years",
+            "Everyone gets admin so deadlines never wait on permissions",
+            "No accounts at all — email files instead forever",
           ],
           correctIndex: 1,
           explanation:
-            "Shared identities blur who actually took an action and complicate removing access cleanly when someone leaves.",
+            "Multi-year tools need attributable identities and role-based least privilege; shared admin passwords fail offboarding every graduating class.",
         },
       },
       {
@@ -217,7 +217,7 @@ export const cyberLesson6: AILessonConfig = {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
-        body: `Before the mini case and knowledge check: think of one piece of access you personally still hold from an old role, team, or club you're no longer active in. Does anyone know you still have it? Would removing it actually cause any problem — or has it just never come up?`,
+        body: `Before the mini case and knowledge check: justify a recommendation. A club adviser says shared owner passwords are "fine for students." What least-privilege / RBAC design would you propose instead, and what usability tradeoff would you accept to get accountability?`,
       },
       {
         id: "mini-case",
@@ -303,14 +303,14 @@ Role creep feels efficient until something goes wrong. The fix is boring process
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Access control** enforces who can do what after login.\n• **Authentication** proves identity; **authorization** grants permissions.\n• **RBAC** bundles permissions into roles.\n• **Least privilege** limits damage from mistakes and misuse.\n• Grant **temporary access** with expiry; **revoke on offboarding**; avoid blanket admin.\n• **Periodic access review:** export → confirm owners → trim roles → MFA on privileged → document exceptions.\n• Avoid everyday **admin** use and risky **shared accounts** — role creep sneaks in when removal feels awkward instead of routine.\n\nNext lessons zoom out to networks and firewalls — how traffic is allowed or denied across systems.\n\nComplete the **Knowledge check**, then reflect on a place you can apply least privilege this week.`,
+        body: `Quick recap:\n\n• **Access control** enforces who can do what after login.\n• **Authentication** proves identity; **authorization** grants permissions.\n• **Compare** RBAC vs ad-hoc vs shared logins — recommend roles + individual identities.\n• **Recommend least privilege** despite ticket friction; elevate admin only just-in-time.\n• Grant **temporary access** with expiry; **revoke on offboarding**; run periodic reviews.\n• Everyday **admin** and **shared accounts** inflate blast radius — role creep is a process failure.\n\nNext: network architecture — how routers, switches, topology, and servers shape reliability and risk.\n\nComplete the **Knowledge check**, then justify one least-privilege recommendation.`,
       },
     ],
   },
   bigIdeas: [
-    "**Authorization** decides permissions after **authentication** proves identity — together they implement **access control**.",
-    "**RBAC** assigns permissions through roles; **least privilege** keeps those permissions minimal.",
-    "**Admin** power and **shared accounts** increase blast radius — prefer standard users and individual identities.",
+    "**Recommend** access designs that separate **authentication** (who) from **authorization** (what) — that is access control.",
+    "**Compare RBAC** to ad-hoc and shared logins; roles scale better for audit and offboarding.",
+    "**Least privilege** + standard users over everyday admin; reject shared accounts when accountability matters.",
   ],
   keyTerms: [
     { term: "Access Control", definition: "Rules and checks that determine who can view or change resources." },
@@ -328,51 +328,51 @@ Role creep feels efficient until something goes wrong. The fix is boring process
   quiz: [
     {
       id: "q1",
-      question: "A student can log in but cannot delete the class gradebook. What is working?",
+      question: "A student can log in but cannot delete the class gradebook. What is working, and why is that a good design?",
       choices: [
-        "Authentication succeeded; authorization correctly denied the action",
+        "Authentication succeeded; authorization correctly denied the action — least privilege limiting blast radius",
         "Only authentication failed, which is why the delete was blocked",
         "RBAC means everyone can delete everything by default",
         "Least privilege always grants admin rights automatically",
       ],
       correctIndex: 0,
       explanation:
-        "They proved who they were (authenticated) but their role doesn't include delete-on-gradebook (authorization).",
+        "They proved who they were (authenticated) but their role doesn't include delete-on-gradebook (authorization) — intentional least privilege.",
     },
     {
       id: "q2",
-      question: "What is the main idea of least privilege?",
+      question: "A teammate wants permanent admin \"to avoid asking.\" Which recommendation best applies least privilege with a usability tradeoff?",
       choices: [
         "Give every user admin rights so they never have to ask again",
-        "Give only the access required for the person's job or tasks",
+        "Keep standard accounts daily; grant temporary elevated access for specific tasks with an expiry/review date",
         "Share one password across a team so permissions stay simple",
         "Disable authentication entirely to speed up logins",
       ],
       correctIndex: 1,
       explanation:
-        "Least privilege minimizes access to what is necessary — reducing damage from mistakes and misuse.",
+        "Just-in-time elevation accepts occasional requests in exchange for much smaller blast radius when something goes wrong.",
     },
     {
       id: "q3",
-      question: "In RBAC, permissions are primarily assigned to:",
+      question: "Comparing ad-hoc permissions vs RBAC for a school LMS with hundreds of users, why recommend RBAC?",
       choices: [
-        "Whichever individual account happens to need them that day",
-        "Printers and other hardware exclusively",
-        "Roles, which are then assigned to people",
-        "Only accounts that already have MFA enabled",
+        "Whichever individual account happens to need them that day is easier to audit at scale",
+        "Printers and other hardware exclusively need permissions",
+        "Permissions attach to roles (Teacher/Student), then people get roles — cleaner onboarding, audit, and offboarding",
+        "Only accounts that already have MFA enabled can use roles",
       ],
       correctIndex: 2,
       explanation:
-        "RBAC attaches permissions to roles (like Teacher or Student), then people receive those roles.",
+        "RBAC scales: change the role definition once, and everyone in that role inherits the update — unlike hunting one-off grants.",
     },
     {
       id: "q4",
-      question: "Why is doing everyday browsing as a full admin account risky?",
+      question: "Why recommend a standard user account for everyday browsing instead of full admin?",
       choices: [
         "Admin accounts cannot access the internet at all",
         "Admin accounts automatically block every form of MFA",
         "Using admin daily improves least privilege over time",
-        "Mistakes or malware running in that session inherit powerful permissions",
+        "Mistakes or malware in that session inherit powerful permissions — admin amplifies every bad day",
       ],
       correctIndex: 3,
       explanation:
@@ -393,16 +393,16 @@ Role creep feels efficient until something goes wrong. The fix is boring process
     },
     {
       id: "q6",
-      question: "What is \"role creep\"?",
+      question: "What is \"role creep,\" and why does it undermine a least-privilege recommendation over time?",
       choices: [
         "A required step every organization must follow when first designing RBAC",
-        "The gradual buildup of unnecessary access as people collect old permissions over time without removal",
+        "Unnecessary access accumulates as old roles aren't removed — so real permissions drift far above \"minimum needed\"",
         "A type of malware that spreads through admin accounts",
         "A fast, safe method for assigning brand-new roles",
       ],
       correctIndex: 1,
       explanation:
-        "Role creep is the slow accumulation of unused or outdated access, usually because removal never felt urgent — periodic review fixes it.",
+        "Role creep silently undoes least privilege; periodic review is how you keep the recommendation honest.",
     },
     {
       id: "q7",
@@ -419,21 +419,21 @@ Role creep feels efficient until something goes wrong. The fix is boring process
     },
     {
       id: "q8",
-      question: "Why is it more useful to compare security measures like access models than to just define them?",
+      question: "You must choose between shared admin, everyone-admin, or RBAC with standard users for a multi-year club drive. Which evaluation is strongest?",
       choices: [
-        "Because all access control models are equally secure in every situation",
-        "Because only IT professionals ever need to compare these models",
-        "Because comparing models has no real practical value for students",
-        "Because real decisions (like choosing RBAC with least privilege over shared admin accounts) require weighing usability and security tradeoffs, not just recalling terms",
+        "All three are equally secure if passwords are long",
+        "Only IT professionals may compare these models",
+        "Shared admin is best because setup is fastest",
+        "RBAC + least privilege beats shared/everyone-admin when you weigh accountability, offboarding, and blast radius against setup friction",
       ],
       correctIndex: 3,
       explanation:
-        "Meaningful security literacy involves weighing tradeoffs for a real situation — exactly what redesigning the robotics club or yearbook account required.",
+        "Real decisions require tradeoffs — redesigning the robotics club or yearbook account is exactly that evaluation.",
     },
   ],
   reflection: {
     prompt:
-      "Describe one system you use (school portal, cloud drive, game, club tool). What role are you in, what extra privilege would be unnecessary, and how could shared-account habits create risk there?",
-    placeholder: "Example: I'm a student role in the LMS — I don't need gradebook edit. Our club once shared an owner login, which was risky when seniors graduated…",
+      "Recommend an access design for one system you use (portal, drive, club tool, game). Compare shared login vs RBAC vs everyday-admin, justify least privilege, and name one usability tradeoff you'll accept.",
+    placeholder: "Example: Club Drive should use individual Editor/Viewer roles, not a shared owner password — I'll accept slower onboarding to keep grads from retaining admin…",
   },
 };

@@ -2,15 +2,15 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const cyberLesson9: AILessonConfig = {
   id: "cs-9",
-  title: "9. Cryptography Basics",
-  goal: "Understand what cryptography does for confidentiality and integrity — symmetric vs asymmetric encryption, hashing, keys, and digital signatures — and what crypto alone cannot solve.",
+  title: "9. Cryptography & Secure Transmission",
+  goal: "Compare symmetric encryption, asymmetric encryption, and hashing; model how software protects data in secure transmission; and evaluate tradeoffs of crypto choices (speed, key distribution, integrity vs confidentiality) — without treating crypto as a complete defense.",
   xpReward: 450,
   badge: "Cipher Starter",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/8",
   nextHref: "/learn/cyber/10",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,10 +18,10 @@ export const cyberLesson9: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-9.png",
         imageAlt: "Two locked boxes and two keys on a desk illustrating encryption concepts for students",
-        body: `You've used encryption thousands of times without noticing — every time a padlock shows up in a browser, a messaging app says "end-to-end encrypted," or a password is stored as a scrambled hash. Today you'll learn the **ideas** behind that protection, not how to break it.\n\nHere's our roadmap:\n\n• **What cryptography is for** — protecting confidentiality and checking integrity.\n• **Symmetric encryption** — one shared secret key.\n• **Asymmetric encryption** — public and private key pairs, plus digital signatures.\n• **Hashing** — one-way fingerprints for integrity (and why passwords aren't stored as plain text).\n• **Key management** — why protecting the key matters as much as the algorithm.\n• **Trust chains** — how encryption connects to certificates (bridge to next lesson).\n• **Limits** — what crypto does *not* fix.\n\nThis is defender knowledge: you need to know what "encrypted" really promises so you can choose tools wisely and spot marketing hype. Understanding what encryption actually promises helps you choose tools wisely and spot marketing hype that oversells protection.`,
+        body: `You've used encryption thousands of times without noticing — every time a padlock shows up in a browser, a messaging app says "end-to-end encrypted," or a password is stored as a scrambled hash. Today you'll **compare** the main crypto tools, **model** how software protects data in transit, and **evaluate tradeoffs** so you can recommend the right protection for a job — not how to break crypto.\n\nHere's our roadmap:\n\n• **What cryptography is for** — confidentiality and integrity as separate jobs.\n• **Compare** symmetric vs asymmetric vs hashing — what each solves and costs.\n• **Digital signatures** — proving authorship with key pairs.\n• **Key management tradeoffs** — rotation, usability, and who holds the secret.\n• **Secure transmission model** — trust keys → encrypt → authenticate the other party.\n• **Limits** — what crypto does *not* fix.\n\nHigh-school depth means you can justify a choice: when is a shared passphrase enough, when do you need public-key exchange, and when is a hash the right tool?`,
         callout: {
           label: "Why it matters",
-          text: "Crypto is a core building block of modern security. Understanding it helps you trust the right systems — and question claims that sound too perfect.",
+          text: "\"Encrypted\" is a marketing word until you can compare *what* was protected, *with which tool*, and what still fails if a key leaks or a device is compromised.",
         },
       },
       {
@@ -73,10 +73,10 @@ export const cyberLesson9: AILessonConfig = {
         title: "Symmetric encryption: same key both ways",
         image: "/images/lessons/cs-9-2.png",
         imageAlt: "Same key used to lock and unlock a padlock representing symmetric encryption",
-        body: `In **symmetric encryption**, the **same key** locks and unlocks the data. You and your friend both need that shared secret.\n\nAnalogy: a house key. The same physical key locks and unlocks the door. It's fast and efficient — great for encrypting large amounts of data (like a whole file or a video call stream).\n\nThe hard part is **key distribution**: how do you safely give someone the shared key without an eavesdropper grabbing it? If the key leaks, an attacker can decrypt everything that used it. Defenders care a lot about storing and rotating those keys carefully.`,
+        body: `In **symmetric encryption**, the **same key** locks and unlocks the data. You and your friend both need that shared secret.\n\nAnalogy: a house key. The same physical key locks and unlocks the door. It's fast and efficient — great for encrypting large amounts of data (like a whole file or a video call stream).\n\n**Tradeoff to evaluate:** speed and simplicity vs **key distribution** and **blast radius**. Symmetric crypto wins on performance, but every person who needs access must get the same secret safely — and if it leaks, everything encrypted with it is exposed until you rotate. For a two-person club file, a carefully shared passphrase can be feasible. For a class of thirty who join and leave mid-year, the same approach becomes an ethics-and-operations problem: old members still know the secret unless you rotate every change.\n\nDefenders don't invent ciphers — they choose when a shared secret is acceptable and when they need a better distribution story (asymmetric exchange, password manager share, or a managed vault).`,
         callout: {
           label: "Defender view",
-          text: "Symmetric crypto is everywhere under the hood. Your job isn't to invent ciphers — it's to use trusted apps and keep keys/passphrases out of chat logs, sticky notes, and shared folders.",
+          text: "Recommend symmetric crypto for bulk data *after* you have a plan for who gets the key, how it is shared, and when it rotates — not before.",
         },
       },
       {
@@ -101,11 +101,11 @@ export const cyberLesson9: AILessonConfig = {
         id: "asymmetric",
         kicker: "Two related keys",
         title: "Asymmetric encryption: public and private keys",
-        body: `**Asymmetric encryption** (also called **public-key cryptography**) uses a **key pair**:\n\n• A **public key** you can share freely — like a padlock anyone can snap shut.\n• A **private key** you keep secret — like the only key that opens that padlock.\n\nSomeone can encrypt a message *to you* with your public key; only your private key can decrypt it. This solves the key-distribution problem from the last section: you never need to secretly hand anyone your private key.\n\nAsymmetric crypto is slower for big data, so real systems often use it to *safely exchange* a temporary symmetric key, then switch to fast symmetric encryption for the rest of the session — the best of both worlds.`,
+        body: `**Asymmetric encryption** (also called **public-key cryptography**) uses a **key pair**:\n\n• A **public key** you can share freely — like a padlock anyone can snap shut.\n• A **private key** you keep secret — like the only key that opens that padlock.\n\nSomeone can encrypt a message *to you* with your public key; only your private key can decrypt it. This solves the key-distribution problem from the last section: you never need to secretly hand anyone your private key.\n\n**Tradeoff to evaluate:** safer key distribution and signatures vs computational cost and private-key custody. Asymmetric crypto is slower for big data, so real software often uses it briefly to *agree on* a temporary symmetric key, then switches to fast symmetric encryption for the session — modeling secure transmission as a hybrid, not a single algorithm.\n\n**Compare the three tools:**\n• **Symmetric** — confidentiality at speed; shared secret must stay secret among the right people.\n• **Asymmetric** — confidentiality + identity/auth features without sharing a private key; heavier for bulk data.\n• **Hashing** — integrity fingerprints; not reversible confidentiality.`,
         bullets: [
           "**Public key** = shareable; used to encrypt *to* you.",
-          "**Private key** = secret; used to decrypt.",
-          "Losing a private key is like losing the only key to your vault.",
+          "**Private key** = secret; used to decrypt (and to sign).",
+          "Losing a private key is like losing the only key to your vault — revoke/replace, don't hope.",
         ],
         callout: {
           label: "Common misconception",
@@ -166,11 +166,11 @@ export const cyberLesson9: AILessonConfig = {
         title: "Key management: the part that actually breaks systems",
         image: "/images/lessons/cs-9-4.png",
         imageAlt: "Illustration of a key vault icon with a rotation calendar reminder for key management",
-        body: `Strong algorithms fail constantly for one boring reason: **the key wasn't protected**. Key management covers the whole lifecycle:\n\n• **Generation** — created with enough randomness that it can't be guessed.\n• **Storage** — kept somewhere access-controlled, not in plain-text files, sticky notes, or shared documents.\n• **Distribution** — shared through safe channels (see the symmetric example earlier).\n• **Rotation** — replaced periodically or immediately after a suspected leak or when someone with access leaves.\n• **Revocation** — the ability to invalidate a key/certificate quickly if it's compromised.\n\nA weak lock with a perfectly guarded key can be safer in practice than a mathematically perfect lock with a key taped under the doormat. Defenders spend real effort on the boring lifecycle work — not just picking a fancy algorithm.`,
+        body: `Strong algorithms fail constantly for one boring reason: **the key wasn't protected**. Key management covers the whole lifecycle:\n\n• **Generation** — created with enough randomness that it can't be guessed.\n• **Storage** — kept somewhere access-controlled, not in plain-text files, sticky notes, or shared documents.\n• **Distribution** — shared through safe channels (see the symmetric example earlier).\n• **Rotation** — replaced periodically or immediately after a suspected leak or when someone with access leaves.\n• **Revocation** — the ability to invalidate a key/certificate quickly if it's compromised.\n\n**Key-management tradeoffs (recommend with justification):**\n• **Frequent rotation** improves recovery after leavers/leaks, but costs coordination time — clubs often under-rotate because usability wins until someone graduates with the passphrase.\n• **Shared team passphrase** is feasible for two officers; for a large roster, recommend a password-manager vault or per-person access so revocation doesn't require re-educating everyone.\n• **Convenience storage** (notes app, group chat) raises breach impact — recommend out-of-band share + vault even if it slows onboarding by a day.\n\nA weak lock with a perfectly guarded key can be safer in practice than a mathematically perfect lock with a key taped under the doormat.`,
         bullets: [
           "Generation, storage, distribution, rotation, revocation.",
           "Most real-world crypto failures are key-management failures, not math failures.",
-          "Rotate keys/passwords when people leave or a leak is suspected.",
+          "Evaluate rotation frequency against membership churn — not against \"the algorithm feels strong.\"",
         ],
         callout: {
           label: "Defender view",
@@ -199,11 +199,11 @@ export const cyberLesson9: AILessonConfig = {
         id: "trust-chain",
         kicker: "Bridge to HTTPS",
         title: "Trustworthy keys, integrity, and authenticating the other party",
-        body: `Encryption only works when the **keys and certificates** are trustworthy. Scrambling data with a key an impostor gave you protects you from nobody — or from the wrong party.\n\nA complete defender mental model pairs three goals:\n\n**1. Obtain trustworthy keys/certificates** — Know who issued them and whether you trust that issuer (certificates preview this in the next lesson).\n**2. Confidentiality** — Encrypt so outsiders cannot read intercepted traffic.\n**3. Integrity + authentication** — Detect tampering and confirm you are talking to the real server or person, not a middle impostor.\n\nReal systems often combine asymmetric crypto (to agree on keys safely) with symmetric crypto (for speed), plus hashes or signatures for integrity. The order matters conceptually: trust the key material first, then encrypt, then verify the other party hasn't been swapped out mid-conversation.`,
+        body: `Encryption only works when the **keys and certificates** are trustworthy. Scrambling data with a key an impostor gave you protects you from nobody — or from the wrong party.\n\n**Model secure transmission conceptually (software's job, not yours to reinvent):**\n\n**1. Obtain trustworthy keys/certificates** — Know who issued them and whether you trust that issuer (certificates deepen this next lesson).\n**2. Confidentiality** — Encrypt so outsiders cannot read intercepted traffic (often hybrid: asymmetric handshake → symmetric session).\n**3. Integrity + authentication** — Detect tampering and confirm you are talking to the real server or person, not a middle impostor.\n\nThe order matters: trust the key material first, then encrypt, then keep verifying the other party. Software (browsers, messaging apps, OS crypto libraries) automates this model so users aren't doing hand-rolled math — your job is to evaluate whether a tool's claims match this model, and to protect keys/endpoints outside it.`,
         bullets: [
           "Encryption needs **trustworthy keys/certs** — not just any random key.",
           "Pair **confidentiality** with **integrity** and **authenticating the other party**.",
-          "Certificates (next lesson) help browsers decide which servers to trust.",
+          "Prefer well-tested software that implements the hybrid model — don't invent your own transmission scheme.",
         ],
         callout: {
           label: "Defender view",
@@ -282,20 +282,20 @@ export const cyberLesson9: AILessonConfig = {
         id: "crypto-decisions",
         kicker: "Decision checklist",
         title: "Choosing crypto protections in everyday tools",
-        body: `When a tool says "encrypted," ask what job it is actually doing:
+        body: `When a tool says "encrypted," **compare** what job it is actually doing and **recommend** based on the data's risk:
 
 • **In transit** — HTTPS or encrypted chat protects content on the wire.
 • **At rest** — device encryption or encrypted storage protects files if the device is stolen.
 • **Integrity** — hashes or signatures prove a file or update was not tampered with.
 • **Authentication** — signatures prove who approved a message or update.
 
-**Comparison — what each tool typically gives you:**
-• Browser padlock → mainly confidentiality + integrity of the connection to that server.
-• Encrypted messaging app → confidentiality of message content between endpoints (if implemented well).
-• Password hash on server → protects stored credentials, not your live session.
-• File checksum published by vendor → integrity check for downloads.
+**Comparison — recommend with tradeoffs:**
+• Browser padlock → confidentiality + integrity of the *connection* to that server (not honesty of the site).
+• Encrypted messaging app → strong confidentiality between endpoints if implemented well; still fails if a phone is unlocked/stolen.
+• Password hash on server → protects stored credentials at rest; does not protect a live phished session.
+• File checksum published by vendor → integrity for downloads; not secrecy of the file contents.
 
-Crypto answers specific questions. List which questions matter for the data you are handling, then pick tools that address those — not whichever app has the best marketing.`,
+List which questions matter for the data you handle, then pick tools that answer those — justify the tradeoff (speed vs key custody, convenience vs rotation discipline), not the marketing slogan.`,
       },
       {
         id: "key-leak-response",
@@ -322,14 +322,14 @@ Key leaks are process problems, not math problems. Rotation speed matters more t
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Cryptography** supports **confidentiality** (encryption) and **integrity** (hashing/signatures).\n• **Symmetric** = one shared key (fast, but distribution is hard); **asymmetric** = public/private key pair (solves distribution, enables signatures).\n• **Hashes** are one-way fingerprints — not the same as encryption.\n• **Key management** — generation, storage, distribution, rotation, revocation — is where most real failures happen.\n• Encryption needs **trustworthy keys/certs**; pair confidentiality with integrity and authenticating the other party.\n• Crypto is essential, but it doesn't replace good passwords, MFA, updates, or phishing defense.\n\nWhen you're ready, switch to the **Knowledge check**, then reflect on where you already trust encryption in daily life.`,
+        body: `Quick recap:\n\n• **Compare** tools: **symmetric** (fast shared secret), **asymmetric** (public/private; distribution + signatures), **hashing** (one-way integrity — not encryption).\n• **Model secure transmission**: trustworthy keys → confidentiality → integrity + authenticating the other party (often hybrid crypto in software).\n• **Evaluate tradeoffs**: speed vs key distribution; rotation discipline vs usability; shared passphrase vs managed vault as membership grows.\n• **Key management** lifecycle failures beat math failures in the real world.\n• Crypto protects data under rules — it doesn't replace MFA, patching, or phishing defense.\n\nWhen you're ready, switch to the **Knowledge check**, then justify a crypto recommendation for a real scenario.`,
       },
     ],
   },
   bigIdeas: [
-    "**Encryption** scrambles data for confidentiality; **hashing** creates one-way fingerprints for integrity.",
-    "**Symmetric** crypto uses one shared key; **asymmetric** crypto uses a public/private key pair and enables digital signatures.",
-    "Most real crypto failures come from **key management** mistakes, not broken math — and crypto alone can't fix phishing or a compromised device.",
+    "**Compare** encryption (confidentiality) with **hashing** (one-way integrity) — they answer different questions.",
+    "**Symmetric** vs **asymmetric** tradeoffs: speed and shared-secret risk vs safer distribution and signatures; real software often hybridizes both for secure transmission.",
+    "Most real crypto failures are **key-management** failures — evaluate rotation, storage, and custody tradeoffs, because crypto alone can't fix phishing or a compromised device.",
   ],
   keyTerms: [
     { term: "Cryptography", definition: "Techniques for protecting information so only authorized people can read or verify it." },
@@ -361,16 +361,16 @@ Key leaks are process problems, not math problems. Rotation speed matters more t
     },
     {
       id: "q2",
-      question: "How is symmetric encryption different from asymmetric encryption?",
+      question: "A club must encrypt a large video archive for two officers only, and both can meet in person once. Which recommendation best balances the tradeoffs?",
       choices: [
-        "Symmetric encryption uses a public key that anyone can share freely",
-        "Symmetric uses one shared key; asymmetric uses a public/private key pair",
-        "Asymmetric encryption is really just another name for hashing",
-        "They are different names for the exact same underlying process",
+        "Invent a custom cipher so outsiders won't know the algorithm",
+        "Use strong symmetric encryption with an out-of-band shared passphrase, then rotate if membership changes",
+        "Hash the videos instead, because hashing provides confidentiality",
+        "Post the private key in the group chat so everyone can help verify it",
       ],
       correctIndex: 1,
       explanation:
-        "Symmetric = same shared key both ways. Asymmetric = public key + private key working as a pair. Neither is the same as hashing.",
+        "Symmetric encryption fits bulk data and a tiny trusted group; in-person/out-of-band sharing solves distribution. Hashing is not confidentiality, and homemade crypto is unsafe.",
     },
     {
       id: "q3",
@@ -387,16 +387,16 @@ Key leaks are process problems, not math problems. Rotation speed matters more t
     },
     {
       id: "q4",
-      question: "Which statement about hashing vs encryption is correct?",
+      question: "You need to prove a published software download was not altered, but the file itself is not secret. Which crypto tool should you recommend, and why?",
       choices: [
-        "Hashing and encryption are the same process, just with different names",
-        "Hashing is always reversible; encryption is never reversible",
-        "Only hashing provides confidentiality of messages in transit",
-        "Encryption is meant to be reversible with a key; hashing is meant to be one-way",
+        "Symmetric encryption, because secrecy and integrity are the same job",
+        "Asymmetric encryption of the whole file, because hashes cannot detect changes",
+        "A vendor-published hash/checksum (and optionally a signature) to verify integrity without needing confidentiality",
+        "No crypto tool applies — integrity only matters for passwords",
       ],
-      correctIndex: 3,
+      correctIndex: 2,
       explanation:
-        "Encryption is designed so authorized parties can decrypt. Hashing creates a fingerprint you shouldn't reverse.",
+        "Integrity for public downloads is a hashing/signature job. Encryption adds confidentiality you may not need and does not replace an integrity check.",
     },
     {
       id: "q5",
@@ -413,47 +413,47 @@ Key leaks are process problems, not math problems. Rotation speed matters more t
     },
     {
       id: "q6",
-      question: "What is the biggest real-world risk in symmetric encryption?",
+      question: "Why do secure web sessions often use asymmetric crypto briefly, then switch to symmetric crypto for the rest of the traffic?",
       choices: [
-        "Safely distributing the shared key without it leaking",
-        "The algorithm is always too weak to use in practice",
-        "It cannot be used to encrypt data on phones",
-        "It requires a certificate authority to function",
-      ],
-      correctIndex: 0,
-      explanation:
-        "Symmetric encryption's core challenge is getting the one shared key to the right people without it being intercepted.",
-    },
-    {
-      id: "q7",
-      question: "A team member with access to a shared encryption key leaves the group. What is the correct key-management response?",
-      choices: [
-        "Nothing — keys never need to change once they're created",
-        "Publish the old key publicly so everyone can verify it",
-        "Switch immediately from encryption to hashing instead",
-        "Rotate the key and update access, since the departed member still knows the old one",
-      ],
-      correctIndex: 3,
-      explanation:
-        "Key rotation after someone loses authorized access is core key-management hygiene — most crypto failures are lifecycle failures, not math failures.",
-    },
-    {
-      id: "q8",
-      question: "A messaging app says chats are encrypted. Which problem can crypto alone still fail to stop?",
-      choices: [
-        "Eavesdroppers reading properly encrypted traffic without the keys",
-        "Someone phishing you into revealing your login code",
-        "Turning plaintext into ciphertext",
-        "Using a public key to encrypt a message to you",
+        "Asymmetric crypto is illegal for long sessions",
+        "Asymmetric crypto safely helps agree on keys; symmetric crypto is faster for bulk data afterward — a deliberate speed vs distribution tradeoff",
+        "Symmetric crypto cannot encrypt web pages at all",
+        "Browsers are forbidden from using more than one crypto tool",
       ],
       correctIndex: 1,
       explanation:
-        "Encryption protects data in transit/storage under its rules — it doesn't stop social engineering that tricks you into handing over access.",
+        "Hybrid design models secure transmission: asymmetric techniques solve key agreement; symmetric encryption carries the session efficiently.",
+    },
+    {
+      id: "q7",
+      question: "Fifteen club members share one encryption passphrase in a chat archive. Three graduate. What is the best justified key-management recommendation?",
+      choices: [
+        "Keep the same passphrase — encryption strength does not depend on who knows it",
+        "Publish the passphrase so remaining members can verify it",
+        "Switch from encryption to hashing of the files, since hashing revokes access automatically",
+        "Rotate to a new secret via a safer channel (or move to a managed vault), because departed members still know the old key",
+      ],
+      correctIndex: 3,
+      explanation:
+        "Membership churn makes shared secrets a lifecycle risk. Rotation (or better access control) is the justified response — hashing does not revoke access.",
+    },
+    {
+      id: "q8",
+      question: "A messaging app says chats are encrypted. Which problem can crypto alone still fail to stop, and what does that imply for recommendations?",
+      choices: [
+        "Eavesdroppers reading properly encrypted traffic without the keys — so encryption is useless",
+        "Someone phishing you into revealing your login code — so recommend MFA and phishing resistance alongside encryption",
+        "Turning plaintext into ciphertext — so hashing should replace encryption",
+        "Using a public key to encrypt a message to you — so asymmetric crypto should be banned",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Encryption protects data under its rules. Recommend layered controls (MFA, phishing skepticism) for threats crypto cannot cover.",
     },
   ],
   reflection: {
     prompt:
-      "Name one place you already rely on cryptography (browser padlock, encrypted chat, device encryption, etc.). What does it protect — and what could still go wrong if someone phished your password or a shared key leaked?",
-    placeholder: "Example: My school email uses HTTPS… that protects the connection, but if I reuse a weak password…",
+      "A robotics club wants to protect competition strategy docs shared among six officers who change each semester. Recommend a crypto approach (symmetric, asymmetric/hybrid, hashing — or a combination) and justify the tradeoffs: key distribution, rotation when members leave, and what still fails if someone's phone is stolen or they get phished.",
+    placeholder: "Example: I'd recommend… because… Tradeoff: … If a phone is stolen or phishing succeeds…",
   },
 };

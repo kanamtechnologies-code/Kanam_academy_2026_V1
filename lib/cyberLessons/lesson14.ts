@@ -2,15 +2,15 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const cyberLesson14: AILessonConfig = {
   id: "cs-14",
-  title: "14. OSINT Awareness & Privacy",
-  goal: "Understand how public information creates exposure, practice ethical self-checks, tighten privacy settings, and think defensively about what adversaries might learn from public posts — without offensive OSINT recipes.",
+  title: "14. OSINT, Privacy & Ethics",
+  goal: "Evaluate privacy concerns from automated and nonevident data collection; evaluate social, economic, legal, and ethical implications of privacy versus safety; and recommend defensive minimization habits — without offensive OSINT recipes or targeting others.",
   xpReward: 700,
   badge: "Privacy Scout",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/13",
   nextHref: "/learn/cyber/15",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,17 +18,17 @@ export const cyberLesson14: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-14.png",
         imageAlt: "Student reviewing privacy settings on phone and laptop with public profile muted",
-        body: `**OSINT** stands for Open-Source Intelligence — information gathered from *public* sources. Spies and security teams use the idea professionally; scammers and harassers misuse public scraps too. Today is **defensive awareness** only: what you expose, how to self-check ethically, and how to shrink your risk.\n\nHere's our roadmap:\n\n• What OSINT means in plain English.\n• **Public exposure** — how small posts add up.\n• **Oversharing** traps (travel, school IDs, routines).\n• **Metadata** — the hidden information tucked inside photos and files.\n• **Ethical "search yourself"** habits — not targeting others.\n• **Privacy settings** that actually matter.\n• What an adversary might infer — and how to respond defensively.\n• **Family and team privacy agreements** — extending good habits beyond just you.\n\nNo hacking search recipes. No stalking playbooks. Just privacy self-defense.`,
+        body: `**OSINT** stands for Open-Source Intelligence — information gathered from *public* sources. Security teams use the idea professionally; scammers and harassers misuse public scraps too. Today you will **evaluate** privacy risks — including automated and nonevident collection — and weigh privacy against safety ethically.\n\nHere's our roadmap:\n\n• What OSINT means in plain English (defensive lens).\n• **Public exposure** — how small posts combine into profiles.\n• **Oversharing** traps (travel, school IDs, routines).\n• **Metadata & automated collection** — nonevident data tucked in files, apps, and trackers.\n• **Privacy vs safety** — social, economic, legal, and ethical tradeoffs.\n• **Ethical "search yourself"** habits — not targeting others.\n• **Privacy settings** that actually matter.\n• What an adversary might infer — and how to respond defensively.\n• **Family and team privacy agreements** — extending good habits beyond just you.\n\nEthical boundary: no stalking playbooks, no targeting classmates. Privacy self-defense and civic judgment only.`,
         callout: {
           label: "Why it matters",
-          text: "Attackers often start with what's already public: names, schools, friends, schedules. Reducing exposure makes phishing and impersonation harder.",
+          text: "Attackers often start with what's already public — and platforms collect more than you see. Evaluating exposure and tradeoffs makes phishing, impersonation, and unfair data use harder.",
         },
       },
       {
         id: "glossary",
         kicker: "Let's break down the words",
         title: "Privacy & OSINT words",
-        body: `• **OSINT (awareness)** — using publicly available information to learn something; here, we use the idea to protect ourselves.\n• **Digital footprint** — the trail of data you leave online.\n• **Oversharing** — posting details that create unnecessary risk.\n• **Metadata** — hidden information attached to a file, like the location and time a photo was taken.\n• **Privacy settings** — controls that limit who sees your posts, stories, and personal fields.\n• **Doxxing** (to avoid/oppose) — maliciously publishing private info to harass — illegal/harmful and not part of this course.\n• **Adversary** — anyone who might misuse your information (scammer, impersonator, harasser).\n• **Minimization** — sharing only what's needed.\n\nDefense starts with knowing what a stranger can already see.`,
+        body: `• **OSINT (defensive)** — using publicly available information to learn something; here, we evaluate our own exposure to protect ourselves — never to stalk others.\n• **Digital footprint** — the trail of data you leave online.\n• **Oversharing** — posting details that create unnecessary risk.\n• **Metadata** — hidden information attached to a file, like the location and time a photo was taken.\n• **Automated / nonevident collection** — data gathered by apps, trackers, sensors, or platforms without an obvious "you typed this" moment (location history, ad IDs, telemetry).\n• **Privacy settings** — controls that limit who sees your posts, stories, and personal fields.\n• **Doxxing** (to avoid/oppose) — maliciously publishing private info to harass — illegal/harmful and not part of this course.\n• **Adversary** — anyone who might misuse your information (scammer, impersonator, harasser).\n• **Minimization** — sharing only what's needed.\n• **Privacy–safety tradeoff** — tension between withholding personal data and enabling legitimate safety, support, or accountability uses.\n\nDefense starts with evaluating what a stranger — or a platform — can already see.`,
         callout: {
           label: "Ethics reminder",
           text: "Search yourself and your own accounts. Do not gather or weaponize information on classmates. Curiosity that targets others without consent crosses lines fast.",
@@ -100,41 +100,74 @@ export const cyberLesson14: AILessonConfig = {
       {
         id: "metadata",
         kicker: "Hidden details",
-        title: "Metadata: the information tucked inside your files",
-        body: `Beyond what's visible in a photo or post, files often carry **metadata** — hidden extra information attached automatically. For photos, this can include:\n\n• The exact **date and time** the photo was taken.\n• In some cases, **GPS location** data showing precisely where the photo was taken, if location services were enabled on the device.\n• Device information, like the camera or phone model used.\n\nMany platforms strip some metadata automatically when you upload photos, but not always all of it, and not on every platform or every sharing method (like sending a raw photo file directly rather than through an app).\n\nDefender habit: be aware that a photo can reveal more than what's visible to the eye. If you're sharing a photo somewhere that doesn't automatically strip metadata — like emailing a raw photo file, or posting to a platform you're less familiar with — consider whether the exact location and time being attached matters for that particular post.`,
+        title: "Metadata & automated collection: nonevident data",
+        body: `Beyond what's visible in a photo or post, files and apps often carry **nonevident** data — information collected or attached without a clear "I meant to share that" moment.\n\n**Metadata in files** can include:\n• Exact **date and time** a photo was taken.\n• **GPS location** if location services were on.\n• Device model or camera info.\n\n**Automated collection** goes further: apps and sites may gather location history, advertising IDs, contact graphs, browsing telemetry, or "improve the product" analytics that never appear in a caption. You may have clicked "Accept" once months ago — or a default was on — and the stream continues quietly.\n\n**Evaluate the privacy concern:** nonevident data is hard to audit because you don't see it leaving. Platforms may strip some photo metadata on upload, but not always, and raw email attachments often keep everything. Connected apps can retain access long after you forgot them.\n\nDefender habits: review location defaults, revoke unused apps, prefer export/scrub before emailing raw photos, and treat "free" services as potentially data-hungry — then decide what trade you're making.`,
         bullets: [
           "Photos can carry hidden **location and time** data, not just what's visible.",
-          "Not all platforms strip this metadata automatically.",
-          "Be extra mindful when sharing raw photo files directly, not through an app's normal upload flow.",
+          "Apps/platforms may collect telemetry and identifiers automatically — evaluate what you consented to.",
+          "Be extra mindful when sharing raw files or granting broad app permissions.",
         ],
         callout: {
           label: "Why it matters",
-          text: "A photo posted with \"having fun downtown!\" might carry hidden GPS coordinates precise enough to show exactly which building you were in — even if the caption alone reveals nothing.",
+          text: "A photo captioned \"having fun downtown!\" — or a fitness app syncing in the background — can reveal precise place/time patterns even when you never typed an address.",
         },
       },
       {
         id: "metadata-example",
         kicker: "See it in action",
         title: "When a caption says less than the file itself",
-        body: `A student takes a photo at a friend's house and posts it with the caption "movie night!" — vague and seemingly harmless on its own.\n\nIf they had instead emailed that same original photo file directly to someone (bypassing an app's normal upload/sharing flow that might strip metadata), the file itself could still carry embedded **GPS coordinates** and an exact **timestamp** from when the photo was taken — potentially revealing precisely which house and what time, even though the visible caption said nothing specific at all.\n\nThis is why "the caption seems fine" isn't the whole picture. The file itself can carry more specific information than what a person intended to share, especially when a photo travels through a channel that doesn't automatically clean that data.\n\nThe practical takeaway isn't to avoid photos — it's to recognize that **what's visible and what's embedded can be two different things**, and to be more cautious with raw file sharing (email attachments, direct file transfers) than with typical social app uploads that often strip some of this data automatically.`,
+        body: `A student takes a photo at a friend's house and posts it with the caption "movie night!" — vague and seemingly harmless on its own.\n\nIf they had instead emailed that same original photo file directly to someone (bypassing an app's normal upload/sharing flow that might strip metadata), the file itself could still carry embedded **GPS coordinates** and an exact **timestamp** — plus any cloud photo app may have already stored location history in the background. Evaluate both layers: visible caption vs nonevident file/app data.\n\nThis is why "the caption seems fine" isn't the whole picture. The file and the platform can carry more specific information than what a person intended to share.\n\nPractical takeaway: **what's visible, what's embedded, and what's collected automatically can be three different things** — be more cautious with raw file sharing and review location/telemetry defaults, not just captions.`,
         checkIn: {
           prompt: "A photo captioned vaguely as \"movie night!\" is emailed as a raw file rather than posted through a social app. What extra risk does this create?",
           choices: [
             "None — captions are the only thing that matters for privacy",
-            "The raw file may still carry embedded metadata like GPS location and timestamp, even though the caption reveals nothing specific",
+            "The raw file may still carry embedded metadata like GPS location and timestamp, even though the caption reveals nothing specific — a nonevident privacy risk",
             "Email attachments always strip all metadata automatically",
             "Metadata only exists in videos, never in photos",
           ],
           correctIndex: 1,
           explanation:
-            "Raw photo files can carry hidden metadata (like GPS coordinates and timestamps) that a vague caption doesn't reveal — and not every sharing method strips it.",
+            "Raw photo files can carry hidden metadata (like GPS coordinates and timestamps) that a vague caption doesn't reveal — evaluate nonevident data, not just captions.",
+        },
+      },
+      {
+        id: "privacy-vs-safety",
+        kicker: "Tradeoffs",
+        title: "Privacy vs safety: evaluate the implications",
+        body: `Privacy is not automatically the opposite of safety — but they sometimes tension. CSTA asks you to **evaluate social, economic, legal, and ethical implications** when communities choose more monitoring or more privacy.\n\n**Work through dimensions (no single "right" answer for every case):**\n\n• **Social:** Location sharing with family can help if someone is late and unreachable; always-on sharing can enable stalking or peer pressure. School hallway cameras may deter vandalism but chill free association.\n• **Economic:** "Free" apps often monetize behavioral data. Paying for a service, using school-managed tools, or declining optional analytics each has different costs and power imbalances.\n• **Legal:** Recording/sharing others without consent, doxxing, and unauthorized access can violate laws and school policy. Organizations also face rules about retaining student data.\n• **Ethical:** Who benefits from the data? Who is most harmed if it leaks? Is consent meaningful if the alternative is "can't join the team chat"?\n\n**Decision habit:** name the goal (safety vs convenience vs marketing), name who is affected, compare less-invasive alternatives (check-in texts vs live GPS; adults on-call vs public live locations), and document why you chose the balance. Defensive OSINT/privacy work reduces *unnecessary* exposure; it does not forbid asking for help or reporting real threats to trusted adults.`,
+        bullets: [
+          "Evaluate privacy vs safety across social, economic, legal, and ethical lenses.",
+          "Prefer less-invasive alternatives that still meet a real safety need.",
+          "Consent and power matter — \"free\" and \"required for the club\" change the ethics.",
+        ],
+        callout: {
+          label: "Ethics",
+          text: "Using \"safety\" as an excuse to stalk classmates, scrape private profiles, or dox someone is never ethical — report genuine threats through proper channels instead.",
+        },
+      },
+      {
+        id: "privacy-vs-safety-example",
+        kicker: "See it in action",
+        title: "Live location for a late bus — four lenses",
+        body: `A club trip home runs late. Officers debate turning on **live location sharing** for the whole group chat until everyone is home.\n\n• **Social:** Parents feel safer; some students feel watched or pressured if the share stays on after arrival.\n• **Economic:** The free messaging app may also log location for ads — a hidden cost of "convenient safety."\n• **Legal/policy:** School rules may limit posting minors' live locations publicly; a closed officer+advisor chat is different from a public story.\n• **Ethical:** A time-boxed share with advisor included can meet the safety goal; indefinite public live location for "vibes" mostly creates OSINT risk without proportional benefit.\n\n**Recommended balance:** short-lived share to a small trusted group, then off — or a check-in text when each person arrives — instead of always-on public tracking. You evaluated the tradeoff; you didn't invent a stalking guide.`,
+        checkIn: {
+          prompt: "Officers want live location \"for safety\" on a late trip. Which evaluation best matches this lesson?",
+          choices: [
+            "Always-on public live location is always required if anyone mentions safety",
+            "Compare less-invasive options (time-boxed share to a small trusted group or arrival check-ins), and weigh social/economic/legal/ethical impacts before choosing",
+            "Safety concerns mean privacy settings no longer matter",
+            "The ethical move is to scrape classmates' home addresses from public posts \"just in case\"",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Privacy vs safety requires evaluating implications and preferring proportionate, less-invasive controls — not unlimited monitoring or offensive OSINT.",
         },
       },
       {
         id: "google-yourself",
         kicker: "Ethical self-check",
         title: "Search yourself — carefully and ethically",
-        body: `A healthy habit: periodically **search your own name** and usernames in a regular search engine while signed out (or use a private window) to see what's public.\n\nDo:\n\n• Check your own profiles as a stranger would.\n• Note old accounts you forgot.\n• Remove or privacy-lock what shouldn't be public.\n• Ask a trusted adult for help if something harmful about you appears.\n\nDon't:\n\n• Run targeting campaigns on other students.\n• Use specialized "people hacking" recipes or shady data-broker attack guides.\n• Try to access private accounts or non-public data.\n\nSelf-OSINT for privacy is like checking your reflection. Targeting others is not.`,
+        body: `A healthy habit: periodically **search your own name** and usernames in a regular search engine while signed out (or use a private window) to **evaluate** what's public.\n\nDo:\n\n• Check your own profiles as a stranger would.\n• Note old accounts you forgot.\n• Remove or privacy-lock what shouldn't be public.\n• Ask a trusted adult for help if something harmful about you appears.\n\nDon't:\n\n• Run targeting campaigns on other students.\n• Use specialized people-search attack guides or stalking playbooks.\n• Try to access private accounts or non-public data.\n\nEthical self-OSINT is like checking your reflection. Targeting others is not — and it can cross legal and school-policy lines fast.`,
         callout: {
           label: "Pro tip",
           text: "Make a calendar reminder once a semester: review public profiles, tagged photos, and connected apps.",
@@ -255,7 +288,7 @@ export const cyberLesson14: AILessonConfig = {
         id: "checklist",
         kicker: "Put it together",
         title: "A defender's privacy habits checklist",
-        body: `Bring the whole lesson together into habits you can actually use:\n\n**1. Think in combinations** — ask what a stranger could piece together from your last dozen posts.\n**2. Avoid the highest-risk overshares** — real-time travel, ID photos, security-question answers, detailed routines.\n**3. Remember metadata** — raw files can carry more than what's visible in the caption.\n**4. Search yourself ethically**, every semester, and clean up what you find.\n**5. Tighten privacy settings** and protect recovery channels with MFA.\n**6. Verify out-of-band** before acting on urgent requests, even ones with accurate-sounding details.\n**7. Set family/team agreements** in advance so nobody has to decide alone under pressure.\n\nThat's a working privacy mindset — practical, not paranoid.`,
+        body: `Bring the whole lesson together into habits you can actually use:\n\n**1. Think in combinations** — evaluate what a stranger could piece together from your last dozen posts.\n**2. Avoid the highest-risk overshares** — real-time travel, ID photos, security-question answers, detailed routines.\n**3. Evaluate nonevident data** — metadata, location history, and automated app collection.\n**4. Weigh privacy vs safety** across social, economic, legal, and ethical lenses; prefer proportionate options.\n**5. Search yourself ethically**, every semester, and clean up what you find.\n**6. Tighten privacy settings** and protect recovery channels with MFA.\n**7. Verify out-of-band** before acting on urgent requests, even ones with accurate-sounding details.\n**8. Set family/team agreements** in advance so nobody has to decide alone under pressure.\n\nThat's a working privacy mindset — evaluative and ethical, not paranoid.`,
         callout: {
           label: "Try this week",
           text: "Pick one habit from this list you haven't done yet, and do it today — even a fifteen-minute self-search counts.",
@@ -338,22 +371,24 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **OSINT awareness** = understanding public-info risk for self-defense.\n• Small posts **combine** into exposure; **metadata** can reveal more than a caption does.\n• **Search yourself** ethically; don't target others.\n• Tighten **privacy settings** and recovery paths.\n• Expect customized scams when details are public — verify out-of-band.\n• **Family and team agreements** extend good habits beyond just you.\n\nTake the **Knowledge check**, then reflect on one privacy change you'll make.`,
+        body: `Quick recap:\n\n• **Evaluate** public-info and **nonevident/automated** collection risks for self-defense — never as a stalking toolkit.\n• Small posts **combine** into exposure; **metadata** and background telemetry can reveal more than a caption.\n• Weigh **privacy vs safety** across social, economic, legal, and ethical lenses; prefer proportionate alternatives.\n• **Search yourself** ethically; don't target others.\n• Tighten **privacy settings** and recovery paths; verify urgent requests out-of-band.\n• **Family and team agreements** extend good habits beyond just you.\n\nTake the **Knowledge check**, then reflect with a justified privacy-vs-safety recommendation.`,
       },
     ],
   },
   bigIdeas: [
-    "Public posts and profiles create an **OSINT**-style picture attackers can misuse — defenders practice minimization, and watch for hidden **metadata** too.",
-    "Ethical self-checks (search yourself, review settings) beat invasive research on other people.",
+    "Public posts, **metadata**, and **automated/nonevident collection** create exposure defenders must **evaluate** — practice minimization without offensive OSINT.",
+    "Ethical self-checks beat invasive research on other people; **privacy vs safety** choices carry social, economic, legal, and ethical implications.",
     "Tighter **privacy settings**, careful sharing, out-of-band verification, and **family/team agreements** reduce spear phishing and impersonation risk.",
   ],
   keyTerms: [
-    { term: "OSINT (awareness)", definition: "Using publicly available information to learn something; in this lesson, for self-defense and privacy." },
+    { term: "OSINT (defensive)", definition: "Using publicly available information to learn something; in this lesson, to evaluate and reduce your own exposure — never to target others." },
     { term: "Digital footprint", definition: "The trail of data you leave online through posts, profiles, and shared links." },
     { term: "Oversharing", definition: "Publishing details that create unnecessary personal or security risk." },
     { term: "Metadata", definition: "Hidden information attached to a file, such as the location and time a photo was taken." },
+    { term: "Automated / nonevident collection", definition: "Data gathered by apps, trackers, or platforms without an obvious intentional share (location history, telemetry, ad IDs)." },
     { term: "Privacy settings", definition: "Platform controls that limit who can see your information and activity." },
     { term: "Minimization", definition: "Sharing only what is needed for the purpose at hand." },
+    { term: "Privacy–safety tradeoff", definition: "Tension between withholding personal data and enabling legitimate safety, support, or accountability uses." },
     { term: "Spear phishing", definition: "Targeted phishing that uses personal details to seem more convincing." },
     { term: "Impersonation", definition: "Pretending to be you or someone you trust to trick others." },
   ],
@@ -362,23 +397,23 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
   quiz: [
     {
       id: "q1",
-      question: "In this course, what is the appropriate use of OSINT awareness?",
+      question: "In this course, what is the appropriate use of OSINT concepts?",
       choices: [
-        "Understanding public-info exposure so you can protect your own privacy",
+        "Evaluate your own public and nonevident exposure so you can protect privacy ethically",
         "Building attack recipes to dig up private data on classmates",
         "Bypassing privacy settings on other people's accounts",
         "Publishing other students' addresses",
       ],
       correctIndex: 0,
       explanation:
-        "We use OSINT as a defensive lens for your own exposure — not as an offensive research toolkit against others.",
+        "We use OSINT as a defensive evaluation lens for your own exposure — not as an offensive toolkit against others.",
     },
     {
       id: "q2",
-      question: "Why can several \"harmless\" posts still create risk?",
+      question: "Why can several \"harmless\" posts still create risk that defenders must evaluate?",
       choices: [
         "Because search engines ignore public posts entirely",
-        "Because details combine into a richer picture useful for scams or impersonation",
+        "Because details combine into a richer picture useful for scams or impersonation — combination risk",
         "Because posts automatically encrypt themselves once shared",
         "Because only celebrities ever build a meaningful digital footprint",
       ],
@@ -392,7 +427,7 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       choices: [
         "Running intrusive lookups to map a classmate's private life",
         "Sharing MFA codes to \"verify friendship\"",
-        "Searching your own public profiles and cleaning up risky exposure",
+        "Searching your own public profiles and cleaning up risky exposure after evaluating what a stranger could use",
         "Posting your government ID for aesthetic likes",
       ],
       correctIndex: 2,
@@ -427,16 +462,16 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
     },
     {
       id: "q6",
-      question: "A photo emailed as a raw file (not posted through a social app) can still carry which kind of hidden risk?",
+      question: "Which best describes a privacy concern from automated or nonevident data collection?",
       choices: [
-        "None — only captions matter for privacy",
-        "Embedded metadata, such as GPS location and timestamp, even if the visible caption reveals nothing specific",
+        "Only captions matter; apps never collect background data",
+        "Location history, telemetry, ad IDs, or photo GPS metadata can reveal patterns without an intentional public post — so defenders evaluate defaults, permissions, and raw-file sharing",
         "The photo will automatically strip all metadata during email",
         "Metadata only applies to video files, never photos",
       ],
       correctIndex: 1,
       explanation:
-        "Raw files often retain metadata like location and time that social apps sometimes strip automatically — a real risk when sharing files directly.",
+        "Nonevident/automated collection and file metadata create privacy risk beyond what you deliberately type — evaluate settings and sharing channels.",
     },
     {
       id: "q7",
@@ -453,6 +488,19 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
     },
     {
       id: "q8",
+      question: "Club officers want always-on public live location \"for safety\" during travel. Which evaluation is strongest?",
+      choices: [
+        "Safety always overrides privacy, so public live location should stay on forever",
+        "Compare less-invasive options and weigh social/economic/legal/ethical impacts — e.g., time-boxed sharing to a small trusted group may meet the safety goal with less exposure",
+        "Privacy settings are irrelevant whenever someone says the word safety",
+        "The ethical response is to collect home addresses from classmates' public posts without asking",
+      ],
+      correctIndex: 1,
+      explanation:
+        "Privacy vs safety requires evaluating implications and proportionate alternatives — not unlimited monitoring or offensive data gathering.",
+    },
+    {
+      id: "q9",
       question: "What is the main benefit of a family verification phrase or agreement set up in advance?",
       choices: [
         "It removes the need to ever verify anything again",
@@ -467,7 +515,7 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
   ],
   reflection: {
     prompt:
-      "Name one public detail about you that a stranger could find (school, club, hobby, old username). What is one privacy setting or posting habit you'll change to reduce risk?",
-    placeholder: "Example: My club role is public on Instagram… I'll switch posts to friends-only and stop posting real-time travel…",
+      "Describe one public detail AND one nonevident/automated data source (metadata, location history, connected app) that could expose you. Then evaluate a privacy-vs-safety choice (e.g., live location for a late trip): recommend one setting or habit change, and justify it with at least two lenses (social, economic, legal, or ethical).",
+    placeholder: "Example: Public club role + phone location history… For late trips I'd use a 1-hour share to advisor/parents only because socially it meets safety needs without peer pressure, and ethically it avoids public OSINT exposure…",
   },
 };

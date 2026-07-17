@@ -218,22 +218,24 @@ function TrackRoadmapContent({
             const weekDone = weekLessons.every((l) => completedIds.includes(l.id));
             return (
               <div key={wk.week} className="space-y-3">
-                <div className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                <div className="flex items-start gap-3 rounded-xl bg-[var(--brand-2)] px-4 py-3.5 shadow-[0_8px_22px_rgba(15,110,87,0.28)] ring-1 ring-[rgb(var(--brand-2-rgb)/0.9)]">
                   <div
                     className={[
-                      "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-xs font-black",
+                      "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-black",
                       weekDone
-                        ? "bg-[var(--brand)] text-white"
-                        : "bg-white text-slate-700 ring-1 ring-slate-200",
+                        ? "bg-[var(--accent)] text-[var(--brand-2)] ring-2 ring-white/70"
+                        : "bg-white/15 text-white ring-1 ring-white/35",
                     ].join(" ")}
                   >
                     W{wk.week}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-sm font-black tracking-tight text-slate-900">
+                    <p className="text-sm font-black tracking-tight text-white sm:text-base">
                       Week {wk.week} — {wk.theme}
                     </p>
-                    <p className="text-xs font-medium text-slate-500">{wk.focus}</p>
+                    <p className="mt-0.5 text-xs font-medium text-white/80 sm:text-sm">
+                      {wk.focus}
+                    </p>
                   </div>
                 </div>
 

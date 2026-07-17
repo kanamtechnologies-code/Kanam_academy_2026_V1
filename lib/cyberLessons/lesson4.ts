@@ -2,15 +2,15 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const cyberLesson4: AILessonConfig = {
   id: "cs-4",
-  title: "4. Social Engineering & Phishing",
-  goal: "Define social engineering; distinguish phishing, smishing, vishing, and pretexting; spot red flags; verify requests safely; and practice report-don't-click habits.",
+  title: "4. Social Engineering Defense",
+  goal: "Analyze how social engineering and phishing impact accounts and sensitive data; recommend layered, feasible defenses; and justify verify-and-report habits that protect individuals and school communities.",
   xpReward: 200,
   badge: "Phish Defender",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/3",
   nextHref: "/learn/cyber/5",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,10 +18,10 @@ export const cyberLesson4: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-4.png",
         imageAlt: "Phone showing a phishing text beside a laptop with a fake urgent school email",
-        body: `The strongest lock fails if someone tricks you into opening the door. **Social engineering** is manipulation that targets people — not just software bugs.\n\nHere's our roadmap:\n\n• **Social engineering** defined in plain English.\n• **Phishing, smishing, vishing, pretexting** — same idea, different channels.\n• **Red flags** — urgency, fear, prizes, weird links, odd sender details.\n• **Verify, then act** — how to check without clicking the trap.\n• **A worked example, a myth, and a mini case** — practicing on realistic (but safe) scenarios.\n• **Report, don't click** — the habit that protects you and your community.\n\nWe'll stay on the defender side: recognizing and reporting. No playbooks for running scams.`,
+        body: `The strongest lock fails if someone tricks you into opening the door. **Social engineering** is manipulation that targets people — not just software bugs.\n\nIn this lesson you will **analyze** social-engineering impact on accounts and sensitive data, **recommend** layered defenses that are feasible for students, and **justify** verify-and-report habits that protect a whole school community.\n\nHere's our roadmap:\n\n• **Social engineering** — how pressure tactics bypass technical controls.\n• **Phishing, smishing, vishing, pretexting** — same idea, different channels; analyze impact by channel.\n• **Red flags** — urgency, fear, prizes, weird links, odd sender details.\n• **Verify, then act** — recommend independent verification paths without using the bait.\n• **A worked example, a myth, and a mini case** — case analysis on realistic (safe) scenarios.\n• **Layered defense** — report-don't-click plus MFA, reporting channels, and recovery planning.\n\nStay on the defender side: analyzing impact and recommending protections. No playbooks for running scams.`,
         callout: {
           label: "Why it matters",
-          text: "A huge share of real-world account takeovers and malware infections start with a convincing message — not a Hollywood \"hacker typing in the dark.\"",
+          text: "A huge share of real-world account takeovers and malware infections start with a convincing message. Recommending feasible layered defenses — not just spotting one red flag — is the high-school defender skill.",
         },
       },
       {
@@ -48,7 +48,7 @@ export const cyberLesson4: AILessonConfig = {
         id: "concept-1",
         kicker: "The big idea",
         title: "Social engineering attacks the human",
-        body: `**Social engineering** works because humans are helpful, busy, curious, and sometimes scared. Attackers exploit those normal traits.\n\nClassic pressure tactics (conceptual):\n• **Urgency** — "Act in 10 minutes or your account closes."\n• **Fear** — "Unusual login — confirm your password now."\n• **Greed / reward** — "You won a gift card — click to claim."\n• **Authority** — pretending to be a teacher, boss, bank, or IT staff.\n• **Helpfulness** — "Can you check this file for me?" from a compromised friend account.\n\nUnlike malware that sneaks onto a disk, social engineering often succeeds when **you** voluntarily type a password, approve an MFA prompt, send a code, or open a file.\n\nThat's why cybersecurity training always includes people skills — spotting manipulation is a technical defense.`,
+        body: `**Social engineering** works because humans are helpful, busy, curious, and sometimes scared. Attackers exploit those normal traits.\n\nClassic pressure tactics (conceptual):\n• **Urgency** — "Act in 10 minutes or your account closes."\n• **Fear** — "Unusual login — confirm your password now."\n• **Greed / reward** — "You won a gift card — click to claim."\n• **Authority** — pretending to be a teacher, boss, bank, or IT staff.\n• **Helpfulness** — "Can you check this file for me?" from a compromised friend account.\n\nUnlike malware that sneaks onto a disk, social engineering often succeeds when **you** voluntarily type a password, approve an MFA prompt, send a code, or open a file.\n\n**Analyze impact:** One successful phishing login can cascade — attacker reads scholarship drafts (**Confidentiality**), sends messages as you (**Integrity** of your identity), then changes recovery email and locks you out (**Availability**). The "payload" is often your cooperation, not a virus file.\n\nThat's why cybersecurity training includes people skills — analyzing manipulation and recommending habits is a technical defense, not soft fluff.`,
         callout: {
           label: "Watch out",
           text: "Attackers increasingly compromise a real classmate's account and then message *you*. A familiar name is not proof the request is safe — verify odd asks.",
@@ -157,24 +157,24 @@ export const cyberLesson4: AILessonConfig = {
         title: "Going deeper: verify safely, report, and recover",
         image: "/images/lessons/cs-4-4.png",
         imageAlt: "Student verifying a link by calling IT on a known number instead of clicking, with a report button highlighted",
-        body: `When something feels off, use this defender sequence:\n\n**1. Pause.** Urgency is often the weapon. Take a breath.\n**2. Don't click the link in the message** if you can avoid it. Don't open unexpected attachments.\n**3. Verify through a channel you trust.** Open the official app/site yourself (not from the message), call a known published number, or ask the person face-to-face / through a known good contact method.\n**4. Never share passwords or one-time codes** with someone who messaged you first.\n**5. Report.** Use your school's report button, mark as phishing if available, tell a parent/teacher/IT, and warn teammates if a shared account was targeted.\n**6. If you already clicked or entered a password** — don't panic-hide it. Change the password from a safe device, enable MFA, check recovery email/phone, and tell a trusted adult promptly.\n\n"Report, don't click" protects more than you. One report can stop a campaign from hitting your whole school.`,
+        body: `When something feels off, use this defender sequence:\n\n**1. Pause.** Urgency is often the weapon. Take a breath.\n**2. Don't click the link in the message** if you can avoid it. Don't open unexpected attachments.\n**3. Verify through a channel you trust.** Open the official app/site yourself (not from the message), call a known published number, or ask the person face-to-face / through a known good contact method.\n**4. Never share passwords or one-time codes** with someone who messaged you first.\n**5. Report.** Use your school's report button, mark as phishing if available, tell a parent/teacher/IT, and warn teammates if a shared account was targeted.\n**6. If you already clicked or entered a password** — don't panic-hide it. Change the password from a safe device, enable MFA, check recovery email/phone, and tell a trusted adult promptly.\n\n"Report, don't click" protects more than you. One report can stop a campaign from hitting your whole school.\n\n**Recommend a layered defense (feasible + ethical):**\n1. **User habit layer** — pause, don't click, verify independently (zero cost; highest student control).\n2. **Account hardening layer** — MFA on email/school accounts so a phished password alone is less devastating (moderate friction; high payoff).\n3. **Organizational layer** — report through school channels so IT can block senders/domains for everyone (ethical community duty, not "tattling").\n4. **Recovery layer** — if credentials were entered: change password from a clean device, check recovery settings, tell IT same day.\n\n**Tradeoff to justify:** Extra verification slows you down when a deadline is real. Recommend the slower path anyway for unexpected credential/money/remote-access asks — the Availability cost of thirty seconds of checking is smaller than weeks of account recovery. Do **not** recommend unauthorized "counter-phishing" or testing live bait on classmates.`,
         bullets: [
           "Pause — don't let urgency drive you.",
           "Avoid links/attachments in suspicious messages.",
           "Verify via official apps/sites or known contacts.",
           "Never hand over passwords or MFA codes to inbound requesters.",
-          "Report suspected phishing quickly — and recover calmly if you already clicked.",
+          "Layer habits + MFA + reporting + recovery — and recover calmly if you already clicked.",
         ],
         callout: {
           label: "Try this week",
-          text: "Practice once: open your email or texts and identify one message that *could* be phishing bait even if it might be legitimate. What red flags appear? How would you verify without clicking?",
+          text: "Practice once: open your email or texts and identify one message that *could* be phishing bait. Recommend your verification path and which layered control (habit, MFA, report) would matter most if it were real.",
         },
       },
       {
         id: "comparison",
         kicker: "Side by side",
         title: "Comparing the four channels",
-        body: `A quick side-by-side of the channel names, since they're easy to mix up:\n\n• **Phishing (email)** — often mass-sent, can include fake login links or attachments; easiest to fake at scale.\n• **Smishing (SMS)** — short, urgent, hard to preview links on small screens; often about deliveries or account locks.\n• **Vishing (voice call)** — uses a real human (or increasingly, an AI-generated voice) to build pressure live, in real time, which can feel more convincing than text.\n• **Pretexting** — not a channel by itself, but the fake *story* used across any of the above ("I'm from IT," "I'm your bank's fraud team") to make the request sound reasonable.\n\nThe defender response is nearly identical across all four: pause, don't use the contact info the message gave you, verify independently, and report. Learning the names mainly helps you communicate clearly about what happened — the actual defense habit doesn't change much by channel.`,
+        body: `A quick side-by-side of the channel names, since they're easy to mix up:\n\n• **Phishing (email)** — often mass-sent, can include fake login links or attachments; easiest to fake at scale.\n• **Smishing (SMS)** — short, urgent, hard to preview links on small screens; often about deliveries or account locks.\n• **Vishing (voice call)** — uses a real human (or increasingly, an AI-generated voice) to build pressure live, in real time, which can feel more convincing than text.\n• **Pretexting** — not a channel by itself, but the fake *story* used across any of the above ("I'm from IT," "I'm your bank's fraud team") to make the request sound reasonable.\n\nThe core defender response is similar across channels: pause, don't use the contact info the message gave you, verify independently, and report. Still, **recommend channel-aware extras:**\n• Email phishing → report-as-phishing tools + hover/preview caution; MFA limits password replay.\n• Smishing → don't reply (even STOP) to unknown numbers; verify packages in the official app.\n• Vishing → hang up and call a published number; never install remote-access tools from an inbound call.\n• Pretexting (any channel) → challenge the story: "Did I request this? Would real IT ask for my password?"\n\nLearning the names helps you communicate impact clearly; recommending layered controls is what actually reduces harm.`,
         checkIn: {
           prompt: "Which of the four terms describes the fake scenario or story itself, rather than the communication channel?",
           choices: ["Phishing", "Smishing", "Vishing", "Pretexting"],
@@ -197,7 +197,7 @@ export const cyberLesson4: AILessonConfig = {
         id: "habits",
         kicker: "The core habit",
         title: "Report, don't click — and why it protects more than you",
-        body: `Quick recap of the single most important habit in this lesson:\n\n• **Pause** when a message pushes urgency or fear.\n• **Don't click** links or open attachments inside a suspicious message.\n• **Verify independently** — official app/site, known phone number, or face-to-face.\n• **Never share** passwords or one-time codes with an inbound requester.\n• **Report** through your school's official channel, even if you're not 100% sure it's fake.\n\nReporting matters beyond your own safety: one report can help IT block a phishing campaign before it reaches the rest of your class, team, or school. "I wasn't sure, so I didn't bother reporting it" is a missed chance to protect people around you — when in doubt, report anyway.`,
+        body: `Quick recap of the single most important habit in this lesson:\n\n• **Pause** when a message pushes urgency or fear.\n• **Don't click** links or open attachments inside a suspicious message.\n• **Verify independently** — official app/site, known phone number, or face-to-face.\n• **Never share** passwords or one-time codes with an inbound requester.\n• **Report** through your school's official channel, even if you're not 100% sure it's fake.\n\nReporting matters beyond your own safety: one report can help IT block a phishing campaign before it reaches the rest of your class, team, or school. "I wasn't sure, so I didn't bother reporting it" is a missed chance to protect people around you — when in doubt, report anyway.\n\n**Feasibility check when you recommend defenses to a club or class:** Asking everyone to memorize fifty brand logos is not feasible. Asking everyone to pause on unexpected credential asks, verify in the official app, enable MFA on shared club email, and use the school's report button *is* feasible — and ethical, because it protects peers without requiring anyone to "test" scams.`,
         callout: {
           label: "Why it matters",
           text: "Reporting gives defenders visibility so they can warn others and block malicious messages organization-wide — it's a community habit, not just a personal one.",
@@ -207,7 +207,7 @@ export const cyberLesson4: AILessonConfig = {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
-        body: `Before the mini case and knowledge check: think of the last message you got that made you feel a jolt of urgency or fear — even briefly. Did you verify it independently, or act on the message itself? There's no wrong answer here — just notice which habit you actually used in that real moment.`,
+        body: `Before the mini case and knowledge check: think of the last message you got that made you feel a jolt of urgency or fear — even briefly. If that message had been phishing, which CIA goal would have been at risk for you, and which layered defense would you recommend yourself to use next time?`,
       },
       {
         id: "mini-case",
@@ -281,14 +281,14 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Social engineering** manipulates people into unsafe actions.\n• **Phishing / smishing / vishing** are channel-specific baits; **pretexting** is the fake story.\n• Red flags: urgency, fear, prizes, credential asks, odd links/domains — and a familiar name doesn't guarantee safety.\n• Defender habit: **verify** through trusted channels and **report, don't click** — even when you're not fully sure.\n\nWhen you're ready, complete the **Knowledge check**, then reflect on a message that almost fooled you — or could have.`,
+        body: `Quick recap:\n\n• **Social engineering** manipulates people into unsafe actions that can cascade across CIA goals for sensitive accounts.\n• **Phishing / smishing / vishing** are channel-specific baits; **pretexting** is the fake story — analyze impact, then recommend channel-aware checks.\n• Red flags: urgency, fear, prizes, credential asks, odd links/domains — and a familiar name doesn't guarantee safety.\n• **Recommend layered defense:** verify through trusted channels, enable MFA, **report don't click**, and plan recovery — even when you're not fully sure.\n\nWhen you're ready, complete the **Knowledge check**, then reflect with a justified defense recommendation.`,
       },
     ],
   },
   bigIdeas: [
-    "**Social engineering** targets human trust and emotion, not just software flaws.",
+    "**Social engineering** targets human trust and emotion — analyze its impact on accounts and sensitive data, not just software flaws.",
     "**Phishing, smishing, and vishing** are the same idea on email, text, and phone; **pretexting** invents a story to gain trust.",
-    "Safe response: **pause, don't click, verify another way, never share codes/passwords, and report.**",
+    "**Recommend** layered defenses: **pause, don't click, verify another way, MFA, never share codes/passwords, and report.**",
   ],
   keyTerms: [
     { term: "Social Engineering", definition: "Manipulating people into giving information, access, or actions that weaken security." },
@@ -299,22 +299,23 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
     { term: "Spear Phishing", definition: "Phishing targeted at a specific person using personal details." },
     { term: "Spoofing", definition: "Faking a sender identity so a message appears more trustworthy." },
     { term: "Report-Don't-Click", definition: "A defender habit: avoid interacting with suspicious bait and report it through proper channels." },
+    { term: "Layered Defense", definition: "Combining multiple feasible controls — habits, MFA, reporting channels, and recovery steps — so one missed click is less likely to become a full account takeover." },
   ],
   realWorld:
     "A text saying \"Your package is held — pay a small fee\" with a short link is classic **smishing**. A defender opens the shipper's official app separately (or ignores if no package is expected) instead of tapping the link.",
   quiz: [
     {
       id: "q1",
-      question: "What is social engineering?",
+      question: "A phishing email steals a student's school password. Which analysis best describes the likely impact chain on sensitive data?",
       choices: [
-        "Manipulating people into unsafe disclosures or actions",
-        "Configuring firewalls to block malicious traffic",
-        "A method for encrypting stored passwords",
-        "Designing the layout of a social media app",
+        "Only the firewall layout changes; CIA goals are unaffected",
+        "The attacker may read private messages (Confidentiality), send mail as the student (Integrity of identity), then change recovery settings and lock the student out (Availability) — recommend MFA + password reset + report",
+        "Social engineering never affects Availability",
+        "Impact is limited to encrypting stored passwords on the mail server automatically",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
-        "Social engineering tricks humans — the goal is information, access, or actions that bypass technical controls.",
+        "Analyzing social engineering means tracing how one credential theft can cascade across Confidentiality, Integrity, and Availability — then recommending layered recovery and prevention.",
     },
     {
       id: "q2",
@@ -344,29 +345,29 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
     },
     {
       id: "q4",
-      question: "What is the best first move when you get an urgent email with a login link you weren't expecting?",
+      question: "Your club wants a feasible anti-phishing plan before scholarship season. Which recommendation set best balances protection, usability, and ethics?",
       choices: [
-        "Pause and verify through an official app/site or known contact — don't use the email's link",
-        "Click quickly before the deadline mentioned in the email",
-        "Reply with your password so they can \"verify\" you",
-        "Forward the email with the link to friends so they can vote on whether it's real",
+        "Forward every suspicious link to the whole club so people can click and compare notes",
+        "Recommend: pause on unexpected credential asks, verify in official portals, enable MFA on the shared club email, and report via school IT — not unauthorized bait-testing on classmates",
+        "Disable MFA so logins stay fast during deadlines",
+        "Reply to every urgent email with the club password so IT can verify legitimacy",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
-        "Pause and verify independently. Using the message's link can take you to a lookalike page designed to steal credentials.",
+        "Layered, feasible defenses (habits + MFA + reporting) protect the group without asking members to click bait or share secrets. Forwarding live malicious links is unsafe and unethical.",
     },
     {
       id: "q5",
-      question: "Why is \"report, don't click\" useful beyond protecting just you?",
+      question: "Why recommend reporting a near-miss phishing email even if nobody entered credentials?",
       choices: [
-        "Reports can help IT block campaigns before more people are hit",
-        "It isn't useful beyond you — reporting never helps anyone else",
-        "It removes the need for anyone to use MFA",
-        "It automatically stops ransomware from spreading",
+        "Because reports help IT analyze the campaign and block it before classmates who are busier or more rushed get hit — a feasible community defense with little personal cost",
+        "Because reporting replaces MFA entirely",
+        "Because near-misses never matter to anyone else",
+        "Because reporting automatically stops all ransomware",
       ],
       correctIndex: 0,
       explanation:
-        "Reporting gives defenders visibility so they can warn others and block malicious messages organization-wide.",
+        "Justifying report-don't-click means weighing small personal effort against school-wide impact. Near-miss intelligence is still useful to defenders.",
     },
     {
       id: "q6",
@@ -391,21 +392,21 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
     },
     {
       id: "q8",
-      question: "Why does phishing awareness involve both safety/ethics and technical security measures?",
+      question: "A classmate suggests \"we should reply to the scammer to waste their time.\" Which evaluation best explains why you should not recommend that?",
       choices: [
-        "Because phishing is a purely technical problem with no human element",
+        "Engaging confirms a live number/inbox, can escalate targeting, and steps outside defensive/ethical practice — recommend report-and-block instead",
+        "Because phishing is purely technical with no human element",
         "Because ethics only applies to malware, not phishing",
-        "Because reporting phishing is optional and has no real impact",
-        "Because phishing exploits human trust and decision-making, making it as much a safety and ethics topic as a technical one",
+        "Because reporting phishing has no real impact, so any response is fine",
       ],
-      correctIndex: 3,
+      correctIndex: 0,
       explanation:
-        "Phishing succeeds by manipulating people, not by breaking code — which is why it is both a security skill and a digital-citizenship habit.",
+        "Defensive recommendations stay inside verify/report/harden. Counter-engaging scammers is not a feasible school defense and can increase harm.",
     },
   ],
   reflection: {
     prompt:
-      "Describe a phishing, smishing, or vishing attempt you've seen (or invent a realistic school-life example). List two red flags and how you would verify without clicking.",
-    placeholder: "Example: A text said my school account would delete in 1 hour… Red flags were urgency and a weird link. I'd open the school portal myself and tell IT…",
+      "Describe a realistic school-life phishing/smishing/vishing scenario. Analyze the likely CIA impact if someone fell for it, then recommend a layered defense (habit + technical control + reporting) and justify why that package is feasible for students.",
+    placeholder: "Example: Fake scholarship email… If clicked, Confidentiality of application data and Availability after lockout. I'd recommend verify-in-portal + MFA on email + report-to-IT because…",
   },
 };

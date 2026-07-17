@@ -2,14 +2,14 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const cyberLesson1: AILessonConfig = {
   id: "cs-1",
-  title: "1. What Is Cybersecurity?",
-  goal: "Define cybersecurity, explain how it protects the CIA of data, systems, and people, explore high-level cyber careers, and understand why ethics and authorized use matter for high school students.",
+  title: "1. Cybersecurity Principles & Ethics",
+  goal: "Evaluate ethical and social impacts of cybersecurity choices; explain tradeoffs among protecting data, systems, and people; and justify why authorized use is a non-negotiable professional and legal boundary.",
   xpReward: 50,
   badge: "Cyber Rookie",
   dashboardHref: "/dashboard",
   nextHref: "/learn/cyber/2",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -17,10 +17,10 @@ export const cyberLesson1: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-1.png",
         imageAlt: "Student desk with laptop showing a cybersecurity overview dashboard, shield icon, and notebook titled Ethics",
-        body: `Your school account, your phone photos, your group's shared docs — all of that is information someone might want to steal, change, or lock away. **Cybersecurity** is the practice of protecting that information, the systems that hold it, and the people who use it.\n\nHere's our roadmap:\n\n• **What cybersecurity means** — protecting data, systems, and people.\n• **The CIA Triad** — Confidentiality, Integrity, and Availability at a high level.\n• **Careers in cyber** — analyst, SOC, and ethical roles (big picture only).\n• **Ethics and authorized use** — why "just because you can" is never enough.\n• **A worked example, a myth, and a mini case** — so the ideas stick, not just the vocabulary.\n\nNo experience needed. Every new word gets explained the moment it shows up. This track stays **defensive and educational** — we learn how defenders think, not how to break things.`,
+        body: `Your school account, your phone photos, your group's shared docs — all of that is information someone might want to steal, change, or lock away. **Cybersecurity** is the practice of protecting that information, the systems that hold it, and the people who use them.\n\nIn this lesson you will **analyze scenarios**, **evaluate ethical and social impacts**, and **explain tradeoffs** defenders face when protecting data, systems, and people.\n\nHere's our roadmap:\n\n• **What cybersecurity means** — protecting data, systems, and people as interconnected layers.\n• **The CIA Triad** — Confidentiality, Integrity, and Availability as decision criteria, not just labels.\n• **Careers in cyber** — analyst, SOC, and authorized testing roles, and how their scope differs.\n• **Ethics and authorized use** — evaluate why intent is not authorization, and what responsible reporting looks like.\n• **A worked example, a myth, and a mini case** — practice justifying defender decisions under real constraints.\n\nThis track stays **defensive and educational** — you learn how defenders analyze risk and ethics, not how to break systems.`,
         callout: {
           label: "Why it matters",
-          text: "Almost every job, scholarship, and college workflow now touches accounts and online systems. Knowing the basics of cybersecurity helps you protect yourself — and helps you spot when something feels off.",
+          text: "Almost every job, scholarship, and college workflow now touches accounts and online systems. Evaluating security tradeoffs and ethical boundaries is a high-school-level skill that transfers into any career path.",
         },
       },
       {
@@ -47,15 +47,16 @@ export const cyberLesson1: AILessonConfig = {
         id: "concept-1",
         kicker: "The big idea",
         title: "Cybersecurity protects data, systems, and people",
-        body: `**Cybersecurity** is not just "antivirus software" or "IT people locking doors." It is a whole set of habits, tools, policies, and skills aimed at keeping digital life safe and trustworthy.\n\nThink of three layers defenders care about:\n\n• **Data** — the information itself (your grades, a company customer list, medical records).\n• **Systems** — the devices, apps, and networks that store and move that data.\n• **People** — the humans who use those systems, who can be tricked, rushed, or targeted.\n\nIf you only lock down machines and ignore people, you miss a huge part of the job. If you only warn people and leave systems wide open, you miss another part. Real cybersecurity blends all three.\n\nA simple analogy: a school building has locks on doors (**systems**), student records in locked cabinets (**data**), and staff who know not to hand keys to strangers (**people**). Cybersecurity is the digital version of that whole picture.`,
+        body: `**Cybersecurity** is not just "antivirus software" or "IT people locking doors." It is a whole set of habits, tools, policies, and skills aimed at keeping digital life safe and trustworthy.\n\nThink of three layers defenders care about:\n\n• **Data** — the information itself (your grades, a company customer list, medical records).\n• **Systems** — the devices, apps, and networks that store and move that data.\n• **People** — the humans who use those systems, who can be tricked, rushed, or targeted.\n\nIf you only lock down machines and ignore people, you miss a huge part of the job. If you only warn people and leave systems wide open, you miss another part. Real cybersecurity blends all three — and every control choice involves a **tradeoff**.\n\n**Evaluate a tradeoff:** A school that requires MFA on every login strengthens the people/systems layers, but if the MFA process is slow during a timed exam, **Availability** for authorized students can suffer. A folder shared "anyone with the link" maximizes collaboration speed but weakens Confidentiality for the data layer. Defenders don't pick "maximum lockdown" by default — they weigh impact on learning, privacy, and operations.\n\nA school-building analogy: locks on doors (**systems**), student records in locked cabinets (**data**), and staff who know not to hand keys to strangers (**people**). Cybersecurity is the digital version of that whole picture — including the judgment calls about when a door stays unlocked for a fire drill.`,
         bullets: [
           "**Data** = the information you want to keep safe.",
           "**Systems** = devices, apps, and networks that handle that data.",
           "**People** = users who can help protect — or accidentally put things at risk.",
+          "**Tradeoff** = every control helps one layer or CIA goal and may cost another (speed, convenience, access).",
         ],
         callout: {
           label: "Watch out",
-          text: "Cybersecurity is not about being paranoid all day. It is about building habits and controls that make safe choices the easy default — like locking your phone and verifying unexpected requests.",
+          text: "Cybersecurity is not about being paranoid all day. It is about evaluating controls so safe choices are the easy default — while still letting authorized people do their work.",
         },
         checkIn: {
           prompt: "In the school-building analogy, \"staff who know not to hand keys to strangers\" represents which layer?",
@@ -85,13 +86,13 @@ export const cyberLesson1: AILessonConfig = {
       {
         id: "concept-3",
         kicker: "Who does this work?",
-        title: "Cyber careers at a high level",
+        title: "Cyber careers: scope, permission, and impact",
         image: "/images/lessons/cs-1-2.png",
         imageAlt: "Split scene: SOC analyst at monitors beside a school IT help desk helping a student with an account lock",
-        body: `Cybersecurity is a field with many roles. You do not need to pick one today — just know the landscape exists and that skills from this class transfer.\n\n• A **security analyst** looks for signs that something is wrong, investigates alerts, and helps fix weaknesses before they become bigger problems.\n• A **SOC** (Security Operations Center) is a team — often working in shifts — that watches for suspicious activity across an organization's systems and responds when something looks off.\n• **Ethical / authorized roles** (sometimes called ethical hacking or penetration testing in industry) involve testing defenses **only with clear written permission** from the system owner, then reporting findings so defenders can improve.\n\nOther paths include writing security policy, teaching users safe habits, building safer software, and responding after an incident. What they share: a defender mindset and a commitment to **authorized use only**.\n\nHigh school is a great time to explore clubs, Cyber.org-style courses, CompTIA fundamentals topics, and ethical capture-the-flag events that stay inside the rules.`,
+        body: `Cybersecurity is a field with many roles. Skills from this class transfer whether or not you pursue a cyber major.\n\n• A **security analyst** looks for signs that something is wrong, investigates alerts, and recommends fixes before they become bigger problems. Their social impact is often quiet: fewer outages, fewer leaked records.\n• A **SOC** (Security Operations Center) is a team — often working in shifts — that watches for suspicious activity across an organization's systems and coordinates response. Their tradeoff is speed vs. accuracy: too many false alarms and people ignore real ones.\n• **Ethical / authorized roles** (sometimes called ethical hacking or penetration testing in industry) involve testing defenses **only with clear written permission** and a defined **scope**, then reporting findings so defenders can improve. Outside that scope, the same technical skill becomes unauthorized access.\n\n**Evaluate the ethical line:** "I found a weakness on the school portal and poked around to learn" may feel educational, but without written permission it can violate school policy and law — and it can harm classmates whose data sits on that system. The social impact of unauthorized testing is not abstract: grades, health forms, and scholarship drafts are real people's lives.\n\nOther paths include writing security policy, teaching users safe habits, building safer software, and responding after an incident. What they share: a defender mindset and **authorized use only**. Explore clubs, Cyber.org-style courses, CompTIA fundamentals topics, and ethical capture-the-flag events that stay inside the rules.`,
         callout: {
           label: "Watch out",
-          text: "\"Ethical\" is not a feeling — it is permission. Testing a system without authorization can be illegal even if you \"meant well\" or only wanted to learn. Stay in approved labs and contests.",
+          text: "\"Ethical\" is not a feeling — it is permission plus scope. Testing a system without authorization can be illegal even if you \"meant well\" or only wanted to learn. Stay in approved labs and contests.",
         },
         checkIn: {
           prompt: "Which statement about ethical / authorized testing roles is true?",
@@ -145,16 +146,16 @@ export const cyberLesson1: AILessonConfig = {
         title: "Going deeper: ethics and authorized use only",
         image: "/images/lessons/cs-1-4.png",
         imageAlt: "Permission checklist on a clipboard next to a laptop; red stamp Unauthorized vs green Authorized testing",
-        body: `Curiosity is good. Breaking into accounts "to see if I can," scanning school networks without permission, or sharing someone's login is not.\n\nCore ethics for this class:\n\n• **Only use systems and data you are allowed to use.** Permission must be clear — school accounts for school work, personal accounts for you, lab environments for practice.\n• **Do not try to access, change, or disrupt** someone else's device, account, or network without authorization.\n• **Respect privacy.** Reading another student's messages or grades without permission is a privacy failure, even if no malware was involved.\n• **Report, don't exploit.** If you notice a weakness, tell a trusted adult or the right school/IT contact — don't demonstrate it by causing harm.\n\nThink of it like a chemistry lab: you learn about reactions in controlled, supervised settings. You don't mix random chemicals in the cafeteria "for science." Cybersecurity skills deserve the same supervised, permission-based environment.`,
+        body: `Curiosity is good. Breaking into accounts "to see if I can," scanning school networks without permission, or sharing someone's login is not.\n\n**Evaluate ethical tradeoffs** defenders and students face:\n\n• **Learning vs. harm:** Practicing skills in an authorized lab helps your future; practicing on live school systems can expose classmates' data and break Availability for everyone.\n• **Transparency vs. secrecy:** Responsible disclosure (report privately to IT) protects users while a fix is prepared. Publicly posting a weakness before a fix can amplify harm — even if your goal was "raising awareness."\n• **Convenience vs. consent:** Sharing a friend's password "so we can finish the project" may feel helpful, but it bypasses consent and breaks authentication/authorization models for that account.\n\nCore ethics for this class:\n\n• **Only use systems and data you are allowed to use.** Permission must be clear — school accounts for school work, personal accounts for you, lab environments for practice.\n• **Do not try to access, change, or disrupt** someone else's device, account, or network without authorization.\n• **Respect privacy.** Reading another student's messages or grades without permission is a privacy failure, even if no malware was involved.\n• **Report, don't exploit.** If you notice a weakness, tell a trusted adult or the right school/IT contact — don't demonstrate it by causing harm.\n\nThink of it like a chemistry lab: you learn about reactions in controlled, supervised settings. You don't mix random chemicals in the cafeteria "for science." Cybersecurity skills deserve the same supervised, permission-based environment.`,
         bullets: [
           "Permission first — always.",
           "Curiosity belongs in labs, clubs, and authorized challenges.",
-          "Finding a problem → report it responsibly.",
+          "Finding a problem → report it responsibly (private disclosure before public).",
           "\"I was just testing\" is not a defense without authorization.",
         ],
         callout: {
           label: "Pro tip",
-          text: "If you are unsure whether something is allowed, stop and ask. In cybersecurity, \"ask first\" is a professional skill, not a weakness.",
+          text: "If you are unsure whether something is allowed, stop and ask. In cybersecurity, \"ask first\" is a professional skill, not a weakness — and it is how you evaluate risk before impact.",
         },
       },
       {
@@ -239,14 +240,14 @@ Reporting is not tattling. It is how organizations learn about problems early en
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Cybersecurity** protects **data**, **systems**, and **people**.\n• Defenders aim for **Confidentiality**, **Integrity**, and **Availability** (the CIA Triad).\n• Careers include **analysts**, **SOC** teams, and **ethical/authorized** testing roles — always with permission.\n• **Authorized use only** is the ethical line; "I meant well" is not the same as "I had permission."\n• High school students already depend on digital accounts — these skills matter now.\n\nWhen you're ready, switch to the **Knowledge check**, then write a short reflection about why cybersecurity matters in your life.`,
+        body: `Quick recap:\n\n• **Cybersecurity** protects **data**, **systems**, and **people** — and every control involves a **tradeoff** among those layers and CIA goals.\n• Defenders aim for **Confidentiality**, **Integrity**, and **Availability** (the CIA Triad) and must **explain** when tightening one weakens another.\n• Careers include **analysts**, **SOC** teams, and **ethical/authorized** testing roles — always with written permission and defined **scope**.\n• **Authorized use only** is the ethical line; "I meant well" is not the same as "I had permission." Prefer **responsible disclosure** over public exposure of weaknesses.\n• You will **evaluate** ethical and social impacts of security choices — not just memorize vocabulary.\n\nWhen you're ready, switch to the **Knowledge check**, then write a short reflection that justifies a security recommendation and its tradeoff.`,
       },
     ],
   },
   bigIdeas: [
-    "**Cybersecurity** protects digital **data**, **systems**, and **people** — not just \"computers.\"",
-    "The **CIA Triad** (Confidentiality, Integrity, Availability) names what \"secure\" means in practice.",
-    "Cyber work requires **ethics** and **authorized use only**; curiosity without permission can cause real harm.",
+    "**Cybersecurity** protects digital **data**, **systems**, and **people** — and every control choice involves tradeoffs.",
+    "The **CIA Triad** (Confidentiality, Integrity, Availability) names what \"secure\" means; defenders evaluate when strengthening one goal costs another.",
+    "Cyber work requires **ethics** and **authorized use only**; curiosity without permission can cause real social harm.",
   ],
   keyTerms: [
     { term: "Cybersecurity", definition: "The practice of protecting digital data, systems, and people from harm." },
@@ -257,48 +258,49 @@ Reporting is not tattling. It is how organizations learn about problems early en
     { term: "Security Analyst", definition: "A professional who monitors for problems, investigates alerts, and helps strengthen defenses." },
     { term: "SOC", definition: "Security Operations Center — a team that watches for suspicious activity and responds to incidents." },
     { term: "Authorized Use", definition: "Using systems and data only with clear permission from the owner or organization." },
+    { term: "Responsible Disclosure", definition: "Reporting a security weakness privately to the owner or IT so it can be fixed before public exposure amplifies harm." },
   ],
   realWorld:
     "When a school requires a login for grades, or a hospital protects patient records, they are practicing cybersecurity: keep the right data private (**confidentiality**), accurate (**integrity**), and reachable for staff who need it (**availability**).",
   quiz: [
     {
       id: "q1",
-      question: "Which statement best defines cybersecurity?",
+      question: "A school wants \"anyone with the link can edit\" on project folders for speed, but student research sometimes includes personal contact info. Which evaluation best explains the tradeoff?",
       choices: [
-        "Installing antivirus once and assuming you're covered",
-        "Protecting digital data, systems, and people from harm",
-        "A specialty that only professional IT staff ever need to practice",
-        "Keeping networks as fast as possible so users stay productive",
+        "Open editing always improves CIA, so there is no tradeoff",
+        "Open editing boosts collaboration (Availability/usability) but weakens Confidentiality and Integrity for sensitive data — defenders should prefer named access for folders with personal info",
+        "Open editing only affects Availability and never Confidentiality",
+        "Tradeoffs only matter for hospitals, not schools",
       ],
       correctIndex: 1,
       explanation:
-        "Cybersecurity is broader than one tool. It is the practice of protecting data, systems, and the people who use them.",
+        "Convenient open sharing helps authorized work finish faster, but it also lets strangers view or alter content. Evaluating that tradeoff is a core defender skill.",
     },
     {
       id: "q2",
-      question: "In the CIA Triad, what does Integrity mainly mean?",
+      question: "IT proposes requiring MFA before every exam-portal login during timed tests. Which statement best explains the CIA tradeoff?",
       choices: [
-        "Only authorized people can see the information",
-        "Systems are always online for everyone, including strangers",
-        "Information stays accurate and is not changed without authorization",
-        "All data is encrypted so nobody can ever read it",
+        "MFA only affects Integrity and never Availability",
+        "MFA always improves all three CIA goals with no downside",
+        "MFA can strengthen Confidentiality (wrong people stay out) while risking Availability if prompts or device issues delay authorized students during a timed exam",
+        "MFA is irrelevant because exams are offline",
       ],
       correctIndex: 2,
       explanation:
-        "Integrity is about trustworthiness of data — it should not be altered by unauthorized people. Confidentiality is about who can see it; Availability is about access when needed.",
+        "Stronger authentication often improves Confidentiality, but poorly timed friction can block authorized users — an Availability cost defenders must explain and mitigate.",
     },
     {
       id: "q3",
-      question: "A student finds a possible weakness in a school website. What is the most ethical next step?",
+      question: "A student finds a possible weakness in a school website. Which next step best evaluates ethical and social impact?",
       choices: [
-        "Try to break in further to prove the weakness",
+        "Try to break in further to prove the weakness — impact is educational",
         "Quietly fix it themselves using admin tools they found, without telling anyone",
-        "Report it to a trusted adult or the school's IT/security contact",
-        "Post the weakness publicly to \"help\" others",
+        "Report it privately to a trusted adult or the school's IT/security contact (responsible disclosure) so classmates' data is protected while a fix is planned",
+        "Post the weakness publicly immediately to \"raise awareness\"",
       ],
       correctIndex: 2,
       explanation:
-        "Responsible reporting with authorization in mind is the ethical path. Exploring further, self-fixing without authorization, or publishing details can cause harm and may be illegal.",
+        "Responsible disclosure balances learning and transparency against harm. Exploring further, unauthorized \"fixes,\" or public posting before a fix can put real student data at risk.",
     },
     {
       id: "q4",
@@ -354,21 +356,21 @@ Reporting is not tattling. It is how organizations learn about problems early en
     },
     {
       id: "q8",
-      question: "Why do cybersecurity decisions often involve ethical and legal considerations, not just technical ones?",
+      question: "Why should a student evaluate both technical and ethical/legal impacts before \"testing\" a live school system?",
       choices: [
-        "They don't — cybersecurity is purely technical",
+        "They shouldn't — cybersecurity is purely technical and permission is optional",
         "Because ethics only matters after college",
-        "Because technical skills replace the need for permission",
-        "Because protecting data, systems, and people involves privacy, permission, and impacts on real people — not just technical tools",
+        "Because technical skill alone replaces the need for permission",
+        "Because the same action can expose classmates' private data, break Availability for others, and violate policy/law even when the tester's motive was curiosity",
       ],
       correctIndex: 3,
       explanation:
-        "Cybersecurity touches real people's privacy and rights, which is why it includes ethics, law, and digital citizenship — not just technical skill.",
+        "Evaluating social and ethical impact means asking who else is affected — not only whether a technical trick \"worked.\" Permission and responsible disclosure come first.",
     },
   ],
   reflection: {
     prompt:
-      "Name one account or device you use for school. Which part of cybersecurity matters most there — protecting the data, the system, or the people who use it — and why?",
-    placeholder: "Example: My school email matters because if someone else got in, they could message teachers as me…",
+      "Recommend one security control for a school account or shared folder you use. Explain which CIA goal it strengthens, one tradeoff it creates (usability, speed, or access), and why you still recommend it — or when you would choose a weaker control instead.",
+    placeholder: "Example: I'd recommend named-people edit access on our project folder. It strengthens Confidentiality/Integrity vs. \"anyone with the link,\" but slows inviting new members — still worth it because…",
   },
 };

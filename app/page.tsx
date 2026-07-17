@@ -67,7 +67,7 @@ export default function Home() {
   const digitalTrack = TRACKS.find((t) => t.id === "digital-literacy")!;
   const cyberTrack = TRACKS.find((t) => t.id === "cybersecurity")!;
   const financeTrack = TRACKS.find((t) => t.id === "financial-literacy")!;
-  const pythonTrack = TRACKS.find((t) => t.id === "python-starter")!;
+  const pythonTrack = TRACKS.find((t) => t.id === "ai-python")!;
   const dataTrack = TRACKS.find((t) => t.id === "data-analyst")!;
   const totalXp = totalXpAcrossTracks(completedIds);
   const activeTrack = TRACKS.find((t) => t.id === activeTab) ?? aiTrack;
@@ -404,7 +404,7 @@ export default function Home() {
             />
           </TabsContent>
 
-          <TabsContent value="python-starter">
+          <TabsContent value="ai-python">
             <TrackRoadmap
               track={pythonTrack}
               completedIds={completedIds}

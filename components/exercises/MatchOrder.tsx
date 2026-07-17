@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Reorder, useDragControls } from "framer-motion";
 import { CheckCircle2, GripVertical } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -41,7 +42,7 @@ function shuffle<T>(arr: T[]): T[] {
   return copy;
 }
 
-/** Click-to-match pairs or reorder a sequence (mobile-friendly, no drag required). */
+/** Click-to-match pairs or drag-to-reorder a sequence (touch + mouse). */
 export function MatchOrder(props: MatchOrderProps) {
   if (props.mode === "match") {
     return <MatchPanel {...props} />;
@@ -83,11 +84,17 @@ function MatchPanel({ prompt, pairs, completed, onComplete }: MatchActivityProps
   return (
     <div className="space-y-4">
       <p className="text-sm font-semibold text-slate-900">{prompt}</p>
-      {feedback ? (
-        <p className="text-sm font-medium text-slate-700" role="status">
-          {feedback}
-        </p>
-      ) : null}
+      {/* Fixed-height status so feedback never shifts the page */}
+      <p
+        className={cn(
+          "min-h-10 text-sm font-medium leading-5",
+          feedback ? "text-slate-700" : "text-transparent"
+        )}
+        role="status"
+        aria-live="polite"
+      >
+        {feedback ?? "\u00a0"}
+      </p>
       <div className="grid gap-3 sm:grid-cols-2">
         <div className="space-y-2">
           <p className="text-xs font-black uppercase tracking-wide text-slate-500">Terms</p>
@@ -111,24 +118,33 @@ function MatchPanel({ prompt, pairs, completed, onComplete }: MatchActivityProps
                       : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"
                 )}
               >
-                {done ? <CheckCircle2 className="h-4 w-4 shrink-0" /> : null}
+                <CheckCircle2
+                  className={cn(
+                    "h-4 w-4 shrink-0",
+                    done ? "text-emerald-700" : "invisible"
+                  )}
+                  aria-hidden={!done}
+                />
                 {item.label}
               </button>
             );
           })}
         </div>
         <div className="space-y-2">
-          <div className="flex items-center justify-between">
+          <div className="flex min-h-5 items-center justify-between">
             <p className="text-xs font-black uppercase tracking-wide text-slate-500">Definitions</p>
-            {!completed ? (
-              <button
-                type="button"
-                className="text-xs font-semibold text-slate-500 underline"
-                onClick={() => setRights(shuffle(pairs.map((p) => ({ id: p.id, label: p.right }))))}
-              >
-                Shuffle
-              </button>
-            ) : null}
+            <button
+              type="button"
+              className={cn(
+                "text-xs font-semibold text-slate-500 underline",
+                completed && "invisible pointer-events-none"
+              )}
+              tabIndex={completed ? -1 : undefined}
+              aria-hidden={completed}
+              onClick={() => setRights(shuffle(pairs.map((p) => ({ id: p.id, label: p.right }))))}
+            >
+              Shuffle
+            </button>
           </div>
           {rights.map((item) => {
             const done = matched.has(item.id);
@@ -145,7 +161,13 @@ function MatchPanel({ prompt, pairs, completed, onComplete }: MatchActivityProps
                     : "border-slate-200 bg-white text-slate-800 hover:border-slate-300"
                 )}
               >
-                {done ? <CheckCircle2 className="h-4 w-4 shrink-0" /> : null}
+                <CheckCircle2
+                  className={cn(
+                    "h-4 w-4 shrink-0",
+                    done ? "text-emerald-700" : "invisible"
+                  )}
+                  aria-hidden={!done}
+                />
                 {item.label}
               </button>
             );
@@ -153,6 +175,89 @@ function MatchPanel({ prompt, pairs, completed, onComplete }: MatchActivityProps
         </div>
       </div>
     </div>
+  );
+}
+
+function OrderRow({
+  item,
+  index,
+  slotOk,
+  locked,
+  isDragging,
+  onDragStart,
+  onDragEnd,
+}: {
+  item: OrderItem;
+  index: number;
+  slotOk: boolean;
+  locked: boolean;
+  isDragging: boolean;
+  onDragStart: () => void;
+  onDragEnd: () => void;
+}) {
+  const controls = useDragControls();
+
+  return (
+    <Reorder.Item
+      value={item}
+      as="li"
+      dragListener={false}
+      dragControls={controls}
+      drag={!locked}
+      onDragStart={onDragStart}
+      onDragEnd={onDragEnd}
+      whileDrag={{ scale: 1.03, zIndex: 30 }}
+      className={cn(
+        "relative flex list-none items-center gap-2 rounded-xl border bg-white px-3 py-2",
+        slotOk
+          ? "animate-[kanamOrderCorrectPulse_1.1s_ease-in-out_infinite] border-emerald-400 bg-emerald-50"
+          : locked
+            ? "border-emerald-300 bg-emerald-50"
+            : "border-slate-200",
+        isDragging &&
+          "border-[var(--accent)] bg-[rgb(var(--accent-rgb)/0.28)] shadow-[0_10px_28px_rgba(15,23,42,0.18)] ring-2 ring-[rgb(var(--accent-rgb)/0.85)]"
+      )}
+      style={{ position: "relative" }}
+    >
+      {!locked ? (
+        <button
+          type="button"
+          className={cn(
+            "flex shrink-0 touch-none items-center rounded-lg p-1 text-slate-400 transition-colors",
+            "hover:bg-slate-100 hover:text-[var(--brand-2)]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[rgb(var(--accent-rgb)/0.7)]",
+            isDragging && "cursor-grabbing text-[var(--accent)]"
+          )}
+          aria-label={`Drag to reorder: ${item.label}`}
+          onPointerDown={(event) => {
+            event.preventDefault();
+            controls.start(event);
+          }}
+          style={{ cursor: isDragging ? "grabbing" : "grab", touchAction: "none" }}
+        >
+          <GripVertical className="h-4 w-4" aria-hidden />
+        </button>
+      ) : (
+        <GripVertical className="h-4 w-4 shrink-0 text-slate-400" aria-hidden />
+      )}
+      <span
+        className={cn(
+          "min-w-0 flex-1 text-sm font-semibold",
+          isDragging ? "text-[var(--brand-2)]" : "text-slate-900"
+        )}
+      >
+        <span className={cn("mr-2", isDragging ? "text-[var(--accent)]" : "text-slate-400")}>
+          {index + 1}.
+        </span>
+        {item.label}
+      </span>
+      {slotOk || locked ? (
+        <CheckCircle2
+          className="h-4 w-4 shrink-0 text-emerald-700"
+          aria-label={slotOk ? "Correct position" : undefined}
+        />
+      ) : null}
+    </Reorder.Item>
   );
 }
 
@@ -168,6 +273,7 @@ function OrderPanel({
   const [feedback, setFeedback] = React.useState<string | null>(null);
   const [slotCorrect, setSlotCorrect] = React.useState<boolean[] | null>(null);
   const [checked, setChecked] = React.useState(completed);
+  const [draggingId, setDraggingId] = React.useState<string | null>(null);
   const hasStepWhy =
     Array.isArray(itemExplanations) && itemExplanations.length === items.length;
 
@@ -176,19 +282,11 @@ function OrderPanel({
       setOrder(items);
       setChecked(true);
       setSlotCorrect(items.map(() => true));
+      setDraggingId(null);
     }
   }, [completed, items]);
 
-  const move = (index: number, dir: -1 | 1) => {
-    if (completed || checked) return;
-    const nextIndex = index + dir;
-    if (nextIndex < 0 || nextIndex >= order.length) return;
-    const next = [...order];
-    [next[index], next[nextIndex]] = [next[nextIndex], next[index]];
-    setOrder(next);
-    setFeedback(null);
-    setSlotCorrect(null);
-  };
+  const locked = completed || checked;
 
   const check = () => {
     const slots = order.map((item, i) => item.id === correctIds[i]);
@@ -213,66 +311,41 @@ function OrderPanel({
   return (
     <div className="space-y-4">
       <p className="text-sm font-semibold text-slate-900">{prompt}</p>
+      {!locked ? (
+        <p className="text-sm text-slate-600">Drag the steps into order, then check.</p>
+      ) : null}
       {feedback && !checked ? (
         <p className="text-sm font-medium text-slate-700" role="status">
           {feedback}
         </p>
       ) : null}
-      <ol className="space-y-2">
+      <Reorder.Group
+        as="ol"
+        axis="y"
+        values={order}
+        onReorder={(next) => {
+          setOrder(next);
+          setFeedback(null);
+          setSlotCorrect(null);
+        }}
+        className="space-y-2"
+      >
         {order.map((item, index) => {
           const slotOk = Boolean(slotCorrect?.[index]);
           return (
-            <li
+            <OrderRow
               key={item.id}
-              className={cn(
-                "flex items-center gap-2 rounded-xl border bg-white px-3 py-2 transition-colors",
-                slotOk
-                  ? "animate-[kanamOrderCorrectPulse_1.1s_ease-in-out_infinite] border-emerald-400 bg-emerald-50"
-                  : completed || checked
-                    ? "border-emerald-300 bg-emerald-50"
-                    : "border-slate-200"
-              )}
-            >
-              <GripVertical className="h-4 w-4 shrink-0 text-slate-400" aria-hidden />
-              <span className="min-w-0 flex-1 text-sm font-semibold text-slate-900">
-                <span className="mr-2 text-slate-400">{index + 1}.</span>
-                {item.label}
-              </span>
-              {!completed && !checked ? (
-                <div className="flex shrink-0 items-center gap-1">
-                  {slotOk ? (
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600" aria-label="Correct position" />
-                  ) : null}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="h-9 px-2"
-                    disabled={index === 0}
-                    onClick={() => move(index, -1)}
-                    aria-label={`Move ${item.label} up`}
-                  >
-                    ↑
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="h-9 px-2"
-                    disabled={index === order.length - 1}
-                    onClick={() => move(index, 1)}
-                    aria-label={`Move ${item.label} down`}
-                  >
-                    ↓
-                  </Button>
-                </div>
-              ) : (
-                <CheckCircle2 className="h-4 w-4 text-emerald-700" />
-              )}
-            </li>
+              item={item}
+              index={index}
+              slotOk={slotOk}
+              locked={locked}
+              isDragging={draggingId === item.id}
+              onDragStart={() => setDraggingId(item.id)}
+              onDragEnd={() => setDraggingId(null)}
+            />
           );
         })}
-      </ol>
+      </Reorder.Group>
       {!completed && !checked ? (
         <Button type="button" className="h-11" onClick={check}>
           Check order

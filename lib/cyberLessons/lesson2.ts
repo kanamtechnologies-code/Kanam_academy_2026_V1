@@ -2,15 +2,15 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const cyberLesson2: AILessonConfig = {
   id: "cs-2",
-  title: "2. CIA Triad & Authentication",
-  goal: "Explain Confidentiality, Integrity, and Availability; distinguish authentication from authorization; and describe passwords, MFA, biometrics, and tokens at a conceptual level.",
+  title: "2. CIA Triad, Auth & Tradeoffs",
+  goal: "Recommend authentication measures that protect CIA goals; compare usability vs. security tradeoffs across passwords, MFA, biometrics, and tokens; and explain how weak auth cascades into Confidentiality, Integrity, and Availability failures.",
   xpReward: 100,
   badge: "Triad Guardian",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/1",
   nextHref: "/learn/cyber/3",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,10 +18,10 @@ export const cyberLesson2: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-2.png",
         imageAlt: "Triangle diagram props for Confidentiality Integrity Availability beside a login screen on a laptop",
-        body: `Last lesson introduced the **CIA Triad**. Today you'll make it stick — and connect it to every login screen you meet.\n\nHere's our roadmap:\n\n• **Confidentiality, Integrity, Availability** — what each goal really means with school-life examples.\n• **Authentication vs. authorization** — proving who you are vs. what you're allowed to do.\n• **How we prove identity** — passwords, MFA, biometrics, and tokens (concepts only).\n• **Sessions and rate limiting** — what happens after login; logging failed attempts.\n• **A worked example, a myth, and a mini case** — so the ideas transfer to real situations.\n• **How these ideas fit together** — why weak login habits break CIA in the real world.\n\nBy the end, you'll be able to look at a situation and say which CIA goal is at risk — and whether the problem is "who are you?" or "what can you do?"`,
+        body: `Last lesson introduced the **CIA Triad**. Today you will **analyze** login scenarios, **compare** authentication options, and **recommend** measures while justifying usability vs. security tradeoffs.\n\nHere's our roadmap:\n\n• **Confidentiality, Integrity, Availability** — use each goal as a decision criterion with school-life examples.\n• **Authentication vs. authorization** — proving who you are vs. what you're allowed to do.\n• **How we prove identity** — compare passwords, MFA, biometrics, and tokens by strength and friction.\n• **Sessions and rate limiting** — what happens after login; logging failed attempts.\n• **A worked example, a myth, and a mini case** — practice recommending controls under real constraints.\n• **How these ideas fit together** — why weak login habits break CIA in the real world.\n\nBy the end, you'll recommend an auth setup for a high-value account and explain the tradeoff you accepted.`,
         callout: {
           label: "Why it matters",
-          text: "Almost every security control — from phone locks to school portals — is trying to protect at least one of Confidentiality, Integrity, or Availability. Naming the goal helps you choose better habits.",
+          text: "Almost every security control — from phone locks to school portals — protects at least one CIA goal. Comparing options (not just naming them) is how defenders choose controls students and staff will actually use.",
         },
       },
       {
@@ -96,16 +96,16 @@ export const cyberLesson2: AILessonConfig = {
         title: "Passwords, MFA, biometrics, and tokens",
         image: "/images/lessons/cs-2-3.png",
         imageAlt: "Phone MFA prompt, fingerprint sensor, and hardware security key on a desk",
-        body: `Defenders talk about **authentication factors** — categories of proof:\n\n• **Something you know** — a password or PIN.\n• **Something you have** — a phone that receives a code, an authenticator app, or a physical security **token**/key.\n• **Something you are** — **biometrics** like fingerprint or face unlock on a device.\n\nA **password** alone is one factor. **MFA (Multi-Factor Authentication)** means using *more than one category* — for example, password + app code. That way, if one factor is stolen, the attacker still doesn't have the others.\n\n**Biometrics** are convenient on devices you control, but they are not magic: they usually unlock a secret stored on the device, and they raise privacy questions if misused. Treat them as one helpful factor, not the whole security story.\n\n**Tokens** (apps or hardware keys) prove "something you have." Conceptually, they make remote takeovers harder because a stolen password alone often isn't enough.\n\nWe'll go deeper on password strength, hashing, and MFA types in a later lesson. Today, just know: stronger authentication protects **confidentiality** and **integrity** by keeping the wrong people out.`,
+        body: `Defenders talk about **authentication factors** — categories of proof:\n\n• **Something you know** — a password or PIN.\n• **Something you have** — a phone that receives a code, an authenticator app, or a physical security **token**/key.\n• **Something you are** — **biometrics** like fingerprint or face unlock on a device.\n\nA **password** alone is one factor. **MFA (Multi-Factor Authentication)** means using *more than one category* — for example, password + app code. That way, if one factor is stolen, the attacker still doesn't have the others.\n\n**Compare usability vs. security (recommend with eyes open):**\n• **Password only** — low friction, high risk if reused or phished; weak recommendation for email/school accounts.\n• **Password + authenticator app** — moderate friction, strong everyday protection; usually the best default recommendation for students.\n• **Password + push approve** — very convenient, but prompt bombing exploits that convenience; recommend only with a deny-unexpected-prompts habit.\n• **Password + SMS** — better than password alone, but phone-number recovery weaknesses make it a weaker recommendation than app codes.\n• **Hardware security key** — highest friction to set up, strongest for high-value accounts; recommend for scholarship/email/admin where theft would cascade.\n• **Biometrics** — excellent device unlock convenience, but usually tied to one device and not a portable second factor everywhere; treat as a helpful factor, not the whole story.\n\nStronger authentication protects **confidentiality** and **integrity** by keeping the wrong people out — but over-friction without recovery paths can damage **availability** for the legitimate owner.`,
         bullets: [
-          "**Password / PIN** = something you know.",
-          "**Phone code / security key** = something you have.",
-          "**Fingerprint / face** = something you are (biometric).",
-          "**MFA** = combine factors from more than one category.",
+          "**Password / PIN** = something you know (convenient; weakest alone).",
+          "**Phone code / security key** = something you have (strength varies by type).",
+          "**Fingerprint / face** = something you are (biometric; device-tied convenience).",
+          "**MFA** = combine factors from more than one category — then compare tradeoffs.",
         ],
         callout: {
           label: "Pro tip",
-          text: "Turn on MFA for email and school accounts first — those are often the \"keys to the kingdom\" that reset everything else.",
+          text: "Recommend MFA first for email and school accounts — those are often the \"keys to the kingdom\" that reset everything else. Prefer app codes or hardware keys over SMS when the service offers a choice.",
         },
         checkIn: {
           prompt: "A password plus a fingerprint scan combines which two factor categories?",
@@ -164,7 +164,7 @@ export const cyberLesson2: AILessonConfig = {
         title: "Going deeper: sessions, failed attempts, and rate limiting",
         image: "/images/lessons/cs-2-4.png",
         imageAlt: "Dashboard showing an active session list and a graph of failed login attempts being rate limited",
-        body: `Successful **authentication** doesn't end at the password screen. The system creates a **session** — a temporary, limited proof that you already proved who you are. Sessions let you browse without retyping your password every click, but they also mean a stolen session can bypass a fresh login challenge.\n\nDefender habits around sessions:\n\n• **Log out** on shared computers and revoke unknown sessions in account security settings.\n• **Sessions expire** after inactivity or a time limit — that's intentional, not annoyance.\n• **Failed login attempts are logged** so defenders can spot patterns: one typo vs. hundreds of guesses from the same address.\n\n**Rate limiting** slows repeated failed attempts — for example, a short lockout or increasing delays after several wrong passwords. **Brute force** (conceptually) means trying many guesses to crack a password. Rate limiting doesn't make passwords optional; it buys time for detection and makes mass guessing less practical.\n\nTogether, logging + rate limiting + MFA turn "guess until it works" from a quiet hobby into a noisy, often-blocked event defenders can investigate.`,
+        body: `Successful **authentication** doesn't end at the password screen. The system creates a **session** — a temporary, limited proof that you already proved who you are. Sessions let you browse without retyping your password every click, but they also mean a stolen session can bypass a fresh login challenge.\n\nDefender habits around sessions:\n\n• **Log out** on shared computers and revoke unknown sessions in account security settings.\n• **Sessions expire** after inactivity or a time limit — that's intentional, not annoyance.\n• **Failed login attempts are logged** so defenders can spot patterns: one typo vs. hundreds of guesses from the same address.\n\n**Rate limiting** slows repeated failed attempts — for example, a short lockout or increasing delays after several wrong passwords. **Brute force** (conceptually) means trying many guesses to crack a password. Rate limiting doesn't make passwords optional; it buys time for detection and makes mass guessing less practical.\n\nTogether, logging + rate limiting + MFA turn "guess until it works" from a quiet hobby into a noisy, often-blocked event defenders can investigate.\n\n**Tradeoff to explain:** Aggressive lockouts after few failures strengthen security against guessing, but can lock out a student who mistypes during a deadline (Availability). Defenders often recommend progressive delays plus MFA — slowing attackers without permanently locking legitimate users.`,
         bullets: [
           "A **session** keeps you signed in with limited permissions after authentication succeeds.",
           "**Failed attempts** should be logged — patterns reveal stuffing and brute-force tries.",
@@ -179,7 +179,7 @@ export const cyberLesson2: AILessonConfig = {
         id: "comparison",
         kicker: "Side by side",
         title: "Comparing MFA factor types",
-        body: `Not all "something you have / are / know" options are equally strong. A quick side-by-side helps you prioritize:\n\n• **Authenticator app codes** — strong everyday choice; codes live on your device, not sent over the phone network.\n• **Push approval prompts** — convenient, but vulnerable to prompt bombing if you tap approve out of habit rather than intent.\n• **SMS text codes** — better than a password alone, but weaker than app codes because of separate risks tied to phone numbers and recovery processes.\n• **Hardware security keys** — generally the strongest option for high-value accounts, since they require physically having the key.\n• **Biometrics** — convenient on a device you control, but tied to that device rather than portable proof you can present anywhere.\n\nNone of these are "wrong" — the point is knowing that MFA options exist on a strength spectrum, so you can choose the strongest option a given service offers, especially for accounts that matter most.`,
+        body: `Not all "something you have / are / know" options are equally strong. **Compare** them on two axes: protection strength and usability friction — then **recommend** based on account value.\n\n• **Authenticator app codes** — strong everyday choice; codes live on your device, not sent over the phone network. Tradeoff: you need the phone/app available; recommend as the default for most student accounts.\n• **Push approval prompts** — lowest friction after setup, but vulnerable to prompt bombing if you tap approve out of habit. Tradeoff: convenience vs. human-error risk; recommend only with a strict deny-unexpected rule.\n• **SMS text codes** — better than a password alone, but weaker than app codes because of phone-number and recovery risks. Tradeoff: works without an authenticator app vs. weaker channel; recommend only if stronger MFA isn't offered.\n• **Hardware security keys** — generally the strongest option for high-value accounts (physical possession). Tradeoff: cost, setup, and carrying the key vs. remote takeover resistance; recommend for email/admin/scholarship portals.\n• **Biometrics** — convenient on a device you control, but device-tied. Tradeoff: speed vs. portability/privacy questions; recommend as a device unlock factor paired with MFA for cloud accounts.\n\n**Decision rule:** for each account, ask (1) what CIA damage would a takeover cause, and (2) which MFA option gives enough protection without blocking the real owner from Availability.`,
         checkIn: {
           prompt: "Which MFA type is generally considered the strongest for a high-value account, according to this comparison?",
           choices: ["SMS text codes", "Push approval prompts", "Hardware security keys", "No MFA, just a strong password"],
@@ -272,14 +272,14 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **CIA** = Confidentiality (who can see), Integrity (stays accurate), Availability (usable when needed).\n• **Authentication** proves identity; **authorization** decides what you may do.\n• Factors include **passwords**, **MFA**, **biometrics**, and **tokens** — concepts that strengthen the front door.\n• **Sessions** follow login; **failed attempts** are logged; **rate limiting** slows brute-force guessing.\n• Weak authentication can break all three CIA goals in one incident — and prompt bombing exploits human annoyance, not just technical gaps.\n\nWhen you're ready, take the **Knowledge check**, then reflect on an account where MFA would help you most.`,
+        body: `Quick recap:\n\n• **CIA** = Confidentiality (who can see), Integrity (stays accurate), Availability (usable when needed) — and auth choices can strengthen or stress each goal.\n• **Authentication** proves identity; **authorization** decides what you may do.\n• **Compare** factors — passwords, MFA types, biometrics, tokens — by strength and friction; **recommend** stronger options for high-value accounts.\n• **Sessions** follow login; **failed attempts** are logged; **rate limiting** slows guessing but must not strand legitimate users.\n• Weak authentication can break all three CIA goals in one incident — and prompt bombing exploits human annoyance, not just technical gaps.\n\nWhen you're ready, take the **Knowledge check**, then reflect with a justified MFA recommendation and tradeoff.`,
       },
     ],
   },
   bigIdeas: [
-    "The **CIA Triad** defines security goals: keep data private, accurate, and available to authorized users.",
+    "The **CIA Triad** defines security goals: keep data private, accurate, and available — and auth choices can help or hurt each goal.",
     "**Authentication** proves who you are; **authorization** decides what you may do.",
-    "**MFA** and other factors strengthen authentication so one stolen password is less devastating.",
+    "**Recommend** MFA and compare factor types by usability vs. security so one stolen password is less devastating.",
   ],
   keyTerms: [
     { term: "Confidentiality", definition: "Ensuring only authorized people can view information." },
@@ -292,6 +292,7 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
     { term: "Token", definition: "Something you have used to prove identity, such as an authenticator app or hardware security key." },
     { term: "Session", definition: "A temporary authenticated state that lets you use a system without re-proving identity on every action." },
     { term: "Rate limiting", definition: "Slowing or blocking repeated failed login attempts to reduce brute-force and stuffing attacks." },
+    { term: "Usability–Security Tradeoff", definition: "The tension between making authentication strong enough to keep attackers out and frictionless enough that authorized users can still get work done." },
   ],
   realWorld:
     "A student portal login is **authentication**. Being able to view your transcript but not edit another student's record is **authorization**. Both exist to protect **CIA** for grades and personal data.",
@@ -311,16 +312,16 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
     },
     {
       id: "q2",
-      question: "You type your password and a fingerprint to unlock a banking app. What is that an example of?",
+      question: "A club treasurer wants MFA for the shared bank-linked email. Which recommendation best balances security and usability for daily use?",
       choices: [
-        "Authorization deciding what you're allowed to view",
-        "Multi-factor authentication (MFA)",
-        "A single factor repeated twice for extra length",
-        "A backup method used only if the password fails",
+        "Password only — MFA always blocks legitimate officers from Availability",
+        "Password + authenticator app codes — strong everyday protection with moderate friction; reserve hardware keys if the account controls money",
+        "SMS only forever — it is always as strong as a hardware key",
+        "Push approve with a rule to always tap Approve so prompts stop faster",
       ],
       correctIndex: 1,
       explanation:
-        "A password (something you know) plus a biometric (something you are) are two different factor types — that is MFA, not one factor repeated or a backup.",
+        "App-based MFA is a strong default recommendation: much harder to abuse than password alone, without the extreme setup cost of keys for every everyday login. Always-approve push is the wrong usability \"fix.\"",
     },
     {
       id: "q3",
@@ -337,29 +338,29 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
     },
     {
       id: "q4",
-      question: "A leaked class roster of emails and home addresses mainly damages which CIA goal?",
+      question: "School IT considers locking accounts after two wrong passwords. Which evaluation best explains the tradeoff?",
       choices: [
-        "Availability, since the roster file might load slowly",
-        "Confidentiality",
-        "Integrity, since names could be spelled differently",
-        "None — personal data isn't part of CIA",
+        "Strict lockouts only help Availability and never affect Confidentiality",
+        "There is no tradeoff — maximum lockout is always best",
+        "Aggressive lockouts can slow guessing (helps Confidentiality) but may lock out rushed students during deadlines (hurts Availability); progressive delays plus MFA are often a better recommendation",
+        "Lockouts only matter for gaming accounts, not school portals",
       ],
-      correctIndex: 1,
+      correctIndex: 2,
       explanation:
-        "Unauthorized people seeing private information is a Confidentiality failure.",
+        "Defenders compare controls: fewer guesses for attackers vs. lockouts for legitimate users. Rate limiting + MFA often balances both better than a harsh two-strike lockout alone.",
     },
     {
       id: "q5",
-      question: "Why can a stolen password threaten Integrity as well as Confidentiality?",
+      question: "Why should you recommend MFA even when a student already uses a \"strong\" unique password?",
       choices: [
-        "It can't — a stolen password only ever affects Confidentiality",
-        "Once authenticated as you, an attacker may change files or settings using your permissions",
-        "Integrity only applies to documents printed on paper",
-        "Strong passwords automatically prevent any Integrity impact",
+        "You shouldn't — a strong password alone always protects all three CIA goals",
+        "Because phishing, reuse on other sites, or credential leaks can still let someone authenticate as them; MFA adds a second factor so a stolen password alone is less likely to break Confidentiality, Integrity, and Availability",
+        "Because MFA removes the need for authorization checks",
+        "Because Integrity only applies to documents printed on paper",
       ],
       correctIndex: 1,
       explanation:
-        "After authentication succeeds for the wrong person, authorization treats them as you — so they may alter data (Integrity) as well as read it (Confidentiality).",
+        "Strong passwords help, but they are still one factor. Recommending MFA addresses the cascading CIA impact when that one secret leaks or is phished.",
     },
     {
       id: "q6",
@@ -403,7 +404,7 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
   ],
   reflection: {
     prompt:
-      "Pick one account you use. Describe how authentication works there (password, MFA, biometric, etc.) and one permission that should be authorization-limited (something you can do that others shouldn't).",
-    placeholder: "Example: My school email uses password + MFA. Only I should be able to reset my other account passwords through it…",
+      "Pick one high-value account. Recommend an authentication setup (which factors/MFA type) and explain the usability vs. security tradeoff you are accepting. Then name one permission that should stay authorization-limited even after login.",
+    placeholder: "Example: For school email I'd recommend password + authenticator app (not SMS). Tradeoff: I need my phone for codes, but a stolen password alone shouldn't open my inbox. Only I should reset linked account passwords…",
   },
 };

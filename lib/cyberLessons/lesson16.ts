@@ -2,14 +2,14 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const cyberLesson16: AILessonConfig = {
   id: "cs-16",
-  title: "16. Capstone: Defend the Scenario",
-  goal: "Synthesize the cybersecurity track by defending a school club / small-org scenario — applying CIA, phishing defense, MFA, hardening, incident response, and risk priorities into a short security plan.",
+  title: "16. Capstone: Defend & Justify",
+  goal: "Synthesize the cybersecurity track into a justified security plan for a school club — recommend prioritized controls, compare alternatives, and justify each choice with feasibility, usability, and ethics tradeoffs, not just a control checklist.",
   xpReward: 800,
   badge: "Cyber Defender",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/15",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~30–35 min lesson",
     sections: [
       {
         id: "intro",
@@ -17,10 +17,10 @@ export const cyberLesson16: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-16.png",
         imageAlt: "Capstone planning desk: school club scenario folder, security checklist, and laptop",
-        body: `This is your **Cybersecurity capstone**. You'll step into the role of defender for a realistic school club and pull the whole track together — not as isolated facts, but as one coherent plan.\n\nHere's the plan:\n\n• Meet the **scenario** and what's at stake.\n• Fast **track recap** of the tools in your kit.\n• Apply **CIA + identity defenses** (phishing, MFA, least privilege).\n• Apply **hardening, crypto/HTTPS awareness, and privacy**.\n• Apply **network and access-control thinking** to the club's setup.\n• Draft **detection, IR, and risk priorities**.\n• Build a short **security plan** you could actually hand a club sponsor.\n• **Present and defend your reasoning**, the way a real defender would.\n\nBy the end, you should sound like a Cyber Defender — calm, ethical, and practical.`,
+        body: `This is your **Cybersecurity capstone**. You'll defend a realistic school club by synthesizing the whole track — then **justify** every recommendation with feasibility, usability, and ethics tradeoffs, not a bare checklist.\n\nHere's the plan:\n\n• Meet the **Greenwood scenario** and the demand for *justified* control selection.\n• Fast **track toolkit** recap (evaluate → recommend → justify).\n• Apply **CIA + identity defenses** (phishing, MFA, least privilege).\n• Apply **hardening, crypto/HTTPS, and privacy** with tradeoffs named.\n• Apply **network and access-control thinking** to the club's setup.\n• Draft **detection, IR, and risk priorities** — compare alternatives.\n• Build a short **security plan** that defends *why* each control won.\n• **Present and justify** your reasoning under pushback.\n\nBy the end, you should sound like a Cyber Defender — calm, ethical, and able to justify tradeoffs.`,
         callout: {
           label: "Why it matters",
-          text: "Real security work is synthesis: choosing a few high-impact controls and knowing what to do when something fails — not memorizing every buzzword.",
+          text: "Real security work is synthesis plus justification: recommending a few high-impact controls, explaining what you deferred and why, and knowing what to do when something fails.",
         },
       },
       {
@@ -29,20 +29,20 @@ export const cyberLesson16: AILessonConfig = {
         title: "Scenario: Greenwood Media Club",
         image: "/images/lessons/cs-16-2.png",
         imageAlt: "After-school club room with shared laptop Wi-Fi and a Defend This Space poster",
-        body: `You're advising the **Greenwood High Media Club** (about 25 members). They have:\n\n• A shared **club Gmail** used for sponsor emails and contest logins.\n• A **Google Drive** with photo/video projects and a budget spreadsheet.\n• Two **shared laptops** for editing (sometimes left in the classroom).\n• An **Instagram** account that promotes events.\n• A simple **club website** on a free host for meeting times.\n• A basic **home-style router** in the club room providing Wi-Fi for the shared laptops and members' phones.\n\nRecent headaches: a near-miss phishing email asking for "Drive access," a laptop that hasn't updated in months, public Instagram posts showing student ID badges in the background, and nobody is sure who still has the Gmail password after seniors graduated.\n\nYour job: defend this small org with the skills from Lessons 1–15.`,
+        body: `You're advising the **Greenwood High Media Club** (about 25 members). They have:\n\n• A shared **club Gmail** used for sponsor emails and contest logins.\n• A **Google Drive** with photo/video projects and a budget spreadsheet.\n• Two **shared laptops** for editing (sometimes left in the classroom).\n• An **Instagram** account that promotes events.\n• A simple **club website** on a free host for meeting times.\n• A basic **home-style router** in the club room providing Wi-Fi for the shared laptops and members' phones.\n\nRecent headaches: a near-miss phishing email asking for "Drive access," a laptop that hasn't updated in months, public Instagram posts showing student ID badges in the background, and nobody is sure who still has the Gmail password after seniors graduated.\n\n**Your job is not a shopping list.** For Greenwood, **recommend prioritized controls and justify each selection**: why this control over an alternative, what feasibility/usability/ethics tradeoff you accepted, and what residual risk remains. Use Lessons 1–15 as evidence.`,
         callout: {
           label: "Constraints",
-          text: "No big budget, no full-time IT staff on the club — prioritize free/high-impact habits and clear ownership.",
+          text: "No big budget, no full-time IT staff — justify free/high-impact habits and clear ownership over flashy tools the club cannot sustain.",
         },
       },
       {
         id: "recap",
         kicker: "Capstone",
-        title: "Your defender toolkit — quick recap",
-        body: `You've built a full kit across the track. Today's job is to *use* it:\n\n• **Foundations:** ethics, CIA triad, authentication.\n• **Human layer:** malware awareness, phishing/social engineering defense.\n• **Identity:** strong unique passwords, hashing concept, **MFA**, password managers, prompt-bombing awareness.\n• **Access control:** authentication vs. authorization, RBAC, **least privilege**, separation of duties, access lifecycle/review.\n• **Network & config:** defender networking basics (IP/DNS/ports/packets), firewalls, host vs. network filtering, secure config, segmentation.\n• **Crypto & trust:** encryption/hashing ideas, HTTPS/certificates/padlock limits.\n• **Operations:** hardening/patching/backups/inventory; logging/monitoring/IR.\n• **Analysis:** attack patterns (defender view), OSINT/privacy awareness, risk & controls, risk registers.\n\nYou don't need every control at once. You need the *right few* for Greenwood's risks.`,
+        title: "Your defender toolkit — evaluate, recommend, justify",
+        body: `You've built a full kit across the track. Today's job is to *use* it and **justify** choices:\n\n• **Foundations:** ethics, CIA triad, authentication — evaluate impact first.\n• **Human layer:** phishing/social engineering defense — recommend habits, not stunts.\n• **Identity:** unique passwords, **MFA**, password managers — justify vs convenience.\n• **Access control:** RBAC, **least privilege**, separation of duties, access review.\n• **Network & config:** secure Wi-Fi/defaults, segmentation thinking.\n• **Crypto & trust:** HTTPS/certificates/padlock limits.\n• **Operations:** hardening/patching/backups; logging/monitoring/IR.\n• **Analysis:** attack patterns & program security, OSINT/privacy ethics, risk analysis & control selection by efficiency/feasibility/ethics.\n\nYou don't need every control at once. You need the *right few* for Greenwood — with tradeoffs explained.`,
         callout: {
           label: "You can now",
-          text: "Explain risks in plain English, pick layered controls, and outline an incident response — the core of entry-level cyber readiness.",
+          text: "Evaluate risks, recommend layered controls, justify tradeoffs in plain English, and outline incident response — entry-level cyber readiness.",
         },
       },
       {
@@ -143,10 +143,10 @@ export const cyberLesson16: AILessonConfig = {
         id: "ir-risk",
         kicker: "Apply it",
         title: "Risk priorities, monitoring, and an IR mini-plan",
-        body: `**Risk snapshot (prioritized):**\n1. Club Gmail takeover (high likelihood/impact) → mitigate with MFA, unique creds, fewer custodians.\n2. Drive data leak via public link (medium/high) → mitigate with link audits + least privilege.\n3. Laptop loss / malware on outdated OS (medium/high) → mitigate with patching, locks, encryption if available, backups.\n4. Instagram impersonation/spam (medium/medium) → mitigate with MFA + admin hygiene.\n\n**Detection:** enable login alerts; check Drive sharing monthly; notice weird Instagram posts.\n\n**IR mini-plan (identify → contain → eradicate → recover → lessons):**\n• Suspected Gmail compromise → revoke sessions, change password, confirm MFA, check forwarding rules/filters, tell sponsor/IT as required, review Drive activity, write lessons (who had access?).\n\nDocument owners: *who* resets passwords, *who* talks to sponsors, *who* holds backup codes.`,
+        body: `**Risk snapshot (prioritized) — with justification hints:**\n1. Club Gmail takeover (high likelihood/impact) → **mitigate** with MFA, unique creds, fewer custodians. *Why first:* highest efficiency; free; officers can run it. *Deferred:* paid SOC tools (not feasible).\n2. Drive data leak via public link (medium/high) → mitigate with link audits + least privilege. *Tradeoff:* slightly slower sharing vs sponsor-data confidentiality.\n3. Laptop loss / malware on outdated OS (medium/high) → patching, locks, encryption if available, backups. *Compare:* new laptop purchase vs patching+backup — justify the cheaper path first.\n4. Instagram impersonation/spam (medium/medium) → MFA + admin hygiene. *Ethics:* protect the public channel without monitoring members' personal accounts.\n\n**Detection:** login alerts; monthly Drive sharing check; notice weird Instagram posts.\n\n**IR mini-plan (identify → contain → eradicate → recover → lessons):**\n• Suspected Gmail compromise → revoke sessions, change password, confirm MFA, check forwarding rules/filters, tell sponsor/IT as required, review Drive activity, write lessons (who had access?).\n\nDocument owners *and* the residual risk you still accept after these controls.`,
         callout: {
           label: "Try in the reflection",
-          text: "Your written security plan should name top risks, controls, owners, and what to do in the first hour of an account incident.",
+          text: "Your plan must prioritize three controls with WHY — including feasibility, usability, or ethics tradeoffs — not just a list.",
         },
       },
       {
@@ -173,11 +173,11 @@ export const cyberLesson16: AILessonConfig = {
         title: "Security plan template (keep it one page)",
         image: "/images/lessons/cs-16-3.png",
         imageAlt: "Filled security plan worksheet covering MFA phishing hardening and incident contacts",
-        body: `Hand this structure to a club sponsor:\n\n**1. Scope** — accounts, devices, data we protect.\n**2. Top 3 risks** — likelihood/impact in plain words.\n**3. Controls this month** — MFA, password manager, sharing audit, updates, privacy cleanup.\n**4. Roles** — sponsor, student lead, treasurer (least privilege, separation of duties on payments).\n**5. Monitoring** — alerts we watch; monthly 15-minute review.\n**6. Incident contacts & first steps** — contain checklist.\n**7. Backups** — where finals live; who verifies restore.\n**8. Review date** — next semester checkup.\n\nShort beats perfect. A one-page plan that people follow outperforms a 40-page binder nobody reads.`,
+        body: `Hand this structure to a club sponsor — every control row needs a **justification**:\n\n**1. Scope** — accounts, devices, data we protect.\n**2. Top 3 risks** — likelihood/impact in plain words.\n**3. Prioritized controls this month** — for each: what you chose, what you compared it to, and WHY (feasibility / usability / ethics).\n**4. Roles** — sponsor, student lead, treasurer (least privilege, separation of duties on payments).\n**5. Monitoring** — alerts we watch; monthly 15-minute review.\n**6. Incident contacts & first steps** — contain checklist.\n**7. Backups** — where finals live; who verifies restore.\n**8. Residual risk & review date** — what you still accept; next semester checkup.\n\nShort beats perfect — but short without justification is just a wishlist. A one-page plan people can defend outperforms a 40-page binder nobody reads.`,
         bullets: [
-          "Prioritize identity + backups + patching.",
+          "Prioritize identity + backups + patching — and justify each over alternatives.",
           "Name humans for each critical task.",
-          "Schedule a review so the plan doesn't rot.",
+          "Document residual risk and a review date so the plan doesn't rot.",
         ],
         callout: {
           label: "Ethics",
@@ -187,34 +187,34 @@ export const cyberLesson16: AILessonConfig = {
       {
         id: "plan-template-example",
         kicker: "See it in action",
-        title: "A filled-in one-pager for Greenwood",
-        body: `Here's what the template looks like actually filled out, condensed:\n\n**Scope:** Club Gmail, Drive, two laptops, Instagram, club website, club-room Wi-Fi.\n\n**Top 3 risks:** (1) Gmail takeover via phishing/reuse — high/high. (2) Public Drive link exposing budget/sponsor data — medium/high. (3) Outdated laptop with no backup — medium/high.\n\n**Controls this month:** Enable MFA + unique passwords (Gmail, Instagram); audit all Drive sharing links; turn on laptop auto-updates; change router's default admin password.\n\n**Roles:** Sponsor (advisor) holds backup codes and approves payments; student president manages day-to-day access; treasurer submits (but doesn't approve) reimbursements.\n\n**Monitoring:** Login alerts on Gmail; monthly 15-minute Drive-sharing check by the president.\n\n**Incident contacts & first steps:** Advisor + IT contact listed; first steps = revoke sessions, change password, check forwarding rules.\n\n**Backups:** Final videos backed up to Drive and one officer's personal cloud storage; treasurer periodically test-opens a backup to confirm it actually works.\n\n**Review date:** End of fall semester.\n\nThis fits on one page, names real owners, and directly addresses the risks identified earlier in the lesson — nothing generic or copy-pasted from a template with no connection to Greenwood's actual situation.`,
+        title: "A filled-in one-pager for Greenwood (with justifications)",
+        body: `Here's what the template looks like actually filled out — notice each control includes a tradeoff justification:\n\n**Scope:** Club Gmail, Drive, two laptops, Instagram, club website, club-room Wi-Fi.\n\n**Top 3 risks:** (1) Gmail takeover via phishing/reuse — high/high. (2) Public Drive link exposing budget/sponsor data — medium/high. (3) Outdated laptop with no backup — medium/high.\n\n**Controls this month (justified):**\n• MFA + unique passwords on Gmail/IG — *vs* buying a hardware firewall first: MFA is free, high impact, officers can finish in one meeting.\n• Drive sharing audit + named links — *vs* deleting Drive: keeps collaboration usable while fixing confidentiality.\n• Auto-updates + tested backup — *vs* new laptops: restores availability without a budget ask.\n• Change router default admin password — low effort, removes a common misconfiguration.\n\n**Roles:** Sponsor holds backup codes and approves payments; president manages access; treasurer submits (doesn't approve) reimbursements.\n\n**Monitoring / IR / Backups / Review:** login alerts; monthly sharing check; revoke-sessions playbook; restore test date; end-of-semester review.\n\n**Residual risk accepted:** prompt-bombing and compromised personal devices remain possible — documented for revisit if the club handles more money next year.\n\nThis is synthesis: risks, owners, *and* justified tradeoffs tied to Greenwood — not a generic checklist.`,
         checkIn: {
-          prompt: "A club's one-page security plan lists specific owners (advisor, president, treasurer) for specific tasks (backup codes, sharing audits, reimbursement submission) rather than just generic advice. Why does this matter?",
+          prompt: "What makes a Greenwood security plan meet the \"defend & justify\" bar?",
           choices: [
-            "It doesn't matter — generic advice works just as well",
-            "Naming specific owners for specific tasks makes the plan something people can actually follow, rather than a vague document nobody acts on",
-            "Only large organizations need named owners",
+            "Listing as many tools as possible without owners or tradeoffs",
+            "Prioritizing a few controls with named owners and explaining why each beat an alternative on feasibility, usability, or ethics — plus residual risk",
+            "Only large organizations need justifications",
             "Plans without owners are more secure because they're simpler",
           ],
           correctIndex: 1,
           explanation:
-            "A plan with named owners for specific tasks is far more likely to actually be followed than generic, unowned advice — this is a key theme from the access-control and risk lessons.",
+            "Capstone standard: recommend, compare, justify tradeoffs, name owners, and acknowledge residual risk — not an unowned shopping list.",
         },
       },
       {
         id: "present-defend",
         kicker: "The real test",
         title: "Presenting and defending your reasoning",
-        body: `A capstone isn't just about producing a plan — it's about being able to **explain and defend your choices** when someone (a sponsor, a skeptical classmate, a future officer) pushes back. Real defenders constantly have to justify tradeoffs to people who aren't security experts.\n\nPractice defending choices like these, in plain language:\n\n• **"Why MFA on Instagram? It's just a club account, not a bank."** Because it's often the *identity* attackers target first — a compromised social account can be used to scam followers or sponsors, and email/social accounts are frequently the recovery path for other things.\n• **"Why does the treasurer need advisor approval for payments? Don't you trust them?"** It's not about trust — separation of duties protects everyone, including the treasurer, if their account is ever compromised without their knowledge.\n• **"Isn't a risk register overkill for a school club?"** A simple five-row table takes fifteen minutes and prevents the club from re-learning the same lessons every time officers change.\n\nBeing able to explain *why*, not just *what*, is what separates someone who memorized a checklist from someone who actually understands defense.`,
+        body: `A capstone isn't just about producing a plan — it's about **justifying tradeoffs** when someone (a sponsor, a skeptical classmate, a future officer) pushes back. Real defenders constantly compare alternatives for people who aren't security experts.\n\nPractice justifying choices like these, in plain language:\n\n• **"Why MFA on Instagram? It's just a club account, not a bank."** Identity is the high-likelihood path; a compromised social account can scam followers/sponsors. Tradeoff: ~2 minutes per login vs sponsor trust — feasibility wins over "we'll be careful."\n• **"Why not buy monitoring software instead?"** Efficiency/feasibility: MFA + login alerts reduce the same risk officers can actually run; shelfware with no owner fails Lesson 15's control-selection test.\n• **"Why does the treasurer need advisor approval? Don't you trust them?"** Separation of duties is ethics + integrity: it protects everyone if an account is compromised — not a trust insult.\n• **"Isn't a risk register overkill?"** Fifteen minutes prevents re-learning the same lessons every officer turnover — compare that cost to one lost sponsor list.\n\nExplain *why this beat that*, including what residual risk you still accept.`,
         bullets: [
-          "Expect pushback — plan to explain the *why*, not just the *what*.",
-          "Frame controls in terms of real impact, not just \"best practice.\"",
+          "Expect pushback — justify with feasibility, usability, and ethics, not slogans.",
+          "Compare alternatives: name what you deferred and why.",
           "Separation of duties protects everyone, including the person being \"checked.\"",
         ],
         callout: {
           label: "Why it matters",
-          text: "A security plan nobody understands or agrees with gets ignored. Being able to explain your reasoning in plain language is what makes a plan actually survive contact with a real club.",
+          text: "A plan nobody can justify gets ignored. Plain-language tradeoffs are what make Greenwood's plan survive contact with a real club.",
         },
       },
       {
@@ -239,10 +239,10 @@ export const cyberLesson16: AILessonConfig = {
         id: "checklist",
         kicker: "Put it together",
         title: "The capstone defender checklist",
-        body: `One last synthesis before the knowledge check — the full arc of the track, condensed into a single working checklist:\n\n**1. Identity first** — unique passwords/passphrases, password managers, MFA everywhere it's offered, watch for prompt bombing.\n**2. Access control** — least privilege, RBAC, separation of duties on sensitive actions, periodic access review.\n**3. Network & config basics** — password-protected Wi-Fi, changed defaults, sensible firewall/segmentation habits.\n**4. Crypto & trust awareness** — HTTPS, certificate warnings, padlock ≠ honesty.\n**5. Hardening & recovery** — patching, backups that are actually tested, device inventory.\n**6. Privacy discipline** — minimize oversharing, watch for metadata, verify urgent requests out-of-band.\n**7. Risk-driven prioritization** — rank by likelihood × impact, choose mitigate/avoid/transfer/accept deliberately, track it in a living register.\n**8. Incident response** — identify → contain → eradicate → recover → lessons learned, with named owners.\n**9. Communicate and defend** — explain the *why* in terms your actual audience cares about.\n\nThat's the whole track, in one page — the same structure your Greenwood plan should reflect.`,
+        body: `One last synthesis before the knowledge check — the full arc of the track, condensed into a single working checklist:\n\n**1. Identity first** — unique passwords/passphrases, password managers, MFA everywhere it's offered, watch for prompt bombing.\n**2. Access control** — least privilege, RBAC, separation of duties on sensitive actions, periodic access review.\n**3. Network & config basics** — password-protected Wi-Fi, changed defaults, sensible firewall/segmentation habits.\n**4. Crypto & trust** — HTTPS, certificate warnings, padlock ≠ honesty.\n**5. Hardening & recovery** — patching, backups that are actually tested, device inventory.\n**6. Privacy ethics** — minimize oversharing, evaluate nonevident collection, justify privacy–safety balances.\n**7. Risk-driven selection** — rank by likelihood × impact; recommend controls by efficiency/feasibility/ethics; track residual risk in a living register.\n**8. Incident response** — identify → contain → eradicate → recover → lessons learned, with named owners.\n**9. Justify under pushback** — compare alternatives; explain feasibility, usability, and ethics tradeoffs in audience language.\n\nThat's the whole track — the same structure your Greenwood plan should reflect, with justifications included.`,
         callout: {
           label: "Try this",
-          text: "Before the knowledge check, see if you can recall one concrete example from this course for each of the nine checklist items above.",
+          text: "Before the knowledge check, pick three checklist items and practice justifying why you'd prioritize them for Greenwood over a flashier alternative.",
         },
       },
       {
@@ -377,14 +377,14 @@ Present like a defender: specific risks, specific controls, specific owners, spe
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn — defend Greenwood",
-        body: `You've walked the full defender path. Capstone recap:\n\n• Synthesize **CIA**, **phishing defense**, **MFA/least privilege/separation of duties**, **network and hardening basics**, **HTTPS awareness**, **privacy**, **IR**, and **risk prioritization**.\n• Favor a few high-impact controls with clear owners.\n• Write a short plan you could actually run — and be ready to **explain and defend** it in plain language.\n\nComplete the **Knowledge check** (it mixes ideas across the track), then write your **security plan** in the reflection. You've earned the **Cyber Defender** finish line — go show the synthesis.`,
+        body: `You've walked the full defender path. Capstone recap:\n\n• **Synthesize** CIA, phishing defense, MFA/least privilege/separation of duties, network/hardening, HTTPS limits, privacy ethics, IR, program security, and risk analysis.\n• **Recommend** a few high-impact controls with clear owners.\n• **Justify** each choice with feasibility, usability, and ethics tradeoffs — name alternatives you deferred and residual risk you accept.\n• Write a short plan you could actually run — and defend under pushback.\n\nComplete the **Knowledge check** (cross-track synthesis + tradeoff justification), then prioritize **three controls with WHY** in the reflection. You've earned the **Cyber Defender** finish line.`,
       },
     ],
   },
   bigIdeas: [
-    "Capstone security work is **synthesis**: prioritize a few high-impact controls for a real scenario, not every possible tool.",
-    "For a school club, start with **identity** (MFA, unique passwords, least privilege, separation of duties), then **network/hardening/backups**, **privacy**, and a simple **IR** plan.",
-    "A one-page plan with named owners, top risks, review dates, and first-hour incident steps beats an unused binder of policies — and you should be able to explain and defend every choice in it.",
+    "Capstone security work is **synthesis plus justification**: recommend a few high-impact controls for a real scenario and explain tradeoffs — not every possible tool.",
+    "For a school club, start with **identity**, then **network/hardening/backups**, **privacy**, and **IR** — each choice should survive a feasibility/usability/ethics challenge.",
+    "A one-page plan with named owners, justified priorities, residual risk, review dates, and first-hour incident steps beats an unused binder — defend every choice in plain language.",
   ],
   keyTerms: [
     { term: "CIA triad", definition: "Confidentiality, Integrity, Availability — the core security goals." },
@@ -401,29 +401,29 @@ Present like a defender: specific risks, specific controls, specific owners, spe
   quiz: [
     {
       id: "q1",
-      question: "Greenwood's club Gmail has no MFA and a password shared in a group chat. What is the best first mitigation?",
+      question: "Greenwood has no MFA on Gmail (password in chat) and a sponsor offers to buy an unused enterprise firewall. Which justified recommendation is strongest?",
       choices: [
-        "Move to a unique strong password, enable MFA, and stop sharing the password in chat — store access with clear owners",
-        "Buy an expensive firewall before changing anything else",
-        "Make the Instagram public to confuse attackers",
-        "Turn off all login alerts so members aren't annoyed",
+        "Prioritize unique password + MFA + clear owners first — higher efficiency and feasibility than shelfware nobody will manage; document residual risk afterward",
+        "Buy the firewall before changing credentials because hardware always beats identity controls",
+        "Make Instagram fully public to confuse attackers",
+        "Turn off login alerts so members aren't annoyed",
       ],
       correctIndex: 0,
       explanation:
-        "Identity risk is top priority. Unique credentials + MFA + ownership beat random hardware purchases.",
+        "Cross-track synthesis (identity + risk selection): justify MFA/ownership over infeasible tools using efficiency and feasibility.",
     },
     {
       id: "q2",
-      question: "A Drive folder with the budget sheet is set to \"anyone with the link.\" Which CIA goal is most directly threatened?",
+      question: "A Drive folder with the budget sheet is \"anyone with the link.\" Which analysis best combines CIA impact with a justified control?",
       choices: [
-        "Only availability",
-        "Confidentiality (and possibly integrity if editing is allowed)",
+        "Only availability is at risk; delete Drive entirely",
+        "Confidentiality (and possibly integrity) is threatened — recommend named sharing + least privilege rather than ending collaboration, accepting a small usability tradeoff",
         "Nothing — public links are always safe",
-        "Only physical laptop theft",
+        "Only physical laptop theft matters here",
       ],
       correctIndex: 1,
       explanation:
-        "Public links expose data (confidentiality) and may allow unwanted changes (integrity) depending on permissions.",
+        "Synthesize CIA + access control + tradeoffs: fix confidentiality without killing the club's workflow.",
     },
     {
       id: "q3",
@@ -431,7 +431,7 @@ Present like a defender: specific risks, specific controls, specific owners, spe
       choices: [
         "Padlock means any site is trustworthy",
         "HTTPS replaces MFA forever",
-        "HTTPS encrypts the connection to that domain — they must still verify the URL and avoid fake login pages",
+        "HTTPS encrypts the connection to that domain — they must still verify the URL and avoid fake login pages; keep MFA",
         "Certificate warnings should always be ignored",
       ],
       correctIndex: 2,
@@ -440,16 +440,16 @@ Present like a defender: specific risks, specific controls, specific owners, spe
     },
     {
       id: "q4",
-      question: "A shared laptop is months behind on updates and has no backup of final video projects. Which pair best matches preventive + corrective thinking?",
+      question: "Laptops are unpatched with no tested backups. Officers debate buying new machines vs patching + restore tests. Which tradeoff justification is best?",
       choices: [
         "Ignore updates; delete logs if malware appears",
         "Only post more frequently on Instagram",
         "Accept total data loss as unavoidable with no controls",
-        "Enable patching/auto-updates now (preventive) and set up restore-tested backups (corrective readiness)",
+        "Recommend patching + restore-tested backups first (preventive + corrective) — higher feasibility/efficiency than new hardware; revisit purchases if hardware is failing",
       ],
       correctIndex: 3,
       explanation:
-        "Patching reduces vulnerability; backups enable recovery — classic preventive + corrective pairing.",
+        "Justify operations controls with risk-selection thinking: preventive patching + corrective backups before budget asks.",
     },
     {
       id: "q5",
@@ -466,16 +466,16 @@ Present like a defender: specific risks, specific controls, specific owners, spe
     },
     {
       id: "q6",
-      question: "The treasurer can submit reimbursement requests, but the advisor must approve them before money moves. What principle does this reflect?",
+      question: "A sponsor says separation of duties for reimbursements \"means we don't trust the treasurer.\" Which justification synthesizes access control + ethics?",
       choices: [
-        "Least privilege only",
-        "Separation of duties — no single account can complete the sensitive process alone",
-        "Network segmentation",
-        "Certificate revocation",
+        "Agree and give the treasurer sole approval to avoid hurt feelings",
+        "Explain that splitting submit vs approve protects integrity if any one account is compromised — ethics of shared responsibility, not personal distrust; usability cost is one extra approval",
+        "Network segmentation alone solves payment fraud",
+        "Certificate revocation replaces approval workflows",
       ],
       correctIndex: 1,
       explanation:
-        "Splitting a sensitive process (approving payments) across two roles is separation of duties, protecting against a single compromised or careless account.",
+        "Capstone justification: separation of duties is an integrity/ethics control with a small usability tradeoff — not a trust insult.",
     },
     {
       id: "q7",
@@ -492,22 +492,22 @@ Present like a defender: specific risks, specific controls, specific owners, spe
     },
     {
       id: "q8",
-      question: "A sponsor asks why the club bothers with a risk register and named owners instead of just \"being careful.\" What's the best defense of this approach?",
+      question: "Greenwood must choose among (A) MFA on Gmail, (B) live public location sharing \"for safety\" on every trip, and (C) a risk register with owners. Which cross-track justification is strongest?",
       choices: [
-        "It's not worth defending — being careful is sufficient on its own",
-        "Risk registers are only required for large corporations",
-        "Named owners are unnecessary if the club trusts each other",
-        "A written register with owners and review dates keeps knowledge from living only in one person's head and prevents plans from decaying as officers change",
+        "Do B only — privacy never matters when someone says safety",
+        "Prioritize A for high-likelihood identity risk; use time-boxed private check-ins instead of B (privacy vs safety ethics); keep C so justifications survive officer turnover",
+        "Skip A and C because \"being careful\" is enough",
+        "Buy tools for all three with no owners or residual-risk notes",
       ],
-      correctIndex: 3,
+      correctIndex: 1,
       explanation:
-        "Written, owned, and scheduled processes survive officer turnover and changing circumstances far better than an informal \"just be careful\" approach.",
+        "Synthesis across identity, privacy/ethics, and risk lessons: recommend high-efficiency MFA, proportionate safety habits, and owned documentation — with tradeoffs named.",
     },
   ],
   reflection: {
     prompt:
-      "Write a short security plan for Greenwood Media Club (or a club you know). Include: top 3 risks, controls for this month, who owns what, how you'll monitor, first steps if the shared email is compromised, and one point you'd need to defend if a sponsor pushed back on it.",
+      "Write a short Greenwood (or similar club) security plan. Prioritize exactly THREE controls for this month. For EACH: state the risk it addresses, what alternative you compared it to, and WHY you chose it (include feasibility, usability, and/or ethics tradeoffs). Also name owners, residual risk you accept, monitoring, and first-hour steps if shared email is compromised.",
     placeholder:
-      "Example: Top risks — Gmail takeover, public Drive link, outdated laptops. This month — MFA on Gmail/IG, sharing audit, auto-updates + backup check. Owners — sponsor holds backup codes; treasurer controls budget access but advisor approves payments. If Gmail is compromised — revoke sessions, reset password, check forwarding rules, tell sponsor. If pushed back on MFA for Instagram — I'd explain it's often the first identity attackers target…",
+      "Example: (1) MFA on Gmail vs buying a firewall — chose MFA because… (2) Named Drive sharing vs deleting Drive — chose named sharing because… (3) Tested backups vs new laptops — chose backups because… Owners… Residual risk… If compromised — revoke sessions, reset password, check forwarding rules…",
   },
 };

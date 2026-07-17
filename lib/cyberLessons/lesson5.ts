@@ -2,15 +2,15 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const cyberLesson5: AILessonConfig = {
   id: "cs-5",
-  title: "5. Passwords, Hashing & MFA",
-  goal: "Build strong passwords and passphrases, explain password managers conceptually, contrast hashing with encryption, understand salting simply, compare MFA types, and know basic breach-response steps.",
+  title: "5. Credentials, Hashing & MFA",
+  goal: "Compare MFA types, hashing+salting, and password-manager approaches; recommend credential protections with usability tradeoffs; and explain how developers protect stored credentials without exposing secrets.",
   xpReward: 250,
   badge: "Credential Pro",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/4",
   nextHref: "/learn/cyber/6",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,7 +18,7 @@ export const cyberLesson5: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-5.png",
         imageAlt: "Password manager vault on a laptop screen with a phone MFA code beside it",
-        body: `Credentials are the keys to your digital life. Today you'll learn how to choose stronger keys, how sites *should* store them, and what to do when a breach hits the news.\n\nHere's our roadmap:\n\n• **Strong passwords & passphrases** — length and uniqueness beat clever substitutions.\n• **Password managers** — one vault, many unique passwords (concept).\n• **Hashing vs. encryption** — one-way checks vs. reversible lockboxes.\n• **Salt** — why identical passwords shouldn't look identical when stored.\n• **MFA types** — app codes, prompts, SMS, keys (tradeoffs at a high level).\n• **A worked example, a myth, and a mini case** — practicing breach response before it happens for real.\n• **Breach response** — change passwords, enable MFA, watch for follow-on scams.\n\nStill defensive only: we explain how storage *protects* passwords, not how to crack them.`,
+        body: `Credentials are the keys to your digital life. Today you'll **compare** protection approaches, **recommend** with usability tradeoffs, and see how developers store credentials safely.\n\nHere's our roadmap:\n\n• **Strong passwords & passphrases** — length and uniqueness beat clever substitutions.\n• **Password managers** — one vault, many unique passwords; when the tradeoff is worth it.\n• **Hashing vs. encryption** — one-way checks vs. reversible lockboxes; what developers should store.\n• **Salt** — why identical passwords shouldn't look identical when stored.\n• **MFA types** — app codes, prompts, SMS, keys — compare strength vs convenience.\n• **A worked example, a myth, and a mini case** — practicing breach response before it happens for real.\n• **Breach response** — change passwords, enable MFA, watch for follow-on scams.\n\nDefensive only: we explain how storage *protects* passwords — not how to attack them.`,
         callout: {
           label: "Why it matters",
           text: "Reused passwords turn one breach into many account takeovers. Unique credentials + MFA contain the blast radius.",
@@ -48,11 +48,11 @@ export const cyberLesson5: AILessonConfig = {
         id: "concept-1",
         kicker: "Better secrets",
         title: "Strong passwords and passphrases",
-        body: `Weak patterns are easy for attackers to try in bulk: \`password123\`, \`Summer2026!\`, pet names, sports teams, or the same password everywhere.\n\nStronger approach:\n• **Length matters.** Longer secrets are generally harder to guess.\n• **Uniqueness matters more than cleverness.** A unique passphrase per important account beats one "complex" password reused everywhere.\n• **Passphrases** — several unrelated words strung together — can be memorable and strong.\n• Avoid personal details that appear on your social profiles.\n• Don't share passwords; don't store them in plain class group chats.\n\nSchool-life examples of accounts that deserve unique, strong credentials: email, school portal, banking, and any account that can reset others.`,
+        body: `Weak patterns are easy for attackers to try in bulk: \`password123\`, \`Summer2026!\`, pet names, sports teams, or the same password everywhere.\n\n**Compare approaches, then recommend:**\n• **Length + uniqueness** beat clever substitutions. A unique passphrase per important account beats one "complex" password reused everywhere.\n• **Passphrases** — several unrelated words — trade a bit of typing time for memorability without reuse.\n• **Password manager–generated secrets** — best uniqueness at scale; tradeoff is protecting the vault (next section).\n• Avoid personal details from social profiles; never share passwords in class chats.\n\n**Priority recommendation:** unique credentials first on email, school portal, banking, and any account that can reset others — those have the highest blast radius if reused.`,
         bullets: [
           "Prefer **long** and **unique** over short and reused.",
-          "Passphrases can be easier to remember than random characters.",
-          "Never recycle your email password on random sites.",
+          "**Recommend** uniqueness on high-blast-radius accounts first.",
+          "Passphrases trade typing time for memorability without reuse.",
           "Don't give passwords to inbound \"support\" messages.",
         ],
         callout: {
@@ -78,22 +78,22 @@ export const cyberLesson5: AILessonConfig = {
         title: "Password managers, hashing, encryption, salt",
         image: "/images/lessons/cs-5-2.png",
         imageAlt: "Simple visual of password going into a one-way hash funnel becoming a digest, not reversible",
-        body: `**Password managers (concept):** You remember one strong master unlock method; the manager creates and fills unique passwords for each site. That lets you stop reusing credentials. Choose a reputable manager and protect the master unlock carefully (and use MFA on the vault if available).\n\n**Hashing vs. encryption (defender view):**\n• **Encryption** is designed so the right key can reverse the process and recover the original data — useful for files you need to read later.\n• **Hashing** is designed to be **one-way**. Login systems hash what you type and compare it to the stored hash. If someone steals the database of hashes, they shouldn't get your actual password directly.\n\n**Salt (simple):** If two users choose the same password, unsalted hashes could look the same — which helps attackers. A **salt** is unique random data mixed in before hashing so identical passwords produce different stored values.\n\nYou don't need the math. You need the implication: good services hash + salt; bad breaches sometimes reveal poor storage practices — which is why unique passwords still matter.`,
+        body: `**Password managers — recommend with tradeoffs:** You remember one strong master unlock; the manager creates and fills unique passwords per site. **Pros:** makes uniqueness realistic; reduces reuse cascades. **Cons:** the vault is a high-value target — protect the master unlock with MFA and backups. Recommend a manager when you have many accounts; a few carefully unique passphrases can still work if you won't adopt a vault yet.\n\n**How developers protect credentials (defender view):**\n• **Never store passwords in plain text** — or in reversible encryption "so support can look them up." That turns one database theft into mass account takeovers.\n• **Hashing** is **one-way**: the login system hashes what you type and compares it to the stored hash. Developers verify matches; they should not need the original password.\n• **Encryption** is **two-way with a key** — right for files you must read later, wrong as the primary way to store login passwords.\n• **Salt:** unique random data mixed in before hashing so identical passwords produce different stored values — frustrates bulk guessing against stolen hash lists.\n• **Slow, modern password hashes** (conceptually) make offline guessing expensive; weak or outdated hashing leaves more risk even after "we hashed it."\n\nImplication for you as a user: prefer services that take storage seriously — and still use unique passwords + MFA, because storage quality varies and phishing bypasses hashing entirely.`,
         callout: {
           label: "Common misconception",
           text: "\"If a site hashes passwords, a breach is harmless.\" Not always. Weak hashing, reused passwords, and other stolen personal data still create risk. Treat breach notices seriously.",
         },
         checkIn: {
-          prompt: "Why do login systems typically store a hash of your password instead of the password itself?",
+          prompt: "A developer proposes encrypting passwords so support can \"look them up\" if users forget. Why should you recommend against that?",
           choices: [
             "Because hashing makes passwords easier to type",
-            "Because hashing is one-way, so a stolen database of hashes doesn't directly hand over the original passwords",
+            "Because reversible storage means a stolen database (or key) can expose real passwords — hashing is designed so developers verify without recovering the secret",
             "Because hashing and encryption are identical processes",
             "Because hashes can always be reversed by the site owner",
           ],
           correctIndex: 1,
           explanation:
-            "Hashing is designed to be one-way, which limits (but doesn't eliminate) damage if the stored data is ever stolen.",
+            "Password storage should be one-way verification (hash + salt), not reversible lookup. Encryption-with-key-for-support creates a high-value target.",
         },
       },
       {
@@ -102,22 +102,22 @@ export const cyberLesson5: AILessonConfig = {
         title: "MFA types — strengths at a glance",
         image: "/images/lessons/cs-5-3.png",
         imageAlt: "App authenticator code, SMS code, and physical security key laid out as MFA options",
-        body: `**MFA** adds another factor beyond the password. Common types:\n\n• **Authenticator app codes** — time-based codes in an app on your phone. Generally strong everyday choice.\n• **Push prompts** — approve/deny on a trusted device. Convenient; beware **prompt bombing** (many pushes hoping you'll tap Approve). If you get a prompt you didn't start — deny and change password.\n• **SMS codes** — better than password alone, but phone-number attacks and SIM problems make SMS one of the weaker MFA options.\n• **Hardware security keys** — physical tokens you tap/plug in; excellent for high-value accounts when supported.\n• **Backup codes** — one-time codes you store offline for recovery. Keep them safe; treat them like passwords.\n\nMFA doesn't mean you can use \`password\` as your password. It means a stolen password alone often isn't enough.`,
+        body: `**MFA** adds another factor beyond the password. **Compare** types — then **recommend** based on account value and usability:\n\n| Approach | Strength | Usability tradeoff |\n|---|---|---|\n| **Hardware security key** | Excellent for high-value accounts | Must carry the key; not every site supports it |\n| **Authenticator app codes** | Strong everyday default | Phone dependency; setup takes a few minutes |\n| **Push prompts** | Convenient | **Prompt bombing** — deny unexpected pushes, then change password |\n| **SMS codes** | Better than password alone | Weaker (phone/SIM risks); OK when nothing stronger is offered |\n| **Backup codes** | Recovery lifeline | Store offline; treat like passwords |\n\n**Recommendation pattern:** email/banking → authenticator app or hardware key; games/low-stakes → at least SMS if that's all that's offered; never skip MFA on the account that resets others.\n\nMFA doesn't excuse a weak password. It means a stolen password alone often isn't enough — and you still choose the strongest factor you can sustain.`,
         callout: {
           label: "Pro tip",
           text: "Prioritize MFA on email first. Email is frequently the recovery path for everything else.",
         },
         checkIn: {
-          prompt: "If Theo had MFA enabled on his school email using an authenticator app, what would likely have happened when the attacker tried his reused gaming password?",
+          prompt: "A classmate wants SMS MFA on email \"because apps are annoying,\" and a hardware key on a rarely used game site. What recommendation best balances security and usability?",
           choices: [
-            "Nothing would change — MFA doesn't affect password logins",
-            "The password alone likely wouldn't be enough, since the attacker would also need the app code",
-            "MFA would have deleted his email account automatically",
-            "MFA only works if the password is also changed first",
+            "Agree — SMS is fine for email; put the strongest factor on the least important account",
+            "Flip it: put the authenticator app or hardware key on email (highest blast radius); SMS on the game is acceptable if nothing stronger is offered",
+            "Skip MFA on email entirely to avoid inconvenience",
+            "Use the same SMS code shared in a group chat for both accounts",
           ],
           correctIndex: 1,
           explanation:
-            "MFA means a correct password alone usually isn't sufficient — the attacker would also need Theo's second factor, which they wouldn't have.",
+            "Match stronger factors to higher-value accounts. Email's recovery role justifies a slightly less convenient but stronger MFA choice.",
         },
       },
       {
@@ -180,13 +180,18 @@ export const cyberLesson5: AILessonConfig = {
         id: "comparison",
         kicker: "Side by side",
         title: "Comparing storage and protection layers",
-        body: `It helps to see how the layers in this lesson stack together, since they protect against different failure points:\n\n• **Strong, unique password/passphrase** → protects against guessing and limits damage if one site is breached.\n• **Password manager** → makes uniqueness realistic across dozens of accounts, without relying on memory alone.\n• **Hashing + salt (server-side)** → protects you if the *company's* database is stolen — this is out of your control, but matters when choosing services.\n• **MFA** → protects you even if your password specifically leaks or is guessed, by requiring a second factor the attacker likely doesn't have.\n\nNo single layer is enough by itself. A great password with no MFA still fails to a breach at another reused site; MFA with a terrible, reused password still leaves your account more exposed than it needs to be. The layers are meant to work together.`,
+        body: `**Evaluate and recommend** — layers protect different failure points, with tradeoffs:\n\n• **Strong, unique password/passphrase** → limits guessing and cascade from one breach. Tradeoff: harder to remember without a system.\n• **Password manager** → makes uniqueness realistic. Tradeoff: vault becomes critical; protect master unlock + MFA.\n• **Hashing + salt (developer/server-side)** → limits damage if the *company's* database is stolen. You can't configure this, but you can prefer reputable services and still unique your passwords.\n• **MFA** → protects after password leak/phish. Tradeoff: slight friction; pick the strongest factor you'll actually use on high-value accounts.\n\n**Recommendation under constraint:** if you can only do one thing this week, enable MFA on email + make that password unique. If you can do two, add a password manager for the rest. Layers compound — none alone is a complete design.`,
         checkIn: {
-          prompt: "Which layer specifically protects you even after your password has already leaked or been guessed?",
-          choices: ["A longer password alone", "MFA (a second factor)", "Server-side hashing only", "Nothing can help once a password leaks"],
+          prompt: "You can only improve two things this weekend. Which pair best reduces takeover risk given usability limits?",
+          choices: [
+            "Slightly lengthen one reused password and memorize more complex substitutions",
+            "Enable MFA on primary email and make that email password unique (manager or new passphrase)",
+            "Turn on SMS MFA for a game and leave email without MFA",
+            "Rely only on the fact that \"good sites hash passwords\"",
+          ],
           correctIndex: 1,
           explanation:
-            "MFA requires a second factor beyond the password, so a leaked or guessed password alone often still isn't enough to get in.",
+            "Email is the recovery hub; unique credentials + MFA there contain blast radius with effort most people can sustain.",
         },
       },
       {
@@ -213,7 +218,7 @@ export const cyberLesson5: AILessonConfig = {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
-        body: `Before the mini case and knowledge check: if you got a breach notification email right now for one of your accounts, would you actually work through the full checklist — or would you be tempted to do what Theo did and shrug it off? Being honest with yourself about that tendency is the first step to changing it.`,
+        body: `Before the mini case and knowledge check: justify a recommendation. If a friend says \"I'll just use one strong password everywhere plus SMS MFA on email,\" what would you advise them to change first — and why, weighing security vs convenience?`,
       },
       {
         id: "mini-case",
@@ -307,14 +312,14 @@ Breach emails are stressful; the checklist turns panic into ordered steps.`,
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• Prefer **long, unique** passwords/passphrases; **managers** help you sustain that.\n• **Hashing** is one-way for checking passwords; **encryption** is reversible with a key; **salts** differentiate identical passwords.\n• **MFA** types vary in strength — apps and hardware keys generally beat SMS alone.\n• After a **breach**: change passwords, kill reuse, enable MFA, check recovery info, watch for scams.\n• A slightly edited old password is not a new password — and shared/sticky-note passwords multiply reuse risk.\n\nTake the **Knowledge check**, then reflect on one credential habit you'll upgrade.`,
+        body: `Quick recap:\n\n• **Compare & recommend:** unique passphrases + manager when scale demands it; protect the vault.\n• Developers should **hash + salt** passwords (one-way), not store reversible secrets for \"support lookup.\"\n• **MFA tradeoffs:** hardware key / authenticator app > SMS for high-value accounts; match strength to blast radius.\n• After a **breach**: change passwords, kill reuse, enable MFA, check recovery info, watch for scams.\n• A slightly edited old password is not a new password — shared/sticky-note passwords multiply reuse risk.\n\nTake the **Knowledge check**, then justify one credential recommendation you'd give a teammate.`,
       },
     ],
   },
   bigIdeas: [
-    "**Unique, long passwords/passphrases** (often with a **password manager**) limit damage when one site is breached.",
-    "Proper services store **hashed** (and **salted**) passwords — hashing is one-way; encryption is reversible with a key.",
-    "**MFA** and a clear **breach-response** checklist protect accounts when passwords alone fail.",
+    "**Compare** password managers, unique passphrases, and reuse — recommend uniqueness (often with a manager) despite vault tradeoffs.",
+    "Developers protect credentials with **hashing + salt** (one-way), not reversible storage; encryption is for data you must unlock later.",
+    "**Evaluate MFA types** for strength vs usability; prioritize stronger factors on email and other high-blast-radius accounts.",
   ],
   keyTerms: [
     { term: "Passphrase", definition: "A long password made of multiple words, often easier to remember and harder to guess." },
@@ -331,51 +336,51 @@ Breach emails are stressful; the checklist turns panic into ordered steps.`,
   quiz: [
     {
       id: "q1",
-      question: "Which password strategy is strongest for everyday accounts?",
+      question: "A student juggles 40+ logins and keeps reusing one \"complex\" password. Which recommendation best weighs security against usability?",
       choices: [
-        "Use a unique long password or passphrase per account (ideally with a manager)",
+        "Adopt a password manager (or unique passphrases for critical accounts first) so uniqueness is sustainable without memorizing dozens of secrets",
         "Reuse one complex password everywhere so you don't forget it",
         "Use a long passphrase on important accounts, and shorter reused passwords on \"low-value\" sites",
         "Change one reused password by adding the current year after each breach notice",
       ],
       correctIndex: 0,
       explanation:
-        "Uniqueness contains breaches. Length helps resist guessing. Managers make uniqueness practical.",
+        "Managers trade a protected vault for realistic uniqueness. Reuse — even on \"low-value\" sites — still cascades into email/recovery accounts.",
     },
     {
       id: "q2",
-      question: "How does hashing differ from encryption in password storage?",
+      question: "Why should developers store salted password hashes rather than encrypting passwords so support can recover them?",
       choices: [
         "They are identical processes with different names",
-        "Hashing is meant to be one-way; encryption is designed to be reversed with a key",
+        "Hashing is one-way verification; reversible storage means a stolen database or key can expose real passwords at scale",
         "Encryption is one-way; hashing is always reversible by anyone",
         "Hashing only applies to passwords written on paper",
       ],
       correctIndex: 1,
       explanation:
-        "Login systems hash passwords to verify them without storing the original. Encryption is for data you need to decrypt later with a key.",
+        "Login systems should verify without recovering the original. Reversible \"support lookup\" creates a catastrophic single point of failure.",
     },
     {
       id: "q3",
-      question: "What problem does a salt help prevent?",
+      question: "Two users choose the same password. Without salts, what goes wrong for defenders evaluating a stolen hash database?",
       choices: [
         "Slow Wi-Fi connections on a home network",
         "The need to ever enable MFA",
-        "Identical passwords looking identical when hashed",
+        "Identical passwords produce identical hashes, letting attackers reuse work across many accounts",
         "Phishing emails being sent in the first place",
       ],
       correctIndex: 2,
       explanation:
-        "Salts make two users with the same password produce different stored hashes, which frustrates some bulk-guessing techniques.",
+        "Salts make identical passwords produce different stored hashes, which frustrates bulk offline guessing against stolen lists.",
     },
     {
       id: "q4",
-      question: "You receive an MFA push approval you did not initiate. What should you do?",
+      question: "You receive an MFA push approval you did not initiate. What should you do, and why?",
       choices: [
-        "Approve it so the notifications stop",
+        "Approve it so the notifications stop — convenience outweighs risk",
         "Ignore all future MFA prompts permanently after this one",
         "Read the code aloud to the \"support\" number that texted you",
-        "Deny it, then secure the account (change password / review activity)",
+        "Deny it, then secure the account (change password / review activity) — an unexpected push often means someone already has your password",
       ],
       correctIndex: 3,
       explanation:
@@ -383,16 +388,16 @@ Breach emails are stressful; the checklist turns panic into ordered steps.`,
     },
     {
       id: "q5",
-      question: "A site you used announces a password breach. You reused that password on two other sites. What should you do?",
+      question: "A site you used announces a password breach. You reused that password on email and a shopping site. Which response is most justified?",
       choices: [
-        "Change the breached password and the reused copies on the other sites; enable MFA where possible",
+        "Change the breached password and every reused copy (email first); enable MFA where possible — reuse turns one breach into many takeovers",
         "Change only the breached site and leave the others as-is",
         "Post the password online to see if others had the same one",
         "Wait a year before changing anything, since breaches blow over",
       ],
       correctIndex: 0,
       explanation:
-        "Reuse means attackers try the same credential elsewhere. Change all affected accounts and add MFA.",
+        "Reuse means attackers try the same credential elsewhere. Email-first changes limit recovery-path takeovers.",
     },
     {
       id: "q6",
@@ -409,34 +414,34 @@ Breach emails are stressful; the checklist turns panic into ordered steps.`,
     },
     {
       id: "q7",
-      question: "Which best describes why MFA still matters even when a service properly hashes and salts passwords?",
+      question: "A service hashes and salts passwords correctly. A user is still phished. Why recommend MFA anyway?",
       choices: [
         "MFA replaces the need for hashing entirely",
         "MFA is only useful if a site's hashing is disabled",
-        "MFA protects you even if your specific password is separately guessed, phished, or reused elsewhere",
+        "Hashing protects the server database; MFA still blocks login when the password is phished, guessed, or reused elsewhere",
         "MFA and hashing solve the exact same problem in the exact same place",
       ],
       correctIndex: 2,
       explanation:
-        "Hashing protects the server-side database; MFA protects your specific login even if your password leaks through a different path, like phishing or reuse.",
+        "Server-side hashing and client-side MFA defend different failure modes — both belong in a layered recommendation.",
     },
     {
       id: "q8",
-      question: "Why are two-factor authentication and biometric verification commonly recommended security measures?",
+      question: "When comparing authenticator-app MFA vs SMS for a school email account, which evaluation is most accurate?",
       choices: [
-        "Because passwords are no longer used by any real system",
-        "Because biometric verification eliminates all risk on its own",
-        "Because they are the only two security measures that exist",
-        "Because they are concrete, comparable defenses students can evaluate for feasibility, usability, and impact — core cybersecurity reasoning skills",
+        "SMS is always stronger because texts feel official",
+        "They are identical in strength, so pick whichever is prettier",
+        "Authenticator apps are generally stronger; SMS is weaker but still better than password-only when no stronger option exists",
+        "Neither matters if the site hashes passwords",
       ],
-      correctIndex: 3,
+      correctIndex: 2,
       explanation:
-        "The useful skill is comparing measures you can actually reason about — exactly the MFA tradeoffs practiced in this lesson.",
+        "CSTA-style reasoning compares measures for feasibility and impact — apps/hardware keys beat SMS, but any MFA beats none on high-value accounts.",
     },
   ],
   reflection: {
     prompt:
-      "Which of your accounts still share a password, and what is your plan to unique them (passphrases, password manager, or both)? Where will you enable MFA next?",
-    placeholder: "Example: My shopping and old game accounts share a password — I'll unique them this week and add MFA to email…",
+      "Recommend a credential plan for yourself or a teammate: password manager vs unique passphrases, which MFA type on email, and one usability tradeoff you're willing to accept. Justify why that mix beats \"one strong reused password.\"",
+    placeholder: "Example: Manager for most sites + authenticator MFA on email — I'll accept a minute of setup so a game-site breach can't take my inbox…",
   },
 };

@@ -3,14 +3,14 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const cyberLesson10: AILessonConfig = {
   id: "cs-10",
   title: "10. HTTPS, Certificates & Trust",
-  goal: "Explain HTTP vs HTTPS, what certificates and certificate authorities do in simple terms, the certificate lifecycle, what the padlock means (and what it doesn't), and why HTTPS alone isn't enough against every threat.",
+  goal: "Evaluate what the padlock and certificates actually prove (and their trust limits); compare HTTPS with other security measures and with physical protections; and recommend layered checks when a warning, lookalike domain, or untrusted network appears.",
   xpReward: 500,
   badge: "Trust Verifier",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/9",
   nextHref: "/learn/cyber/11",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,10 +18,10 @@ export const cyberLesson10: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-10.png",
         imageAlt: "Browser address bar with HTTPS padlock on a school portal laptop screen",
-        body: `That little padlock in your browser is one of the most important security signals online — and one of the most misunderstood. Today you'll learn what **HTTPS**, **certificates**, and **trust** actually mean from a defender's point of view.\n\nHere's our roadmap:\n\n• **HTTP vs HTTPS** — plain vs protected web traffic.\n• **Certificates** — digital ID cards for websites.\n• **Certificate Authorities (CAs)** — who vouch for those IDs.\n• **Certificate lifecycle** — issuance, expiration, renewal, and revocation.\n• **What the padlock means** — and what it never promised.\n• **MITM awareness** — why attackers want to sit in the middle.\n• **Browser warnings** — reading them like a defender, not ignoring them.\n• **When padlock isn't enough** — phishing pages can have HTTPS too.\n\nYou'll learn to recognize legitimate connections and reduce exposure to fake ones — reading the padlock like a defender, not like a superstition.`,
+        body: `That little padlock in your browser is one of the most important security signals online — and one of the most misunderstood. Today you'll **evaluate** what HTTPS and certificates prove, **compare** digital trust signals with physical protections, and **recommend** what to do when warnings or lookalike domains appear — not how to intercept traffic.\n\nHere's our roadmap:\n\n• **HTTP vs HTTPS** — compare unprotected vs encrypted web traffic.\n• **Certificates & CAs** — delegated trust, and its limits.\n• **Certificate lifecycle decisions** — renew vs revoke vs pause credential entry.\n• **Padlock trust limits** — encrypted channel ≠ honest site.\n• **Hostile path risk** — why network choice and warnings matter (defender habits only).\n• **Browser warnings** — evaluate which to escalate.\n• **Layered measures** — HTTPS vs MFA vs URL checks vs physical safeguards.\n\nHigh-school depth means you can justify a recommendation under pressure — not treat the padlock as a superstition.`,
         callout: {
           label: "Why it matters",
-          text: "Scammers love people who think \"padlock = safe forever.\" Knowing the real meaning helps you spot fake login pages that still show HTTPS.",
+          text: "Scammers love people who think \"padlock = safe forever.\" Evaluating trust limits helps you spot fake login pages that still show HTTPS.",
         },
       },
       {
@@ -103,15 +103,15 @@ export const cyberLesson10: AILessonConfig = {
         title: "The certificate lifecycle: issued, renewed, and sometimes revoked",
         image: "/images/lessons/cs-10-4.png",
         imageAlt: "Timeline graphic showing certificate issuance renewal and revocation stages",
-        body: `Certificates aren't permanent. Defenders track a lifecycle:\n\n**1. Issuance** — a CA verifies the requester controls the domain, then issues a certificate with an expiration date.\n**2. Active use** — the certificate secures traffic while it remains valid and unrevoked.\n**3. Renewal** — before expiration, site operators request a fresh certificate; missing this causes browser warnings even on a legitimate site.\n**4. Revocation** — if a private key is compromised or details change, the CA can invalidate the certificate early, and browsers check revocation status to avoid trusting it.\n\nExpired or revoked certificates trigger warnings for a reason: the identity/key binding you're relying on is no longer considered current or safe. A warning about an expired certificate on an otherwise-familiar site is often just an operational mistake — but you still shouldn't enter sensitive data until it's fixed.`,
+        body: `Certificates aren't permanent. Defenders track a lifecycle **and make decisions** at each stage:\n\n**1. Issuance** — a CA verifies the requester controls the domain, then issues a certificate with an expiration date.\n**2. Active use** — the certificate secures traffic while it remains valid and unrevoked.\n**3. Renewal** — before expiration, operators request a fresh certificate; missing this causes warnings even on a legitimate site.\n**4. Revocation** — if a private key is compromised or details change, the CA can invalidate early so browsers stop trusting it.\n\n**Lifecycle decisions to evaluate:**\n• **Expired on a familiar school portal** — recommend pause on credentials + report for renewal (often ops failure, still untrusted until fixed).\n• **Revoked / name mismatch after an unexpected link** — recommend leave immediately; treat as high impersonation risk, not a \"renew later\" ticket.\n• **Short-lived certs** — more renewal ops burden for admins, but smaller window if a key leaks — a deliberate tradeoff.\n\nThe identity/key binding is only as current as the lifecycle. Clicking through to \"just finish the form\" is how trust limits get ignored.`,
         bullets: [
-          "Certificates expire and must be renewed — that's normal operations.",
-          "Revocation happens early, usually after a key compromise.",
-          "An expired-certificate warning means \"pause,\" not necessarily \"this is a scam.\"",
+          "Renewal is normal ops; skipping it breaks the trust signal even on real sites.",
+          "Revocation is an early invalidation decision — usually after key compromise.",
+          "Recommend: pause credentials on warnings; escalate differently for expire vs mismatch vs unexpected-link context.",
         ],
         callout: {
           label: "Watch out",
-          text: "Attackers sometimes hope you'll click through an expired/invalid certificate warning out of habit. Treat every warning as worth a second look, not an annoyance to dismiss.",
+          text: "Attackers hope you'll click through expired/invalid warnings out of habit. Evaluate each warning — don't dismiss them as UI noise.",
         },
       },
       {
@@ -138,10 +138,10 @@ export const cyberLesson10: AILessonConfig = {
         title: "What the padlock actually means",
         image: "/images/lessons/cs-10-3.png",
         imageAlt: "Close-up of browser padlock with sticky note Encryption is not the same as trust the site",
-        body: `The **padlock** (or equivalent HTTPS indicator) roughly means:\n\n• Your connection to *this* site is encrypted.\n• The certificate is acceptable to your browser for that domain.\n\nIt does **not** mean:\n\n• The website is honest, ethical, or safe to log into.\n• The page can't be a phishing clone of a real brand.\n• The company behind the site won't leak your data later.\n• The content is accurate or malware-free.\n\nScammers can buy domains and get HTTPS certificates too. The padlock says \"encrypted channel to this name\" — not \"this name is your real bank.\"`,
+        body: `**Evaluate the padlock's trust limits.** It roughly means:\n\n• Your connection to *this* site is encrypted.\n• The certificate is acceptable to your browser for that domain.\n\nIt does **not** mean:\n\n• The website is honest, ethical, or safe to log into.\n• The page can't be a phishing clone of a real brand.\n• The company behind the site won't leak your data later.\n• The content is accurate or malware-free.\n\n**Compare physical vs digital protections:** A deadbolt on a building proves the door can lock — not that the building is your bank, or that staff are honest. HTTPS is the digital cousin: it protects the *channel* to a named destination. You still check the address (like checking you're at the right street number) and use MFA (like needing an employee badge *and* a PIN).\n\nScammers can buy domains and get HTTPS certificates too. Recommend: treat padlock as necessary, never sufficient.`,
         bullets: [
-          "Padlock ≈ encrypted connection + accepted certificate.",
-          "Still verify the **domain spelling** carefully.",
+          "Padlock ≈ encrypted connection + accepted certificate — evaluate that claim only.",
+          "Still verify the **domain spelling** carefully (digital \"street address\" check).",
           "Bookmark real login pages; don't trust random links.",
         ],
         callout: {
@@ -169,12 +169,12 @@ export const cyberLesson10: AILessonConfig = {
       },
       {
         id: "mitm-awareness",
-        kicker: "Awareness level",
-        title: "MITM: why someone wants to sit in the middle",
-        body: `A **man-in-the-middle (MITM)** situation is when an attacker positions themselves between you and the real service — for example on hostile Wi-Fi — hoping to read or alter traffic.\n\nFrom a **defender awareness** view (not an attack tutorial):\n\n• HTTPS exists partly to make this much harder against well-configured sites.\n• Certificate warnings matter because they can signal the connection isn't what you think.\n• Public Wi-Fi is riskier for *careless* browsing; prefer cellular data, a trusted network, or a reputable VPN for sensitive logins when possible.\n\nYou don't need to recreate attacks. You need habits: heed warnings, use HTTPS sites, avoid entering secrets on shady networks, and keep devices updated.`,
+        kicker: "Path risk",
+        title: "Hostile paths: why network choice still matters",
+        body: `A **man-in-the-middle (MITM)** situation is when someone positions themselves between you and the real service — for example on hostile Wi-Fi — hoping to read or alter traffic. This lesson stays defensive: **not** how to stage that position.\n\n**Compare measures for a sensitive login on the road:**\n• **HTTPS on a known-good domain** — encrypts the tunnel; still fails if the domain is a lookalike.\n• **Cellular / personal hotspot** — generally more trustworthy path than open café Wi-Fi for banking-level sensitivity.\n• **Certificate warnings** — signal the identity guarantee is broken right now; recommend stop, not \"Advanced → proceed.\"\n• **Reputable VPN** — can add a layer on untrusted networks; does not replace HTTPS, URL checks, or MFA.\n\nRecommend matching network trustworthiness to data sensitivity — the same judgment you'd use before entering a PIN at an unfamiliar ATM in a crowded hallway.`,
         callout: {
           label: "Try this week",
-          text: "On a school or café Wi-Fi, notice whether login pages are HTTPS and whether your browser shows any certificate warnings. Practice pausing before you type a password.",
+          text: "On school or café Wi-Fi, evaluate login pages: HTTPS? exact domain? any certificate warning? Pause before typing a password.",
         },
       },
       {
@@ -234,7 +234,7 @@ export const cyberLesson10: AILessonConfig = {
         id: "not-enough",
         kicker: "Beyond the padlock",
         title: "When HTTPS isn't enough",
-        body: `HTTPS is necessary — not sufficient. Pair it with:\n\n• **URL vigilance** — \`bankofarnerica.com\` is not your bank.\n• **Phishing skepticism** — urgent emails with \"verify now\" links.\n• **MFA** — so a stolen password alone isn't game over.\n• **Software updates** — so browsers can enforce modern TLS rules.\n• **Least privilege & good device hygiene** — malware on your machine can still steal what you type.\n\nThink of HTTPS as locking the tunnel. You still must choose the right destination and protect the endpoints.`,
+        body: `HTTPS is necessary — not sufficient. **Compare security measures** and recommend a stack:\n\n• **URL vigilance** — \`bankofarnerica.com\` is not your bank (like checking the street address before using an ATM).\n• **Phishing skepticism** — urgent \"verify now\" links are social pressure, not proof of legitimacy.\n• **MFA** — so a stolen password alone isn't game over (digital second factor ≈ badge + PIN).\n• **Software updates** — so browsers can enforce modern TLS rules.\n• **Device hygiene** — malware can steal what you type *before* HTTPS applies.\n\n**Tradeoff:** convenience (tap the link, click through a warning, use open Wi-Fi) vs justified caution for high-sensitivity actions. Recommend reserving friction for banking, school accounts, and payments — not treating every page like a crisis.`,
         callout: {
           label: "Myth check",
           text: "HTTPS protects data *in transit* to the site you're visiting. It does not magically secure your account if you reuse passwords or ignore MFA prompts.",
@@ -329,14 +329,14 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **HTTPS** encrypts web traffic; **HTTP** does not.\n• **Certificates** + **CAs** help browsers verify site identity, and certificates move through a **lifecycle** — issued, renewed, sometimes revoked.\n• The **padlock** means a trusted-looking encrypted connection — not \"this site is honest.\"\n• **MITM** risk is why HTTPS, network choice, and certificate warnings matter.\n• Different **browser warnings** mean different things — learn to read them instead of clicking through.\n• Still check URLs, use MFA, and stay phishing-aware — HTTPS is one layer among several.\n\nHead to the **Knowledge check**, then reflect on a time the padlock might have given false comfort.`,
+        body: `Quick recap:\n\n• **Evaluate** HTTPS vs HTTP: encryption + certificate checks vs open traffic.\n• **Certificates/CAs** and the **lifecycle** (issue → renew → revoke) shape what trust is current.\n• **Padlock trust limits**: encrypted channel to a domain ≠ honest site — compare to physical locks that don't prove the building is yours.\n• **Recommend** layered measures: exact URL, network choice, heed warnings, MFA — HTTPS alone is never enough.\n• Different **browser warnings** need different responses (expire vs mismatch vs unexpected link).\n\nHead to the **Knowledge check**, then justify a recommendation when the padlock alone would mislead.`,
       },
     ],
   },
   bigIdeas: [
-    "**HTTPS** encrypts the connection between your browser and a website; **HTTP** does not.",
-    "**Certificates** and **CAs** help browsers verify that a site's identity looks legitimate for that domain, and certificates move through an issue/renew/revoke lifecycle.",
-    "A **padlock** is not a scam-free badge — phishing sites can use HTTPS too, so always check the URL, heed warnings, and layer on MFA.",
+    "**Evaluate** HTTPS/certificates: they encrypt and help verify domain identity — they do not prove honesty or safety of the destination.",
+    "**Certificate lifecycle** decisions (renew vs revoke vs pause credentials) matter as much as knowing what a CA is.",
+    "**Compare** measures: padlock + URL check + network choice + MFA — like physical locks plus checking the address and using a second factor — beats trusting any single signal.",
   ],
   keyTerms: [
     { term: "HTTP", definition: "The basic web request protocol without transport encryption." },
@@ -381,42 +381,42 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
     },
     {
       id: "q3",
-      question: "A login page shows a padlock. What can you safely conclude?",
+      question: "A lookalike banking page shows a valid padlock. What can you safely conclude, and what should you still evaluate?",
       choices: [
-        "The site cannot possibly be a scam",
+        "The site cannot possibly be a scam because certificates prove honesty",
         "Your password is now impossible to steal",
-        "Your connection to that domain is encrypted and the certificate looks acceptable to the browser",
+        "Only that the connection to that (possibly fake) domain is encrypted with an accepted cert — you must still verify the exact URL and how you arrived",
         "The company will never have a data breach",
       ],
       correctIndex: 2,
       explanation:
-        "Padlock ≈ encrypted connection to the domain you're on. It does not prove the site is legitimate, scam-free, or breach-proof.",
+        "Evaluate padlock trust limits: encryption to the domain you're on, not legitimacy. URL and arrival path still matter.",
     },
     {
       id: "q4",
-      question: "Why might a defender care about MITM risk on public Wi-Fi?",
+      question: "You must check a bank balance at an airport. Which recommendation best weighs path risk against convenience?",
       choices: [
-        "Because Wi-Fi networks never require a password to join",
-        "Because encrypting a connection means the network you're on no longer matters at all",
-        "Because MITM risk only matters if you're using a very outdated browser",
-        "Because a hostile network path increases the chance someone tries to intercept or alter traffic — HTTPS, network choice, and warnings help defend against that",
+        "Use open airport Wi-Fi because the padlock makes the network irrelevant",
+        "Prefer cellular data or a personal hotspot for the sensitive login; keep HTTPS and heed any certificate warnings",
+        "Disable certificate warnings so pages load faster on any network",
+        "Wait and log into a stranger's phone bank app instead",
       ],
-      correctIndex: 3,
+      correctIndex: 1,
       explanation:
-        "Public networks can be less trustworthy regardless of browser version. HTTPS, choosing a trustworthy network, and heeding certificate warnings are key defensive habits.",
+        "Compare measures: cellular/hotspot is generally a more trustworthy path than open Wi-Fi for high-sensitivity actions; HTTPS and warnings still apply.",
     },
     {
       id: "q5",
-      question: "Which habit best complements HTTPS?",
+      question: "Which comparison best matches physical vs digital protections for a login?",
       choices: [
-        "Checking the URL carefully and using MFA on important accounts",
-        "Ignoring all browser warnings so pages load faster",
-        "Trusting any page that simply displays a padlock icon",
-        "Sharing your private keys in a group chat for convenience",
+        "A padlock is like a vault that also proves the staff are honest",
+        "HTTPS is like a lockable door/channel; checking the domain is like confirming the street address; MFA is like needing a second factor beyond the key",
+        "Physical locks and HTTPS are unrelated ideas with no useful analogy",
+        "If a building has a deadbolt, you never need to check the address — same as trusting any padlock page",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
-        "HTTPS protects the tunnel; URL checks and MFA protect you when attackers trick or steal credentials — the padlock alone doesn't vet the site.",
+        "Digital HTTPS protects the channel; domain checks and MFA parallel checking location and using a second factor in the physical world.",
     },
     {
       id: "q6",
@@ -433,16 +433,16 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
     },
     {
       id: "q7",
-      question: "Why doesn't a valid HTTPS padlock guarantee a page isn't phishing?",
+      question: "You click an unexpected text link and get a certificate name-mismatch warning on what looks like a school login. What should you recommend?",
       choices: [
-        "Because HTTPS certificates are only given to well-known, real companies",
-        "Because padlocks are only ever shown on mobile devices",
-        "Because anyone, including scammers, can get an HTTPS certificate for a domain they control",
-        "Because HTTPS automatically disables all web forms",
+        "Click through Advanced → proceed — school Wi-Fi warnings are always false alarms",
+        "Close the tab and treat it as likely phishing; use a bookmark/official URL later — mismatch after an unexpected link is high risk",
+        "Enter the password quickly before the warning times out",
+        "Forward the link to classmates so they can confirm the padlock",
       ],
-      correctIndex: 2,
+      correctIndex: 1,
       explanation:
-        "HTTPS certificates are widely and legitimately available to any domain owner — including someone running a lookalike phishing domain.",
+        "Lifecycle/context matters: name mismatch after an unexpected link warrants leave-and-verify, not click-through convenience.",
     },
     {
       id: "q8",
@@ -460,7 +460,7 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
   ],
   reflection: {
     prompt:
-      "Describe a situation where a padlock might make someone feel safe even if they shouldn't. What would you check besides the padlock, and which other defensive layer (MFA, URL check, network choice) would matter most?",
-    placeholder: "Example: A fake login page with HTTPS… I'd check the exact domain, how I got the link, and whether MFA was on…",
+      "A classmate insists \"padlock means safe\" after tapping a package-delivery text that lands on a lookalike HTTPS site. Write a justified recommendation: what the padlock does and does not prove, which other measures (URL, network, MFA) you'd prioritize and why, and how you'd compare that advice to checking a physical address before using an ATM.",
+    placeholder: "Example: The padlock only proves… I'd recommend… because… Compared to a physical ATM…",
   },
 };

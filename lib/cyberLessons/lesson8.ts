@@ -3,14 +3,14 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const cyberLesson8: AILessonConfig = {
   id: "cs-8",
   title: "8. Firewalls, Ports & Secure Config",
-  goal: "Explain firewall purpose and default-deny thinking, recognize risky default configurations, and describe basic network segmentation and secure-by-default habits.",
+  goal: "Recommend firewall and secure-configuration measures; compare default-deny vs default-allow; and explain security vs usability/availability tradeoffs for ports, exposure, and segmentation.",
   xpReward: 400,
   badge: "Firewall Builder",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/7",
   nextHref: "/learn/cyber/9",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,10 +18,10 @@ export const cyberLesson8: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-8.png",
         imageAlt: "Firewall icon between a home network and the internet with a default-deny gate illustration",
-        body: `Last lesson mapped how traffic travels. Today we look at **who decides what's allowed to pass** — and why "secure by default" beats "secure it later."\n\nHere's our roadmap:\n\n• **Firewalls** — rule-based gatekeepers for network traffic.\n• **Default-deny vs. default-allow** — which starting posture is safer, and why.\n• **Risky default configurations** — exposed admin panels, unused services, factory passwords.\n• **Segmentation** — splitting networks so a breach in one area doesn't reach everything.\n• **A worked example, a myth, and a mini case** — practicing secure-config thinking on a realistic scenario.\n• **Secure-by-default habits** — checklist you can actually use.\n\nThis is defender awareness — not a guide to bypassing firewalls or scanning networks.`,
+        body: `Last lesson evaluated network architecture. Today you **recommend** who may pass at the boundary — and weigh **security vs usability/availability**.\n\nHere's our roadmap:\n\n• **Firewalls** — rule-based gatekeepers; when to allow vs deny.\n• **Default-deny vs default-allow** — compare postures and failure directions.\n• **Risky default configurations** — exposed admin, unused services, factory passwords.\n• **Segmentation** — contain blast radius with zone tradeoffs.\n• **A worked example, a myth, and a mini case** — justify secure-config choices under deadline pressure.\n• **Secure-by-default habits** — checklist with owners and expiry dates.\n\nDefensive only: recommend controls and tradeoffs — not bypassing firewalls or scanning networks.`,
         callout: {
           label: "Why it matters",
-          text: "Most exposed-service incidents in the news aren't exotic hacks — they're services left open with default settings nobody got around to locking down.",
+          text: "Most exposed-service incidents aren't exotic hacks — they're services left open with default settings nobody got around to locking down.",
         },
       },
       {
@@ -50,49 +50,49 @@ export const cyberLesson8: AILessonConfig = {
         title: "What a firewall actually does",
         image: "/images/lessons/cs-8-2.png",
         imageAlt: "Firewall rule table showing allow and deny entries for specific ports and addresses",
-        body: `A **firewall** inspects traffic and decides, based on configured rules, what's allowed through and what's blocked. You can think of it like a building's front desk with a visitor list: some people are on the list and waved through, everyone else is stopped and questioned (or turned away).\n\nFirewalls exist at different levels:\n• **Network firewalls** — protect a whole network (e.g., a home router's built-in firewall, or a school's perimeter firewall).\n• **Host-based firewalls** — protect a single device, filtering what that specific computer sends/receives.\n\nRules are typically built around things like: which addresses are allowed, which ports/services are reachable, and in which direction (inbound vs. outbound).\n\nThis lesson stays at the concept level — you're learning *why* these rules exist and what good defaults look like, not how to write firewall rule syntax or probe for open ports.`,
+        body: `A **firewall** inspects traffic and decides, by rule, what's allowed or blocked — like a front desk with a visitor list.\n\n**Levels:**\n• **Network firewalls** — whole network (home router, school perimeter).\n• **Host-based firewalls** — one device's send/receive filter.\n\n**Rules commonly use** address, port/service, and direction (inbound vs outbound).\n\n**Recommend with tradeoffs:** every **allow** improves availability/usability for someone and grows attack surface; every **deny** shrinks surface and may break a workflow. Good recommendations name *who needs access*, *from where*, and *until when* — not "open it forever so nobody complains." Temporary allows need owners and expiry (robotics remote-admin lesson).`,
         bullets: [
-          "Firewalls filter traffic using **allow/deny rules**.",
-          "They exist at the **network level** and the **host level**.",
-          "Rules commonly consider **address, port, and direction**.",
+          "Firewalls filter with **allow/deny rules** at network or host level.",
+          "Rules consider **address, port, and direction**.",
+          "**Recommend** allows narrowly; pair temporary opens with removal plans.",
         ],
         callout: {
           label: "Watch out",
-          text: "A firewall isn't \"set and forget.\" Rules created for a temporary need (like the robotics server's remote admin access) need a matching plan to remove them later.",
+          text: "A firewall isn't \"set and forget.\" Rules created for a temporary need need a matching plan to remove them later.",
         },
         checkIn: {
-          prompt: "In the robotics team's story, what specifically increased the server's exposure to the open internet?",
+          prompt: "Judges need to read docs; mentors want remote admin from home. Which firewall-oriented recommendation best balances security and availability?",
           choices: [
-            "Hosting documentation for judges to review",
-            "Enabling remote admin access with default credentials, intended to be temporary but never removed",
-            "Using a firewall at all",
-            "Competing in a robotics competition",
+            "Allow all inbound from the internet so nobody is blocked",
+            "Allow the documentation service as needed; keep remote admin closed by default or tightly limited, with owner + expiry if temporarily required",
+            "Disable the firewall entirely during competition week",
+            "Block the documentation site so admins feel safer",
           ],
           correctIndex: 1,
           explanation:
-            "The documentation hosting itself wasn't the core problem — the temporary remote-admin access with default credentials, left in place, created the lasting exposure.",
+            "Availability for readers doesn't require exposing admin. Narrow allows + temporary controls are the justified tradeoff.",
         },
       },
       {
         id: "concept-2",
         kicker: "Which way should the gate default?",
-        title: "Default-deny vs. default-allow",
-        body: `This is one of the most important ideas in defensive security: **which way should a system lean when a rule hasn't been explicitly written?**\n\n**Default-deny:** Block everything by default; only allow specific, approved, necessary traffic. If someone forgets to write a rule, the safe outcome is "blocked," not "wide open."\n\n**Default-allow:** Allow everything by default; only block specific known-bad traffic. If someone forgets to write a rule, the outcome is "reachable," which is far riskier — especially against threats nobody has identified yet.\n\nDefenders generally strongly prefer **default-deny** because it fails safely: gaps in configuration produce *more* restriction, not *less*. Default-allow fails in the opposite, more dangerous direction — gaps produce *more* exposure.\n\nApplied to the robotics story: if the server's remote admin access had defaulted to closed unless someone explicitly and consciously opened it (with a plan to close it again), the "temporary" exception would have been far more visible and far less likely to be forgotten for months.`,
+        title: "Default-deny vs. default-allow — compare tradeoffs",
+        body: `**Compare postures** when no explicit rule exists:\n\n| Posture | Default behavior | Failure direction | Usability/availability tradeoff |\n|---|---|---|---|\n| **Default-deny** | Block unless allowed | Forgotten rules → more restriction | May need deliberate allows for legitimate work |\n| **Default-allow** | Allow unless blocked | Forgotten rules → more exposure | Feels convenient until an unknown threat appears |\n\n**Recommendation:** prefer **default-deny** — it fails safely. Accept that someone must document needed traffic (ports/services) so learning and club work still function. Default-allow fails open: gaps become exposure, especially for threats nobody listed yet.\n\nRobotics story: if remote admin **defaulted closed** unless consciously opened with a close plan, "temporary" would stay visible. Security vs convenience is the point — convenience without expiry is how availability today becomes incident tomorrow.`,
         callout: {
           label: "Common misconception",
-          text: "\"We'll secure it later, it's just temporary\" quietly assumes default-allow thinking — leaving things open until someone remembers to close them. Default-deny flips that assumption.",
+          text: "\"We'll secure it later, it's just temporary\" quietly assumes default-allow thinking. Default-deny flips that assumption — and still requires listing what must stay available.",
         },
         checkIn: {
-          prompt: "Why do defenders generally prefer default-deny over default-allow?",
+          prompt: "A club says default-deny \"breaks demos.\" Which recommendation best explains the real tradeoff?",
           choices: [
-            "Default-deny is always faster for legitimate traffic",
-            "Default-deny fails safely — a forgotten or missing rule results in traffic being blocked, not exposed",
+            "Switch to default-allow forever — demos matter more than any exposure",
+            "Keep default-deny, then explicitly allow the demo's required ports/services with owners — security fails closed; availability is designed on purpose",
             "Default-allow blocks 100% of malicious traffic automatically",
-            "Default-deny requires no configuration at all",
+            "Default-deny requires no configuration at all, so demos can't work",
           ],
           correctIndex: 1,
           explanation:
-            "With default-deny, mistakes and gaps in configuration lean toward restriction. With default-allow, the same mistakes lean toward exposure — a much riskier failure direction.",
+            "Default-deny isn't \"block everything useful\" — it's \"allow what you justify.\" That is the security/usability tradeoff done correctly.",
         },
       },
       {
@@ -101,22 +101,22 @@ export const cyberLesson8: AILessonConfig = {
         title: "Risky default configurations",
         image: "/images/lessons/cs-8-3.png",
         imageAlt: "Router admin login screen showing username admin and password admin highlighted as a risky default",
-        body: `Many devices and services ship with settings chosen for **easy setup**, not for security. Common risky defaults defenders watch for:\n\n• **Default credentials** — factory usernames/passwords (like admin/admin) that are publicly documented and widely known; if never changed, they're not really a secret at all.\n• **Unused services left running** — a device might ship with remote management, file sharing, or other services enabled that a particular user never actually needs.\n• **Overly permissive default rules** — some devices default to allowing broad inbound access "for convenience," trusting the user to lock it down later — which, as the robotics story shows, often doesn't happen.\n• **Unpatched/outdated firmware** — devices set up once and never updated can carry known, publicly documented weaknesses indefinitely.\n\nThe defender fix in every case is the same pattern: **change default credentials immediately, disable services you don't need, and prefer configurations that start locked down rather than started open.**`,
+        body: `Many devices ship for **easy setup**, not security. **Recommend fixes** by comparing convenience to exposure:\n\n• **Default credentials** — factory admin/admin is documented publicly; leaving it is nearly "no secret." Tradeoff of changing it: one setup step vs open remote admin forever.\n• **Unused services left running** — remote management/file sharing enabled "just in case." Recommend disable-until-needed; availability returns when you re-enable with an owner.\n• **Overly permissive default rules** — broad inbound allows for convenience assume you'll lock down later (robotics story: you often won't).\n• **Unpatched firmware** — set-and-forget devices carry known weaknesses; updates cost a little downtime, buy a lot of risk reduction.\n\n**Pattern to recommend:** change defaults immediately, disable what you don't need, prefer locked-down starts — then deliberately open only justified, owned paths.`,
         callout: {
           label: "Why it matters",
-          text: "Default credentials aren't really \"credentials\" in any meaningful sense once they're publicly documented — they're an open door with a sign on it.",
+          text: "Default credentials aren't really \"credentials\" once they're publicly documented — they're an open door with a sign on it.",
         },
         checkIn: {
-          prompt: "The robotics team's server still had its factory-default admin password when IT found it months later. What is the core problem with that?",
+          prompt: "A club wants to keep factory router admin \"so we don't forget a new password.\" What recommendation best states the tradeoff?",
           choices: [
-            "Default passwords are always extremely long and secure",
-            "A default password is typically well-known/documented, so it doesn't function as a real secret protecting the account",
+            "Keep the default — memorability always beats exposure",
+            "Change the default immediately and store the new admin secret safely (manager/adviser vault) — one usability step prevents a well-known password from protecting the edge device",
             "Default passwords automatically expire after one week",
             "Default passwords only exist on smartphones",
           ],
           correctIndex: 1,
           explanation:
-            "Default credentials are commonly published in manuals or online, so relying on them is close to having no password-based protection at all.",
+            "Factory credentials are public knowledge; the justified tradeoff is a managed new secret, not an internet-famous password on the gateway.",
         },
       },
       {
@@ -163,34 +163,34 @@ export const cyberLesson8: AILessonConfig = {
         title: "Segmentation — containing the next incident",
         image: "/images/lessons/cs-8-4.png",
         imageAlt: "Network diagram showing separate segments for guest Wi-Fi, staff devices, and servers with firewalls between them",
-        body: `Even with great defaults, incidents still happen. **Segmentation** is the practice of dividing a network into smaller zones, so that a problem in one zone doesn't automatically spread to every other zone.\n\nCommon segmentation patterns:\n• **Guest Wi-Fi vs. staff/internal network** — visitors' devices shouldn't be able to reach staff file servers or internal admin tools, even if a guest device is compromised.\n• **Student devices vs. school administrative systems** — a compromised student laptop shouldn't have a direct path to gradebook or HR systems.\n• **Public-facing servers vs. internal databases** — a server that talks to the internet is placed separately from sensitive internal systems, so that if the public server is compromised, the attacker doesn't automatically reach everything behind it.\n\nSegmentation is essentially the network-level version of least privilege from Lesson 6: instead of one flat network where everything can reach everything, you create boundaries so that access matches actual need — and a single failure stays contained instead of cascading.\n\nApplied to the robotics story: if the documentation server had been segmented away from any systems containing sensitive school data, the exposure — while still a real problem — would have had a much smaller potential blast radius.`,
+        body: `Even with great defaults, incidents still happen. **Segmentation** divides a network into zones so a problem in one zone doesn't automatically reach every other zone — network-level least privilege.\n\n**Patterns to recommend:**\n• Guest Wi-Fi ≠ staff file servers / admin tools.\n• Student devices ≠ gradebook / HR paths.\n• Public-facing servers ≠ internal databases.\n\n**Tradeoff (security vs usability/availability):** segmentation can mean "that printer isn't reachable from guest Wi-Fi" or "club gear can't see treasurer folders." Those friction points are often correct — availability should match trust level. A flat network maximizes convenience and blast radius together.\n\nRobotics docs server segmented from sensitive systems: exposure is still bad, but blast radius shrinks. **Recommend** zones when different trust levels share a building.`,
         bullets: [
-          "Segmentation limits how far a single compromise can spread.",
-          "Guest networks should be isolated from internal/sensitive systems.",
-          "Public-facing servers shouldn't sit next to sensitive internal databases.",
-          "Segmentation mirrors least privilege, applied at the network level.",
+          "Segmentation limits compromise spread — recommend it when trust levels differ.",
+          "Guest / student / public zones should not freely reach sensitive internals.",
+          "Accept some cross-zone friction; that is the usability tradeoff.",
+          "Mirrors least privilege at the network level.",
         ],
         callout: {
           label: "Defender view",
-          text: "Ask: \"if this one device or service were compromised right now, what else could it reach?\" Segmentation is the practice of making that answer as small as possible.",
+          text: "Ask: \"if this one device were compromised right now, what else could it reach?\" Recommend making that answer as small as practical.",
         },
       },
       {
         id: "comparison",
         kicker: "Side by side",
-        title: "Comparing security postures",
-        body: `Two comparisons worth having clearly in mind from this lesson:\n\n**Default-allow vs. default-deny:**\n• Default-allow starts open; forgotten rules mean *more* exposure.\n• Default-deny starts closed; forgotten rules mean *more* restriction (a safer failure direction).\n\n**Flat network vs. segmented network:**\n• A flat network treats every device as equally trusted — one compromised device can potentially reach everything else.\n• A segmented network divides devices into zones matched to their actual trust level and purpose — a compromised device in one zone is contained away from more sensitive zones.\n\nBoth comparisons share the same underlying theme: security postures that **fail safely** (default-deny, segmentation) are consistently preferred over postures that **fail open** (default-allow, flat networks) — because mistakes and unknowns are inevitable, and the question is simply which direction they fail in.`,
+        title: "Comparing postures — recommend with tradeoffs",
+        body: `**Default-allow vs default-deny:**\n• Allow-by-default → forgotten rules mean *more* exposure; demos feel easy until they aren't.\n• Deny-by-default → forgotten rules mean *more* restriction; you must deliberately allow needed traffic (availability by design).\n\n**Flat vs segmented:**\n• Flat → max convenience, max blast radius.\n• Segmented → contained incidents; some cross-zone workflows need explicit paths.\n\n**Recommendation rule:** prefer postures that **fail safely** (default-deny, segmentation). Justify each allow and each cross-zone path with who/what/until-when — that is how you balance security against usability and availability without pretending tradeoffs don't exist.`,
         checkIn: {
-          prompt: "What do default-deny and network segmentation have in common as defensive strategies?",
+          prompt: "You must recommend either a flat club LAN (everything reaches everything) or guest/club/finance segments. Which justification is strongest?",
           choices: [
-            "Both make systems completely immune to any incident",
-            "Both are designed to fail safely — limiting exposure or spread when something is missed or goes wrong",
-            "Both require disabling all firewalls",
-            "Both only apply to home Wi-Fi networks",
+            "Flat — security and usability never trade off",
+            "Segmented — accept some friction so a compromised guest or practice device cannot reach finance folders; availability for guests doesn't require access to treasuries",
+            "Flat — firewalls become unnecessary forever",
+            "Segmented only for home Wi-Fi, never schools",
           ],
           correctIndex: 1,
           explanation:
-            "Default-deny limits exposure from missing rules; segmentation limits how far a compromise can spread. Both accept that mistakes happen and aim to fail in the safer direction.",
+            "Segmentation is a recommended tradeoff: slightly less convenience for much smaller blast radius when trust levels differ.",
         },
       },
       {
@@ -217,7 +217,7 @@ export const cyberLesson8: AILessonConfig = {
         id: "reflection-prompt",
         kicker: "Pause and reflect",
         title: "Quick gut-check before you continue",
-        body: `Before the mini case and knowledge check: think honestly about a "just this once, temporary" shortcut you or a group you're part of has taken with some system, account, or setting. Does it have a real closing date and an owner — or has it quietly become permanent, the way the robotics team's remote access did?`,
+        body: `Before the mini case and knowledge check: justify a recommendation. A teammate wants default-allow "so judges never hit a block page." What would you recommend instead, and what usability/availability tradeoff are you accepting?`,
       },
       {
         id: "mini-case",
@@ -231,35 +231,35 @@ export const cyberLesson8: AILessonConfig = {
         id: "firewall-decisions",
         kicker: "Decision checklist",
         title: "Firewall decisions without becoming a network admin",
-        body: `You may not configure enterprise firewalls yet — but you can apply the same questions defenders ask:
+        body: `Apply the same questions defenders use when **recommending** exposure:
 
-**For any service exposed to a network:**
-• Who needs to reach it — specific people, or literally anyone on the internet?
-• What happens if this port/service is left open by default?
-• Is there a narrower way to grant access (VPN, specific IP range, auth gate)?
+**For any service on a network:**
+• Who needs reachability — specific people, or the whole internet?
+• What is the usability win of leaving this port open — and is it worth the surface?
+• Is there a narrower allow (VPN, limited addresses, auth gate) with an expiry?
 
-**Default-deny mindset for personal/club gear:**
-• Change default admin passwords before anything joins the network.
-• Disable remote administration you do not actively use.
-• Turn off unused file-sharing or casting features.
+**Default-deny for personal/club gear:**
+• Change default admin passwords before join.
+• Disable remote admin you don't use.
+• Turn off unused sharing/casting.
 
-**Comparison — exposure levels:**
-• **Intentional public** — school website meant for the world; hardened, monitored, patched.
-• **Internal only** — gradebook, club budget; should not be reachable from random café Wi-Fi.
-• **Accidental public** — smart camera with default settings; fix before harm finds it.
+**Compare exposure levels:**
+• **Intentional public** — hardened, monitored, patched.
+• **Internal only** — not for café Wi-Fi.
+• **Accidental public** — defaults left open; fix first.
 
-Every open service is a doorway. Defenders count doorways on purpose, not by accident.`,
+Every open service is a doorway. Count them on purpose; justify each allow against availability needs.`,
         checkIn: {
-          prompt: "Why do defenders prefer default-deny over default-allow?",
+          prompt: "Remote admin would save mentors 10 minutes per bugfix but opens the server to the internet. Which recommendation best states the tradeoff?",
           choices: [
-            "Default-deny makes networks faster",
-            "Forgotten rules in default-deny fail toward more restriction, which is usually safer than failing open",
+            "Always allow remote admin from anywhere — availability always wins",
+            "Prefer closed-by-default; if temporarily required, narrow the allow, assign an owner/expiry, and change defaults — accept some friction to cut exposure",
             "Default-allow is illegal for schools",
-            "Firewalls only work in default-deny mode",
+            "Firewalls only work if every port is open",
           ],
           correctIndex: 1,
           explanation:
-            "When mistakes happen, default-deny tends to block unexpected traffic instead of accidentally exposing it — a safer failure direction.",
+            "Security vs usability is real — the justified move is narrow, temporary, owned allows under default-deny, not permanent internet-wide admin.",
         },
       },
       {
@@ -319,14 +319,14 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Firewalls** filter traffic with allow/deny rules at the network or host level.\n• **Default-deny** (block by default, allow deliberately) fails safely; **default-allow** fails toward exposure.\n• **Risky defaults** — default credentials, unused services, overly permissive rules, outdated firmware — need to be fixed immediately, not eventually.\n• **Segmentation** contains a compromise instead of letting it spread across an entire network.\n• Anything opened **"temporarily"** needs a named owner and a closing date, or it tends to become permanent.\n\nYou've now completed the technical core of this track: threats, credentials, access control, networking, and configuration. Later lessons build on these foundations with more advanced defender scenarios.\n\nTake the **Knowledge check**, then reflect on one default setting you'll go check this week.`,
+        body: `Quick recap:\n\n• **Recommend** firewall allows narrowly; every open port trades security for someone's availability.\n• **Compare** default-deny vs default-allow — deny fails safely; still document needed traffic.\n• **Risky defaults** — factory credentials, unused services, permissive rules — fix immediately.\n• **Segmentation** contains compromise; accept cross-zone friction when trust levels differ.\n• **"Temporary"** opens need owner + closing date or they become permanent.\n\nTechnical core so far: threats, credentials, access control, architecture, and secure config.\n\nTake the **Knowledge check**, then justify one configuration recommendation.`,
       },
     ],
   },
   bigIdeas: [
-    "**Firewalls** filter traffic by rule; **default-deny** fails safely while **default-allow** fails toward exposure.",
-    "**Risky defaults** (factory credentials, unused services, permissive rules) are a leading, avoidable source of real incidents.",
-    "**Segmentation** contains a compromise, mirroring least privilege at the network level.",
+    "**Recommend** firewall rules that balance security with usability/availability — narrow allows, owned temporary exceptions.",
+    "**Compare default-deny vs default-allow** — deny fails safely; allow fails toward exposure.",
+    "**Segmentation** and fixing **risky defaults** shrink blast radius the way least privilege does for accounts.",
   ],
   keyTerms: [
     { term: "Firewall", definition: "A system that filters network traffic using allow/deny rules." },
@@ -342,29 +342,29 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
   quiz: [
     {
       id: "q1",
-      question: "What does a firewall fundamentally do?",
+      question: "When recommending a firewall allow for club docs, which reasoning is strongest?",
       choices: [
-        "Filters network traffic based on configured allow/deny rules",
+        "Allow only what judges/mentors need (e.g., the docs service), and avoid internet-wide admin — every allow trades security for someone's availability",
         "Scans every file on a device for viruses before it opens",
         "Guarantees that no malicious traffic can ever get through",
         "Automatically encrypts all data leaving the network",
       ],
       correctIndex: 0,
       explanation:
-        "Firewalls inspect and filter traffic according to defined rules, deciding what's allowed through — that's a different job from antivirus scanning or encryption, and no rule set is a guarantee.",
+        "Firewalls filter by rule; good recommendations narrow allows to justified needs instead of equating \"available\" with \"fully exposed.\"",
     },
     {
       id: "q2",
-      question: "Why is default-deny generally safer than default-allow?",
+      question: "Compare default-deny vs default-allow for a school lab under time pressure. Which evaluation is best?",
       choices: [
         "Default-allow is safer because it keeps more services reachable by default",
-        "A missing or forgotten rule under default-deny results in blocked traffic, not exposure",
+        "Default-deny fails toward restriction when rules are missing; accept documenting needed allows so demos still work without failing open",
         "Default-deny blocks 100% of malicious traffic automatically, with no configuration needed",
-        "Default-deny is only appropriate for home networks, never schools or businesses",
+        "Default-deny is only appropriate for home networks, never schools",
       ],
       correctIndex: 1,
       explanation:
-        "Default-deny fails toward restriction when something is missed; default-allow fails toward exposure. Neither posture is a guarantee against all threats.",
+        "Default-deny is the safer failure direction; usability is restored by explicit, justified allows — not by failing open.",
     },
     {
       id: "q3",
@@ -381,16 +381,16 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
     },
     {
       id: "q4",
-      question: "What is the main purpose of network segmentation?",
+      question: "Why recommend segmentation even though it can make some printers or shares harder to reach from guest Wi-Fi?",
       choices: [
         "To make every device equally reachable from every other device",
         "To eliminate the need for firewalls entirely",
         "To guarantee that zero security incidents will ever occur",
-        "To divide a network into zones so a compromise in one zone doesn't automatically spread to others",
+        "Because containing blast radius outweighs that usability friction when trust levels differ — availability for guests shouldn't include finance systems",
       ],
       correctIndex: 3,
       explanation:
-        "Segmentation contains the impact of a compromise, similar to least privilege but applied at the network level. It reduces spread; it doesn't replace firewalls or guarantee zero incidents.",
+        "Segmentation is a security/usability tradeoff: some inconvenience in exchange for limiting how far a compromise spreads.",
     },
     {
       id: "q5",
@@ -420,34 +420,34 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
     },
     {
       id: "q7",
-      question: "What do default-deny and network segmentation have in common?",
+      question: "What do default-deny and network segmentation have in common as recommendations?",
       choices: [
-        "Both are designed to fail safely — limiting exposure or spread when something is missed",
+        "Both are designed to fail safely — limiting exposure or spread when something is missed — at some cost to unconstrained convenience",
         "Both guarantee that no security incident can ever occur",
         "Both require turning off all firewalls to work properly",
         "Both are unrelated concepts that happen to share this lesson",
       ],
       correctIndex: 0,
       explanation:
-        "Both accept that mistakes and unknowns happen, and are designed so those failures lean toward restriction/containment rather than exposure/spread.",
+        "Both accept mistakes and unknowns and bias outcomes toward restriction/containment — the tradeoff is deliberate design of needed access.",
     },
     {
       id: "q8",
-      question: "Why is it more useful to describe tradeoffs of security measures like firewalls than to just define what a firewall is?",
+      question: "A mentor wants internet-wide remote admin for speed; IT wants default-deny. Which tradeoff statement should you recommend?",
       choices: [
-        "Because tradeoffs don't actually exist in real security decisions",
-        "Because firewalls have no effect on network availability at all",
-        "Because this level of reasoning only applies to professional network engineers",
-        "Because real configuration decisions require weighing security against usability and availability — like choosing default-deny while still allowing needed traffic",
+        "Tradeoffs don't exist — pick whichever is louder",
+        "Firewalls never affect availability, so open everything",
+        "Only professional engineers may discuss this",
+        "Keep default-deny; if remote admin is temporarily required, narrow the allow, assign owner/expiry, and prefer stronger auth — accept some friction to avoid accidental public exposure",
       ],
       correctIndex: 3,
       explanation:
-        "Meaningful security literacy means being able to weigh real tradeoffs (like the robotics team choosing what remote access was actually necessary), not just recite definitions.",
+        "CSTA-style reasoning weighs security against usability/availability with a concrete, owned exception — not permanent fail-open admin.",
     },
   ],
   reflection: {
     prompt:
-      "Think of a device, account, or system you or your family controls. Does it still use any default settings (like a factory password) that were never changed? What's your plan — with a specific date — to fix it?",
-    placeholder: "Example: Our home router still might have its factory admin password — I'll check and change it this weekend, and also see if guest Wi-Fi is separated from our other devices…",
+      "Recommend a secure-config change for a device or club system you know. Compare default-deny vs leaving something open for convenience, justify your choice, and name the usability/availability tradeoff plus an owner and date if anything stays temporarily open.",
+    placeholder: "Example: Router remote admin stays off (default-deny); guest Wi-Fi segmented — I'll accept reconfiguring the printer once so guests can't reach our NAS…",
   },
 };

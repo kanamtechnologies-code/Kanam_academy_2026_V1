@@ -2,15 +2,15 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const cyberLesson15: AILessonConfig = {
   id: "cs-15",
-  title: "15. Risk Assessment & Controls",
-  goal: "Use a simple risk model — assets, threats, vulnerabilities, likelihood vs impact — and choose controls (preventive, detective, corrective) plus risk responses: accept, mitigate, transfer, or avoid.",
+  title: "15. Risk Analysis & Control Selection",
+  goal: "Analyze risk with assets, threats, vulnerabilities, likelihood, and impact; recommend controls by efficiency, feasibility, and ethics; compare alternative measures; and explain tradeoffs among mitigate, avoid, transfer, and accept — including residual risk.",
   xpReward: 750,
   badge: "Risk Analyst",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/14",
   nextHref: "/learn/cyber/16",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,10 +18,10 @@ export const cyberLesson15: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-15.png",
         imageAlt: "Risk matrix sticky notes Likelihood vs Impact on a whiteboard in a classroom",
-        body: `You can't eliminate every cyber risk — and you don't need to treat every risk the same. **Risk assessment** helps you decide what matters most and which **controls** are worth the effort.\n\nHere's our roadmap:\n\n• **Asset / threat / vulnerability / risk** — the core vocab.\n• **Likelihood vs impact** — why "scary" isn't the same as "priority."\n• **Control types** — preventive, detective, corrective, and administrative.\n• **Risk responses** — accept, mitigate, transfer, avoid.\n• **Residual risk** — what's left over after controls are applied, and why it's never zero.\n• A **worked mini-assessment** for a school club.\n• **Building a simple risk register** you can actually maintain.\n• How this prepares you for the capstone.\n\nThis is decision-making skill — the heart of real cybersecurity work.`,
+        body: `You can't eliminate every cyber risk — and you don't need to treat every risk the same. **Risk analysis** helps you decide what matters most, then **recommend controls** by efficiency, feasibility, and ethics — and **compare** alternatives with clear tradeoffs.\n\nHere's our roadmap:\n\n• **Asset / threat / vulnerability / risk** — the core vocab.\n• **Likelihood vs impact** — why "scary" isn't the same as "priority."\n• **Control types** — preventive, detective, corrective, and administrative.\n• **Control selection** — recommend by efficiency, feasibility, and ethics; compare measures.\n• **Risk responses** — accept, mitigate, transfer, avoid — with tradeoffs explained.\n• **Residual risk** — what's left after controls, and why it's never zero.\n• A **worked mini-assessment** for a school club.\n• **Building a simple risk register** you can actually maintain.\n• How this prepares you for the capstone.\n\nThis is analytical decision-making — the heart of real cybersecurity work.`,
         callout: {
           label: "Why it matters",
-          text: "Teams with limited time waste energy on low-impact fears while ignoring high-impact basics like MFA and backups. Risk thinking fixes that.",
+          text: "Teams with limited time waste energy on low-impact fears while ignoring high-impact basics like MFA and backups. Recommending controls with tradeoffs fixes that.",
         },
       },
       {
@@ -73,10 +73,10 @@ export const cyberLesson15: AILessonConfig = {
         id: "likelihood-impact",
         kicker: "Prioritize",
         title: "Likelihood vs impact: rank what matters",
-        body: `Plot risks roughly on two axes:\n\n• **High likelihood / high impact** — fix first (e.g., no MFA on email that resets everything else).\n• **Low likelihood / high impact** — still plan (backups for ransomware-class events).\n• **High likelihood / low impact** — maybe simple habits are enough.\n• **Low / low** — accept or monitor lightly.\n\nYou don't need fancy math. A 3×3 mental grid (low/medium/high) already beats random panic.\n\nExample: a meteor destroying the school server is high impact, tiny likelihood. Phishing without MFA is medium-high likelihood and high impact for a club — prioritize that.`,
+        body: `Plot risks roughly on two axes, then **recommend** where effort goes:\n\n• **High likelihood / high impact** — fix first (e.g., no MFA on email that resets everything else).\n• **Low likelihood / high impact** — still plan (backups for ransomware-class events).\n• **High likelihood / low impact** — maybe simple habits are enough.\n• **Low / low** — accept or monitor lightly.\n\nYou don't need fancy math. A 3×3 mental grid (low/medium/high) already beats random panic. **Compare** two high-impact risks by likelihood *and* by how efficiently you can reduce them: phishing without MFA often beats "nation-state targets our club" for near-term investment.\n\nExample: a meteor destroying the school server is high impact, tiny likelihood. Phishing without MFA is medium-high likelihood and high impact for a club — prioritize that, and be ready to **explain the tradeoff** if someone wants flashy tools instead.`,
         callout: {
           label: "Watch out",
-          text: "Movie-plot threats steal attention. Everyday credential theft and missing backups usually deserve the first budget of effort.",
+          text: "Movie-plot threats steal attention. Everyday credential theft and missing backups usually deserve the first budget of effort — justify that ranking with likelihood × impact × feasibility.",
         },
       },
       {
@@ -135,7 +135,7 @@ export const cyberLesson15: AILessonConfig = {
         id: "responses",
         kicker: "Decide",
         title: "Accept, mitigate, transfer, avoid",
-        body: `After you assess a risk, choose a response:\n\n• **Mitigate** — reduce it with controls (most common: turn on MFA, patch, train).\n• **Avoid** — stop the risky activity (don't store SSNs in a shared club sheet at all).\n• **Transfer** — shift some impact (insurance for a business; using a reputable vendor's secure platform instead of a DIY server).\n• **Accept** — consciously live with low leftover risk because further controls aren't worth it — and document that choice.\n\nAccepting is not ignoring. Ignoring is skipping the assessment. Acceptance means you looked, ranked, and chose.`,
+        body: `After you assess a risk, choose a response — and **explain the tradeoff**:\n\n• **Mitigate** — reduce it with controls (most common: turn on MFA, patch, train). Tradeoff: time/usability cost vs lower likelihood or impact.\n• **Avoid** — stop the risky activity (don't store SSNs in a shared club sheet at all). Tradeoff: may lose a convenience or feature.\n• **Transfer** — shift some impact (insurance for a business; using a reputable vendor's secure platform instead of a DIY server). Tradeoff: cost/dependency on the vendor; residual responsibility remains.\n• **Accept** — consciously live with low leftover risk because further controls aren't worth it — and document that choice. Tradeoff: you keep residual exposure on purpose.\n\n**Compare before choosing:** avoiding sponsor emails entirely "avoids" phishing risk but kills the mission; mitigating with MFA usually wins on ethics and feasibility. Accepting is not ignoring. Ignoring is skipping the assessment.`,
         callout: {
           label: "Myth check",
           text: "\"Accept the risk\" is not an excuse to leave admin accounts without MFA. Acceptance fits residual low risks after reasonable controls — not negligence.",
@@ -256,17 +256,17 @@ export const cyberLesson15: AILessonConfig = {
         id: "checklist",
         kicker: "Put it together",
         title: "A defender's risk assessment checklist",
-        body: `Bring the whole lesson together into habits you can actually use:\n\n**1. Name the asset, threat, and vulnerability** explicitly before deciding anything.\n**2. Rank by likelihood and impact together** — resist chasing the scariest-sounding scenario alone.\n**3. Layer control types** — preventive, detective, corrective, and administrative — rather than relying on just one.\n**4. Choose a deliberate response** for each risk: mitigate, avoid, transfer, or accept.\n**5. Expect residual risk** and document it consciously rather than assuming zero.\n**6. Maintain a risk register** with owners and review dates so the work doesn't go stale.\n\nThat's a working risk assessment mindset — practical, prioritized, and revisited over time.`,
+        body: `Bring the whole lesson together into habits you can actually use:\n\n**1. Name the asset, threat, and vulnerability** explicitly before deciding anything.\n**2. Rank by likelihood and impact together** — resist chasing the scariest-sounding scenario alone.\n**3. Layer control types** — preventive, detective, corrective, and administrative — rather than relying on just one.\n**4. Recommend controls** by efficiency, feasibility, and ethics — compare alternatives and explain tradeoffs.\n**5. Choose a deliberate response** for each risk: mitigate, avoid, transfer, or accept.\n**6. Expect residual risk** and document it consciously rather than assuming zero.\n**7. Maintain a risk register** with owners and review dates so the work doesn't go stale.\n\nThat's a working risk-analysis mindset — analytical, prioritized, and revisited over time.`,
         callout: {
           label: "Try this week",
-          text: "Pick one account or system you care about and walk it through this checklist end to end, even informally.",
+          text: "Pick one account or system you care about, recommend two alternative controls, and justify which wins on efficiency, feasibility, and ethics.",
         },
       },
       {
         id: "control-selection",
         kicker: "Decision checklist",
-        title: "Picking controls when you cannot do everything",
-        body: `Risk assessment ends in choices. Use this filter:
+        title: "Recommend controls by efficiency, feasibility, and ethics",
+        body: `Risk analysis ends in recommendations. Use this filter when you cannot do everything:
 
 **1. Match control type to gap:**
 • Missing prevention → MFA, patching, least privilege.
@@ -274,27 +274,32 @@ export const cyberLesson15: AILessonConfig = {
 • Missing correction → backups, IR playbook, recovery contacts.
 • Missing governance → written owners, review dates.
 
-**2. Estimate cost vs impact reduction** — a 20-minute MFA setup beating a high-impact risk is a bargain.
+**2. Efficiency** — how much risk reduction per unit of time/money? A 20-minute MFA setup that blunts high-impact account takeover beats a week researching niche gadgets.
 
-**3. Name an owner** — "someone should" is not a control.
+**3. Feasibility** — can this club actually run it with free tools and rotating student officers? A "perfect" enterprise SIEM nobody will monitor fails the feasibility test.
 
-**Comparison — control strength:**
-• **Weak:** verbal reminder to "be careful."
-• **Medium:** quarterly sharing audit with calendar invite.
-• **Strong:** MFA + unique passwords + automated login alerts on club email.
+**4. Ethics** — does the control respect privacy and consent (e.g., monitoring personal phones vs club accounts)? Does it create unfair burden or surveillance creep? Prefer proportionate measures.
 
-Perfect security is not the goal — prioritized, owned controls are.`,
+**5. Name an owner** — "someone should" is not a control.
+
+**Compare measures (same risk — Gmail takeover):**
+• **Weak / low efficiency:** verbal "be careful" — cheap, low impact reduction.
+• **Medium:** quarterly sharing audit + calendar invite — feasible, moderate reduction.
+• **Strong / high efficiency:** MFA + unique passwords + login alerts + named owner — still feasible for a club; ethical (protects shared org accounts without spying on members' private devices).
+• **Avoid extreme:** delete Gmail entirely — eliminates risk but may kill the club's work (usability/mission tradeoff).
+
+**Explain the tradeoff:** stronger controls often cost time or convenience; weaker ones leave residual risk. Recommend the option that clears the efficiency × feasibility × ethics bar, then document residual risk.`,
         checkIn: {
-          prompt: "A club's top risk is Gmail takeover via phishing. Which control bundle best matches mitigate?",
+          prompt: "A club's top risk is Gmail takeover via phishing. Which recommendation best applies efficiency, feasibility, and ethics?",
           choices: [
-            "Hope officers stay careful",
-            "MFA, unique passwords, and login alerts with a named owner to review monthly",
-            "Delete the Gmail account",
-            "Accept the risk without documentation",
+            "Hope officers stay careful — cheapest, so always best",
+            "MFA, unique passwords, and login alerts with a named owner — high risk reduction, realistic for a club, and focused on the shared account rather than invasive personal surveillance",
+            "Delete the Gmail account and stop emailing sponsors",
+            "Install covert keyloggers on every member's phone",
           ],
           correctIndex: 1,
           explanation:
-            "Mitigate means applying preventive and detective controls with ownership — not vague hope or silent acceptance.",
+            "Recommend controls that reduce high-impact risk efficiently, that officers can actually run, and that stay ethically proportionate — not hope, mission-killing avoidance, or invasive spyware.",
         },
       },
       {
@@ -350,14 +355,14 @@ Decision quality beats document length. One honest page wins.`,
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Risk** ties **assets**, **threats**, and **vulnerabilities** to likelihood and impact.\n• Prioritize with a simple likelihood×impact view — don't chase movie-plot threats over everyday ones.\n• Layer **preventive / detective / corrective** controls plus **administrative** (policies, procedures, approvals, owners).\n• Choose **mitigate, avoid, transfer, or accept** on purpose.\n• **Residual risk** always remains — the goal is a conscious, documented level, not zero.\n• A **risk register** turns assessment into an ongoing, maintainable habit.\n\nAce the **Knowledge check**, then reflect with a tiny risk register of your own — you'll need this thinking in the capstone.`,
+        body: `Quick recap:\n\n• **Risk** ties **assets**, **threats**, and **vulnerabilities** to likelihood and impact.\n• Prioritize with likelihood×impact — then **recommend** controls by **efficiency, feasibility, and ethics**.\n• **Compare** measures and **explain tradeoffs** (usability, cost, residual risk).\n• Layer **preventive / detective / corrective** plus **administrative** controls.\n• Choose **mitigate, avoid, transfer, or accept** on purpose.\n• **Residual risk** always remains — document a conscious level, not a fantasy of zero.\n• A **risk register** turns analysis into an ongoing habit — you'll need this in the capstone.\n\nAce the **Knowledge check**, then reflect with a justified mini risk register.`,
       },
     ],
   },
   bigIdeas: [
     "**Risk** is the chance a **threat** exploits a **vulnerability** to harm an **asset** — judged by likelihood and impact.",
-    "Controls are **preventive** (stop), **detective** (notice), **corrective** (fix/recover), and **administrative** (policies, procedures, approvals, owners) — and some **residual risk** always remains.",
-    "After assessing, choose a response: **mitigate**, **avoid**, **transfer**, or consciously **accept** residual risk, and track it in a simple **risk register**.",
+    "**Recommend** controls by **efficiency, feasibility, and ethics**; **compare** alternatives and explain tradeoffs — preventive, detective, corrective, and administrative layers still matter, and **residual risk** always remains.",
+    "After analyzing, choose **mitigate**, **avoid**, **transfer**, or consciously **accept**, justify why, and track it in a simple **risk register**.",
   ],
   keyTerms: [
     { term: "Asset", definition: "Something of value you need to protect — data, devices, accounts, reputation, or people." },
@@ -421,24 +426,24 @@ Decision quality beats document length. One honest page wins.`,
         "Transferring risk to malware",
         "Accepting a high risk with no thought",
         "A detective control only",
-        "Avoiding the risk by not keeping that sensitive data there",
+        "Avoiding the risk by not keeping that sensitive data there — a tradeoff that may reduce convenience but removes high-impact exposure",
       ],
       correctIndex: 3,
       explanation:
-        "Avoidance means not doing the risky thing — here, not holding highly sensitive data you don't need.",
+        "Avoidance means not doing the risky thing — here, not holding highly sensitive data you don't need. Explain the usability tradeoff when you recommend it.",
     },
     {
       id: "q5",
-      question: "When is \"accept the risk\" appropriate?",
+      question: "A club compares (A) MFA + login alerts on shared Gmail vs (B) buying unused enterprise monitoring software nobody will staff. Which recommendation is strongest?",
       choices: [
-        "When remaining risk is low after reasonable controls and you consciously decide further effort isn't worth it",
-        "Whenever fixing something feels mildly inconvenient, even for admin email without MFA",
-        "Only when you haven't assessed anything",
-        "Never — all risks must be reduced to exactly zero",
+        "Choose B because more expensive tools are always better",
+        "Recommend A: higher efficiency and feasibility for a student club, ethically focused on the shared account, with residual risk documented — compare before spending",
+        "Accept Gmail takeover risk with no MFA because setup takes 20 minutes",
+        "Never — all risks must be reduced to exactly zero before any activity continues",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
-        "Acceptance is a deliberate choice about residual low risk — not an excuse to skip basic high-impact controls.",
+        "Control selection weighs efficiency, feasibility, and ethics. MFA + alerts beat shelfware; acceptance without MFA is not appropriate for this high-impact risk.",
     },
     {
       id: "q6",
@@ -479,10 +484,23 @@ Decision quality beats document length. One honest page wins.`,
       explanation:
         "A risk register with owners and review dates keeps risk management current, rather than letting a one-time assessment go stale as risks and circumstances change.",
     },
+    {
+      id: "q9",
+      question: "When recommending a control, which tradeoff analysis best matches this lesson?",
+      choices: [
+        "Pick the flashiest tool and skip documenting residual risk",
+        "Compare options on risk reduction vs time/cost (efficiency), whether the team can sustain it (feasibility), and whether it is proportionate/respectful (ethics) — then explain what residual risk remains",
+        "Ethics never matter if a control reduces risk even slightly",
+        "Feasibility only matters for large corporations",
+      ],
+      correctIndex: 1,
+      explanation:
+        "CSTA control selection: recommend and compare measures using efficiency, feasibility, and ethics, and explain residual-risk tradeoffs.",
+    },
   ],
   reflection: {
     prompt:
-      "Create a tiny risk register with one asset you care about. List one threat, one vulnerability, likelihood/impact (low/med/high), one control, your response (mitigate/avoid/transfer/accept), an owner, and a review date.",
-    placeholder: "Example: Asset = school email; Threat = phishing; Vulnerability = reused password; Likelihood high / Impact high; Control = password manager + MFA; Response = mitigate; Owner = me; Review = next semester…",
+      "Create a tiny risk register for one asset. Include threat, vulnerability, likelihood/impact, TWO alternative controls you compared, which you recommend and WHY (efficiency, feasibility, ethics), your response (mitigate/avoid/transfer/accept), residual risk you'll accept, owner, and review date.",
+    placeholder: "Example: Asset = school email; Threat = phishing; Vuln = no MFA; High/High. Compared: (A) MFA+alerts vs (B) delete email. Recommend A — efficient, feasible, ethical for a shared school account. Response = mitigate; Residual = MFA fatigue/prompt bombing still possible; Owner = me; Review = next semester…",
   },
 };

@@ -3,14 +3,14 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 export const cyberLesson11: AILessonConfig = {
   id: "cs-11",
   title: "11. System Hardening & Patching",
-  goal: "Apply defender habits for hardening: keep systems patched, reduce unused services, prefer secure defaults, prioritize vulnerabilities, make changes safely, and maintain backups and inventory.",
+  goal: "Recommend hardening and patching actions by feasibility and ethics; explain tradeoffs such as uptime vs timely patching and usability vs lockdown; and justify prioritization, change management, and recovery plans for school/club systems.",
   xpReward: 550,
   badge: "Hardener",
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/10",
   nextHref: "/learn/cyber/12",
   lessonModule: {
-    durationLabel: "~20–25 min lesson",
+    durationLabel: "~25–30 min lesson",
     sections: [
       {
         id: "intro",
@@ -18,10 +18,10 @@ export const cyberLesson11: AILessonConfig = {
         title: "What you'll learn today",
         image: "/images/lessons/cs-11.png",
         imageAlt: "Laptop installing security updates with a progress bar and a phone awaiting updates",
-        body: `Attackers love soft targets: outdated software, leftover services nobody uses, and devices with no backup plan. **Hardening** is the defender's craft of making systems tougher *before* something goes wrong.\n\nHere's our roadmap:\n\n• **Patching & updates** — closing known holes quickly.\n• **Disable unused services** — less surface area to attack.\n• **IoT hardening** — locking down new devices before they join the network.\n• **Secure defaults** — start locked down, open only what you need.\n• **Vulnerability prioritization** — deciding what to fix first.\n• **Backups & inventory** — your recovery lifeline.\n• **Change management** — making hardening changes safely, without breaking things.\n• A simple hardening checklist for school, home, and clubs.\n\nNo exploit recipes — just practical defense you can actually do.`,
+        body: `Attackers love soft targets: outdated software, leftover services nobody uses, and devices with no backup plan. **Hardening** is recommending tougher configurations *before* something goes wrong — and justifying the tradeoffs when uptime, usability, or ethics constrain the ideal fix.\n\nHere's our roadmap:\n\n• **Patching tradeoffs** — uptime vs timely updates; when \"pause\" is ethical and when it isn't.\n• **Shrink attack surface** — disable unused services with a rollback plan.\n• **IoT hardening order** — feasible steps before joining a network.\n• **Usability vs lockdown** — secure defaults that people will actually keep.\n• **Prioritize by exposure, impact, feasibility, and ethics**.\n• **Backups & inventory** — recovery when prevention fails.\n• **Change management** — harden without becoming the outage.\n\nNo exploit recipes — recommendations you can defend to a sponsor or IT lead.`,
         callout: {
           label: "Why it matters",
-          text: "Most breaches exploit known, fixable weaknesses — missing updates, default passwords, forgotten devices. Hardening is unglamorous and incredibly effective.",
+          text: "Most breaches exploit known, fixable weaknesses. The hard skill is recommending a feasible fix order when you can't patch everything tonight.",
         },
       },
       {
@@ -40,11 +40,11 @@ export const cyberLesson11: AILessonConfig = {
         title: "Updates close doors attackers already know about",
         image: "/images/lessons/cs-11-2.png",
         imageAlt: "Update Available notifications on laptop and phone side by side",
-        body: `When researchers or vendors find a **vulnerability**, they usually release a **patch**. Attackers also learn about many of those weaknesses. Running old software is like leaving a broken lock on the door after the locksmith already mailed you a replacement.\n\n**Hardening starts with inventory** — know what software is installed and what services are running before you patch or disable anything. You can't shrink attack surface you haven't listed.\n\nDefender habits:\n\n• Enable **automatic updates** for OS and browsers when possible.\n• Update apps you actually use — especially browsers, messaging, and office tools.\n• Restart when asked; some patches only finish after reboot.\n• On shared/school devices, follow IT guidance — don't disable update services \"to go faster.\"\n\nPatching isn't exciting. It's one of the highest-ROI defenses in cybersecurity.`,
+        body: `When researchers or vendors find a **vulnerability**, they usually release a **patch**. Attackers also learn about many of those weaknesses. Running old software is like leaving a broken lock on the door after the locksmith already mailed you a replacement.\n\n**Hardening starts with inventory** — know what is installed and running before you patch or disable anything.\n\n**Tradeoff: uptime/availability vs patching.** A club livestream laptop mid-competition cannot reboot for an OS update without breaking the event. An ethical recommendation is not \"never patch\" — it's **time-box the delay**: finish the event, then patch/restart the same day, and avoid leaving \"pause updates\" on for months. For always-on school services, recommend a maintenance window with communication rather than silent indefinite deferral.\n\nDefender habits: auto-updates for OS/browsers when feasible; restart when asked; follow IT on shared devices; never chase fake \"update\" pop-ups.\n\nPatching is high-ROI defense — **recommending when** to take the reboot is the Level 3 skill.`,
         bullets: [
-          "Known vulnerabilities get exploited at scale.",
-          "Browsers and OS updates are priority #1 for most people.",
-          "\"I'll update later\" is how soft targets stay soft.",
+          "Known vulnerabilities get exploited at scale — delay has a cost.",
+          "Short, justified maintenance windows beat indefinite \"pause.\"",
+          "Browsers and OS updates remain priority #1 for most personal devices.",
         ],
         callout: {
           label: "Watch out",
@@ -134,10 +134,10 @@ export const cyberLesson11: AILessonConfig = {
         id: "secure-defaults",
         kicker: "Start safe",
         title: "Secure defaults beat last-minute lockdowns",
-        body: `**Secure defaults** means systems arrive (or get configured) already leaning toward safety:\n\n• Strong authentication required, not optional.\n• Admin rights limited to people who need them.\n• Encryption on by default where available.\n• Verbose public sharing off until someone intentionally enables it.\n\nInsecure defaults are classic failures: routers still using \`admin/admin\`, cloud folders set to \"anyone with the link,\" or student accounts with no MFA on critical systems.\n\nWhen you set up anything new — a phone, a club Discord bot host, a shared drive — spend five minutes on the security settings *before* you invite the world in.`,
+        body: `**Secure defaults** means systems arrive (or get configured) already leaning toward safety:\n\n• Strong authentication required, not optional.\n• Admin rights limited to people who need them.\n• Encryption on by default where available.\n• Verbose public sharing off until someone intentionally enables it.\n\n**Tradeoff: usability vs lockdown.** Extreme lockdown (no sharing, admin on one locked laptop nobody else can use) can push people into shadow workarounds — personal USB sticks, \"temp\" public links, shared passwords on sticky notes — which is an ethics and feasibility failure. Recommend **least privilege people will keep**: specific-people sharing, MFA on admins, a documented exception process for sponsors — not a fortress that the team immediately dismantles.\n\nWhen you set up anything new, spend five minutes on security settings *before* you invite the world in — and design defaults the group can live with.`,
         callout: {
           label: "Common misconception",
-          text: "\"We'll lock it down later after we finish setup.\" Later often never comes. Configure safe defaults first.",
+          text: "\"We'll lock it down later after we finish setup.\" Later often never comes. Configure safe defaults first — and make them usable enough to stick.",
         },
       },
       {
@@ -164,15 +164,15 @@ export const cyberLesson11: AILessonConfig = {
         title: "Prioritizing vulnerabilities: not all fixes are equally urgent",
         image: "/images/lessons/cs-11-4.png",
         imageAlt: "Sticky-note priority board sorting security fixes into urgent soon and later columns",
-        body: `Real systems accumulate a backlog of known issues faster than any small team can fix them instantly. Defenders **prioritize** using a few practical questions:\n\n• **Is it exposed to the internet or just internal?** Internet-facing issues usually rank higher.\n• **Does a fix already exist?** An available, tested patch is lower-effort than a workaround.\n• **How bad is the potential impact?** A weakness that could expose the whole member database ranks above a cosmetic bug.\n• **Is it already being actively exploited elsewhere?** Widely-exploited issues jump the queue.\n\nYou don't need a perfect scoring system as a student defender — you need the habit of asking these questions instead of patching randomly or, worse, patching nothing because "there's too much to fix."`,
+        body: `Real systems accumulate a backlog of known issues faster than any small team can fix them instantly. **Recommend a fix order** using exposure, impact, feasibility, and ethics:\n\n• **Exposure** — Internet-facing usually ranks above internal-only.\n• **Impact** — Member PII / admin access beats a cosmetic glitch.\n• **Feasibility** — An available, tested patch or password change beats a custom rewrite you can't finish this week.\n• **Ethics** — Don't hide a known internet-facing default password because \"competition week is busy\"; time-box a delay with a same-day remediation plan, or escalate to a sponsor/IT. Deliberately leaving students exposed without disclosure is not an acceptable tradeoff.\n• **Active exploitation elsewhere** — Widely exploited issues jump the queue.\n\nSome prioritization beats paralysis. Your recommendation should name *what* you fix first and *why* the delay on the rest is justified.`,
         bullets: [
-          "Internet-facing + high impact + actively exploited = fix first.",
-          "A fix that already exists is cheaper than building a workaround.",
-          "Some prioritization beats none — don't let backlog size cause paralysis.",
+          "Internet-facing + high impact + easy fix = recommend first.",
+          "Feasibility matters — recommend the patch you can actually ship.",
+          "Ethical delays are short, communicated, and scheduled — not silent and indefinite.",
         ],
         callout: {
           label: "Defender view",
-          text: "Professional security teams use frameworks to score vulnerability severity. You don't need the exact framework — you need the habit of ranking, not randomly patching.",
+          text: "You don't need a perfect scoring framework — you need a justified ranking you can explain to a sponsor or IT lead.",
         },
       },
       {
@@ -234,11 +234,11 @@ export const cyberLesson11: AILessonConfig = {
         title: "Change management: hardening without breaking things",
         image: "/images/lessons/cs-11-5.png",
         imageAlt: "Simple change request form with plan test and rollback fields on a clipboard",
-        body: `Hardening involves *changing* things — disabling a service, tightening a setting, applying a patch. Changed carelessly, a "security improvement" can break something people rely on and erode trust in future hardening efforts. Defenders use lightweight **change management**:\n\n**1. Plan** — What exactly are you changing, and why?\n**2. Test if possible** — Try it on one device or a low-stakes system before rolling it out everywhere.\n**3. Communicate** — Tell affected people *before* it happens, especially if downtime is possible.\n**4. Have a rollback plan** — Know how to undo the change if something breaks.\n**5. Document it** — Note what changed, when, and who approved it.\n\nThis isn't corporate red tape for its own sake — it's the difference between "we hardened the club laptop" and "we broke the club laptop the night before a competition and nobody knew why."`,
+        body: `Hardening involves *changing* things — disabling a service, tightening a setting, applying a patch. Changed carelessly, a "security improvement" can break something people rely on and erode trust in future hardening efforts. Defenders use lightweight **change management**:\n\n**1. Plan** — What exactly are you changing, and why?\n**2. Test if possible** — Try it on one device or a low-stakes system before rolling it out everywhere.\n**3. Communicate** — Tell affected people *before* it happens, especially if downtime is possible.\n**4. Have a rollback plan** — Know how to undo the change if something breaks.\n**5. Document it** — Note what changed, when, and who approved it.\n\n**Tradeoff again:** perfect process vs feasible process. For a shared club laptop, a two-line note and a five-minute test on a spare device is enough. Skipping all of that the night before an event to \"be safe\" often creates the worse outage — recommend delaying non-urgent lockdowns until after the event *and* scheduling the change.`,
         bullets: [
           "Plan → test → communicate → have a rollback → document.",
-          "Even small teams benefit from a two-line change log.",
-          "Untested changes on the only device you have are high-risk timing choices.",
+          "Feasible change management for small teams: a short note beats nothing.",
+          "Timing is part of the recommendation — urgency of the vuln vs cost of downtime.",
         ],
         callout: {
           label: "Defender view",
@@ -337,14 +337,14 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Hardening starts with inventory** — know what's installed and running.\n• **Patching** closes known vulnerabilities — turn updates on; confirm firewall/baselines after.\n• Shrink **attack surface** by disabling unused services/apps.\n• **IoT:** change defaults, firmware first, reduce remote exposure, then join network/VLAN.\n• Prefer **secure defaults** and least privilege from day one.\n• **Prioritize** vulnerabilities by exposure, impact, and fix availability — you can't fix everything at once.\n• **Backups** + tested restores beat panic later.\n• Use lightweight **change management** so hardening doesn't break things unexpectedly.\n• Keep an **inventory** of devices and accounts.\n\nTake the **Knowledge check**, then reflect on one hardening change you'll make this week.`,
+        body: `Quick recap:\n\n• **Recommend** hardening from **inventory** — you can't fix what you haven't listed.\n• **Tradeoff: uptime vs patching** — time-box delays; don't leave \"pause updates\" forever.\n• **Tradeoff: usability vs lockdown** — secure defaults people will keep beat fortresses they bypass.\n• Shrink **attack surface**; harden **IoT** before joining a network.\n• **Prioritize** by exposure, impact, feasibility, and ethics.\n• **Change management** + **backups/inventory** make hardening sustainable and recoverable.\n\nTake the **Knowledge check**, then justify a hardening recommendation with tradeoffs.`,
       },
     ],
   },
   bigIdeas: [
-    "**Patching** closes known vulnerabilities before attackers can rely on them at scale.",
-    "**Hardening** shrinks attack surface: fewer unused services, safer defaults, least privilege, and IoT devices locked down before joining a network.",
-    "**Prioritizing** fixes by exposure and impact, using **change management** for bigger changes, and keeping **backups** and **inventory** make defense sustainable and recoverable.",
+    "**Recommend patching** with an explicit uptime tradeoff: short, scheduled delays beat indefinite pause.",
+    "**Hardening** shrinks attack surface and prefers secure defaults — balanced against usability so people don't invent unsafe workarounds.",
+    "**Prioritize** by exposure, impact, feasibility, and ethics; use **change management**, **backups**, and **inventory** so defense stays recoverable.",
   ],
   keyTerms: [
     { term: "Hardening", definition: "Strengthening a system by reducing weaknesses and unnecessary exposure." },
@@ -362,16 +362,16 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
   quiz: [
     {
       id: "q1",
-      question: "What is the main security reason to install patches promptly?",
+      question: "A livestream laptop cannot reboot during a 3-hour competition, but a critical OS security update is waiting. Which recommendation best handles the uptime vs patching tradeoff?",
       choices: [
-        "They close known vulnerabilities attackers may already understand how to abuse",
-        "Patches mainly exist to add new features and games",
-        "They permanently stop all phishing attempts",
-        "They remove the need for passwords entirely",
+        "Leave updates paused indefinitely after the event ends — security can wait forever",
+        "Skip the event's security needs entirely and reboot mid-stream",
+        "Time-box the delay: finish the event, then patch/restart the same day and re-enable auto-update — don't leave pause on for months",
+        "Install random \"updater\" software from a pop-up so you avoid the official reboot",
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       explanation:
-        "Patches fix known weaknesses. Delaying updates leaves doors open that defenders and attackers both know about.",
+        "Short, justified maintenance delays can be ethical; indefinite pause is not. Recommend a same-day catch-up after the availability window.",
     },
     {
       id: "q2",
@@ -388,16 +388,16 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
     },
     {
       id: "q3",
-      question: "Which is an example of a secure default?",
+      question: "A club wants \"maximum lockdown\" on a shared drive: no sharing tools at all, one admin who is often offline. Members start emailing files to personal accounts. What is the best usability vs lockdown recommendation?",
       choices: [
-        "New cloud folders set to public until someone remembers to lock them",
-        "Admin rights given to every club member by default",
-        "Screen lock and automatic updates enabled when you first set up a device",
-        "MFA offered as optional forever on a sensitive admin account",
+        "Keep the fortress settings — shadow workarounds are the members' problem",
+        "Switch to anyone-with-the-link edit access so nobody complains",
+        "Recommend least privilege people will keep: specific-people sharing, MFA on admins, and a documented way to request access — so members don't invent unsafe channels",
+        "Give every member full admin rights by default for convenience",
       ],
       correctIndex: 2,
       explanation:
-        "Secure defaults start protective (locks, updates, limited sharing) instead of wide open or optional-forever.",
+        "Extreme lockdown that drives unsafe workarounds fails ethically and practically. Feasible secure defaults beat unusable fortresses.",
     },
     {
       id: "q4",
@@ -440,34 +440,34 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
     },
     {
       id: "q7",
-      question: "An internet-facing service with a default password and an internal-only tool with a minor, low-impact bug both need attention. Which should be prioritized first?",
+      question: "An internet-facing lab service still has a default admin password during \"busy week,\" and an internal tool has a minor low-impact bug. Which prioritized recommendation is most justified?",
       choices: [
-        "The internal-only tool, since patches are always most urgent",
-        "Neither needs prioritizing — fix whatever is easiest",
+        "Fix the internal tool first because patches always outrank passwords",
+        "Ignore both until summer break — busy weeks excuse indefinite risk",
         "Whichever issue was discovered most recently",
-        "The internet-facing service, since it's exposed, high-impact, and cheap to fix",
+        "Change the internet-facing default password immediately (high exposure, high impact, highly feasible); schedule the internal patch soon — don't silently leave students exposed",
       ],
       correctIndex: 3,
       explanation:
-        "Prioritization weighs exposure, impact, and fix cost. An exposed, high-impact, easy fix should jump the queue.",
+        "Prioritize by exposure, impact, feasibility, and ethics. An exposed default password is a cheap, urgent fix — busy week is not an ethical blank check.",
     },
     {
       id: "q8",
-      question: "Why use change management (plan, test, communicate, rollback, document) for hardening changes?",
+      question: "Someone wants to disable an unused service on the only event laptop the night before check-in software is needed. What change-management recommendation fits?",
       choices: [
-        "So well-intentioned changes don't cause unexpected outages, and can be undone if something breaks",
-        "To slow down security work for no reason",
-        "Because untested changes are always safe on production systems",
-        "To avoid ever making any security improvements",
+        "Disable it immediately with no test — unused means zero risk",
+        "Defer the non-urgent hardening until after the event, then plan/test/document with a rollback — don't trade a maybe-risk for a certain outage tonight",
+        "Factory-reset the laptop instead for a clean slate",
+        "Disable change management forever so hardening stays fast",
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation:
-        "Change management prevents good security intentions from turning into unplanned breakage, and ensures a way back if something goes wrong.",
+        "Timing is part of the recommendation. Change management prevents well-intentioned hardening from becoming an unplanned outage at the worst moment.",
     },
   ],
   reflection: {
     prompt:
-      "Pick one device you use daily. List two hardening actions you can take this week (update, remove an unused app, enable a backup, tighten a setting) and describe how you'd test or roll back a bigger change safely.",
-    placeholder: "Example: My phone — turn on auto-update and remove an old app that still has photo access. I'd test any bigger setting change on one device first…",
+      "Your club has: (1) a livestream laptop that cannot reboot during events, (2) a shared drive currently set to anyone-with-the-link, and (3) a donated IoT camera still on factory defaults. Recommend an ordered hardening plan for the next two weeks. Justify each priority using exposure/impact/feasibility/ethics, and explicitly address the uptime vs patching and usability vs lockdown tradeoffs.",
+    placeholder: "Example: First I'd… because… Uptime tradeoff: … Usability tradeoff: … Then…",
   },
 };
