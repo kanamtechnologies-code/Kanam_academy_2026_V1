@@ -79,8 +79,8 @@ export default function WelcomeProfilePage() {
         ].join(" ")}
       >
         <WelcomeShell
-          title="Finish setup"
-          subtitle="Enter your details so Kanam can save your progress."
+          title="Create your student account"
+          subtitle="Your own login for school or self-paced learning. Progress saves to this profile."
         >
           <div className="grid w-full gap-6 lg:grid-cols-3 lg:items-stretch">
             <Card className="kanam-glow-card lg:col-span-2">
@@ -109,8 +109,8 @@ export default function WelcomeProfilePage() {
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                     <p className="mt-1 text-xs text-white/85">
-                      Required. Use your teacher&apos;s code, or get a self-paced code on the welcome
-                      screen.
+                      Required. Teacher codes join a class with assigned lessons. Self-paced codes
+                      put you in the shared async cohort — unlock tracks from Billing after signup.
                     </p>
                   </div>
                 </div>
@@ -149,7 +149,7 @@ export default function WelcomeProfilePage() {
                     <Input
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder='e.g. tory123@kanam.local'
+                      placeholder="e.g. you@school.org"
                       type="email"
                       autoComplete="email"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
@@ -220,11 +220,20 @@ export default function WelcomeProfilePage() {
                   <div className="flex items-center gap-2">
                     <UserRound className="h-4 w-4 text-white/90" />
                     <p className="text-sm font-extrabold tracking-tight text-white">
-                      Parent / Guardian (optional)
+                      Parent / guardian contact (optional)
                     </p>
                   </div>
                   <p className="mt-1 text-sm text-white/85">
-                    If you want progress emails later, you can add this now (or skip).
+                    Contact info only — this does <span className="font-semibold">not</span> create
+                    a family login. Parents who want kid profiles under one account should use{" "}
+                    <button
+                      type="button"
+                      className="font-semibold text-amber-200 underline underline-offset-2"
+                      onClick={() => router.push("/welcome/parent")}
+                    >
+                      Create family account
+                    </button>{" "}
+                    instead.
                   </p>
 
                   <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -238,6 +247,7 @@ export default function WelcomeProfilePage() {
                       value={parentEmail}
                       onChange={(e) => setParentEmail(e.target.value)}
                       placeholder="Parent email"
+                      type="email"
                       className="h-12 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                     />
                     <Input
@@ -356,7 +366,7 @@ export default function WelcomeProfilePage() {
                       }
                     }}
                   >
-                    Create profile <ArrowRight className="h-4 w-4" />
+                    Create student account <ArrowRight className="h-4 w-4" />
                   </Button>
                 </div>
               </CardContent>
@@ -366,27 +376,30 @@ export default function WelcomeProfilePage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-white">
                   <School className="h-5 w-5 text-white/95" />
-                  What this does
+                  What you get
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-white/90">
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
-                  <p className="text-sm font-extrabold tracking-tight text-white">Saves your progress</p>
+                  <p className="text-sm font-extrabold tracking-tight text-white">Your own learning hub</p>
                   <p className="mt-1 text-sm">
-                    Your wins, your streak, and where you left off can follow you.
+                    Six tracks (AI, digital, cyber, finance, Python, data). Progress and XP save to
+                    this account.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
-                  <p className="text-sm font-extrabold tracking-tight text-white">Joins your cohort</p>
+                  <p className="text-sm font-extrabold tracking-tight text-white">Class or self-paced</p>
                   <p className="mt-1 text-sm">
-                    Your class code places you with your class so progress and assignments stay
-                    organized.
+                    Teacher codes unlock assigned lessons. Self-paced learners unlock tracks with a
+                    Family plan or single-track purchase.
                   </p>
                 </div>
                 <div className="rounded-2xl border border-white/15 bg-white/10 p-4">
-                  <p className="text-sm font-extrabold tracking-tight text-white">You can skip extras</p>
+                  <p className="text-sm font-extrabold tracking-tight text-white">Family accounts</p>
                   <p className="mt-1 text-sm">
-                    Parent info is optional right now. You can add it later.
+                    Need siblings under one parent login? Go back and choose{" "}
+                    <span className="font-semibold text-white">I&apos;m a parent</span> — don&apos;t
+                    create separate student emails for each kid.
                   </p>
                 </div>
               </CardContent>

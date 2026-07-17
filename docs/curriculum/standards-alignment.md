@@ -91,7 +91,7 @@ conceptually (not a one-to-one code rematch) so partners can transition from 201
 | Algorithms & Design | Python & AI Foundations sequencing, patterns, design; AI Literacy “how machines decide” |
 | Programming | Python & AI Foundations: read, write, modify, and debug real Python in the browser |
 | Data & Analysis | Data Analyst track (primary); AI Literacy data/representation bridges |
-| Systems & Security | Cybersecurity track at CSTA 3A/3B analyze–recommend depth; Digital Literacy (accounts, privacy, scams) complements |
+| Systems & Security | Cybersecurity + Digital Literacy (accounts, privacy, scams) at awareness depth |
 | Computing & Society | AI Literacy, ethics moments, careers, digital citizenship, societal impact |
 
 Legacy Draft 3.0 data codes that still inform our Data track design:
@@ -114,11 +114,11 @@ Legacy Draft 3.0 data codes that still inform our Data track design:
 | Data & Analysis | **Comprehensive** (2-DA-07/08/09) | **Strong** (10, 11, 12) |
 | Impacts of Computing | **Strong** (20, 21, 22) | **Good** (25, 29, 30) |
 | Computing Systems | Light | Light |
-| Networks & the Internet | Good (2-NI-05/06 via cyber) | **Strong** (3A-NI-04→08 via Cybersecurity; 3B-NI-03/04, 3B-AP-18 stretch) |
+| Networks & the Internet | Light | Light |
 
-**Accreditation positioning:** Kanam Academy provides comprehensive, standards-aligned coverage of
-**Algorithms & Programming** and **Data & Analysis** across CSTA Levels 2 and 3A, with recurring
-**Impacts of Computing** integration and **Common Core** mathematics cross-alignment. The
-**Cybersecurity** track supplies strong **Networks & the Internet** / Systems & Security coverage at
-Level 3A (recommend, compare, explain tradeoffs) with Level 3B stretch — defensive analysis only,
-not exploitation. Computing Systems hardware depth remains light outside partner courses.
+**Accreditation positioning:** Kanam Academy provides comprehensive, standards-aligned coverage of the
+two CSTA concepts most central to data literacy and programming fundamentals — **Algorithms &
+Programming** and **Data & Analysis** — across CSTA Levels 2 and 3A, with recurring **Impacts of
+Computing** integration and **Common Core** mathematics cross-alignment. Computing Systems and Networks
+are intentionally light and would be supplied by a partner course where a full CSTA-comprehensive
+sequence is required.
