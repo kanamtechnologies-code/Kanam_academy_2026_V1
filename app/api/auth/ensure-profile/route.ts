@@ -4,6 +4,7 @@ import {
   activeStudentIdFromUser,
   getHouseholdForOwner,
   listHouseholdKids,
+  setActiveStudentMetadata,
 } from "@/lib/households";
 import { isInstructorRole, isParentRole } from "@/lib/roles";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
@@ -72,6 +73,11 @@ export async function POST() {
 
     if (!activeId && kids.length === 1) {
       activeId = kids[0].id;
+      try {
+        await setActiveStudentMetadata(admin, user.id, activeId);
+      } catch {
+        // Non-fatal: still return the only kid for this request.
+      }
     }
 
     const active = activeId ? kids.find((k) => k.id === activeId) : null;

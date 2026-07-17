@@ -172,8 +172,8 @@ export default function BillingClient() {
             Invest in the next step.
           </h1>
           <p className="mt-4 max-w-lg text-base leading-relaxed text-[#d7e0db] sm:text-lg">
-            Family access, full tracks, and private tutoring — secured by Stripe, unlocked on
-            this account.
+            Family plan is one parent login with multiple kid profiles — plus full tracks and
+            private tutoring, secured by Stripe.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
@@ -296,7 +296,8 @@ export default function BillingClient() {
                 Family subscription
               </h3>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-[#c5d2cb] sm:text-base">
-                Monthly access to all six learning tracks — progress, XP, and browser-ready
+                One parent login, multiple kid profiles. Monthly access to all six learning
+                tracks — each child keeps their own progress, XP, and browser-ready
                 lessons. Live tutoring is separate.
               </p>
               <div className="mt-8 flex flex-wrap items-end justify-between gap-4">

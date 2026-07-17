@@ -2,13 +2,27 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { CreditCard, Loader2, Plus, Shield, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isParentRole } from "@/lib/roles";
+
+export default function ParentHubPage() {
+  return (
+    <React.Suspense
+      fallback={
+        <div className="flex min-h-dvh items-center justify-center text-slate-700">
+          <Loader2 className="h-6 w-6 animate-spin" />
+        </div>
+      }
+    >
+      <ParentHubClient />
+    </React.Suspense>
+  );
+}
 
 type Kid = {
   id: string;
@@ -24,8 +38,10 @@ function errorMessage(error: unknown, fallback: string) {
   return fallback;
 }
 
-export default function ParentHubPage() {
+function ParentHubClient() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const pickChild = searchParams.get("pick") === "1";
   const [loading, setLoading] = React.useState(true);
   const [mode, setMode] = React.useState<"hub" | "convert">("hub");
   const [householdName, setHouseholdName] = React.useState("My family");
@@ -273,6 +289,13 @@ export default function ParentHubPage() {
             Manage kid profiles, set PINs, and open learning. Your subscription unlocks
             every child in this household.
           </p>
+
+          {pickChild ? (
+            <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-950">
+              Choose who is learning below (enter a PIN if that child has one), then tap{" "}
+              <strong>Open learning</strong>. Progress only saves after a child is selected.
+            </div>
+          ) : null}
 
           <div className="mt-4 flex flex-wrap gap-2">
             <Button asChild variant="outline">

@@ -25,6 +25,30 @@ export function AuthActions() {
   const [guest, setGuest] = React.useState(false);
   const [instructor, setInstructor] = React.useState(false);
   const [parent, setParent] = React.useState(false);
+  const [activeChildName, setActiveChildName] = React.useState<string | null>(null);
+
+  const refreshParentChild = React.useCallback(async () => {
+    try {
+      const res = await fetch("/api/auth/ensure-profile", { method: "POST" });
+      const json = (await res.json()) as {
+        ok?: boolean;
+        role?: string;
+        student?: { display_name?: string } | null;
+        needsChildSelect?: boolean;
+      };
+      if (!res.ok || !json.ok || json.role !== "parent") {
+        setActiveChildName(null);
+        return;
+      }
+      if (json.needsChildSelect || !json.student?.display_name) {
+        setActiveChildName(null);
+        return;
+      }
+      setActiveChildName(String(json.student.display_name));
+    } catch {
+      setActiveChildName(null);
+    }
+  }, []);
 
   React.useEffect(() => {
     // Welcome is the exit destination — clear leftover guest mode so "Exit demo" never shows here.
@@ -61,11 +85,15 @@ export function AuthActions() {
       if (data.session) {
         const { data: userData } = await supabase.auth.getUser();
         if (!mounted) return;
+        const isParent = isParentRole(userData.user);
         setInstructor(isInstructorRole(userData.user));
-        setParent(isParentRole(userData.user));
+        setParent(isParent);
+        if (isParent) await refreshParentChild();
+        else setActiveChildName(null);
       } else {
         setInstructor(false);
         setParent(false);
+        setActiveChildName(null);
       }
       setLoading(false);
     })();
@@ -73,13 +101,17 @@ export function AuthActions() {
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       setSignedIn(Boolean(session));
       if (session) {
-        supabase.auth.getUser().then(({ data: userData }) => {
+        supabase.auth.getUser().then(async ({ data: userData }) => {
+          const isParent = isParentRole(userData.user);
           setInstructor(isInstructorRole(userData.user));
-          setParent(isParentRole(userData.user));
+          setParent(isParent);
+          if (isParent) await refreshParentChild();
+          else setActiveChildName(null);
         });
       } else {
         setInstructor(false);
         setParent(false);
+        setActiveChildName(null);
       }
     });
 
@@ -87,7 +119,7 @@ export function AuthActions() {
       mounted = false;
       sub.subscription.unsubscribe();
     };
-  }, [pathname]);
+  }, [pathname, refreshParentChild]);
 
   if (loading) return null;
 
@@ -133,12 +165,28 @@ export function AuthActions() {
       {parent ? (
         <Link
           href="/parent"
-          className={`${chipBase} border border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-white/20`}
-          aria-label="Switch child / parent hub"
+          className={`${chipBase} max-w-[11rem] border border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-white/20 sm:max-w-none`}
+          aria-label={
+            activeChildName
+              ? `Learning as ${activeChildName}. Switch child.`
+              : "Switch child / parent hub"
+          }
+          title={activeChildName ? `Learning as ${activeChildName}` : "Parent hub"}
         >
-          <Users className="h-4 w-4" />
-          <span className="hidden md:inline">Switch child</span>
-          <span className="md:hidden">Kids</span>
+          <Users className="h-4 w-4 shrink-0" />
+          <span className="truncate">
+            {activeChildName ? (
+              <>
+                <span className="hidden sm:inline">Learning as </span>
+                {activeChildName}
+              </>
+            ) : (
+              <>
+                <span className="hidden md:inline">Switch child</span>
+                <span className="md:hidden">Kids</span>
+              </>
+            )}
+          </span>
         </Link>
       ) : null}
       {instructor ? (

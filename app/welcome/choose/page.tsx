@@ -12,6 +12,7 @@ import { WelcomeShell } from "@/components/welcome/WelcomeShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { isParentRole, postSignInPath } from "@/lib/roles";
 
 const USER_NAME_KEY = "kanam.userName";
 type EnsureProfileResponse = {
@@ -59,8 +60,13 @@ export default function WelcomeChoosePage() {
       }
       // Best-effort: load display name from DB for greeting (fallback to localStorage).
       const { data: me } = await supabase.auth.getUser();
-      const userId = me.user?.id;
-      if (!userId) return;
+      const user = me.user;
+      if (!user?.id) return;
+      if (isParentRole(user)) {
+        router.replace(postSignInPath(user));
+        return;
+      }
+      const userId = user.id;
       const { data: student } = await supabase
         .from("students")
         .select("display_name")

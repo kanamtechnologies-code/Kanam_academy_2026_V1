@@ -16,10 +16,53 @@ export default function HelpPage() {
           Stuck? We’ve got you.
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-700 sm:text-base">
-          Use this page if you can’t log in, didn’t get an email, or your class code isn’t working.
+          Use this page if you can’t log in, didn’t get an email, your class code isn’t working,
+          or you need help with a family (parent) account.
         </p>
 
         <div className="mt-6 grid gap-4 md:grid-cols-2">
+          <section className="rounded-2xl border border-emerald-200 bg-emerald-50/80 p-5 md:col-span-2">
+            <h2 className="text-base font-extrabold tracking-tight text-slate-900">
+              Parents &amp; family accounts
+            </h2>
+            <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-700">
+              <li>
+                <strong>One parent login</strong> — kids are profiles under your account, not
+                separate emails. Create one at{" "}
+                <Link
+                  className="font-semibold text-emerald-800 underline underline-offset-2"
+                  href="/welcome/parent"
+                >
+                  /welcome/parent
+                </Link>
+                .
+              </li>
+              <li>
+                <strong>Switch who is learning</strong> — open{" "}
+                <Link
+                  className="font-semibold text-emerald-800 underline underline-offset-2"
+                  href="/parent"
+                >
+                  Parent hub
+                </Link>
+                , pick a child (enter their PIN if set), then go to lessons. The header shows
+                “Learning as …” when a child is active.
+              </li>
+              <li>
+                <strong>Forgot a kid PIN?</strong> Sign in as the parent → Parent hub → Reset PIN
+                for that child. PINs are not the same as your login password.
+              </li>
+              <li>
+                <strong>Progress is per child.</strong> Resetting progress on the dashboard only
+                affects the active kid profile.
+              </li>
+              <li>
+                <strong>Already have a student account?</strong> Open Parent hub → Convert to
+                family account to keep billing and turn your current profile into the first kid.
+              </li>
+            </ul>
+          </section>
+
           <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
             <h2 className="text-base font-extrabold tracking-tight text-slate-900">
               I didn’t get the password reset email

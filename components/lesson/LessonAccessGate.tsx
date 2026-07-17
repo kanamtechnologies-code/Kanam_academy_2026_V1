@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Lock } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Lock, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { trackIdForLesson } from "@/lib/billing/access";
@@ -16,8 +17,10 @@ type LessonAccessGateProps = {
 };
 
 export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) {
+  const router = useRouter();
   const [loading, setLoading] = React.useState(!isGuestMode());
   const [allowed, setAllowed] = React.useState(isGuestMode());
+  const [needsChildSelect, setNeedsChildSelect] = React.useState(false);
   const [access, setAccess] = React.useState<StudentLessonAccess | null>(null);
   const [checkFailed, setCheckFailed] = React.useState(false);
 
@@ -35,8 +38,14 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
         const json = (await res.json()) as {
           ok?: boolean;
           access?: StudentLessonAccess;
+          needsChildSelect?: boolean;
         };
         if (!mounted) return;
+        if (json.needsChildSelect) {
+          setNeedsChildSelect(true);
+          setAllowed(false);
+          return;
+        }
         if (!res.ok || !json.access) {
           setCheckFailed(true);
           setAllowed(false);
@@ -67,10 +76,36 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
     };
   }, [lessonId]);
 
+  React.useEffect(() => {
+    if (needsChildSelect) {
+      router.replace("/parent?pick=1");
+    }
+  }, [needsChildSelect, router]);
+
   if (loading) {
     return (
       <div className="flex min-h-[40vh] items-center justify-center px-4">
         <p className="text-sm font-semibold text-slate-600">Checking lesson access…</p>
+      </div>
+    );
+  }
+
+  if (needsChildSelect) {
+    return (
+      <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center gap-4 px-4 py-16 text-center">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 ring-1 ring-emerald-200">
+          <Users className="h-7 w-7 text-emerald-800" />
+        </div>
+        <h1 className="text-2xl font-black tracking-tight text-slate-900">
+          Choose a child first
+        </h1>
+        <p className="text-sm text-slate-600">
+          Progress saves to a kid profile. Pick who is learning in the parent hub, then open
+          the lesson again.
+        </p>
+        <Button asChild>
+          <Link href="/parent?pick=1">Go to parent hub</Link>
+        </Button>
       </div>
     );
   }

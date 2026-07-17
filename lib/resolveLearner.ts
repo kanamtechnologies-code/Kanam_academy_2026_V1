@@ -2,6 +2,8 @@ import {
   activeStudentIdFromUser,
   getHouseholdForOwner,
   isParentRole,
+  listHouseholdKids,
+  setActiveStudentMetadata,
 } from "@/lib/households";
 import type { UserWithRole } from "@/lib/roles";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
@@ -17,6 +19,7 @@ export type ResolvedLearner = {
 /**
  * Resolve which student profile should learn / store progress.
  * Parents use active_student_id (+ household); students use their own row.
+ * If a parent has exactly one kid and no active selection, auto-select and persist.
  */
 export async function resolveLearnerForUser(
   user: NonNullable<UserWithRole> & { id: string },
@@ -58,6 +61,23 @@ export async function resolveLearnerForUser(
         };
       }
       studentId = null;
+    }
+
+    const kids = await listHouseholdKids(admin, household.id);
+    if (kids.length === 1) {
+      const only = kids[0];
+      try {
+        await setActiveStudentMetadata(admin, user.id, only.id);
+      } catch {
+        // Still return the kid so access/progress work this request.
+      }
+      return {
+        studentId: only.id,
+        displayName: only.display_name,
+        isParent: true,
+        householdId: household.id,
+        billingUserId,
+      };
     }
 
     return {

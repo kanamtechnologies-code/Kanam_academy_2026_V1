@@ -54,6 +54,7 @@ export default function Home() {
     hasActiveSubscription: false,
     unlockedTrackSlugs: [],
   });
+  const [isParentAccount, setIsParentAccount] = React.useState(false);
 
   React.useEffect(() => {
     if (isGuestMode()) {
@@ -126,8 +127,11 @@ export default function Home() {
         role?: string;
       };
 
-      if (isParentRole(userData.user) && (ensureJson.needsChildSelect || !ensureJson?.student?.id)) {
-        router.replace("/parent");
+      const parentAccount = isParentRole(userData.user);
+      setIsParentAccount(parentAccount);
+
+      if (parentAccount && (ensureJson.needsChildSelect || !ensureJson?.student?.id)) {
+        router.replace("/parent?pick=1");
         return;
       }
 
@@ -205,7 +209,9 @@ export default function Home() {
                   className="min-h-11 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 sm:w-auto"
                   asChild
                 >
-                  <Link href="/parent">Family account</Link>
+                  <Link href="/parent">
+                    {isParentAccount ? "Switch child" : "Upgrade to family"}
+                  </Link>
                 </Button>
                 <Button
                   type="button"
