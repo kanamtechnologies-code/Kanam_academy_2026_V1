@@ -21,8 +21,8 @@ export function HeaderBrand() {
       <Image
         src="/images/kanam-logo-nav.png"
         alt=""
-        width={400}
-        height={170}
+        width={366}
+        height={158}
         className="h-9 w-auto object-contain sm:h-11"
         priority
       />
