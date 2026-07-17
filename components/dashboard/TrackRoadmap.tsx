@@ -24,6 +24,7 @@ export function TrackRoadmap({
   lockCtaHref,
   lockCtaLabel,
   classRestricted = false,
+  entitlementRestricted = false,
   enabledLessonIds = null,
 }: {
   track: Track;
@@ -34,14 +35,17 @@ export function TrackRoadmap({
   lockCtaLabel?: string;
   /** When true, only instructor-assigned lessons are open (class enrollees). */
   classRestricted?: boolean;
+  /** When true, only lessons from purchased/subscribed tracks are open. */
+  entitlementRestricted?: boolean;
   enabledLessonIds?: string[] | null;
 }) {
+  const lessonRestricted = classRestricted || entitlementRestricted;
   const openLessonIds = React.useMemo(() => {
-    if (!classRestricted || enabledLessonIds == null) return null;
-    const set = new Set(enabledLessonIds);
+    if (!lessonRestricted) return null;
+    const set = new Set(enabledLessonIds ?? []);
     for (const id of completedIds) set.add(id);
     return set;
-  }, [classRestricted, enabledLessonIds, completedIds]);
+  }, [lessonRestricted, enabledLessonIds, completedIds]);
 
   const { completedCount, totalCount, percent, totalXp, nextLesson } =
     trackProgress(completedIds, track.lessons, { openLessonIds });
@@ -77,6 +81,7 @@ export function TrackRoadmap({
             completedIds={completedIds}
             disableActions
             classRestricted={classRestricted}
+            entitlementRestricted={entitlementRestricted}
             enabledLessonIds={enabledLessonIds}
           />
         </div>
@@ -174,6 +179,7 @@ export function TrackRoadmap({
         track={track}
         completedIds={completedIds}
         classRestricted={classRestricted}
+        entitlementRestricted={entitlementRestricted}
         enabledLessonIds={enabledLessonIds}
       />
     </div>
@@ -185,20 +191,23 @@ function TrackRoadmapContent({
   completedIds,
   disableActions = false,
   classRestricted = false,
+  entitlementRestricted = false,
   enabledLessonIds = null,
 }: {
   track: Track;
   completedIds: string[];
   disableActions?: boolean;
   classRestricted?: boolean;
+  entitlementRestricted?: boolean;
   enabledLessonIds?: string[] | null;
 }) {
+  const lessonRestricted = classRestricted || entitlementRestricted;
   const openLessonIds = React.useMemo(() => {
-    if (!classRestricted || enabledLessonIds == null) return null;
-    const set = new Set(enabledLessonIds);
+    if (!lessonRestricted) return null;
+    const set = new Set(enabledLessonIds ?? []);
     for (const id of completedIds) set.add(id);
     return set;
-  }, [classRestricted, enabledLessonIds, completedIds]);
+  }, [lessonRestricted, enabledLessonIds, completedIds]);
 
   const { nextLesson } = trackProgress(completedIds, track.lessons, { openLessonIds });
 
@@ -242,12 +251,13 @@ function TrackRoadmapContent({
                 {weekLessons.map((lesson) => {
                   const completed = completedIds.includes(lesson.id);
                   const assignmentLocked =
-                    classRestricted &&
+                    lessonRestricted &&
                     !isLessonOpenForStudent(
                       lesson.id,
                       classRestricted,
                       enabledLessonIds,
-                      completedIds
+                      completedIds,
+                      entitlementRestricted
                     );
                   const isActive =
                     nextLesson?.id === lesson.id && !completed && !lesson.comingSoon && !assignmentLocked;
@@ -294,7 +304,7 @@ function TrackRoadmapContent({
                                 ) : null}
                                 {assignmentLocked ? (
                                   <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-800">
-                                    Not assigned
+                                    {classRestricted ? "Not assigned" : "Locked"}
                                   </span>
                                 ) : null}
                               </p>

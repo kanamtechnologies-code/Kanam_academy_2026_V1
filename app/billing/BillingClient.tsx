@@ -111,7 +111,14 @@ export default function BillingClient() {
   }
 
   const canceled = searchParams.get("canceled") === "1";
+  const featuredTrack = searchParams.get("track")?.trim() ?? "";
   const ownedTracks = new Set((status?.tracks ?? []).map((t) => t.track_slug));
+
+  React.useEffect(() => {
+    if (!featuredTrack) return;
+    const el = document.getElementById(`track-${featuredTrack}`);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [featuredTrack, status]);
 
   return (
     <main className="w-full">
@@ -301,13 +308,21 @@ export default function BillingClient() {
               </div>
             </div>
 
-            <ul className="mt-8 divide-y divide-white/10 overflow-hidden rounded-3xl border border-[rgb(var(--accent-rgb)/0.18)] bg-[rgb(var(--brand-deep-rgb)/0.55)]">
+            <ul
+              id="tracks"
+              className="mt-8 divide-y divide-white/10 overflow-hidden rounded-3xl border border-[rgb(var(--accent-rgb)/0.18)] bg-[rgb(var(--brand-deep-rgb)/0.55)]"
+            >
               {TRACKS.map((track) => {
                 const owned = ownedTracks.has(track.slug);
+                const featured = featuredTrack === track.slug;
                 return (
                   <li
                     key={track.slug}
-                    className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 sm:px-7"
+                    id={`track-${track.slug}`}
+                    className={[
+                      "flex flex-wrap items-center justify-between gap-3 px-5 py-4 sm:px-7",
+                      featured ? "bg-[rgb(var(--accent-rgb)/0.12)] ring-1 ring-inset ring-[rgb(var(--accent-rgb)/0.35)]" : "",
+                    ].join(" ")}
                   >
                     <div>
                       <p className="font-semibold text-[#f7f3e8]">{track.name}</p>

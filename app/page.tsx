@@ -23,11 +23,13 @@ import { isInstructorRole } from "@/lib/roles";
 import {
   isGuestMode,
 } from "@/lib/guestProgress";
+import { isTrackUnlockedForAccess } from "@/lib/billing/access";
 import {
   isLessonOpenForStudent,
   trackProgress,
   totalXpAcrossTracks,
   TRACKS,
+  type Track,
   weekSessionLabel,
 } from "@/lib/tracks";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
@@ -45,9 +47,12 @@ export default function Home() {
   const [activeTab, setActiveTab] = React.useState<string>("ai-literacy");
   const [lessonAccess, setLessonAccess] = React.useState<StudentLessonAccess>({
     classRestricted: false,
+    entitlementRestricted: false,
     enabledLessonIds: null,
     classIds: [],
     isAsyncCohort: false,
+    hasActiveSubscription: false,
+    unlockedTrackSlugs: [],
   });
 
   React.useEffect(() => {
@@ -56,12 +61,15 @@ export default function Home() {
     }
   }, [router]);
 
+  const lessonRestricted =
+    Boolean(lessonAccess.classRestricted) || Boolean(lessonAccess.entitlementRestricted);
+
   const openLessonIds = React.useMemo(() => {
-    if (!lessonAccess.classRestricted || lessonAccess.enabledLessonIds == null) return null;
-    const set = new Set(lessonAccess.enabledLessonIds);
+    if (!lessonRestricted) return null;
+    const set = new Set(lessonAccess.enabledLessonIds ?? []);
     for (const id of completedIds) set.add(id);
     return set;
-  }, [lessonAccess, completedIds]);
+  }, [lessonRestricted, lessonAccess.enabledLessonIds, completedIds]);
 
   const aiTrack = TRACKS.find((t) => t.id === "ai-literacy")!;
   const digitalTrack = TRACKS.find((t) => t.id === "digital-literacy")!;
@@ -236,9 +244,10 @@ export default function Home() {
               !activeTrackProgress.nextLesson.comingSoon &&
               isLessonOpenForStudent(
                 activeTrackProgress.nextLesson.id,
-                lessonAccess.classRestricted,
+                Boolean(lessonAccess.classRestricted),
                 lessonAccess.enabledLessonIds,
-                completedIds
+                completedIds,
+                Boolean(lessonAccess.entitlementRestricted)
               ) ? (
                 <Button
                   asChild
@@ -320,10 +329,38 @@ export default function Home() {
             You&apos;re in a class — your instructor controls which lessons are open. Locked lessons
             show as <span className="font-bold">Not assigned</span>.
           </div>
+        ) : lessonAccess.hasActiveSubscription ? (
+          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-950">
+            Your <span className="font-bold">family subscription</span> is active — all tracks are
+            unlocked.{" "}
+            <Link href="/billing" className="font-bold underline underline-offset-2">
+              Manage billing
+            </Link>
+          </div>
+        ) : lessonAccess.entitlementRestricted ? (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950">
+            {(lessonAccess.unlockedTrackSlugs?.length ?? 0) > 0 ? (
+              <>
+                You&apos;ve unlocked{" "}
+                <span className="font-bold">
+                  {lessonAccess.unlockedTrackSlugs!.length} track
+                  {lessonAccess.unlockedTrackSlugs!.length === 1 ? "" : "s"}
+                </span>
+                . Other paths stay locked until you subscribe or buy them.{" "}
+              </>
+            ) : (
+              <>
+                Tracks stay locked until you <span className="font-bold">subscribe</span> or buy a
+                path.{" "}
+              </>
+            )}
+            <Link href="/billing" className="font-bold underline underline-offset-2">
+              View plans
+            </Link>
+          </div>
         ) : lessonAccess.isAsyncCohort ? (
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-950">
-            You&apos;re learning <span className="font-bold">self-paced</span> — all lessons are open.
-            Go at your own speed.
+            You&apos;re learning <span className="font-bold">self-paced</span>. Go at your own speed.
           </div>
         ) : null}
 
@@ -368,59 +405,43 @@ export default function Home() {
             </TabsList>
           </div>
 
-          <TabsContent value="ai-literacy">
-            <TrackRoadmap
-              track={aiTrack}
-              completedIds={completedIds}
-              classRestricted={lessonAccess.classRestricted}
-              enabledLessonIds={lessonAccess.enabledLessonIds}
-            />
-          </TabsContent>
-
-          <TabsContent value="digital-literacy">
-            <TrackRoadmap
-              track={digitalTrack}
-              completedIds={completedIds}
-              classRestricted={lessonAccess.classRestricted}
-              enabledLessonIds={lessonAccess.enabledLessonIds}
-            />
-          </TabsContent>
-
-          <TabsContent value="cybersecurity">
-            <TrackRoadmap
-              track={cyberTrack}
-              completedIds={completedIds}
-              classRestricted={lessonAccess.classRestricted}
-              enabledLessonIds={lessonAccess.enabledLessonIds}
-            />
-          </TabsContent>
-
-          <TabsContent value="financial-literacy">
-            <TrackRoadmap
-              track={financeTrack}
-              completedIds={completedIds}
-              classRestricted={lessonAccess.classRestricted}
-              enabledLessonIds={lessonAccess.enabledLessonIds}
-            />
-          </TabsContent>
-
-          <TabsContent value="ai-python">
-            <TrackRoadmap
-              track={pythonTrack}
-              completedIds={completedIds}
-              classRestricted={lessonAccess.classRestricted}
-              enabledLessonIds={lessonAccess.enabledLessonIds}
-            />
-          </TabsContent>
-
-          <TabsContent value="data-analyst">
-            <TrackRoadmap
-              track={dataTrack}
-              completedIds={completedIds}
-              classRestricted={lessonAccess.classRestricted}
-              enabledLessonIds={lessonAccess.enabledLessonIds}
-            />
-          </TabsContent>
+          {(
+            [
+              aiTrack,
+              digitalTrack,
+              cyberTrack,
+              financeTrack,
+              pythonTrack,
+              dataTrack,
+            ] as Track[]
+          ).map((track) => {
+            const trackUnlocked = isTrackUnlockedForAccess(track.id, lessonAccess);
+            const paywallLocked =
+              Boolean(lessonAccess.entitlementRestricted) &&
+              !lessonAccess.classRestricted &&
+              !trackUnlocked;
+            return (
+              <TabsContent key={track.id} value={track.id}>
+                <TrackRoadmap
+                  track={track}
+                  completedIds={completedIds}
+                  classRestricted={Boolean(lessonAccess.classRestricted)}
+                  entitlementRestricted={Boolean(lessonAccess.entitlementRestricted)}
+                  enabledLessonIds={lessonAccess.enabledLessonIds}
+                  locked={paywallLocked}
+                  lockMessage={
+                    paywallLocked
+                      ? "Subscribe for all tracks, or buy this path to unlock its lessons. Live tutoring is sold separately."
+                      : undefined
+                  }
+                  lockCtaHref={
+                    paywallLocked ? `/billing?track=${encodeURIComponent(track.id)}` : undefined
+                  }
+                  lockCtaLabel={paywallLocked ? "Unlock this track" : undefined}
+                />
+              </TabsContent>
+            );
+          })}
         </Tabs>
       </div>
     </div>

@@ -48,7 +48,10 @@ export async function GET() {
       tutoringCredits: tutoring ?? [],
       tutoringSessionsRemaining,
       hasActiveSubscription: Boolean(
-        subscription && ["active", "trialing"].includes(String(subscription.status))
+        subscription &&
+          ["active", "trialing"].includes(String(subscription.status)) &&
+          (!subscription.current_period_end ||
+            new Date(String(subscription.current_period_end)).getTime() > Date.now())
       ),
     });
   } catch (e: unknown) {

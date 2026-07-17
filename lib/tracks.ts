@@ -93,16 +93,21 @@ export function allCatalogLessons(): Array<LessonRow & { trackId: Track["id"]; t
   );
 }
 
-/** True when a lesson is open for this student (not class-restricted, or explicitly assigned). */
+/**
+ * True when a lesson is open for this student.
+ * Restricted by instructor assignments and/or billing entitlements.
+ */
 export function isLessonOpenForStudent(
   lessonId: string,
   classRestricted: boolean,
   enabledLessonIds: string[] | null,
-  completedIds: string[]
+  completedIds: string[],
+  entitlementRestricted = false
 ): boolean {
-  if (!classRestricted || enabledLessonIds == null) return true;
+  const restricted = classRestricted || entitlementRestricted;
+  if (!restricted) return true;
   if (completedIds.includes(lessonId)) return true;
-  return enabledLessonIds.includes(lessonId);
+  return (enabledLessonIds ?? []).includes(lessonId);
 }
 
 export const PYTHON_WEEKS: WeekPlan[] = [

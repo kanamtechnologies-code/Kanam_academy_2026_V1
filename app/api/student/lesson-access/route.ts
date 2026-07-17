@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 
 import { getAsyncClassCode } from "@/lib/asyncClass";
+import { accessFromEntitlements, loadBillingEntitlements } from "@/lib/billing/access";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
 import { unionEnabledLessonIds } from "@/lib/classAssignments";
+import { TRACKS } from "@/lib/tracks";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -20,15 +22,47 @@ function isAsyncClassRow(row: { is_async?: boolean | null; code?: string | null 
   return Boolean(code) && code === getAsyncClassCode();
 }
 
+function openCatalogAccess(
+  partial: Pick<StudentLessonAccess, "classIds" | "isAsyncCohort"> & {
+    hasActiveSubscription?: boolean;
+  }
+): StudentLessonAccess {
+  return {
+    classRestricted: false,
+    entitlementRestricted: false,
+    enabledLessonIds: null,
+    classIds: partial.classIds,
+    isAsyncCohort: partial.isAsyncCohort,
+    hasActiveSubscription: partial.hasActiveSubscription ?? false,
+    unlockedTrackSlugs: TRACKS.map((t) => t.id),
+  };
+}
+
+async function withEntitlements(
+  admin: ReturnType<typeof createSupabaseAdminClient>,
+  userId: string,
+  base: Pick<StudentLessonAccess, "classIds" | "isAsyncCohort">
+): Promise<StudentLessonAccess> {
+  try {
+    const entitlements = await loadBillingEntitlements(admin, userId);
+    return accessFromEntitlements(base, entitlements);
+  } catch {
+    // Billing tables missing or query failed — fail closed (no paid unlock).
+    return accessFromEntitlements(base, {
+      hasActiveSubscription: false,
+      unlockedTrackSlugs: [],
+    });
+  }
+}
+
 export async function GET() {
   // Testing override: open the full catalog for every signed-in student.
   if (unlockAllForTesting()) {
-    const access: StudentLessonAccess = {
-      classRestricted: false,
-      enabledLessonIds: null,
+    const access = openCatalogAccess({
       classIds: [],
       isAsyncCohort: true,
-    };
+      hasActiveSubscription: true,
+    });
     return NextResponse.json({ ok: true, access, unlockedForTesting: true }, { status: 200 });
   }
 
@@ -38,8 +72,7 @@ export async function GET() {
   const user = data.user;
   if (!user) return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
 
-  // Use admin for enrollment/assignment reads so RLS on instructor-owned tables
-  // does not hide the student's own class membership.
+  // Use admin for enrollment/assignment/billing reads so RLS does not hide rows.
   let admin: ReturnType<typeof createSupabaseAdminClient>;
   try {
     admin = createSupabaseAdminClient();
@@ -61,12 +94,10 @@ export async function GET() {
   }
 
   if (!student?.id) {
-    const access: StudentLessonAccess = {
-      classRestricted: false,
-      enabledLessonIds: null,
+    const access = await withEntitlements(admin, user.id, {
       classIds: [],
       isAsyncCohort: false,
-    };
+    });
     return NextResponse.json({ ok: true, access }, { status: 200 });
   }
 
@@ -84,12 +115,10 @@ export async function GET() {
     .filter(Boolean);
 
   if (classIds.length === 0) {
-    const access: StudentLessonAccess = {
-      classRestricted: false,
-      enabledLessonIds: null,
+    const access = await withEntitlements(admin, user.id, {
       classIds: [],
       isAsyncCohort: false,
-    };
+    });
     return NextResponse.json({ ok: true, access }, { status: 200 });
   }
 
@@ -122,14 +151,12 @@ export async function GET() {
   const teacherClassIds = rows.filter((c) => !isAsyncClassRow(c)).map((c) => String(c.id));
   const asyncClassIds = rows.filter((c) => isAsyncClassRow(c)).map((c) => String(c.id));
 
-  // Teacher-led classes control access. Pure async cohort = full catalog, still batched.
+  // Pure async / self-paced cohort → billing entitlements decide access.
   if (teacherClassIds.length === 0) {
-    const access: StudentLessonAccess = {
-      classRestricted: false,
-      enabledLessonIds: null,
+    const access = await withEntitlements(admin, user.id, {
       classIds,
       isAsyncCohort: asyncClassIds.length > 0,
-    };
+    });
     return NextResponse.json({ ok: true, access }, { status: 200 });
   }
 
@@ -146,24 +173,31 @@ export async function GET() {
     (assignmentRows ?? []) as Array<{ lesson_id: string; enabled: boolean }>
   );
 
-  // A teacher class with zero assignments used to lock the entire catalog.
-  // Treat "nothing assigned yet" as open so setup mistakes don't brick learners.
-  // Once an instructor assigns any lesson, only those stay open.
+  // Teacher class with zero assignments: don't brick learners — fall back to entitlements.
   if (enabledLessonIds.length === 0) {
-    const access: StudentLessonAccess = {
-      classRestricted: false,
-      enabledLessonIds: null,
+    const access = await withEntitlements(admin, user.id, {
       classIds,
       isAsyncCohort: false,
-    };
+    });
     return NextResponse.json({ ok: true, access }, { status: 200 });
   }
 
+  // Teacher-gated: instructor assignments win (school / program model).
+  const entitlements = await loadBillingEntitlements(admin, user.id).catch(() => ({
+    hasActiveSubscription: false,
+    unlockedTrackSlugs: [] as StudentLessonAccess["unlockedTrackSlugs"],
+  }));
+
   const access: StudentLessonAccess = {
     classRestricted: true,
+    entitlementRestricted: false,
     enabledLessonIds,
     classIds,
     isAsyncCohort: false,
+    hasActiveSubscription: entitlements.hasActiveSubscription,
+    unlockedTrackSlugs: entitlements.hasActiveSubscription
+      ? TRACKS.map((t) => t.id)
+      : entitlements.unlockedTrackSlugs,
   };
 
   return NextResponse.json({ ok: true, access }, { status: 200 });
