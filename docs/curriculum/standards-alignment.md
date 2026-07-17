@@ -3,10 +3,13 @@
 This crosswalk maps Kanam Academy lessons to recognized national standards for **accreditation review**.
 Lesson codes: `P1–P13` = Python & AI Foundations track; `D1–D14` = Data Analyst track.
 
+Public adoption packet (printable): marketing site `/one-pager/standards` — *Kanam Academy Foundations Standards Alignment* v2.0 (July 2026).
+
 - Primary framework: **CSTA K-12 Computer Science Standards, Revised 2017** (Levels 2 and 3A).
 - Cross-curricular: **Common Core State Standards — Mathematics** (Statistics & Probability).
-- Digital-age learning: **ISTE Standards for Students (2016)**.
-- Forward-compatibility: **CSTA PK-12 Standards, Draft 3.0** (launch summer 2026).
+- Digital-age learning: **ISTE Standards for Students (2024, v4.02)**.
+- Forward-compatibility: **CSTA PK-12 Computer Science Standards (2026)** — five foundational concepts.
+- Financial Literacy: **Jump$tart / CEE 2021** (see [literacy-standards-crosswalk.md](literacy-standards-crosswalk.md)).
 
 ---
 
@@ -69,21 +72,31 @@ Lesson codes: `P1–P13` = Python & AI Foundations track; `D1–D14` = Data Anal
 | HS S-ID.A.1 | Represent data with plots on the real number line | D12 (distribution/spread); roadmap: box plots |
 | HS S-ID.B.6 | Represent data on two variables on a scatter plot | D13; roadmap: line of best fit |
 
-## 5. ISTE Standards for Students (2016)
+## 5. ISTE Standards for Students (2024)
 
 | Code | Standard | Where |
 | --- | --- | --- |
-| 1.5 Computational Thinker | Formulate problems, collect/analyze data, use algorithmic thinking | Both tracks |
-| 1.3 Knowledge Constructor | Curate & make sense of information / data | Data track |
+| 1.2 Digital Citizen | Safe, ethical, legal tech use; digital identity | Digital / AI / Cyber literacy; ethics moments |
+| 1.5 Computational Thinker | Formulate problems, collect/analyze data, use algorithmic thinking | Both CS tracks; AI Literacy |
+| 1.3 Knowledge Constructor | Curate & make sense of information / data | Data track; Digital Literacy |
 | 1.6 Creative Communicator | Communicate with data visualizations & artifacts | D9–D14; P13 |
 
-## 6. Forward-compatibility — CSTA PK-12 Standards, Draft 3.0 (summer 2026)
+## 6. Forward-compatibility — CSTA PK-12 Standards (2026)
 
-Draft 3.0 bands grades 6–8 as **MS** and 9–12 as **HS**, and elevates **Data & Analysis** to a core
-concept. Kanam already aligns to the following draft objectives, so the curriculum will remain current
-through the next national revision:
+The **2026 CSTA PK–12 Standards** organize foundational learning into five concepts. Kanam maps
+conceptually (not a one-to-one code rematch) so partners can transition from 2017 adoptions:
 
-| Draft code | Standard (abbrev.) | Lessons |
+| 2026 concept | Where Kanam addresses it |
+| --- | --- |
+| Algorithms & Design | Python & AI Foundations sequencing, patterns, design; AI Literacy “how machines decide” |
+| Programming | Python & AI Foundations: read, write, modify, and debug real Python in the browser |
+| Data & Analysis | Data Analyst track (primary); AI Literacy data/representation bridges |
+| Systems & Security | Cybersecurity track at CSTA 3A/3B analyze–recommend depth; Digital Literacy (accounts, privacy, scams) complements |
+| Computing & Society | AI Literacy, ethics moments, careers, digital citizenship, societal impact |
+
+Legacy Draft 3.0 data codes that still inform our Data track design:
+
+| Draft-era code | Standard (abbrev.) | Lessons |
 | --- | --- | --- |
 | MS-DAA-22 | Explain how data + metadata answer questions | D1, D8 |
 | MS-DAA-23 | Use a tool to sort, filter, group, aggregate, transform data | D3–D8 |
@@ -101,11 +114,11 @@ through the next national revision:
 | Data & Analysis | **Comprehensive** (2-DA-07/08/09) | **Strong** (10, 11, 12) |
 | Impacts of Computing | **Strong** (20, 21, 22) | **Good** (25, 29, 30) |
 | Computing Systems | Light | Light |
-| Networks & the Internet | Light | Light |
+| Networks & the Internet | Good (2-NI-05/06 via cyber) | **Strong** (3A-NI-04→08 via Cybersecurity; 3B-NI-03/04, 3B-AP-18 stretch) |
 
-**Accreditation positioning:** Kanam Academy provides comprehensive, standards-aligned coverage of the
-two CSTA concepts most central to data literacy and programming fundamentals — **Algorithms &
-Programming** and **Data & Analysis** — across CSTA Levels 2 and 3A, with recurring **Impacts of
-Computing** integration and **Common Core** mathematics cross-alignment. Computing Systems and Networks
-are intentionally light and would be supplied by a partner course where a full CSTA-comprehensive
-sequence is required.
+**Accreditation positioning:** Kanam Academy provides comprehensive, standards-aligned coverage of
+**Algorithms & Programming** and **Data & Analysis** across CSTA Levels 2 and 3A, with recurring
+**Impacts of Computing** integration and **Common Core** mathematics cross-alignment. The
+**Cybersecurity** track supplies strong **Networks & the Internet** / Systems & Security coverage at
+Level 3A (recommend, compare, explain tradeoffs) with Level 3B stretch — defensive analysis only,
+not exploitation. Computing Systems hardware depth remains light outside partner courses.

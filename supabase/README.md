@@ -14,11 +14,12 @@ Template: `config/env.example`
 
 ## 2) Apply database schema
 
-Open Supabase → **SQL Editor** and run the **entire** file:
+Open Supabase → **SQL Editor** and run these files in order:
 
-- `supabase/schema.sql`
+1. `supabase/schema.sql` (core app tables — if not already applied)
+2. `supabase/billing.sql` (Stripe customers, subscriptions, track entitlements, tutoring credits)
 
-If a previous run failed partway through, it is safe to re-run the full file (tables use `if not exists`, policies use `drop policy if exists`).
+If a previous run failed partway through, it is safe to re-run (tables use `if not exists`, policies use `drop policy if exists`).
 
 After it succeeds, confirm tables exist:
 
@@ -26,7 +27,7 @@ After it succeeds, confirm tables exist:
 select tablename from pg_tables where schemaname = 'public' order by tablename;
 ```
 
-You should see: `class_enrollments`, `class_lesson_assignments`, `classes`, `lesson_progress`, `progress_events`, `schools`, `students`.
+You should see core tables plus: `billing_customers`, `billing_subscriptions`, `billing_webhook_events`, `track_entitlements`, `tutoring_credits`.
 
 ### Self-paced / async cohort
 
@@ -79,7 +80,28 @@ Fix: Supabase → **Authentication → Email Templates → Reset password**. Rep
 
 Save the template, then request a **new** reset email (old links still use the previous format).
 
-## 4) Safety note
+## 4) Stripe billing
+
+1. Apply `supabase/billing.sql` (see above).
+2. Add to `.env.local`:
+   - `STRIPE_SECRET_KEY`
+   - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+   - `STRIPE_WEBHOOK_SECRET`
+   - optional `NEXT_PUBLIC_APP_URL=https://learn.kanamacademy.com`
+3. Price IDs live in `lib/billing/stripe-catalog.ts`.
+4. App routes:
+   - `POST /api/billing/checkout` — start Checkout (auth required)
+   - `POST /api/billing/portal` — Customer portal (auth required)
+   - `GET /api/billing/status` — subscription / tracks / tutoring credits
+   - `POST /api/stripe/webhook` — Stripe webhooks
+5. Stripe Dashboard → Developers → Webhooks → endpoint:
+   - `https://learn.kanamacademy.com/api/stripe/webhook`
+   - Events: `checkout.session.completed`, `customer.subscription.created`,
+     `customer.subscription.updated`, `customer.subscription.deleted`,
+     `invoice.paid`, `invoice.payment_failed`
+6. Temporary buy UI: `/billing`
+
+## 5) Safety note
 
 If a service role key is ever shared publicly, rotate it in Supabase immediately.
 

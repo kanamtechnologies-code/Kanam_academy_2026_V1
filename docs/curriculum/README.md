@@ -31,17 +31,17 @@ standards below; the full crosswalk is in [standards-alignment.md](standards-ali
 
 | Framework | Edition | Role in our alignment |
 | --- | --- | --- |
-| **CSTA K-12 Computer Science Standards** | Revised **2017** (current, accreditation-relevant) | Primary alignment. Levels 2 and 3A. |
+| **CSTA K-12 Computer Science Standards** | Revised **2017** (still accreditation-relevant) | Primary alignment. Levels 2 and 3A. |
 | **K-12 Computer Science Framework** (k12cs.org) | 2016 | Concepts & Practices that underpin CSTA. |
-| **CSTA PK-12 Standards** | **Draft 3.0** (launch summer 2026) | Forward-compatibility mapping (MS/HS bands) so the curriculum stays current through the next revision. |
+| **CSTA PK-12 Standards** | **2026** (published) | Forward-compatibility to five foundational concepts (Algorithms & Design, Programming, Data & Analysis, Systems & Security, Computing & Society). |
 | **Common Core State Standards — Mathematics** | Statistics & Probability (6.SP, 7.SP, 8.SP) and High School (S-ID) | Cross-curricular alignment for the data-visualization strand. |
-| **ISTE Standards for Students** | 2016 | Knowledge Constructor, Computational Thinker, Creative Communicator. |
+| **ISTE Standards for Students** | **2024** (v4.02) | Digital Citizen, Knowledge Constructor, Computational Thinker, Creative Communicator. |
 | **National Standards for Personal Financial Education** | Jump$tart / CEE **2021** | Primary alignment for Financial Literacy (`fl-1`…`fl-16`). See [literacy-standards-crosswalk.md](literacy-standards-crosswalk.md). |
 
-> **Why two CSTA editions?** The 2017 standards are the ones currently referenced by state
-> adoptions and accreditation bodies. CSTA's next revision (Draft 3.0) publishes in summer 2026 and
-> elevates **Data & Analysis** to one of five core concepts. We map to both so the curriculum is
-> *defensible today* and *future-proof*.
+> **Why two CSTA editions?** Many state adoptions and accreditation reviewers still cite **2017**.
+> The **2026** PK–12 Standards are published; we map conceptually to their five foundational
+> concepts so the curriculum is *defensible today* and *ready for transition*. Public packet:
+> *Kanam Academy Foundations Standards Alignment* (marketing `/one-pager/standards`).
 
 ### CSTA concept coverage at a glance
 

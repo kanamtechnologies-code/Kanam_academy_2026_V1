@@ -28,15 +28,34 @@ Aligned to **National Standards for Personal Financial Education (Jump$tart / CE
 ## AI Literacy (`ai-1`…`ai-16`)
 
 - **CSTA 2017:** Impacts of Computing (2-IC-20, 2-IC-21; 3A-IC-25/29 where relevant); Data & Analysis bridges (2-DA-07/08)
-- **ISTE 2016:** 1.3 Knowledge Constructor, 1.5 Computational Thinker, 1.2 Digital Citizen (ethics/privacy lessons)
+- **ISTE 2024:** 1.3 Knowledge Constructor, 1.5 Computational Thinker, 1.2 Digital Citizen (ethics/privacy lessons)
+- **CSTA 2026 forward:** Computing & Society + Algorithms & Design (how machines decide) + Data & Analysis bridges
 
 ## Cybersecurity (`cs-1`…`cs-16`)
 
-- Defensive literacy aligned to **NIST NICE** awareness themes (Identify / Protect / Detect) — recognition and response, not exploitation
-- **CSTA:** Networks & Impacts concepts at Level 2 / 3A awareness depth
-- **ISTE:** Digital Citizen + Computational Thinker
+High-school **CSTA Level 3A (grades 9–10)** core with **Level 3B** stretch — defensive analysis and recommendation, not exploitation. Also maps to **NIST NICE** Identify / Protect / Detect / Respond themes and **ISTE** Digital Citizen + Computational Thinker. **CSTA 2026 forward:** Systems & Security at analyze/recommend depth.
 
-## Digital Citizenship (`dl-1`…`dl-16`)
+| Lesson | Focus | Primary CSTA 2017 codes |
+| --- | --- | --- |
+| cs-1 | Principles, careers, ethics & authorized use | 3A-IC-24, 3A-NI-08 |
+| cs-2 | CIA triad, authentication, usability tradeoffs | 3A-NI-06, 3A-NI-07 |
+| cs-3 | Malware impact on sensitive data | 3A-NI-05 |
+| cs-4 | Social engineering defense & recommended controls | 3A-NI-05, 3A-NI-06 |
+| cs-5 | Credentials, hashing, MFA; developer protections | 3A-NI-06, 3A-NI-07, 3B-NI-04 |
+| cs-6 | Access control, RBAC, least privilege | 3A-NI-06, 3A-NI-07, 3B-NI-04 |
+| cs-7 | Network architecture: routers, switches, topology, addressing, reliability | 3A-NI-04, 3B-NI-03 |
+| cs-8 | Firewalls, ports, secure config; security vs usability | 3A-NI-06, 3A-NI-07, 3A-NI-08 |
+| cs-9 | Cryptography & secure transmission models | 2-NI-06, 3A-NI-07, 3B-NI-04 |
+| cs-10 | HTTPS, certificates, trust limits | 2-NI-05, 3A-NI-07 |
+| cs-11 | Hardening & patching recommendations + tradeoffs | 3A-NI-06, 3A-NI-08 |
+| cs-12 | Logging, monitoring, incident response design | 3A-NI-06 |
+| cs-13 | Attack patterns & program-security issues (defender view) | 3A-NI-05, 3B-AP-18 |
+| cs-14 | OSINT self-defense, privacy, law & ethics | 3A-IC-29, 3A-IC-30 |
+| cs-15 | Risk analysis & control selection with justified tradeoffs | 3A-NI-06, 3A-NI-07, 3A-NI-08 |
+| cs-16 | Capstone: recommend, compare, and justify a defense plan | 3A-NI-06–08 (synthesis) |
 
-- **ISTE Standards for Students (2016)** — Digital Citizen, Knowledge Constructor, Creative Communicator, Computational Thinker
+## Digital Literacy (`dl-1`…`dl-16`)
+
+- **ISTE Standards for Students (2024)** — Digital Citizen, Knowledge Constructor, Creative Communicator, Computational Thinker
 - Complements CSTA Impacts of Computing (privacy, ethics, collaboration)
+- **CSTA 2026 forward:** Computing & Society + Systems & Security habits (accounts, privacy, scams)
