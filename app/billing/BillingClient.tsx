@@ -22,6 +22,13 @@ const TRACKS = [
   { slug: "financial-literacy", name: "Financial Literacy", price: "$100" },
   { slug: "digital-literacy", name: "Digital Literacy", price: "$100" },
   { slug: "ai-literacy", name: "AI Literacy", price: "$149" },
+  {
+    slug: "advanced-ai",
+    name: "Advanced AI",
+    price: "$199",
+    /** Create Stripe Price + add to stripe-catalog.ts before enabling checkout. */
+    checkoutDisabled: true,
+  },
   { slug: "ai-python", name: "Python & AI Foundations", price: "$169" },
   { slug: "cybersecurity", name: "Cybersecurity", price: "$200" },
   { slug: "data-analyst", name: "Data Analyst Track", price: "$200" },
@@ -377,13 +384,23 @@ export default function BillingClient() {
                       </span>
                       <button
                         type="button"
-                        disabled={Boolean(busy) || owned}
+                        disabled={
+                          Boolean(busy) ||
+                          owned ||
+                          ("checkoutDisabled" in track && track.checkoutDisabled)
+                        }
                         onClick={() =>
                           startCheckout({ kind: "track", trackSlug: track.slug })
                         }
                         className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--accent-rgb)/0.4)] bg-[rgb(var(--accent-rgb)/0.08)] px-5 text-sm font-semibold text-[var(--accent)] transition hover:bg-[rgb(var(--accent-rgb)/0.16)] disabled:opacity-45"
                       >
-                        {owned ? "Owned" : busy?.includes(track.slug) ? "…" : "Buy"}
+                        {owned
+                          ? "Owned"
+                          : "checkoutDisabled" in track && track.checkoutDisabled
+                            ? "Soon"
+                            : busy?.includes(track.slug)
+                              ? "…"
+                              : "Buy"}
                       </button>
                     </div>
                   </li>

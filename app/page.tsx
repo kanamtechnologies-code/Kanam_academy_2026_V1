@@ -74,6 +74,7 @@ export default function Home() {
   }, [lessonRestricted, lessonAccess.enabledLessonIds, completedIds]);
 
   const aiTrack = TRACKS.find((t) => t.id === "ai-literacy")!;
+  const advancedAiTrack = TRACKS.find((t) => t.id === "advanced-ai")!;
   const digitalTrack = TRACKS.find((t) => t.id === "digital-literacy")!;
   const cyberTrack = TRACKS.find((t) => t.id === "cybersecurity")!;
   const financeTrack = TRACKS.find((t) => t.id === "financial-literacy")!;
@@ -409,10 +410,11 @@ export default function Home() {
                 {TRACKS.length} paths
               </p>
             </div>
-            <TabsList className="kanam-track-tabs grid h-auto w-full grid-cols-2 gap-2 overflow-visible p-2.5 sm:grid-cols-3 sm:gap-2.5 sm:p-3 lg:grid-cols-6">
+            <TabsList className="kanam-track-tabs grid h-auto w-full grid-cols-2 gap-2 overflow-visible p-2.5 sm:grid-cols-3 sm:gap-2.5 sm:p-3 lg:grid-cols-4 xl:grid-cols-7">
               {(
                 [
                   { track: aiTrack, label: "AI Literacy" },
+                  { track: advancedAiTrack, label: "Advanced AI" },
                   { track: digitalTrack, label: "Digital Literacy" },
                   { track: cyberTrack, label: "Cybersecurity" },
                   { track: financeTrack, label: "Financial Literacy" },
@@ -440,6 +442,7 @@ export default function Home() {
           {(
             [
               aiTrack,
+              advancedAiTrack,
               digitalTrack,
               cyberTrack,
               financeTrack,

@@ -31,6 +31,31 @@ Aligned to **National Standards for Personal Financial Education (Jump$tart / CE
 - **ISTE 2024:** 1.3 Knowledge Constructor, 1.5 Computational Thinker, 1.2 Digital Citizen (ethics/privacy lessons)
 - **CSTA 2026 forward:** Computing & Society + Algorithms & Design (how machines decide) + Data & Analysis bridges
 
+## Advanced AI (`aai-1`…`aai-16`)
+
+**Primary:** CSTA / AI4K12 **AI specialty pathway** (creator depth beyond foundation).  
+**Also:** CSTA 2017 3A/3B AP + DA + IC; CSTA 2026 Algorithms & Design, Data & Analysis, Computing & Society, Preparation for the Future.  
+**Full map:** [advanced-ai.md](advanced-ai.md).  
+**Boundary:** AI Literacy = consumer/citizen + prompting; AI + Python = rule-based coding; Advanced AI = train/evaluate/RAG/agents/audit/ship.
+
+| Lesson | Focus | Standards emphasis |
+| --- | --- | --- |
+| aai-1 | Problem framing; when not to use AI | Algorithms & Design; PF |
+| aai-2 | Features/labels; leakage; dataset bias | Data & Analysis; IC |
+| aai-3 | Classifiers; confusion matrix; precision/recall | DA + AP |
+| aai-4 | Neural nets; overfitting; regularization | Algorithms & Design |
+| aai-5 | Computer vision pipelines; privacy | DA + IC |
+| aai-6 | LLM internals beyond prompts; eval | Algorithms; Computing & Society |
+| aai-7 | RAG grounding & citations | Knowledge systems; IC |
+| aai-8 | Agents, tools, budgets, human gates | AP + IC + PF |
+| aai-9 | Evaluation harnesses | DA; scientific practice |
+| aai-10 | Prompt vs RAG vs fine-tune | PF; design tradeoffs |
+| aai-11 | Fairness audits | IC (equity) |
+| aai-12 | Privacy, injection, secure tools | Systems & Security / IC |
+| aai-13 | Deploy, monitor, drift | PF; MLOps literacy |
+| aai-14 | Multimodal orchestration | AP + systems design |
+| aai-15–16 | Capstone build + audit defense | Integrated specialty |
+
 ## Cybersecurity (`cs-1`…`cs-16`)
 
 - Defensive literacy aligned to **NIST NICE** awareness themes (Identify / Protect / Detect) — recognition and response, not exploitation

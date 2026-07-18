@@ -24,7 +24,14 @@ export type WeekPlan = {
 };
 
 export type Track = {
-  id: "ai-python" | "data-analyst" | "ai-literacy" | "digital-literacy" | "cybersecurity" | "financial-literacy";
+  id:
+    | "ai-python"
+    | "data-analyst"
+    | "ai-literacy"
+    | "advanced-ai"
+    | "digital-literacy"
+    | "cybersecurity"
+    | "financial-literacy";
   title: string;
   subtitle: string;
   icon: string;
@@ -132,6 +139,17 @@ export const AI_LITERACY_WEEKS: WeekPlan[] = [
   { week: 8, theme: "Your Future With AI", focus: "Jobs and creativity, plus a capstone to become an AI-smart citizen." },
 ];
 
+export const ADVANCED_AI_WEEKS: WeekPlan[] = [
+  { week: 1, theme: "Frame & Data", focus: "Problem framing, task types, features/labels, leakage, and dataset bias." },
+  { week: 2, theme: "Classical ML You Can See", focus: "Train classifiers, read confusion matrices, precision/recall, and baselines." },
+  { week: 3, theme: "Neural Nets & Vision", focus: "Layers, overfitting, and computer-vision pipelines with privacy checks." },
+  { week: 4, theme: "LLMs Beyond Prompts", focus: "Tokens, embeddings, evaluation, and retrieval-augmented generation (RAG)." },
+  { week: 5, theme: "Agents & Evaluation", focus: "Tool-using agents, budgets, human gates, and evaluation harnesses." },
+  { week: 6, theme: "Stack Choices & Audits", focus: "Prompt vs RAG vs fine-tune, fairness audits, and AI security." },
+  { week: 7, theme: "Ship & Integrate", focus: "MLOps lite — deploy, monitor, drift — plus multimodal system design." },
+  { week: 8, theme: "Capstone", focus: "Build a thin AI system, then demo, audit, and defend it." },
+];
+
 export const DIGITAL_LITERACY_WEEKS: WeekPlan[] = [
   { week: 1, theme: "Computing Systems Foundations", focus: "Abstraction layers, hardware/software/OS, and data storage tradeoffs (CSTA 3A CS + DA)." },
   { week: 2, theme: "Networks & Information Integrity", focus: "How networks move data, search fluently, and evaluate claims in a computing culture." },
@@ -208,6 +226,25 @@ const DATA_ANALYST_LESSONS: LessonRow[] = [
   { id: "da-12", title: "Distributions", href: "/learn/data/12", xp: 600, badgeName: "Distribution Detective", badgeIcon: "", week: 6, session: 2, hasLesson: true },
   { id: "da-13", title: "Relationships", href: "/learn/data/13", xp: 650, badgeName: "Relationship Finder", badgeIcon: "", week: 7, session: 1, hasLesson: true },
   { id: "da-14", title: "Your Data Project", href: "/learn/data/14", xp: 700, badgeName: "Data Analyst", badgeIcon: "", week: 8, session: 1, hasLesson: true },
+];
+
+const ADVANCED_AI_LESSONS: LessonRow[] = [
+  { id: "aai-1", title: "AI Systems: Framing Problems Worth Solving", href: "/learn/advanced-ai/1", xp: 50, badgeName: "Problem Framer", badgeIcon: "", week: 1, session: 1, hasLesson: true },
+  { id: "aai-2", title: "Data for Machine Learning", href: "/learn/advanced-ai/2", xp: 100, badgeName: "Data Steward", badgeIcon: "", week: 1, session: 2, hasLesson: true },
+  { id: "aai-3", title: "Train Your First Classifier", href: "/learn/advanced-ai/3", xp: 150, badgeName: "Model Trainer", badgeIcon: "", week: 2, session: 1, hasLesson: true },
+  { id: "aai-4", title: "Neural Networks: From Neurons to Overfitting", href: "/learn/advanced-ai/4", xp: 200, badgeName: "Net Navigator", badgeIcon: "", week: 2, session: 2, hasLesson: true },
+  { id: "aai-5", title: "Computer Vision Pipelines", href: "/learn/advanced-ai/5", xp: 250, badgeName: "Vision Builder", badgeIcon: "", week: 3, session: 1, hasLesson: true },
+  { id: "aai-6", title: "Language Models Beyond Prompting", href: "/learn/advanced-ai/6", xp: 300, badgeName: "LLM Engineer", badgeIcon: "", week: 3, session: 2, hasLesson: true },
+  { id: "aai-7", title: "Retrieval-Augmented Generation (RAG)", href: "/learn/advanced-ai/7", xp: 350, badgeName: "Retrieval Pro", badgeIcon: "", week: 4, session: 1, hasLesson: true },
+  { id: "aai-8", title: "Agents, Tools & Workflows", href: "/learn/advanced-ai/8", xp: 400, badgeName: "Agent Architect", badgeIcon: "", week: 4, session: 2, hasLesson: true },
+  { id: "aai-9", title: "Evaluation Harnesses & Experiment Tracking", href: "/learn/advanced-ai/9", xp: 450, badgeName: "Eval Engineer", badgeIcon: "", week: 5, session: 1, hasLesson: true },
+  { id: "aai-10", title: "Fine-Tuning vs Prompting vs RAG", href: "/learn/advanced-ai/10", xp: 500, badgeName: "Stack Chooser", badgeIcon: "", week: 5, session: 2, hasLesson: true },
+  { id: "aai-11", title: "Bias Audits & Fairness Metrics", href: "/learn/advanced-ai/11", xp: 550, badgeName: "Fairness Auditor", badgeIcon: "", week: 6, session: 1, hasLesson: true },
+  { id: "aai-12", title: "Privacy, Security & Model Abuse", href: "/learn/advanced-ai/12", xp: 600, badgeName: "AI Defender", badgeIcon: "", week: 6, session: 2, hasLesson: true },
+  { id: "aai-13", title: "MLOps Lite: Deploy, Monitor, Drift", href: "/learn/advanced-ai/13", xp: 650, badgeName: "Ship Watcher", badgeIcon: "", week: 7, session: 1, hasLesson: true },
+  { id: "aai-14", title: "Multimodal & Tool-Using Systems", href: "/learn/advanced-ai/14", xp: 700, badgeName: "Systems Integrator", badgeIcon: "", week: 7, session: 2, hasLesson: true },
+  { id: "aai-15", title: "Capstone Studio: Build Your AI System", href: "/learn/advanced-ai/15", xp: 750, badgeName: "Capstone Builder", badgeIcon: "", week: 8, session: 1, hasLesson: true },
+  { id: "aai-16", title: "Capstone: Demo, Audit & Defend", href: "/learn/advanced-ai/16", xp: 800, badgeName: "AI Systems Graduate", badgeIcon: "", week: 8, session: 2, hasLesson: true },
 ];
 
 const AI_LITERACY_LESSONS: LessonRow[] = [
@@ -295,6 +332,13 @@ export const TRACKS: Track[] = [
     lessons: AI_LITERACY_LESSONS,
   },
   {
+    id: "advanced-ai",
+    title: "Advanced AI",
+    subtitle: "Build, evaluate, and audit AI systems — beyond prompting (CSTA AI specialty)",
+    icon: "",
+    lessons: ADVANCED_AI_LESSONS,
+  },
+  {
     id: "digital-literacy",
     title: "Digital Literacy",
     subtitle: "Evaluate systems, information, privacy, and digital citizenship — CSTA Level 3A",
@@ -339,6 +383,7 @@ export function getTrack(id: Track["id"]): Track | undefined {
 export function weeksForTrack(id: Track["id"]): WeekPlan[] {
   if (id === "ai-python") return PYTHON_WEEKS;
   if (id === "data-analyst") return DATA_ANALYST_WEEKS;
+  if (id === "advanced-ai") return ADVANCED_AI_WEEKS;
   if (id === "digital-literacy") return DIGITAL_LITERACY_WEEKS;
   if (id === "cybersecurity") return CYBERSECURITY_WEEKS;
   if (id === "financial-literacy") return FINANCIAL_LITERACY_WEEKS;

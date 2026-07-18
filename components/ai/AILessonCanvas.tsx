@@ -23,6 +23,7 @@ import { ScenarioTree, type ScenarioNode } from "@/components/exercises/Scenario
 import { AIDebugChallenge } from "@/components/exercises/AIDebugChallenge";
 import { AIParsonsChallenge } from "@/components/exercises/AIParsonsChallenge";
 import { AIPredictChallenge } from "@/components/exercises/AIPredictChallenge";
+import { EvalLab, type EvalLabCase } from "@/components/exercises/EvalLab";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
@@ -33,6 +34,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { AI_INTERACTIVE_BY_LESSON } from "@/lib/aiLessons/interactiveExercises";
+import { ADVANCED_AI_INTERACTIVE_BY_LESSON } from "@/lib/advancedAiLessons/interactiveExercises";
 import { DIGITAL_INTERACTIVE_BY_LESSON } from "@/lib/digitalLessons/interactiveExercises";
 import { CYBER_INTERACTIVE_BY_LESSON } from "@/lib/cyberLessons/interactiveExercises";
 import { FINANCE_INTERACTIVE_BY_LESSON } from "@/lib/financeLessons/interactiveExercises";
@@ -123,13 +125,35 @@ export type AIPredictActivity = {
   imageAlt?: string;
 };
 
+export type AIEvalActivity = {
+  id: string;
+  kind: "eval";
+  title: string;
+  prompt: string;
+  positiveLabel: string;
+  negativeLabel: string;
+  cases: EvalLabCase[];
+  costNote: string;
+  correctMetric: "precision" | "recall" | "accuracy" | "f1";
+  metricChoices: Array<{
+    id: "precision" | "recall" | "accuracy" | "f1";
+    label: string;
+    why: string;
+  }>;
+  actionPrompt: string;
+  actionChoices: string[];
+  correctActionIndex: number;
+  explanation: string;
+};
+
 export type AIBonusActivity =
   | AIMatchActivity
   | AIOrderActivity
   | AIScenarioActivity
   | AIParsonsActivity
   | AIDebugActivity
-  | AIPredictActivity;
+  | AIPredictActivity
+  | AIEvalActivity;
 
 export type AILessonConfig = {
   id: string;
@@ -147,7 +171,7 @@ export type AILessonConfig = {
   quiz: AIQuizQuestion[];
   /**
    * Interactive practice after the MCQ quiz:
-   * reorder (parsons), debug, predict, match, order, or scenario.
+   * reorder (parsons), debug, eval lab, predict, match, order, or scenario.
    * If omitted, a default set from the AI exercise bank is used.
    */
   activities?: AIBonusActivity[];
@@ -344,6 +368,7 @@ export function AILessonCanvas({
     if (lesson.activities && lesson.activities.length > 0) return lesson.activities;
     return (
       AI_INTERACTIVE_BY_LESSON[lesson.id] ??
+      ADVANCED_AI_INTERACTIVE_BY_LESSON[lesson.id] ??
       DIGITAL_INTERACTIVE_BY_LESSON[lesson.id] ??
       CYBER_INTERACTIVE_BY_LESSON[lesson.id] ??
       FINANCE_INTERACTIVE_BY_LESSON[lesson.id] ??
@@ -773,15 +798,17 @@ export function AILessonCanvas({
                             ? "Reorder"
                             : activity.kind === "debug"
                               ? "Debug"
-                              : activity.kind === "predict"
-                                ? "Predict"
-                                : activity.kind === "match"
-                                  ? "Match"
-                                  : activity.kind === "order"
-                                    ? "Order"
-                                    : activity.kind === "scenario"
-                                      ? "Decision tree"
-                                      : "Challenge"
+                              : activity.kind === "eval"
+                                ? "Eval lab"
+                                : activity.kind === "predict"
+                                  ? "Predict"
+                                  : activity.kind === "match"
+                                    ? "Match"
+                                    : activity.kind === "order"
+                                      ? "Order"
+                                      : activity.kind === "scenario"
+                                        ? "Decision tree"
+                                        : "Challenge"
                         )
                         .join(" · ")}{" "}
                       — finish each one to complete the lesson. Use Next challenge after each success.
@@ -799,15 +826,17 @@ export function AILessonCanvas({
                             ? "Reorder"
                             : activity.kind === "debug"
                               ? "Debug"
-                              : activity.kind === "predict"
-                                ? "Predict"
-                                : activity.kind === "match"
-                                  ? "Match"
-                                  : activity.kind === "order"
-                                    ? "Order"
-                                    : activity.kind === "scenario"
-                                      ? "Decision tree"
-                                      : "Challenge";
+                              : activity.kind === "eval"
+                                ? "Eval lab"
+                                : activity.kind === "predict"
+                                  ? "Predict"
+                                  : activity.kind === "match"
+                                    ? "Match"
+                                    : activity.kind === "order"
+                                      ? "Order"
+                                      : activity.kind === "scenario"
+                                        ? "Decision tree"
+                                        : "Challenge";
                         return (
                           <button
                             key={activity.id}
@@ -907,6 +936,24 @@ export function AILessonCanvas({
                             placeholder={activeActivity.placeholder}
                             imageSrc={activeActivity.imageSrc}
                             imageAlt={activeActivity.imageAlt}
+                            completed={activityDoneIds.has(activeActivity.id)}
+                            onComplete={() => markActivityDone(activeActivity.id)}
+                          />
+                        ) : null}
+                        {activeActivity.kind === "eval" ? (
+                          <EvalLab
+                            title={activeActivity.title}
+                            prompt={activeActivity.prompt}
+                            positiveLabel={activeActivity.positiveLabel}
+                            negativeLabel={activeActivity.negativeLabel}
+                            cases={activeActivity.cases}
+                            costNote={activeActivity.costNote}
+                            correctMetric={activeActivity.correctMetric}
+                            metricChoices={activeActivity.metricChoices}
+                            actionPrompt={activeActivity.actionPrompt}
+                            actionChoices={activeActivity.actionChoices}
+                            correctActionIndex={activeActivity.correctActionIndex}
+                            explanation={activeActivity.explanation}
                             completed={activityDoneIds.has(activeActivity.id)}
                             onComplete={() => markActivityDone(activeActivity.id)}
                           />
