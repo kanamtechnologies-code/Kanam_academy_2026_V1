@@ -58,6 +58,7 @@ export default function WelcomePage() {
   );
   const [forgotError, setForgotError] = React.useState<string | null>(null);
   const [resetLinkError, setResetLinkError] = React.useState<string | null>(null);
+  const [accountDeletedMsg, setAccountDeletedMsg] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     try {
@@ -65,6 +66,13 @@ export default function WelcomePage() {
       const resetError = params.get("reset_error");
       const errorCode = params.get("error_code") || params.get("error");
       const errorDescription = params.get("error_description");
+      const accountDeleted = params.get("accountDeleted") === "1";
+
+      if (accountDeleted) {
+        setAccountDeletedMsg(
+          "Your family account and child learning data were deleted. Any active subscription was canceled when possible."
+        );
+      }
 
       if (resetError) {
         setResetLinkError(decodeURIComponent(resetError.replace(/\+/g, " ")));
@@ -79,7 +87,7 @@ export default function WelcomePage() {
         );
       }
 
-      if (resetError || errorCode) {
+      if (resetError || errorCode || accountDeleted) {
         const url = new URL(window.location.href);
         url.search = "";
         url.hash = "";
@@ -261,6 +269,29 @@ export default function WelcomePage() {
                 }
               >
                 {resetLinkError}
+              </Notice>
+            </div>
+          ) : null}
+
+          {accountDeletedMsg ? (
+            <div className="mb-4">
+              <Notice
+                variant="success"
+                role="status"
+                title="Account deleted"
+                action={
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    className="bg-white/80"
+                    onClick={() => setAccountDeletedMsg(null)}
+                  >
+                    Dismiss
+                  </Button>
+                }
+              >
+                {accountDeletedMsg}
               </Notice>
             </div>
           ) : null}

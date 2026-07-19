@@ -65,6 +65,18 @@ export default function HelpPage() {
                   records consent via payment instrument. Without consent, kid profiles and
                   learning stay locked.
                 </li>
+                <li>
+                  <strong>Export or delete a child</strong> — in Parent hub, use Export data or
+                  Delete on a kid card. To erase the whole family login, use Delete family account
+                  (cancels billing when possible). You can also email{" "}
+                  <a
+                    className="font-semibold text-[var(--brand-2)] underline underline-offset-2"
+                    href="mailto:info@kanamacademy.com"
+                  >
+                    info@kanamacademy.com
+                  </a>
+                  .
+                </li>
               </ul>
             </Notice>
           </div>

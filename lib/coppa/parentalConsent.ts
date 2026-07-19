@@ -8,7 +8,7 @@
 import { PRIVACY_POLICY_URL } from "@/lib/coppa/ageGate";
 
 /** Bump when the consent notice text materially changes. */
-export const PARENTAL_CONSENT_NOTICE_VERSION = "2026-07-19.v3";
+export const PARENTAL_CONSENT_NOTICE_VERSION = "2026-07-19.v5";
 
 export type ParentalConsentStatus = "pending" | "verified" | "revoked";
 
@@ -41,7 +41,7 @@ export const PARENTAL_CONSENT_NOTICE_LINES = [
   "I am the parent or legal guardian of each child I enroll on Kanam Academy.",
   "I consent to Kanam collecting and using my child’s information (such as name, grade, progress, and activity in lessons) to provide the educational service, as described in the Privacy Policy.",
   "Kanam will never sell my child’s personal information to third parties.",
-  "I understand I can review this consent, request deletion of my child’s information, or refuse further collection by emailing info@kanamacademy.com.",
+  "I understand I can export or delete my child’s profile, or delete my entire family account, from the Parent hub — or email info@kanamacademy.com to review, correct, delete, or refuse further collection of my child’s information.",
 ] as const;
 
 export { PRIVACY_POLICY_URL };
