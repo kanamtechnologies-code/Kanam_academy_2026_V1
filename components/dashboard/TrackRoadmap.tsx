@@ -11,6 +11,11 @@ import { Notice } from "@/components/ui/notice";
 import { PremiumBadge, PremiumBadgeMark } from "@/components/badges/PremiumBadge";
 import { readLessonModuleUnlocked } from "@/lib/lessonModuleUnlock";
 import {
+  apCspExamLockReason,
+  isApCspAssessmentRow,
+  isApCspExamUnlocked,
+} from "@/lib/apCspExams/access";
+import {
   type Track,
   isLessonOpenForStudent,
   weekSessionLabel,
@@ -205,6 +210,12 @@ function TrackRoadmapContent({
   }, [lessonRestricted, enabledLessonIds, completedIds]);
 
   const { nextLesson } = trackProgress(completedIds, track.lessons, { openLessonIds });
+  const nextOpenAssessment = track.lessons.find(
+    (l) =>
+      isApCspAssessmentRow(l) &&
+      !completedIds.includes(l.id) &&
+      isApCspExamUnlocked(l.id, completedIds)
+  );
   const [activityLockNoticeId, setActivityLockNoticeId] = React.useState<string | null>(null);
 
   return (
@@ -246,6 +257,9 @@ function TrackRoadmapContent({
 
                 {weekLessons.map((lesson) => {
                   const completed = completedIds.includes(lesson.id);
+                  const assessmentLocked =
+                    isApCspAssessmentRow(lesson) &&
+                    !isApCspExamUnlocked(lesson.id, completedIds);
                   const assignmentLocked =
                     lessonRestricted &&
                     !isLessonOpenForStudent(
@@ -255,10 +269,17 @@ function TrackRoadmapContent({
                       completedIds,
                       entitlementRestricted
                     );
+                  const lockedOut = Boolean(lesson.comingSoon || assignmentLocked || assessmentLocked);
+                  // Prefer core "next lesson"; once lessons are done, highlight the next unlocked exam.
                   const isActive =
-                    nextLesson?.id === lesson.id && !completed && !lesson.comingSoon && !assignmentLocked;
+                    !completed &&
+                    !lockedOut &&
+                    (nextLesson?.id === lesson.id ||
+                      (isApCspAssessmentRow(lesson) &&
+                        !nextLesson &&
+                        nextOpenAssessment?.id === lesson.id));
                   const canStart =
-                    lesson.href && !lesson.comingSoon && !assignmentLocked && !disableActions;
+                    Boolean(lesson.href) && !lockedOut && !disableActions;
 
                   return (
                     <Card
@@ -270,7 +291,7 @@ function TrackRoadmapContent({
                           : isActive
                             ? "border-[var(--brand)] bg-white shadow-[0_0_0_1px_rgba(24,161,109,0.25)]"
                             : "border-slate-200",
-                        lesson.comingSoon || assignmentLocked ? "opacity-80" : "",
+                        lockedOut ? "opacity-80" : "",
                       ].join(" ")}
                     >
                       <CardContent className="p-4 sm:p-5">
@@ -279,7 +300,7 @@ function TrackRoadmapContent({
                             <div className="mt-0.5 shrink-0">
                               {completed ? (
                                 <CheckCircle2 className="h-5 w-5 text-[var(--brand)]" />
-                              ) : lesson.comingSoon || assignmentLocked ? (
+                              ) : lockedOut ? (
                                 <Lock className="h-5 w-5 text-slate-400" />
                               ) : (
                                 <Play className="h-5 w-5 text-[var(--accent)]" />
@@ -287,10 +308,12 @@ function TrackRoadmapContent({
                             </div>
                             <div className="min-w-0">
                               <p className="text-xs text-slate-500">
-                                {weekSessionLabel(lesson)}
+                                {isApCspAssessmentRow(lesson)
+                                  ? "Week 8 · Assessment"
+                                  : weekSessionLabel(lesson)}
                                 {isActive ? (
                                   <span className="ml-2 rounded-full bg-[var(--brand)]/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[var(--brand)]">
-                                    Next lesson
+                                    {isApCspAssessmentRow(lesson) ? "Next exam" : "Next lesson"}
                                   </span>
                                 ) : null}
                                 {lesson.comingSoon ? (
@@ -303,10 +326,20 @@ function TrackRoadmapContent({
                                     {classRestricted ? "Not assigned" : "Locked"}
                                   </span>
                                 ) : null}
+                                {assessmentLocked ? (
+                                  <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-amber-800">
+                                    Locked
+                                  </span>
+                                ) : null}
                               </p>
                               <p className="mt-1 break-words text-base font-black tracking-tight text-slate-900">
                                 {lesson.title}
                               </p>
+                              {assessmentLocked ? (
+                                <p className="mt-1 text-xs font-medium text-amber-800">
+                                  {apCspExamLockReason(lesson.id, completedIds)}
+                                </p>
+                              ) : null}
                               <p className="mt-1 flex flex-wrap items-center gap-1.5 text-xs font-semibold text-slate-500">
                                 <span>+{lesson.xp} XP</span>
                                 <span aria-hidden>·</span>
@@ -325,13 +358,15 @@ function TrackRoadmapContent({
                                 </Button>
                               ) : canStart ? (
                                 <Button asChild className="min-h-11 w-full px-6 font-bold sm:w-auto">
-                                  <Link href={lesson.href!}>Start</Link>
+                                  <Link href={lesson.href!}>
+                                    {isApCspAssessmentRow(lesson) ? "Start exam" : "Start"}
+                                  </Link>
                                 </Button>
                               ) : lesson.comingSoon ? (
                                 <Button disabled variant="secondary" className="min-h-11 w-full sm:w-auto">
                                   Soon
                                 </Button>
-                              ) : assignmentLocked ? (
+                              ) : assignmentLocked || assessmentLocked ? (
                                 <Button disabled variant="secondary" className="min-h-11 w-full sm:w-auto">
                                   Locked
                                 </Button>

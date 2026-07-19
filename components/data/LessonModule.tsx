@@ -32,6 +32,15 @@ export type LessonModuleCheckIn = {
   explanation: string;
 };
 
+export type LessonVisualExample = {
+  /** Caption in the dark card header (what the visual is teaching). */
+  caption?: string;
+  /** Pseudocode / code shown in the editor-style block. */
+  code: string;
+  /** Optional console / “what happens” output under the card. */
+  output?: string;
+};
+
 export type LessonModuleSection = {
   id: string;
   /** Small label shown above the title, e.g. "Real world". */
@@ -52,6 +61,11 @@ export type LessonModuleSection = {
   codeCaption?: string;
   /** Example console / query output shown in a terminal-style block. */
   output?: string;
+  /**
+   * Extra visual example cards (same dark “slide card” style as `code`).
+   * Use for side-by-side concepts, traces, and before/after patterns.
+   */
+  examples?: LessonVisualExample[];
   callout?: { label: string; text: string };
   /**
    * Optional mid-lesson checkpoint. Learners must answer correctly before
@@ -59,6 +73,61 @@ export type LessonModuleSection = {
    */
   checkIn?: LessonModuleCheckIn;
 };
+
+/** Soft syntax tint for comments so visual cards scan faster. */
+function renderCodeLines(code: string) {
+  const lines = code.split("\n");
+  return lines.map((line, i) => {
+    const trimmed = line.trimStart();
+    const isComment =
+      trimmed.startsWith("#") ||
+      trimmed.startsWith("//") ||
+      trimmed.startsWith("--");
+    return (
+      <span key={i} className={isComment ? "text-slate-400" : undefined}>
+        {line}
+        {i < lines.length - 1 ? "\n" : null}
+      </span>
+    );
+  });
+}
+
+function VisualCodeCard({
+  caption,
+  code,
+  output,
+}: {
+  caption?: string;
+  code: string;
+  output?: string;
+}) {
+  return (
+    <div className="space-y-2">
+      <div className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-sm">
+        {caption ? (
+          <div className="flex items-center gap-2 border-b border-slate-700/70 bg-slate-800/80 px-4 py-2 text-xs font-bold text-slate-300">
+            <BookOpen className="h-3.5 w-3.5 shrink-0" />
+            <span>{caption}</span>
+          </div>
+        ) : null}
+        <pre className="overflow-x-auto whitespace-pre px-4 py-3 font-mono text-[13px] leading-relaxed text-emerald-100">
+          {renderCodeLines(code)}
+        </pre>
+      </div>
+      {output ? (
+        <div>
+          <p className="mb-1 flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wide text-slate-500">
+            <TerminalSquare className="h-3.5 w-3.5" />
+            What it prints
+          </p>
+          <pre className="overflow-x-auto rounded-xl bg-slate-950 px-4 py-3 font-mono text-[13px] leading-relaxed text-sky-200">
+            {output}
+          </pre>
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
 export type LessonModuleData = {
   durationLabel?: string;
@@ -406,20 +475,12 @@ export function LessonModule({
               ) : null}
 
               {section.code ? (
-                <div className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-sm">
-                  {section.codeCaption ? (
-                    <div className="flex items-center gap-2 border-b border-slate-700/70 bg-slate-800/80 px-4 py-2 text-xs font-bold text-slate-300">
-                      <BookOpen className="h-3.5 w-3.5" />
-                      {section.codeCaption}
-                    </div>
-                  ) : null}
-                  <pre className="overflow-x-auto px-4 py-3 font-mono text-[13px] leading-relaxed text-emerald-100">
-                    {section.code}
-                  </pre>
-                </div>
-              ) : null}
-
-              {section.output ? (
+                <VisualCodeCard
+                  caption={section.codeCaption}
+                  code={section.code}
+                  output={section.output}
+                />
+              ) : section.output ? (
                 <div>
                   <p className="mb-1 flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wide text-slate-500">
                     <TerminalSquare className="h-3.5 w-3.5" />
@@ -430,6 +491,15 @@ export function LessonModule({
                   </pre>
                 </div>
               ) : null}
+
+              {section.examples?.map((ex, ei) => (
+                <VisualCodeCard
+                  key={`${section.id}-ex-${ei}`}
+                  caption={ex.caption}
+                  code={ex.code}
+                  output={ex.output}
+                />
+              ))}
             </>
           );
 
@@ -523,7 +593,12 @@ export function LessonModule({
           );
 
           const hasMedia = Boolean(
-            section.image || section.chart || section.table || section.code || section.output
+            section.image ||
+              section.chart ||
+              section.table ||
+              section.code ||
+              section.output ||
+              (section.examples && section.examples.length > 0)
           );
 
           return (

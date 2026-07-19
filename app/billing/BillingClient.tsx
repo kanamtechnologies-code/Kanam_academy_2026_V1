@@ -29,6 +29,13 @@ const TRACKS = [
     /** Create Stripe Price + add to stripe-catalog.ts before enabling checkout. */
     checkoutDisabled: true,
   },
+  {
+    slug: "ap-csp-prep",
+    name: "AP CSP Prep",
+    price: "$199",
+    /** Create Stripe Price + add to stripe-catalog.ts before enabling checkout. */
+    checkoutDisabled: true,
+  },
   { slug: "ai-python", name: "Python & AI Foundations", price: "$169" },
   { slug: "cybersecurity", name: "Cybersecurity", price: "$200" },
   { slug: "data-analyst", name: "Data Analyst Track", price: "$200" },

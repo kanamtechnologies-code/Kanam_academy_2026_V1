@@ -35,6 +35,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { AI_INTERACTIVE_BY_LESSON } from "@/lib/aiLessons/interactiveExercises";
 import { ADVANCED_AI_INTERACTIVE_BY_LESSON } from "@/lib/advancedAiLessons/interactiveExercises";
+import { AP_CSP_INTERACTIVE_BY_LESSON } from "@/lib/apCspLessons/interactiveExercises";
 import { DIGITAL_INTERACTIVE_BY_LESSON } from "@/lib/digitalLessons/interactiveExercises";
 import { CYBER_INTERACTIVE_BY_LESSON } from "@/lib/cyberLessons/interactiveExercises";
 import { FINANCE_INTERACTIVE_BY_LESSON } from "@/lib/financeLessons/interactiveExercises";
@@ -369,6 +370,7 @@ export function AILessonCanvas({
     return (
       AI_INTERACTIVE_BY_LESSON[lesson.id] ??
       ADVANCED_AI_INTERACTIVE_BY_LESSON[lesson.id] ??
+      AP_CSP_INTERACTIVE_BY_LESSON[lesson.id] ??
       DIGITAL_INTERACTIVE_BY_LESSON[lesson.id] ??
       CYBER_INTERACTIVE_BY_LESSON[lesson.id] ??
       FINANCE_INTERACTIVE_BY_LESSON[lesson.id] ??

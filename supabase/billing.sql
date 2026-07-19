@@ -68,6 +68,8 @@ create table if not exists public.track_entitlements (
       'financial-literacy',
       'digital-literacy',
       'ai-literacy',
+      'advanced-ai',
+      'ap-csp-prep',
       'ai-python',
       'cybersecurity',
       'data-analyst'

@@ -15,6 +15,8 @@ export type LessonRow = {
    * the hands-on activity. The dashboard surfaces a separate Lesson + Activity entry.
    */
   hasLesson?: boolean;
+  /** End-of-track practice tests / finals (gated separately from weekly lessons). */
+  kind?: "lesson" | "assessment";
 };
 
 export type WeekPlan = {
@@ -29,6 +31,7 @@ export type Track = {
     | "data-analyst"
     | "ai-literacy"
     | "advanced-ai"
+    | "ap-csp-prep"
     | "digital-literacy"
     | "cybersecurity"
     | "financial-literacy";
@@ -68,18 +71,22 @@ export function weekSessionLabelFromIndex(idx: number) {
 export function trackProgress(
   completedIds: string[],
   lessons: LessonRow[],
-  options?: { openLessonIds?: Set<string> | null }
+  options?: { openLessonIds?: Set<string> | null; includeAssessments?: boolean }
 ) {
   const openLessonIds = options?.openLessonIds;
+  const includeAssessments = options?.includeAssessments ?? false;
+  const scoped = includeAssessments
+    ? lessons
+    : lessons.filter((l) => l.kind !== "assessment");
   const availableLessons =
     openLessonIds == null
-      ? lessons
-      : lessons.filter((l) => openLessonIds.has(l.id) || completedIds.includes(l.id));
+      ? scoped
+      : scoped.filter((l) => openLessonIds.has(l.id) || completedIds.includes(l.id));
 
   const completedCount = availableLessons.filter((l) => completedIds.includes(l.id)).length;
   const totalCount = availableLessons.length;
   const percent = totalCount ? Math.round((completedCount / totalCount) * 100) : 0;
-  const totalXp = availableLessons
+  const totalXp = lessons
     .filter((l) => completedIds.includes(l.id))
     .reduce((sum, l) => sum + l.xp, 0);
   const activeIndex = availableLessons.findIndex(
@@ -148,6 +155,17 @@ export const ADVANCED_AI_WEEKS: WeekPlan[] = [
   { week: 6, theme: "Stack Choices & Audits", focus: "Prompt vs RAG vs fine-tune, fairness audits, and AI security." },
   { week: 7, theme: "Ship & Integrate", focus: "MLOps lite — deploy, monitor, drift — plus multimodal system design." },
   { week: 8, theme: "Capstone", focus: "Build a thin AI system, then demo, audit, and defend it." },
+];
+
+export const AP_CSP_PREP_WEEKS: WeekPlan[] = [
+  { week: 1, theme: "Creative Development", focus: "Purpose, collaboration, iteration, testing, and documentation (Big Idea 1)." },
+  { week: 2, theme: "Data", focus: "Bits/binary, abstraction, compression, metadata, bias, and insight from data (Big Idea 2)." },
+  { week: 3, theme: "Programming I", focus: "Variables, expressions, strings, conditionals, and Boolean logic (Big Idea 3)." },
+  { week: 4, theme: "Programming II", focus: "Iteration, lists, and traversal — build patterns you’ll need on the Create PT." },
+  { week: 5, theme: "Programming III", focus: "Procedures, parameters, abstraction, algorithms, and efficiency tradeoffs." },
+  { week: 6, theme: "Systems & Networks", focus: "Hardware/software, fault tolerance, packets, protocols, DNS, and HTTPS (Big Idea 4)." },
+  { week: 7, theme: "Impact of Computing", focus: "Innovations, equity, legal/ethical issues, IP, and privacy (Big Idea 5)." },
+  { week: 8, theme: "Create PT & Exams", focus: "Create Performance Task studio, then gated Practice Tests (30 Q) and Final Exam (40 Q) after all lessons." },
 ];
 
 export const DIGITAL_LITERACY_WEEKS: WeekPlan[] = [
@@ -226,6 +244,58 @@ const DATA_ANALYST_LESSONS: LessonRow[] = [
   { id: "da-12", title: "Distributions", href: "/learn/data/12", xp: 600, badgeName: "Distribution Detective", badgeIcon: "", week: 6, session: 2, hasLesson: true },
   { id: "da-13", title: "Relationships", href: "/learn/data/13", xp: 650, badgeName: "Relationship Finder", badgeIcon: "", week: 7, session: 1, hasLesson: true },
   { id: "da-14", title: "Your Data Project", href: "/learn/data/14", xp: 700, badgeName: "Data Analyst", badgeIcon: "", week: 8, session: 1, hasLesson: true },
+];
+
+const AP_CSP_PREP_LESSONS: LessonRow[] = [
+  { id: "csp-1", title: "Creative Development: Purpose, Collaboration & Iteration", href: "/learn/ap-csp-prep/1", xp: 50, badgeName: "Design Collaborator", badgeIcon: "", week: 1, session: 1, hasLesson: true },
+  { id: "csp-2", title: "Development Process, Testing & Documentation", href: "/learn/ap-csp-prep/2", xp: 100, badgeName: "Process Pro", badgeIcon: "", week: 1, session: 2, hasLesson: true },
+  { id: "csp-3", title: "Bits, Binary & Data Abstraction", href: "/learn/ap-csp-prep/3", xp: 150, badgeName: "Bit Builder", badgeIcon: "", week: 2, session: 1, hasLesson: true },
+  { id: "csp-4", title: "Compression, Metadata, Bias & Insight from Data", href: "/learn/ap-csp-prep/4", xp: 200, badgeName: "Data Decoder", badgeIcon: "", week: 2, session: 2, hasLesson: true },
+  { id: "csp-5", title: "Variables, Expressions & Strings", href: "/learn/ap-csp-prep/5", xp: 250, badgeName: "Code Starter", badgeIcon: "", week: 3, session: 1, hasLesson: true },
+  { id: "csp-6", title: "Conditionals & Boolean Logic", href: "/learn/ap-csp-prep/6", xp: 300, badgeName: "Logic Guard", badgeIcon: "", week: 3, session: 2, hasLesson: true },
+  { id: "csp-7", title: "Iteration & Loops", href: "/learn/ap-csp-prep/7", xp: 350, badgeName: "Loop Master", badgeIcon: "", week: 4, session: 1, hasLesson: true },
+  { id: "csp-8", title: "Lists & Traversal", href: "/learn/ap-csp-prep/8", xp: 400, badgeName: "List Navigator", badgeIcon: "", week: 4, session: 2, hasLesson: true },
+  { id: "csp-9", title: "Procedures, Parameters & Abstraction", href: "/learn/ap-csp-prep/9", xp: 450, badgeName: "Procedure Architect", badgeIcon: "", week: 5, session: 1, hasLesson: true },
+  { id: "csp-10", title: "Algorithms, Efficiency, Searching & Sorting", href: "/learn/ap-csp-prep/10", xp: 500, badgeName: "Algorithm Analyst", badgeIcon: "", week: 5, session: 2, hasLesson: true },
+  { id: "csp-11", title: "Computing Systems & Fault Tolerance", href: "/learn/ap-csp-prep/11", xp: 550, badgeName: "Systems Scout", badgeIcon: "", week: 6, session: 1, hasLesson: true },
+  { id: "csp-12", title: "The Internet: Packets, Protocols & Trust", href: "/learn/ap-csp-prep/12", xp: 600, badgeName: "Network Navigator", badgeIcon: "", week: 6, session: 2, hasLesson: true },
+  { id: "csp-13", title: "Computing Innovations, Society & Equity", href: "/learn/ap-csp-prep/13", xp: 650, badgeName: "Impact Analyst", badgeIcon: "", week: 7, session: 1, hasLesson: true },
+  { id: "csp-14", title: "Legal & Ethical Issues: IP, Privacy & Open Source", href: "/learn/ap-csp-prep/14", xp: 700, badgeName: "Ethics Sentinel", badgeIcon: "", week: 7, session: 2, hasLesson: true },
+  { id: "csp-15", title: "Create Performance Task Studio", href: "/learn/ap-csp-prep/15", xp: 750, badgeName: "Create PT Coach", badgeIcon: "", week: 8, session: 1, hasLesson: true },
+  { id: "csp-16", title: "AP-Style Practice Gauntlet & Exam Readiness", href: "/learn/ap-csp-prep/16", xp: 800, badgeName: "CSP Exam Ready", badgeIcon: "", week: 8, session: 2, hasLesson: true },
+  {
+    id: "csp-practice-1",
+    title: "Practice Test 1 · 30 AP-Style Questions",
+    href: "/learn/ap-csp-prep/exam/practice-1",
+    xp: 250,
+    badgeName: "Practice Ace I",
+    badgeIcon: "",
+    week: 8,
+    session: 3,
+    kind: "assessment",
+  },
+  {
+    id: "csp-practice-2",
+    title: "Practice Test 2 · 30 AP-Style Questions",
+    href: "/learn/ap-csp-prep/exam/practice-2",
+    xp: 250,
+    badgeName: "Practice Ace II",
+    badgeIcon: "",
+    week: 8,
+    session: 4,
+    kind: "assessment",
+  },
+  {
+    id: "csp-final",
+    title: "Final Exam · 40 AP-Style Questions",
+    href: "/learn/ap-csp-prep/exam/final",
+    xp: 400,
+    badgeName: "CSP Finalist",
+    badgeIcon: "",
+    week: 8,
+    session: 5,
+    kind: "assessment",
+  },
 ];
 
 const ADVANCED_AI_LESSONS: LessonRow[] = [
@@ -339,6 +409,13 @@ export const TRACKS: Track[] = [
     lessons: ADVANCED_AI_LESSONS,
   },
   {
+    id: "ap-csp-prep",
+    title: "AP CSP Prep",
+    subtitle: "College Board–aligned exam prep: Big Ideas, Create PT studio, and AP-style practice (not an official AP course)",
+    icon: "",
+    lessons: AP_CSP_PREP_LESSONS,
+  },
+  {
     id: "digital-literacy",
     title: "Digital Literacy",
     subtitle: "Evaluate systems, information, privacy, and digital citizenship — CSTA Level 3A",
@@ -384,6 +461,7 @@ export function weeksForTrack(id: Track["id"]): WeekPlan[] {
   if (id === "ai-python") return PYTHON_WEEKS;
   if (id === "data-analyst") return DATA_ANALYST_WEEKS;
   if (id === "advanced-ai") return ADVANCED_AI_WEEKS;
+  if (id === "ap-csp-prep") return AP_CSP_PREP_WEEKS;
   if (id === "digital-literacy") return DIGITAL_LITERACY_WEEKS;
   if (id === "cybersecurity") return CYBERSECURITY_WEEKS;
   if (id === "financial-literacy") return FINANCIAL_LITERACY_WEEKS;
