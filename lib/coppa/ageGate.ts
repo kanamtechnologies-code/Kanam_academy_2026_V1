@@ -5,11 +5,75 @@
 
 export const MIN_SELF_SIGNUP_AGE = 13;
 
+/**
+ * Grades that often include under-13 learners even after a 13+ age attestation.
+ * Soft signal: nudge to family account + require a confirmed parent/guardian email.
+ */
+export const YOUNGER_SELF_SIGNUP_GRADES = ["5", "6"] as const;
+
 /** sessionStorage key — short-lived attestation before student signup completes */
 export const AGE_ATTESTATION_KEY = "kanam.ageAttestation";
 
 export const PRIVACY_POLICY_URL = "https://www.kanamacademy.com/privacy";
 export const TERMS_URL = "https://www.kanamacademy.com/terms";
+
+export function isYoungerSelfSignupGrade(grade: string | null | undefined): boolean {
+  const g = String(grade ?? "").trim();
+  return (YOUNGER_SELF_SIGNUP_GRADES as readonly string[]).includes(g);
+}
+
+/** Parent/guardian email rules for grades 5–6 student self-signup. */
+export function validateYoungerGradeParentEmail(opts: {
+  grade: string | null | undefined;
+  studentEmail: string;
+  parentEmail: string | null | undefined;
+  parentEmailConfirm?: string | null | undefined;
+}): { ok: true } | { ok: false; error: string; code: string } {
+  if (!isYoungerSelfSignupGrade(opts.grade)) return { ok: true };
+
+  const student = String(opts.studentEmail ?? "")
+    .trim()
+    .toLowerCase();
+  const parent = String(opts.parentEmail ?? "")
+    .trim()
+    .toLowerCase();
+  const confirmRaw = opts.parentEmailConfirm;
+  const confirm =
+    confirmRaw === undefined || confirmRaw === null
+      ? null
+      : String(confirmRaw).trim().toLowerCase();
+
+  if (!parent || !parent.includes("@")) {
+    return {
+      ok: false,
+      error:
+        "Grades 5–6 need a parent or guardian email. Prefer a family account if the learner may be under 13.",
+      code: "PARENT_EMAIL_REQUIRED",
+    };
+  }
+  if (parent === student) {
+    return {
+      ok: false,
+      error: "Parent/guardian email must be different from the student email.",
+      code: "PARENT_EMAIL_MUST_DIFFER",
+    };
+  }
+  if (confirm === null || !confirm) {
+    return {
+      ok: false,
+      error: "Confirm the parent or guardian email.",
+      code: "PARENT_EMAIL_CONFIRM_REQUIRED",
+    };
+  }
+  if (confirm !== parent) {
+    return {
+      ok: false,
+      error: "Parent/guardian email confirmation does not match.",
+      code: "PARENT_EMAIL_CONFIRM_MISMATCH",
+    };
+  }
+  return { ok: true };
+}
 
 export type AgeAttestation = {
   /** ISO date YYYY-MM-DD */

@@ -14,7 +14,9 @@ import {
   PRIVACY_POLICY_URL,
   clearAgeAttestation,
   hasValidSelfSignupAttestation,
+  isYoungerSelfSignupGrade,
   readAgeAttestation,
+  validateYoungerGradeParentEmail,
 } from "@/lib/coppa/ageGate";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
@@ -47,9 +49,12 @@ export default function WelcomeProfilePage() {
   const [schoolName, setSchoolName] = React.useState("");
   const [parentName, setParentName] = React.useState("");
   const [parentEmail, setParentEmail] = React.useState("");
+  const [parentEmailConfirm, setParentEmailConfirm] = React.useState("");
   const [parentPhone, setParentPhone] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
+
+  const youngerGrade = isYoungerSelfSignupGrade(grade);
 
   React.useEffect(() => {
     let qpEmail = "";
@@ -102,6 +107,10 @@ export default function WelcomeProfilePage() {
       setError("Enter your last name.");
       return;
     }
+    if (!grade) {
+      setError("Select your grade.");
+      return;
+    }
     if (!trimmedEmail || !trimmedEmail.includes("@")) {
       setError("Enter a valid email address.");
       return;
@@ -112,6 +121,17 @@ export default function WelcomeProfilePage() {
     }
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
+      return;
+    }
+
+    const parentCheck = validateYoungerGradeParentEmail({
+      grade,
+      studentEmail: trimmedEmail,
+      parentEmail,
+      parentEmailConfirm,
+    });
+    if (!parentCheck.ok) {
+      setError(parentCheck.error);
       return;
     }
 
@@ -139,10 +159,11 @@ export default function WelcomeProfilePage() {
           firstName: trimmedFirst,
           lastName: trimmedLast,
           birthdate: attestation.birthdate,
-          grade: grade || undefined,
+          grade,
           schoolName: schoolName.trim() || undefined,
           parentName: parentName.trim() || undefined,
           parentEmail: parentEmail.trim() || undefined,
+          parentEmailConfirm: youngerGrade ? parentEmailConfirm.trim() || undefined : undefined,
           parentPhone: parentPhone.trim() || undefined,
         }),
       });
@@ -267,6 +288,38 @@ export default function WelcomeProfilePage() {
 
             <div className="space-y-1.5">
               <label className="text-sm font-semibold text-slate-700">
+                Grade <span className="text-emerald-700">*</span>
+              </label>
+              <select
+                value={grade}
+                onChange={(e) => setGrade(e.target.value)}
+                className="h-11 w-full rounded-md border border-input bg-white px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              >
+                <option value="">Choose…</option>
+                {GRADES.map((g) => (
+                  <option key={g} value={g}>
+                    {g}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {youngerGrade ? (
+              <Notice compact variant="info" role="status">
+                Grades 5–6 often include learners under {MIN_SELF_SIGNUP_AGE}. If that&apos;s you,
+                please use a{" "}
+                <Link
+                  href="/welcome/parent?reason=under13"
+                  className="font-semibold underline underline-offset-2"
+                >
+                  family account
+                </Link>{" "}
+                instead. Continuing with a student login requires a parent/guardian email below.
+              </Notice>
+            ) : null}
+
+            <div className="space-y-1.5">
+              <label className="text-sm font-semibold text-slate-700">
                 Email <span className="text-emerald-700">*</span>
               </label>
               <Input
@@ -308,13 +361,49 @@ export default function WelcomeProfilePage() {
               </div>
             </div>
 
+            {youngerGrade ? (
+              <div className="grid gap-3 rounded-2xl border border-amber-200/80 bg-amber-50/60 p-4">
+                <p className="text-sm font-extrabold text-slate-900">
+                  Parent / guardian email <span className="text-emerald-700">*</span>
+                </p>
+                <p className="text-xs text-slate-600">
+                  Required for grades 5–6. This is contact only — it does not create a parent login.
+                  Use a different address from the student email above.
+                </p>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-semibold text-slate-700">Guardian email</label>
+                  <Input
+                    value={parentEmail}
+                    onChange={(e) => setParentEmail(e.target.value)}
+                    type="email"
+                    placeholder="parent@email.com"
+                    className="h-11 bg-white"
+                    autoComplete="email"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-semibold text-slate-700">
+                    Confirm guardian email
+                  </label>
+                  <Input
+                    value={parentEmailConfirm}
+                    onChange={(e) => setParentEmailConfirm(e.target.value)}
+                    type="email"
+                    placeholder="Type it again"
+                    className="h-11 bg-white"
+                    autoComplete="email"
+                  />
+                </div>
+              </div>
+            ) : null}
+
             <button
               type="button"
               className="mt-1 flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-3 text-left text-sm font-semibold text-slate-800 hover:bg-slate-50"
               onClick={() => setShowOptional((v) => !v)}
               aria-expanded={showOptional}
             >
-              <span>Optional details (grade, school, guardian contact)</span>
+              <span>Optional details (school, guardian contact)</span>
               <ChevronDown
                 className={[
                   "h-4 w-4 shrink-0 text-slate-500 transition-transform",
@@ -326,34 +415,17 @@ export default function WelcomeProfilePage() {
             {showOptional ? (
               <div className="grid gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/50 p-4">
                 <p className="text-xs text-slate-600">
-                  These map to your student profile in the database. Guardian fields are contact
-                  only — they do not create a parent login.
+                  These map to your student profile. Guardian fields are contact only — they do not
+                  create a parent login.
                 </p>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-slate-700">Grade</label>
-                    <select
-                      value={grade}
-                      onChange={(e) => setGrade(e.target.value)}
-                      className="h-11 w-full rounded-md border border-input bg-white px-3 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
-                    >
-                      <option value="">Choose…</option>
-                      {GRADES.map((g) => (
-                        <option key={g} value={g}>
-                          {g}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-slate-700">School</label>
-                    <Input
-                      value={schoolName}
-                      onChange={(e) => setSchoolName(e.target.value)}
-                      placeholder="School name"
-                      className="h-11 bg-white"
-                    />
-                  </div>
+                <div className="space-y-1.5">
+                  <label className="text-sm font-semibold text-slate-700">School</label>
+                  <Input
+                    value={schoolName}
+                    onChange={(e) => setSchoolName(e.target.value)}
+                    placeholder="School name"
+                    className="h-11 bg-white"
+                  />
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   <Input
@@ -362,13 +434,15 @@ export default function WelcomeProfilePage() {
                     placeholder="Guardian name"
                     className="h-11 bg-white"
                   />
-                  <Input
-                    value={parentEmail}
-                    onChange={(e) => setParentEmail(e.target.value)}
-                    type="email"
-                    placeholder="Guardian email"
-                    className="h-11 bg-white"
-                  />
+                  {!youngerGrade ? (
+                    <Input
+                      value={parentEmail}
+                      onChange={(e) => setParentEmail(e.target.value)}
+                      type="email"
+                      placeholder="Guardian email"
+                      className="h-11 bg-white"
+                    />
+                  ) : null}
                   <Input
                     value={parentPhone}
                     onChange={(e) => setParentPhone(e.target.value)}

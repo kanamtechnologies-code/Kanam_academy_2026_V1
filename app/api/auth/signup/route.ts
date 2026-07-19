@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 
 import { enrollStudentInClassByCode, getAsyncClassCode } from "@/lib/asyncClass";
-import { MIN_SELF_SIGNUP_AGE, ageFromBirthdate } from "@/lib/coppa/ageGate";
+import {
+  MIN_SELF_SIGNUP_AGE,
+  ageFromBirthdate,
+  isYoungerSelfSignupGrade,
+  validateYoungerGradeParentEmail,
+} from "@/lib/coppa/ageGate";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -18,6 +23,7 @@ type Body = {
   schoolName?: string;
   parentName?: string;
   parentEmail?: string;
+  parentEmailConfirm?: string;
   parentPhone?: string;
 };
 
@@ -81,7 +87,8 @@ export async function POST(req: Request) {
   const grade = s(body.grade) || null;
   const schoolName = s(body.schoolName);
   const parentName = s(body.parentName) || null;
-  const parentEmail = s(body.parentEmail) || null;
+  const parentEmail = s(body.parentEmail).toLowerCase() || null;
+  const parentEmailConfirm = s(body.parentEmailConfirm).toLowerCase() || null;
   const parentPhone = s(body.parentPhone) || null;
 
   if (!email || !email.includes("@")) {
@@ -108,6 +115,12 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
+  if (!grade) {
+    return NextResponse.json(
+      { ok: false, error: "Grade is required for student signup." },
+      { status: 400 }
+    );
+  }
 
   const attestedAge = ageFromBirthdate(birthdate);
   if (attestedAge === null) {
@@ -127,6 +140,21 @@ export async function POST(req: Request) {
     );
   }
 
+  const parentEmailCheck = validateYoungerGradeParentEmail({
+    grade,
+    studentEmail: email,
+    parentEmail,
+    parentEmailConfirm: isYoungerSelfSignupGrade(grade)
+      ? parentEmailConfirm ?? ""
+      : undefined,
+  });
+  if (!parentEmailCheck.ok) {
+    return NextResponse.json(
+      { ok: false, error: parentEmailCheck.error, code: parentEmailCheck.code },
+      { status: 400 }
+    );
+  }
+
   const ageAttestedAt = new Date().toISOString();
 
   const supabase = createSupabaseAdminClient();
@@ -139,10 +167,12 @@ export async function POST(req: Request) {
       first_name: firstName,
       last_name: lastName,
       class_code: classCode,
+      grade,
       // Audit trail without storing full DOB
       age_attested_years: attestedAge,
       age_attested_at: ageAttestedAt,
       self_signup_eligible: true,
+      younger_grade_parent_contact: isYoungerSelfSignupGrade(grade),
     },
   });
 
