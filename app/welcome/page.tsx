@@ -42,7 +42,6 @@ export default function WelcomePage() {
   const router = useRouter();
   const [returningEmail, setReturningEmail] = React.useState("");
   const [returningPassword, setReturningPassword] = React.useState("");
-  const [newEmail, setNewEmail] = React.useState("");
   const [classCode, setClassCode] = React.useState("");
   const [loadingNew, setLoadingNew] = React.useState(false);
   const [loadingReturning, setLoadingReturning] = React.useState(false);
@@ -373,20 +372,20 @@ export default function WelcomePage() {
                   I’m a new student
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Create your own login with email and a class code. Use a teacher code for school,
-                  or get a self-paced code to learn on your own — then unlock tracks with a plan
-                  or purchase when you&apos;re ready.
+                  Enter a class code, confirm your age, then create an email login. Use a teacher
+                  code for school, or get a self-paced code to learn on your own — then unlock
+                  tracks with a plan or purchase when you&apos;re ready.
                 </p>
                 <p className="mt-2 text-xs leading-relaxed text-slate-500">
-                  Parent managing kids? Use{" "}
+                  Under 13? A parent must{" "}
                   <button
                     type="button"
                     className="font-semibold text-emerald-800 underline underline-offset-2"
-                    onClick={() => router.push("/welcome/parent")}
+                    onClick={() => router.push("/welcome/parent?reason=under13")}
                   >
-                    Create family account
+                    create a family account
                   </button>{" "}
-                  instead — kids don&apos;t need their own email.
+                  — kids under 13 can&apos;t create their own email login.
                 </p>
 
                 {newError ? (
@@ -407,22 +406,6 @@ export default function WelcomePage() {
                 <div className="mt-6 grid gap-3 rounded-2xl border border-white/50 bg-white/40 p-4">
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                      <Mail className="h-4 w-4 text-emerald-600" />
-                      Email
-                    </div>
-                    <Input
-                      value={newEmail}
-                      onChange={(e) => setNewEmail(e.target.value)}
-                      placeholder="e.g. you@school.org"
-                      type="email"
-                      name="kanam-new-student-email"
-                      autoComplete="off"
-                      className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
                       <Hash className="h-4 w-4 text-emerald-600" />
                       Class code <span className="font-normal text-slate-500">(required)</span>
                     </div>
@@ -434,7 +417,8 @@ export default function WelcomePage() {
                     />
                     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                       <p className="text-xs text-slate-600">
-                        Learning on your own? Get a self-paced code.
+                        Learning on your own? Get a self-paced code. Next we&apos;ll ask your age
+                        before collecting email.
                       </p>
                       <Button
                         type="button"
@@ -509,11 +493,6 @@ export default function WelcomePage() {
                     onClick={() => {
                       setNewError(null);
                       const cc = classCode.trim();
-                      const em = newEmail.trim();
-                      if (!em || !em.includes("@")) {
-                        setNewError("Enter a valid email.");
-                        return;
-                      }
                       if (!cc) {
                         setNewError(
                           "Enter a class code, or tap “Get a self-paced code” first."
@@ -522,13 +501,12 @@ export default function WelcomePage() {
                       }
                       try {
                         window.localStorage.setItem("kanam.classCode", cc);
-                        window.localStorage.setItem("kanam.onboardingEmail", em);
                       } catch {
                         // ignore
                       }
                       setLoadingNew(true);
-                      const params = new URLSearchParams({ email: em, classCode: cc });
-                      router.push(`/welcome/profile?${params.toString()}`);
+                      const params = new URLSearchParams({ classCode: cc });
+                      router.push(`/welcome/age?${params.toString()}`);
                     }}
                   >
                     {loadingNew ? (

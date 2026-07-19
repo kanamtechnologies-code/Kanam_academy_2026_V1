@@ -5,9 +5,14 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CreditCard, Loader2, Plus, Shield, Users } from "lucide-react";
 
+import {
+  ParentalConsentFields,
+  type ParentalConsentFieldValues,
+} from "@/components/parent/ParentalConsentFields";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Notice } from "@/components/ui/notice";
+import { PARENTAL_CONSENT_NOTICE_VERSION } from "@/lib/coppa/parentalConsent";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isParentRole } from "@/lib/roles";
 
@@ -43,11 +48,14 @@ function ParentHubClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pickChild = searchParams.get("pick") === "1";
+  const forceConsent = searchParams.get("consent") === "1";
   const [loading, setLoading] = React.useState(true);
   const [mode, setMode] = React.useState<"hub" | "convert">("hub");
   const [householdName, setHouseholdName] = React.useState("My family");
   const [kids, setKids] = React.useState<Kid[]>([]);
   const [activeId, setActiveId] = React.useState<string | null>(null);
+  const [needsConsent, setNeedsConsent] = React.useState(false);
+  const [consentMethod, setConsentMethod] = React.useState<string | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [msg, setMsg] = React.useState<string | null>(null);
   const [converting, setConverting] = React.useState(false);
@@ -58,6 +66,12 @@ function ParentHubClient() {
   const [grade, setGrade] = React.useState("");
   const [pin, setPin] = React.useState("");
   const [saving, setSaving] = React.useState(false);
+  const [consentSaving, setConsentSaving] = React.useState(false);
+  const [consentFields, setConsentFields] = React.useState<ParentalConsentFieldValues>({
+    consentIsParent: false,
+    consentAccepted: false,
+    consentSignature: "",
+  });
 
   const [pinKidId, setPinKidId] = React.useState<string | null>(null);
   const [pinValue, setPinValue] = React.useState("");
@@ -83,12 +97,27 @@ function ParentHubClient() {
     }
 
     setMode("hub");
+    const meta = (data.user.user_metadata ?? {}) as Record<string, unknown>;
+    const parentName =
+      [meta.first_name, meta.last_name].filter(Boolean).join(" ").trim() ||
+      String(meta.display_name ?? "");
+    if (parentName) {
+      setConsentFields((prev) =>
+        prev.consentSignature ? prev : { ...prev, consentSignature: parentName }
+      );
+    }
+
     const res = await fetch("/api/parent/kids");
     const json = (await res.json()) as {
       ok?: boolean;
       error?: string;
       household?: { name?: string; active_student_id?: string | null };
       kids?: Kid[];
+      consent?: {
+        needsParentalConsent?: boolean;
+        verified?: boolean;
+        method?: string | null;
+      };
     };
     if (!res.ok || !json.ok) {
       setError(json.error || "Could not load household.");
@@ -98,6 +127,8 @@ function ParentHubClient() {
     setHouseholdName(String(json.household?.name ?? "My family"));
     setActiveId(json.household?.active_student_id ? String(json.household.active_student_id) : null);
     setKids(json.kids ?? []);
+    setNeedsConsent(Boolean(json.consent?.needsParentalConsent));
+    setConsentMethod(json.consent?.method ?? null);
     setLoading(false);
   }, [router]);
 
@@ -105,9 +136,51 @@ function ParentHubClient() {
     void load();
   }, [load]);
 
+  const submitConsent = async () => {
+    setError(null);
+    setMsg(null);
+    if (!consentFields.consentIsParent || !consentFields.consentAccepted) {
+      setError("Complete the parental consent checkboxes to continue.");
+      return;
+    }
+    if (!consentFields.consentSignature.trim()) {
+      setError("Type your full name to sign the consent form.");
+      return;
+    }
+    setConsentSaving(true);
+    try {
+      const res = await fetch("/api/parent/consent", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          consentAccepted: consentFields.consentAccepted,
+          consentIsParent: consentFields.consentIsParent,
+          consentSignature: consentFields.consentSignature.trim(),
+          consentNoticeVersion: PARENTAL_CONSENT_NOTICE_VERSION,
+        }),
+      });
+      const json = (await res.json()) as { ok?: boolean; error?: string };
+      if (!res.ok || !json.ok) throw new Error(json.error || "Could not save consent.");
+      setMsg("Parental consent recorded. You can add kids and open learning.");
+      setNeedsConsent(false);
+      await load();
+      if (forceConsent) {
+        router.replace("/parent");
+      }
+    } catch (e: unknown) {
+      setError(errorMessage(e, "Could not save consent."));
+    } finally {
+      setConsentSaving(false);
+    }
+  };
+
   const addChild = async () => {
     setError(null);
     setMsg(null);
+    if (needsConsent) {
+      setError("Complete parental consent before adding a child.");
+      return;
+    }
     if (!firstName.trim()) {
       setError("Enter the child’s first name.");
       return;
@@ -124,8 +197,18 @@ function ParentHubClient() {
           pin: pin.trim() || undefined,
         }),
       });
-      const json = (await res.json()) as { ok?: boolean; error?: string; kids?: Kid[] };
-      if (!res.ok || !json.ok) throw new Error(json.error || "Could not add child.");
+      const json = (await res.json()) as {
+        ok?: boolean;
+        error?: string;
+        kids?: Kid[];
+        code?: string;
+      };
+      if (!res.ok || !json.ok) {
+        if (json.code === "PARENTAL_CONSENT_REQUIRED") {
+          setNeedsConsent(true);
+        }
+        throw new Error(json.error || "Could not add child.");
+      }
       setKids(json.kids ?? []);
       setFirstName("");
       setLastName("");
@@ -171,6 +254,10 @@ function ParentHubClient() {
   const openLearning = async (kid: Kid) => {
     setError(null);
     setMsg(null);
+    if (needsConsent) {
+      setError("Complete parental consent before opening learning.");
+      return;
+    }
     const needsPin = kid.has_pin && kid.id !== activeId;
     if (needsPin && switchKidId !== kid.id) {
       setSwitchKidId(kid.id);
@@ -187,8 +274,11 @@ function ParentHubClient() {
           pin: needsPin || switchKidId === kid.id ? switchPin : undefined,
         }),
       });
-      const json = (await res.json()) as { ok?: boolean; error?: string };
-      if (!res.ok || !json.ok) throw new Error(json.error || "Could not switch child.");
+      const json = (await res.json()) as { ok?: boolean; error?: string; code?: string };
+      if (!res.ok || !json.ok) {
+        if (json.code === "PARENTAL_CONSENT_REQUIRED") setNeedsConsent(true);
+        throw new Error(json.error || "Could not switch child.");
+      }
 
       const supabase = createSupabaseBrowserClient();
       if (supabase) await supabase.auth.refreshSession();
@@ -293,7 +383,43 @@ function ParentHubClient() {
             every child in this household.
           </p>
 
-          {pickChild ? (
+          {needsConsent || forceConsent ? (
+            <div className="mt-4 space-y-3">
+              <Notice variant="lock" title="Parental consent required">
+                Complete the consent form below before adding kids or opening learning. You can
+                also strengthen verification later by starting a{" "}
+                <Link href="/billing" className="font-semibold underline">
+                  Family plan
+                </Link>{" "}
+                (payment-instrument method).
+              </Notice>
+              <ParentalConsentFields
+                values={consentFields}
+                onChange={setConsentFields}
+                disabled={consentSaving}
+              />
+              <Button disabled={consentSaving} onClick={submitConsent}>
+                {consentSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+                Sign &amp; save parental consent
+              </Button>
+            </div>
+          ) : null}
+
+          {!needsConsent && consentMethod ? (
+            <div className="mt-4">
+              <Notice compact variant="success">
+                Parental consent on file
+                {consentMethod === "stripe_payment_instrument"
+                  ? " (verified via Family plan payment)"
+                  : consentMethod === "signed_form"
+                    ? " (signed electronic consent)"
+                    : ""}
+                .
+              </Notice>
+            </div>
+          ) : null}
+
+          {pickChild && !needsConsent ? (
             <div className="mt-4">
               <Notice variant="lock" title="Choose a child to continue">
                 Pick who is learning below (enter a PIN if that child has one), then tap{" "}
@@ -310,7 +436,11 @@ function ParentHubClient() {
                 Billing
               </Link>
             </Button>
-            <Button variant="outline" onClick={() => setAddOpen((v) => !v)}>
+            <Button
+              variant="outline"
+              disabled={needsConsent}
+              onClick={() => setAddOpen((v) => !v)}
+            >
               <Plus className="h-4 w-4" />
               Add child
             </Button>

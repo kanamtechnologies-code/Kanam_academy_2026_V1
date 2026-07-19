@@ -88,6 +88,7 @@ export async function POST(request: Request) {
         track_slug: body.trackSlug ?? "",
         tutoring_sku: body.tutoringSku ?? "",
         sessions: sessions != null ? String(sessions) : "",
+        purpose: resolved.mode === "subscription" ? "parental_consent_payment_instrument" : "",
       },
       subscription_data:
         resolved.mode === "subscription"
@@ -95,6 +96,7 @@ export async function POST(request: Request) {
               metadata: {
                 supabase_user_id: user.id,
                 kind: "subscription",
+                purpose: "parental_consent_payment_instrument",
               },
             }
           : undefined,

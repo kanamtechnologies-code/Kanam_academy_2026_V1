@@ -9,10 +9,17 @@ import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Notice } from "@/components/ui/notice";
+import {
+  MIN_SELF_SIGNUP_AGE,
+  PRIVACY_POLICY_URL,
+  clearAgeAttestation,
+  hasValidSelfSignupAttestation,
+  readAgeAttestation,
+} from "@/lib/coppa/ageGate";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 const USER_NAME_KEY = "kanam.userName";
-type SignupResponse = { ok?: boolean; error?: string };
+type SignupResponse = { ok?: boolean; error?: string; code?: string };
 type EnsureProfileResponse = { ok?: boolean; error?: string };
 
 const GRADES = ["5", "6", "7", "8", "9", "10", "11", "12", "Other"] as const;
@@ -54,17 +61,27 @@ export default function WelcomeProfilePage() {
     } catch {
       // ignore
     }
-    if (qpEmail) setEmail(qpEmail);
-    if (qpClass) setClassCode(qpClass);
-    if (!qpEmail || !qpClass) {
-      try {
-        if (!qpEmail) setEmail(window.localStorage.getItem("kanam.onboardingEmail") ?? "");
-        if (!qpClass) setClassCode(window.localStorage.getItem("kanam.classCode") ?? "");
-      } catch {
-        // ignore
-      }
+
+    let storedClass = "";
+    try {
+      storedClass = window.localStorage.getItem("kanam.classCode") ?? "";
+      if (!qpEmail) setEmail(window.localStorage.getItem("kanam.onboardingEmail") ?? "");
+    } catch {
+      // ignore
     }
-  }, []);
+
+    const cc = qpClass || storedClass;
+    if (qpClass) setClassCode(qpClass);
+    else if (storedClass) setClassCode(storedClass);
+    if (qpEmail) setEmail(qpEmail);
+
+    // COPPA: student email signup requires a fresh 13+ age attestation.
+    if (!hasValidSelfSignupAttestation()) {
+      const params = new URLSearchParams();
+      if (cc) params.set("classCode", cc);
+      router.replace(`/welcome/age${params.toString() ? `?${params.toString()}` : ""}`);
+    }
+  }, [router]);
 
   const onSubmit = async () => {
     setError(null);
@@ -98,6 +115,15 @@ export default function WelcomeProfilePage() {
       return;
     }
 
+    const attestation = readAgeAttestation();
+    if (!attestation?.eligibleForSelfSignup || !attestation.birthdate) {
+      setError(`Age confirmation expired. Confirm you are ${MIN_SELF_SIGNUP_AGE}+ to continue.`);
+      const params = new URLSearchParams();
+      if (cc) params.set("classCode", cc);
+      router.replace(`/welcome/age${params.toString() ? `?${params.toString()}` : ""}`);
+      return;
+    }
+
     setSaving(true);
     try {
       const supabase = createSupabaseBrowserClient();
@@ -112,6 +138,7 @@ export default function WelcomeProfilePage() {
           password,
           firstName: trimmedFirst,
           lastName: trimmedLast,
+          birthdate: attestation.birthdate,
           grade: grade || undefined,
           schoolName: schoolName.trim() || undefined,
           parentName: parentName.trim() || undefined,
@@ -121,6 +148,11 @@ export default function WelcomeProfilePage() {
       });
       const json = (await res.json()) as SignupResponse;
       if (!res.ok || !json?.ok) {
+        if (json?.code === "UNDER_13_PARENT_REQUIRED") {
+          clearAgeAttestation();
+          router.replace("/welcome/parent?reason=under13");
+          return;
+        }
         throw new Error(json?.error || "Could not create account.");
       }
 
@@ -145,6 +177,7 @@ export default function WelcomeProfilePage() {
       } catch {
         // ignore
       }
+      clearAgeAttestation();
 
       router.push("/dashboard");
     } catch (e: unknown) {
@@ -166,10 +199,11 @@ export default function WelcomeProfilePage() {
             Finish your signup
           </h1>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            Your own email login for school or self-paced learning. Progress and XP save to this
-            profile. Parents managing kids should use a{" "}
+            You confirmed you are {MIN_SELF_SIGNUP_AGE}+. Create your email login for school or
+            self-paced learning. Progress and XP save to this profile. Under {MIN_SELF_SIGNUP_AGE}?
+            Use a{" "}
             <Link
-              href="/welcome/parent"
+              href="/welcome/parent?reason=under13"
               className="font-semibold text-emerald-800 underline underline-offset-2"
             >
               family account
@@ -351,7 +385,11 @@ export default function WelcomeProfilePage() {
               type="button"
               variant="outline"
               className="h-12 sm:w-auto"
-              onClick={() => router.push("/welcome")}
+              onClick={() => {
+                const params = new URLSearchParams();
+                if (classCode.trim()) params.set("classCode", classCode.trim());
+                router.push(`/welcome/age${params.toString() ? `?${params.toString()}` : ""}`);
+              }}
               disabled={saving}
             >
               Back
@@ -395,6 +433,18 @@ export default function WelcomeProfilePage() {
                 .
               </li>
             </ul>
+            <p className="mt-3 text-xs text-slate-500">
+              By creating an account you agree to our{" "}
+              <a
+                href={PRIVACY_POLICY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-emerald-800 underline underline-offset-2"
+              >
+                Privacy Policy
+              </a>
+              .
+            </p>
           </div>
         </div>
       </div>

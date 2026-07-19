@@ -6,8 +6,29 @@ import {
   TUTORING_SESSIONS_BY_PRICE,
   isFamilySubPrice,
 } from "@/lib/billing/stripe-catalog";
+import { looksLikeMissingConsentColumn, stripeConsentUpdate } from "@/lib/coppa/parentalConsent";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { getStripe } from "@/lib/stripe";
+
+async function markHouseholdStripeConsent(
+  admin: ReturnType<typeof createSupabaseAdminClient>,
+  userId: string,
+  session: Stripe.Checkout.Session
+) {
+  const customerId =
+    typeof session.customer === "string" ? session.customer : session.customer?.id ?? null;
+  const update = stripeConsentUpdate({
+    stripeCustomerId: customerId,
+    checkoutSessionId: session.id,
+  });
+  const { error } = await admin
+    .from("households")
+    .update(update)
+    .eq("owner_user_id", userId);
+  if (error && !looksLikeMissingConsentColumn(error.message)) {
+    throw new Error(error.message);
+  }
+}
 
 async function resolveUserId(params: {
   metadataUserId?: string | null;
@@ -60,6 +81,8 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     if (!subId) throw new Error("subscription checkout missing subscription id");
     const subscription = await stripe.subscriptions.retrieve(subId);
     await syncSubscriptionFromStripe(subscription, userId);
+    // Payment-instrument VPC (FTC method) for the parent household.
+    await markHouseholdStripeConsent(admin, userId, session);
     return;
   }
 

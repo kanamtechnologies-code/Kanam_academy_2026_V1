@@ -35,12 +35,17 @@ export function AuthActions() {
         role?: string;
         student?: { display_name?: string } | null;
         needsChildSelect?: boolean;
+        needsParentalConsent?: boolean;
       };
       if (!res.ok || !json.ok || json.role !== "parent") {
         setActiveChildName(null);
         return;
       }
-      if (json.needsChildSelect || !json.student?.display_name) {
+      if (
+        json.needsParentalConsent ||
+        json.needsChildSelect ||
+        !json.student?.display_name
+      ) {
         setActiveChildName(null);
         return;
       }

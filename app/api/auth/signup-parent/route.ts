@@ -2,6 +2,12 @@ import { NextResponse } from "next/server";
 
 import { enrollStudentInClassByCode, getAsyncClassCode } from "@/lib/asyncClass";
 import {
+  PARENTAL_CONSENT_NOTICE_VERSION,
+  looksLikeMissingConsentColumn,
+  signedConsentUpdate,
+  validateConsentAttestation,
+} from "@/lib/coppa/parentalConsent";
+import {
   hashPin,
   isValidPin,
   kidDeviceId,
@@ -21,6 +27,11 @@ type Body = {
   childGrade?: string;
   childPin?: string;
   classCode?: string;
+  /** COPPA VPC — required for family accounts that enroll children */
+  consentAccepted?: boolean;
+  consentIsParent?: boolean;
+  consentSignature?: string;
+  consentNoticeVersion?: string;
 };
 
 function s(x: unknown) {
@@ -64,6 +75,23 @@ export async function POST(req: Request) {
     );
   }
 
+  const consentCheck = validateConsentAttestation({
+    consentAccepted: Boolean(body.consentAccepted),
+    consentIsParent: Boolean(body.consentIsParent),
+    consentSignature: s(body.consentSignature),
+    consentNoticeVersion: s(body.consentNoticeVersion) || PARENTAL_CONSENT_NOTICE_VERSION,
+    parentName,
+    parentEmail: email,
+  });
+  if (!consentCheck.ok) {
+    return NextResponse.json({ ok: false, error: consentCheck.error }, { status: 400 });
+  }
+
+  const consentRow = signedConsentUpdate({
+    signerName: s(body.consentSignature),
+    parentEmail: email,
+  });
+
   const admin = createSupabaseAdminClient();
 
   const nameParts = parentName.split(/\s+/);
@@ -79,6 +107,8 @@ export async function POST(req: Request) {
       first_name: firstName,
       last_name: lastName,
       display_name: parentName,
+      parental_consent_notice_version: PARENTAL_CONSENT_NOTICE_VERSION,
+      parental_consent_at: consentRow.parental_consent_at,
     },
   });
 
@@ -93,25 +123,56 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "User created but missing id." }, { status: 500 });
   }
 
-  const { data: household, error: hhErr } = await admin
-    .from("households")
-    .insert({
-      owner_user_id: userId,
-      name: householdName,
-    })
-    .select("id")
-    .single();
+  let household: { id: string } | null = null;
+  {
+    const withConsent = await admin
+      .from("households")
+      .insert({
+        owner_user_id: userId,
+        name: householdName,
+        ...consentRow,
+      })
+      .select("id")
+      .single();
 
-  if (hhErr || !household?.id) {
-    return NextResponse.json(
-      {
-        ok: false,
-        error:
-          hhErr?.message ||
-          "Could not create household. Apply supabase/households.sql in the SQL Editor.",
-      },
-      { status: 500 }
-    );
+    if (!withConsent.error && withConsent.data?.id) {
+      household = { id: String(withConsent.data.id) };
+    } else if (withConsent.error && looksLikeMissingConsentColumn(withConsent.error.message)) {
+      const basic = await admin
+        .from("households")
+        .insert({
+          owner_user_id: userId,
+          name: householdName,
+        })
+        .select("id")
+        .single();
+      if (basic.error || !basic.data?.id) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error:
+              basic.error?.message ||
+              "Could not create household. Apply supabase/households.sql and supabase/parental_consent.sql.",
+          },
+          { status: 500 }
+        );
+      }
+      household = { id: String(basic.data.id) };
+    } else {
+      return NextResponse.json(
+        {
+          ok: false,
+          error:
+            withConsent.error?.message ||
+            "Could not create household. Apply supabase/households.sql in the SQL Editor.",
+        },
+        { status: 500 }
+      );
+    }
+  }
+
+  if (!household?.id) {
+    return NextResponse.json({ ok: false, error: "Could not create household." }, { status: 500 });
   }
 
   const { error: memberErr } = await admin.from("household_members").insert({

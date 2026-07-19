@@ -59,6 +59,12 @@ export default function HelpPage() {
                   <strong>Already have a student account?</strong> Open Parent hub → Convert to
                   family account to keep billing and turn your current profile into the first kid.
                 </li>
+                <li>
+                  <strong>Parental consent</strong> — under-13 learners need a parent/guardian
+                  account. Family signup includes a signed consent form; a Family plan also
+                  records consent via payment instrument. Without consent, kid profiles and
+                  learning stay locked.
+                </li>
               </ul>
             </Notice>
           </div>

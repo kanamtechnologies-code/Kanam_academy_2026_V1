@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import {
   activeStudentIdFromUser,
   getHouseholdForOwner,
+  householdConsentGate,
   listHouseholdKids,
   setActiveStudentMetadata,
 } from "@/lib/households";
@@ -63,6 +64,7 @@ export async function POST() {
     }
 
     const kids = await listHouseholdKids(admin, household.id);
+    const consent = householdConsentGate(household);
     let activeId =
       activeStudentIdFromUser(user) ||
       (household.active_student_id ? String(household.active_student_id) : null);
@@ -71,7 +73,7 @@ export async function POST() {
       activeId = null;
     }
 
-    if (!activeId && kids.length === 1) {
+    if (!activeId && kids.length === 1 && !consent.needsParentalConsent) {
       activeId = kids[0].id;
       try {
         await setActiveStudentMetadata(admin, user.id, activeId);
@@ -80,7 +82,10 @@ export async function POST() {
       }
     }
 
-    const active = activeId ? kids.find((k) => k.id === activeId) : null;
+    const active =
+      !consent.needsParentalConsent && activeId
+        ? kids.find((k) => k.id === activeId)
+        : null;
 
     return NextResponse.json(
       {
@@ -88,7 +93,9 @@ export async function POST() {
         role: "parent",
         household: { id: household.id, name: household.name },
         kids,
-        needsChildSelect: !active,
+        consent,
+        needsParentalConsent: consent.needsParentalConsent,
+        needsChildSelect: !consent.needsParentalConsent && !active,
         student: active
           ? { id: active.id, display_name: active.display_name }
           : null,

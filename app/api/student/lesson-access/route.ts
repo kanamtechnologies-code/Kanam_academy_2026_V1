@@ -97,6 +97,22 @@ export async function GET() {
 
   const billingUserId = learner.billingUserId;
 
+  if (learner.needsParentalConsent) {
+    const access = await withEntitlements(admin, billingUserId, {
+      classIds: [],
+      isAsyncCohort: false,
+    });
+    return NextResponse.json(
+      {
+        ok: true,
+        access,
+        needsParentalConsent: true,
+        needsChildSelect: false,
+      },
+      { status: 200 }
+    );
+  }
+
   if (!learner.studentId) {
     const access = await withEntitlements(admin, billingUserId, {
       classIds: [],

@@ -5,10 +5,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Loader2, Users } from "lucide-react";
 
+import {
+  ParentalConsentFields,
+  type ParentalConsentFieldValues,
+} from "@/components/parent/ParentalConsentFields";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Notice } from "@/components/ui/notice";
+import { MIN_SELF_SIGNUP_AGE, PRIVACY_POLICY_URL } from "@/lib/coppa/ageGate";
+import { PARENTAL_CONSENT_NOTICE_VERSION } from "@/lib/coppa/parentalConsent";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 function errorMessage(error: unknown, fallback: string) {
@@ -26,8 +32,29 @@ export default function WelcomeParentPage() {
   const [childLastName, setChildLastName] = React.useState("");
   const [childGrade, setChildGrade] = React.useState("");
   const [childPin, setChildPin] = React.useState("");
+  const [consent, setConsent] = React.useState<ParentalConsentFieldValues>({
+    consentIsParent: false,
+    consentAccepted: false,
+    consentSignature: "",
+  });
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [fromUnder13, setFromUnder13] = React.useState(false);
+
+  React.useEffect(() => {
+    try {
+      const sp = new URLSearchParams(window.location.search);
+      const reason = (sp.get("reason") ?? "").trim().toLowerCase();
+      const under13 = sp.get("under13") === "1" || reason === "under13";
+      setFromUnder13(under13);
+      if (under13) {
+        // Do not carry a child's email into the parent signup form.
+        window.localStorage.removeItem("kanam.onboardingEmail");
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
 
   const onSubmit = async () => {
     setError(null);
@@ -48,6 +75,14 @@ export default function WelcomeParentPage() {
       setError("Child PIN must be 4–6 digits (or leave blank).");
       return;
     }
+    if (!consent.consentIsParent || !consent.consentAccepted) {
+      setError("Complete the parental consent checkboxes to continue.");
+      return;
+    }
+    if (consent.consentSignature.trim().toLowerCase() !== parentName.trim().toLowerCase()) {
+      setError("Type your full name exactly as entered above to sign the consent form.");
+      return;
+    }
 
     setLoading(true);
     try {
@@ -63,6 +98,10 @@ export default function WelcomeParentPage() {
           childLastName: childLastName.trim() || undefined,
           childGrade: childGrade.trim() || undefined,
           childPin: childPin.trim() || undefined,
+          consentAccepted: consent.consentAccepted,
+          consentIsParent: consent.consentIsParent,
+          consentSignature: consent.consentSignature.trim(),
+          consentNoticeVersion: PARENTAL_CONSENT_NOTICE_VERSION,
         }),
       });
       const json = (await res.json()) as { ok?: boolean; error?: string };
@@ -101,6 +140,16 @@ export default function WelcomeParentPage() {
             One parent login. Add kid profiles with optional PINs. Billing stays on your
             account; your Family plan unlocks learning for every child.
           </p>
+
+          {fromUnder13 ? (
+            <div className="mt-4">
+              <Notice compact variant="info" role="status">
+                Because this learner is under {MIN_SELF_SIGNUP_AGE}, create a family account with
+                your (parent/guardian) email. Kids under {MIN_SELF_SIGNUP_AGE} cannot create their
+                own student login.
+              </Notice>
+            </div>
+          ) : null}
 
           {error ? (
             <div className="mt-4">
@@ -158,7 +207,8 @@ export default function WelcomeParentPage() {
             <div className="mt-2 rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4">
               <p className="text-sm font-extrabold text-slate-900">First child (optional)</p>
               <p className="mt-1 text-xs text-slate-600">
-                You can add more kids from the parent hub after signup.
+                You can add more kids from the parent hub after signup. Consent below is required
+                before any child profile is created.
               </p>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 <Input
@@ -188,6 +238,12 @@ export default function WelcomeParentPage() {
                 />
               </div>
             </div>
+
+            <ParentalConsentFields
+              values={consent}
+              onChange={setConsent}
+              disabled={loading}
+            />
           </div>
 
           <Button
@@ -217,6 +273,18 @@ export default function WelcomeParentPage() {
             <Link href="/welcome" className="font-semibold text-emerald-800 underline">
               Student signup
             </Link>
+          </p>
+          <p className="mt-3 text-center text-xs text-slate-500">
+            By creating an account you agree to our{" "}
+            <a
+              href={PRIVACY_POLICY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-emerald-800 underline underline-offset-2"
+            >
+              Privacy Policy
+            </a>
+            .
           </p>
         </div>
       </div>

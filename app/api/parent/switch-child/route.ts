@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import {
   getHouseholdForOwner,
+  householdConsentGate,
   isParentRole,
   setActiveStudentMetadata,
   verifyPin,
@@ -47,6 +48,19 @@ export async function POST(req: Request) {
   const household = await getHouseholdForOwner(admin, data.user.id);
   if (!household?.id) {
     return NextResponse.json({ ok: false, error: "No household found." }, { status: 404 });
+  }
+
+  const consent = householdConsentGate(household);
+  if (consent.needsParentalConsent) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "Complete verifiable parental consent before opening learning for a child.",
+        code: "PARENTAL_CONSENT_REQUIRED",
+        consent,
+      },
+      { status: 403 }
+    );
   }
 
   const { data: kid, error: kidErr } = await admin

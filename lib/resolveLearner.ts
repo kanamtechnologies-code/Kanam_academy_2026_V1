@@ -1,6 +1,7 @@
 import {
   activeStudentIdFromUser,
   getHouseholdForOwner,
+  householdConsentGate,
   isParentRole,
   listHouseholdKids,
   setActiveStudentMetadata,
@@ -14,12 +15,14 @@ export type ResolvedLearner = {
   isParent: boolean;
   householdId: string | null;
   billingUserId: string;
+  needsParentalConsent: boolean;
 };
 
 /**
  * Resolve which student profile should learn / store progress.
  * Parents use active_student_id (+ household); students use their own row.
  * If a parent has exactly one kid and no active selection, auto-select and persist.
+ * Learning is blocked until household parental consent is verified.
  */
 export async function resolveLearnerForUser(
   user: NonNullable<UserWithRole> & { id: string },
@@ -37,6 +40,19 @@ export async function resolveLearnerForUser(
         isParent: true,
         householdId: null,
         billingUserId,
+        needsParentalConsent: false,
+      };
+    }
+
+    const consent = householdConsentGate(household);
+    if (consent.needsParentalConsent) {
+      return {
+        studentId: null,
+        displayName: null,
+        isParent: true,
+        householdId: household.id,
+        billingUserId,
+        needsParentalConsent: true,
       };
     }
 
@@ -58,6 +74,7 @@ export async function resolveLearnerForUser(
           isParent: true,
           householdId: household.id,
           billingUserId,
+          needsParentalConsent: false,
         };
       }
       studentId = null;
@@ -77,6 +94,7 @@ export async function resolveLearnerForUser(
         isParent: true,
         householdId: household.id,
         billingUserId,
+        needsParentalConsent: false,
       };
     }
 
@@ -86,6 +104,7 @@ export async function resolveLearnerForUser(
       isParent: true,
       householdId: household.id,
       billingUserId,
+      needsParentalConsent: false,
     };
   }
 
@@ -101,6 +120,7 @@ export async function resolveLearnerForUser(
     isParent: false,
     householdId: null,
     billingUserId,
+    needsParentalConsent: false,
   };
 }
 
@@ -115,9 +135,10 @@ export async function fetchActiveLearnerStudentId(): Promise<{
       ok?: boolean;
       student?: { id?: string; display_name?: string };
       needsChildSelect?: boolean;
+      needsParentalConsent?: boolean;
     };
     if (!res.ok || !json?.ok) return null;
-    if (json.needsChildSelect) return null;
+    if (json.needsParentalConsent || json.needsChildSelect) return null;
     const studentId = String(json.student?.id ?? "");
     if (!studentId) return null;
     return {

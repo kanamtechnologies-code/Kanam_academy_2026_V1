@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { enrollStudentInClassByCode, getAsyncClassCode } from "@/lib/asyncClass";
+import { PARENTAL_CONSENT_NOTICE_VERSION } from "@/lib/coppa/parentalConsent";
 import {
   getHouseholdForOwner,
   hashPin,
+  householdConsentGate,
   isParentRole,
   isValidPin,
   kidDeviceId,
@@ -59,6 +61,7 @@ export async function GET() {
   }
 
   const kids = await listHouseholdKids(admin, household.id);
+  const consent = householdConsentGate(household);
   return NextResponse.json(
     {
       ok: true,
@@ -67,6 +70,8 @@ export async function GET() {
         name: household.name,
         active_student_id: household.active_student_id,
       },
+      consent,
+      noticeVersion: PARENTAL_CONSENT_NOTICE_VERSION,
       kids,
     },
     { status: 200 }
@@ -105,6 +110,20 @@ export async function POST(req: Request) {
   const household = await getHouseholdForOwner(admin, user.id);
   if (!household?.id) {
     return NextResponse.json({ ok: false, error: "No household found." }, { status: 404 });
+  }
+
+  const consent = householdConsentGate(household);
+  if (consent.needsParentalConsent) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error:
+          "Complete verifiable parental consent before adding a child profile.",
+        code: "PARENTAL_CONSENT_REQUIRED",
+        consent,
+      },
+      { status: 403 }
+    );
   }
 
   const meta = (user.user_metadata ?? {}) as Record<string, unknown>;

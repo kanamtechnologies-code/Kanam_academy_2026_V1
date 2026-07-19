@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { enrollStudentInClassByCode, getAsyncClassCode } from "@/lib/asyncClass";
+import { MIN_SELF_SIGNUP_AGE, ageFromBirthdate } from "@/lib/coppa/ageGate";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -11,6 +12,8 @@ type Body = {
   password: string;
   firstName: string;
   lastName: string;
+  /** ISO date YYYY-MM-DD — required for COPPA age gate */
+  birthdate?: string;
   grade?: string;
   schoolName?: string;
   parentName?: string;
@@ -74,6 +77,7 @@ export async function POST(req: Request) {
   const lastName = s(body.lastName);
   const classCode = s(body.classCode).toUpperCase();
 
+  const birthdate = s(body.birthdate);
   const grade = s(body.grade) || null;
   const schoolName = s(body.schoolName);
   const parentName = s(body.parentName) || null;
@@ -105,6 +109,26 @@ export async function POST(req: Request) {
     );
   }
 
+  const attestedAge = ageFromBirthdate(birthdate);
+  if (attestedAge === null) {
+    return NextResponse.json(
+      { ok: false, error: "A valid date of birth is required to create a student account." },
+      { status: 400 }
+    );
+  }
+  if (attestedAge < MIN_SELF_SIGNUP_AGE) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: `Students under ${MIN_SELF_SIGNUP_AGE} cannot create their own email login. Ask a parent or guardian to create a family account at /welcome/parent.`,
+        code: "UNDER_13_PARENT_REQUIRED",
+      },
+      { status: 403 }
+    );
+  }
+
+  const ageAttestedAt = new Date().toISOString();
+
   const supabase = createSupabaseAdminClient();
 
   const { data: created, error: createErr } = await supabase.auth.admin.createUser({
@@ -115,6 +139,10 @@ export async function POST(req: Request) {
       first_name: firstName,
       last_name: lastName,
       class_code: classCode,
+      // Audit trail without storing full DOB
+      age_attested_years: attestedAge,
+      age_attested_at: ageAttestedAt,
+      self_signup_eligible: true,
     },
   });
 

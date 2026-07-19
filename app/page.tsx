@@ -126,11 +126,17 @@ export default function Home() {
       const ensureJson = (await ensureRes.json()) as {
         student?: { id?: string; display_name?: string };
         needsChildSelect?: boolean;
+        needsParentalConsent?: boolean;
         role?: string;
       };
 
       const parentAccount = isParentRole(userData.user);
       setIsParentAccount(parentAccount);
+
+      if (parentAccount && ensureJson.needsParentalConsent) {
+        router.replace("/parent?consent=1");
+        return;
+      }
 
       if (parentAccount && (ensureJson.needsChildSelect || !ensureJson?.student?.id)) {
         router.replace("/parent?pick=1");

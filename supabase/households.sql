@@ -1,5 +1,6 @@
 -- Kanam Academy — Parent households / kid profiles
 -- Apply in Supabase SQL Editor AFTER schema.sql and billing.sql.
+-- Then apply parental_consent.sql for COPPA VPC columns.
 -- Safe to re-run.
 
 -- ---------------------------------------------------------------------------

@@ -22,6 +22,7 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
   const [loading, setLoading] = React.useState(!isGuestMode());
   const [allowed, setAllowed] = React.useState(isGuestMode());
   const [needsChildSelect, setNeedsChildSelect] = React.useState(false);
+  const [needsParentalConsent, setNeedsParentalConsent] = React.useState(false);
   const [access, setAccess] = React.useState<StudentLessonAccess | null>(null);
   const [checkFailed, setCheckFailed] = React.useState(false);
 
@@ -40,8 +41,14 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
           ok?: boolean;
           access?: StudentLessonAccess;
           needsChildSelect?: boolean;
+          needsParentalConsent?: boolean;
         };
         if (!mounted) return;
+        if (json.needsParentalConsent) {
+          setNeedsParentalConsent(true);
+          setAllowed(false);
+          return;
+        }
         if (json.needsChildSelect) {
           setNeedsChildSelect(true);
           setAllowed(false);
@@ -78,15 +85,40 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
   }, [lessonId]);
 
   React.useEffect(() => {
+    if (needsParentalConsent) {
+      router.replace("/parent?consent=1");
+      return;
+    }
     if (needsChildSelect) {
       router.replace("/parent?pick=1");
     }
-  }, [needsChildSelect, router]);
+  }, [needsChildSelect, needsParentalConsent, router]);
 
   if (loading) {
     return (
       <div className="flex min-h-[40vh] items-center justify-center px-4">
         <p className="text-sm font-semibold text-slate-600">Checking lesson access…</p>
+      </div>
+    );
+  }
+
+  if (needsParentalConsent) {
+    return (
+      <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center px-4 py-16">
+        <Notice
+          variant="lock"
+          title="Parental consent required"
+          action={
+            <Button asChild size="sm" variant="outline" className="border-[var(--brand)]/35 bg-white/80">
+              <Link href="/parent?consent=1">
+                <Users className="h-3.5 w-3.5" />
+                Complete consent
+              </Link>
+            </Button>
+          }
+        >
+          A parent or guardian must complete verifiable parental consent before kids can learn.
+        </Notice>
       </div>
     );
   }

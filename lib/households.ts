@@ -1,10 +1,16 @@
 import { createHash, randomBytes, scryptSync, timingSafeEqual } from "crypto";
 
+import {
+  consentSummary,
+  isParentalConsentVerified,
+  looksLikeMissingConsentColumn,
+  type HouseholdConsentFields,
+} from "@/lib/coppa/parentalConsent";
 import type { UserWithRole } from "@/lib/roles";
 import { isParentRole } from "@/lib/roles";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
-export { isParentRole };
+export { isParentRole, isParentalConsentVerified };
 
 export type HouseholdKid = {
   id: string;
@@ -14,6 +20,18 @@ export type HouseholdKid = {
   grade: string | null;
   has_pin: boolean;
 };
+
+export type HouseholdRow = {
+  id: string;
+  owner_user_id: string;
+  name: string;
+  active_student_id: string | null;
+} & HouseholdConsentFields;
+
+const HOUSEHOLD_SELECT_WITH_CONSENT =
+  "id, owner_user_id, name, active_student_id, parental_consent_status, parental_consent_method, parental_consent_at, parental_consent_signer_name, parental_consent_notice_version, parental_consent_parent_email, parental_consent_stripe_customer_id, parental_consent_checkout_session_id";
+
+const HOUSEHOLD_SELECT_BASIC = "id, owner_user_id, name, active_student_id";
 
 function readMeta(user: UserWithRole, key: string): unknown {
   const meta = user?.user_metadata;
@@ -54,14 +72,37 @@ export function isValidPin(pin: string): boolean {
 export async function getHouseholdForOwner(
   admin: ReturnType<typeof createSupabaseAdminClient>,
   ownerUserId: string
-) {
-  const { data, error } = await admin
+): Promise<HouseholdRow | null> {
+  const withConsent = await admin
     .from("households")
-    .select("id, owner_user_id, name, active_student_id")
+    .select(HOUSEHOLD_SELECT_WITH_CONSENT)
     .eq("owner_user_id", ownerUserId)
     .maybeSingle();
-  if (error) throw new Error(error.message);
-  return data;
+
+  if (!withConsent.error) {
+    return (withConsent.data as HouseholdRow | null) ?? null;
+  }
+
+  if (!looksLikeMissingConsentColumn(withConsent.error.message)) {
+    throw new Error(withConsent.error.message);
+  }
+
+  // Migration not applied yet — fall back so the app keeps working.
+  const basic = await admin
+    .from("households")
+    .select(HOUSEHOLD_SELECT_BASIC)
+    .eq("owner_user_id", ownerUserId)
+    .maybeSingle();
+  if (basic.error) throw new Error(basic.error.message);
+  return (basic.data as HouseholdRow | null) ?? null;
+}
+
+export function householdConsentGate(household: HouseholdRow | null | undefined) {
+  const summary = consentSummary(household);
+  return {
+    ...summary,
+    needsParentalConsent: household != null && household.parental_consent_status != null && !summary.verified,
+  };
 }
 
 export async function listHouseholdKids(
