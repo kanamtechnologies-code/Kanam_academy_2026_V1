@@ -19,6 +19,7 @@ import {
   apCspExamLockReason,
   isApCspExamUnlocked,
 } from "@/lib/apCspExams/access";
+import { dashboardHrefForTrack } from "@/lib/billing/access";
 import {
   isMultiSelect,
   scoreExam,
@@ -30,6 +31,8 @@ import {
   isGuestMode,
   markGuestLessonComplete,
 } from "@/lib/guestProgress";
+import { useLessonHeartbeat } from "@/lib/progress/useLessonHeartbeat";
+import { writeProgressEvent } from "@/lib/progress/writeProgress";
 import { cn } from "@/lib/utils";
 
 const BIG_IDEA_LABEL: Record<1 | 2 | 3 | 4 | 5, string> = {
@@ -191,6 +194,13 @@ function ApCspExamInner({ exam }: { exam: ApCspExamConfig }) {
     });
   };
 
+  useLessonHeartbeat({
+    studentDbId,
+    deviceId,
+    lessonId: exam.id,
+    enabled: Boolean(deviceId && userId && studentDbId && !isGuestMode()),
+  });
+
   const markComplete = React.useCallback(
     async (payload: Record<string, unknown>) => {
       if (isGuestMode()) {
@@ -199,27 +209,13 @@ function ApCspExamInner({ exam }: { exam: ApCspExamConfig }) {
       }
       if (!deviceId || !userId || !studentDbId) return;
       try {
-        const supabase = createSupabaseBrowserClient();
-        if (!supabase) return;
-        const now = new Date().toISOString();
-        await supabase.from("progress_events").insert({
-          student_id: studentDbId,
-          device_id: deviceId,
-          lesson_id: exam.id,
-          event_type: "lesson_success",
+        await writeProgressEvent({
+          studentDbId,
+          deviceId,
+          lessonId: exam.id,
+          eventType: "lesson_success",
           payload,
         });
-        await supabase.from("lesson_progress").upsert(
-          {
-            student_id: studentDbId,
-            lesson_id: exam.id,
-            success: true,
-            success_at: now,
-            last_event_at: now,
-            has_run: true,
-          } as never,
-          { onConflict: "student_id,lesson_id" }
-        );
       } catch {
         // ignore
       }
@@ -254,7 +250,7 @@ function ApCspExamInner({ exam }: { exam: ApCspExamConfig }) {
           {lockReason}
         </Notice>
         <Button asChild variant="secondary">
-          <Link href="/dashboard">
+          <Link href={dashboardHrefForTrack("ap-csp-prep")}>
             <ArrowLeft className="h-4 w-4" />
             Back to dashboard
           </Link>
@@ -307,7 +303,7 @@ function ApCspExamInner({ exam }: { exam: ApCspExamConfig }) {
             <ArrowRight className="h-4 w-4" />
           </Button>
           <Button asChild size="lg" variant="secondary">
-            <Link href="/dashboard">Cancel</Link>
+            <Link href={dashboardHrefForTrack("ap-csp-prep")}>Cancel</Link>
           </Button>
         </div>
       </div>
@@ -399,7 +395,7 @@ function ApCspExamInner({ exam }: { exam: ApCspExamConfig }) {
 
         <div className="flex flex-wrap gap-3">
           <Button asChild size="lg" className="font-bold">
-            <Link href="/dashboard">
+            <Link href={dashboardHrefForTrack("ap-csp-prep")}>
               <CheckCircle2 className="h-4 w-4" />
               Back to dashboard
             </Link>

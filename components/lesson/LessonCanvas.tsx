@@ -39,6 +39,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { PremiumBadge } from "@/components/badges/PremiumBadge";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { dashboardHrefForLesson } from "@/lib/billing/access";
 import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
 import { DesignModePanel } from "@/components/lesson/DesignModePanel";
 import { NpcChallengeMode } from "@/components/lesson/NpcChallengeMode";
@@ -1435,7 +1436,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           <div className="mx-1 hidden h-6 w-px bg-slate-200/70 sm:block" />
 
           <Button asChild variant="outline" size="sm">
-            <Link href={lesson.dashboardHref ?? "/dashboard"}>Dashboard</Link>
+            <Link href={dashboardHrefForLesson(lesson.id)}>Dashboard</Link>
           </Button>
           <Button
             type="button"

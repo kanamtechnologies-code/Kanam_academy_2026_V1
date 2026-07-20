@@ -33,7 +33,7 @@ export default function BillingSuccessPage() {
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
-              href="/billing"
+              href="/account/billing"
               className="inline-flex h-11 items-center justify-center rounded-full bg-[var(--accent)] px-6 text-sm font-semibold text-[#14201c] transition hover:brightness-105"
             >
               View billing

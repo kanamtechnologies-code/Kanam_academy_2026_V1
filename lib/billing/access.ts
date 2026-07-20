@@ -67,6 +67,16 @@ export function trackIdForLesson(lessonId: string): Track["id"] | null {
   return null;
 }
 
+/** Dashboard deep-link that restores the learner on the correct training path. */
+export function dashboardHrefForLesson(lessonId: string): string {
+  const trackId = trackIdForLesson(lessonId);
+  return trackId ? `/dashboard?track=${encodeURIComponent(trackId)}` : "/dashboard";
+}
+
+export function dashboardHrefForTrack(trackId: Track["id"]): string {
+  return `/dashboard?track=${encodeURIComponent(trackId)}`;
+}
+
 /** Whether a whole track should appear unlocked on the dashboard. */
 export function isTrackUnlockedForAccess(
   trackId: Track["id"],

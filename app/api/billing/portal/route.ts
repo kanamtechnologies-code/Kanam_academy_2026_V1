@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { getOrCreateStripeCustomer } from "@/lib/billing/customers";
+import { safeNextPath } from "@/lib/roles";
 import { getAppOrigin, getStripe } from "@/lib/stripe";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -14,6 +15,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "Sign in required." }, { status: 401 });
     }
 
+    let returnPath = "/account/billing";
+    try {
+      const body = (await request.json()) as { returnPath?: string };
+      const safe = safeNextPath(body.returnPath);
+      if (safe) returnPath = safe;
+    } catch {
+      // empty body is fine
+    }
+
     const customerId = await getOrCreateStripeCustomer({
       userId: authData.user.id,
       email: authData.user.email,
@@ -23,7 +33,7 @@ export async function POST(request: Request) {
     const origin = getAppOrigin(request);
     const portal = await stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: `${origin}/billing`,
+      return_url: `${origin}${returnPath}`,
     });
 
     return NextResponse.json({ ok: true, url: portal.url });

@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { BookOpenCheck, Flame, Sparkles, Trophy } from "lucide-react";
 
+import { TrackCarousel } from "@/components/dashboard/TrackCarousel";
 import { TrackRoadmap } from "@/components/dashboard/TrackRoadmap";
 import { TrackIcon } from "@/components/tracks/TrackIcon";
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, isParentRole } from "@/lib/roles";
@@ -35,17 +36,85 @@ import {
 } from "@/lib/tracks";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
 
+/** Dashboard display order — premier paths first for the carousel. */
+const DASHBOARD_TRACK_ORDER: Track["id"][] = [
+  "ap-csp-prep",
+  "advanced-ai",
+  "ai-literacy",
+  "ai-python",
+  "data-analyst",
+  "cybersecurity",
+  "digital-literacy",
+  "financial-literacy",
+];
+
 const USER_NAME_KEY = "kanam.userName";
+const ACTIVE_TRACK_KEY = "kanam.activeTrack";
+
+function isTrackId(value: string | null | undefined): value is Track["id"] {
+  return Boolean(value && TRACKS.some((t) => t.id === value));
+}
+
+function readStoredActiveTrack(): Track["id"] | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(ACTIVE_TRACK_KEY);
+    return isTrackId(raw) ? raw : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeStoredActiveTrack(id: Track["id"]) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(ACTIVE_TRACK_KEY, id);
+  } catch {
+    // ignore
+  }
+}
 
 export default function Home() {
+  return (
+    <React.Suspense
+      fallback={
+        <div className="flex min-h-[40vh] items-center justify-center px-4">
+          <p className="text-sm font-semibold text-slate-600">Loading dashboard…</p>
+        </div>
+      }
+    >
+      <HomeInner />
+    </React.Suspense>
+  );
+}
+
+function HomeInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [studentName, setStudentName] = React.useState<string>("Student");
   const [completedIds, setCompletedIds] = React.useState<string[]>([]);
   const [hasSavedProgress, setHasSavedProgress] = React.useState<boolean>(false);
   const [studentDbId, setStudentDbId] = React.useState<string>("");
   const [resetOpen, setResetOpen] = React.useState<boolean>(false);
   const [resetStep, setResetStep] = React.useState<1 | 2 | 3>(1);
-  const [activeTab, setActiveTab] = React.useState<string>("ai-literacy");
+  const [activeTab, setActiveTabState] = React.useState<string>("ai-literacy");
+
+  const setActiveTab = React.useCallback((id: string) => {
+    setActiveTabState(id);
+    if (isTrackId(id)) writeStoredActiveTrack(id);
+  }, []);
+
+  // Restore last path (or ?track= from a lesson "back to dashboard" link).
+  React.useEffect(() => {
+    const fromQuery = searchParams.get("track");
+    if (isTrackId(fromQuery)) {
+      setActiveTab(fromQuery);
+      return;
+    }
+    const stored = readStoredActiveTrack();
+    if (stored) setActiveTabState(stored);
+  }, [searchParams, setActiveTab]);
+
   const [lessonAccess, setLessonAccess] = React.useState<StudentLessonAccess>({
     classRestricted: false,
     entitlementRestricted: false,
@@ -73,16 +142,27 @@ export default function Home() {
     return set;
   }, [lessonRestricted, lessonAccess.enabledLessonIds, completedIds]);
 
-  const aiTrack = TRACKS.find((t) => t.id === "ai-literacy")!;
-  const advancedAiTrack = TRACKS.find((t) => t.id === "advanced-ai")!;
-  const apCspTrack = TRACKS.find((t) => t.id === "ap-csp-prep")!;
-  const digitalTrack = TRACKS.find((t) => t.id === "digital-literacy")!;
-  const cyberTrack = TRACKS.find((t) => t.id === "cybersecurity")!;
-  const financeTrack = TRACKS.find((t) => t.id === "financial-literacy")!;
-  const pythonTrack = TRACKS.find((t) => t.id === "ai-python")!;
-  const dataTrack = TRACKS.find((t) => t.id === "data-analyst")!;
+  const dashboardTracks = React.useMemo(() => {
+    const byId = new Map(TRACKS.map((t) => [t.id, t]));
+    const ordered = DASHBOARD_TRACK_ORDER.map((id) => byId.get(id)).filter(
+      (t): t is Track => Boolean(t)
+    );
+    const extras = TRACKS.filter((t) => !DASHBOARD_TRACK_ORDER.includes(t.id));
+    return [...ordered, ...extras];
+  }, []);
+
+  const lockedTrackIds = React.useMemo(() => {
+    const set = new Set<string>();
+    if (!lessonAccess.entitlementRestricted || lessonAccess.classRestricted) return set;
+    for (const track of dashboardTracks) {
+      if (!isTrackUnlockedForAccess(track.id, lessonAccess)) set.add(track.id);
+    }
+    return set;
+  }, [dashboardTracks, lessonAccess]);
+
   const totalXp = totalXpAcrossTracks(completedIds);
-  const activeTrack = TRACKS.find((t) => t.id === activeTab) ?? aiTrack;
+  const activeTrack =
+    dashboardTracks.find((t) => t.id === activeTab) ?? dashboardTracks[0]!;
   const activeTrackProgress = trackProgress(completedIds, activeTrack.lessons, {
     openLessonIds,
   });
@@ -366,10 +446,10 @@ export default function Home() {
             title="Family subscription active"
             action={
               <Link
-                href="/billing"
+                href="/account/billing"
                 className="text-sm font-bold text-[var(--brand-2)] underline underline-offset-2"
               >
-                Manage billing
+                Billing hub
               </Link>
             }
           >
@@ -404,61 +484,16 @@ export default function Home() {
           </Notice>
         ) : null}
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-3">
-          <div className="space-y-2">
-            <div className="flex items-end justify-between gap-3 px-0.5">
-              <div>
-                <p className="kanam-track-tabs-label">Training tracks</p>
-                <p className="mt-1 text-sm font-semibold text-slate-600">
-                  Choose your path — guided lessons with badges and XP
-                </p>
-              </div>
-              <p className="hidden text-xs font-bold uppercase tracking-[0.16em] text-slate-400 sm:block">
-                {TRACKS.length} paths
-              </p>
-            </div>
-            <TabsList className="kanam-track-tabs grid h-auto w-full grid-cols-2 gap-2 overflow-visible p-2.5 sm:grid-cols-3 sm:gap-2.5 sm:p-3 lg:grid-cols-4 xl:grid-cols-8">
-              {(
-                [
-                  { track: aiTrack, label: "AI Literacy" },
-                  { track: advancedAiTrack, label: "Advanced AI" },
-                  { track: apCspTrack, label: "AP CSP Prep" },
-                  { track: digitalTrack, label: "Digital Literacy" },
-                  { track: cyberTrack, label: "Cybersecurity" },
-                  { track: financeTrack, label: "Financial Literacy" },
-                  { track: pythonTrack, label: "Python Starter" },
-                  { track: dataTrack, label: "Data Analyst" },
-                ] as const
-              ).map(({ track, label }) => (
-                <TabsTrigger
-                  key={track.id}
-                  value={track.id}
-                  title={track.subtitle}
-                  className="kanam-track-tab flex h-full min-h-[4.25rem] w-full flex-col items-center justify-center gap-1.5 whitespace-normal rounded-[0.95rem] px-1.5 py-2.5 text-center sm:min-h-[4.5rem] sm:gap-2 sm:px-2"
-                >
-                  <span className="kanam-track-tab-icon shrink-0">
-                    <TrackIcon trackId={track.id} className="h-4 w-4" />
-                  </span>
-                  <span className="kanam-track-tab-label text-[11px] leading-snug sm:text-xs md:text-[13px]">
-                    {label}
-                  </span>
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
+          <TrackCarousel
+            tracks={dashboardTracks}
+            activeId={activeTab}
+            onSelect={setActiveTab}
+            completedIds={completedIds}
+            lockedTrackIds={lockedTrackIds}
+          />
 
-          {(
-            [
-              aiTrack,
-              advancedAiTrack,
-              apCspTrack,
-              digitalTrack,
-              cyberTrack,
-              financeTrack,
-              pythonTrack,
-              dataTrack,
-            ] as Track[]
-          ).map((track) => {
+          {dashboardTracks.map((track) => {
             const trackUnlocked = isTrackUnlockedForAccess(track.id, lessonAccess);
             const paywallLocked =
               Boolean(lessonAccess.entitlementRestricted) &&

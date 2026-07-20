@@ -1,9 +1,20 @@
 "use client";
 
 import * as React from "react";
-import { Check, Clipboard, Loader2, Plus, Settings2, Trash2, Users } from "lucide-react";
+import {
+  BarChart3,
+  Check,
+  Clipboard,
+  Loader2,
+  Plus,
+  Settings2,
+  Trash2,
+  Users,
+} from "lucide-react";
 
 import { ClassAssignmentsDialog } from "@/components/instructor/ClassAssignmentsDialog";
+import { ClassInsightsPanel } from "@/components/insights/ClassInsightsPanel";
+import { LearnerInsightsPanel } from "@/components/insights/LearnerInsightsPanel";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,6 +29,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Notice } from "@/components/ui/notice";
+import type { ClassInsights, LearnerInsights } from "@/lib/insights/types";
 import { readUserRole } from "@/lib/roles";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
@@ -86,6 +98,20 @@ export function InstructorDashboardClient() {
   const [deleteClass, setDeleteClass] = React.useState<ClassSummary | null>(null);
   const [deleteLoading, setDeleteLoading] = React.useState(false);
   const [deleteError, setDeleteError] = React.useState<string | null>(null);
+
+  const [classInsightsOpen, setClassInsightsOpen] = React.useState<ClassSummary | null>(null);
+  const [classInsights, setClassInsights] = React.useState<ClassInsights | null>(null);
+  const [classInsightsLoading, setClassInsightsLoading] = React.useState(false);
+  const [classInsightsError, setClassInsightsError] = React.useState<string | null>(null);
+
+  const [learnerInsightsOpen, setLearnerInsightsOpen] = React.useState<{
+    classId: string;
+    studentId: string;
+    displayName: string;
+  } | null>(null);
+  const [learnerInsights, setLearnerInsights] = React.useState<LearnerInsights | null>(null);
+  const [learnerInsightsLoading, setLearnerInsightsLoading] = React.useState(false);
+  const [learnerInsightsError, setLearnerInsightsError] = React.useState<string | null>(null);
 
   const load = React.useCallback(async () => {
     setError(null);
@@ -166,6 +192,46 @@ export function InstructorDashboardClient() {
       setRosterByClass((s) => ({ ...s, [classId]: [] }));
     } finally {
       setRosterLoading((s) => ({ ...s, [classId]: false }));
+    }
+  }
+
+  async function openClassInsights(klass: ClassSummary) {
+    setClassInsightsOpen(klass);
+    setClassInsights(null);
+    setClassInsightsError(null);
+    setClassInsightsLoading(true);
+    try {
+      const res = await fetch(
+        `/api/instructor/classes/${encodeURIComponent(klass.id)}/insights`
+      );
+      const json = await j<{ ok: true; insights: ClassInsights }>(res);
+      setClassInsights(json.insights);
+    } catch (e: unknown) {
+      setClassInsightsError(errorMessage(e, "Could not load class insights."));
+    } finally {
+      setClassInsightsLoading(false);
+    }
+  }
+
+  async function openLearnerInsights(
+    classId: string,
+    studentId: string,
+    displayName: string
+  ) {
+    setLearnerInsightsOpen({ classId, studentId, displayName });
+    setLearnerInsights(null);
+    setLearnerInsightsError(null);
+    setLearnerInsightsLoading(true);
+    try {
+      const res = await fetch(
+        `/api/instructor/classes/${encodeURIComponent(classId)}/learners/${encodeURIComponent(studentId)}/insights`
+      );
+      const json = await j<{ ok: true; insights: LearnerInsights }>(res);
+      setLearnerInsights(json.insights);
+    } catch (e: unknown) {
+      setLearnerInsightsError(errorMessage(e, "Could not load learner insights."));
+    } finally {
+      setLearnerInsightsLoading(false);
     }
   }
 
@@ -392,6 +458,14 @@ export function InstructorDashboardClient() {
                       </Button>
                       <Button
                         type="button"
+                        className="h-11 w-full rounded-xl sm:w-auto"
+                        onClick={() => void openClassInsights(c)}
+                      >
+                        <BarChart3 className="h-4 w-4" />
+                        Class insights
+                      </Button>
+                      <Button
+                        type="button"
                         variant="outline"
                         className="h-11 w-full rounded-xl sm:w-auto"
                         onClick={() => loadRoster(c.id)}
@@ -466,6 +540,18 @@ export function InstructorDashboardClient() {
                                     />
                                   </div>
                                 </div>
+                                <Button
+                                  type="button"
+                                  size="sm"
+                                  variant="outline"
+                                  className="h-9 w-full rounded-xl"
+                                  onClick={() =>
+                                    void openLearnerInsights(c.id, s.id, s.displayName)
+                                  }
+                                >
+                                  <BarChart3 className="h-3.5 w-3.5" />
+                                  Full insights
+                                </Button>
                               </div>
                             ))}
                           </div>
@@ -547,6 +633,85 @@ export function InstructorDashboardClient() {
               )}
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={Boolean(classInsightsOpen)}
+        onOpenChange={(open) => {
+          if (!open) {
+            setClassInsightsOpen(null);
+            setClassInsights(null);
+            setClassInsightsError(null);
+          }
+        }}
+      >
+        <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Class insights</DialogTitle>
+            <DialogDescription>Aggregated metrics for this class</DialogDescription>
+          </DialogHeader>
+          {classInsightsLoading ? (
+            <div className="flex items-center justify-center gap-2 py-16 text-slate-600">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              Loading class insights…
+            </div>
+          ) : classInsightsError ? (
+            <Notice variant="danger" role="alert">
+              {classInsightsError}
+            </Notice>
+          ) : classInsights ? (
+            <ClassInsightsPanel
+              insights={classInsights}
+              onSelectLearner={(studentId) => {
+                const name =
+                  classInsights.learners.find((l) => l.studentId === studentId)
+                    ?.displayName ?? "Learner";
+                const classId = classInsights.classId;
+                setClassInsightsOpen(null);
+                void openLearnerInsights(classId, studentId, name);
+              }}
+            />
+          ) : null}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={Boolean(learnerInsightsOpen)}
+        onOpenChange={(open) => {
+          if (!open) {
+            setLearnerInsightsOpen(null);
+            setLearnerInsights(null);
+            setLearnerInsightsError(null);
+          }
+        }}
+      >
+        <DialogContent className="max-h-[90vh] max-w-4xl overflow-y-auto">
+          <DialogHeader className="sr-only">
+            <DialogTitle>
+              {learnerInsightsOpen?.displayName ?? "Learner"} insights
+            </DialogTitle>
+            <DialogDescription>Detailed learner metrics</DialogDescription>
+          </DialogHeader>
+          {learnerInsightsLoading ? (
+            <div className="flex items-center justify-center gap-2 py-16 text-slate-600">
+              <Loader2 className="h-5 w-5 animate-spin" />
+              Loading learner insights…
+            </div>
+          ) : learnerInsightsError ? (
+            <Notice variant="danger" role="alert">
+              {learnerInsightsError}
+            </Notice>
+          ) : learnerInsights ? (
+            <LearnerInsightsPanel
+              insights={learnerInsights}
+              csvHref={
+                learnerInsightsOpen
+                  ? `/api/instructor/classes/${encodeURIComponent(learnerInsightsOpen.classId)}/learners/${encodeURIComponent(learnerInsightsOpen.studentId)}/insights/csv`
+                  : undefined
+              }
+            />
+          ) : null}
         </DialogContent>
       </Dialog>
     </div>

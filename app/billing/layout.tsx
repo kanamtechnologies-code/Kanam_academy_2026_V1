@@ -1,8 +1,9 @@
 import type { CSSProperties, ReactNode } from "react";
 import type { Metadata } from "next";
 import { Fraunces, Source_Sans_3 } from "next/font/google";
-import Image from "next/image";
 import Link from "next/link";
+
+import { HeaderBrand } from "@/components/layout/HeaderBrand";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -32,63 +33,45 @@ export default function BillingLayout({ children }: { children: ReactNode }) {
     ["--brand-2-rgb" as string]: "20 92 69",
     ["--brand-deep-rgb" as string]: "11 47 36",
     ["--accent-rgb" as string]: "216 192 122",
-    ["--background" as string]: "#071a14",
-    ["--foreground" as string]: "#f3efe4",
-    ["--muted" as string]: "#a8b8b0",
+    ["--background" as string]: "#f3efe4",
+    ["--foreground" as string]: "#14201c",
+    ["--muted" as string]: "#5b6b64",
     fontFamily:
       "var(--font-source-sans), 'Source Sans 3', ui-sans-serif, system-ui, sans-serif",
   } as CSSProperties;
 
   return (
     <div
-      className={`${display.variable} ${sans.variable} min-h-dvh bg-[#071a14] text-[#f3efe4] antialiased`}
+      className={`${display.variable} ${sans.variable} min-h-dvh bg-[#f3efe4] text-[#14201c] antialiased`}
       style={theme}
     >
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_0%,rgba(216,192,122,0.14),transparent_45%),radial-gradient(ellipse_at_90%_10%,rgba(24,161,109,0.22),transparent_40%),linear-gradient(180deg,#0b2f24_0%,#071a14_45%,#050f0c_100%)]" />
-        <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(rgba(216,192,122,0.35)_1px,transparent_1px),linear-gradient(90deg,rgba(216,192,122,0.35)_1px,transparent_1px)] [background-size:72px_72px]" />
-      </div>
+      <header className="sticky inset-x-0 top-0 z-[60] overflow-hidden border-b border-[rgb(var(--accent-rgb)/0.55)] bg-gradient-to-r from-[#145c45] via-[rgb(var(--brand-2-rgb)/0.96)] to-[#1a6b52] shadow-lg supports-[backdrop-filter]:backdrop-blur-md">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgb(var(--accent-rgb)/0.85)] to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_15%_0%,rgba(216,192,122,0.16),transparent_50%)]" />
 
-      <header className="border-b border-[rgb(var(--accent-rgb)/0.18)] bg-[rgb(var(--brand-deep-rgb)/0.72)] backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
-          <Link href="/welcome" className="flex items-center gap-2.5">
-            <span className="relative h-9 w-9 overflow-hidden rounded-full bg-[#0b2f24] ring-1 ring-[rgb(var(--accent-rgb)/0.45)]">
-              <Image
-                src="/images/Logo.png"
-                alt=""
-                fill
-                className="object-contain p-0.5"
-                sizes="36px"
-                priority
-              />
-            </span>
-            <span>
-              <span
-                className="block text-lg font-semibold tracking-tight text-[#f7f3e8]"
-                style={{ fontFamily: "var(--font-fraunces), Fraunces, Georgia, serif" }}
-              >
-                Kanam Academy
-              </span>
-              <span className="block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
-                Move Forward.
-              </span>
-            </span>
-          </Link>
-          <nav className="flex items-center gap-3 text-sm font-semibold">
+        <div className="relative mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+          <HeaderBrand />
+          <nav className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/welcome"
-              className="text-[rgb(var(--accent-rgb)/0.95)] underline-offset-4 hover:underline"
+              className="rounded-full px-3 py-2 text-sm font-semibold text-[#d7e0db] transition-colors hover:text-[var(--accent)]"
             >
               Lessons
             </Link>
             <a
-              href="https://www.kanamacademy.com"
-              className="hidden text-[var(--muted)] underline-offset-4 hover:underline sm:inline"
+              href="https://www.kanamacademy.com/pricing"
+              className="hidden rounded-full px-3 py-2 text-sm font-semibold text-[#d7e0db] transition-colors hover:text-[var(--accent)] sm:inline"
               target="_blank"
               rel="noreferrer"
             >
-              Marketing site
+              Pricing
             </a>
+            <Link
+              href="/account/billing"
+              className="inline-flex h-10 items-center justify-center rounded-full bg-[var(--accent)] px-4 text-sm font-semibold text-[#14201c] transition hover:bg-[rgb(var(--accent-rgb)/0.92)]"
+            >
+              Billing hub
+            </Link>
           </nav>
         </div>
       </header>

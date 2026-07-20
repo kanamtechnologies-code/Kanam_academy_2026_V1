@@ -84,6 +84,16 @@ create table if not exists public.lesson_progress (
   cfu_total int not null default 0,
   cfu_revealed_count int not null default 0,
 
+  -- Learner insights telemetry
+  time_spent_seconds int not null default 0,
+  quiz_attempts int not null default 0,
+  quiz_correct int not null default 0,
+  activities_completed int not null default 0,
+  activities_total int not null default 0,
+  exam_percent numeric null,
+  exam_correct int null,
+  exam_total int null,
+
   primary key (student_id, lesson_id)
 );
 

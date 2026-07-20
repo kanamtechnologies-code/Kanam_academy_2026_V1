@@ -26,6 +26,7 @@ import { GuestLessonTour } from "@/components/demo/GuestLessonTour";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
+import { dashboardHrefForLesson } from "@/lib/billing/access";
 import { AdventurePlayPanel } from "@/components/python/AdventurePlayPanel";
 import { CoachNoteContent } from "@/components/python/CoachNoteContent";
 import { PythonExerciseEditor } from "@/components/python/PythonExerciseEditor";
@@ -50,6 +51,8 @@ import {
 import { formatPythonTerminal, PYTHON_TERMINAL_PROMPT } from "@/lib/pythonTerminal";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
+import { useLessonHeartbeat } from "@/lib/progress/useLessonHeartbeat";
+import { writeProgressEvent } from "@/lib/progress/writeProgress";
 import { cn } from "@/lib/utils";
 
 export type PythonExplainItem = { title: string; text: string };
@@ -300,29 +303,12 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
       }
       if (!deviceId || !userId || !studentDbId) return;
       try {
-        const supabase = createSupabaseBrowserClient();
-        if (!supabase) return;
-        const now = new Date().toISOString();
-        await supabase.from("progress_events").insert({
-          student_id: studentDbId,
-          device_id: deviceId,
-          lesson_id: lesson.id,
-          event_type: eventType,
+        await writeProgressEvent({
+          studentDbId,
+          deviceId,
+          lessonId: lesson.id,
+          eventType,
           payload: (payload ?? {}) as Record<string, unknown>,
-        });
-        const patch: Record<string, unknown> = {
-          student_id: studentDbId,
-          lesson_id: lesson.id,
-          last_event_at: now,
-        };
-        if (eventType === "lesson_opened") patch.opened_at = now;
-        if (eventType === "run") patch.has_run = true;
-        if (eventType === "lesson_success") {
-          patch.success = true;
-          patch.success_at = now;
-        }
-        await supabase.from("lesson_progress").upsert(patch as never, {
-          onConflict: "student_id,lesson_id",
         });
       } catch {
         // ignore
@@ -330,6 +316,13 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
     },
     [deviceId, userId, studentDbId, lesson.id]
   );
+
+  useLessonHeartbeat({
+    studentDbId,
+    deviceId,
+    lessonId: lesson.id,
+    enabled: Boolean(deviceId && userId && studentDbId && !isGuestMode()),
+  });
 
   React.useEffect(() => {
     if (!deviceId || !userId || !studentDbId) return;
@@ -685,7 +678,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
     return () => window.clearTimeout(t);
   }, [activeIndex, workspaceLocked, lessonComplete, activeExercise?.starterCode]);
 
-  const exitHref = lesson.dashboardHref ?? "/dashboard";
+  const exitHref = dashboardHrefForLesson(lesson.id);
   const exitLabel =
     exitHref === "/welcome" || exitHref === "/demo" || exitHref === "/demo/complete"
       ? "Exit demo"
@@ -1318,7 +1311,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                         </Button>
                       ) : (
                         <Button asChild className="mt-5 shadow-md" size="lg" variant="secondary">
-                          <Link href={lesson.dashboardHref ?? "/dashboard"}>Back to dashboard</Link>
+                          <Link href={exitHref}>Back to dashboard</Link>
                         </Button>
                       )}
                     </CardContent>

@@ -22,6 +22,7 @@ import { ChartPanel, type ChartConfig } from "@/components/data/ChartPanel";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
+import { dashboardHrefForLesson } from "@/lib/billing/access";
 import { ResultTable } from "@/components/data/ResultTable";
 import { SqlTextarea } from "@/components/data/SqlTextarea";
 import { ExerciseHint } from "@/components/exercises/ExerciseHint";
@@ -42,6 +43,8 @@ import {
 } from "@/lib/sqlRunner";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
+import { useLessonHeartbeat } from "@/lib/progress/useLessonHeartbeat";
+import { writeProgressEvent } from "@/lib/progress/writeProgress";
 import { prepareExerciseSql, cursorForIncompleteSql, findTypingZonesForExercise } from "@/lib/sqlStarter";
 import { cn } from "@/lib/utils";
 import { PredictionInput } from "@/components/exercises/PredictionInput";
@@ -307,29 +310,12 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
       }
       if (!deviceId || !userId || !studentDbId) return;
       try {
-        const supabase = createSupabaseBrowserClient();
-        if (!supabase) return;
-        const now = new Date().toISOString();
-        await supabase.from("progress_events").insert({
-          student_id: studentDbId,
-          device_id: deviceId,
-          lesson_id: lesson.id,
-          event_type: eventType,
+        await writeProgressEvent({
+          studentDbId,
+          deviceId,
+          lessonId: lesson.id,
+          eventType,
           payload: (payload ?? {}) as Record<string, unknown>,
-        });
-        const patch: Record<string, unknown> = {
-          student_id: studentDbId,
-          lesson_id: lesson.id,
-          last_event_at: now,
-        };
-        if (eventType === "lesson_opened") patch.opened_at = now;
-        if (eventType === "run") patch.has_run = true;
-        if (eventType === "lesson_success") {
-          patch.success = true;
-          patch.success_at = now;
-        }
-        await supabase.from("lesson_progress").upsert(patch as never, {
-          onConflict: "student_id,lesson_id",
         });
       } catch {
         // ignore
@@ -337,6 +323,13 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
     },
     [deviceId, userId, studentDbId, lesson.id]
   );
+
+  useLessonHeartbeat({
+    studentDbId,
+    deviceId,
+    lessonId: lesson.id,
+    enabled: Boolean(deviceId && userId && studentDbId && !isGuestMode()),
+  });
 
   React.useEffect(() => {
     if (!deviceId || !userId || !studentDbId) return;
@@ -572,7 +565,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
               </Badge>
               <PremiumBadge lessonId={lesson.id} name={lesson.badge} variant="chip" />
               <Button asChild className="kanam-hero-cta" size="sm">
-                <Link href={lesson.dashboardHref ?? "/dashboard"}>Dashboard</Link>
+                <Link href={dashboardHrefForLesson(lesson.id)}>Dashboard</Link>
               </Button>
             </div>
           </div>
@@ -1000,7 +993,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
                         </Button>
                       ) : (
                         <Button asChild className="mt-5 shadow-md" size="lg" variant="secondary">
-                          <Link href={lesson.dashboardHref ?? "/dashboard"}>Back to dashboard</Link>
+                          <Link href={dashboardHrefForLesson(lesson.id)}>Back to dashboard</Link>
                         </Button>
                       )}
                     </CardContent>

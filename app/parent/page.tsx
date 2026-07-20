@@ -3,7 +3,16 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CreditCard, Download, Loader2, Plus, Shield, Trash2, Users } from "lucide-react";
+import {
+  BarChart3,
+  CreditCard,
+  Download,
+  Loader2,
+  Plus,
+  Shield,
+  Trash2,
+  Users,
+} from "lucide-react";
 
 import {
   ParentalConsentFields,
@@ -136,6 +145,7 @@ function ParentHubClient() {
     setKids(json.kids ?? []);
     setNeedsConsent(Boolean(json.consent?.needsParentalConsent));
     setConsentMethod(json.consent?.method ?? null);
+
     setLoading(false);
   }, [router]);
 
@@ -537,9 +547,9 @@ function ParentHubClient() {
 
           <div className="mt-4 flex flex-wrap gap-2">
             <Button asChild variant="outline">
-              <Link href="/billing">
+              <Link href="/account/billing">
                 <CreditCard className="h-4 w-4" />
-                Billing
+                Billing hub
               </Link>
             </Button>
             <Button
@@ -634,6 +644,12 @@ function ParentHubClient() {
                     </p>
                   </div>
                   <div className="flex flex-wrap gap-2">
+                    <Button size="sm" asChild>
+                      <Link href={`/parent/insights?student=${kid.id}`}>
+                        <BarChart3 className="h-3.5 w-3.5" />
+                        Learning report
+                      </Link>
+                    </Button>
                     <Button
                       size="sm"
                       variant="outline"

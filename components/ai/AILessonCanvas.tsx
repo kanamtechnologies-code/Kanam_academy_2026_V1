@@ -27,6 +27,9 @@ import { EvalLab, type EvalLabCase } from "@/components/exercises/EvalLab";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
+import { dashboardHrefForLesson } from "@/lib/billing/access";
+import { useLessonHeartbeat } from "@/lib/progress/useLessonHeartbeat";
+import { writeProgressEvent } from "@/lib/progress/writeProgress";
 import { PremiumBadge } from "@/components/badges/PremiumBadge";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Badge } from "@/components/ui/badge";
@@ -311,29 +314,12 @@ export function AILessonCanvas({
     async (eventType: string, payload?: unknown) => {
       if (!deviceId || !userId || !studentDbId) return;
       try {
-        const supabase = createSupabaseBrowserClient();
-        if (!supabase) return;
-        const now = new Date().toISOString();
-        await supabase.from("progress_events").insert({
-          student_id: studentDbId,
-          device_id: deviceId,
-          lesson_id: lesson.id,
-          event_type: eventType,
+        await writeProgressEvent({
+          studentDbId,
+          deviceId,
+          lessonId: lesson.id,
+          eventType,
           payload: (payload ?? {}) as Record<string, unknown>,
-        });
-        const patch: Record<string, unknown> = {
-          student_id: studentDbId,
-          lesson_id: lesson.id,
-          last_event_at: now,
-        };
-        if (eventType === "lesson_opened") patch.opened_at = now;
-        if (eventType === "run") patch.has_run = true;
-        if (eventType === "lesson_success") {
-          patch.success = true;
-          patch.success_at = now;
-        }
-        await supabase.from("lesson_progress").upsert(patch as never, {
-          onConflict: "student_id,lesson_id",
         });
       } catch {
         // ignore
@@ -341,6 +327,13 @@ export function AILessonCanvas({
     },
     [deviceId, userId, studentDbId, lesson.id]
   );
+
+  useLessonHeartbeat({
+    studentDbId,
+    deviceId,
+    lessonId: lesson.id,
+    enabled: Boolean(deviceId && userId && studentDbId),
+  });
 
   React.useEffect(() => {
     if (!deviceId || !userId || !studentDbId) return;
@@ -354,8 +347,13 @@ export function AILessonCanvas({
     if (!activeQuestion || lessonComplete) return;
     if (correctIds.has(activeQuestion.id)) return; // already locked correct
     setSelected((prev) => ({ ...prev, [activeQuestion.id]: choiceIndex }));
-    trackProgress("run", { questionId: activeQuestion.id, choiceIndex });
-    if (choiceIndex === activeQuestion.correctIndex) {
+    const correct = choiceIndex === activeQuestion.correctIndex;
+    trackProgress("run", {
+      questionId: activeQuestion.id,
+      choiceIndex,
+      correct,
+    });
+    if (correct) {
       setCorrectIds((prev) => new Set(prev).add(activeQuestion.id));
       // Learner advances with the "Next question" button (no auto-skip).
     }
@@ -396,6 +394,7 @@ export function AILessonCanvas({
   }, []);
 
   const markActivityDone = (activityId: string, payload?: Record<string, unknown>) => {
+    if (activityDoneIds.has(activityId)) return;
     setActivityDoneIds((prev) => new Set(prev).add(activityId));
     trackProgress("run", { activityId, kind: "bonus", ...payload });
     // Learner advances with the "Next challenge" button (no auto-skip).
@@ -477,6 +476,7 @@ export function AILessonCanvas({
     trackProgress("lesson_success", {
       reflectionLength: reflection.trim().length,
       activitiesCompleted: activityDoneIds.size,
+      activitiesTotal: activities.length,
     });
   };
 
@@ -528,7 +528,7 @@ export function AILessonCanvas({
               </Badge>
               <PremiumBadge lessonId={lesson.id} name={lesson.badge} variant="chip" />
               <Button asChild className="kanam-hero-cta" size="sm">
-                <Link href={lesson.dashboardHref ?? "/dashboard"}>Dashboard</Link>
+                <Link href={dashboardHrefForLesson(lesson.id)}>Dashboard</Link>
               </Button>
             </div>
           </div>
@@ -1052,7 +1052,7 @@ export function AILessonCanvas({
                       </Button>
                     ) : (
                       <Button asChild className="mt-5 shadow-md" size="lg" variant="secondary">
-                        <Link href={lesson.dashboardHref ?? "/dashboard"}>Back to dashboard</Link>
+                        <Link href={dashboardHrefForLesson(lesson.id)}>Back to dashboard</Link>
                       </Button>
                     )}
                   </CardContent>
