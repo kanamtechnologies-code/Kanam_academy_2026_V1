@@ -297,17 +297,30 @@ const SpotlightTourInner = React.forwardRef<
     const el = step ? findVisibleTarget(step.selector) : null;
     if (el) {
       const r = el.getBoundingClientRect();
-      // Keep bottom controls (e.g. Next) near the lower third so the tour card can sit above.
-      const nearBottom = r.top > window.innerHeight * 0.55;
-      el.scrollIntoView({
-        behavior: "auto",
-        block: nearBottom ? "end" : "center",
-        inline: "nearest",
-      });
+      const vh = window.innerHeight;
+      const narrow = window.innerWidth < 640;
+      // Estimate docked card height so the target lands in the free band on phones.
+      const cardBand = Math.min(Math.max(cardSize.h, 220), Math.floor(vh * 0.42));
+      if (narrow) {
+        const preferCardTop = r.top + r.height / 2 > vh * 0.42;
+        // Leave the opposite band free for the spotlight / tap target.
+        const freeTop = preferCardTop ? cardBand + 12 : 12;
+        const freeBottom = preferCardTop ? vh - 12 : vh - cardBand - 12;
+        const freeMid = (freeTop + freeBottom) / 2;
+        const targetMid = r.top + r.height / 2;
+        window.scrollBy({ top: targetMid - freeMid, left: 0, behavior: "auto" });
+      } else {
+        const nearBottom = r.top > vh * 0.55;
+        el.scrollIntoView({
+          behavior: "auto",
+          block: nearBottom ? "end" : "center",
+          inline: "nearest",
+        });
+      }
     }
     const t = window.setTimeout(() => recompute(), recomputeDelayMs);
     return () => window.clearTimeout(t);
-  }, [open, idx, step, recompute, recomputeDelayMs]);
+  }, [open, idx, step, recompute, recomputeDelayMs, cardSize.h]);
 
   // Block real UI under the spotlight while the tour is open (clicks only advance the tour).
   React.useEffect(() => {
@@ -349,13 +362,19 @@ const SpotlightTourInner = React.forwardRef<
 
   const scrimColor = "rgba(2, 6, 23, 0.55)";
   const z = "z-[9999]";
-  const tooltipMaxW = 360;
-  const tooltipW = Math.min(tooltipMaxW, Math.max(280, Math.floor(window.innerWidth - 24)));
-  const tooltipH = cardSize.h || 260;
+  const narrow = window.innerWidth < 640;
+  const edge = narrow ? 8 : 12;
+  const tooltipMaxW = narrow ? window.innerWidth - edge * 2 : 360;
+  const tooltipW = Math.min(
+    tooltipMaxW,
+    Math.max(narrow ? window.innerWidth - edge * 2 : 280, Math.floor(window.innerWidth - edge * 2))
+  );
+  const tooltipH = cardSize.h || (narrow ? 240 : 260);
   const holeAllowsClicks = step.advanceOnClick ?? Boolean(step.action);
-  const gap = 18;
-  const clearPad = 24; // keep tour card clear of the click target
-  const arrowReserve = 84; // leave room for the floating arrow on one side
+  const gap = narrow ? 10 : 18;
+  const clearPad = narrow ? 16 : 24; // keep tour card clear of the click target
+  const arrowReserve = narrow ? 52 : 84; // leave room for the floating arrow on one side
+  const arrowSize = narrow ? 52 : 72;
 
   const overlapsHole = (top: number, left: number, w: number, h: number) => {
     if (!rect) return false;
@@ -371,13 +390,25 @@ const SpotlightTourInner = React.forwardRef<
     ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }
     : { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
+  // On phones, always dock the card opposite the tap target so it never covers the hole.
+  const dockCardTop =
+    !rect || holeCenter.y > window.innerHeight * 0.42;
+
   const tooltip = (() => {
     if (!rect) {
-      return { top: gap, left: Math.max(gap, (window.innerWidth - tooltipW) / 2) };
+      return { top: edge, left: edge };
     }
 
-    const maxTop = Math.max(gap, window.innerHeight - tooltipH - gap);
-    const maxLeft = Math.max(gap, window.innerWidth - tooltipW - gap);
+    const maxTop = Math.max(edge, window.innerHeight - tooltipH - edge);
+    const maxLeft = Math.max(edge, window.innerWidth - tooltipW - edge);
+
+    if (narrow) {
+      return {
+        top: dockCardTop ? edge : maxTop,
+        left: edge,
+      };
+    }
+
     const spaceAbove = rect.top;
     const spaceBelow = window.innerHeight - rect.bottom;
     const preferAbove = spaceAbove >= spaceBelow;
@@ -408,7 +439,6 @@ const SpotlightTourInner = React.forwardRef<
         top: rect.top + rect.height / 2 - tooltipH / 2,
         left: rect.right + gap,
       },
-      // Slight offsets so wide targets still keep the card near the action.
       {
         side: "above-left",
         priority: 1,
@@ -425,15 +455,18 @@ const SpotlightTourInner = React.forwardRef<
 
     const scored = beside
       .map((c) => {
-        const top = clamp(c.top, gap, maxTop);
-        const left = clamp(c.left, gap, maxLeft);
-        const clear = !overlapsHole(top, left, tooltipW, tooltipH);
+        const top = clamp(c.top, edge, maxTop);
+        const left = clamp(c.left, edge, maxLeft);
+        // Reject candidates that only look clear before clamp — clamp can pull them onto the hole.
+        const clear =
+          !overlapsHole(c.top, c.left, tooltipW, tooltipH) &&
+          !overlapsHole(top, left, tooltipW, tooltipH) &&
+          c.top >= edge - 2 &&
+          c.top <= maxTop + 2;
         const cx = left + tooltipW / 2;
         const cy = top + tooltipH / 2;
         const dist = Math.hypot(cx - holeCenter.x, cy - holeCenter.y);
-        // Prefer clear + near the spotlight (easy to read while following the arrow).
-        const score =
-          (clear ? 10_000 : 0) + c.priority * 400 - Math.min(dist, 900);
+        const score = (clear ? 10_000 : 0) + c.priority * 400 - Math.min(dist, 900);
         return { top, left, score, clear };
       })
       .sort((a, b) => b.score - a.score);
@@ -443,27 +476,35 @@ const SpotlightTourInner = React.forwardRef<
       return { top: best.top, left: best.left };
     }
 
-    // Last resort: nudge to the freest side of the screen, still near mid-width.
-    const fallbackTop =
-      holeCenter.y > window.innerHeight / 2
-        ? gap
-        : Math.max(gap, window.innerHeight - tooltipH - gap);
+    // Last resort on desktop: dock opposite the hole.
     return {
-      top: fallbackTop,
-      left: clamp(holeCenter.x - tooltipW / 2, gap, maxLeft),
+      top: dockCardTop ? edge : maxTop,
+      left: clamp(holeCenter.x - tooltipW / 2, edge, maxLeft),
     };
   })();
 
   const arrowPos = (() => {
     if (!rect) return null;
-    const size = 72;
+    const size = arrowSize;
     const spaceBelow = window.innerHeight - rect.bottom;
     const spaceAbove = rect.top;
     const spaceLeft = rect.left;
     const spaceRight = window.innerWidth - rect.right;
-    const minSide = 80;
+    const minSide = narrow ? 44 : 80;
 
-    // Prefer the side with the most room so the arrow never sits on the button.
+    // Keep the arrow out of the docked card band on mobile.
+    const cardTopBand = tooltip.top;
+    const cardBottomBand = tooltip.top + tooltipH;
+    const inCardBand = (top: number, left: number) => {
+      if (!narrow) return false;
+      return !(
+        left + size < edge ||
+        left > window.innerWidth - edge ||
+        top + size < cardTopBand - 4 ||
+        top > cardBottomBand + 4
+      );
+    };
+
     const sides = [
       { side: "above" as const, room: spaceAbove, ok: spaceAbove >= minSide },
       { side: "below" as const, room: spaceBelow, ok: spaceBelow >= minSide },
@@ -473,18 +514,44 @@ const SpotlightTourInner = React.forwardRef<
       .filter((s) => s.ok)
       .sort((a, b) => b.room - a.room);
 
-    const pick = sides[0]?.side ?? (spaceAbove >= spaceBelow ? "above" : "below");
+    // Prefer a side that points toward the card without covering the hole or the card.
+    const order = narrow
+      ? dockCardTop
+        ? (["above", "left", "right", "below"] as const)
+        : (["below", "left", "right", "above"] as const)
+      : null;
+
+    let pick =
+      sides[0]?.side ?? (spaceAbove >= spaceBelow ? ("above" as const) : ("below" as const));
+    if (order) {
+      for (const side of order) {
+        const candidate = sides.find((s) => s.side === side);
+        if (!candidate) continue;
+        const trial =
+          side === "above"
+            ? { top: rect.top - size - 6, left: rect.left + rect.width / 2 - size / 2 }
+            : side === "below"
+              ? { top: rect.bottom + 6, left: rect.left + rect.width / 2 - size / 2 }
+              : side === "left"
+                ? { top: rect.top + rect.height / 2 - size / 2, left: rect.left - size - 6 }
+                : { top: rect.top + rect.height / 2 - size / 2, left: rect.right + 6 };
+        if (!inCardBand(trial.top, trial.left)) {
+          pick = side;
+          break;
+        }
+      }
+    }
 
     if (pick === "above") {
       return {
-        top: rect.top - size - 8,
+        top: rect.top - size - 6,
         left: rect.left + rect.width / 2 - size / 2,
         rotate: "0deg",
       };
     }
     if (pick === "below") {
       return {
-        top: rect.bottom + 8,
+        top: rect.bottom + 6,
         left: rect.left + rect.width / 2 - size / 2,
         rotate: "180deg",
       };
@@ -492,13 +559,13 @@ const SpotlightTourInner = React.forwardRef<
     if (pick === "left") {
       return {
         top: rect.top + rect.height / 2 - size / 2,
-        left: rect.left - size - 8,
+        left: rect.left - size - 6,
         rotate: "-90deg",
       };
     }
     return {
       top: rect.top + rect.height / 2 - size / 2,
-      left: rect.right + 8,
+      left: rect.right + 6,
       rotate: "90deg",
     };
   })();
@@ -574,16 +641,25 @@ const SpotlightTourInner = React.forwardRef<
             <div
               className="pointer-events-none fixed z-[2] grid place-items-center"
               style={{
-                top: clamp(arrowPos.top, 4, window.innerHeight - 76),
-                left: clamp(arrowPos.left, 4, window.innerWidth - 76),
-                width: 72,
-                height: 72,
+                top: clamp(arrowPos.top, 4, window.innerHeight - arrowSize - 4),
+                left: clamp(arrowPos.left, 4, window.innerWidth - arrowSize - 4),
+                width: arrowSize,
+                height: arrowSize,
                 transform: `rotate(${arrowPos.rotate})`,
               }}
               aria-hidden
             >
-              <span className="grid h-[4.5rem] w-[4.5rem] place-items-center rounded-full bg-[var(--accent)] text-slate-950 shadow-[0_10px_28px_rgba(234,179,8,0.6)] animate-[kanamTourBounce_1.1s_ease-in-out_infinite] ring-4 ring-white/90">
-                <ArrowDown className="h-10 w-10 stroke-[3.5]" aria-hidden />
+              <span
+                className={[
+                  "grid place-items-center rounded-full bg-[var(--accent)] text-slate-950",
+                  "shadow-[0_10px_28px_rgba(234,179,8,0.6)] animate-[kanamTourBounce_1.1s_ease-in-out_infinite] ring-4 ring-white/90",
+                  narrow ? "h-12 w-12" : "h-[4.5rem] w-[4.5rem]",
+                ].join(" ")}
+              >
+                <ArrowDown
+                  className={narrow ? "h-7 w-7 stroke-[3.5]" : "h-10 w-10 stroke-[3.5]"}
+                  aria-hidden
+                />
               </span>
             </div>
           ) : null}
@@ -641,26 +717,47 @@ const SpotlightTourInner = React.forwardRef<
               "dark:border-[rgb(var(--accent-rgb)/0.5)]",
               "dark:from-slate-950 dark:via-slate-950 dark:to-slate-900",
               "dark:ring-[rgb(var(--accent-rgb)/0.35)]",
+              narrow ? "max-h-[min(42vh,320px)] overflow-y-auto overscroll-contain" : "",
             ].join(" ")}
           >
-            <div className="flex items-start gap-3 p-4 sm:p-5">
-              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[var(--accent)]/12 ring-1 ring-[var(--accent)]/20 dark:bg-[var(--accent)]/20">
+            <div className={["flex items-start gap-2.5", narrow ? "p-3" : "p-4 sm:p-5 sm:gap-3"].join(" ")}>
+              <div
+                className={[
+                  "grid shrink-0 place-items-center rounded-xl bg-[var(--accent)]/12 ring-1 ring-[var(--accent)]/20 dark:bg-[var(--accent)]/20",
+                  narrow ? "h-9 w-9" : "h-11 w-11",
+                ].join(" ")}
+              >
                 <div className="text-slate-900 dark:text-slate-50">
                   {step.icon ?? <MousePointerClick className="h-5 w-5" />}
                 </div>
               </div>
               <div className="min-w-0">
-                <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[color:var(--brand-2)] dark:text-[color:var(--brand-2-ink)]">
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[color:var(--brand-2)] dark:text-[color:var(--brand-2-ink)] sm:text-[11px]">
                   How to use Kanam
                 </p>
-                <p className="mt-1 text-base font-extrabold tracking-tight text-slate-900 sm:text-[17px] dark:text-slate-50">
+                <p
+                  className={[
+                    "mt-0.5 font-extrabold tracking-tight text-slate-900 dark:text-slate-50",
+                    narrow ? "text-[15px] leading-snug" : "text-base sm:text-[17px]",
+                  ].join(" ")}
+                >
                   {step.title}
                 </p>
-                <p className="mt-2 text-[15px] leading-[1.65] text-slate-700 dark:text-slate-200">
+                <p
+                  className={[
+                    "mt-1.5 text-slate-700 dark:text-slate-200",
+                    narrow ? "text-[13px] leading-snug" : "text-[15px] leading-[1.65]",
+                  ].join(" ")}
+                >
                   {renderTourRichText(step.body)}
                 </p>
                 {step.action ? (
-                  <p className="mt-3 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold leading-snug text-emerald-950 dark:border-emerald-400/40 dark:bg-emerald-950/70 dark:text-emerald-50">
+                  <p
+                    className={[
+                      "mt-2 rounded-xl border border-emerald-200 bg-emerald-50 font-semibold text-emerald-950 dark:border-emerald-400/40 dark:bg-emerald-950/70 dark:text-emerald-50",
+                      narrow ? "px-2.5 py-1.5 text-[12px] leading-snug" : "mt-3 px-3 py-2 text-sm leading-snug",
+                    ].join(" ")}
+                  >
                     <span className="font-extrabold text-emerald-800 dark:text-emerald-300">
                       Try this:{" "}
                     </span>
@@ -670,8 +767,15 @@ const SpotlightTourInner = React.forwardRef<
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 border-t border-slate-200 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5 dark:border-slate-700">
-              <div className="flex items-center gap-2">
+            <div
+              className={[
+                "flex border-t border-slate-200 dark:border-slate-700",
+                narrow
+                  ? "items-center justify-between gap-2 px-3 py-2"
+                  : "flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5",
+              ].join(" ")}
+            >
+              <div className="flex min-w-0 items-center gap-2">
                 <div className="flex gap-1" aria-hidden>
                   {steps.map((s, i) => (
                     <span
@@ -687,19 +791,19 @@ const SpotlightTourInner = React.forwardRef<
                     />
                   ))}
                 </div>
-                <p className="text-xs font-medium text-slate-500 dark:text-slate-300">
+                <p className="truncate text-[11px] font-medium text-slate-500 dark:text-slate-300 sm:text-xs">
                   Step {idx + 1} of {steps.length}
                 </p>
               </div>
-              <div className="grid grid-cols-2 gap-2 sm:flex">
+              <div className={narrow ? "flex shrink-0 gap-1.5" : "grid grid-cols-2 gap-2 sm:flex"}>
                 <Button
                   type="button"
                   variant="outline"
                   size="sm"
                   onClick={markDoneAndClose}
-                  className="min-h-11 border-slate-200 bg-white text-slate-700 hover:bg-slate-50 sm:min-h-9 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+                  className="min-h-10 border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-50 sm:min-h-9 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
                 >
-                  Skip tour
+                  Skip
                 </Button>
                 <Button
                   type="button"
@@ -707,18 +811,18 @@ const SpotlightTourInner = React.forwardRef<
                   size="sm"
                   onClick={() => setIdx((v) => Math.max(0, v - 1))}
                   disabled={idx === 0}
-                  className="min-h-11 sm:min-h-9"
+                  className="min-h-10 px-3 sm:min-h-9"
                 >
                   Back
                 </Button>
               </div>
             </div>
             {holeAllowsClicks ? (
-              <p className="border-t border-slate-100 px-4 py-2 text-center text-xs font-medium text-slate-500 sm:px-5 dark:border-slate-700 dark:text-slate-300">
-                Follow the gold arrow to continue
+              <p className="border-t border-slate-100 px-3 py-1.5 text-center text-[11px] font-medium text-slate-500 sm:px-5 sm:py-2 sm:text-xs dark:border-slate-700 dark:text-slate-300">
+                Follow the gold arrow — tap the highlighted area
               </p>
             ) : (
-              <div className="border-t border-slate-100 px-4 py-3 sm:px-5 dark:border-slate-700">
+              <div className="border-t border-slate-100 px-3 py-2.5 sm:px-5 sm:py-3 dark:border-slate-700">
                 <Button type="button" size="sm" className="min-h-11 w-full" onClick={goNext}>
                   {idx >= steps.length - 1 ? "Start practicing" : "Next"}
                 </Button>
