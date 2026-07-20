@@ -9,7 +9,8 @@
     "lint": "eslint",
     "one-pager:pdf": "node scripts/generate-one-pager-pdf.mjs",
     "one-pager:email-pdf": "node scripts/generate-one-pager-email-pdf.mjs",
-    "trial-access:pdf": "node scripts/generate-trial-access-email-pdf.mjs"
+    "trial-access:pdf": "node scripts/generate-trial-access-email-pdf.mjs",
+    "stripe:premier-prices": "node scripts/create-premier-track-prices.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

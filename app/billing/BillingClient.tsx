@@ -22,20 +22,8 @@ const TRACKS = [
   { slug: "financial-literacy", name: "Financial Literacy", price: "$100" },
   { slug: "digital-literacy", name: "Digital Literacy", price: "$100" },
   { slug: "ai-literacy", name: "AI Literacy", price: "$149" },
-  {
-    slug: "advanced-ai",
-    name: "Advanced AI",
-    price: "$199",
-    /** Create Stripe Price + add to stripe-catalog.ts before enabling checkout. */
-    checkoutDisabled: true,
-  },
-  {
-    slug: "ap-csp-prep",
-    name: "AP CSP Prep",
-    price: "$199",
-    /** Create Stripe Price + add to stripe-catalog.ts before enabling checkout. */
-    checkoutDisabled: true,
-  },
+  { slug: "advanced-ai", name: "Advanced AI", price: "$200" },
+  { slug: "ap-csp-prep", name: "AP CSP Prep", price: "$250" },
   { slug: "ai-python", name: "Python & AI Foundations", price: "$169" },
   { slug: "cybersecurity", name: "Cybersecurity", price: "$200" },
   { slug: "data-analyst", name: "Data Analyst Track", price: "$200" },

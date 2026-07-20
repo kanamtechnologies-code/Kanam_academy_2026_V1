@@ -87,8 +87,9 @@ Kanam does **not** submit to the Digital Portfolio. Students prepare here, then 
 ## Billing / access
 
 - Family subscription unlocks all `TRACKS`, including this one.  
-- Individual checkout: create a Stripe Price, add `ap-csp-prep` to `lib/billing/stripe-catalog.ts`, then enable in `BillingClient` (currently listed with checkout disabled, like Advanced AI).  
-- Apply `supabase/migrations/20260719_ap_csp_prep_track_slug.sql` so `track_entitlements` accepts the slug.
+- Individual checkout: **$250** one-time (`price_1TvMf6DPeYE3b2sPlO9Qh5V9` on product `prod_UvD5DDGrYnmTXX`). Wired in `lib/billing/stripe-catalog.ts`; Buy enabled on `/billing`.  
+- Advanced AI companion track: **$200** one-time (`price_1TvMcVDPeYE3b2sPNKv9FYaO` on `prod_UvD2BcdpysyPLt`).  
+- Apply `supabase/migrations/20260719_ap_csp_prep_track_slug.sql` so `track_entitlements` accepts the slug (if not already applied).
 
 ## Standards note
 
