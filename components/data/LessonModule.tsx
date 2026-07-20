@@ -6,7 +6,6 @@ import {
   ArrowLeft,
   ArrowRight,
   BookOpen,
-  CheckCircle2,
   Loader2,
   Pause,
   Play,
@@ -21,6 +20,7 @@ import { ResultTable } from "@/components/data/ResultTable";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Notice } from "@/components/ui/notice";
+import { PremiumBulletList } from "@/components/ui/PremiumBulletList";
 import { buildSectionSpeechText, chunkSpeechText, pickBrowserVoice } from "@/lib/lessonSpeech";
 import type { QueryResult } from "@/lib/sqlRunner";
 import { cn } from "@/lib/utils";
@@ -508,17 +508,11 @@ export function LessonModule({
               <div className="space-y-3">{renderRichText(section.body)}</div>
 
               {section.bullets && section.bullets.length > 0 ? (
-                <ul className="space-y-2.5">
-                  {section.bullets.map((b, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-2.5 text-[16px] leading-[1.7] text-slate-700 sm:text-[17px]"
-                    >
-                      <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[var(--brand)]" />
-                      <span>{renderInline(b)}</span>
-                    </li>
-                  ))}
-                </ul>
+                <PremiumBulletList
+                  variant="inline"
+                  itemClassName="text-[16px] leading-[1.7] sm:text-[17px]"
+                  items={section.bullets.map((b) => renderInline(b))}
+                />
               ) : null}
 
               {section.callout ? (

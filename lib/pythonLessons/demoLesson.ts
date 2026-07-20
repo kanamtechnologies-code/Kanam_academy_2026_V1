@@ -13,7 +13,7 @@ function hasNameVariable(code: string) {
 export const demoLesson: PythonLessonConfig = {
   id: "lesson-1",
   title: "Quickstart: Meet Your AI Helper",
-  goal: "By the end of this demo you can store a name, print a full sentence with +, and fix a common beginner bug — the same first skills students use in Week 1.",
+  goal: "By the end of this demo you can fill in a blank, reorder lines, fix a common beginner bug, and customize the greeting — the same first skills students use in Week 1.",
   xpReward: 50,
   badge: "The Awakener",
   dashboardHref: "/welcome",
@@ -71,10 +71,10 @@ Click **Got it, let's go!** when you're ready to learn, then practice.`,
   ],
   steps: [
     "Read the lesson pages (words → building blocks → worked example → ready).",
-    'Practice 1: fill in `name = "____"` and keep the print line.',
+    "Practice 1: fill in the blank so the name is stored.",
     "Practice 2: reorder the two lines so memory comes before output.",
     "Practice 3: fix the capitalization bug (`Print` → `print`).",
-    "Practice 4: predict what a finished program will print.",
+    "Practice 4: make it yours — your name and your own greeting words.",
     "Read the console after every Run & check — that feedback is part of learning.",
   ],
   cfu: [
@@ -130,11 +130,11 @@ Click **Got it, let's go!** when you're ready to learn, then practice.`,
     {
       id: "demo-ex-fill",
       kind: "fill",
-      title: "Exercise 1 — Fill in the name",
+      title: "Exercise 1 — Fill in the blank",
       focusCommand: "name =",
       commandExplain:
         "A variable stores text in a labeled box. Fill in the blank so name holds a name, then the print line will greet with it.",
-      goal: "Replace ____ with a name (keep the quotes), like Alex.",
+      goal: 'Replace ____ with a name (keep the quotes), like Alex.',
       starterCode: `# Fill in the blank 👇
 name = "____"
 print("Hello! I am " + name)
@@ -202,28 +202,35 @@ print("Hello! I am " + name)
       },
     },
     {
-      id: "demo-ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the output",
-      focusCommand: "trace the code",
+      id: "demo-ex-scratch-yours",
+      kind: "scratch",
+      title: "Exercise 4 — Make it yours",
+      focusCommand: "from scratch",
       commandExplain:
-        "Read this finished program. Predict exactly what it will print — before you see the answer.",
-      goal: "Type your prediction, then Run & check.",
-      starterCode: `name = "Sam"
-print("Hello! I am " + name)
+        "Write another program from scratch. Use your own name (or a friend’s) and change the greeting words — keep the same pattern: store a name, then print with +.",
+      goal: "From an empty editor: name = \"...\" and print(\"… \" + name) with a space before the name.",
+      starterCode: `# Your turn — write both lines from scratch.
+# Use YOUR name and change the greeting words if you want.
+# Example shape (don't copy blindly — type it yourself):
+# name = "..."
+# print("Hi! I am " + name)
+
 `,
-      solutionCode: `name = "Sam"
-print("Hello! I am " + name)
+      solutionCode: `name = "Jordan"
+print("Hi! I am " + name)
 `,
-      codeReadOnly: true,
-      predictionPrompt: "What exact line will print?",
-      acceptedPredictions: ["Hello! I am Sam", "hello! i am sam"],
-      hint: "Replace name with Sam inside the sentence.",
-      successMessage: "Great tracing — you predicted the output.",
-      failureMessage: "Look at the string and the variable value carefully.",
+      hint: 'Keep name = "YourName" and a print(... + name) line. Put a space at the end of the greeting string so the name doesn\'t mash into the last word.',
+      successMessage: "Custom greeting locked in — that’s real coding.",
+      failureMessage:
+        "Need a name = \"...\" line and a print(... + name) line that shows a greeting with the name (and a space before it).",
       validate: (code: string, run: MiniRunResult) => {
         if (rejectsUppercasePrint(code)) return false;
-        return /Hello! I am\s+Sam/.test(run.stdout.join("\n"));
+        if (!hasNameVariable(code)) return false;
+        if (!/\bprint\s*\(/.test(code) || !/\+\s*name\b/.test(code)) return false;
+        // Greeting string should end with a space so the name doesn't mash in.
+        if (!/["'][^"'\n]*\s["']/.test(code)) return false;
+        const out = run.stdout.join("\n").trim();
+        return out.split(/\s+/).length >= 2 && !/____/.test(code);
       },
     },
   ],
@@ -234,7 +241,7 @@ print("Hello! I am " + name)
         id: "intro",
         kicker: "Start here",
         title: "What you'll learn today",
-        body: `This is the **same lesson screen** students use in class — not a toy slideshow.\n\nBy the end of this demo you'll have built a tiny **AI helper** that introduces itself — something like *"Hello! I am Alex."*\n\nYou'll learn three building blocks every program uses:\n\n• **Variables** — how a program remembers information\n• **print()** — how a program shows something on screen\n• **+** — how a program joins pieces of text into one message\n\nThen you'll practice with the same exercise kinds used in Week 1: **Fill**, **Reorder**, **Debug**, and **Predict**.`,
+        body: `This is the **same lesson screen** students use in class — not a toy slideshow.\n\nBy the end of this demo you'll have built a tiny **AI helper** that introduces itself — something like *"Hello! I am Alex."*\n\nYou'll learn three building blocks every program uses:\n\n• **Variables** — how a program remembers information\n• **print()** — how a program shows something on screen\n• **+** — how a program joins pieces of text into one message\n\nThen you'll practice with the same exercise kinds used in Week 1: **fill in the blank**, **reorder**, **debug**, and **make it yours**.`,
         image: "/images/lessons/py-1-hello.png",
         imageAlt: "A friendly robot waving and saying hello",
         callout: {
@@ -384,7 +391,7 @@ print("Hello! I am " + name)
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've met the three building blocks: a **variable** to remember, **print()** to show, and **+** to join text.\n\nIn the exercises you'll build this program one piece at a time — fill a blank, reorder lines, fix a bug, and predict an output — then run it to watch your AI helper come to life with *your* name.\n\nIf something looks off, remember: the computer did exactly what you told it, so just reread your instructions.\n\nClick **Start the exercises** when you're ready.`,
+        body: `You've met the three building blocks: a **variable** to remember, **print()** to show, and **+** to join text.\n\nIn the exercises you'll **fill in a blank**, reorder lines, fix a bug, then make the greeting yours — then run it to watch your AI helper come to life.\n\nIf something looks off, remember: the computer did exactly what you told it, so just reread your instructions.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },

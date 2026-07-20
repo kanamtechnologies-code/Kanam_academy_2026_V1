@@ -35,6 +35,7 @@ import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PremiumBulletList } from "@/components/ui/PremiumBulletList";
 import { Progress } from "@/components/ui/progress";
 import { predictionSoftMatches } from "@/lib/exercises/normalizePrediction";
 import {
@@ -1297,11 +1298,11 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
                         />
                       </div>
                       {lesson.tryThis.length > 0 ? (
-                        <ul className="mt-4 space-y-1 text-left text-sm text-slate-600">
-                          {lesson.tryThis.map((tip) => (
-                            <li key={tip}>• {tip}</li>
-                          ))}
-                        </ul>
+                        <PremiumBulletList
+                          className="mx-auto mt-5 max-w-md"
+                          title="Try next"
+                          items={lesson.tryThis}
+                        />
                       ) : null}
                       {lesson.nextHref ? (
                         <Button asChild className="mt-5 shadow-md" size="lg">

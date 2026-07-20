@@ -17,11 +17,17 @@ import { motion } from "framer-motion";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
 import { DEMO_LESSON_TOUR_FLAG } from "@/components/demo/GuestLessonTour";
-import { setGuestMode, setGuestName, resetGuestProgress } from "@/lib/guestProgress";
+import {
+  clearDemoProgressOnDevice,
+  setGuestMode,
+  setGuestName,
+} from "@/lib/guestProgress";
 
 export default function DemoEntryPage() {
   const router = useRouter();
   const [starting, setStarting] = React.useState(false);
+  const [clearMsg, setClearMsg] = React.useState<string | null>(null);
+  const [clearing, setClearing] = React.useState(false);
 
   const startGuidedLesson = React.useCallback(() => {
     setStarting(true);
@@ -34,6 +40,24 @@ export default function DemoEntryPage() {
     }
     router.push("/learn/demo?view=lesson");
   }, [router]);
+
+  const clearDemoProgress = React.useCallback(() => {
+    if (clearing) return;
+    setClearing(true);
+    setClearMsg(null);
+    // Defer so mobile browsers finish the tap before we mutate storage.
+    window.setTimeout(() => {
+      const result = clearDemoProgressOnDevice();
+      if (!result.ok) {
+        setClearMsg(result.error || "Could not clear demo progress on this device.");
+      } else if (result.removed === 0) {
+        setClearMsg("No saved demo progress on this device.");
+      } else {
+        setClearMsg("Demo progress cleared. You can start fresh.");
+      }
+      setClearing(false);
+    }, 0);
+  }, [clearing]);
 
   return (
     <WelcomeBackground>
@@ -104,8 +128,8 @@ export default function DemoEntryPage() {
                 <div className="grid grid-cols-3 gap-2">
                   {[
                     { label: "XP", value: "50", icon: Sparkles },
-                    { label: "Exercises", value: "3", icon: ListOrdered },
-                    { label: "Time", value: "~6 min", icon: BookOpen },
+                    { label: "Exercises", value: "4", icon: ListOrdered },
+                    { label: "Time", value: "~8 min", icon: BookOpen },
                   ].map((stat) => (
                     <div key={stat.label} className="kanam-dashboard-stat rounded-2xl p-3">
                       <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-white/70">
@@ -134,18 +158,18 @@ export default function DemoEntryPage() {
                   },
                   {
                     icon: Code2,
-                    title: "Fill in a blank",
-                    body: "Store a name in a variable and print Hello! I am …",
+                    title: "Fill in the blank",
+                    body: "Store a name in a variable, then see the greeting print.",
                   },
                   {
                     icon: ListOrdered,
-                    title: "Reorder + debug",
-                    body: "Drag lines into order, then fix a Print vs print bug.",
+                    title: "Reorder, debug, make it yours",
+                    body: "Fix order, fix Print vs print, then customize the greeting.",
                   },
                   {
                     icon: Trophy,
                     title: "Earn XP & a badge",
-                    body: "Finish all three exercises and unlock The Awakener.",
+                    body: "Finish the exercises and unlock The Awakener.",
                   },
                 ].map((item, i) => (
                   <motion.li
@@ -171,15 +195,24 @@ export default function DemoEntryPage() {
                 <Bug className="h-3.5 w-3.5" />
                 Same exercise kinds as Week 1 of the Python track.
               </p>
-              <button
+              <Button
                 type="button"
-                className="mt-3 inline-flex min-h-11 items-center text-xs font-semibold text-slate-500 underline underline-offset-2 hover:text-slate-800 dark:text-slate-300 dark:hover:text-slate-100"
-                onClick={() => {
-                  resetGuestProgress();
-                }}
+                variant="outline"
+                disabled={clearing || starting}
+                className="mt-3 h-11 w-full touch-manipulation rounded-xl text-sm font-bold"
+                onClick={clearDemoProgress}
               >
-                Clear previous demo progress on this device
-              </button>
+                {clearing ? "Clearing…" : "Clear previous demo progress on this device"}
+              </Button>
+              {clearMsg ? (
+                <p
+                  className="mt-2 text-center text-xs font-semibold text-emerald-800 dark:text-emerald-300"
+                  role="status"
+                  aria-live="polite"
+                >
+                  {clearMsg}
+                </p>
+              ) : null}
             </div>
           </motion.div>
         </div>

@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { PremiumBulletList } from "@/components/ui/PremiumBulletList";
 import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { CodeTextarea } from "@/components/lesson/CodeTextarea";
@@ -255,11 +256,22 @@ export function NpcChallengeMode({
           </p>
           <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
             <p className="font-semibold">Hints</p>
-            <ul className="mt-1 list-disc space-y-1 pl-5 text-sm">
-              <li>Use the <span className="font-semibold">npc_memory</span> dictionary</li>
-              <li>Store something using the key <span className="font-semibold">&quot;name&quot;</span></li>
-              <li>Tip: use <span className="font-semibold">name = input(...)</span>, then <span className="font-semibold">npc_memory[&quot;name&quot;] = name</span></li>
-            </ul>
+            <PremiumBulletList
+              className="mt-2"
+              variant="compact"
+              items={[
+                <>
+                  Use the <span className="font-semibold">npc_memory</span> dictionary
+                </>,
+                <>
+                  Store something using the key <span className="font-semibold">&quot;name&quot;</span>
+                </>,
+                <>
+                  Tip: use <span className="font-semibold">name = input(...)</span>, then{" "}
+                  <span className="font-semibold">npc_memory[&quot;name&quot;] = name</span>
+                </>,
+              ]}
+            />
             <p className="mt-2 text-xs text-slate-500">
               Success: memory stores a name, and the NPC prints the name (we’ll test with “Alex”).
             </p>

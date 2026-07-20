@@ -23,6 +23,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { PremiumBulletList } from "@/components/ui/PremiumBulletList";
 import {
   Dialog,
   DialogContent,
@@ -1931,13 +1932,7 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
           />
         </CardHeader>
         <CardContent>
-          <ul className="list-disc space-y-2 pl-5 text-sm text-slate-700">
-            {lesson.tryThis.map((challenge) => (
-              <li key={challenge} className="leading-relaxed">
-                {challenge}
-              </li>
-            ))}
-          </ul>
+          <PremiumBulletList items={lesson.tryThis} />
         </CardContent>
       </Card>
     </div>
@@ -1964,15 +1959,15 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               <p className="mt-1 text-sm leading-relaxed text-slate-700">
                 Fill in the blanks, then press <span className="font-semibold">Run</span> to see the output.
               </p>
-              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
-                {[
+              <PremiumBulletList
+                className="mt-3"
+                variant="inline"
+                items={[
                   `Replace the ____ blanks (there are ${(lesson.starterCode.match(/____/g) ?? []).length || 0}).`,
                   "Press Run and read the console.",
                   "If something breaks, fix one blank at a time.",
-                ].map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+                ]}
+              />
             </div>
 
             <div className="flex items-center justify-between gap-3">
@@ -2070,18 +2065,19 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               <p className="mt-1 text-sm leading-relaxed text-slate-700">
                 {lesson.assignmentBody ?? `Build this from scratch: ${lesson.goal}`}
               </p>
-              <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
-                {(lesson.assignmentChecklist?.length
-                  ? lesson.assignmentChecklist
-                  : [
-                      "Use the guided box first if you want help.",
-                      "Then rebuild it in the scratch box (that’s the one that counts).",
-                      "Press Run to test, then Submit when it works.",
-                    ]
-                ).map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+              <PremiumBulletList
+                className="mt-3"
+                variant="inline"
+                items={
+                  lesson.assignmentChecklist?.length
+                    ? lesson.assignmentChecklist
+                    : [
+                        "Use the guided box first if you want help.",
+                        "Then rebuild it in the scratch box (that’s the one that counts).",
+                        "Press Run to test, then Submit when it works.",
+                      ]
+                }
+              />
               <p className="mt-3 text-xs text-slate-600">
                 Tip: <span className="font-semibold">Submit</span> checks your{" "}
                 <span className="font-semibold">scratch</span> box, not the guided one.
@@ -2505,11 +2501,11 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
               <p className="text-sm font-semibold text-slate-900">What your code did:</p>
               <p className="mt-1 text-sm text-slate-700">{scratchRunAnalysis.summary}</p>
               {scratchRunAnalysis.tips?.length ? (
-                <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-slate-600">
-                  {scratchRunAnalysis.tips.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
+                <PremiumBulletList
+                  className="mt-2"
+                  variant="compact"
+                  items={scratchRunAnalysis.tips}
+                />
               ) : null}
             </div>
 
