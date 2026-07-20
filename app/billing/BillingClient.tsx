@@ -406,23 +406,13 @@ export default function BillingClient() {
                         </span>
                         <button
                           type="button"
-                          disabled={
-                            Boolean(busy) ||
-                            owned ||
-                            ("checkoutDisabled" in track && track.checkoutDisabled)
-                          }
+                          disabled={Boolean(busy) || owned}
                           onClick={() =>
                             startCheckout({ kind: "track", trackSlug: track.slug })
                           }
                           className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--brand-2-rgb)/0.35)] bg-white px-5 text-sm font-semibold text-[var(--brand-2)] transition hover:border-[var(--brand-2)] hover:bg-[rgb(var(--brand-2-rgb)/0.06)] disabled:opacity-45"
                         >
-                          {owned
-                            ? "Owned"
-                            : "checkoutDisabled" in track && track.checkoutDisabled
-                              ? "Soon"
-                              : busy?.includes(track.slug)
-                                ? "…"
-                                : "Buy"}
+                          {owned ? "Owned" : busy?.includes(track.slug) ? "…" : "Buy"}
                         </button>
                       </div>
                     </li>

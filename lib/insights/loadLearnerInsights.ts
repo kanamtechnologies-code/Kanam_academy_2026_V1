@@ -14,21 +14,21 @@ const PROGRESS_SELECT_FALLBACK =
 async function fetchProgress(admin: Admin, studentIds: string[]): Promise<ProgressRow[]> {
   if (studentIds.length === 0) return [];
 
-  let { data, error } = await admin
+  const full = await admin
     .from("lesson_progress")
     .select(PROGRESS_SELECT)
     .in("student_id", studentIds);
 
-  if (error) {
-    const retry = await admin
-      .from("lesson_progress")
-      .select(PROGRESS_SELECT_FALLBACK)
-      .in("student_id", studentIds);
-    if (retry.error) throw new Error(retry.error.message);
-    data = retry.data;
+  if (!full.error) {
+    return (full.data ?? []) as ProgressRow[];
   }
 
-  return (data ?? []) as ProgressRow[];
+  const retry = await admin
+    .from("lesson_progress")
+    .select(PROGRESS_SELECT_FALLBACK)
+    .in("student_id", studentIds);
+  if (retry.error) throw new Error(retry.error.message);
+  return (retry.data ?? []) as ProgressRow[];
 }
 
 async function fetchEvents(
