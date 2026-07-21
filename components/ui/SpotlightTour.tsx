@@ -877,7 +877,7 @@ const SpotlightTourInner = React.forwardRef<
             ) : (
               <div className="border-t border-slate-100 bg-white px-3.5 py-3 sm:px-5 dark:border-slate-800 dark:bg-slate-950">
                 <Button type="button" size="sm" className="min-h-11 w-full" onClick={goNext}>
-                  {idx >= steps.length - 1 ? "Let's practice" : "Next"}
+                  {idx >= steps.length - 1 ? "Start the lesson" : "Next"}
                 </Button>
               </div>
             )}

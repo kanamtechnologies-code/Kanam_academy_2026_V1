@@ -73,14 +73,14 @@ export function GuestLessonTour({
 
   return (
     <SpotlightTour
-      storageKey="kanam_guest_tool_tour_v8_done"
+      storageKey="kanam_guest_tool_tour_v9_done"
       remember={false}
       defaultOpen
       fadeMs={150}
       recomputeDelayMs={180}
-      eyebrow="Quick tour"
-      actionLabel="Your move"
-      footerHint="Tap the gold highlight when you're ready — you've got this"
+      eyebrow="A quick look around"
+      actionLabel="Go ahead"
+      footerHint="Tap the gold highlight when you're ready"
       onStepChange={handleStepChange}
       onDone={() => {
         setOpen(false);
@@ -93,9 +93,9 @@ export function GuestLessonTour({
           id: "hero",
           selector: '[data-tour="lesson-hero-rewards"]',
           clickSelector: '[data-tour="lesson-hero-rewards"]',
-          title: "Welcome in — this is the real classroom",
-          body: "Same screen students use in class. Up top you'll see the lesson title, the **XP** you can earn, and the **badge** waiting when you finish. Nice place to start.",
-          action: "Tap the **XP** and **badge** area to continue.",
+          title: "This is the real student screen",
+          body: "Not a slideshow — the same lesson view families and schools get in class. Up top: the title, the **XP** students earn, and the **badge** they unlock when they finish. That's progress parents can actually see.",
+          action: "Tap the **XP** and **badge** area.",
           icon: <Sparkles className="h-4 w-4" />,
           padding: 12,
         },
@@ -103,8 +103,8 @@ export function GuestLessonTour({
           id: "tabs",
           selector: '[data-tour="lesson-tab-lesson"]',
           clickSelector: '[data-tour="lesson-tab-lesson"]',
-          title: "Two tabs, one clear path",
-          body: "**Lesson** is where ideas click. **Exercises** is where you build. Learn a little, then prove it — that's the Kanam rhythm.",
+          title: "Learn first. Then try it.",
+          body: "Every Kanam lesson has two sides. **Lesson** teaches the idea clearly. **Exercises** is where students practice and get checked. Simple structure — easy for kids, easy for teachers to trust.",
           action: "Open the **Lesson** tab.",
           icon: <Columns2 className="h-4 w-4" />,
           padding: 10,
@@ -113,9 +113,9 @@ export function GuestLessonTour({
           id: "teach",
           selector: '[data-tour="lesson-module-next"], [data-tour="lesson-module-start"]',
           clickSelector: '[data-tour="lesson-module-next"], [data-tour="lesson-module-start"]',
-          title: "Take it one page at a time",
-          body: "Use **Next** and **Back** to walk the teaching pages. A few slides ask a quick check-in before you move on — short, useful, no busywork. Last page unlocks practice.",
-          action: "Press **Next** (or **Start the exercises** if you're already at the end).",
+          title: "Short pages. Real understanding.",
+          body: "**Next** and **Back** move through the teaching pages. A few ask a quick check-in before continuing — just enough to keep attention, nothing that feels like busywork. The last page opens practice.",
+          action: "Press **Next** (or **Start the exercises** if you're already there).",
           icon: <BookOpen className="h-4 w-4" />,
           padding: 14,
         },
@@ -123,9 +123,9 @@ export function GuestLessonTour({
           id: "tabs-exercises",
           selector: '[data-tour="lesson-tab-exercises"]',
           clickSelector: '[data-tour="lesson-tab-exercises"]',
-          title: "Here's where the fun starts",
-          body: "When the lesson slides are done, **Exercises** unlocks — editor, **Run & check**, and console. This tour peeks ahead so the workspace already feels familiar.",
-          action: "Open **Exercises** for a quick preview.",
+          title: "Practice is built into the product",
+          body: "Once the lesson pages are done, **Exercises** unlocks — the editor, **Run & check**, and console. We're peeking ahead so you can see what independent practice looks like before students dive in.",
+          action: "Open **Exercises**.",
           icon: <ListChecks className="h-4 w-4" />,
           padding: 10,
         },
@@ -133,8 +133,8 @@ export function GuestLessonTour({
           id: "coach",
           selector: '[data-tour="lesson-coach"] summary',
           clickSelector: '[data-tour="lesson-coach"] summary',
-          title: "A coach in your corner",
-          body: "Stuck? Reopen the **Coach's note**, command tips, and other side panels anytime. Help stays nearby — open it when you need it, tuck it away when you're flying.",
+          title: "Support without hovering",
+          body: "The **Coach's note** and tip panels stay right here — open when a student needs a nudge, closed when they're in flow. Helpful for class, calming for parents watching at home.",
           action: "Open **Coach's note**.",
           icon: <MessageSquareText className="h-4 w-4" />,
           padding: 10,
@@ -143,8 +143,8 @@ export function GuestLessonTour({
           id: "exercise-nav",
           selector: '[data-tour="lesson-exercise-nav"] button:first-of-type',
           clickSelector: '[data-tour="lesson-exercise-nav"] button:first-of-type',
-          title: "Level up one exercise at a time",
-          body: "This checklist is your path. Finish **Exercise 1** to unlock the next. A green checkmark means that step is locked in.",
+          title: "One clear step at a time",
+          body: "Students don't get dumped into a blank page. They finish **Exercise 1**, then the next unlocks. A green checkmark means that step is done — clean progress, no guessing.",
           action: "Tap **Exercise 1**.",
           icon: <Target className="h-4 w-4" />,
           padding: 10,
@@ -153,8 +153,8 @@ export function GuestLessonTour({
           id: "goal",
           selector: '[data-tour="lesson-goal"]',
           clickSelector: '[data-tour="lesson-goal"]',
-          title: "Know the win before you type",
-          body: "Every exercise spells out what success looks like. Labels like **Fill**, **Reorder**, **Debug**, and **Make it yours** tell you how you'll play that step.",
+          title: 'They always know what "done" looks like',
+          body: "Before anyone types, the goal is right here. Labels like **Fill**, **Reorder**, **Debug**, and **Make it yours** set the expectation — so students (and adults looking over a shoulder) aren't lost.",
           action: "Tap the **goal** box.",
           icon: <Target className="h-4 w-4" />,
           padding: 10,
@@ -163,8 +163,8 @@ export function GuestLessonTour({
           id: "editor",
           selector: '[data-tour="lesson-editor"]',
           clickSelector: '[data-tour="lesson-editor"]',
-          title: "Your coding space",
-          body: "Write or fix code here. Blanks show as **____** — type and they fill in for you. If you need a nudge, a **hint** appears after a short try-first wait.",
+          title: "A real editor, designed for first-timers",
+          body: "This is where the work happens. Blanks show as **____** — type and they fill in. Need a nudge? A **hint** appears after a short try-first wait, so kids learn to think before they copy.",
           action: "Tap inside the **editor**.",
           icon: <Code2 className="h-4 w-4" />,
           padding: 10,
@@ -173,8 +173,8 @@ export function GuestLessonTour({
           id: "run",
           selector: '[data-tour="lesson-run-button"]',
           clickSelector: '[data-tour="lesson-run-button"]',
-          title: "Run it. See what happens.",
-          body: "**Run & check** runs your code and tells you if you hit the goal. Try as often as you like — each attempt is progress, not a penalty.",
+          title: "Instant feedback — the kind that teaches",
+          body: "**Run & check** runs the code and shows whether the goal was met. Students can try again as many times as they need. Mistakes aren't punished; they're part of how the skill sticks.",
           action: "Press **Run & check**.",
           icon: <Play className="h-4 w-4" />,
           padding: 10,
@@ -183,9 +183,9 @@ export function GuestLessonTour({
           id: "terminal",
           selector: '[data-tour="lesson-terminal"]',
           clickSelector: '[data-tour="lesson-terminal"]',
-          title: "The console tells the story",
-          body: "Output and feedback land here. When it works, you'll see what printed. When it doesn't, you'll get a clear next step — then you're ready for the real lesson.",
-          action: "Tap the **console** to finish the tour.",
+          title: "And here's the proof",
+          body: "The console shows what the program printed — and what to fix if it didn't work. That's the loop schools want: try, see, improve. You're ready for the real lesson now.",
+          action: "Tap the **console** to finish.",
           icon: <Terminal className="h-4 w-4" />,
           padding: 10,
         },
