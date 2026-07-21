@@ -762,34 +762,35 @@ const SpotlightTourInner = React.forwardRef<
             ref={cardRef}
             data-tour-card="true"
             className={[
-              "pointer-events-auto rounded-2xl border shadow-xl",
-              "border-[rgb(var(--accent-rgb)/0.55)]",
-              "ring-1 ring-[rgb(var(--accent-rgb)/0.25)]",
-              "bg-gradient-to-br from-white via-white to-[rgb(var(--accent-rgb)/0.08)]",
-              "dark:border-[rgb(var(--accent-rgb)/0.5)]",
-              "dark:from-slate-950 dark:via-slate-950 dark:to-slate-900",
-              "dark:ring-[rgb(var(--accent-rgb)/0.35)]",
+              "pointer-events-auto overflow-hidden rounded-[20px]",
+              "border border-slate-200/90 bg-white",
+              "shadow-[0_18px_50px_rgba(15,23,42,0.18),0_2px_8px_rgba(15,23,42,0.06)]",
+              "dark:border-slate-700 dark:bg-slate-950",
+              "dark:shadow-[0_18px_50px_rgba(0,0,0,0.45)]",
               narrow ? "max-h-[min(32vh,260px)] overflow-y-auto overscroll-contain" : "",
             ].join(" ")}
           >
-            <div className={["flex items-start gap-2.5", narrow ? "p-3" : "p-4 sm:p-5 sm:gap-3"].join(" ")}>
+            {/* Brand accent bar — replaces the washed gold frame */}
+            <div
+              className="h-1 w-full bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]"
+              aria-hidden
+            />
+            <div className={["flex items-start gap-2.5", narrow ? "p-3.5" : "p-5 sm:gap-3"].join(" ")}>
               <div
                 className={[
-                  "grid shrink-0 place-items-center rounded-xl bg-[var(--accent)]/12 ring-1 ring-[var(--accent)]/20 dark:bg-[var(--accent)]/20",
+                  "grid shrink-0 place-items-center rounded-xl bg-[rgb(var(--brand-rgb)/0.1)] text-[var(--brand-2)]",
                   narrow ? "h-9 w-9" : "h-11 w-11",
                 ].join(" ")}
               >
-                <div className="text-slate-900 dark:text-slate-50">
-                  {step.icon ?? <MousePointerClick className="h-5 w-5" />}
-                </div>
+                {step.icon ?? <MousePointerClick className="h-5 w-5" />}
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[color:var(--brand-2)] dark:text-[color:var(--brand-2-ink)] sm:text-[11px]">
+                <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[color:var(--brand-2)] dark:text-[color:var(--brand-2-ink)] sm:text-[11px]">
                   {eyebrow}
                 </p>
                 <p
                   className={[
-                    "mt-0.5 font-extrabold tracking-tight text-slate-900 dark:text-slate-50",
+                    "mt-1 font-extrabold tracking-tight text-slate-900 dark:text-slate-50",
                     narrow ? "text-[15px] leading-snug" : "text-base sm:text-[17px]",
                   ].join(" ")}
                 >
@@ -797,7 +798,7 @@ const SpotlightTourInner = React.forwardRef<
                 </p>
                 <p
                   className={[
-                    "mt-1.5 text-slate-700 dark:text-slate-200",
+                    "mt-1.5 text-slate-600 dark:text-slate-300",
                     narrow ? "text-[13px] leading-snug" : "text-[15px] leading-[1.65]",
                   ].join(" ")}
                 >
@@ -806,11 +807,11 @@ const SpotlightTourInner = React.forwardRef<
                 {step.action ? (
                   <p
                     className={[
-                      "mt-2 rounded-xl border border-emerald-200 bg-emerald-50 font-semibold text-emerald-950 dark:border-emerald-400/40 dark:bg-emerald-950/70 dark:text-emerald-50",
-                      narrow ? "px-2.5 py-1.5 text-[12px] leading-snug" : "mt-3 px-3 py-2 text-sm leading-snug",
+                      "mt-2.5 border-l-[3px] border-[var(--brand)] bg-[rgb(var(--brand-rgb)/0.06)] font-semibold text-slate-800 dark:bg-[rgb(var(--brand-rgb)/0.14)] dark:text-slate-100",
+                      narrow ? "rounded-r-lg px-2.5 py-1.5 text-[12px] leading-snug" : "mt-3 rounded-r-xl px-3.5 py-2.5 text-sm leading-snug",
                     ].join(" ")}
                   >
-                    <span className="font-extrabold text-emerald-800 dark:text-emerald-300">
+                    <span className="font-extrabold text-[var(--brand-2)] dark:text-[color:var(--brand-2-ink)]">
                       {actionLabel}:{" "}
                     </span>
                     {renderTourRichText(step.action)}
@@ -821,10 +822,10 @@ const SpotlightTourInner = React.forwardRef<
 
             <div
               className={[
-                "flex border-t border-slate-200 dark:border-slate-700",
+                "flex border-t border-slate-100 bg-slate-50/80 dark:border-slate-800 dark:bg-slate-900/60",
                 narrow
-                  ? "items-center justify-between gap-2 px-3 py-2"
-                  : "flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5",
+                  ? "items-center justify-between gap-2 px-3.5 py-2.5"
+                  : "flex-col gap-3 px-5 py-3.5 sm:flex-row sm:items-center sm:justify-between",
               ].join(" ")}
             >
               <div className="flex min-w-0 items-center gap-2">
@@ -837,13 +838,13 @@ const SpotlightTourInner = React.forwardRef<
                         i === idx
                           ? "w-5 bg-[var(--brand)]"
                           : i < idx
-                            ? "w-1.5 bg-[var(--brand)]/50"
-                            : "w-1.5 bg-slate-200 dark:bg-slate-600",
+                            ? "w-1.5 bg-[var(--brand)]/45"
+                            : "w-1.5 bg-slate-300/90 dark:bg-slate-600",
                       ].join(" ")}
                     />
                   ))}
                 </div>
-                <p className="truncate text-[11px] font-medium text-slate-500 dark:text-slate-300 sm:text-xs">
+                <p className="truncate text-[11px] font-semibold tabular-nums text-slate-500 dark:text-slate-400 sm:text-xs">
                   {idx + 1} / {steps.length}
                 </p>
               </div>
@@ -853,7 +854,7 @@ const SpotlightTourInner = React.forwardRef<
                   variant="outline"
                   size="sm"
                   onClick={markDoneAndClose}
-                  className="min-h-10 border-slate-200 bg-white px-3 text-slate-700 hover:bg-slate-50 sm:min-h-9 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+                  className="min-h-10 border-slate-200/90 bg-white px-3.5 text-slate-700 shadow-none hover:bg-white hover:text-slate-900 sm:min-h-9 dark:border-slate-600 dark:bg-slate-950 dark:text-slate-100 dark:hover:bg-slate-900"
                 >
                   Skip
                 </Button>
@@ -863,18 +864,18 @@ const SpotlightTourInner = React.forwardRef<
                   size="sm"
                   onClick={() => setIdx((v) => Math.max(0, v - 1))}
                   disabled={idx === 0}
-                  className="min-h-10 px-3 sm:min-h-9"
+                  className="min-h-10 bg-white px-3.5 text-slate-800 shadow-none ring-1 ring-slate-200/90 hover:bg-slate-50 sm:min-h-9 dark:bg-slate-900 dark:text-slate-100 dark:ring-slate-700"
                 >
                   Back
                 </Button>
               </div>
             </div>
             {holeAllowsClicks ? (
-              <p className="border-t border-slate-100 px-3 py-1.5 text-center text-[11px] font-medium text-slate-500 sm:px-5 sm:py-2 sm:text-xs dark:border-slate-700 dark:text-slate-300">
+              <p className="border-t border-slate-100 bg-white px-3.5 py-2 text-center text-[11px] font-medium text-slate-500 sm:px-5 sm:text-xs dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400">
                 {footerHint}
               </p>
             ) : (
-              <div className="border-t border-slate-100 px-3 py-2.5 sm:px-5 sm:py-3 dark:border-slate-700">
+              <div className="border-t border-slate-100 bg-white px-3.5 py-3 sm:px-5 dark:border-slate-800 dark:bg-slate-950">
                 <Button type="button" size="sm" className="min-h-11 w-full" onClick={goNext}>
                   {idx >= steps.length - 1 ? "Let's practice" : "Next"}
                 </Button>
