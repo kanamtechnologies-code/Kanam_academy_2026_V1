@@ -102,6 +102,12 @@ export const SpotlightTour = React.forwardRef<
     /** @deprecated Kept for API compatibility; spotlight no longer morphs between steps. */
     moveMs?: number;
     recomputeDelayMs?: number;
+    /** Small label above the step title. */
+    eyebrow?: string;
+    /** Prefix for the green action callout. */
+    actionLabel?: string;
+    /** Hint under the footer when the hole advances the tour. */
+    footerHint?: string;
     onDone?: () => void;
     onStepChange?: (step: SpotlightTourStep, index: number) => void;
   }
@@ -116,6 +122,9 @@ export const SpotlightTour = React.forwardRef<
     autoCloseMs,
     fadeMs = 180,
     recomputeDelayMs = 120,
+    eyebrow,
+    actionLabel,
+    footerHint,
     onDone,
     onStepChange,
   },
@@ -133,6 +142,9 @@ export const SpotlightTour = React.forwardRef<
       autoCloseMs={autoCloseMs}
       fadeMs={fadeMs}
       recomputeDelayMs={recomputeDelayMs}
+      eyebrow={eyebrow}
+      actionLabel={actionLabel}
+      footerHint={footerHint}
       onDone={onDone}
       onStepChange={onStepChange}
     />
@@ -151,6 +163,9 @@ const SpotlightTourInner = React.forwardRef<
     autoCloseMs?: number;
     fadeMs?: number;
     recomputeDelayMs?: number;
+    eyebrow?: string;
+    actionLabel?: string;
+    footerHint?: string;
     onDone?: () => void;
     onStepChange?: (step: SpotlightTourStep, index: number) => void;
   }
@@ -164,6 +179,9 @@ const SpotlightTourInner = React.forwardRef<
     autoCloseMs,
     fadeMs = 180,
     recomputeDelayMs = 120,
+    eyebrow = "How to use Kanam",
+    actionLabel = "Try this",
+    footerHint = "Follow the gold arrow — tap the highlighted area",
     onDone,
     onStepChange,
   },
@@ -733,7 +751,7 @@ const SpotlightTourInner = React.forwardRef<
               </div>
               <div className="min-w-0">
                 <p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-[color:var(--brand-2)] dark:text-[color:var(--brand-2-ink)] sm:text-[11px]">
-                  How to use Kanam
+                  {eyebrow}
                 </p>
                 <p
                   className={[
@@ -759,7 +777,7 @@ const SpotlightTourInner = React.forwardRef<
                     ].join(" ")}
                   >
                     <span className="font-extrabold text-emerald-800 dark:text-emerald-300">
-                      Try this:{" "}
+                      {actionLabel}:{" "}
                     </span>
                     {renderTourRichText(step.action)}
                   </p>
@@ -792,7 +810,7 @@ const SpotlightTourInner = React.forwardRef<
                   ))}
                 </div>
                 <p className="truncate text-[11px] font-medium text-slate-500 dark:text-slate-300 sm:text-xs">
-                  Step {idx + 1} of {steps.length}
+                  {idx + 1} / {steps.length}
                 </p>
               </div>
               <div className={narrow ? "flex shrink-0 gap-1.5" : "grid grid-cols-2 gap-2 sm:flex"}>
@@ -819,12 +837,12 @@ const SpotlightTourInner = React.forwardRef<
             </div>
             {holeAllowsClicks ? (
               <p className="border-t border-slate-100 px-3 py-1.5 text-center text-[11px] font-medium text-slate-500 sm:px-5 sm:py-2 sm:text-xs dark:border-slate-700 dark:text-slate-300">
-                Follow the gold arrow — tap the highlighted area
+                {footerHint}
               </p>
             ) : (
               <div className="border-t border-slate-100 px-3 py-2.5 sm:px-5 sm:py-3 dark:border-slate-700">
                 <Button type="button" size="sm" className="min-h-11 w-full" onClick={goNext}>
-                  {idx >= steps.length - 1 ? "Start practicing" : "Next"}
+                  {idx >= steps.length - 1 ? "Let's practice" : "Next"}
                 </Button>
               </div>
             )}

@@ -77,9 +77,9 @@ export default function DemoEntryPage() {
               <span className="block text-[color:var(--brand)]">guided, step by step</span>
             </h1>
             <p className="mx-auto mt-4 max-w-xl text-base font-medium leading-relaxed text-slate-700 md:text-lg">
-              Start with a short product tour that teaches the canvas — tabs, coach note, editor,
-              Run &amp; check, and console — then practice a real Python lesson. Built for students,
-              parents, and educators.
+              A quick, friendly tour shows you the canvas — tabs, coach note, editor, Run &amp; check,
+              and console — then you jump into a real Python lesson. Built for students, parents, and
+              educators.
             </p>
 
             <div className="mt-8 flex justify-center">
