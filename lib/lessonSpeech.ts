@@ -86,10 +86,8 @@ export function buildSpeechWords(section: SpeechSection): SpeechWord[] {
     if (segmentIndex > 0) charCursor += 2; // ". " joiner from buildSectionSpeechText
     const parts = segment.text.match(/\S+|\s+/g) ?? [];
     let localIndex = 0;
-    let localChar = 0;
     for (const part of parts) {
       if (/^\s+$/.test(part)) {
-        localChar += part.length;
         charCursor += part.length;
         continue;
       }
@@ -100,7 +98,6 @@ export function buildSpeechWords(section: SpeechSection): SpeechWord[] {
         charStart: charCursor,
       });
       localIndex += 1;
-      localChar += part.length;
       charCursor += part.length;
     }
   });

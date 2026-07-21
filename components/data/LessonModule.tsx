@@ -298,6 +298,8 @@ export function LessonModule({
     window.speechSynthesis.speak(utterance);
   });
 
+  const playNeuralChunkRef = React.useRef<(at: number) => void>(() => {});
+
   const playNeuralChunk = React.useEffectEvent(async (at: number) => {
     const chunks = chunkQueueRef.current;
     const text = chunks[at];
@@ -314,19 +316,23 @@ export function LessonModule({
         return;
       }
 
-      const audio = audioRef.current ?? new Audio();
-      audioRef.current = audio;
+      if (!audioRef.current) {
+        audioRef.current = new Audio();
+      }
+      const audio = audioRef.current;
       chunkIndexRef.current = at;
 
-      audio.onended = () => {
+      const onEnded = () => {
         const next = at + 1;
         if (next < chunks.length) {
-          void playNeuralChunk(next);
+          playNeuralChunkRef.current(next);
         } else {
           setSpeechState("idle");
         }
       };
-      audio.onerror = () => setSpeechState("idle");
+      const onError = () => setSpeechState("idle");
+      audio.addEventListener("ended", onEnded, { once: true });
+      audio.addEventListener("error", onError, { once: true });
 
       audio.src = url;
       setSpeechState("speaking");
@@ -336,6 +342,12 @@ export function LessonModule({
     } catch {
       playBrowserSpeech(buildSectionSpeechText(section));
     }
+  });
+
+  React.useEffect(() => {
+    playNeuralChunkRef.current = (at) => {
+      void playNeuralChunk(at);
+    };
   });
 
   const startListening = React.useEffectEvent(() => {
