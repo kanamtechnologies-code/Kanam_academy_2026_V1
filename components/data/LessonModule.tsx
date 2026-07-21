@@ -470,13 +470,13 @@ export function LessonModule({
           const media = (
             <>
               {section.image ? (
-                <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+                <div className="relative h-[min(340px,40vh)] w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 sm:h-[min(380px,42vh)]">
                   <Image
                     src={section.image}
                     alt={section.imageAlt ?? section.title}
-                    width={1024}
-                    height={683}
-                    className="h-auto w-full"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className="object-cover object-center"
                   />
                 </div>
               ) : null}

@@ -1,4 +1,5 @@
 import type { PythonLessonConfig } from "@/components/python/PythonLessonCanvas";
+import { KANAM_BOT } from "@/lib/brand/kanamBot";
 import type { MiniRunResult } from "@/lib/pythonRunner";
 import { rejectsUppercasePrint } from "@/lib/pythonTerminal";
 
@@ -231,8 +232,8 @@ print("Hello! I am " + name)
         kicker: "Start here",
         title: "What you'll learn today",
         body: `Welcome to your very first program! By the end of this lesson you'll have built a tiny **AI helper** that introduces itself on screen — something like *"Hello! I am Alex."*\n\nThat may sound simple, but you'll learn the three building blocks that *every* program is made of:\n\n• **Variables** — how a program remembers information.\n• **print()** — how a program shows things to a human.\n• **+** — how a program joins pieces of text into a full message.\n\nThese same three ideas power chatbots, video games, and apps used by billions of people. You're starting at the exact same place every professional programmer once did.`,
-        image: "/images/lessons/py-1-hello.png",
-        imageAlt: "A friendly robot waving and saying hello",
+        image: KANAM_BOT.intro,
+        imageAlt: "Kanam AI helper bot beside a Python name variable",
         callout: {
           label: "Why it matters",
           text: "When you type a message to a chatbot and it greets you back, somewhere a program stored your words in a variable and used something like print() to reply. You're learning the real machinery behind the AI you use every day.",

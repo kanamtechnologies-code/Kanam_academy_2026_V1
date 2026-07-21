@@ -22,6 +22,11 @@ import { ChartPanel, type ChartConfig } from "@/components/data/ChartPanel";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
 import {
+  FinishLessonFirstHint,
+  finishLessonTabClassName,
+  useFinishLessonFirstNudge,
+} from "@/components/lesson/FinishLessonFirstNudge";
+import {
   MobileLessonPocket,
   type MobileLessonPocketPanel,
 } from "@/components/lesson/MobileLessonPocket";
@@ -158,6 +163,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
   const [lessonUnlocked, setLessonUnlocked] = React.useState(() =>
     lesson.lessonModule ? false : true
   );
+  const { nudgeActive, triggerNudge } = useFinishLessonFirstNudge();
 
   React.useEffect(() => {
     if (!lesson.lessonModule) {
@@ -585,44 +591,54 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
         </div>
 
         {lesson.lessonModule ? (
-          <div className="mb-6 inline-flex items-center gap-1 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
-            <button
-              type="button"
-              onClick={() => setView("lesson")}
-              className={cn(
-                "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
-                view === "lesson"
-                  ? "bg-[var(--brand)] text-white shadow-sm"
-                  : "text-slate-600 hover:bg-slate-100"
-              )}
-            >
-              <BookOpen className="h-4 w-4" />
-              Lesson
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                if (!lessonUnlocked) return;
-                setView("exercises");
-              }}
-              disabled={!lessonUnlocked}
-              title={
-                lessonUnlocked
-                  ? undefined
-                  : "Finish the lesson slides and answer every question first"
-              }
-              className={cn(
-                "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
-                view === "exercises" && lessonUnlocked
-                  ? "bg-[var(--brand)] text-white shadow-sm"
-                  : lessonUnlocked
-                    ? "text-slate-600 hover:bg-slate-100"
-                    : "cursor-not-allowed text-slate-400"
-              )}
-            >
-              <ListChecks className="h-4 w-4" />
-              Exercises
-            </button>
+          <div className="relative mb-6 w-fit max-w-full">
+            <div className="inline-flex items-center gap-1 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
+              <button
+                type="button"
+                onClick={() => setView("lesson")}
+                className={cn(
+                  "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
+                  view === "lesson"
+                    ? "bg-[var(--brand)] text-white shadow-sm"
+                    : "text-slate-600 hover:bg-slate-100"
+                )}
+              >
+                <BookOpen className="h-4 w-4" />
+                Lesson
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (!lessonUnlocked) {
+                    triggerNudge();
+                    return;
+                  }
+                  setView("exercises");
+                }}
+                aria-disabled={!lessonUnlocked}
+                title={
+                  lessonUnlocked
+                    ? undefined
+                    : "Finish the lesson first — then this tab unlocks"
+                }
+                className={cn(
+                  "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
+                  view === "exercises" && lessonUnlocked
+                    ? "bg-[var(--brand)] text-white shadow-sm"
+                    : lessonUnlocked
+                      ? "text-slate-600 hover:bg-slate-100"
+                      : "text-slate-400 hover:bg-rose-50/80",
+                  finishLessonTabClassName(nudgeActive && !lessonUnlocked)
+                )}
+              >
+                <ListChecks className="h-4 w-4" />
+                Exercises
+              </button>
+            </div>
+            <FinishLessonFirstHint
+              active={nudgeActive && !lessonUnlocked}
+              whatUnlocks="the exercises"
+            />
           </div>
         ) : null}
 

@@ -121,7 +121,7 @@ export default function DemoEntryPage() {
                     <p className="text-xs font-black uppercase tracking-[0.2em] text-white/80">
                       Lesson canvas preview
                     </p>
-                    <p className="text-lg font-black text-white">Meet Your AI Helper</p>
+                    <p className="text-lg font-black text-white">Your First Python Program</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
@@ -152,18 +152,18 @@ export default function DemoEntryPage() {
                 {[
                   {
                     icon: BookOpen,
-                    title: "Read a short lesson",
-                    body: "Pictures + coach tips — same layout students use in class.",
+                    title: "Work through a short lesson",
+                    body: "Concepts, a worked example, and coach notes — same canvas students use in class.",
                   },
                   {
                     icon: Code2,
                     title: "Fill in the blank",
-                    body: "Store a name in a variable, then see the greeting print.",
+                    body: "Assign a name to a variable, then print a complete greeting.",
                   },
                   {
                     icon: ListOrdered,
                     title: "Reorder, debug, make it yours",
-                    body: "Fix order, fix Print vs print, then customize the greeting.",
+                    body: "Fix line order, fix Print vs print, then customize the program.",
                   },
                   {
                     icon: Trophy,
