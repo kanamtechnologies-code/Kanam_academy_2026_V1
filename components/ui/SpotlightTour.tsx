@@ -314,20 +314,35 @@ const SpotlightTourInner = React.forwardRef<
     if (!open) return;
     const el = step ? findVisibleTarget(step.selector) : null;
     if (el) {
-      const r = el.getBoundingClientRect();
       const vh = window.innerHeight;
       const narrow = window.innerWidth < 640;
-      // Estimate docked card height so the target lands in the free band on phones.
-      const cardBand = Math.min(Math.max(cardSize.h, 220), Math.floor(vh * 0.42));
       if (narrow) {
-        const preferCardTop = r.top + r.height / 2 > vh * 0.42;
-        // Leave the opposite band free for the spotlight / tap target.
-        const freeTop = preferCardTop ? cardBand + 12 : 12;
-        const freeBottom = preferCardTop ? vh - 12 : vh - cardBand - 12;
-        const freeMid = (freeTop + freeBottom) / 2;
-        const targetMid = r.top + r.height / 2;
-        window.scrollBy({ top: targetMid - freeMid, left: 0, behavior: "auto" });
+        // Keep the card compact; phones need most of the screen for the tap target.
+        const cardBand = Math.min(Math.max(cardSize.h, 160), Math.floor(vh * 0.32));
+        const headerPad = 72; // fixed app header
+        const r0 = el.getBoundingClientRect();
+        // Only park the card on top when the control is clearly in the lower third.
+        // Mid-screen targets (e.g. XP/badge under a tall hero title) must keep the card at the bottom.
+        const dockTop = r0.top > vh * 0.58;
+        const safeTop = dockTop ? cardBand + 10 : headerPad;
+        const safeBottom = dockTop ? vh - 10 : vh - cardBand - 14;
+
+        // Fit the whole target into the safe band (not just its center).
+        let r = el.getBoundingClientRect();
+        if (r.top < safeTop) {
+          window.scrollBy({ top: r.top - safeTop, left: 0, behavior: "auto" });
+          r = el.getBoundingClientRect();
+        }
+        if (r.bottom > safeBottom) {
+          window.scrollBy({ top: r.bottom - safeBottom, left: 0, behavior: "auto" });
+          r = el.getBoundingClientRect();
+        }
+        // If it still can't fit (very tall target), pin its top into the safe zone.
+        if (r.top < safeTop || r.bottom > safeBottom) {
+          window.scrollBy({ top: r.top - safeTop, left: 0, behavior: "auto" });
+        }
       } else {
+        const r = el.getBoundingClientRect();
         const nearBottom = r.top > vh * 0.55;
         el.scrollIntoView({
           behavior: "auto",
@@ -387,12 +402,12 @@ const SpotlightTourInner = React.forwardRef<
     tooltipMaxW,
     Math.max(narrow ? window.innerWidth - edge * 2 : 280, Math.floor(window.innerWidth - edge * 2))
   );
-  const tooltipH = cardSize.h || (narrow ? 240 : 260);
+  const tooltipH = cardSize.h || (narrow ? 200 : 260);
   const holeAllowsClicks = step.advanceOnClick ?? Boolean(step.action);
   const gap = narrow ? 10 : 18;
-  const clearPad = narrow ? 16 : 24; // keep tour card clear of the click target
-  const arrowReserve = narrow ? 52 : 84; // leave room for the floating arrow on one side
-  const arrowSize = narrow ? 52 : 72;
+  const clearPad = narrow ? 20 : 24; // keep tour card clear of the click target
+  const arrowReserve = narrow ? 44 : 84; // leave room for the floating arrow on one side
+  const arrowSize = narrow ? 44 : 72;
 
   const overlapsHole = (top: number, left: number, w: number, h: number) => {
     if (!rect) return false;
@@ -408,23 +423,38 @@ const SpotlightTourInner = React.forwardRef<
     ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }
     : { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
-  // On phones, always dock the card opposite the tap target so it never covers the hole.
-  const dockCardTop =
-    !rect || holeCenter.y > window.innerHeight * 0.42;
+  // Prefer bottom dock on phones. Only flip to top when the target is clearly low —
+  // otherwise mid-page controls (first-step XP/badge) get covered by a top-docked card.
+  const dockCardTop = Boolean(
+    rect && rect.top > window.innerHeight * 0.58
+  );
 
   const tooltip = (() => {
     if (!rect) {
-      return { top: edge, left: edge };
+      return {
+        top: narrow
+          ? Math.max(edge, window.innerHeight - tooltipH - edge)
+          : edge,
+        left: edge,
+      };
     }
 
     const maxTop = Math.max(edge, window.innerHeight - tooltipH - edge);
     const maxLeft = Math.max(edge, window.innerWidth - tooltipW - edge);
 
     if (narrow) {
-      return {
-        top: dockCardTop ? edge : maxTop,
-        left: edge,
-      };
+      let top = dockCardTop ? edge : maxTop;
+      // Hard guarantee: if the docked card would still cover the hole, flip sides.
+      if (overlapsHole(top, edge, tooltipW, tooltipH)) {
+        top = dockCardTop ? maxTop : edge;
+      }
+      // Still overlapping (huge target) — pin card to whichever side leaves more free space.
+      if (overlapsHole(top, edge, tooltipW, tooltipH)) {
+        const spaceAbove = Math.max(0, rect.top - edge);
+        const spaceBelow = Math.max(0, window.innerHeight - rect.bottom - edge);
+        top = spaceAbove >= spaceBelow ? edge : maxTop;
+      }
+      return { top, left: edge };
     }
 
     const spaceAbove = rect.top;
@@ -655,7 +685,11 @@ const SpotlightTourInner = React.forwardRef<
               borderRadius: Math.min(16, Math.floor(Math.min(rect.width, rect.height) / 2)),
             }}
           />
-          {arrowPos ? (
+          {arrowPos &&
+          !(
+            narrow &&
+            overlapsHole(arrowPos.top, arrowPos.left, arrowSize, arrowSize)
+          ) ? (
             <div
               className="pointer-events-none fixed z-[2] grid place-items-center"
               style={{
@@ -671,11 +705,11 @@ const SpotlightTourInner = React.forwardRef<
                 className={[
                   "grid place-items-center rounded-full bg-[var(--accent)] text-slate-950",
                   "shadow-[0_10px_28px_rgba(234,179,8,0.6)] animate-[kanamTourBounce_1.1s_ease-in-out_infinite] ring-4 ring-white/90",
-                  narrow ? "h-12 w-12" : "h-[4.5rem] w-[4.5rem]",
+                  narrow ? "h-11 w-11" : "h-[4.5rem] w-[4.5rem]",
                 ].join(" ")}
               >
                 <ArrowDown
-                  className={narrow ? "h-7 w-7 stroke-[3.5]" : "h-10 w-10 stroke-[3.5]"}
+                  className={narrow ? "h-6 w-6 stroke-[3.5]" : "h-10 w-10 stroke-[3.5]"}
                   aria-hidden
                 />
               </span>
@@ -735,7 +769,7 @@ const SpotlightTourInner = React.forwardRef<
               "dark:border-[rgb(var(--accent-rgb)/0.5)]",
               "dark:from-slate-950 dark:via-slate-950 dark:to-slate-900",
               "dark:ring-[rgb(var(--accent-rgb)/0.35)]",
-              narrow ? "max-h-[min(42vh,320px)] overflow-y-auto overscroll-contain" : "",
+              narrow ? "max-h-[min(32vh,260px)] overflow-y-auto overscroll-contain" : "",
             ].join(" ")}
           >
             <div className={["flex items-start gap-2.5", narrow ? "p-3" : "p-4 sm:p-5 sm:gap-3"].join(" ")}>
