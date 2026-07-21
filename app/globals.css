@@ -754,6 +754,17 @@ body {
   }
 }
 
+@keyframes kanamPocketSheetIn {
+  from {
+    opacity: 0.65;
+    transform: translateY(18%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes kanamTourTooltipIn {
   from {
     opacity: 0;

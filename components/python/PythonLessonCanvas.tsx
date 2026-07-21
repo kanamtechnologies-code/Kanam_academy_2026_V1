@@ -25,6 +25,10 @@ import { ParsonsLines } from "@/components/exercises/ParsonsLines";
 import { GuestLessonTour } from "@/components/demo/GuestLessonTour";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
+import {
+  MobileLessonPocket,
+  type MobileLessonPocketPanel,
+} from "@/components/lesson/MobileLessonPocket";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
 import { dashboardHrefForLesson } from "@/lib/billing/access";
 import { AdventurePlayPanel } from "@/components/python/AdventurePlayPanel";
@@ -846,7 +850,8 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
           </div>
         ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-          <div className="space-y-3 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
+          {/* Desktop: sticky side panels. Mobile: Help pocket below. */}
+          <div className="order-2 hidden space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
             <LessonAside
               title="Coach's note"
               tone="coach"
@@ -974,7 +979,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
             </LessonAside>
           </div>
 
-          <div className="space-y-4">
+          <div className="order-1 space-y-4 lg:order-2">
             {workspaceLocked ? (
               <Card>
                 <CardContent className="flex items-center gap-3 py-8 text-slate-600">
@@ -1354,6 +1359,166 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
             )}
           </div>
         </div>
+        )}
+
+        {lesson.lessonModule && (view === "lesson" || !canShowExercises) ? null : (
+          <MobileLessonPocket
+            defaultOpenId={!coachConfirmed && gateSeconds > 0 ? "coach" : null}
+            panels={
+              [
+                {
+                  id: "coach",
+                  label: "Coach",
+                  title: "Coach's note",
+                  tone: "coach",
+                  icon: <Sparkles className="h-4 w-4" />,
+                  dataTour: "lesson-coach",
+                  attention: !coachConfirmed && gateSeconds > 0,
+                  content: (
+                    <div className="space-y-3">
+                      <CoachNoteContent text={lesson.instructorScript} />
+                      {!coachConfirmed && gateSeconds > 0 ? (
+                        <Button
+                          type="button"
+                          size="sm"
+                          disabled={coachSecondsLeft > 0}
+                          onClick={confirmCoachNote}
+                          className="mt-1 h-10 w-full rounded-xl bg-[var(--brand)] font-bold text-white shadow-sm hover:brightness-105"
+                        >
+                          Got it {coachSecondsLeft > 0 ? `(${coachSecondsLeft}s)` : ""}
+                        </Button>
+                      ) : null}
+                    </div>
+                  ),
+                },
+                {
+                  id: "commands",
+                  label: "Commands",
+                  title: "Python command guide",
+                  tone: "brand",
+                  icon: <Code2 className="h-4 w-4" />,
+                  content: (
+                    <div className="space-y-3">
+                      {lesson.commandReference.map((cmd) => (
+                        <div
+                          key={cmd.command}
+                          className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-3"
+                        >
+                          <p className="font-mono text-sm font-bold text-violet-800">
+                            {cmd.command}
+                          </p>
+                          <p className="mt-1 text-sm text-slate-700">{cmd.summary}</p>
+                          <p className="mt-2 font-mono text-xs text-slate-500">
+                            Example: {cmd.example}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ),
+                },
+                ...(lesson.kidExplain.length > 0
+                  ? [
+                      {
+                        id: "ideas",
+                        label: "Ideas",
+                        title: "Key ideas",
+                        icon: <Lightbulb className="h-4 w-4 text-amber-500" />,
+                        content: (
+                          <div className="space-y-3">
+                            {lesson.kidExplain.map((item) => (
+                              <div
+                                key={item.title}
+                                className="rounded-xl border border-slate-100 bg-slate-50 p-3"
+                              >
+                                <p className="text-sm font-bold text-slate-900">{item.title}</p>
+                                <p className="mt-1 text-sm text-slate-600">{item.text}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ),
+                      } satisfies MobileLessonPocketPanel,
+                    ]
+                  : []),
+                ...(lesson.cfu.length > 0
+                  ? [
+                      {
+                        id: "check",
+                        label: "Check",
+                        title: "Check for understanding",
+                        icon: <CheckCircle2 className="h-4 w-4 text-[var(--brand)]" />,
+                        content: (
+                          <div className="space-y-3 text-sm text-slate-700">
+                            {lesson.cfu.map((item) => (
+                              <details
+                                key={item.question}
+                                className="rounded-lg border border-slate-200 p-3"
+                              >
+                                <summary className="cursor-pointer font-semibold text-slate-900">
+                                  {item.question}
+                                </summary>
+                                <p className="mt-2 text-slate-600">{item.answer}</p>
+                              </details>
+                            ))}
+                          </div>
+                        ),
+                      } satisfies MobileLessonPocketPanel,
+                    ]
+                  : []),
+                ...(isProject && lesson.project
+                  ? [
+                      {
+                        id: "project",
+                        label: "Project",
+                        title: "Project checklist",
+                        icon: <Trophy className="h-4 w-4 text-[var(--accent)]" />,
+                        content: (
+                          <div>
+                            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--brand-2)]">
+                              {lesson.project.timeLabel}
+                            </p>
+                            <ul className="space-y-2">
+                              {lesson.project.requirements.map((req) => {
+                                const done = Boolean(projectChecks[req.id]);
+                                return (
+                                  <li
+                                    key={req.id}
+                                    className={cn(
+                                      "flex items-start gap-2 rounded-lg border px-3 py-2 text-sm",
+                                      done
+                                        ? "border-emerald-300 bg-emerald-50 text-emerald-950"
+                                        : "border-slate-200 bg-white text-slate-700"
+                                    )}
+                                  >
+                                    <CheckCircle2
+                                      className={cn(
+                                        "mt-0.5 h-4 w-4 shrink-0",
+                                        done ? "text-emerald-600" : "text-slate-300"
+                                      )}
+                                    />
+                                    <span>{req.label}</span>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                            <p className="mt-3 text-xs text-slate-500">
+                              Work in order 1–8. Use <strong>Build</strong> + Run for items 1–7,
+                              then <strong>Adventure</strong> for item 8 (3+ live chat turns).
+                            </p>
+                          </div>
+                        ),
+                      } satisfies MobileLessonPocketPanel,
+                    ]
+                  : []),
+                {
+                  id: "safety",
+                  label: "Safety",
+                  title: "AI safety moment",
+                  icon: <Sparkles className="h-4 w-4 text-violet-500" />,
+                  content: <p className="text-sm text-slate-700">{lesson.aiSafetyMoment}</p>,
+                },
+              ] satisfies MobileLessonPocketPanel[]
+            }
+          />
         )}
       </div>
 

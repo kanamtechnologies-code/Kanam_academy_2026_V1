@@ -144,10 +144,10 @@ export function GuestLessonTour({
         },
         {
           id: "coach",
-          selector: '[data-tour="lesson-coach"] summary',
-          clickSelector: '[data-tour="lesson-coach"] summary',
+          selector: '[data-tour="lesson-coach"]',
+          clickSelector: '[data-tour="lesson-coach"]',
           title: "Support without hovering",
-          body: "The **Coach's note** and tip panels stay right here — open when a student needs a nudge, closed when they're in flow. Helpful for class, calming for parents watching at home.",
+          body: "On a phone, help lives in the **Help pocket** at the bottom. On a larger screen, open **Coach's note** in the side panel — a nudge when they need it, out of the way when they're in flow.",
           action: "Open **Coach's note**.",
           icon: <MessageSquareText className="h-4 w-4" />,
           padding: 10,

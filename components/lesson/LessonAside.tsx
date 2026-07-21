@@ -31,7 +31,6 @@ export function LessonAside({
   return (
     <details
       open={defaultOpen}
-      data-tour={dataTour}
       className={cn(
         "group/aside overflow-hidden rounded-[18px] border bg-white shadow-[0_8px_24px_rgba(15,23,42,0.05)]",
         "transition-[border-color,box-shadow] duration-200",
@@ -51,6 +50,7 @@ export function LessonAside({
         />
       ) : null}
       <summary
+        data-tour={dataTour}
         className={cn(
           "flex list-none items-center justify-between gap-3 px-4 py-3.5",
           "cursor-pointer select-none",

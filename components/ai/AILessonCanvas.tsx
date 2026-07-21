@@ -26,6 +26,10 @@ import { AIPredictChallenge } from "@/components/exercises/AIPredictChallenge";
 import { EvalLab, type EvalLabCase } from "@/components/exercises/EvalLab";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
+import {
+  MobileLessonPocket,
+  type MobileLessonPocketPanel,
+} from "@/components/lesson/MobileLessonPocket";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
 import { dashboardHrefForLesson } from "@/lib/billing/access";
 import { useLessonHeartbeat } from "@/lib/progress/useLessonHeartbeat";
@@ -588,7 +592,7 @@ export function AILessonCanvas({
           <LessonModule module={lesson.lessonModule} onStart={openQuiz} />
         ) : (
           <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-            <div className="space-y-3 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
+            <div className="order-2 hidden space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
               {lesson.bigIdeas && lesson.bigIdeas.length > 0 ? (
                 <LessonAside
                   title="Big ideas"
@@ -639,7 +643,7 @@ export function AILessonCanvas({
               ) : null}
             </div>
 
-            <div className="space-y-4">
+            <div className="order-1 space-y-4 lg:order-2">
               <Card className="border-slate-300 shadow-lg">
                 <CardHeader className="pb-2">
                   <CardTitle className="flex items-center gap-2 text-base">
@@ -1060,6 +1064,75 @@ export function AILessonCanvas({
               ) : null}
             </div>
           </div>
+        )}
+
+        {view === "lesson" || !lessonUnlocked ? null : (
+          <MobileLessonPocket
+            panels={
+              [
+                ...(lesson.bigIdeas && lesson.bigIdeas.length > 0
+                  ? [
+                      {
+                        id: "ideas",
+                        label: "Ideas",
+                        title: "Big ideas",
+                        tone: "brand" as const,
+                        icon: <Lightbulb className="h-4 w-4 text-[var(--accent)]" />,
+                        content: (
+                          <ul className="space-y-2">
+                            {lesson.bigIdeas.map((idea, i) => (
+                              <li key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
+                                <span>{renderInline(idea)}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ),
+                      } satisfies MobileLessonPocketPanel,
+                    ]
+                  : []),
+                ...(lesson.keyTerms && lesson.keyTerms.length > 0
+                  ? [
+                      {
+                        id: "terms",
+                        label: "Terms",
+                        title: "Key terms",
+                        tone: "coach" as const,
+                        icon: <Brain className="h-4 w-4 text-[var(--brand)]" />,
+                        content: (
+                          <div className="space-y-3">
+                            {lesson.keyTerms.map((kt) => (
+                              <div
+                                key={kt.term}
+                                className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-3"
+                              >
+                                <p className="text-sm font-bold text-[var(--brand-2)]">{kt.term}</p>
+                                <p className="mt-1 text-sm text-slate-700">
+                                  {renderInline(kt.definition)}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        ),
+                      } satisfies MobileLessonPocketPanel,
+                    ]
+                  : []),
+                ...(lesson.realWorld
+                  ? [
+                      {
+                        id: "why",
+                        label: "Why",
+                        title: "Why this matters",
+                        icon: <Sparkles className="h-4 w-4 text-violet-500" />,
+                        content: (
+                          <p className="text-sm text-slate-700">{renderInline(lesson.realWorld)}</p>
+                        ),
+                      } satisfies MobileLessonPocketPanel,
+                    ]
+                  : []),
+              ] satisfies MobileLessonPocketPanel[]
+            }
+          />
         )}
       </div>
 

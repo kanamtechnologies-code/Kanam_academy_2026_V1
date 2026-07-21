@@ -21,6 +21,10 @@ import {
 import { ChartPanel, type ChartConfig } from "@/components/data/ChartPanel";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
+import {
+  MobileLessonPocket,
+  type MobileLessonPocketPanel,
+} from "@/components/lesson/MobileLessonPocket";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
 import { dashboardHrefForLesson } from "@/lib/billing/access";
 import { ResultTable } from "@/components/data/ResultTable";
@@ -626,7 +630,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
           <LessonModule module={lesson.lessonModule} onStart={openExercises} />
         ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-          <div className="space-y-3 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
+          <div className="order-2 hidden space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
             <LessonAside
               title="Coach's note"
               tone="coach"
@@ -694,7 +698,7 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
             </LessonAside>
           </div>
 
-          <div className="space-y-4">
+          <div className="order-1 space-y-4 lg:order-2">
             {dbLoading ? (
               <Card>
                 <CardContent className="flex items-center gap-3 py-8 text-slate-600">
@@ -1003,6 +1007,93 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
             )}
           </div>
         </div>
+        )}
+
+        {lesson.lessonModule && (view === "lesson" || !lessonUnlocked) ? null : (
+          <MobileLessonPocket
+            defaultOpenId={!coachConfirmed && gateSeconds > 0 ? "coach" : null}
+            panels={
+              [
+                {
+                  id: "coach",
+                  label: "Coach",
+                  title: "Coach's note",
+                  tone: "coach",
+                  icon: <Sparkles className="h-4 w-4" />,
+                  attention: !coachConfirmed && gateSeconds > 0,
+                  content: (
+                    <div className="space-y-3">
+                      {renderCoachNote(lesson.instructorScript)}
+                      {!coachConfirmed && gateSeconds > 0 ? (
+                        <Button
+                          type="button"
+                          size="sm"
+                          disabled={coachSecondsLeft > 0}
+                          onClick={confirmCoachNote}
+                          className="mt-1 h-10 w-full rounded-xl bg-[var(--brand)] font-bold text-white shadow-sm hover:brightness-105"
+                        >
+                          Got it {coachSecondsLeft > 0 ? `(${coachSecondsLeft}s)` : ""}
+                        </Button>
+                      ) : null}
+                    </div>
+                  ),
+                },
+                {
+                  id: "commands",
+                  label: "SQL",
+                  title: "SQL command guide",
+                  tone: "brand",
+                  icon: <Database className="h-4 w-4" />,
+                  content: (
+                    <div className="space-y-3">
+                      {lesson.commandReference.map((cmd) => (
+                        <div
+                          key={cmd.command}
+                          className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-3"
+                        >
+                          <p className="font-mono text-sm font-bold text-sky-800">{cmd.command}</p>
+                          <p className="mt-1 text-sm text-slate-700">{cmd.summary}</p>
+                          <p className="mt-2 font-mono text-xs text-slate-500">
+                            Example: {cmd.example}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ),
+                },
+                ...(lesson.kidExplain.length > 0
+                  ? [
+                      {
+                        id: "ideas",
+                        label: "Ideas",
+                        title: "Key ideas",
+                        icon: <Lightbulb className="h-4 w-4 text-amber-500" />,
+                        content: (
+                          <div className="space-y-3">
+                            {lesson.kidExplain.map((item) => (
+                              <div
+                                key={item.title}
+                                className="rounded-xl border border-slate-100 bg-slate-50 p-3"
+                              >
+                                <p className="text-sm font-bold text-slate-900">{item.title}</p>
+                                <p className="mt-1 text-sm text-slate-600">{item.text}</p>
+                              </div>
+                            ))}
+                          </div>
+                        ),
+                      } satisfies MobileLessonPocketPanel,
+                    ]
+                  : []),
+                {
+                  id: "ethics",
+                  label: "Ethics",
+                  title: "Data ethics moment",
+                  icon: <Sparkles className="h-4 w-4 text-sky-500" />,
+                  content: <p className="text-sm text-slate-700">{lesson.dataEthicsMoment}</p>,
+                },
+              ] satisfies MobileLessonPocketPanel[]
+            }
+          />
         )}
       </div>
     </WelcomeBackground>
