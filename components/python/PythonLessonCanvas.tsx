@@ -187,6 +187,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
   const [predictionByExercise, setPredictionByExercise] = React.useState<Record<string, string>>({});
   const [exerciseResetToken, setExerciseResetToken] = React.useState(0);
   const [lessonModuleResetKey, setLessonModuleResetKey] = React.useState(0);
+  const [tourActive, setTourActive] = React.useState(false);
   const [projectChecks, setProjectChecks] = React.useState<Record<string, boolean>>({});
   const [playTurns, setPlayTurns] = React.useState(0);
   const [projectWorkspace, setProjectWorkspace] = React.useState<"build" | "play">("build");
@@ -691,11 +692,41 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
       {lesson.guidedTour ? (
         <GuestLessonTour
           onRequestView={requestView}
+          onTourActiveChange={setTourActive}
           onTourComplete={() => {
             setTourPreviewExercises(false);
+            setTourActive(false);
             setView("lesson");
             setActiveIndex(0);
+            try {
+              const url = new URL(window.location.href);
+              url.searchParams.set("view", "lesson");
+              window.history.replaceState({}, "", url.toString());
+            } catch {
+              // ignore
+            }
+            // Remount immediately, then again after the mobile ghost-click window
+            // so a delayed tap on Next can't leave learners on slide 2.
             setLessonModuleResetKey((k) => k + 1);
+            const scrollToLessonTop = () => {
+              window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+              document
+                .querySelector('[data-tour="lesson-hero"]')
+                ?.scrollIntoView({ behavior: "auto", block: "start" });
+            };
+            // After the tour (often mid-page on Exercises), bring them back to the
+            // lesson hero / top dashboard on slide 1.
+            scrollToLessonTop();
+            window.requestAnimationFrame(scrollToLessonTop);
+            window.setTimeout(() => {
+              setView("lesson");
+              setActiveIndex(0);
+              setLessonModuleResetKey((k) => k + 1);
+              scrollToLessonTop();
+            }, 400);
+            window.setTimeout(scrollToLessonTop, 480);
           }}
         />
       ) : null}
@@ -810,6 +841,7 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
               module={lesson.lessonModule}
               onStart={openExercises}
               startLabel={isProject ? "Start the project" : "Start the exercises"}
+              navigationLocked={tourActive}
             />
           </div>
         ) : (
@@ -817,20 +849,20 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
           <div className="space-y-3 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
             <LessonAside
               title="Coach's note"
+              tone="coach"
               defaultOpen={!lesson.lessonModule}
-              icon={<Sparkles className="h-5 w-5 text-[var(--accent)]" />}
-              className="border-[rgb(var(--accent-rgb)/0.55)]"
+              icon={<Sparkles className="h-4 w-4" />}
               data-tour="lesson-coach"
             >
-              <div className="space-y-3 text-sm">
+              <div className="space-y-3">
                 <CoachNoteContent text={lesson.instructorScript} />
                 {!coachConfirmed && gateSeconds > 0 ? (
                   <Button
                     type="button"
-                    variant="outline"
                     size="sm"
                     disabled={coachSecondsLeft > 0}
                     onClick={confirmCoachNote}
+                    className="mt-1 h-10 rounded-xl bg-[var(--brand)] font-bold text-white shadow-sm hover:brightness-105"
                   >
                     Got it {coachSecondsLeft > 0 ? `(${coachSecondsLeft}s)` : ""}
                   </Button>
@@ -840,9 +872,9 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
 
             <LessonAside
               title="Python command guide"
+              tone="brand"
               defaultOpen
-              icon={<Code2 className="h-5 w-5 text-[var(--brand)]" />}
-              className="border-[var(--brand)]/30 bg-[var(--brand)]/5"
+              icon={<Code2 className="h-4 w-4" />}
             >
               <div className="space-y-3">
                 {lesson.commandReference.map((cmd) => (

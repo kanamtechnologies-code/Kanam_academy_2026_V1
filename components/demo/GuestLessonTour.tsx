@@ -36,14 +36,18 @@ const EXERCISE_STEP_IDS = new Set([
 export function GuestLessonTour({
   onRequestView,
   onTourComplete,
+  onTourActiveChange,
 }: {
   onRequestView?: (view: "lesson" | "exercises") => void;
   /** Called when the tour finishes — use to reset the lesson to slide 1. */
   onTourComplete?: () => void;
+  /** True while the spotlight tour is open (lock lesson navigation). */
+  onTourActiveChange?: (active: boolean) => void;
 }) {
   const [open, setOpen] = React.useState(false);
   const onRequestViewRef = React.useRef(onRequestView);
   const onTourCompleteRef = React.useRef(onTourComplete);
+  const onTourActiveChangeRef = React.useRef(onTourActiveChange);
 
   React.useEffect(() => {
     onRequestViewRef.current = onRequestView;
@@ -52,6 +56,10 @@ export function GuestLessonTour({
   React.useEffect(() => {
     onTourCompleteRef.current = onTourComplete;
   }, [onTourComplete]);
+
+  React.useEffect(() => {
+    onTourActiveChangeRef.current = onTourActiveChange;
+  }, [onTourActiveChange]);
 
   React.useEffect(() => {
     if (!isGuestMode()) return;
@@ -64,6 +72,11 @@ export function GuestLessonTour({
       // ignore
     }
   }, []);
+
+  React.useEffect(() => {
+    onTourActiveChangeRef.current?.(open);
+    return () => onTourActiveChangeRef.current?.(false);
+  }, [open]);
 
   const handleStepChange = React.useCallback((step: { id: string }) => {
     onRequestViewRef.current?.(EXERCISE_STEP_IDS.has(step.id) ? "exercises" : "lesson");

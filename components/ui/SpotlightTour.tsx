@@ -200,8 +200,26 @@ const SpotlightTourInner = React.forwardRef<
     height: number;
   } | null>(null);
   const advancingRef = React.useRef(false);
+  /** Swallow delayed/ghost clicks after a tour hole tap (common on mobile). */
+  const [clickShield, setClickShield] = React.useState(false);
+  const clickShieldTimerRef = React.useRef<number | null>(null);
   const cardRef = React.useRef<HTMLDivElement | null>(null);
   const [cardSize, setCardSize] = React.useState({ w: 320, h: 260 });
+
+  const armClickShield = React.useCallback((ms = 500) => {
+    setClickShield(true);
+    if (clickShieldTimerRef.current) window.clearTimeout(clickShieldTimerRef.current);
+    clickShieldTimerRef.current = window.setTimeout(() => {
+      setClickShield(false);
+      clickShieldTimerRef.current = null;
+    }, ms);
+  }, []);
+
+  React.useEffect(() => {
+    return () => {
+      if (clickShieldTimerRef.current) window.clearTimeout(clickShieldTimerRef.current);
+    };
+  }, []);
 
   const step = steps[idx];
 
@@ -277,6 +295,7 @@ const SpotlightTourInner = React.forwardRef<
   }, [open, autoCloseMs, startClose]);
 
   const markDoneAndClose = React.useCallback(() => {
+    armClickShield(500);
     if (remember) {
       try {
         window.localStorage.setItem(storageKey, "1");
@@ -286,11 +305,12 @@ const SpotlightTourInner = React.forwardRef<
     }
     onDone?.();
     startClose();
-  }, [storageKey, remember, onDone, startClose]);
+  }, [storageKey, remember, onDone, startClose, armClickShield]);
 
   const goNext = React.useCallback(() => {
     if (advancingRef.current) return;
     advancingRef.current = true;
+    armClickShield(500);
     window.setTimeout(() => {
       advancingRef.current = false;
     }, 300);
@@ -299,7 +319,7 @@ const SpotlightTourInner = React.forwardRef<
     } else {
       setIdx((v) => Math.min(steps.length - 1, v + 1));
     }
-  }, [idx, steps.length, markDoneAndClose]);
+  }, [idx, steps.length, markDoneAndClose, armClickShield]);
 
   const recompute = React.useCallback(() => {
     if (!open) return;
@@ -356,28 +376,40 @@ const SpotlightTourInner = React.forwardRef<
   }, [open, idx, step, recompute, recomputeDelayMs, cardSize.h]);
 
   // Block real UI under the spotlight while the tour is open (clicks only advance the tour).
+  // Keep a short shield after hole taps / close to absorb mobile ghost clicks.
   React.useEffect(() => {
-    if (!open) return;
+    if (!open && !clickShield) return;
 
     const stop = (event: Event) => {
       const target = event.target;
-      if (target instanceof Element && target.closest("[data-tour-card='true']")) return;
-      if (target instanceof Element && target.closest("[data-tour-hole='true']")) return;
-      // Outside the tour card / hole catcher — swallow so page controls cannot fire.
+      // Tour chrome stays usable while the overlay is open.
+      if (open) {
+        if (target instanceof Element && target.closest("[data-tour-card='true']")) return;
+        if (target instanceof Element && target.closest("[data-tour-hole='true']")) return;
+      }
       event.preventDefault();
       event.stopPropagation();
     };
 
     const opts: AddEventListenerOptions = { capture: true };
-    for (const type of ["pointerdown", "pointerup", "mousedown", "mouseup", "click", "touchstart", "touchend"] as const) {
+    const types = [
+      "pointerdown",
+      "pointerup",
+      "mousedown",
+      "mouseup",
+      "click",
+      "touchstart",
+      "touchend",
+    ] as const;
+    for (const type of types) {
       document.addEventListener(type, stop, opts);
     }
     return () => {
-      for (const type of ["pointerdown", "pointerup", "mousedown", "mouseup", "click", "touchstart", "touchend"] as const) {
+      for (const type of types) {
         document.removeEventListener(type, stop, opts);
       }
     };
-  }, [open]);
+  }, [open, clickShield]);
 
   React.useEffect(() => {
     if (!open) return;

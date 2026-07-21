@@ -12,7 +12,7 @@ function hasNameVariable(code: string) {
  */
 export const demoLesson: PythonLessonConfig = {
   id: "lesson-1",
-  title: "Quickstart: Meet Your AI Helper",
+  title: "Demo: Meet Your AI Helper",
   goal: "By the end of this demo you can fill in a blank, reorder lines, fix a common beginner bug, and customize the greeting — the same first skills students use in Week 1.",
   xpReward: 50,
   badge: "The Awakener",

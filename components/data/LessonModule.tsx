@@ -172,10 +172,13 @@ export function LessonModule({
   module,
   onStart,
   startLabel = "Start the exercises",
+  /** When true, Next/Back/Start are inert (used while the demo tour is open). */
+  navigationLocked = false,
 }: {
   module: LessonModuleData;
   onStart: () => void;
   startLabel?: string;
+  navigationLocked?: boolean;
 }) {
   const sections = module.sections;
   const [index, setIndex] = React.useState(0);
@@ -398,6 +401,7 @@ export function LessonModule({
   };
 
   const goTo = (next: number) => {
+    if (navigationLocked) return;
     const clamped = Math.max(0, Math.min(sections.length - 1, next));
     // Only allow jumping to sections already reached (no skipping ahead via dots).
     if (clamped > maxReached) return;
@@ -415,6 +419,7 @@ export function LessonModule({
   };
 
   const goNext = () => {
+    if (navigationLocked) return;
     if (isLast) {
       if (!canStartPractice) return;
       stopListening();
@@ -446,7 +451,7 @@ export function LessonModule({
                 key={s.id}
                 type="button"
                 aria-label={`Go to section ${i + 1}`}
-                disabled={i > maxReached}
+                disabled={navigationLocked || i > maxReached}
                 onClick={() => goTo(i)}
                 className={cn(
                   "h-2.5 rounded-full transition-all",
@@ -693,7 +698,7 @@ export function LessonModule({
             variant="outline"
             className="min-h-11 w-full scroll-mt-28 sm:w-auto"
             onClick={() => goTo(index - 1)}
-            disabled={isFirst}
+            disabled={isFirst || navigationLocked}
           >
             <ArrowLeft className="h-4 w-4" />
             Back
@@ -712,7 +717,7 @@ export function LessonModule({
               data-tour="lesson-module-start"
               className="min-h-11 w-full scroll-mb-28 shadow-sm sm:w-auto"
               onClick={goNext}
-              disabled={!canStartPractice}
+              disabled={navigationLocked || !canStartPractice}
               title={
                 canStartPractice
                   ? undefined
@@ -728,7 +733,7 @@ export function LessonModule({
               data-tour="lesson-module-next"
               className="min-h-11 w-full scroll-mb-28 shadow-sm sm:w-auto"
               onClick={goNext}
-              disabled={!canAdvance}
+              disabled={navigationLocked || !canAdvance}
             >
               Next
               <ArrowRight className="h-4 w-4" />
