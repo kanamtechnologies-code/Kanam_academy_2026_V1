@@ -420,7 +420,7 @@ export default function BillingClient() {
                             )}`}
                             className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--brand-2-rgb)/0.35)] bg-white px-5 text-sm font-semibold text-[var(--brand-2)] transition hover:border-[var(--brand-2)] hover:bg-[rgb(var(--brand-2-rgb)/0.06)]"
                           >
-                            Sign in to buy
+                            Sign in to purchase
                           </Link>
                         ) : (
                           <button
@@ -431,7 +431,7 @@ export default function BillingClient() {
                             }
                             className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--brand-2-rgb)/0.35)] bg-white px-5 text-sm font-semibold text-[var(--brand-2)] transition hover:border-[var(--brand-2)] hover:bg-[rgb(var(--brand-2-rgb)/0.06)] disabled:opacity-45"
                           >
-                            {owned ? "Owned" : busy?.includes(track.slug) ? "…" : "Buy"}
+                            {owned ? "Owned" : busy?.includes(track.slug) ? "…" : "Purchase"}
                           </button>
                         )}
                       </div>
@@ -505,7 +505,7 @@ export default function BillingClient() {
                         )}`}
                         className="mt-5 inline-flex h-11 w-fit items-center justify-center rounded-full bg-[var(--brand-2)] px-5 text-sm font-semibold text-white transition hover:bg-[var(--brand)]"
                       >
-                        Sign in to buy
+                        Sign in to purchase
                       </Link>
                     ) : (
                       <button
@@ -516,7 +516,7 @@ export default function BillingClient() {
                         }
                         className="mt-5 inline-flex h-11 w-fit items-center justify-center rounded-full bg-[var(--brand-2)] px-5 text-sm font-semibold text-white transition hover:bg-[var(--brand)] disabled:opacity-50"
                       >
-                        {busy?.includes(item.sku) ? "Redirecting…" : "Buy"}
+                        {busy?.includes(item.sku) ? "Redirecting…" : "Purchase"}
                       </button>
                     )}
                   </div>
