@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 
@@ -45,6 +46,7 @@ export default function WelcomeReturningPage() {
   const [password, setPassword] = React.useState<string>("");
   const [animateIn, setAnimateIn] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [asParent, setAsParent] = React.useState(false);
 
   React.useEffect(() => {
     setAnimateIn(false);
@@ -52,6 +54,7 @@ export default function WelcomeReturningPage() {
       const url = new URL(window.location.href);
       const seeded = url.searchParams.get("email");
       if (seeded) setEmail(seeded);
+      setAsParent(url.searchParams.get("as") === "parent");
     } catch {
       // ignore
     }
@@ -70,17 +73,23 @@ export default function WelcomeReturningPage() {
       >
         <WelcomeShell
           title="Welcome back"
-          subtitle="Sign in with your email and password."
+          subtitle={
+            asParent
+              ? "Sign in with your parent email to open the family hub."
+              : "Sign in with your email and password — students, parents, and instructors."
+          }
         >
           <div className="grid w-full gap-6 md:grid-cols-2 md:items-stretch">
             <Card className="kanam-glow-card">
               <CardContent className="space-y-4 pt-6">
                 <div className="space-y-1">
                   <p className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                    Returning learner
+                    {asParent ? "Returning parent" : "Returning account"}
                   </p>
                   <p className="text-base font-medium text-white/90">
-                    Enter your email to continue.
+                    {asParent
+                      ? "Use the same email you used for your family account."
+                      : "Enter your email to continue."}
                   </p>
                 </div>
 
@@ -185,10 +194,32 @@ export default function WelcomeReturningPage() {
                 <Button
                   variant="outline"
                   className="h-12 w-full border-white/30 bg-white/10 text-white hover:bg-white/15"
-                  onClick={() => router.push("/welcome")}
+                  onClick={() => router.push(asParent ? "/welcome/parent" : "/welcome")}
                 >
                   Back
                 </Button>
+
+                {asParent ? (
+                  <p className="text-center text-sm text-white/85">
+                    New family?{" "}
+                    <Link
+                      href="/welcome/parent"
+                      className="font-semibold text-white underline underline-offset-2"
+                    >
+                      Create a family account
+                    </Link>
+                  </p>
+                ) : (
+                  <p className="text-center text-sm text-white/85">
+                    Parent returning?{" "}
+                    <Link
+                      href="/welcome/returning?as=parent"
+                      className="font-semibold text-white underline underline-offset-2"
+                    >
+                      Sign in to the family hub
+                    </Link>
+                  </p>
+                )}
               </CardContent>
             </Card>
 

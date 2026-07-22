@@ -141,6 +141,17 @@ export default function WelcomeParentPage() {
             account; your Family plan unlocks learning for every child.
           </p>
 
+          <div className="mt-4 rounded-2xl border border-[rgb(var(--brand-rgb)/0.25)] bg-[rgb(var(--brand-rgb)/0.06)] px-4 py-3">
+            <p className="text-sm font-bold text-slate-900">Already have a family account?</p>
+            <p className="mt-1 text-xs leading-relaxed text-slate-600">
+              Sign in with your parent email to open the parent hub — pick a child, manage PINs, or
+              open billing.
+            </p>
+            <Button asChild variant="outline" className="mt-3 h-10 w-full rounded-xl font-semibold">
+              <Link href="/welcome/returning?as=parent">Sign in as a returning parent</Link>
+            </Button>
+          </div>
+
           {fromUnder13 ? (
             <div className="mt-4">
               <Notice compact variant="info" role="status">
@@ -265,8 +276,11 @@ export default function WelcomeParentPage() {
           </Button>
 
           <p className="mt-4 text-center text-sm text-slate-600">
-            Already have an account?{" "}
-            <Link href="/welcome" className="font-semibold text-emerald-800 underline">
+            Returning parent?{" "}
+            <Link
+              href="/welcome/returning?as=parent"
+              className="font-semibold text-emerald-800 underline"
+            >
               Sign in
             </Link>
             {" · "}

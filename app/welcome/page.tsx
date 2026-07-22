@@ -378,16 +378,25 @@ export default function WelcomePage() {
                   I&apos;m a parent
                 </h2>
                 <p className="mt-1 text-sm text-slate-600">
-                  One login for you — kid profiles with optional PINs. Family plan unlocks all kids.
+                  New here? Create a family account. Already set up? Sign in to open the parent hub.
                 </p>
               </div>
-              <Button
-                className="h-11 shrink-0 rounded-xl px-5 font-semibold"
-                onClick={() => router.push("/welcome/parent")}
-              >
-                <Users className="h-4 w-4" />
-                Create family account
-              </Button>
+              <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
+                <Button
+                  variant="outline"
+                  className="h-11 rounded-xl px-5 font-semibold"
+                  onClick={() => router.push("/welcome/returning?as=parent")}
+                >
+                  Sign in
+                </Button>
+                <Button
+                  className="h-11 rounded-xl px-5 font-semibold"
+                  onClick={() => router.push("/welcome/parent")}
+                >
+                  <Users className="h-4 w-4" />
+                  Create family account
+                </Button>
+              </div>
             </div>
           </motion.div>
 
@@ -578,11 +587,12 @@ export default function WelcomePage() {
                 </div>
               </motion.div>
 
-              {/* Returning learner */}
+              {/* Returning accounts */}
               <motion.div
+                id="sign-in"
                 {...cardEnter(0.1)}
                 whileHover={{ y: -8 }}
-                className={[glassCardBase, "p-5 sm:p-6 md:p-8"].join(" ")}
+                className={[glassCardBase, "scroll-mt-28 p-5 sm:p-6 md:p-8"].join(" ")}
               >
                 <p className="kanam-text-pop-strong text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--accent)]">
                   Returning
@@ -592,7 +602,8 @@ export default function WelcomePage() {
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
                   Students go to the learning hub. Parents go to the family hub to pick a child.
-                  Instructors go to the instructor dashboard.
+                  Instructors go to the instructor dashboard. Same email and password you used to
+                  create the account.
                 </p>
 
                 {returningError ? (
