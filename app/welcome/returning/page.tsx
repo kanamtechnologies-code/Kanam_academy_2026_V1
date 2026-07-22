@@ -230,10 +230,10 @@ export default function WelcomeReturningPage() {
                     <WelcomeVideoFader
                       sources={[
                         "/video/12893579-uhd_2160_3840_24fps.mp4",
-                        "/video/5495790-uhd_2560_1080_30fps.mp4",
+                        "/video/8499735-hd_1920_1080_30fps.mp4",
                         "/video/4497367-uhd_3840_2160_25fps.mp4",
                         "/video/4495343-uhd_3840_2160_25fps.mp4",
-                        "/video/8733062-uhd_3840_2160_30fps.mp4",
+                        "/video/5495790-uhd_2560_1080_30fps.mp4",
                       ]}
                       intervalMs={9000}
                       fadeMs={900}
@@ -241,10 +241,7 @@ export default function WelcomeReturningPage() {
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-white/55 via-transparent to-white/10" />
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 p-4">
                       <div className="max-w-[34rem] rounded-2xl border border-white/65 bg-slate-950/75 p-5 text-white shadow-xl">
-                        <p className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                          Quick reminder
-                        </p>
-                        <p className="mt-1 text-2xl font-black tracking-tight">
+                        <p className="text-2xl font-black tracking-tight">
                           Real Skills. Real Instructors. Real Results.
                         </p>
                       </div>
