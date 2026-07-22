@@ -84,32 +84,6 @@ const TRACKS = [
     ],
   },
   {
-    slug: "advanced-ai",
-    name: "Advanced AI",
-    price: "$200",
-    blurb: "Data, models, vision, LLMs, RAG, agents, evaluation, and shipping AI systems.",
-    sessions: "16 lessons · ~8 weeks",
-    unique: [
-      "Train classifiers, read confusion matrices, and spot overfitting",
-      "Computer vision pipelines, embeddings, RAG, and tool-using agents",
-      "Fairness audits, AI security, and MLOps-lite (deploy + monitor)",
-      "Capstone: build, demo, audit, and defend a thin AI system",
-    ],
-  },
-  {
-    slug: "ap-csp-prep",
-    name: "AP CSP Prep",
-    price: "$250",
-    blurb: "AP Computer Science Principles prep — Create task studio plus practice exams.",
-    sessions: "16 lessons + practice tests · ~8 weeks",
-    unique: [
-      "College Board–aligned Big Ideas: creative development through impact",
-      "Programming foundations: variables, logic, loops, lists, procedures",
-      "Create Performance Task studio with documentation practice",
-      "Gated Practice Tests (30 Q) and a Final Exam (40 Q) after lessons",
-    ],
-  },
-  {
     slug: "ai-python",
     name: "Python & AI Foundations",
     price: "$169",
@@ -120,6 +94,19 @@ const TRACKS = [
       "Variables, input, conditionals, loops, lists, and functions",
       "Build an AI helper / NPC step by step with debugging practice",
       "Capstone: ship a Quest Adventure Bot that uses the whole track",
+    ],
+  },
+  {
+    slug: "advanced-ai",
+    name: "Advanced AI",
+    price: "$200",
+    blurb: "Data, models, vision, LLMs, RAG, agents, evaluation, and shipping AI systems.",
+    sessions: "16 lessons · ~8 weeks",
+    unique: [
+      "Train classifiers, read confusion matrices, and spot overfitting",
+      "Computer vision pipelines, embeddings, RAG, and tool-using agents",
+      "Fairness audits, AI security, and MLOps-lite (deploy + monitor)",
+      "Capstone: build, demo, audit, and defend a thin AI system",
     ],
   },
   {
@@ -146,6 +133,19 @@ const TRACKS = [
       "Sort, filter, count, and summarize real sample tables",
       "Chart strand: bar, pie, line, histogram, and scatter",
       "Capstone: explore → join → summarize → visualize → conclude",
+    ],
+  },
+  {
+    slug: "ap-csp-prep",
+    name: "AP CSP Prep",
+    price: "$250",
+    blurb: "AP Computer Science Principles prep — Create task studio plus practice exams.",
+    sessions: "16 lessons + practice tests · ~8 weeks",
+    unique: [
+      "College Board–aligned Big Ideas: creative development through impact",
+      "Programming foundations: variables, logic, loops, lists, procedures",
+      "Create Performance Task studio with documentation practice",
+      "Gated Practice Tests (30 Q) and a Final Exam (40 Q) after lessons",
     ],
   },
 ] as const;
