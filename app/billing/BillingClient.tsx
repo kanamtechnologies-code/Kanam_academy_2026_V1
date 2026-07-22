@@ -50,6 +50,12 @@ const TRACKS = [
     price: "$100",
     blurb: "Budgets, credit, investing, and money decisions for real life.",
     sessions: "16 lessons · ~8 weeks",
+    unique: [
+      "Paychecks, banking, budgets, and emergency funds",
+      "Credit scores, debt, interest, and consumer protection",
+      "Saving, investing basics, insurance, and scam awareness",
+      "Capstone: build a First-Year Money Plan after high school",
+    ],
   },
   {
     slug: "digital-literacy",
@@ -57,6 +63,12 @@ const TRACKS = [
     price: "$100",
     blurb: "Evaluate systems, information, privacy, and digital citizenship.",
     sessions: "16 lessons · ~8 weeks",
+    unique: [
+      "Computing systems, storage tradeoffs, and how networks move data",
+      "Search fluency, evaluating online claims, and digital communication",
+      "Identity, footprint, accessibility, IP, privacy, and wellbeing",
+      "Capstone: a personal digital action plan for school and work",
+    ],
   },
   {
     slug: "ai-literacy",
@@ -64,6 +76,12 @@ const TRACKS = [
     price: "$149",
     blurb: "What AI is, how it learns, prompting, bias, privacy, and responsible use.",
     sessions: "16 lessons · ~8 weeks",
+    unique: [
+      "How AI senses, represents data, and learns from examples",
+      "Generative AI & LLMs — plus practical prompting skills",
+      "Fact-checking, school honesty, bias, fairness, and deepfakes",
+      "Capstone: become an AI-smart citizen for school and work",
+    ],
   },
   {
     slug: "advanced-ai",
@@ -71,6 +89,12 @@ const TRACKS = [
     price: "$200",
     blurb: "Data, models, vision, LLMs, RAG, agents, evaluation, and shipping AI systems.",
     sessions: "16 lessons · ~8 weeks",
+    unique: [
+      "Train classifiers, read confusion matrices, and spot overfitting",
+      "Computer vision pipelines, embeddings, RAG, and tool-using agents",
+      "Fairness audits, AI security, and MLOps-lite (deploy + monitor)",
+      "Capstone: build, demo, audit, and defend a thin AI system",
+    ],
   },
   {
     slug: "ap-csp-prep",
@@ -78,6 +102,12 @@ const TRACKS = [
     price: "$250",
     blurb: "AP Computer Science Principles prep — Create task studio plus practice exams.",
     sessions: "16 lessons + practice tests · ~8 weeks",
+    unique: [
+      "College Board–aligned Big Ideas: creative development through impact",
+      "Programming foundations: variables, logic, loops, lists, procedures",
+      "Create Performance Task studio with documentation practice",
+      "Gated Practice Tests (30 Q) and a Final Exam (40 Q) after lessons",
+    ],
   },
   {
     slug: "ai-python",
@@ -85,6 +115,12 @@ const TRACKS = [
     price: "$169",
     blurb: "Build your first AI helper with Python — variables, logic, loops, and a capstone.",
     sessions: "14 lessons · ~8 weeks",
+    unique: [
+      "Live in-browser Python runner with Run & check feedback",
+      "Variables, input, conditionals, loops, lists, and functions",
+      "Build an AI helper / NPC step by step with debugging practice",
+      "Capstone: ship a Quest Adventure Bot that uses the whole track",
+    ],
   },
   {
     slug: "cybersecurity",
@@ -92,6 +128,12 @@ const TRACKS = [
     price: "$200",
     blurb: "Threats, controls, and tradeoffs — think like a defender.",
     sessions: "16 lessons · ~8 weeks",
+    unique: [
+      "CIA triad, authentication, malware, and social engineering",
+      "Access control, networks, firewalls, crypto, and HTTPS trust",
+      "Hardening, logging, incident response, and privacy tradeoffs",
+      "Capstone: justify and defend a full risk-and-controls plan",
+    ],
   },
   {
     slug: "data-analyst",
@@ -99,6 +141,12 @@ const TRACKS = [
     price: "$200",
     blurb: "SQL, tables, and charts for real-world questions — in the browser.",
     sessions: "14 lessons · ~8 weeks",
+    unique: [
+      "In-browser SQL engine — SELECT through JOIN and HAVING",
+      "Sort, filter, count, and summarize real sample tables",
+      "Chart strand: bar, pie, line, histogram, and scatter",
+      "Capstone: explore → join → summarize → visualize → conclude",
+    ],
   },
 ] as const;
 
@@ -576,33 +624,44 @@ export default function BillingClient() {
                         </div>
                       </div>
 
-                      <details className="group/track rounded-xl border border-slate-200/80 bg-white/80 open:bg-white dark:bg-slate-950/50">
+                      <details
+                        className="group/track rounded-xl border border-slate-200/80 bg-white/80 open:bg-white dark:bg-slate-950/50"
+                        open={featured}
+                      >
                         <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2.5 text-xs font-bold text-[var(--brand-2)] [&::-webkit-details-marker]:hidden">
-                          What you get with this track
+                          What&apos;s unique in {track.name}
                           <ChevronDown className="h-4 w-4 transition group-open/track:rotate-180" />
                         </summary>
-                        <ul className="space-y-1.5 border-t border-slate-100 px-3 py-3 text-sm text-slate-600 dark:text-slate-300">
-                          <li className="flex gap-2">
-                            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
+                        <div className="space-y-3 border-t border-slate-100 px-3 py-3">
+                          <ul className="space-y-1.5 text-sm text-slate-700 dark:text-slate-200">
+                            {track.unique.map((line) => (
+                              <li key={line} className="flex gap-2">
+                                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
+                                <span>{line}</span>
+                              </li>
+                            ))}
+                          </ul>
+                          <div className="rounded-lg bg-slate-50 px-3 py-2.5 dark:bg-slate-900/60">
+                            <p className="text-[10px] font-extrabold uppercase tracking-[0.14em] text-slate-500">
+                              Also included with every track
+                            </p>
+                            <ul className="mt-1.5 space-y-1 text-xs text-slate-600 dark:text-slate-300">
+                              {TRACK_INCLUDES.map((line) => (
+                                <li key={`${track.slug}-${line}`} className="flex gap-2">
+                                  <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--brand)]" />
+                                  <span>{line}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <p className="flex gap-2 text-xs text-slate-500">
+                            <Video className="mt-0.5 h-3.5 w-3.5 shrink-0" />
                             <span>
-                              Unlock <strong>{track.name}</strong> on your dashboard — all lessons
-                              and exercises in that path.
+                              Does <strong>not</strong> include live 1:1 tutoring — add that below if
+                              you want an instructor.
                             </span>
-                          </li>
-                          {TRACK_INCLUDES.map((line) => (
-                            <li key={`${track.slug}-${line}`} className="flex gap-2">
-                              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
-                              <span>{line}</span>
-                            </li>
-                          ))}
-                          <li className="flex gap-2 text-slate-500">
-                            <Video className="mt-0.5 h-4 w-4 shrink-0" />
-                            <span>
-                              Does <strong>not</strong> include live 1:1 tutoring (add that below if
-                              you want an instructor).
-                            </span>
-                          </li>
-                        </ul>
+                          </p>
+                        </div>
                       </details>
                     </CardContent>
                   </Card>
