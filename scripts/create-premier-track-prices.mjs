@@ -6,7 +6,7 @@
  *   STRIPE_SECRET_KEY=sk_live_... node scripts/create-premier-track-prices.mjs
  *   # or with .env.local containing a real key (not sk_live_...)
  *
- * Amounts match BillingClient: Advanced AI $199, AP CSP Prep $199.
+ * Amounts match BillingClient / Stripe: Advanced AI $200, AP CSP Prep $250.
  */
 import fs from "node:fs";
 import path from "node:path";

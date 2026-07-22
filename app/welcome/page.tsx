@@ -169,14 +169,17 @@ export default function WelcomePage() {
             ? safeNextPath(new URLSearchParams(window.location.search).get("next"))
             : null;
 
+        const preferNext =
+          next && (next.startsWith("/billing") || next.startsWith("/checkout"));
+
         if (isInstructorRole(user)) {
           setInstructorSignInOpen(false);
-          router.push(next && next.startsWith("/billing") ? next : postSignInPath(user));
+          router.push(preferNext ? next : postSignInPath(user));
           return;
         }
 
         if (isParentRole(user)) {
-          router.push(next && next.startsWith("/billing") ? next : postSignInPath(user));
+          router.push(preferNext ? next : postSignInPath(user));
           return;
         }
 

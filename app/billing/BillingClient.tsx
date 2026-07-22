@@ -166,18 +166,18 @@ export default function BillingClient() {
 
         <div className="relative mx-auto flex min-h-[28rem] w-full max-w-6xl flex-col justify-center px-4 pb-12 pt-20 sm:min-h-[32rem] sm:px-6 sm:pb-16">
           <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
-            Billing
+            Your account
           </p>
           <h1
             className="mt-3 max-w-xl text-[2.15rem] font-semibold leading-[1.05] tracking-tight text-[#f7f3e8] sm:text-4xl lg:text-[3rem]"
             style={displayFont()}
           >
-            Clear paths.
-            <span className="mt-1 block text-[var(--accent)]">Clear prices.</span>
+            Unlock paths.
+            <span className="mt-1 block text-[var(--accent)]">Manage access.</span>
           </h1>
           <p className="mt-5 max-w-lg text-base leading-relaxed text-[#d7e0db] sm:text-lg">
-            Family access, full tracks, and private tutoring — secured by Stripe, unlocked on
-            this account.
+            Sign in to purchase or manage subscriptions, track unlocks, and tutoring — secured by
+            Stripe on this account.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
@@ -338,18 +338,27 @@ export default function BillingClient() {
                         $30
                       </p>
                     </div>
-                    <button
-                      type="button"
-                      disabled={Boolean(busy) || status?.hasActiveSubscription}
-                      onClick={() => startCheckout({ kind: "subscription" })}
-                      className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--accent)] px-7 text-sm font-semibold text-[#14201c] transition hover:bg-[rgb(var(--accent-rgb)/0.92)] disabled:opacity-50"
-                    >
-                      {status?.hasActiveSubscription
-                        ? "Already subscribed"
-                        : busy?.includes("subscription")
-                          ? "Redirecting…"
-                          : "Subscribe $30/mo"}
-                    </button>
+                    {error && !status ? (
+                      <Link
+                        href={`/welcome?next=${encodeURIComponent("/checkout?kind=subscription")}`}
+                        className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--accent)] px-7 text-sm font-semibold text-[#14201c] transition hover:bg-[rgb(var(--accent-rgb)/0.92)]"
+                      >
+                        Sign in to subscribe
+                      </Link>
+                    ) : (
+                      <button
+                        type="button"
+                        disabled={Boolean(busy) || status?.hasActiveSubscription}
+                        onClick={() => startCheckout({ kind: "subscription" })}
+                        className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--accent)] px-7 text-sm font-semibold text-[#14201c] transition hover:bg-[rgb(var(--accent-rgb)/0.92)] disabled:opacity-50"
+                      >
+                        {status?.hasActiveSubscription
+                          ? "Already subscribed"
+                          : busy?.includes("subscription")
+                            ? "Redirecting…"
+                            : "Subscribe $30/mo"}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -404,16 +413,27 @@ export default function BillingClient() {
                         >
                           {track.price}
                         </span>
-                        <button
-                          type="button"
-                          disabled={Boolean(busy) || owned}
-                          onClick={() =>
-                            startCheckout({ kind: "track", trackSlug: track.slug })
-                          }
-                          className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--brand-2-rgb)/0.35)] bg-white px-5 text-sm font-semibold text-[var(--brand-2)] transition hover:border-[var(--brand-2)] hover:bg-[rgb(var(--brand-2-rgb)/0.06)] disabled:opacity-45"
-                        >
-                          {owned ? "Owned" : busy?.includes(track.slug) ? "…" : "Buy"}
-                        </button>
+                        {error && !status ? (
+                          <Link
+                            href={`/welcome?next=${encodeURIComponent(
+                              `/checkout?kind=track&trackSlug=${track.slug}`
+                            )}`}
+                            className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--brand-2-rgb)/0.35)] bg-white px-5 text-sm font-semibold text-[var(--brand-2)] transition hover:border-[var(--brand-2)] hover:bg-[rgb(var(--brand-2-rgb)/0.06)]"
+                          >
+                            Sign in to buy
+                          </Link>
+                        ) : (
+                          <button
+                            type="button"
+                            disabled={Boolean(busy) || owned}
+                            onClick={() =>
+                              startCheckout({ kind: "track", trackSlug: track.slug })
+                            }
+                            className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--brand-2-rgb)/0.35)] bg-white px-5 text-sm font-semibold text-[var(--brand-2)] transition hover:border-[var(--brand-2)] hover:bg-[rgb(var(--brand-2-rgb)/0.06)] disabled:opacity-45"
+                          >
+                            {owned ? "Owned" : busy?.includes(track.slug) ? "…" : "Buy"}
+                          </button>
+                        )}
                       </div>
                     </li>
                   );
@@ -478,16 +498,27 @@ export default function BillingClient() {
                       {item.price}
                     </p>
                     <p className="mt-2 text-xs text-[var(--muted)]">{item.note}</p>
-                    <button
-                      type="button"
-                      disabled={Boolean(busy)}
-                      onClick={() =>
-                        startCheckout({ kind: "tutoring", tutoringSku: item.sku })
-                      }
-                      className="mt-5 inline-flex h-11 w-fit items-center justify-center rounded-full bg-[var(--brand-2)] px-5 text-sm font-semibold text-white transition hover:bg-[var(--brand)] disabled:opacity-50"
-                    >
-                      {busy?.includes(item.sku) ? "Redirecting…" : "Buy"}
-                    </button>
+                    {error && !status ? (
+                      <Link
+                        href={`/welcome?next=${encodeURIComponent(
+                          `/checkout?kind=tutoring&tutoringSku=${item.sku}`
+                        )}`}
+                        className="mt-5 inline-flex h-11 w-fit items-center justify-center rounded-full bg-[var(--brand-2)] px-5 text-sm font-semibold text-white transition hover:bg-[var(--brand)]"
+                      >
+                        Sign in to buy
+                      </Link>
+                    ) : (
+                      <button
+                        type="button"
+                        disabled={Boolean(busy)}
+                        onClick={() =>
+                          startCheckout({ kind: "tutoring", tutoringSku: item.sku })
+                        }
+                        className="mt-5 inline-flex h-11 w-fit items-center justify-center rounded-full bg-[var(--brand-2)] px-5 text-sm font-semibold text-white transition hover:bg-[var(--brand)] disabled:opacity-50"
+                      >
+                        {busy?.includes(item.sku) ? "Redirecting…" : "Buy"}
+                      </button>
+                    )}
                   </div>
                 ))}
               </div>
