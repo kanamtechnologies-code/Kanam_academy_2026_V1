@@ -1,52 +1,41 @@
-import Image from "next/image";
 import Link from "next/link";
+import { CheckCircle2 } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 
 export default function BillingSuccessPage() {
   return (
-    <main className="relative mx-auto flex min-h-[75vh] w-full max-w-3xl flex-col justify-center px-4 py-14 sm:px-6">
-      <div className="overflow-hidden rounded-[2rem] border border-[rgb(var(--accent-rgb)/0.25)] bg-[rgb(var(--brand-deep-rgb)/0.7)] shadow-[0_30px_90px_rgba(0,0,0,0.45)] backdrop-blur-md">
-        <div className="relative h-40 sm:h-52">
-          <Image
-            src="/images/billing/billing-hero-premium.png"
-            alt=""
-            fill
-            className="object-cover object-center"
-            sizes="(max-width: 768px) 100vw, 48rem"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0b2f24] via-[#0b2f24]/40 to-transparent" />
-        </div>
-        <div className="px-6 py-8 sm:px-10 sm:py-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
-            Payment received
-          </p>
-          <h1
-            className="mt-2 text-3xl font-semibold tracking-tight text-[#f7f3e8] sm:text-4xl"
-            style={{ fontFamily: "var(--font-fraunces), Fraunces, Georgia, serif" }}
-          >
-            You’re all set.
-          </h1>
-          <p className="mt-3 text-sm leading-relaxed text-[#c5d2cb] sm:text-base">
-            Thanks for investing in your learner. Access updates within a few seconds after
-            Stripe confirms the payment. If something looks missing, refresh billing or email
-            us.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link
-              href="/account/billing"
-              className="inline-flex h-11 items-center justify-center rounded-full bg-[var(--accent)] px-6 text-sm font-semibold text-[#14201c] transition hover:brightness-105"
-            >
-              View billing
-            </Link>
-            <Link
-              href="/welcome"
-              className="inline-flex h-11 items-center justify-center rounded-full border border-[rgb(var(--accent-rgb)/0.4)] bg-white/5 px-6 text-sm font-semibold text-[#f3efe4] transition hover:bg-white/10"
-            >
-              Go to lessons
-            </Link>
-          </div>
-        </div>
-      </div>
-    </main>
+    <WelcomeBackground>
+      <main className="mx-auto flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full max-w-lg flex-col justify-center px-4 py-10 sm:px-6">
+        <Card className="border-slate-200/90 shadow-lg">
+          <CardContent className="px-6 py-8 text-center sm:px-8">
+            <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-100 text-emerald-700">
+              <CheckCircle2 className="h-7 w-7" />
+            </div>
+            <p className="mt-4 text-[11px] font-extrabold uppercase tracking-[0.18em] text-[color:var(--brand-2)]">
+              Payment received
+            </p>
+            <h1 className="mt-2 text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+              You&apos;re all set
+            </h1>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              Thanks for investing in your learner. Access usually updates within a few seconds
+              after Stripe confirms. If something looks missing, refresh the billing hub or email
+              us.
+            </p>
+            <div className="mt-7 flex flex-col gap-2 sm:flex-row sm:justify-center">
+              <Button asChild className="rounded-xl shadow-sm">
+                <Link href="/">Go to dashboard</Link>
+              </Button>
+              <Button asChild variant="outline" className="rounded-xl">
+                <Link href="/account/billing">View billing hub</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </main>
+    </WelcomeBackground>
   );
 }

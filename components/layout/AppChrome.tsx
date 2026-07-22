@@ -1,7 +1,5 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-
 import { AuthActions } from "@/components/layout/AuthActions";
 import { HeaderBrand } from "@/components/layout/HeaderBrand";
 import { HeaderHelp } from "@/components/layout/HeaderHelp";
@@ -9,13 +7,6 @@ import { HeaderVideo } from "@/components/layout/HeaderVideo";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export function AppChrome({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const isStorefront = pathname === "/billing" || pathname.startsWith("/billing/");
-
-  if (isStorefront) {
-    return <>{children}</>;
-  }
-
   return (
     <>
       <header

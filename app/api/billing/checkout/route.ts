@@ -72,6 +72,16 @@ export async function POST(request: Request) {
     const origin = getAppOrigin(request);
     const sessions = TUTORING_SESSIONS_BY_PRICE[resolved.priceId] ?? null;
 
+    const cancelParams = new URLSearchParams({ canceled: "1" });
+    if (body.kind === "track" && body.trackSlug) {
+      cancelParams.set("track", body.trackSlug);
+    } else if (body.kind === "subscription") {
+      cancelParams.set("plan", "subscription");
+    } else if (body.kind === "tutoring" && body.tutoringSku) {
+      cancelParams.set("section", "tutoring");
+      cancelParams.set("tutoring", body.tutoringSku);
+    }
+
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
       mode: resolved.mode,
@@ -79,7 +89,7 @@ export async function POST(request: Request) {
       client_reference_id: user.id,
       line_items: [{ price: resolved.priceId, quantity: 1 }],
       success_url: `${origin}/billing/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/billing?canceled=1`,
+      cancel_url: `${origin}/billing?${cancelParams.toString()}`,
       allow_promotion_codes: true,
       metadata: {
         supabase_user_id: user.id,

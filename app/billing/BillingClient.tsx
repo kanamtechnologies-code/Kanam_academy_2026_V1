@@ -1,9 +1,23 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  CreditCard,
+  Loader2,
+  Lock,
+  Sparkles,
+  Users,
+} from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Notice } from "@/components/ui/notice";
+import { cn } from "@/lib/utils";
 
 type BillingStatus = {
   ok?: boolean;
@@ -52,13 +66,6 @@ async function postJson(url: string, body?: unknown) {
     throw new Error(data.error || "Request failed.");
   }
   return data;
-}
-
-function displayFont(style?: React.CSSProperties): React.CSSProperties {
-  return {
-    fontFamily: "var(--font-fraunces), Fraunces, Georgia, serif",
-    ...style,
-  };
 }
 
 export default function BillingClient() {
@@ -114,7 +121,6 @@ export default function BillingClient() {
 
   const canceled = searchParams.get("canceled") === "1";
   const featuredTrack = searchParams.get("track")?.trim() ?? "";
-  /** Marketing deep-links: plan=subscription|track|tutoring, tutoring=trial|session|bundle4|… */
   const plan = searchParams.get("plan")?.trim() ?? "";
   const tutoringSku = searchParams.get("tutoring")?.trim() ?? "";
   const section =
@@ -128,430 +134,379 @@ export default function BillingClient() {
           : "");
   const ownedTracks = new Set((status?.tracks ?? []).map((t) => t.track_slug));
   const highlightSubscription = section === "subscription";
+  const featuredTrackMeta = TRACKS.find((t) => t.slug === featuredTrack);
+  const signInNext = `/billing${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
+  const needsSignIn = Boolean(error && !status);
 
   React.useEffect(() => {
-    const targetId =
-      featuredTrack
-        ? `track-${featuredTrack}`
-        : tutoringSku
-          ? `tutoring-${tutoringSku}`
-          : section === "subscription"
-            ? "subscription"
-            : section === "tutoring"
-              ? "tutoring"
-              : section === "tracks"
-                ? "tracks"
-                : section === "plans"
-                  ? "plans"
-                  : "";
+    const targetId = featuredTrack
+      ? `track-${featuredTrack}`
+      : tutoringSku
+        ? `tutoring-${tutoringSku}`
+        : section === "subscription"
+          ? "subscription"
+          : section === "tutoring"
+            ? "tutoring"
+            : section === "tracks"
+              ? "tracks"
+              : "";
     if (!targetId) return;
     const el = document.getElementById(targetId);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [featuredTrack, tutoringSku, section, status]);
 
   return (
-    <main className="w-full">
-      {/* Hero — full-bleed photo + dusk veil (matches marketing) */}
-      <section className="relative isolate min-h-[28rem] overflow-hidden border-b border-[rgb(var(--accent-rgb)/0.25)] sm:min-h-[32rem]">
-        <Image
-          src="/images/billing/billing-hero-premium.png"
-          alt=""
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(105deg,rgba(11,47,36,0.94)_0%,rgba(20,92,69,0.82)_42%,rgba(11,47,36,0.55)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_35%,rgba(216,192,122,0.18),transparent_55%)]" />
+    <main className="mx-auto w-full max-w-4xl px-4 py-6 sm:px-6 sm:py-8">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <Button asChild variant="outline" className="rounded-xl">
+          <Link href="/">
+            <ArrowLeft className="h-4 w-4" />
+            Dashboard
+          </Link>
+        </Button>
+        <Button asChild variant="ghost" className="rounded-xl">
+          <Link href="/account/billing">
+            <CreditCard className="h-4 w-4" />
+            Billing hub
+          </Link>
+        </Button>
+      </div>
 
-        <div className="relative mx-auto flex min-h-[28rem] w-full max-w-6xl flex-col justify-center px-4 pb-12 pt-20 sm:min-h-[32rem] sm:px-6 sm:pb-16">
-          <p className="text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
-            Your account
-          </p>
-          <h1
-            className="mt-3 max-w-xl text-[2.15rem] font-semibold leading-[1.05] tracking-tight text-[#f7f3e8] sm:text-4xl lg:text-[3rem]"
-            style={displayFont()}
-          >
-            Unlock paths.
-            <span className="mt-1 block text-[var(--accent)]">Manage access.</span>
-          </h1>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-[#d7e0db] sm:text-lg">
-            Sign in to purchase or manage subscriptions, track unlocks, and tutoring — secured by
-            Stripe on this account.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="#subscription"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--accent)] px-7 text-sm font-semibold text-[#14201c] transition hover:bg-[rgb(var(--accent-rgb)/0.92)]"
-            >
-              Monthly access · $30
-            </a>
-            <a
-              href="#tracks"
-              className="inline-flex h-12 items-center justify-center rounded-full border border-white/45 bg-white/15 px-7 text-sm font-semibold text-white transition hover:bg-white/25"
-            >
-              Browse tracks
-            </a>
-          </div>
+      <header className="mb-6 space-y-2">
+        <p className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[color:var(--brand-2)]">
+          Unlock access
+        </p>
+        <h1 className="text-3xl font-black tracking-tight text-slate-900 dark:text-slate-50">
+          {featuredTrackMeta
+            ? `Unlock ${featuredTrackMeta.name}`
+            : "Choose how you want to learn"}
+        </h1>
+        <p className="max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+          Same Kanam lesson canvas you already know — pick monthly access to every path, unlock one
+          track, or add optional live tutoring. Classroom access from a teacher is separate.
+        </p>
+      </header>
+
+      {canceled ? (
+        <div className="mb-4">
+          <Notice variant="info" title="Checkout canceled">
+            No charge was made. Pick a plan whenever you&apos;re ready.
+          </Notice>
         </div>
-      </section>
+      ) : null}
 
-      {/* Light content band */}
-      <div className="bg-[#f3efe4]">
-        <div className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-          {canceled ? (
-            <p className="mb-6 rounded-2xl border border-[rgb(var(--brand-2-rgb)/0.2)] bg-white px-4 py-3 text-sm text-[#14201c] shadow-sm">
-              Checkout canceled — no charge. Pick a plan whenever you’re ready.
-            </p>
-          ) : null}
+      {error ? (
+        <div className="mb-4">
+          <Notice variant="danger" role="alert" title="Sign in required">
+            <p>{error}</p>
+            <Button asChild size="sm" className="mt-3 rounded-xl">
+              <Link href={`/welcome?next=${encodeURIComponent(signInNext)}`}>
+                Sign in or create an account
+              </Link>
+            </Button>
+          </Notice>
+        </div>
+      ) : null}
 
-          {error ? (
-            <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900">
-              <p>{error}</p>
-              <p className="mt-2">
-                <Link
-                  href={`/welcome?next=${encodeURIComponent(
-                    `/billing${searchParams.toString() ? `?${searchParams.toString()}` : ""}`
-                  )}`}
-                  className="font-semibold text-[var(--brand-2)] underline underline-offset-4"
-                >
-                  Sign in or create an account
-                </Link>
-                {" — then return here to checkout."}
+      {/* Access summary */}
+      <Card className="mb-6 border-slate-200/90 shadow-sm">
+        <CardHeader className="pb-2">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-slate-500">
+                Your access
               </p>
+              <CardTitle className="mt-1 text-lg">What&apos;s unlocked</CardTitle>
             </div>
-          ) : null}
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="rounded-xl"
+              disabled={busy === "portal" || needsSignIn}
+              onClick={openPortal}
+            >
+              {busy === "portal" ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" /> Opening…
+                </>
+              ) : (
+                "Payment settings"
+              )}
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {needsSignIn ? (
+            <p className="text-sm text-slate-600">Sign in to see your subscription and unlocks.</p>
+          ) : !status ? (
+            <div className="flex items-center gap-2 text-sm text-slate-600">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Loading…
+            </div>
+          ) : (
+            <dl className="grid gap-3 sm:grid-cols-3">
+              <div className="rounded-2xl border border-slate-100 bg-slate-50/80 px-3 py-3">
+                <dt className="text-[10px] font-extrabold uppercase tracking-wide text-slate-500">
+                  Subscription
+                </dt>
+                <dd className="mt-1 text-sm font-bold text-slate-900">
+                  {status.hasActiveSubscription
+                    ? `Active (${status.subscription?.status})`
+                    : "None"}
+                </dd>
+              </div>
+              <div className="rounded-2xl border border-slate-100 bg-slate-50/80 px-3 py-3">
+                <dt className="text-[10px] font-extrabold uppercase tracking-wide text-slate-500">
+                  Track unlocks
+                </dt>
+                <dd className="mt-1 text-sm font-bold text-slate-900">
+                  {(status.tracks ?? []).map((t) => t.track_slug).join(", ") || "None"}
+                </dd>
+              </div>
+              <div className="rounded-2xl border border-slate-100 bg-slate-50/80 px-3 py-3">
+                <dt className="text-[10px] font-extrabold uppercase tracking-wide text-slate-500">
+                  Tutoring left
+                </dt>
+                <dd className="mt-1 text-sm font-bold text-slate-900">
+                  {status.tutoringSessionsRemaining ?? 0} sessions
+                </dd>
+              </div>
+            </dl>
+          )}
+        </CardContent>
+      </Card>
 
-          {/* Access strip */}
-          <section className="border-b border-[rgb(var(--brand-2-rgb)/0.12)] pb-10">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <div>
-                <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--brand-2)]">
-                  Your access
-                </p>
-                <h2
-                  className="mt-1 text-2xl font-semibold tracking-tight text-[#14201c]"
-                  style={displayFont()}
-                >
-                  What’s unlocked
+      <div id="plans" className="space-y-5 scroll-mt-24">
+        {/* Monthly */}
+        <Card
+          id="subscription"
+          className={cn(
+            "scroll-mt-24 overflow-hidden border-slate-200/90 shadow-sm",
+            highlightSubscription &&
+              "border-[rgb(var(--brand-rgb)/0.45)] ring-2 ring-[rgb(var(--brand-rgb)/0.2)]"
+          )}
+        >
+          <CardContent className="p-0">
+            <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="grid h-10 w-10 place-items-center rounded-2xl bg-[rgb(var(--brand-rgb)/0.12)] text-[var(--brand-2)] ring-1 ring-[rgb(var(--brand-rgb)/0.2)]">
+                    <Users className="h-5 w-5" />
+                  </span>
+                  <Badge className="bg-[rgb(var(--brand-rgb)/0.12)] text-[var(--brand-2)] hover:bg-[rgb(var(--brand-rgb)/0.12)]">
+                    Best for families
+                  </Badge>
+                </div>
+                <h2 className="mt-3 text-xl font-black tracking-tight text-slate-900 dark:text-slate-50">
+                  Monthly access · all 8 paths
                 </h2>
+                <p className="mt-1.5 max-w-xl text-sm text-slate-600 dark:text-slate-300">
+                  Full platform access — XP, badges, and progress adults can see. Cancel anytime from
+                  payment settings. Live tutoring is optional and separate.
+                </p>
               </div>
-              <button
-                type="button"
-                onClick={openPortal}
-                disabled={busy === "portal"}
-                className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--brand-2-rgb)/0.35)] px-4 text-sm font-semibold text-[var(--brand-2)] transition hover:bg-[rgb(var(--brand-2-rgb)/0.06)] disabled:opacity-50"
-              >
-                {busy === "portal" ? "Opening…" : "Customer portal"}
-              </button>
-            </div>
-
-            {error && !status ? (
-              <p className="mt-5 text-sm text-[var(--muted)]">
-                Sign in to see subscription, track unlocks, and tutoring balance.
-              </p>
-            ) : !status ? (
-              <p className="mt-5 text-sm text-[var(--muted)]">Loading…</p>
-            ) : (
-              <dl className="mt-6 grid gap-4 sm:grid-cols-3">
-                {[
-                  {
-                    label: "Subscription",
-                    value: status.hasActiveSubscription
-                      ? `Active (${status.subscription?.status})`
-                      : "None",
-                  },
-                  {
-                    label: "Track unlocks",
-                    value:
-                      (status.tracks ?? []).map((t) => t.track_slug).join(", ") || "None",
-                  },
-                  {
-                    label: "Tutoring sessions left",
-                    value: String(status.tutoringSessionsRemaining ?? 0),
-                  },
-                ].map((item) => (
-                  <div key={item.label} className="border-t border-[rgb(var(--brand-2-rgb)/0.15)] pt-3">
-                    <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-[var(--muted)]">
-                      {item.label}
-                    </dt>
-                    <dd className="mt-1 text-base font-semibold text-[#14201c]">{item.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            )}
-          </section>
-
-          <div id="plans" className="mt-12 space-y-16 scroll-mt-24">
-            {/* Family subscription — spotlight */}
-            <section id="subscription" className="scroll-mt-24">
-              <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--brand-2)]">
-                Families &amp; individual learners
-              </p>
-              <h3
-                className="mt-2 text-3xl font-semibold tracking-tight text-[#14201c]"
-                style={displayFont()}
-              >
-                Platform first. Live help when you want it.
-              </h3>
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--muted)] sm:text-base">
-                Monthly access to all eight learning paths — XP, badges, and progress adults can
-                see. Live 1:1 tutoring is optional and priced separately.
-              </p>
-
-              <div
-                className={[
-                  "mt-8 grid overflow-hidden rounded-[1.75rem] border bg-[#0b2f24] text-[#f7f3e8] lg:grid-cols-2",
-                  highlightSubscription
-                    ? "border-[rgb(var(--accent-rgb)/0.65)] shadow-[0_24px_60px_rgba(11,47,36,0.28)] ring-1 ring-[rgb(var(--accent-rgb)/0.4)]"
-                    : "border-[rgb(var(--brand-2-rgb)/0.35)] shadow-[0_18px_48px_rgba(11,47,36,0.18)]",
-                ].join(" ")}
-              >
-                <div className="relative min-h-[240px] lg:min-h-full">
-                  <Image
-                    src="/images/billing/billing-subscription-premium.png"
-                    alt=""
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0b2f24] via-[#0b2f24]/25 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-[#0b2f24]/85" />
-                </div>
-                <div className="flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-12">
-                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
-                    Most flexible
-                  </p>
-                  <h4 className="mt-2 text-3xl font-semibold tracking-tight" style={displayFont()}>
-                    Monthly access
-                  </h4>
-                  <p className="mt-3 max-w-md text-sm leading-relaxed text-[#c5d2cb] sm:text-base">
-                    All eight learning paths — stay as long as you need. Cancel anytime from the
-                    customer portal.
-                  </p>
-                  <div className="mt-8 flex flex-wrap items-end justify-between gap-4">
-                    <div>
-                      <p className="text-sm text-[#a8b8b0]">Per month</p>
-                      <p
-                        className="text-4xl font-semibold tracking-tight text-[var(--accent)]"
-                        style={displayFont()}
-                      >
-                        $30
-                      </p>
-                    </div>
-                    {error && !status ? (
-                      <Link
-                        href={`/welcome?next=${encodeURIComponent("/checkout?kind=subscription")}`}
-                        className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--accent)] px-7 text-sm font-semibold text-[#14201c] transition hover:bg-[rgb(var(--accent-rgb)/0.92)]"
-                      >
-                        Sign in to subscribe
-                      </Link>
-                    ) : (
-                      <button
-                        type="button"
-                        disabled={Boolean(busy) || status?.hasActiveSubscription}
-                        onClick={() => startCheckout({ kind: "subscription" })}
-                        className="inline-flex h-12 items-center justify-center rounded-full bg-[var(--accent)] px-7 text-sm font-semibold text-[#14201c] transition hover:bg-[rgb(var(--accent-rgb)/0.92)] disabled:opacity-50"
-                      >
-                        {status?.hasActiveSubscription
-                          ? "Already subscribed"
-                          : busy?.includes("subscription")
-                            ? "Redirecting…"
-                            : "Subscribe $30/mo"}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Tracks */}
-            <section>
-              <div className="flex flex-wrap items-end justify-between gap-4">
-                <div>
-                  <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--brand-2)]">
-                    Or buy one track
-                  </p>
-                  <h3
-                    className="mt-2 text-3xl font-semibold tracking-tight text-[#14201c]"
-                    style={displayFont()}
+              <div className="flex shrink-0 flex-col items-stretch gap-2 sm:items-end">
+                <p className="text-3xl font-black tracking-tight text-[var(--brand-2)]">
+                  $30<span className="text-base font-bold text-slate-500">/mo</span>
+                </p>
+                {needsSignIn ? (
+                  <Button asChild className="rounded-xl shadow-sm">
+                    <Link href={`/welcome?next=${encodeURIComponent("/checkout?kind=subscription")}`}>
+                      Sign in to subscribe
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    className="rounded-xl shadow-sm"
+                    disabled={Boolean(busy) || status?.hasActiveSubscription}
+                    onClick={() => startCheckout({ kind: "subscription" })}
                   >
-                    Full track prices
-                  </h3>
-                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--muted)] sm:text-base">
-                    One-time unlock for a complete program — designed as 16 sessions over 8 weeks.
-                  </p>
-                </div>
+                    {status?.hasActiveSubscription ? (
+                      <>
+                        <CheckCircle2 className="h-4 w-4" /> Already subscribed
+                      </>
+                    ) : busy?.includes("subscription") ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" /> Redirecting…
+                      </>
+                    ) : (
+                      "Subscribe"
+                    )}
+                  </Button>
+                )}
               </div>
+            </div>
+          </CardContent>
+        </Card>
 
-              <ul
-                id="tracks"
-                className="mt-8 divide-y divide-[rgb(var(--brand-2-rgb)/0.12)] border-y border-[rgb(var(--brand-2-rgb)/0.12)]"
-              >
-                {TRACKS.map((track) => {
-                  const owned = ownedTracks.has(track.slug);
-                  const featured = featuredTrack === track.slug;
-                  return (
-                    <li
-                      key={track.slug}
-                      id={`track-${track.slug}`}
-                      className={[
-                        "flex flex-wrap items-center justify-between gap-3 py-4",
-                        featured ? "bg-[rgb(var(--accent-rgb)/0.12)] px-3 sm:px-4" : "",
-                      ].join(" ")}
-                    >
-                      <div>
-                        <p className="font-semibold text-[#14201c]">{track.name}</p>
-                        <p className="text-xs text-[var(--muted)]">
-                          Full track · 16 sessions · 8 weeks
-                          {owned ? " · Owned" : ""}
-                        </p>
+        {/* Tracks */}
+        <section id="tracks" className="scroll-mt-24 space-y-3">
+          <div>
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[color:var(--brand-2)]">
+              Or unlock one path
+            </p>
+            <h2 className="mt-1 text-xl font-black tracking-tight text-slate-900 dark:text-slate-50">
+              One-time track purchase
+            </h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              Full program access — typically 16 sessions over 8 weeks.
+            </p>
+          </div>
+
+          <ul className="space-y-2">
+            {TRACKS.map((track) => {
+              const owned = ownedTracks.has(track.slug);
+              const featured = featuredTrack === track.slug;
+              return (
+                <li key={track.slug} id={`track-${track.slug}`} className="scroll-mt-24">
+                  <Card
+                    className={cn(
+                      "border-slate-200/90 shadow-sm transition",
+                      featured &&
+                        "border-[rgb(var(--brand-rgb)/0.45)] bg-[rgb(var(--brand-rgb)/0.04)] ring-2 ring-[rgb(var(--brand-rgb)/0.18)]"
+                    )}
+                  >
+                    <CardContent className="flex flex-wrap items-center justify-between gap-3 p-4 sm:px-5">
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <p className="font-bold text-slate-900 dark:text-slate-50">{track.name}</p>
+                          {featured ? (
+                            <Badge className="bg-[var(--brand)] text-white hover:bg-[var(--brand)]">
+                              <Lock className="mr-1 h-3 w-3" />
+                              From your dashboard
+                            </Badge>
+                          ) : null}
+                          {owned ? (
+                            <Badge
+                              variant="secondary"
+                              className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100"
+                            >
+                              Owned
+                            </Badge>
+                          ) : null}
+                        </div>
+                        <p className="mt-0.5 text-xs text-slate-500">Full track · 16 sessions · 8 weeks</p>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span
-                          className="text-xl font-semibold text-[var(--brand-2)]"
-                          style={displayFont()}
-                        >
-                          {track.price}
-                        </span>
-                        {error && !status ? (
-                          <Link
-                            href={`/welcome?next=${encodeURIComponent(
-                              `/checkout?kind=track&trackSlug=${track.slug}`
-                            )}`}
-                            className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--brand-2-rgb)/0.35)] bg-white px-5 text-sm font-semibold text-[var(--brand-2)] transition hover:border-[var(--brand-2)] hover:bg-[rgb(var(--brand-2-rgb)/0.06)]"
-                          >
-                            Sign in to purchase
-                          </Link>
+                        <span className="text-lg font-black text-[var(--brand-2)]">{track.price}</span>
+                        {needsSignIn ? (
+                          <Button asChild size="sm" variant="outline" className="rounded-xl">
+                            <Link
+                              href={`/welcome?next=${encodeURIComponent(
+                                `/checkout?kind=track&trackSlug=${track.slug}`
+                              )}`}
+                            >
+                              Sign in
+                            </Link>
+                          </Button>
                         ) : (
-                          <button
+                          <Button
                             type="button"
+                            size="sm"
+                            variant={featured ? "default" : "outline"}
+                            className="rounded-xl"
                             disabled={Boolean(busy) || owned}
                             onClick={() =>
                               startCheckout({ kind: "track", trackSlug: track.slug })
                             }
-                            className="inline-flex h-10 items-center justify-center rounded-full border border-[rgb(var(--brand-2-rgb)/0.35)] bg-white px-5 text-sm font-semibold text-[var(--brand-2)] transition hover:border-[var(--brand-2)] hover:bg-[rgb(var(--brand-2-rgb)/0.06)] disabled:opacity-45"
                           >
-                            {owned ? "Owned" : busy?.includes(track.slug) ? "…" : "Purchase"}
-                          </button>
+                            {owned
+                              ? "Owned"
+                              : busy?.includes(track.slug)
+                                ? "…"
+                                : featured
+                                  ? "Unlock this path"
+                                  : "Purchase"}
+                          </Button>
                         )}
                       </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
+                    </CardContent>
+                  </Card>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
 
-            {/* Tutoring */}
-            <section id="tutoring" className="scroll-mt-24">
-              <div
-                className={[
-                  "relative mb-8 overflow-hidden rounded-[1.75rem] border",
-                  section === "tutoring"
-                    ? "border-[rgb(var(--accent-rgb)/0.55)] ring-1 ring-[rgb(var(--accent-rgb)/0.35)]"
-                    : "border-[rgb(var(--brand-2-rgb)/0.2)]",
-                ].join(" ")}
+        {/* Tutoring */}
+        <section id="tutoring" className="scroll-mt-24 space-y-3">
+          <div>
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[color:var(--brand-2)]">
+              Optional
+            </p>
+            <h2 className="mt-1 flex items-center gap-2 text-xl font-black tracking-tight text-slate-900 dark:text-slate-50">
+              <Sparkles className="h-5 w-5 text-[var(--accent)]" />
+              1:1 live tutoring
+            </h2>
+            <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+              Private sessions with a Kanam instructor — never included in subscription or track
+              price.
+            </p>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            {TUTORING.map((item) => (
+              <Card
+                key={item.sku}
+                id={`tutoring-${item.sku}`}
+                className={cn(
+                  "scroll-mt-24 border-slate-200/90 shadow-sm",
+                  tutoringSku === item.sku &&
+                    "border-[rgb(var(--brand-rgb)/0.45)] ring-2 ring-[rgb(var(--brand-rgb)/0.18)]"
+                )}
               >
-                <div className="relative min-h-[220px] sm:min-h-[260px]">
-                  <Image
-                    src="/images/billing/billing-tutoring-premium.png"
-                    alt=""
-                    fill
-                    className="object-cover object-[center_30%]"
-                    sizes="100vw"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,47,36,0.92)_0%,rgba(20,92,69,0.55)_55%,rgba(11,47,36,0.35)_100%)]" />
-                  <div className="relative flex h-full min-h-[220px] flex-col justify-end px-6 py-8 sm:min-h-[260px] sm:px-10 sm:py-10">
-                    <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
-                      Optional live tutoring
-                    </p>
-                    <h3
-                      className="mt-2 max-w-lg text-3xl font-semibold tracking-tight text-[#f7f3e8]"
-                      style={displayFont()}
-                    >
-                      1:1 live tutoring
-                    </h3>
-                    <p className="mt-3 max-w-lg text-sm leading-relaxed text-[#d7e0db] sm:text-base">
-                      Private sessions with a Kanam instructor — full lesson, exercises, and clear
-                      next steps. Never included in subscription or track price.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-                {TUTORING.map((item) => (
-                  <div
-                    key={item.sku}
-                    id={`tutoring-${item.sku}`}
-                    className={[
-                      "flex scroll-mt-24 flex-col border-t pt-5",
-                      tutoringSku === item.sku
-                        ? "border-[var(--accent)]"
-                        : "border-[rgb(var(--brand-2-rgb)/0.18)]",
-                    ].join(" ")}
-                  >
-                    <p className="text-sm font-medium text-[var(--muted)]">{item.label}</p>
-                    <p
-                      className="mt-2 text-3xl font-semibold tracking-tight text-[#14201c]"
-                      style={displayFont()}
-                    >
-                      {item.price}
-                    </p>
-                    <p className="mt-2 text-xs text-[var(--muted)]">{item.note}</p>
-                    {error && !status ? (
+                <CardContent className="flex h-full flex-col p-4 sm:p-5">
+                  <p className="text-sm font-semibold text-slate-500">{item.label}</p>
+                  <p className="mt-1 text-2xl font-black text-slate-900 dark:text-slate-50">
+                    {item.price}
+                  </p>
+                  <p className="mt-1 flex-1 text-xs text-slate-500">{item.note}</p>
+                  {needsSignIn ? (
+                    <Button asChild size="sm" className="mt-4 rounded-xl" variant="secondary">
                       <Link
                         href={`/welcome?next=${encodeURIComponent(
                           `/checkout?kind=tutoring&tutoringSku=${item.sku}`
                         )}`}
-                        className="mt-5 inline-flex h-11 w-fit items-center justify-center rounded-full bg-[var(--brand-2)] px-5 text-sm font-semibold text-white transition hover:bg-[var(--brand)]"
                       >
                         Sign in to purchase
                       </Link>
-                    ) : (
-                      <button
-                        type="button"
-                        disabled={Boolean(busy)}
-                        onClick={() =>
-                          startCheckout({ kind: "tutoring", tutoringSku: item.sku })
-                        }
-                        className="mt-5 inline-flex h-11 w-fit items-center justify-center rounded-full bg-[var(--brand-2)] px-5 text-sm font-semibold text-white transition hover:bg-[var(--brand)] disabled:opacity-50"
-                      >
-                        {busy?.includes(item.sku) ? "Redirecting…" : "Purchase"}
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </section>
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      size="sm"
+                      className="mt-4 rounded-xl"
+                      variant="secondary"
+                      disabled={Boolean(busy)}
+                      onClick={() =>
+                        startCheckout({ kind: "tutoring", tutoringSku: item.sku })
+                      }
+                    >
+                      {busy?.includes(item.sku) ? "Redirecting…" : "Purchase"}
+                    </Button>
+                  )}
+                </CardContent>
+              </Card>
+            ))}
           </div>
-
-          <p className="mt-14 text-center text-sm text-[var(--muted)]">
-            Questions?{" "}
-            <a
-              href="mailto:info@kanamacademy.com"
-              className="font-semibold text-[var(--brand-2)] underline-offset-4 hover:underline"
-            >
-              info@kanamacademy.com
-            </a>
-            {" · "}
-            <Link
-              href="/welcome"
-              className="font-semibold text-[var(--brand-2)] underline-offset-4 hover:underline"
-            >
-              Back to lessons
-            </Link>
-            {" · "}
-            <a
-              href="https://www.kanamacademy.com/pricing"
-              className="font-semibold text-[var(--brand-2)] underline-offset-4 hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Full pricing page
-            </a>
-          </p>
-        </div>
+        </section>
       </div>
+
+      <p className="mt-10 text-center text-xs text-slate-500">
+        Questions?{" "}
+        <a
+          href="mailto:info@kanamacademy.com"
+          className="font-semibold text-[var(--brand-2)] underline-offset-2 hover:underline"
+        >
+          info@kanamacademy.com
+        </a>
+        {" · "}
+        <Link href="/" className="font-semibold text-[var(--brand-2)] underline-offset-2 hover:underline">
+          Back to dashboard
+        </Link>
+      </p>
     </main>
   );
 }

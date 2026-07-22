@@ -1,17 +1,20 @@
 import { Suspense } from "react";
 
+import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import BillingClient from "./BillingClient";
 
 export default function BillingPage() {
   return (
-    <Suspense
-      fallback={
-        <main className="mx-auto w-full max-w-6xl bg-[#f3efe4] px-4 py-14 text-sm text-[#5b6b64]">
-          Loading billing…
-        </main>
-      }
-    >
-      <BillingClient />
-    </Suspense>
+    <WelcomeBackground>
+      <Suspense
+        fallback={
+          <main className="mx-auto w-full max-w-4xl px-4 py-14 text-sm text-slate-600">
+            Loading unlock options…
+          </main>
+        }
+      >
+        <BillingClient />
+      </Suspense>
+    </WelcomeBackground>
   );
 }
