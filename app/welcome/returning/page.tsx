@@ -102,12 +102,12 @@ export default function WelcomeReturningPage() {
                 <div className="space-y-3">
                   <div className="space-y-1.5">
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
-                      Email
+                      {asParent ? "Parent email" : "Email"}
                     </label>
                     <Input
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder='e.g. tory123@kanam.local'
+                      placeholder={asParent ? "Parent email" : "Email"}
                       type="email"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/20"
                     />

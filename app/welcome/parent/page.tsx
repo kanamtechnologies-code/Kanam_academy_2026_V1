@@ -187,7 +187,7 @@ export default function WelcomeParentPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                placeholder="you@email.com"
+                placeholder="Parent email"
                 className="h-11"
                 autoComplete="email"
               />
