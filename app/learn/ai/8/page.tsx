@@ -1,8 +1,14 @@
-"use client";
+import { renderGatedLesson } from "@/lib/billing/renderGatedLesson";
 
-import { AILessonCanvas } from "@/components/ai/AILessonCanvas";
-import { aiLesson8 } from "@/lib/aiLessons/lesson8";
-
-export default function Page() {
-  return <AILessonCanvas lesson={aiLesson8} />;
+export default async function Page() {
+  return renderGatedLesson({
+    lessonId: "ai-8",
+    pathname: "/learn/ai/8",
+    load: async () => {
+      const { aiLesson8 } = await import("@/lib/aiLessons/lesson8");
+      const { attachInteractiveActivities } = await import("@/lib/lessons/attachInteractiveActivities");
+      const { default: Content } = await import("./content");
+      return <Content lesson={attachInteractiveActivities(aiLesson8)} />;
+    },
+  });
 }

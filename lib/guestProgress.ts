@@ -3,9 +3,9 @@
 /**
  * Guest / demo progress.
  *
- * Lets someone explore the full product (all tracks + real lessons) and keep
- * their XP and completed-lesson progress entirely in the browser, with no
- * Supabase account. This powers the frictionless pitch/demo path.
+ * Powers the frictionless pitch path for `/learn/demo` only. XP and completion
+ * stay in the browser with no Supabase account. Paid `/learn/*` routes require
+ * a signed-in entitled account (server gate + middleware).
  */
 
 export const GUEST_FLAG_KEY = "kanam.guest";

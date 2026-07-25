@@ -1,14 +1,15 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Users } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
-import { Notice } from "@/components/ui/notice";
-import { trackIdForLesson } from "@/lib/billing/access";
+import {
+  LessonChildSelectNotice,
+  LessonConsentNotice,
+  LessonPaywall,
+} from "@/components/lesson/LessonPaywall";
 import { isGuestMode } from "@/lib/guestProgress";
+import { DEMO_LESSON_ID } from "@/lib/pythonLessons/demoLesson";
 import { isLessonOpenForStudent } from "@/lib/tracks";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
 
@@ -17,18 +18,31 @@ type LessonAccessGateProps = {
   children: React.ReactNode;
 };
 
+/**
+ * Client-side defense-in-depth gate. Server pages should use renderGatedLesson
+ * so unpaid lesson modules are never loaded for denied users.
+ * Guest mode only unlocks the public demo lesson.
+ */
 export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) {
   const router = useRouter();
-  const [loading, setLoading] = React.useState(!isGuestMode());
-  const [allowed, setAllowed] = React.useState(isGuestMode());
+  const guestDemo = isGuestMode() && lessonId === DEMO_LESSON_ID;
+  const [loading, setLoading] = React.useState(!guestDemo);
+  const [allowed, setAllowed] = React.useState(guestDemo);
   const [needsChildSelect, setNeedsChildSelect] = React.useState(false);
   const [needsParentalConsent, setNeedsParentalConsent] = React.useState(false);
   const [access, setAccess] = React.useState<StudentLessonAccess | null>(null);
   const [checkFailed, setCheckFailed] = React.useState(false);
 
   React.useEffect(() => {
-    if (isGuestMode()) {
+    if (guestDemo) {
       setAllowed(true);
+      setLoading(false);
+      return;
+    }
+
+    // Guest on a paid lesson — lock (middleware should already redirect).
+    if (isGuestMode()) {
+      setAllowed(false);
       setLoading(false);
       return;
     }
@@ -60,12 +74,36 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
           return;
         }
         setAccess(json.access);
+
+        let completedIds: string[] = [];
+        try {
+          const { createSupabaseBrowserClient } = await import("@/lib/supabase/browser");
+          const supabase = createSupabaseBrowserClient();
+          if (supabase) {
+            const { data: userData } = await supabase.auth.getUser();
+            const meta = (userData.user?.user_metadata ?? {}) as Record<string, unknown>;
+            const studentId = String(meta.active_student_id ?? meta.student_id ?? "");
+            if (studentId) {
+              const { data: rows } = await supabase
+                .from("lesson_progress")
+                .select("lesson_id, success")
+                .eq("student_id", studentId);
+              completedIds = (rows ?? [])
+                .filter((r) => Boolean(r?.success))
+                .map((r) => String(r?.lesson_id ?? ""))
+                .filter(Boolean);
+            }
+          }
+        } catch {
+          completedIds = [];
+        }
+
         setAllowed(
           isLessonOpenForStudent(
             lessonId,
             Boolean(json.access.classRestricted),
             json.access.enabledLessonIds,
-            [],
+            completedIds,
             Boolean(json.access.entitlementRestricted)
           )
         );
@@ -82,7 +120,7 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
     return () => {
       mounted = false;
     };
-  }, [lessonId]);
+  }, [lessonId, guestDemo]);
 
   React.useEffect(() => {
     if (needsParentalConsent) {
@@ -103,97 +141,23 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
   }
 
   if (needsParentalConsent) {
-    return (
-      <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center px-4 py-16">
-        <Notice
-          variant="lock"
-          title="Parental consent required"
-          action={
-            <Button asChild size="sm" variant="outline" className="border-[var(--brand)]/35 bg-white/80">
-              <Link href="/parent?consent=1">
-                <Users className="h-3.5 w-3.5" />
-                Complete consent
-              </Link>
-            </Button>
-          }
-        >
-          A parent or guardian must complete verifiable parental consent before kids can learn.
-        </Notice>
-      </div>
-    );
+    return <LessonConsentNotice />;
   }
 
   if (needsChildSelect) {
-    return (
-      <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center px-4 py-16">
-        <Notice
-          variant="lock"
-          title="Choose a child first"
-          action={
-            <Button asChild size="sm" variant="outline" className="border-[var(--brand)]/35 bg-white/80">
-              <Link href="/parent?pick=1">
-                <Users className="h-3.5 w-3.5" />
-                Go to parent hub
-              </Link>
-            </Button>
-          }
-        >
-          Progress saves to a kid profile. Pick who is learning in the parent hub, then open the
-          lesson again.
-        </Notice>
-      </div>
-    );
+    return <LessonChildSelectNotice />;
   }
 
   if (!allowed) {
-    const trackId = trackIdForLesson(lessonId);
-    const billingHref = trackId ? `/billing?track=${encodeURIComponent(trackId)}` : "/billing";
     const isPaywall =
-      !checkFailed &&
-      Boolean(access?.entitlementRestricted) &&
-      !access?.classRestricted;
-
+      !checkFailed && Boolean(access?.entitlementRestricted) && !access?.classRestricted;
     return (
-      <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center px-4 py-16">
-        <Notice
-          variant={checkFailed ? "danger" : "lock"}
-          role={checkFailed ? "alert" : "status"}
-          title={
-            checkFailed
-              ? "Couldn’t verify access"
-              : isPaywall
-                ? "Unlock this track to continue"
-                : "Lesson not assigned yet"
-          }
-          action={
-            <>
-              {isPaywall || checkFailed ? (
-                <Button asChild size="sm">
-                  <Link href={billingHref}>
-                    {isPaywall ? "View plans & unlock" : "Go to billing"}
-                  </Link>
-                </Button>
-              ) : null}
-              <Button asChild size="sm" variant="outline" className="bg-white/80">
-                <Link href={isGuestMode() ? "/demo" : "/dashboard"}>
-                  {isGuestMode() ? "Back to demo" : "Back to dashboard"}
-                </Link>
-              </Button>
-            </>
-          }
-        >
-          {checkFailed
-            ? "We couldn’t confirm your lesson access. Refresh, or open Billing if you just purchased."
-            : isPaywall
-              ? "Subscribe for all tracks, or buy this learning path to open its lessons. Live tutoring is sold separately."
-              : "Your instructor hasn’t turned this lesson on for your class yet. Check your dashboard for lessons that are currently available."}
-          {access?.classRestricted && access.classIds?.length ? (
-            <p className="mt-2 text-xs text-slate-500">
-              You&apos;re enrolled in a class — only assigned lessons are open.
-            </p>
-          ) : null}
-        </Notice>
-      </div>
+      <LessonPaywall
+        lessonId={lessonId}
+        access={access}
+        checkFailed={checkFailed}
+        reason={checkFailed ? "error" : isPaywall ? "paywall" : "not_assigned"}
+      />
     );
   }
 

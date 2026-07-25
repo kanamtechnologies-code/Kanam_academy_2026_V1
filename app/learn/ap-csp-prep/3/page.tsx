@@ -1,8 +1,14 @@
-"use client";
+import { renderGatedLesson } from "@/lib/billing/renderGatedLesson";
 
-import { AILessonCanvas } from "@/components/ai/AILessonCanvas";
-import { apCspLesson3 } from "@/lib/apCspLessons/lesson3";
-
-export default function Page() {
-  return <AILessonCanvas lesson={apCspLesson3} hubLabel="AP CSP Prep Hub" />;
+export default async function Page() {
+  return renderGatedLesson({
+    lessonId: "csp-3",
+    pathname: "/learn/ap-csp-prep/3",
+    load: async () => {
+      const { apCspLesson3 } = await import("@/lib/apCspLessons/lesson3");
+      const { attachInteractiveActivities } = await import("@/lib/lessons/attachInteractiveActivities");
+      const { default: Content } = await import("./content");
+      return <Content lesson={attachInteractiveActivities(apCspLesson3)} hubLabel="AP CSP Prep Hub" />;
+    },
+  });
 }

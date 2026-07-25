@@ -45,12 +45,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { AI_INTERACTIVE_BY_LESSON } from "@/lib/aiLessons/interactiveExercises";
-import { ADVANCED_AI_INTERACTIVE_BY_LESSON } from "@/lib/advancedAiLessons/interactiveExercises";
-import { AP_CSP_INTERACTIVE_BY_LESSON } from "@/lib/apCspLessons/interactiveExercises";
-import { DIGITAL_INTERACTIVE_BY_LESSON } from "@/lib/digitalLessons/interactiveExercises";
-import { CYBER_INTERACTIVE_BY_LESSON } from "@/lib/cyberLessons/interactiveExercises";
-import { FINANCE_INTERACTIVE_BY_LESSON } from "@/lib/financeLessons/interactiveExercises";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isGuestMode, markGuestLessonComplete } from "@/lib/guestProgress";
 import {
@@ -373,18 +367,8 @@ export function AILessonCanvas({
     if (activeIndex < totalQuestions - 1) setActiveIndex((i) => i + 1);
   };
 
-  const activities = React.useMemo(() => {
-    if (lesson.activities && lesson.activities.length > 0) return lesson.activities;
-    return (
-      AI_INTERACTIVE_BY_LESSON[lesson.id] ??
-      ADVANCED_AI_INTERACTIVE_BY_LESSON[lesson.id] ??
-      AP_CSP_INTERACTIVE_BY_LESSON[lesson.id] ??
-      DIGITAL_INTERACTIVE_BY_LESSON[lesson.id] ??
-      CYBER_INTERACTIVE_BY_LESSON[lesson.id] ??
-      FINANCE_INTERACTIVE_BY_LESSON[lesson.id] ??
-      []
-    );
-  }, [lesson.activities, lesson.id]);
+  // Activities are attached server-side via attachInteractiveActivities before render.
+  const activities = lesson.activities ?? [];
   const allCorrect = lesson.quiz.every((q) => correctIds.has(q.id));
   const allActivitiesDone =
     activities.length === 0 || activities.every((a) => activityDoneIds.has(a.id));

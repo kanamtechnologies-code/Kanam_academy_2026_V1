@@ -58,7 +58,8 @@ import { prepareExerciseSql, cursorForIncompleteSql, findTypingZonesForExercise 
 import { cn } from "@/lib/utils";
 import { PredictionInput } from "@/components/exercises/PredictionInput";
 import { ParsonsLines } from "@/components/exercises/ParsonsLines";
-import { predictionSoftMatches } from "@/lib/exercises/normalizePrediction";
+import type { DataCheckResponse } from "@/lib/lessons/dataCheckTypes";
+import type { PublicDataLessonConfig } from "@/lib/lessons/publicDataLesson";
 import {
   readLessonModuleUnlocked,
   writeLessonModuleUnlocked,
@@ -88,11 +89,14 @@ export type DataSqlExercise = {
   failureMessage: string;
   kind?: DataExerciseKind;
   predictionPrompt?: string;
+  /** Server-only accepted answers — stripped from public payloads. */
   acceptedPredictions?: string[];
+  hasAcceptedPredictions?: boolean;
   codeReadOnly?: boolean;
   debugHint?: string;
   parsonsLines?: string[];
-  validate: (sql: string, result: QueryResult | null) => boolean;
+  /** Server-only grader — stripped from public payloads. */
+  validate?: (sql: string, result: QueryResult | null) => boolean;
 };
 
 export type DataLessonConfig = {
@@ -152,7 +156,11 @@ function renderCoachNote(text: string) {
   });
 }
 
-export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
+export function DataLessonCanvas({
+  lesson,
+}: {
+  lesson: DataLessonConfig | PublicDataLessonConfig;
+}) {
   const terminalPrompt = lesson.terminalPrompt ?? TERMINAL_DEFAULT;
   const gateSeconds = lesson.coachNoteGateSeconds ?? 0;
 
@@ -424,32 +432,46 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
 
     setRunError(null);
     const preview = `${result.rowCount} row${result.rowCount === 1 ? "" : "s"}`;
-    const resultSummary = `${preview}; columns: ${result.columns.join(", ")}`;
 
-    const codeOk = activeExercise.validate(activeSql, result);
-    const completedFromIndex = activeIndex;
+    void (async () => {
+      let graded: (DataCheckResponse & { error?: string }) | null = null;
+      try {
+        const res = await fetch(
+          `/api/student/lessons/${encodeURIComponent(lesson.id)}/check`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              exerciseId: activeExercise.id,
+              sql: activeSql,
+              result: {
+                columns: result.columns,
+                values: result.values,
+                rowCount: result.rowCount,
+              },
+              prediction: predictionByExercise[activeExercise.id] ?? "",
+            }),
+          }
+        );
+        graded = (await res.json()) as DataCheckResponse & { error?: string };
+        if (!res.ok) graded = null;
+      } catch {
+        graded = null;
+      }
 
-    if (kind === "predict") {
-      const prediction = predictionByExercise[activeExercise.id] ?? "";
-      const accepted =
-        activeExercise.acceptedPredictions && activeExercise.acceptedPredictions.length > 0
-          ? activeExercise.acceptedPredictions
-          : [String(result.rowCount), resultSummary];
-      const predOk = predictionSoftMatches(prediction, accepted);
-
-      if (!codeOk) {
+      if (!graded) {
         setQueryResult(null);
         setLastFeedbackSuccess(false);
-        setLastFeedback(activeExercise.failureMessage);
-        setTerminalOutput(formatTerminal(`❌ ${activeExercise.failureMessage}`));
+        setLastFeedback("Could not verify your answer. Check your connection and try again.");
+        setTerminalOutput(formatTerminal("❌ Could not verify your answer."));
         return;
       }
-      if (!predOk) {
-        setLastFeedbackSuccess(false);
+
+      if (kind === "predict" && graded.codeOk && graded.predictionOk === false) {
+        const prediction = predictionByExercise[activeExercise.id] ?? "";
         setQueryResult(null);
-        setLastFeedback(
-          "Not quite — your prediction doesn't match the result. Revise it (the real answer stays hidden until you get it)."
-        );
+        setLastFeedbackSuccess(false);
+        setLastFeedback(graded.feedback);
         setTerminalOutput(
           formatTerminal(
             `△ Prediction incorrect.\nYour prediction: ${prediction}\n(Result hidden until your prediction is right.)`
@@ -457,39 +479,34 @@ export function DataLessonCanvas({ lesson }: { lesson: DataLessonConfig }) {
         );
         return;
       }
+
+      if (!graded.ok) {
+        if (kind === "predict") setQueryResult(null);
+        else setQueryResult(result);
+        setLastFeedbackSuccess(false);
+        setLastFeedback(graded.feedback || activeExercise.failureMessage);
+        setTerminalOutput(
+          formatTerminal(
+            kind === "predict"
+              ? `❌ ${graded.feedback || activeExercise.failureMessage}`
+              : `Query ran (${preview}) but not quite right yet.\n${graded.feedback || activeExercise.failureMessage}`
+          )
+        );
+        return;
+      }
+
       setQueryResult(result);
       setLastFeedbackSuccess(true);
-      setLastFeedback(activeExercise.successMessage);
-      setTerminalOutput(formatTerminal(`✓ ${activeExercise.successMessage}\n(${preview})`));
-      setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
-      if (completedFromIndex === lesson.exercises.length - 1) {
-        setLessonComplete(true);
-        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
-      }
-      // Stay on this exercise so the learner can read feedback, then use Next exercise.
-      return;
-    }
-
-    setQueryResult(result);
-
-    if (codeOk) {
-      setLastFeedbackSuccess(true);
-      setLastFeedback(activeExercise.successMessage);
-      setTerminalOutput(formatTerminal(`✓ ${activeExercise.successMessage}\n(${preview})`));
-      setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
-
-      if (completedFromIndex === lesson.exercises.length - 1) {
-        setLessonComplete(true);
-        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
-      }
-      // Stay on this exercise so the learner can read feedback, then use Next exercise.
-    } else {
-      setLastFeedbackSuccess(false);
-      setLastFeedback(activeExercise.failureMessage);
+      setLastFeedback(graded.feedback || activeExercise.successMessage);
       setTerminalOutput(
-        formatTerminal(`Query ran (${preview}) but not quite right yet.\n${activeExercise.failureMessage}`)
+        formatTerminal(`✓ ${graded.feedback || activeExercise.successMessage}\n(${preview})`)
       );
-    }
+      setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
+      if (graded.lessonComplete) {
+        setLessonComplete(true);
+        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
+      }
+    })();
   };
 
   const workspacePanelRef = React.useRef<HTMLDivElement | null>(null);

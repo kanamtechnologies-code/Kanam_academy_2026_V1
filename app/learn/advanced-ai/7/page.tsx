@@ -1,8 +1,14 @@
-"use client";
+import { renderGatedLesson } from "@/lib/billing/renderGatedLesson";
 
-import { AILessonCanvas } from "@/components/ai/AILessonCanvas";
-import { advancedAiLesson7 } from "@/lib/advancedAiLessons/lesson7";
-
-export default function Page() {
-  return <AILessonCanvas lesson={advancedAiLesson7} hubLabel="Advanced AI Hub" />;
+export default async function Page() {
+  return renderGatedLesson({
+    lessonId: "aai-7",
+    pathname: "/learn/advanced-ai/7",
+    load: async () => {
+      const { advancedAiLesson7 } = await import("@/lib/advancedAiLessons/lesson7");
+      const { attachInteractiveActivities } = await import("@/lib/lessons/attachInteractiveActivities");
+      const { default: Content } = await import("./content");
+      return <Content lesson={attachInteractiveActivities(advancedAiLesson7)} hubLabel="Advanced AI Hub" />;
+    },
+  });
 }

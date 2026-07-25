@@ -12,8 +12,11 @@ function hasNameVariable(code: string) {
  * Same pedagogy and exercise kinds; sized for a product walkthrough.
  * Tone: high school CS / intro to programming.
  */
+/** Public demo lesson id — guest mode may only unlock this lesson. */
+export const DEMO_LESSON_ID = "demo-lesson-1";
+
 export const demoLesson: PythonLessonConfig = {
-  id: "lesson-1",
+  id: DEMO_LESSON_ID,
   title: "Demo: Your First Python Program",
   goal: "By the end of this demo you can store a value, print output, concatenate strings, and debug a common capitalization error — the same core skills students use in Week 1.",
   xpReward: 50,

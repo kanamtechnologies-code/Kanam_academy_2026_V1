@@ -1,8 +1,12 @@
-"use client";
+import { renderGatedLesson } from "@/lib/billing/renderGatedLesson";
 
-import { PythonLessonCanvas } from "@/components/python/PythonLessonCanvas";
-import { lesson11 } from "@/lib/pythonLessons/lesson11";
-
-export default function Lesson11Page() {
-  return <PythonLessonCanvas lesson={lesson11} />;
+export default async function Page() {
+  return renderGatedLesson({
+    lessonId: "lesson-11",
+    pathname: "/learn/11",
+    load: async () => {
+      const { default: Content } = await import("./content");
+      return <Content />;
+    },
+  });
 }

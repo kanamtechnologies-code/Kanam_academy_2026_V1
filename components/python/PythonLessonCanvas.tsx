@@ -46,13 +46,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PremiumBulletList } from "@/components/ui/PremiumBulletList";
 import { Progress } from "@/components/ui/progress";
-import { predictionSoftMatches } from "@/lib/exercises/normalizePrediction";
 import {
   readLessonModuleUnlocked,
   writeLessonModuleUnlocked,
 } from "@/lib/lessonModuleUnlock";
+import type { PublicPythonLessonConfig } from "@/lib/lessons/publicPythonLesson";
+import type { PythonCheckResponse } from "@/lib/lessons/pythonCheckTypes";
 import { canPlayAdventure } from "@/lib/pythonLessons/adventurePlay";
-import { runMiniPython, type MiniRunResult } from "@/lib/pythonRunner";
+import { runMiniPython } from "@/lib/pythonRunner";
 import {
   findTypingZonesForExercise,
   hasBlankTokens,
@@ -86,8 +87,10 @@ export type PythonExerciseKind = "fill" | "predict" | "debug" | "scratch" | "par
 export type PythonProjectRequirement = {
   id: string;
   label: string;
-  /** Checked after each successful Run — powers the live project checklist. */
-  check: (code: string, run: MiniRunResult) => boolean;
+  /**
+   * Server-only grader. Never sent to the browser — use /api/student/lessons/[id]/check.
+   */
+  check?: (code: string, run: import("@/lib/pythonRunner").MiniRunResult) => boolean;
 };
 
 export type PythonExercise = {
@@ -107,20 +110,26 @@ export type PythonExercise = {
   kind?: PythonExerciseKind;
   /** Predict exercises: question shown above the free-text box. */
   predictionPrompt?: string;
-  /** Accepted free-text answers (normalized). Soft-matched against stdout if omitted and validate passes. */
+  /** Server-only accepted answers — stripped from public lesson payloads. */
   acceptedPredictions?: string[];
+  /** Client hint that a prediction answer key exists server-side. */
+  hasAcceptedPredictions?: boolean;
   /** When true, editor is read-only (typical for predict). */
   codeReadOnly?: boolean;
   /** Debug: short category hint (typo / logic / indent) — not the full fix. */
   debugHint?: string;
   /** Parsons: scrambled lines the learner must reorder (correct order). */
   parsonsLines?: string[];
-  /**
-   * Optional correct solution used only by TEMP test auto-pass.
-   * Remove usages when shipping.
-   */
+  /** Server-only solution — stripped from public lesson payloads. */
   solutionCode?: string;
-  validate: (code: string, run: MiniRunResult, runtime?: Record<string, string>) => boolean;
+  /**
+   * Server-only grader. Never sent to the browser — use /api/student/lessons/[id]/check.
+   */
+  validate?: (
+    code: string,
+    run: import("@/lib/pythonRunner").MiniRunResult,
+    runtime?: Record<string, string>
+  ) => boolean;
 };
 
 export type PythonLessonConfig = {
@@ -158,7 +167,29 @@ export type PythonLessonConfig = {
   nextCtaLabel?: string;
 };
 
-export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
+async function postPythonCheck(
+  lessonId: string,
+  body: Record<string, unknown>
+): Promise<PythonCheckResponse | null> {
+  try {
+    const res = await fetch(`/api/student/lessons/${encodeURIComponent(lessonId)}/check`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const json = (await res.json()) as PythonCheckResponse & { error?: string };
+    if (!res.ok) return null;
+    return json;
+  } catch {
+    return null;
+  }
+}
+
+export function PythonLessonCanvas({
+  lesson,
+}: {
+  lesson: PythonLessonConfig | PublicPythonLessonConfig;
+}) {
   const terminalPrompt = lesson.terminalPrompt ?? PYTHON_TERMINAL_PROMPT;
   const gateSeconds = lesson.coachNoteGateSeconds ?? 8;
 
@@ -431,56 +462,30 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
         ? run.stdout.join("\n")
         : "(no output)\nTip: add print(...) to see output.";
 
-    if (lesson.project?.requirements?.length) {
-      const nextChecks: Record<string, boolean> = {};
-      for (const req of lesson.project.requirements) {
-        try {
-          nextChecks[req.id] =
-            req.id === "req-play" ? playTurns >= 3 : req.check(activeCode, run);
-        } catch {
-          nextChecks[req.id] = req.id === "req-play" ? playTurns >= 3 : false;
-        }
-      }
-      setProjectChecks(nextChecks);
+    void (async () => {
+      const graded = await postPythonCheck(lesson.id, {
+        exerciseId: activeExercise.id,
+        code: activeCode,
+        run: { stdout: run.stdout, error: run.error ?? null },
+        prediction: predictionByExercise[activeExercise.id] ?? "",
+        playTurns,
+      });
 
-      const allGreen = lesson.project.requirements.every((req) => nextChecks[req.id]);
-      if (allGreen) {
-        setLastFeedbackSuccess(true);
-        setLastFeedback(activeExercise.successMessage);
+      if (!graded) {
+        setLastFeedbackSuccess(false);
+        setLastFeedback("Could not verify your answer. Check your connection and try again.");
         setTerminalOutput(
-          formatPythonTerminal(`✓ ${activeExercise.successMessage}\n\n${body}`, terminalPrompt)
+          formatPythonTerminal(`❌ Could not verify your answer.\n\n${body}`, terminalPrompt)
         );
-        setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
-        setLessonComplete(true);
-        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind: "project" });
         return;
       }
-    }
 
-    const codeOk = activeExercise.validate(activeCode, run, {});
-    const completedFromIndex = activeIndex;
+      if (graded.projectChecks) setProjectChecks(graded.projectChecks);
 
-    if (kind === "predict") {
-      const prediction = predictionByExercise[activeExercise.id] ?? "";
-      const accepted =
-        activeExercise.acceptedPredictions && activeExercise.acceptedPredictions.length > 0
-          ? activeExercise.acceptedPredictions
-          : run.stdout.length > 0
-            ? [run.stdout.join("\n")]
-            : [];
-      const predOk = predictionSoftMatches(prediction, accepted);
-
-      if (!codeOk) {
+      if (kind === "predict" && graded.codeOk && graded.predictionOk === false) {
+        const prediction = predictionByExercise[activeExercise.id] ?? "";
         setLastFeedbackSuccess(false);
-        setLastFeedback(activeExercise.failureMessage);
-        setTerminalOutput(formatPythonTerminal(`❌ ${activeExercise.failureMessage}\n\n${body}`, terminalPrompt));
-        return;
-      }
-      if (!predOk) {
-        setLastFeedbackSuccess(false);
-        setLastFeedback(
-          "Not quite — your prediction doesn't match what the program does. Revise your prediction (the real output stays hidden until you get it)."
-        );
+        setLastFeedback(graded.feedback);
         setTerminalOutput(
           formatPythonTerminal(
             `△ Prediction incorrect.\nYour prediction: ${prediction}\n(Output hidden until your prediction is right.)`,
@@ -489,66 +494,36 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
         );
         return;
       }
+
+      if (!graded.ok) {
+        setLastFeedbackSuccess(false);
+        setLastFeedback(graded.feedback || activeExercise.failureMessage);
+        setTerminalOutput(
+          formatPythonTerminal(
+            `❌ ${graded.feedback || activeExercise.failureMessage}\n\n${body}`,
+            terminalPrompt
+          )
+        );
+        return;
+      }
+
       setLastFeedbackSuccess(true);
-      setLastFeedback(activeExercise.successMessage);
+      setLastFeedback(graded.feedback || activeExercise.successMessage);
       setTerminalOutput(
-        formatPythonTerminal(`✓ ${activeExercise.successMessage}\n\n${body}`, terminalPrompt)
+        formatPythonTerminal(
+          `✓ ${graded.feedback || activeExercise.successMessage}\n\n${body}`,
+          terminalPrompt
+        )
       );
       setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
-      if (completedFromIndex === lesson.exercises.length - 1) {
+      if (graded.lessonComplete) {
         setLessonComplete(true);
-        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
+        trackProgress("lesson_success", {
+          exerciseId: activeExercise.id,
+          kind: isProject ? "project" : kind,
+        });
       }
-      return;
-    }
-
-    if (codeOk) {
-      // Project mode: only finish when the full checklist (incl. Adventure play) is green.
-      if (isProject && lesson.project) {
-        const playOk = playTurns >= 3 || Boolean(projectChecks["req-play"]);
-        const buildOk = lesson.project.requirements
-          .filter((r) => r.id !== "req-play")
-          .every((r) => {
-            try {
-              return r.id === "req-play" ? playOk : r.check(activeCode, run);
-            } catch {
-              return false;
-            }
-          });
-        if (!(buildOk && playOk)) {
-          setLastFeedbackSuccess(false);
-          setLastFeedback(
-            playOk
-              ? activeExercise.failureMessage
-              : "Build looks good — now open Adventure and play at least 3 live turns to finish the capstone."
-          );
-          setTerminalOutput(
-            formatPythonTerminal(
-              playOk
-                ? `△ Almost — finish every checklist item.\n\n${body}`
-                : `✓ Build checks passed!\n→ Switch to Adventure and chat with your bot (3+ turns).\n\n${body}`,
-              terminalPrompt
-            )
-          );
-          return;
-        }
-      }
-
-      setLastFeedbackSuccess(true);
-      setLastFeedback(activeExercise.successMessage);
-      setTerminalOutput(formatPythonTerminal(`✓ ${activeExercise.successMessage}\n\n${body}`, terminalPrompt));
-      setCompletedIds((prev) => new Set(prev).add(activeExercise.id));
-
-      if (completedFromIndex === lesson.exercises.length - 1) {
-        setLessonComplete(true);
-        trackProgress("lesson_success", { exerciseId: activeExercise.id, kind });
-      }
-      // Stay on this exercise so the learner can read feedback, then use Next exercise.
-    } else {
-      setLastFeedbackSuccess(false);
-      setLastFeedback(activeExercise.failureMessage);
-      setTerminalOutput(formatPythonTerminal(`❌ ${activeExercise.failureMessage}\n\n${body}`, terminalPrompt));
-    }
+    })();
   };
 
   const workspacePanelRef = React.useRef<HTMLDivElement | null>(null);
@@ -568,90 +543,95 @@ export function PythonLessonCanvas({ lesson }: { lesson: PythonLessonConfig }) {
 
   const handlePlayTurnsChange = (turns: number) => {
     setPlayTurns(turns);
-    if (!lesson.project?.requirements?.length) return;
+    if (!lesson.project?.requirements?.length || !activeExercise) return;
 
-    setProjectChecks((prev) => {
-      const next: Record<string, boolean> = { ...prev, "req-play": turns >= 3 };
-      // Re-check build items against current code without requiring a fresh Run.
-      const dry = runMiniPython(activeCode, {});
-      for (const req of lesson.project!.requirements) {
-        if (req.id === "req-play") continue;
-        try {
-          next[req.id] = req.check(activeCode, dry);
-        } catch {
-          // keep previous
-        }
-      }
-      const allGreen = lesson.project!.requirements.every((req) => next[req.id]);
-      if (allGreen && activeExercise && !lessonComplete) {
+    const dry = runMiniPython(activeCode, {});
+    void (async () => {
+      const graded = await postPythonCheck(lesson.id, {
+        exerciseId: activeExercise.id,
+        code: activeCode,
+        run: { stdout: dry.stdout, error: dry.error ?? null },
+        playTurns: turns,
+      });
+      if (!graded?.projectChecks) return;
+      setProjectChecks(graded.projectChecks);
+      if (graded.ok && !lessonComplete) {
         setCompletedIds((p) => new Set(p).add(activeExercise.id));
         setLessonComplete(true);
         setLastFeedbackSuccess(true);
-        setLastFeedback(activeExercise.successMessage);
+        setLastFeedback(graded.feedback || activeExercise.successMessage);
         trackProgress("lesson_success", { exerciseId: activeExercise.id, kind: "project-play" });
       }
-      return next;
-    });
+    })();
   };
 
   /** TEMP testing helper — remove before shipping. */
   const tempPassCurrentExercise = () => {
     if (!activeExercise || lessonComplete) return;
     const id = activeExercise.id;
-    if (activeExercise.kind === "predict") {
-      const answer = activeExercise.acceptedPredictions?.[0] ?? "ok";
-      setPredictionByExercise((prev) => ({ ...prev, [id]: answer }));
-    }
-    if (activeExercise.solutionCode) {
-      setCodeByExercise((prev) => ({ ...prev, [id]: activeExercise.solutionCode! }));
-    }
-    if (lesson.project?.requirements?.length) {
-      const allGreen: Record<string, boolean> = {};
-      for (const req of lesson.project.requirements) allGreen[req.id] = true;
-      setProjectChecks(allGreen);
+    void (async () => {
+      const dry = runMiniPython(activeCode, {});
+      const graded = await postPythonCheck(lesson.id, {
+        exerciseId: id,
+        code: activeCode,
+        run: { stdout: dry.stdout, error: dry.error ?? null },
+        prediction: "ok",
+        playTurns: 3,
+        tempPass: true,
+      });
+      if (!graded?.ok) {
+        setLastFeedbackSuccess(false);
+        setLastFeedback("Temp pass is only available in development.");
+        return;
+      }
+      if (graded.projectChecks) setProjectChecks(graded.projectChecks);
       setPlayTurns(3);
-    }
-    setCompletedIds((prev) => new Set(prev).add(id));
-    setLastFeedbackSuccess(true);
-    setLastFeedback(`[TEMP] Passed: ${activeExercise.successMessage}`);
-    setTerminalOutput(
-      formatPythonTerminal(`✓ [TEMP] Auto-passed ${activeExercise.title}`, terminalPrompt)
-    );
-    if (activeIndex === lesson.exercises.length - 1) {
-      setLessonComplete(true);
-      trackProgress("lesson_success", { exerciseId: id, kind: "temp-pass" });
-    } else {
-      goToNextExercise();
-    }
+      setCompletedIds((prev) => new Set(prev).add(id));
+      setLastFeedbackSuccess(true);
+      setLastFeedback(graded.feedback);
+      setTerminalOutput(
+        formatPythonTerminal(`✓ [TEMP] Auto-passed ${activeExercise.title}`, terminalPrompt)
+      );
+      if (graded.lessonComplete) {
+        setLessonComplete(true);
+        trackProgress("lesson_success", { exerciseId: id, kind: "temp-pass" });
+      } else {
+        goToNextExercise();
+      }
+    })();
   };
 
   /** TEMP testing helper — remove before shipping. */
   const tempPassAllRemaining = () => {
     if (lessonComplete) return;
-    const nextCompleted = new Set(completedIds);
-    const nextPredictions = { ...predictionByExercise };
-    const nextCode = { ...codeByExercise };
-    for (const ex of lesson.exercises) {
-      nextCompleted.add(ex.id);
-      if (ex.kind === "predict" && ex.acceptedPredictions?.[0]) {
-        nextPredictions[ex.id] = ex.acceptedPredictions[0];
+    void (async () => {
+      const nextCompleted = new Set(completedIds);
+      for (const ex of lesson.exercises) {
+        const dry = runMiniPython(codeByExercise[ex.id] ?? ex.starterCode, {});
+        const graded = await postPythonCheck(lesson.id, {
+          exerciseId: ex.id,
+          code: codeByExercise[ex.id] ?? ex.starterCode,
+          run: { stdout: dry.stdout, error: dry.error ?? null },
+          prediction: "ok",
+          playTurns: 3,
+          tempPass: true,
+        });
+        if (!graded?.ok) {
+          setLastFeedbackSuccess(false);
+          setLastFeedback("Temp pass is only available in development.");
+          return;
+        }
+        nextCompleted.add(ex.id);
+        if (graded.projectChecks) setProjectChecks(graded.projectChecks);
       }
-      if (ex.solutionCode) nextCode[ex.id] = ex.solutionCode;
-    }
-    setCompletedIds(nextCompleted);
-    setPredictionByExercise(nextPredictions);
-    setCodeByExercise(nextCode);
-    setActiveIndex(Math.max(0, lesson.exercises.length - 1));
-    setLessonComplete(true);
-    if (lesson.project?.requirements?.length) {
-      const allGreen: Record<string, boolean> = {};
-      for (const req of lesson.project.requirements) allGreen[req.id] = true;
-      setProjectChecks(allGreen);
+      setCompletedIds(nextCompleted);
+      setActiveIndex(Math.max(0, lesson.exercises.length - 1));
+      setLessonComplete(true);
       setPlayTurns(3);
-    }
-    setLastFeedbackSuccess(true);
-    setLastFeedback("[TEMP] All exercises auto-passed.");
-    trackProgress("lesson_success", { kind: "temp-pass-all" });
+      setLastFeedbackSuccess(true);
+      setLastFeedback("[TEMP] All exercises auto-passed.");
+      trackProgress("lesson_success", { kind: "temp-pass-all" });
+    })();
   };
 
   const progressPercent = lessonComplete

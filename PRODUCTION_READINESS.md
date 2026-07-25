@@ -9,6 +9,8 @@ This checklist tracks launch-critical work for Kanam Academy.
 - [x] Document env vars (`config/env.example`)
 - [x] Resolve remaining repo lint/type errors so CI passes end-to-end
 - [x] Auth middleware for session refresh + gated private pages/APIs (`middleware.ts`)
+- [x] Server-side lesson paywall — unpaid content not loaded for denied users (`renderGatedLesson`)
+- [x] Server-side Python/Data exercise grading — validators/solutions not shipped to the browser
 - [ ] Security review of API routes + role checks (student/instructor/admin)
 - [ ] Add rate limiting for auth/admin endpoints
 - [ ] Complete Supabase RLS validation for all student/instructor tables

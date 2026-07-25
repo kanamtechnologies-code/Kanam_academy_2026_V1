@@ -29,9 +29,8 @@ export function isPublicPage(pathname: string): boolean {
   if (p === "/help") return true;
   if (p === "/billing") return true; // plan browsing; checkout is gated
   if (p === "/auth" || startsWithPath(p, "/auth")) return true;
-  // Guest demo + LessonAccessGate handle /learn and /dashboard
-  if (p === "/dashboard") return true;
-  if (p === "/learn" || startsWithPath(p, "/learn")) return true;
+  // Only the guided demo lesson is public; all other /learn/* require auth.
+  if (p === "/learn/demo") return true;
   return false;
 }
 
@@ -43,6 +42,11 @@ export function protectedPageRule(pathname: string): ProtectedPageRule | null {
   if (startsWithPath(p, "/account")) return { kind: "auth" };
   if (startsWithPath(p, "/checkout")) return { kind: "auth" };
   if (startsWithPath(p, "/billing/success")) return { kind: "auth" };
+  if (p === "/dashboard") return { kind: "auth" };
+  if (p === "/learn" || startsWithPath(p, "/learn")) {
+    if (p === "/learn/demo") return null;
+    return { kind: "auth" };
+  }
   return null;
 }
 

@@ -1,8 +1,12 @@
-"use client";
+import { renderGatedLesson } from "@/lib/billing/renderGatedLesson";
 
-import { ApCspExamCanvas } from "@/components/apCsp/ApCspExamCanvas";
-import { apCspPracticeExam1 } from "@/lib/apCspExams";
-
-export default function Page() {
-  return <ApCspExamCanvas exam={apCspPracticeExam1} />;
+export default async function Page() {
+  return renderGatedLesson({
+    lessonId: "csp-practice-1",
+    pathname: "/learn/ap-csp-prep/exam/practice-1",
+    load: async () => {
+      const { default: Content } = await import("./content");
+      return <Content />;
+    },
+  });
 }

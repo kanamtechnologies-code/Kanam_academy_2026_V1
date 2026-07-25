@@ -2,18 +2,17 @@
 
 import * as React from "react";
 
-import { PythonLessonCanvas } from "@/components/python/PythonLessonCanvas";
+import { RemotePythonLesson } from "@/components/python/RemotePythonLesson";
 import { setGuestMode, setGuestName, isGuestMode } from "@/lib/guestProgress";
-import { demoLesson } from "@/lib/pythonLessons/demoLesson";
+import { DEMO_LESSON_ID } from "@/lib/pythonLessons/demoLesson";
 
 export default function DemoLessonPage() {
   React.useEffect(() => {
-    // Interactive demo always runs in guest mode so XP/progress save on-device.
     if (!isGuestMode()) {
       setGuestMode(true);
       setGuestName("Guest");
     }
   }, []);
 
-  return <PythonLessonCanvas lesson={demoLesson} />;
+  return <RemotePythonLesson lessonId={DEMO_LESSON_ID} />;
 }

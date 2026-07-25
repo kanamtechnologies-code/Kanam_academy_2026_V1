@@ -1,8 +1,14 @@
-"use client";
+import { renderGatedLesson } from "@/lib/billing/renderGatedLesson";
 
-import { AILessonCanvas } from "@/components/ai/AILessonCanvas";
-import { cyberLesson11 } from "@/lib/cyberLessons/lesson11";
-
-export default function Page() {
-  return <AILessonCanvas lesson={cyberLesson11} hubLabel="Cybersecurity Hub" />;
+export default async function Page() {
+  return renderGatedLesson({
+    lessonId: "cs-11",
+    pathname: "/learn/cyber/11",
+    load: async () => {
+      const { cyberLesson11 } = await import("@/lib/cyberLessons/lesson11");
+      const { attachInteractiveActivities } = await import("@/lib/lessons/attachInteractiveActivities");
+      const { default: Content } = await import("./content");
+      return <Content lesson={attachInteractiveActivities(cyberLesson11)} hubLabel="Cybersecurity Hub" />;
+    },
+  });
 }

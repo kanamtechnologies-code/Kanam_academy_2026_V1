@@ -1,8 +1,14 @@
-"use client";
+import { renderGatedLesson } from "@/lib/billing/renderGatedLesson";
 
-import { AILessonCanvas } from "@/components/ai/AILessonCanvas";
-import { financeLesson10 } from "@/lib/financeLessons/lesson10";
-
-export default function Page() {
-  return <AILessonCanvas lesson={financeLesson10} hubLabel="Financial Literacy Hub" />;
+export default async function Page() {
+  return renderGatedLesson({
+    lessonId: "fl-10",
+    pathname: "/learn/finance/10",
+    load: async () => {
+      const { financeLesson10 } = await import("@/lib/financeLessons/lesson10");
+      const { attachInteractiveActivities } = await import("@/lib/lessons/attachInteractiveActivities");
+      const { default: Content } = await import("./content");
+      return <Content lesson={attachInteractiveActivities(financeLesson10)} hubLabel="Financial Literacy Hub" />;
+    },
+  });
 }
