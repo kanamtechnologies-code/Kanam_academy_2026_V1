@@ -8,6 +8,7 @@ This checklist tracks launch-critical work for Kanam Academy.
 - [x] Data Analyst track available without Python prerequisite gate (`lib/tracks.ts`)
 - [x] Document env vars (`config/env.example`)
 - [x] Resolve remaining repo lint/type errors so CI passes end-to-end
+- [x] Auth middleware for session refresh + gated private pages/APIs (`middleware.ts`)
 - [ ] Security review of API routes + role checks (student/instructor/admin)
 - [ ] Add rate limiting for auth/admin endpoints
 - [ ] Complete Supabase RLS validation for all student/instructor tables
