@@ -52,6 +52,24 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
+/* Smooth light/dark theme changes — only while .theme-animating is set */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-animating,
+  html.theme-animating body,
+  html.theme-animating body *:not(svg *):not(canvas) {
+    transition-property: background-color, color, border-color, box-shadow, fill, stroke,
+      outline-color, opacity !important;
+    transition-duration: 0.35s !important;
+    transition-timing-function: ease !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.4s;
+    animation-timing-function: ease;
+  }
+}
+
 /*
  * Broad dark remaps for common light Tailwind utilities.
  * Skip the sticky header so glass white chips stay readable on the brand bar.

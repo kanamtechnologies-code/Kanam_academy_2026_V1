@@ -3,8 +3,8 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Hash, Loader2, Mail, Sparkles, Users, Zap } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, Hash, Loader2, Sparkles, Users, Zap } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, isParentRole, postSignInPath, safeNextPath } from "@/lib/roles";
@@ -38,7 +39,7 @@ export default function WelcomePage() {
   const [returningEmail, setReturningEmail] = React.useState("");
   const [returningPassword, setReturningPassword] = React.useState("");
   const [classCode, setClassCode] = React.useState("");
-  const [studentPath, setStudentPath] = React.useState<"solo" | "teacher" | null>(null);
+  const [studentPath, setStudentPath] = React.useState<"solo" | "teacher">("solo");
   const [loadingNew, setLoadingNew] = React.useState(false);
   const [loadingReturning, setLoadingReturning] = React.useState(false);
   const [returningError, setReturningError] = React.useState<string | null>(null);
@@ -377,112 +378,112 @@ export default function WelcomePage() {
                   </div>
                 ) : null}
 
-                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <div
+                  className="mt-6 grid gap-3 sm:grid-cols-2"
+                  role="radiogroup"
+                  aria-label="How you're joining"
+                >
                   <button
                     type="button"
+                    role="radio"
+                    aria-checked={studentPath === "solo"}
                     onClick={() => {
                       setNewError(null);
                       setStudentPath("solo");
                     }}
                     className={[
-                      "rounded-2xl px-4 py-4 text-left transition-all duration-300 ease-out",
+                      "relative rounded-2xl px-4 py-4 text-left transition-all duration-300 ease-out",
                       "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)]",
                       "active:scale-[0.98]",
+                      "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
                       studentPath === "solo"
-                        ? [
-                            "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
-                            "shadow-lg shadow-emerald-900/25 ring-2 ring-[rgb(var(--accent-rgb)/0.85)]",
-                            "hover:brightness-[1.06]",
-                          ].join(" ")
-                        : [
-                            "bg-gradient-to-r from-[rgb(var(--brand-2-rgb)/0.88)] via-[rgb(var(--brand-rgb)/0.82)] to-[rgb(var(--brand-2-rgb)/0.88)]",
-                            "shadow-md shadow-emerald-900/15 opacity-90",
-                            "hover:opacity-100 hover:brightness-[1.05] hover:shadow-lg hover:shadow-emerald-900/20",
-                          ].join(" "),
+                        ? "z-[1] scale-[1.02] shadow-xl shadow-emerald-900/30 ring-2 ring-[var(--accent)] brightness-110"
+                        : "shadow-md shadow-emerald-900/15 ring-1 ring-white/20 hover:brightness-[1.05] hover:shadow-lg hover:ring-[rgb(var(--accent-rgb)/0.45)]",
                     ].join(" ")}
                   >
-                    <p
-                      className={[
-                        "text-sm font-extrabold tracking-tight",
-                        studentPath === "solo" ? "text-[var(--accent)]" : "text-[rgb(var(--accent-rgb)/0.92)]",
-                      ].join(" ")}
-                    >
+                    {studentPath === "solo" ? (
+                      <span
+                        className="absolute right-3 top-3 grid h-5 w-5 place-items-center rounded-full bg-[var(--accent)] text-[10px] font-black text-[color:var(--brand-2)]"
+                        aria-hidden
+                      >
+                        ✓
+                      </span>
+                    ) : null}
+                    <p className="pr-6 text-sm font-extrabold tracking-tight text-[var(--accent)]">
                       I&apos;m learning on my own
                     </p>
-                    <p
-                      className={[
-                        "mt-1 text-xs leading-relaxed",
-                        studentPath === "solo" ? "text-[rgb(var(--accent-rgb)/0.88)]" : "text-white/80",
-                      ].join(" ")}
-                    >
+                    <p className="mt-1 text-xs leading-relaxed text-[rgb(var(--accent-rgb)/0.9)]">
                       No class code needed. We&apos;ll set you up for self-paced learning.
                     </p>
                   </button>
                   <button
                     type="button"
+                    role="radio"
+                    aria-checked={studentPath === "teacher"}
                     onClick={() => {
                       setNewError(null);
                       setStudentPath("teacher");
                     }}
                     className={[
-                      "rounded-2xl px-4 py-4 text-left transition-all duration-300 ease-out",
+                      "relative rounded-2xl px-4 py-4 text-left transition-all duration-300 ease-out",
                       "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)]",
                       "active:scale-[0.98]",
+                      "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
                       studentPath === "teacher"
-                        ? [
-                            "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
-                            "shadow-lg shadow-emerald-900/25 ring-2 ring-[rgb(var(--accent-rgb)/0.85)]",
-                            "hover:brightness-[1.06]",
-                          ].join(" ")
-                        : [
-                            "bg-gradient-to-r from-[rgb(var(--brand-2-rgb)/0.88)] via-[rgb(var(--brand-rgb)/0.82)] to-[rgb(var(--brand-2-rgb)/0.88)]",
-                            "shadow-md shadow-emerald-900/15 opacity-90",
-                            "hover:opacity-100 hover:brightness-[1.05] hover:shadow-lg hover:shadow-emerald-900/20",
-                          ].join(" "),
+                        ? "z-[1] scale-[1.02] shadow-xl shadow-emerald-900/30 ring-2 ring-[var(--accent)] brightness-110"
+                        : "shadow-md shadow-emerald-900/15 ring-1 ring-white/20 hover:brightness-[1.05] hover:shadow-lg hover:ring-[rgb(var(--accent-rgb)/0.45)]",
                     ].join(" ")}
                   >
-                    <p
-                      className={[
-                        "text-sm font-extrabold tracking-tight",
-                        studentPath === "teacher"
-                          ? "text-[var(--accent)]"
-                          : "text-[rgb(var(--accent-rgb)/0.92)]",
-                      ].join(" ")}
-                    >
+                    {studentPath === "teacher" ? (
+                      <span
+                        className="absolute right-3 top-3 grid h-5 w-5 place-items-center rounded-full bg-[var(--accent)] text-[10px] font-black text-[color:var(--brand-2)]"
+                        aria-hidden
+                      >
+                        ✓
+                      </span>
+                    ) : null}
+                    <p className="pr-6 text-sm font-extrabold tracking-tight text-[var(--accent)]">
                       I have a teacher code
                     </p>
-                    <p
-                      className={[
-                        "mt-1 text-xs leading-relaxed",
-                        studentPath === "teacher" ? "text-[rgb(var(--accent-rgb)/0.88)]" : "text-white/80",
-                      ].join(" ")}
-                    >
+                    <p className="mt-1 text-xs leading-relaxed text-[rgb(var(--accent-rgb)/0.9)]">
                       Join your school or club class with the code your teacher shared.
                     </p>
                   </button>
                 </div>
 
-                {studentPath === "teacher" ? (
-                  <div className="mt-4 grid gap-3 rounded-2xl border border-white/50 bg-white/40 p-4">
-                    <div className="space-y-1.5">
-                      <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                        <Hash className="h-4 w-4 text-emerald-600" />
-                        Teacher class code
+                <AnimatePresence initial={false}>
+                  {studentPath === "teacher" ? (
+                    <motion.div
+                      key="teacher-code"
+                      initial={{ height: 0, opacity: 0, y: -6 }}
+                      animate={{ height: "auto", opacity: 1, y: 0 }}
+                      exit={{ height: 0, opacity: 0, y: -6 }}
+                      transition={{ type: "spring", stiffness: 380, damping: 32, mass: 0.7 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="mt-4 grid gap-3 rounded-2xl border border-white/50 bg-white/40 p-4">
+                        <div className="space-y-1.5">
+                          <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                            <Hash className="h-4 w-4 text-emerald-600" />
+                            Teacher class code
+                          </div>
+                          <Input
+                            value={classCode}
+                            onChange={(e) => setClassCode(e.target.value)}
+                            placeholder="Enter your class code"
+                            className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
+                            autoCapitalize="characters"
+                            autoFocus
+                          />
+                        </div>
                       </div>
-                      <Input
-                        value={classCode}
-                        onChange={(e) => setClassCode(e.target.value)}
-                        placeholder="Enter your class code"
-                        className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
-                        autoCapitalize="characters"
-                      />
-                    </div>
-                  </div>
-                ) : null}
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
 
                 <div className="mt-6">
                   <Button
-                    disabled={loadingNew || !studentPath}
+                    disabled={loadingNew}
                     aria-busy={loadingNew}
                     className={[
                       "h-12 w-full rounded-xl px-6 text-base font-semibold",
@@ -493,15 +494,11 @@ export default function WelcomePage() {
                       "focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)]",
                     ].join(" ")}
                     onClick={() => {
-                      if (studentPath === "solo") {
-                        continueNewStudentSignup({ selfPaced: true });
-                        return;
-                      }
                       if (studentPath === "teacher") {
                         continueNewStudentSignup({ classCode });
                         return;
                       }
-                      setNewError("Choose how you’re joining first.");
+                      continueNewStudentSignup({ selfPaced: true });
                     }}
                   >
                     {loadingNew ? (
@@ -542,10 +539,7 @@ export default function WelcomePage() {
 
                 <div className="mt-5 grid gap-3 rounded-2xl border border-white/50 bg-white/40 p-4">
                   <div className="space-y-1.5">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                      <Mail className="h-4 w-4 text-emerald-600" />
-                      Email
-                    </div>
+                    <label className="text-sm font-semibold text-slate-700">Email</label>
                     <Input
                       value={returningEmail}
                       onChange={(e) => setReturningEmail(e.target.value)}
@@ -558,17 +552,11 @@ export default function WelcomePage() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                      <span className="grid h-4 w-4 place-items-center rounded-md bg-emerald-600/10 text-[11px] font-black text-emerald-700">
-                        *
-                      </span>
-                      Password
-                    </div>
-                    <Input
+                    <label className="text-sm font-semibold text-slate-700">Password</label>
+                    <PasswordInput
                       value={returningPassword}
                       onChange={(e) => setReturningPassword(e.target.value)}
                       placeholder="Password"
-                      type="password"
                       name="kanam-returning-password"
                       autoComplete="current-password"
                       className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"

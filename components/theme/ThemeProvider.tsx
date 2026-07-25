@@ -10,7 +10,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       defaultTheme="light"
       enableSystem={false}
       storageKey="kanam-theme"
-      disableTransitionOnChange
     >
       {children}
     </NextThemesProvider>

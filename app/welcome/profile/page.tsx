@@ -8,6 +8,7 @@ import { ArrowRight, ChevronDown, Loader2, UserRound } from "lucide-react";
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
 import { MIN_PASSWORD_LENGTH, passwordLengthError } from "@/lib/auth/password";
 import {
@@ -428,10 +429,9 @@ export default function WelcomeProfilePage() {
                 <label className="text-sm font-semibold text-slate-700">
                   Password <span className="text-emerald-700">*</span>
                 </label>
-                <Input
+                <PasswordInput
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  type="password"
                   placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
                   className="h-11"
                   autoComplete="new-password"
@@ -441,10 +441,9 @@ export default function WelcomeProfilePage() {
                 <label className="text-sm font-semibold text-slate-700">
                   Confirm <span className="text-emerald-700">*</span>
                 </label>
-                <Input
+                <PasswordInput
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  type="password"
                   placeholder="Type it again"
                   className="h-11"
                   autoComplete="new-password"

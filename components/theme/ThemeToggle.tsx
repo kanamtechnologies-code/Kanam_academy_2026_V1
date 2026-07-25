@@ -4,7 +4,40 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { Button } from "@/components/ui/button";
+function prefersReducedMotion() {
+  try {
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  } catch {
+    return false;
+  }
+}
+
+function withThemeAnimation(apply: () => void) {
+  if (prefersReducedMotion()) {
+    apply();
+    return;
+  }
+
+  const root = document.documentElement;
+  const doc = document as Document & {
+    startViewTransition?: (cb: () => void) => { finished: Promise<void> };
+  };
+
+  const run = () => {
+    root.classList.add("theme-animating");
+    apply();
+    window.setTimeout(() => {
+      root.classList.remove("theme-animating");
+    }, 420);
+  };
+
+  if (typeof doc.startViewTransition === "function") {
+    doc.startViewTransition(run);
+    return;
+  }
+
+  run();
+}
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -17,16 +50,53 @@ export function ThemeToggle() {
   const isDark = mounted && resolvedTheme === "dark";
 
   return (
-    <Button
+    <button
       type="button"
-      variant="outline"
-      size="icon"
+      role="switch"
+      aria-checked={isDark}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Light mode" : "Dark mode"}
-      className="min-h-11 min-w-11 border-white/60 bg-white/90 text-[color:var(--brand-2)] hover:bg-white dark:border-white/60 dark:bg-white/90 dark:text-[color:var(--brand-2)] dark:hover:bg-white"
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={() => withThemeAnimation(() => setTheme(isDark ? "light" : "dark"))}
+      className={[
+        "relative inline-flex h-11 w-[4.75rem] shrink-0 items-center rounded-full border border-white/60",
+        "bg-white/90 p-1 shadow-sm transition-colors duration-300",
+        "hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/25",
+        "dark:border-white/60 dark:bg-white/90 dark:hover:bg-white",
+      ].join(" ")}
     >
-      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-    </Button>
+      {/* Track icons */}
+      <span className="pointer-events-none absolute inset-y-0 left-0 flex w-1/2 items-center justify-center">
+        <Sun
+          className={[
+            "h-3.5 w-3.5 transition-colors duration-300",
+            isDark ? "text-slate-400" : "text-[color:var(--brand-2)]",
+          ].join(" ")}
+          aria-hidden
+        />
+      </span>
+      <span className="pointer-events-none absolute inset-y-0 right-0 flex w-1/2 items-center justify-center">
+        <Moon
+          className={[
+            "h-3.5 w-3.5 transition-colors duration-300",
+            isDark ? "text-[color:var(--brand-2)]" : "text-slate-400",
+          ].join(" ")}
+          aria-hidden
+        />
+      </span>
+
+      {/* Sliding thumb */}
+      <span
+        aria-hidden
+        className={[
+          "relative z-[1] grid h-9 w-9 place-items-center rounded-full",
+          "bg-gradient-to-br from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
+          "text-[var(--accent)] shadow-md shadow-emerald-900/25",
+          "transition-transform duration-300 ease-out motion-reduce:transition-none",
+          isDark ? "translate-x-[1.65rem]" : "translate-x-0",
+        ].join(" ")}
+      >
+        {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+      </span>
+    </button>
   );
 }

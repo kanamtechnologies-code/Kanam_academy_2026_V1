@@ -11,6 +11,7 @@ import { WelcomeVideoFader } from "@/components/welcome/WelcomeVideoFader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, isParentRole, postSignInPath } from "@/lib/roles";
@@ -117,11 +118,10 @@ export default function WelcomeReturningPage() {
                     <label className="text-xs font-extrabold uppercase tracking-widest text-white/85">
                       Password
                     </label>
-                    <Input
+                    <PasswordInput
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter your password"
-                      type="password"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/20"
                     />
                   </div>

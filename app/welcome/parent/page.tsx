@@ -11,6 +11,7 @@ import {
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
 import { MIN_PASSWORD_LENGTH, passwordLengthError } from "@/lib/auth/password";
 import { MIN_SELF_SIGNUP_AGE, PRIVACY_POLICY_URL } from "@/lib/coppa/ageGate";
@@ -265,10 +266,9 @@ export default function WelcomeParentPage() {
             </div>
             <div className="space-y-1.5">
               <label className="text-sm font-semibold text-slate-700">Password</label>
-              <Input
+              <PasswordInput
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                type="password"
                 placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
                 className="h-11"
                 autoComplete="new-password"

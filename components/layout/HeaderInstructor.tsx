@@ -14,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
 import { isGuestMode } from "@/lib/guestProgress";
 import { isInstructorRole, postSignInPath, safeNextPath } from "@/lib/roles";
@@ -206,11 +207,10 @@ export function HeaderInstructor() {
             </div>
             <div className="space-y-1.5">
               <p className="text-xs font-semibold text-slate-700">Password</p>
-              <Input
+              <PasswordInput
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Your instructor password"
-                type="password"
                 name="kanam-header-instructor-password"
                 autoComplete="current-password"
                 className="h-12"
@@ -333,11 +333,10 @@ export function HeaderInstructor() {
 
             <div className="space-y-1.5">
               <p className="text-xs font-semibold text-slate-700">Password</p>
-              <Input
+              <PasswordInput
                 value={createPassword}
                 onChange={(e) => setCreatePassword(e.target.value)}
                 placeholder="At least 8 characters"
-                type="password"
                 className="h-12"
               />
             </div>

@@ -8,7 +8,7 @@ import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { WelcomeShell } from "@/components/welcome/WelcomeShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
@@ -193,10 +193,9 @@ export default function ResetPasswordPage() {
                       <p className="text-xs font-extrabold uppercase tracking-widest text-white/85">
                         New password
                       </p>
-                      <Input
+                      <PasswordInput
                         value={pw}
                         onChange={(e) => setPw(e.target.value)}
-                        type="password"
                         placeholder="New password"
                         className="h-12 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                       />
@@ -205,10 +204,9 @@ export default function ResetPasswordPage() {
                       <p className="text-xs font-extrabold uppercase tracking-widest text-white/85">
                         Confirm
                       </p>
-                      <Input
+                      <PasswordInput
                         value={pw2}
                         onChange={(e) => setPw2(e.target.value)}
-                        type="password"
                         placeholder="Type it again"
                         className="h-12 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/25"
                       />
