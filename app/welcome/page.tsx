@@ -28,11 +28,6 @@ type EnsureProfileResponse = {
   student?: { id?: string; display_name?: string };
 };
 
-type CreateInstructorResponse = {
-  ok?: boolean;
-  error?: string;
-};
-
 function errorMessage(error: unknown, fallback: string) {
   if (error instanceof Error && error.message) return error.message;
   return fallback;
@@ -43,13 +38,10 @@ export default function WelcomePage() {
   const [returningEmail, setReturningEmail] = React.useState("");
   const [returningPassword, setReturningPassword] = React.useState("");
   const [classCode, setClassCode] = React.useState("");
+  const [studentPath, setStudentPath] = React.useState<"solo" | "teacher" | null>(null);
   const [loadingNew, setLoadingNew] = React.useState(false);
   const [loadingReturning, setLoadingReturning] = React.useState(false);
-  const [loadingInstructor, setLoadingInstructor] = React.useState(false);
-  const [requestingCode, setRequestingCode] = React.useState(false);
-  const [requestCodeMsg, setRequestCodeMsg] = React.useState<string | null>(null);
   const [returningError, setReturningError] = React.useState<string | null>(null);
-  const [instructorError, setInstructorError] = React.useState<string | null>(null);
   const [newError, setNewError] = React.useState<string | null>(null);
   const [forgotOpen, setForgotOpen] = React.useState(false);
   const [forgotEmail, setForgotEmail] = React.useState("");
@@ -98,21 +90,6 @@ export default function WelcomePage() {
     }
   }, []);
 
-  const [instructorSignInOpen, setInstructorSignInOpen] = React.useState(false);
-  const [instructorSignInEmail, setInstructorSignInEmail] = React.useState("");
-  const [instructorSignInPassword, setInstructorSignInPassword] = React.useState("");
-
-  const [instrCreateOpen, setInstrCreateOpen] = React.useState(false);
-  const [instrInviteCode, setInstrInviteCode] = React.useState("");
-  const [instrFirstName, setInstrFirstName] = React.useState("");
-  const [instrLastName, setInstrLastName] = React.useState("");
-  const [instrEmail, setInstrEmail] = React.useState("");
-  const [instrPassword, setInstrPassword] = React.useState("");
-  const [instrCreateStatus, setInstrCreateStatus] = React.useState<
-    "idle" | "creating" | "created" | "error"
-  >("idle");
-  const [instrCreateError, setInstrCreateError] = React.useState<string | null>(null);
-
   const cardEnter = (delay: number) => ({
     initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
@@ -122,119 +99,92 @@ export default function WelcomePage() {
   const glassCardBase =
     "rounded-[32px] bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)]";
 
-  const signInWith = React.useCallback(
-    async (mode: "learner" | "instructor", creds: { email: string; password: string }) => {
-      if (mode === "learner") setReturningError(null);
-      if (mode === "instructor") setInstructorError(null);
+  const signInLearner = React.useCallback(async () => {
+    setReturningError(null);
+    const em = returningEmail.trim();
+    const pw = returningPassword;
 
-      const em = creds.email.trim();
-      const pw = creds.password;
+    if (!em || !em.includes("@")) {
+      setReturningError("Enter your email.");
+      return;
+    }
+    if (!pw) {
+      setReturningError("Enter your password.");
+      return;
+    }
 
-      if (!em || !em.includes("@")) {
-        const msg = "Enter your email.";
-        if (mode === "instructor") setInstructorError(msg);
-        else setReturningError(msg);
+    setLoadingReturning(true);
+    try {
+      const supabase = createSupabaseBrowserClient();
+      if (!supabase) throw new Error("Sign-in is unavailable in demo mode.");
+      const { error } = await supabase.auth.signInWithPassword({
+        email: em,
+        password: pw,
+      });
+      if (error) throw new Error(error.message);
+
+      const { data } = await supabase.auth.getUser();
+      const user = data.user;
+
+      const next =
+        typeof window !== "undefined"
+          ? safeNextPath(new URLSearchParams(window.location.search).get("next"))
+          : null;
+
+      const preferNext =
+        next && (next.startsWith("/billing") || next.startsWith("/checkout"));
+
+      if (isInstructorRole(user) || isParentRole(user)) {
+        router.push(preferNext ? next : postSignInPath(user));
         return;
       }
-      if (!pw) {
-        const msg = "Enter your password.";
-        if (mode === "instructor") setInstructorError(msg);
-        else setReturningError(msg);
+
+      const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
+      const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
+      if (!ensureRes.ok || !ensureJson?.ok) {
+        throw new Error(ensureJson?.error || "Signed in, but could not load your profile.");
+      }
+      router.push(next || "/dashboard");
+    } catch (error: unknown) {
+      setReturningError(errorMessage(error, "Sign-in failed."));
+    } finally {
+      setLoadingReturning(false);
+    }
+  }, [returningEmail, returningPassword, router]);
+
+  const continueNewStudentSignup = React.useCallback(
+    (opts: { selfPaced?: boolean; classCode?: string }) => {
+      setNewError(null);
+      if (opts.selfPaced) {
+        try {
+          window.localStorage.removeItem("kanam.classCode");
+          window.localStorage.setItem("kanam.selfPaced", "1");
+        } catch {
+          // ignore
+        }
+        setLoadingNew(true);
+        router.push("/welcome/age?selfPaced=1");
         return;
       }
 
-      if (mode === "instructor") setLoadingInstructor(true);
-      else setLoadingReturning(true);
-
+      const cc = (opts.classCode ?? "").trim();
+      if (!cc) {
+        setNewError("Enter the class code from your teacher.");
+        return;
+      }
       try {
-        const supabase = createSupabaseBrowserClient();
-        if (!supabase) throw new Error("Sign-in is unavailable in demo mode.");
-        const { error } = await supabase.auth.signInWithPassword({
-          email: em,
-          password: pw,
-        });
-        if (error) throw new Error(error.message);
-
-        const { data } = await supabase.auth.getUser();
-        const user = data.user;
-
-        if (mode === "instructor" && !isInstructorRole(user)) {
-          throw new Error(
-            "This account isn’t set up as an instructor yet. Ask your admin to set role = instructor."
-          );
-        }
-
-        const next =
-          typeof window !== "undefined"
-            ? safeNextPath(new URLSearchParams(window.location.search).get("next"))
-            : null;
-
-        const preferNext =
-          next && (next.startsWith("/billing") || next.startsWith("/checkout"));
-
-        if (isInstructorRole(user)) {
-          setInstructorSignInOpen(false);
-          router.push(preferNext ? next : postSignInPath(user));
-          return;
-        }
-
-        if (isParentRole(user)) {
-          router.push(preferNext ? next : postSignInPath(user));
-          return;
-        }
-
-        if (mode === "learner") {
-          const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
-          const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
-          if (!ensureRes.ok || !ensureJson?.ok) {
-            throw new Error(ensureJson?.error || "Signed in, but could not load your profile.");
-          }
-          router.push(next || "/dashboard");
-          return;
-        }
-
-        router.push(next || postSignInPath(user));
-      } catch (error: unknown) {
-        const msg = errorMessage(error, "Sign-in failed.");
-        if (mode === "instructor") setInstructorError(msg);
-        else setReturningError(msg);
-      } finally {
-        if (mode === "instructor") setLoadingInstructor(false);
-        else setLoadingReturning(false);
+        window.localStorage.setItem("kanam.classCode", cc);
+        window.localStorage.removeItem("kanam.selfPaced");
+      } catch {
+        // ignore
       }
+      setClassCode(cc);
+      setLoadingNew(true);
+      const params = new URLSearchParams({ classCode: cc });
+      router.push(`/welcome/age?${params.toString()}`);
     },
     [router]
   );
-
-  const signInLearner = React.useCallback(() => {
-    signInWith("learner", {
-      email: returningEmail,
-      password: returningPassword,
-    });
-  }, [returningEmail, returningPassword, signInWith]);
-
-  const signInInstructor = React.useCallback(() => {
-    signInWith("instructor", {
-      email: instructorSignInEmail,
-      password: instructorSignInPassword,
-    });
-  }, [instructorSignInEmail, instructorSignInPassword, signInWith]);
-
-  const openInstructorSignIn = React.useCallback(() => {
-    setInstructorError(null);
-    setInstructorSignInOpen(true);
-  }, []);
-
-  const openInstructorCreate = React.useCallback(() => {
-    setInstrCreateStatus("idle");
-    setInstrCreateError(null);
-    setInstrInviteCode("");
-    setInstrFirstName("");
-    setInstrLastName("");
-    if (instructorSignInEmail.trim()) setInstrEmail(instructorSignInEmail.trim());
-    setInstrPassword("");
-    setInstrCreateOpen(true);
-  }, [instructorSignInEmail]);
 
   return (
     <WelcomeBackground>
@@ -340,10 +290,6 @@ export default function WelcomePage() {
               <p className="mt-2 text-base font-black tracking-tight text-slate-900">
                 Just browsing? Try a guided lesson — no account needed.
               </p>
-              <p className="mt-1 text-sm text-slate-600">
-                Preview a classroom-style lesson (objectives, practice, checks). Educators and
-                parents can use this before creating a real account.
-              </p>
 
               <div className="mt-4">
                 <Button
@@ -377,9 +323,6 @@ export default function WelcomePage() {
                 <h2 className="mt-1 text-lg font-black tracking-tight text-slate-900 sm:text-xl">
                   I&apos;m a parent
                 </h2>
-                <p className="mt-1 text-sm text-slate-600">
-                  New here? Create a family account. Already set up? Sign in to open the parent hub.
-                </p>
               </div>
               <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
                 <Button
@@ -414,21 +357,16 @@ export default function WelcomePage() {
                 <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-900">
                   I’m a new student
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Enter a class code, confirm your age, then create an email login. Use a teacher
-                  code for school, or get a self-paced code to learn on your own — then unlock
-                  tracks with a plan or purchase when you&apos;re ready.
-                </p>
                 <p className="mt-2 text-xs leading-relaxed text-slate-500">
                   Under 13? A parent must{" "}
                   <button
                     type="button"
                     className="font-semibold text-emerald-800 underline underline-offset-2"
-                    onClick={() => router.push("/welcome/parent?reason=under13")}
+                    onClick={() => router.push("/welcome/ask-parent")}
                   >
                     create a family account
-                  </button>{" "}
-                  — kids under 13 can&apos;t create their own email login.
+                  </button>
+                  .
                 </p>
 
                 {newError ? (
@@ -438,92 +376,113 @@ export default function WelcomePage() {
                     </Notice>
                   </div>
                 ) : null}
-                {requestCodeMsg ? (
-                  <div className="mt-5">
-                    <Notice compact variant="success">
-                      {requestCodeMsg}
-                    </Notice>
+
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNewError(null);
+                      setStudentPath("solo");
+                    }}
+                    className={[
+                      "rounded-2xl px-4 py-4 text-left transition-all duration-300 ease-out",
+                      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)]",
+                      "active:scale-[0.98]",
+                      studentPath === "solo"
+                        ? [
+                            "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
+                            "shadow-lg shadow-emerald-900/25 ring-2 ring-[rgb(var(--accent-rgb)/0.85)]",
+                            "hover:brightness-[1.06]",
+                          ].join(" ")
+                        : [
+                            "bg-gradient-to-r from-[rgb(var(--brand-2-rgb)/0.88)] via-[rgb(var(--brand-rgb)/0.82)] to-[rgb(var(--brand-2-rgb)/0.88)]",
+                            "shadow-md shadow-emerald-900/15 opacity-90",
+                            "hover:opacity-100 hover:brightness-[1.05] hover:shadow-lg hover:shadow-emerald-900/20",
+                          ].join(" "),
+                    ].join(" ")}
+                  >
+                    <p
+                      className={[
+                        "text-sm font-extrabold tracking-tight",
+                        studentPath === "solo" ? "text-[var(--accent)]" : "text-[rgb(var(--accent-rgb)/0.92)]",
+                      ].join(" ")}
+                    >
+                      I&apos;m learning on my own
+                    </p>
+                    <p
+                      className={[
+                        "mt-1 text-xs leading-relaxed",
+                        studentPath === "solo" ? "text-[rgb(var(--accent-rgb)/0.88)]" : "text-white/80",
+                      ].join(" ")}
+                    >
+                      No class code needed. We&apos;ll set you up for self-paced learning.
+                    </p>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNewError(null);
+                      setStudentPath("teacher");
+                    }}
+                    className={[
+                      "rounded-2xl px-4 py-4 text-left transition-all duration-300 ease-out",
+                      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)]",
+                      "active:scale-[0.98]",
+                      studentPath === "teacher"
+                        ? [
+                            "bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
+                            "shadow-lg shadow-emerald-900/25 ring-2 ring-[rgb(var(--accent-rgb)/0.85)]",
+                            "hover:brightness-[1.06]",
+                          ].join(" ")
+                        : [
+                            "bg-gradient-to-r from-[rgb(var(--brand-2-rgb)/0.88)] via-[rgb(var(--brand-rgb)/0.82)] to-[rgb(var(--brand-2-rgb)/0.88)]",
+                            "shadow-md shadow-emerald-900/15 opacity-90",
+                            "hover:opacity-100 hover:brightness-[1.05] hover:shadow-lg hover:shadow-emerald-900/20",
+                          ].join(" "),
+                    ].join(" ")}
+                  >
+                    <p
+                      className={[
+                        "text-sm font-extrabold tracking-tight",
+                        studentPath === "teacher"
+                          ? "text-[var(--accent)]"
+                          : "text-[rgb(var(--accent-rgb)/0.92)]",
+                      ].join(" ")}
+                    >
+                      I have a teacher code
+                    </p>
+                    <p
+                      className={[
+                        "mt-1 text-xs leading-relaxed",
+                        studentPath === "teacher" ? "text-[rgb(var(--accent-rgb)/0.88)]" : "text-white/80",
+                      ].join(" ")}
+                    >
+                      Join your school or club class with the code your teacher shared.
+                    </p>
+                  </button>
+                </div>
+
+                {studentPath === "teacher" ? (
+                  <div className="mt-4 grid gap-3 rounded-2xl border border-white/50 bg-white/40 p-4">
+                    <div className="space-y-1.5">
+                      <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                        <Hash className="h-4 w-4 text-emerald-600" />
+                        Teacher class code
+                      </div>
+                      <Input
+                        value={classCode}
+                        onChange={(e) => setClassCode(e.target.value)}
+                        placeholder="Enter your class code"
+                        className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
+                        autoCapitalize="characters"
+                      />
+                    </div>
                   </div>
                 ) : null}
 
-                <div className="mt-6 grid gap-3 rounded-2xl border border-white/50 bg-white/40 p-4">
-                  <div className="space-y-1.5">
-                    <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                      <Hash className="h-4 w-4 text-emerald-600" />
-                      Class code <span className="font-normal text-slate-500">(required)</span>
-                    </div>
-                    <Input
-                      value={classCode}
-                      onChange={(e) => setClassCode(e.target.value)}
-                      placeholder="Teacher code or self-paced code"
-                      className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
-                    />
-                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                      <p className="text-xs text-slate-600">
-                        Learning on your own? Get a self-paced code. Next we&apos;ll ask your age
-                        before collecting email.
-                      </p>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        disabled={requestingCode}
-                        className="shrink-0"
-                        onClick={async () => {
-                          setNewError(null);
-                          setRequestCodeMsg(null);
-                          setRequestingCode(true);
-                          try {
-                            const res = await fetch("/api/student/request-class-code", {
-                              method: "POST",
-                              headers: { "content-type": "application/json" },
-                            });
-                            const json = (await res.json()) as {
-                              ok?: boolean;
-                              error?: string;
-                              message?: string;
-                              classCode?: string;
-                            };
-                            if (!res.ok || !json.ok) {
-                              throw new Error(json.error || "Could not get a class code.");
-                            }
-                            if (json.classCode) {
-                              setClassCode(json.classCode);
-                              try {
-                                window.localStorage.setItem("kanam.classCode", json.classCode);
-                              } catch {
-                                // ignore
-                              }
-                            }
-                            setRequestCodeMsg(
-                              json.message ||
-                                (json.classCode
-                                  ? `Your self-paced code is ${json.classCode}. We filled it in for you.`
-                                  : "Class code ready.")
-                            );
-                          } catch (error: unknown) {
-                            setNewError(errorMessage(error, "Could not get a class code."));
-                          } finally {
-                            setRequestingCode(false);
-                          }
-                        }}
-                      >
-                        {requestingCode ? (
-                          <>
-                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                            Getting code…
-                          </>
-                        ) : (
-                          "Get a self-paced code"
-                        )}
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
                 <div className="mt-6">
                   <Button
-                    disabled={loadingNew}
+                    disabled={loadingNew || !studentPath}
                     aria-busy={loadingNew}
                     className={[
                       "h-12 w-full rounded-xl px-6 text-base font-semibold",
@@ -534,56 +493,28 @@ export default function WelcomePage() {
                       "focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)]",
                     ].join(" ")}
                     onClick={() => {
-                      setNewError(null);
-                      const cc = classCode.trim();
-                      if (!cc) {
-                        setNewError(
-                          "Enter a class code, or tap “Get a self-paced code” first."
-                        );
+                      if (studentPath === "solo") {
+                        continueNewStudentSignup({ selfPaced: true });
                         return;
                       }
-                      try {
-                        window.localStorage.setItem("kanam.classCode", cc);
-                      } catch {
-                        // ignore
+                      if (studentPath === "teacher") {
+                        continueNewStudentSignup({ classCode });
+                        return;
                       }
-                      setLoadingNew(true);
-                      const params = new URLSearchParams({ classCode: cc });
-                      router.push(`/welcome/age?${params.toString()}`);
+                      setNewError("Choose how you’re joining first.");
                     }}
                   >
                     {loadingNew ? (
                       <>
                         <Loader2 className="h-5 w-5 animate-spin" />
-                        Loading…
+                        Starting signup…
                       </>
                     ) : (
                       <>
-                        Continue <ArrowRight className="h-4 w-4" />
+                        Create student account <ArrowRight className="h-4 w-4" />
                       </>
                     )}
                   </Button>
-                </div>
-
-                <div className="mt-4 rounded-2xl border border-white/50 bg-white/40 p-4">
-                  <p className="text-sm font-extrabold tracking-tight text-slate-900">After you sign up</p>
-                  <p className="mt-1 text-sm text-slate-700">
-                    You&apos;ll land on your learning hub. Open tracks you&apos;ve unlocked, or go to{" "}
-                    <Link
-                      className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
-                      href="/billing"
-                    >
-                      Billing
-                    </Link>{" "}
-                    for the Family plan or individual tracks. Need help?{" "}
-                    <Link
-                      className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
-                      href="/help"
-                    >
-                      Help
-                    </Link>
-                    .
-                  </p>
                 </div>
               </motion.div>
 
@@ -600,11 +531,6 @@ export default function WelcomePage() {
                 <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-900">
                   Sign in
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Students go to the learning hub. Parents go to the family hub to pick a child.
-                  Instructors go to the instructor dashboard. Same email and password you used to
-                  create the account.
-                </p>
 
                 {returningError ? (
                   <div className="mt-4">
@@ -629,9 +555,6 @@ export default function WelcomePage() {
                       autoComplete="username"
                       className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
                     />
-                    <p className="text-xs text-slate-600">
-                      Student, parent, or instructor email — same one you signed up with.
-                    </p>
                   </div>
 
                   <div className="space-y-1.5">
@@ -650,8 +573,7 @@ export default function WelcomePage() {
                       autoComplete="current-password"
                       className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
                     />
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <p className="text-xs text-slate-600">Use your Kanam password.</p>
+                    <div className="flex flex-wrap items-center justify-end gap-2">
                       <Dialog
                         open={forgotOpen}
                         onOpenChange={(o) => {
@@ -781,286 +703,6 @@ export default function WelcomePage() {
                       </>
                     )}
                   </Button>
-
-                  <Notice
-                    compact
-                    variant="info"
-                    title="Educator or instructor?"
-                    action={
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        className="w-full border-[var(--brand)]/30 bg-white/80 sm:w-auto"
-                        onClick={openInstructorSignIn}
-                      >
-                        <Users className="h-4 w-4" />
-                        Instructor sign in
-                      </Button>
-                    }
-                  >
-                    Use a separate sign-in for your instructor dashboard.
-                  </Notice>
-
-                  <button
-                    type="button"
-                    className="w-full text-xs font-semibold text-slate-700 underline underline-offset-2 hover:text-slate-900"
-                    onClick={openInstructorCreate}
-                  >
-                    Create instructor account
-                  </button>
-
-                  <Dialog
-                    open={instructorSignInOpen}
-                    onOpenChange={(open) => {
-                      setInstructorSignInOpen(open);
-                      if (!open) setInstructorError(null);
-                    }}
-                  >
-                    <DialogContent className="max-w-md">
-                      <DialogHeader>
-                        <DialogTitle>Instructor sign in</DialogTitle>
-                        <DialogDescription>
-                          Access your classes, class codes, and learner progress.
-                        </DialogDescription>
-                      </DialogHeader>
-
-                      {instructorError ? (
-                        <Notice compact variant="danger" role="alert">
-                          {instructorError}
-                        </Notice>
-                      ) : null}
-
-                      <div className="grid gap-3">
-                        <div className="space-y-1.5">
-                          <p className="text-xs font-semibold text-slate-700">Instructor email</p>
-                          <Input
-                            value={instructorSignInEmail}
-                            onChange={(e) => setInstructorSignInEmail(e.target.value)}
-                            placeholder="you@school.org"
-                            type="email"
-                            name="kanam-instructor-email"
-                            autoComplete="off"
-                            className="h-12"
-                          />
-                        </div>
-                        <div className="space-y-1.5">
-                          <p className="text-xs font-semibold text-slate-700">Password</p>
-                          <Input
-                            value={instructorSignInPassword}
-                            onChange={(e) => setInstructorSignInPassword(e.target.value)}
-                            placeholder="Your instructor password"
-                            type="password"
-                            name="kanam-instructor-password"
-                            autoComplete="new-password"
-                            className="h-12"
-                          />
-                        </div>
-                      </div>
-
-                      <DialogFooter className="flex-col gap-2 sm:flex-col sm:space-x-0">
-                        <Button
-                          type="button"
-                          className="h-11 w-full"
-                          disabled={loadingInstructor}
-                          onClick={signInInstructor}
-                        >
-                          {loadingInstructor ? (
-                            <>
-                              <Loader2 className="h-4 w-4 animate-spin" />
-                              Signing in…
-                            </>
-                          ) : (
-                            "Sign in as instructor"
-                          )}
-                        </Button>
-                        <button
-                          type="button"
-                          className="text-xs font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900"
-                          onClick={() => {
-                            setInstructorSignInOpen(false);
-                            setForgotEmail(instructorSignInEmail.trim() || forgotEmail);
-                            setForgotError(null);
-                            setForgotStatus("idle");
-                            setForgotOpen(true);
-                          }}
-                        >
-                          Forgot password?
-                        </button>
-                        <button
-                          type="button"
-                          className="text-xs font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900"
-                          onClick={() => {
-                            setInstructorSignInOpen(false);
-                            openInstructorCreate();
-                          }}
-                        >
-                          Create instructor account
-                        </button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-
-                  <Dialog
-                    open={instrCreateOpen}
-                    onOpenChange={(o) => {
-                      setInstrCreateOpen(o);
-                      if (!o) {
-                        setInstrCreateStatus("idle");
-                        setInstrCreateError(null);
-                      }
-                    }}
-                  >
-                    <DialogContent className="max-w-lg">
-                      <DialogHeader>
-                        <DialogTitle>Create an instructor account</DialogTitle>
-                        <DialogDescription>
-                          This is staff-only. You’ll need the instructor invite code.
-                        </DialogDescription>
-                      </DialogHeader>
-
-                      {instrCreateError ? (
-                        <Notice compact variant="danger" role="alert">
-                          {instrCreateError}
-                        </Notice>
-                      ) : null}
-
-                      {instrCreateStatus === "created" ? (
-                        <Notice compact variant="success">
-                          Instructor account created. Use the instructor sign-in window to continue.
-                        </Notice>
-                      ) : null}
-
-                      <div className="grid gap-3">
-                        <div className="space-y-1.5">
-                          <p className="text-xs font-semibold text-slate-700">Instructor invite code</p>
-                          <Input
-                            value={instrInviteCode}
-                            onChange={(e) => setInstrInviteCode(e.target.value)}
-                            placeholder="Invite code"
-                            className="h-12"
-                          />
-                        </div>
-
-                        <div className="grid gap-3 sm:grid-cols-2">
-                          <div className="space-y-1.5">
-                            <p className="text-xs font-semibold text-slate-700">First name</p>
-                            <Input
-                              value={instrFirstName}
-                              onChange={(e) => setInstrFirstName(e.target.value)}
-                              placeholder="First name"
-                              className="h-12"
-                            />
-                          </div>
-                          <div className="space-y-1.5">
-                            <p className="text-xs font-semibold text-slate-700">Last name</p>
-                            <Input
-                              value={instrLastName}
-                              onChange={(e) => setInstrLastName(e.target.value)}
-                              placeholder="Last name"
-                              className="h-12"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <p className="text-xs font-semibold text-slate-700">Email</p>
-                          <Input
-                            value={instrEmail}
-                            onChange={(e) => setInstrEmail(e.target.value)}
-                            placeholder="you@school.org"
-                            type="email"
-                            name="kanam-instructor-create-email"
-                            autoComplete="off"
-                            className="h-12"
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <p className="text-xs font-semibold text-slate-700">Password</p>
-                          <Input
-                            value={instrPassword}
-                            onChange={(e) => setInstrPassword(e.target.value)}
-                            placeholder="At least 8 characters"
-                            type="password"
-                            className="h-12"
-                          />
-                        </div>
-                      </div>
-
-                      <DialogFooter className="gap-2 sm:gap-0">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="h-11"
-                          onClick={() => setInstrCreateOpen(false)}
-                        >
-                          Close
-                        </Button>
-                        <Button
-                          type="button"
-                          className="h-11"
-                          disabled={instrCreateStatus === "creating"}
-                          onClick={async () => {
-                            setInstrCreateError(null);
-                            setInstrCreateStatus("creating");
-                            try {
-                              const res = await fetch("/api/admin/create-instructor", {
-                                method: "POST",
-                                headers: { "content-type": "application/json" },
-                                body: JSON.stringify({
-                                  inviteCode: instrInviteCode.trim(),
-                                  email: instrEmail.trim(),
-                                  password: instrPassword,
-                                  firstName: instrFirstName.trim(),
-                                  lastName: instrLastName.trim(),
-                                }),
-                              });
-                              const json = (await res.json()) as CreateInstructorResponse;
-                              if (!res.ok || json?.ok === false) {
-                                throw new Error(json?.error || "Could not create instructor.");
-                              }
-                              setInstrCreateStatus("created");
-                              setInstructorSignInEmail(instrEmail.trim());
-                              setInstructorSignInPassword(instrPassword);
-                              setInstrCreateOpen(false);
-                              setInstructorSignInOpen(true);
-                            } catch (error: unknown) {
-                              setInstrCreateStatus("error");
-                              setInstrCreateError(
-                                errorMessage(error, "Could not create instructor.")
-                              );
-                            }
-                          }}
-                        >
-                          {instrCreateStatus === "creating" ? (
-                            <>
-                              <Loader2 className="h-4 w-4 animate-spin" />
-                              Creating…
-                            </>
-                          ) : (
-                            "Create instructor"
-                          )}
-                        </Button>
-                      </DialogFooter>
-
-                      <div className="pt-2">
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="h-11 w-full"
-                          onClick={() => {
-                            setInstrCreateOpen(false);
-                            setInstructorSignInEmail(instrEmail.trim() || instructorSignInEmail);
-                            setInstructorSignInPassword(instrPassword || instructorSignInPassword);
-                            setInstructorSignInOpen(true);
-                          }}
-                        >
-                          Go to instructor sign in
-                        </Button>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
 
                   <div className="rounded-2xl border border-white/50 bg-white/40 p-4">
                     <p className="text-xs text-slate-600">

@@ -37,10 +37,6 @@ function errorMessage(error: unknown, fallback: string) {
   return fallback;
 }
 
-function isAsyncCode(code: string) {
-  return code.trim().toUpperCase() === "KANAM-ASYNC";
-}
-
 export default function WelcomeProfilePage() {
   const router = useRouter();
   const [saving, setSaving] = React.useState(false);
@@ -48,6 +44,7 @@ export default function WelcomeProfilePage() {
   const [showOptional, setShowOptional] = React.useState(false);
 
   const [classCode, setClassCode] = React.useState("");
+  const [selfPaced, setSelfPaced] = React.useState(false);
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -68,31 +65,41 @@ export default function WelcomeProfilePage() {
   React.useEffect(() => {
     let qpEmail = "";
     let qpClass = "";
+    let qpSelfPaced = false;
     try {
       const sp = new URLSearchParams(window.location.search);
       qpEmail = (sp.get("email") ?? "").trim();
       qpClass = (sp.get("classCode") ?? "").trim();
+      qpSelfPaced = sp.get("selfPaced") === "1";
     } catch {
       // ignore
     }
 
     let storedClass = "";
+    let storedSelfPaced = false;
     try {
       storedClass = window.localStorage.getItem("kanam.classCode") ?? "";
+      storedSelfPaced = window.localStorage.getItem("kanam.selfPaced") === "1";
       if (!qpEmail) setEmail(window.localStorage.getItem("kanam.onboardingEmail") ?? "");
     } catch {
       // ignore
     }
 
+    const isSelfPaced = qpSelfPaced || (!qpClass && storedSelfPaced);
+    setSelfPaced(isSelfPaced);
+
     const cc = qpClass || storedClass;
-    if (qpClass) setClassCode(qpClass);
-    else if (storedClass) setClassCode(storedClass);
+    if (!isSelfPaced) {
+      if (qpClass) setClassCode(qpClass);
+      else if (storedClass) setClassCode(storedClass);
+    }
     if (qpEmail) setEmail(qpEmail);
 
     // COPPA: student email signup requires a fresh 13+ age attestation.
     if (!hasValidSelfSignupAttestation()) {
       const params = new URLSearchParams();
-      if (cc) params.set("classCode", cc);
+      if (isSelfPaced) params.set("selfPaced", "1");
+      else if (cc) params.set("classCode", cc);
       router.replace(`/welcome/age${params.toString() ? `?${params.toString()}` : ""}`);
     }
   }, [router]);
@@ -104,8 +111,8 @@ export default function WelcomeProfilePage() {
     const trimmedLast = lastName.trim();
     const trimmedEmail = email.trim().toLowerCase();
 
-    if (!cc) {
-      setError("A class code is required. Go back and tap “Get a self-paced code” if you need one.");
+    if (!selfPaced && !cc) {
+      setError("A teacher class code is required. Go back and enter it, or choose self-paced.");
       return;
     }
     if (!trimmedFirst) {
@@ -149,7 +156,8 @@ export default function WelcomeProfilePage() {
     if (!attestation?.eligibleForSelfSignup || !attestation.birthdate) {
       setError(`Age confirmation expired. Confirm you are ${MIN_SELF_SIGNUP_AGE}+ to continue.`);
       const params = new URLSearchParams();
-      if (cc) params.set("classCode", cc);
+      if (selfPaced) params.set("selfPaced", "1");
+      else if (cc) params.set("classCode", cc);
       router.replace(`/welcome/age${params.toString() ? `?${params.toString()}` : ""}`);
       return;
     }
@@ -163,7 +171,7 @@ export default function WelcomeProfilePage() {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          classCode: cc,
+          ...(selfPaced ? { selfPaced: true } : { classCode: cc }),
           email: trimmedEmail,
           password,
           firstName: trimmedFirst,
@@ -181,7 +189,11 @@ export default function WelcomeProfilePage() {
       if (!res.ok || !json?.ok) {
         if (json?.code === "UNDER_13_PARENT_REQUIRED") {
           clearAgeAttestation();
-          router.replace("/welcome/parent?reason=under13");
+          const params = new URLSearchParams();
+          if (!selfPaced && cc) params.set("classCode", cc);
+          router.replace(
+            `/welcome/ask-parent${params.toString() ? `?${params.toString()}` : ""}`
+          );
           return;
         }
         throw new Error(json?.error || "Could not create account.");
@@ -189,7 +201,13 @@ export default function WelcomeProfilePage() {
 
       try {
         window.localStorage.setItem(USER_NAME_KEY, trimmedFirst);
-        window.localStorage.setItem("kanam.classCode", cc);
+        if (selfPaced) {
+          window.localStorage.setItem("kanam.selfPaced", "1");
+          window.localStorage.removeItem("kanam.classCode");
+        } else {
+          window.localStorage.setItem("kanam.classCode", cc);
+          window.localStorage.removeItem("kanam.selfPaced");
+        }
         window.localStorage.setItem("kanam.onboardingEmail", trimmedEmail);
       } catch {
         // ignore
@@ -254,7 +272,7 @@ export default function WelcomeProfilePage() {
             self-paced learning. Progress and XP save to this profile. Under {MIN_SELF_SIGNUP_AGE}?
             Use a{" "}
             <Link
-              href="/welcome/parent?reason=under13"
+              href="/welcome/ask-parent"
               className="font-semibold text-emerald-800 underline underline-offset-2"
             >
               family account
@@ -309,23 +327,28 @@ export default function WelcomeProfilePage() {
           ) : null}
 
           <div className={`mt-6 grid gap-3 ${pendingConfirmEmail ? "hidden" : ""}`}>
-            <div className="space-y-1.5">
-              <label className="text-sm font-semibold text-slate-700">
-                Class code <span className="text-emerald-700">*</span>
-              </label>
-              <Input
-                value={classCode}
-                onChange={(e) => setClassCode(e.target.value)}
-                placeholder="Teacher code or KANAM-ASYNC"
-                className="h-11"
-                autoCapitalize="characters"
-              />
-              <p className="text-xs text-slate-500">
-                {isAsyncCode(classCode)
-                  ? "Self-paced cohort — unlock tracks from Billing after you create your account."
-                  : "Teacher codes join a class with assigned lessons. Self-paced? Use KANAM-ASYNC from the welcome screen."}
-              </p>
-            </div>
+            {selfPaced ? (
+              <Notice compact variant="info" role="status">
+                Self-paced learning — no class code needed. You can unlock tracks from Billing
+                after you create your account.
+              </Notice>
+            ) : (
+              <div className="space-y-1.5">
+                <label className="text-sm font-semibold text-slate-700">
+                  Class code <span className="text-emerald-700">*</span>
+                </label>
+                <Input
+                  value={classCode}
+                  onChange={(e) => setClassCode(e.target.value)}
+                  placeholder="Teacher class code"
+                  className="h-11"
+                  autoCapitalize="characters"
+                />
+                <p className="text-xs text-slate-500">
+                  Teacher codes join a class with assigned lessons.
+                </p>
+              </div>
+            )}
 
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="space-y-1.5">
@@ -377,7 +400,7 @@ export default function WelcomeProfilePage() {
                 Grades 5–6 often include learners under {MIN_SELF_SIGNUP_AGE}. If that&apos;s you,
                 please use a{" "}
                 <Link
-                  href="/welcome/parent?reason=under13"
+                  href="/welcome/ask-parent"
                   className="font-semibold underline underline-offset-2"
                 >
                   family account

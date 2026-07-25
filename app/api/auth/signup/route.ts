@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 
-import { enrollStudentInClassByCode, getAsyncClassCode } from "@/lib/asyncClass";
+import {
+  enrollStudentInClassByCode,
+  ensureAsyncClass,
+  getAsyncClassCode,
+} from "@/lib/asyncClass";
 import { passwordLengthError } from "@/lib/auth/password";
 import { sendSignupConfirmationEmail } from "@/lib/auth/sendSignupConfirmation";
 import {
@@ -16,6 +20,8 @@ export const runtime = "nodejs";
 
 type Body = {
   classCode?: string;
+  /** Solo learner — enroll in the shared self-paced class (no teacher code). */
+  selfPaced?: boolean;
   email: string;
   password: string;
   firstName: string;
@@ -84,7 +90,8 @@ export async function POST(req: Request) {
   const password = s(body.password);
   const firstName = s(body.firstName);
   const lastName = s(body.lastName);
-  const classCode = s(body.classCode).toUpperCase();
+  const selfPaced = Boolean(body.selfPaced);
+  let classCode = s(body.classCode).toUpperCase();
 
   const birthdate = s(body.birthdate);
   const grade = s(body.grade) || null;
@@ -107,11 +114,22 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
-  if (!classCode) {
+  if (selfPaced) {
+    try {
+      await ensureAsyncClass();
+    } catch (error: unknown) {
+      return NextResponse.json(
+        { ok: false, error: errorMessage(error, "Self-paced class is not available right now.") },
+        { status: 500 }
+      );
+    }
+    classCode = getAsyncClassCode();
+  } else if (!classCode) {
     return NextResponse.json(
       {
         ok: false,
-        error: `A class code is required. Request the self-paced code (${getAsyncClassCode()}) by email if you do not have a teacher code.`,
+        error:
+          "Enter a teacher class code, or choose self-paced learning on the welcome screen.",
       },
       { status: 400 }
     );

@@ -27,22 +27,36 @@ export default function WelcomeAgeGatePage() {
   const router = useRouter();
   const [birthdate, setBirthdate] = React.useState("");
   const [classCode, setClassCode] = React.useState("");
+  const [selfPaced, setSelfPaced] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     let qpClass = "";
+    let qpSelfPaced = false;
     try {
       const sp = new URLSearchParams(window.location.search);
       qpClass = (sp.get("classCode") ?? "").trim();
+      qpSelfPaced = sp.get("selfPaced") === "1";
     } catch {
       // ignore
     }
+    if (qpSelfPaced) {
+      setSelfPaced(true);
+      setClassCode("");
+      return;
+    }
     if (qpClass) {
       setClassCode(qpClass);
+      setSelfPaced(false);
       return;
     }
     try {
+      if (window.localStorage.getItem("kanam.selfPaced") === "1") {
+        setSelfPaced(true);
+        setClassCode("");
+        return;
+      }
       setClassCode(window.localStorage.getItem("kanam.classCode") ?? "");
     } catch {
       // ignore
@@ -54,8 +68,8 @@ export default function WelcomeAgeGatePage() {
   const onContinue = () => {
     setError(null);
     const cc = classCode.trim();
-    if (!cc) {
-      setError("A class code is required. Go back and enter or request one.");
+    if (!selfPaced && !cc) {
+      setError("A class code is required. Go back and enter your teacher code, or choose self-paced.");
       return;
     }
     if (!birthdate) {
@@ -73,25 +87,37 @@ export default function WelcomeAgeGatePage() {
       }
 
       try {
-        window.localStorage.setItem("kanam.classCode", cc);
+        if (selfPaced) {
+          window.localStorage.setItem("kanam.selfPaced", "1");
+          window.localStorage.removeItem("kanam.classCode");
+        } else {
+          window.localStorage.setItem("kanam.classCode", cc);
+          window.localStorage.removeItem("kanam.selfPaced");
+        }
       } catch {
         // ignore
       }
 
       if (!attestation.eligibleForSelfSignup) {
-        // Under 13: no student email account — clear any leftover onboarding email.
+        // Under 13: no student email account — explain, then hand off to parent.
         clearAgeAttestation();
         try {
           window.localStorage.removeItem("kanam.onboardingEmail");
         } catch {
           // ignore
         }
-        router.push("/welcome/parent?reason=under13");
+        const params = new URLSearchParams();
+        if (!selfPaced && cc) params.set("classCode", cc);
+        router.push(
+          `/welcome/ask-parent${params.toString() ? `?${params.toString()}` : ""}`
+        );
         return;
       }
 
       writeAgeAttestation(attestation);
-      const params = new URLSearchParams({ classCode: cc });
+      const params = new URLSearchParams();
+      if (selfPaced) params.set("selfPaced", "1");
+      else params.set("classCode", cc);
       router.push(`/welcome/profile?${params.toString()}`);
     } catch (e: unknown) {
       setError(errorMessage(e, "Something went wrong."));
@@ -112,9 +138,9 @@ export default function WelcomeAgeGatePage() {
           </h1>
           <p className="mt-2 text-sm leading-relaxed text-slate-600">
             U.S. law requires us to confirm age before creating a student email login. If you are
-            under {MIN_SELF_SIGNUP_AGE}, a parent or guardian must create a{" "}
+            under {MIN_SELF_SIGNUP_AGE}, we&apos;ll ask a parent or guardian to create a{" "}
             <Link
-              href="/welcome/parent?reason=under13"
+              href="/welcome/ask-parent"
               className="font-semibold text-emerald-800 underline underline-offset-2"
             >
               family account
@@ -150,7 +176,12 @@ export default function WelcomeAgeGatePage() {
               </p>
             </div>
 
-            {classCode ? (
+            {selfPaced ? (
+              <p className="rounded-xl border border-emerald-100 bg-emerald-50/70 px-3 py-2 text-xs text-slate-700">
+                Path: <span className="font-semibold">Self-paced learning</span> (no class code
+                needed)
+              </p>
+            ) : classCode ? (
               <p className="rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-xs text-slate-600">
                 Class code: <span className="font-semibold text-slate-800">{classCode}</span>
               </p>

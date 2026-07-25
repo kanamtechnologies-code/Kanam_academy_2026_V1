@@ -3,6 +3,7 @@
 import { AuthActions } from "@/components/layout/AuthActions";
 import { HeaderBrand } from "@/components/layout/HeaderBrand";
 import { HeaderHelp } from "@/components/layout/HeaderHelp";
+import { HeaderInstructor } from "@/components/layout/HeaderInstructor";
 import { HeaderVideo } from "@/components/layout/HeaderVideo";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
@@ -26,6 +27,7 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
         <div className="relative flex w-full items-center justify-between gap-2 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:px-10">
           <HeaderBrand />
           <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <HeaderInstructor />
             <AuthActions />
             <ThemeToggle />
             <HeaderHelp />

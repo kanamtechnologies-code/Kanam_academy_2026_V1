@@ -57,6 +57,8 @@ export function isProtectedApi(pathname: string): boolean {
 
   // Explicitly public
   if (p === "/api/auth/signup" || p === "/api/auth/signup-parent") return false;
+  // Welcome-page onboarding: self-paced code before the user has an account
+  if (p === "/api/student/request-class-code") return false;
   if (startsWithPath(p, "/api/admin")) return false;
   if (startsWithPath(p, "/api/stripe")) return false;
   if (p === "/api/health") return false;
