@@ -1,12 +1,15 @@
 import { NextResponse } from "next/server";
 
 import { enrollStudentInClassByCode, getAsyncClassCode } from "@/lib/asyncClass";
+import { passwordLengthError } from "@/lib/auth/password";
+import { sendSignupConfirmationEmail } from "@/lib/auth/sendSignupConfirmation";
 import {
   MIN_SELF_SIGNUP_AGE,
   ageFromBirthdate,
   isYoungerSelfSignupGrade,
   validateYoungerGradeParentEmail,
 } from "@/lib/coppa/ageGate";
+import { getAppOrigin } from "@/lib/stripe";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -94,11 +97,9 @@ export async function POST(req: Request) {
   if (!email || !email.includes("@")) {
     return NextResponse.json({ ok: false, error: "Valid email is required." }, { status: 400 });
   }
-  if (!password || password.length < 4) {
-    return NextResponse.json(
-      { ok: false, error: "Password must be at least 4 characters." },
-      { status: 400 }
-    );
+  const pwErr = passwordLengthError(password);
+  if (pwErr) {
+    return NextResponse.json({ ok: false, error: pwErr }, { status: 400 });
   }
   if (!firstName || !lastName) {
     return NextResponse.json(
@@ -162,7 +163,8 @@ export async function POST(req: Request) {
   const { data: created, error: createErr } = await supabase.auth.admin.createUser({
     email,
     password,
-    email_confirm: true,
+    // Require inbox ownership before sign-in (do not auto-confirm).
+    email_confirm: false,
     user_metadata: {
       first_name: firstName,
       last_name: lastName,
@@ -265,5 +267,19 @@ export async function POST(req: Request) {
     );
   }
 
-  return NextResponse.json({ ok: true, userId, classId: enrolled.classId }, { status: 200 });
+  const origin = getAppOrigin(req);
+  const emailRedirectTo = `${origin}/auth/confirm?next=${encodeURIComponent("/dashboard")}`;
+  const emailed = await sendSignupConfirmationEmail({ email, emailRedirectTo });
+
+  return NextResponse.json(
+    {
+      ok: true,
+      userId,
+      classId: enrolled.classId,
+      needsEmailConfirmation: true,
+      confirmationEmailSent: emailed.ok,
+      ...(emailed.ok ? {} : { confirmationEmailError: emailed.error }),
+    },
+    { status: 200 }
+  );
 }

@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { ArrowRight, Loader2, Users } from "lucide-react";
 
 import {
@@ -13,6 +12,7 @@ import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Notice } from "@/components/ui/notice";
+import { MIN_PASSWORD_LENGTH, passwordLengthError } from "@/lib/auth/password";
 import { MIN_SELF_SIGNUP_AGE, PRIVACY_POLICY_URL } from "@/lib/coppa/ageGate";
 import { PARENTAL_CONSENT_NOTICE_VERSION } from "@/lib/coppa/parentalConsent";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
@@ -23,7 +23,6 @@ function errorMessage(error: unknown, fallback: string) {
 }
 
 export default function WelcomeParentPage() {
-  const router = useRouter();
   const [parentName, setParentName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -40,6 +39,9 @@ export default function WelcomeParentPage() {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [fromUnder13, setFromUnder13] = React.useState(false);
+  const [pendingConfirmEmail, setPendingConfirmEmail] = React.useState<string | null>(null);
+  const [resendBusy, setResendBusy] = React.useState(false);
+  const [resendNotice, setResendNotice] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     try {
@@ -67,8 +69,9 @@ export default function WelcomeParentPage() {
       setError("Enter a valid email.");
       return;
     }
-    if (password.length < 4) {
-      setError("Password must be at least 4 characters.");
+    const pwErr = passwordLengthError(password);
+    if (pwErr) {
+      setError(pwErr);
       return;
     }
     if (childPin && !/^\d{4,6}$/.test(childPin.trim())) {
@@ -104,24 +107,56 @@ export default function WelcomeParentPage() {
           consentNoticeVersion: PARENTAL_CONSENT_NOTICE_VERSION,
         }),
       });
-      const json = (await res.json()) as { ok?: boolean; error?: string };
+      const json = (await res.json()) as {
+        ok?: boolean;
+        error?: string;
+        needsEmailConfirmation?: boolean;
+        confirmationEmailSent?: boolean;
+        confirmationEmailError?: string;
+      };
       if (!res.ok || !json.ok) {
         throw new Error(json.error || "Could not create family account.");
       }
 
-      const supabase = createSupabaseBrowserClient();
-      if (!supabase) throw new Error("Sign-in is unavailable.");
-      const { error: signInErr } = await supabase.auth.signInWithPassword({
-        email: em,
-        password,
-      });
-      if (signInErr) throw new Error(signInErr.message);
-
-      router.push("/parent");
+      // Do not sign in until the email is confirmed.
+      setPendingConfirmEmail(em);
+      if (json.confirmationEmailSent === false) {
+        setResendNotice(
+          json.confirmationEmailError ||
+            "Account created, but the confirmation email could not be sent. Use Resend below."
+        );
+      } else {
+        setResendNotice(null);
+      }
     } catch (e: unknown) {
       setError(errorMessage(e, "Could not create family account."));
     } finally {
       setLoading(false);
+    }
+  };
+
+  const onResendConfirmation = async () => {
+    if (!pendingConfirmEmail) return;
+    setResendBusy(true);
+    setResendNotice(null);
+    setError(null);
+    try {
+      const supabase = createSupabaseBrowserClient();
+      if (!supabase) throw new Error("Sign-in is unavailable.");
+      const origin = window.location.origin;
+      const { error: resendErr } = await supabase.auth.resend({
+        type: "signup",
+        email: pendingConfirmEmail,
+        options: {
+          emailRedirectTo: `${origin}/auth/confirm?next=${encodeURIComponent("/parent")}`,
+        },
+      });
+      if (resendErr) throw new Error(resendErr.message);
+      setResendNotice("Confirmation email sent. Check your inbox (and spam).");
+    } catch (e: unknown) {
+      setError(errorMessage(e, "Could not resend confirmation email."));
+    } finally {
+      setResendBusy(false);
     }
   };
 
@@ -170,7 +205,43 @@ export default function WelcomeParentPage() {
             </div>
           ) : null}
 
-          <div className="mt-6 grid gap-3">
+          {pendingConfirmEmail ? (
+            <div className="mt-6 space-y-4">
+              <Notice compact variant="info" role="status">
+                Check <span className="font-semibold">{pendingConfirmEmail}</span> for a confirmation
+                link. After you confirm, you can sign in to the parent hub.
+              </Notice>
+              {resendNotice ? (
+                <Notice compact variant="info" role="status">
+                  {resendNotice}
+                </Notice>
+              ) : null}
+              <Button
+                type="button"
+                variant="outline"
+                className="h-11 w-full rounded-xl font-semibold"
+                disabled={resendBusy}
+                onClick={() => void onResendConfirmation()}
+              >
+                {resendBusy ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Sending…
+                  </>
+                ) : (
+                  "Resend confirmation email"
+                )}
+              </Button>
+              <Button asChild className="h-11 w-full rounded-xl font-semibold">
+                <Link href={`/welcome/returning?as=parent&email=${encodeURIComponent(pendingConfirmEmail)}`}>
+                  Continue to sign in
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          ) : null}
+
+          <div className={`mt-6 grid gap-3 ${pendingConfirmEmail ? "hidden" : ""}`}>
             <div className="space-y-1.5">
               <label className="text-sm font-semibold text-slate-700">Your name</label>
               <Input
@@ -198,7 +269,7 @@ export default function WelcomeParentPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
-                placeholder="At least 4 characters"
+                placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
                 className="h-11"
                 autoComplete="new-password"
               />

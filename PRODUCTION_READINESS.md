@@ -12,6 +12,7 @@ This checklist tracks launch-critical work for Kanam Academy.
 - [x] Server-side lesson paywall — unpaid content not loaded for denied users (`renderGatedLesson`)
 - [x] Server-side Python/Data exercise grading — validators/solutions not shipped to the browser
 - [x] Lesson access uses real completedIds so revisit stays open after assignment changes
+- [x] Student/parent password min length 8; signup requires email confirmation (no auto-confirm)
 - [ ] Security review of API routes + role checks (student/instructor/admin)
 - [ ] Add rate limiting for auth/admin endpoints
 - [ ] Complete Supabase RLS validation for all student/instructor tables

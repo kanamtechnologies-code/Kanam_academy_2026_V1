@@ -80,6 +80,24 @@ Fix: Supabase → **Authentication → Email Templates → Reset password**. Rep
 
 Save the template, then request a **new** reset email (old links still use the previous format).
 
+### Confirm signup email template (required for student/parent signup)
+
+Student and parent signup create users with **unconfirmed** email, then send a confirmation message. Enable **Authentication → Providers → Email → Confirm email**.
+
+Supabase → **Authentication → Email Templates → Confirm signup**. Prefer a TokenHash link (same reason as password reset):
+
+```html
+<h2>Confirm your email</h2>
+<p>Follow this link to confirm your Kanam Academy account:</p>
+<p>
+  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/dashboard">
+    Confirm email
+  </a>
+</p>
+```
+
+After confirm, `/auth/confirm` sends parents to `/parent` (from `user_metadata.role`) and other users to `next` (default `/dashboard`). Redirect URLs must still allow `/auth/confirm`.
+
 ## 4) Stripe billing
 
 1. Apply `supabase/billing.sql` (see above).

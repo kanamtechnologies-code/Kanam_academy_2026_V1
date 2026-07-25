@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { passwordLengthError } from "@/lib/auth/password";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -45,11 +46,10 @@ export async function POST(req: Request) {
   if (!email || !email.includes("@")) {
     return NextResponse.json({ ok: false, error: "Valid email is required." }, { status: 400 });
   }
-  if (!password || password.length < 8) {
-    return NextResponse.json(
-      { ok: false, error: "Password must be at least 8 characters." },
-      { status: 400 }
-    );
+  // Instructors are staff-created and auto-confirmed (invite flow).
+  const pwErr = passwordLengthError(password);
+  if (pwErr) {
+    return NextResponse.json({ ok: false, error: pwErr }, { status: 400 });
   }
   if (!firstName || !lastName) {
     return NextResponse.json(

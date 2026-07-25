@@ -9,6 +9,7 @@ import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Notice } from "@/components/ui/notice";
+import { MIN_PASSWORD_LENGTH, passwordLengthError } from "@/lib/auth/password";
 import {
   MIN_SELF_SIGNUP_AGE,
   PRIVACY_POLICY_URL,
@@ -21,9 +22,14 @@ import {
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 const USER_NAME_KEY = "kanam.userName";
-type SignupResponse = { ok?: boolean; error?: string; code?: string };
-type EnsureProfileResponse = { ok?: boolean; error?: string };
-
+type SignupResponse = {
+  ok?: boolean;
+  error?: string;
+  code?: string;
+  needsEmailConfirmation?: boolean;
+  confirmationEmailSent?: boolean;
+  confirmationEmailError?: string;
+};
 const GRADES = ["5", "6", "7", "8", "9", "10", "11", "12", "Other"] as const;
 
 function errorMessage(error: unknown, fallback: string) {
@@ -53,6 +59,9 @@ export default function WelcomeProfilePage() {
   const [parentPhone, setParentPhone] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [pendingConfirmEmail, setPendingConfirmEmail] = React.useState<string | null>(null);
+  const [resendBusy, setResendBusy] = React.useState(false);
+  const [resendNotice, setResendNotice] = React.useState<string | null>(null);
 
   const youngerGrade = isYoungerSelfSignupGrade(grade);
 
@@ -115,8 +124,9 @@ export default function WelcomeProfilePage() {
       setError("Enter a valid email address.");
       return;
     }
-    if (!password || password.length < 8) {
-      setError("Password must be at least 8 characters.");
+    const pwErr = passwordLengthError(password);
+    if (pwErr) {
+      setError(pwErr);
       return;
     }
     if (password !== confirmPassword) {
@@ -177,20 +187,6 @@ export default function WelcomeProfilePage() {
         throw new Error(json?.error || "Could not create account.");
       }
 
-      const { error: signInErr } = await supabase.auth.signInWithPassword({
-        email: trimmedEmail,
-        password,
-      });
-      if (signInErr) throw new Error(signInErr.message);
-
-      const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
-      const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
-      if (!ensureRes.ok || !ensureJson?.ok) {
-        throw new Error(
-          ensureJson?.error || "Account created, but could not load your student profile."
-        );
-      }
-
       try {
         window.localStorage.setItem(USER_NAME_KEY, trimmedFirst);
         window.localStorage.setItem("kanam.classCode", cc);
@@ -200,11 +196,45 @@ export default function WelcomeProfilePage() {
       }
       clearAgeAttestation();
 
-      router.push("/dashboard");
+      // Do not sign in until the email is confirmed.
+      setPendingConfirmEmail(trimmedEmail);
+      if (json.confirmationEmailSent === false) {
+        setResendNotice(
+          json.confirmationEmailError ||
+            "Account created, but the confirmation email could not be sent. Use Resend below."
+        );
+      } else {
+        setResendNotice(null);
+      }
     } catch (e: unknown) {
       setError(errorMessage(e, "Something went wrong."));
     } finally {
       setSaving(false);
+    }
+  };
+
+  const onResendConfirmation = async () => {
+    if (!pendingConfirmEmail) return;
+    setResendBusy(true);
+    setResendNotice(null);
+    setError(null);
+    try {
+      const supabase = createSupabaseBrowserClient();
+      if (!supabase) throw new Error("Account tools are unavailable.");
+      const origin = window.location.origin;
+      const { error: resendErr } = await supabase.auth.resend({
+        type: "signup",
+        email: pendingConfirmEmail,
+        options: {
+          emailRedirectTo: `${origin}/auth/confirm?next=${encodeURIComponent("/dashboard")}`,
+        },
+      });
+      if (resendErr) throw new Error(resendErr.message);
+      setResendNotice("Confirmation email sent. Check your inbox (and spam).");
+    } catch (e: unknown) {
+      setError(errorMessage(e, "Could not resend confirmation email."));
+    } finally {
+      setResendBusy(false);
     }
   };
 
@@ -240,7 +270,45 @@ export default function WelcomeProfilePage() {
             </div>
           ) : null}
 
-          <div className="mt-6 grid gap-3">
+          {pendingConfirmEmail ? (
+            <div className="mt-6 space-y-4">
+              <Notice compact variant="info" role="status">
+                Check <span className="font-semibold">{pendingConfirmEmail}</span> for a confirmation
+                link. After you confirm, you can sign in and open your dashboard.
+              </Notice>
+              {resendNotice ? (
+                <Notice compact variant="info" role="status">
+                  {resendNotice}
+                </Notice>
+              ) : null}
+              <Button
+                type="button"
+                variant="outline"
+                className="h-11 w-full rounded-xl font-semibold"
+                disabled={resendBusy}
+                onClick={() => void onResendConfirmation()}
+              >
+                {resendBusy ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Sending…
+                  </>
+                ) : (
+                  "Resend confirmation email"
+                )}
+              </Button>
+              <Button asChild className="h-11 w-full rounded-xl font-semibold">
+                <Link
+                  href={`/welcome/returning?email=${encodeURIComponent(pendingConfirmEmail)}`}
+                >
+                  Continue to sign in
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          ) : null}
+
+          <div className={`mt-6 grid gap-3 ${pendingConfirmEmail ? "hidden" : ""}`}>
             <div className="space-y-1.5">
               <label className="text-sm font-semibold text-slate-700">
                 Class code <span className="text-emerald-700">*</span>
@@ -341,7 +409,7 @@ export default function WelcomeProfilePage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
-                  placeholder="At least 8 characters"
+                  placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
                   className="h-11"
                   autoComplete="new-password"
                 />
