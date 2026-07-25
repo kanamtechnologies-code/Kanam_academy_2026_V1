@@ -1,7 +1,6 @@
+import { loadCompletedLessonIdsForUser } from "@/lib/billing/loadCompletedLessonIds";
 import { resolveStudentLessonAccess } from "@/lib/billing/resolveStudentLessonAccess";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
-import { resolveLearnerForUser } from "@/lib/resolveLearner";
-import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { isLessonOpenForStudent } from "@/lib/tracks";
 
 export type LessonAccessDecision =
@@ -14,26 +13,6 @@ export type LessonAccessDecision =
       checkFailed: boolean;
       reason: "paywall" | "not_assigned" | "error";
     };
-
-async function loadCompletedLessonIds(
-  user: NonNullable<Awaited<ReturnType<typeof resolveStudentLessonAccess>>["user"]>
-): Promise<string[]> {
-  try {
-    const admin = createSupabaseAdminClient();
-    const learner = await resolveLearnerForUser(user, admin);
-    if (!learner.studentId) return [];
-    const { data } = await admin
-      .from("lesson_progress")
-      .select("lesson_id, success")
-      .eq("student_id", learner.studentId);
-    return (data ?? [])
-      .filter((row) => Boolean(row?.success))
-      .map((row) => String(row.lesson_id ?? ""))
-      .filter(Boolean);
-  } catch {
-    return [];
-  }
-}
 
 /**
  * Decide whether a specific lesson may be rendered on the server.
@@ -62,7 +41,9 @@ export async function decideLessonAccess(lessonId: string): Promise<LessonAccess
     };
   }
 
-  const completedIds = resolved.user ? await loadCompletedLessonIds(resolved.user) : [];
+  const completedIds = resolved.user
+    ? await loadCompletedLessonIdsForUser(resolved.user)
+    : [];
 
   const allowed = isLessonOpenForStudent(
     lessonId,

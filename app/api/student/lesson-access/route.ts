@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { loadCompletedLessonIdsForUser } from "@/lib/billing/loadCompletedLessonIds";
 import { resolveStudentLessonAccess } from "@/lib/billing/resolveStudentLessonAccess";
 
 export const runtime = "nodejs";
@@ -20,10 +21,15 @@ export async function GET() {
     );
   }
 
+  const completedIds = resolved.user
+    ? await loadCompletedLessonIdsForUser(resolved.user)
+    : [];
+
   return NextResponse.json(
     {
       ok: true,
       access: resolved.access,
+      completedIds,
       needsParentalConsent: resolved.needsParentalConsent,
       needsChildSelect: resolved.needsChildSelect,
       unlockedForTesting: resolved.unlockedForTesting,

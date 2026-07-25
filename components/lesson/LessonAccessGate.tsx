@@ -22,6 +22,7 @@ type LessonAccessGateProps = {
  * Client-side defense-in-depth gate. Server pages should use renderGatedLesson
  * so unpaid lesson modules are never loaded for denied users.
  * Guest mode only unlocks the public demo lesson.
+ * completedIds come from /api/student/lesson-access so revisit stays open.
  */
 export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) {
   const router = useRouter();
@@ -54,6 +55,7 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
         const json = (await res.json()) as {
           ok?: boolean;
           access?: StudentLessonAccess;
+          completedIds?: string[];
           needsChildSelect?: boolean;
           needsParentalConsent?: boolean;
         };
@@ -74,36 +76,12 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
           return;
         }
         setAccess(json.access);
-
-        let completedIds: string[] = [];
-        try {
-          const { createSupabaseBrowserClient } = await import("@/lib/supabase/browser");
-          const supabase = createSupabaseBrowserClient();
-          if (supabase) {
-            const { data: userData } = await supabase.auth.getUser();
-            const meta = (userData.user?.user_metadata ?? {}) as Record<string, unknown>;
-            const studentId = String(meta.active_student_id ?? meta.student_id ?? "");
-            if (studentId) {
-              const { data: rows } = await supabase
-                .from("lesson_progress")
-                .select("lesson_id, success")
-                .eq("student_id", studentId);
-              completedIds = (rows ?? [])
-                .filter((r) => Boolean(r?.success))
-                .map((r) => String(r?.lesson_id ?? ""))
-                .filter(Boolean);
-            }
-          }
-        } catch {
-          completedIds = [];
-        }
-
         setAllowed(
           isLessonOpenForStudent(
             lessonId,
             Boolean(json.access.classRestricted),
             json.access.enabledLessonIds,
-            completedIds,
+            Array.isArray(json.completedIds) ? json.completedIds : [],
             Boolean(json.access.entitlementRestricted)
           )
         );

@@ -11,6 +11,7 @@ This checklist tracks launch-critical work for Kanam Academy.
 - [x] Auth middleware for session refresh + gated private pages/APIs (`middleware.ts`)
 - [x] Server-side lesson paywall — unpaid content not loaded for denied users (`renderGatedLesson`)
 - [x] Server-side Python/Data exercise grading — validators/solutions not shipped to the browser
+- [x] Lesson access uses real completedIds so revisit stays open after assignment changes
 - [ ] Security review of API routes + role checks (student/instructor/admin)
 - [ ] Add rate limiting for auth/admin endpoints
 - [ ] Complete Supabase RLS validation for all student/instructor tables
