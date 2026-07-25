@@ -65,13 +65,6 @@ export default function WelcomeAskParentPage() {
             <li>Your learning stays under their account, and they handle billing</li>
           </ul>
 
-          {classCode ? (
-            <p className="mt-4 rounded-xl border border-slate-200 bg-slate-50/80 px-3 py-2 text-xs text-slate-600">
-              Class code saved:{" "}
-              <span className="font-semibold text-slate-800">{classCode}</span>
-            </p>
-          ) : null}
-
           <div className="mt-6 flex flex-col gap-2">
             <Button asChild className="h-12 w-full text-base font-semibold">
               <Link href={parentHref}>

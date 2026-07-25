@@ -144,27 +144,37 @@ export default function HelpPage() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {[
-              { href: "/welcome", label: "Sign in" },
-              { href: "/welcome", label: "New student" },
-              { href: "/welcome/parent", label: "Family account" },
-              { href: "/welcome/ask-parent", label: "Under 13?" },
-              { href: "/demo", label: "Try a demo lesson" },
-            ].map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={[
-                  "inline-flex h-10 items-center rounded-full px-4 text-xs font-extrabold tracking-tight",
-                  "border border-[rgb(var(--brand-2-rgb)/0.35)] bg-[rgb(var(--brand-rgb)/0.08)]",
-                  "text-[color:var(--brand-2)] transition-all hover:border-[color:var(--brand)]",
-                  "hover:bg-[rgb(var(--brand-rgb)/0.14)]",
-                ].join(" ")}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div className="mt-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+              Quick actions
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2.5">
+              {[
+                { href: "/welcome", label: "Sign in" },
+                { href: "/welcome", label: "New student" },
+                { href: "/welcome/parent", label: "Family account" },
+                { href: "/welcome/ask-parent", label: "Under 13 help" },
+                { href: "/demo", label: "Try a demo lesson" },
+              ].map((item) => (
+                <Button
+                  key={item.label}
+                  asChild
+                  variant="outline"
+                  className={[
+                    "h-11 rounded-xl px-4 font-semibold",
+                    "border-[rgb(var(--brand-2-rgb)/0.45)] bg-white/90 text-[color:var(--brand-2)]",
+                    "shadow-sm hover:-translate-y-px hover:border-[color:var(--brand)]",
+                    "hover:bg-[rgb(var(--brand-rgb)/0.08)] hover:shadow-md",
+                    "active:translate-y-0 dark:bg-slate-950/80",
+                  ].join(" ")}
+                >
+                  <Link href={item.href}>
+                    {item.label}
+                    <ArrowRight className="h-3.5 w-3.5 opacity-70" />
+                  </Link>
+                </Button>
+              ))}
+            </div>
           </div>
         </motion.div>
 
