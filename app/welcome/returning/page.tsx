@@ -17,7 +17,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
@@ -163,14 +162,13 @@ export default function WelcomeReturningPage() {
                           setForgotEmail(email.trim() || forgotEmail);
                         }}
                       >
-                        <DialogTrigger asChild>
-                          <button
-                            type="button"
-                            className="inline-flex min-h-11 items-center text-xs font-semibold text-white underline underline-offset-2 hover:text-white/90 sm:min-h-0"
-                          >
-                            Forgot password?
-                          </button>
-                        </DialogTrigger>
+                        <button
+                          type="button"
+                          onClick={() => setForgotOpen(true)}
+                          className="inline-flex min-h-11 items-center text-xs font-semibold text-white underline underline-offset-2 hover:text-white/90 sm:min-h-0"
+                        >
+                          Forgot password?
+                        </button>
                         <DialogContent className="max-w-md">
                           <DialogHeader>
                             <DialogTitle>Reset your password</DialogTitle>

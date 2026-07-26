@@ -4,6 +4,7 @@ import * as React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { GraduationCap, Loader2 } from "lucide-react";
 
+import { useLessonHelpPocketOptional } from "@/components/lesson/LessonHelpPocketContext";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,6 +20,7 @@ import { Notice } from "@/components/ui/notice";
 import { isGuestMode } from "@/lib/guestProgress";
 import { isInstructorRole, postSignInPath, safeNextPath } from "@/lib/roles";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
+import { cn } from "@/lib/utils";
 
 type CreateInstructorResponse = {
   ok?: boolean;
@@ -31,7 +33,7 @@ function errorMessage(error: unknown, fallback: string) {
 }
 
 const chipBase =
-  "inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 py-2 text-xs font-extrabold tracking-tight focus:outline-none focus-visible:ring-4 sm:gap-2 sm:px-3.5";
+  "inline-flex h-10 w-10 shrink-0 items-center justify-center gap-1.5 rounded-full px-0 text-xs font-extrabold tracking-tight focus:outline-none focus-visible:ring-4 sm:h-11 sm:w-auto sm:gap-2 sm:px-3.5";
 
 /**
  * Staff instructor entry in the header — keeps welcome/sign-up screens student/parent focused.
@@ -39,6 +41,7 @@ const chipBase =
 export function HeaderInstructor() {
   const router = useRouter();
   const pathname = usePathname();
+  const helpPocket = useLessonHelpPocketOptional();
   const [ready, setReady] = React.useState(false);
   const [signedIn, setSignedIn] = React.useState(false);
 
@@ -164,7 +167,12 @@ export function HeaderInstructor() {
       <button
         type="button"
         onClick={openSignIn}
-        className={`${chipBase} border border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-white/20`}
+        className={cn(
+          chipBase,
+          "border border-white/25 bg-white/10 text-white hover:bg-white/15 focus-visible:ring-white/20",
+          // Below lg, lesson pages use Help Pocket in this nav slot.
+          helpPocket?.available && "hidden lg:inline-flex"
+        )}
         aria-label="Instructor sign in"
       >
         <GraduationCap className="h-4 w-4" />

@@ -15,6 +15,12 @@ export type SpotlightTourStep = {
    * Defaults to `selector` when advanceOnClick is true.
    */
   clickSelector?: string;
+  /** Below this width (px), prefer `mobileSelector` when set. Default 1024. */
+  mobileMaxWidth?: number;
+  /** Mobile-first target (e.g. header Help pocket). */
+  mobileSelector?: string;
+  /** Desktop / large-screen target (e.g. side Coach panel). */
+  desktopSelector?: string;
   title: string;
   body: string;
   /** Concrete action: what to click / do in the highlighted area. */
@@ -25,6 +31,11 @@ export type SpotlightTourStep = {
   advanceOnClick?: boolean;
   icon?: React.ReactNode;
   padding?: number;
+  /**
+   * Allow spotlighting controls inside dialogs/sheets.
+   * Default false — prevents open Help pocket content from stealing the target.
+   */
+  allowDialogTarget?: boolean;
   /**
    * @deprecated Avoid emojis in UI. Kept for backwards compatibility but no longer rendered.
    */
@@ -52,23 +63,108 @@ function safeRect(
   return { top, left, right, bottom, width, height };
 }
 
-function isActuallyVisible(el: HTMLElement) {
+/** Mounted + not display:none (may still be scrolled off-screen). */
+function isDisplayed(el: HTMLElement) {
   if (!el.isConnected) return false;
   if (el.hidden) return false;
   const style = window.getComputedStyle(el);
   if (style.display === "none" || style.visibility === "hidden" || style.opacity === "0")
     return false;
-  const hiddenAncestor = el.closest("[hidden], [aria-hidden='true']");
-  if (hiddenAncestor) return false;
+  // Walk ancestors — Tailwind `hidden` lives on parents, not the node itself.
+  let node: HTMLElement | null = el;
+  while (node) {
+    const cs = window.getComputedStyle(node);
+    if (cs.display === "none" || cs.visibility === "hidden") return false;
+    if (node.getAttribute("aria-hidden") === "true" || node.hasAttribute("hidden")) return false;
+    node = node.parentElement;
+  }
   const r = el.getBoundingClientRect();
-  if (r.width <= 1 || r.height <= 1) return false;
-  return true;
+  return r.width > 1 && r.height > 1;
 }
 
-function findVisibleTarget(selector: string): HTMLElement | null {
+function intersectsViewport(el: HTMLElement) {
+  const r = el.getBoundingClientRect();
+  return !(
+    r.bottom < 0 ||
+    r.top > window.innerHeight ||
+    r.right < 0 ||
+    r.left > window.innerWidth
+  );
+}
+
+/**
+ * True when another modal/sheet covers this control's center.
+ * Prevents highlighting Run/editor "through" an open Help pocket (looks like
+ * the gold ring is stuck on coach-note words).
+ */
+function isCoveredByForeignDialog(el: HTMLElement) {
+  const hostDialog = el.closest('[role="dialog"]');
+  const r = el.getBoundingClientRect();
+  // Off-screen targets aren't "covered" yet — we'll scroll them into view first.
+  if (!intersectsViewport(el)) return false;
+  const cx = r.left + r.width / 2;
+  const cy = r.top + r.height / 2;
+
+  const dialogs = Array.from(document.querySelectorAll('[role="dialog"]')) as HTMLElement[];
+  for (const d of dialogs) {
+    if (d === hostDialog) continue;
+    if (!isDisplayed(d)) continue;
+    const dr = d.getBoundingClientRect();
+    if (cx >= dr.left && cx <= dr.right && cy >= dr.top && cy <= dr.bottom) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function resolveStepSelector(step: SpotlightTourStep): string {
+  const max = step.mobileMaxWidth ?? 1024;
+  const narrow = window.innerWidth < max;
+  if (narrow && step.mobileSelector) return step.mobileSelector;
+  if (!narrow && step.desktopSelector) return step.desktopSelector;
+  return step.selector;
+}
+
+function findVisibleTarget(
+  selector: string,
+  opts?: { allowDialogTarget?: boolean }
+): HTMLElement | null {
   const all = Array.from(document.querySelectorAll(selector)) as HTMLElement[];
-  for (const el of all) {
-    if (isActuallyVisible(el)) return el;
+  const visible = all.filter((el) => {
+    if (!isDisplayed(el)) return false;
+    if (!opts?.allowDialogTarget && el.closest('[role="dialog"]')) return false;
+    if (isCoveredByForeignDialog(el)) return false;
+    return true;
+  });
+  if (!visible.length) return null;
+
+  // Prefer header / sticky chrome, then on-screen, then higher controls.
+  visible.sort((a, b) => {
+    const aHeader = a.closest("header") ? 0 : 1;
+    const bHeader = b.closest("header") ? 0 : 1;
+    if (aHeader !== bHeader) return aHeader - bHeader;
+    const aIn = intersectsViewport(a) ? 0 : 1;
+    const bIn = intersectsViewport(b) ? 0 : 1;
+    if (aIn !== bIn) return aIn - bIn;
+    const ar = a.getBoundingClientRect();
+    const br = b.getBoundingClientRect();
+    const aVisible = Math.min(ar.bottom, window.innerHeight) - Math.max(ar.top, 0);
+    const bVisible = Math.min(br.bottom, window.innerHeight) - Math.max(br.top, 0);
+    if (Math.abs(aVisible - bVisible) > 8) return bVisible - aVisible;
+    if (Math.abs(ar.top - br.top) > 2) return ar.top - br.top;
+    // Prefer the smaller, more precise control over a giant region.
+    return ar.width * ar.height - br.width * br.height;
+  });
+  return visible[0] ?? null;
+}
+
+function findStepTarget(step: SpotlightTourStep): HTMLElement | null {
+  const primary = resolveStepSelector(step);
+  const hit = findVisibleTarget(primary, { allowDialogTarget: step.allowDialogTarget });
+  if (hit) return hit;
+  // Fall back to the shared selector when a viewport-specific one isn't mounted yet.
+  if (primary !== step.selector) {
+    return findVisibleTarget(step.selector, { allowDialogTarget: step.allowDialogTarget });
   }
   return null;
 }
@@ -322,44 +418,67 @@ const SpotlightTourInner = React.forwardRef<
   }, [idx, steps.length, markDoneAndClose, armClickShield]);
 
   const recompute = React.useCallback(() => {
-    if (!open) return;
-    const el = step ? findVisibleTarget(step.selector) : null;
-    if (!el) return;
+    if (!open || !step) return;
+    const el = findStepTarget(step);
+    if (!el) {
+      // Never keep a previous step's hole — that causes "highlight on the wrong word".
+      setRect(null);
+      return;
+    }
+    if (!intersectsViewport(el)) {
+      setRect(null);
+      return;
+    }
     const pad = step.padding ?? 8;
     const r = el.getBoundingClientRect();
-    setRect(safeRect(r, pad));
+    const next = safeRect(r, pad);
+    // Reject absurd holes (e.g. near-fullscreen regions) — retry instead of misleading.
+    const vh = window.innerHeight;
+    const vw = window.innerWidth;
+    if (next.height > vh * 0.55 || next.width > vw * 0.96) {
+      setRect(null);
+      return;
+    }
+    if (next.width < 8 || next.height < 8) {
+      setRect(null);
+      return;
+    }
+    setRect(next);
   }, [open, step]);
 
   React.useEffect(() => {
-    if (!open) return;
-    const el = step ? findVisibleTarget(step.selector) : null;
-    if (el) {
+    if (!open || !step) return;
+    let cancelled = false;
+    let tries = 0;
+    const maxTries = 30; // ~3s of retries while the lesson view swaps
+
+    const alignTarget = (el: HTMLElement) => {
       const vh = window.innerHeight;
       const narrow = window.innerWidth < 640;
+      const inHeader = Boolean(el.closest("header"));
       if (narrow) {
-        // Keep the card compact; phones need most of the screen for the tap target.
-        const cardBand = Math.min(Math.max(cardSize.h, 160), Math.floor(vh * 0.32));
-        const headerPad = 72; // fixed app header
+        // Reserve space for the tour card so the tap target stays fully visible.
+        const cardBand = Math.min(Math.max(cardSize.h, 150), Math.floor(vh * 0.32));
+        const headerEl = document.querySelector("header");
+        const headerH = headerEl?.getBoundingClientRect().height ?? 64;
+        const headerPad = inHeader ? 4 : Math.ceil(headerH) + 12;
         const r0 = el.getBoundingClientRect();
-        // Only park the card on top when the control is clearly in the lower third.
-        // Mid-screen targets (e.g. XP/badge under a tall hero title) must keep the card at the bottom.
-        const dockTop = r0.top > vh * 0.58;
-        const safeTop = dockTop ? cardBand + 10 : headerPad;
-        const safeBottom = dockTop ? vh - 10 : vh - cardBand - 14;
+        // Targets in the lower half → dock card at top; upper targets → card at bottom.
+        const dockTop = !inHeader && r0.top > vh * 0.45;
+        const safeTop = dockTop ? cardBand + 12 : headerPad;
+        const safeBottom = dockTop ? vh - 12 : vh - cardBand - 16;
 
-        // Fit the whole target into the safe band (not just its center).
-        let r = el.getBoundingClientRect();
-        if (r.top < safeTop) {
-          window.scrollBy({ top: r.top - safeTop, left: 0, behavior: "auto" });
-          r = el.getBoundingClientRect();
-        }
-        if (r.bottom > safeBottom) {
-          window.scrollBy({ top: r.bottom - safeBottom, left: 0, behavior: "auto" });
-          r = el.getBoundingClientRect();
-        }
-        // If it still can't fit (very tall target), pin its top into the safe zone.
-        if (r.top < safeTop || r.bottom > safeBottom) {
-          window.scrollBy({ top: r.top - safeTop, left: 0, behavior: "auto" });
+        if (!inHeader) {
+          // Prefer native scrollIntoView into a clear band, then nudge.
+          el.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
+          let r = el.getBoundingClientRect();
+          if (r.top < safeTop) {
+            window.scrollBy({ top: r.top - safeTop, left: 0, behavior: "auto" });
+            r = el.getBoundingClientRect();
+          }
+          if (r.bottom > safeBottom) {
+            window.scrollBy({ top: r.bottom - safeBottom, left: 0, behavior: "auto" });
+          }
         }
       } else {
         const r = el.getBoundingClientRect();
@@ -370,9 +489,36 @@ const SpotlightTourInner = React.forwardRef<
           inline: "nearest",
         });
       }
-    }
-    const t = window.setTimeout(() => recompute(), recomputeDelayMs);
-    return () => window.clearTimeout(t);
+    };
+
+    const tick = () => {
+      if (cancelled) return;
+      const el = findStepTarget(step);
+      if (el) {
+        alignTarget(el);
+        window.setTimeout(() => {
+          if (cancelled) return;
+          // Re-align once after layout settles (common after tab / pocket close).
+          const again = findStepTarget(step);
+          if (again) alignTarget(again);
+          recompute();
+        }, recomputeDelayMs);
+        return;
+      }
+      setRect(null);
+      tries += 1;
+      if (tries < maxTries) {
+        window.setTimeout(tick, 100);
+      }
+    };
+
+    // Clear immediately so we never flash the previous hole on a new step.
+    setRect(null);
+    tick();
+
+    return () => {
+      cancelled = true;
+    };
   }, [open, idx, step, recompute, recomputeDelayMs, cardSize.h]);
 
   // Block real UI under the spotlight while the tour is open (clicks only advance the tour).
@@ -455,10 +601,9 @@ const SpotlightTourInner = React.forwardRef<
     ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }
     : { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
-  // Prefer bottom dock on phones. Only flip to top when the target is clearly low —
-  // otherwise mid-page controls (first-step XP/badge) get covered by a top-docked card.
+  // Prefer bottom dock on phones. Header / upper targets must never be covered by the card.
   const dockCardTop = Boolean(
-    rect && rect.top > window.innerHeight * 0.58
+    rect && rect.top > window.innerHeight * 0.45 && rect.top > 72
   );
 
   const tooltip = (() => {
@@ -571,6 +716,7 @@ const SpotlightTourInner = React.forwardRef<
     const spaceLeft = rect.left;
     const spaceRight = window.innerWidth - rect.right;
     const minSide = narrow ? 44 : 80;
+    const headerTarget = narrow && rect.top < 96;
 
     // Keep the arrow out of the docked card band on mobile.
     const cardTopBand = tooltip.top;
@@ -584,6 +730,15 @@ const SpotlightTourInner = React.forwardRef<
         top > cardBottomBand + 4
       );
     };
+
+    // Header controls (Help pocket): always point up at the nav from just below it.
+    if (headerTarget) {
+      return {
+        top: Math.min(rect.bottom + 8, cardTopBand - size - 8),
+        left: rect.left + rect.width / 2 - size / 2,
+        rotate: "180deg",
+      };
+    }
 
     const sides = [
       { side: "above" as const, room: spaceAbove, ok: spaceAbove >= minSide },
@@ -799,7 +954,7 @@ const SpotlightTourInner = React.forwardRef<
               "shadow-[0_18px_50px_rgba(15,23,42,0.18),0_2px_8px_rgba(15,23,42,0.06)]",
               "dark:border-slate-700 dark:bg-slate-950",
               "dark:shadow-[0_18px_50px_rgba(0,0,0,0.45)]",
-              narrow ? "max-h-[min(32vh,260px)] overflow-y-auto overscroll-contain" : "",
+              narrow ? "max-h-[min(30vh,240px)] overflow-y-auto overscroll-contain" : "",
             ].join(" ")}
           >
             {/* Brand accent bar — replaces the washed gold frame */}
@@ -807,11 +962,11 @@ const SpotlightTourInner = React.forwardRef<
               className="h-1 w-full bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]"
               aria-hidden
             />
-            <div className={["flex items-start gap-2.5", narrow ? "p-3.5" : "p-5 sm:gap-3"].join(" ")}>
+            <div className={["flex items-start gap-2.5", narrow ? "p-3" : "p-5 sm:gap-3"].join(" ")}>
               <div
                 className={[
                   "grid shrink-0 place-items-center rounded-xl bg-[rgb(var(--brand-rgb)/0.1)] text-[var(--brand-2)]",
-                  narrow ? "h-9 w-9" : "h-11 w-11",
+                  narrow ? "h-8 w-8" : "h-11 w-11",
                 ].join(" ")}
               >
                 {step.icon ?? <MousePointerClick className="h-5 w-5" />}
@@ -831,7 +986,7 @@ const SpotlightTourInner = React.forwardRef<
                 <p
                   className={[
                     "mt-1.5 text-slate-600 dark:text-slate-300",
-                    narrow ? "text-[13px] leading-snug" : "text-[15px] leading-[1.65]",
+                    narrow ? "text-[12px] leading-snug line-clamp-4" : "text-[15px] leading-[1.65]",
                   ].join(" ")}
                 >
                   {renderTourRichText(step.body)}
@@ -839,7 +994,7 @@ const SpotlightTourInner = React.forwardRef<
                 {step.action ? (
                   <p
                     className={[
-                      "mt-2.5 border-l-[3px] border-[var(--brand)] bg-[rgb(var(--brand-rgb)/0.06)] font-semibold text-slate-800 dark:bg-[rgb(var(--brand-rgb)/0.14)] dark:text-slate-100",
+                      "mt-2 border-l-[3px] border-[var(--brand)] bg-[rgb(var(--brand-rgb)/0.06)] font-semibold text-slate-800 dark:bg-[rgb(var(--brand-rgb)/0.14)] dark:text-slate-100",
                       narrow ? "rounded-r-lg px-2.5 py-1.5 text-[12px] leading-snug" : "mt-3 rounded-r-xl px-3.5 py-2.5 text-sm leading-snug",
                     ].join(" ")}
                   >
@@ -847,6 +1002,11 @@ const SpotlightTourInner = React.forwardRef<
                       {actionLabel}:{" "}
                     </span>
                     {renderTourRichText(step.action)}
+                  </p>
+                ) : null}
+                {!rect ? (
+                  <p className="mt-2 text-[11px] font-medium text-amber-800 dark:text-amber-200">
+                    Finding the control… If it doesn’t appear, tap Continue.
                   </p>
                 ) : null}
               </div>
@@ -902,14 +1062,14 @@ const SpotlightTourInner = React.forwardRef<
                 </Button>
               </div>
             </div>
-            {holeAllowsClicks ? (
+            {holeAllowsClicks && rect ? (
               <p className="border-t border-slate-100 bg-white px-3.5 py-2 text-center text-[11px] font-medium text-slate-500 sm:px-5 sm:text-xs dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400">
                 {footerHint}
               </p>
             ) : (
               <div className="border-t border-slate-100 bg-white px-3.5 py-3 sm:px-5 dark:border-slate-800 dark:bg-slate-950">
                 <Button type="button" size="sm" className="min-h-11 w-full" onClick={goNext}>
-                  {idx >= steps.length - 1 ? "Start the lesson" : "Next"}
+                  {idx >= steps.length - 1 ? "Start the lesson" : "Continue"}
                 </Button>
               </div>
             )}

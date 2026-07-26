@@ -6,7 +6,7 @@ import { HeaderVideo } from "@/components/layout/HeaderVideo";
 
 export function WelcomeBackground({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative min-h-dvh px-3 py-5 text-slate-900 sm:px-4 sm:py-8 md:px-6 md:py-10 dark:text-slate-100">
+    <div className="relative min-h-dvh w-full min-w-0 max-w-[100vw] overflow-x-clip px-3 py-5 text-slate-900 sm:px-4 sm:py-8 md:px-6 md:py-10 dark:text-slate-100">
       {/* Full-screen video background */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <HeaderVideo

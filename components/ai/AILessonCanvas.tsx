@@ -496,35 +496,35 @@ export function AILessonCanvas({
     <WelcomeBackground>
       <div
         className={cn(
-          "mx-auto max-w-[1400px] transition-all duration-300",
+          "mx-auto w-full min-w-0 max-w-[1400px] transition-all duration-300",
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         )}
       >
-        <div className="kanam-lesson-hero mb-6 rounded-[22px] p-4 sm:mb-8 sm:rounded-[28px] sm:p-6 md:p-8">
+        <div className="kanam-lesson-hero mb-6 w-full max-w-full rounded-[22px] p-3.5 sm:mb-8 sm:rounded-[28px] sm:p-6 md:p-8">
           <div className="kanam-lesson-hero-overlay" />
-          <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
-            <div className="min-w-0">
-              <div className="flex items-center gap-3.5">
-                <div className="kanam-hero-brand-tile grid h-14 w-14 shrink-0 place-items-center rounded-2xl">
-                  <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} />
+          <div className="relative z-10 flex min-w-0 flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
+            <div className="min-w-0 w-full sm:flex-1">
+              <div className="flex min-w-0 items-center gap-2.5 sm:gap-3.5">
+                <div className="kanam-hero-brand-tile grid h-11 w-11 shrink-0 place-items-center rounded-2xl sm:h-14 sm:w-14">
+                  <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} className="h-7 w-7 sm:h-10 sm:w-10" />
                 </div>
-                <div className="leading-tight">
-                  <p className="kanam-hero-kicker text-base font-black uppercase tracking-[0.16em] text-white md:text-lg">
+                <div className="min-w-0 leading-tight">
+                  <p className="kanam-hero-kicker truncate text-sm font-black uppercase tracking-[0.14em] text-white sm:text-base md:text-lg">
                     {hubLabel}
                   </p>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/75">
+                  <p className="truncate text-[10px] font-semibold uppercase tracking-[0.24em] text-white/75 sm:text-[11px] sm:tracking-[0.3em]">
                     Kanam Academy
                   </p>
                 </div>
               </div>
-              <h1 className="kanam-hero-title mt-4 break-words text-2xl font-black tracking-tight text-white sm:mt-5 sm:text-3xl md:text-5xl">
+              <h1 className="kanam-hero-title mt-3 break-words text-xl font-black tracking-tight text-white sm:mt-5 sm:text-3xl md:text-5xl">
                 {lesson.title}
               </h1>
-              <p className="mt-2.5 max-w-3xl text-base font-medium text-white/90 md:text-lg">
+              <p className="mt-2 max-w-3xl text-sm font-medium text-white/90 sm:mt-2.5 sm:text-base md:text-lg">
                 {lesson.goal}
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">
               <Badge className="kanam-hero-chip">
                 <Zap className="mr-1.5 h-4 w-4" />
                 {lesson.xpReward} XP
@@ -535,18 +535,18 @@ export function AILessonCanvas({
               </Button>
             </div>
           </div>
-          <div className="relative z-10 mt-6">
-            <div className="mb-2 flex justify-between text-sm font-semibold text-white/90">
-              <span>
+          <div className="relative z-10 mt-5 min-w-0 sm:mt-6">
+            <div className="mb-2 flex min-w-0 items-baseline justify-between gap-3 text-sm font-semibold text-white/90">
+              <span className="min-w-0 truncate">
                 {showingSlides
                   ? `Lesson slides: ${slideProgress.current} / ${slideProgress.total}`
                   : `Knowledge check: ${correctIds.size + activityDoneIds.size} / ${
                       totalQuestions + activities.length
                     }`}
               </span>
-              <span>{progressPercent}%</span>
+              <span className="shrink-0 tabular-nums">{progressPercent}%</span>
             </div>
-            <Progress value={progressPercent} className="h-2.5 bg-white/25" indicatorClassName="bg-white" />
+            <Progress value={progressPercent} className="h-2.5 w-full bg-white/25" indicatorClassName="bg-white" />
           </div>
         </div>
 
@@ -607,8 +607,8 @@ export function AILessonCanvas({
             onSlideProgress={onSlideProgress}
           />
         ) : (
-          <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-            <div className="order-2 hidden space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
+          <div className="grid min-w-0 max-w-full gap-6 lg:grid-cols-[1fr_1.15fr]">
+            <div className="order-2 hidden min-w-0 max-w-full space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
               {lesson.bigIdeas && lesson.bigIdeas.length > 0 ? (
                 <LessonAside
                   title="Big ideas"
@@ -659,16 +659,16 @@ export function AILessonCanvas({
               ) : null}
             </div>
 
-            <div className="order-1 space-y-4 lg:order-2">
-              <Card className="border-slate-300 shadow-lg">
-                <CardHeader className="pb-2">
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <ListChecks className="h-5 w-5 text-[var(--brand)]" />
+            <div className="order-1 min-w-0 max-w-full space-y-4 lg:order-2">
+              <Card className="min-w-0 max-w-full border-slate-300 shadow-lg">
+                <CardHeader className="min-w-0 max-w-full p-4 pb-2 sm:p-6 sm:pb-2">
+                  <CardTitle className="flex min-w-0 items-center gap-2 text-base">
+                    <ListChecks className="h-5 w-5 shrink-0 text-[var(--brand)]" />
                     Knowledge check
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex flex-wrap gap-2">
+                <CardContent className="min-w-0 max-w-full space-y-4 px-4 pb-4 sm:px-6 sm:pb-6">
+                  <div className="flex min-w-0 max-w-full flex-wrap gap-1.5">
                     {lesson.quiz.map((q, idx) => {
                       const done = correctIds.has(q.id);
                       const active = idx === activeIndex;
@@ -683,7 +683,7 @@ export function AILessonCanvas({
                             if (!locked || done) setActiveIndex(idx);
                           }}
                           className={cn(
-                            "flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors sm:min-h-0 sm:py-1.5",
+                            "flex min-h-11 min-w-0 max-w-full items-center gap-1.5 rounded-full border px-2.5 py-2 text-xs font-semibold transition-colors sm:min-h-0 sm:px-3.5 sm:py-1.5",
                             active
                               ? "border-[var(--brand)] bg-[var(--brand)] text-white"
                               : done
@@ -693,7 +693,7 @@ export function AILessonCanvas({
                                   : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                           )}
                         >
-                          {done ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
+                          {done ? <CheckCircle2 className="h-3.5 w-3.5 shrink-0" /> : null}
                           Q{idx + 1}
                         </button>
                       );
@@ -701,17 +701,17 @@ export function AILessonCanvas({
                   </div>
 
                   {activeQuestion ? (
-                    <div className="space-y-4">
-                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                    <div className="min-w-0 max-w-full space-y-4">
+                      <div className="min-w-0 max-w-full rounded-xl border border-slate-200 bg-slate-50 p-3 sm:p-4">
                         <p className="text-xs font-black uppercase tracking-wide text-[var(--brand-2)]">
                           Question {activeIndex + 1} of {totalQuestions}
                         </p>
-                        <p className="mt-2 text-base font-semibold text-slate-900">
+                        <p className="mt-2 min-w-0 max-w-full break-words text-base font-semibold text-slate-900">
                           {renderInline(activeQuestion.question)}
                         </p>
                       </div>
 
-                      <div className="space-y-2">
+                      <div className="min-w-0 max-w-full space-y-2">
                         {activeQuestion.choices.map((choice, ci) => {
                           const isChosen = currentSelection === ci;
                           const isCorrectChoice = ci === activeQuestion.correctIndex;
@@ -730,7 +730,7 @@ export function AILessonCanvas({
                               disabled={currentCorrect || lessonComplete}
                               onClick={() => selectChoice(ci)}
                               className={cn(
-                                "flex w-full items-center gap-3 rounded-xl border-2 px-4 py-3 text-left text-sm font-medium transition-colors",
+                                "flex w-full min-w-0 max-w-full items-center gap-3 rounded-xl border-2 px-3 py-3 text-left text-sm font-medium transition-colors sm:px-4",
                                 showCorrect
                                   ? "border-[var(--brand)] bg-[var(--brand)]/10 text-slate-900"
                                   : showWrong
@@ -757,7 +757,7 @@ export function AILessonCanvas({
                                   String.fromCharCode(65 + ci)
                                 )}
                               </span>
-                              <span>{choice}</span>
+                              <span className="min-w-0 flex-1 break-words">{choice}</span>
                             </button>
                           );
                         })}
@@ -806,14 +806,14 @@ export function AILessonCanvas({
               {allCorrect && activities.length > 0 ? (
                 <Card
                   ref={challengePanelRef}
-                  className="scroll-mt-24 border-violet-200 bg-violet-50/40 shadow-md"
+                  className="min-w-0 max-w-full scroll-mt-24 border-violet-200 bg-violet-50/40 shadow-md"
                 >
-                  <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Sparkles className="h-5 w-5 text-violet-600" />
+                  <CardHeader className="min-w-0 max-w-full p-4 pb-2 sm:p-6 sm:pb-2">
+                    <CardTitle className="flex min-w-0 items-center gap-2 text-base">
+                      <Sparkles className="h-5 w-5 shrink-0 text-violet-600" />
                       Practice challenges
                     </CardTitle>
-                    <p className="text-sm font-medium text-slate-600">
+                    <p className="min-w-0 max-w-full break-words text-sm font-medium text-slate-600">
                       {activities
                         .map((activity) =>
                           activity.kind === "parsons"
@@ -836,8 +836,8 @@ export function AILessonCanvas({
                       — finish each one to complete the lesson. Use Next challenge after each success.
                     </p>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div ref={activityNavRef} className="flex flex-wrap gap-2">
+                  <CardContent className="min-w-0 max-w-full space-y-4 px-4 pb-4 sm:px-6 sm:pb-6">
+                    <div ref={activityNavRef} className="flex min-w-0 max-w-full flex-wrap gap-1.5">
                       {activities.map((activity, idx) => {
                         const done = activityDoneIds.has(activity.id);
                         const active = idx === activeActivityIndex;
@@ -1082,8 +1082,7 @@ export function AILessonCanvas({
           </div>
         )}
 
-        {view === "lesson" || !lessonUnlocked ? null : (
-          <MobileLessonPocket
+        <MobileLessonPocket
             panels={
               [
                 ...(lesson.bigIdeas && lesson.bigIdeas.length > 0
@@ -1149,7 +1148,6 @@ export function AILessonCanvas({
               ] satisfies MobileLessonPocketPanel[]
             }
           />
-        )}
       </div>
 
       {/* Dev-only skip controls */}

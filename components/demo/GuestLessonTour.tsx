@@ -13,6 +13,7 @@ import {
   Terminal,
 } from "lucide-react";
 
+import { useLessonHelpPocketOptional } from "@/components/lesson/LessonHelpPocketContext";
 import { SpotlightTour } from "@/components/ui/SpotlightTour";
 import { isGuestMode } from "@/lib/guestProgress";
 
@@ -45,9 +46,11 @@ export function GuestLessonTour({
   onTourActiveChange?: (active: boolean) => void;
 }) {
   const [open, setOpen] = React.useState(false);
+  const helpPocket = useLessonHelpPocketOptional();
   const onRequestViewRef = React.useRef(onRequestView);
   const onTourCompleteRef = React.useRef(onTourComplete);
   const onTourActiveChangeRef = React.useRef(onTourActiveChange);
+  const helpPocketRef = React.useRef(helpPocket);
 
   React.useEffect(() => {
     onRequestViewRef.current = onRequestView;
@@ -60,6 +63,10 @@ export function GuestLessonTour({
   React.useEffect(() => {
     onTourActiveChangeRef.current = onTourActiveChange;
   }, [onTourActiveChange]);
+
+  React.useEffect(() => {
+    helpPocketRef.current = helpPocket;
+  }, [helpPocket]);
 
   React.useEffect(() => {
     if (!isGuestMode()) return;
@@ -78,25 +85,34 @@ export function GuestLessonTour({
     return () => onTourActiveChangeRef.current?.(false);
   }, [open]);
 
+  // While the tour runs, never leave Help pocket open — it covers exercise
+  // targets and made the gold highlight look stuck on coach-note text.
+  React.useEffect(() => {
+    if (!open) return;
+    helpPocketRef.current?.setOpen(false);
+  }, [open]);
+
   const handleStepChange = React.useCallback((step: { id: string }) => {
     onRequestViewRef.current?.(EXERCISE_STEP_IDS.has(step.id) ? "exercises" : "lesson");
+    helpPocketRef.current?.setOpen(false);
   }, []);
 
   if (!open) return null;
 
   return (
     <SpotlightTour
-      storageKey="kanam_guest_tool_tour_v9_done"
+      storageKey="kanam_guest_tool_tour_v11_done"
       remember={false}
       defaultOpen
       fadeMs={150}
-      recomputeDelayMs={180}
+      recomputeDelayMs={260}
       eyebrow="A quick look around"
       actionLabel="Go ahead"
-      footerHint="Tap the gold highlight when you're ready"
+      footerHint="Tap the gold highlight to continue"
       onStepChange={handleStepChange}
       onDone={() => {
         setOpen(false);
+        helpPocketRef.current?.setOpen(false);
         // Land back at the start of the Lesson tab — not the exercises.
         onRequestViewRef.current?.("lesson");
         onTourCompleteRef.current?.();
@@ -107,100 +123,105 @@ export function GuestLessonTour({
           selector: '[data-tour="lesson-hero-rewards"]',
           clickSelector: '[data-tour="lesson-hero-rewards"]',
           title: "This is the real student screen",
-          body: "Not a slideshow — the same lesson view families and schools get in class. Up top: the title, the **XP** students earn, and the **badge** they unlock when they finish. That's progress parents can actually see.",
+          body: "Same lesson view students use in class. Up top: **XP** they earn and the **badge** they unlock — progress parents can see.",
           action: "Tap the **XP** and **badge** area.",
           icon: <Sparkles className="h-4 w-4" />,
-          padding: 12,
+          padding: 8,
         },
         {
           id: "tabs",
           selector: '[data-tour="lesson-tab-lesson"]',
           clickSelector: '[data-tour="lesson-tab-lesson"]',
           title: "Learn first. Then try it.",
-          body: "Every Kanam lesson has two sides. **Lesson** teaches the concept clearly. **Exercises** is where students practice and get checked. Simple structure — clear for high schoolers, easy for teachers to trust.",
+          body: "**Lesson** teaches the idea. **Exercises** is where students practice and get checked.",
           action: "Open the **Lesson** tab.",
           icon: <Columns2 className="h-4 w-4" />,
-          padding: 10,
+          padding: 8,
         },
         {
           id: "teach",
           selector: '[data-tour="lesson-module-next"], [data-tour="lesson-module-start"]',
           clickSelector: '[data-tour="lesson-module-next"], [data-tour="lesson-module-start"]',
           title: "Short pages. Real understanding.",
-          body: "**Next** and **Back** move through the teaching pages. A few ask a quick check-in before continuing — just enough to keep attention, nothing that feels like busywork. The last page opens practice.",
-          action: "Press **Next** (or **Start the exercises** if you're already there).",
+          body: "**Next** moves through teaching pages. The last page opens practice.",
+          action: "Press **Next** (or **Start the exercises**).",
           icon: <BookOpen className="h-4 w-4" />,
-          padding: 14,
+          padding: 10,
         },
         {
           id: "tabs-exercises",
           selector: '[data-tour="lesson-tab-exercises"]',
           clickSelector: '[data-tour="lesson-tab-exercises"]',
-          title: "Practice is built into the product",
-          body: "Once the lesson pages are done, **Exercises** unlocks — the editor, **Run & check**, and console. We're peeking ahead so you can see what independent practice looks like before students dive in.",
+          title: "Practice is built in",
+          body: "**Exercises** unlocks the editor, **Run & check**, and console. We're peeking ahead so you can see the flow.",
           action: "Open **Exercises**.",
           icon: <ListChecks className="h-4 w-4" />,
-          padding: 10,
+          padding: 8,
         },
         {
           id: "coach",
-          selector: '[data-tour="lesson-coach"]',
-          clickSelector: '[data-tour="lesson-coach"]',
-          title: "Support without hovering",
-          body: "On a phone, help lives in the **Help pocket** at the bottom. On a larger screen, open **Coach's note** in the side panel — a nudge when they need it, out of the way when they're in flow.",
-          action: "Open **Coach's note**.",
+          // Mobile: header Help pocket only. Desktop: side Coach panel.
+          // Do not fall back to coach content inside the sheet — that caused
+          // gold highlights on words like "concatenation".
+          selector: '[data-tour="lesson-help-pocket"]',
+          clickSelector: '[data-tour="lesson-help-pocket"], [data-tour="lesson-coach"]',
+          mobileSelector: '[data-tour="lesson-help-pocket"]',
+          desktopSelector: '[data-tour="lesson-coach"]',
+          title: "Help when they need it",
+          body: "On a phone, **Help pocket** is in the top bar — Coach, Commands, and more. On a larger screen, use **Coach's note** beside the editor.",
+          action: "Tap **Help pocket** in the top bar.",
           icon: <MessageSquareText className="h-4 w-4" />,
-          padding: 10,
+          padding: 6,
         },
         {
           id: "exercise-nav",
           selector: '[data-tour="lesson-exercise-nav"] button:first-of-type',
           clickSelector: '[data-tour="lesson-exercise-nav"] button:first-of-type',
           title: "One clear step at a time",
-          body: "Students don't get dumped into a blank page. They finish **Exercise 1**, then the next unlocks. A green checkmark means that step is done — clean progress, no guessing.",
+          body: "Finish **Exercise 1**, then the next unlocks. A green check means that step is done.",
           action: "Tap **Exercise 1**.",
           icon: <Target className="h-4 w-4" />,
-          padding: 10,
+          padding: 8,
         },
         {
           id: "goal",
           selector: '[data-tour="lesson-goal"]',
           clickSelector: '[data-tour="lesson-goal"]',
           title: 'They always know what "done" looks like',
-          body: "Before anyone types, the goal is right here. Labels like **Fill**, **Reorder**, **Debug**, and **Make it yours** set the expectation — so students (and adults looking over a shoulder) aren't lost.",
+          body: "The goal sits above the editor — labels like **Fill** and **Debug** set the expectation.",
           action: "Tap the **goal** box.",
           icon: <Target className="h-4 w-4" />,
-          padding: 10,
+          padding: 8,
         },
         {
           id: "editor",
           selector: '[data-tour="lesson-editor"]',
           clickSelector: '[data-tour="lesson-editor"]',
-          title: "A real editor, designed for first-timers",
-          body: "This is where the work happens. Blanks show as **____** — type and they fill in. Need a nudge? A **hint** appears after a short try-first wait, so students think before they lean on help.",
+          title: "A real editor for first-timers",
+          body: "Blanks show as **____**. Type to fill them in. A **hint** appears after a short try-first wait.",
           action: "Tap inside the **editor**.",
           icon: <Code2 className="h-4 w-4" />,
-          padding: 10,
+          padding: 6,
         },
         {
           id: "run",
           selector: '[data-tour="lesson-run-button"]',
           clickSelector: '[data-tour="lesson-run-button"]',
-          title: "Instant feedback — the kind that teaches",
-          body: "**Run & check** runs the code and shows whether the goal was met. Students can try again as many times as they need. Mistakes aren't punished; they're part of how the skill sticks.",
+          title: "Instant feedback that teaches",
+          body: "**Run & check** runs the code and shows whether the goal was met. Try again anytime.",
           action: "Press **Run & check**.",
           icon: <Play className="h-4 w-4" />,
-          padding: 10,
+          padding: 8,
         },
         {
           id: "terminal",
           selector: '[data-tour="lesson-terminal"]',
           clickSelector: '[data-tour="lesson-terminal"]',
           title: "And here's the proof",
-          body: "The console shows what the program printed — and what to fix if it didn't work. That's the loop schools want: try, see, improve. You're ready for the real lesson now.",
+          body: "The console shows what printed — and what to fix if it didn't work.",
           action: "Tap the **console** to finish.",
           icon: <Terminal className="h-4 w-4" />,
-          padding: 10,
+          padding: 8,
         },
       ]}
     />

@@ -51,7 +51,7 @@ print("Hello! I am " + name)
 **Success looks like**
 The console prints one line that includes the name, with a space after "am".
 
-Click **Got it, let's go!** when you're ready.`,
+When you need a refresher, open **Help pocket** anytime for Coach, Commands, and more.`,
   kidExplain: [
     {
       title: "Variables store values under a name",

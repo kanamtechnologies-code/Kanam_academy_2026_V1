@@ -53,6 +53,7 @@ import {
 import type { PublicPythonLessonConfig } from "@/lib/lessons/publicPythonLesson";
 import type { PythonCheckResponse } from "@/lib/lessons/pythonCheckTypes";
 import { canPlayAdventure } from "@/lib/pythonLessons/adventurePlay";
+import { coachPythonExerciseFeedback } from "@/lib/pythonExerciseCoach";
 import { runMiniPython } from "@/lib/pythonRunner";
 import {
   findTypingZonesForExercise,
@@ -191,7 +192,6 @@ export function PythonLessonCanvas({
   lesson: PythonLessonConfig | PublicPythonLessonConfig;
 }) {
   const terminalPrompt = lesson.terminalPrompt ?? PYTHON_TERMINAL_PROMPT;
-  const gateSeconds = lesson.coachNoteGateSeconds ?? 8;
 
   const [animateIn, setAnimateIn] = React.useState(false);
   const [view, setView] = React.useState<"lesson" | "exercises">(
@@ -212,11 +212,12 @@ export function PythonLessonCanvas({
   const [lastFeedback, setLastFeedback] = React.useState("");
   const [lastFeedbackSuccess, setLastFeedbackSuccess] = React.useState(false);
   const [terminalOutput, setTerminalOutput] = React.useState("");
-  const [runError, setRunError] = React.useState<string | null>(null);
+  /** Bumps on every Run & check so retry UI re-pulses even when the message is unchanged. */
+  const [checkPulseKey, setCheckPulseKey] = React.useState(0);
+  const [isChecking, setIsChecking] = React.useState(false);
+  const feedbackAnchorRef = React.useRef<HTMLDivElement | null>(null);
+  const checkBusyTimerRef = React.useRef<number | null>(null);
   const [lessonComplete, setLessonComplete] = React.useState(false);
-
-  const [coachConfirmed, setCoachConfirmed] = React.useState(false);
-  const [coachSecondsLeft, setCoachSecondsLeft] = React.useState(gateSeconds);
 
   const [deviceId, setDeviceId] = React.useState("");
   const [userId, setUserId] = React.useState("");
@@ -239,6 +240,12 @@ export function PythonLessonCanvas({
     const t = window.setTimeout(() => setAnimateIn(true), 10);
     return () => window.clearTimeout(t);
   }, [lesson.id]);
+
+  React.useEffect(() => {
+    return () => {
+      if (checkBusyTimerRef.current != null) window.clearTimeout(checkBusyTimerRef.current);
+    };
+  }, []);
 
   React.useEffect(() => {
     if (!lesson.lessonModule) {
@@ -314,30 +321,6 @@ export function PythonLessonCanvas({
     })();
   }, []);
 
-  React.useEffect(() => {
-    if (gateSeconds <= 0) {
-      setCoachConfirmed(true);
-      return;
-    }
-    const coachKey = `kanam.coachRead:python:v1:${lesson.id}:${userId || deviceId || "anon"}`;
-    try {
-      if (window.localStorage.getItem(coachKey) === "1") {
-        setCoachConfirmed(true);
-        setCoachSecondsLeft(0);
-      }
-    } catch {
-      // ignore
-    }
-  }, [lesson.id, userId, deviceId, gateSeconds]);
-
-  React.useEffect(() => {
-    if (coachConfirmed || coachSecondsLeft <= 0) return;
-    const t = window.setInterval(() => {
-      setCoachSecondsLeft((s) => Math.max(0, s - 1));
-    }, 1000);
-    return () => window.clearInterval(t);
-  }, [coachConfirmed, coachSecondsLeft]);
-
   const trackProgress = React.useCallback(
     async (eventType: string, payload?: unknown) => {
       if (isGuestMode()) {
@@ -372,18 +355,6 @@ export function PythonLessonCanvas({
     trackProgress("lesson_opened");
   }, [deviceId, userId, studentDbId, trackProgress]);
 
-  const confirmCoachNote = () => {
-    setCoachConfirmed(true);
-    setCoachSecondsLeft(0);
-    try {
-      const coachKey = `kanam.coachRead:python:v1:${lesson.id}:${userId || deviceId || "anon"}`;
-      window.localStorage.setItem(coachKey, "1");
-    } catch {
-      // ignore
-    }
-    trackProgress("coach_note_confirmed");
-  };
-
   const setActiveCode = (next: string) => {
     if (!activeExercise) return;
     setCodeByExercise((prev) => ({ ...prev, [activeExercise.id]: next }));
@@ -396,7 +367,6 @@ export function PythonLessonCanvas({
       [activeExercise.id]: activeExercise.starterCode,
     }));
     setPredictionByExercise((prev) => ({ ...prev, [activeExercise.id]: "" }));
-    setRunError(null);
     setLastFeedback("");
     setLastFeedbackSuccess(false);
     setTerminalOutput("");
@@ -404,14 +374,24 @@ export function PythonLessonCanvas({
   };
 
   const handleRunExercise = () => {
-    if (!activeExercise) return;
+    if (!activeExercise || isChecking) return;
     const kind = activeExercise.kind ?? "fill";
     trackProgress("run", { exerciseId: activeExercise.id, kind });
+    setCheckPulseKey((n) => n + 1);
+    setIsChecking(true);
+    if (checkBusyTimerRef.current != null) window.clearTimeout(checkBusyTimerRef.current);
+    checkBusyTimerRef.current = window.setTimeout(() => {
+      setIsChecking(false);
+      checkBusyTimerRef.current = null;
+    }, 320);
+    // Keep the tip/console in view on mobile so the pulse is actually visible.
+    requestAnimationFrame(() => {
+      feedbackAnchorRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
 
     if (kind === "predict") {
       const prediction = (predictionByExercise[activeExercise.id] ?? "").trim();
       if (!prediction) {
-        setRunError(null);
         setLastFeedbackSuccess(false);
         setLastFeedback("Type your prediction before you run.");
         setTerminalOutput(
@@ -422,7 +402,6 @@ export function PythonLessonCanvas({
     }
 
     if (hasBlankTokens(activeCode) && kind !== "predict") {
-      setRunError(null);
       setLastFeedbackSuccess(false);
       setLastFeedback("Fill in every blank before running.");
       setTerminalOutput(formatPythonTerminal("❌ Fill in every blank first.", terminalPrompt));
@@ -430,7 +409,6 @@ export function PythonLessonCanvas({
     }
 
     if (hasBlankTokens(activeCode) && kind === "predict") {
-      setRunError(null);
       setLastFeedbackSuccess(false);
       setLastFeedback("This predict exercise still has blanks — ask your teacher to fix the lesson.");
       setTerminalOutput(formatPythonTerminal("❌ Predict code should not contain blanks.", terminalPrompt));
@@ -438,9 +416,14 @@ export function PythonLessonCanvas({
     }
 
     if (activeCode.includes("Print(")) {
-      setRunError("Use lowercase print(...), not Print(...).");
       setLastFeedbackSuccess(false);
-      setLastFeedback(activeExercise.failureMessage);
+      setLastFeedback(
+        coachPythonExerciseFeedback({
+          code: activeCode,
+          runError: "Use lowercase print(...), not Print(...).",
+          fallback: activeExercise.failureMessage,
+        })
+      );
       setTerminalOutput(
         formatPythonTerminal("❌ Python needs lowercase print(...), not Print(...).", terminalPrompt)
       );
@@ -449,14 +432,17 @@ export function PythonLessonCanvas({
 
     const run = runMiniPython(activeCode, {});
     if (run.error) {
-      setRunError(run.error);
       setLastFeedbackSuccess(false);
-      setLastFeedback(activeExercise.failureMessage);
+      setLastFeedback(
+        coachPythonExerciseFeedback({
+          code: activeCode,
+          runError: run.error,
+          fallback: activeExercise.failureMessage,
+        })
+      );
       setTerminalOutput(formatPythonTerminal(`❌ ${run.error}`, terminalPrompt));
       return;
     }
-
-    setRunError(null);
     const body =
       run.stdout.length > 0
         ? run.stdout.join("\n")
@@ -496,13 +482,15 @@ export function PythonLessonCanvas({
       }
 
       if (!graded.ok) {
+        const tip = coachPythonExerciseFeedback({
+          code: activeCode,
+          runError: null,
+          fallback: graded.feedback || activeExercise.failureMessage,
+        });
         setLastFeedbackSuccess(false);
-        setLastFeedback(graded.feedback || activeExercise.failureMessage);
+        setLastFeedback(tip);
         setTerminalOutput(
-          formatPythonTerminal(
-            `❌ ${graded.feedback || activeExercise.failureMessage}\n\n${body}`,
-            terminalPrompt
-          )
+          formatPythonTerminal(`❌ ${tip}\n\n${body}`, terminalPrompt)
         );
         return;
       }
@@ -531,7 +519,6 @@ export function PythonLessonCanvas({
   const goToNextExercise = () => {
     if (activeIndex < lesson.exercises.length - 1) {
       setActiveIndex((i) => i + 1);
-      setRunError(null);
       setLastFeedback("");
       setLastFeedbackSuccess(false);
       setTerminalOutput("");
@@ -653,10 +640,8 @@ export function PythonLessonCanvas({
     return findTypingZonesForExercise(activeCode, activeExercise.starterCode);
   }, [activeExercise, activeCode, currentDone]);
 
-  const workspaceLocked = !coachConfirmed && gateSeconds > 0 && !lesson.lessonModule;
-
   React.useEffect(() => {
-    if (workspaceLocked || lessonComplete) return;
+    if (lessonComplete) return;
     const t = window.setTimeout(() => {
       const el = document.querySelector<HTMLTextAreaElement>(
         `[aria-label="Python exercise ${activeIndex + 1}"]`
@@ -668,7 +653,7 @@ export function PythonLessonCanvas({
       }
     }, 150);
     return () => window.clearTimeout(t);
-  }, [activeIndex, workspaceLocked, lessonComplete, activeExercise?.starterCode]);
+  }, [activeIndex, lessonComplete, activeExercise?.starterCode]);
 
   const exitHref = dashboardHrefForLesson(lesson.id);
   const exitLabel =
@@ -722,38 +707,38 @@ export function PythonLessonCanvas({
       ) : null}
       <div
         className={cn(
-          "mx-auto max-w-[1400px] transition-all duration-300",
+          "mx-auto w-full min-w-0 max-w-[1400px] transition-all duration-300",
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         )}
       >
         <div
           data-tour="lesson-hero"
-          className="kanam-lesson-hero mb-6 rounded-[22px] p-4 sm:mb-8 sm:rounded-[28px] sm:p-6 md:p-8"
+          className="kanam-lesson-hero mb-6 w-full max-w-full rounded-[22px] p-3.5 sm:mb-8 sm:rounded-[28px] sm:p-6 md:p-8"
         >
           <div className="kanam-lesson-hero-overlay" />
-          <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
-            <div className="min-w-0">
-              <div className="flex items-center gap-3.5">
-                <div className="kanam-hero-brand-tile grid h-14 w-14 shrink-0 place-items-center rounded-2xl">
-                  <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} />
+          <div className="relative z-10 flex min-w-0 flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
+            <div className="min-w-0 w-full sm:flex-1">
+              <div className="flex min-w-0 items-center gap-2.5 sm:gap-3.5">
+                <div className="kanam-hero-brand-tile grid h-11 w-11 shrink-0 place-items-center rounded-2xl sm:h-14 sm:w-14">
+                  <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} className="h-7 w-7 sm:h-10 sm:w-10" />
                 </div>
-                <div className="leading-tight">
-                  <p className="kanam-hero-kicker text-base font-black uppercase tracking-[0.16em] text-white md:text-lg">
+                <div className="min-w-0 leading-tight">
+                  <p className="kanam-hero-kicker truncate text-sm font-black uppercase tracking-[0.14em] text-white sm:text-base md:text-lg">
                     Python + AI Hub
                   </p>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/75">
+                  <p className="truncate text-[10px] font-semibold uppercase tracking-[0.24em] text-white/75 sm:text-[11px] sm:tracking-[0.3em]">
                     Kanam Academy
                   </p>
                 </div>
               </div>
-              <h1 className="kanam-hero-title mt-4 break-words text-2xl font-black tracking-tight text-white sm:mt-5 sm:text-3xl md:text-5xl">
+              <h1 className="kanam-hero-title mt-3 break-words text-xl font-black tracking-tight text-white sm:mt-5 sm:text-3xl md:text-5xl">
                 {lesson.title}
               </h1>
-              <p className="mt-2.5 max-w-3xl text-base font-medium text-white/90 md:text-lg">
+              <p className="mt-2 max-w-3xl text-sm font-medium text-white/90 sm:mt-2.5 sm:text-base md:text-lg">
                 {lesson.goal}
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-2" data-tour="lesson-hero-rewards">
+            <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2" data-tour="lesson-hero-rewards">
               <Badge className="kanam-hero-chip">
                 <Zap className="mr-1.5 h-4 w-4" />
                 {lesson.xpReward} XP
@@ -764,16 +749,16 @@ export function PythonLessonCanvas({
               </Button>
             </div>
           </div>
-          <div className="relative z-10 mt-6">
-            <div className="mb-2 flex justify-between text-sm font-semibold text-white/90">
-              <span>
+          <div className="relative z-10 mt-5 min-w-0 sm:mt-6">
+            <div className="mb-2 flex min-w-0 items-baseline justify-between gap-3 text-sm font-semibold text-white/90">
+              <span className="min-w-0 truncate">
                 {isProject
                   ? `Project checklist: ${Object.values(projectChecks).filter(Boolean).length} / ${lesson.project?.requirements.length ?? 0}`
                   : `Exercises complete: ${completedIds.size} / ${lesson.exercises.length}`}
               </span>
-              <span>{progressPercent}%</span>
+              <span className="shrink-0 tabular-nums">{progressPercent}%</span>
             </div>
-            <Progress value={progressPercent} className="h-2.5 bg-white/25" indicatorClassName="bg-white" />
+            <Progress value={progressPercent} className="h-2.5 w-full bg-white/25" indicatorClassName="bg-white" />
           </div>
         </div>
 
@@ -846,9 +831,9 @@ export function PythonLessonCanvas({
             />
           </div>
         ) : (
-        <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-          {/* Desktop: sticky side panels. Mobile: Help pocket below. */}
-          <div className="order-2 hidden space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
+        <div className="grid min-w-0 max-w-full gap-6 lg:grid-cols-[1fr_1.15fr]">
+          {/* Desktop: sticky side panels. Mobile: Help pocket via header button. */}
+          <div className="order-2 hidden min-w-0 max-w-full space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
             <LessonAside
               title="Coach's note"
               tone="coach"
@@ -856,20 +841,7 @@ export function PythonLessonCanvas({
               icon={<Sparkles className="h-4 w-4" />}
               data-tour="lesson-coach"
             >
-              <div className="space-y-3">
-                <CoachNoteContent text={lesson.instructorScript} />
-                {!coachConfirmed && gateSeconds > 0 ? (
-                  <Button
-                    type="button"
-                    size="sm"
-                    disabled={coachSecondsLeft > 0}
-                    onClick={confirmCoachNote}
-                    className="mt-1 h-10 rounded-xl bg-[var(--brand)] font-bold text-white shadow-sm hover:brightness-105"
-                  >
-                    Got it {coachSecondsLeft > 0 ? `(${coachSecondsLeft}s)` : ""}
-                  </Button>
-                ) : null}
-              </div>
+              <CoachNoteContent text={lesson.instructorScript} />
             </LessonAside>
 
             <LessonAside
@@ -976,28 +948,19 @@ export function PythonLessonCanvas({
             </LessonAside>
           </div>
 
-          <div className="order-1 space-y-4 lg:order-2">
-            {workspaceLocked ? (
-              <Card>
-                <CardContent className="flex items-center gap-3 py-8 text-slate-600">
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  Read the coach&apos;s note first — then unlock the code workspace.
-                </CardContent>
-              </Card>
-            ) : (
-              <>
+          <div className="order-1 min-w-0 max-w-full space-y-4 lg:order-2">
                 <Card
                   ref={workspacePanelRef}
                   data-tour="lesson-exercise"
-                  className="scroll-mt-24 border-slate-300 shadow-lg"
+                  className="min-w-0 max-w-full scroll-mt-24 border-slate-300 shadow-lg"
                 >
-                  <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Code2 className="h-5 w-5 text-[var(--brand)]" />
+                  <CardHeader className="min-w-0 max-w-full p-4 pb-2 sm:p-6 sm:pb-2">
+                    <CardTitle className="flex min-w-0 items-center gap-2 text-base">
+                      <Code2 className="h-5 w-5 shrink-0 text-[var(--brand)]" />
                       Python workspace
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="min-w-0 max-w-full space-y-4 px-4 pb-4 sm:px-6 sm:pb-6">
                     {isProject && lesson.project ? (
                       <div className="space-y-3">
                         <div className="rounded-2xl border border-[rgb(var(--accent-rgb)/0.45)] bg-gradient-to-br from-white via-[rgb(var(--accent-rgb)/0.14)] to-[rgb(var(--brand-rgb)/0.1)] p-4">
@@ -1062,7 +1025,10 @@ export function PythonLessonCanvas({
                         </div>
                       </div>
                     ) : (
-                      <div className="flex flex-wrap gap-2" data-tour="lesson-exercise-nav">
+                      <div
+                        className="flex min-w-0 max-w-full flex-wrap gap-1.5"
+                        data-tour="lesson-exercise-nav"
+                      >
                         {lesson.exercises.map((ex, idx) => {
                           const done = completedIds.has(ex.id);
                           const active = idx === activeIndex;
@@ -1076,7 +1042,7 @@ export function PythonLessonCanvas({
                                 if (!locked) setActiveIndex(idx);
                               }}
                               className={cn(
-                                "flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors sm:min-h-0 sm:py-1.5",
+                                "flex min-h-11 min-w-0 max-w-full items-center gap-1.5 rounded-full border px-2.5 py-2 text-xs font-semibold transition-colors sm:min-h-0 sm:px-3.5 sm:py-1.5",
                                 active
                                   ? "border-[var(--brand)] bg-[var(--brand)] text-white"
                                   : done
@@ -1086,8 +1052,10 @@ export function PythonLessonCanvas({
                                       : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                               )}
                             >
-                              {done ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
-                              {idx + 1}. {ex.focusCommand}
+                              {done ? <CheckCircle2 className="h-3.5 w-3.5 shrink-0" /> : null}
+                              <span className="min-w-0 break-words text-left">
+                                {idx + 1}. {ex.focusCommand}
+                              </span>
                             </button>
                           );
                         })}
@@ -1102,39 +1070,46 @@ export function PythonLessonCanvas({
                       />
                     ) : activeExercise ? (
                       <>
-                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4" data-tour="lesson-goal">
+                        <div
+                          className="min-w-0 max-w-full rounded-xl border border-slate-200 bg-slate-50 p-3 sm:p-4"
+                          data-tour="lesson-goal"
+                        >
                           {!isProject ? (
-                            <div className="flex flex-wrap items-center gap-2">
-                              <Badge className="bg-violet-700 text-white">
-                                {activeExercise.focusCommand}
-                              </Badge>
-                              {(activeExercise.kind ?? "fill") === "predict" ? (
-                                <Badge className="bg-violet-100 text-violet-900">Predict</Badge>
-                              ) : null}
-                              {(activeExercise.kind ?? "fill") === "debug" ? (
-                                <Badge className="bg-amber-100 text-amber-900">Debug</Badge>
-                              ) : null}
-                              {(activeExercise.kind ?? "fill") === "parsons" ? (
-                                <Badge className="bg-indigo-100 text-indigo-900">Reorder</Badge>
-                              ) : null}
-                              {(activeExercise.kind ?? "fill") === "scratch" ? (
-                                <Badge className="bg-emerald-100 text-emerald-900">Build</Badge>
-                              ) : null}
-                              <p className="text-sm font-semibold text-slate-900">
+                            <div className="flex min-w-0 max-w-full flex-col gap-2">
+                              <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">
+                                <Badge className="max-w-full shrink truncate bg-violet-700 text-white">
+                                  {activeExercise.focusCommand}
+                                </Badge>
+                                {(activeExercise.kind ?? "fill") === "predict" ? (
+                                  <Badge className="bg-violet-100 text-violet-900">Predict</Badge>
+                                ) : null}
+                                {(activeExercise.kind ?? "fill") === "debug" ? (
+                                  <Badge className="bg-amber-100 text-amber-900">Debug</Badge>
+                                ) : null}
+                                {(activeExercise.kind ?? "fill") === "parsons" ? (
+                                  <Badge className="bg-indigo-100 text-indigo-900">Reorder</Badge>
+                                ) : null}
+                                {(activeExercise.kind ?? "fill") === "scratch" ? (
+                                  <Badge className="bg-emerald-100 text-emerald-900">Build</Badge>
+                                ) : null}
+                              </div>
+                              <p className="min-w-0 max-w-full break-words text-sm font-semibold text-slate-900">
                                 {activeExercise.title}
                               </p>
                             </div>
                           ) : (
-                            <p className="text-sm font-semibold text-slate-900">
+                            <p className="min-w-0 max-w-full break-words text-sm font-semibold text-slate-900">
                               {activeExercise.title}
                             </p>
                           )}
                           {!isProject ? (
-                            <p className="mt-2 text-sm font-medium text-violet-900">
+                            <p className="mt-2 min-w-0 max-w-full break-words text-sm font-medium text-violet-900">
                               {activeExercise.commandExplain}
                             </p>
                           ) : null}
-                          <p className="mt-2 text-sm text-slate-600">{activeExercise.goal}</p>
+                          <p className="mt-2 min-w-0 max-w-full break-words text-sm text-slate-600">
+                            {activeExercise.goal}
+                          </p>
                           {!currentDone && !lessonComplete ? (
                             <ExerciseHint
                               exerciseKey={activeExercise.id}
@@ -1148,7 +1123,7 @@ export function PythonLessonCanvas({
                             />
                           ) : null}
                           {activeExercise.previewOutput ? (
-                            <pre className="mt-3 rounded-lg bg-slate-900 p-3 font-mono text-xs text-emerald-100">
+                            <pre className="mt-3 max-w-full overflow-x-auto whitespace-pre-wrap break-words rounded-lg bg-slate-900 p-3 font-mono text-xs text-emerald-100">
                               {activeExercise.previewOutput}
                             </pre>
                           ) : null}
@@ -1187,7 +1162,7 @@ export function PythonLessonCanvas({
                             }}
                           />
                         ) : (
-                          <div data-tour="lesson-editor">
+                          <div className="min-w-0 max-w-full" data-tour="lesson-editor">
                             <PythonExerciseEditor
                               key={`${activeExercise.id}-code-${exerciseResetToken}`}
                               value={activeCode}
@@ -1225,12 +1200,19 @@ export function PythonLessonCanvas({
                           <Button
                             type="button"
                             data-tour="lesson-run-button"
-                            className="min-h-11 w-full sm:w-auto"
+                            className={cn(
+                              "min-h-11 w-full sm:w-auto",
+                              isChecking && "kanam-data-retry-pulse"
+                            )}
                             onClick={handleRunExercise}
-                            disabled={lessonComplete}
+                            disabled={lessonComplete || isChecking}
                           >
-                            <Play className="h-4 w-4" />
-                            Run &amp; check
+                            {isChecking ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Play className="h-4 w-4" />
+                            )}
+                            {isChecking ? "Checking…" : "Run & check"}
                           </Button>
                           {canAdvance ? (
                             <Button
@@ -1255,55 +1237,81 @@ export function PythonLessonCanvas({
                           </Button>
                         </div>
 
-                        {lastFeedback ? (
-                          lastFeedbackSuccess ? (
-                            <div
-                              key={`success-${activeExercise.id}`}
-                              className="kanam-data-success-banner"
-                              role="status"
+                        <div ref={feedbackAnchorRef} className="min-w-0 max-w-full space-y-2">
+                          {checkPulseKey > 1 && !lastFeedbackSuccess && lastFeedback ? (
+                            <p
+                              key={`checked-again-${checkPulseKey}`}
+                              className="kanam-data-checked-again text-center text-xs font-extrabold uppercase tracking-[0.14em] text-[var(--brand)]"
+                              aria-live="polite"
                             >
-                              <CheckCircle2 className="kanam-data-success-icon" aria-hidden />
-                              <div>
-                                <p className="kanam-data-success-title">Success!</p>
-                                <p className="kanam-data-success-body">{lastFeedback}</p>
-                                {canAdvance ? (
-                                  <p className="mt-2 text-xs font-bold uppercase tracking-wide text-[var(--brand)]">
-                                    Tap Next exercise when you&apos;re ready
-                                  </p>
-                                ) : lessonComplete ? (
-                                  <p className="mt-2 text-xs font-bold uppercase tracking-wide text-[var(--brand)]">
-                                    You finished the whole lesson!
-                                  </p>
-                                ) : null}
+                              Checked again
+                            </p>
+                          ) : null}
+
+                          {lastFeedback ? (
+                            lastFeedbackSuccess ? (
+                              <div
+                                key={`success-${activeExercise.id}-${checkPulseKey}`}
+                                className="kanam-data-success-banner"
+                                role="status"
+                              >
+                                <CheckCircle2 className="kanam-data-success-icon" aria-hidden />
+                                <div>
+                                  <p className="kanam-data-success-title">Success!</p>
+                                  <p className="kanam-data-success-body">{lastFeedback}</p>
+                                  {canAdvance ? (
+                                    <p className="mt-2 text-xs font-bold uppercase tracking-wide text-[var(--brand)]">
+                                      Tap Next exercise when you&apos;re ready
+                                    </p>
+                                  ) : lessonComplete ? (
+                                    <p className="mt-2 text-xs font-bold uppercase tracking-wide text-[var(--brand)]">
+                                      You finished the whole lesson!
+                                    </p>
+                                  ) : null}
+                                </div>
                               </div>
-                            </div>
-                          ) : (
-                            <div className="kanam-data-retry-banner" role="alert">
-                              <p className="kanam-data-retry-body">{lastFeedback}</p>
-                            </div>
-                          )
-                        ) : null}
+                            ) : (
+                              <div
+                                key={`retry-${activeExercise.id}-${checkPulseKey}`}
+                                className="kanam-data-retry-banner kanam-data-retry-pulse"
+                                role="alert"
+                                style={{
+                                  // Force a fresh animation timeline every attempt (mobile Chromium is flaky with class-only remounts).
+                                  animation: `kanamDataRetryPulse 0.7s cubic-bezier(0.22, 1, 0.36, 1) both`,
+                                }}
+                              >
+                                <p className="kanam-data-retry-body">{lastFeedback}</p>
+                              </div>
+                            )
+                          ) : null}
 
-                        <div data-tour="lesson-terminal">
-                          <p className="mb-2 flex items-center gap-2 text-xs font-extrabold uppercase tracking-wide text-slate-500">
-                            <Terminal className="h-3.5 w-3.5" />
-                            Console output
-                          </p>
-                          <pre
-                            className={cn(
-                              "kanam-hide-scrollbar min-h-[4.5rem] overflow-auto rounded-xl p-4 font-mono text-xs",
-                              terminalOutput
-                                ? lastFeedbackSuccess
-                                  ? "kanam-data-terminal-success text-emerald-100"
-                                  : "bg-slate-900 text-emerald-100"
-                                : "bg-slate-900 text-slate-500"
-                            )}
-                          >
-                            {terminalOutput || "Press Run & check to see output here."}
-                          </pre>
+                          <div data-tour="lesson-terminal">
+                            <p className="mb-2 flex items-center gap-2 text-xs font-extrabold uppercase tracking-wide text-slate-500">
+                              <Terminal className="h-3.5 w-3.5" />
+                              Console output
+                            </p>
+                            <pre
+                              key={`term-${activeExercise.id}-${checkPulseKey}`}
+                              className={cn(
+                                "kanam-hide-scrollbar min-h-[4.5rem] overflow-auto rounded-xl p-4 font-mono text-xs",
+                                terminalOutput
+                                  ? lastFeedbackSuccess
+                                    ? "kanam-data-terminal-success text-emerald-100"
+                                    : "bg-slate-900 text-emerald-100"
+                                  : "bg-slate-900 text-slate-500"
+                              )}
+                              style={
+                                terminalOutput && !lastFeedbackSuccess
+                                  ? {
+                                      animation: `kanamDataTerminalRerun 0.65s ease-out both`,
+                                    }
+                                  : undefined
+                              }
+                            >
+                              {terminalOutput || "Press Run & check to see output here."}
+                            </pre>
+                          </div>
                         </div>
-
-                        {runError ? <p className="text-sm text-red-600">{runError}</p> : null}
                       </>
                     ) : null}
                   </CardContent>
@@ -1352,15 +1360,12 @@ export function PythonLessonCanvas({
                     </CardContent>
                   </Card>
                 ) : null}
-              </>
-            )}
           </div>
         </div>
         )}
 
-        {lesson.lessonModule && (view === "lesson" || !canShowExercises) ? null : (
-          <MobileLessonPocket
-            defaultOpenId={!coachConfirmed && gateSeconds > 0 ? "coach" : null}
+        {/* Always mount so Help pocket stays in the mobile nav (including Lesson tab / tour). */}
+        <MobileLessonPocket
             panels={
               [
                 {
@@ -1369,24 +1374,7 @@ export function PythonLessonCanvas({
                   title: "Coach's note",
                   tone: "coach",
                   icon: <Sparkles className="h-4 w-4" />,
-                  dataTour: "lesson-coach",
-                  attention: !coachConfirmed && gateSeconds > 0,
-                  content: (
-                    <div className="space-y-3">
-                      <CoachNoteContent text={lesson.instructorScript} />
-                      {!coachConfirmed && gateSeconds > 0 ? (
-                        <Button
-                          type="button"
-                          size="sm"
-                          disabled={coachSecondsLeft > 0}
-                          onClick={confirmCoachNote}
-                          className="mt-1 h-10 w-full rounded-xl bg-[var(--brand)] font-bold text-white shadow-sm hover:brightness-105"
-                        >
-                          Got it {coachSecondsLeft > 0 ? `(${coachSecondsLeft}s)` : ""}
-                        </Button>
-                      ) : null}
-                    </div>
-                  ),
+                  content: <CoachNoteContent text={lesson.instructorScript} />,
                 },
                 {
                   id: "commands",
@@ -1516,7 +1504,6 @@ export function PythonLessonCanvas({
               ] satisfies MobileLessonPocketPanel[]
             }
           />
-        )}
       </div>
 
       {/* Dev-only skip controls — never on guided demo / production */}

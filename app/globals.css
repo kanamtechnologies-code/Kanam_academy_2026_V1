@@ -39,6 +39,10 @@
   --font-sans: var(--font-inter);
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -50,6 +54,8 @@ body {
   font-feature-settings: "kern", "liga", "calt";
   /* Avoid iOS zoom-on-focus for inputs under 16px */
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
+  max-width: 100vw;
 }
 
 /* Smooth light/dark theme changes — only while .theme-animating is set */
@@ -787,7 +793,38 @@ body {
 @keyframes kanamPocketSheetIn {
   from {
     opacity: 0.65;
-    transform: translateY(18%);
+    transform: translateY(22%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes kanamPocketSheetOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(24%);
+  }
+}
+
+@keyframes kanamPocketScrimOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes kanamPocketPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -1060,6 +1097,75 @@ body {
 
 .dark .kanam-data-retry-body {
   color: rgb(148 163 184);
+}
+
+/* Re-run feedback: strong, hard-to-miss pulse (restarts via React key) */
+@keyframes kanamDataRetryPulse {
+  0% {
+    transform: scale(0.98);
+    outline: 3px solid rgb(var(--brand-rgb) / 0.85);
+    box-shadow: 0 0 0 0 rgb(var(--brand-rgb) / 0.45);
+    filter: brightness(1.08);
+  }
+  45% {
+    transform: scale(1.02);
+    outline: 3px solid rgb(var(--accent-rgb) / 0.75);
+    box-shadow: 0 0 0 10px rgb(var(--brand-rgb) / 0);
+    filter: brightness(1.12);
+  }
+  100% {
+    transform: scale(1);
+    outline: 3px solid transparent;
+    box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+    filter: brightness(1);
+  }
+}
+
+.kanam-data-retry-pulse {
+  animation: kanamDataRetryPulse 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes kanamDataTerminalRerun {
+  0% {
+    outline: 3px solid rgb(251 113 133 / 0.9);
+    box-shadow: 0 0 0 0 rgb(251 113 133 / 0.45);
+  }
+  55% {
+    outline: 3px solid rgb(251 113 133 / 0.35);
+    box-shadow: 0 0 0 8px rgb(251 113 133 / 0);
+  }
+  100% {
+    outline: 3px solid transparent;
+    box-shadow: none;
+  }
+}
+
+.kanam-data-terminal-rerun {
+  animation: kanamDataTerminalRerun 0.65s ease-out both;
+}
+
+@keyframes kanamDataCheckedAgainIn {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.92);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0) scale(1.05);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-2px) scale(0.98);
+  }
+}
+
+.kanam-data-checked-again {
+  animation: kanamDataCheckedAgainIn 1.1s ease-out both;
+  pointer-events: none;
 }
 
 .kanam-data-terminal-success {

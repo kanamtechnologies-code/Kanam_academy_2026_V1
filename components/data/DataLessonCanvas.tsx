@@ -162,7 +162,6 @@ export function DataLessonCanvas({
   lesson: DataLessonConfig | PublicDataLessonConfig;
 }) {
   const terminalPrompt = lesson.terminalPrompt ?? TERMINAL_DEFAULT;
-  const gateSeconds = lesson.coachNoteGateSeconds ?? 0;
 
   const [animateIn, setAnimateIn] = React.useState(false);
   const [view, setView] = React.useState<"lesson" | "exercises">(
@@ -213,9 +212,6 @@ export function DataLessonCanvas({
   const [predictionByExercise, setPredictionByExercise] = React.useState<Record<string, string>>({});
   /** Bumped on Reset so the editor / Parsons board remounts cleanly. */
   const [exerciseResetToken, setExerciseResetToken] = React.useState(0);
-
-  const [coachConfirmed, setCoachConfirmed] = React.useState(false);
-  const [coachSecondsLeft, setCoachSecondsLeft] = React.useState(gateSeconds);
 
   const [deviceId, setDeviceId] = React.useState("");
   const [userId, setUserId] = React.useState("");
@@ -296,30 +292,6 @@ export function DataLessonCanvas({
     })();
   }, []);
 
-  React.useEffect(() => {
-    if (gateSeconds <= 0) {
-      setCoachConfirmed(true);
-      return;
-    }
-    const coachKey = `kanam.coachRead:data:v1:${lesson.id}:${userId || deviceId || "anon"}`;
-    try {
-      if (window.localStorage.getItem(coachKey) === "1") {
-        setCoachConfirmed(true);
-        setCoachSecondsLeft(0);
-      }
-    } catch {
-      // ignore
-    }
-  }, [lesson.id, userId, deviceId, gateSeconds]);
-
-  React.useEffect(() => {
-    if (coachConfirmed || coachSecondsLeft <= 0) return;
-    const t = window.setInterval(() => {
-      setCoachSecondsLeft((s) => Math.max(0, s - 1));
-    }, 1000);
-    return () => window.clearInterval(t);
-  }, [coachConfirmed, coachSecondsLeft]);
-
   const trackProgress = React.useCallback(
     async (eventType: string, payload?: unknown) => {
       if (isGuestMode()) {
@@ -353,18 +325,6 @@ export function DataLessonCanvas({
     if (!deviceId || !userId || !studentDbId) return;
     trackProgress("lesson_opened");
   }, [deviceId, userId, studentDbId, trackProgress]);
-
-  const confirmCoachNote = () => {
-    setCoachConfirmed(true);
-    setCoachSecondsLeft(0);
-    try {
-      const coachKey = `kanam.coachRead:data:v1:${lesson.id}:${userId || deviceId || "anon"}`;
-      window.localStorage.setItem(coachKey, "1");
-    } catch {
-      // ignore
-    }
-    trackProgress("coach_note_confirmed");
-  };
 
   const formatTerminal = (body: string) =>
     `${terminalPrompt}\n${body}\n${terminalPrompt}`;
@@ -557,35 +517,35 @@ export function DataLessonCanvas({
     <WelcomeBackground>
       <div
         className={cn(
-          "mx-auto max-w-[1400px] transition-all duration-300",
+          "mx-auto w-full min-w-0 max-w-[1400px] transition-all duration-300",
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         )}
       >
-        <div className="kanam-lesson-hero mb-6 rounded-[22px] p-4 sm:mb-8 sm:rounded-[28px] sm:p-6 md:p-8">
+        <div className="kanam-lesson-hero mb-6 w-full max-w-full rounded-[22px] p-3.5 sm:mb-8 sm:rounded-[28px] sm:p-6 md:p-8">
           <div className="kanam-lesson-hero-overlay" />
-          <div className="relative z-10 flex flex-wrap items-start justify-between gap-4">
-            <div className="min-w-0">
-              <div className="flex items-center gap-3.5">
-                <div className="kanam-hero-brand-tile grid h-14 w-14 shrink-0 place-items-center rounded-2xl">
-                  <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} />
+          <div className="relative z-10 flex min-w-0 flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-start sm:justify-between">
+            <div className="min-w-0 w-full sm:flex-1">
+              <div className="flex min-w-0 items-center gap-2.5 sm:gap-3.5">
+                <div className="kanam-hero-brand-tile grid h-11 w-11 shrink-0 place-items-center rounded-2xl sm:h-14 sm:w-14">
+                  <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} className="h-7 w-7 sm:h-10 sm:w-10" />
                 </div>
-                <div className="leading-tight">
-                  <p className="kanam-hero-kicker text-base font-black uppercase tracking-[0.16em] text-white md:text-lg">
+                <div className="min-w-0 leading-tight">
+                  <p className="kanam-hero-kicker truncate text-sm font-black uppercase tracking-[0.14em] text-white sm:text-base md:text-lg">
                     Data Analyst Hub
                   </p>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/75">
+                  <p className="truncate text-[10px] font-semibold uppercase tracking-[0.24em] text-white/75 sm:text-[11px] sm:tracking-[0.3em]">
                     Kanam Academy
                   </p>
                 </div>
               </div>
-              <h1 className="kanam-hero-title mt-4 break-words text-2xl font-black tracking-tight text-white sm:mt-5 sm:text-3xl md:text-5xl">
+              <h1 className="kanam-hero-title mt-3 break-words text-xl font-black tracking-tight text-white sm:mt-5 sm:text-3xl md:text-5xl">
                 {lesson.title}
               </h1>
-              <p className="mt-2.5 max-w-3xl text-base font-medium text-white/90 md:text-lg">
+              <p className="mt-2 max-w-3xl text-sm font-medium text-white/90 sm:mt-2.5 sm:text-base md:text-lg">
                 {lesson.goal}
               </p>
             </div>
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">
               <Badge className="kanam-hero-chip">
                 <Zap className="mr-1.5 h-4 w-4" />
                 {lesson.xpReward} XP
@@ -596,14 +556,14 @@ export function DataLessonCanvas({
               </Button>
             </div>
           </div>
-          <div className="relative z-10 mt-6">
-            <div className="mb-2 flex justify-between text-sm font-semibold text-white/90">
-              <span>
+          <div className="relative z-10 mt-5 min-w-0 sm:mt-6">
+            <div className="mb-2 flex min-w-0 items-baseline justify-between gap-3 text-sm font-semibold text-white/90">
+              <span className="min-w-0 truncate">
                 Exercises complete: {completedIds.size} / {lesson.exercises.length}
               </span>
-              <span>{progressPercent}%</span>
+              <span className="shrink-0 tabular-nums">{progressPercent}%</span>
             </div>
-            <Progress value={progressPercent} className="h-2.5 bg-white/25" indicatorClassName="bg-white" />
+            <Progress value={progressPercent} className="h-2.5 w-full bg-white/25" indicatorClassName="bg-white" />
           </div>
         </div>
 
@@ -662,28 +622,15 @@ export function DataLessonCanvas({
         {lesson.lessonModule && (view === "lesson" || !lessonUnlocked) ? (
           <LessonModule module={lesson.lessonModule} onStart={openExercises} />
         ) : (
-        <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
-          <div className="order-2 hidden space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
+        <div className="grid min-w-0 max-w-full gap-6 lg:grid-cols-[1fr_1.15fr]">
+          <div className="order-2 hidden min-w-0 max-w-full space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
             <LessonAside
               title="Coach's note"
               tone="coach"
               defaultOpen={!lesson.lessonModule}
               icon={<Sparkles className="h-4 w-4" />}
             >
-              <div className="space-y-3">
-                {renderCoachNote(lesson.instructorScript)}
-                {!coachConfirmed && gateSeconds > 0 ? (
-                  <Button
-                    type="button"
-                    size="sm"
-                    disabled={coachSecondsLeft > 0}
-                    onClick={confirmCoachNote}
-                    className="mt-1 h-10 rounded-xl bg-[var(--brand)] font-bold text-white shadow-sm hover:brightness-105"
-                  >
-                    Got it {coachSecondsLeft > 0 ? `(${coachSecondsLeft}s)` : ""}
-                  </Button>
-                ) : null}
-              </div>
+              {renderCoachNote(lesson.instructorScript)}
             </LessonAside>
 
             <LessonAside
@@ -731,10 +678,10 @@ export function DataLessonCanvas({
             </LessonAside>
           </div>
 
-          <div className="order-1 space-y-4 lg:order-2">
+          <div className="order-1 min-w-0 max-w-full space-y-4 lg:order-2">
             {dbLoading ? (
-              <Card>
-                <CardContent className="flex items-center gap-3 py-8 text-slate-600">
+              <Card className="min-w-0 max-w-full">
+                <CardContent className="flex items-center gap-3 px-4 py-8 text-slate-600 sm:px-6">
                   <Loader2 className="h-5 w-5 animate-spin" />
                   Loading sample database…
                 </CardContent>
@@ -746,14 +693,14 @@ export function DataLessonCanvas({
             ) : (
               <>
                 {lesson.previewTable ? (
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="flex items-center gap-2 text-base">
-                        <Table2 className="h-5 w-5 text-[var(--brand)]" />
-                        Sample table: {lesson.previewTable}
+                  <Card className="min-w-0 max-w-full">
+                    <CardHeader className="min-w-0 max-w-full p-4 pb-2 sm:p-6 sm:pb-2">
+                      <CardTitle className="flex min-w-0 items-center gap-2 text-base">
+                        <Table2 className="h-5 w-5 shrink-0 text-[var(--brand)]" />
+                        <span className="min-w-0 break-words">Sample table: {lesson.previewTable}</span>
                       </CardTitle>
                     </CardHeader>
-                    <CardContent>
+                    <CardContent className="min-w-0 max-w-full px-4 pb-4 sm:px-6 sm:pb-6">
                       <ResultTable
                         result={
                           db
@@ -767,16 +714,16 @@ export function DataLessonCanvas({
 
                 <Card
                   ref={workspacePanelRef}
-                  className="scroll-mt-24 border-slate-300 shadow-lg"
+                  className="min-w-0 max-w-full scroll-mt-24 border-slate-300 shadow-lg"
                 >
-                  <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center gap-2 text-base">
-                      <Database className="h-5 w-5 text-[var(--brand)]" />
+                  <CardHeader className="min-w-0 max-w-full p-4 pb-2 sm:p-6 sm:pb-2">
+                    <CardTitle className="flex min-w-0 items-center gap-2 text-base">
+                      <Database className="h-5 w-5 shrink-0 text-[var(--brand)]" />
                       SQL workspace
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex flex-wrap gap-2">
+                  <CardContent className="min-w-0 max-w-full space-y-4 px-4 pb-4 sm:px-6 sm:pb-6">
+                    <div className="flex min-w-0 max-w-full flex-wrap gap-1.5">
                       {lesson.exercises.map((ex, idx) => {
                         const done = completedIds.has(ex.id);
                         const active = idx === activeIndex;
@@ -790,7 +737,7 @@ export function DataLessonCanvas({
                               if (!locked) setActiveIndex(idx);
                             }}
                             className={cn(
-                              "flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2 text-xs font-semibold transition-colors sm:min-h-0 sm:py-1.5",
+                              "flex min-h-11 min-w-0 max-w-full items-center gap-1.5 rounded-full border px-2.5 py-2 text-xs font-semibold transition-colors sm:min-h-0 sm:px-3.5 sm:py-1.5",
                               active
                                 ? "border-[var(--brand)] bg-[var(--brand)] text-white"
                                 : done
@@ -800,8 +747,10 @@ export function DataLessonCanvas({
                                     : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                             )}
                           >
-                            {done ? <CheckCircle2 className="h-3.5 w-3.5" /> : null}
-                            {idx + 1}. {ex.focusCommand}
+                            {done ? <CheckCircle2 className="h-3.5 w-3.5 shrink-0" /> : null}
+                            <span className="min-w-0 break-words text-left">
+                              {idx + 1}. {ex.focusCommand}
+                            </span>
                           </button>
                         );
                       })}
@@ -809,31 +758,35 @@ export function DataLessonCanvas({
 
                     {activeExercise ? (
                       <>
-                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                          <div className="flex flex-wrap items-center gap-2">
-                            <Badge className="bg-sky-700 text-white">
-                              {activeExercise.focusCommand}
-                            </Badge>
-                            {(activeExercise.kind ?? "fill") === "predict" ? (
-                              <Badge className="bg-violet-100 text-violet-900">Predict</Badge>
-                            ) : null}
-                            {(activeExercise.kind ?? "fill") === "debug" ? (
-                              <Badge className="bg-amber-100 text-amber-900">Debug</Badge>
-                            ) : null}
-                            {(activeExercise.kind ?? "fill") === "parsons" ? (
-                              <Badge className="bg-indigo-100 text-indigo-900">Reorder</Badge>
-                            ) : null}
-                            {(activeExercise.kind ?? "fill") === "scratch" ? (
-                              <Badge className="bg-emerald-100 text-emerald-900">Build</Badge>
-                            ) : null}
-                            <p className="text-sm font-semibold text-slate-900">
+                        <div className="min-w-0 max-w-full rounded-xl border border-slate-200 bg-slate-50 p-3 sm:p-4">
+                          <div className="flex min-w-0 max-w-full flex-col gap-2">
+                            <div className="flex min-w-0 max-w-full flex-wrap items-center gap-2">
+                              <Badge className="max-w-full shrink truncate bg-sky-700 text-white">
+                                {activeExercise.focusCommand}
+                              </Badge>
+                              {(activeExercise.kind ?? "fill") === "predict" ? (
+                                <Badge className="bg-violet-100 text-violet-900">Predict</Badge>
+                              ) : null}
+                              {(activeExercise.kind ?? "fill") === "debug" ? (
+                                <Badge className="bg-amber-100 text-amber-900">Debug</Badge>
+                              ) : null}
+                              {(activeExercise.kind ?? "fill") === "parsons" ? (
+                                <Badge className="bg-indigo-100 text-indigo-900">Reorder</Badge>
+                              ) : null}
+                              {(activeExercise.kind ?? "fill") === "scratch" ? (
+                                <Badge className="bg-emerald-100 text-emerald-900">Build</Badge>
+                              ) : null}
+                            </div>
+                            <p className="min-w-0 max-w-full break-words text-sm font-semibold text-slate-900">
                               {activeExercise.title}
                             </p>
                           </div>
-                          <p className="mt-2 text-sm font-medium text-sky-900">
+                          <p className="mt-2 min-w-0 max-w-full break-words text-sm font-medium text-sky-900">
                             {activeExercise.commandExplain}
                           </p>
-                          <p className="mt-2 text-sm text-slate-600">{activeExercise.goal}</p>
+                          <p className="mt-2 min-w-0 max-w-full break-words text-sm text-slate-600">
+                            {activeExercise.goal}
+                          </p>
                           {!currentDone && !lessonComplete ? (
                             <ExerciseHint
                               exerciseKey={activeExercise.id}
@@ -984,7 +937,6 @@ export function DataLessonCanvas({
                           </pre>
                         ) : null}
 
-                        {runError ? <p className="text-sm text-red-600">{runError}</p> : null}
 
                         <div>
                           <p className="mb-2 text-xs font-extrabold uppercase tracking-wide text-slate-500">
@@ -1042,9 +994,7 @@ export function DataLessonCanvas({
         </div>
         )}
 
-        {lesson.lessonModule && (view === "lesson" || !lessonUnlocked) ? null : (
-          <MobileLessonPocket
-            defaultOpenId={!coachConfirmed && gateSeconds > 0 ? "coach" : null}
+        <MobileLessonPocket
             panels={
               [
                 {
@@ -1053,23 +1003,7 @@ export function DataLessonCanvas({
                   title: "Coach's note",
                   tone: "coach",
                   icon: <Sparkles className="h-4 w-4" />,
-                  attention: !coachConfirmed && gateSeconds > 0,
-                  content: (
-                    <div className="space-y-3">
-                      {renderCoachNote(lesson.instructorScript)}
-                      {!coachConfirmed && gateSeconds > 0 ? (
-                        <Button
-                          type="button"
-                          size="sm"
-                          disabled={coachSecondsLeft > 0}
-                          onClick={confirmCoachNote}
-                          className="mt-1 h-10 w-full rounded-xl bg-[var(--brand)] font-bold text-white shadow-sm hover:brightness-105"
-                        >
-                          Got it {coachSecondsLeft > 0 ? `(${coachSecondsLeft}s)` : ""}
-                        </Button>
-                      ) : null}
-                    </div>
-                  ),
+                  content: renderCoachNote(lesson.instructorScript),
                 },
                 {
                   id: "commands",
@@ -1127,7 +1061,6 @@ export function DataLessonCanvas({
               ] satisfies MobileLessonPocketPanel[]
             }
           />
-        )}
       </div>
     </WelcomeBackground>
     </LessonAccessGate>

@@ -174,7 +174,7 @@ export function CoachNoteContent({ text }: { text: string }) {
       out.push(
         <p
           key={`hd-${key++}`}
-          className="pt-1 text-[12px] font-extrabold uppercase tracking-[0.14em] text-[color:var(--brand-2)]"
+          className="pt-2 text-[13px] font-bold tracking-tight text-[color:var(--brand-2)] first:pt-0"
         >
           {label}
         </p>

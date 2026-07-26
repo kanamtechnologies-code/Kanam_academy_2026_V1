@@ -4,25 +4,27 @@ import * as React from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
+import { useLessonHelpPocket } from "@/components/lesson/LessonHelpPocketContext";
 import { cn } from "@/lib/utils";
 
 export type MobileLessonPocketPanel = {
   id: string;
-  /** Short dock label (1 word preferred). */
+  /** Short chip label (1 word preferred). */
   label: string;
   title: string;
   icon: React.ReactNode;
   tone?: "coach" | "brand" | "default";
   dataTour?: string;
-  /** Optional pulse / unread style on the dock orb. */
+  /** Optional pulse / unread style on the nav badge. */
   attention?: boolean;
   content: React.ReactNode;
 };
 
+const SHEET_OUT_MS = 220;
+
 /**
- * Mobile-only lesson help: a floating "pocket" of tool orbs at the bottom.
- * Tap an orb → content rises as a sheet. Not a hamburger menu — more like
- * a toolkit you pull from your pocket while you work.
+ * Mobile-only lesson help sheet. Opened from the header Help Pocket button
+ * (no bottom dock) so Run / console stay clear on small screens.
  */
 export function MobileLessonPocket({
   panels,
@@ -31,52 +33,134 @@ export function MobileLessonPocket({
   panels: MobileLessonPocketPanel[];
   defaultOpenId?: string | null;
 }) {
+  const pocket = useLessonHelpPocket();
   const [openId, setOpenId] = React.useState<string | null>(null);
   const [mounted, setMounted] = React.useState(false);
+  const [renderSheet, setRenderSheet] = React.useState(false);
+  const [leaving, setLeaving] = React.useState(false);
+  const [panelKey, setPanelKey] = React.useState(0);
   const sheetRef = React.useRef<HTMLDivElement | null>(null);
+  const contentRef = React.useRef<HTMLDivElement | null>(null);
+  const leaveTimerRef = React.useRef<number | null>(null);
+
+  const hasAttention = panels.some((p) => p.attention);
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
   React.useEffect(() => {
-    if (defaultOpenId && panels.some((p) => p.id === defaultOpenId)) {
-      setOpenId(defaultOpenId);
-    }
-    // Only honor the initial default once panels first appear.
+    if (!panels.length) return;
+    const preferred =
+      defaultOpenId && panels.some((p) => p.id === defaultOpenId)
+        ? defaultOpenId
+        : panels[0]?.id ?? null;
+    pocket.register({
+      defaultPanelId: preferred,
+      hasAttention,
+    });
+    return () => {
+      pocket.unregister();
+    };
+    // Register once when the pocket mounts for this lesson.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  React.useEffect(() => {
+    pocket.setAttention(hasAttention);
+  }, [hasAttention, pocket]);
+
+  const closeSheet = React.useCallback(() => {
+    pocket.setOpen(false);
+  }, [pocket]);
+
+  const selectPanel = React.useCallback(
+    (id: string) => {
+      if (id === openId) return;
+      setOpenId(id);
+      pocket.setPreferredPanelId(id);
+      setPanelKey((k) => k + 1);
+      if (contentRef.current) contentRef.current.scrollTop = 0;
+    },
+    [openId, pocket]
+  );
+
+  // Sync context open → local panel + enter/exit animation.
+  React.useEffect(() => {
+    if (leaveTimerRef.current != null) {
+      window.clearTimeout(leaveTimerRef.current);
+      leaveTimerRef.current = null;
+    }
+
+    if (pocket.open) {
+      const preferred =
+        (pocket.preferredPanelId && panels.some((p) => p.id === pocket.preferredPanelId)
+          ? pocket.preferredPanelId
+          : null) ??
+        openId ??
+        panels[0]?.id ??
+        null;
+      setOpenId(preferred);
+      setLeaving(false);
+      setRenderSheet(true);
+      setPanelKey((k) => k + 1);
+      return;
+    }
+
+    if (!renderSheet) return;
+    setLeaving(true);
+    leaveTimerRef.current = window.setTimeout(() => {
+      setRenderSheet(false);
+      setLeaving(false);
+      setOpenId(null);
+      leaveTimerRef.current = null;
+    }, SHEET_OUT_MS);
+
+    return () => {
+      if (leaveTimerRef.current != null) {
+        window.clearTimeout(leaveTimerRef.current);
+        leaveTimerRef.current = null;
+      }
+    };
+    // openId intentionally omitted — only react to context open changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pocket.open, pocket.preferredPanelId, panels]);
 
   const active = panels.find((p) => p.id === openId) ?? null;
 
   React.useEffect(() => {
-    if (!active) return;
+    if (!renderSheet || leaving) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = prev;
     };
-  }, [active]);
+  }, [renderSheet, leaving]);
 
   React.useEffect(() => {
-    if (!active) return;
+    if (!renderSheet || leaving) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpenId(null);
+      if (e.key === "Escape") closeSheet();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active]);
+  }, [renderSheet, leaving, closeSheet]);
 
-  // Light drag-to-dismiss on the sheet handle area.
+  // Drag-to-dismiss from the sheet chrome (handle + header).
   React.useEffect(() => {
     const el = sheetRef.current;
-    if (!el || !active) return;
+    if (!el || !renderSheet || leaving) return;
     let startY = 0;
     let dragging = false;
 
     const onStart = (e: TouchEvent) => {
       const t = e.touches[0];
       if (!t) return;
+      const target = e.target as HTMLElement | null;
+      if (target?.closest("[data-pocket-scroll]")) {
+        const scroller = contentRef.current;
+        if (scroller && scroller.scrollTop > 2) return;
+      }
       startY = t.clientY;
       dragging = true;
     };
@@ -86,7 +170,8 @@ export function MobileLessonPocket({
       if (!t) return;
       const dy = t.clientY - startY;
       if (dy > 0) {
-        el.style.transform = `translateY(${Math.min(dy, 220)}px)`;
+        el.style.transform = `translateY(${Math.min(dy, 240)}px)`;
+        el.style.transition = "none";
       }
     };
     const onEnd = (e: TouchEvent) => {
@@ -94,8 +179,9 @@ export function MobileLessonPocket({
       dragging = false;
       const t = e.changedTouches[0];
       const dy = t ? t.clientY - startY : 0;
+      el.style.transition = "";
       el.style.transform = "";
-      if (dy > 90) setOpenId(null);
+      if (dy > 96) closeSheet();
     };
 
     el.addEventListener("touchstart", onStart, { passive: true });
@@ -106,177 +192,162 @@ export function MobileLessonPocket({
       el.removeEventListener("touchmove", onMove);
       el.removeEventListener("touchend", onEnd);
     };
-  }, [active]);
+  }, [renderSheet, leaving, closeSheet]);
 
-  if (!panels.length) return null;
+  if (!panels.length || !mounted || !renderSheet || !active) return null;
 
-  const sheet =
-    mounted && active
-      ? createPortal(
-          <div className="lg:hidden">
-            <button
-              type="button"
-              className="fixed inset-0 z-[70] bg-slate-950/45 backdrop-blur-[2px] animate-[kanamTourTooltipIn_160ms_ease-out]"
-              aria-label="Dismiss help"
-              onClick={() => setOpenId(null)}
-            />
-            <div
-              ref={sheetRef}
-              role="dialog"
-              aria-modal="true"
-              aria-label={active.title}
-              className={cn(
-                "fixed inset-x-0 bottom-0 z-[71] flex max-h-[min(82dvh,640px)] flex-col",
-                "rounded-t-[28px] border border-slate-200/90 bg-white shadow-[0_-16px_50px_rgba(15,23,42,0.18)]",
-                "animate-[kanamPocketSheetIn_220ms_cubic-bezier(0.22,1,0.36,1)]",
-                "dark:border-slate-700 dark:bg-slate-950"
-              )}
-            >
-              {active.tone === "coach" ? (
-                <div
-                  className="h-1 w-full rounded-t-[28px] bg-gradient-to-r from-[var(--brand-2)] via-[var(--brand)] to-[var(--accent)]"
-                  aria-hidden
-                />
-              ) : (
-                <div className="flex justify-center pt-2.5" aria-hidden>
-                  <span className="h-1 w-10 rounded-full bg-slate-300 dark:bg-slate-600" />
-                </div>
-              )}
+  // Fit typical lesson toolsets (≤5) edge-to-edge; scroll only when denser.
+  const fewPanels = panels.length <= 5;
 
-              <div className="flex items-start justify-between gap-3 px-4 pb-2 pt-3">
-                <div className="min-w-0">
-                  <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-[color:var(--brand-2)]">
-                    In your pocket
-                  </p>
-                  <p className="mt-0.5 truncate text-lg font-extrabold tracking-tight text-slate-900 dark:text-slate-50">
-                    {active.title}
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setOpenId(null)}
-                  className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200"
-                  aria-label="Close"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-
-              {/* Switch tools without closing the sheet */}
-              <div className="flex gap-2 overflow-x-auto px-4 pb-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                {panels.map((p) => {
-                  const on = p.id === active.id;
-                  return (
-                    <button
-                      key={p.id}
-                      type="button"
-                      onClick={() => setOpenId(p.id)}
-                      className={cn(
-                        "inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition",
-                        on
-                          ? "bg-[var(--brand)] text-white shadow-sm"
-                          : "bg-slate-100 text-slate-600 ring-1 ring-slate-200/80 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-700"
-                      )}
-                    >
-                      <span className="grid h-4 w-4 place-items-center [&_svg]:h-3.5 [&_svg]:w-3.5">
-                        {p.icon}
-                      </span>
-                      {p.label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
-                {active.content}
-              </div>
-            </div>
-          </div>,
-          document.body
-        )
-      : null;
-
-  return (
-    <>
-      <div
+  return createPortal(
+    <div className="lg:hidden">
+      {/* Scrim sits under the sticky header so the nav Help toggle stays tappable. */}
+      <button
+        type="button"
         className={cn(
-          "pointer-events-none fixed inset-x-0 bottom-0 z-[60] lg:hidden",
-          "pb-[max(0.65rem,env(safe-area-inset-bottom))]"
+          "fixed inset-x-0 bottom-0 z-[70] bg-slate-950/50 backdrop-blur-[3px]",
+          "top-[var(--kanam-header-height,4.75rem)]",
+          leaving
+            ? "animate-[kanamPocketScrimOut_200ms_ease-in_forwards]"
+            : "animate-[kanamTourTooltipIn_160ms_ease-out]"
+        )}
+        aria-label="Dismiss help"
+        onClick={closeSheet}
+      />
+      <div
+        ref={sheetRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={active.title}
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-[71] flex max-h-[min(88dvh,720px)] flex-col overflow-hidden",
+          "rounded-t-[32px] border border-white/70 bg-white",
+          "shadow-[0_-24px_60px_rgba(15,23,42,0.22)]",
+          "dark:border-slate-700/80 dark:bg-slate-950",
+          leaving
+            ? "animate-[kanamPocketSheetOut_220ms_ease-in_forwards]"
+            : "animate-[kanamPocketSheetIn_280ms_cubic-bezier(0.22,1,0.36,1)]"
         )}
       >
-        <div className="pointer-events-auto mx-auto max-w-lg px-3">
+        {/* Atmosphere */}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[rgb(var(--brand-rgb)/0.12)] via-[rgb(var(--accent-rgb)/0.06)] to-transparent"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-10 -top-8 h-36 w-36 rounded-full bg-[rgb(var(--accent-rgb)/0.18)] blur-3xl"
+          aria-hidden
+        />
+
+        <div className="relative shrink-0 px-4 pt-3">
+          <div className="flex justify-center pb-2" aria-hidden>
+            <span className="h-1.5 w-12 rounded-full bg-slate-300/90 dark:bg-slate-600" />
+          </div>
+
+          <div className="flex items-start justify-between gap-3 pb-3">
+            <div className="min-w-0 pt-0.5">
+              <p className="text-[11px] font-semibold tracking-wide text-slate-500 dark:text-slate-400">
+                Help pocket
+              </p>
+              <p className="mt-0.5 truncate text-[1.35rem] font-bold leading-tight tracking-tight text-slate-900 dark:text-slate-50">
+                {active.title}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={closeSheet}
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-slate-200/90 bg-white/90 text-slate-600 shadow-sm backdrop-blur transition active:scale-95 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200"
+              aria-label="Close"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+
+          {/* Segment rail — large icon+label tiles (thumb-friendly) */}
           <div
             className={cn(
-              "relative overflow-hidden rounded-[28px] border border-white/50",
-              "bg-white/85 shadow-[0_12px_40px_rgba(15,23,42,0.16)] backdrop-blur-xl",
-              "ring-1 ring-[rgb(var(--brand-rgb)/0.12)]",
-              "dark:border-slate-700/80 dark:bg-slate-950/90"
+              "relative mb-1 rounded-[22px] p-1.5",
+              "bg-gradient-to-b from-slate-100 to-slate-100/70 ring-1 ring-slate-200/80",
+              "dark:from-slate-900 dark:to-slate-900/80 dark:ring-slate-700"
             )}
+            role="tablist"
+            aria-label="Help pocket sections"
           >
             <div
-              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--brand)]/50 to-transparent"
-              aria-hidden
-            />
-            <p className="px-4 pt-2.5 text-center text-[10px] font-extrabold uppercase tracking-[0.2em] text-[color:var(--brand-2)]">
-              Help pocket
-            </p>
-            <div className="flex items-stretch justify-between gap-1 px-2 pb-2.5 pt-1.5">
+              className={cn(
+                "flex gap-1 overflow-x-auto scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                fewPanels && "justify-between"
+              )}
+            >
               {panels.map((p) => {
-                const on = p.id === openId;
+                const on = p.id === active.id;
                 return (
                   <button
                     key={p.id}
                     type="button"
+                    role="tab"
+                    aria-selected={on}
                     data-tour={p.dataTour}
-                    onClick={() => setOpenId((cur) => (cur === p.id ? null : p.id))}
+                    onClick={() => selectPanel(p.id)}
                     className={cn(
-                      "flex min-w-0 flex-1 flex-col items-center gap-1 rounded-2xl px-1 py-1.5 transition",
+                      "relative flex min-h-[4.75rem] shrink-0 snap-start flex-col items-center justify-center gap-1.5 rounded-[18px] px-3 py-2.5 transition-all duration-200 ease-out",
                       "active:scale-[0.96]",
-                      on ? "bg-[rgb(var(--brand-rgb)/0.1)]" : "hover:bg-slate-50/80 dark:hover:bg-slate-900/60"
+                      fewPanels ? "min-w-0 flex-1 basis-0" : "min-w-[5.25rem]",
+                      on
+                        ? "bg-white text-[color:var(--brand-2)] shadow-[0_8px_22px_rgba(15,23,42,0.12)] ring-1 ring-black/[0.06] dark:bg-slate-800 dark:text-emerald-200 dark:ring-white/10"
+                        : "text-slate-500 hover:bg-white/70 hover:text-slate-700 dark:text-slate-400 dark:hover:bg-slate-800/70 dark:hover:text-slate-200",
+                      p.attention && !on && "ring-2 ring-[var(--accent)]"
                     )}
                   >
                     <span
                       className={cn(
-                        "relative grid h-11 w-11 place-items-center rounded-2xl transition",
-                        "ring-1 shadow-sm",
-                        p.tone === "coach" &&
-                          (on
-                            ? "bg-[var(--brand)] text-white ring-[var(--brand)] shadow-[0_6px_16px_rgb(var(--brand-rgb)/0.35)]"
-                            : "bg-[rgb(var(--brand-rgb)/0.12)] text-[var(--brand-2)] ring-[rgb(var(--brand-rgb)/0.22)]"),
-                        p.tone === "brand" &&
-                          (on
-                            ? "bg-[var(--brand)] text-white ring-[var(--brand)]"
-                            : "bg-[rgb(var(--brand-rgb)/0.1)] text-[var(--brand)] ring-[rgb(var(--brand-rgb)/0.2)]"),
-                        (!p.tone || p.tone === "default") &&
-                          (on
-                            ? "bg-slate-900 text-white ring-slate-900 dark:bg-slate-100 dark:text-slate-900"
-                            : "bg-slate-100 text-slate-700 ring-slate-200/90 dark:bg-slate-800 dark:text-slate-100 dark:ring-slate-700"),
-                        p.attention && !on && "animate-[kanamTourGoldPulse_1.6s_ease-in-out_infinite]"
+                        "grid h-10 w-10 place-items-center rounded-2xl transition-all duration-200",
+                        "[&_svg]:h-5 [&_svg]:w-5",
+                        on
+                          ? "bg-gradient-to-br from-[var(--brand)] to-[var(--brand-2)] text-white shadow-[0_6px_14px_rgb(var(--brand-rgb)/0.35)]"
+                          : "bg-white text-slate-500 shadow-sm ring-1 ring-slate-200/90 dark:bg-slate-950 dark:text-slate-400 dark:ring-slate-700"
                       )}
                     >
-                      <span className="[&_svg]:h-4 [&_svg]:w-4">{p.icon}</span>
-                      {p.attention && !on ? (
-                        <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-[var(--accent)] ring-2 ring-white" />
-                      ) : null}
+                      {p.icon}
                     </span>
                     <span
                       className={cn(
-                        "max-w-full truncate text-[10px] font-bold tracking-tight",
-                        on ? "text-[var(--brand-2)]" : "text-slate-500 dark:text-slate-400"
+                        "max-w-full truncate text-[12px] font-bold tracking-tight",
+                        on ? "text-[color:var(--brand-2)] dark:text-emerald-200" : "text-slate-500"
                       )}
                     >
                       {p.label}
                     </span>
+                    {on ? (
+                      <span
+                        className="absolute inset-x-4 bottom-1 h-0.5 rounded-full bg-[var(--brand)]"
+                        aria-hidden
+                      />
+                    ) : null}
+                    {p.attention && !on ? (
+                      <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[var(--accent)] ring-2 ring-slate-100 dark:ring-slate-900" />
+                    ) : null}
                   </button>
                 );
               })}
             </div>
           </div>
         </div>
+
+        <div
+          ref={contentRef}
+          data-pocket-scroll
+          className="relative min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
+        >
+          <div
+            key={`${active.id}-${panelKey}`}
+            className="animate-[kanamPocketPanelIn_220ms_cubic-bezier(0.22,1,0.36,1)]"
+          >
+            {active.content}
+          </div>
+        </div>
       </div>
-      {/* Spacer so the dock doesn't cover Run / console */}
-      <div className="h-[5.75rem] lg:hidden" aria-hidden />
-      {sheet}
-    </>
+    </div>,
+    document.body
   );
 }

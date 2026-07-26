@@ -257,10 +257,10 @@ export function PythonExerciseEditor({
   };
 
   return (
-    <div className="space-y-2">
+    <div className="min-w-0 max-w-full space-y-2">
       <div
         className={cn(
-          "kanam-sql-editor-wrap relative overflow-hidden rounded-xl border-2 border-slate-300 bg-white shadow-inner",
+          "kanam-sql-editor-wrap relative min-w-0 max-w-full overflow-hidden rounded-xl border-2 border-slate-300 bg-white shadow-inner",
           "focus-within:border-[var(--brand)] focus-within:ring-2 focus-within:ring-[var(--brand)]/30",
           readOnly ? "opacity-80" : "",
           className
@@ -286,7 +286,7 @@ export function PythonExerciseEditor({
         <pre
           ref={preRef}
           aria-hidden
-          className="kanam-hide-scrollbar pointer-events-none absolute inset-0 m-0 overflow-auto whitespace-pre-wrap break-words py-3 font-mono text-base leading-6 text-slate-900 sm:text-sm"
+          className="kanam-hide-scrollbar pointer-events-none absolute inset-0 m-0 min-w-0 max-w-full overflow-auto whitespace-pre-wrap break-words py-3 font-mono text-base leading-6 text-slate-900 sm:text-sm"
           style={{ height: `${heightPx}px`, paddingLeft: contentPaddingLeft, paddingRight: "0.75rem" }}
           dangerouslySetInnerHTML={{ __html: html + "\n" }}
         />
@@ -308,8 +308,8 @@ export function PythonExerciseEditor({
           autoCorrect="off"
           autoCapitalize="off"
           className={cn(
-            "kanam-hide-scrollbar relative z-10 w-full resize-none bg-transparent py-3",
-            "font-mono text-base leading-6 text-transparent caret-[var(--brand)] sm:text-sm",
+            "kanam-hide-scrollbar relative z-10 min-w-0 max-w-full w-full resize-none bg-transparent py-3",
+            "whitespace-pre-wrap break-words font-mono text-base leading-6 text-transparent caret-[var(--brand)] sm:text-sm",
             "selection:bg-[var(--brand)]/25 placeholder:text-slate-400",
             "focus-visible:outline-none",
             readOnly ? "cursor-default" : "cursor-text"
