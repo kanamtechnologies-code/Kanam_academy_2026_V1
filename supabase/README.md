@@ -104,18 +104,26 @@ Save the template, then request a **new** reset email (old links still use the p
 
 ### Confirm signup email template (required for student/parent signup)
 
-Student and parent signup create users with **unconfirmed** email, then send a confirmation message. Enable **Authentication → Providers → Email → Confirm email**.
+Student/parent signup uses the public **signUp** API so Supabase sends the Confirm signup email. Enable **Authentication → Providers → Email → Confirm email**.
 
-Supabase → **Authentication → Email Templates → Confirm signup**. Prefer a TokenHash link (same reason as password reset):
+**Production mail:** Supabase’s built-in mailer is capped (~2 emails/hour). For real launches, set **Project Settings → Authentication → SMTP** (Resend, Postmark, SES, etc.). Without custom SMTP, confirmation mail often never arrives during testing.
+
+Supabase → **Authentication → Email Templates → Confirm signup**. Prefer `ConfirmationURL` or a TokenHash link:
 
 ```html
 <h2>Confirm your email</h2>
 <p>Follow this link to confirm your Kanam Academy account:</p>
 <p>
-  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/dashboard">
-    Confirm email
-  </a>
+  <a href="{{ .ConfirmationURL }}">Confirm email</a>
 </p>
+```
+
+TokenHash alternative (set `next` to `/dashboard` or `/parent` as needed):
+
+```html
+<a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=signup&next=/dashboard">
+  Confirm email
+</a>
 ```
 
 After confirm, `/auth/confirm` sends parents to `/parent` (from `app_metadata.role`) and other users to `next` (default `/dashboard`). Redirect URLs must still allow `/auth/confirm`.

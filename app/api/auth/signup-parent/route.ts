@@ -7,7 +7,7 @@ import {
   clientIpFromRequest,
   enforceRateLimits,
 } from "@/lib/auth/rateLimit";
-import { sendSignupConfirmationEmail } from "@/lib/auth/sendSignupConfirmation";
+import { createUnconfirmedAuthUser } from "@/lib/auth/createUnconfirmedUser";
 import {
   PARENTAL_CONSENT_NOTICE_VERSION,
   looksLikeMissingConsentColumn,
@@ -117,15 +117,17 @@ export async function POST(req: Request) {
   const firstName = nameParts[0] || parentName;
   const lastName = nameParts.slice(1).join(" ") || "";
 
-  const { data: created, error: createErr } = await admin.auth.admin.createUser({
+  const origin = getAppOrigin(req);
+  const emailRedirectTo = `${origin}/auth/confirm?next=${encodeURIComponent("/parent")}`;
+
+  const created = await createUnconfirmedAuthUser({
     email,
     password,
-    // Require inbox ownership before sign-in (do not auto-confirm).
-    email_confirm: false,
-    app_metadata: {
+    emailRedirectTo,
+    appMetadata: {
       role: "parent",
     },
-    user_metadata: {
+    userMetadata: {
       first_name: firstName,
       last_name: lastName,
       display_name: parentName,
@@ -134,16 +136,11 @@ export async function POST(req: Request) {
     },
   });
 
-  if (createErr) {
-    const msg = createErr.message || "Could not create user.";
-    const status = msg.toLowerCase().includes("already") ? 409 : 400;
-    return NextResponse.json({ ok: false, error: msg }, { status });
+  if (!created.ok) {
+    return NextResponse.json({ ok: false, error: created.error }, { status: created.status });
   }
 
-  const userId = created.user?.id;
-  if (!userId) {
-    return NextResponse.json({ ok: false, error: "User created but missing id." }, { status: 500 });
-  }
+  const userId = created.userId;
 
   let household: { id: string } | null = null;
   {
@@ -267,19 +264,17 @@ export async function POST(req: Request) {
     }
   }
 
-  const origin = getAppOrigin(req);
-  const emailRedirectTo = `${origin}/auth/confirm?next=${encodeURIComponent("/parent")}`;
-  const emailed = await sendSignupConfirmationEmail({ email, emailRedirectTo });
-
   return NextResponse.json(
     {
       ok: true,
       userId,
       householdId: household.id,
       childId,
-      needsEmailConfirmation: true,
-      confirmationEmailSent: emailed.ok,
-      ...(emailed.ok ? {} : { confirmationEmailError: emailed.error }),
+      needsEmailConfirmation: created.needsEmailConfirmation,
+      confirmationEmailSent: created.confirmationEmailSent,
+      ...(created.confirmationEmailError
+        ? { confirmationEmailError: created.confirmationEmailError }
+        : {}),
     },
     { status: 200 }
   );

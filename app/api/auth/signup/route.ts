@@ -11,7 +11,7 @@ import {
   clientIpFromRequest,
   enforceRateLimits,
 } from "@/lib/auth/rateLimit";
-import { sendSignupConfirmationEmail } from "@/lib/auth/sendSignupConfirmation";
+import { createUnconfirmedAuthUser } from "@/lib/auth/createUnconfirmedUser";
 import {
   MIN_SELF_SIGNUP_AGE,
   ageFromBirthdate,
@@ -193,15 +193,14 @@ export async function POST(req: Request) {
   }
 
   const ageAttestedAt = new Date().toISOString();
+  const origin = getAppOrigin(req);
+  const emailRedirectTo = `${origin}/auth/confirm?next=${encodeURIComponent("/dashboard")}`;
 
-  const supabase = createSupabaseAdminClient();
-
-  const { data: created, error: createErr } = await supabase.auth.admin.createUser({
+  const created = await createUnconfirmedAuthUser({
     email,
     password,
-    // Require inbox ownership before sign-in (do not auto-confirm).
-    email_confirm: false,
-    user_metadata: {
+    emailRedirectTo,
+    userMetadata: {
       first_name: firstName,
       last_name: lastName,
       class_code: classCode,
@@ -214,16 +213,12 @@ export async function POST(req: Request) {
     },
   });
 
-  if (createErr) {
-    const msg = createErr.message || "Could not create user.";
-    const status = msg.toLowerCase().includes("already") ? 409 : 400;
-    return NextResponse.json({ ok: false, error: msg }, { status });
+  if (!created.ok) {
+    return NextResponse.json({ ok: false, error: created.error }, { status: created.status });
   }
 
-  const userId = created.user?.id;
-  if (!userId) {
-    return NextResponse.json({ ok: false, error: "User created but missing id." }, { status: 500 });
-  }
+  const userId = created.userId;
+  const supabase = createSupabaseAdminClient();
 
   let schoolId: string | null = null;
   try {
@@ -303,18 +298,16 @@ export async function POST(req: Request) {
     );
   }
 
-  const origin = getAppOrigin(req);
-  const emailRedirectTo = `${origin}/auth/confirm?next=${encodeURIComponent("/dashboard")}`;
-  const emailed = await sendSignupConfirmationEmail({ email, emailRedirectTo });
-
   return NextResponse.json(
     {
       ok: true,
       userId,
       classId: enrolled.classId,
-      needsEmailConfirmation: true,
-      confirmationEmailSent: emailed.ok,
-      ...(emailed.ok ? {} : { confirmationEmailError: emailed.error }),
+      needsEmailConfirmation: created.needsEmailConfirmation,
+      confirmationEmailSent: created.confirmationEmailSent,
+      ...(created.confirmationEmailError
+        ? { confirmationEmailError: created.confirmationEmailError }
+        : {}),
     },
     { status: 200 }
   );

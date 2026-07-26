@@ -315,8 +315,9 @@ export default function WelcomeProfilePage() {
             <div className="mt-6 space-y-4">
               <NoticePresence show contentKey={pendingConfirmEmail}>
                 <Notice compact variant="info" role="status">
-                  Check <span className="font-semibold">{pendingConfirmEmail}</span> for a
-                  confirmation link. After you confirm, you can sign in and open your dashboard.
+                  Check <span className="font-semibold">{pendingConfirmEmail}</span> (inbox and
+                  spam) for a confirmation link. After you confirm, sign in to open your dashboard.
+                  If nothing arrives in a few minutes, use Resend below.
                 </Notice>
               </NoticePresence>
               <NoticePresence show={Boolean(resendNotice)} contentKey={resendNotice}>

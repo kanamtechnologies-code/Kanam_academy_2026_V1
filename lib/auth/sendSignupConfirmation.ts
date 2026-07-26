@@ -1,11 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 
 /**
- * Sends the Supabase "Confirm signup" email for an unconfirmed user
- * (e.g. after admin.createUser with email_confirm: false).
+ * Re-sends the Supabase "Confirm signup" email for an unconfirmed user.
  *
- * Requires Authentication → Providers → Email → "Confirm email" enabled,
- * and Redirect URLs that include /auth/confirm.
+ * Requires Authentication → Providers → Email → "Confirm email" enabled.
+ * Default Supabase mailer is capped (~2 emails/hour/recipient) — configure
+ * custom SMTP for production (Project Settings → Authentication → SMTP).
  */
 export async function sendSignupConfirmationEmail(params: {
   email: string;
@@ -28,7 +28,15 @@ export async function sendSignupConfirmationEmail(params: {
   });
 
   if (error) {
-    return { ok: false, error: error.message || "Could not send confirmation email." };
+    const raw = error.message || "Could not send confirmation email.";
+    if (/rate limit|over_email_send_rate_limit/i.test(raw)) {
+      return {
+        ok: false,
+        error:
+          "Email rate limit hit. Wait up to an hour on Supabase’s free mailer, check spam, or enable custom SMTP in Supabase.",
+      };
+    }
+    return { ok: false, error: raw };
   }
   return { ok: true };
 }
