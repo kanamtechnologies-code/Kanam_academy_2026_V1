@@ -232,6 +232,7 @@ export function AILessonCanvas({
   const [activeActivityIndex, setActiveActivityIndex] = React.useState(0);
   const [reflection, setReflection] = React.useState("");
   const [lessonComplete, setLessonComplete] = React.useState(false);
+  const [slideProgress, setSlideProgress] = React.useState({ current: 1, total: 1 });
 
   const [deviceId, setDeviceId] = React.useState("");
   const [userId, setUserId] = React.useState("");
@@ -239,6 +240,9 @@ export function AILessonCanvas({
 
   const activeQuestion = lesson.quiz[activeIndex];
   const totalQuestions = lesson.quiz.length;
+  const onSlideProgress = React.useCallback((current: number, total: number) => {
+    setSlideProgress({ current, total });
+  }, []);
 
   React.useEffect(() => {
     setAnimateIn(false);
@@ -474,13 +478,18 @@ export function AILessonCanvas({
     });
   };
 
-  const progressPercent = lessonComplete
+  const showingSlides = view === "lesson" || !lessonUnlocked;
+  const quizProgressPercent = lessonComplete
     ? 100
     : Math.round(
         ((correctIds.size + activityDoneIds.size) /
           Math.max(1, totalQuestions + activities.length)) *
           100
       );
+  const slideProgressPercent = Math.round(
+    (slideProgress.current / Math.max(1, slideProgress.total)) * 100
+  );
+  const progressPercent = showingSlides ? slideProgressPercent : quizProgressPercent;
 
   return (
     <LessonAccessGate lessonId={lesson.id}>
@@ -529,8 +538,11 @@ export function AILessonCanvas({
           <div className="relative z-10 mt-6">
             <div className="mb-2 flex justify-between text-sm font-semibold text-white/90">
               <span>
-                Knowledge check: {correctIds.size + activityDoneIds.size} /{" "}
-                {totalQuestions + activities.length}
+                {showingSlides
+                  ? `Lesson slides: ${slideProgress.current} / ${slideProgress.total}`
+                  : `Knowledge check: ${correctIds.size + activityDoneIds.size} / ${
+                      totalQuestions + activities.length
+                    }`}
               </span>
               <span>{progressPercent}%</span>
             </div>
@@ -589,7 +601,11 @@ export function AILessonCanvas({
         </div>
 
         {view === "lesson" || !lessonUnlocked ? (
-          <LessonModule module={lesson.lessonModule} onStart={openQuiz} />
+          <LessonModule
+            module={lesson.lessonModule}
+            onStart={openQuiz}
+            onSlideProgress={onSlideProgress}
+          />
         ) : (
           <div className="grid gap-6 lg:grid-cols-[1fr_1.15fr]">
             <div className="order-2 hidden space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">

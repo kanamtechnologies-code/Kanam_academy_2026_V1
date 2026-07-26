@@ -9,6 +9,7 @@ import {
   KeyRound,
   LifeBuoy,
   Mail,
+  School,
   ShieldCheck,
   Users,
 } from "lucide-react";
@@ -154,6 +155,7 @@ export default function HelpPage() {
                 { href: "/welcome", label: "New student" },
                 { href: "/welcome/parent", label: "Family account" },
                 { href: "/welcome/ask-parent", label: "Under 13 help" },
+                { href: "/instructor", label: "Instructor dashboard" },
                 { href: "/demo", label: "Try a demo lesson" },
               ].map((item) => (
                 <Button
@@ -217,6 +219,86 @@ export default function HelpPage() {
             );
           })}
         </div>
+
+        <motion.section {...cardEnter(0.2)} className={`${glass} mt-4 p-5 sm:p-6 md:p-8`}>
+          <div className="flex items-start gap-3">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)] text-[var(--accent)] shadow-md shadow-emerald-900/20">
+              <School className="h-5 w-5" />
+            </span>
+            <div className="min-w-0">
+              <h2 className="text-xl font-black tracking-tight text-slate-900 dark:text-slate-50">
+                Instructors & classes
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                Create a class, share the code, turn on the lessons students should see, and check
+                progress — without managing separate student logins for you.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            {[
+              {
+                title: "Open the instructor dashboard",
+                text: (
+                  <>
+                    Sign in with your instructor email, then go to{" "}
+                    <Link
+                      className="font-semibold text-[color:var(--brand-2)] underline underline-offset-2"
+                      href="/instructor"
+                    >
+                      /instructor
+                    </Link>
+                    . Non-instructor accounts are redirected away for safety.
+                  </>
+                ),
+              },
+              {
+                title: "Create a class & share the code",
+                text: "Tap Create class, copy the code, and share it with learners (or parents). Students join with that code during signup or from Welcome.",
+              },
+              {
+                title: "Set lesson assignments",
+                text: "After creating a class, use Set assignments. Until you enable lessons, students may see billing unlocks instead of your class path.",
+              },
+              {
+                title: "Roster & insights",
+                text: "Expand a class to load the roster. Use Class insights for rollups, or open a learner for per-student progress, streak, and time on task.",
+              },
+              {
+                title: "Delete a class carefully",
+                text: "Deleting a class removes enrollments and assignments. Learner accounts and lesson progress stay intact — you’ll type the class name to confirm.",
+              },
+              {
+                title: "Need an instructor role?",
+                text: (
+                  <>
+                    Email{" "}
+                    <a
+                      className="font-semibold text-[color:var(--brand-2)] underline underline-offset-2"
+                      href={`mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent("Instructor access request")}`}
+                    >
+                      {SUPPORT_EMAIL}
+                    </a>{" "}
+                    with your school and the email you use for Kanam.
+                  </>
+                ),
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-[rgb(var(--brand-2-rgb)/0.2)] bg-[rgb(var(--brand-rgb)/0.06)] p-4"
+              >
+                <p className="text-sm font-extrabold text-slate-900 dark:text-slate-50">
+                  {item.title}
+                </p>
+                <p className="mt-1.5 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                  {item.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </motion.section>
 
         <motion.section {...cardEnter(0.22)} className={`${glass} mt-4 p-5 sm:p-6 md:p-8`}>
           <div className="flex items-start gap-3">

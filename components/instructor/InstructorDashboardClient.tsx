@@ -101,6 +101,7 @@ export function InstructorDashboardClient() {
   const [createSuccess, setCreateSuccess] = React.useState<ClassSummary | null>(null);
   const [assignmentsClass, setAssignmentsClass] = React.useState<ClassSummary | null>(null);
   const [deleteClass, setDeleteClass] = React.useState<ClassSummary | null>(null);
+  const [deleteConfirmName, setDeleteConfirmName] = React.useState("");
   const [deleteLoading, setDeleteLoading] = React.useState(false);
   const [deleteError, setDeleteError] = React.useState<string | null>(null);
 
@@ -270,6 +271,11 @@ export function InstructorDashboardClient() {
 
   async function confirmDeleteClass() {
     if (!deleteClass) return;
+    const expected = deleteClass.name.trim().toLowerCase();
+    if (!deleteConfirmName.trim() || deleteConfirmName.trim().toLowerCase() !== expected) {
+      setDeleteError("Type the class name exactly to confirm deletion.");
+      return;
+    }
     setDeleteError(null);
     setDeleteLoading(true);
     try {
@@ -283,6 +289,7 @@ export function InstructorDashboardClient() {
         return next;
       });
       setDeleteClass(null);
+      setDeleteConfirmName("");
       await load();
     } catch (e: unknown) {
       setDeleteError(errorMessage(e, "Could not delete class."));
@@ -546,6 +553,8 @@ export function InstructorDashboardClient() {
                         onClick={() => {
                           setDeleteError(null);
                           setDeleteClass(c);
+                          setDeleteConfirmName("");
+                          setDeleteError(null);
                         }}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -655,16 +664,17 @@ export function InstructorDashboardClient() {
         onOpenChange={(open) => {
           if (!open && !deleteLoading) {
             setDeleteClass(null);
+            setDeleteConfirmName("");
             setDeleteError(null);
           }
         }}
       >
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Delete this class?</DialogTitle>
+            <DialogTitle>Delete this class permanently?</DialogTitle>
             <DialogDescription>
               {deleteClass
-                ? `“${deleteClass.name}” and its enrollments/assignments will be removed. Learner accounts and their lesson progress stay intact.`
+                ? `“${deleteClass.name}” and its enrollments/assignments will be removed. Learner accounts and their lesson progress stay intact. This cannot be undone.`
                 : "This cannot be undone."}
             </DialogDescription>
           </DialogHeader>
@@ -675,6 +685,21 @@ export function InstructorDashboardClient() {
             </Notice>
           ) : null}
 
+          {deleteClass ? (
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-700">
+                Type the class name to confirm ({deleteClass.name})
+              </label>
+              <Input
+                value={deleteConfirmName}
+                onChange={(e) => setDeleteConfirmName(e.target.value)}
+                placeholder={deleteClass.name}
+                className="h-11"
+                autoComplete="off"
+              />
+            </div>
+          ) : null}
+
           <DialogFooter className="gap-2 sm:gap-0">
             <Button
               type="button"
@@ -683,6 +708,7 @@ export function InstructorDashboardClient() {
               disabled={deleteLoading}
               onClick={() => {
                 setDeleteClass(null);
+                setDeleteConfirmName("");
                 setDeleteError(null);
               }}
             >
@@ -691,8 +717,12 @@ export function InstructorDashboardClient() {
             <Button
               type="button"
               className="h-11 bg-red-600 text-white hover:bg-red-700"
-              disabled={deleteLoading}
-              onClick={confirmDeleteClass}
+              disabled={
+                deleteLoading ||
+                !deleteClass ||
+                deleteConfirmName.trim().toLowerCase() !== deleteClass.name.trim().toLowerCase()
+              }
+              onClick={() => void confirmDeleteClass()}
             >
               {deleteLoading ? (
                 <>

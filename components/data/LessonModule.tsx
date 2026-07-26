@@ -174,11 +174,14 @@ export function LessonModule({
   startLabel = "Start the exercises",
   /** When true, Next/Back/Start are inert (used while the demo tour is open). */
   navigationLocked = false,
+  onSlideProgress,
 }: {
   module: LessonModuleData;
   onStart: () => void;
   startLabel?: string;
   navigationLocked?: boolean;
+  /** 1-based slide index + total — for hero progress while reading slides. */
+  onSlideProgress?: (current: number, total: number) => void;
 }) {
   const sections = module.sections;
   const [index, setIndex] = React.useState(0);
@@ -204,6 +207,10 @@ export function LessonModule({
   /** Every slide-deck check-in must be answered before exercises unlock. */
   const allCheckInsDone = sections.every((s) => !s.checkIn || Boolean(checkInDone[s.id]));
   const canStartPractice = isLast && canAdvance && allCheckInsDone && maxReached >= sections.length - 1;
+
+  React.useEffect(() => {
+    onSlideProgress?.(index + 1, Math.max(1, sections.length));
+  }, [index, sections.length, onSlideProgress]);
 
   const stopBrowserSpeech = () => {
     if (typeof window === "undefined" || !window.speechSynthesis) return;

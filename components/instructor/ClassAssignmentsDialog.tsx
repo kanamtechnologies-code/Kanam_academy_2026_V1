@@ -14,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Notice } from "@/components/ui/notice";
+import { NoticePresence } from "@/components/ui/notice-presence";
 import { TRACKS } from "@/lib/tracks";
 
 type AssignmentLesson = {
@@ -34,6 +35,14 @@ async function j<T>(res: Response): Promise<T> {
   return json as unknown as T;
 }
 
+function sameEnabled(a: Record<string, boolean>, b: Record<string, boolean>) {
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  for (const key of keys) {
+    if (Boolean(a[key]) !== Boolean(b[key])) return false;
+  }
+  return true;
+}
+
 export function ClassAssignmentsDialog({
   classId,
   className,
@@ -48,10 +57,15 @@ export function ClassAssignmentsDialog({
   const [loading, setLoading] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [savedNotice, setSavedNotice] = React.useState<string | null>(null);
   const [enabled, setEnabled] = React.useState<Record<string, boolean>>({});
+  const [baseline, setBaseline] = React.useState<Record<string, boolean>>({});
+
+  const dirty = !sameEnabled(enabled, baseline);
 
   const load = React.useCallback(async () => {
     setError(null);
+    setSavedNotice(null);
     setLoading(true);
     try {
       const res = await fetch(`/api/instructor/classes/${encodeURIComponent(classId)}/assignments`);
@@ -61,6 +75,7 @@ export function ClassAssignmentsDialog({
         next[lesson.lessonId] = lesson.enabled;
       }
       setEnabled(next);
+      setBaseline(next);
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Could not load assignments.");
     } finally {
@@ -75,9 +90,17 @@ export function ClassAssignmentsDialog({
 
   const enabledCount = Object.values(enabled).filter(Boolean).length;
 
+  function requestClose() {
+    if (dirty && !window.confirm("You have unsaved assignment changes. Discard them?")) {
+      return;
+    }
+    onOpenChange(false);
+  }
+
   async function save() {
     setSaving(true);
     setError(null);
+    setSavedNotice(null);
     try {
       const enabledLessonIds = Object.entries(enabled)
         .filter(([, on]) => on)
@@ -88,7 +111,12 @@ export function ClassAssignmentsDialog({
         body: JSON.stringify({ enabledLessonIds }),
       });
       await j(res);
-      onOpenChange(false);
+      setBaseline(enabled);
+      setSavedNotice(
+        `Saved — ${enabledLessonIds.length} lesson${
+          enabledLessonIds.length === 1 ? "" : "s"
+        } enabled for this class.`
+      );
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : "Could not save assignments.");
     } finally {
@@ -99,6 +127,7 @@ export function ClassAssignmentsDialog({
   function setTrack(trackId: string, on: boolean) {
     const track = TRACKS.find((t) => t.id === trackId);
     if (!track) return;
+    setSavedNotice(null);
     setEnabled((prev) => {
       const next = { ...prev };
       for (const lesson of track.lessons) next[lesson.id] = on;
@@ -107,7 +136,13 @@ export function ClassAssignmentsDialog({
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog
+      open={open}
+      onOpenChange={(next) => {
+        if (!next) requestClose();
+        else onOpenChange(true);
+      }}
+    >
       <DialogContent className="max-h-[min(85dvh,calc(100dvh-2rem))] max-w-2xl overflow-y-auto p-4 sm:p-6">
         <DialogHeader>
           <DialogTitle>Lesson assignments</DialogTitle>
@@ -117,11 +152,23 @@ export function ClassAssignmentsDialog({
           </DialogDescription>
         </DialogHeader>
 
-        {error ? (
+        <NoticePresence show={Boolean(error)} contentKey={error}>
           <Notice compact variant="danger" role="alert">
             {error}
           </Notice>
-        ) : null}
+        </NoticePresence>
+
+        <NoticePresence show={Boolean(savedNotice)} contentKey={savedNotice}>
+          <Notice compact variant="success" role="status">
+            {savedNotice}
+          </Notice>
+        </NoticePresence>
+
+        <NoticePresence show={dirty && !saving} contentKey="unsaved">
+          <Notice compact variant="info" role="status">
+            Unsaved changes — tap Save assignments to update what students can open.
+          </Notice>
+        </NoticePresence>
 
         {loading ? (
           <div className="flex items-center justify-center gap-2 py-10 text-sm text-slate-600">
@@ -132,6 +179,7 @@ export function ClassAssignmentsDialog({
           <div className="space-y-5">
             <p className="text-xs font-semibold text-slate-600">
               {enabledCount} lesson{enabledCount === 1 ? "" : "s"} enabled for this class
+              {dirty ? " · edited" : ""}
             </p>
             {TRACKS.map((track) => {
               const trackEnabledCount = track.lessons.filter((l) => enabled[l.id]).length;
@@ -180,9 +228,10 @@ export function ClassAssignmentsDialog({
                           type="checkbox"
                           className="mt-1 h-5 w-5 rounded border-slate-300"
                           checked={Boolean(enabled[lesson.id])}
-                          onChange={(e) =>
-                            setEnabled((prev) => ({ ...prev, [lesson.id]: e.target.checked }))
-                          }
+                          onChange={(e) => {
+                            setSavedNotice(null);
+                            setEnabled((prev) => ({ ...prev, [lesson.id]: e.target.checked }));
+                          }}
                         />
                         <span className="min-w-0">
                           <span className="block text-sm font-semibold text-slate-900">
@@ -202,17 +251,29 @@ export function ClassAssignmentsDialog({
         )}
 
         <DialogFooter className="gap-2 sm:gap-0">
-          <Button type="button" variant="outline" className="h-11 w-full sm:w-auto" onClick={() => onOpenChange(false)}>
-            Cancel
+          <Button
+            type="button"
+            variant="outline"
+            className="h-11 w-full sm:w-auto"
+            onClick={requestClose}
+          >
+            {dirty ? "Discard" : "Close"}
           </Button>
-          <Button type="button" className="h-11 w-full sm:w-auto" disabled={saving || loading} onClick={save}>
+          <Button
+            type="button"
+            className="h-11 w-full sm:w-auto"
+            disabled={saving || loading || !dirty}
+            onClick={() => void save()}
+          >
             {saving ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
                 Saving…
               </>
-            ) : (
+            ) : dirty ? (
               "Save assignments"
+            ) : (
+              "Saved"
             )}
           </Button>
         </DialogFooter>

@@ -607,9 +607,15 @@ export default function WelcomeProfilePage() {
 
           {!pendingConfirmEmail ? (
           <div className="mt-5 rounded-2xl border border-slate-200 bg-white/60 p-4 text-sm text-slate-600">
-            <p className="font-extrabold text-slate-900">After signup</p>
+            <p className="font-extrabold text-slate-900">After you create an account</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>Confirm your email, then open your learning hub.</li>
+              <li>
+                Check your inbox (and spam) for a confirmation email — you must open that link before
+                you can sign in.
+              </li>
+              <li>
+                After confirming, sign in on Welcome → then you&apos;ll land in your learning hub.
+              </li>
               <li>
                 Self-paced learners unlock tracks via{" "}
                 <Link href="/billing" className="font-semibold text-emerald-800 underline">

@@ -33,6 +33,7 @@ import {
   weekSessionLabel,
 } from "@/lib/tracks";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
+import { computeStreaks } from "@/lib/insights/computeLearnerInsights";
 
 /** Dashboard display order — premier paths first for the carousel. */
 const DASHBOARD_TRACK_ORDER: Track["id"][] = [
@@ -125,6 +126,7 @@ function HomeInner() {
   });
   const [accessStatus, setAccessStatus] = React.useState<"loading" | "ok" | "error">("loading");
   const [isParentAccount, setIsParentAccount] = React.useState(false);
+  const [activityStreakDays, setActivityStreakDays] = React.useState(0);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -266,9 +268,22 @@ function HomeInner() {
             .filter(Boolean) ?? [];
         setCompletedIds(completed);
         setHasSavedProgress(true);
+
+        const since = new Date(Date.now() - 120 * 86_400_000).toISOString();
+        const { data: events } = await supabase
+          .from("progress_events")
+          .select("created_at")
+          .eq("student_id", studentId)
+          .gte("created_at", since)
+          .limit(2000);
+        const dayKeys = (events ?? [])
+          .map((e) => String(e?.created_at ?? "").slice(0, 10))
+          .filter(Boolean);
+        setActivityStreakDays(computeStreaks(dayKeys).current);
       } else {
         setHasSavedProgress(false);
         setCompletedIds([]);
+        setActivityStreakDays(0);
       }
 
       try {
@@ -308,7 +323,7 @@ function HomeInner() {
                 </h1>
                 <p className="mt-2 max-w-2xl text-sm font-medium text-white/85 md:text-base">
                   {hasSavedProgress && completedIds.length > 0
-                    ? "Pick up where you left off and jump into your next open lesson."
+                    ? "Pick up where you left off, keep your streak going, and jump into your next open lesson."
                     : "You're all set — pick a track below and start your first lesson."}
                 </p>
               </div>
@@ -359,14 +374,18 @@ function HomeInner() {
               </div>
               <div className="kanam-dashboard-stat rounded-2xl p-4">
                 <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/75">
-                  Active track
+                  Activity streak
                 </p>
-                <p className="mt-1 flex items-center gap-2 text-lg font-black text-white">
-                  <Trophy className="h-5 w-5 text-[var(--accent)]" />
-                  {activeTrack.title}
+                <p className="mt-1 flex items-center gap-2 text-2xl font-black text-white">
+                  <Flame className="h-5 w-5 text-[var(--accent)]" />
+                  {hasSavedProgress ? activityStreakDays : 0}
+                  <span className="text-base font-bold text-white/80">
+                    day{activityStreakDays === 1 ? "" : "s"}
+                  </span>
                 </p>
                 <p className="mt-1 text-xs font-semibold text-white/80">
-                  {activeTrackProgress.percent}% complete
+                  <Trophy className="mr-1 inline h-3.5 w-3.5 text-[var(--accent)]" />
+                  {activeTrack.title} · {activeTrackProgress.percent}%
                 </p>
               </div>
             </div>

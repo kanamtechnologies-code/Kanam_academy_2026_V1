@@ -22,7 +22,13 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
 import { NoticePresence } from "@/components/ui/notice-presence";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import { isInstructorRole, isParentRole, postSignInPath, safeNextPath } from "@/lib/roles";
+import {
+  isInstructorRole,
+  isParentRole,
+  postSignInPath,
+  readUserRole,
+  safeNextPath,
+} from "@/lib/roles";
 
 type EnsureProfileResponse = {
   ok?: boolean;
@@ -54,6 +60,38 @@ export default function WelcomePage() {
   const [resetLinkError, setResetLinkError] = React.useState<string | null>(null);
   const [linkErrorKind, setLinkErrorKind] = React.useState<"reset" | "confirm">("reset");
   const [accountDeletedMsg, setAccountDeletedMsg] = React.useState<string | null>(null);
+  const [signedInShortcut, setSignedInShortcut] = React.useState<{
+    href: string;
+    label: string;
+  } | null>(null);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const supabase = createSupabaseBrowserClient();
+        if (!supabase) return;
+        const { data } = await supabase.auth.getSession();
+        if (cancelled || !data.session) return;
+        const { data: userData } = await supabase.auth.getUser();
+        const user = userData.user;
+        const href = postSignInPath(user);
+        const role = readUserRole(user);
+        const label =
+          role === "parent"
+            ? "Continue to family hub"
+            : role === "instructor" || role === "teacher"
+              ? "Continue to instructor dashboard"
+              : "Continue learning";
+        setSignedInShortcut({ href, label });
+      } catch {
+        // ignore
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   React.useEffect(() => {
     try {
@@ -299,28 +337,69 @@ export default function WelcomePage() {
                 </span>
               </h1>
               <div className="mt-2 space-y-1.5 text-sm font-medium leading-snug text-slate-800 sm:text-base">
-                <p>Glad you’re here. Pick how you want to enter:</p>
-                <p>
-                  <span className="kanam-text-pop-strong font-extrabold text-[color:var(--brand)]">
-                    Student
-                  </span>
-                  {" — "}
-                  your own email login for school or self-paced learning.
-                </p>
-                <p>
-                  <span className="kanam-text-pop-strong font-extrabold text-[color:var(--brand-2)]">
-                    Parent
-                  </span>
-                  {" — "}
-                  one login, kid profiles with optional PINs, Family plan for the whole household.
-                </p>
-                <p>
-                  <span className="kanam-text-pop-strong font-extrabold text-[color:var(--accent)]">
-                    Returning
-                  </span>
-                  {" — "}
-                  sign in with the same email (students and parents).
-                </p>
+                <p>Glad you’re here. Tap a path below to jump to the right form:</p>
+                <div className="flex flex-col gap-2 sm:gap-1.5">
+                  <button
+                    type="button"
+                    className="rounded-xl px-1 py-2 text-left transition hover:bg-white/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)] sm:py-1"
+                    onClick={() =>
+                      document.getElementById("welcome-student")?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      })
+                    }
+                  >
+                    <span className="kanam-text-pop-strong font-extrabold text-[color:var(--brand)]">
+                      Student
+                    </span>
+                    {" — "}
+                    your own email login for school or self-paced learning.
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-xl px-1 py-2 text-left transition hover:bg-white/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)] sm:py-1"
+                    onClick={() =>
+                      document.getElementById("welcome-parent")?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      })
+                    }
+                  >
+                    <span className="kanam-text-pop-strong font-extrabold text-[color:var(--brand-2)]">
+                      Parent
+                    </span>
+                    {" — "}
+                    one login, kid profiles with optional PINs, Family plan for the whole household.
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-xl px-1 py-2 text-left transition hover:bg-white/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)] sm:py-1"
+                    onClick={() =>
+                      document.getElementById("sign-in")?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      })
+                    }
+                  >
+                    <span className="kanam-text-pop-strong font-extrabold text-[color:var(--accent)]">
+                      Returning
+                    </span>
+                    {" — "}
+                    sign in with the same email (students and parents).
+                  </button>
+                </div>
+                {signedInShortcut ? (
+                  <div className="mt-3">
+                    <Button
+                      type="button"
+                      className="h-11 w-full rounded-xl font-semibold sm:w-auto"
+                      onClick={() => router.push(signedInShortcut.href)}
+                    >
+                      {signedInShortcut.label}
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ) : null}
               </div>
             </div>
 
@@ -353,8 +432,9 @@ export default function WelcomePage() {
 
           {/* Parent entry */}
           <motion.div
+            id="welcome-parent"
             {...cardEnter(0.0)}
-            className={[glassCardBase, "mt-4 p-4 sm:p-5"].join(" ")}
+            className={[glassCardBase, "mt-4 scroll-mt-24 p-4 sm:p-5"].join(" ")}
           >
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0">
@@ -388,9 +468,13 @@ export default function WelcomePage() {
           <div className="mt-4 grid gap-6 lg:grid-cols-2 xl:gap-8">
               {/* New learner (priority) */}
               <motion.div
+                id="welcome-student"
                 {...cardEnter(0.05)}
                 whileHover={{ y: -8 }}
-                className={[glassCardBase, "flex h-full flex-col p-5 sm:p-6 md:p-8"].join(" ")}
+                className={[
+                  glassCardBase,
+                  "flex h-full scroll-mt-24 flex-col p-5 sm:p-6 md:p-8",
+                ].join(" ")}
               >
                 <p className="kanam-text-pop-strong text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--brand-2)]">
                   Student account

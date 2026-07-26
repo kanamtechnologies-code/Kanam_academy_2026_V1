@@ -8,6 +8,7 @@ import {
   CreditCard,
   Download,
   Loader2,
+  Pencil,
   Plus,
   Shield,
   Trash2,
@@ -89,6 +90,10 @@ function ParentHubClient() {
   const [switchPin, setSwitchPin] = React.useState("");
   const [deleteKidId, setDeleteKidId] = React.useState<string | null>(null);
   const [deleteConfirmName, setDeleteConfirmName] = React.useState("");
+  const [editKidId, setEditKidId] = React.useState<string | null>(null);
+  const [editFirstName, setEditFirstName] = React.useState("");
+  const [editLastName, setEditLastName] = React.useState("");
+  const [editGrade, setEditGrade] = React.useState("");
   const [accountDeleteOpen, setAccountDeleteOpen] = React.useState(false);
   const [accountConfirmEmail, setAccountConfirmEmail] = React.useState("");
   const [accountConfirmPhrase, setAccountConfirmPhrase] = React.useState("");
@@ -365,6 +370,36 @@ function ParentHubClient() {
       await load();
     } catch (e: unknown) {
       setError(errorMessage(e, "Could not save PIN."));
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const saveKidProfile = async (studentId: string) => {
+    setError(null);
+    setMsg(null);
+    if (!editFirstName.trim()) {
+      setError("Enter the child’s first name.");
+      return;
+    }
+    setSaving(true);
+    try {
+      const res = await fetch(`/api/parent/kids/${studentId}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          firstName: editFirstName.trim(),
+          lastName: editLastName.trim() || undefined,
+          grade: editGrade.trim(),
+        }),
+      });
+      const json = (await res.json()) as { ok?: boolean; error?: string };
+      if (!res.ok || !json.ok) throw new Error(json.error || "Could not update child.");
+      setEditKidId(null);
+      setMsg("Child profile updated.");
+      await load();
+    } catch (e: unknown) {
+      setError(errorMessage(e, "Could not update child."));
     } finally {
       setSaving(false);
     }
@@ -690,10 +725,27 @@ function ParentHubClient() {
                       size="sm"
                       variant="outline"
                       onClick={() => {
+                        setEditKidId(kid.id);
+                        setEditFirstName(kid.first_name || kid.display_name || "");
+                        setEditLastName(kid.last_name || "");
+                        setEditGrade(kid.grade || "");
+                        setDeleteKidId(null);
+                        setPinKidId(null);
+                        setSwitchKidId(null);
+                      }}
+                    >
+                      <Pencil className="h-3.5 w-3.5" />
+                      Edit
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
                         setDeleteKidId(kid.id);
                         setDeleteConfirmName("");
                         setPinKidId(null);
                         setSwitchKidId(null);
+                        setEditKidId(null);
                       }}
                     >
                       <Trash2 className="h-3.5 w-3.5" />
@@ -706,6 +758,7 @@ function ParentHubClient() {
                         setPinKidId(kid.id);
                         setPinValue("");
                         setDeleteKidId(null);
+                        setEditKidId(null);
                       }}
                     >
                       <Shield className="h-3.5 w-3.5" />
@@ -756,6 +809,46 @@ function ParentHubClient() {
                           setDeleteConfirmName("");
                         }}
                       >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                ) : null}
+
+                {editKidId === kid.id ? (
+                  <div className="mt-3 space-y-3 border-t border-slate-100 pt-3">
+                    <div className="grid gap-2 sm:grid-cols-3">
+                      <div className="space-y-1">
+                        <label className="text-xs font-semibold text-slate-600">First name</label>
+                        <Input
+                          value={editFirstName}
+                          onChange={(e) => setEditFirstName(e.target.value)}
+                          className="h-10"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-xs font-semibold text-slate-600">Last name</label>
+                        <Input
+                          value={editLastName}
+                          onChange={(e) => setEditLastName(e.target.value)}
+                          className="h-10"
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-xs font-semibold text-slate-600">Grade</label>
+                        <Input
+                          value={editGrade}
+                          onChange={(e) => setEditGrade(e.target.value)}
+                          placeholder="Optional"
+                          className="h-10"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      <Button size="sm" disabled={saving} onClick={() => void saveKidProfile(kid.id)}>
+                        Save profile
+                      </Button>
+                      <Button size="sm" variant="ghost" onClick={() => setEditKidId(null)}>
                         Cancel
                       </Button>
                     </div>
