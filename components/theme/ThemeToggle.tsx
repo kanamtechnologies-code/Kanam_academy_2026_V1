@@ -58,33 +58,35 @@ export function ThemeToggle() {
       title={isDark ? "Light mode" : "Dark mode"}
       onClick={() => withThemeAnimation(() => setTheme(isDark ? "light" : "dark"))}
       className={[
-        "relative inline-flex h-10 w-14 shrink-0 items-center rounded-full border border-white/60 sm:h-11 sm:w-[4.75rem]",
+        // Fold cover / very narrow: compact icon. Wider phones: pill switch.
+        "relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/60",
+        "sm:h-11 sm:w-[4.75rem] sm:justify-start sm:rounded-full",
         "bg-white/90 p-0.5 shadow-sm transition-colors duration-300 sm:p-1",
         "hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/25",
         "dark:border-white/60 dark:bg-white/90 dark:hover:bg-white",
       ].join(" ")}
     >
-      {/* Track icons */}
-      <span className="pointer-events-none absolute inset-y-0 left-0 flex w-1/2 items-center justify-center">
+      {/* Track icons — phone+ only */}
+      <span className="pointer-events-none absolute inset-y-0 left-0 hidden w-1/2 items-center justify-center sm:flex">
         <Sun
           className={[
-            "h-3 w-3 transition-colors duration-300 sm:h-3.5 sm:w-3.5",
+            "h-3.5 w-3.5 transition-colors duration-300",
             isDark ? "text-slate-400" : "text-[color:var(--brand-2)]",
           ].join(" ")}
           aria-hidden
         />
       </span>
-      <span className="pointer-events-none absolute inset-y-0 right-0 flex w-1/2 items-center justify-center">
+      <span className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 items-center justify-center sm:flex">
         <Moon
           className={[
-            "h-3 w-3 transition-colors duration-300 sm:h-3.5 sm:w-3.5",
+            "h-3.5 w-3.5 transition-colors duration-300",
             isDark ? "text-[color:var(--brand-2)]" : "text-slate-400",
           ].join(" ")}
           aria-hidden
         />
       </span>
 
-      {/* Sliding thumb */}
+      {/* Sliding thumb (full control on narrow; track thumb from sm up) */}
       <span
         aria-hidden
         className={[
@@ -92,7 +94,7 @@ export function ThemeToggle() {
           "bg-gradient-to-br from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
           "text-[var(--accent)] shadow-md shadow-emerald-900/25",
           "transition-transform duration-300 ease-out motion-reduce:transition-none",
-          isDark ? "translate-x-[1.15rem] sm:translate-x-[1.65rem]" : "translate-x-0",
+          isDark ? "sm:translate-x-[1.65rem]" : "translate-x-0",
         ].join(" ")}
       >
         {isDark ? <Moon className="h-3.5 w-3.5 sm:h-4 sm:w-4" /> : <Sun className="h-3.5 w-3.5 sm:h-4 sm:w-4" />}

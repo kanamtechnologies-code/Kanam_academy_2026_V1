@@ -301,6 +301,12 @@ const SpotlightTourInner = React.forwardRef<
   const clickShieldTimerRef = React.useRef<number | null>(null);
   const cardRef = React.useRef<HTMLDivElement | null>(null);
   const [cardSize, setCardSize] = React.useState({ w: 320, h: 260 });
+  /** Keep card height out of the align effect deps — ResizeObserver loops caused flashing. */
+  const cardHeightRef = React.useRef(260);
+  /** Locked target for the current step (stable across scroll/resize). */
+  const lockedTargetRef = React.useRef<HTMLElement | null>(null);
+  const lockedStepIdRef = React.useRef<string | null>(null);
+  const scrollRecomputeTimerRef = React.useRef<number | null>(null);
 
   const armClickShield = React.useCallback((ms = 500) => {
     setClickShield(true);
@@ -314,6 +320,7 @@ const SpotlightTourInner = React.forwardRef<
   React.useEffect(() => {
     return () => {
       if (clickShieldTimerRef.current) window.clearTimeout(clickShieldTimerRef.current);
+      if (scrollRecomputeTimerRef.current) window.clearTimeout(scrollRecomputeTimerRef.current);
     };
   }, []);
 
@@ -331,7 +338,9 @@ const SpotlightTourInner = React.forwardRef<
     const measure = () => {
       const r = el.getBoundingClientRect();
       if (r.width > 0 && r.height > 0) {
-        setCardSize({ w: Math.ceil(r.width), h: Math.ceil(r.height) });
+        const next = { w: Math.ceil(r.width), h: Math.ceil(r.height) };
+        cardHeightRef.current = next.h;
+        setCardSize((prev) => (prev.w === next.w && prev.h === next.h ? prev : next));
       }
     };
     measure();
@@ -417,60 +426,65 @@ const SpotlightTourInner = React.forwardRef<
     }
   }, [idx, steps.length, markDoneAndClose, armClickShield]);
 
+  const applyRectForEl = React.useCallback(
+    (el: HTMLElement) => {
+      if (!intersectsViewport(el)) return false;
+      const pad = step?.padding ?? 8;
+      const r = el.getBoundingClientRect();
+      const next = safeRect(r, pad);
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
+      // Only reject near-fullscreen regions (not full-width mobile buttons).
+      if (next.height > vh * 0.55 && next.width > vw * 0.85) return false;
+      if (next.width < 8 || next.height < 8) return false;
+      setRect(next);
+      return true;
+    },
+    [step?.padding]
+  );
+
   const recompute = React.useCallback(() => {
     if (!open || !step) return;
+    // Prefer the locked target for this step — avoids find/scroll thrash.
+    if (lockedStepIdRef.current === step.id && lockedTargetRef.current?.isConnected) {
+      if (applyRectForEl(lockedTargetRef.current)) return;
+    }
     const el = findStepTarget(step);
     if (!el) {
-      // Never keep a previous step's hole — that causes "highlight on the wrong word".
+      lockedTargetRef.current = null;
       setRect(null);
       return;
     }
-    if (!intersectsViewport(el)) {
+    lockedTargetRef.current = el;
+    lockedStepIdRef.current = step.id;
+    if (!applyRectForEl(el)) {
       setRect(null);
-      return;
     }
-    const pad = step.padding ?? 8;
-    const r = el.getBoundingClientRect();
-    const next = safeRect(r, pad);
-    // Reject absurd holes (e.g. near-fullscreen regions) — retry instead of misleading.
-    const vh = window.innerHeight;
-    const vw = window.innerWidth;
-    if (next.height > vh * 0.55 || next.width > vw * 0.96) {
-      setRect(null);
-      return;
-    }
-    if (next.width < 8 || next.height < 8) {
-      setRect(null);
-      return;
-    }
-    setRect(next);
-  }, [open, step]);
+  }, [open, step, applyRectForEl]);
 
   React.useEffect(() => {
     if (!open || !step) return;
     let cancelled = false;
     let tries = 0;
-    const maxTries = 30; // ~3s of retries while the lesson view swaps
+    const maxTries = 20;
+    // Phone + foldables share compact tour layout (card docks opposite the hole).
+    const compactLayout = () => window.innerWidth < 900;
 
     const alignTarget = (el: HTMLElement) => {
       const vh = window.innerHeight;
-      const narrow = window.innerWidth < 640;
       const inHeader = Boolean(el.closest("header"));
-      if (narrow) {
-        // Reserve space for the tour card so the tap target stays fully visible.
-        const cardBand = Math.min(Math.max(cardSize.h, 150), Math.floor(vh * 0.32));
+      if (compactLayout()) {
+        const cardBand = Math.min(Math.max(cardHeightRef.current, 150), Math.floor(vh * 0.34));
         const headerEl = document.querySelector("header");
         const headerH = headerEl?.getBoundingClientRect().height ?? 64;
         const headerPad = inHeader ? 4 : Math.ceil(headerH) + 12;
         const r0 = el.getBoundingClientRect();
-        // Targets in the lower half → dock card at top; upper targets → card at bottom.
-        const dockTop = !inHeader && r0.top > vh * 0.45;
+        const dockTop = !inHeader && r0.top > vh * 0.42;
         const safeTop = dockTop ? cardBand + 12 : headerPad;
         const safeBottom = dockTop ? vh - 12 : vh - cardBand - 16;
 
         if (!inHeader) {
-          // Prefer native scrollIntoView into a clear band, then nudge.
-          el.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
+          el.scrollIntoView({ behavior: "auto", block: "nearest", inline: "nearest" });
           let r = el.getBoundingClientRect();
           if (r.top < safeTop) {
             window.scrollBy({ top: r.top - safeTop, left: 0, behavior: "auto" });
@@ -491,35 +505,49 @@ const SpotlightTourInner = React.forwardRef<
       }
     };
 
+    // New step only — clear previous hole once (not on every card resize).
+    lockedTargetRef.current = null;
+    lockedStepIdRef.current = step.id;
+    setRect(null);
+
     const tick = () => {
       if (cancelled) return;
       const el = findStepTarget(step);
       if (el) {
+        lockedTargetRef.current = el;
         alignTarget(el);
         window.setTimeout(() => {
           if (cancelled) return;
-          // Re-align once after layout settles (common after tab / pocket close).
-          const again = findStepTarget(step);
-          if (again) alignTarget(again);
-          recompute();
+          const again =
+            lockedTargetRef.current?.isConnected && lockedStepIdRef.current === step.id
+              ? lockedTargetRef.current
+              : findStepTarget(step);
+          if (again) {
+            lockedTargetRef.current = again;
+            // One settle pass only — do not keep re-scrolling (that caused the flash).
+            applyRectForEl(again);
+          } else {
+            setRect(null);
+          }
         }, recomputeDelayMs);
         return;
       }
-      setRect(null);
       tries += 1;
+      if (tries === 1) setRect(null);
       if (tries < maxTries) {
-        window.setTimeout(tick, 100);
+        window.setTimeout(tick, 120);
       }
     };
 
-    // Clear immediately so we never flash the previous hole on a new step.
-    setRect(null);
-    tick();
+    const start = window.setTimeout(tick, 40);
 
     return () => {
       cancelled = true;
+      window.clearTimeout(start);
     };
-  }, [open, idx, step, recompute, recomputeDelayMs, cardSize.h]);
+    // Intentionally NOT depending on cardSize — that ResizeObserver loop flashed the UI.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, idx, step?.id, recomputeDelayMs, applyRectForEl]);
 
   // Block real UI under the spotlight while the tour is open (clicks only advance the tour).
   // Keep a short shield after hole taps / close to absorb mobile ghost clicks.
@@ -559,12 +587,20 @@ const SpotlightTourInner = React.forwardRef<
 
   React.useEffect(() => {
     if (!open) return;
-    const on = () => recompute();
+    const on = () => {
+      // Debounce — sticky bars + scrollIntoView were flooding recompute and flashing.
+      if (scrollRecomputeTimerRef.current) window.clearTimeout(scrollRecomputeTimerRef.current);
+      scrollRecomputeTimerRef.current = window.setTimeout(() => {
+        scrollRecomputeTimerRef.current = null;
+        recompute();
+      }, 80);
+    };
     window.addEventListener("resize", on);
     window.addEventListener("scroll", on, true);
     return () => {
       window.removeEventListener("resize", on);
       window.removeEventListener("scroll", on, true);
+      if (scrollRecomputeTimerRef.current) window.clearTimeout(scrollRecomputeTimerRef.current);
     };
   }, [open, recompute]);
 
@@ -573,7 +609,8 @@ const SpotlightTourInner = React.forwardRef<
 
   const scrimColor = "rgba(2, 6, 23, 0.55)";
   const z = "z-[9999]";
-  const narrow = window.innerWidth < 640;
+  // Include unfoldables / small tablets so the card docks opposite the hole.
+  const narrow = window.innerWidth < 900;
   const edge = narrow ? 8 : 12;
   const tooltipMaxW = narrow ? window.innerWidth - edge * 2 : 360;
   const tooltipW = Math.min(
@@ -1005,8 +1042,9 @@ const SpotlightTourInner = React.forwardRef<
                   </p>
                 ) : null}
                 {!rect ? (
-                  <p className="mt-2 text-[11px] font-medium text-amber-800 dark:text-amber-200">
-                    Finding the control… If it doesn’t appear, tap Continue.
+                  <p className="mt-2 text-[11px] font-medium text-slate-500 dark:text-slate-400">
+                    Tap <span className="font-semibold text-slate-700 dark:text-slate-200">Continue</span>{" "}
+                    below to keep going.
                   </p>
                 ) : null}
               </div>

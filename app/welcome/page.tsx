@@ -143,7 +143,7 @@ export default function WelcomePage() {
   });
 
   const glassCardBase =
-    "rounded-[32px] bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)]";
+    "w-full min-w-0 max-w-full rounded-[24px] bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out sm:rounded-[32px] dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)]";
 
   const signInLearner = React.useCallback(async () => {
     setReturningError(null);
@@ -260,8 +260,8 @@ export default function WelcomePage() {
 
   return (
     <WelcomeBackground>
-      <div className="flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full items-center justify-center px-4 py-5 sm:py-6 md:px-10">
-        <div className="mx-auto w-full max-w-[1400px]">
+      <div className="flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full min-w-0 items-center justify-center px-1 py-5 sm:px-2 sm:py-6 md:px-6">
+        <div className="mx-auto w-full min-w-0 max-w-[1400px]">
           <NoticePresence show={Boolean(resetLinkError)} contentKey={resetLinkError} className="mb-4">
             <Notice
               variant="danger"
@@ -328,11 +328,11 @@ export default function WelcomePage() {
           </NoticePresence>
 
           {/* Top row: welcome message + demo mode (side-by-side on large screens) */}
-          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
-            <div className="text-center lg:text-left">
-              <h1 className="text-[1.65rem] font-black leading-[1.08] tracking-tight text-slate-900 sm:text-4xl">
-                <span className="inline-flex items-center gap-4">
-                  <span>Welcome to Kanam Academy</span>
+          <div className="grid min-w-0 gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
+            <div className="min-w-0 max-w-full text-center lg:text-left">
+              <h1 className="break-words text-[1.65rem] font-black leading-[1.08] tracking-tight text-slate-900 sm:text-4xl">
+                <span className="inline-flex max-w-full flex-wrap items-center justify-center gap-2 sm:gap-4 lg:justify-start">
+                  <span className="min-w-0">Welcome to Kanam Academy</span>
                 </span>
               </h1>
               <div className="mt-2 space-y-1.5 text-sm font-medium leading-snug text-slate-800 sm:text-base">
@@ -464,7 +464,7 @@ export default function WelcomePage() {
           </motion.div>
 
           {/* Main cards */}
-          <div className="mt-4 grid gap-6 lg:grid-cols-2 xl:gap-8">
+          <div className="mt-4 grid min-w-0 gap-4 sm:gap-6 lg:grid-cols-2 xl:gap-8">
               {/* New learner (priority) */}
               <motion.div
                 id="welcome-student"
@@ -472,7 +472,7 @@ export default function WelcomePage() {
                 whileHover={{ y: -8 }}
                 className={[
                   glassCardBase,
-                  "flex h-full scroll-mt-24 flex-col p-5 sm:p-6 md:p-8",
+                  "flex h-full scroll-mt-24 flex-col p-4 sm:p-6 md:p-8",
                 ].join(" ")}
               >
                 <p className="kanam-text-pop-strong text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--brand-2)]">

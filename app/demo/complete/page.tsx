@@ -41,12 +41,12 @@ export default function DemoCompletePage() {
 
   return (
     <WelcomeBackground>
-      <div className="mx-auto flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full max-w-[1100px] flex-col justify-center px-4 py-6 sm:py-10 md:px-10">
+      <div className="mx-auto flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full min-w-0 max-w-[1100px] flex-col justify-center px-1 py-5 sm:px-2 sm:py-10 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 280, damping: 26 }}
-          className="overflow-hidden rounded-[24px] border border-white/60 bg-white/80 shadow-[0_24px_60px_rgba(0,0,0,0.06)] backdrop-blur-2xl sm:rounded-[30px]"
+          className="w-full min-w-0 overflow-hidden rounded-[24px] border border-white/60 bg-white/80 shadow-[0_24px_60px_rgba(0,0,0,0.06)] backdrop-blur-2xl sm:rounded-[30px]"
         >
           <div className="kanam-dashboard-hero px-4 py-6 sm:px-6 sm:py-8 md:px-10 md:py-10">
             <div className="kanam-dashboard-hero-overlay" />
@@ -102,8 +102,8 @@ export default function DemoCompletePage() {
             </div>
           </div>
 
-          <div className="grid gap-6 p-4 sm:p-6 lg:grid-cols-[1.1fr_0.9fr] md:p-10">
-            <div className="space-y-4">
+          <div className="grid min-w-0 gap-6 p-4 sm:p-6 lg:grid-cols-[1.1fr_0.9fr] md:p-10">
+            <div className="min-w-0 space-y-4">
               <p className="text-sm font-extrabold tracking-tight text-slate-900">
                 What you proved
               </p>

@@ -727,7 +727,9 @@ export function LessonModule({
               variant="outline"
               className="min-h-11 w-full sm:w-auto"
               onClick={() => goTo(index - 1)}
-              disabled={isFirst || navigationLocked}
+              // Keep enabled visually during the guided tour so spotlight can lock on it.
+              disabled={isFirst}
+              aria-disabled={navigationLocked || isFirst}
             >
               <ArrowLeft className="h-4 w-4" />
               Back
@@ -746,7 +748,9 @@ export function LessonModule({
                 data-tour="lesson-module-start"
                 className="min-h-11 w-full shadow-sm sm:w-auto"
                 onClick={goNext}
-                disabled={navigationLocked || !canStartPractice}
+                // Tour locks clicks in goNext; keep the control look active for spotlighting.
+                disabled={!canStartPractice}
+                aria-disabled={navigationLocked || !canStartPractice}
                 title={
                   canStartPractice
                     ? undefined
@@ -760,9 +764,10 @@ export function LessonModule({
               <Button
                 type="button"
                 data-tour="lesson-module-next"
-                className="min-h-11 w-full shadow-sm sm:w-auto"
+                className="min-h-11 w-full max-w-full shadow-sm sm:w-auto"
                 onClick={goNext}
-                disabled={navigationLocked || !canAdvance}
+                disabled={!canAdvance}
+                aria-disabled={navigationLocked || !canAdvance}
               >
                 Next
                 <ArrowRight className="h-4 w-4" />

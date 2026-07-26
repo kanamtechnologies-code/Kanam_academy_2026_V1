@@ -41,6 +41,7 @@
 
 html {
   overflow-x: clip;
+  max-width: 100%;
 }
 
 body {
@@ -55,7 +56,9 @@ body {
   /* Avoid iOS zoom-on-focus for inputs under 16px */
   -webkit-text-size-adjust: 100%;
   overflow-x: clip;
-  max-width: 100vw;
+  max-width: 100%;
+  /* Fold cover / ultra-narrow: never let flex/grid min-content blow the page open */
+  min-width: 0;
 }
 
 /* Smooth light/dark theme changes — only while .theme-animating is set */

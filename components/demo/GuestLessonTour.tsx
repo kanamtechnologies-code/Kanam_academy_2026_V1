@@ -101,11 +101,11 @@ export function GuestLessonTour({
 
   return (
     <SpotlightTour
-      storageKey="kanam_guest_tool_tour_v11_done"
+      storageKey="kanam_guest_tool_tour_v12_done"
       remember={false}
       defaultOpen
       fadeMs={150}
-      recomputeDelayMs={260}
+      recomputeDelayMs={200}
       eyebrow="A quick look around"
       actionLabel="Go ahead"
       footerHint="Tap the gold highlight to continue"
@@ -144,9 +144,9 @@ export function GuestLessonTour({
           clickSelector: '[data-tour="lesson-module-next"], [data-tour="lesson-module-start"]',
           title: "Short pages. Real understanding.",
           body: "**Next** moves through teaching pages. The last page opens practice.",
-          action: "Press **Next** (or **Start the exercises**).",
+          action: "Tap the gold highlight on **Next** (or tap Continue).",
           icon: <BookOpen className="h-4 w-4" />,
-          padding: 10,
+          padding: 6,
         },
         {
           id: "tabs-exercises",

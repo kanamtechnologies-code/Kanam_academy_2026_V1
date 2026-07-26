@@ -26,9 +26,9 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
           />
         </div>
 
-        <div className="relative flex w-full min-w-0 max-w-full items-center justify-between gap-1.5 px-2.5 py-2 sm:gap-3 sm:px-4 sm:py-3 md:px-10">
+        <div className="relative flex w-full min-w-0 max-w-full items-center justify-between gap-1 px-2 py-2 sm:gap-3 sm:px-4 sm:py-3 md:px-10">
           <HeaderBrand />
-          <div className="flex min-w-0 shrink items-center justify-end gap-1 sm:gap-2">
+          <div className="flex min-w-0 shrink items-center justify-end gap-0.5 overflow-x-clip sm:gap-2">
             <HeaderHelpPocket />
             <HeaderInstructor />
             <AuthActions />
