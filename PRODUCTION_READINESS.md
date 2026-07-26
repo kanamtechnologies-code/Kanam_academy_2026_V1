@@ -44,7 +44,8 @@ This checklist tracks launch-critical work for Kanam Academy.
   - No Session Replay; PII defaults off; tunnel at `/monitoring-tunnel`
   - Ops guide: `docs/ops/error-monitoring.md` (Sentry alert rules + external uptime)
   - Backup GitHub probe: `.github/workflows/uptime.yml` → `https://learn.kanamacademy.com/api/health`
-  - **Manual:** create Sentry project, set Vercel env vars, configure Slack/email alerts, add Better Stack/UptimeRobot as primary pager
+  - **Deferred for now:** Sentry project/DSN/alerts (code ready; turn on later via Vercel env)
+  - **Still recommended before a big blast:** external uptime on `/api/health` (Better Stack / UptimeRobot)
 - [x] Production backup/restore runbook
   - `docs/ops/backup-restore.md` — Supabase daily/PITR, weekly `pg_dump`, restore paths, Stripe/Auth notes, RTO/RPO, drill schedule
   - **Manual:** confirm Supabase backup/PITR on the live project; run first quarterly restore drill into a throwaway project
