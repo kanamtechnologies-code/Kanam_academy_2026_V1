@@ -106,7 +106,25 @@ Save the template, then request a **new** reset email (old links still use the p
 
 Student/parent signup uses the public **signUp** API so Supabase sends the Confirm signup email. Enable **Authentication → Providers → Email → Confirm email**.
 
-**Production mail:** Supabase’s built-in mailer is capped (~2 emails/hour). For real launches, set **Project Settings → Authentication → SMTP** (Resend, Postmark, SES, etc.). Without custom SMTP, confirmation mail often never arrives during testing.
+**Production mail (required before inviting real users):** Supabase’s built-in mailer:
+
+- Only sends to **emails that are members of your Supabase org/team**
+- Caps at ~2 messages/hour
+- Returns `Error sending confirmation email` for everyone else (what you see on signup)
+
+Until custom SMTP is on, signup for `gmail.com` / school emails will fail even though the app is fine.
+
+**Quick fix with Resend (recommended):**
+
+1. Create a free [Resend](https://resend.com) account and verify your sending domain (or use their onboarding domain for tests).
+2. Resend → **API Keys** / SMTP: copy host `smtp.resend.com`, port `587`, user `resend`, password = API key.
+3. Supabase → **Authentication → SMTP** → Enable custom SMTP:
+   - Host `smtp.resend.com`, Port `587`, User `resend`, Pass = Resend API key
+   - Sender email = a verified address (e.g. `noreply@kanamacademy.com`)
+4. Save, then try signup again with a non-team email.
+5. Raise Auth rate limits if needed: **Authentication → Rate Limits**.
+
+**Testing without SMTP:** Supabase → **Authentication → Users** → open the user → confirm email manually (or add that address to the org Team so the default mailer is allowed).
 
 Supabase → **Authentication → Email Templates → Confirm signup**. Prefer `ConfirmationURL` or a TokenHash link:
 

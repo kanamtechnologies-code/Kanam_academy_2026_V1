@@ -53,6 +53,16 @@ export async function createUnconfirmedAuthUser(params: {
         status: 429,
       };
     }
+    // Default Supabase mailer only delivers to org team members; everything else
+    // often surfaces as this opaque error until custom SMTP is configured.
+    if (/sending confirmation email|not authorized|smtp/i.test(msg)) {
+      return {
+        ok: false,
+        error:
+          "Could not send the confirmation email. Supabase’s built-in mailer only sends to project team emails. Add custom SMTP (e.g. Resend) under Authentication → SMTP, or confirm this user manually in Authentication → Users to unblock testing. See supabase/README.md.",
+        status: 502,
+      };
+    }
     return { ok: false, error: msg, status };
   }
 
