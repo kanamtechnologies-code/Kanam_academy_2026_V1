@@ -4,6 +4,9 @@
  * unauthenticated access to clearly private surfaces.
  */
 
+/** Keep in sync with `DEMO_LESSON_ID` in lib/pythonLessons/demoLesson.ts (no heavy import in middleware). */
+const PUBLIC_DEMO_LESSON_ID = "demo-lesson-1";
+
 export type ProtectedPageRule =
   | { kind: "auth" }
   | { kind: "instructor" };
@@ -69,6 +72,13 @@ export function isProtectedApi(pathname: string): boolean {
   if (p === "/api/health") return false;
   // Guided demo can narrate without an account; handler rate-limits by user or IP
   if (p === "/api/lesson/speak") return false;
+  // Public guided demo lesson payload + exercise checks (handler still gates by DEMO_LESSON_ID)
+  if (
+    p === `/api/student/lessons/${PUBLIC_DEMO_LESSON_ID}` ||
+    p === `/api/student/lessons/${PUBLIC_DEMO_LESSON_ID}/check`
+  ) {
+    return false;
+  }
 
   return true;
 }
