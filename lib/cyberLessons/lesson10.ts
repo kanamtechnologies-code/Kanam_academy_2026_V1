@@ -57,12 +57,12 @@ export const cyberLesson10: AILessonConfig = {
         checkIn: {
           prompt: "You're on café Wi-Fi and a login page shows 'Not Secure' with an HTTP address. What should you do?",
           choices: [
-            "Log in anyway since café Wi-Fi is always trustworthy",
             "Pause — avoid entering a password on an unencrypted HTTP page, especially on shared networks",
-            "Turn off your phone's Wi-Fi permanently",
-            "Assume the page is a virus and delete your browser",
+            "Log in anyway since café Wi-Fi is always trustworthy” belongs to a different situation than the one in the question stem",
+            "Assume the page is a virus and delete your browser” belongs to a different situation than the one in the question stem",
+            "Turn off your phone's Wi-Fi permanently” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Unencrypted HTTP pages are risky for credentials on shared networks. Look for HTTPS before entering sensitive information.",
         },
@@ -87,10 +87,10 @@ export const cyberLesson10: AILessonConfig = {
         checkIn: {
           prompt: "What does a website certificate mainly prove to your browser?",
           choices: [
-            "That the website's owners are honest people",
+            "That the website's owners are honest people” belongs to a different situation than the one in the question stem",
             "That a trusted CA has vouched the public key belongs to that specific domain",
-            "That the website has no bugs",
-            "That the website loads quickly",
+            "That the website loads quickly” belongs to a different situation than the one in the question stem",
+            "That the website has no bugs” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -122,10 +122,10 @@ export const cyberLesson10: AILessonConfig = {
         checkIn: {
           prompt: "Your school portal shows an 'expired certificate' warning. What's the best first move?",
           choices: [
-            "Enter your password anyway to save time",
+            "Assume the school was hacked and tell everyone on social media” belongs to a different situation than the one in the question stem",
             "Avoid entering credentials, and report the warning so IT can renew the certificate",
-            "Assume the school was hacked and tell everyone on social media",
-            "Permanently stop using that portal",
+            "Permanently stop using that portal” belongs to a different situation than the one in the question stem",
+            "Enter your password anyway to save time” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -157,12 +157,12 @@ export const cyberLesson10: AILessonConfig = {
         checkIn: {
           prompt: "A phishing page has a valid padlock/HTTPS. What does that tell you?",
           choices: [
-            "The page is definitely legitimate",
+            "Some learners answer “The page is definitely legitimate”, yet that does not match the precise idea from the lesson",
+            "“HTTPS certificates are only given to real companies” describes a different situation than the one in the question stem",
             "Only that the connection to that specific (possibly fake) domain is encrypted — not that the site is trustworthy",
-            "The page cannot ask for your password",
-            "HTTPS certificates are only given to real companies",
+            "Treat “The page cannot ask for your password” as a distractor: close in topic, incorrect for the required answer",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Anyone can get a free HTTPS certificate for a domain they own, including scammers. The padlock never certifies honesty — only an encrypted connection to that domain.",
         },
@@ -185,10 +185,10 @@ export const cyberLesson10: AILessonConfig = {
         checkIn: {
           prompt: "You need to check your bank account while traveling. Which is the safer default choice?",
           choices: [
-            "Open airport Wi-Fi with no password, since it's convenient",
+            "Open airport Wi-Fi with no password, since it's convenient” belongs to a different situation than the one in the question stem",
             "Cellular data or a trusted personal hotspot over open public Wi-Fi for sensitive logins",
-            "Any Wi-Fi is equally safe as long as the page loads",
-            "Wait and use a friend's phone logged into their own bank account instead",
+            "Any Wi-Fi is equally safe as long as the page loads” belongs to a different situation than the one in the question stem",
+            "Wait and use a friend's phone logged into their own bank account instead” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -248,12 +248,12 @@ export const cyberLesson10: AILessonConfig = {
         checkIn: {
           prompt: "Which combination best represents a full defensive layer around a login, beyond just HTTPS?",
           choices: [
-            "HTTPS alone is always sufficient by itself",
+            "Only checking for the padlock icon before typing anything” belongs to a different situation than the one in the question stem",
+            "Disabling all browser warnings so pages load faster” belongs to a different situation than the one in the question stem",
             "HTTPS + URL vigilance + a strong unique password + MFA + updated, healthy devices",
-            "Only checking for the padlock icon before typing anything",
-            "Disabling all browser warnings so pages load faster",
+            "HTTPS alone is always sufficient by itself” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "HTTPS is one important layer among several. Layered defense — identity checks, MFA, updates, and device hygiene — covers what HTTPS alone cannot.",
         },
@@ -304,10 +304,10 @@ HTTPS is one layer. Network choice and MFA are others — the walkthrough names 
         checkIn: {
           prompt: "HTTPS is active on a login page at a coffee shop. What additional factor should Sam still consider?",
           choices: [
-            "Nothing — padlock means completely safe",
+            "Whether HTTP would be faster” belongs to a different situation than the one in the question stem",
             "Whether the network environment and domain are trustworthy, plus MFA status",
-            "Whether to disable browser warnings for speed",
-            "Whether HTTP would be faster",
+            "Whether to disable browser warnings for speed” belongs to a different situation than the one in the question stem",
+            "Nothing — padlock means completely safe” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -370,12 +370,12 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q2",
       question: "What does a website certificate mainly help your browser do?",
       choices: [
-        "Speed up video streaming automatically",
-        "Check that the site's cryptographic identity matches the domain (as vouched by a CA)",
-        "Delete phishing emails before they arrive",
-        "Prove the website's owners are ethically perfect",
-      ],
-      correctIndex: 1,
+            "Speed up video streaming automatically” belongs to a different situation than the one in the question stem",
+            "Delete phishing emails before they arrive” belongs to a different situation than the one in the question stem",
+            "Check that the site's cryptographic identity matches the domain (as vouched by a CA)",
+            "Prove the website's owners are ethically perfect” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Certificates bind a domain to a public key and are signed by CAs the browser trusts. They don't prove honesty or filter email.",
     },
@@ -383,11 +383,11 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q3",
       question: "A lookalike banking page shows a valid padlock. What can you safely conclude, and what should you still evaluate?",
       choices: [
-        "The site cannot possibly be a scam because certificates prove honesty",
-        "Your password is now impossible to steal",
-        "Only that the connection to that (possibly fake) domain is encrypted with an accepted cert — you must still verify the exact URL and how you arrived",
-        "The company will never have a data breach",
-      ],
+            "A common mix-up is to treat your password is now impossible to steal as enough, which confuses a nearby idea with the right one once the deciding rule is named clearly",
+            "Some learners answer “The site cannot possibly be a scam because certificates prove honesty”, yet that does not match the precise idea from the lesson",
+            "Only that the connection to that (possibly fake) domain is encrypted with an accepted cert — you must still verify the exact URL and how you arrived",
+            "A common mix-up is to treat the company will never have a data breach as enough, which confuses a nearby idea with the right one once the deciding rule is named clearly",
+          ],
       correctIndex: 2,
       explanation:
         "Evaluate padlock trust limits: encryption to the domain you're on, not legitimacy. URL and arrival path still matter.",
@@ -396,12 +396,12 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q4",
       question: "You must check a bank balance at an airport. Which recommendation best weighs path risk against convenience?",
       choices: [
-        "Use open airport Wi-Fi because the padlock makes the network irrelevant",
-        "Prefer cellular data or a personal hotspot for the sensitive login; keep HTTPS and heed any certificate warnings",
-        "Disable certificate warnings so pages load faster on any network",
-        "Wait and log into a stranger's phone bank app instead",
-      ],
-      correctIndex: 1,
+            "Use open airport Wi-Fi because the padlock makes the network irrelevant” belongs to a different situation than the one in the question stem",
+            "“Wait and log into a stranger's phone bank app instead” describes a different situation than the one in the question stem",
+            "Disable certificate warnings so pages load faster on any network” belongs to a different situation than the one in the question stem",
+            "Prefer cellular data or a personal hotspot for the sensitive login; keep HTTPS and heed any certificate warnings",
+          ],
+      correctIndex: 3,
       explanation:
         "Compare measures: cellular/hotspot is generally a more trustworthy path than open Wi-Fi for high-sensitivity actions; HTTPS and warnings still apply.",
     },
@@ -409,11 +409,11 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q5",
       question: "Which comparison best matches physical vs digital protections for a login?",
       choices: [
-        "A padlock is like a vault that also proves the staff are honest",
-        "HTTPS is like a lockable door/channel; checking the domain is like confirming the street address; MFA is like needing a second factor beyond the key",
-        "Physical locks and HTTPS are unrelated ideas with no useful analogy",
-        "If a building has a deadbolt, you never need to check the address — same as trusting any padlock page",
-      ],
+            "Some learners answer “Physical locks and HTTPS are unrelated ideas with no useful analogy”, yet that does not match the precise idea from the lesson",
+            "HTTPS is like a lockable door/channel; checking the domain is like confirming the street address; MFA is like needing a second factor beyond the key",
+            "If a building has a deadbolt, you never need to check the address — same as trusting any padlock page” belongs to a different situation than the one in the question stem",
+            "It can seem like a padlock is like a vault that also proves the staff are honest, but that reading skips the distinction this question is testing",
+          ],
       correctIndex: 1,
       explanation:
         "Digital HTTPS protects the channel; domain checks and MFA parallel checking location and using a second factor in the physical world.",
@@ -422,11 +422,11 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q6",
       question: "A certificate shows as 'expired' on a site you normally trust. What's the best first response?",
       choices: [
-        "Enter your password anyway since you already trust the site",
-        "Avoid entering credentials, try again later, and report it so it can be renewed",
-        "Assume the entire internet is broken",
-        "Permanently avoid the site forever with no follow-up or report",
-      ],
+            "Permanently avoid the site forever with no follow-up or report” belongs to a different situation than the one in the question stem",
+            "Avoid entering credentials, try again later, and report it so it can be renewed",
+            "Enter your password anyway since you already trust the site” belongs to a different situation than the one in the question stem",
+            "Assume the entire internet is broken” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "Pause on credential entry and report the issue. An expired certificate is often a renewal oversight, but you shouldn't gamble sensitive data on that assumption.",
@@ -435,11 +435,11 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q7",
       question: "You click an unexpected text link and get a certificate name-mismatch warning on what looks like a school login. What should you recommend?",
       choices: [
-        "Click through Advanced → proceed — school Wi-Fi warnings are always false alarms",
-        "Close the tab and treat it as likely phishing; use a bookmark/official URL later — mismatch after an unexpected link is high risk",
-        "Enter the password quickly before the warning times out",
-        "Forward the link to classmates so they can confirm the padlock",
-      ],
+            "Enter the password quickly before the warning times out. That option sounds confident, but it leaves out the deciding constraint",
+            "Close the tab and treat it as likely phishing; use a bookmark/official URL later — mismatch after an unexpected link is high risk",
+            "“Forward the link to classmates so they can confirm the padlock” describes a different situation than the one in the question stem",
+            "Click through Advanced → proceed — school Wi-Fi warnings are always false alarms” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "Lifecycle/context matters: name mismatch after an unexpected link warrants leave-and-verify, not click-through convenience.",
@@ -448,12 +448,12 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q8",
       question: "Which set of layers best defends a sensitive login, beyond HTTPS alone?",
       choices: [
-        "HTTPS is always sufficient entirely on its own",
-        "Using the same password everywhere for consistency",
-        "Only disabling browser warnings so pages load faster",
-        "URL vigilance, a strong unique password, MFA, and an updated, healthy device",
-      ],
-      correctIndex: 3,
+            "HTTPS is always sufficient entirely on its own” belongs to a different situation than the one in the question stem",
+            "Only disabling browser warnings so pages load faster” belongs to a different situation than the one in the question stem",
+            "URL vigilance, a strong unique password, MFA, and an updated, healthy device",
+            "Using the same password everywhere for consistency” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "HTTPS is one layer among several. Real protection layers identity checks, MFA, updates, and device hygiene on top of it.",
     },

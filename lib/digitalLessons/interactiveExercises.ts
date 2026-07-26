@@ -103,11 +103,11 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         'Folder: Desktop\nessay_FINAL_FINAL2 (no extension showing)\nHabit: "I only hit Save, never Save As. I renamed .docx to .jpg so it looks smaller. Cloud backup? I\'ll do it the night before it\'s due."',
       choices: [
-        "Wrong/missing extensions break opening; Save As helps versions; last-minute backup is risky",
-        "Desktop folders can't hold documents, only images",
-        "Save As deletes the original every time, so never use it",
-        "Cloud backups make file extensions unnecessary",
-      ],
+            "Wrong/missing extensions break opening; Save As helps versions; last-minute backup is risky",
+            "Cloud backups make file extensions unnecessary” belongs to a different situation than the one in the question stem",
+            "Save As deletes the original every time, so never use it” belongs to a different situation than the one in the question stem",
+            "Desktop folders can't hold documents, only images” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       hint: "What does the extension tell the computer — and when do backups actually help?",
       explanation:
@@ -166,12 +166,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         'Query: best phones ever!!!! buy now cheap???\nSettings: first result only, ignore date and site filters\nRule: "If it\'s #1 on the page, it must be the most trustworthy source."',
       choices: [
-        "Vague hype keywords + trusting rank alone; use precise terms, filters, and source checks",
-        "Search engines ban all filters, so the plan is fine",
-        "Exclamation marks always improve academic results",
-        "The #1 result is legally required to be peer-reviewed",
-      ],
-      correctIndex: 0,
+            "The #1 result is legally required to be peer-reviewed” belongs to a different situation than the one in the question stem",
+            "Search engines ban all filters, so the plan is fine” belongs to a different situation than the one in the question stem",
+            "Exclamation marks always improve academic results” belongs to a different situation than the one in the question stem",
+            "Vague hype keywords + trusting rank alone; use precise terms, filters, and source checks",
+          ],
+      correctIndex: 3,
       hint: "What do keywords and filters control — and what does rank actually mean?",
       explanation:
         "Hype words and punctuation waste the query. Rank reflects relevance/ads/engagement, not automatic credibility. Precise keywords plus filters and source checks win.",
@@ -231,12 +231,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         'Post: shocking health claim with a dramatic screenshot\nCheck: "The site has a logo and a Comments section, so it\'s legit. I only read that one page. If it feels true, I share it to warn people."',
       choices: [
-        "Feeling + one page isn't enough — use lateral reading and source credibility checks",
-        "Comments sections are peer review equal to scientific journals",
-        "Screenshots can't be faked, so no further check is needed",
-        "Sharing first always helps fact-checkers find the truth faster",
-      ],
-      correctIndex: 0,
+            "Screenshots can't be faked, so no further check is needed” belongs to a different situation than the one in the question stem",
+            "Comments sections are peer review equal to scientific journals” belongs to a different situation than the one in the question stem",
+            "Feeling + one page isn't enough — use lateral reading and source credibility checks",
+            "Sharing first always helps fact-checkers find the truth faster” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       hint: "What do professional fact-checkers do that staying on one page doesn't?",
       explanation:
         "Credible checking leaves the original page: who else covers it, what's the author's expertise, where's the primary evidence. Emotion and design aren't proof.",
@@ -297,12 +297,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Subject: hey\n\nyo can u fix my schedule rn thx\n-sent from my phone",
       choices: [
-        "Missing clear subject, greeting, context, and respectful tone for a professional ask",
-        "Emails to staff must be handwritten, never typed",
-        "Subject lines are illegal to customize in school systems",
-        "Sign-offs are only allowed if you attach a résumé",
-      ],
-      correctIndex: 0,
+            "Emails to staff must be handwritten, never typed” belongs to a different situation than the one in the question stem",
+            "Missing clear subject, greeting, context, and respectful tone for a professional ask",
+            "Subject lines are illegal to customize in school systems” belongs to a different situation than the one in the question stem",
+            "Sign-offs are only allowed if you attach a résumé” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       hint: "Would you send this to someone deciding a recommendation letter?",
       explanation:
         "Netiquette isn't about being stiff — it's about respect and clarity. A real subject, greeting, complete sentences, and context make adults more likely to help quickly.",
@@ -360,12 +360,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Doc: Senior Capstone — grades & private feedback notes\nLink: Anyone with the link → Editor\nPosted the link in a public class Discord\nNo owner assigned; comments disabled; version history ignored after a wipe",
       choices: [
-        "Over-broad edit access on sensitive content; tighten permissions and use comments/history",
-        "Shared docs can never use version history, so the wipe was unavoidable",
-        "Public edit links are required for all school assignments",
-        "Comments always delete the document, so disabling them was correct",
-      ],
-      correctIndex: 0,
+            "Public edit links are required for all school assignments” belongs to a different situation than the one in the question stem",
+            "Comments always delete the document, so disabling them was correct” belongs to a different situation than the one in the question stem",
+            "Over-broad edit access on sensitive content; tighten permissions and use comments/history",
+            "Shared docs can never use version history, so the wipe was unavoidable” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       hint: "Who can edit — and should strangers reshape private notes?",
       explanation:
         "\"Anyone with the link can edit\" is dangerous for private work. Match permission to need, keep an owner, and recover mistakes with version history.",
@@ -427,12 +427,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"Private stories vanish forever after 24 hours, so colleges and employers can never see anything. Tagged photos don\'t count. Only your main feed matters — delete nothing."',
       choices: [
-        "Screenshots, tags, archives, and search can preserve content beyond your feed",
-        "Employers are legally banned from ever viewing social media",
-        "Private stories automatically wipe every copy on every device worldwide",
-        "Only email addresses form a digital footprint, not photos or comments",
-      ],
-      correctIndex: 0,
+            "Private stories automatically wipe every copy on every device worldwide",
+            "Screenshots, tags, archives, and search can preserve content beyond your feed",
+            "Employers are legally banned from ever viewing social media” belongs to a different situation than the one in the question stem",
+            "Only email addresses form a digital footprint, not photos or comments",
+          ],
+      correctIndex: 1,
       hint: "What can outlive the original post even if the app says it expired?",
       explanation:
         "Ephemeral doesn't mean unreproducible. Tags, shares, screenshots, and indexed pages extend your footprint. Assume permanence when it matters.",
@@ -494,12 +494,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Group chat: repeated insults and fake accounts targeting one student\nPlan: \"Ignore it forever. If I screenshot and post it publicly with laughing emojis, I'm helping. Reporting is snitching. The target should just log off.\"",
       choices: [
-        "Ignoring + public mockery worsens harm; support, document, and report instead",
-        "Platforms ban all reporting features, so the plan is the only option",
-        "Logging off permanently is the required first step for every target",
-        "Fake accounts are always harmless because names aren't real",
-      ],
-      correctIndex: 0,
+            "Logging off permanently is the required first step for every target",
+            "Platforms ban all reporting features, so the plan is the only option",
+            "Fake accounts are always harmless because names aren't real” belongs to a different situation than the one in the question stem",
+            "Ignoring + public mockery worsens harm; support, document, and report instead",
+          ],
+      correctIndex: 3,
       hint: "What helps the person being targeted without spreading the abuse?",
       explanation:
         "Cyberbullying thrives on audience and silence. Upstanders check in, preserve evidence, and use report paths. Re-sharing for laughs makes you part of the harm.",
@@ -557,12 +557,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Title in light yellow on white\nBody: tiny decorative font in one long text box\nChart: red vs green only, no labels\nImages: generic alt text; auto-captions never checked\nCreator note: \"It works on my laptop, so the audience can adapt.\"",
       choices: [
-        "Poor contrast, weak structure, color-only meaning, and untested alternatives create an equity deficit",
-        "Alt text is only for printed posters, never digital slides",
-        "Decorative fonts always improve readability for every reader",
-        "Accessibility tools ban the use of any images in school work",
-      ],
-      correctIndex: 0,
+            "Alt text is only for printed posters, never digital slides” belongs to a different situation than the one in the question stem",
+            "Accessibility tools ban the use of any images in school work” belongs to a different situation than the one in the question stem",
+            "Poor contrast, weak structure, color-only meaning, and untested alternatives create an equity deficit",
+            "Decorative fonts always improve readability for every reader” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       hint: "Who gets left out when contrast, size, and descriptions are ignored?",
       explanation:
         "The artifact gives some audiences less access to its message. Test contrast, structure, labels, alt text, and captions before export.",
@@ -620,12 +620,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Used a popular song + movie stills in a public YouTube essay\nAlso pasted AI-generated art labeled as \"original photos I took\"\nNote: \"Creators should control everything forever, so students never need access; but my school project can use any media without permission.\"",
       choices: [
-        "The plan ignores both sides of the tradeoff: permission and creator control matter, while access has lawful paths; AI use must be disclosed",
-        "Any classroom purpose erases all copyright worldwide",
-        "Creative Commons always means zero credit and commercial reuse",
-        "AI images have no rules and can be claimed as personal photographs",
-      ],
-      correctIndex: 0,
+            "AI images have no rules and can be claimed as personal photographs. That option sounds confident, but it leaves out the deciding constraint",
+            "The plan ignores both sides of the tradeoff: permission and creator control matter, while access has lawful paths; AI use must be disclosed",
+            "It can seem like any classroom purpose erases all copyright worldwide, but that reading skips the distinction this question is testing",
+            "Picking “Creative Commons always means zero credit and commercial reuse” is a common mix-up that confuses a nearby idea with the right one",
+          ],
+      correctIndex: 1,
       hint: "Does \"school project\" automatically equal unlimited public reuse?",
       explanation:
         "A good decision neither treats IP as unlimited control nor as permission to take anything. Use lawful alternatives, follow license terms, and disclose AI assistance.",
@@ -683,12 +683,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "From: support@micr0soft-security-alert.com\nSubject: URGENT: account locked in 1 hour!!!\nBody: Click http://bit.ly/fix-now-paypa1 to verify password and SSN or lose access.\nStudent plan: \"It looks official and scary, so I'll enter everything on the link.\"",
       choices: [
-        "Urgency, weird domain, shortened link, and asking for password/SSN — classic phishing",
-        "Bitly links are always run by the companies named in the subject",
-        "Real security teams always demand your SSN by email within one hour",
-        "Misspelled domains prove a message is extra authentic",
-      ],
-      correctIndex: 0,
+            "Misspelled domains prove a message is extra authentic” belongs to a different situation than the one in the question stem",
+            "Bitly links are always run by the companies named in the subject” belongs to a different situation than the one in the question stem",
+            "Urgency, weird domain, shortened link, and asking for password/SSN — classic phishing",
+            "Real security teams always demand your SSN by email within one hour” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       hint: "Who benefits if you type your password into a rushed link?",
       explanation:
         "Phishing weaponizes fear and fake brands. Check the real domain, don't follow panic links, and never hand passwords or SSNs to an unexpected email.",
@@ -750,12 +750,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Wellness app: collects mood, sleep, precise location, contacts, and full browsing history forever\nPolicy: one long consent screen; data may be shared with unnamed partners\nAttitude: \"The service might help, so more data is always better.\"",
       choices: [
-        "The proposal ignores necessity, meaningful consent, retention, and risks from linking sensitive data",
-        "Flashlight apps legally require contacts and always-on location",
-        "Posting vacation dates publicly always improves home security",
-        "Accepting all cookies deletes your data from advertisers",
-      ],
-      correctIndex: 0,
+            "Accepting all cookies deletes your data from advertisers” belongs to a different situation than the one in the question stem",
+            "Flashlight apps legally require contacts and always-on location” belongs to a different situation than the one in the question stem",
+            "Posting vacation dates publicly always improves home security” belongs to a different situation than the one in the question stem",
+            "The proposal ignores necessity, meaningful consent, retention, and risks from linking sensitive data",
+          ],
+      correctIndex: 3,
       hint: "Does a flashlight need your contacts — and who can use an empty-house post?",
       explanation:
         "Potential benefit does not justify unlimited collection. A defensible policy limits data to the stated purpose and gives people real safeguards.",
@@ -817,12 +817,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Goal: better sleep and less comparison stress\nPlan: scroll in bed until 2 a.m. \"to relax,\" keep all notifications on overnight, measure self-worth by likes, delete nothing — \"discipline alone will fix it without changing settings.\"",
       choices: [
-        "It treats all use as harmful and never identifies the desired benefit, context, or evidence for whether a strategy works",
-        "Notifications improve deep sleep by keeping the brain alert",
-        "Comparing likes is proven to increase REM sleep",
-        "Phone chargers in bed are required for healthy circadian rhythm",
-      ],
-      correctIndex: 0,
+            "“Phone chargers in bed are required for healthy circadian rhythm” describes a different situation than the one in the question stem",
+            "“Notifications improve deep sleep by keeping the brain alert” describes a different situation than the one in the question stem",
+            "Comparing likes is proven to increase REM sleep. That option sounds confident, but it leaves out the deciding constraint",
+            "It treats all use as harmful and never identifies the desired benefit, context, or evidence for whether a strategy works",
+          ],
+      correctIndex: 3,
       hint: "What actually competes with sleep — willpower speeches or glowing screens?",
       explanation:
         "Willpower loses to design. Move chargers, mute nights, limit comparison apps, and protect wind-down. Boundaries beat vague promises.",
@@ -880,12 +880,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Symptom: one website won't load; others work; phone on same Wi-Fi loads it fine\nActions taken in 30 seconds: delete random system folders, install three \"optimizer\" apps, change every setting at once, restart nothing, write down nothing\nConclusion: \"The internet is permanently broken.\"",
       choices: [
-        "No isolation or one-change-at-a-time method; evidence points to a browser/device issue",
-        "If one site fails, every network worldwide is offline",
-        "Optimizer apps are always the first required step for any error",
-        "Phones and laptops can never share the same Wi-Fi network",
-      ],
-      correctIndex: 0,
+            "Phones and laptops can never share the same Wi-Fi network” belongs to a different situation than the one in the question stem",
+            "If one site fails, every network worldwide is offline” belongs to a different situation than the one in the question stem",
+            "Optimizer apps are always the first required step for any error” belongs to a different situation than the one in the question stem",
+            "No isolation or one-change-at-a-time method; evidence points to a browser/device issue",
+          ],
+      correctIndex: 3,
       hint: "What already works — and what does that tell you to test next?",
       explanation:
         "Other sites + another device succeeding means the internet isn't \"dead.\" Narrow to browser cache, extensions, DNS, or laptop network stack — one change at a time.",
@@ -943,11 +943,11 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Internship Slack/email style: leave managers on read for days, send \"idk lol\" as status updates, join Zoom muted with no camera and a chaotic background, track hours in a messy personal note with no shared sheet\nPublic LinkedIn: party photos as banner, email is partyking2009@...",
       choices: [
-        "Unprofessional presence and unreliable communication break trust on remote teams",
-        "Managers prefer unread messages as a sign of focus",
-        "\"idk lol\" is the standard status format in most offices",
-        "Shared spreadsheets are banned in modern workplaces",
-      ],
+            "Unprofessional presence and unreliable communication break trust on remote teams",
+            "Managers prefer unread messages as a sign of focus” belongs to a different situation than the one in the question stem",
+            "Shared spreadsheets are banned in modern workplaces” belongs to a different situation than the one in the question stem",
+            "\"idk lol\" is the standard status format in most offices” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       hint: "What would a supervisor infer about reliability from this pattern?",
       explanation:
@@ -1006,12 +1006,12 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Audit notes: \"I'm fine.\"\nFixes: none scheduled\nSecurity: still reusing one password, 2FA off\nFiles: no backup\nFootprint: never searched own name\nWellbeing: phone in bed every night\nClosing line: \"I'll remember all 16 lessons mentally — writing a plan is unnecessary.\"",
       choices: [
-        "It has no stakeholders, evidence, tradeoff analysis, success measure, or review date, so the recommendation cannot be evaluated",
-        "Mental notes automatically enable 2FA on every account",
-        "Skipping backups is best practice for capstone portfolios",
-        "Searching your own name is illegal in most states",
-      ],
-      correctIndex: 0,
+            "Skipping backups is best practice for capstone portfolios — familiar wording, wrong fit for what the prompt is actually asking",
+            "Picking “Searching your own name is illegal in most states” is a common mix-up that confuses a nearby idea with the right one",
+            "It has no stakeholders, evidence, tradeoff analysis, success measure, or review date, so the recommendation cannot be evaluated",
+            "Mental notes automatically enable 2FA on every account. That option sounds confident, but it leaves out the deciding constraint",
+          ],
+      correctIndex: 2,
       hint: "If nothing is scheduled, what actually changes next week?",
       explanation:
         "An audit without actions is theater. Write specific fixes (password manager, 2FA, backup, footprint cleanup, sleep boundary) and put them on a calendar.",

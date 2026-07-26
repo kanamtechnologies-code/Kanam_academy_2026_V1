@@ -177,8 +177,12 @@ export const lesson10: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "You copy-pasted the same greeting print into 10 places in your code, then need to change the wording. What's the downside vs. using a function?",
-          choices: ["No downside — copies are just as easy to update", "Copies run faster than functions", "You'd have to find and edit all 10 copies, and might miss some"],
-          correctIndex: 2,
+          choices: [
+            "Copies run faster than functions” belongs to a different situation than the one in the question stem",
+            "You'd have to find and edit all 10 copies, and might miss some",
+            "No downside — copies are just as easy to update” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 1,
           explanation: "With copy-pasted code, every copy must be updated by hand. A function centralizes the logic so you only change it once.",
         },
       },
@@ -240,9 +244,9 @@ export const lesson10: PythonLessonConfig = {
         checkIn: {
           prompt: "Your program runs with no errors, but nothing prints. You have a `def greet():` with a print inside. What's the most likely cause?",
           choices: [
-            "Python is broken",
+            "The print statement is wrong” belongs to a different situation than the one in the question stem",
             "You forgot to call greet() after defining it",
-            "The print statement is wrong",
+            "Python is broken” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation: "Defining a function without calling it produces no output at all — this is the most common function bug for beginners.",
@@ -270,11 +274,11 @@ export const lesson10: PythonLessonConfig = {
         checkIn: {
           prompt: "You write `def say_hi():` with a print inside, then run the file. Nothing prints. Why?",
           choices: [
-            "def automatically runs the function",
+            "Functions can't contain print statements” belongs to a different situation than the one in the question stem",
+            "def automatically runs the function” belongs to a different situation than the one in the question stem",
             "You defined the function but never called it with say_hi()",
-            "Functions can't contain print statements",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "Definition teaches Python the recipe; calling say_hi() is what actually runs it.",
         },
       },
@@ -322,7 +326,11 @@ export const lesson10: PythonLessonConfig = {
         body: `Let's confirm the function pattern is locked in.`,
         checkIn: {
           prompt: "What are the two separate steps every function needs?",
-          choices: ["Naming it, then printing it", "Calling it, then defining it", "Defining it with `def`, then calling it with `name()`"],
+          choices: [
+            "Naming it, then printing it” belongs to a different situation than the one in the question stem",
+            "Calling it, then defining it” belongs to a different situation than the one in the question stem",
+            "Defining it with `def`, then calling it with `name()`",
+          ],
           correctIndex: 2,
           explanation: "A function must first be defined with def (teaching the skill) and then called with name() (running the skill) — definition always comes before the call.",
         },

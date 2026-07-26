@@ -114,12 +114,12 @@ export const financeLesson5: AILessonConfig = {
         checkIn: {
           prompt: "A student has almost no monthly bills but saves 60% of every paycheck toward a car. What does this most likely suggest?",
           choices: [
-            "The student is budgeting incorrectly and must switch to exactly 50/30/20",
-            "Saving more than 20% is never allowed under any model",
-            "They should cut saving until needs are closer to 50% of income",
+            "Saving more than 20% is never allowed under any model” belongs to a different situation than the one in the question stem",
             "Fewer needs than the guideline assumes can justify a different, still-healthy split",
+            "The student is budgeting incorrectly and must switch to exactly 50/30/20",
+            "They should cut saving until needs are closer to 50% of income” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 3,
+          correctIndex: 1,
           explanation:
             "50/30/20 is a starting guideline, not a hard rule — lower bills and an aggressive savings goal can justify a different split. Padding needs or cutting saving just to match the chart isn't required.",
         },
@@ -136,12 +136,12 @@ export const financeLesson5: AILessonConfig = {
         checkIn: {
           prompt: "In zero-based budgeting, what does the phrase \"every dollar gets a job\" actually mean?",
           choices: [
-            "You must spend your entire paycheck by the end of each period",
             "On paper, all income gets assigned to a category until nothing is left unplanned",
-            "You're required to keep your bank balance at exactly $0",
-            "Buffer categories aren't allowed under this method",
+            "You must spend your entire paycheck by the end of each period” belongs to a different situation than the one in the question stem",
+            "Buffer categories aren't allowed under this method” belongs to a different situation than the one in the question stem",
+            "You're required to keep your bank balance at exactly $0” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Zero-based means planned assignments (including a buffer) equal income on paper — it doesn't mean spending everything or draining your bank balance to zero.",
         },
@@ -234,12 +234,12 @@ export const financeLesson5: AILessonConfig = {
         checkIn: {
           prompt: "Using zero-based thinking, what's Deja's smartest first move with that unassigned $35 and the trip request?",
           choices: [
-            "Put the full $60 trip cost on a buy-now-pay-later plan without checking her other numbers",
-            "Pull the $60 straight from her laptop goal since it's the biggest amount saved",
             "Give the unassigned $35 a job first, then see if the remaining trip gap fits without cutting needs or shrinking the laptop goal",
-            "Skip the phone bill this period so the trip is fully covered",
+            "“Skip the phone bill this period so the trip is fully covered” describes a different situation than the one in the question stem",
+            "Put the full $60 trip cost on a buy-now-pay-later plan without checking her other numbers” belongs to a different situation than the one in the question stem",
+            "Pull the $60 straight from her laptop goal since it's the biggest amount saved” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
             "Zero-based thinking means assigning every dollar — including the leftover $35 — a job on purpose, then checking whether the want still fits without abandoning needs or draining a goal, rather than reaching for BNPL or raiding the goal first.",
         },
@@ -283,12 +283,12 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
         checkIn: {
           prompt: "After finals, Jordan wants a $55 game purchase but already assigned that money to a $50 bus-pass sinking fund. Best budget-honest move?",
           choices: [
-            "Buy anyway — hard work means the budget doesn't apply this week",
-            "Skip the bus pass; gaming reduces stress more than commuting",
+            "It can seem like put both on a credit card so the budget still 'looks' balanced, but that reading skips the distinction this question is testing",
             "Decide consciously: delay the game one period, shrink another want, or revise next month's wants cap — but don't silently steal from the sinking fund",
-            "Put both on a credit card so the budget still 'looks' balanced",
+            "It can seem like skip the bus pass; gaming reduces stress more than commuting, but that reading skips the distinction this question is testing",
+            "It can seem like buy anyway — hard work means the budget doesn't apply this week, but that reading skips the distinction this question is testing",
           ],
-          correctIndex: 2,
+          correctIndex: 1,
           explanation:
             "Conscious tradeoffs keep the budget alive. Silent raids on sinking funds or needs create bigger problems next period.",
         },
@@ -301,12 +301,12 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
         checkIn: {
           prompt: "Which statement best summarizes this whole lesson's core idea?",
           choices: [
-            "A flexible plan that assigns income on purpose and adjusts when life changes",
-            "Everyone must follow 50/30/20 exactly to have a real budget",
             "Budgeting only becomes useful once income is high enough for leftovers",
+            "A flexible plan that assigns income on purpose and adjusts when life changes",
             "Zero-based budgeting means your bank account should always read zero",
+            "Everyone must follow 50/30/20 exactly to have a real budget” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 1,
           explanation:
             "The throughline is planning on purpose and adapting the model to your life — not matching one exact percentage split or draining your account, which are common misreadings of this lesson.",
         },
@@ -359,12 +359,12 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
       id: "q2",
       question: "Malik has few bills but is saving hard for a car, so his savings percentage is much higher than 20%. Is his budget wrong?",
       choices: [
-        "Yes, because exceeding 20% savings always means something was miscalculated",
-        "No — 50/30/20 is a guideline, and his goals can justify a different healthy split",
-        "Yes, unless he also raises his 'wants' spending to match the guideline",
-        "No — any savings rate above 20% means it isn't really a budget",
-      ],
-      correctIndex: 1,
+            "No — any savings rate above 20% means it isn't really a budget” belongs to a different situation than the one in the question stem",
+            "Yes, unless he also raises his 'wants' spending to match the guideline",
+            "Yes, because exceeding 20% savings always means something was miscalculated",
+            "No — 50/30/20 is a guideline, and his goals can justify a different healthy split",
+          ],
+      correctIndex: 3,
       explanation:
         "50/30/20 is a starting framework, not a law — fewer bills and an aggressive goal can justify a different split. Padding wants to match the chart isn't required, and high saving doesn't stop a plan from counting as a budget.",
     },
@@ -372,12 +372,12 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
       id: "q3",
       question: "In zero-based budgeting, what does \"every dollar gets a job\" mean?",
       choices: [
-        "You must end the month with literally $0 in every account",
-        "You're required to track spending using cash envelopes only",
-        "On paper, all income is assigned to categories until nothing is left unplanned",
-        "Buffer categories are not allowed under this method",
-      ],
-      correctIndex: 2,
+            "On paper, all income is assigned to categories until nothing is left unplanned",
+            "Buffer categories are not allowed under this method” belongs to a different situation than the one in the question stem",
+            "You're required to track spending using cash envelopes only” belongs to a different situation than the one in the question stem",
+            "You must end the month with literally $0 in every account” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 0,
       explanation:
         "Zero-based means planned assignments equal income on paper — a buffer can be one of those jobs, and bank balances can absolutely stay above zero.",
     },
@@ -398,11 +398,11 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
       id: "q5",
       question: "Your hours got cut and your budget no longer adds up. What's a healthy response?",
       choices: [
-        "Throw out the budget entirely and just wing it until hours pick back up",
-        "Adjust categories, protect must-pays when possible, and revise next period",
-        "Keep spending exactly the same and hope the numbers work out",
-        "Switch permanently to 50/30/20 with no further changes ever",
-      ],
+            "Keep spending exactly the same and hope the numbers work out” belongs to a different situation than the one in the question stem",
+            "Adjust categories, protect must-pays when possible, and revise next period",
+            "Throw out the budget entirely and just wing it until hours pick back up",
+            "Switch permanently to 50/30/20 with no further changes ever” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "Budgets are living plans — adjusting beats abandoning them entirely, and ignoring the shortfall or locking into one fixed model forever won't fix a real income drop.",
@@ -411,12 +411,12 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
       id: "q6",
       question: "A student gets a $1.50/hour raise but, six months later, has nothing extra saved and can't explain why. What most likely happened?",
       choices: [
-        "The raise was too small to have made any real difference",
-        "Switching budgeting methods caused the extra money to vanish",
-        "The student's bank made a calculation error on interest",
-        "Lifestyle creep — spending quietly rose to absorb the extra income before it was assigned a goal",
-      ],
-      correctIndex: 3,
+            "The student's bank made a calculation error on interest” belongs to a different situation than the one in the question stem",
+            "The raise was too small to have made any real difference” belongs to a different situation than the one in the question stem",
+            "Lifestyle creep — spending quietly rose to absorb the extra income before it was assigned a goal",
+            "Switching budgeting methods caused the extra money to vanish” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Without deciding on purpose where a raise goes, spending tends to quietly rise to match it — that's lifestyle creep, not a bank error or a sign the raise was too small to matter.",
     },
@@ -437,12 +437,12 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
       id: "q8",
       question: "Deja has $35 left unassigned this period. Following zero-based thinking, what should she do?",
       choices: [
-        "Leave it unassigned since small amounts don't really matter",
-        "Automatically move it into her fun category since that's most tempting",
-        "Give it a specific job, such as adding it to a goal or a buffer, so it doesn't quietly disappear",
-        "Only assign leftover money if it adds up to more than $100",
-      ],
-      correctIndex: 2,
+            "Only assign leftover money if it adds up to more than $100” belongs to a different situation than the one in the question stem",
+            "Give it a specific job, such as adding it to a goal or a buffer, so it doesn't quietly disappear",
+            "Automatically move it into her fun category since that's most tempting” belongs to a different situation than the one in the question stem",
+            "Leave it unassigned since small amounts don't really matter” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Unassigned money tends to vanish into random spending. Zero-based budgeting means giving even a small leftover amount an intentional job, not skipping it because it seems minor.",
     },

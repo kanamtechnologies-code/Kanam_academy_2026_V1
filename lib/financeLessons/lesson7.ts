@@ -64,9 +64,9 @@ export const financeLesson7: AILessonConfig = {
           prompt: "Marcus is deciding whether to put a $40 purchase on a store credit card. What does using that credit actually mean?",
           choices: [
             "The store covers the cost now, and Marcus agrees to repay it later under the card's terms",
-            "The $40 is forgiven as long as Marcus pays something eventually",
-            "It's the same as paying with cash from his own account",
-            "It automatically raises his credit score by using it once",
+            "It automatically raises his credit score by using it once” belongs to a different situation than the one in the question stem",
+            "The $40 is forgiven as long as Marcus pays something eventually” belongs to a different situation than the one in the question stem",
+            "It's the same as paying with cash from his own account” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 0,
           explanation:
@@ -85,12 +85,12 @@ export const financeLesson7: AILessonConfig = {
         checkIn: {
           prompt: "A lender pulls up two different documents on an applicant: a long list of account history, and a single three-digit number. What's the relationship between the two?",
           choices: [
-            "They're two names for the exact same document",
-            "The number is calculated first, and the account history is generated from it afterward",
             "The account history is the report; the number is a score modeled from that report's data",
-            "Only one of the two is ever used by real lenders",
+            "They're two names for the exact same document” belongs to a different situation than the one in the question stem",
+            "The number is calculated first, and the account history is generated from it afterward",
+            "Only one of the two is ever used by real lenders” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
             "The detailed history is the report, and the score is a modeled summary built from that data — not the reverse, and not two names for one document.",
         },
@@ -226,9 +226,9 @@ export const financeLesson7: AILessonConfig = {
           prompt: "Based on this lesson, which option is generally the stronger starting point for Sofia, and why?",
           choices: [
             "The authorized-user option, because it lets her benefit from an already long, well-managed account with low utilization and perfect payment history",
-            "The store card, because a same-day discount always outweighs long-term credit factors",
-            "Neither — she should apply to several cards at once to see which approves her fastest",
-            "The store card, because instant approval means the lender already trusts her credit",
+            "“Neither — she should apply to several cards at once to see which approves her fastest” describes a different situation than the one in the question stem",
+            "“The store card, because a same-day discount always outweighs long-term credit factors” describes a different situation than the one in the question stem",
+            "“The store card, because instant approval means the lender already trusts her credit” describes a different situation than the one in the question stem",
           ],
           correctIndex: 0,
           explanation:
@@ -290,12 +290,12 @@ Credit isn't a personality score — it's a **track record** landlords and lende
         checkIn: {
           prompt: "Before applying for housing, Tyler has a $300-limit card at $80 balance, paid on time. What's the most credit-literate prep step?",
           choices: [
-            "Open three new cards to raise total limits tonight",
-            "Check his report, lower utilization if needed, and document on-time payments",
-            "Max the card to show he can handle debt",
+            "Max the card to show he can handle debt” belongs to a different situation than the one in the question stem",
+            "Open three new cards to raise total limits tonight” belongs to a different situation than the one in the question stem",
             "Avoid checking his report — inquiries hurt more than utilization",
+            "Check his report, lower utilization if needed, and document on-time payments",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "On-time history plus manageable utilization and knowing what's on the report beats rapid new applications or maxing the card.",
         },
@@ -308,10 +308,10 @@ Credit isn't a personality score — it's a **track record** landlords and lende
         checkIn: {
           prompt: "Which statement best captures this lesson's core idea?",
           choices: [
+            "Checking your own credit report always lowers your score” belongs to a different situation than the one in the question stem",
             "You must carry a balance and open several cards quickly to build good credit",
-            "Checking your own credit report always lowers your score",
             "Credit is borrowed trust; on-time payments and low utilization matter most early on",
-            "A credit score mainly measures how much cash someone has right now",
+            "A credit score mainly measures how much cash someone has right now” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 2,
           explanation:
@@ -404,12 +404,12 @@ Credit isn't a personality score — it's a **track record** landlords and lende
       id: "q5",
       question: "Which statement about carrying a credit card balance is most accurate?",
       choices: [
-        "Carrying a balance is required to build any payment history at all",
-        "A larger balance always looks better to a lender than a small one",
-        "Balances have no connection to utilization",
-        "You do not need to pay interest to build payment history — interest is a cost",
-      ],
-      correctIndex: 3,
+            "You do not need to pay interest to build payment history — interest is a cost",
+            "A larger balance always looks better to a lender than a small one",
+            "Balances have no connection to utilization” belongs to a different situation than the one in the question stem",
+            "Carrying a balance is required to build any payment history at all",
+          ],
+      correctIndex: 0,
       explanation:
         "On-time payments build history whether or not you carry a balance; carrying one just adds interest cost, and balances are directly tied to utilization, not disconnected from it.",
     },
@@ -417,11 +417,11 @@ Credit isn't a personality score — it's a **track record** landlords and lende
       id: "q6",
       question: "Why check a free official credit report?",
       choices: [
-        "It's the only way to apply for a loan",
-        "To spot errors or accounts you don't recognize and see what lenders may see",
-        "Checking it will automatically remove any late payments on file",
-        "It's required annually by law for every consumer",
-      ],
+            "It's the only way to apply for a loan” belongs to a different situation than the one in the question stem",
+            "To spot errors or accounts you don't recognize and see what lenders may see",
+            "Checking it will automatically remove any late payments on file",
+            "It's required annually by law for every consumer” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "Reports help you find errors, fraud, and understand your file — checking one doesn't erase real late payments, isn't a loan application, and isn't a legally mandated annual requirement.",
@@ -430,12 +430,12 @@ Credit isn't a personality score — it's a **track record** landlords and lende
       id: "q7",
       question: "Sofia is offered authorized-user status on a 10-year-old, well-managed family account, or a new store card with 'instant approval.' Based on this lesson, why might the authorized-user path be the stronger overview-level starting point?",
       choices: [
-        "Because it can benefit from an already long, low-utilization, on-time payment history rather than starting from zero",
-        "Because store cards can never be used responsibly",
-        "Because authorized users are never affected by the primary user's habits",
-        "Because instant approval always signals a hidden fee",
-      ],
-      correctIndex: 0,
+            "Because authorized users are never affected by the primary user's habits” belongs to a different situation than the one in the question stem",
+            "“Because instant approval always signals a hidden fee” describes a different situation than the one in the question stem",
+            "Because it can benefit from an already long, low-utilization, on-time payment history rather than starting from zero",
+            "“Because store cards can never be used responsibly” describes a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Length of history and clean payment history are real factors, so piggybacking on an established, well-managed account can be a stronger start — though a store card isn't inherently unusable, and an authorized user's outcomes are affected by the primary user's behavior.",
     },
@@ -443,11 +443,11 @@ Credit isn't a personality score — it's a **track record** landlords and lende
       id: "q8",
       question: "An ad promises 'instant approval, no credit check, apply for 5 cards today for the best bonuses.' What's the biggest red flag here for a first-time credit builder?",
       choices: [
-        "Mentioning bonuses at all is automatically a scam",
-        "No credit check means the card will definitely be free to use",
-        "The focus on speed and stacking applications, rather than cost, terms, and necessity",
-        "Instant approval guarantees a low interest rate",
-      ],
+            "No credit check means the card will definitely be free to use” belongs to a different situation than the one in the question stem",
+            "Mentioning bonuses at all is automatically a scam” belongs to a different situation than the one in the question stem",
+            "The focus on speed and stacking applications, rather than cost, terms, and necessity",
+            "Instant approval guarantees a low interest rate” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 2,
       explanation:
         "Marketing that emphasizes speed and stacking applications over actual terms is a pattern to slow down and scrutinize — mentioning bonuses, skipping a credit check, or approving instantly says nothing about being free or low-cost.",

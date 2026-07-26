@@ -57,12 +57,12 @@ export const cyberLesson13: AILessonConfig = {
         checkIn: {
           prompt: "When analyzing an attack headline as a defender, what should you focus on first?",
           choices: [
-            "Finding step-by-step instructions to try the attack yourself",
+            "Assuming every attack is identical regardless of pattern” belongs to a different situation than the one in the question stem",
+            "Ignoring it because only large companies need to care” belongs to a different situation than the one in the question stem",
+            "Finding step-by-step instructions to try the attack yourself” belongs to a different situation than the one in the question stem",
             "Identifying the CIA impact, what you'd notice, and which controls would help",
-            "Ignoring it because only large companies need to care",
-            "Assuming every attack is identical regardless of pattern",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "The defender-analyst habit is impact → detection signal → control, without needing offensive technical detail.",
         },
@@ -90,12 +90,12 @@ export const cyberLesson13: AILessonConfig = {
         checkIn: {
           prompt: "Why do defenders think about attacks as a 'chain' of stages rather than one single event?",
           choices: [
-            "Because it teaches attackers new techniques",
             "Because it shows multiple points where a control or detection could interrupt the compromise — supporting layered defense",
-            "Because only the final stage matters",
-            "Because chains only apply to ransomware",
+            "Picking “Because it teaches attackers new techniques” is a common mix-up that confuses a nearby idea with the right one",
+            "It can seem like because only the final stage matters, but that reading skips the distinction this question is testing",
+            "It can seem like because chains only apply to ransomware, but that reading skips the distinction this question is testing",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Thinking in stages reveals several opportunities to break the chain — reinforcing why layered defenses (MFA, least privilege, monitoring) work together.",
         },
@@ -120,12 +120,12 @@ export const cyberLesson13: AILessonConfig = {
         checkIn: {
           prompt: "A club's website goes down right as a popular event opens registration. What's the appropriate defender response?",
           choices: [
-            "Try to trace and retaliate against whoever might be responsible",
             "Check hosting status, contact the provider, communicate with users, and consider more resilient hosting if it recurs",
-            "Shut down the club's internet access permanently",
-            "Assume nothing can be done and give up on the event",
+            "“Assume nothing can be done and give up on the event” describes a different situation than the one in the question stem",
+            "“Shut down the club's internet access permanently” describes a different situation than the one in the question stem",
+            "Try to trace and retaliate against whoever might be responsible” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Whether it's genuine overload or a DoS pattern, the practical defender response is the same: escalate to hosting support and communicate clearly — not attempt retaliation.",
         },
@@ -148,12 +148,12 @@ export const cyberLesson13: AILessonConfig = {
         checkIn: {
           prompt: "Someone calls claiming to be your bank, and caller ID shows the bank's real number. They ask you to read back a code just texted to you. What should you do?",
           choices: [
-            "Read the code, since caller ID confirms it's really the bank",
             "Hang up and call the number on your card/official app yourself — never read MFA codes to an unsolicited caller",
-            "Text the code back instead of saying it out loud",
-            "Assume it's fine since they already knew your phone number",
+            "Read the code, since caller ID confirms it's really the bank” belongs to a different situation than the one in the question stem",
+            "Assume it's fine since they already knew your phone number” belongs to a different situation than the one in the question stem",
+            "“Text the code back instead of saying it out loud” describes a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Caller ID can be spoofed, and legitimate banks never need you to read back a live MFA code. Verify out-of-band using a number you already trust.",
         },
@@ -183,12 +183,12 @@ export const cyberLesson13: AILessonConfig = {
         checkIn: {
           prompt: "What is the single most effective defense once ransomware has already encrypted a device's files?",
           choices: [
+            "Waiting for the ransom note to expire on its own",
             "Paying the ransom immediately for guaranteed recovery",
             "Restoring from a clean, tested backup made before the attack",
-            "Waiting for the ransom note to expire on its own",
-            "Sharing the ransom note publicly for sympathy",
+            "Sharing the ransom note publicly for sympathy” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Tested backups turn ransomware into a recoverable inconvenience instead of a catastrophe — paying is discouraged since it doesn't guarantee recovery and funds further attacks.",
         },
@@ -216,12 +216,12 @@ export const cyberLesson13: AILessonConfig = {
         checkIn: {
           prompt: "What is the core defensive principle behind preventing injection-style bugs?",
           choices: [
-            "Trust all user input completely since users are always well-intentioned",
             "Treat all user-supplied input as untrusted data, and use frameworks that clearly separate data from commands",
-            "Only allow input from users you personally know",
-            "Injection bugs can only be fixed by deleting the input form entirely",
+            "Injection bugs can only be fixed by deleting the input form entirely” belongs to a different situation than the one in the question stem",
+            "“Only allow input from users you personally know” describes a different situation than the one in the question stem",
+            "Trust all user input completely since users are always well-intentioned” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "The defender principle is: never assume user input is safe. Frameworks and validation that separate data from commands are the standard fix.",
         },
@@ -249,12 +249,12 @@ export const cyberLesson13: AILessonConfig = {
         checkIn: {
           prompt: "A club stores its hosting API key in a shared Drive doc and leaves a signup sheet as \"anyone with the link can edit.\" Which analysis best matches program-security thinking?",
           choices: [
-            "These are mostly cosmetic issues; only network attacks matter",
             "Insecure secret storage and misconfiguration both threaten confidential data; rotate the key, remove it from Drive, and restrict sharing — higher-leverage than shopping for gadgets",
-            "The correct response is to publish exploit steps so members understand the risk",
-            "Dependencies never matter for club websites",
+            "A common mix-up is to treat these are mostly cosmetic issues; only network attacks matter as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat dependencies never matter for club websites as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat the correct response is to publish exploit steps so members understand the risk as enough, which confuses a nearby idea with the right one",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Program security focuses on hygiene: secrets and misconfiguration routinely expose sensitive data. Fix and justify those controls before chasing exotic tools.",
         },
@@ -284,12 +284,12 @@ export const cyberLesson13: AILessonConfig = {
         checkIn: {
           prompt: "A homepage-cleanup browser extension requests permission to read and change data on every website you visit. What should a defender-minded user do?",
           choices: [
-            "Install it immediately since it's popular",
+            "Grant every permission apps request without reviewing them” belongs to a different situation than the one in the question stem",
+            "“Install it immediately since it's popular” describes a different situation than the one in the question stem",
+            "Assume all extensions from any source are equally safe” belongs to a different situation than the one in the question stem",
             "Pause and question whether the requested permission matches the tool's actual purpose before installing",
-            "Grant every permission apps request without reviewing them",
-            "Assume all extensions from any source are equally safe",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Permissions that exceed a tool's stated purpose are a red flag. Reviewing requested access before installing is a practical supply-chain defense.",
         },
@@ -320,10 +320,10 @@ You are not solving the case from a news clip. You are practicing the analyst re
         checkIn: {
           prompt: "In the defender three-question drill, what does the second question focus on?",
           choices: [
-            "How much the attacker earned",
+            "Which exploit code was used” belongs to a different situation than the one in the question stem",
             "What signs defenders might look for or might have missed",
-            "Which exploit code was used",
-            "Whether the company deserved it",
+            "How much the attacker earned” belongs to a different situation than the one in the question stem",
+            "Whether the company deserved it” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -423,12 +423,12 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       id: "q1",
       question: "What is the primary impact of a DoS/DDoS attack?",
       choices: [
-        "It harms availability so legitimate users can't use the service",
-        "It permanently encrypts files for ransom by definition",
-        "It mainly harms confidentiality, not availability",
-        "It always steals passwords silently without any downtime",
-      ],
-      correctIndex: 0,
+            "It permanently encrypts files for ransom by definition",
+            "It always steals passwords silently without any downtime",
+            "It mainly harms confidentiality, not availability” belongs to a different situation than the one in the question stem",
+            "It harms availability so legitimate users can't use the service",
+          ],
+      correctIndex: 3,
       explanation:
         "DoS/DDoS aims to overwhelm or block service so real users can't get through — an availability attack, not encryption or silent theft.",
     },
@@ -436,11 +436,11 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       id: "q2",
       question: "Which example best matches spoofing from a defender's view?",
       choices: [
-        "Installing official OS updates",
-        "A lookalike email address pretending to be the school IT desk",
-        "Turning on MFA for an account",
-        "Writing a lessons-learned report after an incident",
-      ],
+            "Writing a lessons-learned report after an incident",
+            "A lookalike email address pretending to be the school IT desk",
+            "Turning on MFA for an account” belongs to a different situation than the one in the question stem",
+            "Installing official OS updates” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "Spoofing fakes identity. A lookalike IT email is a classic example defenders train people to spot.",
@@ -449,12 +449,12 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       id: "q3",
       question: "A club evaluates MITM risk on public café Wi-Fi before officers log into sponsor email. Which recommendation best balances security and usability?",
       choices: [
-        "Ban all Wi-Fi forever and require paper-only communication",
-        "Prefer HTTPS, heed certificate warnings, avoid sensitive logins on untrusted networks, and use MFA — without needing offensive MITM setup knowledge",
-        "Ignore certificate warnings so login is faster",
-        "Share the club password so anyone can finish the task on any network",
-      ],
-      correctIndex: 1,
+            "It can seem like ban all Wi-Fi forever and require paper-only communication, but that reading skips the distinction this question is testing",
+            "Some learners answer “Share the club password so anyone can finish the task on any network”, yet that does not match the precise idea from the lesson",
+            "It can seem like ignore certificate warnings so login is faster, but that reading skips the distinction this question is testing",
+            "Prefer HTTPS, heed certificate warnings, avoid sensitive logins on untrusted networks, and use MFA — without needing offensive MITM setup knowledge",
+          ],
+      correctIndex: 3,
       explanation:
         "Defenders analyze channel risk and recommend HTTPS, warnings, safer networks, and MFA — ethical depth without offensive techniques.",
     },
@@ -462,12 +462,12 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       id: "q4",
       question: "Which statement best explains injection as a program-security issue that can compromise sensitive data?",
       choices: [
-        "Here is a detailed SQL exploit students should try on live sites",
-        "Injection only affects paper forms, not real software",
-        "Injection means encrypting a hard drive until a ransom is paid",
-        "Unsafe input can be mishandled as instructions; defenders explain the risk and recommend validation, safe APIs, patching, and least privilege — not exploit practice",
-      ],
-      correctIndex: 3,
+            "A common mix-up is to treat injection means encrypting a hard drive until a ransom is paid as enough, which confuses a nearby idea with the right one",
+            "A common mix-up is to treat injection only affects paper forms, not real software as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "Unsafe input can be mishandled as instructions; defenders explain the risk and recommend validation, safe APIs, patching, and least privilege — not exploit practice",
+            "A common mix-up is to treat here is a detailed SQL exploit students should try on live sites as enough, which confuses a nearby idea with the right one",
+          ],
+      correctIndex: 2,
       explanation:
         "CSTA framing: explain how program issues can compromise data and recommend hygiene controls. No exploit recipes.",
     },
@@ -475,12 +475,12 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       id: "q5",
       question: "When analyzing a new attack headline, what should a defender prioritize first?",
       choices: [
-        "Analyze the pattern, CIA impact on sensitive data or availability, detection signals, and which controls to recommend — then justify tradeoffs",
-        "Search for step-by-step attack tools to recreate it at school",
-        "Ignore it because only experts need to understand patterns",
-        "Disable all logging so alerts stop appearing",
-      ],
-      correctIndex: 0,
+            "It can seem like disable all logging so alerts stop appearing, but that reading skips the distinction this question is testing",
+            "Some learners answer “Search for step-by-step attack tools to recreate it at school”, yet that does not match the precise idea from the lesson",
+            "It can seem like ignore it because only experts need to understand patterns, but that reading skips the distinction this question is testing",
+            "Analyze the pattern, CIA impact on sensitive data or availability, detection signals, and which controls to recommend — then justify tradeoffs",
+          ],
+      correctIndex: 3,
       explanation:
         "Analyst mode: pattern → impact → signals → recommended controls with justification. Never practice attacks without authorization.",
     },
@@ -488,11 +488,11 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       id: "q6",
       question: "A caller with a spoofed caller ID asks you to read back an MFA code just texted to you. What's the correct response?",
       choices: [
-        "Read the code, since caller ID showed a trusted name",
-        "Hang up and independently contact the organization using a known number — never read a live MFA code to an unsolicited caller",
-        "Text the code to a friend to double-check first",
-        "Assume it's safe because they already knew your phone number",
-      ],
+            "Read the code, since caller ID showed a trusted name. That option sounds confident, but it leaves out the deciding constraint",
+            "Hang up and independently contact the organization using a known number — never read a live MFA code to an unsolicited caller",
+            "“Assume it's safe because they already knew your phone number” describes a different situation than the one in the question stem",
+            "Picking “Text the code to a friend to double-check first” is a common mix-up that confuses a nearby idea with the right one",
+          ],
       correctIndex: 1,
       explanation:
         "Caller ID can be spoofed. Legitimate organizations never need a live MFA code read back over the phone — verify independently instead.",
@@ -501,12 +501,12 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       id: "q7",
       question: "What is the single most effective defense once ransomware has already encrypted a device's files?",
       choices: [
-        "Paying the ransom for guaranteed recovery",
-        "Waiting for the note to disappear on its own",
-        "Restoring from a clean, tested backup made before the attack",
-        "Reinstalling random software until something works",
-      ],
-      correctIndex: 2,
+            "Restoring from a clean, tested backup made before the attack",
+            "Waiting for the note to disappear on its own” belongs to a different situation than the one in the question stem",
+            "Reinstalling random software until something works",
+            "Paying the ransom for guaranteed recovery” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 0,
       explanation:
         "Tested backups make ransomware recoverable without paying — payment doesn't guarantee recovery and funds further attacks.",
     },
@@ -514,12 +514,12 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       id: "q8",
       question: "A browser extension for cleaning up a homepage requests permission to read and change data on every website visited. What does this suggest?",
       choices: [
-        "Nothing unusual — all extensions need this level of permission",
-        "The extension is automatically safe because it's popular",
-        "Permissions never really matter for browser extensions",
-        "A possible supply-chain/permission red flag, since the request exceeds the tool's stated purpose",
-      ],
-      correctIndex: 3,
+            "Permissions never really matter for browser extensions” belongs to a different situation than the one in the question stem",
+            "A possible supply-chain/permission red flag, since the request exceeds the tool's stated purpose",
+            "Nothing unusual — all extensions need this level of permission” belongs to a different situation than the one in the question stem",
+            "The extension is automatically safe because it's popular” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Permission requests that exceed a tool's actual purpose are a red flag worth questioning — a key supply-chain defense habit.",
     },
@@ -527,11 +527,11 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       id: "q9",
       question: "An officer pastes a live API key into a shared Drive doc and leaves a signup sheet as \"anyone with the link.\" Which program-security analysis is strongest?",
       choices: [
-        "Only network firewalls can protect against these mistakes",
-        "Insecure secret storage and misconfiguration can expose sensitive data; rotate the key, remove it from Drive, restrict sharing, and justify those fixes as high-impact, low-cost hygiene",
-        "Publishing how to abuse the key helps the club learn faster",
-        "API keys in shared docs are fine if the club trusts its members",
-      ],
+            "A common mix-up is to treat only network firewalls can protect against these mistakes as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "Insecure secret storage and misconfiguration can expose sensitive data; rotate the key, remove it from Drive, restrict sharing, and justify those fixes as high-impact, low-cost hygiene",
+            "A common mix-up is to treat publishing how to abuse the key helps the club learn faster as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat aPI keys in shared docs are fine if the club trusts its members as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+          ],
       correctIndex: 1,
       explanation:
         "Program security explains how secret handling and misconfiguration compromise data, then recommends and justifies hygiene controls — never exploit practice.",

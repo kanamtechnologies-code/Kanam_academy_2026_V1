@@ -179,7 +179,11 @@ export const lesson5: PythonLessonConfig = {
         output: `Turn 0\nTurn 1\nTurn 2`,
         checkIn: {
           prompt: 'Why do we need `str(i)` instead of just `i` inside `print("Turn " + i)`?',
-          choices: ["str() makes the loop run faster", "It's just a style preference, not required", "+  can only join text to text — i is a number, so it must be converted first"],
+          choices: [
+            "str() makes the loop run faster” belongs to a different situation than the one in the question stem",
+            "It's just a style preference, not required” belongs to a different situation than the one in the question stem",
+            "+  can only join text to text — i is a number, so it must be converted first",
+          ],
           correctIndex: 2,
           explanation: "+ concatenates strings. i is a number, so Python needs str(i) to convert it to text before it can be joined with other text.",
         },
@@ -242,11 +246,11 @@ export const lesson5: PythonLessonConfig = {
         checkIn: {
           prompt: 'Your `for i in range(5):` loop only prints "Hi" ONE time. Most likely cause?',
           choices: [
-            "range(5) is broken",
+            "range(5) is broken” belongs to a different situation than the one in the question stem",
+            "You need two for loops” belongs to a different situation than the one in the question stem",
             "The print line isn't indented under the for loop",
-            "You need two for loops",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "If print isn't indented, it's not part of the loop body and only runs once, after the loop finishes (or before it, depending on placement).",
         },
       },

@@ -96,8 +96,12 @@ export const daLesson8: DataLessonConfig = {
         },
         checkIn: {
           prompt: "Why can't you write WHERE COUNT(*) > 1 instead of HAVING COUNT(*) > 1?",
-          choices: ["COUNT(*) doesn't exist yet when WHERE runs, since grouping hasn't happened", "You can — they're interchangeable", "WHERE only works with text, not numbers"],
-          correctIndex: 0,
+          choices: [
+            "You can — they're interchangeable” belongs to a different situation than the one in the question stem",
+            "WHERE only works with text, not numbers” belongs to a different situation than the one in the question stem",
+            "COUNT(*) doesn't exist yet when WHERE runs, since grouping hasn't happened",
+          ],
+          correctIndex: 2,
           explanation: "WHERE runs before GROUP BY, so there's no count to filter on yet. HAVING runs after grouping, when the count actually exists.",
         },
       },
@@ -129,9 +133,9 @@ export const daLesson8: DataLessonConfig = {
         checkIn: {
           prompt: "Which of these queries is written correctly?",
           choices: [
-            "SELECT item, COUNT(*) FROM lunch_orders WHERE COUNT(*) > 1 GROUP BY item;",
-            "SELECT item, COUNT(*) FROM lunch_orders GROUP BY item HAVING COUNT(*) > 1;",
-            "SELECT item, COUNT(*) FROM lunch_orders HAVING COUNT(*) > 1 GROUP BY item;",
+            "SELECT item, COUNT(*) FROM lunch_orders WHERE COUNT(*) > 1 GROUP BY item",
+            "SELECT item, COUNT(*) FROM lunch_orders GROUP BY item HAVING COUNT(*) > 1",
+            "SELECT item, COUNT(*) FROM lunch_orders HAVING COUNT(*) > 1 GROUP BY item",
           ],
           correctIndex: 1,
           explanation: "GROUP BY must come before HAVING, and the count filter belongs in HAVING, not WHERE, since it depends on the grouped totals.",
@@ -166,8 +170,12 @@ export const daLesson8: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "If you remove HAVING COUNT(*) > 1 from the worked example query, what happens?",
-          choices: ["The query errors out", "Nothing changes — the result is identical", "You get all 6 unique items instead of just the 2 repeated ones"],
-          correctIndex: 2,
+          choices: [
+            "Nothing changes — the result is identical” belongs to a different situation than the one in the question stem",
+            "You get all 6 unique items instead of just the 2 repeated ones",
+            "The query errors out” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 1,
           explanation: "Removing HAVING removes the group-level filter, so every group (all 6 unique items) shows up instead of just the ones with more than one order.",
         },
       },

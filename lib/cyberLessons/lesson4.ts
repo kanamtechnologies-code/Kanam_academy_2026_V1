@@ -56,12 +56,12 @@ export const cyberLesson4: AILessonConfig = {
         checkIn: {
           prompt: "Why does social engineering succeed even when a system's technical security is strong?",
           choices: [
+            "Because it only works on people who don't use MFA” belongs to a different situation than the one in the question stem",
             "Because it targets human trust and emotion instead of breaking software directly",
-            "Because it always uses malware to force access",
-            "Because strong passwords make social engineering easier",
-            "Because it only works on people who don't use MFA",
+            "Because strong passwords make social engineering easier” belongs to a different situation than the one in the question stem",
+            "Because it always uses malware to force access” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 1,
           explanation:
             "Social engineering bypasses technical controls by convincing a person to voluntarily hand over access, a code, or information.",
         },
@@ -103,10 +103,10 @@ export const cyberLesson4: AILessonConfig = {
         checkIn: {
           prompt: "Which combination of red flags is the strongest \"triple\" warning sign?",
           choices: [
-            "A well-known company logo and correct spelling",
+            "An email that takes a few seconds to load images” belongs to a different situation than the one in the question stem",
             "Emotion (urgency/fear), a request for secrecy, and a request for a password or code",
-            "A message sent during business hours",
-            "An email that takes a few seconds to load images",
+            "A message sent during business hours” belongs to a different situation than the one in the question stem",
+            "A well-known company logo and correct spelling” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -121,10 +121,10 @@ export const cyberLesson4: AILessonConfig = {
         checkIn: {
           prompt: "In the worked example, why is replying \"STOP\" to the suspicious text a bad idea?",
           choices: [
-            "It isn't a bad idea — replying always opts you out safely",
+            "It isn't a bad idea — replying always opts you out safely” belongs to a different situation than the one in the question stem",
             "It can confirm to the sender that your number is active and being read, which invites more attempts",
-            "It automatically deletes the scam permanently",
-            "It reports the message to your school automatically",
+            "It automatically deletes the scam permanently” belongs to a different situation than the one in the question stem",
+            "It reports the message to your school automatically” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -268,9 +268,9 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
           prompt: "In the mini case, what made the caller's request particularly risky, even though they sounded professional and knew Malik's name?",
           choices: [
             "The request for remote access and a code, combined with urgency Malik didn't initiate",
-            "The fact that the caller used a phone instead of email",
-            "Nothing — professional-sounding callers are always legitimate",
-            "The call happened during school hours",
+            "Nothing — professional-sounding callers are always legitimate” belongs to a different situation than the one in the question stem",
+            "The call happened during school hours” belongs to a different situation than the one in the question stem",
+            "The fact that the caller used a phone instead of email” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 0,
           explanation:
@@ -308,12 +308,12 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
       id: "q1",
       question: "A phishing email steals a student's school password. Which analysis best describes the likely impact chain on sensitive data?",
       choices: [
-        "Only the firewall layout changes; CIA goals are unaffected",
-        "The attacker may read private messages (Confidentiality), send mail as the student (Integrity of identity), then change recovery settings and lock the student out (Availability) — recommend MFA + password reset + report",
-        "Social engineering never affects Availability",
-        "Impact is limited to encrypting stored passwords on the mail server automatically",
-      ],
-      correctIndex: 1,
+            "The attacker may read private messages (Confidentiality), send mail as the student (Integrity of identity), then change recovery settings and lock the student out (Availability) — recommend MFA + password reset + report",
+            "A common mix-up is to treat impact is limited to encrypting stored passwords on the mail server automatically as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat social engineering never affects Availability as enough, which confuses a nearby idea with the right one when checked against the lesson definition once the deciding rule is named clearly",
+            "A common mix-up is to treat only the firewall layout changes; CIA goals are unaffected as enough, which confuses a nearby idea with the right one when checked against the lesson definition once the deciding rule is named clearly",
+          ],
+      correctIndex: 0,
       explanation:
         "Analyzing social engineering means tracing how one credential theft can cascade across Confidentiality, Integrity, and Availability — then recommending layered recovery and prevention.",
     },
@@ -347,11 +347,11 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
       id: "q4",
       question: "Your club wants a feasible anti-phishing plan before scholarship season. Which recommendation set best balances protection, usability, and ethics?",
       choices: [
-        "Forward every suspicious link to the whole club so people can click and compare notes",
-        "Recommend: pause on unexpected credential asks, verify in official portals, enable MFA on the shared club email, and report via school IT — not unauthorized bait-testing on classmates",
-        "Disable MFA so logins stay fast during deadlines",
-        "Reply to every urgent email with the club password so IT can verify legitimacy",
-      ],
+            "A common mix-up is to treat disable MFA so logins stay fast during deadlines as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "Recommend: pause on unexpected credential asks, verify in official portals, enable MFA on the shared club email, and report via school IT — not unauthorized bait-testing on classmates",
+            "A common mix-up is to treat forward every suspicious link to the whole club so people can click and compare notes as enough, which confuses a nearby idea with the right one",
+            "A common mix-up is to treat reply to every urgent email with the club password so IT can verify legitimacy as enough, which confuses a nearby idea with the right one",
+          ],
       correctIndex: 1,
       explanation:
         "Layered, feasible defenses (habits + MFA + reporting) protect the group without asking members to click bait or share secrets. Forwarding live malicious links is unsafe and unethical.",
@@ -360,12 +360,12 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
       id: "q5",
       question: "Why recommend reporting a near-miss phishing email even if nobody entered credentials?",
       choices: [
-        "Because reports help IT analyze the campaign and block it before classmates who are busier or more rushed get hit — a feasible community defense with little personal cost",
-        "Because reporting replaces MFA entirely",
-        "Because near-misses never matter to anyone else",
-        "Because reporting automatically stops all ransomware",
-      ],
-      correctIndex: 0,
+            "A common mix-up is to treat because near-misses never matter to anyone else as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat because reporting automatically stops all ransomware as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "Because reports help IT analyze the campaign and block it before classmates who are busier or more rushed get hit — a feasible community defense with little personal cost",
+            "A common mix-up is to treat because reporting replaces MFA entirely as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+          ],
+      correctIndex: 2,
       explanation:
         "Justifying report-don't-click means weighing small personal effort against school-wide impact. Near-miss intelligence is still useful to defenders.",
     },
@@ -373,12 +373,12 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
       id: "q6",
       question: "A message from a real friend's account asks you urgently for a login code \"as a favor.\" What is the safest response?",
       choices: [
-        "Send the code immediately since it's from a friend's real account",
-        "Verify with your friend through a different channel before sending anything, since the account may be compromised",
-        "Assume a friend's account can never be compromised, so no check is needed",
-        "Post the code publicly so mutual friends can confirm it's genuine",
-      ],
-      correctIndex: 1,
+            "Send the code immediately since it's from a friend's real account” belongs to a different situation than the one in the question stem",
+            "Post the code publicly so mutual friends can confirm it's genuine” belongs to a different situation than the one in the question stem",
+            "Verify with your friend through a different channel before sending anything, since the account may be compromised",
+            "Assume a friend's account can never be compromised, so no check is needed” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "A familiar name only proves the account is real — not that the person currently controlling it is trustworthy. Verify independently first.",
     },
@@ -394,12 +394,12 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
       id: "q8",
       question: "A classmate suggests \"we should reply to the scammer to waste their time.\" Which evaluation best explains why you should not recommend that?",
       choices: [
-        "Engaging confirms a live number/inbox, can escalate targeting, and steps outside defensive/ethical practice — recommend report-and-block instead",
-        "Because phishing is purely technical with no human element",
-        "Because ethics only applies to malware, not phishing",
-        "Because reporting phishing has no real impact, so any response is fine",
-      ],
-      correctIndex: 0,
+            "You might defend “Because reporting phishing has no real impact, so any response is fine” in casual talk, but it fails the definition used here",
+            "Engaging confirms a live number/inbox, can escalate targeting, and steps outside defensive/ethical practice — recommend report-and-block instead",
+            "It can seem like because ethics only applies to malware, not phishing, but that reading skips the distinction this question is testing",
+            "It can seem like because phishing is purely technical with no human element, but that reading skips the distinction this question is testing",
+          ],
+      correctIndex: 1,
       explanation:
         "Defensive recommendations stay inside verify/report/harden. Counter-engaging scammers is not a feasible school defense and can increase harm.",
     },

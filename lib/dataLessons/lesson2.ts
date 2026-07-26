@@ -66,11 +66,11 @@ export const daLesson2: DataLessonConfig = {
         checkIn: {
           prompt: "You only care about student_name and price. Which SELECT is best?",
           choices: [
-            "SELECT * FROM lunch_orders;",
-            "SELECT student_name, price FROM lunch_orders;",
-            "SELECT student_name price FROM lunch_orders;",
+            "SELECT student_name, price FROM lunch_orders",
+            "SELECT * FROM lunch_orders” belongs to a different situation than the one in the question stem",
+            "SELECT student_name price FROM lunch_orders",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation: "Listing the exact columns you need, separated by a comma, keeps the result focused on just student_name and price.",
         },
       },
@@ -138,11 +138,11 @@ export const daLesson2: DataLessonConfig = {
         checkIn: {
           prompt: "What's wrong with `SELECT student_name, item, FROM lunch_orders;`?",
           choices: [
-            "Nothing, it will run fine",
             "There's a trailing comma after \"item\" with nothing after it",
-            "FROM should come before SELECT",
+            "Nothing, it will run fine” belongs to a different situation than the one in the question stem",
+            "FROM should come before SELECT” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation: "SQL expects another column name after every comma. A trailing comma with nothing after it causes an error.",
         },
       },
@@ -222,8 +222,12 @@ export const daLesson2: DataLessonConfig = {
         body: `Let's confirm the two controls are locked in: SELECT for columns, LIMIT for rows.`,
         checkIn: {
           prompt: "Which query returns exactly 2 columns and at most 3 rows from an 8-row table?",
-          choices: ["SELECT student_name, item FROM lunch_orders LIMIT 3;", "SELECT * FROM lunch_orders LIMIT 3;", "SELECT student_name, item, price, order_id FROM lunch_orders;"],
-          correctIndex: 0,
+          choices: [
+            "SELECT * FROM lunch_orders LIMIT 3” belongs to a different situation than the one in the question stem",
+            "SELECT student_name, item FROM lunch_orders LIMIT 3",
+            "SELECT student_name, item, price, order_id FROM lunch_orders",
+          ],
+          correctIndex: 1,
           explanation: "Listing exactly two columns controls the width, and LIMIT 3 controls the height — together they shape a small, focused result.",
         },
       },

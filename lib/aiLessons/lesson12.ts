@@ -56,12 +56,12 @@ export const aiLesson12: AILessonConfig = {
         checkIn: {
           prompt: "What's the honest test for using AI on schoolwork?",
           choices: [
-            "Will I get caught?",
             "Does this help me learn and do the work, or replace my thinking and pass off AI work as mine?",
-            "Is the AI free?",
-            "Is it faster than doing it myself?",
+            "Picking “Is the AI free?” is a common mix-up that confuses a nearby idea with the right one",
+            "If the goal were something else, “Will I get caught?” might work; for this check, it does not",
+            "“Is it faster than doing it myself?” describes a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Integrity is about whether you're learning and doing your own work — not just about getting caught.",
         },
@@ -114,12 +114,12 @@ export const aiLesson12: AILessonConfig = {
         checkIn: {
           prompt: "You're not sure if AI is allowed on an assignment. What's the best move?",
           choices: [
-            "Use it anyway and hope it's fine",
+            "Never use AI for anything ever” belongs to a different situation than the one in the question stem",
+            "Use it anyway and hope it's fine” belongs to a different situation than the one in the question stem",
+            "Use it but delete your history” belongs to a different situation than the one in the question stem",
             "Ask your teacher what's allowed before using it",
-            "Never use AI for anything ever",
-            "Use it but delete your history",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Rules vary by class and teacher. Asking first keeps you honest and avoids accidental cheating.",
         },
@@ -159,12 +159,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         checkIn: {
           prompt: "Your syllabus doesn't mention AI at all. What should you assume?",
           choices: [
-            "That any use of AI, including having it write your essay, is automatically fine",
+            "That the assignment doesn't count toward your grade” belongs to a different situation than the one in the question stem",
+            "That you can never use spell-check or grammar tools either” belongs to a different situation than the one in the question stem",
+            "That any use of AI, including having it write your essay, is automatically fine” belongs to a different situation than the one in the question stem",
             "That standard academic honesty rules likely still apply, and you should ask your teacher to be sure",
-            "That you can never use spell-check or grammar tools either",
-            "That the assignment doesn't count toward your grade",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Silence on AI usually doesn't mean 'anything goes.' Standard honesty expectations likely still apply — when in doubt, ask.",
         },
@@ -222,12 +222,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         checkIn: {
           prompt: "You want AI help on an essay graded for your original analysis. Which use is most likely on the \"help\" side of the line?",
           choices: [
-            "Having AI write the full essay from your one-sentence topic",
+            "Submitting AI output and hoping the teacher doesn't notice” belongs to a different situation than the one in the question stem",
+            "Having AI write the full essay from your one-sentence topic” belongs to a different situation than the one in the question stem",
             "Using AI to suggest counterarguments, then writing your own analysis and disclosure note",
-            "Pasting AI paragraphs directly because they sound smarter than your draft",
-            "Submitting AI output and hoping the teacher doesn't notice",
+            "Pasting AI paragraphs directly because they sound smarter than your draft” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Brainstorming support while you write and analyze yourself — plus honest disclosure — keeps the learning goal intact. Full AI authorship or hidden use crosses the line.",
         },
@@ -250,12 +250,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         checkIn: {
           prompt: "Why can the SAME action (like brainstorming with AI) be fine for one assignment and risky for another?",
           choices: [
-            "It can't — the rule is always identical for every assignment",
             "Because what the assignment is actually trying to measure about your skills changes what counts as help vs. cheating",
-            "Because AI works differently depending on the day of the week",
-            "Because only essays have rules about AI",
+            "“It can't — the rule is always identical for every assignment” describes a different situation than the one in the question stem",
+            "Because AI works differently depending on the day of the week” belongs to a different situation than the one in the question stem",
+            "Picking “Because only essays have rules about AI” is a common mix-up that confuses a nearby idea with the right one",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "The purpose of the assignment (what skill it's meant to measure) determines whether a given AI use supports or undermines that goal.",
         },
@@ -304,12 +304,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         checkIn: {
           prompt: "What determines whether the study group's AI-summary strategy is fine or crosses into cheating?",
           choices: [
-            "Whether they used a free or paid AI tool",
+            "It's always fine as long as it's a group activity” belongs to a different situation than the one in the question stem",
+            "“Whether they used a free or paid AI tool” describes a different situation than the one in the question stem",
+            "“How many people are in the study group” describes a different situation than the one in the question stem",
             "Whether the assignment is a graded, individual writing task or a general studying/discussion activity",
-            "How many people are in the study group",
-            "It's always fine as long as it's a group activity",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "The same AI-assisted action can be fine for general studying but crosses the line if it replaces an individually graded piece of original work.",
         },
@@ -322,12 +322,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         checkIn: {
           prompt: "Using what you've learned, how should you evaluate your classmate's reasoning?",
           choices: [
-            "It's fine — no explicit rule means anything goes",
+            "A common mix-up is to treat it's fine — no explicit rule means anything goes as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat it doesn't matter because AI-written work can't be detected as enough, which confuses a nearby idea with the right one once the deciding rule is named clearly",
             "It's risky reasoning — 'not explicitly banned' isn't the same as 'clearly allowed,' and having AI write the draft likely crosses into cheating on a writing assignment",
-            "It's fine as long as they changed at least five sentences",
-            "It doesn't matter because AI-written work can't be detected",
+            "A common mix-up is to treat it's fine as long as they changed at least five sentences as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Assuming silence means permission is risky. Having AI write the actual draft of a graded writing assignment usually replaces the exact skill being assessed.",
         },
@@ -360,11 +360,11 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q1",
       question: "What's the honest test for using AI on schoolwork?",
       choices: [
-        "Does this help me learn and do the work, or replace my thinking and pass off AI work as mine?",
-        "Will I get caught?",
-        "Is the AI free?",
-        "Is it faster than doing it myself?",
-      ],
+            "Does this help me learn and do the work, or replace my thinking and pass off AI work as mine?",
+            "Picking “Is the AI free?” is a common mix-up that confuses a nearby idea with the right one",
+            "“Is it faster than doing it myself?” describes a different situation than the one in the question stem",
+            "If the goal were something else, “Will I get caught?” might work; for this check, it does not",
+          ],
       correctIndex: 0,
       explanation:
         "Integrity is about whether you're learning and doing your own work — not just about getting caught.",
@@ -386,12 +386,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q3",
       question: "You're not sure if AI is allowed on an assignment. What's the best move?",
       choices: [
-        "Use it anyway and hope it's fine",
-        "Never use AI for anything ever",
-        "Use it but delete your history",
-        "Ask your teacher what's allowed before using it",
-      ],
-      correctIndex: 3,
+            "Use it anyway and hope it's fine” belongs to a different situation than the one in the question stem",
+            "Ask your teacher what's allowed before using it",
+            "Never use AI for anything ever” belongs to a different situation than the one in the question stem",
+            "Use it but delete your history” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Rules vary by class and teacher. Asking first keeps you honest and avoids accidental cheating.",
     },
@@ -399,11 +399,11 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q4",
       question: "Why does cheating with AI mostly hurt YOU?",
       choices: [
-        "It doesn't hurt anyone",
-        "You skip the learning, so you can't perform when AI isn't allowed (and misuse is detectable)",
-        "It only counts against you if a teacher happens to check",
-        "It slows down the AI tool for everyone else using it",
-      ],
+            "It only counts against you if a teacher happens to check” belongs to a different situation than the one in the question stem",
+            "You skip the learning, so you can't perform when AI isn't allowed (and misuse is detectable)",
+            "It doesn't hurt anyone” is close in topic, but it is the wrong fit for what the prompt asks",
+            "It slows down the AI tool for everyone else using it” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "Skipping the learning means you can't do it on your own later — and AI misuse is increasingly easy to detect.",
@@ -412,12 +412,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q5",
       question: "Your syllabus never mentions AI at all. What's the safest assumption?",
       choices: [
-        "That standard academic honesty rules likely still apply, and it's worth asking your teacher to confirm",
-        "That anything goes, including having AI write your whole assignment",
-        "That you must avoid all AI tools including spell-check",
-        "That the assignment is automatically optional",
-      ],
-      correctIndex: 0,
+            "That you must avoid all AI tools including spell-check” belongs to a different situation than the one in the question stem",
+            "That anything goes, including having AI write your whole assignment” belongs to a different situation than the one in the question stem",
+            "That standard academic honesty rules likely still apply, and it's worth asking your teacher to confirm",
+            "“That the assignment is automatically optional” describes a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Silence about AI usually doesn't mean permission for anything. Standard expectations of original work likely still apply.",
     },
@@ -425,12 +425,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q6",
       question: "Why can brainstorming with AI be 'fine' for one assignment but 'cheating' for another?",
       choices: [
-        "It's random and depends on luck",
-        "Because AI tools change their rules daily",
-        "It's never fine to brainstorm with AI",
-        "Because the purpose of the assignment (what skill it's meant to measure) changes what counts as legitimate help",
-      ],
-      correctIndex: 3,
+            "Because the purpose of the assignment (what skill it's meant to measure) changes what counts as legitimate help",
+            "Because AI tools change their rules daily” is close in topic, but it is the wrong fit for what the prompt asks",
+            "Some learners answer “It's random and depends on luck”, yet that does not match the precise idea from the lesson",
+            "You might defend “It's never fine to brainstorm with AI” in casual talk, but it fails the definition used here",
+          ],
+      correctIndex: 0,
       explanation:
         "The same AI action can support or undermine an assignment's goal depending on what that specific assignment is designed to measure.",
     },
@@ -438,12 +438,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q7",
       question: "Beyond your own grade, why does academic honesty matter to your classmates too?",
       choices: [
-        "It doesn't affect anyone else at all",
-        "Because AI tools cost money for the whole class",
-        "Grades, rankings, and trust are shared systems — submitting AI work as your own can unfairly affect others who did honest work",
-        "Because teachers only grade the whole class as one group",
-      ],
-      correctIndex: 2,
+            "A rushed pass can land on because teachers only grade the whole class as one group”; careful readers reject it for this problem",
+            "Grades, rankings, and trust are shared systems — submitting AI work as your own can unfairly affect others who did honest work",
+            "It can seem like it doesn't affect anyone else at all, but that reading skips the distinction this question is testing",
+            "Some learners answer “Because AI tools cost money for the whole class”, yet that does not match the precise idea from the lesson",
+          ],
+      correctIndex: 1,
       explanation:
         "Academic integrity has a community dimension: dishonest work can distort shared systems like grading curves and trust, affecting honest classmates.",
     },
@@ -451,12 +451,12 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q8",
       question: "How does the help-vs-cheating question connect to being a good digital citizen?",
       choices: [
-        "It doesn't relate to digital citizenship at all",
-        "Using technology ethically, safely, and legally — including AI on schoolwork — is a direct, real-world example of digital citizenship",
-        "Digital citizenship only applies to social media use",
-        "Only IT teachers need to think about digital citizenship",
-      ],
-      correctIndex: 1,
+            "Picking “Only IT teachers need to think about digital citizenship” is a common mix-up that confuses a nearby idea with the right one",
+            "It can seem like it doesn't relate to digital citizenship at all, but that reading skips the distinction this question is testing",
+            "Using technology ethically, safely, and legally — including AI on schoolwork — is a direct, real-world example of digital citizenship",
+            "Some learners answer “Digital citizenship only applies to social media use”, yet that does not match the precise idea from the lesson",
+          ],
+      correctIndex: 2,
       explanation:
         "Navigating AI's role in your schoolwork honestly and responsibly is a concrete, everyday digital citizenship habit.",
     },

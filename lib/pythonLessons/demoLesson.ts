@@ -292,11 +292,11 @@ print("Hi! I am " + name)
         checkIn: {
           prompt: 'What does `name = "Alex"` do?',
           choices: [
+            "Checks whether name equals Alex” belongs to a different situation than the one in the question stem",
             "Stores the text Alex in a variable called name",
-            "Checks whether name equals Alex",
             "Prints the word Alex to the screen",
           ],
-          correctIndex: 0,
+          correctIndex: 1,
           explanation:
             "= assigns — it stores the value on the right in the variable on the left. Nothing is printed or compared yet.",
         },
@@ -340,11 +340,11 @@ print("Hi! I am " + name)
         checkIn: {
           prompt: 'Why does `"Hello! I am" + name` print `Hello! I amAlex` (no space)?',
           choices: [
-            "Python is broken",
-            "The variable name is spelled wrong",
             "+ never adds spaces — the space must be typed inside the quotes",
+            "The variable name is spelled wrong” belongs to a different situation than the one in the question stem",
+            "Python is broken” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
             "Python concatenates text exactly as written. If you want a space, include it in the string literal.",
         },

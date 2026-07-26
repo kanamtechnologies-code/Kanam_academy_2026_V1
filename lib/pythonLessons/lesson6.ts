@@ -180,8 +180,12 @@ export const lesson6: PythonLessonConfig = {
         },
         checkIn: {
           prompt: 'If `message = "ping"` is placed INSIDE the loop (reset every turn), what happens to the pattern?',
-          choices: ["It alternates perfectly, same as before", "It causes an error", "It gets stuck printing ping every single turn"],
-          correctIndex: 2,
+          choices: [
+            "It causes an error” belongs to a different situation than the one in the question stem",
+            "It gets stuck printing ping every single turn",
+            "It alternates perfectly, same as before",
+          ],
+          correctIndex: 1,
           explanation: "Resetting message to \"ping\" every turn erases the flip from the previous turn, so the pattern never actually alternates.",
         },
       },
@@ -240,9 +244,9 @@ export const lesson6: PythonLessonConfig = {
         checkIn: {
           prompt: "Your ping/pong pattern prints ping every single time instead of alternating. What should you check FIRST?",
           choices: [
-            "Whether range() has the right number",
+            "Whether print() is spelled correctly” belongs to a different situation than the one in the question stem",
             "Whether the message = \"pong\" flip is actually inside the if/else and properly indented",
-            "Whether print() is spelled correctly",
+            "Whether range() has the right number” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation: "If the flip line is missing, mis-indented, or outside the if/else, message never actually changes, so it prints the same value every turn.",
@@ -302,8 +306,12 @@ export const lesson6: PythonLessonConfig = {
         body: `Let's confirm the nested pattern is locked in.`,
         checkIn: {
           prompt: "Which is required for a loop-plus-rule pattern to actually alternate output?",
-          choices: ["The rule must be outside the loop", "You only need the loop — rules are optional", "The rule must be inside the loop AND update a value that changes what happens next turn"],
-          correctIndex: 2,
+          choices: [
+            "The rule must be outside the loop” belongs to a different situation than the one in the question stem",
+            "The rule must be inside the loop AND update a value that changes what happens next turn",
+            "You only need the loop — rules are optional” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 1,
           explanation: "The rule needs to live inside the loop (checked every turn) and also update the value it's checking, so the next turn behaves differently.",
         },
       },

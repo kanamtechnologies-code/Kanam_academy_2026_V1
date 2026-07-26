@@ -56,12 +56,12 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "A scholarship committee searches your name. What does a digital footprint include?",
           choices: [
-            "A type of password",
-            "The speed of your internet connection",
-            "The battery your phone uses online",
+            "The speed of your internet connection” belongs to a different situation than the one in the question stem",
+            "“A type of password” describes a different situation than the one in the question stem",
             "The trail of data you leave online through posts, likes, searches, and activity",
+            "The battery your phone uses online” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 3,
+          correctIndex: 2,
           explanation:
             "Your digital footprint is the overall trail of data you leave behind as you use the internet — both what you post and what's collected about you.",
         },
@@ -107,12 +107,12 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "You delete an embarrassing post an hour after sending it, before a job interview next month. Why might it still exist?",
           choices: [
+            "Deleting always works instantly and fully” belongs to a different situation than the one in the question stem",
             "Screenshots, archives, and reshares can keep copies you can't control",
-            "Only the government can delete posts",
-            "Deleting always works instantly and fully",
-            "Posts can never be deleted by anyone",
+            "Only the government can delete posts” belongs to a different situation than the one in the question stem",
+            "Posts can never be deleted by anyone” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 1,
           explanation:
             "Because of permanence, deleting removes only your copy. Screenshots and reshares may already be out there beyond your reach.",
         },
@@ -147,10 +147,10 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "You post a photo, and your phone automatically attaches your location to it without you typing anything about location. What kind of footprint is the location tag?",
           choices: [
-            "It only counts if you mention the location in the caption",
+            "It only counts if you mention the location in the caption” belongs to a different situation than the one in the question stem",
             "Passive — it was collected and attached without you actively deciding to share it",
-            "Active — you chose to share your location",
-            "It's not part of your footprint at all",
+            "Active — you chose to share your location” belongs to a different situation than the one in the question stem",
+            "It's not part of your footprint at all” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -211,9 +211,9 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "What's a smart way to build a POSITIVE digital footprint for college or a first job?",
           choices: [
-            "Make every account public",
-            "Post nothing ever, anywhere",
-            "Tag yourself in as many photos as possible",
+            "Post nothing ever, anywhere” belongs to a different situation than the one in the question stem",
+            "Tag yourself in as many photos as possible” belongs to a different situation than the one in the question stem",
+            "Make every account public” belongs to a different situation than the one in the question stem",
             "Share projects and portfolios you're proud of and post helpfully",
           ],
           correctIndex: 3,
@@ -249,12 +249,12 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Before posting a joke about your workplace (or school) in a story, which is the best quick test?",
           choices: [
-            "Did I post recently?",
+            "Did I post recently?” belongs to a different situation than the one in the question stem",
+            "Is it under 280 characters?” belongs to a different situation than the one in the question stem",
             "Would I be okay with a teacher, future boss, or grandparent seeing this?",
-            "Will this get a lot of likes?",
-            "Is it under 280 characters?",
+            "Will this get a lot of likes?” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "The 'would I be okay with them seeing this?' test catches posts that could hurt your reputation with the people who actually check it.",
         },
@@ -271,10 +271,10 @@ export const digitalLesson7: AILessonConfig = {
         checkIn: {
           prompt: "You search your name and an old, unflattering public post from two years ago is the first result. What's the smartest move?",
           choices: [
-            "Delete every account and never go online again",
-            "Ignore it — nobody checks social media",
+            "Ignore it — nobody checks social media” belongs to a different situation than the one in the question stem",
+            "Delete every account and never go online again” belongs to a different situation than the one in the question stem",
             "Delete or restrict the old post, then build newer positive content that represents you now",
-            "Create a fake name and hope for the best",
+            "Create a fake name and hope for the best” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 2,
           explanation:
@@ -330,12 +330,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q1",
       question: "A scholarship committee googles your name. What is a 'digital footprint'?",
       choices: [
-        "The trail of data you leave online through posts, likes, searches, and activity",
-        "The battery your phone uses online",
-        "The speed of your internet connection",
-        "A type of password",
-      ],
-      correctIndex: 0,
+            "The speed of your internet connection” belongs to a different situation than the one in the question stem",
+            "The battery your phone uses online” belongs to a different situation than the one in the question stem",
+            "“A type of password” describes a different situation than the one in the question stem",
+            "The trail of data you leave online through posts, likes, searches, and activity",
+          ],
+      correctIndex: 3,
       explanation:
         "Your digital footprint is the overall trail of data you leave behind as you use the internet — both what you post and what's collected about you.",
     },
@@ -356,12 +356,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q3",
       question: "You delete an embarrassing post an hour after sending it, before a job interview next month. Why might it still exist?",
       choices: [
-        "Posts can never be deleted by anyone",
-        "Deleting always works instantly and fully",
-        "Only the government can delete posts",
-        "Screenshots, archives, and reshares can keep copies you can't control",
-      ],
-      correctIndex: 3,
+            "Posts can never be deleted by anyone” belongs to a different situation than the one in the question stem",
+            "Screenshots, archives, and reshares can keep copies you can't control",
+            "Deleting always works instantly and fully” belongs to a different situation than the one in the question stem",
+            "Only the government can delete posts” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Because of permanence, deleting removes only your copy. Screenshots and reshares may already be out there beyond your reach.",
     },
@@ -369,12 +369,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q4",
       question: "Before posting a joke about your workplace (or school) in a story, which is the best quick test?",
       choices: [
-        "Would I be okay with a teacher, future boss, or grandparent seeing this?",
-        "Is it under 280 characters?",
-        "Did I post recently?",
-        "Will this get a lot of likes?",
-      ],
-      correctIndex: 0,
+            "Did I post recently?” belongs to a different situation than the one in the question stem",
+            "Is it under 280 characters?” belongs to a different situation than the one in the question stem",
+            "Will this get a lot of likes?” belongs to a different situation than the one in the question stem",
+            "Would I be okay with a teacher, future boss, or grandparent seeing this?",
+          ],
+      correctIndex: 3,
       explanation:
         "The 'would I be okay with them seeing this?' test catches posts that could hurt your reputation with the people who actually check it.",
     },
@@ -382,12 +382,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q5",
       question: "What's a smart way to build a POSITIVE digital footprint for college or a first job?",
       choices: [
-        "Post nothing ever, anywhere",
-        "Make every account public",
-        "Share projects and portfolios you're proud of and post helpfully",
-        "Tag yourself in as many photos as possible",
-      ],
-      correctIndex: 2,
+            "Make every account public” belongs to a different situation than the one in the question stem",
+            "Share projects and portfolios you're proud of and post helpfully",
+            "Tag yourself in as many photos as possible” belongs to a different situation than the one in the question stem",
+            "Post nothing ever, anywhere” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Sharing real work and being helpful builds a footprint that actively helps you — often more than just hiding the bad stuff.",
     },
@@ -395,12 +395,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q6",
       question: "You keep your own account private and post nothing embarrassing, but a friend tags you in an old party photo. What does this reveal?",
       choices: [
-        "Tags never actually attach to your name",
-        "Others can post about you too, so your footprint isn't entirely under your own control",
-        "Your footprint is fully in your control as long as you're careful",
-        "Private accounts are immune to being tagged",
-      ],
-      correctIndex: 1,
+            "Others can post about you too, so your footprint isn't entirely under your own control",
+            "Private accounts are immune to being tagged” belongs to a different situation than the one in the question stem",
+            "Your footprint is fully in your control as long as you're careful” belongs to a different situation than the one in the question stem",
+            "Tags never actually attach to your name” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 0,
       explanation:
         "Friends, classmates, and strangers can tag or post about you, which becomes part of your footprint even if you personally posted nothing risky.",
     },
@@ -408,11 +408,11 @@ export const digitalLesson7: AILessonConfig = {
       id: "q7",
       question: "Why isn't a 'private' account setting a full guarantee of secrecy?",
       choices: [
-        "Private accounts are always hacked eventually",
-        "Private settings don't actually exist on most platforms",
-        "Private accounts can't be seen by anyone, ever, including yourself",
-        "A follower or friend can screenshot content and share it beyond the private circle",
-      ],
+            "Private accounts can't be seen by anyone, ever, including yourself” belongs to a different situation than the one in the question stem",
+            "Private settings don't actually exist on most platforms” belongs to a different situation than the one in the question stem",
+            "Private accounts are always hacked eventually” belongs to a different situation than the one in the question stem",
+            "A follower or friend can screenshot content and share it beyond the private circle",
+          ],
       correctIndex: 3,
       explanation:
         "Private settings limit who initially sees your content, but a trusted follower can screenshot and share it — private is not the same as guaranteed secret.",
@@ -421,12 +421,12 @@ export const digitalLesson7: AILessonConfig = {
       id: "q8",
       question: "In the two-applicant case study, what actually created the difference in the hiring manager's impression?",
       choices: [
-        "One applicant had more social media followers",
-        "One applicant was clearly more qualified on paper",
-        "One applicant had done a footprint audit and published a portfolio; the other had an old public comment thread and no cleanup",
-        "The hiring manager flipped a coin",
-      ],
-      correctIndex: 2,
+            "Picking “One applicant was clearly more qualified on paper” is a common mix-up that confuses a nearby idea with the right one",
+            "One applicant had done a footprint audit and published a portfolio; the other had an old public comment thread and no cleanup",
+            "Some learners answer “One applicant had more social media followers”, yet that does not match the precise idea from the lesson",
+            "It can seem like the hiring manager flipped a coin, but that reading skips the distinction this question is testing",
+          ],
+      correctIndex: 1,
       explanation:
         "Both applicants were equally qualified — the difference was that one had audited their footprint and published a proud project, shaping a better first impression.",
     },

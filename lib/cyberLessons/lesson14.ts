@@ -57,12 +57,12 @@ export const cyberLesson14: AILessonConfig = {
         checkIn: {
           prompt: "Several separate public posts — a school tag, a sports schedule, a birthday comment, and a joke about parents being away — combine to create real risk. What does this best illustrate?",
           choices: [
-            "Only one dramatic post can ever create risk",
             "Individually harmless details can combine into a useful profile for scams or impersonation",
-            "Public sports rosters are always private by default",
-            "Combining information is illegal for anyone to do",
+            "Public sports rosters are always private by default” belongs to a different situation than the one in the question stem",
+            "Only one dramatic post can ever create risk” belongs to a different situation than the one in the question stem",
+            "Combining information is illegal for anyone to do” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "OSINT-style risk is about combination — separately mundane details can add up to something genuinely useful for a scammer or impersonator.",
         },
@@ -87,12 +87,12 @@ export const cyberLesson14: AILessonConfig = {
         checkIn: {
           prompt: "A viral \"get to know me\" quiz asks for your first pet's name and mother's maiden name, which you post publicly. Why is this risky?",
           choices: [
-            "It isn't risky — the questions are unrelated to any real security use",
+            "Some learners answer “It isn't risky — the questions are unrelated to any real security use”, yet that does not match the precise idea from the lesson",
+            "It can seem like only banks are affected, never email or other accounts, but that reading skips the distinction this question is testing",
             "Those exact questions are commonly used as account security/recovery questions, so posting answers publicly can weaken your real account protections",
-            "Social media quizzes are always private by default",
-            "Only banks are affected, never email or other accounts",
+            "It can seem like social media quizzes are always private by default, but that reading skips the distinction this question is testing",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Many social quizzes mirror common account-recovery security questions. Publicly posting those answers can make impersonation or account recovery easier for an attacker.",
         },
@@ -120,10 +120,10 @@ export const cyberLesson14: AILessonConfig = {
         checkIn: {
           prompt: "A photo captioned vaguely as \"movie night!\" is emailed as a raw file rather than posted through a social app. What extra risk does this create?",
           choices: [
-            "None — captions are the only thing that matters for privacy",
+            "A common mix-up is to treat none — captions are the only thing that matters for privacy as enough, which confuses a nearby idea with the right one",
             "The raw file may still carry embedded metadata like GPS location and timestamp, even though the caption reveals nothing specific — a nonevident privacy risk",
-            "Email attachments always strip all metadata automatically",
-            "Metadata only exists in videos, never in photos",
+            "A common mix-up is to treat email attachments always strip all metadata automatically as enough, which confuses a nearby idea with the right one",
+            "A common mix-up is to treat metadata only exists in videos, never in photos as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
           ],
           correctIndex: 1,
           explanation:
@@ -153,10 +153,10 @@ export const cyberLesson14: AILessonConfig = {
         checkIn: {
           prompt: "Officers want live location \"for safety\" on a late trip. Which evaluation best matches this lesson?",
           choices: [
-            "Always-on public live location is always required if anyone mentions safety",
+            "A common mix-up is to treat safety concerns mean privacy settings no longer matter as enough, which confuses a nearby idea with the right one",
             "Compare less-invasive options (time-boxed share to a small trusted group or arrival check-ins), and weigh social/economic/legal/ethical impacts before choosing",
-            "Safety concerns mean privacy settings no longer matter",
-            "The ethical move is to scrape classmates' home addresses from public posts \"just in case\"",
+            "The ethical move is to scrape classmates' home addresses from public posts \"just in case\" — familiar wording, wrong fit for what the prompt is actually asking",
+            "It can seem like always-on public live location is always required if anyone mentions safety, but that reading skips the distinction this question is testing",
           ],
           correctIndex: 1,
           explanation:
@@ -181,12 +181,12 @@ export const cyberLesson14: AILessonConfig = {
         checkIn: {
           prompt: "During a semester self-check, a student finds an old forum account from years ago still publicly showing their full name. What is the appropriate response?",
           choices: [
-            "Ignore it since the account is old and probably forgotten by everyone",
             "Log in and update the privacy setting or remove the exposed detail, since it's still publicly visible today",
-            "Report the forum to authorities for a privacy violation",
-            "Create a new fake profile to replace it without addressing the old one",
+            "Report the forum to authorities for a privacy violation” belongs to a different situation than the one in the question stem",
+            "Ignore it since the account is old and probably forgotten by everyone” belongs to a different situation than the one in the question stem",
+            "Create a new fake profile to replace it without addressing the old one” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Old, forgotten accounts still contribute to your current digital footprint. A periodic self-check catches exactly this kind of lingering public exposure.",
         },
@@ -216,12 +216,12 @@ export const cyberLesson14: AILessonConfig = {
         checkIn: {
           prompt: "A student reviews their social account and finds posts default to \"Public,\" tagging is unrestricted, and old unused apps are still connected. What's the best response?",
           choices: [
-            "Leave everything as-is since changing defaults might break the app",
             "Tighten audience defaults, enable tag review, and revoke unused connected apps",
-            "Delete the account entirely as the only fix",
-            "Only fix the tagging setting since the others don't matter",
+            "Delete the account entirely as the only fix” belongs to a different situation than the one in the question stem",
+            "Only fix the tagging setting since the others don't matter” belongs to a different situation than the one in the question stem",
+            "Leave everything as-is since changing defaults might break the app",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Reviewing and tightening audience defaults, tag permissions, and connected apps meaningfully reduces exposure without requiring you to stop using the platform.",
         },
@@ -244,12 +244,12 @@ export const cyberLesson14: AILessonConfig = {
         checkIn: {
           prompt: "A text claiming to be from your coach asks for money urgently, referencing real details (a real away game, a real logistics detail) that could have come from your public posts. What's the safest response?",
           choices: [
-            "Send the money immediately since the details are accurate and specific",
             "Verify out-of-band — call using a known number or ask in person — rather than trusting the details alone",
-            "Reply with your account password to confirm your identity to the coach",
-            "Assume accurate details always prove a message is genuine",
+            "Assume accurate details always prove a message is genuine” belongs to a different situation than the one in the question stem",
+            "Send the money immediately since the details are accurate and specific” belongs to a different situation than the one in the question stem",
+            "Reply with your account password to confirm your identity to the coach” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Accurate-sounding details can simply come from your own public posts. Out-of-band verification (a known phone number, in person) is what actually confirms authenticity.",
         },
@@ -399,12 +399,12 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q1",
       question: "In this course, what is the appropriate use of OSINT concepts?",
       choices: [
-        "Evaluate your own public and nonevident exposure so you can protect privacy ethically",
-        "Building attack recipes to dig up private data on classmates",
-        "Bypassing privacy settings on other people's accounts",
-        "Publishing other students' addresses",
-      ],
-      correctIndex: 0,
+            "Bypassing privacy settings on other people's accounts” belongs to a different situation than the one in the question stem",
+            "Building attack recipes to dig up private data on classmates” belongs to a different situation than the one in the question stem",
+            "Evaluate your own public and nonevident exposure so you can protect privacy ethically",
+            "Publishing other students' addresses” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "We use OSINT as a defensive evaluation lens for your own exposure — not as an offensive toolkit against others.",
     },
@@ -412,11 +412,11 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q2",
       question: "Why can several \"harmless\" posts still create risk that defenders must evaluate?",
       choices: [
-        "Because search engines ignore public posts entirely",
-        "Because details combine into a richer picture useful for scams or impersonation — combination risk",
-        "Because posts automatically encrypt themselves once shared",
-        "Because only celebrities ever build a meaningful digital footprint",
-      ],
+            "Because only celebrities ever build a meaningful digital footprint” belongs to a different situation than the one in the question stem",
+            "Because details combine into a richer picture useful for scams or impersonation — combination risk",
+            "Because search engines ignore public posts entirely” belongs to a different situation than the one in the question stem",
+            "Because posts automatically encrypt themselves once shared” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "Combination risk: school + schedule + personal answers + contacts can fuel targeted social engineering.",
@@ -425,12 +425,12 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q3",
       question: "Which is an ethical self-check habit?",
       choices: [
-        "Running intrusive lookups to map a classmate's private life",
-        "Sharing MFA codes to \"verify friendship\"",
-        "Searching your own public profiles and cleaning up risky exposure after evaluating what a stranger could use",
-        "Posting your government ID for aesthetic likes",
-      ],
-      correctIndex: 2,
+            "Searching your own public profiles and cleaning up risky exposure after evaluating what a stranger could use",
+            "Running intrusive lookups to map a classmate's private life” belongs to a different situation than the one in the question stem",
+            "“Sharing MFA codes to \"verify friendship\"” describes a different situation than the one in the question stem",
+            "“Posting your government ID for aesthetic likes” describes a different situation than the one in the question stem",
+          ],
+      correctIndex: 0,
       explanation:
         "Search yourself, review settings, minimize — don't target others or publish sensitive IDs.",
     },
@@ -451,11 +451,11 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q5",
       question: "A scammer uses details from your public posts to sound like a friend in trouble. What's a strong defensive move?",
       choices: [
-        "Verify the request out-of-band using a known contact method and reduce public details that enable impersonation",
-        "Send money immediately to be helpful",
-        "Reply with your passwords so they can \"check\"",
-        "Ignore privacy settings because scams are rare",
-      ],
+            "Verify the request out-of-band using a known contact method and reduce public details that enable impersonation",
+            "“Reply with your passwords so they can \"check\"” describes a different situation than the one in the question stem",
+            "If the goal were something else, “Send money immediately to be helpful” might work; for this check, it does not",
+            "“Ignore privacy settings because scams are rare” describes a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       explanation:
         "Out-of-band verification stops impersonation; minimizing public personal details makes bait harder to craft.",
@@ -464,12 +464,12 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q6",
       question: "Which best describes a privacy concern from automated or nonevident data collection?",
       choices: [
-        "Only captions matter; apps never collect background data",
-        "Location history, telemetry, ad IDs, or photo GPS metadata can reveal patterns without an intentional public post — so defenders evaluate defaults, permissions, and raw-file sharing",
-        "The photo will automatically strip all metadata during email",
-        "Metadata only applies to video files, never photos",
-      ],
-      correctIndex: 1,
+            "A common mix-up is to treat the photo will automatically strip all metadata during email as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat only captions matter; apps never collect background data as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "Location history, telemetry, ad IDs, or photo GPS metadata can reveal patterns without an intentional public post — so defenders evaluate defaults, permissions, and raw-file sharing",
+            "A common mix-up is to treat metadata only applies to video files, never photos as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+          ],
+      correctIndex: 2,
       explanation:
         "Nonevident/automated collection and file metadata create privacy risk beyond what you deliberately type — evaluate settings and sharing channels.",
     },
@@ -477,12 +477,12 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q7",
       question: "A viral social media quiz asks for your first pet's name and mother's maiden name. Why is this a privacy concern?",
       choices: [
-        "It isn't a concern; the questions are unrelated to real accounts",
-        "Quizzes are always private by default, so nobody outside your friends sees it",
-        "Those are common account-recovery security questions, so posting answers publicly can weaken real account protections",
-        "Only your bank could ever be affected by this",
-      ],
-      correctIndex: 2,
+            "Those are common account-recovery security questions, so posting answers publicly can weaken real account protections",
+            "Quizzes are always private by default, so nobody outside your friends sees it” belongs to a different situation than the one in the question stem",
+            "It isn't a concern; the questions are unrelated to real accounts” belongs to a different situation than the one in the question stem",
+            "Only your bank could ever be affected by this. That option sounds confident, but it leaves out the deciding constraint",
+          ],
+      correctIndex: 0,
       explanation:
         "Many \"fun quiz\" questions mirror real security/recovery questions — publicly answering them can help an attacker impersonate you to a real account later.",
     },
@@ -490,12 +490,12 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q8",
       question: "Club officers want always-on public live location \"for safety\" during travel. Which evaluation is strongest?",
       choices: [
-        "Safety always overrides privacy, so public live location should stay on forever",
-        "Compare less-invasive options and weigh social/economic/legal/ethical impacts — e.g., time-boxed sharing to a small trusted group may meet the safety goal with less exposure",
-        "Privacy settings are irrelevant whenever someone says the word safety",
-        "The ethical response is to collect home addresses from classmates' public posts without asking",
-      ],
-      correctIndex: 1,
+            "Some learners answer “The ethical response is to collect home addresses from classmates' public posts without asking”, yet that does not match the precise idea from the lesson",
+            "It can seem like safety always overrides privacy, so public live location should stay on forever, but that reading skips the distinction this question is testing",
+            "It can seem like privacy settings are irrelevant whenever someone says the word safety, but that reading skips the distinction this question is testing",
+            "Compare less-invasive options and weigh social/economic/legal/ethical impacts — e.g., time-boxed sharing to a small trusted group may meet the safety goal with less exposure",
+          ],
+      correctIndex: 3,
       explanation:
         "Privacy vs safety requires evaluating implications and proportionate alternatives — not unlimited monitoring or offensive data gathering.",
     },
@@ -503,12 +503,12 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q9",
       question: "What is the main benefit of a family verification phrase or agreement set up in advance?",
       choices: [
-        "It removes the need to ever verify anything again",
-        "It guarantees scammers will never target the family",
-        "It replaces the need for privacy settings entirely",
-        "It removes the pressure of deciding \"is this really them?\" in the moment, since the plan was made calmly beforehand",
-      ],
-      correctIndex: 3,
+            "“It removes the need to ever verify anything again” describes a different situation than the one in the question stem",
+            "It removes the pressure of deciding \"is this really them?\" in the moment, since the plan was made calmly beforehand",
+            "“It guarantees scammers will never target the family” describes a different situation than the one in the question stem",
+            "“It replaces the need for privacy settings entirely” describes a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Pre-agreed verification habits work because they're decided calmly in advance, removing the pressure and urgency a scammer relies on in the moment.",
     },

@@ -55,12 +55,12 @@ export const aiLesson4: AILessonConfig = {
         checkIn: {
           prompt: "What is the best definition of 'representation' in AI?",
           choices: [
+            "The set of rules a company writes about how its AI should behave” belongs to a different situation than the one in the question stem",
+            "A visual chart showing an AI's accuracy over time” belongs to a different situation than the one in the question stem",
+            "The amount of computing power needed to train a model” belongs to a different situation than the one in the question stem",
             "How a piece of the world is encoded as data so a computer can reason about it",
-            "The amount of computing power needed to train a model",
-            "A visual chart showing an AI's accuracy over time",
-            "The set of rules a company writes about how its AI should behave",
           ],
-          correctIndex: 0,
+          correctIndex: 3,
           explanation:
             "Representation is the encoding step — turning something real into a data 'suitcase' the model can actually work with — not a measure of compute, a chart, or a behavior policy.",
         },
@@ -83,7 +83,7 @@ export const aiLesson4: AILessonConfig = {
             "It gets split into a token and converted into a number from a lookup table",
             "It gets checked against a dictionary to confirm it's spelled correctly",
             "It gets converted directly into a picture of the object it names",
-            "Nothing — computers read letters exactly like humans do",
+            "Nothing — computers read letters exactly like humans do” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 0,
           explanation:
@@ -111,12 +111,12 @@ export const aiLesson4: AILessonConfig = {
         checkIn: {
           prompt: "In the fruit spreadsheet example, what is a 'feature vector'?",
           choices: [
-            "The entire spreadsheet of all fruits at once",
+            "“The name of the AI model” describes a different situation than the one in the question stem",
+            "The entire spreadsheet of all fruits at once” belongs to a different situation than the one in the question stem",
             "One row turned into a list of numbers — the actual input the model sees for one example",
-            "A type of fruit",
-            "The name of the AI model",
+            "A type of fruit. That option sounds confident, but it leaves out the deciding constraint",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "A feature vector is the numeric representation of one specific example — everything the model knows about that one row.",
         },
@@ -154,10 +154,10 @@ export const aiLesson4: AILessonConfig = {
         checkIn: {
           prompt: "Why is 'the data is just numbers, so it's objective' a misleading claim?",
           choices: [
-            "Numbers can never be recorded incorrectly",
+            "“Numbers can never be recorded incorrectly” describes a different situation than the one in the question stem",
             "A human chose which features to measure in the first place, and that choice can carry hidden bias",
-            "AI never uses numbers, only words",
-            "Objective data doesn't exist anywhere in computing",
+            "Objective data doesn't exist anywhere in computing” belongs to a different situation than the one in the question stem",
+            "“AI never uses numbers, only words” describes a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -200,12 +200,12 @@ export const aiLesson4: AILessonConfig = {
         checkIn: {
           prompt: "What does this comparison table best illustrate?",
           choices: [
-            "Feature vectors capture every important detail about a person",
+            "Feature vectors capture every important detail about a person” belongs to a different situation than the one in the question stem",
+            "Test scores are the only thing that matters about a student” belongs to a different situation than the one in the question stem",
+            "“Home situation is always included in student data” describes a different situation than the one in the question stem",
             "A feature vector is always a simplified, partial version of a real person — some things are captured, many are not",
-            "Test scores are the only thing that matters about a student",
-            "Home situation is always included in student data",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "This is representation loss in one table: the model sees a compressed slice of reality, never the full picture.",
         },
@@ -265,12 +265,12 @@ export const aiLesson4: AILessonConfig = {
         checkIn: {
           prompt: "What made the risk-assessment tool's outcomes unequal across groups, based on the investigation?",
           choices: [
+            "“The defendants it flagged incorrectly had all committed similar past crimes” describes a different situation than the one in the question stem",
+            "“The tool's predictions were simply randomized rather than data-driven” describes a different situation than the one in the question stem",
+            "“The tool was intentionally coded to target specific groups by name” describes a different situation than the one in the question stem",
             "Its features were tied to historical arrest patterns, which reflected uneven policing — so the representation baked in that unevenness",
-            "The tool was intentionally coded to target specific groups by name",
-            "The defendants it flagged incorrectly had all committed similar past crimes",
-            "The tool's predictions were simply randomized rather than data-driven",
           ],
-          correctIndex: 0,
+          correctIndex: 3,
           explanation:
             "The representation choice — using arrest history as a feature — carried forward existing unevenness in how policing happens across communities.",
         },
@@ -305,11 +305,11 @@ export const aiLesson4: AILessonConfig = {
       id: "q1",
       question: "What does 'representation' mean in AI?",
       choices: [
-        "How a piece of the world is encoded as data the AI can store and reason about",
-        "The final accuracy score a model gets on a test dataset",
-        "A human spokesperson who explains an AI product to the public",
-        "The physical server hardware that stores an AI model",
-      ],
+            "How a piece of the world is encoded as data the AI can store and reason about",
+            "The final accuracy score a model gets on a test dataset” belongs to a different situation than the one in the question stem",
+            "The physical server hardware that stores an AI model” belongs to a different situation than the one in the question stem",
+            "A human spokesperson who explains an AI product to the public” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       explanation:
         "Representation is about encoding things — words, images, choices — as data so an AI can work with them, not an accuracy score, a spokesperson, or hardware.",
@@ -344,12 +344,12 @@ export const aiLesson4: AILessonConfig = {
       id: "q4",
       question: "Why can a bad representation lead to unfair AI decisions?",
       choices: [
-        "Representations are always perfect, so this can't actually happen",
-        "Because numbers, once collected, can never be revised or corrected",
-        "Because a representation leaves things out — it may miss or mismeasure what matters",
-        "Because AI systems refuse to run unless the data is flawless",
-      ],
-      correctIndex: 2,
+            "Representations are always perfect, so this can't actually happen” belongs to a different situation than the one in the question stem",
+            "Because AI systems refuse to run unless the data is flawless” belongs to a different situation than the one in the question stem",
+            "Because numbers, once collected, can never be revised or corrected” belongs to a different situation than the one in the question stem",
+            "Because a representation leaves things out — it may miss or mismeasure what matters",
+          ],
+      correctIndex: 3,
       explanation:
         "Every representation simplifies reality and leaves something out. If it misses what's important, the AI's results suffer.",
     },
@@ -357,12 +357,12 @@ export const aiLesson4: AILessonConfig = {
       id: "q5",
       question: "What is a 'proxy variable'?",
       choices: [
-        "A backup server used to run AI models",
-        "A second copy of the same training dataset",
-        "A synonym for 'token'",
-        "A feature that seems neutral but secretly correlates with something sensitive, like race or income",
-      ],
-      correctIndex: 3,
+            "Picking “A synonym for 'token'” is a common mix-up that confuses a nearby idea with the right one",
+            "“A backup server used to run AI models” describes a different situation than the one in the question stem",
+            "A feature that seems neutral but secretly correlates with something sensitive, like race or income",
+            "“A second copy of the same training dataset” describes a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Proxy variables (like zip code) can encode sensitive information indirectly, causing bias even without a sensitive label ever appearing in the data.",
     },
@@ -370,11 +370,11 @@ export const aiLesson4: AILessonConfig = {
       id: "q6",
       question: "In the real risk-assessment tool investigation, what was a key source of the unequal outcomes?",
       choices: [
-        "The company deliberately labeled defendants by race in the training data",
-        "The defendants themselves reported false information to the tool",
-        "The tool's predictions were later proven to be entirely accurate for everyone",
-        "Features tied to historical arrest patterns carried forward uneven policing patterns into the predictions",
-      ],
+            "The defendants themselves reported false information to the tool” belongs to a different situation than the one in the question stem",
+            "The company deliberately labeled defendants by race in the training data” belongs to a different situation than the one in the question stem",
+            "The tool's predictions were later proven to be entirely accurate for everyone” belongs to a different situation than the one in the question stem",
+            "Features tied to historical arrest patterns carried forward uneven policing patterns into the predictions",
+          ],
       correctIndex: 3,
       explanation:
         "Representation choices — like using arrest history as a feature — can carry forward existing real-world unevenness into a model's predictions.",
@@ -383,12 +383,12 @@ export const aiLesson4: AILessonConfig = {
       id: "q7",
       question: "Why is 'it's just numbers, so it's objective' a misleading claim?",
       choices: [
-        "Because numbers are always rounded, so they're technically inaccurate",
-        "Because computers occasionally make random arithmetic errors",
-        "Objective measurement is impossible in any field, including science",
-        "A human decided which numbers to measure in the first place, and that decision can carry hidden bias",
-      ],
-      correctIndex: 3,
+            "Because computers occasionally make random arithmetic errors” belongs to a different situation than the one in the question stem",
+            "A human decided which numbers to measure in the first place, and that decision can carry hidden bias",
+            "Because numbers are always rounded, so they're technically inaccurate” belongs to a different situation than the one in the question stem",
+            "Objective measurement is impossible in any field, including science” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "The choice of what to measure is a human decision, made before any 'objective-looking' number appears — and that choice deserves scrutiny.",
     },
@@ -396,12 +396,12 @@ export const aiLesson4: AILessonConfig = {
       id: "q8",
       question: "If a school wanted to represent 'how well a student is doing' using only 5 features, what's the smartest next step after choosing them?",
       choices: [
-        "Assume the 5 features capture the whole truth and stop thinking about it",
-        "Add the student's home address as a feature with no further thought",
-        "Ask what important things those 5 features leave out, and whether any of them act as proxy variables",
-        "Delete all other information immediately",
-      ],
-      correctIndex: 2,
+            "Ask what important things those 5 features leave out, and whether any of them act as proxy variables",
+            "Add the student's home address as a feature with no further thought” belongs to a different situation than the one in the question stem",
+            "“Delete all other information immediately” describes a different situation than the one in the question stem",
+            "Assume the 5 features capture the whole truth and stop thinking about it” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 0,
       explanation:
         "Naming what's missing — and checking for proxy variables — is the core representation-literacy skill from this lesson.",
     },

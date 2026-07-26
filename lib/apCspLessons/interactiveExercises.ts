@@ -33,12 +33,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"On a collaborative project, each person should work in isolation until the deadline, then paste everything together. Documentation is optional because the code is self-explanatory. Feedback only matters after the final version ships."',
       choices: [
-        "Effective collaboration needs shared goals, early integration, ongoing feedback, and documentation of decisions — not last-minute glue",
-        "Isolation is required by College Board so each student gets unique credit",
-        "Documentation is banned because it counts as outside help",
-        "Feedback after shipping is the only feedback College Board recognizes",
-      ],
-      correctIndex: 0,
+            "“Isolation is required by College Board so each student gets unique credit” describes a different situation than the one in the question stem",
+            "Picking “Documentation is banned because it counts as outside help” is a common mix-up that confuses a nearby idea with the right one",
+            "“Feedback after shipping is the only feedback College Board recognizes” describes a different situation than the one in the question stem",
+            "Effective collaboration needs shared goals, early integration, ongoing feedback, and documentation of decisions — not last-minute glue",
+          ],
+      correctIndex: 3,
       hint: "Creative Development rewards iteration and communication, not silent silos.",
       explanation:
         "AP CSP Creative Development expects purposeful collaboration: shared purpose, incremental integration, testing, and documentation. Waiting until the end to combine work is a high-risk process failure, not a best practice.",
@@ -181,12 +181,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"My program\'s purpose is that I used nested if statements and a for loop. Those constructs prove the project is complete because College Board mainly grades syntax variety."',
       choices: [
-        "Purpose is the user-facing goal/problem solved; constructs are implementation — syntax variety alone does not define purpose",
-        "Purpose must always be written as a list of Python keywords",
-        "Nested ifs automatically satisfy every Create PT requirement",
-        "College Board only scores font choice in screenshots",
-      ],
-      correctIndex: 0,
+            "“Purpose must always be written as a list of Python keywords” describes a different situation than the one in the question stem",
+            "Purpose is the user-facing goal/problem solved; constructs are implementation — syntax variety alone does not define purpose",
+            "A rushed pass can land on college Board only scores font choice in screenshots”; careful readers reject it for this problem",
+            "“Nested ifs automatically satisfy every Create PT requirement” describes a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       hint: "Purpose answers why the program exists for a user — not which keywords you typed.",
       explanation:
         "AP CSP separates purpose (problem/opportunity for users) from implementation details. Listing constructs without a clear user goal is a common Create PT miss.",
@@ -259,12 +259,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"The binary number 1011 equals 1+0+1+1 = 3 in decimal because you add the digits. Also, 8 bits can represent exactly 8 different values."',
       choices: [
-        "Binary place values are powers of 2 (1011₂ = 11₁₀), and n bits represent 2ⁿ distinct values (8 bits → 256), not 'sum the digits' or 'n values'",
-        "Binary digits are always added, so 1011 really is 3",
-        "8 bits always means exactly 8 values because each bit is one value",
-        "Decimal and binary are identical number systems, so conversion is unnecessary",
-      ],
-      correctIndex: 0,
+            "It can seem like binary digits are always added, so 1011 really is 3, but that reading skips the distinction this question is testing",
+            "“Decimal and binary are identical number systems, so conversion is unnecessary” describes a different situation than the one in the question stem",
+            "Binary place values are powers of 2 (1011₂ = 11₁₀), and n bits represent 2ⁿ distinct values (8 bits → 256), not 'sum the digits' or 'n values'",
+            "Picking “8 bits always means exactly 8 values because each bit is one value” is a common mix-up that confuses a nearby idea with the right one",
+          ],
+      correctIndex: 2,
       hint: "Place value, not digit-sum. Capacity is 2 to the power of bit-count.",
       explanation:
         "AP CSP hammers place value: 1011₂ = 8+0+2+1 = 11₁₀. With n bits you get 2ⁿ patterns (0 through 2ⁿ−1 for unsigned). Digit-sum and 'n bits → n values' are high-frequency distractors.",
@@ -328,12 +328,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"JPEG is always better than PNG for every file because lossy compression keeps every original bit. Lossless compression permanently deletes data, so scientists should never use it for measurements."',
       choices: [
-        "JPEG (often lossy) may discard detail; lossless (e.g., PNG/FLAC-style) preserves every bit — choose based on whether perfect restoration matters",
-        "Lossy always preserves every bit by definition",
-        "Lossless always deletes half the file",
-        "Scientists must use JPEG for all numeric tables",
-      ],
-      correctIndex: 0,
+            "A common mix-up is to treat scientists must use JPEG for all numeric tables as enough, which confuses a nearby idea with the right one",
+            "A common mix-up is to treat lossy always preserves every bit by definition as enough, which confuses a nearby idea with the right one",
+            "JPEG (often lossy) may discard detail; lossless (e.g., PNG/FLAC-style) preserves every bit — choose based on whether perfect restoration matters",
+            "A common mix-up is to treat lossless always deletes half the file as enough, which confuses a nearby idea with the right one once the deciding rule is named clearly",
+          ],
+      correctIndex: 2,
       hint: "Which family can reconstruct the exact original?",
       explanation:
         "Lossy trades fidelity for size; lossless preserves exact data. Measurement logs usually need lossless (or uncompressed). Image sharing may accept lossy. The tip reverses both definitions.",
@@ -472,11 +472,11 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"In AP CSP pseudocode, (true OR <anything>) is always false because OR means both sides must be true. Also, = and ≠ are the only relational operators you need because < and > are not used in programming."',
       choices: [
-        "OR is true if either side is true (true OR x → true); relational operators include <, >, ≤, ≥, =, ≠",
-        "OR really does require both sides true; that part is correct",
-        "Relational comparisons are illegal in AP CSP",
-        "Boolean expressions can never appear in conditionals",
-      ],
+            "OR is true if either side is true (true OR x → true); relational operators include <, >, ≤, ≥, =, ≠",
+            "Boolean expressions can never appear in conditionals” belongs to a different situation than the one in the question stem",
+            "Relational comparisons are illegal in AP CSP” belongs to a different situation than the one in the question stem",
+            "OR really does require both sides true; that part is correct” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       hint: "OR vs AND truth conditions — and which comparisons exist.",
       explanation:
@@ -537,12 +537,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "def passed(score):\n    # Spec: pass if score is 60 through 100 inclusive\n    if score > 60 and score < 100:\n        return True\n    return False\n# Fails for score = 60 and score = 100",
       choices: [
-        "Boundary operators are wrong — need score >= 60 and score <= 100 (inclusive endpoints)",
-        "The function should never return False",
-        "Parameters are illegal inside procedures on the AP exam",
-        "Comparison operators cannot be combined with and",
-      ],
-      correctIndex: 0,
+            "Parameters are illegal inside procedures on the AP exam” belongs to a different situation than the one in the question stem",
+            "Comparison operators cannot be combined with and” belongs to a different situation than the one in the question stem",
+            "Boundary operators are wrong — need score >= 60 and score <= 100 (inclusive endpoints)",
+            "The function should never return False” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       hint: "Inclusive ranges need ≥ and ≤, not strict inequalities.",
       explanation:
         "Inclusive bounds are a staple MCQ/Create PT trap. `> 60` rejects 60; `< 100` rejects 100. Use `>=` and `<=` (or equivalent pseudocode) for inclusive specs.",
@@ -618,12 +618,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "i ← 1\nREPEAT UNTIL (i > 5)\n{\n  DISPLAY i\n  // forgot to change i\n}",
       choices: [
-        "The loop condition never becomes true because i is never updated toward 6",
-        "REPEAT UNTIL is illegal in AP CSP pseudocode",
-        "DISPLAY always resets i to 0",
-        "UNTIL loops run exactly once by definition",
-      ],
-      correctIndex: 0,
+            "REPEAT UNTIL is illegal in AP CSP pseudocode” belongs to a different situation than the one in the question stem",
+            "UNTIL loops run exactly once by definition” belongs to a different situation than the one in the question stem",
+            "The loop condition never becomes true because i is never updated toward 6",
+            "DISPLAY always resets i to 0” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       hint: "What must change for (i > 5) to become true?",
       explanation:
         "If the state used in the terminating condition never changes, iteration is infinite. AP questions love missing increments/updates.",
@@ -680,11 +680,11 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         'data ← [10, 20, 30, 40]\n# Student assumes Python 0-based habits on the Exam Reference Sheet:\ni ← 0\nDISPLAY data[i]   // expects 10\n# Also claims: "last index is always LENGTH(data) - 1 in AP CSP pseudocode."',
       choices: [
-        "AP CSP Exam Reference lists are 1-based: first index is 1, last is LENGTH(data); using 0 (or length−1 as if 0-based) is an off-by-one / model mix-up",
-        "LENGTH always returns 0 on the AP exam",
-        "Lists cannot store numbers in AP CSP",
-        "Indexing is never tested on the AP CSP exam",
-      ],
+            "AP CSP Exam Reference lists are 1-based: first index is 1, last is LENGTH(data); using 0 (or length−1 as if 0-based) is an off-by-one / model mix-up",
+            "A common mix-up is to treat lENGTH always returns 0 on the AP exam as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat lists cannot store numbers in AP CSP as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat indexing is never tested on the AP CSP exam as enough, which confuses a nearby idea with the right one",
+          ],
       correctIndex: 0,
       hint: "Exam Reference Sheet lists start at index 1 — not 0.",
       explanation:
@@ -833,12 +833,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"A procedure is the same thing as abstraction: any named block automatically removes all complexity forever. Parameters are optional decorations and never change behavior. Calling a procedure always executes every line in the file."',
       choices: [
-        "A procedure is a named process you can call; abstraction is the design idea of hiding detail — parameters matter, and a call runs that procedure's body, not the whole file",
-        "Procedures and abstraction are identical synonyms in the CED",
-        "Parameters never affect results",
-        "A procedure call always runs the entire program file top to bottom",
-      ],
-      correctIndex: 0,
+            "A common mix-up is to treat parameters never affect results as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat a procedure call always runs the entire program file top to bottom as enough, which confuses a nearby idea with the right one",
+            "A procedure is a named process you can call; abstraction is the design idea of hiding detail — parameters matter, and a call runs that procedure's body, not the whole file",
+            "A common mix-up is to treat procedures and abstraction are identical synonyms in the CED as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+          ],
+      correctIndex: 2,
       hint: "Procedure = mechanism; abstraction = why/how we manage complexity.",
       explanation:
         "AP CSP distinguishes writing procedures (with parameters) from the broader idea of abstraction. Calls transfer control to the procedure body with arguments bound to parameters — they do not magically run unrelated file lines.",
@@ -920,12 +920,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"If a computer has 4 cores, every algorithm becomes exactly 4× faster with zero limits. Parallel computing also removes all dependencies, so steps that need prior results can safely run at the same time. Sequential computing is never used in modern systems."',
       choices: [
-        "Speedup is limited by non-parallelizable parts and dependencies; sequential steps remain necessary when later work needs earlier results",
-        "4 cores always give perfect 4× speedup on every problem",
-        "Dependencies never matter in parallel systems",
-        "Sequential computing was abolished by College Board",
-      ],
-      correctIndex: 0,
+            "Some learners answer “4 cores always give perfect 4× speedup on every problem”, yet that does not match the precise idea from the lesson",
+            "Speedup is limited by non-parallelizable parts and dependencies; sequential steps remain necessary when later work needs earlier results",
+            "It can seem like dependencies never matter in parallel systems, but that reading skips the distinction this question is testing",
+            "It can seem like sequential computing was abolished by College Board, but that reading skips the distinction this question is testing",
+          ],
+      correctIndex: 1,
       hint: "Think Amdahl-style limits and data dependencies — AP CSP language.",
       explanation:
         "AP CSP contrasts sequential and parallel: parallel can reduce time when tasks are independent, but dependent steps and overhead limit speedup. Sequential solutions remain fundamental.",
@@ -976,12 +976,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"Hardware is the programs you download. Software is the physical chips and wires. An operating system is optional hardware that physically stores electrons. Fault tolerance means a system has no redundancy and fails completely if any part fails."',
       choices: [
-        "Hardware is physical; software is programs/instructions; OS is system software; fault tolerance relies on redundancy so failure of a part need not fail the whole",
-        "Hardware really means apps from a store",
-        "Fault tolerance forbids backups by definition",
-        "Operating systems are made of copper only",
-      ],
-      correctIndex: 0,
+            "A common mix-up is to treat fault tolerance forbids backups by definition as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat hardware really means apps from a store as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat operating systems are made of copper only as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "Hardware is physical; software is programs/instructions; OS is system software; fault tolerance relies on redundancy so failure of a part need not fail the whole",
+          ],
+      correctIndex: 3,
       hint: "Physical vs instructions; redundancy vs single point of failure.",
       explanation:
         "AP CSP Computing Systems vocabulary is precise: hardware/software roles, OS as system software, and fault tolerance through redundancy — not fragility.",
@@ -1052,11 +1052,11 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"The Internet and the World Wide Web are the same thing. HTTP is the only protocol on the Internet. IP addresses are optional because URLs physically are the wires. DNS exists to make networks slower on purpose."',
       choices: [
-        "The Internet is the global network of networks; the WWW is an application system of linked resources on top; many protocols exist; DNS maps names to IP addresses",
-        "WWW and Internet are official synonyms in the CED",
-        "HTTP is the sole Internet protocol",
-        "DNS is only used to slow downloads",
-      ],
+            "The Internet is the global network of networks; the WWW is an application system of linked resources on top; many protocols exist; DNS maps names to IP addresses",
+            "A common mix-up is to treat hTTP is the sole Internet protocol as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat wWW and Internet are official synonyms in the CED as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat dNS is only used to slow downloads as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+          ],
       correctIndex: 0,
       hint: "Network of networks vs web of linked documents/resources.",
       explanation:
@@ -1196,11 +1196,11 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"Facial recognition in schools is purely beneficial because technology is neutral. It cannot create bias, cannot misidentify anyone, and has the same effect on every student group. Privacy concerns are irrelevant if the vendor says the tool is accurate."',
       choices: [
-        "Computing innovations have beneficial and harmful effects; systems can encode bias; effects differ across groups; vendor claims do not erase privacy/equity risks",
-        "Technology is always neutral and effect-free",
-        "Misidentification is impossible for digital cameras",
-        "Privacy is never an AP CSP topic",
-      ],
+            "Computing innovations have beneficial and harmful effects; systems can encode bias; effects differ across groups; vendor claims do not erase privacy/equity risks",
+            "A common mix-up is to treat privacy is never an AP CSP topic as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat misidentification is impossible for digital cameras as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat technology is always neutral and effect-free as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+          ],
       correctIndex: 0,
       hint: "Impact answers need benefits, harms, and uneven effects — not utopia.",
       explanation:
@@ -1353,11 +1353,11 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"If it\'s on the Internet, it\'s public domain. For school projects you can copy any song, logo, or full movie into your app because education automatically means unlimited fair use. Crediting the author always makes copyrighted use legal."',
       choices: [
-        "Online ≠ public domain; fair use is limited and context-specific; attribution alone does not authorize unrestricted copying",
-        "Everything online is free to reuse commercially",
-        "School use always erases copyright",
-        "Credit always equals a legal license",
-      ],
+            "Online ≠ public domain; fair use is limited and context-specific; attribution alone does not authorize unrestricted copying",
+            "It can seem like school use always erases copyright, but that reading skips the distinction this question is testing",
+            "It can seem like credit always equals a legal license, but that reading skips the distinction this question is testing",
+            "Picking “Everything online is free to reuse commercially” is a common mix-up that confuses a nearby idea with the right one",
+          ],
       correctIndex: 0,
       hint: "Public domain, license, and fair use are different doors — not one magic key.",
       explanation:
@@ -1506,12 +1506,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"I\'ll submit a program with only print statements and no list. I\'ll copy a procedure from a tutorial video word-for-word and claim it as student-developed. My written responses will describe features I meant to build but did not. Screenshots can be from a different project."',
       choices: [
-        "Create PT requires your own program with required features (including list + student-developed procedure with param(s) + selection + iteration) and written responses that match the submitted program",
-        "Print-only programs always earn full Create PT credit",
-        "Copied tutorial procedures count as student-developed if you change variable names slightly",
-        "Written responses may invent features not in the video/code",
-      ],
-      correctIndex: 0,
+            "A common mix-up is to treat copied tutorial procedures count as student-developed if you change variable names slightly as enough, which confuses a nearby idea with the right one once the deciding rule is named clearly",
+            "Create PT requires your own program with required features (including list + student-developed procedure with param(s) + selection + iteration) and written responses that match the submitted program",
+            "A common mix-up is to treat print-only programs always earn full Create PT credit as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat written responses may invent features not in the video/code as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+          ],
+      correctIndex: 1,
       hint: "Evidence must exist in the program you submit — and it must be yours.",
       explanation:
         "Create PT credit is evidence-based: required constructs in your authentic program, plus written responses aligned to that program. Fabrication and uncredited copying are integrity failures.",
@@ -1651,12 +1651,12 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"1010₂ = 1010₁₀. Lossy compression restores every bit. Parallel always beats sequential with unlimited speedup. The WWW is the Internet. Fair use means any school project may copy any media. Create PT needs no list if your UI is pretty."',
       choices: [
-        "1010₂ = 10₁₀; lossy discards info; parallel speedup is limited by dependencies; WWW ≠ Internet; fair use is limited; Create PT still needs required algorithmic components including meaningful list use",
-        "All of those study-key lines are already correct AP CSP facts",
-        "Binary equals decimal always when digits look the same",
-        "Pretty UI replaces Create PT algorithm requirements",
-      ],
-      correctIndex: 0,
+            "A common mix-up is to treat binary equals decimal always when digits look the same as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat pretty UI replaces Create PT algorithm requirements as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "1010₂ = 10₁₀; lossy discards info; parallel speedup is limited by dependencies; WWW ≠ Internet; fair use is limited; Create PT still needs required algorithmic components including meaningful list use",
+            "A common mix-up is to treat all of those study-key lines are already correct AP CSP facts as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+          ],
+      correctIndex: 2,
       hint: "Every sentence is a famous distractor family — invert each one.",
       explanation:
         "This is the exam-prep gauntlet: place value, compression fidelity, parallel limits, Internet vs WWW, IP/fair use nuance, and Create PT evidence requirements. If you can untangle this cluster, you are ready.",

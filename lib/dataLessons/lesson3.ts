@@ -102,8 +102,12 @@ export const daLesson3: DataLessonConfig = {
         body: `Here's the twist that surprises most beginners: \`DISTINCT\` doesn't just look at one column — it looks at the **combination** of every column you selected. \`SELECT DISTINCT item\` finds unique items, but \`SELECT DISTINCT item, price\` finds unique **item-and-price pairs**.\n\nThat means a value like "Pizza slice" could still appear twice in a multi-column DISTINCT query, *if* it had two different prices attached to it. DISTINCT is checking whether the whole row is a repeat, not just one piece of it.`,
         checkIn: {
           prompt: "If two students both ordered a Pizza slice at the SAME price, how many rows does SELECT DISTINCT item, price show for it?",
-          choices: ["1 row — the combo is identical", "2 rows — one per student", "0 rows"],
-          correctIndex: 0,
+          choices: [
+            "2 rows — one per student",
+            "1 row — the combo is identical",
+            "0 rows” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 1,
           explanation: "DISTINCT checks the full combination of selected columns. If item AND price match exactly, it's treated as one repeated combo and shown once.",
         },
       },
@@ -211,7 +215,7 @@ export const daLesson3: DataLessonConfig = {
         body: `Let's make sure column order and DISTINCT are both locked in.`,
         checkIn: {
           prompt: "Which query lists each unique item ALONGSIDE its price, with item shown first?",
-          choices: ["SELECT DISTINCT item, price FROM lunch_orders;", "SELECT DISTINCT price, item FROM lunch_orders;", "SELECT item, DISTINCT price FROM lunch_orders;"],
+          choices: ["SELECT DISTINCT item, price FROM lunch_orders", "SELECT item, DISTINCT price FROM lunch_orders", "SELECT DISTINCT price, item FROM lunch_orders"],
           correctIndex: 0,
           explanation: "DISTINCT sits right after SELECT, and listing item before price puts item first in the result — exactly what's needed here.",
         },

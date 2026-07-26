@@ -265,7 +265,11 @@ print("Nice to meet you, " + name)
         },
         checkIn: {
           prompt: "What happens if you write `input(\"What is your name? \")` with no `name =` in front?",
-          choices: ["The question is asked, but the answer isn't saved anywhere", "Python won't run at all", "The answer is automatically saved as a number"],
+          choices: [
+            "The question is asked, but the answer isn't saved anywhere",
+            "Python won't run at all” belongs to a different situation than the one in the question stem",
+            "The answer is automatically saved as a number” belongs to a different situation than the one in the question stem",
+          ],
           correctIndex: 0,
           explanation: "input() still asks the question, but without a variable to catch the answer, it's asked and then immediately lost.",
         },
@@ -305,7 +309,11 @@ print("Nice to meet you, " + name)
         },
         checkIn: {
           prompt: "Why does the SAME line of code produce different greetings for different users?",
-          choices: ["Python randomly picks a name", "print() automatically detects who is using the computer", "The variable name holds whatever was typed, so the printed message changes each run"],
+          choices: [
+            "print() automatically detects who is using the computer” belongs to a different situation than the one in the question stem",
+            "Python randomly picks a name” belongs to a different situation than the one in the question stem",
+            "The variable name holds whatever was typed, so the printed message changes each run",
+          ],
           correctIndex: 2,
           explanation: "Because the message uses the variable (not a hardcoded name), the output changes based on whatever was stored in it.",
         },
@@ -368,11 +376,11 @@ print("Nice to meet you, " + name)
         checkIn: {
           prompt: 'What is the bug in `name = input(What is your name? )`?',
           choices: [
-            "Nothing, it's correct",
+            "Nothing, it's correct” belongs to a different situation than the one in the question stem",
+            "input should be capitalized” belongs to a different situation than the one in the question stem",
             "The question text is missing quotes around it",
-            "input should be capitalized",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "Text inside input() must be wrapped in quotes, or Python thinks you're referencing a variable name instead of writing a string.",
         },
       },
@@ -397,11 +405,11 @@ print("Nice to meet you, " + name)
         checkIn: {
           prompt: "Why does `input(What is your name?)` crash?",
           choices: [
-            "input() only works with numbers",
+            "You need two input() lines instead of one” belongs to a different situation than the one in the question stem",
+            "input() only works with numbers” belongs to a different situation than the one in the question stem",
             "Python thinks What, is, your, and name are variable names that don't exist",
-            "You need two input() lines instead of one",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "Without quotes, Python treats each word as a variable reference. Since those variables were never created, it raises an error.",
         },
       },

@@ -63,12 +63,12 @@ export const cyberLesson7: AILessonConfig = {
         checkIn: {
           prompt: "A school buys a device that connects 24 classroom computers so they can reach each other on the same floor, and a separate device that connects that floor to the district internet link. Which pairing is correct?",
           choices: [
-            "Both devices are only DNS servers",
+            "Floor device ≈ WAN; edge device ≈ MAC address” belongs to a different situation than the one in the question stem",
+            "Both must be the same device type because IP and MAC are identical” belongs to a different situation than the one in the question stem",
+            "Both devices are only DNS servers” belongs to a different situation than the one in the question stem",
             "Floor device ≈ switch (LAN forwarding); internet-edge device ≈ router (between networks)",
-            "Floor device ≈ WAN; edge device ≈ MAC address",
-            "Both must be the same device type because IP and MAC are identical",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Switches forward within a LAN; routers forward between networks (LAN ↔ WAN/internet). MAC vs IP support those different jobs.",
         },
@@ -90,10 +90,10 @@ export const cyberLesson7: AILessonConfig = {
         checkIn: {
           prompt: "A library uses one central switch for all wired seats (star). On a busy afternoon, that switch fails. Which evaluation is most accurate?",
           choices: [
-            "Mesh topology guarantees this never happens, so it must have been DNS",
+            "Some learners answer “Bandwidth always increases when a switch fails”, yet that does not match the precise idea from the lesson",
             "Star's central device is a single point of failure — many local clients lose LAN connectivity even if the WAN link is healthy",
-            "Routers never matter in a star, so the WAN must also be down",
-            "Bandwidth always increases when a switch fails",
+            "“Routers never matter in a star, so the WAN must also be down” describes a different situation than the one in the question stem",
+            "“Mesh topology guarantees this never happens, so it must have been DNS” describes a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -112,12 +112,12 @@ export const cyberLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Nate could load a page using a raw numeric address but not by typing the website's name. What does that pattern most strongly suggest?",
           choices: [
-            "A total internet outage with nothing reachable at all",
+            "“A broken keyboard” describes a different situation than the one in the question stem",
+            "A total internet outage with nothing reachable at all” belongs to a different situation than the one in the question stem",
             "A likely DNS / name-resolution problem, since raw connectivity still worked",
-            "A broken keyboard",
-            "A firewall blocking every single website",
+            "A firewall blocking every single website” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "\"IP works, name fails\" is the classic DNS triage signal — the network path is fine, but name-to-address translation isn't completing.",
         },
@@ -134,10 +134,10 @@ export const cyberLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Students report \"the internet is down,\" but the WAN link and core switch look healthy while the campus DNS servers are overloaded. What does that imply for evaluating the outage?",
           choices: [
-            "Server roles don't affect reliability if switches work",
+            "“Ports are physical holes that must have melted” describes a different situation than the one in the question stem",
             "A critical server role (DNS) can break name-based access even when topology and bandwidth on the links are fine",
-            "Only routers can cause user-visible failures",
-            "Ports are physical holes that must have melted",
+            "“Only routers can cause user-visible failures” describes a different situation than the one in the question stem",
+            "“Server roles don't affect reliability if switches work” describes a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -152,12 +152,12 @@ export const cyberLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Why does Step 2 (ruling out total outage) matter before jumping to a DNS conclusion?",
           choices: [
-            "It doesn't matter — you should always assume DNS first",
+            "Picking “It doesn't matter — you should always assume DNS first” is a common mix-up that confuses a nearby idea with the right one",
+            "Picking “Because DNS problems always mean the router is broken” is a common mix-up that confuses a nearby idea with the right one",
             "Because if raw IPs also failed to load, the problem would more likely be earlier in the path (LAN/router/WAN), not DNS specifically",
-            "Because DNS problems always mean the router is broken",
-            "Because total outages are impossible on library Wi-Fi",
+            "Picking “Because total outages are impossible on library Wi-Fi” is a common mix-up that confuses a nearby idea with the right one",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Confirming that at least raw connectivity works helps narrow the problem specifically to name resolution, rather than a broader path failure.",
         },
@@ -208,12 +208,12 @@ export const cyberLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Which statement correctly describes what a VPN actually protects?",
           choices: [
-            "It makes every website you visit automatically trustworthy",
             "It protects the tunnel between your device and the VPN endpoint, but doesn't guarantee the destination site is safe",
-            "It replaces the need for DNS entirely",
-            "It converts a WAN into a LAN",
+            "It can seem like it converts a WAN into a LAN, but that reading skips the distinction this question is testing",
+            "“It makes every website you visit automatically trustworthy” describes a different situation than the one in the question stem",
+            "Picking “It replaces the need for DNS entirely” is a common mix-up that confuses a nearby idea with the right one",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "A VPN encrypts and protects your connection to its endpoint. You still need HTTPS, domain checks, and good judgment about the destination itself.",
         },
@@ -323,12 +323,12 @@ Defender habit: treat **network choice** and **destination trust** as separate d
         checkIn: {
           prompt: "In the mini case, why did already-connected video calls keep working during the DNS issue, while new website visits failed?",
           choices: [
-            "Video calls don't use the internet at all",
+            "“Video calls don't use the internet at all” describes a different situation than the one in the question stem",
+            "“The router was completely offline for everyone” describes a different situation than the one in the question stem",
             "Already-established connections didn't need a fresh DNS name lookup, while new connections to named sites did",
-            "Video calls are immune to all network problems",
-            "The router was completely offline for everyone",
+            "“Video calls are immune to all network problems” describes a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Once a connection is already established, it typically doesn't need to re-resolve a domain name — which is why existing calls survived while new name-based lookups failed.",
         },
@@ -370,12 +370,12 @@ Defender habit: treat **network choice** and **destination trust** as separate d
       id: "q1",
       question: "What is the main job of DNS, and how can DNS load affect reliability even when links are fine?",
       choices: [
-        "Map domain names to IP addresses — overloaded DNS can break name-based access while switches/WAN still work",
-        "Encrypt all traffic between a client and a server",
-        "Block malicious IP addresses the way a firewall does",
-        "Assign a permanent private IP address to every device",
-      ],
-      correctIndex: 0,
+            "Assign a permanent private IP address to every device” belongs to a different situation than the one in the question stem",
+            "“Encrypt all traffic between a client and a server” describes a different situation than the one in the question stem",
+            "Map domain names to IP addresses — overloaded DNS can break name-based access while switches/WAN still work",
+            "Block malicious IP addresses the way a firewall does” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "DNS translates names to IPs; as a server role on the path, its capacity is part of scalability/reliability evaluation.",
     },
@@ -383,12 +383,12 @@ Defender habit: treat **network choice** and **destination trust** as separate d
       id: "q2",
       question: "Comparing a switch and a router, which evaluation is correct?",
       choices: [
-        "Both only store passwords; neither forwards traffic",
-        "A switch typically forwards within a LAN; a router forwards between networks (e.g., LAN ↔ internet)",
-        "A router only works with MAC addresses; a switch only works with DNS",
-        "They are identical devices with different brand names",
-      ],
-      correctIndex: 1,
+            "They are identical devices with different brand names” belongs to a different situation than the one in the question stem",
+            "A router only works with MAC addresses; a switch only works with DNS” belongs to a different situation than the one in the question stem",
+            "Both only store passwords; neither forwards traffic” belongs to a different situation than the one in the question stem",
+            "A switch typically forwards within a LAN; a router forwards between networks (e.g., LAN ↔ internet)",
+          ],
+      correctIndex: 3,
       explanation:
         "Switches interconnect local devices; routers connect different networks — a core architecture distinction for defenders.",
     },
@@ -396,12 +396,12 @@ Defender habit: treat **network choice** and **destination trust** as separate d
       id: "q3",
       question: "A lab uses a star topology with one closet switch. Why might that design hurt reliability under failure?",
       choices: [
-        "Star topologies never fail, so bandwidth must be infinite",
-        "The center is a single point of failure — if that switch dies, many clients lose local connectivity",
-        "Mesh is always worse than star for every campus",
-        "Topology never interacts with scalability or delay",
-      ],
-      correctIndex: 1,
+            "Topology never interacts with scalability or delay” belongs to a different situation than the one in the question stem",
+            "Mesh is always worse than star for every campus” belongs to a different situation than the one in the question stem",
+            "The center is a single point of failure — if that switch dies, many clients lose local connectivity",
+            "Star topologies never fail, so bandwidth must be infinite” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Star is simple to manage but concentrates risk at the hub — evaluate that tradeoff when recommending designs.",
     },
@@ -422,12 +422,12 @@ Defender habit: treat **network choice** and **destination trust** as separate d
       id: "q5",
       question: "Which factor set best explains why a network that works for 30 users fails for 300 during testing week?",
       choices: [
-        "Bandwidth and load (and resulting delay) exceeded what the design scaled for — topology/server placement may also bottleneck",
-        "Closing every port guarantees infinite scalability",
-        "Ports only matter on Wi-Fi, so wired labs never congest",
-        "Private IP addresses stop working above 50 users automatically",
-      ],
-      correctIndex: 0,
+            "Ports only matter on Wi-Fi, so wired labs never congest — familiar wording, wrong fit for what the prompt is actually asking",
+            "“Private IP addresses stop working above 50 users automatically” describes a different situation than the one in the question stem",
+            "Treat “Closing every port guarantees infinite scalability” as a distractor: close in topic, incorrect for the required answer",
+            "Bandwidth and load (and resulting delay) exceeded what the design scaled for — topology/server placement may also bottleneck",
+          ],
+      correctIndex: 3,
       explanation:
         "Scalability evaluation weighs capacity, congestion/delay, topology, and server roles as usage grows.",
     },
@@ -448,12 +448,12 @@ Defender habit: treat **network choice** and **destination trust** as separate d
       id: "q7",
       question: "Why might a mesh-like design with redundant uplinks improve reliability compared with a single star uplink to the ISP?",
       choices: [
-        "Mesh always reduces bandwidth to zero",
-        "Alternate paths can keep traffic flowing if one link fails — at the cost of more complexity/expense",
-        "Redundant links delete the need for IP addresses",
-        "Star topologies cannot exist on school campuses",
-      ],
-      correctIndex: 1,
+            "“Mesh always reduces bandwidth to zero” describes a different situation than the one in the question stem",
+            "Star topologies cannot exist on school campuses” belongs to a different situation than the one in the question stem",
+            "Alternate paths can keep traffic flowing if one link fails — at the cost of more complexity/expense",
+            "Redundant links delete the need for IP addresses” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Evaluating topology means weighing resilience (alternate paths) against cost and operational complexity.",
     },
@@ -461,11 +461,11 @@ Defender habit: treat **network choice** and **destination trust** as separate d
       id: "q8",
       question: "Why evaluate routers, switches, servers, topology, and addressing together instead of memorizing isolated definitions?",
       choices: [
-        "Isolated definitions are enough for real outage diagnosis",
-        "These pieces never interact in practice",
-        "Only professional engineers may discuss topology",
-        "Reliability and scalability emerge from how the pieces interact as a path — so you can localize failures and justify design tradeoffs",
-      ],
+            "It can seem like these pieces never interact in practice, but that reading skips the distinction this question is testing",
+            "It can seem like only professional engineers may discuss topology, but that reading skips the distinction this question is testing",
+            "Picking “Isolated definitions are enough for real outage diagnosis” is a common mix-up that confuses a nearby idea with the right one",
+            "Reliability and scalability emerge from how the pieces interact as a path — so you can localize failures and justify design tradeoffs",
+          ],
       correctIndex: 3,
       explanation:
         "CSTA-style network reasoning is about relationships — path + capacity + topology — not flashcard terms alone.",

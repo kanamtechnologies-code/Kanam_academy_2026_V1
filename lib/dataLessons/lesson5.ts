@@ -106,7 +106,11 @@ export const daLesson5: DataLessonConfig = {
         },
         checkIn: {
           prompt: "What is the correct ORDER of operations for a 'Top 3' query?",
-          choices: ["ORDER BY first (to rank everything), then LIMIT 3 (to keep the top)", "LIMIT 3 first, then ORDER BY", "It doesn't matter which comes first"],
+          choices: [
+            "ORDER BY first (to rank everything), then LIMIT 3 (to keep the top)",
+            "LIMIT 3 first, then ORDER BY” belongs to a different situation than the one in the question stem",
+            "It doesn't matter which comes first” belongs to a different situation than the one in the question stem",
+          ],
           correctIndex: 0,
           explanation: "You must sort the full set first so the ranking is correct, THEN limit to the top rows — otherwise LIMIT might grab random rows before they're sorted.",
         },
@@ -144,9 +148,9 @@ export const daLesson5: DataLessonConfig = {
         checkIn: {
           prompt: "SELECT * FROM lunch_orders LIMIT 3; (with no ORDER BY) — what do you get?",
           choices: [
-            "The 3 most expensive orders",
+            "The 3 cheapest orders” belongs to a different situation than the one in the question stem",
             "Some 3 rows, in no guaranteed meaningful order",
-            "The 3 cheapest orders",
+            "The 3 most expensive orders” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation: "Without ORDER BY, LIMIT just grabs the first rows it happens to encounter — not necessarily the highest, lowest, or most meaningful ones.",
@@ -181,8 +185,12 @@ export const daLesson5: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "If a table has 8 rows and you only add ORDER BY (no WHERE), how many rows come back?",
-          choices: ["Fewer than 8", "Exactly 1", "Still all 8, just rearranged"],
-          correctIndex: 2,
+          choices: [
+            "Exactly 1” belongs to a different situation than the one in the question stem",
+            "Still all 8, just rearranged",
+            "Fewer than 8” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 1,
           explanation: "ORDER BY never removes rows — it only changes their order. All 8 rows are still there, just rearranged.",
         },
       },
@@ -221,7 +229,11 @@ export const daLesson5: DataLessonConfig = {
         body: `Let's confirm ORDER BY, DESC, and the Top N recipe are all locked in.`,
         checkIn: {
           prompt: "Which query finds the SINGLE cheapest lunch order?",
-          choices: ["SELECT * FROM lunch_orders ORDER BY price LIMIT 1;", "SELECT * FROM lunch_orders ORDER BY price DESC LIMIT 1;", "SELECT * FROM lunch_orders LIMIT 1;"],
+          choices: [
+            "SELECT * FROM lunch_orders ORDER BY price LIMIT 1",
+            "SELECT * FROM lunch_orders LIMIT 1” belongs to a different situation than the one in the question stem",
+            "SELECT * FROM lunch_orders ORDER BY price DESC LIMIT 1",
+          ],
           correctIndex: 0,
           explanation: "Sorting ascending (the default, no DESC) puts the cheapest first, and LIMIT 1 keeps just that single row.",
         },
@@ -250,7 +262,11 @@ export const daLesson5: DataLessonConfig = {
         body: `Whenever you \`ORDER BY\`, make a two-second habit of checking the **top row** (did the expected winner land first?) and, if you didn't use \`LIMIT\`, the **bottom row** (does the last entry make sense?).\n\nIf Sam's wrap should be most expensive but Alex's pizza slice appears first, your sort direction is probably wrong — you may have forgotten \`DESC\`. Catching that before you share a "Top Spender" list saves real embarrassment.`,
         checkIn: {
           prompt: "You wanted the MOST expensive order first but got the cheapest. What's the most likely fix?",
-          choices: ["Add LIMIT 1", "Change ORDER BY price to ORDER BY price DESC", "Remove the FROM clause"],
+          choices: [
+            "Add LIMIT 1” belongs to a different situation than the one in the question stem",
+            "Change ORDER BY price to ORDER BY price DESC",
+            "Remove the FROM clause” belongs to a different situation than the one in the question stem",
+          ],
           correctIndex: 1,
           explanation: "Without DESC, ORDER BY sorts ascending (lowest first). Adding DESC flips it so the highest price leads.",
         },

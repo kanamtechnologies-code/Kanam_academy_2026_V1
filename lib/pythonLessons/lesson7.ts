@@ -156,9 +156,9 @@ export const lesson7: PythonLessonConfig = {
         checkIn: {
           prompt: "When tracing state by hand, what should you write down at each step?",
           choices: [
-            "Only the final answer",
+            "Just the loop counter i” belongs to a different situation than the one in the question stem",
             "The value before the turn, what prints, and the value after the flip",
-            "Just the loop counter i",
+            "Only the final answer” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation: "A full trace tracks the value entering the turn, what gets printed, and the value leaving the turn (after any updates) — that's what lets you predict correctly.",
@@ -173,8 +173,12 @@ export const lesson7: PythonLessonConfig = {
         codeCaption: "Print BEFORE updating the state",
         checkIn: {
           prompt: "What goes wrong if you flip message to \"pong\" BEFORE printing it, on the very first turn?",
-          choices: ["Nothing changes", "Python throws an error", "The starting value \"ping\" never gets shown — the output starts one step late"],
-          correctIndex: 2,
+          choices: [
+            "The starting value \"ping\" never gets shown — the output starts one step late",
+            "“Nothing changes” describes a different situation than the one in the question stem",
+            "Python throws an error” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 0,
           explanation: "If you flip before printing, the printed value is always the flipped one, so the true starting value is skipped entirely.",
         },
       },
@@ -236,11 +240,11 @@ export const lesson7: PythonLessonConfig = {
         checkIn: {
           prompt: 'Your loop should start by printing "ping" but instead starts with "pong". Most likely cause?',
           choices: [
-            "range() has the wrong number",
+            "“range() has the wrong number” describes a different situation than the one in the question stem",
+            "print() is broken — familiar wording, wrong fit for what the prompt is actually asking",
             "The if/else flip runs before the print, so the starting value never actually gets shown",
-            "print() is broken",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "If the flip happens before the print, the printed value is always the already-flipped one, shifting the whole pattern by one step.",
         },
       },
@@ -277,11 +281,11 @@ export const lesson7: PythonLessonConfig = {
         checkIn: {
           prompt: "Your loop prints `ping` five times in a row. What's the most likely cause?",
           choices: [
-            "range() is broken",
+            "You need five separate if statements” belongs to a different situation than the one in the question stem",
+            "range() is broken” belongs to a different situation than the one in the question stem",
             "The if/else flip block isn't indented inside the for loop",
-            "You need five separate if statements",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "If the flip logic sits outside the loop, message never changes between turns, so the same value prints every time.",
         },
       },

@@ -153,8 +153,12 @@ export const lesson12: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "Inside a function, where must the if/else statements and their print lines be placed?",
-          choices: ["Indented inside the function, with each branch's print further indented", "Anywhere in the file — indentation doesn't matter", "Only after the function is called"],
-          correctIndex: 0,
+          choices: [
+            "Anywhere in the file — indentation doesn't matter” belongs to a different situation than the one in the question stem",
+            "Only after the function is called” belongs to a different situation than the one in the question stem",
+            "Indented inside the function, with each branch's print further indented",
+          ],
+          correctIndex: 2,
           explanation: "if/else must be indented inside the function body, and each branch's code (like print) must be indented one level further under it.",
         },
       },
@@ -170,9 +174,9 @@ export const lesson12: PythonLessonConfig = {
         checkIn: {
           prompt: 'What does `enemy == "dragon"` do?',
           choices: [
-            "Stores the text \"dragon\" into enemy",
+            "Stores the text \"dragon\" into enemy” belongs to a different situation than the one in the question stem",
             "Checks whether enemy already equals \"dragon\", returning True or False",
-            "Deletes the enemy variable",
+            "Deletes the enemy variable” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation: "== is a comparison, not an assignment. It checks whether the two values are equal and returns True or False.",
@@ -194,8 +198,12 @@ export const lesson12: PythonLessonConfig = {
         },
         checkIn: {
           prompt: "In a parameterized function with if/else rules, what decides which branch runs?",
-          choices: ["The function randomly picks one", "Whichever branch is written first always runs", "The condition, evaluated against the parameter's current value"],
-          correctIndex: 2,
+          choices: [
+            "The condition, evaluated against the parameter's current value",
+            "The function randomly picks one” belongs to a different situation than the one in the question stem",
+            "Whichever branch is written first always runs” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 0,
           explanation: "The if condition is checked against the parameter's value for that specific call — that comparison result determines which branch executes.",
         },
       },
@@ -255,8 +263,12 @@ export const lesson12: PythonLessonConfig = {
         body: `If your function seems to always take the same branch no matter what you pass in, the most common cause is a typo in the condition — often using \`=\` instead of \`==\`, or misspelling the value being compared. Check the condition line first.`,
         checkIn: {
           prompt: "Your function always prints the if-branch message, even when you expect the else-branch to run. What should you check first?",
-          choices: ["Whether Python needs to be reinstalled", "Whether the condition uses == (comparison) correctly, not = (assignment) or a typo", "Whether the function has too many parameters"],
-          correctIndex: 1,
+          choices: [
+            "Whether the function has too many parameters” belongs to a different situation than the one in the question stem",
+            "Whether Python needs to be reinstalled” belongs to a different situation than the one in the question stem",
+            "Whether the condition uses == (comparison) correctly, not = (assignment) or a typo",
+          ],
+          correctIndex: 2,
           explanation: "A condition that's always True (like using = instead of ==, or comparing to the wrong value) will make the if-branch run every time regardless of input.",
         },
       },
@@ -281,9 +293,9 @@ export const lesson12: PythonLessonConfig = {
         checkIn: {
           prompt: "Why should `else` be the last branch inside a function?",
           choices: [
-            "Python requires else to be last",
+            "else is optional and rarely needed” belongs to a different situation than the one in the question stem",
             "else matches everything not caught above — putting it first would catch all inputs",
-            "else is optional and rarely needed",
+            "Python requires else to be last” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation: "else is the catch-all fallback. If it came first, every input would hit it and no other branch would ever run.",
@@ -333,7 +345,11 @@ export const lesson12: PythonLessonConfig = {
         body: `Let's confirm the rules pattern is locked in.`,
         checkIn: {
           prompt: "Who decides what an if/else rule checks and does — the program or the human who wrote it?",
-          choices: ["The program decides on its own", "Neither — it's random", "The human who wrote the code — the program just follows the rule exactly"],
+          choices: [
+            "The program decides on its own” belongs to a different situation than the one in the question stem",
+            "Neither — it's random” belongs to a different situation than the one in the question stem",
+            "The human who wrote the code — the program just follows the rule exactly",
+          ],
           correctIndex: 2,
           explanation: "The human author writes the condition and both branches. The program never improvises — it always follows the written rule exactly.",
         },

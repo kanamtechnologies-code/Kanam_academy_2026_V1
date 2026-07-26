@@ -56,10 +56,10 @@ export const digitalLesson6: AILessonConfig = {
         checkIn: {
           prompt: "Your group keeps emailing 'report_v2_final' files and nobody knows which is newest. Why is a shared document usually the stronger starting point?",
           choices: [
-            "Shared docs can't be edited",
-            "Email is more expensive",
+            "Email files load faster” belongs to a different situation than the one in the question stem",
+            "Shared docs can't be edited” belongs to a different situation than the one in the question stem",
             "A shared doc keeps one true, always-current version and avoids version chaos",
-            "Email files load faster",
+            "Email is more expensive” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 2,
           explanation:
@@ -108,12 +108,12 @@ export const digitalLesson6: AILessonConfig = {
         checkIn: {
           prompt: "You disagree with a sentence a teammate wrote in the shared report. What's the best move?",
           choices: [
+            "Start a brand-new document” belongs to a different situation than the one in the question stem",
+            "Email the whole class about it” belongs to a different situation than the one in the question stem",
             "Leave a comment or use suggesting mode so they can respond",
-            "Start a brand-new document",
-            "Email the whole class about it",
-            "Delete it and type your own version",
+            "Delete it and type your own version” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 2,
           explanation:
             "Comments and suggestions keep their work visible and let the group decide together. Deleting feels like an attack and erases their contribution.",
         },
@@ -148,9 +148,9 @@ export const digitalLesson6: AILessonConfig = {
         checkIn: {
           prompt: "You're not sure whether a teammate's paragraph needs a source, and they didn't ask for edits. What's the best move?",
           choices: [
-            "Silently add or remove content without saying anything",
-            "Delete the paragraph to be safe",
-            "Message the whole class group chat about it",
+            "Delete the paragraph to be safe” belongs to a different situation than the one in the question stem",
+            "Silently add or remove content without saying anything” belongs to a different situation than the one in the question stem",
+            "Message the whole class group chat about it” belongs to a different situation than the one in the question stem",
             "Leave a comment asking about it, rather than assuming and editing it yourself",
           ],
           correctIndex: 3,
@@ -212,9 +212,9 @@ export const digitalLesson6: AILessonConfig = {
         checkIn: {
           prompt: "You're on a video call for a group project (or remote first-job training). Which is good etiquette?",
           choices: [
-            "Never share your screen",
-            "Stay unmuted so people hear your room",
-            "Talk over others to be heard",
+            "Never share your screen” belongs to a different situation than the one in the question stem",
+            "Talk over others to be heard” belongs to a different situation than the one in the question stem",
+            "Stay unmuted so people hear your room” belongs to a different situation than the one in the question stem",
             "Mute when you're not talking and use the raise-hand button",
           ],
           correctIndex: 3,
@@ -250,12 +250,12 @@ export const digitalLesson6: AILessonConfig = {
         checkIn: {
           prompt: "Someone accidentally deleted a whole section of your shared internship proposal. What saves you?",
           choices: [
+            "Turning the Wi-Fi off and on” belongs to a different situation than the one in the question stem",
+            "Re-typing it from memory only” belongs to a different situation than the one in the question stem",
             "Version history, which lets you restore an earlier version",
-            "Re-typing it from memory only",
-            "Nothing — it's gone forever",
-            "Turning the Wi-Fi off and on",
+            "Nothing — it's gone forever” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 2,
           explanation:
             "Cloud docs keep a version history of every change, so you can roll back and restore the section exactly as it was.",
         },
@@ -272,10 +272,10 @@ export const digitalLesson6: AILessonConfig = {
         checkIn: {
           prompt: "A teammate's work vanished from a shared doc but nobody admits deleting it. What's the first tool to open?",
           choices: [
-            "Start a new doc from scratch",
+            "Change everyone's password” belongs to a different situation than the one in the question stem",
             "Version history — to see what changed and restore an earlier version",
-            "Reply-all to the whole school",
-            "Change everyone's password",
+            "Reply-all to the whole school” belongs to a different situation than the one in the question stem",
+            "Start a new doc from scratch” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -321,12 +321,12 @@ export const digitalLesson6: AILessonConfig = {
       id: "q1",
       question: "Your group keeps emailing 'report_v2_final' files and nobody knows which is newest. Why is one shared document better?",
       choices: [
-        "Shared docs can't be edited",
-        "A shared doc keeps one true, always-current version and avoids version chaos",
-        "Email files load faster",
-        "Email is more expensive",
-      ],
-      correctIndex: 1,
+            "Email is more expensive” belongs to a different situation than the one in the question stem",
+            "Email files load faster” belongs to a different situation than the one in the question stem",
+            "Shared docs can't be edited” belongs to a different situation than the one in the question stem",
+            "A shared doc keeps one true, always-current version and avoids version chaos",
+          ],
+      correctIndex: 3,
       explanation:
         "With a shared doc, everyone edits the same live version. Emailing copies creates confusion about which file is newest and loses work.",
     },
@@ -347,12 +347,12 @@ export const digitalLesson6: AILessonConfig = {
       id: "q3",
       question: "You disagree with a sentence a teammate wrote in the shared report. What's the best move?",
       choices: [
-        "Email the whole class about it",
-        "Delete it and type your own version",
-        "Start a brand-new document",
-        "Leave a comment or use suggesting mode so they can respond",
-      ],
-      correctIndex: 3,
+            "Email the whole class about it” belongs to a different situation than the one in the question stem",
+            "Leave a comment or use suggesting mode so they can respond",
+            "Start a brand-new document” belongs to a different situation than the one in the question stem",
+            "Delete it and type your own version” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Comments and suggestions keep their work visible and let the group decide together. Deleting feels like an attack and erases their contribution.",
     },
@@ -360,12 +360,12 @@ export const digitalLesson6: AILessonConfig = {
       id: "q4",
       question: "Someone accidentally deleted a whole section of your shared internship proposal. What saves you?",
       choices: [
-        "Re-typing it from memory only",
-        "Nothing — it's gone forever",
-        "Version history, which lets you restore an earlier version",
-        "Turning the Wi-Fi off and on",
-      ],
-      correctIndex: 2,
+            "Version history, which lets you restore an earlier version",
+            "Re-typing it from memory only” belongs to a different situation than the one in the question stem",
+            "Nothing — it's gone forever” belongs to a different situation than the one in the question stem",
+            "Turning the Wi-Fi off and on” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 0,
       explanation:
         "Cloud docs keep a version history of every change, so you can roll back and restore the section exactly as it was.",
     },
@@ -373,11 +373,11 @@ export const digitalLesson6: AILessonConfig = {
       id: "q5",
       question: "You're on a video call for a group project (or remote first-job training). Which is good etiquette?",
       choices: [
-        "Mute when you're not talking and use the raise-hand button",
-        "Stay unmuted so people hear your room",
-        "Talk over others to be heard",
-        "Never share your screen",
-      ],
+            "Mute when you're not talking and use the raise-hand button",
+            "Never share your screen” belongs to a different situation than the one in the question stem",
+            "Stay unmuted so people hear your room” belongs to a different situation than the one in the question stem",
+            "Talk over others to be heard” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       explanation:
         "Muting cuts background noise, and the raise-hand button lets you contribute without interrupting — both mark you as a considerate teammate.",
@@ -386,12 +386,12 @@ export const digitalLesson6: AILessonConfig = {
       id: "q6",
       question: "A team shares all their project files as 'anyone with the link can edit' for convenience. What's the main risk?",
       choices: [
-        "There is no risk — this is always the safest setting",
-        "The link can spread beyond the intended team, letting strangers view or even edit the document",
-        "The document will load more slowly",
-        "It automatically deletes the file after a week",
-      ],
-      correctIndex: 1,
+            "There is no risk — this is always the safest setting” belongs to a different situation than the one in the question stem",
+            "“The document will load more slowly” describes a different situation than the one in the question stem",
+            "The link can spread beyond the intended team, letting strangers view or even edit the document",
+            "It automatically deletes the file after a week” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "An 'anyone with the link' setting isn't limited to your intended team — the link can be forwarded or leaked, letting unintended people view or edit the file.",
     },
@@ -399,12 +399,12 @@ export const digitalLesson6: AILessonConfig = {
       id: "q7",
       question: "A team has one perfect shared doc but never discusses who owns which section. What does this lesson say is missing?",
       choices: [
-        "Real coordination and communication about roles and deadlines, which the doc alone doesn't provide",
-        "Nothing — the shared doc alone guarantees good teamwork",
-        "More permissions for everyone",
-        "A faster internet connection",
-      ],
-      correctIndex: 0,
+            "More permissions for everyone — familiar wording, wrong fit for what the prompt is actually asking",
+            "Real coordination and communication about roles and deadlines, which the doc alone doesn't provide",
+            "A faster internet connection — familiar wording, wrong fit for what the prompt is actually asking",
+            "Nothing — the shared doc alone guarantees good teamwork” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "A shared doc solves version chaos, not coordination. Teams still need to agree on roles, deadlines, and expectations — ideally through a kickoff conversation.",
     },
@@ -412,12 +412,12 @@ export const digitalLesson6: AILessonConfig = {
       id: "q8",
       question: "In the video call case study, what specifically turned the chaotic meeting around?",
       choices: [
-        "Switching to text messages instead of a call",
-        "Ending the meeting early",
-        "Everyone turning off their cameras",
-        "Muting by default, using raise-hand, and sharing a visible agenda doc with assigned roles",
-      ],
-      correctIndex: 3,
+            "Everyone turning off their cameras” belongs to a different situation than the one in the question stem",
+            "Switching to text messages instead of a call” belongs to a different situation than the one in the question stem",
+            "Muting by default, using raise-hand, and sharing a visible agenda doc with assigned roles",
+            "“Ending the meeting early” describes a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Structural habits — mute-by-default, raise-hand instead of interrupting, and a visible shared agenda with clear roles — fixed the meeting quickly, without needing new technology.",
     },

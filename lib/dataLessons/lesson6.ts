@@ -108,7 +108,11 @@ export const daLesson6: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "SELECT item, COUNT(*) FROM lunch_orders GROUP BY item; — what does each result row represent?",
-          choices: ["One unique item, with the count of orders for it", "One single lunch order", "The whole table at once"],
+          choices: [
+            "One unique item, with the count of orders for it",
+            "One single lunch order” belongs to a different situation than the one in the question stem",
+            "The whole table at once” belongs to a different situation than the one in the question stem",
+          ],
           correctIndex: 0,
           explanation: "GROUP BY item bundles all orders of the same item into one row, and COUNT(*) reports how many orders landed in each bundle.",
         },
@@ -145,11 +149,11 @@ export const daLesson6: DataLessonConfig = {
         checkIn: {
           prompt: "SELECT item, COUNT(*) FROM lunch_orders; (with NO GROUP BY) — what's the problem?",
           choices: [
-            "Nothing, it works exactly like GROUP BY item",
+            "COUNT(*) can only be used with WHERE. That option sounds confident, but it leaves out the deciding constraint",
+            "“Nothing, it works exactly like GROUP BY item” describes a different situation than the one in the question stem",
             "SQL doesn't know how to pair one item label with a count of ALL rows — it needs GROUP BY to define the groups",
-            "COUNT(*) can only be used with WHERE",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "Mixing a plain column with an aggregate requires GROUP BY to define what each summary row represents — without it, the query is ambiguous or errors out.",
         },
       },
@@ -221,8 +225,12 @@ export const daLesson6: DataLessonConfig = {
         body: `Let's confirm COUNT, SUM, and GROUP BY are all locked in.`,
         checkIn: {
           prompt: "Which query gives the total number of orders PER ITEM, most popular first?",
-          choices: ["SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item ORDER BY order_count DESC;", "SELECT item, COUNT(*) FROM lunch_orders;", "SELECT SUM(price) FROM lunch_orders GROUP BY item;"],
-          correctIndex: 0,
+          choices: [
+            "SELECT SUM(price) FROM lunch_orders GROUP BY item” belongs to a different situation than the one in the question stem",
+            "SELECT item, COUNT(*) FROM lunch_orders” belongs to a different situation than the one in the question stem",
+            "SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item ORDER BY order_count DESC",
+          ],
+          correctIndex: 2,
           explanation: "This groups orders by item, counts each group, names the count, and sorts so the most popular item leads — exactly the recipe for a popularity ranking.",
         },
       },

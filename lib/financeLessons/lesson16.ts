@@ -55,12 +55,12 @@ export const financeLesson16: AILessonConfig = {
         checkIn: {
           prompt: "Jordan has uneven job hours and wants a phone upgrade. What's the Earning & Spending move before signing anything?",
           choices: [
+            "Assume gross pay is what's actually available to spend on the upgrade” belongs to a different situation than the one in the question stem",
             "Budget from realistic net income and total the phone's full cost (device + plan + add-ons) before deciding",
-            "Assume gross pay is what's actually available to spend on the upgrade",
-            "Finance the newest model since the advertised monthly payment looks affordable",
-            "Skip comparing plans since the motivation to upgrade is reason enough",
+            "Finance the newest model since the advertised monthly payment looks affordable” belongs to a different situation than the one in the question stem",
+            "Skip comparing plans since the motivation to upgrade is reason enough” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 1,
           explanation:
             "Earning & Spending synthesis: budget on net income, and total the real cost of a purchase — gross pay overstates what's actually available, and a low monthly figure can still hide a bad total.",
         },
@@ -77,12 +77,12 @@ export const financeLesson16: AILessonConfig = {
         checkIn: {
           prompt: "Jordan wants to start 'investing' with money they might need next month for rent. What's the Saving & Investing synthesis?",
           choices: [
-            "Invest it right away, since any amount of growth is better than none",
             "Keep near-term, needed money safe and accessible; reserve investing conversations for genuinely long-horizon money after an emergency fund exists",
-            "Skip the emergency fund entirely and put everything toward investing instead",
-            "Move the rent money into a higher-risk account to try to grow it faster before it's due",
+            "“Move the rent money into a higher-risk account to try to grow it faster before it's due” describes a different situation than the one in the question stem",
+            "Picking “Invest it right away, since any amount of growth is better than none” is a common mix-up that confuses a nearby idea with the right one",
+            "Skip the emergency fund entirely and put everything toward investing instead — familiar wording, wrong fit for what the prompt is actually asking",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Money needed soon belongs in safe, accessible savings. Investing is a long-horizon tool that follows a stable emergency-fund foundation — chasing growth on rent money risks not having it when it's due.",
         },
@@ -99,10 +99,10 @@ export const financeLesson16: AILessonConfig = {
         checkIn: {
           prompt: "A text tells Jordan to pay a fee with gift cards immediately to avoid losing an account. What's the Credit & Risk Management move?",
           choices: [
-            "Buy the gift cards quickly, since accounts really can get shut off that fast",
-            "Reply to the number in the text asking for more details before deciding",
+            "Share the one-time verification code first, then double-check with the bank afterward” belongs to a different situation than the one in the question stem",
+            "Reply to the number in the text asking for more details before deciding” belongs to a different situation than the one in the question stem",
             "Treat urgency plus gift cards as a scam red flag, verify on an official channel, and tell a trusted adult",
-            "Share the one-time verification code first, then double-check with the bank afterward",
+            "Buy the gift cards quickly, since accounts really can get shut off that fast” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 2,
           explanation:
@@ -132,12 +132,12 @@ export const financeLesson16: AILessonConfig = {
         checkIn: {
           prompt: "Which statement is the myth, not the reality?",
           choices: [
-            "A workable money plan includes a real (even if small) 'wants' line",
             "Fundamentals like budgeting, emergency savings, and scam defense compound slowly but reliably",
             "A plan without a scheduled review date tends to be abandoned, like Jordan's spreadsheet",
             "A side hustle or investing trick can reliably replace the need for a budget and emergency fund",
+            "A workable money plan includes a real (even if small) 'wants' line” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 3,
+          correctIndex: 2,
           explanation:
             "There's no reliable shortcut that replaces the core habits — budgeting, saving, credit discipline, and scam defense are the actual engine, unlike the other three accurate statements.",
         },
@@ -218,12 +218,12 @@ export const financeLesson16: AILessonConfig = {
         checkIn: {
           prompt: "What's the Money Planner read on Jordan's three-month check-in?",
           choices: [
+            "Abandon the whole plan because one month had an income drop” belongs to a different situation than the one in the question stem",
+            "Raise the wants cap immediately so the friend group hangouts still fit” belongs to a different situation than the one in the question stem",
             "Income stress-test and emergency fund look solid; fix wants creep and treat the bank text as a scam",
-            "Everything is fine, including sending the bank text its verification code",
-            "Abandon the whole plan because one month had an income drop",
-            "Raise the wants cap immediately so the friend group hangouts still fit",
+            "Everything is fine, including sending the bank text its verification code” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 2,
           explanation:
             "Handling lost hours and growing the emergency fund show the plan working. Creeping wants need a deliberate decision, and a text asking for a one-time code is a classic scam — never send the code.",
         },
@@ -281,12 +281,12 @@ Budget on **low weeks**, enjoy flexibility on high weeks — not the reverse.`,
         checkIn: {
           prompt: "Campus Jordan gets a text to 'verify aid' with a one-time bank code. Best capstone move?",
           choices: [
-            "Reply immediately — aid deadlines are urgent",
+            "Post screenshot on social to warn others before calling the bank” belongs to a different situation than the one in the question stem",
+            "Reply immediately — aid deadlines are urgent” belongs to a different situation than the one in the question stem",
+            "Forward code to roommate to double-check” belongs to a different situation than the one in the question stem",
             "Treat as scam; contact financial aid through the official portal you navigate yourself",
-            "Forward code to roommate to double-check",
-            "Post screenshot on social to warn others before calling the bank",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Scam defense is core capstone: verify through official channels you find yourself; never send one-time codes.",
         },
@@ -373,12 +373,12 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
         checkIn: {
           prompt: "Which capstone habit best keeps a 12-month plan alive after graduation?",
           choices: [
-            "Rebuild the color spreadsheet once and never open it again",
             "A monthly 15-minute review that adjusts one line based on real income and spending",
-            "Assume motivation from graduation day lasts all year",
-            "Only check money when something breaks",
+            "Only check money when something breaks” belongs to a different situation than the one in the question stem",
+            "Rebuild the color spreadsheet once and never open it again” belongs to a different situation than the one in the question stem",
+            "Assume motivation from graduation day lasts all year” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Living plans have review dates and small adjustments — not one-time spreadsheets or crisis-only attention.",
         },
@@ -391,12 +391,12 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
         checkIn: {
           prompt: "Which 12-month plan element best shows you pulled together earning, spending, saving, investing, credit, and risk?",
           choices: [
-            "Only listing a dream income target with no supporting actions",
             "Goals with amounts, budget/auto-save rules, emergency milestones, credit/scam/decision gates, and monthly review dates that catch lifestyle creep",
-            "A plan to get ahead fast through a side hustle, skipping the emergency fund step",
-            "Skipping the taxes/aid sections because those feel like 'later' problems",
+            "You might defend “Skipping the taxes/aid sections because those feel like 'later' problems” in casual talk, but it fails the definition used here",
+            "It can seem like only listing a dream income target with no supporting actions, but that reading skips the distinction this question is testing",
+            "“A plan to get ahead fast through a side hustle, skipping the emergency fund step” describes a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "A genuine capstone plan ties earning, spending, saving, credit, investing awareness, and risk management into one living, reviewed document — a single income goal or a shortcut plan skips most of that.",
         },
@@ -431,12 +431,12 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q1",
       question: "Jordan has uneven job hours and wants a phone upgrade and an emergency fund. What should come first in a Money Planner approach?",
       choices: [
-        "Finance the most expensive phone right away to build confidence in the plan",
-        "Put leftover cash into a quick high-risk investment to fund both goals faster",
-        "Set a realistic budget on low-week income, automate a small save toward an emergency target, then revisit the upgrade",
-        "Skip budgeting entirely, since motivation is usually enough to make it work out",
-      ],
-      correctIndex: 2,
+            "Put leftover cash into a quick high-risk investment to fund both goals faster” belongs to a different situation than the one in the question stem",
+            "Skip budgeting entirely, since motivation is usually enough to make it work out” belongs to a different situation than the one in the question stem",
+            "Finance the most expensive phone right away to build confidence in the plan” belongs to a different situation than the one in the question stem",
+            "Set a realistic budget on low-week income, automate a small save toward an emergency target, then revisit the upgrade",
+          ],
+      correctIndex: 3,
       explanation:
         "Capstone synthesis: stabilize cash flow and emergency savings before lifestyle upgrades — a risky shortcut or skipping the budget both undercut that stability.",
     },
@@ -444,12 +444,12 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q2",
       question: "An aid letter shows a large 'award' that is mostly loans. What is the Aid Navigator reading?",
       choices: [
-        "Loans and grants are functionally the same once they appear on the same letter",
-        "The sticker price no longer matters once any award appears",
-        "FAFSA becomes irrelevant once any award shows up on a letter",
-        "Gift aid reduces net price; loans are debt that must be repaid under their terms",
-      ],
-      correctIndex: 3,
+            "Gift aid reduces net price; loans are debt that must be repaid under their terms",
+            "FAFSA becomes irrelevant once any award shows up on a letter” belongs to a different situation than the one in the question stem",
+            "Loans and grants are functionally the same once they appear on the same letter",
+            "The sticker price no longer matters once any award appears” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 0,
       explanation:
         "Track integration from the college-costs lesson: separate gift aid from borrowing — a big total doesn't erase the difference between the two.",
     },
@@ -457,12 +457,12 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q3",
       question: "A text says Jordan must pay a fine with gift cards to keep an account open. What scam-defense move fits the track?",
       choices: [
-        "Treat urgency plus gift cards as a red flag; verify on an official channel and tell a trusted adult",
-        "Buy the gift cards quickly, since accounts can genuinely be closed that fast",
-        "Reply directly to the number in the text to confirm the account issue is real",
-        "Share a one-time code from the text once the account issue seems confirmed",
-      ],
-      correctIndex: 0,
+            "Reply directly to the number in the text to confirm the account issue is real” belongs to a different situation than the one in the question stem",
+            "Share a one-time code from the text once the account issue seems confirmed” belongs to a different situation than the one in the question stem",
+            "Buy the gift cards quickly, since accounts can genuinely be closed that fast” belongs to a different situation than the one in the question stem",
+            "Treat urgency plus gift cards as a red flag; verify on an official channel and tell a trusted adult",
+          ],
+      correctIndex: 3,
       explanation:
         "Consumer-defense skills from earlier lessons: pause, verify independently, and don't pay or share codes under a panic script — replying to the scammer's own number doesn't count as verifying.",
     },
@@ -470,11 +470,11 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q4",
       question: "Jordan considers a car with a manageable monthly payment but hasn't totaled insurance and maintenance. Which Decision Pro idea applies?",
       choices: [
-        "The monthly payment alone is enough to define whether it's affordable",
-        "Use total cost of ownership and opportunity cost — including insurance, fuel/maintenance, and what savings would be skipped",
-        "Depreciation doesn't need to be considered since the car isn't brand new",
-        "Cooling-off periods only matter for phone purchases, not cars",
-      ],
+            "Depreciation doesn't need to be considered since the car isn't brand new” belongs to a different situation than the one in the question stem",
+            "Use total cost of ownership and opportunity cost — including insurance, fuel/maintenance, and what savings would be skipped",
+            "“Cooling-off periods only matter for phone purchases, not cars” describes a different situation than the one in the question stem",
+            "The monthly payment alone is enough to define whether it's affordable” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "Big-money decisions require full cost and tradeoff analysis, not payment headlines — that applies to cars just as much as phones, new or used.",
@@ -483,12 +483,12 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q5",
       question: "Which 12-month plan element best shows track-wide synthesis?",
       choices: [
-        "Only listing a dream income with no supporting actions attached",
-        "A plan to get ahead fast through a side hustle, skipping the budgeting and savings steps",
-        "Goals with amounts, budget/auto-save rules, emergency milestones, credit/scam/decision gates, and monthly review dates",
-        "Skipping the taxes/aid sections because those feel like problems for later",
-      ],
-      correctIndex: 2,
+            "Only listing a dream income with no supporting actions attached” belongs to a different situation than the one in the question stem",
+            "A plan to get ahead fast through a side hustle, skipping the budgeting and savings steps” belongs to a different situation than the one in the question stem",
+            "Skipping the taxes/aid sections because those feel like problems for later” belongs to a different situation than the one in the question stem",
+            "Goals with amounts, budget/auto-save rules, emergency milestones, credit/scam/decision gates, and monthly review dates",
+          ],
+      correctIndex: 3,
       explanation:
         "A Money Planner capstone ties goals, cash flow, protection, and scheduled reviews into one living document — a single income goal or a shortcut plan leaves most of that out.",
     },
@@ -496,12 +496,12 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q6",
       question: "Jordan's plan loses 30% of income for one month. Per the stress-test skill, what should bend first?",
       choices: [
-        "The emergency fund balance already saved, spent down to zero right away",
-        "Needs spending, since it's the easiest category to cut quickly",
-        "Nothing — the plan should stay exactly the same regardless of any income shock",
-        "The wants cap first, with auto-save paused temporarily if needed, while protecting needs and existing savings as long as possible",
-      ],
-      correctIndex: 3,
+            "“Needs spending, since it's the easiest category to cut quickly” describes a different situation than the one in the question stem",
+            "The wants cap first, with auto-save paused temporarily if needed, while protecting needs and existing savings as long as possible",
+            "“The emergency fund balance already saved, spent down to zero right away” describes a different situation than the one in the question stem",
+            "Nothing — the plan should stay exactly the same regardless of any income shock” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "A resilient plan bends discretionary spending first and protects needs and existing emergency savings as long as possible — draining savings or cutting needs first does the opposite.",
     },
@@ -509,11 +509,11 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q7",
       question: "What is lifestyle creep?",
       choices: [
-        "Spending that gradually rises with income or social pressure without a deliberate decision to raise it",
-        "A required annual review of a household budget",
-        "A type of scam that specifically targets new apartment renters",
-        "A rule stating that spending must never increase from one year to the next",
-      ],
+            "Spending that gradually rises with income or social pressure without a deliberate decision to raise it",
+            "“A required annual review of a household budget” describes a different situation than the one in the question stem",
+            "A type of scam that specifically targets new apartment renters” belongs to a different situation than the one in the question stem",
+            "A rule stating that spending must never increase from one year to the next” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       explanation:
         "Lifestyle creep is the slow, often unnoticed rise in spending — especially common in a first year of new independence and new social circles, not a formal review or a scam type.",
@@ -522,11 +522,11 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q8",
       question: "Comparing a college-path first year to a work-path first year, what stays the same across both?",
       choices: [
-        "Nothing — the two paths require completely different financial skills",
-        "The core structure: a realistic budget, an emergency fund milestone, credit discipline, and scam defense — only the specific numbers and biggest risk differ",
-        "Only the work path actually needs an emergency fund",
-        "Only the college path really needs to worry about scams",
-      ],
+            "A common mix-up is to treat only the college path really needs to worry about scams as enough, which confuses a nearby idea with the right one",
+            "The core structure: a realistic budget, an emergency fund milestone, credit discipline, and scam defense — only the specific numbers and biggest risk differ",
+            "It can seem like nothing — the two paths require completely different financial skills, but that reading skips the distinction this question is testing",
+            "A common mix-up is to treat only the work path actually needs an emergency fund as enough, which confuses a nearby idea with the right one",
+          ],
       correctIndex: 1,
       explanation:
         "The six-pillar structure applies to any first-year path; the line items and biggest risks shift, but the core plan does not change for either path.",

@@ -169,7 +169,11 @@ export const lesson9: PythonLessonConfig = {
         },
         checkIn: {
           prompt: 'If you stored `profile["Name"] = "Alex"`, what happens when you read `profile["name"]`?',
-          choices: ["It works fine — Python ignores capitalization", "It returns an empty string", "It raises a KeyError, because \"Name\" and \"name\" are different keys"],
+          choices: [
+            "It returns an empty string” belongs to a different situation than the one in the question stem",
+            "It works fine — Python ignores capitalization” belongs to a different situation than the one in the question stem",
+            "It raises a KeyError, because \"Name\" and \"name\" are different keys",
+          ],
           correctIndex: 2,
           explanation: "Python keys are case-sensitive. \"Name\" and \"name\" are two different keys, so asking for the wrong one raises a KeyError.",
         },
@@ -232,11 +236,11 @@ export const lesson9: PythonLessonConfig = {
         checkIn: {
           prompt: 'Your code crashes with `KeyError: \'Name\'` but you stored `profile["name"]`. What\'s the likely bug?',
           choices: [
-            "The dictionary is broken and needs to be recreated",
+            "The dictionary is broken and needs to be recreated” belongs to a different situation than the one in the question stem",
+            "Dictionaries can only hold one key” belongs to a different situation than the one in the question stem",
             "A capitalization mismatch — you're reading \"Name\" but stored \"name\"",
-            "Dictionaries can only hold one key",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "The KeyError message tells you exactly which key was missing — here it's a capitalization mismatch between \"Name\" and \"name\".",
         },
       },
@@ -261,8 +265,12 @@ export const lesson9: PythonLessonConfig = {
         output: `{'name': 'Jordan', 'age': 14}`,
         checkIn: {
           prompt: "What does `profile[\"score\"] = 100` do if `score` isn't in the dictionary yet?",
-          choices: ["Crashes with an error", "Adds a new key called score with value 100", "Does nothing"],
-          correctIndex: 1,
+          choices: [
+            "Does nothing” belongs to a different situation than the one in the question stem",
+            "Crashes with an error” belongs to a different situation than the one in the question stem",
+            "Adds a new key called score with value 100",
+          ],
+          correctIndex: 2,
           explanation: "Assigning to a new key creates it. Dictionaries grow as you add labeled fields.",
         },
       },
@@ -303,7 +311,11 @@ export const lesson9: PythonLessonConfig = {
         body: `Let's confirm the dictionary pattern is locked in.`,
         checkIn: {
           prompt: "What's the key difference between a list and a dictionary?",
-          choices: ["Lists use `{}`, dictionaries use `[]`", "There is no real difference", "Lists look up items by position; dictionaries look up items by a labeled key"],
+          choices: [
+            "There is no real difference” belongs to a different situation than the one in the question stem",
+            "Lists use `{}`, dictionaries use `[]`” belongs to a different situation than the one in the question stem",
+            "Lists look up items by position; dictionaries look up items by a labeled key",
+          ],
           correctIndex: 2,
           explanation: "Lists are ordered and accessed by numeric position; dictionaries are accessed by a named key that describes what the value means.",
         },

@@ -63,8 +63,12 @@ export const daLesson12: DataLessonConfig = {
         body: `A **histogram** takes one big pile of numbers and shows their **shape** — where most values land, and how far they stretch from low to high.\n\nPicture sorting a deck of test papers into labeled trays: a 50s tray, a 60s tray, a 70s tray, and so on. After sorting, you don't even read the scores — you just look at which trays are *fullest*. The tall stacks show where the class clustered; the empty trays show ranges nobody hit. A histogram is exactly that, drawn as bars.\n\nIt looks like a bar chart, but it answers a different question: not *"compare these named categories"* but *"how is this one set of numbers distributed?"* That's a subtle but huge difference.`,
         checkIn: {
           prompt: "What question does a histogram answer?",
-          choices: ["How is one set of numbers spread out, and where do they cluster?", "Which named category is biggest?", "How does a number change over time?"],
-          correctIndex: 0,
+          choices: [
+            "Which named category is biggest?” belongs to a different situation than the one in the question stem",
+            "How does a number change over time?” belongs to a different situation than the one in the question stem",
+            "How is one set of numbers spread out, and where do they cluster?",
+          ],
+          correctIndex: 2,
           explanation: "A histogram reveals the shape of a single numeric column's distribution — where values cluster and how far they spread.",
         },
       },
@@ -87,9 +91,9 @@ export const daLesson12: DataLessonConfig = {
         checkIn: {
           prompt: "Why do histogram bars touch, with no gaps between them?",
           choices: [
-            "It's just a stylistic choice",
+            "“Because there's only one bar total” describes a different situation than the one in the question stem",
             "Because the bins represent continuous ranges of ONE number line, with no gaps between ranges",
-            "Because there's only one bar total",
+            "“It's just a stylistic choice” describes a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation: "Bins carve up a single continuous number line into adjoining ranges (like 70-80, 80-90) — there's no gap between them, so the bars touch.",
@@ -139,8 +143,12 @@ export const daLesson12: DataLessonConfig = {
         body: `There's no single "correct" histogram — bin size changes the whole picture. Very wide bins blur real differences together; very narrow bins make random noise look like a pattern. Always try a sensible bin width before trusting the shape.`,
         checkIn: {
           prompt: "If you used a bin size of 50 instead of 10 for the quiz scores, what would likely happen?",
-          choices: ["Most scores would blur into one or two giant bins, hiding the real clustering", "The histogram would show more detail", "Nothing would change"],
-          correctIndex: 0,
+          choices: [
+            "The histogram would show more detail” belongs to a different situation than the one in the question stem",
+            "“Nothing would change” describes a different situation than the one in the question stem",
+            "Most scores would blur into one or two giant bins, hiding the real clustering",
+          ],
+          correctIndex: 2,
           explanation: "A bin size that's too wide lumps very different scores together, hiding the real shape of the distribution.",
         },
       },
@@ -179,11 +187,11 @@ export const daLesson12: DataLessonConfig = {
         checkIn: {
           prompt: "Two classes both have scores ranging from 60 to 100. Does that mean their histograms look the same?",
           choices: [
-            "Yes, same min/max always means same shape",
+            "“Yes, same min/max always means same shape” describes a different situation than the one in the question stem",
+            "It's impossible to have the same min/max with different data” belongs to a different situation than the one in the question stem",
             "No — one class could cluster tightly around 80 while the other spreads evenly across the whole range",
-            "It's impossible to have the same min/max with different data",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "MIN and MAX only describe the edges. The histogram reveals the shape in between, which can look completely different even with identical edges.",
         },
       },
@@ -222,8 +230,12 @@ export const daLesson12: DataLessonConfig = {
         body: `Let's confirm bins and the histogram-vs-bar distinction are locked in.`,
         checkIn: {
           prompt: "Which scenario calls for a HISTOGRAM rather than a bar chart?",
-          choices: ["Comparing sales of Pizza, Salad, and Burger", "Showing a budget split into categories", "Seeing how 30 students' quiz scores are spread across the 0-100 range"],
-          correctIndex: 2,
+          choices: [
+            "Seeing how 30 students' quiz scores are spread across the 0-100 range",
+            "Comparing sales of Pizza, Salad, and Burger” belongs to a different situation than the one in the question stem",
+            "Showing a budget split into categories” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 0,
           explanation: "Seeing the spread of ONE numeric column (scores) across ranges is exactly what a histogram is built for — the other two involve named categories or a whole-split, which fit bar or pie charts instead.",
         },
       },
@@ -257,9 +269,9 @@ export const daLesson12: DataLessonConfig = {
         checkIn: {
           prompt: "A histogram shows one student scored 12 while everyone else scored 70+. What's the responsible next step?",
           choices: [
-            "Label the student in the chart title so everyone knows",
+            "Label the student in the chart title so everyone knows” belongs to a different situation than the one in the question stem",
             "Consider whether the chart should be shared publicly at all, and focus on class-wide patterns instead",
-            "Delete the outlier row from the data",
+            "“Delete the outlier row from the data” describes a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation: "Outliers represent real people. The responsible move is to think about privacy and purpose before sharing — not to expose or erase individuals.",

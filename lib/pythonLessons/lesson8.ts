@@ -154,11 +154,11 @@ export const lesson8: PythonLessonConfig = {
         checkIn: {
           prompt: 'Why append a variable like `choice` instead of typing `"pizza"` directly?',
           choices: [
-            "It's required by Python",
             "Using the variable keeps append and remove in sync if the value ever changes",
-            "It makes the list bigger",
+            "It makes the list bigger” belongs to a different situation than the one in the question stem",
+            "It's required by Python” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation: "Using a variable means append() and remove() both reference the same value — if you update the variable, both stay consistent.",
         },
       },
@@ -244,9 +244,9 @@ export const lesson8: PythonLessonConfig = {
         checkIn: {
           prompt: "Your list should have 2 items after two appends, but print(choices) shows 3. What's a good first debugging step?",
           choices: [
-            "Give up and rewrite everything",
+            "Give up and rewrite everything” belongs to a different situation than the one in the question stem",
             "Print the list after EACH append to see exactly where the extra item appears",
-            "Add another append to fix it",
+            "Add another append to fix it” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation: "Printing after each step isolates exactly which line introduced the unexpected item, rather than guessing.",
@@ -315,7 +315,11 @@ export const lesson8: PythonLessonConfig = {
         body: `Let's confirm the list pattern is locked in.`,
         checkIn: {
           prompt: "What's the difference between `scores = []` and `scores = \"\"`?",
-          choices: ["No difference — both are empty", "The second is faster", "The first makes an empty list, the second makes an empty string (text) — different containers entirely"],
+          choices: [
+            "It can seem like the second is faster, but that reading skips the distinction this question is testing",
+            "No difference — both are empty. That option sounds confident, but it leaves out the deciding constraint",
+            "The first makes an empty list, the second makes an empty string (text) — different containers entirely",
+          ],
           correctIndex: 2,
           explanation: "[] creates an empty list (a container for many items); \"\" creates an empty string (text). They behave very differently.",
         },

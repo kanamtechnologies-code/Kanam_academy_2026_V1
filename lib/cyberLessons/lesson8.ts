@@ -63,12 +63,12 @@ export const cyberLesson8: AILessonConfig = {
         checkIn: {
           prompt: "Judges need to read docs; mentors want remote admin from home. Which firewall-oriented recommendation best balances security and availability?",
           choices: [
-            "Allow all inbound from the internet so nobody is blocked",
+            "It can seem like allow all inbound from the internet so nobody is blocked, but that reading skips the distinction this question is testing",
+            "It can seem like block the documentation site so admins feel safer, but that reading skips the distinction this question is testing",
+            "It can seem like disable the firewall entirely during competition week, but that reading skips the distinction this question is testing",
             "Allow the documentation service as needed; keep remote admin closed by default or tightly limited, with owner + expiry if temporarily required",
-            "Disable the firewall entirely during competition week",
-            "Block the documentation site so admins feel safer",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Availability for readers doesn't require exposing admin. Narrow allows + temporary controls are the justified tradeoff.",
         },
@@ -85,10 +85,10 @@ export const cyberLesson8: AILessonConfig = {
         checkIn: {
           prompt: "A club says default-deny \"breaks demos.\" Which recommendation best explains the real tradeoff?",
           choices: [
-            "Switch to default-allow forever — demos matter more than any exposure",
+            "Some learners answer “Switch to default-allow forever — demos matter more than any exposure”, yet that does not match the precise idea from the lesson",
             "Keep default-deny, then explicitly allow the demo's required ports/services with owners — security fails closed; availability is designed on purpose",
-            "Default-allow blocks 100% of malicious traffic automatically",
-            "Default-deny requires no configuration at all, so demos can't work",
+            "It can seem like default-deny requires no configuration at all, so demos can't work, but that reading skips the distinction this question is testing",
+            "It can seem like default-allow blocks 100% of malicious traffic automatically, but that reading skips the distinction this question is testing",
           ],
           correctIndex: 1,
           explanation:
@@ -109,12 +109,12 @@ export const cyberLesson8: AILessonConfig = {
         checkIn: {
           prompt: "A club wants to keep factory router admin \"so we don't forget a new password.\" What recommendation best states the tradeoff?",
           choices: [
-            "Keep the default — memorability always beats exposure",
+            "A common mix-up is to treat default passwords automatically expire after one week as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat keep the default — memorability always beats exposure as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat default passwords only exist on smartphones as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
             "Change the default immediately and store the new admin secret safely (manager/adviser vault) — one usability step prevents a well-known password from protecting the edge device",
-            "Default passwords automatically expire after one week",
-            "Default passwords only exist on smartphones",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Factory credentials are public knowledge; the justified tradeoff is a managed new secret, not an internet-famous password on the gateway.",
         },
@@ -127,12 +127,12 @@ export const cyberLesson8: AILessonConfig = {
         checkIn: {
           prompt: "Which step in the remediation most directly addresses why the 'temporary' remote access was never removed?",
           choices: [
-            "Step 2 — changing the default credentials",
             "Step 5 — setting a removal reminder tied to a specific person",
-            "Step 1 — confirming what's actually needed",
-            "None of the steps address this",
+            "None of the steps address this” belongs to a different situation than the one in the question stem",
+            "Step 2 — changing the default credentials” belongs to a different situation than the one in the question stem",
+            "Step 1 — confirming what's actually needed” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "The root cause of the months-long exposure was that nobody was responsible for remembering to close the temporary access — a reminder tied to an owner directly fixes that gap.",
         },
@@ -183,12 +183,12 @@ export const cyberLesson8: AILessonConfig = {
         checkIn: {
           prompt: "You must recommend either a flat club LAN (everything reaches everything) or guest/club/finance segments. Which justification is strongest?",
           choices: [
-            "Flat — security and usability never trade off",
+            "A common mix-up is to treat flat — security and usability never trade off as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat flat — firewalls become unnecessary forever as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
             "Segmented — accept some friction so a compromised guest or practice device cannot reach finance folders; availability for guests doesn't require access to treasuries",
-            "Flat — firewalls become unnecessary forever",
-            "Segmented only for home Wi-Fi, never schools",
+            "A common mix-up is to treat segmented only for home Wi-Fi, never schools as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Segmentation is a recommended tradeoff: slightly less convenience for much smaller blast radius when trust levels differ.",
         },
@@ -252,12 +252,12 @@ Every open service is a doorway. Count them on purpose; justify each allow again
         checkIn: {
           prompt: "Remote admin would save mentors 10 minutes per bugfix but opens the server to the internet. Which recommendation best states the tradeoff?",
           choices: [
-            "Always allow remote admin from anywhere — availability always wins",
             "Prefer closed-by-default; if temporarily required, narrow the allow, assign an owner/expiry, and change defaults — accept some friction to cut exposure",
-            "Default-allow is illegal for schools",
-            "Firewalls only work if every port is open",
+            "A common mix-up is to treat firewalls only work if every port is open as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat default-allow is illegal for schools as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "It can seem like always allow remote admin from anywhere — availability always wins, but that reading skips the distinction this question is testing",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Security vs usability is real — the justified move is narrow, temporary, owned allows under default-deny, not permanent internet-wide admin.",
         },
@@ -305,12 +305,12 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
         checkIn: {
           prompt: "What do the robotics team's server and the family's smart camera have in common as cases in this lesson?",
           choices: [
-            "Both were deliberately hacked by a skilled attacker",
+            "You might defend “Both cases involved malware being installed intentionally” in casual talk, but it fails the definition used here",
+            "Picking “Neither case had anything to do with default settings” is a common mix-up that confuses a nearby idea with the right one",
             "Both involved a risky default (credentials or open access) combined with a 'we'll fix it later' plan that had no real owner or date",
-            "Both cases involved malware being installed intentionally",
-            "Neither case had anything to do with default settings",
+            "Some learners answer “Both were deliberately hacked by a skilled attacker”, yet that does not match the precise idea from the lesson",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Both incidents trace back to unchanged risky defaults plus a vague, undated plan to fix things later — the exact pattern this lesson focuses on preventing.",
         },
@@ -344,12 +344,12 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q1",
       question: "When recommending a firewall allow for club docs, which reasoning is strongest?",
       choices: [
-        "Allow only what judges/mentors need (e.g., the docs service), and avoid internet-wide admin — every allow trades security for someone's availability",
-        "Scans every file on a device for viruses before it opens",
-        "Guarantees that no malicious traffic can ever get through",
-        "Automatically encrypts all data leaving the network",
-      ],
-      correctIndex: 0,
+            "It can seem like guarantees that no malicious traffic can ever get through, but that reading skips the distinction this question is testing",
+            "Allow only what judges/mentors need (e.g., the docs service), and avoid internet-wide admin — every allow trades security for someone's availability",
+            "It can seem like scans every file on a device for viruses before it opens, but that reading skips the distinction this question is testing",
+            "A common mix-up is to treat automatically encrypts all data leaving the network as enough, which confuses a nearby idea with the right one",
+          ],
+      correctIndex: 1,
       explanation:
         "Firewalls filter by rule; good recommendations narrow allows to justified needs instead of equating \"available\" with \"fully exposed.\"",
     },
@@ -357,11 +357,11 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q2",
       question: "Compare default-deny vs default-allow for a school lab under time pressure. Which evaluation is best?",
       choices: [
-        "Default-allow is safer because it keeps more services reachable by default",
-        "Default-deny fails toward restriction when rules are missing; accept documenting needed allows so demos still work without failing open",
-        "Default-deny blocks 100% of malicious traffic automatically, with no configuration needed",
-        "Default-deny is only appropriate for home networks, never schools",
-      ],
+            "Default-deny blocks 100% of malicious traffic automatically, with no configuration needed” belongs to a different situation than the one in the question stem",
+            "Default-deny fails toward restriction when rules are missing; accept documenting needed allows so demos still work without failing open",
+            "Default-deny is only appropriate for home networks, never schools” is close in topic, but it is the wrong fit for what the prompt asks",
+            "“Default-allow is safer because it keeps more services reachable by default” describes a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "Default-deny is the safer failure direction; usability is restored by explicit, justified allows — not by failing open.",
@@ -370,11 +370,11 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q3",
       question: "Which of these is a classic risky default configuration?",
       choices: [
-        "Changing factory admin credentials right after setup",
-        "Disabling services you don't use",
-        "Leaving factory-default admin credentials unchanged on a live device",
-        "Segmenting guest Wi-Fi from internal systems",
-      ],
+            "Segmenting guest Wi-Fi from internal systems” belongs to a different situation than the one in the question stem",
+            "Changing factory admin credentials right after setup” belongs to a different situation than the one in the question stem",
+            "Leaving factory-default admin credentials unchanged on a live device",
+            "Disabling services you don't use” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 2,
       explanation:
         "Unchanged default credentials are widely documented and effectively not secret — a common real-world risk. The other options are all defender best practices, not risks.",
@@ -383,12 +383,12 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q4",
       question: "Why recommend segmentation even though it can make some printers or shares harder to reach from guest Wi-Fi?",
       choices: [
-        "To make every device equally reachable from every other device",
-        "To eliminate the need for firewalls entirely",
-        "To guarantee that zero security incidents will ever occur",
-        "Because containing blast radius outweighs that usability friction when trust levels differ — availability for guests shouldn't include finance systems",
-      ],
-      correctIndex: 3,
+            "A common mix-up is to treat to eliminate the need for firewalls entirely as enough, which confuses a nearby idea with the right one",
+            "Because containing blast radius outweighs that usability friction when trust levels differ — availability for guests shouldn't include finance systems",
+            "It can seem like to make every device equally reachable from every other device, but that reading skips the distinction this question is testing",
+            "It can seem like to guarantee that zero security incidents will ever occur, but that reading skips the distinction this question is testing",
+          ],
+      correctIndex: 1,
       explanation:
         "Segmentation is a security/usability tradeoff: some inconvenience in exchange for limiting how far a compromise spreads.",
     },
@@ -396,12 +396,12 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q5",
       question: "In the robotics team's story, what was the deeper process failure behind the exposed server?",
       choices: [
-        "The server hosted public documentation, which is inherently risky by itself",
-        "The remote access was closed immediately once the competition ended",
-        "A 'temporary' shortcut (remote access + default password) had no owner or closing date, so it quietly became permanent",
-        "The team changed their default credentials before ever going live",
-      ],
-      correctIndex: 2,
+            "The team changed their default credentials before ever going live” belongs to a different situation than the one in the question stem",
+            "A 'temporary' shortcut (remote access + default password) had no owner or closing date, so it quietly became permanent",
+            "The server hosted public documentation, which is inherently risky by itself” belongs to a different situation than the one in the question stem",
+            "The remote access was closed immediately once the competition ended” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "The core failure was a temporary exception with no assigned owner or deadline for closing it — not the initial decision to host documentation.",
     },
@@ -409,12 +409,12 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q6",
       question: "Why doesn't 'we'll secure it later' work well as a plan on its own?",
       choices: [
-        "Because changing settings after launch usually breaks the system",
-        "Because without a specific owner and date, 'later' has no natural trigger and tends to never happen",
-        "Because security only matters during initial setup, not afterward",
-        "Because it's technically impossible to secure a system once it's already running",
-      ],
-      correctIndex: 1,
+            "Because changing settings after launch usually breaks the system” belongs to a different situation than the one in the question stem",
+            "Because it's technically impossible to secure a system once it's already running” belongs to a different situation than the one in the question stem",
+            "Because without a specific owner and date, 'later' has no natural trigger and tends to never happen",
+            "Because security only matters during initial setup, not afterward” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Vague future intentions without an owner or deadline routinely fail to happen — as shown in both mini cases in this lesson.",
     },
@@ -422,12 +422,12 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q7",
       question: "What do default-deny and network segmentation have in common as recommendations?",
       choices: [
-        "Both are designed to fail safely — limiting exposure or spread when something is missed — at some cost to unconstrained convenience",
-        "Both guarantee that no security incident can ever occur",
-        "Both require turning off all firewalls to work properly",
-        "Both are unrelated concepts that happen to share this lesson",
-      ],
-      correctIndex: 0,
+            "A rushed pass can land on both are unrelated concepts that happen to share this lesson”; careful readers reject it for this problem",
+            "Picking “Both require turning off all firewalls to work properly” is a common mix-up that confuses a nearby idea with the right one",
+            "Picking “Both guarantee that no security incident can ever occur” is a common mix-up that confuses a nearby idea with the right one",
+            "Both are designed to fail safely — limiting exposure or spread when something is missed — at some cost to unconstrained convenience",
+          ],
+      correctIndex: 3,
       explanation:
         "Both accept mistakes and unknowns and bias outcomes toward restriction/containment — the tradeoff is deliberate design of needed access.",
     },
@@ -435,12 +435,12 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q8",
       question: "A mentor wants internet-wide remote admin for speed; IT wants default-deny. Which tradeoff statement should you recommend?",
       choices: [
-        "Tradeoffs don't exist — pick whichever is louder",
-        "Firewalls never affect availability, so open everything",
-        "Only professional engineers may discuss this",
-        "Keep default-deny; if remote admin is temporarily required, narrow the allow, assign owner/expiry, and prefer stronger auth — accept some friction to avoid accidental public exposure",
-      ],
-      correctIndex: 3,
+            "A common mix-up is to treat only professional engineers may discuss this as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat firewalls never affect availability, so open everything as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "Keep default-deny; if remote admin is temporarily required, narrow the allow, assign owner/expiry, and prefer stronger auth — accept some friction to avoid accidental public exposure",
+            "A common mix-up is to treat tradeoffs don't exist — pick whichever is louder as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+          ],
+      correctIndex: 2,
       explanation:
         "CSTA-style reasoning weighs security against usability/availability with a concrete, owned exception — not permanent fail-open admin.",
     },

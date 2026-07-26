@@ -63,12 +63,12 @@ export const financeLesson1: AILessonConfig = {
           prompt:
             "Two friends earn about the same from their summer jobs but spend very differently — one saves hard for a car, the other spends more on hangouts. What does this lesson say about that?",
           choices: [
-            "Whoever spends less is clearly more responsible with money",
-            "This kind of income needs a strict 50/50 split to be considered normal",
+            "Whoever spends less is clearly more responsible with money” belongs to a different situation than the one in the question stem",
+            "Once someone has a budget, differences like this always go away” belongs to a different situation than the one in the question stem",
+            "This kind of income needs a strict 50/50 split to be considered normal” belongs to a different situation than the one in the question stem",
             "Their different values shape what feels \"worth it\" to each of them — neither is automatically wrong",
-            "Once someone has a budget, differences like this always go away",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
             "Values, not income, drive spending differences — spending less doesn't automatically mean someone is \"better\" with money; it just means their priorities are different.",
         },
@@ -116,12 +116,12 @@ export const financeLesson1: AILessonConfig = {
           prompt:
             "Sofia writes: \"I want to get better with money this year.\" A friend suggests a rewrite. Which version is most SMART-ish?",
           choices: [
-            "\"Try to spend less on stuff I don't really need.\"",
-            "\"Put any extra money into savings whenever I remember.\"",
-            "\"Stop spending on wants until I feel more responsible.\"",
+            "\"Put any extra money into savings whenever I remember.\"” belongs to a different situation than the one in the question stem",
             "\"Save $150 for cleats by October 15 by setting aside $25 from each paycheck.\"",
+            "\"Stop spending on wants until I feel more responsible.\"” belongs to a different situation than the one in the question stem",
+            "\"Try to spend less on stuff I don't really need.\"” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 3,
+          correctIndex: 1,
           explanation:
             "The other options sound like effort or intention, but none has a number, a deadline, and a habit — the pieces that make a goal SMART-ish instead of just a good intention.",
         },
@@ -155,12 +155,12 @@ export const financeLesson1: AILessonConfig = {
           prompt:
             "A classmate's goal reads: \"I want to get better with money and maybe save up for something this year.\" Which rewrite is the strongest SMART-ish version?",
           choices: [
+            "\"Save aggressively for a few different things this year.\"” belongs to a different situation than the one in the question stem",
             "\"Save $250 for a phone screen repair fund by December 1 by moving $25 from every biweekly paycheck.\"",
-            "\"Really commit to saving more starting now.\"",
-            "\"Put money aside for repairs whenever there's some left over.\"",
-            "\"Save aggressively for a few different things this year.\"",
+            "\"Put money aside for repairs whenever there's some left over.\"” belongs to a different situation than the one in the question stem",
+            "“\"Really commit to saving more starting now.\"” describes a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 1,
           explanation:
             "It has the amount, deadline, and exact habit. \"Save the leftover\" (choice 3) sounds proactive, but this lesson's whole point is that leftovers are usually small or nonexistent — not a real plan.",
         },
@@ -196,12 +196,12 @@ export const financeLesson1: AILessonConfig = {
           prompt:
             "Jayden sees a countdown timer saying a shoe drop ends in 20 minutes, and suddenly feels a strong urge to buy — even though he wasn't thinking about shoes an hour ago. What's going on?",
           choices: [
-            "Present bias — a normal pull toward an immediate reward that fake urgency can amplify",
+            "Proof the shoes must be a smart purchase since he wants them so badly” belongs to a different situation than the one in the question stem",
             "A sign Jayden has unusually poor self-control that most people don't struggle with",
-            "Proof the shoes must be a smart purchase since he wants them so badly",
-            "A rule that means he should never buy shoes he actually wants",
+            "Present bias — a normal pull toward an immediate reward that fake urgency can amplify",
+            "A rule that means he should never buy shoes he actually wants” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 2,
           explanation:
             "Present bias is common and normal, not a rare personal flaw — the fix is designing around it (automation, waiting periods), not just assuming some people simply lack willpower.",
         },
@@ -375,12 +375,12 @@ Same income, same wants — but the goal competed on payday instead of hoping fo
       id: "q5",
       question: "Which statement about present bias is most accurate?",
       choices: [
-        "It means every want you feel today is a bad purchase",
-        "It only matters for long-term investing, not teen goals",
-        "It only hits people with weak willpower, so trying harder is the main fix",
-        "It's a common pull toward smaller rewards now; habits like auto-transfers reduce its pull",
-      ],
-      correctIndex: 3,
+            "It means every want you feel today is a bad purchase” belongs to a different situation than the one in the question stem",
+            "It only hits people with weak willpower, so trying harder is the main fix” belongs to a different situation than the one in the question stem",
+            "It's a common pull toward smaller rewards now; habits like auto-transfers reduce its pull",
+            "It only matters for long-term investing, not teen goals” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Present bias is normal and common, not a character flaw limited to people with \"weak willpower.\" Designing habits (automation, short waits) works better than relying on constant willpower.",
     },
@@ -389,11 +389,11 @@ Same income, same wants — but the goal competed on payday instead of hoping fo
       question:
         "A student says, \"I'll stay positive about my trip fund — I don't need a number or deadline.\" What's the main problem?",
       choices: [
-        "Motivation helps, but without an amount, deadline, and funding habit the goal stays vague",
-        "A clear deadline alone is enough; the dollar amount can stay flexible forever",
-        "Deadlines usually hurt motivation, so skipping them is the safer plan",
-        "Numbers mainly matter for goals over $1,000; smaller ones can stay vague",
-      ],
+            "Motivation helps, but without an amount, deadline, and funding habit the goal stays vague",
+            "Deadlines usually hurt motivation, so skipping them is the safer plan” belongs to a different situation than the one in the question stem",
+            "A clear deadline alone is enough; the dollar amount can stay flexible forever",
+            "Numbers mainly matter for goals over $1,000; smaller ones can stay vague” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       explanation:
         "Motivation helps you start, but money moves with a clear target, a deadline, and a habit. A deadline without an amount still leaves the goal fuzzy — and small goals need numbers too.",
@@ -403,11 +403,11 @@ Same income, same wants — but the goal competed on payday instead of hoping fo
       question:
         "Deja needs a $90 phone repair (she needs the phone for work) and wants a $70 friend outing in 6 weeks; her hours might get cut. Best sequencing?",
       choices: [
-        "Fund the outing first because its deadline comes sooner",
-        "Split every dollar 50/50 even if that delays the repair past when she needs the phone",
-        "Prioritize the phone repair that protects her income, then schedule smaller amounts toward the outing",
-        "Pause both until her hours are guaranteed, then start from zero",
-      ],
+            "Pause both until her hours are guaranteed, then start from zero” belongs to a different situation than the one in the question stem",
+            "Split every dollar 50/50 even if that delays the repair past when she needs the phone” belongs to a different situation than the one in the question stem",
+            "Prioritize the phone repair that protects her income, then schedule smaller amounts toward the outing",
+            "Fund the outing first because its deadline comes sooner” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 2,
       explanation:
         "Expenses that protect your ability to earn usually outrank wants when money is tight — a sooner deadline doesn't automatically outrank a bigger need. Even 50/50 splits can leave a critical need unfunded.",
@@ -416,12 +416,12 @@ Same income, same wants — but the goal competed on payday instead of hoping fo
       id: "q8",
       question: "When two goals compete for the same $40, what role should values play?",
       choices: [
-        "They prove which option will earn you more money later",
-        "They help you choose which tradeoff fits what matters most to you right now",
-        "They replace any need to check the math or timeline",
-        "They only matter after you've funded every want on your list",
-      ],
-      correctIndex: 1,
+            "They only matter after you've funded every want on your list” belongs to a different situation than the one in the question stem",
+            "They replace any need to check the math or timeline” belongs to a different situation than the one in the question stem",
+            "They prove which option will earn you more money later” belongs to a different situation than the one in the question stem",
+            "They help you choose which tradeoff fits what matters most to you right now",
+          ],
+      correctIndex: 3,
       explanation:
         "Values don't skip the budget math — they help you pick when you can't fund everything. They aren't a promise of higher income or a reason to skip the numbers.",
     },

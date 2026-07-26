@@ -87,12 +87,12 @@ export const financeLesson2: AILessonConfig = {
           prompt:
             "Devon picks up an extra shift this week, which means missing his friend's game night. What does this situation show, according to this lesson?",
           choices: [
-            "That Devon is bad at managing his schedule",
-            "That extra shifts are only worth it if there's zero cost involved",
-            "That missing game night doesn't really count since he's getting paid",
+            "That extra shifts are only worth it if there's zero cost involved” belongs to a different situation than the one in the question stem",
+            "That missing game night doesn't really count since he's getting paid” belongs to a different situation than the one in the question stem",
             "A tradeoff — giving up one option to get another because time and money are limited",
+            "That Devon is bad at managing his schedule” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 3,
+          correctIndex: 2,
           explanation:
             "This is a normal tradeoff, not a scheduling failure. Getting paid doesn't erase the real cost of missing game night — it's still something he gave up.",
         },
@@ -155,12 +155,12 @@ export const financeLesson2: AILessonConfig = {
         checkIn: {
           prompt: "What's the strongest read of Priya's situation?",
           choices: [
+            "There's no real tradeoff, since $65 and $40 are both small amounts on their own” belongs to a different situation than the one in the question stem",
             "The jacket is a want, and buying it risks not having enough for the required field trip fee — that's the opportunity cost",
-            "The jacket becomes a need once it's marked down enough",
-            "There's no real tradeoff, since $65 and $40 are both small amounts on their own",
-            "The field trip fee can wait since it's not due for two weeks",
+            "“The jacket becomes a need once it's marked down enough” describes a different situation than the one in the question stem",
+            "“The field trip fee can wait since it's not due for two weeks” describes a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 1,
           explanation:
             "A discount doesn't turn a want into a need. And even though the fee isn't due immediately, spending on an unplanned want now still risks leaving less for a fee she already knows is required.",
         },
@@ -262,12 +262,12 @@ You can't delete scarcity pressure, but you can slow it: name the **opportunity 
         checkIn: {
           prompt: "Marcus has $85, needs $60 for a shared car-insurance payment in four days, and sees a $80 sneaker drop ending in 20 minutes. What's the strongest tradeoff-aware response?",
           choices: [
-            "Buy now — missing the drop costs more than missing the insurance payment",
+            "Buy now — missing the drop costs more than missing the insurance payment” belongs to a different situation than the one in the question stem",
+            "Assume the timer means the shoes are an investment that will rise in value” belongs to a different situation than the one in the question stem",
+            "Buy on credit so cash stays available for insurance” belongs to a different situation than the one in the question stem",
             "Pause, name what he'd give up (insurance cushion + opportunity cost), and decide if sneakers beat that",
-            "Assume the timer means the shoes are an investment that will rise in value",
-            "Buy on credit so cash stays available for insurance",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Tradeoff thinking names what you give up. Timers create urgency; they don't change whether a want outranks a near-term obligation.",
         },
@@ -280,12 +280,12 @@ You can't delete scarcity pressure, but you can slow it: name the **opportunity 
         checkIn: {
           prompt: "A flash sale banner says \"Only 2 left — ends in 10 minutes!\" What's the smartest response from this lesson?",
           choices: [
+            "Skip checking your budget since the item is probably cheap anyway” belongs to a different situation than the one in the question stem",
             "Buy right away, since a countdown like that usually signals a genuinely rare deal",
-            "Wait exactly 10 minutes to see if the timer is real before deciding",
+            "Wait exactly 10 minutes to see if the timer is real before deciding” belongs to a different situation than the one in the question stem",
             "Recognize the scarcity tactic, and ask whether you'd still want this without the timer",
-            "Skip checking your budget since the item is probably cheap anyway",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
             "Scarcity messaging is designed to rush a decision, not to signal a rare deal. Watching the countdown play out still keeps you inside the manufactured urgency instead of stepping outside it.",
         },
@@ -325,11 +325,11 @@ You can't delete scarcity pressure, but you can slow it: name the **opportunity 
       question:
         "Bailey works evenings and closes at 9pm. Which of these is closest to a need for getting home safely and to school on time?",
       choices: [
-        "A reliable way to get to and from work and school, like gas money or a bus pass",
-        "The newest phone model so she can film her commute",
-        "A streaming subscription to pass time while waiting for rides",
-        "Limited-edition sneakers she's been eyeing",
-      ],
+            "A reliable way to get to and from work and school, like gas money or a bus pass",
+            "Limited-edition sneakers she's been eyeing” belongs to a different situation than the one in the question stem",
+            "The newest phone model so she can film her commute” belongs to a different situation than the one in the question stem",
+            "A streaming subscription to pass time while waiting for rides” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       explanation:
         "Reliable transportation supports her safety, schooling, and income — that's the need. The other options are upgrades or entertainment, which are wants even though they feel appealing.",
@@ -353,12 +353,12 @@ You can't delete scarcity pressure, but you can slow it: name the **opportunity 
       question:
         "A $60 jacket is on sale for $30. Jasmine wasn't planning to buy a jacket this month. What's the most accurate way to think about this purchase?",
       choices: [
-        "She's saving $30 compared to doing nothing, so it's basically free money",
-        "She's spending $30 she wasn't planning to spend — that's new spending, not a savings",
-        "Since it's discounted, the jacket no longer counts as a want",
-        "The discount cancels out any opportunity cost of buying it",
-      ],
-      correctIndex: 1,
+            "She's saving $30 compared to doing nothing, so it's basically free money",
+            "Since it's discounted, the jacket no longer counts as a want” belongs to a different situation than the one in the question stem",
+            "The discount cancels out any opportunity cost of buying it” belongs to a different situation than the one in the question stem",
+            "She's spending $30 she wasn't planning to spend — that's new spending, not a savings",
+          ],
+      correctIndex: 3,
       explanation:
         "A discount only \"saves\" money compared to buying at full price when you were already planning the purchase. Since Jasmine wasn't, the $30 is new spending with a real opportunity cost.",
     },
@@ -366,12 +366,12 @@ You can't delete scarcity pressure, but you can slow it: name the **opportunity 
       id: "q4",
       question: "Which of these is the clearest example of scarcity marketing?",
       choices: [
-        "A store's everyday listed price with no time limit",
-        "An ad that compares prices at three different stores",
-        "A countdown timer with \"only 2 left\" messaging designed to rush your decision",
-        "A return policy printed in plain, simple language",
-      ],
-      correctIndex: 2,
+            "A store's everyday listed price with no time limit” belongs to a different situation than the one in the question stem",
+            "An ad that compares prices at three different stores” belongs to a different situation than the one in the question stem",
+            "A return policy printed in plain, simple language” belongs to a different situation than the one in the question stem",
+            "A countdown timer with \"only 2 left\" messaging designed to rush your decision",
+          ],
+      correctIndex: 3,
       explanation:
         "Scarcity marketing uses limited time or limited stock framing to create urgency and skip your normal decision process — that's the countdown timer, not a plain price or policy.",
     },
@@ -380,11 +380,11 @@ You can't delete scarcity pressure, but you can slow it: name the **opportunity 
       question:
         "Sam wants to buy a new game but decides to fund his savings goal first, then buy the game later if it still fits his budget. What does this show about delayed gratification?",
       choices: [
-        "Waiting on purpose for a goal-aligned result instead of grabbing the immediate reward",
-        "Putting every purchase on hold until the price drops further",
-        "Letting someone else decide when he's allowed to buy things",
-        "Skipping wants entirely until every medium-term goal is fully funded",
-      ],
+            "Waiting on purpose for a goal-aligned result instead of grabbing the immediate reward",
+            "Skipping wants entirely until every medium-term goal is fully funded” belongs to a different situation than the one in the question stem",
+            "Letting someone else decide when he's allowed to buy things” belongs to a different situation than the one in the question stem",
+            "Putting every purchase on hold until the price drops further” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       explanation:
         "Delayed gratification is purposeful waiting tied to a goal — not price-hunting forever, outsourcing the choice, or freezing every want until all other goals are done.",
@@ -393,11 +393,11 @@ You can't delete scarcity pressure, but you can slow it: name the **opportunity 
       id: "q6",
       question: "Why can something like a phone plan be a gray area between a need and a want?",
       choices: [
-        "Because the words \"need\" and \"want\" don't really apply to purchases under $50",
-        "Because opportunity cost only applies to expensive items",
-        "Because a phone is automatically a full need once you have a job",
-        "Context matters — a basic plan may be a need for safety or work, while the newest model is usually a want",
-      ],
+            "Because the words \"need\" and \"want\" don't really apply to purchases under $50” belongs to a different situation than the one in the question stem",
+            "Because opportunity cost only applies to expensive items” belongs to a different situation than the one in the question stem",
+            "Because a phone is automatically a full need once you have a job” belongs to a different situation than the one in the question stem",
+            "Context matters — a basic plan may be a need for safety or work, while the newest model is usually a want",
+          ],
       correctIndex: 3,
       explanation:
         "The same category can include both a functional need and a luxury upgrade want — it depends on context, not on price size or simply having a job.",
@@ -407,12 +407,12 @@ You can't delete scarcity pressure, but you can slow it: name the **opportunity 
       question:
         "Devante sees a \"48-hour flash sale\" for something he never mentioned wanting before, while a required school fee is due soon. What's the strongest move?",
       choices: [
-        "Buy the sale item immediately since the 48-hour deadline is real and non-negotiable",
-        "Pause, recognize the sale's urgency is likely manufactured, and protect money for the required fee first",
-        "Treat the sale item as a need now that it's discounted",
-        "Split the money evenly between both, regardless of which one is required",
-      ],
-      correctIndex: 1,
+            "Treat the sale item as a need now that it's discounted” belongs to a different situation than the one in the question stem",
+            "Split the money evenly between both, regardless of which one is required” belongs to a different situation than the one in the question stem",
+            "Buy the sale item immediately since the 48-hour deadline is real and non-negotiable” belongs to a different situation than the one in the question stem",
+            "Pause, recognize the sale's urgency is likely manufactured, and protect money for the required fee first",
+          ],
+      correctIndex: 3,
       explanation:
         "A required fee with a real deadline should generally be protected before an unplanned want — flash-sale countdowns are typically manufactured urgency, not a truly one-time deadline.",
     },
@@ -420,12 +420,12 @@ You can't delete scarcity pressure, but you can slow it: name the **opportunity 
       id: "q8",
       question: "Which approach best shows conscious tradeoff thinking, according to this lesson?",
       choices: [
-        "Buying first and figuring out your goals afterward",
-        "Assuming a sale price erases any opportunity cost",
-        "Naming out loud what you're choosing instead of, before you decide",
-        "Copying whatever your friends decide to buy",
-      ],
-      correctIndex: 2,
+            "Copying whatever your friends decide to buy” belongs to a different situation than the one in the question stem",
+            "Assuming a sale price erases any opportunity cost” belongs to a different situation than the one in the question stem",
+            "Buying first and figuring out your goals afterward” belongs to a different situation than the one in the question stem",
+            "Naming out loud what you're choosing instead of, before you decide",
+          ],
+      correctIndex: 3,
       explanation:
         "Naming what you give up makes the tradeoff conscious — the core skill of this lesson. A sale price doesn't erase what you're giving up by spending.",
     },

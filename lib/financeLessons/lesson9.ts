@@ -85,12 +85,12 @@ export const financeLesson9: AILessonConfig = {
         checkIn: {
           prompt: "Riley and Sam each save $25 a month in the same type of account, but Riley started freshman year and Sam started senior year. Why is Riley likely to end up ahead?",
           choices: [
-            "Riley's bank gives an automatic bonus rate to younger savers",
-            "Riley's deposits count double compared to Sam's",
             "Riley has more years for interest to build on both the deposits and the interest already earned",
-            "There's no real advantage as long as both deposit the same monthly amount",
+            "There's no real advantage as long as both deposit the same monthly amount” belongs to a different situation than the one in the question stem",
+            "Riley's deposits count double compared to Sam's” belongs to a different situation than the one in the question stem",
+            "Riley's bank gives an automatic bonus rate to younger savers” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
             "More years in the account means more compounding periods — interest earning on interest already earned. Depositing the same amount isn't enough to close the gap (last choice); the extra years matter, not a special rate or double-counting.",
         },
@@ -112,9 +112,9 @@ export const financeLesson9: AILessonConfig = {
         checkIn: {
           prompt: "Devon gets paid every Friday and wants to build a 'pay yourself first' habit. What should Devon do?",
           choices: [
-            "Wait to see what's left after weekend plans, then save whatever remains",
-            "Save only in months when there isn't anything he wants to buy",
             "Make one large deposit at the end of the year and call the habit done",
+            "Save only in months when there isn't anything he wants to buy” belongs to a different situation than the one in the question stem",
+            "Wait to see what's left after weekend plans, then save whatever remains",
             "Move a set amount to savings automatically before spending, then live on the rest",
           ],
           correctIndex: 3,
@@ -145,10 +145,10 @@ export const financeLesson9: AILessonConfig = {
         checkIn: {
           prompt: "Jayden says he'll start saving once he has '$1,000 to really make it count.' What's the flaw in that plan, based on the lesson?",
           choices: [
-            "Banks generally won't open an account for less than $1,000",
+            "Small deposits don't count toward compounding until they reach a minimum balance” belongs to a different situation than the one in the question stem",
             "Waiting delays the years compounding needs, so a smaller amount started now can end up ahead of a bigger start later",
-            "Small deposits don't count toward compounding until they reach a minimum balance",
-            "It's not really a flaw — the idea that you need a lot of money to start is actually true",
+            "It's not really a flaw — the idea that you need a lot of money to start is actually true” belongs to a different situation than the one in the question stem",
+            "“Banks generally won't open an account for less than $1,000” describes a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -300,12 +300,12 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
         checkIn: {
           prompt: "You need $120 in 3 weeks and already have $70 in a labeled repair fund. Best saving-habit move?",
           choices: [
-            "Drain the repair fund for something else and BNPL the screen",
-            "Add $25 from the next two paychecks to top up the fund, then pay cash",
-            "Wait until you have $500 saved before any repair",
             "Put it on a high-APR card because emergencies don't count",
+            "Drain the repair fund for something else and BNPL the screen",
+            "Wait until you have $500 saved before any repair” belongs to a different situation than the one in the question stem",
+            "Add $25 from the next two paychecks to top up the fund, then pay cash",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Topping up a sinking fund and paying cash avoids BNPL fees and keeps the repair fund doing its job.",
         },
@@ -357,12 +357,12 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
       id: "q1",
       question: "Aaliyah's account balance grew by about $25 in year one and $26.25 in year two, even though the interest rate didn't change. What does this show?",
       choices: [
-        "The bank made an error, since the interest earned should stay exactly the same each year",
-        "Aaliyah's rate secretly increased between year one and year two",
-        "Interest is only calculated once, at the very start of the account",
-        "Compound interest: each year's interest is calculated on principal plus interest already earned",
-      ],
-      correctIndex: 3,
+            "Compound interest: each year's interest is calculated on principal plus interest already earned",
+            "The bank made an error, since the interest earned should stay exactly the same each year",
+            "Interest is only calculated once, at the very start of the account” belongs to a different situation than the one in the question stem",
+            "Aaliyah's rate secretly increased between year one and year two” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 0,
       explanation:
         "The growing interest amount is compounding in action — later interest is calculated on a bigger balance (principal plus prior interest), not a rate change or an error.",
     },
@@ -396,12 +396,12 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
       id: "q4",
       question: "Marcus is deciding whether to spend $40 now on a jacket or set it aside for six months. Which idea reflects the 'time value of money' concept from the lesson?",
       choices: [
-        "Money in the future is always worth more than money today, so waiting is always better",
-        "Cash kept at home always outperforms any savings account over time",
-        "The $40 available now could be spent, saved, or grown; waiting means giving up that choice for a while",
-        "Interest rates stay fixed forever once you open an account",
-      ],
-      correctIndex: 2,
+            "Money in the future is always worth more than money today, so waiting is always better” belongs to a different situation than the one in the question stem",
+            "The $40 available now could be spent, saved, or grown; waiting means giving up that choice for a while",
+            "Interest rates stay fixed forever once you open an account” belongs to a different situation than the one in the question stem",
+            "Cash kept at home always outperforms any savings account over time” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Time value of money is about the option to use, save, or grow money now — not a guarantee that waiting or keeping cash at home is automatically better.",
     },
@@ -409,12 +409,12 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
       id: "q5",
       question: "Talia wants to build a realistic Growth Saver habit with her part-time job income. Which approach fits best?",
       choices: [
-        "Set up a small automatic transfer to savings and increase it when her hours (and pay) go up",
-        "Wait for an ad promising a guaranteed high return before opening any account",
-        "Skip an emergency fund entirely since her savings account will cover anything",
-        "Hold off on saving until she can deposit at least a few hundred dollars at once",
-      ],
-      correctIndex: 0,
+            "Skip an emergency fund entirely since her savings account will cover anything” belongs to a different situation than the one in the question stem",
+            "Set up a small automatic transfer to savings and increase it when her hours (and pay) go up",
+            "Hold off on saving until she can deposit at least a few hundred dollars at once",
+            "Wait for an ad promising a guaranteed high return before opening any account” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Automating a small, growing deposit is the realistic habit the lesson describes. Waiting for a big ad-promised return or a large deposit both delay the years compounding needs.",
     },
@@ -435,11 +435,11 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
       id: "q7",
       question: "Devin tells himself, 'I'll start saving once I get a raise at work.' What's the risk in that plan, according to the lesson?",
       choices: [
-        "Raises are rare, so the plan will probably never come up at all",
-        "It guarantees Devin will end up with a smaller final balance no matter what",
-        "It's actually a strong plan, since more income always means easier saving",
-        "Spending often rises to match new income, so the 'right time' may never actually arrive",
-      ],
+            "It guarantees Devin will end up with a smaller final balance no matter what",
+            "Raises are rare, so the plan will probably never come up at all” belongs to a different situation than the one in the question stem",
+            "It's actually a strong plan, since more income always means easier saving” belongs to a different situation than the one in the question stem",
+            "Spending often rises to match new income, so the 'right time' may never actually arrive",
+          ],
       correctIndex: 3,
       explanation:
         "Lifestyle creep means spending quietly rises with income, so waiting for a raise doesn't reliably create room to save — deciding the savings move in advance breaks the pattern.",
@@ -448,11 +448,11 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
       id: "q8",
       question: "In Maria's case study, what allowed her to cover a laptop repair without a high-interest loan?",
       choices: [
-        "A single large deposit she made right before the laptop broke",
-        "Borrowing the repair cost from a friend and paying it back slowly",
-        "Consistent small weekly deposits that built a cushion over time, increased after her raise",
-        "Ignoring her account balance until the emergency showed up",
-      ],
+            "A single large deposit she made right before the laptop broke” belongs to a different situation than the one in the question stem",
+            "Borrowing the repair cost from a friend and paying it back slowly” belongs to a different situation than the one in the question stem",
+            "Consistent small weekly deposits that built a cushion over time, increased after her raise",
+            "Ignoring her account balance until the emergency showed up” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 2,
       explanation:
         "Maria's steady, automatic weekly deposits — bumped up after a raise instead of spent — built the cushion she used. It wasn't a single last-minute deposit or borrowed money.",

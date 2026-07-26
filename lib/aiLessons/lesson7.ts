@@ -55,12 +55,12 @@ export const aiLesson7: AILessonConfig = {
         checkIn: {
           prompt: "What is the core difference between a spam filter and a generative AI model?",
           choices: [
-            "Spam filters are faster, that's the only difference",
+            "There is no real difference between them” belongs to a different situation than the one in the question stem",
+            "Spam filters are faster, that's the only difference” belongs to a different situation than the one in the question stem",
             "A spam filter classifies existing content; generative AI creates brand-new content",
-            "There is no real difference between them",
-            "Generative AI can only work with numbers, never text",
+            "Generative AI can only work with numbers, never text” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Sorting (classifying) and creating (generating) are fundamentally different jobs, even though both rely on patterns learned from data.",
         },
@@ -82,10 +82,10 @@ export const aiLesson7: AILessonConfig = {
         checkIn: {
           prompt: "At its core, how does a text-generating AI build a sentence?",
           choices: [
-            "It searches a database for the exact sentence and copies it",
+            "A hidden human types the response secretly” belongs to a different situation than the one in the question stem",
             "It predicts the next word/token repeatedly, each based on everything written so far",
-            "A hidden human types the response secretly",
-            "It picks words completely at random",
+            "It picks words completely at random” belongs to a different situation than the one in the question stem",
+            "It searches a database for the exact sentence and copies it” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -104,12 +104,12 @@ export const aiLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Why can generative AI output reflect bias or errors?",
           choices: [
-            "Because it has personal opinions",
+            "Because it has personal opinions” belongs to a different situation than the one in the question stem",
+            "It can't — generated content is always neutral and correct” belongs to a different situation than the one in the question stem",
+            "Because it's connected live to the news at all times” belongs to a different situation than the one in the question stem",
             "Because it reflects patterns in its training data, which can contain bias and mistakes",
-            "Because it's connected live to the news at all times",
-            "It can't — generated content is always neutral and correct",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Generative models learn from human-made data. Flaws and biases in that data can show up in the output, even without anyone intending it.",
         },
@@ -149,12 +149,12 @@ export const aiLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Why is 'the AI made it, so it's fully original' a misleading claim?",
           choices: [
-            "It isn't misleading — AI content has no relationship to any source material",
+            "Some learners answer “Because AI never actually generates anything new”, yet that does not match the precise idea from the lesson",
+            "“Because only humans are allowed to create art, by law, everywhere” describes a different situation than the one in the question stem",
             "Because the output is built from patterns learned from real human-made content, raising real questions about credit and consent",
-            "Because AI never actually generates anything new",
-            "Because only humans are allowed to create art, by law, everywhere",
+            "It isn't misleading — AI content has no relationship to any source material” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Generative AI remixes patterns from real training data. That's exactly why questions about crediting and compensating original creators remain active and unresolved.",
         },
@@ -211,12 +211,12 @@ export const aiLesson7: AILessonConfig = {
         checkIn: {
           prompt: "Based on the comparison, what is a distinctive new risk that comes with generative AI (beyond sorting AI)?",
           choices: [
-            "It never uses any training data",
+            "Picking “It never uses any training data” is a common mix-up that confuses a nearby idea with the right one",
+            "“It is always less accurate than sorting AI” describes a different situation than the one in the question stem",
+            "It can seem like it has no risks at all, but that reading skips the distinction this question is testing",
             "It raises unresolved ownership and consent questions because it reproduces patterns from real creators' work",
-            "It is always less accurate than sorting AI",
-            "It has no risks at all",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Because generative AI reproduces and remixes patterns from real creative work, it introduces genuinely new ethical and legal questions that sorting AI didn't raise in the same way.",
         },
@@ -276,12 +276,12 @@ export const aiLesson7: AILessonConfig = {
         checkIn: {
           prompt: "What made the stock-photo company's lawsuit evidence unusually concrete?",
           choices: [
-            "The AI admitted to copying photos in a public statement",
             "Generated images sometimes showed a distorted version of the company's own watermark, suggesting specific training sources",
-            "There was no evidence at all, only speculation",
-            "The stock-photo company had never published any photos",
+            "“The AI admitted to copying photos in a public statement” describes a different situation than the one in the question stem",
+            "Picking “There was no evidence at all, only speculation” is a common mix-up that confuses a nearby idea with the right one",
+            "“The stock-photo company had never published any photos” describes a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "The distorted watermark gave a rare, visible trace of specific training data showing up in generated output — a vivid, concrete piece of evidence in an otherwise abstract debate.",
         },
@@ -316,12 +316,12 @@ export const aiLesson7: AILessonConfig = {
       id: "q1",
       question: "What makes generative AI different from a spam filter?",
       choices: [
-        "It doesn't use any training data at all",
-        "It creates brand-new content instead of only labeling existing content",
-        "It can only process images, never text",
-        "It requires no computing power to run",
-      ],
-      correctIndex: 1,
+            "It requires no computing power to run” belongs to a different situation than the one in the question stem",
+            "It can only process images, never text” belongs to a different situation than the one in the question stem",
+            "It creates brand-new content instead of only labeling existing content",
+            "It doesn't use any training data at all” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Generative AI produces new text, images, or audio. A spam filter just classifies things that already exist.",
     },
@@ -329,11 +329,11 @@ export const aiLesson7: AILessonConfig = {
       id: "q2",
       question: "How does a text-generating AI build a sentence?",
       choices: [
-        "It looks up the closest matching sentence in a database",
-        "It copies a random webpage related to the topic",
-        "It predicts the next word/token repeatedly, each based on what came before",
-        "A human types it secretly on the other end",
-      ],
+            "It copies a random webpage related to the topic” belongs to a different situation than the one in the question stem",
+            "A human types it secretly on the other end” belongs to a different situation than the one in the question stem",
+            "It predicts the next word/token repeatedly, each based on what came before",
+            "It looks up the closest matching sentence in a database” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 2,
       explanation:
         "Text generators work by predicting the next token over and over, chaining tiny predictions into full passages.",
@@ -342,11 +342,11 @@ export const aiLesson7: AILessonConfig = {
       id: "q3",
       question: "Why can generative AI output reflect bias or errors?",
       choices: [
-        "Because it has opinions",
-        "Because it's connected to the news",
-        "It can't — generated content is always neutral and correct",
-        "Because it reflects the training data, which can contain bias and mistakes",
-      ],
+            "Because it's connected to the news” belongs to a different situation than the one in the question stem",
+            "Because it has opinions” belongs to a different situation than the one in the question stem",
+            "It can't — generated content is always neutral and correct” belongs to a different situation than the one in the question stem",
+            "Because it reflects the training data, which can contain bias and mistakes",
+          ],
       correctIndex: 3,
       explanation:
         "Generative models learn from human-made data. Flaws and biases in that data can show up in the output.",
@@ -355,12 +355,12 @@ export const aiLesson7: AILessonConfig = {
       id: "q4",
       question: "Which is the best way to think about generative AI's 'creativity'?",
       choices: [
-        "True original imagination, like a human artist's",
-        "Super-powered remixing of patterns learned from training data",
-        "Magic that can't be explained",
-        "Random noise with no structure",
-      ],
-      correctIndex: 1,
+            "Magic that can't be explained” belongs to a different situation than the one in the question stem",
+            "Random noise with no structure” belongs to a different situation than the one in the question stem",
+            "Super-powered remixing of patterns learned from training data",
+            "True original imagination, like a human artist's” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "It feels creative, but it's remixing and recombining patterns from its training data via prediction.",
     },
@@ -368,12 +368,12 @@ export const aiLesson7: AILessonConfig = {
       id: "q5",
       question: "Why did several artists and authors file lawsuits against AI companies starting in 2023?",
       choices: [
-        "They argued their copyrighted work was used to train AI models without permission or payment",
-        "They wanted their work removed from the internet entirely",
-        "They were seeking free personal access to the AI tools",
-        "They objected to how much energy AI data centers consume",
-      ],
-      correctIndex: 0,
+            "They objected to how much energy AI data centers consume” belongs to a different situation than the one in the question stem",
+            "They wanted their work removed from the internet entirely” belongs to a different situation than the one in the question stem",
+            "They argued their copyrighted work was used to train AI models without permission or payment",
+            "They were seeking free personal access to the AI tools” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "The core legal argument centers on whether training an AI on copyrighted creative work without permission is fair use or infringement — a genuinely unresolved question.",
     },
@@ -381,11 +381,11 @@ export const aiLesson7: AILessonConfig = {
       id: "q6",
       question: "What made the stock-photo lawsuit's evidence unusually concrete?",
       choices: [
-        "Generated images sometimes contained a distorted version of the company's own watermark",
-        "A public confession from the AI company",
-        "There was no evidence presented at all",
-        "The stock-photo company had never published any images",
-      ],
+            "Generated images sometimes contained a distorted version of the company's own watermark",
+            "The stock-photo company had never published any images” belongs to a different situation than the one in the question stem",
+            "A public confession from the AI company” belongs to a different situation than the one in the question stem",
+            "There was no evidence presented at all” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 0,
       explanation:
         "The distorted watermark gave a rare, visible clue connecting specific training data to specific generated output.",
@@ -394,12 +394,12 @@ export const aiLesson7: AILessonConfig = {
       id: "q7",
       question: "What's the key difference between scale in human 'remixing' and generative AI 'remixing'?",
       choices: [
-        "There is no difference at all",
-        "A generative model can absorb and echo millions of creators' styles at once, far beyond human-scale referencing",
-        "Humans have never referenced each other's work before",
-        "AI models can only learn from one source at a time",
-      ],
-      correctIndex: 1,
+            "“Humans have never referenced each other's work before” describes a different situation than the one in the question stem",
+            "It can seem like there is no difference at all, but that reading skips the distinction this question is testing",
+            "“AI models can only learn from one source at a time” describes a different situation than the one in the question stem",
+            "A generative model can absorb and echo millions of creators' styles at once, far beyond human-scale referencing",
+          ],
+      correctIndex: 3,
       explanation:
         "The scale (millions of sources at once) and lack of consent are what make generative AI's version of 'remixing' genuinely different from a single artist's influence.",
     },
@@ -407,11 +407,11 @@ export const aiLesson7: AILessonConfig = {
       id: "q8",
       question: "Which of these is a genuinely unresolved question about generative AI, according to this lesson?",
       choices: [
-        "Whether text can be converted into tokens",
-        "Whether generative AI exists at all",
-        "Who owns AI-generated content, and whether training on copyrighted work without permission is acceptable",
-        "Whether prompts can include a task and format",
-      ],
+            "Whether generative AI exists at all — familiar wording, wrong fit for what the prompt is actually asking",
+            "“Whether text can be converted into tokens” describes a different situation than the one in the question stem",
+            "Who owns AI-generated content, and whether training on copyrighted work without permission is acceptable",
+            "“Whether prompts can include a task and format” describes a different situation than the one in the question stem",
+          ],
       correctIndex: 2,
       explanation:
         "Ownership, credit, and consent for training data are live legal and ethical debates without a settled answer yet.",

@@ -67,12 +67,12 @@ export const digitalLesson13: AILessonConfig = {
         checkIn: {
           prompt: "You spend two hours on your phone: 20 minutes texting a friend about weekend plans, and 100 minutes on an autoplay video feed you didn't intend to keep watching. What does the active/passive framework suggest?",
           choices: [
-            "Both activities count the same, so there's nothing to notice here",
-            "The autoplay time was actually more valuable because it lasted longer",
-            "Neither counts as real screen time",
+            "Both activities count the same, so there's nothing to notice here — familiar wording, wrong fit for what the prompt is actually asking",
+            "A common mix-up is to treat neither counts as real screen time as enough, which confuses a nearby idea with the right one",
             "The texting was more active/connecting, while the long autoplay stretch was mostly passive — a good candidate to notice and maybe trim",
+            "“The autoplay time was actually more valuable because it lasted longer” describes a different situation than the one in the question stem",
           ],
-          correctIndex: 3,
+          correctIndex: 2,
           explanation:
             "Judging screen time by kind, not just total minutes, highlights that the long autoplay stretch was passive and not something you actively chose minute by minute — exactly the kind of pattern worth noticing.",
         },
@@ -101,10 +101,10 @@ export const digitalLesson13: AILessonConfig = {
         checkIn: {
           prompt: "A social app shows a small red number badge on its icon every time there's new activity, even if it's minor. What design trick is this, and why does it work?",
           choices: [
-            "It has no real effect on behavior",
+            "A common mix-up is to treat it has no real effect on behavior as enough, which confuses a nearby idea with the right one",
             "It's a deliberate attention-grabbing nudge — the badge creates a small discomfort that motivates you to open the app and 'clear' it",
-            "It's required by law for every app to display",
-            "It's a security feature meant to warn you about hacking attempts",
+            "It can seem like it's required by law for every app to display, but that reading skips the distinction this question is testing",
+            "“It's a security feature meant to warn you about hacking attempts” describes a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -133,12 +133,12 @@ export const digitalLesson13: AILessonConfig = {
         checkIn: {
           prompt: "You watch exciting, fast-paced videos right up until the moment you try to fall asleep, and then find it hard to actually fall asleep. What's the most likely explanation?",
           choices: [
-            "Videos have no effect on sleep at all",
-            "You simply need a louder alarm in the morning",
+            "“It only matters what app you're using, not the content or the light” describes a different situation than the one in the question stem",
+            "It can seem like you simply need a louder alarm in the morning, but that reading skips the distinction this question is testing",
+            "It can seem like videos have no effect on sleep at all, but that reading skips the distinction this question is testing",
             "Engaging content keeps your brain alert, and bright light late at night can also confuse your body's sense of when to feel sleepy",
-            "It only matters what app you're using, not the content or the light",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
             "Late-night screens hurt sleep in two ways at once: stimulating content keeps your mind alert, and bright light can delay your body's natural signal that it's time to wind down.",
         },
@@ -165,12 +165,12 @@ export const digitalLesson13: AILessonConfig = {
         checkIn: {
           prompt: "During college decision season, you feel worse every time you check your feed full of acceptance posts. What's a reasonable, healthy response?",
           choices: [
+            "If the goal were something else, “Post something fake to feel better” might work; for this check, it does not",
             "Temporarily mute the accounts posting the most, or set specific check-in times instead of constant refreshing",
-            "Check the feed even more often to make sure you don't miss anything",
-            "Post something fake to feel better",
-            "Assume your own results don't matter since everyone else already got in somewhere",
+            "Assume your own results don't matter since everyone else already got in somewhere” belongs to a different situation than the one in the question stem",
+            "Check the feed even more often to make sure you don't miss anything” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 1,
           explanation:
             "You can't control a feed's content, but you can control your exposure to it during a hard stretch — muting or scheduling check-ins protects your mood without requiring you to quit social media entirely.",
         },
@@ -202,12 +202,12 @@ export const digitalLesson13: AILessonConfig = {
         checkIn: {
           prompt: "A feed sometimes shows you something amazing and sometimes nothing interesting at all, on an unpredictable schedule. Why does this specific pattern make it hard to stop checking?",
           choices: [
-            "It has no special effect compared to a predictable reward",
-            "Variable rewards only affect video games, not social feeds",
             "Unpredictable ('variable') rewards are especially habit-forming compared to a reward you'd get every single time",
-            "It's designed to be equally exciting every single time you check",
+            "Variable rewards only affect video games, not social feeds” belongs to a different situation than the one in the question stem",
+            "It has no special effect compared to a predictable reward” belongs to a different situation than the one in the question stem",
+            "It's designed to be equally exciting every single time you check” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
             "Unpredictable, variable rewards are a well-known habit-forming pattern — not knowing whether this check will be the 'good one' keeps people checking more than a reward that arrived reliably every time would.",
         },
@@ -258,10 +258,10 @@ export const digitalLesson13: AILessonConfig = {
         checkIn: {
           prompt: "During finals week, you keep telling yourself 'I'll sleep once I finish studying,' and end up staying up later each night while feeling less focused. What does this lesson suggest instead?",
           choices: [
-            "Keep pushing sleep later — focus doesn't depend on sleep",
+            "“Study only right before bed for maximum retention” describes a different situation than the one in the question stem",
             "Pick a firm bedtime in advance and build study blocks around it, since a rested brain studies more effectively",
-            "Study only right before bed for maximum retention",
-            "Sleep has no connection to exam performance",
+            "Keep pushing sleep later — focus doesn't depend on sleep” belongs to a different situation than the one in the question stem",
+            "“Sleep has no connection to exam performance” describes a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -280,12 +280,12 @@ export const digitalLesson13: AILessonConfig = {
         checkIn: {
           prompt: "You run this check-in and realize notifications are still buzzing you constantly, even though you 'meant' to turn most of them off weeks ago. What's the most useful next step?",
           choices: [
-            "Ignore it since notifications don't really matter",
-            "Buy a new phone",
-            "Feel guilty and give up on the whole idea",
             "Actually go into settings right now and turn off the non-essential notifications, since noticing the gap is only useful if you act on it",
+            "A common mix-up is to treat buy a new phone as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "It can seem like ignore it since notifications don't really matter, but that reading skips the distinction this question is testing",
+            "A common mix-up is to treat feel guilty and give up on the whole idea as enough, which confuses a nearby idea with the right one",
           ],
-          correctIndex: 3,
+          correctIndex: 0,
           explanation:
             "A check-in only helps if it leads to a small action. Noticing that notifications are still on is useful exactly because it points to one concrete, doable fix you can make right now.",
         },
@@ -306,12 +306,12 @@ export const digitalLesson13: AILessonConfig = {
         checkIn: {
           prompt: "Riley loses two hours to late-night scrolling before an exam. What's the most direct wellbeing fix to try first?",
           choices: [
-            "Download more apps to track productivity",
+            "Drink more caffeine the next morning” belongs to a different situation than the one in the question stem",
+            "Download more apps to track productivity” belongs to a different situation than the one in the question stem",
+            "Accept that sleep doesn't affect test performance” belongs to a different situation than the one in the question stem",
             "Move the phone out of the bedroom and set a wind-down routine before bed",
-            "Drink more caffeine the next morning",
-            "Accept that sleep doesn't affect test performance",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Late-night scrolling is often a phone-in-bedroom habit. Charging elsewhere plus a wind-down routine attacks the root cause, not just the morning-after fog.",
         },
@@ -375,11 +375,11 @@ export const digitalLesson13: AILessonConfig = {
       id: "q1",
       question: "You're drafting a college essay for two hours, then doomscrolling for two hours. Which best explains why 'all screen time is bad' is too simple?",
       choices: [
-        "Creating, learning, and connecting are very different from passive doomscrolling",
-        "Time on a phone never counts if you're multitasking with homework open",
-        "Any screen use under four hours is automatically healthy by definition",
-        "Active and passive screen time affect sleep and focus the same way",
-      ],
+            "Creating, learning, and connecting are very different from passive doomscrolling",
+            "Active and passive screen time affect sleep and focus the same way” belongs to a different situation than the one in the question stem",
+            "Any screen use under four hours is automatically healthy by definition",
+            "Time on a phone never counts if you're multitasking with homework open",
+          ],
       correctIndex: 0,
       explanation:
         "The type of screen time matters more than the total. Writing an essay or video-calling family is active, creative time — very different from endless passive scrolling.",
@@ -388,12 +388,12 @@ export const digitalLesson13: AILessonConfig = {
       id: "q2",
       question: "During finals week you find it really hard to stop scrolling a feed. What's the most accurate takeaway?",
       choices: [
-        "The app is designed by experts to be hard to put down, so changing the setup (like notifications) helps more than just trying harder",
-        "You have weak willpower and should feel guilty",
-        "You should never use any apps again",
-        "Nothing can be done — that's just how phones are",
-      ],
-      correctIndex: 0,
+            "It can seem like nothing can be done — that's just how phones are, but that reading skips the distinction this question is testing",
+            "The app is designed by experts to be hard to put down, so changing the setup (like notifications) helps more than just trying harder",
+            "A common mix-up is to treat you should never use any apps again as enough, which confuses a nearby idea with the right one",
+            "It can seem like you have weak willpower and should feel guilty, but that reading skips the distinction this question is testing",
+          ],
+      correctIndex: 1,
       explanation:
         "Infinite scroll, autoplay, notifications, and the dopamine loop are engineered to hold attention. It's not a character flaw — changing your setup beats relying on willpower alone.",
     },
@@ -401,12 +401,12 @@ export const digitalLesson13: AILessonConfig = {
       id: "q3",
       question: "You're filling out a scholarship form while texting and watching a show. What actually happens when you 'multitask' like that?",
       choices: [
-        "Your eyes get the benefit of the 20-20-20 rule",
-        "It always saves time",
-        "You task-switch rapidly, which makes you slower and more error-prone",
-        "Your brain does all three at once, perfectly",
-      ],
-      correctIndex: 2,
+            "Your eyes get the benefit of the 20-20-20 rule” belongs to a different situation than the one in the question stem",
+            "You task-switch rapidly, which makes you slower and more error-prone",
+            "It always saves time” belongs to a different situation than the one in the question stem",
+            "Your brain does all three at once, perfectly” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "There's no true multitasking for demanding work — your brain rapidly switches tasks, and each switch costs focus and time. Single-tasking is faster and better.",
     },
@@ -414,12 +414,12 @@ export const digitalLesson13: AILessonConfig = {
       id: "q4",
       question: "Decision day posts flood your feed and suddenly everyone else's life looks perfect. What's the best reason a feed can make you feel worse?",
       choices: [
-        "Comparison is impossible online",
-        "A feed is a highlight reel, so you compare your behind-the-scenes to everyone's greatest hits",
-        "Your phone is broken",
-        "Feeds always show the full, honest truth about people",
-      ],
-      correctIndex: 1,
+            "A feed is a highlight reel, so you compare your behind-the-scenes to everyone's greatest hits",
+            "“Comparison is impossible online” describes a different situation than the one in the question stem",
+            "Your phone is broken. That option sounds confident, but it leaves out the deciding constraint",
+            "Feeds always show the full, honest truth about people” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 0,
       explanation:
         "People post their best, most edited moments. Comparing your everyday reality to others' curated highlights isn't fair — and it can hurt your mood and self-image.",
     },
@@ -427,11 +427,11 @@ export const digitalLesson13: AILessonConfig = {
       id: "q5",
       question: "You're on a laptop all afternoon for a remote internship. Which is a correct use of the 20-20-20 rule?",
       choices: [
-        "Take a 20-minute nap after 20 videos",
-        "Use your phone for only 20 minutes a day",
-        "Stay 20 inches from the screen at all 20 times",
-        "Every 20 minutes, look at something 20 feet away for 20 seconds",
-      ],
+            "Use your phone for only 20 minutes a day” belongs to a different situation than the one in the question stem",
+            "Take a 20-minute nap after 20 videos” belongs to a different situation than the one in the question stem",
+            "Stay 20 inches from the screen at all 20 times” belongs to a different situation than the one in the question stem",
+            "Every 20 minutes, look at something 20 feet away for 20 seconds",
+          ],
       correctIndex: 3,
       explanation:
         "The 20-20-20 rule rests the eye muscles that strain from staring at something close: every 20 minutes, look 20 feet away for 20 seconds.",
@@ -440,11 +440,11 @@ export const digitalLesson13: AILessonConfig = {
       id: "q6",
       question: "An app shows you a great post sometimes and nothing interesting other times, on an unpredictable schedule. Why does this specific pattern make it especially hard to stop checking?",
       choices: [
-        "Predictable rewards are always more addictive than unpredictable ones",
-        "It has no different effect than a reward you'd always receive",
-        "Unpredictable ('variable') rewards are known to be especially habit-forming compared to a reward that arrives every single time",
-        "It only affects people who play video games",
-      ],
+            "“It has no different effect than a reward you'd always receive” describes a different situation than the one in the question stem",
+            "“Predictable rewards are always more addictive than unpredictable ones” describes a different situation than the one in the question stem",
+            "Unpredictable ('variable') rewards are known to be especially habit-forming compared to a reward that arrives every single time",
+            "It can seem like it only affects people who play video games, but that reading skips the distinction this question is testing",
+          ],
       correctIndex: 2,
       explanation:
         "Variable, unpredictable rewards are a well-studied habit-forming pattern — not knowing if 'this check' will be the good one keeps people checking more than a reliable reward would.",
@@ -453,12 +453,12 @@ export const digitalLesson13: AILessonConfig = {
       id: "q7",
       question: "During college decision season, you feel worse every time you check a feed full of acceptance posts. What's a reasonable, healthy response?",
       choices: [
-        "Conclude your own results don't matter because everyone else already got in somewhere",
-        "Temporarily mute the accounts posting the most, or set specific check-in times instead of constant refreshing",
-        "Post something misleading to feel better",
-        "Check even more often so you don't miss anything",
-      ],
-      correctIndex: 1,
+            "Post something misleading to feel better — familiar wording, wrong fit for what the prompt is actually asking",
+            "Conclude your own results don't matter because everyone else already got in somewhere” belongs to a different situation than the one in the question stem",
+            "“Check even more often so you don't miss anything” describes a different situation than the one in the question stem",
+            "Temporarily mute the accounts posting the most, or set specific check-in times instead of constant refreshing",
+          ],
+      correctIndex: 3,
       explanation:
         "You can't control what a feed shows, but you can control your exposure during a hard stretch. Muting accounts or scheduling check-ins protects your mood without requiring you to quit social media.",
     },
@@ -466,12 +466,12 @@ export const digitalLesson13: AILessonConfig = {
       id: "q8",
       question: "During finals week, you keep saying 'I'll sleep once I finish studying' and end up staying up later each night while feeling less focused. What does this lesson recommend instead?",
       choices: [
-        "Pick a firm bedtime in advance and build study blocks around it, since a rested brain studies more effectively",
-        "Sleep only matters during summer break",
-        "Only study right before bed for best retention",
-        "Keep pushing sleep later since focus has no connection to sleep",
-      ],
-      correctIndex: 0,
+            "Keep pushing sleep later since focus has no connection to sleep” belongs to a different situation than the one in the question stem",
+            "Pick a firm bedtime in advance and build study blocks around it, since a rested brain studies more effectively",
+            "“Only study right before bed for best retention” describes a different situation than the one in the question stem",
+            "You might defend “Sleep only matters during summer break” in casual talk, but it fails the definition used here",
+          ],
+      correctIndex: 1,
       explanation:
         "Treating sleep as a fixed anchor rather than an afterthought protects focus and memory exactly when you need them most — a tired brain studies more slowly and makes more mistakes.",
     },

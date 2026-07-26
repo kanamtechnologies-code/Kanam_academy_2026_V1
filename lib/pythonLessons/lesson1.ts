@@ -284,7 +284,11 @@ print("Hello! I am " + name)
         },
         checkIn: {
           prompt: 'What does `name = "Alex"` do?',
-          choices: ["Stores the text Alex inside a box called name", "Checks whether name equals Alex", "Prints the word Alex to the screen"],
+          choices: [
+            "Stores the text Alex inside a box called name",
+            "Prints the word Alex to the screen",
+            "Checks whether name equals Alex” belongs to a different situation than the one in the question stem",
+          ],
           correctIndex: 0,
           explanation: "= assigns — it stores the value on the right inside the box on the left. Nothing is printed or compared yet.",
         },
@@ -322,8 +326,12 @@ print("Hello! I am " + name)
         },
         checkIn: {
           prompt: 'Why does `"Hello! I am" + name` print `Hello! I amAlex` (no space)?',
-          choices: ["Python is broken", "The variable name is spelled wrong", "+ never adds spaces — the space must be typed inside the quotes"],
-          correctIndex: 2,
+          choices: [
+            "+ never adds spaces — the space must be typed inside the quotes",
+            "The variable name is spelled wrong” belongs to a different situation than the one in the question stem",
+            "Python is broken” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 0,
           explanation: "Concatenation glues text exactly as written. If you want a space, you must put it inside the quotes yourself.",
         },
       },
@@ -395,11 +403,11 @@ print("Hello! I am " + name)
         checkIn: {
           prompt: 'Your code has `Print("Hello! I am " + name)` and nothing runs. What\'s the bug?',
           choices: [
-            "The + sign is broken",
+            "The + sign is broken” belongs to a different situation than the one in the question stem",
+            "The variable name is too short” belongs to a different situation than the one in the question stem",
             "print must be lowercase — Print is not a valid command",
-            "The variable name is too short",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "Python commands are case-sensitive. print (lowercase) is the real command; Print and PRINT are not recognized.",
         },
       },
@@ -425,7 +433,11 @@ print("Hello! I am " + name)
         ],
         checkIn: {
           prompt: "You're about to write your first program. What should you decide FIRST?",
-          choices: ["Which print color to use", "What text you need to store (like your name)", "How many loops to run"],
+          choices: [
+            "How many loops to run” belongs to a different situation than the one in the question stem",
+            "What text you need to store (like your name)",
+            "Which print color to use” belongs to a different situation than the one in the question stem",
+          ],
           correctIndex: 1,
           explanation: "Start with the data — once you know what to remember, the variable line and greeting almost write themselves.",
         },
@@ -449,8 +461,12 @@ print("Hello! I am " + name)
         body: `Let's make sure the three building blocks are locked in before you head to the exercises.`,
         checkIn: {
           prompt: 'What is wrong with this line: `print("Hello! I am" + name)` if you want a space before the name?',
-          choices: ["Nothing — it will print correctly", "You need to use == instead of +", "There's no space inside the quotes after \"am\", so the output will be mashed together"],
-          correctIndex: 2,
+          choices: [
+            "Nothing — it will print correctly” belongs to a different situation than the one in the question stem",
+            "There's no space inside the quotes after \"am\", so the output will be mashed together",
+            "You need to use == instead of +” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 1,
           explanation: "+ doesn't add spaces automatically. Without a space inside the quotes after \"am\", the output reads like Hello! I amAlex.",
         },
       },

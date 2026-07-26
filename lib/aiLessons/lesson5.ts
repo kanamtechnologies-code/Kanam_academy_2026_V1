@@ -55,12 +55,12 @@ export const aiLesson5: AILessonConfig = {
         checkIn: {
           prompt: "How is machine learning different from old-style, hand-coded rules?",
           choices: [
-            "It doesn't use a computer at all",
+            "“It doesn't use a computer at all” describes a different situation than the one in the question stem",
+            "It's exactly the same thing with a fancier name” belongs to a different situation than the one in the question stem",
+            "It only works for spam filters, nothing else” belongs to a different situation than the one in the question stem",
             "Instead of a human writing every rule, the AI discovers patterns from many labeled examples",
-            "It's exactly the same thing with a fancier name",
-            "It only works for spam filters, nothing else",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "The defining shift of machine learning is: examples in, patterns learned automatically — rather than a human writing every rule by hand.",
         },
@@ -82,10 +82,10 @@ export const aiLesson5: AILessonConfig = {
         checkIn: {
           prompt: "Why is 'supervised learning' called supervised?",
           choices: [
-            "Because a human manually approves every single prediction after training",
+            "Because it requires no training data at all” belongs to a different situation than the one in the question stem",
             "Because each training example includes the correct label, acting like a built-in answer key",
-            "Because the model is limited to one supervised task for its entire life",
-            "Because it requires no training data at all",
+            "Because the model is limited to one supervised task for its entire life” belongs to a different situation than the one in the question stem",
+            "Because a human manually approves every single prediction after training” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -104,12 +104,12 @@ export const aiLesson5: AILessonConfig = {
         checkIn: {
           prompt: "After training finishes, what is 'the model'?",
           choices: [
-            "A physical robot sitting in a lab",
             "The trained result — tuned numbers that capture learned patterns and can make predictions on new inputs",
-            "The exact same thing as the training data",
-            "The person who supervised the training",
+            "“The person who supervised the training” describes a different situation than the one in the question stem",
+            "A physical robot sitting in a lab — familiar wording, wrong fit for what the prompt is actually asking",
+            "“The exact same thing as the training data” describes a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "The model is the distilled, reusable result of training — not a copy of the training data, but the patterns learned from it.",
         },
@@ -147,12 +147,12 @@ export const aiLesson5: AILessonConfig = {
         checkIn: {
           prompt: "How did the real hiring-tool example end up favoring certain resumes, even though no one told it to?",
           choices: [
-            "An engineer secretly typed in biased rules by hand",
+            "“It was hacked by an outside group” describes a different situation than the one in the question stem",
+            "It refused to process any resumes at all” belongs to a different situation than the one in the question stem",
             "It learned patterns from ten years of past hiring data that itself reflected a skewed history",
-            "It was hacked by an outside group",
-            "It refused to process any resumes at all",
+            "An engineer secretly typed in biased rules by hand” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "The tool learned exactly what was present in its training examples. Since those examples reflected an imperfect hiring history, the model absorbed that same pattern.",
         },
@@ -193,12 +193,12 @@ export const aiLesson5: AILessonConfig = {
         checkIn: {
           prompt: "According to the comparison, what is the main new risk introduced by machine learning (compared to hand-written rules)?",
           choices: [
-            "It can never adapt to anything new",
-            "It inherits whatever bias, gaps, or imbalance exists in its training data",
-            "It requires no data whatsoever",
             "It always requires a human to approve every single prediction",
+            "It requires no data whatsoever” belongs to a different situation than the one in the question stem",
+            "It can never adapt to anything new” belongs to a different situation than the one in the question stem",
+            "It inherits whatever bias, gaps, or imbalance exists in its training data",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Machine learning's flexibility is also its risk: it learns exactly what's in the data, flaws included, without anyone writing that flaw as an explicit rule.",
         },
@@ -258,12 +258,12 @@ export const aiLesson5: AILessonConfig = {
         checkIn: {
           prompt: "What was the deepest lesson from the resume-screening tool being scrapped?",
           choices: [
-            "AI tools should never be built for hiring, period",
+            "A common mix-up is to treat the tool had a hardware malfunction as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat the engineers didn't try hard enough to fix it as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "A common mix-up is to treat aI tools should never be built for hiring, period as enough, which confuses a nearby idea with the right one once the deciding rule is named clearly",
             "A model trained on biased historical data can learn and repeat that bias, even without anyone intending it — and that can be hard to fully fix after the fact",
-            "The engineers didn't try hard enough to fix it",
-            "The tool had a hardware malfunction",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "The core takeaway is about training data: the model learned real patterns from a real, imperfect history — and untangling that after training proved extremely difficult.",
         },
@@ -337,12 +337,12 @@ export const aiLesson5: AILessonConfig = {
       id: "q4",
       question: "After training, what is the 'model'?",
       choices: [
-        "A physical robot",
-        "The trained result — tuned numbers that capture the learned patterns and can make predictions",
-        "The person who built the AI",
-        "A copy of all the training photos",
-      ],
-      correctIndex: 1,
+            "Picking “A physical robot” is a common mix-up that confuses a nearby idea with the right one",
+            "“The person who built the AI” describes a different situation than the one in the question stem",
+            "“A copy of all the training photos” describes a different situation than the one in the question stem",
+            "The trained result — tuned numbers that capture the learned patterns and can make predictions",
+          ],
+      correctIndex: 3,
       explanation:
         "The model is what learning produces. It stores the patterns (as numbers) and uses them to predict on new inputs.",
     },
@@ -350,12 +350,12 @@ export const aiLesson5: AILessonConfig = {
       id: "q5",
       question: "In the real hiring-tool case, why did the model start downgrading certain resumes?",
       choices: [
-        "An engineer manually coded a rule to do so",
-        "The model was hacked",
-        "It refused to read any resumes",
-        "It learned patterns from ten years of past hiring data that itself skewed toward one group",
-      ],
-      correctIndex: 3,
+            "It learned patterns from ten years of past hiring data that itself skewed toward one group",
+            "“It refused to read any resumes” describes a different situation than the one in the question stem",
+            "An engineer manually coded a rule to do so” belongs to a different situation than the one in the question stem",
+            "The model was hacked — familiar wording, wrong fit for what the prompt is actually asking",
+          ],
+      correctIndex: 0,
       explanation:
         "No one wrote a biased rule. The model learned the pattern that was actually present in its imperfect historical training data.",
     },
@@ -363,12 +363,12 @@ export const aiLesson5: AILessonConfig = {
       id: "q6",
       question: "Why is 'more training data always fixes bias' a myth?",
       choices: [
-        "A bigger dataset that is still skewed just teaches the skewed pattern with more confidence",
-        "More data can never help a model at all",
-        "Training data size has no effect on anything",
-        "Bias only happens with small datasets, never large ones",
-      ],
-      correctIndex: 0,
+            "Training data size has no effect on anything” belongs to a different situation than the one in the question stem",
+            "Bias only happens with small datasets, never large ones” belongs to a different situation than the one in the question stem",
+            "More data can never help a model at all” belongs to a different situation than the one in the question stem",
+            "A bigger dataset that is still skewed just teaches the skewed pattern with more confidence",
+          ],
+      correctIndex: 3,
       explanation:
         "Scale doesn't fix skew — it can reinforce it. Balanced, varied, well-labeled data matters more than raw size.",
     },
@@ -376,11 +376,11 @@ export const aiLesson5: AILessonConfig = {
       id: "q7",
       question: "What is the smartest first question to ask about any new AI tool's training data?",
       choices: [
-        "How much did the company spend on marketing the tool?",
-        "Who and what is represented in the data, and does it reflect a biased history?",
-        "How many total employees does the company have?",
-        "How recently was the app's interface redesigned?",
-      ],
+            "How much did the company spend on marketing the tool?” belongs to a different situation than the one in the question stem",
+            "Who and what is represented in the data, and does it reflect a biased history?",
+            "How many total employees does the company have?” belongs to a different situation than the one in the question stem",
+            "How recently was the app's interface redesigned?” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "This question gets directly at the root of most AI fairness issues: what's really inside the training data, and what history might it be repeating?",
@@ -389,12 +389,12 @@ export const aiLesson5: AILessonConfig = {
       id: "q8",
       question: "What did the company that built the biased hiring tool ultimately decide to do?",
       choices: [
-        "Scrap the project rather than deploy a tool they couldn't fully trust",
-        "Ship it anyway because it was mostly accurate",
-        "Sell the tool to another company",
-        "Ignore the bias and hope no one noticed",
-      ],
-      correctIndex: 0,
+            "Ship it anyway because it was mostly accurate” belongs to a different situation than the one in the question stem",
+            "Sell the tool to another company” belongs to a different situation than the one in the question stem",
+            "Scrap the project rather than deploy a tool they couldn't fully trust",
+            "Ignore the bias and hope no one noticed” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "The company chose to shut the project down after repeated attempts to fix the bias fell short — a widely cited example of responsible restraint.",
     },

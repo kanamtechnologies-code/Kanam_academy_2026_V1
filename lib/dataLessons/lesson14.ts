@@ -58,8 +58,12 @@ export const daLesson14: DataLessonConfig = {
         },
         checkIn: {
           prompt: "What's the biggest difference between following a single-tool lesson and running a real investigation?",
-          choices: ["A real investigation requires deciding which tools to combine and in what order", "Real investigations never use SQL", "There is no difference"],
-          correctIndex: 0,
+          choices: [
+            "“There is no difference” describes a different situation than the one in the question stem",
+            "Real investigations never use SQL” belongs to a different situation than the one in the question stem",
+            "A real investigation requires deciding which tools to combine and in what order",
+          ],
+          correctIndex: 2,
           explanation: "Earlier lessons handed you one command at a time. A real investigation requires you to plan which combination of tools (join, group, sort) will answer the question.",
         },
       },
@@ -80,11 +84,11 @@ export const daLesson14: DataLessonConfig = {
         checkIn: {
           prompt: "Why can't you answer \"who spent the most?\" using the orders table alone?",
           choices: [
-            "orders doesn't have a price column",
+            "You can answer it just fine with orders alone” belongs to a different situation than the one in the question stem",
+            "“orders doesn't have a price column” describes a different situation than the one in the question stem",
             "orders only has student_id, not the student's actual name — that lives in the students table",
-            "You can answer it just fine with orders alone",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "The orders table tracks prices by student_id, but the readable name lives in the students table — a JOIN is needed to connect the two.",
         },
       },
@@ -95,7 +99,11 @@ export const daLesson14: DataLessonConfig = {
         body: `Every step in the pipeline has to happen in the right order, or the next step has nothing to work with. You **JOIN** first (so every row has a name attached), *then* **GROUP BY** (so rows collapse into one per student), *then* **ORDER BY** and **LIMIT** (so you can rank the finished totals).\n\nTry it backwards and it breaks: you can't sort totals that don't exist yet, and you can't group rows that haven't been connected to a name. Build in order, and each step's output becomes the next step's input.`,
         checkIn: {
           prompt: "Why must JOIN happen before GROUP BY in this investigation?",
-          choices: ["It doesn't matter — SQL runs clauses in any order", "GROUP BY is faster if it runs first", "GROUP BY needs to bundle rows by student_name, which only exists after the JOIN attaches it"],
+          choices: [
+            "It doesn't matter — SQL runs clauses in any order” belongs to a different situation than the one in the question stem",
+            "“GROUP BY is faster if it runs first” describes a different situation than the one in the question stem",
+            "GROUP BY needs to bundle rows by student_name, which only exists after the JOIN attaches it",
+          ],
           correctIndex: 2,
           explanation: "Before the JOIN, an order row only has a student_id — there's no student_name to group by yet. The JOIN has to attach the name first.",
         },
@@ -120,8 +128,12 @@ export const daLesson14: DataLessonConfig = {
         },
         checkIn: {
           prompt: "In the final query, what does LIMIT 1 do that GROUP BY + ORDER BY alone don't?",
-          choices: ["It keeps only the single top row instead of returning the full ranked list", "It changes the sort order", "It removes duplicate students"],
-          correctIndex: 0,
+          choices: [
+            "It removes duplicate students” belongs to a different situation than the one in the question stem",
+            "It changes the sort order” belongs to a different situation than the one in the question stem",
+            "It keeps only the single top row instead of returning the full ranked list",
+          ],
+          correctIndex: 2,
           explanation: "GROUP BY and ORDER BY produce a full ranked list of totals. LIMIT 1 trims that list down to just the winner.",
         },
       },
@@ -133,11 +145,11 @@ export const daLesson14: DataLessonConfig = {
         checkIn: {
           prompt: "Do JOIN, GROUP BY, and ORDER BY need to be four separate queries?",
           choices: [
-            "Yes, SQL can only do one thing per query",
+            "Only GROUP BY and ORDER BY can be combined” belongs to a different situation than the one in the question stem",
+            "Yes, SQL can only do one thing per query” belongs to a different situation than the one in the question stem",
             "No — a single query can combine JOIN, GROUP BY, and ORDER BY together",
-            "Only GROUP BY and ORDER BY can be combined",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation: "SQL clauses stack together in one query. You plan the steps mentally, then write them all into a single, structured SELECT statement.",
         },
       },
@@ -272,9 +284,9 @@ export const daLesson14: DataLessonConfig = {
         checkIn: {
           prompt: "Alex ordered twice. Why does the final result show Alex once with $6.25?",
           choices: [
-            "LIMIT 1 merged Alex's rows automatically",
+            "JOIN removed duplicate students” belongs to a different situation than the one in the question stem",
             "GROUP BY bundled Alex's orders and SUM added the two prices together",
-            "JOIN removed duplicate students",
+            "LIMIT 1 merged Alex's rows automatically” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation: "GROUP BY collapsed Alex's two order rows into one group, and SUM(price) added 3.50 + 2.75 = 6.25 — one row, one total.",

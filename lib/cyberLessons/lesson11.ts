@@ -59,10 +59,10 @@ export const cyberLesson11: AILessonConfig = {
         checkIn: {
           prompt: "A laptop paused updates six months ago and never resumed them. What's the main risk?",
           choices: [
-            "None — pausing updates has no security effect",
+            "None — pausing updates has no security effect” belongs to a different situation than the one in the question stem",
             "It has accumulated known, publicly documented vulnerabilities that attackers can target",
-            "The laptop will run faster forever",
-            "Pausing updates automatically enables a firewall instead",
+            "Pausing updates automatically enables a firewall instead” belongs to a different situation than the one in the question stem",
+            "The laptop will run faster forever” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -87,10 +87,10 @@ export const cyberLesson11: AILessonConfig = {
         checkIn: {
           prompt: "You find a file-sharing feature enabled on a shared laptop that nobody remembers using. What should you do?",
           choices: [
-            "Leave it on in case someone needs it someday",
+            "Enable even more sharing features to be thorough” belongs to a different situation than the one in the question stem",
             "Ask whether it's needed; if not, disable it to shrink the attack surface",
-            "Enable even more sharing features to be thorough",
-            "Delete the entire laptop's operating system",
+            "Leave it on in case someone needs it someday” belongs to a different situation than the one in the question stem",
+            "Delete the entire laptop's operating system” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -120,12 +120,12 @@ export const cyberLesson11: AILessonConfig = {
         checkIn: {
           prompt: "What is the correct order for hardening a new IoT device before it joins a sensitive network?",
           choices: [
-            "Join the network first, then worry about passwords later",
+            "Skip firmware updates since IoT devices rarely have vulnerabilities” belongs to a different situation than the one in the question stem",
+            "Enable every remote feature so it's easy to manage from anywhere” belongs to a different situation than the one in the question stem",
+            "Join the network first, then worry about passwords later” belongs to a different situation than the one in the question stem",
             "Change default password → apply firmware updates → reduce remote exposure → then join the network",
-            "Enable every remote feature so it's easy to manage from anywhere",
-            "Skip firmware updates since IoT devices rarely have vulnerabilities",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Harden first, expose second: change defaults, patch firmware, and reduce remote exposure before connecting to a sensitive network.",
         },
@@ -148,12 +148,12 @@ export const cyberLesson11: AILessonConfig = {
         checkIn: {
           prompt: "Which approach best reflects 'secure defaults' when creating a new shared drive?",
           choices: [
-            "Set sharing to 'anyone with the link can edit' and plan to fix it later",
+            "Never share the drive with anyone, ever” belongs to a different situation than the one in the question stem",
+            "Set sharing to 'anyone with the link can edit' and plan to fix it later” belongs to a different situation than the one in the question stem",
             "Start with access limited to specific known people, and widen deliberately only when needed",
-            "Never share the drive with anyone, ever",
-            "Give admin rights to everyone by default so nobody has to ask",
+            "Give admin rights to everyone by default so nobody has to ask” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Secure defaults start restrictive and widen intentionally — not the reverse. 'We'll lock it down later' rarely happens in practice.",
         },
@@ -183,10 +183,10 @@ export const cyberLesson11: AILessonConfig = {
         checkIn: {
           prompt: "Which issue should typically be fixed first: an internet-facing service with a default password, or an internal-only tool with a moderate bug and an available patch?",
           choices: [
-            "The internal-only tool, because patches are always more urgent than passwords",
+            "The internal-only tool, because patches are always more urgent than passwords” belongs to a different situation than the one in the question stem",
             "The internet-facing service with the default password, since it's exposed and easy to fix immediately",
-            "Neither — cosmetic bugs always come first",
-            "Whichever was discovered first, regardless of exposure",
+            "Whichever was discovered first, regardless of exposure” belongs to a different situation than the one in the question stem",
+            "“Neither — cosmetic bugs always come first” describes a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -218,12 +218,12 @@ export const cyberLesson11: AILessonConfig = {
         checkIn: {
           prompt: "Ransomware encrypts a laptop's files, but a clean cloud backup from two weeks ago exists. What does the backup accomplish?",
           choices: [
-            "It prevents the ransomware from ever running",
+            "“It prevents the ransomware from ever running” describes a different situation than the one in the question stem",
+            "“It removes the need for any future updates” describes a different situation than the one in the question stem",
+            "“It automatically catches the attacker” describes a different situation than the one in the question stem",
             "It turns a potential crisis into a manageable inconvenience by enabling recovery without paying attackers",
-            "It automatically catches the attacker",
-            "It removes the need for any future updates",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Backups are a corrective control — they don't prevent incidents, but they make recovery possible without depending on attackers' cooperation.",
         },
@@ -253,12 +253,12 @@ export const cyberLesson11: AILessonConfig = {
         checkIn: {
           prompt: "What's the main risk of disabling a service immediately, the night before an important event, without testing?",
           choices: [
-            "There is no risk — disabling unused services is always instantly safe",
+            "It will always improve performance with no downside” belongs to a different situation than the one in the question stem",
+            "There is no risk — disabling unused services is always instantly safe” belongs to a different situation than the one in the question stem",
+            "“It will automatically create a backup first” describes a different situation than the one in the question stem",
             "Something unexpected might depend on it, causing a break with no time to recover and no rollback plan",
-            "It will automatically create a backup first",
-            "It will always improve performance with no downside",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Change management — planning, testing, and having a rollback — prevents well-intentioned hardening from becoming an unplanned outage at the worst possible time.",
         },
@@ -364,11 +364,11 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       id: "q1",
       question: "A livestream laptop cannot reboot during a 3-hour competition, but a critical OS security update is waiting. Which recommendation best handles the uptime vs patching tradeoff?",
       choices: [
-        "Leave updates paused indefinitely after the event ends — security can wait forever",
-        "Skip the event's security needs entirely and reboot mid-stream",
-        "Time-box the delay: finish the event, then patch/restart the same day and re-enable auto-update — don't leave pause on for months",
-        "Install random \"updater\" software from a pop-up so you avoid the official reboot",
-      ],
+            "“Skip the event's security needs entirely and reboot mid-stream” describes a different situation than the one in the question stem",
+            "Leave updates paused indefinitely after the event ends — security can wait forever” belongs to a different situation than the one in the question stem",
+            "Time-box the delay: finish the event, then patch/restart the same day and re-enable auto-update — don't leave pause on for months",
+            "Install random \"updater\" software from a pop-up so you avoid the official reboot” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 2,
       explanation:
         "Short, justified maintenance delays can be ethical; indefinite pause is not. Recommend a same-day catch-up after the availability window.",
@@ -377,11 +377,11 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       id: "q2",
       question: "Why disable unused services or uninstall unused apps?",
       choices: [
-        "To free up storage space, which is the real security benefit",
-        "To shrink the attack surface — fewer things that can be abused",
-        "Because every unused app already contains malware",
-        "So that automatic backups will stop running",
-      ],
+            "To free up storage space, which is the real security benefit",
+            "To shrink the attack surface — fewer things that can be abused",
+            "So that automatic backups will stop running” belongs to a different situation than the one in the question stem",
+            "Because every unused app already contains malware” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "Every unused service or app is potential exposure. Reducing them is classic hardening — the storage savings are a side effect, not the point.",
@@ -390,11 +390,11 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       id: "q3",
       question: "A club wants \"maximum lockdown\" on a shared drive: no sharing tools at all, one admin who is often offline. Members start emailing files to personal accounts. What is the best usability vs lockdown recommendation?",
       choices: [
-        "Keep the fortress settings — shadow workarounds are the members' problem",
-        "Switch to anyone-with-the-link edit access so nobody complains",
-        "Recommend least privilege people will keep: specific-people sharing, MFA on admins, and a documented way to request access — so members don't invent unsafe channels",
-        "Give every member full admin rights by default for convenience",
-      ],
+            "A common mix-up is to treat switch to anyone-with-the-link edit access so nobody complains as enough, which confuses a nearby idea with the right one",
+            "A common mix-up is to treat give every member full admin rights by default for convenience as enough, which confuses a nearby idea with the right one",
+            "Recommend least privilege people will keep: specific-people sharing, MFA on admins, and a documented way to request access — so members don't invent unsafe channels",
+            "It can seem like keep the fortress settings — shadow workarounds are the members' problem, but that reading skips the distinction this question is testing",
+          ],
       correctIndex: 2,
       explanation:
         "Extreme lockdown that drives unsafe workarounds fails ethically and practically. Feasible secure defaults beat unusable fortresses.",
@@ -416,11 +416,11 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       id: "q5",
       question: "Why keep a device/account inventory for a club or family?",
       choices: [
-        "So you can forget about updates entirely",
-        "So you know what exists to patch, lock, wipe, or revoke when people leave",
-        "Inventories replace the need for encryption",
-        "Only large corporations are allowed to keep device lists",
-      ],
+            "Only large corporations are allowed to keep device lists” belongs to a different situation than the one in the question stem",
+            "So you know what exists to patch, lock, wipe, or revoke when people leave",
+            "So you can forget about updates entirely” belongs to a different situation than the one in the question stem",
+            "Inventories replace the need for encryption” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "You can't protect, update, or decommission what you don't realize you own.",
@@ -429,11 +429,11 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       id: "q6",
       question: "What is the correct order for hardening a new IoT device before connecting it to a sensitive network?",
       choices: [
-        "Join the network first, then think about passwords later",
-        "Enable every remote-access feature immediately for convenience",
-        "Change default password → apply firmware updates → reduce remote exposure → then join the network",
-        "Skip firmware updates since IoT devices don't need them",
-      ],
+            "Skip firmware updates since IoT devices don't need them” belongs to a different situation than the one in the question stem",
+            "Join the network first, then think about passwords later” belongs to a different situation than the one in the question stem",
+            "Change default password → apply firmware updates → reduce remote exposure → then join the network",
+            "Enable every remote-access feature immediately for convenience” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 2,
       explanation:
         "Harden first, expose second — factory-default IoT devices are quickly found by automated scanners if joined to a network before being locked down.",
@@ -442,12 +442,12 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       id: "q7",
       question: "An internet-facing lab service still has a default admin password during \"busy week,\" and an internal tool has a minor low-impact bug. Which prioritized recommendation is most justified?",
       choices: [
-        "Fix the internal tool first because patches always outrank passwords",
-        "Ignore both until summer break — busy weeks excuse indefinite risk",
-        "Whichever issue was discovered most recently",
-        "Change the internet-facing default password immediately (high exposure, high impact, highly feasible); schedule the internal patch soon — don't silently leave students exposed",
-      ],
-      correctIndex: 3,
+            "A common mix-up is to treat whichever issue was discovered most recently as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+            "Change the internet-facing default password immediately (high exposure, high impact, highly feasible); schedule the internal patch soon — don't silently leave students exposed",
+            "A common mix-up is to treat fix the internal tool first because patches always outrank passwords as enough, which confuses a nearby idea with the right one once the deciding rule is named clearly",
+            "A common mix-up is to treat ignore both until summer break — busy weeks excuse indefinite risk as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
+          ],
+      correctIndex: 1,
       explanation:
         "Prioritize by exposure, impact, feasibility, and ethics. An exposed default password is a cheap, urgent fix — busy week is not an ethical blank check.",
     },
@@ -455,12 +455,12 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       id: "q8",
       question: "Someone wants to disable an unused service on the only event laptop the night before check-in software is needed. What change-management recommendation fits?",
       choices: [
-        "Disable it immediately with no test — unused means zero risk",
-        "Defer the non-urgent hardening until after the event, then plan/test/document with a rollback — don't trade a maybe-risk for a certain outage tonight",
-        "Factory-reset the laptop instead for a clean slate",
-        "Disable change management forever so hardening stays fast",
-      ],
-      correctIndex: 1,
+            "A common mix-up is to treat factory-reset the laptop instead for a clean slate as enough, which confuses a nearby idea with the right one",
+            "It can seem like disable change management forever so hardening stays fast, but that reading skips the distinction this question is testing",
+            "Defer the non-urgent hardening until after the event, then plan/test/document with a rollback — don't trade a maybe-risk for a certain outage tonight",
+            "It can seem like disable it immediately with no test — unused means zero risk, but that reading skips the distinction this question is testing",
+          ],
+      correctIndex: 2,
       explanation:
         "Timing is part of the recommendation. Change management prevents well-intentioned hardening from becoming an unplanned outage at the worst moment.",
     },

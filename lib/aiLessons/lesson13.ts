@@ -56,12 +56,12 @@ export const aiLesson13: AILessonConfig = {
         checkIn: {
           prompt: "Where does AI bias usually come from?",
           choices: [
-            "The AI deciding to be prejudiced on its own",
+            "Using the AI too much” belongs to a different situation than the one in the question stem",
+            "The AI deciding to be prejudiced on its own” belongs to a different situation than the one in the question stem",
             "Patterns (often unfair ones) in the human-made training data",
-            "Slow internet",
-            "Using the AI too much",
+            "Slow internet” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "AI learns from human data. If that data is skewed or reflects historical unfairness, the AI absorbs it.",
         },
@@ -79,12 +79,12 @@ export const aiLesson13: AILessonConfig = {
         checkIn: {
           prompt: "A face-unlock AI works great for some people but poorly for others. What's the most likely cause?",
           choices: [
-            "Those people are using it wrong",
+            "Those people are using it wrong” belongs to a different situation than the one in the question stem",
+            "Phones can't recognize faces at all” belongs to a different situation than the one in the question stem",
             "The training photos weren't representative of everyone",
             "The AI is having an off day and needs to be restarted",
-            "Phones can't recognize faces at all",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Unrepresentative training data leads to worse performance for underrepresented groups.",
         },
@@ -101,12 +101,12 @@ export const aiLesson13: AILessonConfig = {
         checkIn: {
           prompt: "Is the statement 'computers are neutral, so AI decisions are always objective' true?",
           choices: [
-            "True — computers can't be biased",
+            "True, but only for chatbots” belongs to a different situation than the one in the question stem",
+            "It depends on the brand of computer” belongs to a different situation than the one in the question stem",
+            "True — computers can't be biased” belongs to a different situation than the one in the question stem",
             "False — an AI is only as fair as the data and design choices behind it",
-            "True, but only for chatbots",
-            "It depends on the brand of computer",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "AI reflects its data and the choices of its makers. It is not automatically objective.",
         },
@@ -147,12 +147,12 @@ export const aiLesson13: AILessonConfig = {
         checkIn: {
           prompt: "Does AI bias require someone to have intentionally programmed unfairness?",
           choices: [
-            "Yes, bias only exists if it was done on purpose",
+            "“No, bias is impossible in AI systems” describes a different situation than the one in the question stem",
+            "Yes, bias only exists if it was done on purpose” belongs to a different situation than the one in the question stem",
             "No — bias usually comes from unintentional gaps in data, and the harm is real regardless of intent",
-            "Yes, and it's always the AI's own fault, not the data's",
-            "No, bias is impossible in AI systems",
+            "Yes, and it's always the AI's own fault, not the data's” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "Most real-world AI bias is unintentional, arising from data gaps or unnoticed proxies — but the impact on affected people is still real.",
         },
@@ -210,12 +210,12 @@ export const aiLesson13: AILessonConfig = {
         checkIn: {
           prompt: "A school considers an AI attendance tool. Which question best targets fairness?",
           choices: [
-            "Does the app have a colorful interface?",
             "Was it tested across different home situations, devices, and connectivity limits — not just ideal lab conditions?",
-            "Is it cheaper than the old system?",
-            "Does it use the word AI in the marketing?",
+            "Treat “Does the app have a colorful interface?” as a distractor: close in topic, incorrect for the required answer",
+            "Some learners answer “Is it cheaper than the old system?”, yet that does not match the precise idea from the lesson",
+            "A rushed pass can land on does it use the word AI in the marketing?”; careful readers reject it for this problem",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation:
             "Fairness testing across real-world variation — homes, devices, connectivity — catches bias and access gaps that demo-only testing misses.",
         },
@@ -237,10 +237,10 @@ export const aiLesson13: AILessonConfig = {
         checkIn: {
           prompt: "Which of these helps REDUCE and reveal AI bias?",
           choices: [
-            "Using less diverse data to keep it simple",
-            "Only reporting one overall accuracy number and ignoring groups",
+            "Only reporting one overall accuracy number and ignoring groups” belongs to a different situation than the one in the question stem",
+            "Removing all human review from decisions” belongs to a different situation than the one in the question stem",
             "Collecting representative data and testing performance across different groups",
-            "Removing all human review from decisions",
+            "Using less diverse data to keep it simple” belongs to a different situation than the one in the question stem",
           ],
           correctIndex: 2,
           explanation:
@@ -307,12 +307,12 @@ export const aiLesson13: AILessonConfig = {
         checkIn: {
           prompt: "In the scholarship app, what role did zip code play, and why was historical training data risky here?",
           choices: [
-            "Zip code was irrelevant and had no effect on the results",
+            "You might defend “Zip code was irrelevant and had no effect on the results” in casual talk, but it fails the definition used here",
+            "It can seem like the app failed only because it was too slow, but that reading skips the distinction this question is testing",
+            "Some learners answer “The problem was that too many scholarships existed”, yet that does not match the precise idea from the lesson",
             "Zip code acted as a proxy for income, and historical data reflected past unequal access rather than who actually deserved matches",
-            "The problem was that too many scholarships existed",
-            "The app failed only because it was too slow",
           ],
-          correctIndex: 1,
+          correctIndex: 3,
           explanation:
             "Zip code secretly tracked income (a proxy), and the historical training data reflected past unequal access to resources, not deservingness — a classic case of bias baked into 'what success looked like before.'",
         },
@@ -325,10 +325,10 @@ export const aiLesson13: AILessonConfig = {
         checkIn: {
           prompt: "What's the most likely root cause of this medical AI's uneven performance?",
           choices: [
-            "Women and children have symptoms that are impossible for any AI to detect",
+            "Women and children have symptoms that are impossible for any AI to detect” belongs to a different situation than the one in the question stem",
             "Unrepresentative training data — the model rarely saw examples from those groups, so it learned their patterns poorly",
-            "The AI intentionally chose to ignore certain patients",
-            "Medical AI can never be biased because it's based on science",
+            "“The AI intentionally chose to ignore certain patients” describes a different situation than the one in the question stem",
+            "“Medical AI can never be biased because it's based on science” describes a different situation than the one in the question stem",
           ],
           correctIndex: 1,
           explanation:
@@ -363,12 +363,12 @@ export const aiLesson13: AILessonConfig = {
       id: "q1",
       question: "Where does AI bias usually come from?",
       choices: [
-        "Patterns (often unfair ones) in the human-made training data",
-        "The AI deciding to be prejudiced on its own",
-        "Slow internet",
-        "Using the AI too much",
-      ],
-      correctIndex: 0,
+            "The AI deciding to be prejudiced on its own” belongs to a different situation than the one in the question stem",
+            "Patterns (often unfair ones) in the human-made training data",
+            "Slow internet” belongs to a different situation than the one in the question stem",
+            "Using the AI too much” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "AI learns from human data. If that data is skewed or reflects historical unfairness, the AI absorbs it.",
     },
@@ -376,12 +376,12 @@ export const aiLesson13: AILessonConfig = {
       id: "q2",
       question: "A face-unlock AI works great for some people but poorly for others. What's the most likely cause?",
       choices: [
-        "Those people are using it wrong",
-        "The AI is having an off day and needs to be restarted",
-        "Phones can't recognize faces at all",
-        "The training photos weren't representative of everyone",
-      ],
-      correctIndex: 3,
+            "The AI is having an off day and needs to be restarted",
+            "The training photos weren't representative of everyone",
+            "Those people are using it wrong” belongs to a different situation than the one in the question stem",
+            "Phones can't recognize faces at all” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Unrepresentative training data leads to worse performance for underrepresented groups.",
     },
@@ -389,12 +389,12 @@ export const aiLesson13: AILessonConfig = {
       id: "q3",
       question: "Is the statement 'computers are neutral, so AI decisions are always objective' true?",
       choices: [
-        "False — an AI is only as fair as the data and design choices behind it",
-        "True — computers can't be biased",
-        "True, but only for chatbots",
-        "It depends on the brand of computer",
-      ],
-      correctIndex: 0,
+            "True — computers can't be biased” belongs to a different situation than the one in the question stem",
+            "It depends on the brand of computer” belongs to a different situation than the one in the question stem",
+            "False — an AI is only as fair as the data and design choices behind it",
+            "True, but only for chatbots” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "AI reflects its data and the choices of its makers. It is not automatically objective.",
     },
@@ -402,12 +402,12 @@ export const aiLesson13: AILessonConfig = {
       id: "q4",
       question: "Which of these helps REDUCE AI bias?",
       choices: [
-        "Using less diverse data to keep it simple",
-        "Only checking overall accuracy and ignoring groups",
-        "Collecting representative data and testing performance across different groups",
-        "Removing humans from all decisions",
-      ],
-      correctIndex: 2,
+            "Removing humans from all decisions” belongs to a different situation than the one in the question stem",
+            "Only checking overall accuracy and ignoring groups” belongs to a different situation than the one in the question stem",
+            "Using less diverse data to keep it simple” belongs to a different situation than the one in the question stem",
+            "Collecting representative data and testing performance across different groups",
+          ],
+      correctIndex: 3,
       explanation:
         "Diverse data plus testing across groups (and human oversight on big decisions) helps make AI fairer.",
     },
@@ -415,12 +415,12 @@ export const aiLesson13: AILessonConfig = {
       id: "q5",
       question: "Does AI bias require someone to have intentionally programmed unfairness?",
       choices: [
-        "Yes, bias only exists if someone did it on purpose",
-        "Yes, and only the AI itself is ever at fault",
-        "No, because bias is impossible in software",
-        "No — bias usually comes from unintentional data gaps, but the harm to real people is still real",
-      ],
-      correctIndex: 3,
+            "Yes, and only the AI itself is ever at fault” belongs to a different situation than the one in the question stem",
+            "No — bias usually comes from unintentional data gaps, but the harm to real people is still real",
+            "No, because bias is impossible in software” belongs to a different situation than the one in the question stem",
+            "Yes, bias only exists if someone did it on purpose” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 1,
       explanation:
         "Most real-world AI bias is unintentional. Intent isn't required for the impact on affected people to be real and serious.",
     },
@@ -428,11 +428,11 @@ export const aiLesson13: AILessonConfig = {
       id: "q6",
       question: "Why is 'overall accuracy' alone a risky way to judge whether an AI system is fair?",
       choices: [
-        "Overall accuracy is always the best and only measure needed",
-        "A high overall number can hide much worse performance for specific groups",
-        "Overall accuracy has nothing to do with fairness at all",
-        "Accuracy can never be measured for AI systems",
-      ],
+            "Accuracy can never be measured for AI systems” belongs to a different situation than the one in the question stem",
+            "A high overall number can hide much worse performance for specific groups",
+            "Overall accuracy has nothing to do with fairness at all” belongs to a different situation than the one in the question stem",
+            "Overall accuracy is always the best and only measure needed” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 1,
       explanation:
         "A model can look highly accurate overall while performing far worse for an underrepresented group — group breakdowns reveal what averages hide.",
@@ -441,12 +441,12 @@ export const aiLesson13: AILessonConfig = {
       id: "q7",
       question: "Why is defining 'fairness' considered a values question, not purely a technical one?",
       choices: [
-        "Because fairness has one single scientific definition everyone agrees on",
-        "Because only engineers should decide what fairness means",
-        "Because different reasonable definitions of fairness (equal chances, equal outcomes, equal accuracy) can lead to different, defensible choices",
-        "Because fairness doesn't matter once the math works",
-      ],
-      correctIndex: 2,
+            "It can seem like because only engineers should decide what fairness means, but that reading skips the distinction this question is testing",
+            "Because different reasonable definitions of fairness (equal chances, equal outcomes, equal accuracy) can lead to different, defensible choices",
+            "It can seem like because fairness doesn't matter once the math works, but that reading skips the distinction this question is testing",
+            "Because fairness has one single scientific definition everyone agrees on — familiar wording, wrong fit for what the prompt is actually asking",
+          ],
+      correctIndex: 1,
       explanation:
         "There are multiple legitimate ways to define fairness, and choosing between them involves values and tradeoffs — not just technical calculation.",
     },
@@ -454,12 +454,12 @@ export const aiLesson13: AILessonConfig = {
       id: "q8",
       question: "Why does studying AI bias matter beyond just 'how the model works'?",
       choices: [
-        "It doesn't matter — bias is unrelated to how computing affects people",
-        "Analyzing how a computing innovation like AI can create unequal effects on different groups helps you think critically about technology's impact",
-        "Bias only matters for hardware, not software or AI",
-        "Bias questions only matter to professional programmers",
-      ],
-      correctIndex: 1,
+            "It can seem like bias questions only matter to professional programmers, but that reading skips the distinction this question is testing",
+            "If the goal were something else, “It doesn't matter — bias is unrelated to how computing affects people” might work; for this check, it does not",
+            "It can seem like bias only matters for hardware, not software or AI, but that reading skips the distinction this question is testing",
+            "Analyzing how a computing innovation like AI can create unequal effects on different groups helps you think critically about technology's impact",
+          ],
+      correctIndex: 3,
       explanation:
         "Understanding how AI systems can produce beneficial or harmful, and sometimes unequal, effects on people is part of thinking critically about technology's impact.",
     },

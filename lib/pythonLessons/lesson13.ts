@@ -198,9 +198,9 @@ export const lesson13: PythonLessonConfig = {
         checkIn: {
           prompt: 'A player types "HELLO there!" but your rule checks `"hello" in player_input` without `.lower()`. What happens?',
           choices: [
-            "It still matches, because Python ignores case by default",
+            "Python raises an error” belongs to a different situation than the one in the question stem",
             "It fails to match, because \"HELLO\" and \"hello\" are different text",
-            "Python raises an error",
+            "It still matches, because Python ignores case by default",
           ],
           correctIndex: 1,
           explanation: "Without .lower(), Python compares text exactly as typed — \"HELLO\" does not contain the lowercase substring \"hello\", so the rule wouldn't match.",
@@ -219,8 +219,12 @@ export const lesson13: PythonLessonConfig = {
         ],
         checkIn: {
           prompt: 'What does `npc_memory["name"]` do inside an NPC\'s print statement?',
-          choices: ["Deletes the name from memory", "Creates a new dictionary", "Reads the stored name value so it can be joined into the message"],
-          correctIndex: 2,
+          choices: [
+            "Creates a new dictionary” belongs to a different situation than the one in the question stem",
+            "Reads the stored name value so it can be joined into the message",
+            "Deletes the name from memory” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 1,
           explanation: "Reading npc_memory[\"name\"] retrieves the stored value so it can be joined with + into a personalized message.",
         },
       },
@@ -252,8 +256,12 @@ export const lesson13: PythonLessonConfig = {
         codeCaption: "Which branch matches first — help or hello?",
         checkIn: {
           prompt: "Which message prints?",
-          choices: ["Try saying hello or quest.", "Hi, I'm Nova!", "..."],
-          correctIndex: 0,
+          choices: [
+            "That other interpretation” belongs to a different situation than the one in the question stem",
+            "Try saying hello or quest.",
+            "Hi, I'm Nova!” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 1,
           explanation: 'The message contains both "hello" and "help", but the if branch checking "help" runs first since it\'s checked first — top to bottom, first match wins.',
         },
       },
@@ -281,8 +289,12 @@ export const lesson13: PythonLessonConfig = {
         body: `Whenever your NPC's response surprises you, stop and ask: *which rule actually matched, and why?* Trace the player's message through each \`if\`/\`elif\` in order, checking whether the keyword actually appears. This habit turns confusing bugs into quick, obvious fixes.`,
         checkIn: {
           prompt: "Your NPC responds with the else fallback even though the player typed \"QUEST please\". What's the first thing to check?",
-          choices: ["Whether Python needs reinstalling", "Whether the rule uses .lower() so \"QUEST\" matches the lowercase keyword \"quest\"", "Whether the dictionary has too many keys"],
-          correctIndex: 1,
+          choices: [
+            "Whether the dictionary has too many keys” belongs to a different situation than the one in the question stem",
+            "Whether Python needs reinstalling” belongs to a different situation than the one in the question stem",
+            "Whether the rule uses .lower() so \"QUEST\" matches the lowercase keyword \"quest\"",
+          ],
+          correctIndex: 2,
           explanation: "Without .lower(), \"QUEST\" (uppercase) won't match a check for the lowercase keyword \"quest\", causing it to fall through to else.",
         },
       },
@@ -307,11 +319,11 @@ export const lesson13: PythonLessonConfig = {
         checkIn: {
           prompt: 'Why use `"quest" in player_input.lower()` instead of `player_input == "quest"`?',
           choices: [
-            "== is slower",
             "== only matches the exact whole message; in + .lower() matches the keyword anywhere, any capitalization",
-            "in only works with numbers",
+            "It can seem like == is slower, but that reading skips the distinction this question is testing",
+            "Picking “in only works with numbers” is a common mix-up that confuses a nearby idea with the right one",
           ],
-          correctIndex: 1,
+          correctIndex: 0,
           explanation: "Players rarely type just the keyword alone. in finds it inside longer messages, and .lower() handles capitalization.",
         },
       },
@@ -369,8 +381,12 @@ export const lesson13: PythonLessonConfig = {
         body: `Let's confirm the NPC brain pattern is locked in.`,
         checkIn: {
           prompt: "Why does a good NPC design put its else branch last?",
-          choices: ["Because else is optional and rarely needed", "Because else runs before if", "Because else must always be the last branch in Python's if/elif/else structure"],
-          correctIndex: 2,
+          choices: [
+            "Because else must always be the last branch in Python's if/elif/else structure",
+            "Because else runs before if” belongs to a different situation than the one in the question stem",
+            "Because else is optional and rarely needed” belongs to a different situation than the one in the question stem",
+          ],
+          correctIndex: 0,
           explanation: "Python's if/elif/else structure requires else to come last — it's the fallback that only runs when no earlier condition matched.",
         },
       },

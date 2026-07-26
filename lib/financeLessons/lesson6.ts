@@ -61,12 +61,12 @@ export const financeLesson6: AILessonConfig = {
         checkIn: {
           prompt: "Devon earned $180 this pay period but spent $215 once gas, food, and a concert ticket added up. What does this describe?",
           choices: [
+            "A budgeting error that means his whole plan is broken” belongs to a different situation than the one in the question stem",
             "Negative cash flow — spending outpaced income, so he drew down savings or borrowed to cover it",
-            "Positive cash flow, since he still has money in some account",
-            "A budgeting error that means his whole plan is broken",
-            "Zero-based budgeting working as intended",
+            "Zero-based budgeting working as intended” belongs to a different situation than the one in the question stem",
+            "Positive cash flow, since he still has money in some account” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 1,
           explanation:
             "Spending more than you take in for a period is negative cash flow — it doesn't mean the whole budget failed or that this is what zero-based budgeting is supposed to look like.",
         },
@@ -85,12 +85,12 @@ export const financeLesson6: AILessonConfig = {
         checkIn: {
           prompt: "Why does this lesson suggest tracking spending for at least 14 days before judging yourself?",
           choices: [
-            "Because tracking for a shorter time is against most banking app rules",
-            "Because one week always looks identical to the next for most people",
+            "Because tracking for a shorter time is against most banking app rules” belongs to a different situation than the one in the question stem",
+            "Because 14 days is required to unlock budgeting features in most apps” belongs to a different situation than the one in the question stem",
+            "Because one week always looks identical to the next for most people” belongs to a different situation than the one in the question stem",
             "To collect enough data to see real patterns instead of reacting to one unusual day",
-            "Because 14 days is required to unlock budgeting features in most apps",
           ],
-          correctIndex: 2,
+          correctIndex: 3,
           explanation:
             "A short window can be misleading — a couple weeks of data reveals real patterns rather than one-off noise. There's no app or bank rule requiring a minimum tracking period.",
         },
@@ -174,12 +174,12 @@ export const financeLesson6: AILessonConfig = {
         checkIn: {
           prompt: "Amara's phone screen cracked on a routine drop, while her friend's car got towed unexpectedly the night before a work shift. Which of these fits an emergency fund's actual purpose?",
           choices: [
-            "The tow — necessary and unpredictable; the screen fits a budget or sinking fund better",
-            "The cracked screen, because phone repairs are always emergencies",
-            "Both, because any unplanned expense automatically counts as an emergency",
             "Neither — once you have a job, employers usually cover surprise costs like tows",
+            "Both, because any unplanned expense automatically counts as an emergency” belongs to a different situation than the one in the question stem",
+            "The tow — necessary and unpredictable; the screen fits a budget or sinking fund better",
+            "The cracked screen, because phone repairs are always emergencies” belongs to a different situation than the one in the question stem",
           ],
-          correctIndex: 0,
+          correctIndex: 2,
           explanation:
             "Emergency funds cover necessary, unpredictable costs like a surprise tow. A routine cracked screen is better planned as a sinking-fund item, not every surprise is an emergency, and employers rarely cover personal tow bills.",
         },
@@ -235,12 +235,12 @@ export const financeLesson6: AILessonConfig = {
         checkIn: {
           prompt: "What's Marcus's smartest move?",
           choices: [
-            "Take the payday-style loan so both savings buckets stay untouched",
-            "Pull the $85 from the cleats fund since it already has enough sitting in it",
             "Use the emergency fund for the $85 repair — this is exactly the necessary, unpredictable cost it exists for — then plan to replenish it",
-            "Skip the repair and miss his shift instead",
+            "A rushed pass can land on take the payday-style loan so both savings buckets stay untouched”; careful readers reject it for this problem",
+            "“Pull the $85 from the cleats fund since it already has enough sitting in it” describes a different situation than the one in the question stem",
+            "It can seem like skip the repair and miss his shift instead, but that reading skips the distinction this question is testing",
           ],
-          correctIndex: 2,
+          correctIndex: 0,
           explanation:
             "A flat tire blocking work is a textbook emergency: necessary and unpredictable. Using the emergency fund (and replenishing it after) is far cheaper than a payday-style loan and protects the cleats fund for its own scheduled goal.",
         },
@@ -303,12 +303,12 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
         checkIn: {
           prompt: "Which statement best captures this lesson's core idea?",
           choices: [
-            "Emergency funds and sinking funds are interchangeable and can be spent on anything",
+            "Emergency funds and sinking funds are interchangeable and can be spent on anything” belongs to a different situation than the one in the question stem",
+            "“You should stop checking your bank balance altogether to avoid anxiety” describes a different situation than the one in the question stem",
             "Tracking reveals real patterns, sinking funds prepare for known costs, and a starter emergency fund protects against necessary surprises",
-            "You should stop checking your bank balance altogether to avoid anxiety",
-            "None of these savings buckets matter until you have a full-time job",
+            "None of these savings buckets matter until you have a full-time job — familiar wording, wrong fit for what the prompt is actually asking",
           ],
-          correctIndex: 1,
+          correctIndex: 2,
           explanation:
             "The throughline is awareness (tracking) plus two distinct, purpose-built savings buckets — not treating them as interchangeable, avoiding your balance, or waiting until adulthood to start.",
         },
@@ -398,12 +398,12 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
       id: "q5",
       question: "Marcus's car gets a flat tire that blocks him from getting to his weekend shift. What is the best use of his emergency fund here?",
       choices: [
-        "Emergency funds shouldn't be used for car repairs, only medical costs",
-        "He should ignore the tire and figure out a ride some other way",
-        "He should use his cleats sinking fund instead, since it's not for anything specific yet",
-        "This is exactly the necessary, unpredictable situation an emergency fund exists for — use it, then replenish afterward",
-      ],
-      correctIndex: 3,
+            "This is exactly the necessary, unpredictable situation an emergency fund exists for — use it, then replenish afterward",
+            "He should use his cleats sinking fund instead, since it's not for anything specific yet” belongs to a different situation than the one in the question stem",
+            "“He should ignore the tire and figure out a ride some other way” describes a different situation than the one in the question stem",
+            "Emergency funds shouldn't be used for car repairs, only medical costs” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 0,
       explanation:
         "A necessary, unpredictable cost that threatens work is a textbook emergency-fund use, not limited to medical costs — followed by replenishing it rather than raiding a differently-labeled fund.",
     },
@@ -411,12 +411,12 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
       id: "q6",
       question: "What is a reasonable first step for many teens building an emergency fund?",
       choices: [
-        "Start small (such as a few hundred dollars or one \"oh no\" expense) and keep it separate",
-        "Wait until you can save several months of adult-level expenses before starting",
-        "Combine it with your fun money so it's easier to access",
-        "Only start one once you have a credit card",
-      ],
-      correctIndex: 0,
+            "Combine it with your fun money so it's easier to access” belongs to a different situation than the one in the question stem",
+            "Start small (such as a few hundred dollars or one \"oh no\" expense) and keep it separate",
+            "Only start one once you have a credit card” belongs to a different situation than the one in the question stem",
+            "Wait until you can save several months of adult-level expenses before starting",
+          ],
+      correctIndex: 1,
       explanation:
         "Starter emergency funds are about beginning small and protecting a cushion, not hitting adult-sized targets right away, blending it with spending money, or waiting on unrelated milestones.",
     },
@@ -424,11 +424,11 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
       id: "q7",
       question: "A student keeps dipping into their emergency fund for concert tickets and sales, telling themselves \"just this once\" each time. What's happening?",
       choices: [
-        "Nothing concerning — occasional use for things you want is what the fund is for",
-        "The fund was clearly set at the wrong amount from the start",
-        "The emergency fund is quietly turning into a fun fund, leaving them exposed when a real emergency hits",
-        "This only matters if they do it more than ten times",
-      ],
+            "The fund was clearly set at the wrong amount from the start” belongs to a different situation than the one in the question stem",
+            "This only matters if they do it more than ten times” belongs to a different situation than the one in the question stem",
+            "The emergency fund is quietly turning into a fun fund, leaving them exposed when a real emergency hits",
+            "Nothing concerning — occasional use for things you want is what the fund is for” belongs to a different situation than the one in the question stem",
+          ],
       correctIndex: 2,
       explanation:
         "Repeated non-emergency withdrawals — even ones that each feel small and reasonable — erode the fund's real purpose over time; the issue is the pattern, not how many times it happens.",
@@ -437,12 +437,12 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
       id: "q8",
       question: "Which pair correctly matches each bucket to its main job?",
       choices: [
-        "Sinking fund = necessary surprises; Emergency fund = known future costs",
-        "Sinking fund = known future costs you can schedule toward; Emergency fund = necessary, unpredictable costs",
-        "Both buckets are meant to be spent on whatever feels urgent that day",
-        "Sinking fund = long-term goals like college; Emergency fund = daily spending money",
-      ],
-      correctIndex: 1,
+            "Sinking fund = necessary surprises; Emergency fund = known future costs” belongs to a different situation than the one in the question stem",
+            "Both buckets are meant to be spent on whatever feels urgent that day” belongs to a different situation than the one in the question stem",
+            "Sinking fund = known future costs you can schedule toward; Emergency fund = necessary, unpredictable costs",
+            "Sinking fund = long-term goals like college; Emergency fund = daily spending money” belongs to a different situation than the one in the question stem",
+          ],
+      correctIndex: 2,
       explanation:
         "Sinking funds prepare for costs you can name and schedule; emergency funds cushion true, necessary surprises — swapping the definitions or treating either as everyday spending money misses the distinction.",
     },
