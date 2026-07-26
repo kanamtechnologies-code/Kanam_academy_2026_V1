@@ -189,6 +189,8 @@ export function LessonModule({
   const [checkInDone, setCheckInDone] = React.useState<Record<string, boolean>>({});
   const [checkInPick, setCheckInPick] = React.useState<Record<string, number>>({});
   const topRef = React.useRef<HTMLDivElement | null>(null);
+  const navRef = React.useRef<HTMLDivElement | null>(null);
+  const checkInNextRef = React.useRef<HTMLButtonElement | null>(null);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
   const audioCacheRef = React.useRef<Map<string, string>>(new Map());
   const chunkQueueRef = React.useRef<string[]>([]);
@@ -422,6 +424,13 @@ export function LessonModule({
     setCheckInPick((prev) => ({ ...prev, [section.id]: choiceIndex }));
     if (choiceIndex === section.checkIn.correctIndex) {
       setCheckInDone((prev) => ({ ...prev, [section.id]: true }));
+      // Keep Next reachable on short mobile viewports after the explanation expands.
+      window.requestAnimationFrame(() => {
+        window.setTimeout(() => {
+          checkInNextRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          navRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }, 50);
+      });
     }
   };
 
@@ -443,7 +452,7 @@ export function LessonModule({
 
   return (
     <Card className="border-slate-200 shadow-md">
-      <CardContent className="space-y-6 p-5 md:p-7">
+      <CardContent className="space-y-6 p-5 pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] md:p-7 md:pb-7">
         <div ref={topRef} className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-sm font-bold text-[var(--brand-2)]">
             <BookOpen className="h-4 w-4" />
@@ -477,7 +486,7 @@ export function LessonModule({
           const media = (
             <>
               {section.image ? (
-                <div className="relative h-[min(340px,40vh)] w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 sm:h-[min(380px,42vh)]">
+                <div className="relative h-[min(200px,28vh)] w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 sm:h-[min(320px,38vh)] lg:h-[min(380px,42vh)]">
                   <Image
                     src={section.image}
                     alt={section.imageAlt ?? section.title}
@@ -587,6 +596,7 @@ export function LessonModule({
                         {section.checkIn.explanation}
                       </p>
                       <Button
+                        ref={checkInNextRef}
                         type="button"
                         size="lg"
                         className="kanam-data-next-exercise-btn min-h-11 w-full shadow-md sm:w-auto"
@@ -687,8 +697,9 @@ export function LessonModule({
 
               {hasMedia ? (
                 <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-                  <div className="space-y-5 lg:order-1">{prose}</div>
-                  <div className="space-y-4 lg:order-2 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto">
+                  {/* Mobile: media first so check-ins / Next sit above the sticky bar, not under tall images. */}
+                  <div className="order-2 space-y-5 lg:order-1">{prose}</div>
+                  <div className="order-1 space-y-4 lg:order-2 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto">
                     {media}
                   </div>
                 </div>
@@ -699,53 +710,65 @@ export function LessonModule({
           );
         })()}
 
-        <div className="flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
-          <Button
-            type="button"
-            variant="outline"
-            className="min-h-11 w-full scroll-mt-28 sm:w-auto"
-            onClick={() => goTo(index - 1)}
-            disabled={isFirst || navigationLocked}
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </Button>
-
-          <p className="order-first text-center text-xs font-semibold text-slate-500 sm:order-none">
-            Section {index + 1} of {sections.length}
-            {sections.length >= 15 ? (
-              <span className="ml-1 font-medium text-slate-400">(slide)</span>
-            ) : null}
-          </p>
-
-          {isLast ? (
-            <Button
-              type="button"
-              data-tour="lesson-module-start"
-              className="min-h-11 w-full scroll-mb-28 shadow-sm sm:w-auto"
-              onClick={goNext}
-              disabled={navigationLocked || !canStartPractice}
-              title={
-                canStartPractice
-                  ? undefined
-                  : "Finish every slide and answer all lesson questions first"
-              }
-            >
-              <Rocket className="h-4 w-4" />
-              {startLabel}
-            </Button>
-          ) : (
-            <Button
-              type="button"
-              data-tour="lesson-module-next"
-              className="min-h-11 w-full scroll-mb-28 shadow-sm sm:w-auto"
-              onClick={goNext}
-              disabled={navigationLocked || !canAdvance}
-            >
-              Next
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+        <div
+          ref={navRef}
+          className={cn(
+            "flex flex-col gap-3 border-t border-slate-200/90 bg-white/95 pt-3 backdrop-blur-md",
+            "sticky bottom-0 z-30 -mx-5 px-5 pb-[max(0.75rem,env(safe-area-inset-bottom,0px))] shadow-[0_-8px_24px_rgba(15,23,42,0.08)]",
+            "md:static md:mx-0 md:border-slate-100 md:bg-transparent md:px-0 md:pb-0 md:pt-4 md:shadow-none md:backdrop-blur-none"
           )}
+        >
+          <p className="text-center text-xs font-semibold text-slate-500 md:order-none md:hidden">
+            Section {index + 1} of {sections.length}
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <Button
+              type="button"
+              variant="outline"
+              className="min-h-11 w-full sm:w-auto"
+              onClick={() => goTo(index - 1)}
+              disabled={isFirst || navigationLocked}
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Button>
+
+            <p className="hidden text-center text-xs font-semibold text-slate-500 md:block">
+              Section {index + 1} of {sections.length}
+              {sections.length >= 15 ? (
+                <span className="ml-1 font-medium text-slate-400">(slide)</span>
+              ) : null}
+            </p>
+
+            {isLast ? (
+              <Button
+                type="button"
+                data-tour="lesson-module-start"
+                className="min-h-11 w-full shadow-sm sm:w-auto"
+                onClick={goNext}
+                disabled={navigationLocked || !canStartPractice}
+                title={
+                  canStartPractice
+                    ? undefined
+                    : "Finish every slide and answer all lesson questions first"
+                }
+              >
+                <Rocket className="h-4 w-4" />
+                {startLabel}
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                data-tour="lesson-module-next"
+                className="min-h-11 w-full shadow-sm sm:w-auto"
+                onClick={goNext}
+                disabled={navigationLocked || !canAdvance}
+              >
+                Next
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>
