@@ -71,39 +71,84 @@ create policy classes_delete_own
   to authenticated
   using (teacher_user_id = auth.uid() and public.jwt_is_instructor());
 
--- Enrolled learners / household parents can read their class metadata
-drop policy if exists classes_select_enrolled on public.classes;
-create policy classes_select_enrolled
-  on public.classes for select
-  to authenticated
-  using (
-    exists (
-      select 1
-      from public.class_enrollments ce
-      join public.students s on s.id = ce.student_id
-      where ce.class_id = classes.id
-        and (
-          s.user_id = auth.uid()
-          or public.user_owns_household(s.household_id)
-        )
-    )
-  );
+-- Cross-table helpers + enrolled policies: see 20260726_rls_recursion_fix.sql
+-- (Avoids class_enrollments ↔ classes infinite RLS recursion.)
 
 -- ---------------------------------------------------------------------------
 -- Enrollment / assignment writes: instructors only
 -- ---------------------------------------------------------------------------
+create or replace function public.user_teaches_class(p_class_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.classes c
+    where c.id = p_class_id
+      and c.teacher_user_id = auth.uid()
+  );
+$$;
+
+revoke all on function public.user_teaches_class(uuid) from public;
+grant execute on function public.user_teaches_class(uuid) to authenticated, service_role;
+
+create or replace function public.user_enrolled_in_class(p_class_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.class_enrollments ce
+    join public.students s on s.id = ce.student_id
+    where ce.class_id = p_class_id
+      and (
+        s.user_id = auth.uid()
+        or public.user_owns_household(s.household_id)
+      )
+  );
+$$;
+
+revoke all on function public.user_enrolled_in_class(uuid) from public;
+grant execute on function public.user_enrolled_in_class(uuid) to authenticated, service_role;
+
+create or replace function public.user_teaches_student(p_student_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.class_enrollments ce
+    join public.classes c on c.id = ce.class_id
+    where ce.student_id = p_student_id
+      and c.teacher_user_id = auth.uid()
+  );
+$$;
+
+revoke all on function public.user_teaches_student(uuid) from public;
+grant execute on function public.user_teaches_student(uuid) to authenticated, service_role;
+
+drop policy if exists classes_select_enrolled on public.classes;
+create policy classes_select_enrolled
+  on public.classes for select
+  to authenticated
+  using (public.user_enrolled_in_class(id));
+
 drop policy if exists class_enrollments_insert_for_own_classes on public.class_enrollments;
 create policy class_enrollments_insert_for_own_classes
   on public.class_enrollments for insert
   to authenticated
   with check (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_enrollments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   );
 
 drop policy if exists class_enrollments_delete_for_own_classes on public.class_enrollments;
@@ -112,12 +157,7 @@ create policy class_enrollments_delete_for_own_classes
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_enrollments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   );
 
 drop policy if exists class_lesson_assignments_insert_own_classes on public.class_lesson_assignments;
@@ -126,12 +166,7 @@ create policy class_lesson_assignments_insert_own_classes
   to authenticated
   with check (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_lesson_assignments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   );
 
 drop policy if exists class_lesson_assignments_update_own_classes on public.class_lesson_assignments;
@@ -140,21 +175,11 @@ create policy class_lesson_assignments_update_own_classes
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_lesson_assignments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   )
   with check (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_lesson_assignments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   );
 
 drop policy if exists class_lesson_assignments_delete_own_classes on public.class_lesson_assignments;
@@ -163,12 +188,7 @@ create policy class_lesson_assignments_delete_own_classes
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_lesson_assignments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   );
 
 -- Instructor roster SELECT also requires instructor role
@@ -178,13 +198,7 @@ create policy students_select_instructor_roster
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.class_enrollments ce
-      join public.classes c on c.id = ce.class_id
-      where ce.student_id = students.id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_student(id)
   );
 
 -- ---------------------------------------------------------------------------
@@ -196,13 +210,7 @@ create policy lesson_progress_select_instructor
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.class_enrollments ce
-      join public.classes c on c.id = ce.class_id
-      where ce.student_id = lesson_progress.student_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_student(student_id)
   );
 
 drop policy if exists progress_events_select_instructor on public.progress_events;
@@ -211,13 +219,7 @@ create policy progress_events_select_instructor
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.class_enrollments ce
-      join public.classes c on c.id = ce.class_id
-      where ce.student_id = progress_events.student_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_student(student_id)
   );
 
 -- ---------------------------------------------------------------------------

@@ -199,22 +199,34 @@ create policy progress_events_delete_household
   using (public.user_owns_household_student(student_id));
 
 -- Enrolled learners / household parents can read class metadata
+-- (user_enrolled_in_class is SECURITY DEFINER — see migrations/20260726_rls_recursion_fix.sql)
+create or replace function public.user_enrolled_in_class(p_class_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.class_enrollments ce
+    join public.students s on s.id = ce.student_id
+    where ce.class_id = p_class_id
+      and (
+        s.user_id = auth.uid()
+        or public.user_owns_household(s.household_id)
+      )
+  );
+$$;
+
+revoke all on function public.user_enrolled_in_class(uuid) from public;
+grant execute on function public.user_enrolled_in_class(uuid) to authenticated, service_role;
+
 drop policy if exists classes_select_enrolled on public.classes;
 create policy classes_select_enrolled
   on public.classes for select
   to authenticated
-  using (
-    exists (
-      select 1
-      from public.class_enrollments ce
-      join public.students s on s.id = ce.student_id
-      where ce.class_id = classes.id
-        and (
-          s.user_id = auth.uid()
-          or public.user_owns_household(s.household_id)
-        )
-    )
-  );
+  using (public.user_enrolled_in_class(id));
 
 -- COPPA consent columns + student credential columns: service-role only (see migrations/20260725_rls_hardening.sql)
 -- Re-declare helpers if schema.sql already created them.

@@ -193,6 +193,63 @@ $$;
 revoke all on function public.is_service_role() from public;
 grant execute on function public.is_service_role() to authenticated, service_role;
 
+-- Cross-table ownership checks (SECURITY DEFINER) — avoid class_enrollments ↔ classes RLS recursion.
+create or replace function public.user_teaches_class(p_class_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.classes c
+    where c.id = p_class_id
+      and c.teacher_user_id = auth.uid()
+  );
+$$;
+
+revoke all on function public.user_teaches_class(uuid) from public;
+grant execute on function public.user_teaches_class(uuid) to authenticated, service_role;
+
+create or replace function public.user_enrolled_in_class(p_class_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.class_enrollments ce
+    join public.students s on s.id = ce.student_id
+    where ce.class_id = p_class_id
+      and s.user_id = auth.uid()
+  );
+$$;
+
+revoke all on function public.user_enrolled_in_class(uuid) from public;
+grant execute on function public.user_enrolled_in_class(uuid) to authenticated, service_role;
+
+create or replace function public.user_teaches_student(p_student_id uuid)
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.class_enrollments ce
+    join public.classes c on c.id = ce.class_id
+    where ce.student_id = p_student_id
+      and c.teacher_user_id = auth.uid()
+  );
+$$;
+
+revoke all on function public.user_teaches_student(uuid) from public;
+grant execute on function public.user_teaches_student(uuid) to authenticated, service_role;
+
 -- Schools: safe to list for authenticated users (used for instructor dashboards / class display)
 drop policy if exists schools_select_all_authenticated on public.schools;
 create policy schools_select_all_authenticated
@@ -222,13 +279,7 @@ create policy students_select_instructor_roster
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.class_enrollments ce
-      join public.classes c on c.id = ce.class_id
-      where ce.student_id = students.id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_student(id)
   );
 
 drop policy if exists students_insert_own on public.students;
@@ -388,14 +439,7 @@ drop policy if exists class_enrollments_select_for_own_classes on public.class_e
 create policy class_enrollments_select_for_own_classes
   on public.class_enrollments for select
   to authenticated
-  using (
-    exists (
-      select 1
-      from public.classes c
-      where c.id = class_enrollments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
-  );
+  using (public.user_teaches_class(class_id));
 
 drop policy if exists class_enrollments_insert_for_own_classes on public.class_enrollments;
 create policy class_enrollments_insert_for_own_classes
@@ -403,12 +447,7 @@ create policy class_enrollments_insert_for_own_classes
   to authenticated
   with check (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_enrollments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   );
 
 drop policy if exists class_enrollments_delete_for_own_classes on public.class_enrollments;
@@ -417,12 +456,7 @@ create policy class_enrollments_delete_for_own_classes
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_enrollments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   );
 
 -- Assignments: instructors manage lessons for their own classes.
@@ -430,14 +464,7 @@ drop policy if exists class_lesson_assignments_select_own_classes on public.clas
 create policy class_lesson_assignments_select_own_classes
   on public.class_lesson_assignments for select
   to authenticated
-  using (
-    exists (
-      select 1
-      from public.classes c
-      where c.id = class_lesson_assignments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
-  );
+  using (public.user_teaches_class(class_id));
 
 drop policy if exists class_lesson_assignments_insert_own_classes on public.class_lesson_assignments;
 create policy class_lesson_assignments_insert_own_classes
@@ -445,12 +472,7 @@ create policy class_lesson_assignments_insert_own_classes
   to authenticated
   with check (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_lesson_assignments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   );
 
 drop policy if exists class_lesson_assignments_update_own_classes on public.class_lesson_assignments;
@@ -459,21 +481,11 @@ create policy class_lesson_assignments_update_own_classes
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_lesson_assignments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   )
   with check (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_lesson_assignments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   );
 
 drop policy if exists class_lesson_assignments_delete_own_classes on public.class_lesson_assignments;
@@ -482,12 +494,7 @@ create policy class_lesson_assignments_delete_own_classes
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.classes c
-      where c.id = class_lesson_assignments.class_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_class(class_id)
   );
 
 -- Instructors can read progress for learners enrolled in their classes
@@ -497,13 +504,7 @@ create policy lesson_progress_select_instructor
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.class_enrollments ce
-      join public.classes c on c.id = ce.class_id
-      where ce.student_id = lesson_progress.student_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_student(student_id)
   );
 
 drop policy if exists progress_events_select_instructor on public.progress_events;
@@ -512,13 +513,7 @@ create policy progress_events_select_instructor
   to authenticated
   using (
     public.jwt_is_instructor()
-    and exists (
-      select 1
-      from public.class_enrollments ce
-      join public.classes c on c.id = ce.class_id
-      where ce.student_id = progress_events.student_id
-        and c.teacher_user_id = auth.uid()
-    )
+    and public.user_teaches_student(student_id)
   );
 
 -- Students can read assignments for classes they are enrolled in.
@@ -526,15 +521,7 @@ drop policy if exists class_lesson_assignments_select_enrolled on public.class_l
 create policy class_lesson_assignments_select_enrolled
   on public.class_lesson_assignments for select
   to authenticated
-  using (
-    exists (
-      select 1
-      from public.class_enrollments ce
-      join public.students s on s.id = ce.student_id
-      where ce.class_id = class_lesson_assignments.class_id
-        and s.user_id = auth.uid()
-    )
-  );
+  using (public.user_enrolled_in_class(class_id));
 
 -- Refresh PostgREST schema cache (so API routes see new tables immediately).
 notify pgrst, 'reload schema';

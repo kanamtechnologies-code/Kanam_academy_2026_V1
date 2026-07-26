@@ -21,6 +21,7 @@ Open Supabase → **SQL Editor** and run these files in order:
 3. `supabase/households.sql` (parent/kid households)
 4. `supabase/parental_consent.sql` (COPPA consent columns)
 5. `supabase/migrations/20260725_rls_hardening.sql` (**required on existing projects** — instructor role gates, consent forgery guard, billing helper IDOR fix)
+6. `supabase/migrations/20260726_rls_recursion_fix.sql` (**required** — fixes `infinite recursion detected in policy for relation "class_enrollments"` on sign-in)
 
 If a previous run failed partway through, it is safe to re-run (tables use `if not exists`, policies use `drop policy if exists`).
 
