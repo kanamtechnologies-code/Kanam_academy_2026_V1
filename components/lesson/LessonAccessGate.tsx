@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   LessonChildSelectNotice,
@@ -10,8 +10,17 @@ import {
 } from "@/components/lesson/LessonPaywall";
 import { isGuestMode } from "@/lib/guestProgress";
 import { DEMO_LESSON_ID } from "@/lib/pythonLessons/demoLesson";
+import { safeNextPath } from "@/lib/roles";
 import { isLessonOpenForStudent } from "@/lib/tracks";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
+
+function parentGateHref(kind: "consent" | "pick", pathname: string | null): string {
+  const params = new URLSearchParams();
+  params.set(kind, "1");
+  const next = safeNextPath(pathname);
+  if (next) params.set("next", next);
+  return `/parent?${params.toString()}`;
+}
 
 type LessonAccessGateProps = {
   lessonId: string;
@@ -26,6 +35,7 @@ type LessonAccessGateProps = {
  */
 export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const guestDemo = isGuestMode() && lessonId === DEMO_LESSON_ID;
   const [loading, setLoading] = React.useState(!guestDemo);
   const [allowed, setAllowed] = React.useState(guestDemo);
@@ -102,13 +112,13 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
 
   React.useEffect(() => {
     if (needsParentalConsent) {
-      router.replace("/parent?consent=1");
+      router.replace(parentGateHref("consent", pathname));
       return;
     }
     if (needsChildSelect) {
-      router.replace("/parent?pick=1");
+      router.replace(parentGateHref("pick", pathname));
     }
-  }, [needsChildSelect, needsParentalConsent, router]);
+  }, [needsChildSelect, needsParentalConsent, pathname, router]);
 
   if (loading) {
     return (
@@ -119,11 +129,11 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
   }
 
   if (needsParentalConsent) {
-    return <LessonConsentNotice />;
+    return <LessonConsentNotice returnPath={pathname} />;
   }
 
   if (needsChildSelect) {
-    return <LessonChildSelectNotice />;
+    return <LessonChildSelectNotice returnPath={pathname} />;
   }
 
   if (!allowed) {

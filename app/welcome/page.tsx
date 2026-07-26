@@ -52,12 +52,14 @@ export default function WelcomePage() {
   );
   const [forgotError, setForgotError] = React.useState<string | null>(null);
   const [resetLinkError, setResetLinkError] = React.useState<string | null>(null);
+  const [linkErrorKind, setLinkErrorKind] = React.useState<"reset" | "confirm">("reset");
   const [accountDeletedMsg, setAccountDeletedMsg] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
       const resetError = params.get("reset_error");
+      const confirmError = params.get("confirm_error");
       const errorCode = params.get("error_code") || params.get("error");
       const errorDescription = params.get("error_description");
       const accountDeleted = params.get("accountDeleted") === "1";
@@ -68,9 +70,14 @@ export default function WelcomePage() {
         );
       }
 
-      if (resetError) {
+      if (confirmError) {
+        setLinkErrorKind("confirm");
+        setResetLinkError(decodeURIComponent(confirmError.replace(/\+/g, " ")));
+      } else if (resetError) {
+        setLinkErrorKind("reset");
         setResetLinkError(decodeURIComponent(resetError.replace(/\+/g, " ")));
       } else if (errorCode) {
+        setLinkErrorKind("reset");
         const decoded = errorDescription
           ? decodeURIComponent(errorDescription.replace(/\+/g, " "))
           : "";
@@ -222,20 +229,26 @@ export default function WelcomePage() {
             <Notice
               variant="danger"
               role="alert"
-              title="Reset link problem"
+              title={linkErrorKind === "confirm" ? "Confirmation link problem" : "Reset link problem"}
               action={
                 <>
-                  <Button
-                    type="button"
-                    size="sm"
-                    onClick={() => {
-                      setForgotOpen(true);
-                      setForgotStatus("idle");
-                      setForgotError(null);
-                    }}
-                  >
-                    Request a new reset link
-                  </Button>
+                  {linkErrorKind === "confirm" ? (
+                    <Button asChild type="button" size="sm">
+                      <a href="#student-signup">Create account / resend</a>
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      size="sm"
+                      onClick={() => {
+                        setForgotOpen(true);
+                        setForgotStatus("idle");
+                        setForgotError(null);
+                      }}
+                    >
+                      Request a new reset link
+                    </Button>
+                  )}
                   <Button
                     type="button"
                     size="sm"

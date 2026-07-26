@@ -41,6 +41,7 @@ export default function WelcomeParentPage() {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [fromUnder13, setFromUnder13] = React.useState(false);
+  const [classCode, setClassCode] = React.useState("");
   const [pendingConfirmEmail, setPendingConfirmEmail] = React.useState<string | null>(null);
   const [resendBusy, setResendBusy] = React.useState(false);
   const [resendNotice, setResendNotice] = React.useState<string | null>(null);
@@ -51,6 +52,16 @@ export default function WelcomeParentPage() {
       const reason = (sp.get("reason") ?? "").trim().toLowerCase();
       const under13 = sp.get("under13") === "1" || reason === "under13";
       setFromUnder13(under13);
+      const qpCode = (sp.get("classCode") ?? "").trim();
+      if (qpCode) {
+        setClassCode(qpCode);
+      } else if (under13) {
+        try {
+          setClassCode((window.localStorage.getItem("kanam.classCode") ?? "").trim());
+        } catch {
+          // ignore
+        }
+      }
       if (under13) {
         // Do not carry a child's email into the parent signup form.
         window.localStorage.removeItem("kanam.onboardingEmail");
@@ -74,6 +85,10 @@ export default function WelcomeParentPage() {
     const pwErr = passwordLengthError(password);
     if (pwErr) {
       setError(pwErr);
+      return;
+    }
+    if (fromUnder13 && !childFirstName.trim()) {
+      setError("Enter your child’s first name so they have a learning profile.");
       return;
     }
     if (childPin && !/^\d{4,6}$/.test(childPin.trim())) {
@@ -103,6 +118,7 @@ export default function WelcomeParentPage() {
           childLastName: childLastName.trim() || undefined,
           childGrade: childGrade.trim() || undefined,
           childPin: childPin.trim() || undefined,
+          classCode: classCode.trim() || undefined,
           consentAccepted: consent.consentAccepted,
           consentIsParent: consent.consentIsParent,
           consentSignature: consent.consentSignature.trim(),
@@ -286,10 +302,20 @@ export default function WelcomeParentPage() {
             </div>
 
             <div className="mt-2 rounded-2xl border border-emerald-100 bg-emerald-50/60 p-4">
-              <p className="text-sm font-extrabold text-slate-900">First child (optional)</p>
+              <p className="text-sm font-extrabold text-slate-900">
+                First child{fromUnder13 ? " *" : " (optional)"}
+              </p>
               <p className="mt-1 text-xs text-slate-600">
-                You can add more kids from the parent hub after signup. Consent below is required
-                before any child profile is created.
+                {fromUnder13
+                  ? "Required for under-13 learners. You can add more kids from the parent hub later."
+                  : "You can add more kids from the parent hub after signup. Consent below is required before any child profile is created."}
+                {classCode.trim() ? (
+                  <>
+                    {" "}
+                    Class code <span className="font-semibold">{classCode.trim()}</span> will be
+                    used for this child.
+                  </>
+                ) : null}
               </p>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 <Input
@@ -327,49 +353,53 @@ export default function WelcomeParentPage() {
             />
           </div>
 
-          <Button
-            disabled={loading}
-            aria-busy={loading}
-            className="mt-6 h-12 w-full text-base font-semibold"
-            onClick={onSubmit}
-          >
-            {loading ? (
-              <>
-                <Loader2 className="h-5 w-5 animate-spin" />
-                Creating…
-              </>
-            ) : (
-              <>
-                Create family account <ArrowRight className="h-4 w-4" />
-              </>
-            )}
-          </Button>
+          {!pendingConfirmEmail ? (
+            <>
+              <Button
+                disabled={loading}
+                aria-busy={loading}
+                className="mt-6 h-12 w-full text-base font-semibold"
+                onClick={onSubmit}
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    Creating…
+                  </>
+                ) : (
+                  <>
+                    Create family account <ArrowRight className="h-4 w-4" />
+                  </>
+                )}
+              </Button>
 
-          <p className="mt-4 text-center text-sm text-slate-600">
-            Returning parent?{" "}
-            <Link
-              href="/welcome/returning?as=parent"
-              className="font-semibold text-emerald-800 underline"
-            >
-              Sign in
-            </Link>
-            {" · "}
-            <Link href="/welcome" className="font-semibold text-emerald-800 underline">
-              Student signup
-            </Link>
-          </p>
-          <p className="mt-3 text-center text-xs text-slate-500">
-            By creating an account you agree to our{" "}
-            <a
-              href={PRIVACY_POLICY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-emerald-800 underline underline-offset-2"
-            >
-              Privacy Policy
-            </a>
-            .
-          </p>
+              <p className="mt-4 text-center text-sm text-slate-600">
+                Returning parent?{" "}
+                <Link
+                  href="/welcome/returning?as=parent"
+                  className="font-semibold text-emerald-800 underline"
+                >
+                  Sign in
+                </Link>
+                {" · "}
+                <Link href="/welcome" className="font-semibold text-emerald-800 underline">
+                  Student signup
+                </Link>
+              </p>
+              <p className="mt-3 text-center text-xs text-slate-500">
+                By creating an account you agree to our{" "}
+                <a
+                  href={PRIVACY_POLICY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-emerald-800 underline underline-offset-2"
+                >
+                  Privacy Policy
+                </a>
+                .
+              </p>
+            </>
+          ) : null}
         </div>
       </div>
     </WelcomeBackground>

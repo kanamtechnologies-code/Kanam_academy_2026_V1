@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 
 import {
+  PARENTAL_CONSENT_NOTICE_VERSION,
+  looksLikeMissingConsentColumn,
+} from "@/lib/coppa/parentalConsent";
+import {
   getHouseholdForOwner,
   setActiveStudentMetadata,
 } from "@/lib/households";
@@ -74,25 +78,74 @@ export async function POST(req: Request) {
     [meta.first_name, meta.last_name].filter(Boolean).join(" ").trim() ||
     String(student.display_name ?? "Parent");
   const householdName = s(body.householdName) || `${parentName}'s family`;
+  const consentAt = new Date().toISOString();
+  // Adult self-signup converting their own account — treat as verified VPC so
+  // learning is not locked behind a surprise pending-consent gate.
+  const consentFields = {
+    parental_consent_status: "verified" as const,
+    parental_consent_method: "legacy_pre_vpc" as const,
+    parental_consent_at: consentAt,
+    parental_consent_signer_name: parentName,
+    parental_consent_notice_version: PARENTAL_CONSENT_NOTICE_VERSION,
+    parental_consent_parent_email: (user.email ?? "").toLowerCase() || null,
+  };
 
-  const { data: household, error: hhErr } = await admin
-    .from("households")
-    .insert({
-      owner_user_id: user.id,
-      name: householdName,
-      active_student_id: student.id,
-    })
-    .select("id")
-    .single();
+  let household: { id: string } | null = null;
+  {
+    const withConsent = await admin
+      .from("households")
+      .insert({
+        owner_user_id: user.id,
+        name: householdName,
+        active_student_id: student.id,
+        ...consentFields,
+      })
+      .select("id")
+      .single();
 
-  if (hhErr || !household?.id) {
+    if (!withConsent.error && withConsent.data?.id) {
+      household = { id: String(withConsent.data.id) };
+    } else if (
+      withConsent.error &&
+      looksLikeMissingConsentColumn(withConsent.error.message)
+    ) {
+      const basic = await admin
+        .from("households")
+        .insert({
+          owner_user_id: user.id,
+          name: householdName,
+          active_student_id: student.id,
+        })
+        .select("id")
+        .single();
+      if (basic.error || !basic.data?.id) {
+        return NextResponse.json(
+          {
+            ok: false,
+            error:
+              basic.error?.message ||
+              "Could not create household. Apply supabase/households.sql first.",
+          },
+          { status: 500 }
+        );
+      }
+      household = { id: String(basic.data.id) };
+    } else {
+      return NextResponse.json(
+        {
+          ok: false,
+          error:
+            withConsent.error?.message ||
+            "Could not create household. Apply supabase/households.sql first.",
+        },
+        { status: 500 }
+      );
+    }
+  }
+
+  if (!household?.id) {
     return NextResponse.json(
-      {
-        ok: false,
-        error:
-          hhErr?.message ||
-          "Could not create household. Apply supabase/households.sql first.",
-      },
+      { ok: false, error: "Could not create household." },
       { status: 500 }
     );
   }

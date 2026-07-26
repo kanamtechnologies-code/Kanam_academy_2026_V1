@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Notice } from "@/components/ui/notice";
+import { NoticePresence } from "@/components/ui/notice-presence";
 import type { ClassInsights, LearnerInsights } from "@/lib/insights/types";
 import { readUserRole } from "@/lib/roles";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
@@ -93,7 +94,11 @@ export function InstructorDashboardClient() {
 
   const [rosterByClass, setRosterByClass] = React.useState<Record<string, LearnerRow[] | undefined>>({});
   const [rosterLoading, setRosterLoading] = React.useState<Record<string, boolean | undefined>>({});
+  const [rosterErrorByClass, setRosterErrorByClass] = React.useState<Record<string, string | undefined>>(
+    {}
+  );
   const [copiedCode, setCopiedCode] = React.useState<string | null>(null);
+  const [createSuccess, setCreateSuccess] = React.useState<ClassSummary | null>(null);
   const [assignmentsClass, setAssignmentsClass] = React.useState<ClassSummary | null>(null);
   const [deleteClass, setDeleteClass] = React.useState<ClassSummary | null>(null);
   const [deleteLoading, setDeleteLoading] = React.useState(false);
@@ -168,11 +173,24 @@ export function InstructorDashboardClient() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ name, schoolName }),
       });
-      await j(res);
+      const json = await j<{
+        ok: true;
+        klass?: { id: string; name: string; code: string; createdAt: string; schoolName: string | null };
+      }>(res);
       setCreateOpen(false);
       setCreateName("");
       setCreateSchool("");
       await load();
+      if (json.klass?.id) {
+        setCreateSuccess({
+          id: json.klass.id,
+          name: json.klass.name,
+          code: json.klass.code,
+          createdAt: json.klass.createdAt,
+          schoolName: json.klass.schoolName,
+          learnerCount: 0,
+        });
+      }
     } catch (e: unknown) {
       setCreateError(errorMessage(e, "Could not create class."));
     } finally {
@@ -182,14 +200,19 @@ export function InstructorDashboardClient() {
 
   async function loadRoster(classId: string) {
     setRosterLoading((s) => ({ ...s, [classId]: true }));
+    setRosterErrorByClass((s) => ({ ...s, [classId]: undefined }));
     try {
       const res = await fetch(`/api/instructor/classes/${encodeURIComponent(classId)}/roster`, {
         method: "GET",
       });
       const json = await j<{ ok: true; learners: LearnerRow[] }>(res);
       setRosterByClass((s) => ({ ...s, [classId]: json.learners ?? [] }));
-    } catch {
-      setRosterByClass((s) => ({ ...s, [classId]: [] }));
+    } catch (e: unknown) {
+      setRosterByClass((s) => ({ ...s, [classId]: undefined }));
+      setRosterErrorByClass((s) => ({
+        ...s,
+        [classId]: errorMessage(e, "Could not load roster."),
+      }));
     } finally {
       setRosterLoading((s) => ({ ...s, [classId]: false }));
     }
@@ -275,6 +298,40 @@ export function InstructorDashboardClient() {
 
   return (
     <div className="mx-auto w-full max-w-6xl px-3 py-6 sm:px-4 sm:py-8 md:px-10">
+      <NoticePresence show={Boolean(createSuccess)} contentKey={createSuccess?.id} className="mb-4">
+        <Notice
+          variant="success"
+          title="Class created"
+          action={
+            createSuccess?.id ? (
+              <>
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={() => {
+                    setAssignmentsClass(createSuccess);
+                    setCreateSuccess(null);
+                  }}
+                >
+                  Set assignments
+                </Button>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setCreateSuccess(null)}
+                >
+                  Dismiss
+                </Button>
+              </>
+            ) : undefined
+          }
+        >
+          Share code <span className="font-semibold">{createSuccess?.code}</span> with learners,
+          then choose which lessons are open. Until you enable lessons, students may see billing
+          unlocks instead of class assignments.
+        </Notice>
+      </NoticePresence>
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-600">
@@ -495,6 +552,23 @@ export function InstructorDashboardClient() {
                         Delete
                       </Button>
                     </div>
+
+                    {rosterErrorByClass[c.id] ? (
+                      <div className="rounded-2xl border border-red-200 bg-red-50 p-3">
+                        <p className="text-sm font-semibold text-red-800">
+                          {rosterErrorByClass[c.id]}
+                        </p>
+                        <Button
+                          type="button"
+                          size="sm"
+                          variant="outline"
+                          className="mt-2"
+                          onClick={() => void loadRoster(c.id)}
+                        >
+                          Retry roster
+                        </Button>
+                      </div>
+                    ) : null}
 
                     {roster ? (
                       <div className="rounded-2xl border border-slate-200 bg-slate-50 p-3">

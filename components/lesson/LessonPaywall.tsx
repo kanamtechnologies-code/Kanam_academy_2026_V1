@@ -5,6 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Notice } from "@/components/ui/notice";
 import { trackIdForLesson } from "@/lib/billing/access";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
+import { safeNextPath } from "@/lib/roles";
+
+function parentGateHref(kind: "consent" | "pick", returnPath?: string | null): string {
+  const params = new URLSearchParams();
+  params.set(kind, "1");
+  const next = safeNextPath(returnPath);
+  if (next) params.set("next", next);
+  return `/parent?${params.toString()}`;
+}
 
 type LessonPaywallProps = {
   lessonId: string;
@@ -42,11 +51,14 @@ export function LessonPaywall({
         }
         action={
           <>
-            {isPaywall || checkFailed || reason === "error" ? (
+            {isPaywall ? (
               <Button asChild size="sm">
-                <Link href={billingHref}>
-                  {isPaywall ? "View plans & unlock" : "Go to billing"}
-                </Link>
+                <Link href={billingHref}>View plans & unlock</Link>
+              </Button>
+            ) : null}
+            {checkFailed || reason === "error" ? (
+              <Button asChild size="sm">
+                <Link href="/dashboard">Retry from dashboard</Link>
               </Button>
             ) : null}
             <Button asChild size="sm" variant="outline" className="bg-white/80">
@@ -56,7 +68,7 @@ export function LessonPaywall({
         }
       >
         {checkFailed || reason === "error"
-          ? "We couldn’t confirm your lesson access. Refresh, or open Billing if you just purchased."
+          ? "We couldn’t confirm your lesson access. Go back to the dashboard and try again — if you just purchased, wait a moment for billing to sync."
           : isPaywall
             ? "Subscribe for all tracks, or buy this learning path to open its lessons. Live tutoring is sold separately."
             : "Your instructor hasn’t turned this lesson on for your class yet. Check your dashboard for lessons that are currently available."}
@@ -70,7 +82,7 @@ export function LessonPaywall({
   );
 }
 
-export function LessonConsentNotice() {
+export function LessonConsentNotice({ returnPath }: { returnPath?: string | null }) {
   return (
     <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center px-4 py-16">
       <Notice
@@ -78,7 +90,7 @@ export function LessonConsentNotice() {
         title="Parental consent required"
         action={
           <Button asChild size="sm" variant="outline" className="border-[var(--brand)]/35 bg-white/80">
-            <Link href="/parent?consent=1">
+            <Link href={parentGateHref("consent", returnPath)}>
               <Users className="h-3.5 w-3.5" />
               Complete consent
             </Link>
@@ -91,7 +103,7 @@ export function LessonConsentNotice() {
   );
 }
 
-export function LessonChildSelectNotice() {
+export function LessonChildSelectNotice({ returnPath }: { returnPath?: string | null }) {
   return (
     <div className="mx-auto flex min-h-[50vh] w-full max-w-lg flex-col items-center justify-center px-4 py-16">
       <Notice
@@ -99,7 +111,7 @@ export function LessonChildSelectNotice() {
         title="Choose a child first"
         action={
           <Button asChild size="sm" variant="outline" className="border-[var(--brand)]/35 bg-white/80">
-            <Link href="/parent?pick=1">
+            <Link href={parentGateHref("pick", returnPath)}>
               <Users className="h-3.5 w-3.5" />
               Go to parent hub
             </Link>

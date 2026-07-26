@@ -9,9 +9,13 @@ function safeNext(nextRaw: string | null, type: EmailOtpType | null) {
   return "/welcome/reset-password";
 }
 
-function failRedirect(origin: string, message: string) {
+function failRedirect(
+  origin: string,
+  message: string,
+  kind: "reset" | "confirm" = "reset"
+) {
   const url = new URL("/welcome", origin);
-  url.searchParams.set("reset_error", message);
+  url.searchParams.set(kind === "confirm" ? "confirm_error" : "reset_error", message);
   return NextResponse.redirect(url);
 }
 
@@ -65,7 +69,7 @@ export async function GET(request: NextRequest) {
         ? "This confirmation link was already used or expired. Request a new confirmation email from signup, then open it once in your browser."
         : "This reset link was already used or expired. Email apps sometimes open links automatically — request a new reset and open it once in your browser."
       : decoded || "This link is invalid. Please request a new one.";
-    return failRedirect(origin, msg);
+    return failRedirect(origin, msg, isSignupConfirmType(type) ? "confirm" : "reset");
   }
 
   // Prefer server exchange (works for many email confirmation redirects).
@@ -97,7 +101,7 @@ export async function GET(request: NextRequest) {
             ? "This confirmation link was already used or expired. Request a new one and open it once in your browser."
             : "This reset link was already used or expired. Request a new one and open it once in the same browser you used to request it."
           : error.message;
-        return failRedirect(origin, msg);
+        return failRedirect(origin, msg, isSignupConfirmType(type) ? "confirm" : "reset");
       }
       const dest = await postConfirmPath(supabase, next, type);
       return NextResponse.redirect(new URL(dest, origin));
@@ -108,12 +112,13 @@ export async function GET(request: NextRequest) {
           : isSignupConfirmType(type)
             ? "Could not verify the confirmation link."
             : "Could not verify the reset link.";
-      return failRedirect(origin, message);
+      return failRedirect(origin, message, isSignupConfirmType(type) ? "confirm" : "reset");
     }
   }
 
   return failRedirect(
     origin,
-    "This auth link is missing info. Request a new confirmation or password reset email."
+    "This auth link is missing info. Request a new confirmation or password reset email.",
+    "confirm"
   );
 }

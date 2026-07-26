@@ -3,13 +3,22 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { WelcomeShell } from "@/components/welcome/WelcomeShell";
 import { WelcomeVideoFader } from "@/components/welcome/WelcomeVideoFader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
@@ -42,13 +51,31 @@ function errorMessage(error: unknown, fallback: string) {
   return fallback;
 }
 
+function mapSignInError(message: string): string {
+  const m = message.toLowerCase();
+  if (m.includes("email not confirmed") || m.includes("email_not_confirmed")) {
+    return "Confirm your email first — check your inbox (and spam) for the Kanam link, then sign in.";
+  }
+  if (m.includes("invalid login") || m.includes("invalid credentials")) {
+    return "Email or password didn’t match. Try again, or use Forgot password.";
+  }
+  return message;
+}
+
 export default function WelcomeReturningPage() {
   const router = useRouter();
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [animateIn, setAnimateIn] = React.useState<boolean>(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState(false);
   const [asParent, setAsParent] = React.useState(false);
+  const [forgotOpen, setForgotOpen] = React.useState(false);
+  const [forgotEmail, setForgotEmail] = React.useState("");
+  const [forgotStatus, setForgotStatus] = React.useState<"idle" | "sending" | "sent" | "error">(
+    "idle"
+  );
+  const [forgotError, setForgotError] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     setAnimateIn(false);
@@ -125,6 +152,108 @@ export default function WelcomeReturningPage() {
                       placeholder="Enter your password"
                       className="h-14 border-2 border-white/20 bg-white/90 text-base text-slate-900 placeholder:text-slate-500 focus-visible:ring-white/20"
                     />
+                    <div className="flex flex-wrap items-center justify-end gap-2">
+                      <Dialog
+                        open={forgotOpen}
+                        onOpenChange={(o) => {
+                          setForgotOpen(o);
+                          if (!o) return;
+                          setForgotError(null);
+                          setForgotStatus("idle");
+                          setForgotEmail(email.trim() || forgotEmail);
+                        }}
+                      >
+                        <DialogTrigger asChild>
+                          <button
+                            type="button"
+                            className="inline-flex min-h-11 items-center text-xs font-semibold text-white underline underline-offset-2 hover:text-white/90 sm:min-h-0"
+                          >
+                            Forgot password?
+                          </button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-md">
+                          <DialogHeader>
+                            <DialogTitle>Reset your password</DialogTitle>
+                            <DialogDescription>
+                              Enter your email and we’ll send you a reset link.
+                            </DialogDescription>
+                          </DialogHeader>
+
+                          <NoticePresence show={Boolean(forgotError)} contentKey={forgotError}>
+                            <Notice compact variant="danger" role="alert">
+                              {forgotError}
+                            </Notice>
+                          </NoticePresence>
+
+                          <NoticePresence show={forgotStatus === "sent"} contentKey="forgot-sent">
+                            <Notice compact variant="success" title="Check your email">
+                              Open the reset link once in your browser (Gmail/Outlook sometimes
+                              preview the link and expire it). Don’t reuse an older reset email.
+                            </Notice>
+                          </NoticePresence>
+
+                          <div className="space-y-2">
+                            <p className="text-xs font-semibold text-slate-700">Email</p>
+                            <Input
+                              value={forgotEmail}
+                              onChange={(e) => setForgotEmail(e.target.value)}
+                              placeholder="you@example.com"
+                              type="email"
+                              className="h-12"
+                            />
+                          </div>
+
+                          <DialogFooter className="gap-2 sm:gap-0">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              onClick={() => setForgotOpen(false)}
+                              className="h-11"
+                            >
+                              Close
+                            </Button>
+                            <Button
+                              type="button"
+                              className="h-11"
+                              disabled={forgotStatus === "sending"}
+                              onClick={async () => {
+                                setForgotError(null);
+                                const em = forgotEmail.trim();
+                                if (!em || !em.includes("@")) {
+                                  setForgotError("Enter a valid email.");
+                                  return;
+                                }
+                                setForgotStatus("sending");
+                                try {
+                                  const supabase = createSupabaseBrowserClient();
+                                  if (!supabase) {
+                                    throw new Error("Password reset is unavailable in demo mode.");
+                                  }
+                                  const redirectTo = `${window.location.origin}/welcome/reset-password`;
+                                  const { error: resetErr } = await supabase.auth.resetPasswordForEmail(
+                                    em,
+                                    { redirectTo }
+                                  );
+                                  if (resetErr) throw new Error(resetErr.message);
+                                  setForgotStatus("sent");
+                                } catch (err: unknown) {
+                                  const msg = errorMessage(err, "Could not send reset email.");
+                                  if (/failed to fetch|networkerror|load failed/i.test(msg)) {
+                                    setForgotStatus("sent");
+                                    setForgotError(null);
+                                    return;
+                                  }
+                                  setForgotStatus("error");
+                                  setForgotError(msg);
+                                }
+                              }}
+                            >
+                              {forgotStatus === "sending" ? "Sending…" : "Send reset link"}
+                            </Button>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
                   </div>
                 </div>
 
@@ -137,9 +266,11 @@ export default function WelcomeReturningPage() {
                     "text-white hover:brightness-[1.04]",
                     "focus-visible:ring-4 focus-visible:ring-emerald-500/30",
                   ].join(" ")}
-                  disabled={!email.trim() || !password.trim()}
+                  disabled={!email.trim() || !password.trim() || loading}
+                  aria-busy={loading}
                   onClick={async () => {
                     setError(null);
+                    setLoading(true);
                     try {
                       const supabase = createSupabaseBrowserClient();
                       if (!supabase) throw new Error("Sign-in is unavailable in demo mode.");
@@ -147,7 +278,7 @@ export default function WelcomeReturningPage() {
                         email: email.trim(),
                         password,
                       });
-                      if (signInErr) throw new Error(signInErr.message);
+                      if (signInErr) throw new Error(mapSignInError(signInErr.message));
 
                       const { data: me } = await supabase.auth.getUser();
                       const user = me.user;
@@ -156,7 +287,6 @@ export default function WelcomeReturningPage() {
                         return;
                       }
 
-                      // Ensure a student profile row exists for this auth user (so we can save progress).
                       const ensureRes = await fetch("/api/auth/ensure-profile", { method: "POST" });
                       const ensureJson = (await ensureRes.json()) as EnsureProfileResponse;
                       if (!ensureRes.ok || !ensureJson?.ok) {
@@ -166,7 +296,6 @@ export default function WelcomeReturningPage() {
                         );
                       }
 
-                      // Load profile name for greeting (optional)
                       const userId = user?.id;
                       let displayName = loadUserName();
                       if (userId) {
@@ -184,12 +313,22 @@ export default function WelcomeReturningPage() {
                         // ignore
                       }
                       router.push(postSignInPath(user));
-                    } catch (error: unknown) {
-                      setError(errorMessage(error, "Something went wrong."));
+                    } catch (err: unknown) {
+                      setError(mapSignInError(errorMessage(err, "Something went wrong.")));
+                    } finally {
+                      setLoading(false);
                     }
                   }}
                 >
-                  Continue <ArrowRight className="h-4 w-4" />
+                  {loading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" /> Signing in…
+                    </>
+                  ) : (
+                    <>
+                      Continue <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
                 </Button>
 
                 <Button
@@ -257,4 +396,3 @@ export default function WelcomeReturningPage() {
     </WelcomeBackground>
   );
 }
-

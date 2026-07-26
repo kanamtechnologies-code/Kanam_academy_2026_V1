@@ -25,7 +25,7 @@ export async function renderGatedLesson({
   pathname,
   load,
 }: RenderGatedLessonArgs): Promise<ReactNode> {
-  const decision = await decideLessonAccess(lessonId);
+  const decision = await decideLessonAccess(lessonId, pathname);
 
   if (decision.kind === "unauthenticated") {
     redirect(loginRedirectPath(pathname, ""));

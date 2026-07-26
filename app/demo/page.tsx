@@ -22,12 +22,32 @@ import {
   setGuestMode,
   setGuestName,
 } from "@/lib/guestProgress";
+import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 export default function DemoEntryPage() {
   const router = useRouter();
   const [starting, setStarting] = React.useState(false);
   const [clearMsg, setClearMsg] = React.useState<string | null>(null);
   const [clearing, setClearing] = React.useState(false);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const supabase = createSupabaseBrowserClient();
+        if (!supabase) return;
+        const { data } = await supabase.auth.getSession();
+        if (cancelled || !data.session) return;
+        setGuestMode(false);
+        router.replace("/dashboard");
+      } catch {
+        // ignore
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [router]);
 
   const startGuidedLesson = React.useCallback(() => {
     setStarting(true);

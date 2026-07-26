@@ -88,6 +88,9 @@ export function AuthActions() {
       if (!mounted) return;
       setSignedIn(Boolean(data.session));
       if (data.session) {
+        // Never keep guest mode while authenticated (blocks /dashboard).
+        if (isGuestMode()) setGuestMode(false);
+        setGuest(false);
         const { data: userData } = await supabase.auth.getUser();
         if (!mounted) return;
         const isParent = isParentRole(userData.user);
@@ -106,6 +109,8 @@ export function AuthActions() {
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       setSignedIn(Boolean(session));
       if (session) {
+        if (isGuestMode()) setGuestMode(false);
+        setGuest(false);
         supabase.auth.getUser().then(async ({ data: userData }) => {
           const isParent = isParentRole(userData.user);
           setInstructor(isInstructorRole(userData.user));

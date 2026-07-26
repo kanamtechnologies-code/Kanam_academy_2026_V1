@@ -15,7 +15,7 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
-type Body = { pin: string };
+type Body = { pin?: string; clear?: boolean };
 
 function s(x: unknown) {
   return typeof x === "string" ? x.trim() : "";
@@ -55,10 +55,11 @@ export async function POST(
     return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
   }
 
+  const clear = Boolean(body.clear) || s(body.pin) === "";
   const pin = s(body.pin);
-  if (!isValidPin(pin)) {
+  if (!clear && !isValidPin(pin)) {
     return NextResponse.json(
-      { ok: false, error: "PIN must be 4–6 digits." },
+      { ok: false, error: "PIN must be 4–6 digits (or clear it)." },
       { status: 400 }
     );
   }
@@ -85,7 +86,7 @@ export async function POST(
 
   const { error: updateErr } = await admin
     .from("students")
-    .update({ pin_hash: hashPin(pin) })
+    .update({ pin_hash: clear ? null : hashPin(pin) })
     .eq("id", studentId);
 
   if (updateErr) {

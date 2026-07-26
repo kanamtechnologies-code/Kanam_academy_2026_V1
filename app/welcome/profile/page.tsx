@@ -569,6 +569,7 @@ export default function WelcomeProfilePage() {
             ) : null}
           </div>
 
+          {!pendingConfirmEmail ? (
           <div className="mt-6 flex flex-col gap-2 sm:flex-row">
             <Button
               type="button"
@@ -602,11 +603,13 @@ export default function WelcomeProfilePage() {
               )}
             </Button>
           </div>
+          ) : null}
 
+          {!pendingConfirmEmail ? (
           <div className="mt-5 rounded-2xl border border-slate-200 bg-white/60 p-4 text-sm text-slate-600">
             <p className="font-extrabold text-slate-900">After signup</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>You&apos;ll land on your learning hub.</li>
+              <li>Confirm your email, then open your learning hub.</li>
               <li>
                 Self-paced learners unlock tracks via{" "}
                 <Link href="/billing" className="font-semibold text-emerald-800 underline">
@@ -635,6 +638,7 @@ export default function WelcomeProfilePage() {
               .
             </p>
           </div>
+          ) : null}
         </div>
       </div>
     </WelcomeBackground>

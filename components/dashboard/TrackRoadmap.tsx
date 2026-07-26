@@ -162,6 +162,14 @@ export function TrackRoadmap({
               >
                 Next lesson coming soon
               </Button>
+            ) : classRestricted && totalCount === 0 ? (
+              <Button
+                size="lg"
+                disabled
+                className="min-h-[4.25rem] w-full border border-white/25 bg-white/20 text-white"
+              >
+                Nothing assigned in this path yet
+              </Button>
             ) : (
               <Button
                 size="lg"

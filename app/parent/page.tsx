@@ -23,7 +23,7 @@ import { Input } from "@/components/ui/input";
 import { Notice } from "@/components/ui/notice";
 import { PARENTAL_CONSENT_NOTICE_VERSION } from "@/lib/coppa/parentalConsent";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
-import { isParentRole } from "@/lib/roles";
+import { isParentRole, safeNextPath } from "@/lib/roles";
 
 export default function ParentHubPage() {
   return (
@@ -58,6 +58,7 @@ function ParentHubClient() {
   const searchParams = useSearchParams();
   const pickChild = searchParams.get("pick") === "1";
   const forceConsent = searchParams.get("consent") === "1";
+  const returnNext = safeNextPath(searchParams.get("next"));
   const [loading, setLoading] = React.useState(true);
   const [mode, setMode] = React.useState<"hub" | "convert">("hub");
   const [householdName, setHouseholdName] = React.useState("My family");
@@ -181,7 +182,9 @@ function ParentHubClient() {
       setMsg("Parental consent recorded. You can add kids and open learning.");
       setNeedsConsent(false);
       await load();
-      if (forceConsent) {
+      if (returnNext) {
+        router.replace(returnNext);
+      } else if (forceConsent) {
         router.replace("/parent");
       }
     } catch (e: unknown) {
@@ -367,6 +370,29 @@ function ParentHubClient() {
     }
   };
 
+  const clearPin = async (studentId: string) => {
+    setError(null);
+    setMsg(null);
+    setSaving(true);
+    try {
+      const res = await fetch(`/api/parent/kids/${studentId}/pin`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ clear: true }),
+      });
+      const json = (await res.json()) as { ok?: boolean; error?: string };
+      if (!res.ok || !json.ok) throw new Error(json.error || "Could not clear PIN.");
+      setPinKidId(null);
+      setPinValue("");
+      setMsg("PIN removed.");
+      await load();
+    } catch (e: unknown) {
+      setError(errorMessage(e, "Could not clear PIN."));
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const openLearning = async (kid: Kid) => {
     setError(null);
     setMsg(null);
@@ -401,7 +427,7 @@ function ParentHubClient() {
 
       setSwitchKidId(null);
       setSwitchPin("");
-      router.push("/dashboard");
+      router.push(returnNext || "/dashboard");
     } catch (e: unknown) {
       setError(errorMessage(e, "Could not open learning."));
     } finally {
@@ -451,7 +477,8 @@ function ParentHubClient() {
           <h1 className="mt-2 text-2xl font-black tracking-tight">Convert to family account</h1>
           <p className="mt-2 text-sm text-slate-600">
             Keep your progress and billing. We&apos;ll turn your current learner profile into the
-            first kid under a parent login so you can add siblings.
+            first kid under a parent login so you can add siblings. Your learning stays open — you
+            won&apos;t be locked behind a new consent step.
           </p>
           {error ? (
             <div className="mt-4">
@@ -749,9 +776,19 @@ function ParentHubClient() {
                         className="h-10"
                       />
                     </div>
-                    <Button size="sm" disabled={saving} onClick={() => savePin(kid.id)}>
+                    <Button size="sm" disabled={saving} onClick={() => void savePin(kid.id)}>
                       Save PIN
                     </Button>
+                    {kid.has_pin ? (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        disabled={saving}
+                        onClick={() => void clearPin(kid.id)}
+                      >
+                        Clear PIN
+                      </Button>
+                    ) : null}
                     <Button size="sm" variant="ghost" onClick={() => setPinKidId(null)}>
                       Cancel
                     </Button>

@@ -22,9 +22,7 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Notice } from "@/components/ui/notice";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, isParentRole } from "@/lib/roles";
-import {
-  isGuestMode,
-} from "@/lib/guestProgress";
+import { isGuestMode, setGuestMode } from "@/lib/guestProgress";
 import { isTrackUnlockedForAccess } from "@/lib/billing/access";
 import {
   isLessonOpenForStudent,
@@ -116,20 +114,40 @@ function HomeInner() {
   }, [searchParams, setActiveTab]);
 
   const [lessonAccess, setLessonAccess] = React.useState<StudentLessonAccess>({
+    // Fail closed until /api/student/lesson-access resolves (avoids false "unlocked").
     classRestricted: false,
-    entitlementRestricted: false,
-    enabledLessonIds: null,
+    entitlementRestricted: true,
+    enabledLessonIds: [],
     classIds: [],
     isAsyncCohort: false,
     hasActiveSubscription: false,
     unlockedTrackSlugs: [],
   });
+  const [accessStatus, setAccessStatus] = React.useState<"loading" | "ok" | "error">("loading");
   const [isParentAccount, setIsParentAccount] = React.useState(false);
 
   React.useEffect(() => {
-    if (isGuestMode()) {
-      router.replace("/demo");
-    }
+    let cancelled = false;
+    (async () => {
+      if (!isGuestMode()) return;
+      try {
+        const supabase = createSupabaseBrowserClient();
+        if (supabase) {
+          const { data } = await supabase.auth.getSession();
+          if (cancelled) return;
+          if (data.session) {
+            setGuestMode(false);
+            return;
+          }
+        }
+      } catch {
+        // fall through
+      }
+      if (!cancelled) router.replace("/demo");
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [router]);
 
   const lessonRestricted =
@@ -260,9 +278,12 @@ function HomeInner() {
         };
         if (accessRes.ok && accessJson.access) {
           setLessonAccess(accessJson.access);
+          setAccessStatus("ok");
+        } else {
+          setAccessStatus("error");
         }
       } catch {
-        // ignore
+        setAccessStatus("error");
       }
     })();
   }, [router]);
@@ -287,21 +308,21 @@ function HomeInner() {
                 </h1>
                 <p className="mt-2 max-w-2xl text-sm font-medium text-white/85 md:text-base">
                   {hasSavedProgress && completedIds.length > 0
-                    ? "Pick up where you left off, track your streak, and jump into your next lesson faster."
+                    ? "Pick up where you left off and jump into your next open lesson."
                     : "You're all set — pick a track below and start your first lesson."}
                 </p>
               </div>
               <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="min-h-11 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 sm:w-auto"
-                  asChild
-                >
-                  <Link href="/parent">
-                    {isParentAccount ? "Switch child" : "Upgrade to family"}
-                  </Link>
-                </Button>
+                {isParentAccount ? (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="min-h-11 w-full border-white/40 bg-white/10 text-white hover:bg-white/20 sm:w-auto"
+                    asChild
+                  >
+                    <Link href="/parent">Switch child</Link>
+                  </Button>
+                ) : null}
                 <Button
                   type="button"
                   variant="outline"
@@ -351,15 +372,27 @@ function HomeInner() {
             </div>
 
             <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
-              {activeTrackProgress.nextLesson?.href &&
-              !activeTrackProgress.nextLesson.comingSoon &&
-              isLessonOpenForStudent(
-                activeTrackProgress.nextLesson.id,
-                Boolean(lessonAccess.classRestricted),
-                lessonAccess.enabledLessonIds,
-                completedIds,
-                Boolean(lessonAccess.entitlementRestricted)
-              ) ? (
+              {accessStatus === "error" ? (
+                <Button
+                  type="button"
+                  className="h-auto min-h-11 w-full whitespace-normal bg-white px-4 py-3 text-left text-[var(--brand-2)] hover:bg-white/95 sm:w-auto"
+                  onClick={() => window.location.reload()}
+                >
+                  Couldn’t load lesson access — tap to retry
+                </Button>
+              ) : accessStatus === "loading" ? (
+                <Badge className="flex w-fit items-center gap-1.5 border border-white/35 bg-white/15 px-3 py-1.5 text-white">
+                  Checking which lessons are open…
+                </Badge>
+              ) : activeTrackProgress.nextLesson?.href &&
+                !activeTrackProgress.nextLesson.comingSoon &&
+                isLessonOpenForStudent(
+                  activeTrackProgress.nextLesson.id,
+                  Boolean(lessonAccess.classRestricted),
+                  lessonAccess.enabledLessonIds,
+                  completedIds,
+                  Boolean(lessonAccess.entitlementRestricted)
+                ) ? (
                 <Button
                   asChild
                   className="h-auto min-h-11 w-full whitespace-normal bg-white px-4 py-3 text-left text-[var(--brand-2)] hover:bg-white/95 sm:w-auto"
@@ -374,6 +407,17 @@ function HomeInner() {
                         ({weekSessionLabel(activeTrackProgress.nextLesson)})
                       </span>
                     </span>
+                  </Link>
+                </Button>
+              ) : lessonRestricted ? (
+                <Button
+                  asChild
+                  className="h-auto min-h-11 w-full whitespace-normal bg-white px-4 py-3 text-left text-[var(--brand-2)] hover:bg-white/95 sm:w-auto"
+                >
+                  <Link href={lessonAccess.classRestricted ? "#roadmap" : "/billing"}>
+                    {lessonAccess.classRestricted
+                      ? "See open lessons below"
+                      : "View plans to unlock tracks"}
                   </Link>
                 </Button>
               ) : null}
