@@ -9,6 +9,7 @@ import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Notice } from "@/components/ui/notice";
+import { NoticePresence } from "@/components/ui/notice-presence";
 import {
   MIN_SELF_SIGNUP_AGE,
   PRIVACY_POLICY_URL,
@@ -148,13 +149,11 @@ export default function WelcomeAgeGatePage() {
             instead.
           </p>
 
-          {error ? (
-            <div className="mt-4">
-              <Notice compact variant="danger" role="alert">
-                {error}
-              </Notice>
-            </div>
-          ) : null}
+          <NoticePresence show={Boolean(error)} contentKey={error} className="mt-4">
+            <Notice compact variant="danger" role="alert">
+              {error}
+            </Notice>
+          </NoticePresence>
 
           <div className="mt-6 grid gap-3">
             <div className="space-y-1.5">

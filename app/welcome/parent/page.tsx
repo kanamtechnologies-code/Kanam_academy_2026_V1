@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
+import { NoticePresence } from "@/components/ui/notice-presence";
 import { MIN_PASSWORD_LENGTH, passwordLengthError } from "@/lib/auth/password";
 import { MIN_SELF_SIGNUP_AGE, PRIVACY_POLICY_URL } from "@/lib/coppa/ageGate";
 import { PARENTAL_CONSENT_NOTICE_VERSION } from "@/lib/coppa/parentalConsent";
@@ -188,35 +189,33 @@ export default function WelcomeParentPage() {
             </Button>
           </div>
 
-          {fromUnder13 ? (
-            <div className="mt-4">
-              <Notice compact variant="info" role="status">
-                Because this learner is under {MIN_SELF_SIGNUP_AGE}, create a family account with
-                your (parent/guardian) email. Kids under {MIN_SELF_SIGNUP_AGE} cannot create their
-                own student login.
-              </Notice>
-            </div>
-          ) : null}
+          <NoticePresence show={fromUnder13} contentKey="under13-parent" className="mt-4">
+            <Notice compact variant="info" role="status">
+              Because this learner is under {MIN_SELF_SIGNUP_AGE}, create a family account with
+              your (parent/guardian) email. Kids under {MIN_SELF_SIGNUP_AGE} cannot create their
+              own student login.
+            </Notice>
+          </NoticePresence>
 
-          {error ? (
-            <div className="mt-4">
-              <Notice compact variant="danger" role="alert">
-                {error}
-              </Notice>
-            </div>
-          ) : null}
+          <NoticePresence show={Boolean(error)} contentKey={error} className="mt-4">
+            <Notice compact variant="danger" role="alert">
+              {error}
+            </Notice>
+          </NoticePresence>
 
           {pendingConfirmEmail ? (
             <div className="mt-6 space-y-4">
-              <Notice compact variant="info" role="status">
-                Check <span className="font-semibold">{pendingConfirmEmail}</span> for a confirmation
-                link. After you confirm, you can sign in to the parent hub.
-              </Notice>
-              {resendNotice ? (
+              <NoticePresence show contentKey={pendingConfirmEmail}>
+                <Notice compact variant="info" role="status">
+                  Check <span className="font-semibold">{pendingConfirmEmail}</span> for a
+                  confirmation link. After you confirm, you can sign in to the parent hub.
+                </Notice>
+              </NoticePresence>
+              <NoticePresence show={Boolean(resendNotice)} contentKey={resendNotice}>
                 <Notice compact variant="info" role="status">
                   {resendNotice}
                 </Notice>
-              ) : null}
+              </NoticePresence>
               <Button
                 type="button"
                 variant="outline"

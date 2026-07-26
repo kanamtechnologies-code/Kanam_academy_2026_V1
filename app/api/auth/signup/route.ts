@@ -279,7 +279,7 @@ export async function POST(req: Request) {
         ok: false,
         error:
           enrolled.error ||
-          "Account created, but that class code was not found. Request a self-paced code and try again.",
+          "That class code wasn't found. Check with your teacher, or choose self-paced learning.",
       },
       { status: 400 }
     );

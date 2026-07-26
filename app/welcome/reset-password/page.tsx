@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
+import { NoticePresence } from "@/components/ui/notice-presence";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 
 function readHashTokens(): { access_token: string; refresh_token: string; type: string } | null {
@@ -157,7 +158,7 @@ export default function ResetPasswordPage() {
                 </div>
               ) : null}
 
-              {error ? (
+              <NoticePresence show={Boolean(error)} contentKey={error}>
                 <Notice
                   variant="danger"
                   role="alert"
@@ -170,9 +171,9 @@ export default function ResetPasswordPage() {
                 >
                   {error}
                 </Notice>
-              ) : null}
+              </NoticePresence>
 
-              {done ? (
+              <NoticePresence show={done} contentKey="password-updated">
                 <Notice
                   variant="success"
                   title="Password updated!"
@@ -184,7 +185,7 @@ export default function ResetPasswordPage() {
                 >
                   Go back to the welcome screen and sign in with your new password.
                 </Notice>
-              ) : null}
+              </NoticePresence>
 
               {ready && sessionOk && !done ? (
                 <>

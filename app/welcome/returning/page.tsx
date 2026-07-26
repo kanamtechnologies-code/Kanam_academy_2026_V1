@@ -13,6 +13,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
+import { NoticePresence } from "@/components/ui/notice-presence";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, isParentRole, postSignInPath } from "@/lib/roles";
 
@@ -94,11 +95,11 @@ export default function WelcomeReturningPage() {
                   </p>
                 </div>
 
-                {error ? (
+                <NoticePresence show={Boolean(error)} contentKey={error}>
                   <Notice compact variant="danger" role="alert">
                     {error}
                   </Notice>
-                ) : null}
+                </NoticePresence>
 
                 <div className="space-y-3">
                   <div className="space-y-1.5">

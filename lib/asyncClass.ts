@@ -72,33 +72,64 @@ export async function ensureAsyncClass(admin = createSupabaseAdminClient()) {
   };
 }
 
+/** Look up a class by join code. Async code is treated as valid (ensured if missing). */
+export async function findClassByCode(
+  classCode: string,
+  admin = createSupabaseAdminClient()
+) {
+  const code = classCode.trim().toUpperCase();
+  if (!code) return { ok: false as const, error: "Class code is required." };
+
+  const klass = await admin
+    .from("classes")
+    .select("id, code, name, is_async")
+    .eq("code", code)
+    .maybeSingle();
+
+  if (!klass.data?.id && code === getAsyncClassCode()) {
+    const ensured = await ensureAsyncClass(admin);
+    return {
+      ok: true as const,
+      id: ensured.id,
+      code,
+      name: ensured.name,
+      isAsync: true,
+    };
+  }
+
+  if (klass.error) return { ok: false as const, error: klass.error.message };
+  if (!klass.data?.id) {
+    return {
+      ok: false as const,
+      error: "That class code wasn't found. Check with your teacher, or choose self-paced learning.",
+    };
+  }
+
+  return {
+    ok: true as const,
+    id: klass.data.id as string,
+    code,
+    name: String(klass.data.name ?? "Class"),
+    isAsync: Boolean(klass.data.is_async),
+  };
+}
+
 export async function enrollStudentInClassByCode(opts: {
   studentId: string;
   classCode: string;
   admin?: ReturnType<typeof createSupabaseAdminClient>;
 }) {
   const admin = opts.admin ?? createSupabaseAdminClient();
-  const code = opts.classCode.trim().toUpperCase();
-  if (!code) return { ok: false as const, error: "Class code is required." };
-
-  let klass = await admin.from("classes").select("id, is_async").eq("code", code).maybeSingle();
-
-  // If they used the async code before the class row existed, create it.
-  if (!klass.data?.id && code === getAsyncClassCode()) {
-    const ensured = await ensureAsyncClass(admin);
-    klass = { data: { id: ensured.id, is_async: true }, error: null } as typeof klass;
-  }
-
-  if (klass.error) return { ok: false as const, error: klass.error.message };
-  if (!klass.data?.id) return { ok: false as const, error: "That class code was not found." };
+  const found = await findClassByCode(opts.classCode, admin);
+  if (!found.ok) return found;
 
   const { error: enrollErr } = await admin
     .from("class_enrollments")
     .upsert(
-      { class_id: klass.data.id, student_id: opts.studentId },
+      { class_id: found.id, student_id: opts.studentId },
       { onConflict: "class_id,student_id" }
     );
 
   if (enrollErr) return { ok: false as const, error: enrollErr.message };
-  return { ok: true as const, classId: klass.data.id as string, isAsync: Boolean(klass.data.is_async) };
+  return { ok: true as const, classId: found.id, isAsync: found.isAsync };
 }

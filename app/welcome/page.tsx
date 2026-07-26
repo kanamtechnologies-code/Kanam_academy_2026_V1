@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
+import { NoticePresence } from "@/components/ui/notice-presence";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, isParentRole, postSignInPath, safeNextPath } from "@/lib/roles";
 
@@ -154,7 +155,7 @@ export default function WelcomePage() {
   }, [returningEmail, returningPassword, router]);
 
   const continueNewStudentSignup = React.useCallback(
-    (opts: { selfPaced?: boolean; classCode?: string }) => {
+    async (opts: { selfPaced?: boolean; classCode?: string }) => {
       setNewError(null);
       if (opts.selfPaced) {
         try {
@@ -173,16 +174,42 @@ export default function WelcomePage() {
         setNewError("Enter the class code from your teacher.");
         return;
       }
-      try {
-        window.localStorage.setItem("kanam.classCode", cc);
-        window.localStorage.removeItem("kanam.selfPaced");
-      } catch {
-        // ignore
-      }
-      setClassCode(cc);
+
       setLoadingNew(true);
-      const params = new URLSearchParams({ classCode: cc });
-      router.push(`/welcome/age?${params.toString()}`);
+      try {
+        const res = await fetch("/api/student/validate-class-code", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ classCode: cc }),
+        });
+        const json = (await res.json().catch(() => null)) as {
+          ok?: boolean;
+          error?: string;
+          classCode?: string;
+        } | null;
+        if (!res.ok || !json?.ok) {
+          setNewError(
+            json?.error ||
+              "That class code wasn't found. Check with your teacher, or choose self-paced learning."
+          );
+          setLoadingNew(false);
+          return;
+        }
+
+        const normalized = (json.classCode || cc).trim().toUpperCase();
+        try {
+          window.localStorage.setItem("kanam.classCode", normalized);
+          window.localStorage.removeItem("kanam.selfPaced");
+        } catch {
+          // ignore
+        }
+        setClassCode(normalized);
+        const params = new URLSearchParams({ classCode: normalized });
+        router.push(`/welcome/age?${params.toString()}`);
+      } catch {
+        setNewError("Could not check that class code right now. Try again.");
+        setLoadingNew(false);
+      }
     },
     [router]
   );
@@ -191,64 +218,64 @@ export default function WelcomePage() {
     <WelcomeBackground>
       <div className="flex min-h-[calc(100dvh-var(--kanam-header-height,4.75rem))] w-full items-center justify-center px-4 py-5 sm:py-6 md:px-10">
         <div className="mx-auto w-full max-w-[1400px]">
-          {resetLinkError ? (
-            <div className="mb-4">
-              <Notice
-                variant="danger"
-                role="alert"
-                title="Reset link problem"
-                action={
-                  <>
-                    <Button
-                      type="button"
-                      size="sm"
-                      onClick={() => {
-                        setForgotOpen(true);
-                        setForgotStatus("idle");
-                        setForgotError(null);
-                      }}
-                    >
-                      Request a new reset link
-                    </Button>
-                    <Button
-                      type="button"
-                      size="sm"
-                      variant="outline"
-                      className="bg-white/80"
-                      onClick={() => setResetLinkError(null)}
-                    >
-                      Dismiss
-                    </Button>
-                  </>
-                }
-              >
-                {resetLinkError}
-              </Notice>
-            </div>
-          ) : null}
-
-          {accountDeletedMsg ? (
-            <div className="mb-4">
-              <Notice
-                variant="success"
-                role="status"
-                title="Account deleted"
-                action={
+          <NoticePresence show={Boolean(resetLinkError)} contentKey={resetLinkError} className="mb-4">
+            <Notice
+              variant="danger"
+              role="alert"
+              title="Reset link problem"
+              action={
+                <>
+                  <Button
+                    type="button"
+                    size="sm"
+                    onClick={() => {
+                      setForgotOpen(true);
+                      setForgotStatus("idle");
+                      setForgotError(null);
+                    }}
+                  >
+                    Request a new reset link
+                  </Button>
                   <Button
                     type="button"
                     size="sm"
                     variant="outline"
                     className="bg-white/80"
-                    onClick={() => setAccountDeletedMsg(null)}
+                    onClick={() => setResetLinkError(null)}
                   >
                     Dismiss
                   </Button>
-                }
-              >
-                {accountDeletedMsg}
-              </Notice>
-            </div>
-          ) : null}
+                </>
+              }
+            >
+              {resetLinkError}
+            </Notice>
+          </NoticePresence>
+
+          <NoticePresence
+            show={Boolean(accountDeletedMsg)}
+            contentKey={accountDeletedMsg}
+            className="mb-4"
+          >
+            <Notice
+              variant="success"
+              role="status"
+              title="Account deleted"
+              action={
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  className="bg-white/80"
+                  onClick={() => setAccountDeletedMsg(null)}
+                >
+                  Dismiss
+                </Button>
+              }
+            >
+              {accountDeletedMsg}
+            </Notice>
+          </NoticePresence>
 
           {/* Top row: welcome message + demo mode (side-by-side on large screens) */}
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
@@ -350,7 +377,7 @@ export default function WelcomePage() {
               <motion.div
                 {...cardEnter(0.05)}
                 whileHover={{ y: -8 }}
-                className={[glassCardBase, "p-5 sm:p-6 md:p-8"].join(" ")}
+                className={[glassCardBase, "flex h-full flex-col p-5 sm:p-6 md:p-8"].join(" ")}
               >
                 <p className="kanam-text-pop-strong text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--brand-2)]">
                   Student account
@@ -358,28 +385,18 @@ export default function WelcomePage() {
                 <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-900">
                   I’m a new student
                 </h2>
-                <p className="mt-2 text-xs leading-relaxed text-slate-500">
-                  Under 13? A parent must{" "}
-                  <button
-                    type="button"
-                    className="font-semibold text-emerald-800 underline underline-offset-2"
-                    onClick={() => router.push("/welcome/ask-parent")}
-                  >
-                    create a family account
-                  </button>
-                  .
+                <p className="mt-2 min-h-[2.5rem] text-xs leading-relaxed text-slate-500">
+                  Choose how you&apos;re joining, then create your student account.
                 </p>
 
-                {newError ? (
-                  <div className="mt-5">
-                    <Notice compact variant="danger" role="alert">
-                      {newError}
-                    </Notice>
-                  </div>
-                ) : null}
+                <NoticePresence show={Boolean(newError)} contentKey={newError} className="mt-5">
+                  <Notice compact variant="danger" role="alert">
+                    {newError}
+                  </Notice>
+                </NoticePresence>
 
                 <div
-                  className="mt-6 grid gap-3 sm:grid-cols-2"
+                  className="mt-6 grid flex-1 content-start gap-3 sm:grid-cols-2"
                   role="radiogroup"
                   aria-label="How you're joining"
                 >
@@ -469,7 +486,10 @@ export default function WelcomePage() {
                           </div>
                           <Input
                             value={classCode}
-                            onChange={(e) => setClassCode(e.target.value)}
+                            onChange={(e) => {
+                              setNewError(null);
+                              setClassCode(e.target.value);
+                            }}
                             placeholder="Enter your class code"
                             className="h-12 bg-slate-50 text-base focus-visible:ring-2 focus-visible:ring-emerald-500"
                             autoCapitalize="characters"
@@ -481,7 +501,7 @@ export default function WelcomePage() {
                   ) : null}
                 </AnimatePresence>
 
-                <div className="mt-6">
+                <div className="mt-auto pt-6">
                   <Button
                     disabled={loadingNew}
                     aria-busy={loadingNew}
@@ -512,6 +532,17 @@ export default function WelcomePage() {
                       </>
                     )}
                   </Button>
+                  <p className="mt-3 text-center text-xs text-slate-600">
+                    Under 13? A parent must{" "}
+                    <button
+                      type="button"
+                      className="font-semibold text-emerald-800 underline underline-offset-2"
+                      onClick={() => router.push("/welcome/ask-parent")}
+                    >
+                      create a family account
+                    </button>
+                    .
+                  </p>
                 </div>
               </motion.div>
 
@@ -520,7 +551,7 @@ export default function WelcomePage() {
                 id="sign-in"
                 {...cardEnter(0.1)}
                 whileHover={{ y: -8 }}
-                className={[glassCardBase, "scroll-mt-28 p-5 sm:p-6 md:p-8"].join(" ")}
+                className={[glassCardBase, "flex h-full scroll-mt-28 flex-col p-5 sm:p-6 md:p-8"].join(" ")}
               >
                 <p className="kanam-text-pop-strong text-xs font-extrabold uppercase tracking-[0.22em] text-[color:var(--accent)]">
                   Returning
@@ -528,16 +559,21 @@ export default function WelcomePage() {
                 <h2 className="mt-4 text-2xl font-black tracking-tight text-slate-900">
                   Sign in
                 </h2>
+                <p className="mt-2 min-h-[2.5rem] text-xs leading-relaxed text-slate-500">
+                  Use your student or family email and password to continue learning.
+                </p>
 
-                {returningError ? (
-                  <div className="mt-4">
-                    <Notice compact variant="danger" role="alert">
-                      {returningError}
-                    </Notice>
-                  </div>
-                ) : null}
+                <NoticePresence
+                  show={Boolean(returningError)}
+                  contentKey={returningError}
+                  className="mt-4"
+                >
+                  <Notice compact variant="danger" role="alert">
+                    {returningError}
+                  </Notice>
+                </NoticePresence>
 
-                <div className="mt-5 grid gap-3 rounded-2xl border border-white/50 bg-white/40 p-4">
+                <div className="mt-6 grid flex-1 content-start gap-3 rounded-2xl border border-white/50 bg-white/40 p-4">
                   <div className="space-y-1.5">
                     <label className="text-sm font-semibold text-slate-700">Email</label>
                     <Input
@@ -588,18 +624,18 @@ export default function WelcomePage() {
                             </DialogDescription>
                           </DialogHeader>
 
-                          {forgotError ? (
+                          <NoticePresence show={Boolean(forgotError)} contentKey={forgotError}>
                             <Notice compact variant="danger" role="alert">
                               {forgotError}
                             </Notice>
-                          ) : null}
+                          </NoticePresence>
 
-                          {forgotStatus === "sent" ? (
+                          <NoticePresence show={forgotStatus === "sent"} contentKey="forgot-sent">
                             <Notice compact variant="success" title="Check your email">
                               Open the reset link once in your browser (Gmail/Outlook sometimes
                               preview the link and expire it). Don’t reuse an older reset email.
                             </Notice>
-                          ) : null}
+                          </NoticePresence>
 
                           <div className="space-y-2">
                             <p className="text-xs font-semibold text-slate-700">Email</p>
@@ -666,7 +702,7 @@ export default function WelcomePage() {
                   </div>
                 </div>
 
-                <div className="mt-6 space-y-3">
+                <div className="mt-auto pt-6">
                   <Button
                     disabled={loadingReturning}
                     aria-busy={loadingReturning}
@@ -691,19 +727,16 @@ export default function WelcomePage() {
                       </>
                     )}
                   </Button>
-
-                  <div className="rounded-2xl border border-white/50 bg-white/40 p-4">
-                    <p className="text-xs text-slate-600">
-                      Trouble signing in?{" "}
-                      <Link
-                        className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
-                        href="/help"
-                      >
-                        Open Help
-                      </Link>
-                      .
-                    </p>
-                  </div>
+                  <p className="mt-3 text-center text-xs text-slate-600">
+                    Trouble signing in?{" "}
+                    <Link
+                      className="font-semibold text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
+                      href="/help"
+                    >
+                      Open Help
+                    </Link>
+                    .
+                  </p>
                 </div>
               </motion.div>
           </div>

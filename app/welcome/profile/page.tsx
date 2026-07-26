@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
+import { NoticePresence } from "@/components/ui/notice-presence";
 import { MIN_PASSWORD_LENGTH, passwordLengthError } from "@/lib/auth/password";
 import {
   MIN_SELF_SIGNUP_AGE,
@@ -115,6 +116,29 @@ export default function WelcomeProfilePage() {
     if (!selfPaced && !cc) {
       setError("A teacher class code is required. Go back and enter it, or choose self-paced.");
       return;
+    }
+    if (!selfPaced) {
+      try {
+        const checkRes = await fetch("/api/student/validate-class-code", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ classCode: cc }),
+        });
+        const checkJson = (await checkRes.json().catch(() => null)) as {
+          ok?: boolean;
+          error?: string;
+        } | null;
+        if (!checkRes.ok || !checkJson?.ok) {
+          setError(
+            checkJson?.error ||
+              "That class code wasn't found. Check with your teacher, or choose self-paced learning."
+          );
+          return;
+        }
+      } catch {
+        setError("Could not check that class code right now. Try again.");
+        return;
+      }
     }
     if (!trimmedFirst) {
       setError("Enter your first name.");
@@ -281,25 +305,25 @@ export default function WelcomeProfilePage() {
             instead.
           </p>
 
-          {error ? (
-            <div className="mt-4">
-              <Notice compact variant="danger" role="alert">
-                {error}
-              </Notice>
-            </div>
-          ) : null}
+          <NoticePresence show={Boolean(error)} contentKey={error} className="mt-4">
+            <Notice compact variant="danger" role="alert">
+              {error}
+            </Notice>
+          </NoticePresence>
 
           {pendingConfirmEmail ? (
             <div className="mt-6 space-y-4">
-              <Notice compact variant="info" role="status">
-                Check <span className="font-semibold">{pendingConfirmEmail}</span> for a confirmation
-                link. After you confirm, you can sign in and open your dashboard.
-              </Notice>
-              {resendNotice ? (
+              <NoticePresence show contentKey={pendingConfirmEmail}>
+                <Notice compact variant="info" role="status">
+                  Check <span className="font-semibold">{pendingConfirmEmail}</span> for a
+                  confirmation link. After you confirm, you can sign in and open your dashboard.
+                </Notice>
+              </NoticePresence>
+              <NoticePresence show={Boolean(resendNotice)} contentKey={resendNotice}>
                 <Notice compact variant="info" role="status">
                   {resendNotice}
                 </Notice>
-              ) : null}
+              </NoticePresence>
               <Button
                 type="button"
                 variant="outline"
