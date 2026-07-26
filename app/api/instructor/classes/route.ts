@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { isInstructorRole } from "@/lib/roles";
-import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { requireInstructorSession } from "@/lib/auth/requireInstructor";
 
 export const runtime = "nodejs";
 
@@ -16,14 +15,9 @@ function randomClassCode() {
 }
 
 export async function GET() {
-  const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.auth.getUser();
-  if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 401 });
-  const user = data.user;
-  if (!user) return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  if (!isInstructorRole(user)) {
-    return NextResponse.json({ ok: false, error: "Instructor access only." }, { status: 403 });
-  }
+  const gate = await requireInstructorSession();
+  if (!gate.ok) return gate.response;
+  const { supabase } = gate;
 
   const { data: rows, error: qErr } = await supabase
     .from("classes")
@@ -58,14 +52,9 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const supabase = await createSupabaseServerClient();
-  const { data, error } = await supabase.auth.getUser();
-  if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 401 });
-  const user = data.user;
-  if (!user) return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  if (!isInstructorRole(user)) {
-    return NextResponse.json({ ok: false, error: "Instructor access only." }, { status: 403 });
-  }
+  const gate = await requireInstructorSession();
+  if (!gate.ok) return gate.response;
+  const { supabase, user } = gate;
 
   let body: { name?: string; schoolName?: string };
   try {
@@ -141,4 +130,3 @@ export async function POST(req: Request) {
 
   return NextResponse.json({ ok: false, error: lastErr ?? "Could not create class." }, { status: 500 });
 }
-

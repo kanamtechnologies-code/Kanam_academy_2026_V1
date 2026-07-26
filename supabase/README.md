@@ -18,6 +18,9 @@ Open Supabase → **SQL Editor** and run these files in order:
 
 1. `supabase/schema.sql` (core app tables — if not already applied)
 2. `supabase/billing.sql` (Stripe customers, subscriptions, track entitlements, tutoring credits)
+3. `supabase/households.sql` (parent/kid households)
+4. `supabase/parental_consent.sql` (COPPA consent columns)
+5. `supabase/migrations/20260725_rls_hardening.sql` (**required on existing projects** — instructor role gates, consent forgery guard, billing helper IDOR fix)
 
 If a previous run failed partway through, it is safe to re-run (tables use `if not exists`, policies use `drop policy if exists`).
 
@@ -27,7 +30,24 @@ After it succeeds, confirm tables exist:
 select tablename from pg_tables where schemaname = 'public' order by tablename;
 ```
 
-You should see core tables plus: `billing_customers`, `billing_subscriptions`, `billing_webhook_events`, `track_entitlements`, `tutoring_credits`.
+You should see core tables plus: `billing_customers`, `billing_subscriptions`, `billing_webhook_events`, `track_entitlements`, `tutoring_credits`, `households`, `household_members`.
+
+### RLS validation (quick)
+
+As a normal authenticated student JWT (not service role), these should **fail**:
+
+```sql
+-- Must fail for non-instructors
+insert into public.classes (teacher_user_id, name, code)
+values (auth.uid(), 'Hijack', 'HACK-1');
+
+-- Must fail (consent columns are service-role only) when parental_consent.sql is applied
+update public.households
+set parental_consent_status = 'verified'
+where owner_user_id = auth.uid();
+```
+
+As an instructor JWT (`app_metadata.role = 'instructor'`), class insert for `teacher_user_id = auth.uid()` should succeed. Students must not read peers’ `lesson_progress`.
 
 ### Self-paced / async cohort
 
@@ -46,7 +66,9 @@ Then verify the app (with `npm run dev` running):
 curl http://localhost:3000/api/health
 ```
 
-Expected: `{"ok":true,"studentsSample":[]}`
+Expected: `{"ok":true}`
+
+Ops: see [`docs/ops/backup-restore.md`](../docs/ops/backup-restore.md) and [`docs/ops/error-monitoring.md`](../docs/ops/error-monitoring.md).
 
 ## 3) Auth URL configuration (password reset)
 
@@ -96,7 +118,7 @@ Supabase → **Authentication → Email Templates → Confirm signup**. Prefer a
 </p>
 ```
 
-After confirm, `/auth/confirm` sends parents to `/parent` (from `user_metadata.role`) and other users to `next` (default `/dashboard`). Redirect URLs must still allow `/auth/confirm`.
+After confirm, `/auth/confirm` sends parents to `/parent` (from `app_metadata.role`) and other users to `next` (default `/dashboard`). Redirect URLs must still allow `/auth/confirm`.
 
 ## 4) Stripe billing
 

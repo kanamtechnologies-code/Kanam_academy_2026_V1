@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 
 import { passwordLengthError } from "@/lib/auth/password";
+import { secretsEqual } from "@/lib/auth/privilegedRole";
+import {
+  AUTH_RATE_LIMITS,
+  clientIpFromRequest,
+  enforceRateLimits,
+} from "@/lib/auth/rateLimit";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -18,6 +24,13 @@ function s(x: unknown) {
 }
 
 export async function POST(req: Request) {
+  const ip = clientIpFromRequest(req);
+  const limited = enforceRateLimits(
+    [{ key: `admin-invite:ip:${ip}`, ...AUTH_RATE_LIMITS.adminInviteIp }],
+    "Too many instructor invite attempts. Please wait and try again."
+  );
+  if (limited) return limited;
+
   const expected = s(process.env.INSTRUCTOR_INVITE_CODE);
   if (!expected) {
     return NextResponse.json(
@@ -34,7 +47,7 @@ export async function POST(req: Request) {
   }
 
   const inviteCode = s(body.inviteCode);
-  if (inviteCode !== expected) {
+  if (!inviteCode || !secretsEqual(inviteCode, expected)) {
     return NextResponse.json({ ok: false, error: "Invalid instructor invite code." }, { status: 403 });
   }
 
@@ -46,7 +59,6 @@ export async function POST(req: Request) {
   if (!email || !email.includes("@")) {
     return NextResponse.json({ ok: false, error: "Valid email is required." }, { status: 400 });
   }
-  // Instructors are staff-created and auto-confirmed (invite flow).
   const pwErr = passwordLengthError(password);
   if (pwErr) {
     return NextResponse.json({ ok: false, error: pwErr }, { status: 400 });
@@ -63,11 +75,15 @@ export async function POST(req: Request) {
   const { data: created, error: createErr } = await supabase.auth.admin.createUser({
     email,
     password,
+    // Staff invite still auto-confirms so instructors can sign in immediately;
+    // role is stored in app_metadata (not client-writable user_metadata).
     email_confirm: true,
+    app_metadata: {
+      role: "instructor",
+    },
     user_metadata: {
       first_name: firstName,
       last_name: lastName,
-      role: "instructor",
     },
   });
 
@@ -84,4 +100,3 @@ export async function POST(req: Request) {
 
   return NextResponse.json({ ok: true, userId }, { status: 200 });
 }
-

@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { findClassByCode } from "@/lib/asyncClass";
+import {
+  AUTH_RATE_LIMITS,
+  clientIpFromRequest,
+  enforceRateLimits,
+} from "@/lib/auth/rateLimit";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -13,6 +18,13 @@ type Body = {
  * Public onboarding check: does this teacher/self-paced class code exist?
  */
 export async function POST(req: Request) {
+  const ip = clientIpFromRequest(req);
+  const limited = enforceRateLimits(
+    [{ key: `validate-class-code:ip:${ip}`, ...AUTH_RATE_LIMITS.classCodeIp }],
+    "Too many class code checks. Please wait and try again."
+  );
+  if (limited) return limited;
+
   try {
     const body = (await req.json().catch(() => ({}))) as Body;
     const admin = createSupabaseAdminClient();

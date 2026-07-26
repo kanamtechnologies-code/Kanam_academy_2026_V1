@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 
 import {
+  migrateLegacyPrivilegedRole,
+  userWithAppRole,
+} from "@/lib/auth/privilegedRole";
+import {
   activeStudentIdFromUser,
   getHouseholdForOwner,
   householdConsentGate,
@@ -34,22 +38,31 @@ export async function POST() {
   const user = data.user;
   if (!user) return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
 
-  if (isInstructorRole(user)) {
+  let admin: ReturnType<typeof createSupabaseAdminClient>;
+  try {
+    admin = createSupabaseAdminClient();
+  } catch (e: unknown) {
+    return NextResponse.json(
+      { ok: false, error: e instanceof Error ? e.message : "Server misconfigured." },
+      { status: 500 }
+    );
+  }
+
+  // Migrate legacy user_metadata.role → app_metadata (clients can spoof user_metadata).
+  let effectiveUser = user;
+  try {
+    const migrated = await migrateLegacyPrivilegedRole(admin, user);
+    if (migrated) effectiveUser = userWithAppRole(user, migrated) as typeof user;
+  } catch {
+    // Non-fatal; role checks use current JWT claims.
+  }
+
+  if (isInstructorRole(effectiveUser)) {
     return NextResponse.json({ ok: true, role: "instructor", student: null }, { status: 200 });
   }
 
   // Parent: never auto-create a students row on the parent Auth user.
-  if (isParentRole(user)) {
-    let admin: ReturnType<typeof createSupabaseAdminClient>;
-    try {
-      admin = createSupabaseAdminClient();
-    } catch (e: unknown) {
-      return NextResponse.json(
-        { ok: false, error: e instanceof Error ? e.message : "Server misconfigured." },
-        { status: 500 }
-      );
-    }
-
+  if (isParentRole(effectiveUser)) {
     const household = await getHouseholdForOwner(admin, user.id);
     if (!household?.id) {
       return NextResponse.json(
@@ -66,7 +79,7 @@ export async function POST() {
     const kids = await listHouseholdKids(admin, household.id);
     const consent = householdConsentGate(household);
     let activeId =
-      activeStudentIdFromUser(user) ||
+      activeStudentIdFromUser(effectiveUser) ||
       (household.active_student_id ? String(household.active_student_id) : null);
 
     if (activeId && !kids.some((k) => k.id === activeId)) {

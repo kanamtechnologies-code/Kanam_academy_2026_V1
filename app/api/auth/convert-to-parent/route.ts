@@ -121,12 +121,16 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: moveErr.message }, { status: 500 });
   }
 
+  const nextUserMeta: Record<string, unknown> = { ...meta, active_student_id: student.id };
+  delete nextUserMeta.role;
+  delete nextUserMeta.user_role;
+
   const { error: roleErr } = await admin.auth.admin.updateUserById(user.id, {
-    user_metadata: {
-      ...meta,
+    app_metadata: {
+      ...((user.app_metadata ?? {}) as Record<string, unknown>),
       role: "parent",
-      active_student_id: student.id,
     },
+    user_metadata: nextUserMeta,
   });
 
   if (roleErr) {

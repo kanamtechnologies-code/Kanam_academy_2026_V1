@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { ensureAsyncClass, getAsyncClassCode } from "@/lib/asyncClass";
+import {
+  AUTH_RATE_LIMITS,
+  clientIpFromRequest,
+  enforceRateLimits,
+} from "@/lib/auth/rateLimit";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -10,7 +15,14 @@ export const runtime = "nodejs";
  * Ensures the async class row exists in Supabase, then returns the code to auto-fill.
  * No third-party email — Supabase Auth already handles account emails.
  */
-export async function POST() {
+export async function POST(req: Request) {
+  const ip = clientIpFromRequest(req);
+  const limited = enforceRateLimits(
+    [{ key: `request-class-code:ip:${ip}`, ...AUTH_RATE_LIMITS.requestClassCodeIp }],
+    "Too many requests. Please wait and try again."
+  );
+  if (limited) return limited;
+
   try {
     const admin = createSupabaseAdminClient();
     const klass = await ensureAsyncClass(admin);

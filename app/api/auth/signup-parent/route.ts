@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 
 import { enrollStudentInClassByCode, getAsyncClassCode } from "@/lib/asyncClass";
 import { passwordLengthError } from "@/lib/auth/password";
+import {
+  AUTH_RATE_LIMITS,
+  clientIpFromRequest,
+  enforceRateLimits,
+} from "@/lib/auth/rateLimit";
 import { sendSignupConfirmationEmail } from "@/lib/auth/sendSignupConfirmation";
 import {
   PARENTAL_CONSENT_NOTICE_VERSION,
@@ -42,6 +47,13 @@ function s(x: unknown) {
 }
 
 export async function POST(req: Request) {
+  const ip = clientIpFromRequest(req);
+  const ipLimited = enforceRateLimits(
+    [{ key: `signup-parent:ip:${ip}`, ...AUTH_RATE_LIMITS.signupIp }],
+    "Too many signup attempts from this network. Please wait and try again."
+  );
+  if (ipLimited) return ipLimited;
+
   let body: Body;
   try {
     body = (await req.json()) as Body;
@@ -62,6 +74,12 @@ export async function POST(req: Request) {
   if (!email || !email.includes("@")) {
     return NextResponse.json({ ok: false, error: "Valid email is required." }, { status: 400 });
   }
+
+  const emailLimited = enforceRateLimits(
+    [{ key: `signup-parent:email:${email}`, ...AUTH_RATE_LIMITS.signupEmail }],
+    "Too many signup attempts for this email. Please wait and try again."
+  );
+  if (emailLimited) return emailLimited;
   const pwErr = passwordLengthError(password);
   if (pwErr) {
     return NextResponse.json({ ok: false, error: pwErr }, { status: 400 });
@@ -104,8 +122,10 @@ export async function POST(req: Request) {
     password,
     // Require inbox ownership before sign-in (do not auto-confirm).
     email_confirm: false,
-    user_metadata: {
+    app_metadata: {
       role: "parent",
+    },
+    user_metadata: {
       first_name: firstName,
       last_name: lastName,
       display_name: parentName,

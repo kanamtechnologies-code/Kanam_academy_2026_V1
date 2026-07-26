@@ -12,6 +12,10 @@ import {
   listHouseholdKids,
   setActiveStudentMetadata,
 } from "@/lib/households";
+import {
+  migrateLegacyPrivilegedRole,
+  userWithAppRole,
+} from "@/lib/auth/privilegedRole";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -35,7 +39,16 @@ async function requireParent() {
   if (error || !data.user) {
     return { error: NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 }) };
   }
-  if (!isParentRole(data.user)) {
+  let user = data.user;
+  if (!isParentRole(user)) {
+    try {
+      const migrated = await migrateLegacyPrivilegedRole(createSupabaseAdminClient(), user);
+      if (migrated) user = userWithAppRole(user, migrated) as typeof user;
+    } catch {
+      // ignore
+    }
+  }
+  if (!isParentRole(user)) {
     return {
       error: NextResponse.json(
         { ok: false, error: "Parent account required." },
@@ -43,7 +56,7 @@ async function requireParent() {
       ),
     };
   }
-  return { user: data.user };
+  return { user };
 }
 
 export async function GET() {

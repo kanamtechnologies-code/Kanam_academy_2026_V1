@@ -142,19 +142,22 @@ security definer
 set search_path = public
 as $$
   select
-    exists (
-      select 1
-      from public.billing_subscriptions s
-      where s.user_id = p_user_id
-        and s.status in ('active', 'trialing')
-        and (s.current_period_end is null or s.current_period_end > now())
-    )
-    or exists (
-      select 1
-      from public.track_entitlements e
-      where e.user_id = p_user_id
-        and e.track_slug = p_track_slug
-        and e.active = true
+    (auth.uid() = p_user_id or coalesce(auth.role(), '') = 'service_role')
+    and (
+      exists (
+        select 1
+        from public.billing_subscriptions s
+        where s.user_id = p_user_id
+          and s.status in ('active', 'trialing')
+          and (s.current_period_end is null or s.current_period_end > now())
+      )
+      or exists (
+        select 1
+        from public.track_entitlements e
+        where e.user_id = p_user_id
+          and e.track_slug = p_track_slug
+          and e.active = true
+      )
     );
 $$;
 
@@ -168,10 +171,16 @@ stable
 security definer
 set search_path = public
 as $$
-  select coalesce(sum(sessions_remaining), 0)::int
-  from public.tutoring_credits
-  where user_id = p_user_id
-    and sessions_remaining > 0;
+  select case
+    when auth.uid() = p_user_id or coalesce(auth.role(), '') = 'service_role' then
+      coalesce((
+        select sum(sessions_remaining)::int
+        from public.tutoring_credits
+        where user_id = p_user_id
+          and sessions_remaining > 0
+      ), 0)
+    else 0
+  end;
 $$;
 
 revoke all on function public.user_tutoring_sessions_remaining(uuid) from public;

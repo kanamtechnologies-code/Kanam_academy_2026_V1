@@ -50,30 +50,27 @@ export function protectedPageRule(pathname: string): ProtectedPageRule | null {
   return null;
 }
 
-/** APIs that must reject unauthenticated callers with 401. */
+/**
+ * APIs that must reject unauthenticated callers with 401.
+ * Default is protected for every `/api/*` route; only an explicit allowlist is public.
+ */
 export function isProtectedApi(pathname: string): boolean {
   const p = pathOnly(pathname);
   if (!p.startsWith("/api/")) return false;
 
-  // Explicitly public
+  // Explicit public allowlist (everything else under /api requires a session)
   if (p === "/api/auth/signup" || p === "/api/auth/signup-parent") return false;
-  // Welcome-page onboarding: class codes before the user has an account
   if (p === "/api/student/request-class-code") return false;
   if (p === "/api/student/validate-class-code") return false;
+  // Invite-code gated (handler still verifies secret)
   if (startsWithPath(p, "/api/admin")) return false;
+  // Stripe signature verified in handler
   if (startsWithPath(p, "/api/stripe")) return false;
   if (p === "/api/health") return false;
-  if (startsWithPath(p, "/api/lesson")) return false;
+  // Guided demo can narrate without an account; handler rate-limits by user or IP
+  if (p === "/api/lesson/speak") return false;
 
-  // Everything else under these namespaces requires a session
-  if (startsWithPath(p, "/api/parent")) return true;
-  if (startsWithPath(p, "/api/instructor")) return true;
-  if (startsWithPath(p, "/api/billing")) return true;
-  if (startsWithPath(p, "/api/student")) return true;
-  if (p === "/api/auth/ensure-profile") return true;
-  if (p === "/api/auth/convert-to-parent") return true;
-
-  return false;
+  return true;
 }
 
 /** Safe relative return path for ?next= after sign-in. */

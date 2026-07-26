@@ -1,0 +1,21 @@
+name: Uptime
+
+on:
+  schedule:
+    # GitHub cron can drift; use an external uptime product as primary pager.
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Probe production /api/health
+        env:
+          HEALTH_URL: https://learn.kanamacademy.com/api/health
+        run: |
+          set -euo pipefail
+          body="$(curl -fsS --max-time 15 "$HEALTH_URL")"
+          echo "$body"
+          echo "$body" | grep -q '"ok":true'

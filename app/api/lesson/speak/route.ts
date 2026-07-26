@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 
+import {
+  clientIpFromRequest,
+  enforceRateLimits,
+} from "@/lib/auth/rateLimit";
 import { LESSON_SPEECH_MAX_CHARS } from "@/lib/lessonSpeech";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
 
@@ -8,26 +13,8 @@ type SpeakBody = {
   text?: unknown;
 };
 
-const recentByIp = new Map<string, { count: number; resetAt: number }>();
-const RATE_LIMIT = 40; // requests / window
-const WINDOW_MS = 10 * 60 * 1000;
-
-function clientIp(req: Request) {
-  const forwarded = req.headers.get("x-forwarded-for");
-  if (forwarded) return forwarded.split(",")[0]?.trim() || "unknown";
-  return req.headers.get("x-real-ip") || "unknown";
-}
-
-function rateLimited(ip: string) {
-  const now = Date.now();
-  const row = recentByIp.get(ip);
-  if (!row || now >= row.resetAt) {
-    recentByIp.set(ip, { count: 1, resetAt: now + WINDOW_MS });
-    return false;
-  }
-  row.count += 1;
-  return row.count > RATE_LIMIT;
-}
+const AUTH_LIMIT = { limit: 40, windowMs: 10 * 60 * 1000 };
+const ANON_LIMIT = { limit: 8, windowMs: 10 * 60 * 1000 };
 
 export async function POST(req: Request) {
   const apiKey = process.env.OPENAI_API_KEY?.trim();
@@ -38,9 +25,28 @@ export async function POST(req: Request) {
     );
   }
 
-  const ip = clientIp(req);
-  if (rateLimited(ip)) {
-    return NextResponse.json({ error: "Too many listen requests. Try again soon." }, { status: 429 });
+  let userId: string | null = null;
+  try {
+    const supabase = await createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    userId = user?.id ?? null;
+  } catch {
+    userId = null;
+  }
+
+  const bucketKey = userId ? `speak:user:${userId}` : `speak:ip:${clientIpFromRequest(req)}`;
+  const limited = enforceRateLimits(
+    [{ key: bucketKey, ...(userId ? AUTH_LIMIT : ANON_LIMIT) }],
+    "Too many listen requests. Try again soon."
+  );
+  if (limited) {
+    // Speak clients expect `{ error }` not `{ ok: false, error }`
+    return NextResponse.json(
+      { error: "Too many listen requests. Try again soon." },
+      { status: 429, headers: limited.headers }
+    );
   }
 
   let body: SpeakBody;
@@ -82,7 +88,7 @@ export async function POST(req: Request) {
     const detail = await upstream.text().catch(() => "");
     console.error("[lesson/speak] OpenAI error", upstream.status, detail.slice(0, 400));
     return NextResponse.json(
-      { error: "Could not generate lesson audio right now." },
+      { error: "Could not generate audio right now." },
       { status: 502 }
     );
   }
@@ -92,7 +98,7 @@ export async function POST(req: Request) {
     status: 200,
     headers: {
       "Content-Type": "audio/mpeg",
-      "Cache-Control": "private, max-age=3600",
+      "Cache-Control": "no-store",
     },
   });
 }

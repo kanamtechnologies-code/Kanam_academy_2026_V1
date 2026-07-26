@@ -197,3 +197,96 @@ create policy progress_events_delete_household
   on public.progress_events for delete
   to authenticated
   using (public.user_owns_household_student(student_id));
+
+-- Enrolled learners / household parents can read class metadata
+drop policy if exists classes_select_enrolled on public.classes;
+create policy classes_select_enrolled
+  on public.classes for select
+  to authenticated
+  using (
+    exists (
+      select 1
+      from public.class_enrollments ce
+      join public.students s on s.id = ce.student_id
+      where ce.class_id = classes.id
+        and (
+          s.user_id = auth.uid()
+          or public.user_owns_household(s.household_id)
+        )
+    )
+  );
+
+-- COPPA consent columns + student credential columns: service-role only (see migrations/20260725_rls_hardening.sql)
+-- Re-declare helpers if schema.sql already created them.
+create or replace function public.is_service_role()
+returns boolean
+language sql
+stable
+as $$
+  select coalesce(auth.role(), '') = 'service_role';
+$$;
+
+create or replace function public.prevent_client_consent_forgery()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  n jsonb := to_jsonb(new);
+  o jsonb := to_jsonb(old);
+  k text;
+begin
+  if tg_op = 'UPDATE' and not public.is_service_role() and (n ? 'parental_consent_status') then
+    foreach k in array array[
+      'parental_consent_status',
+      'parental_consent_method',
+      'parental_consent_at',
+      'parental_consent_signer_name',
+      'parental_consent_notice_version',
+      'parental_consent_parent_email',
+      'parental_consent_stripe_customer_id',
+      'parental_consent_checkout_session_id'
+    ]
+    loop
+      if (n ->> k) is distinct from (o ->> k) then
+        raise exception 'parental consent fields are service-role only';
+      end if;
+    end loop;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists trg_households_consent_guard on public.households;
+create trigger trg_households_consent_guard
+  before update on public.households
+  for each row execute function public.prevent_client_consent_forgery();
+
+create or replace function public.prevent_client_student_sensitive_updates()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  n jsonb := to_jsonb(new);
+  o jsonb := to_jsonb(old);
+  k text;
+begin
+  if tg_op = 'UPDATE' and not public.is_service_role() then
+    foreach k in array array['user_id', 'household_id', 'password_hash', 'pin_hash', 'device_id']
+    loop
+      if (n ? k) and ((n ->> k) is distinct from (o ->> k)) then
+        raise exception 'student identity and credential fields are service-role only';
+      end if;
+    end loop;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists trg_students_sensitive_guard on public.students;
+create trigger trg_students_sensitive_guard
+  before update on public.students
+  for each row execute function public.prevent_client_student_sensitive_updates();

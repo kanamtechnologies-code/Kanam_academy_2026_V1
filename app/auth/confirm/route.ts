@@ -29,7 +29,11 @@ async function postConfirmPath(
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    const role = String(user?.user_metadata?.role ?? "").toLowerCase();
+    const role = String(
+      (user?.app_metadata as { role?: string } | undefined)?.role ??
+        (user?.user_metadata as { role?: string } | undefined)?.role ??
+        ""
+    ).toLowerCase();
     if (role === "parent") return "/parent";
   } catch {
     // keep next

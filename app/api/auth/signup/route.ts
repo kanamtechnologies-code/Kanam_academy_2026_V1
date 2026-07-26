@@ -6,6 +6,11 @@ import {
   getAsyncClassCode,
 } from "@/lib/asyncClass";
 import { passwordLengthError } from "@/lib/auth/password";
+import {
+  AUTH_RATE_LIMITS,
+  clientIpFromRequest,
+  enforceRateLimits,
+} from "@/lib/auth/rateLimit";
 import { sendSignupConfirmationEmail } from "@/lib/auth/sendSignupConfirmation";
 import {
   MIN_SELF_SIGNUP_AGE,
@@ -79,6 +84,13 @@ async function getOrCreateSchoolId(supabase: ReturnType<typeof createSupabaseAdm
 }
 
 export async function POST(req: Request) {
+  const ip = clientIpFromRequest(req);
+  const ipLimited = enforceRateLimits(
+    [{ key: `signup:ip:${ip}`, ...AUTH_RATE_LIMITS.signupIp }],
+    "Too many signup attempts from this network. Please wait and try again."
+  );
+  if (ipLimited) return ipLimited;
+
   let body: Body;
   try {
     body = (await req.json()) as Body;
@@ -104,6 +116,12 @@ export async function POST(req: Request) {
   if (!email || !email.includes("@")) {
     return NextResponse.json({ ok: false, error: "Valid email is required." }, { status: 400 });
   }
+
+  const emailLimited = enforceRateLimits(
+    [{ key: `signup:email:${email}`, ...AUTH_RATE_LIMITS.signupEmail }],
+    "Too many signup attempts for this email. Please wait and try again."
+  );
+  if (emailLimited) return emailLimited;
   const pwErr = passwordLengthError(password);
   if (pwErr) {
     return NextResponse.json({ ok: false, error: pwErr }, { status: 400 });

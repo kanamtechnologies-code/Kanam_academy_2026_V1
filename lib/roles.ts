@@ -13,12 +13,14 @@ function readMetaValue(meta: RoleMetadata, key: string): unknown {
   return meta && typeof meta === "object" ? (meta as Record<string, unknown>)[key] : undefined;
 }
 
-/** Resolve a user's role from either user_metadata or app_metadata. */
+/**
+ * Resolve a user's role from app_metadata only.
+ * Privileged roles (instructor/parent) must not be read from user_metadata —
+ * clients can update that field via auth.updateUser.
+ */
 export function readUserRole(user: UserWithRole): string | null {
   const role =
-    readMetaValue(user?.user_metadata, "role") ||
     readMetaValue(user?.app_metadata, "role") ||
-    readMetaValue(user?.user_metadata, "user_role") ||
     readMetaValue(user?.app_metadata, "user_role");
   return typeof role === "string" ? role : null;
 }

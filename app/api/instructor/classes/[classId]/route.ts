@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 
+import {
+  migrateLegacyPrivilegedRole,
+  userWithAppRole,
+} from "@/lib/auth/privilegedRole";
 import { isInstructorRole } from "@/lib/roles";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -21,7 +26,16 @@ export async function DELETE(_req: Request, context: RouteContext) {
   if (error) return NextResponse.json({ ok: false, error: error.message }, { status: 401 });
   const user = data.user;
   if (!user) return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
+  let effectiveUser = user;
   if (!isInstructorRole(user)) {
+    try {
+      const migrated = await migrateLegacyPrivilegedRole(createSupabaseAdminClient(), user);
+      if (migrated) effectiveUser = userWithAppRole(user, migrated) as typeof user;
+    } catch {
+      // ignore
+    }
+  }
+  if (!isInstructorRole(effectiveUser)) {
     return NextResponse.json({ ok: false, error: "Instructor access only." }, { status: 403 });
   }
 

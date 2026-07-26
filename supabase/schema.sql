@@ -169,6 +169,30 @@ alter table public.classes enable row level security;
 alter table public.class_enrollments enable row level security;
 alter table public.class_lesson_assignments enable row level security;
 
+-- Privileged roles live in auth JWT app_metadata (see lib/roles.ts). Never trust user_metadata.
+create or replace function public.jwt_is_instructor()
+returns boolean
+language sql
+stable
+as $$
+  select coalesce(auth.jwt() -> 'app_metadata' ->> 'role', '')
+    in ('instructor', 'teacher');
+$$;
+
+revoke all on function public.jwt_is_instructor() from public;
+grant execute on function public.jwt_is_instructor() to authenticated, service_role;
+
+create or replace function public.is_service_role()
+returns boolean
+language sql
+stable
+as $$
+  select coalesce(auth.role(), '') = 'service_role';
+$$;
+
+revoke all on function public.is_service_role() from public;
+grant execute on function public.is_service_role() to authenticated, service_role;
+
 -- Schools: safe to list for authenticated users (used for instructor dashboards / class display)
 drop policy if exists schools_select_all_authenticated on public.schools;
 create policy schools_select_all_authenticated
@@ -177,10 +201,11 @@ create policy schools_select_all_authenticated
   using (true);
 
 drop policy if exists schools_insert_authenticated on public.schools;
-create policy schools_insert_authenticated
+drop policy if exists schools_insert_instructor on public.schools;
+create policy schools_insert_instructor
   on public.schools for insert
   to authenticated
-  with check (true);
+  with check (public.jwt_is_instructor());
 
 -- RLS policies (production-style): authenticated users can access only their own student + progress.
 drop policy if exists students_select_own on public.students;
@@ -196,7 +221,8 @@ create policy students_select_instructor_roster
   on public.students for select
   to authenticated
   using (
-    exists (
+    public.jwt_is_instructor()
+    and exists (
       select 1
       from public.class_enrollments ce
       join public.classes c on c.id = ce.class_id
@@ -317,7 +343,7 @@ create policy progress_events_delete_own
     )
   );
 
--- Instructors: read/write only their own classes
+-- Instructors: read/write only their own classes (role required for mutations)
 drop policy if exists classes_select_own on public.classes;
 create policy classes_select_own
   on public.classes for select
@@ -328,20 +354,20 @@ drop policy if exists classes_insert_own on public.classes;
 create policy classes_insert_own
   on public.classes for insert
   to authenticated
-  with check (teacher_user_id = auth.uid());
+  with check (teacher_user_id = auth.uid() and public.jwt_is_instructor());
 
 drop policy if exists classes_update_own on public.classes;
 create policy classes_update_own
   on public.classes for update
   to authenticated
-  using (teacher_user_id = auth.uid())
-  with check (teacher_user_id = auth.uid());
+  using (teacher_user_id = auth.uid() and public.jwt_is_instructor())
+  with check (teacher_user_id = auth.uid() and public.jwt_is_instructor());
 
 drop policy if exists classes_delete_own on public.classes;
 create policy classes_delete_own
   on public.classes for delete
   to authenticated
-  using (teacher_user_id = auth.uid());
+  using (teacher_user_id = auth.uid() and public.jwt_is_instructor());
 
 -- Enrollments: instructors can view and manage enrollments for their classes.
 -- Students can read their own enrollment rows (needed for lesson-access checks).
@@ -376,7 +402,8 @@ create policy class_enrollments_insert_for_own_classes
   on public.class_enrollments for insert
   to authenticated
   with check (
-    exists (
+    public.jwt_is_instructor()
+    and exists (
       select 1
       from public.classes c
       where c.id = class_enrollments.class_id
@@ -389,7 +416,8 @@ create policy class_enrollments_delete_for_own_classes
   on public.class_enrollments for delete
   to authenticated
   using (
-    exists (
+    public.jwt_is_instructor()
+    and exists (
       select 1
       from public.classes c
       where c.id = class_enrollments.class_id
@@ -416,7 +444,8 @@ create policy class_lesson_assignments_insert_own_classes
   on public.class_lesson_assignments for insert
   to authenticated
   with check (
-    exists (
+    public.jwt_is_instructor()
+    and exists (
       select 1
       from public.classes c
       where c.id = class_lesson_assignments.class_id
@@ -429,7 +458,8 @@ create policy class_lesson_assignments_update_own_classes
   on public.class_lesson_assignments for update
   to authenticated
   using (
-    exists (
+    public.jwt_is_instructor()
+    and exists (
       select 1
       from public.classes c
       where c.id = class_lesson_assignments.class_id
@@ -437,7 +467,8 @@ create policy class_lesson_assignments_update_own_classes
     )
   )
   with check (
-    exists (
+    public.jwt_is_instructor()
+    and exists (
       select 1
       from public.classes c
       where c.id = class_lesson_assignments.class_id
@@ -450,10 +481,42 @@ create policy class_lesson_assignments_delete_own_classes
   on public.class_lesson_assignments for delete
   to authenticated
   using (
-    exists (
+    public.jwt_is_instructor()
+    and exists (
       select 1
       from public.classes c
       where c.id = class_lesson_assignments.class_id
+        and c.teacher_user_id = auth.uid()
+    )
+  );
+
+-- Instructors can read progress for learners enrolled in their classes
+drop policy if exists lesson_progress_select_instructor on public.lesson_progress;
+create policy lesson_progress_select_instructor
+  on public.lesson_progress for select
+  to authenticated
+  using (
+    public.jwt_is_instructor()
+    and exists (
+      select 1
+      from public.class_enrollments ce
+      join public.classes c on c.id = ce.class_id
+      where ce.student_id = lesson_progress.student_id
+        and c.teacher_user_id = auth.uid()
+    )
+  );
+
+drop policy if exists progress_events_select_instructor on public.progress_events;
+create policy progress_events_select_instructor
+  on public.progress_events for select
+  to authenticated
+  using (
+    public.jwt_is_instructor()
+    and exists (
+      select 1
+      from public.class_enrollments ce
+      join public.classes c on c.id = ce.class_id
+      where ce.student_id = progress_events.student_id
         and c.teacher_user_id = auth.uid()
     )
   );

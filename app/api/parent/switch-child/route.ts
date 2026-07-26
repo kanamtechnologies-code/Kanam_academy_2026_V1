@@ -7,6 +7,10 @@ import {
   setActiveStudentMetadata,
   verifyPin,
 } from "@/lib/households";
+import {
+  migrateLegacyPrivilegedRole,
+  userWithAppRole,
+} from "@/lib/auth/privilegedRole";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -27,7 +31,16 @@ export async function POST(req: Request) {
   if (error || !data.user) {
     return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
   }
-  if (!isParentRole(data.user)) {
+  let user = data.user;
+  if (!isParentRole(user)) {
+    try {
+      const migrated = await migrateLegacyPrivilegedRole(createSupabaseAdminClient(), user);
+      if (migrated) user = userWithAppRole(user, migrated) as typeof user;
+    } catch {
+      // ignore
+    }
+  }
+  if (!isParentRole(user)) {
     return NextResponse.json({ ok: false, error: "Parent account required." }, { status: 403 });
   }
 
