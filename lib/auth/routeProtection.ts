@@ -4,6 +4,8 @@
  * unauthenticated access to clearly private surfaces.
  */
 
+import { isAllLessonsUnlocked } from "@/lib/devUnlock";
+
 /** Keep in sync with `DEMO_LESSON_ID` in lib/pythonLessons/demoLesson.ts (no heavy import in middleware). */
 const PUBLIC_DEMO_LESSON_ID = "demo-lesson-1";
 
@@ -34,6 +36,10 @@ export function isPublicPage(pathname: string): boolean {
   if (p === "/auth" || startsWithPath(p, "/auth")) return true;
   // Only the guided demo lesson is public; all other /learn/* require auth.
   if (p === "/learn/demo") return true;
+  // Local/dev unlock — every lesson page is browsable without sign-in.
+  if (isAllLessonsUnlocked() && (p === "/learn" || startsWithPath(p, "/learn"))) {
+    return true;
+  }
   return false;
 }
 
@@ -48,6 +54,7 @@ export function protectedPageRule(pathname: string): ProtectedPageRule | null {
   if (p === "/dashboard") return { kind: "auth" };
   if (p === "/learn" || startsWithPath(p, "/learn")) {
     if (p === "/learn/demo") return null;
+    if (isAllLessonsUnlocked()) return null;
     return { kind: "auth" };
   }
   return null;
@@ -77,6 +84,10 @@ export function isProtectedApi(pathname: string): boolean {
     p === `/api/student/lessons/${PUBLIC_DEMO_LESSON_ID}` ||
     p === `/api/student/lessons/${PUBLIC_DEMO_LESSON_ID}/check`
   ) {
+    return false;
+  }
+  // Local/dev unlock — lesson payloads + checks without a session
+  if (isAllLessonsUnlocked() && startsWithPath(p, "/api/student/lessons")) {
     return false;
   }
 

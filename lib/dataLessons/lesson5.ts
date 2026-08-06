@@ -339,7 +339,23 @@ The order of the rows in your results matters now — read carefully!`,
     "Get the top 3 most expensive orders.",
     "Challenge: name + price of the single most expensive order.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What does ORDER BY change about a result?",
+      answer:
+        "It sorts the rows by one or more columns. It does not remove rows — it only changes their order.",
+    },
+    {
+      question: "What is the difference between ASC and DESC?",
+      answer:
+        "ASC sorts low-to-high (A→Z, small→large). DESC flips the direction (high-to-low).",
+    },
+    {
+      question: "How do ORDER BY and LIMIT work together to find a “top N” answer?",
+      answer:
+        "Sort so the best values come first (often DESC), then LIMIT N to keep only the top rows — that is a ranking pattern.",
+    },
+  ],
   tryThis: [
     "Try ORDER BY student_name — it sorts text alphabetically!",
     "Change LIMIT 3 to LIMIT 1 to get only the winner.",

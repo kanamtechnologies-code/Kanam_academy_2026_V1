@@ -377,7 +377,23 @@ Watch how **sorting** changes the story the chart tells — and remember that *d
     "Show only the top 3 items.",
     "Challenge: write the full chart-ready query yourself.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What two kinds of columns does a basic bar chart need from a query?",
+      answer:
+        "A label/category column and a number column — then each bar can represent one category’s value.",
+    },
+    {
+      question: "How can sorting change the story a chart tells?",
+      answer:
+        "Sorting high-to-low (or by time) highlights ranking or trends. A random order can hide the pattern even with the same numbers.",
+    },
+    {
+      question: "Why should the chart type match the question?",
+      answer:
+        "The wrong chart can mislead — bars compare categories well; lines show change over time; pies show parts of one whole.",
+    },
+  ],
   tryThis: [
     "Change DESC to ASC and watch the bars flip.",
     "Try grouping by something else to chart a different story.",

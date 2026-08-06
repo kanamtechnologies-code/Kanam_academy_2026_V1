@@ -306,7 +306,23 @@ Read the column names in the results table after each Run & check.`,
     "Use DISTINCT to list each item once.",
     "Challenge: list each distinct item with its price.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "Why does column order in SELECT matter?",
+      answer:
+        "The result table shows columns in the order you list them — you control the presentation, not the original table layout.",
+    },
+    {
+      question: "What problem does DISTINCT solve?",
+      answer:
+        "It removes duplicate values so each unique item appears once — useful when counting categories or listing unique names.",
+    },
+    {
+      question: "How is “picking columns” different from filtering rows?",
+      answer:
+        "Picking columns chooses which fields to show. Filtering rows (WHERE) chooses which records to keep. You often need both.",
+    },
+  ],
   tryThis: [
     "Try SELECT DISTINCT price — how many different prices are there?",
     "Swap the column order and watch the table change.",

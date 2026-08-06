@@ -350,7 +350,23 @@ Our table \`daily_orders\` has one row per day:
     "Find the busiest day.",
     "Build the time-ordered query yourself.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What does the x-axis usually represent on a line chart of change over time?",
+      answer:
+        "Time order (days, weeks, etc.) moving left to right so the line shows how a value evolves.",
+    },
+    {
+      question: "What should you look for when reading a line chart?",
+      answer:
+        "Overall trend (up/down/flat), peaks, dips, and sudden jumps — then connect those to a real-world explanation carefully.",
+    },
+    {
+      question: "When would you prefer a line chart over a bar chart?",
+      answer:
+        "When the main idea is change across an ordered sequence (especially time). Bars are better for comparing unordered categories.",
+    },
+  ],
   tryThis: [
     "What happens to the line if you ORDER BY weekday (alphabetical) instead of day_num?",
     "Which two days would you staff up for, based on the trend?",

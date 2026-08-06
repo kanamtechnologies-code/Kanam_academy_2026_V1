@@ -1,7 +1,7 @@
 # Master Standards Alignment Matrix
 
 This crosswalk maps Kanam Academy lessons to recognized national standards for **accreditation review**.
-Lesson codes: `P1–P13` = Python & AI Foundations track; `D1–D14` = Data Analyst track.
+Lesson codes: `P1–P14` = Python & AI Foundations track; `D1–D14` = Data Analyst track.
 
 Public adoption packet (printable): marketing site `/one-pager/standards` — *Kanam Academy Foundations Standards Alignment* v2.0 (July 2026).
 
@@ -10,6 +10,7 @@ Public adoption packet (printable): marketing site `/one-pager/standards` — *K
 - Digital-age learning: **ISTE Standards for Students (2024, v4.02)**.
 - Forward-compatibility: **CSTA PK-12 Computer Science Standards (2026)** — five foundational concepts.
 - Financial Literacy: **Jump$tart / CEE 2021** (see [literacy-standards-crosswalk.md](literacy-standards-crosswalk.md)).
+- Cognia STEM (Provider): [cognia-stem-evidence.md](cognia-stem-evidence.md) · catalog audit: [curriculum-review.md](curriculum-review.md).
 
 ---
 
@@ -22,17 +23,17 @@ Public adoption packet (printable): marketing site `/one-pager/standards` — *K
 | 2-AP-12 | Control structures incl. nested loops & compound conditionals | 2 | P3, P4, P5, P6, P7, P8; D4 |
 | 2-AP-13 | Decompose problems into parts | 2 | P4, P12, P13 |
 | 2-AP-14 | Create procedures with parameters | 2 | P10, P11, P12 |
-| 2-AP-15 | Seek & incorporate feedback to refine | 2 | P13 |
-| 2-AP-16 | Incorporate existing code/libraries; attribution | 2 | P13 (roadmap) |
-| 2-AP-17 | Systematically test & refine with test cases | 2 | P2, P6, P13 |
+| 2-AP-15 | Seek & incorporate feedback to refine | 2 | P13, P14 |
+| 2-AP-16 | Incorporate existing code/libraries; attribution | 2 | P13–P14 (roadmap) |
+| 2-AP-17 | Systematically test & refine with test cases | 2 | P2, P6, P13, P14 |
 | 2-AP-19 | Document programs | 2 | P1, P13 |
-| 3A-AP-13 | Prototype using algorithms & personal interest | 3A | P13 |
+| 3A-AP-13 | Prototype using algorithms & personal interest | 3A | P13, P14 |
 | 3A-AP-14 | Use lists to generalize solutions | 3A | P8, P9, P11 |
 | 3A-AP-15 | Justify selection of control structures | 3A | P12 |
-| 3A-AP-16 | Iteratively develop a computational artifact | 3A | P13 |
+| 3A-AP-16 | Iteratively develop a computational artifact | 3A | P13, P14 |
 | 3A-AP-17 | Decompose using procedures/modules | 3A | P10, P12 |
-| 3A-AP-18 | Create artifacts using procedures + data | 3A | P10, P13 |
-| 3A-AP-23 | Document design decisions | 3A | P13 |
+| 3A-AP-18 | Create artifacts using procedures + data | 3A | P10, P13, P14 |
+| 3A-AP-23 | Document design decisions | 3A | P13, P14 |
 
 ## 2. CSTA 2017 — Data & Analysis
 
@@ -63,7 +64,7 @@ Public adoption packet (printable): marketing site `/one-pager/standards` — *K
 
 | Code | Standard (abbrev.) | Level | Lessons |
 | --- | --- | :---: | --- |
-| 2-IC-20 | Compare tradeoffs of computing technologies | 2 | P1–P13 (AI ethics moments) |
+| 2-IC-20 | Compare tradeoffs of computing technologies | 2 | P1–P14 (AI ethics moments) |
 | 2-IC-21 | Discuss bias & accessibility in design | 2 | P13; D9 |
 | 2-IC-22 | Collaborate via crowdsourcing/surveys (collecting input) | 2 | P2 |
 | 3A-IC-24 | Evaluate computing impacts on personal/ethical/social/economic/cultural practices | 3A | **dl-4, dl-7, dl-8, dl-13, dl-15, dl-16** |

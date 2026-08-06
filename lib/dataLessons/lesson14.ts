@@ -388,7 +388,23 @@ Take your time and read each result. You've earned this.`,
     "Total each student's spending.",
     "Challenge: crown the top spender.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What are the main steps of a complete data investigation in this capstone?",
+      answer:
+        "Explore → join (if needed) → summarize/aggregate → rank → visualize → conclude with evidence and limitations.",
+    },
+    {
+      question: "What makes a conclusion “evidence-based”?",
+      answer:
+        "It answers the question using the query/chart result and states what the data can and cannot prove (limitations).",
+    },
+    {
+      question: "Name one privacy/ethics concern when analyzing spending by person.",
+      answer:
+        "Individual spending can be sensitive. In real life you’d need permission, minimize identifiers, and protect who can see the results.",
+    },
+  ],
   tryThis: [
     "Swap SUM for AVG to find who paid the highest average price.",
     "Add HAVING SUM(price) > 5 to keep only bigger spenders.",

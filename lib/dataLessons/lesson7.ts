@@ -348,7 +348,23 @@ You'll write the JOIN, then add filters and sorting on top of it.`,
     "Join, then filter to grade 6 students only.",
     "Challenge: the priciest order with the student's name.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "Why do we JOIN tables instead of copying the same facts into one giant table?",
+      answer:
+        "Joining keeps data organized and avoids duplication — each table stores one kind of fact, and a shared key connects them when needed.",
+    },
+    {
+      question: "What is a shared key in a JOIN?",
+      answer:
+        "A column that appears in both tables (like student_id) used to match related rows — the “stitch” between tables.",
+    },
+    {
+      question: "What goes wrong if you JOIN on the wrong key?",
+      answer:
+        "Rows may not match, or you may create nonsense combinations. Always join on the intended relationship key.",
+    },
+  ],
   tryThis: [
     "Add ORDER BY students.grade to group younger students first.",
     "Try selecting students.grade, item to see who ordered what.",

@@ -1,6 +1,6 @@
 # Python & AI Foundations Track — 8-Week Curriculum
 
-**Program length:** 8 weeks · **13 interactive lessons** across 8 weeks · **XP range:** 50 → 700
+**Program length:** 8 weeks · **14 interactive lessons** across 8 weeks · **XP range:** 50 → 800
 **Grade band:** 6–10 (ages 11–16) · **CSTA Level 2 core, reaching Level 3A**
 **Primary emphasis:** programming **fundamentals** (sequence → variables → conditionals → loops → data structures → functions → capstone)
 **Through-line:** every week frames coding as *teaching an AI helper exact instructions*, building **AI literacy** alongside CS fundamentals.

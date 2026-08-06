@@ -3,16 +3,32 @@
 This folder is the **authoritative curriculum documentation** for Kanam Academy. It is written
 to support **accreditation review** and adoption by schools, districts, and pilot partners.
 
-Both tracks are structured as **8-week programs** (two sessions per week) designed to be completed
+All tracks are structured as **8-week programs** (typically two sessions per week) designed to be completed
 **self-paced or with light assistance** — no subject-matter expertise required from a supporting adult.
 
-- [Python & AI Foundations Track](python-track.md) — **8 weeks**, 13 interactive lessons (fundamentals focus)
+**Live catalog:** 8 tracks · **124** instructional lessons (+ 3 AP CSP assessments) — see [curriculum-review.md](curriculum-review.md).
+
+### Tracks
+
+- [Python & AI Foundations Track](python-track.md) — **8 weeks**, **14** interactive lessons (fundamentals focus)
 - [Data Analyst Track](data-analyst-track.md) — **8 weeks**, 14 interactive lessons (data-visualization focus)
-- [Advanced AI — HS specialty](advanced-ai.md) — **8 weeks**, 16 lessons (build / evaluate / audit AI systems)
-- [AP CSP Prep](ap-csp-prep.md) — **8 weeks**, 16 lessons (College Board–aligned exam prep; not an official AP course)
-- [Master Standards Alignment Matrix](standards-alignment.md) — accreditation crosswalk (CSTA / ISTE / CCSS)
+- AI Literacy — **8 weeks**, 16 lessons; catalog `ai-literacy`; standards in [literacy-standards-crosswalk.md](literacy-standards-crosswalk.md); guides in [facilitator-guides/ai-literacy/](facilitator-guides/ai-literacy/)
+- [Advanced AI — HS specialty](advanced-ai.md) — **8 weeks**, 16 lessons; guides in [facilitator-guides/advanced-ai/](facilitator-guides/advanced-ai/)
+- [AP CSP Prep](ap-csp-prep.md) — **8 weeks**, 16 lessons + 3 gated exams; guides in [facilitator-guides/ap-csp/](facilitator-guides/ap-csp/)
+- [Digital Literacy](digital-literacy-csta.md) — **8 weeks**, 16 lessons; guides in [facilitator-guides/digital/](facilitator-guides/digital/)
+- Cybersecurity — **8 weeks**, 16 lessons; guides in [facilitator-guides/cyber/](facilitator-guides/cyber/)
+- Financial Literacy — **8 weeks**, 16 lessons; guides in [facilitator-guides/finance/](facilitator-guides/finance/)
+
+### Accreditation & facilitation
+
+- [Curriculum review](curriculum-review.md) — catalog sync, pedagogy audit, Cognia readiness scorecard
+- [Cognia STEM evidence map](cognia-stem-evidence.md) — Provider primary + school-partner appendix
+- [Master Standards Alignment Matrix](standards-alignment.md) — CSTA / ISTE / CCSS crosswalk
 - [Literacy tracks standards crosswalk](literacy-standards-crosswalk.md) — Jump$tart/CEE finance + AI/Cyber/Digital literacy
-- [Digital Literacy — CSTA HS map](digital-literacy-csta.md) — Level 3A Impacts / Systems / Networks / Data for grades 9–10
+- [Digital Literacy — CSTA HS map](digital-literacy-csta.md) — Level 3A for grades 9–10
+- [Facilitator guides](facilitator-guides/) — **full session guides for all 8 tracks** (127 catalog rows); Python Week 1 illustrated
+- [Capstone rubrics](facilitator-guides/rubrics/) — Python / Data / collaboration performance rubrics (Cognia Std 9)
+- [PD hours log](facilitator-guides/pd-hours-log.md) — facilitator PD participation template (Cognia Std 3)
 
 ---
 
@@ -73,9 +89,9 @@ This curriculum is intentionally weighted toward two pillars:
 
 ## 4. Instructional model
 
-### 8-week structure (both tracks)
+### 8-week structure (all tracks)
 
-Each track is paced over **8 weeks** with **two sessions per week**. Weeks are themed units that build
+Each track is paced over **8 weeks** with **typically two sessions per week** (Python has two single-session design weeks for consolidation/planning). Weeks are themed units that build
 in a deliberate sequence, with **checkpoint** and **planning** sessions placed to prevent the gaps where
 self-paced learners typically stall (combining concepts; the pre-capstone cliff). The dashboard mirrors
 this structure with grouped **"Week _ · Session _"** labels.

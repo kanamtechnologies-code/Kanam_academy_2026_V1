@@ -669,6 +669,24 @@ export function DataLessonCanvas({
               </LessonAside>
             ) : null}
 
+            {lesson.cfu.length > 0 ? (
+              <LessonAside
+                title="Check for understanding"
+                icon={<CheckCircle2 className="h-5 w-5 text-[var(--brand)]" />}
+              >
+                <div className="space-y-3 text-sm text-slate-700">
+                  {lesson.cfu.map((item) => (
+                    <details key={item.question} className="rounded-lg border border-slate-200 p-3">
+                      <summary className="cursor-pointer font-semibold text-slate-900">
+                        {item.question}
+                      </summary>
+                      <p className="mt-2 text-slate-600">{item.answer}</p>
+                    </details>
+                  ))}
+                </div>
+              </LessonAside>
+            ) : null}
+
             <LessonAside
               title="Data ethics moment"
               icon={<Sparkles className="h-5 w-5 text-sky-500" />}
@@ -1045,6 +1063,31 @@ export function DataLessonCanvas({
                                 <p className="text-sm font-bold text-slate-900">{item.title}</p>
                                 <p className="mt-1 text-sm text-slate-600">{item.text}</p>
                               </div>
+                            ))}
+                          </div>
+                        ),
+                      } satisfies MobileLessonPocketPanel,
+                    ]
+                  : []),
+                ...(lesson.cfu.length > 0
+                  ? [
+                      {
+                        id: "check",
+                        label: "Check",
+                        title: "Check for understanding",
+                        icon: <CheckCircle2 className="h-4 w-4 text-[var(--brand)]" />,
+                        content: (
+                          <div className="space-y-3 text-sm text-slate-700">
+                            {lesson.cfu.map((item) => (
+                              <details
+                                key={item.question}
+                                className="rounded-lg border border-slate-200 p-3"
+                              >
+                                <summary className="cursor-pointer font-semibold text-slate-900">
+                                  {item.question}
+                                </summary>
+                                <p className="mt-2 text-slate-600">{item.answer}</p>
+                              </details>
                             ))}
                           </div>
                         ),

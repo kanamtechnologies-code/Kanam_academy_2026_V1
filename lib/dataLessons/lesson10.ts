@@ -345,7 +345,23 @@ Because every slice is a piece of one whole, the numbers should **add up to a me
     "Check the whole — how many orders are there in total?",
     "Build the pie-ready query yourself.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What does a pie chart claim about the data?",
+      answer:
+        "That the slices add up to one whole (100%) — each slice is a part of that total.",
+    },
+    {
+      question: "When is a pie chart a bad choice?",
+      answer:
+        "When there are many tiny slices, when categories don’t form one whole, or when you need precise comparisons — a bar chart is often clearer.",
+    },
+    {
+      question: "How can a pie chart mislead even with correct numbers?",
+      answer:
+        "Design choices (3D effects, too many slices, unclear labels) make sizes hard to compare, so readers can misread the story.",
+    },
+  ],
   tryThis: [
     "Imagine 20 different items. Would a pie still be readable? Why might a bar chart win?",
     "Which two items together make up the biggest share of the pie?",

@@ -331,7 +331,23 @@ Watch the row count drop as your filter gets more specific.`,
     "Filter to orders priced $4 or more.",
     "Challenge: show only Salad OR Burger orders.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What does a WHERE clause do?",
+      answer:
+        "It filters rows so only records that match a condition are returned — like a bouncer checking a rule at the door.",
+    },
+    {
+      question: "Why do text values in WHERE usually need quotes?",
+      answer:
+        "Quotes mark a string (text). Without quotes, SQL may treat the word as a column name or invalid syntax.",
+    },
+    {
+      question: "When would you use AND versus OR in a filter?",
+      answer:
+        "AND requires every condition to be true (narrower). OR allows either condition to be true (broader).",
+    },
+  ],
   tryThis: [
     "Try WHERE price < 3 — which cheap items show up?",
     "Try WHERE student_name = 'Alex'.",

@@ -315,7 +315,23 @@ Read the results table after every Run & check. Row count and column names tell 
     "Select only student_name and item columns.",
     "Challenge: student_name + price, limited to 4 rows.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What does a query result table represent?",
+      answer:
+        "The database’s answer to your question — a new table of rows/columns that match what your SQL asked for.",
+    },
+    {
+      question: "When would you use SELECT * versus naming specific columns?",
+      answer:
+        "SELECT * shows every column (good for exploring). Naming columns focuses the answer on what matters and makes results easier to read.",
+    },
+    {
+      question: "What happens if you omit LIMIT on a large table?",
+      answer:
+        "The database may return every matching row, which can be hard to read and slow. LIMIT is a controlled sample while you explore.",
+    },
+  ],
   tryThis: [
     "After Lesson 2, try SELECT item FROM lunch_orders LIMIT 5 — one column only.",
     "Compare row counts: with LIMIT vs without LIMIT.",

@@ -10,7 +10,9 @@
     "one-pager:pdf": "node scripts/generate-one-pager-pdf.mjs",
     "one-pager:email-pdf": "node scripts/generate-one-pager-email-pdf.mjs",
     "trial-access:pdf": "node scripts/generate-trial-access-email-pdf.mjs",
-    "stripe:premier-prices": "node scripts/create-premier-track-prices.mjs"
+    "stripe:premier-prices": "node scripts/create-premier-track-prices.mjs",
+    "guides:generate": "node scripts/generate-facilitator-guides.mjs",
+    "guides:screenshots": "node scripts/capture-facilitator-screenshots.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

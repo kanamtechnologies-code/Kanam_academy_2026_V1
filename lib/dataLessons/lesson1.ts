@@ -358,7 +358,23 @@ Work through each exercise in the SQL workspace. Click **Run & check** after eac
     "Complete Exercise 3 — LIMIT (control row count).",
     "Complete Exercise 4 — combine all three commands.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What is the difference between a row and a column in a data table?",
+      answer:
+        "A row is one record (one lunch order). A column is one field/label that every row shares (like student_name or price).",
+    },
+    {
+      question: "What do SELECT, FROM, and LIMIT each control in a query?",
+      answer:
+        "SELECT chooses which columns to show, FROM names the table to read, and LIMIT caps how many rows come back.",
+    },
+    {
+      question: "Why is LIMIT useful when exploring a new table?",
+      answer:
+        "It lets you peek at a sample of rows without loading the whole table — safer and easier to read while you learn the shape of the data.",
+    },
+  ],
   tryThis: [
     "After finishing, change LIMIT 5 to LIMIT 3 in the final query and run again.",
     "Try SELECT item, price only — what columns appear?",

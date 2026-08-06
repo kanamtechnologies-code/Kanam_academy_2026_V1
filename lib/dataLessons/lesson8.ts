@@ -322,7 +322,23 @@ Think about the question first, then build the query clause by clause.`,
     "Keep only items ordered more than once (HAVING).",
     "Challenge: most-repeated items, highest first.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What is the difference between WHERE and HAVING?",
+      answer:
+        "WHERE filters individual rows before grouping. HAVING filters groups after aggregation (e.g., only groups with COUNT > 2).",
+    },
+    {
+      question: "Why does clause order matter when stacking filters, groups, and sorts?",
+      answer:
+        "SQL builds the answer in stages. Filtering too late/early or grouping before selecting the right columns can change or break the result.",
+    },
+    {
+      question: "What makes a data question “sharper”?",
+      answer:
+        "It names who/what you care about, how you’ll measure it, and any limits (filters) — so the query has a clear, checkable answer.",
+    },
+  ],
   tryThis: [
     "Change HAVING COUNT(*) > 1 to >= 1 — what changes?",
     "Ask your own question, then build the query to answer it.",

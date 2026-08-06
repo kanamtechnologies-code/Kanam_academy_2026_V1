@@ -329,7 +329,23 @@ This is the difference between *one number per category* (bar) and *the shape of
     "Count how many students there are in all.",
     "Find the spread with the highest score.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What is a histogram showing that a bar chart of categories is not?",
+      answer:
+        "How a numeric variable is spread across bins/ranges — the shape of the distribution, not named categories.",
+    },
+    {
+      question: "What does the “shape” of a distribution tell you?",
+      answer:
+        "Where values cluster, how wide the spread is, and whether there are outliers or unusual gaps.",
+    },
+    {
+      question: "Why might two classes with the same average score look different on a histogram?",
+      answer:
+        "One may be tightly clustered; the other may be spread out or bimodal. The average alone hides that shape.",
+    },
+  ],
   tryThis: [
     "Which 10-point bin has the most students? That's where scores cluster.",
     "If one student scored 100 and the rest scored near 70, how would the shape change?",

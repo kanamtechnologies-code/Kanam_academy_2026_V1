@@ -1,8 +1,16 @@
 import { loadCompletedLessonIdsForUser } from "@/lib/billing/loadCompletedLessonIds";
 import { resolveStudentLessonAccess } from "@/lib/billing/resolveStudentLessonAccess";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
+import { isAllLessonsUnlocked } from "@/lib/devUnlock";
 import { safeNextPath } from "@/lib/roles";
 import { isLessonOpenForStudent } from "@/lib/tracks";
+
+const UNLOCKED_ACCESS: StudentLessonAccess = {
+  classRestricted: false,
+  enabledLessonIds: null,
+  classIds: [],
+  entitlementRestricted: false,
+};
 
 export type LessonAccessDecision =
   | { kind: "allow"; access: StudentLessonAccess; completedIds: string[] }
@@ -31,6 +39,12 @@ export async function decideLessonAccess(
   lessonId: string,
   returnPath?: string | null
 ): Promise<LessonAccessDecision> {
+  if (isAllLessonsUnlocked()) {
+    void lessonId;
+    void returnPath;
+    return { kind: "allow", access: UNLOCKED_ACCESS, completedIds: [] };
+  }
+
   const resolved = await resolveStudentLessonAccess();
 
   if (resolved.status === 401) {

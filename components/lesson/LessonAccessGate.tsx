@@ -8,6 +8,7 @@ import {
   LessonConsentNotice,
   LessonPaywall,
 } from "@/components/lesson/LessonPaywall";
+import { isAllLessonsUnlocked } from "@/lib/devUnlock";
 import { isGuestMode } from "@/lib/guestProgress";
 import { DEMO_LESSON_ID } from "@/lib/pythonLessons/demoLesson";
 import { safeNextPath } from "@/lib/roles";
@@ -30,22 +31,24 @@ type LessonAccessGateProps = {
 /**
  * Client-side defense-in-depth gate. Server pages should use renderGatedLesson
  * so unpaid lesson modules are never loaded for denied users.
- * Guest mode only unlocks the public demo lesson.
+ * Guest mode only unlocks the public demo lesson (unless NEXT_PUBLIC_UNLOCK_ALL_LESSONS).
  * completedIds come from /api/student/lesson-access so revisit stays open.
  */
 export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const unlocked = isAllLessonsUnlocked();
   const guestDemo = isGuestMode() && lessonId === DEMO_LESSON_ID;
-  const [loading, setLoading] = React.useState(!guestDemo);
-  const [allowed, setAllowed] = React.useState(guestDemo);
+  const openWithoutAuth = unlocked || guestDemo;
+  const [loading, setLoading] = React.useState(!openWithoutAuth);
+  const [allowed, setAllowed] = React.useState(openWithoutAuth);
   const [needsChildSelect, setNeedsChildSelect] = React.useState(false);
   const [needsParentalConsent, setNeedsParentalConsent] = React.useState(false);
   const [access, setAccess] = React.useState<StudentLessonAccess | null>(null);
   const [checkFailed, setCheckFailed] = React.useState(false);
 
   React.useEffect(() => {
-    if (guestDemo) {
+    if (unlocked || guestDemo) {
       setAllowed(true);
       setLoading(false);
       return;
@@ -108,7 +111,7 @@ export function LessonAccessGate({ lessonId, children }: LessonAccessGateProps) 
     return () => {
       mounted = false;
     };
-  }, [lessonId, guestDemo]);
+  }, [lessonId, guestDemo, unlocked]);
 
   React.useEffect(() => {
     if (needsParentalConsent) {

@@ -347,7 +347,23 @@ Return **both** number columns and each student becomes a dot. If the dots trend
     "Sort by study time to read the trend.",
     "Find the student who studied the most.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What does one point on a scatter plot represent?",
+      answer:
+        "One record plotted with two numeric values — e.g., study minutes on one axis and score on the other.",
+    },
+    {
+      question: "What does an upward trend on a scatter plot suggest?",
+      answer:
+        "A positive relationship: as one value increases, the other tends to increase too — a clue, not proof of cause.",
+    },
+    {
+      question: "Why is “correlation is not causation” important here?",
+      answer:
+        "Two numbers can move together for many reasons. You need more evidence before claiming one causes the other.",
+    },
+  ],
   tryThis: [
     "Do the dots trend up, down, or scatter randomly? What does that say about studying?",
     "Name one other reason (besides studying) a score might be high.",

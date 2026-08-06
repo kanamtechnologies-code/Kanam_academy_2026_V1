@@ -331,7 +331,23 @@ One number can answer a big question. Let's go.`,
     "Count orders per item with GROUP BY.",
     "Challenge: rank items by how often they were ordered.",
   ],
-  cfu: [],
+  cfu: [
+    {
+      question: "What is an aggregate function, in plain language?",
+      answer:
+        "It turns many rows into one summary number — like COUNT of orders, SUM of prices, or AVG score.",
+    },
+    {
+      question: "How is COUNT different from SUM?",
+      answer:
+        "COUNT tallies how many rows (or non-null values) exist. SUM adds numeric values together.",
+    },
+    {
+      question: "What does GROUP BY enable that a plain COUNT cannot?",
+      answer:
+        "GROUP BY breaks the summary into categories (e.g., count per item) instead of one total for the whole table.",
+    },
+  ],
   tryThis: [
     "Try SELECT AVG(price) FROM lunch_orders — what's the average lunch cost?",
     "Try SELECT MIN(price), MAX(price) FROM lunch_orders.",
