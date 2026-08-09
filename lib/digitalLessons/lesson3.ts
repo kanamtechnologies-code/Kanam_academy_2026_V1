@@ -4,6 +4,18 @@ export const digitalLesson3: AILessonConfig = {
   id: "dl-3", title: "3. Networks & Finding Information Online",
   goal: "Describe routers, servers, and addressing at literacy depth, then search strategically and evaluate results for school, scholarships, internships, and work.",
   xpReward: 150, badge: "Network Navigator", dashboardHref: "/dashboard", prevHref: "/learn/digital/2", nextHref: "/learn/digital/4",
+  instructorScript: `**Coach's note**
+Today's lesson: **Networks & Finding Information Online**.
+
+**Goal:** Describe routers, servers, and addressing at literacy depth, then search strategically and evaluate results for school, scholarships, internships, and work.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "A search has a route and a strategy".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: { durationLabel: "~25 min lesson", sections: [
     { id: "start", kicker: "Start here", title: "A search has a route and a strategy", body: `Searching for an internship is not just typing keywords. Your request travels through local and wider networks to services that return ranked information. Then you must decide which results deserve attention.\n\nNetwork literacy explains the path; search fluency helps you evaluate the information that returns.`, image: "/images/lessons/dl-3.png", imageAlt: "Browser search connected through a network" },
     { id: "network", kicker: "Network basics", title: "Networks move requests and responses", body: `A **network** connects devices so they can exchange data. Your Chromebook is often a client: it requests a page or file. A **server** is a computer or service that responds. Data moves in small packets, not as one invisible object.\n\nThe internet is a network of networks. The web is one service that uses it.` },

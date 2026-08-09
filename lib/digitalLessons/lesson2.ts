@@ -6,6 +6,18 @@ export const digitalLesson2: AILessonConfig = {
   id: "dl-2", title: "2. Data Storage Tradeoffs: Local, Cloud & Organization",
   goal: "Evaluate tradeoffs—cost, speed, reliability, accessibility, privacy, and integrity—for where and how data is stored and organized.",
   xpReward: 100, badge: "Storage Strategist", dashboardHref: "/dashboard", prevHref: "/learn/digital/1", nextHref: "/learn/digital/3",
+  instructorScript: `**Coach's note**
+Today's lesson: **Data Storage Tradeoffs: Local, Cloud & Organization**.
+
+**Goal:** Evaluate tradeoffs—cost, speed, reliability, accessibility, privacy, and integrity—for where and how data is stored and organized.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "Storage is a decision, not a default".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: { durationLabel: "~25 min lesson", sections: [
     { id: "start", kicker: "Start here", title: "Storage is a decision, not a default", body: `A scholarship essay, group-project video, and first-job résumé do not all need the same storage plan. Where data lives affects who can reach it, how quickly it opens, what it costs, and how recoverable it is.\n\nYour job is to evaluate those tradeoffs and recommend a plan for the stakes of the task.`, image: "/images/lessons/dl-2.png", imageAlt: "Files organized across a laptop and cloud storage" },
     { id: "data", kicker: "Core concept", title: "Files are data with structure", body: `A file stores data; a folder or directory organizes files; a path identifies where a file is located. Names, folders, and formats are not cosmetic. They affect whether a teammate can find the correct version and whether a portal can use it.\n\nUse a clear project structure: \`Applications/State-U/essay-2026-04.pdf\`, not a Downloads folder full of “final-final.”` },

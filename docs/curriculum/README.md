@@ -29,6 +29,8 @@ All tracks are structured as **8-week programs** (typically two sessions per wee
 - [Facilitator guides](facilitator-guides/) — **full session guides for all 8 tracks** (127 catalog rows); Python Week 1 illustrated
 - [Capstone rubrics](facilitator-guides/rubrics/) — Python / Data / collaboration performance rubrics (Cognia Std 9)
 - [PD hours log](facilitator-guides/pd-hours-log.md) — facilitator PD participation template (Cognia Std 3)
+- [School partner MOU template](school-partner-mou-template.md) — Cognia Std 4 partnership agreement draft
+- [Parent communication kit](parent-communication-kit.md) — Cognia Std 5 family / stakeholder access plan
 
 ---
 

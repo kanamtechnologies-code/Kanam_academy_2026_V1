@@ -9,6 +9,18 @@ export const aiLesson14: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/ai/13",
   nextHref: "/learn/ai/15",
+  instructorScript: `**Coach's note**
+Today's lesson: **Privacy, Deepfakes, and Your Footprint**.
+
+**Goal:** Protect your privacy when using AI, recognize deepfakes and AI-driven scams, think before you share, and respect other people's consent when AI-generated media is involved.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "What you'll learn today".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~20–25 min",
     sections: [

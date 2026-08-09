@@ -13,6 +13,18 @@ export const advancedAiLesson4: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/advanced-ai/3",
   nextHref: "/learn/advanced-ai/5",
+  instructorScript: `**Coach's note**
+Today's lesson: **Neural Networks: From Neurons to Overfitting**.
+
+**Goal:** Explain forward/back propagation and use validation evidence to distinguish learning from memorization.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "Neural networks learn layered transformations".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~40–50 min lesson",
     sections: [

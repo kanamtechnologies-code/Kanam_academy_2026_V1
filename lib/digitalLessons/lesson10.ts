@@ -9,6 +9,18 @@ export const digitalLesson10: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/9",
   nextHref: "/learn/digital/11",
+  instructorScript: `**Coach's note**
+Today's lesson: **Intellectual Property: Innovation Tradeoffs & Credit**.
+
+**Goal:** Explain beneficial and harmful effects of intellectual-property laws on innovation; evaluate copyright, Creative Commons, fair use, plagiarism, and crediting AI-assisted work.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "Who gets to build on an idea?".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~25 min lesson",
     sections: [

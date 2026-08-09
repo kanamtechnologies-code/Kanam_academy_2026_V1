@@ -45,17 +45,17 @@ XP ladder (Python): **50 → 800** (L14). Total possible XP if all Python lesson
 | --- | --- | --- | --- | --- |
 | Python | Yes (all 14) | Real CFU Q&A per lesson | Fill / match / scratch + Run & check | L13–L14 |
 | Data | Yes (all 14) | Real CFU Q&A per lesson (3 each) | SQL/query exercises + charts | L14 |
-| AI Literacy | No dedicated coach scripts | Lesson quizzes | Interactive literacy activities | L16 |
-| Advanced AI | No | Quizzes / studio checks | Build-eval-audit activities | L15–L16 |
-| AP CSP Prep | No | Quizzes + gated exams | Create PT studio | L15–16 + 3 exams |
-| Digital / Cyber / Finance | No | Quiz-first literacy pattern | Scenario / decision tasks | Week 8 capstones |
+| AI Literacy | Yes (`instructorScript`) | Lesson quizzes | Interactive literacy activities | L16 |
+| Advanced AI | Yes (`instructorScript`) | Quizzes / studio checks | Build-eval-audit activities | L15–L16 |
+| AP CSP Prep | Yes (`instructorScript`) | Quizzes + gated exams | Create PT studio | L15–16 + 3 exams |
+| Digital / Cyber / Finance | Yes (`instructorScript`) | Quiz-first literacy pattern | Scenario / decision tasks | Week 8 capstones |
 
 **Callouts**
 
-1. **Literacy tracks** rely on quizzes rather than Python-style CFUs; fine for content tracks — use [shared rubrics](facilitator-guides/rubrics/) for portfolio/showcase evidence.
-2. **Coach notes only on Python + Data** — facilitator guides cover all tracks; richer in-product coach scripts for literacy tracks remain optional.
-3. **Help Pocket / Lesson module** — product surfaces for guided teaching exist; instructor progress rollups support observation evidence.
-4. **Collaboration in product** — rubric + protocol exist in docs; paired activity not yet wired into Python Weeks 7–8 lessons.
+1. **Literacy tracks** rely on quizzes rather than Python-style CFUs; use [shared rubrics](facilitator-guides/rubrics/) for portfolio/showcase evidence.
+2. **Coach notes** — Python, Data, and all AILessonCanvas tracks (`instructorScript` in Help pocket).
+3. **Help Pocket / Lesson module** — product surfaces for guided teaching; instructor progress rollups support observation evidence.
+4. **Collaboration** — Python W7–8 product tryThis/CFU + facilitator paired protocols + [collaboration rubric](facilitator-guides/rubrics/collaboration-attribution.md).
 
 ---
 
@@ -77,7 +77,7 @@ Qualitative coverage by CSTA 2017 concept families (● strong · ◐ partial ·
 
 | Gap | Standards | Status |
 | --- | --- | --- |
-| Collaboration & attribution | CSTA `2-AP-16`, `3A-AP-22` | Mentioned in python-track optional enhancements; not assessed in product |
+| Collaboration & attribution | CSTA `2-AP-16`, `3A-AP-22` | **In product** — Python L12–14 + W7–8 guides + collaboration rubric |
 | Deeper HS statistics | CCSS S-ID / advanced 3A DA | Data track covers viz + basic summarize; not full HS stats sequence |
 | Computing systems depth (Python/Data) | CS concept | Covered mainly in Digital + AP CSP + Cyber |
 | Shared performance rubrics | Cognia Std 9 | **Published** — [facilitator-guides/rubrics/](facilitator-guides/rubrics/) |
@@ -94,15 +94,15 @@ Rough **Red / Amber / Green** against Cognia STEM Performance Standards (effecti
 | 1 | Integrated STEM experiences | **Green** | Python+AI ethics, Data+math viz, Cyber/Digital real-world |
 | 2 | Standards-aligned curriculum | **Green** | CSTA/ISTE/CCSS/Jump$tart crosswalks published |
 | 3 | STEM-specific PD | **Green** | Facilitator guides + [PD hours log](facilitator-guides/pd-hours-log.md) + checklist |
-| 4 | Community partners | **Amber** | Pilot narrative placeholders; MOUs not in-repo |
-| 5 | Stakeholder access | **Amber** | Parent/instructor surfaces exist; formal access plan TBD |
+| 4 | Community partners | **Green** | [MOU template](school-partner-mou-template.md) + pilot narrative; signed MOUs local |
+| 5 | Stakeholder access | **Green** | [Parent communication kit](parent-communication-kit.md) + Parent hub / instructor |
 | 6 | Inquiry-based learning | **Green** | LessonModule, Try This, Run & check, hints |
 | 7 | Facilitated self-direction | **Green** | Coach notes, Help Pocket, self-paced + assisted modes |
 | 8 | Extended STEM opportunities | **Green** | Capstones, Adventure mode, stretch Try This |
 | 9 | Performance-based assessment | **Green** | Auto-checks + CFUs (Python/Data) + [capstone rubrics](facilitator-guides/rubrics/) |
 | 10 | STEM literacy / next-level readiness | **Green** | 8-track pathways, AP CSP Prep, badges/XP |
 
-**Overall Provider readiness:** Green-leaning Amber — curriculum, CFUs, rubrics, and PD log are packaged; remaining work is partner MOUs, stakeholder access plans, and in-product collaboration tasks.
+**Overall Provider readiness:** **Green** for packaging — templates and in-product coaching/collaboration evidence are in-repo. Remaining work is **site-specific** (signed MOUs, filled pilot narratives, delivered parent messages).
 
 ---
 
@@ -110,11 +110,10 @@ Rough **Red / Amber / Green** against Cognia STEM Performance Standards (effecti
 
 Ordered for curriculum/product work after this docs ship:
 
-1. **Docs / accreditation packaging** — review, Cognia map, facilitator guides, CFUs, rubrics, PD log (**done**).
-2. **Partner MOU / pilot evidence appendix** — fill placeholders in Cognia school-partner appendix with real sites.
-3. **Content gap: collaboration protocol** — wire paired activity into Python Weeks 7–8 (rubric already published).
-4. **Formal stakeholder access plan** — per-site parent communication kit (Cognia Std 5).
-5. **In-app instructor link** to facilitator guides (optional product hook; not blocking accreditation docs).
+1. **Docs / accreditation packaging** — Cognia map, guides, CFUs, rubrics, PD log, MOU template, parent kit, literacy coach notes, Python collab (**done**).
+2. **Site operations** — collect signed MOUs; fill pilot narratives; run parent kit cadence per school.
+3. **In-app instructor link** to facilitator guides (optional product hook; not blocking accreditation docs).
+4. **Deeper HS statistics / systems** — content roadmap items above (not Cognia packaging blockers).
 
 ---
 

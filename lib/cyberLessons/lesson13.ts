@@ -9,6 +9,18 @@ export const cyberLesson13: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/12",
   nextHref: "/learn/cyber/14",
+  instructorScript: `**Coach's note**
+Today's lesson: **Attack Patterns & Program Security**.
+
+**Goal:** Analyze how common attack patterns affect sensitive data and availability; explain program-security issues that can compromise software (unsafe input handling, insecure secret storage, dependency risk, misconfiguration) from a defender/developer-hygiene view; and map each pattern to layered controls — without learning how to exploit.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "What you'll learn today".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~25–30 min lesson",
     sections: [

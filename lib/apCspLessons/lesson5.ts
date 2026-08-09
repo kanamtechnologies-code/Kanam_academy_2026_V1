@@ -16,6 +16,18 @@ export const apCspLesson5: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/ap-csp-prep/4",
   nextHref: "/learn/ap-csp-prep/6",
+  instructorScript: `**Coach's note**
+Today's lesson: **Variables, Expressions & Strings**.
+
+**Goal:** Use variables, assignment, arithmetic and string operations fluently in AP CSP pseudocode and real code.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "The largest slice of the exam starts here".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~35–45 min lesson",
     sections: [

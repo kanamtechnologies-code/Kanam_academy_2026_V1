@@ -98,11 +98,18 @@ export const lesson12: PythonLessonConfig = {
       answer:
         "The system might do the wrong action, act at the wrong time, or behave in unsafe/unhelpful ways because it has no clear limits.",
     },
+    {
+      question:
+        "If you pair on this lesson (driver/navigator), what must you credit before you submit?",
+      answer:
+        "Who drove the keyboard, what each person wrote or decided, and what any AI/tool suggested versus what you kept — so both can explain the whole solution.",
+    },
   ],
   tryThis: [
     "Add a second rule using `elif` (example: a special message for `\"boss\"`).",
     "Rewrite one message to sound more helpful and safe.",
     "Challenge: Explain how rules protect users from bad behavior.",
+    "Pair protocol (optional): one person drives for 5 minutes while the other navigates (says the next rule out loud), then switch. Before you leave, answer: Who drove? What did each of you write? What did a tool suggest?",
   ],
   aiSafetyMoment:
     "AI safety: AI systems can act fast — but only based on their rules. If rules are missing or poorly written, AI can behave incorrectly or cause harm. Responsible AI means setting clear limits, thinking about consequences, and testing rules carefully.",

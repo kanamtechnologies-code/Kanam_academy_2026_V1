@@ -113,19 +113,30 @@ A Quest Adventure Bot: a character with memory, rules for what players say, a qu
 
 ## 5. What “good” looks like
 
-- **Mastery signal:** Student can restate the goal and show product evidence (green check, quiz pass, or studio artifact) without reading the answer key.
+- **Mastery signal:** Student can restate the goal and show product evidence (green check, quiz pass, or studio artifact) without reading the answer key. Paired teams: both can demo Adventure and name their attribution answers.
 - **Common mistakes:**
 - Quotes / spaces / `Print` vs `print`
 - Skipping Run & check after a change
 - Hard-coding answers instead of using variables / `input()`
+- One partner does all typing with no credit log
 - **Differentiation:**
   - **Needs support:** Stay on guided path; re-read Help / Word help; use hints before scratch.
   - **Ready for more:** Try This / stretch scenario; teach-back to a peer in 60 seconds.
+
+### Capstone paired protocol & showcase (CSTA `2-AP-16`)
+
+Score with [collaboration-attribution.md](../../rubrics/collaboration-attribution.md) and [python-capstone.md](../../rubrics/python-capstone.md).
+
+1. **Build:** Rotate driver/navigator every 10–15 minutes (or every checklist milestone).
+2. **Adventure demo:** Partner or peer plays without seeing keywords; builder narrates only after.
+3. **Attribution (required if paired):** Who drove? What each wrote? Tool/AI suggestions? One improvement.
+4. **Showcase:** 60–90 second demo + one limitation (else path or ethics note).
 
 ---
 
 ## 6. Exit ticket & instructor progress
 
-**Exit ticket:** *What can you do now that you couldn’t do before this session — and how do you know?*
+**Exit ticket:** *What can you do now that you couldn’t do before this session — and how do you know?*  
+Paired teams: turn in the four attribution answers with names.
 
 **Progress check:** Confirm lesson opened + check success (exercise / quiz / assessment). Incomplete usually means stuck on a single concept — return to Help, not a new lecture.

@@ -9,6 +9,18 @@ export const digitalLesson12: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/11",
   nextHref: "/learn/digital/13",
+  instructorScript: `**Coach's note**
+Today's lesson: **Privacy, Automated Collection & Ethical Tradeoffs**.
+
+**Goal:** Explain privacy concerns from automated and nonevident data collection; evaluate social and economic implications of privacy against safety, law, and ethics, including light usability-security tradeoffs.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "Collection often happens out of sight".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~25 min lesson",
     sections: [

@@ -9,6 +9,18 @@ export const financeLesson5: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/finance/4",
   nextHref: "/learn/finance/6",
+  instructorScript: `**Coach's note**
+Today's lesson: **Build a Budget That Works**.
+
+**Goal:** Build a simple budget with clear categories, try 50/30/20 as one model (not the only one), and understand zero-based budgeting in plain English.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "What you'll learn today".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~20–25 min lesson",
     sections: [

@@ -16,6 +16,18 @@ export const apCspLesson7: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/ap-csp-prep/6",
   nextHref: "/learn/ap-csp-prep/8",
+  instructorScript: `**Coach's note**
+Today's lesson: **Iteration & Loops**.
+
+**Goal:** Use definite and conditional loops correctly, trace iterations, and avoid off-by-one and infinite-loop bugs.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "Do it many times without writing it many times".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~35–45 min lesson",
     sections: [

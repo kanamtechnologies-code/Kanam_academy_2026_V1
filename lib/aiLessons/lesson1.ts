@@ -8,6 +8,18 @@ export const aiLesson1: AILessonConfig = {
   badge: "AI Explorer",
   dashboardHref: "/dashboard",
   nextHref: "/learn/ai/2",
+  instructorScript: `**Coach's note**
+Today's lesson: **What Is AI, Really?**.
+
+**Goal:** Define artificial intelligence in plain language, separate real AI from sci-fi myths, and tell the difference between narrow and general AI.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "What you'll learn today".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~20–25 min lesson",
     sections: [

@@ -109,7 +109,7 @@ export const lesson14: PythonLessonConfig = {
   prevHref: "/learn/13",
   nextHref: undefined,
   instructorScript:
-    "**Coach's note — Capstone day (read this first)**\n\nThis is **not** five mini drills. You will **invent a story**, **code a rule-based AI**, and **let people play it**.\n\n**What you are building**\nA Quest Adventure Bot: a character with memory, rules for what players say, a quest log that grows, and a live chat demo in the **Adventure** tab.\n\n**Skills you will combine** (you already learned each one):\n• dictionary = who the bot is (`name`, `role`, plus one world fact)\n• list + `.append` = what happened (`quest_log`)\n• `def respond(player_input):` = the reusable AI brain\n• `if` / `elif` / `else` = story rules for keywords\n• `print(...)` + `+` = spoken replies\n• `for` + `test_messages` = quick Build tests\n\n**Exact workflow (about 60 minutes)**\n1. **Design (5–10 min)** — Write on paper or in comments: character name/role, one quest, 3 keywords, and what each keyword appends to the log.\n2. **Build (~30 min)** — Fill the scaffold. Press **Run & check** often. Watch the checklist turn green.\n3. **Adventure (~15 min)** — Switch to the Adventure tab. Chat at least **3 turns** (greeting, quest, nonsense or help).\n4. **Demo (~10 min)** — Hand the keyboard to a friend. Can they discover your quest without reading the code?\n\n**Build vs Adventure**\n• **Build** = you control a fixed `test_messages` list so every rule path is easy to debug.\n• **Adventure** = a real player types freely; the same `respond()` brain answers live.\n\n**Done means:** every checklist item is green, including 3+ live Adventure turns.",
+    "**Coach's note — Capstone day (read this first)**\n\nThis is **not** five mini drills. You will **invent a story**, **code a rule-based AI**, and **let people play it**.\n\n**What you are building**\nA Quest Adventure Bot: a character with memory, rules for what players say, a quest log that grows, and a live chat demo in the **Adventure** tab.\n\n**Skills you will combine** (you already learned each one):\n• dictionary = who the bot is (`name`, `role`, plus one world fact)\n• list + `.append` = what happened (`quest_log`)\n• `def respond(player_input):` = the reusable AI brain\n• `if` / `elif` / `else` = story rules for keywords\n• `print(...)` + `+` = spoken replies\n• `for` + `test_messages` = quick Build tests\n\n**Exact workflow (about 60 minutes)**\n1. **Design (5–10 min)** — Write on paper or in comments: character name/role, one quest, 3 keywords, and what each keyword appends to the log.\n2. **Build (~30 min)** — Fill the scaffold. Press **Run & check** often. Watch the checklist turn green.\n3. **Adventure (~15 min)** — Switch to the Adventure tab. Chat at least **3 turns** (greeting, quest, nonsense or help).\n4. **Demo (~10 min)** — Hand the keyboard to a friend. Can they discover your quest without reading the code?\n\n**Paired work / attribution (CSTA 2-AP-16)**\nIf you build with a partner: rotate **driver** (types) and **navigator** (plans out loud). Before you submit or demo, write: (1) who drove when, (2) what each person wrote, (3) what any AI/tool suggested vs what you kept. Both partners must be able to explain the whole bot.\n\n**Build vs Adventure**\n• **Build** = you control a fixed `test_messages` list so every rule path is easy to debug.\n• **Adventure** = a real player types freely; the same `respond()` brain answers live.\n\n**Done means:** every checklist item is green, including 3+ live Adventure turns.",
   kidExplain: [
     {
       title: "This is a tiny AI product — not a worksheet",
@@ -157,12 +157,19 @@ export const lesson14: PythonLessonConfig = {
       answer:
         "Unexpected messages. Real players type weird things. A kind, clear else reply (and a log label like \"confused\") keeps the bot safe and usable.",
     },
+    {
+      question:
+        "Before a paired capstone demo, what four attribution questions should you answer?",
+      answer:
+        "Who drove? What did each person write? What did a tool/AI suggest? One thing you’d change next time — so credit is clear and both can explain the solution.",
+    },
   ],
   tryThis: [
     "Demo: invite a classmate to play Adventure without telling them the keywords — can they discover the quest?",
     "Add a fourth keyword (like inventory) that prints the quest_log mid-adventure.",
     "Store a catchphrase in the dictionary and print it when the player says hello.",
     "Challenge: add a \"score\" number in the dictionary that goes up when the quest is given.",
+    "Attribution exit ticket (required if paired): Who drove? What did each of you write? What did a tool suggest? One change for next time. Score with the collaboration rubric if your facilitator uses it.",
   ],
   aiSafetyMoment:
     "You wrote the limits on purpose — that is responsible AI. Keep the quest friendly, don't store private real-world info about players, and always test weird messages (the else path). If someone plays your bot, they should feel safe and respected.",

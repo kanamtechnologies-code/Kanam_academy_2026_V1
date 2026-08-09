@@ -9,6 +9,18 @@ export const aiLesson15: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/ai/14",
   nextHref: "/learn/ai/16",
+  instructorScript: `**Coach's note**
+Today's lesson: **AI and the Future of Work**.
+
+**Goal:** Explore how AI is changing jobs and creativity, why 'AI + human' beats either alone, what skills keep you valuable, and the fairness questions around who bears the cost of that change.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "What you'll learn today".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~20–25 min",
     sections: [

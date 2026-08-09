@@ -50,20 +50,20 @@ For each Cognia STEM standard, Kanam lists **evidence artifacts**, an **owner**,
 | Item | Detail |
 | --- | --- |
 | **Focus** | Partnerships enrich STEM learning. |
-| **Kanam evidence** | Pilot / school-partner narrative placeholders; product supports cohort and instructor roles. |
-| **Artifacts** | This appendix § School-partner; partnership MOUs (external) |
+| **Kanam evidence** | Pilot narrative placeholder; [MOU template](school-partner-mou-template.md); cohort/instructor roles in product. |
+| **Artifacts** | [school-partner-mou-template.md](school-partner-mou-template.md) · this appendix § School-partner |
 | **Owner** | Partnerships |
-| **Status** | **Gap** for formal MOUs in-repo · **In progress** for pilot narrative |
+| **Status** | **Ready** (template) — signed MOUs stay with each school; fill pilot narrative per site |
 
 ### Standard 5 — Stakeholder engagement and access
 
 | Item | Detail |
 | --- | --- |
 | **Focus** | Families and stakeholders can access program information and learner progress appropriately. |
-| **Kanam evidence** | Learner dashboard (XP, badges, week/session labels); instructor progress; public standards one-pager; curriculum docs for adopters. |
-| **Artifacts** | App dashboard / instructor UI · marketing standards packet · this folder |
+| **Kanam evidence** | Learner dashboard; instructor progress; Parent hub / insights; [parent communication kit](parent-communication-kit.md). |
+| **Artifacts** | [parent-communication-kit.md](parent-communication-kit.md) · `/parent` · `/instructor` · `/help` |
 | **Owner** | Product + Partnerships |
-| **Status** | **In progress** — product surfaces Ready; formal stakeholder communication plan TBD per site |
+| **Status** | **Ready** (kit + product) — sites customize cadence and contacts locally |
 
 ### Standard 6 — Inquiry and exploration
 
@@ -131,7 +131,7 @@ Typical Cognia Provider asks — assign owners before application.
 | Performance assessment examples | CFUs (Python/Data) / capstones / rubrics | Curriculum | Ready |
 | Rubrics for projects | [rubrics/](facilitator-guides/rubrics/) | Curriculum | Ready |
 | Equity / access statement | IC lessons + school appendix | Partnerships | In progress |
-| Community partner agreements | MOUs | Partnerships | Gap |
+| Community partner agreements | [MOU template](school-partner-mou-template.md) | Partnerships | Ready (template) |
 | Continuous improvement process | curriculum-review backlog | Curriculum | Ready |
 | Data privacy / student data practices | Product privacy policy (site) | Product / Legal | External |
 | Observation-ready session plans | Python Week 1 guides | Curriculum | Ready (sample) |
@@ -142,13 +142,13 @@ Typical Cognia Provider asks — assign owners before application.
 
 | ID | Gap | Blocks | Next action |
 | --- | --- | --- | --- |
-| G1 | Collaboration & attribution tasks (`2-AP-16`) in product | Cognia 9, CSTA depth | Rubric shipped; add paired protocol activity to Python W7–8 |
+| G1 | Collaboration & attribution (`2-AP-16`) | Cognia 9, CSTA depth | **Closed** — Python L12–14 tryThis/CFU + W7–8 facilitator protocols + [rubric](facilitator-guides/rubrics/collaboration-attribution.md) |
 | G2 | Portfolio / capstone rubrics | Cognia 9 | **Closed** — [rubrics/](facilitator-guides/rubrics/) |
 | G3 | Data track empty `cfu: []` | Formative evidence | **Closed** — 3 CFUs per Data lesson in `lib/dataLessons/` |
 | G4 | PD hours log | Cognia 3 | **Closed** — [pd-hours-log.md](facilitator-guides/pd-hours-log.md) |
-| G5 | Partner MOUs | Cognia 4 | Collect from pilot schools |
-| G6 | Coach notes for literacy tracks | Facilitator scale | Full guides exist; optional richer coach scripts in product |
-| G7 | Formal stakeholder access plan | Cognia 5 | Per-site parent communication kit |
+| G5 | Partner MOUs | Cognia 4 | **Closed** (template) — [school-partner-mou-template.md](school-partner-mou-template.md); signed copies local |
+| G6 | Coach notes for literacy tracks | Facilitator scale | **Closed** — `instructorScript` on AI/Digital/Cyber/Finance/Adv AI/AP CSP lessons + Help pocket |
+| G7 | Formal stakeholder access plan | Cognia 5 | **Closed** — [parent-communication-kit.md](parent-communication-kit.md) |
 
 ---
 
@@ -178,11 +178,11 @@ How a **Cognia-accredited school** can use Kanam as STEM program evidence (Kanam
 
 - That Kanam alone confers Cognia school accreditation.
 - That AP CSP Prep is an official College Board AP course.
-- That partner MOUs or local PD sign-offs exist without site evidence — cite the gap list (G5/G7) and fill the [PD hours log](facilitator-guides/pd-hours-log.md) / MOUs locally.
+- That signed partner MOUs or completed PD hours exist without site evidence — use the [MOU template](school-partner-mou-template.md) and [PD hours log](facilitator-guides/pd-hours-log.md) locally.
 
 ### Pilot narrative placeholder
 
-> *[School name]* piloted Kanam Academy’s *[track]* with *[N]* learners over *[dates]*. Facilitators used Kanam coach notes / facilitator guides. Evidence collected: *[session observations, completion rates, sample artifacts, PD hours log, rubric scores]*. Next cycle improvements: *[e.g., collaboration protocol in product, partner MOU]*.
+> *[School name]* piloted Kanam Academy’s *[track]* with *[N]* learners over *[dates]*. Facilitators used Kanam coach notes / facilitator guides. Evidence collected: *[session observations, completion rates, sample artifacts, PD hours log, rubric scores, signed MOU, parent kit delivery]*. Next cycle improvements: *[site-specific]*.
 
 Replace bracketed fields before attaching to a Cognia school portfolio.
 

@@ -9,6 +9,18 @@ export const cyberLesson5: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/cyber/4",
   nextHref: "/learn/cyber/6",
+  instructorScript: `**Coach's note**
+Today's lesson: **Credentials, Hashing & MFA**.
+
+**Goal:** Compare MFA types, hashing+salting, and password-manager approaches; recommend credential protections with usability tradeoffs; and explain how developers protect stored credentials without exposing secrets.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "What you'll learn today".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~25–30 min lesson",
     sections: [

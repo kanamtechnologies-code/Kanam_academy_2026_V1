@@ -131,6 +131,7 @@ export const lesson13: PythonLessonConfig = {
     "Add an `elif` rule (a second special case).",
     "Rewrite your messages to be more helpful and kind.",
     "Challenge: Add a rule that handles very short messages safely.",
+    "Capstone prep pair share: with a partner, sketch character + 3 keywords on paper (2 min each). Credit both names on the sketch — you’ll reuse this plan in Lesson 14.",
   ],
   aiSafetyMoment:
     "AI safety: Rules are limits. Clear rules help prevent unsafe behavior. Store only necessary memory, avoid sensitive info, and test your rules with different inputs.",

@@ -103,6 +103,16 @@ Read the steps, follow them in order, then press [[Run]].
 - Add a second rule using `elif` (example: a special message for `"boss"`).
 - Rewrite one message to sound more helpful and safe.
 - Challenge: Explain how rules protect users from bad behavior.
+- Pair protocol (optional): one person drives for 5 minutes while the other navigates, then switch.
+
+### Paired protocol (10–15 min, CSTA `2-AP-16`)
+
+Use when students share a device or you want collaboration evidence. Score with [collaboration-attribution.md](../../rubrics/collaboration-attribution.md).
+
+1. **Roles:** Driver types; navigator plans the next rule out loud. Switch after ~5 minutes.
+2. **Practice:** Build one `if/else` path together; each partner must press Run at least once.
+3. **Attribution exit (before close):** Who drove? What did each write? What did a tool/AI suggest? One change next time.
+4. **Integrity check:** Cold-call either partner to explain which rule ran and why.
 
 ---
 
@@ -138,6 +148,7 @@ Read the steps, follow them in order, then press [[Run]].
 
 ## 6. Exit ticket & instructor progress
 
-**Exit ticket:** *What can you do now that you couldn’t do before this session — and how do you know?*
+**Exit ticket:** *What can you do now that you couldn’t do before this session — and how do you know?*  
+If paired: also complete the four attribution questions above.
 
 **Progress check:** Confirm lesson opened + check success (exercise / quiz / assessment). Incomplete usually means stuck on a single concept — return to Help, not a new lecture.

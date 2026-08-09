@@ -88,6 +88,11 @@ Press [[Run]] to test your code, then improve it.
 - Add an `elif` rule (a second special case).
 - Rewrite your messages to be more helpful and kind.
 - Challenge: Add a rule that handles very short messages safely.
+- Capstone prep pair share: sketch character + 3 keywords with a partner; credit both names on the sketch.
+
+### Capstone planning protocol (5–10 min)
+
+Pair students to draft tomorrow’s Quest Adventure Bot plan (character, quest, 3 keywords). Both names on the paper. Rubric: [collaboration-attribution.md](../../rubrics/collaboration-attribution.md). Solo learners still write the plan alone — pairing is encouraged, not required for product completion.
 
 ---
 

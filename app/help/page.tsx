@@ -155,6 +155,7 @@ export default function HelpPage() {
                 { href: "/welcome", label: "New student" },
                 { href: "/welcome/parent", label: "Family account" },
                 { href: "/welcome/ask-parent", label: "Under 13 help" },
+                { href: "/parent/insights", label: "Parent progress" },
                 { href: "/instructor", label: "Instructor dashboard" },
                 { href: "/demo", label: "Try a demo lesson" },
               ].map((item) => (
@@ -354,7 +355,18 @@ export default function HelpPage() {
               },
               {
                 title: "Progress is per child",
-                text: "Resetting progress on the dashboard only affects the active kid profile.",
+                text: (
+                  <>
+                    Resetting progress on the dashboard only affects the active kid profile. Open{" "}
+                    <Link
+                      className="font-semibold text-[color:var(--brand-2)] underline underline-offset-2"
+                      href="/parent/insights"
+                    >
+                      Parent insights
+                    </Link>{" "}
+                    for a progress report schools can also reference in family communications.
+                  </>
+                ),
               },
               {
                 title: "Already have a student account?",

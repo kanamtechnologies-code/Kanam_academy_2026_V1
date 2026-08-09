@@ -169,6 +169,11 @@ export type AILessonConfig = {
   xpReward: number;
   badge: string;
   lessonModule: LessonModuleData;
+  /**
+   * Optional facilitator / Help-pocket coach note (markdown-ish: **bold**, `code`).
+   * Literacy tracks use this for Cognia Std 3 / observation-ready coaching.
+   */
+  instructorScript?: string;
   /** Glossary surfaced beside the knowledge check. */
   keyTerms?: AIKeyTerm[];
   /** Short "big ideas" recap bullets. */
@@ -188,6 +193,36 @@ export type AILessonConfig = {
   nextHref?: string;
   dashboardHref?: string;
 };
+
+function renderCoachNote(text: string) {
+  return text.split("\n").map((line, i) => {
+    const parts = line.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
+    return (
+      <p key={i} className="leading-relaxed text-slate-700">
+        {parts.map((part, j) => {
+          if (part.startsWith("**") && part.endsWith("**")) {
+            return (
+              <strong key={j} className="font-semibold text-slate-900">
+                {part.slice(2, -2)}
+              </strong>
+            );
+          }
+          if (part.startsWith("`") && part.endsWith("`")) {
+            return (
+              <code
+                key={j}
+                className="rounded bg-slate-100 px-1 py-0.5 font-mono text-sm text-emerald-800"
+              >
+                {part.slice(1, -1)}
+              </code>
+            );
+          }
+          return <span key={j}>{part}</span>;
+        })}
+      </p>
+    );
+  });
+}
 
 function renderInline(text: string) {
   const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
@@ -609,6 +644,17 @@ export function AILessonCanvas({
         ) : (
           <div className="grid min-w-0 max-w-full gap-6 lg:grid-cols-[1fr_1.15fr]">
             <div className="order-2 hidden min-w-0 max-w-full space-y-3 lg:order-1 lg:block lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto lg:self-start">
+              {lesson.instructorScript ? (
+                <LessonAside
+                  title="Coach's note"
+                  tone="coach"
+                  defaultOpen
+                  icon={<Sparkles className="h-4 w-4" />}
+                >
+                  {renderCoachNote(lesson.instructorScript)}
+                </LessonAside>
+              ) : null}
+
               {lesson.bigIdeas && lesson.bigIdeas.length > 0 ? (
                 <LessonAside
                   title="Big ideas"
@@ -1085,6 +1131,18 @@ export function AILessonCanvas({
         <MobileLessonPocket
             panels={
               [
+                ...(lesson.instructorScript
+                  ? [
+                      {
+                        id: "coach",
+                        label: "Coach",
+                        title: "Coach's note",
+                        tone: "coach" as const,
+                        icon: <Sparkles className="h-4 w-4" />,
+                        content: renderCoachNote(lesson.instructorScript),
+                      } satisfies MobileLessonPocketPanel,
+                    ]
+                  : []),
                 ...(lesson.bigIdeas && lesson.bigIdeas.length > 0
                   ? [
                       {

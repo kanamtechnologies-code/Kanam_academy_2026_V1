@@ -16,6 +16,18 @@ export const apCspLesson9: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/ap-csp-prep/8",
   nextHref: "/learn/ap-csp-prep/10",
+  instructorScript: `**Coach's note**
+Today's lesson: **Procedures, Parameters, Return & Abstraction**.
+
+**Goal:** Write reusable procedures with parameters and return values, and use abstraction to manage complexity.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "Name a behavior, reuse it everywhere".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~35–45 min lesson",
     sections: [

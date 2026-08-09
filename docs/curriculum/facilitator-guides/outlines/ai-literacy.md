@@ -3,7 +3,7 @@
 **Guide status:** outline only — **full guides:** [../ai-literacy/](../ai-literacy/)  
 **Catalog:** `ai-literacy` · **16 lessons** · XP 50 → 800  
 **Standards:** [literacy-standards-crosswalk.md](../../literacy-standards-crosswalk.md)  
-**Product note:** Quiz-forward literacy pattern; no Python-style coach scripts yet.
+**Product note:** Quiz-forward literacy pattern; in-product **Coach’s note** (`instructorScript`) in the Help pocket on every lesson.
 
 ## Week goals
 

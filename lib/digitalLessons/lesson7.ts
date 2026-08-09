@@ -9,6 +9,18 @@ export const digitalLesson7: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/6",
   nextHref: "/learn/digital/8",
+  instructorScript: `**Coach's note**
+Today's lesson: **Digital Identity, Reputation & Social Practice**.
+
+**Goal:** Evaluate how a digital footprint and reputation affect personal, social, and economic practices, including college admissions, hiring, scholarships, and participation in online communities.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "Your identity is shaped in systems".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~20–25 min lesson",
     sections: [

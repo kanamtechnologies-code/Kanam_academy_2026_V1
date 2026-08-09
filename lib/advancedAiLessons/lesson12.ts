@@ -13,6 +13,18 @@ export const advancedAiLesson12: AILessonConfig = {
   dashboardHref: "/dashboard",
   prevHref: "/learn/advanced-ai/11",
   nextHref: "/learn/advanced-ai/13",
+  instructorScript: `**Coach's note**
+Today's lesson: **Privacy, Security & Model Abuse**.
+
+**Goal:** Threat-model an AI application and defend against data leakage, injection, and unsafe tool use.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "Build an AI threat model".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
     durationLabel: "~40–50 min lesson",
     sections: [

@@ -4,6 +4,18 @@ export const digitalLesson4: AILessonConfig = {
   id: "dl-4", title: "4. Evaluating Claims in a Computing Culture",
   goal: "Evaluate how computing shapes personal, ethical, social, economic, and cultural information practices using lateral reading and SIFT.",
   xpReward: 200, badge: "Critical Evaluator", dashboardHref: "/dashboard", prevHref: "/learn/digital/3", nextHref: "/learn/digital/5",
+  instructorScript: `**Coach's note**
+Today's lesson: **Evaluating Claims in a Computing Culture**.
+
+**Goal:** Evaluate how computing shapes personal, ethical, social, economic, and cultural information practices using lateral reading and SIFT.
+
+**How to facilitate**
+1. Warm-up: ask students what they already think about "Claims travel through systems built by people".
+2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
+3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
+4. Close: one-sentence takeaway + how this shows up in real life.
+
+**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: { durationLabel: "~25 min lesson", sections: [
     { id: "start", kicker: "Start here", title: "Claims travel through systems built by people", body: `A college rumor, a scholarship offer, and a news clip do not reach your feed by accident. Platforms rank, recommend, monetize, and make sharing easy. Those design choices influence what people notice, trust, and pass on.\n\nYour task is not to distrust everything. It is to evaluate claims and the computing systems that shape their reach.`, image: "/images/lessons/dl-4.png", imageAlt: "Multiple tabs used to evaluate a digital claim" },
     { id: "claim", kicker: "Core concept", title: "Separate the claim from the reaction", body: `A **claim** is a statement that can be investigated. “This scholarship is guaranteed” and “this college changed its deadline” are claims. Likes, confidence, a polished logo, and a strong emotional reaction are not evidence.\n\nStart by rewriting a vague post into a checkable question: Who says this? What exactly happened? When? What evidence would confirm it?` },
