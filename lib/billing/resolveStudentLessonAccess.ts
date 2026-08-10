@@ -2,6 +2,7 @@ import { getAsyncClassCode } from "@/lib/asyncClass";
 import { accessFromEntitlements, loadBillingEntitlements } from "@/lib/billing/access";
 import type { StudentLessonAccess } from "@/lib/classAssignments";
 import { unionEnabledLessonIds } from "@/lib/classAssignments";
+import { isAllLessonsUnlocked } from "@/lib/devUnlock";
 import { resolveLearnerForUser } from "@/lib/resolveLearner";
 import { TRACKS } from "@/lib/tracks";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
@@ -19,7 +20,7 @@ export type LessonAccessResolveResult = {
 };
 
 function unlockAllForTesting() {
-  return process.env.KANAM_UNLOCK_ALL_LESSONS === "true";
+  return isAllLessonsUnlocked();
 }
 
 function isAsyncClassRow(row: { is_async?: boolean | null; code?: string | null }) {
