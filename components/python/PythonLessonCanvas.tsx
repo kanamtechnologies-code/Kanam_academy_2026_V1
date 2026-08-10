@@ -722,7 +722,7 @@ export function PythonLessonCanvas({
                 <div className="kanam-hero-brand-tile grid h-11 w-11 shrink-0 place-items-center rounded-2xl sm:h-14 sm:w-14">
                   <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} className="h-7 w-7 sm:h-10 sm:w-10" />
                 </div>
-                <div className="min-w-0 leading-tight">
+                <div className="min-w-0 leading-tight text-center sm:text-left">
                   <p className="kanam-hero-kicker truncate text-sm font-black uppercase tracking-[0.14em] text-white sm:text-base md:text-lg">
                     Python + AI Hub
                   </p>
@@ -731,10 +731,10 @@ export function PythonLessonCanvas({
                   </p>
                 </div>
               </div>
-              <h1 className="kanam-hero-title mt-3 break-words text-xl font-black tracking-tight text-white sm:mt-5 sm:text-3xl md:text-5xl">
+              <h1 className="kanam-hero-title mt-3 break-words text-center text-xl font-black tracking-tight text-white sm:mt-5 sm:text-left sm:text-3xl md:text-5xl">
                 {lesson.title}
               </h1>
-              <p className="mx-auto mt-2 max-w-3xl text-sm font-medium text-white/90 sm:mx-0 sm:mt-2.5 sm:text-base md:text-lg">
+              <p className="mx-auto mt-2 max-w-3xl text-center text-sm font-medium text-white/90 sm:mx-0 sm:mt-2.5 sm:text-left sm:text-base md:text-lg">
                 {lesson.goal}
               </p>
             </div>

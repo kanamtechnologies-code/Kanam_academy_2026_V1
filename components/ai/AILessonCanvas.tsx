@@ -535,7 +535,10 @@ export function AILessonCanvas({
           animateIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
         )}
       >
-        <div className="kanam-lesson-hero mb-6 w-full max-w-full rounded-[22px] p-3.5 sm:mb-8 sm:rounded-[28px] sm:p-6 md:p-8">
+        <div
+          data-tour="lesson-hero"
+          className="kanam-lesson-hero mb-6 w-full max-w-full rounded-[22px] p-3.5 sm:mb-8 sm:rounded-[28px] sm:p-6 md:p-8"
+        >
           <div className="kanam-lesson-hero-overlay" />
           <div className="relative z-10 flex min-w-0 flex-col items-center gap-4 text-center sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:text-left">
             <div className="min-w-0 w-full sm:flex-1">
@@ -543,7 +546,7 @@ export function AILessonCanvas({
                 <div className="kanam-hero-brand-tile grid h-11 w-11 shrink-0 place-items-center rounded-2xl sm:h-14 sm:w-14">
                   <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} className="h-7 w-7 sm:h-10 sm:w-10" />
                 </div>
-                <div className="min-w-0 leading-tight">
+                <div className="min-w-0 leading-tight text-center sm:text-left">
                   <p className="kanam-hero-kicker truncate text-sm font-black uppercase tracking-[0.14em] text-white sm:text-base md:text-lg">
                     {hubLabel}
                   </p>
@@ -552,14 +555,17 @@ export function AILessonCanvas({
                   </p>
                 </div>
               </div>
-              <h1 className="kanam-hero-title mt-3 break-words text-xl font-black tracking-tight text-white sm:mt-5 sm:text-3xl md:text-5xl">
+              <h1 className="kanam-hero-title mt-3 break-words text-center text-xl font-black tracking-tight text-white sm:mt-5 sm:text-left sm:text-3xl md:text-5xl">
                 {lesson.title}
               </h1>
-              <p className="mx-auto mt-2 max-w-3xl text-sm font-medium text-white/90 sm:mx-0 sm:mt-2.5 sm:text-base md:text-lg">
+              <p className="mx-auto mt-2 max-w-3xl text-center text-sm font-medium text-white/90 sm:mx-0 sm:mt-2.5 sm:text-left sm:text-base md:text-lg">
                 {lesson.goal}
               </p>
             </div>
-            <div className="flex min-w-0 max-w-full flex-wrap items-center justify-center gap-2 sm:justify-start">
+            <div
+              data-tour="lesson-hero-rewards"
+              className="flex min-w-0 max-w-full flex-wrap items-center justify-center gap-2 sm:justify-start"
+            >
               <Badge className="kanam-hero-chip">
                 <Zap className="mr-1.5 h-4 w-4" />
                 {lesson.xpReward} XP

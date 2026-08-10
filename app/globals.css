@@ -312,6 +312,30 @@ body {
   text-shadow: 0 1px 10px rgb(2 6 23 / 0.28);
 }
 
+/* Mobile: center hero copy so titles aren't pinned to the left edge. */
+@media (max-width: 639.98px) {
+  .kanam-lesson-hero {
+    text-align: center;
+  }
+
+  .kanam-lesson-hero .kanam-hero-title,
+  .kanam-lesson-hero .kanam-hero-kicker,
+  .kanam-lesson-hero p {
+    text-align: center;
+  }
+
+  .kanam-lesson-hero [data-tour="lesson-hero-rewards"],
+  .kanam-lesson-hero .kanam-hero-cta {
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 640px) {
+  .kanam-lesson-hero {
+    text-align: left;
+  }
+}
+
 .kanam-hero-chip {
   border: 1px solid rgb(255 255 255 / 0.34);
   background: rgb(255 255 255 / 0.18);
