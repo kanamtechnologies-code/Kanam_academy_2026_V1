@@ -20,6 +20,7 @@ import {
   kidDeviceId,
   setActiveStudentMetadata,
 } from "@/lib/households";
+import { queueWelcomeEmail } from "@/lib/email/sendWelcomeEmail";
 import { getAppOrigin } from "@/lib/stripe";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
@@ -263,6 +264,14 @@ export async function POST(req: Request) {
       // non-fatal
     }
   }
+
+  queueWelcomeEmail({
+    to: email,
+    firstName,
+    role: "parent",
+    appOrigin: getAppOrigin(req),
+    needsEmailConfirmation: created.needsEmailConfirmation,
+  });
 
   return NextResponse.json(
     {

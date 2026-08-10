@@ -18,7 +18,9 @@ import {
   isYoungerSelfSignupGrade,
   validateYoungerGradeParentEmail,
 } from "@/lib/coppa/ageGate";
+import { queueWelcomeEmail } from "@/lib/email/sendWelcomeEmail";
 import { getAppOrigin } from "@/lib/stripe";
+import { upsertSelfSignupStudent } from "@/lib/students/upsertSelfSignupStudent";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -230,58 +232,24 @@ export async function POST(req: Request) {
     );
   }
 
-  const { error: studentErr } = await supabase.from("students").insert({
-    user_id: userId,
-    display_name: firstName,
-    first_name: firstName,
-    last_name: lastName,
-    grade,
-    school_id: schoolId,
-    parent_name: parentName,
-    parent_email: parentEmail,
-    parent_phone: parentPhone,
-    device_id: `auth:${userId}`,
+  const student = await upsertSelfSignupStudent(supabase, {
+    userId,
+    displayName: firstName,
+    firstName,
+    lastName,
+    grade: grade || undefined,
+    schoolId,
+    parentName: parentName || undefined,
+    parentEmail: parentEmail || undefined,
+    parentPhone: parentPhone || undefined,
   });
 
-  if (studentErr) {
-    const msg = studentErr.message ?? "";
-    const looksLikeSchemaCache =
-      msg.includes("schema cache") || msg.includes("Could not find the 'first_name' column");
-    if (!looksLikeSchemaCache) {
-      return NextResponse.json({ ok: false, error: msg }, { status: 500 });
-    }
-
-    const { error: retryErr } = await supabase.from("students").insert({
-      user_id: userId,
-      display_name: firstName,
-      grade,
-      school_id: schoolId,
-      parent_name: parentName,
-      parent_email: parentEmail,
-      parent_phone: parentPhone,
-      device_id: `auth:${userId}`,
-    });
-
-    if (retryErr) {
-      return NextResponse.json({ ok: false, error: retryErr.message }, { status: 500 });
-    }
-  }
-
-  const { data: studentRow } = await supabase
-    .from("students")
-    .select("id")
-    .eq("user_id", userId)
-    .maybeSingle();
-
-  if (!studentRow?.id) {
-    return NextResponse.json(
-      { ok: false, error: "Account created, but student profile was not found for enrollment." },
-      { status: 500 }
-    );
+  if (!student.ok) {
+    return NextResponse.json({ ok: false, error: student.error }, { status: 500 });
   }
 
   const enrolled = await enrollStudentInClassByCode({
-    studentId: studentRow.id,
+    studentId: student.studentId,
     classCode,
     admin: supabase,
   });
@@ -297,6 +265,14 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
+
+  queueWelcomeEmail({
+    to: email,
+    firstName,
+    role: "student",
+    appOrigin: getAppOrigin(req),
+    needsEmailConfirmation: created.needsEmailConfirmation,
+  });
 
   return NextResponse.json(
     {

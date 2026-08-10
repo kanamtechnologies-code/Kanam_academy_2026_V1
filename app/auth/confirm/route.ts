@@ -99,7 +99,7 @@ export async function GET(request: NextRequest) {
         const msg = /expired|invalid|verifier/i.test(error.message)
           ? isSignupConfirmType(type)
             ? "This confirmation link was already used or expired. Request a new one and open it once in your browser."
-            : "This reset link was already used or expired. Request a new one and open it once in the same browser you used to request it."
+            : "This reset link was already used or expired. Request a new one from Welcome → Forgot password."
           : error.message;
         return failRedirect(origin, msg, isSignupConfirmType(type) ? "confirm" : "reset");
       }

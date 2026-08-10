@@ -7,6 +7,8 @@ import {
   clientIpFromRequest,
   enforceRateLimits,
 } from "@/lib/auth/rateLimit";
+import { queueWelcomeEmail } from "@/lib/email/sendWelcomeEmail";
+import { getAppOrigin } from "@/lib/stripe";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
 export const runtime = "nodejs";
@@ -97,6 +99,14 @@ export async function POST(req: Request) {
   if (!userId) {
     return NextResponse.json({ ok: false, error: "Instructor created but missing id." }, { status: 500 });
   }
+
+  queueWelcomeEmail({
+    to: email,
+    firstName,
+    role: "instructor",
+    appOrigin: getAppOrigin(req),
+    needsEmailConfirmation: false,
+  });
 
   return NextResponse.json({ ok: true, userId }, { status: 200 });
 }

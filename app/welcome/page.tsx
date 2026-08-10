@@ -727,8 +727,8 @@ export default function WelcomePage() {
 
                           <NoticePresence show={forgotStatus === "sent"} contentKey="forgot-sent">
                             <Notice compact variant="success" title="Check your email">
-                              Open the reset link once in your browser (Gmail/Outlook sometimes
-                              preview the link and expire it). Don’t reuse an older reset email.
+                              Open the newest reset link once in any browser. Email apps sometimes
+                              preview links and expire them — if that happens, request another.
                             </Notice>
                           </NoticePresence>
 
@@ -765,19 +765,25 @@ export default function WelcomePage() {
                                 }
                                 setForgotStatus("sending");
                                 try {
-                                  const supabase = createSupabaseBrowserClient();
-                                  if (!supabase) throw new Error("Password reset is unavailable in demo mode.");
-                                  // Client exchanges ?code=… (PKCE verifier is in this browser).
-                                  // Cross-device resets need the TokenHash email template (see supabase/README.md).
-                                  const redirectTo = `${window.location.origin}/welcome/reset-password`;
-                                  const { error } = await supabase.auth.resetPasswordForEmail(em, {
-                                    redirectTo,
+                                  const res = await fetch("/api/auth/request-password-reset", {
+                                    method: "POST",
+                                    headers: { "content-type": "application/json" },
+                                    body: JSON.stringify({ email: em }),
                                   });
-                                  if (error) throw new Error(error.message);
+                                  const json = (await res.json()) as {
+                                    ok?: boolean;
+                                    error?: string;
+                                    devResetUrl?: string;
+                                  };
+                                  if (!res.ok || !json.ok) {
+                                    throw new Error(json.error || "Could not send reset email.");
+                                  }
+                                  if (json.devResetUrl) {
+                                    window.open(json.devResetUrl, "_blank", "noopener,noreferrer");
+                                  }
                                   setForgotStatus("sent");
                                 } catch (error: unknown) {
                                   const msg = errorMessage(error, "Could not send reset email.");
-                                  // Browser sometimes reports Failed to fetch even after Supabase queued the email.
                                   if (/failed to fetch|networkerror|load failed/i.test(msg)) {
                                     setForgotStatus("sent");
                                     setForgotError(null);

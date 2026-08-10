@@ -1,4 +1,7 @@
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { isInstructorRole } from "@/lib/roles";
+
+type AdminClient = ReturnType<typeof createSupabaseAdminClient>;
 
 /** Shared cohort code for all self-paced / async learners. */
 export function getAsyncClassCode(): string {
@@ -10,9 +13,50 @@ export function getAsyncClassName(): string {
   return (process.env.KANAM_ASYNC_CLASS_NAME || "Self-paced learners").trim() || "Self-paced learners";
 }
 
+async function userExists(admin: AdminClient, userId: string) {
+  const { data, error } = await admin.auth.admin.getUserById(userId);
+  if (error || !data?.user?.id) return false;
+  return true;
+}
+
+/**
+ * Resolve who owns the shared self-paced class:
+ * 1) KANAM_ASYNC_OWNER_USER_ID when that user still exists
+ * 2) any existing class teacher
+ * 3) any auth user with instructor/teacher app_metadata.role
+ */
+async function resolveAsyncClassOwnerId(admin: AdminClient): Promise<string | null> {
+  const fromEnv = (process.env.KANAM_ASYNC_OWNER_USER_ID || "").trim();
+  if (fromEnv && (await userExists(admin, fromEnv))) {
+    return fromEnv;
+  }
+
+  const { data: existingClass } = await admin
+    .from("classes")
+    .select("teacher_user_id")
+    .not("teacher_user_id", "is", null)
+    .limit(1)
+    .maybeSingle();
+  const fromClass = String(existingClass?.teacher_user_id || "").trim();
+  if (fromClass && (await userExists(admin, fromClass))) {
+    return fromClass;
+  }
+
+  for (let page = 1; page <= 5; page += 1) {
+    const { data, error } = await admin.auth.admin.listUsers({ page, perPage: 100 });
+    if (error) break;
+    const users = data?.users ?? [];
+    const instructor = users.find((u) => isInstructorRole(u));
+    if (instructor?.id) return instructor.id;
+    if (users.length < 100) break;
+  }
+
+  return null;
+}
+
 /**
  * Ensure the single shared async class exists (all self-paced students enroll here).
- * Requires KANAM_ASYNC_OWNER_USER_ID (an instructor auth.users id) the first time it is created.
+ * Prefers KANAM_ASYNC_OWNER_USER_ID; falls back to an existing instructor if needed.
  */
 export async function ensureAsyncClass(admin = createSupabaseAdminClient()) {
   const code = getAsyncClassCode();
@@ -34,10 +78,10 @@ export async function ensureAsyncClass(admin = createSupabaseAdminClient()) {
     return { id: existing.id as string, code, name: String(existing.name ?? getAsyncClassName()) };
   }
 
-  const ownerId = (process.env.KANAM_ASYNC_OWNER_USER_ID || "").trim();
+  const ownerId = await resolveAsyncClassOwnerId(admin);
   if (!ownerId) {
     throw new Error(
-      "Self-paced class is not set up yet. Set KANAM_ASYNC_OWNER_USER_ID to an instructor user id, then try again."
+      "Self-paced class is not set up yet. Create an instructor account (or set KANAM_ASYNC_OWNER_USER_ID to a valid instructor user id), then try again."
     );
   }
 

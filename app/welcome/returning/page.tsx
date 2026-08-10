@@ -185,8 +185,8 @@ export default function WelcomeReturningPage() {
 
                           <NoticePresence show={forgotStatus === "sent"} contentKey="forgot-sent">
                             <Notice compact variant="success" title="Check your email">
-                              Open the reset link once in your browser (Gmail/Outlook sometimes
-                              preview the link and expire it). Don’t reuse an older reset email.
+                              Open the newest reset link once in any browser. Email apps sometimes
+                              preview links and expire them — if that happens, request another.
                             </Notice>
                           </NoticePresence>
 
@@ -223,16 +223,22 @@ export default function WelcomeReturningPage() {
                                 }
                                 setForgotStatus("sending");
                                 try {
-                                  const supabase = createSupabaseBrowserClient();
-                                  if (!supabase) {
-                                    throw new Error("Password reset is unavailable in demo mode.");
+                                  const res = await fetch("/api/auth/request-password-reset", {
+                                    method: "POST",
+                                    headers: { "content-type": "application/json" },
+                                    body: JSON.stringify({ email: em }),
+                                  });
+                                  const json = (await res.json()) as {
+                                    ok?: boolean;
+                                    error?: string;
+                                    devResetUrl?: string;
+                                  };
+                                  if (!res.ok || !json.ok) {
+                                    throw new Error(json.error || "Could not send reset email.");
                                   }
-                                  const redirectTo = `${window.location.origin}/welcome/reset-password`;
-                                  const { error: resetErr } = await supabase.auth.resetPasswordForEmail(
-                                    em,
-                                    { redirectTo }
-                                  );
-                                  if (resetErr) throw new Error(resetErr.message);
+                                  if (json.devResetUrl) {
+                                    window.open(json.devResetUrl, "_blank", "noopener,noreferrer");
+                                  }
                                   setForgotStatus("sent");
                                 } catch (err: unknown) {
                                   const msg = errorMessage(err, "Could not send reset email.");

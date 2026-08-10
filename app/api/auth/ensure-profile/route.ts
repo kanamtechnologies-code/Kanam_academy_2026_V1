@@ -12,6 +12,7 @@ import {
   setActiveStudentMetadata,
 } from "@/lib/households";
 import { isInstructorRole, isParentRole } from "@/lib/roles";
+import { upsertSelfSignupStudent } from "@/lib/students/upsertSelfSignupStudent";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
@@ -20,6 +21,7 @@ export const runtime = "nodejs";
 type UserMetadata = {
   first_name?: string;
   display_name?: string;
+  grade?: string;
 };
 
 function firstNameFromEmail(email: string) {
@@ -138,27 +140,31 @@ export async function POST() {
     (userMetadata.display_name && String(userMetadata.display_name).trim()) ||
     firstNameFromEmail(user.email ?? "");
 
-  const { data: inserted, error: insertErr } = await supabase
-    .from("students")
-    .insert({
-      user_id: user.id,
-      display_name: String(first),
-      device_id: `auth:${user.id}`,
-    })
-    .select("id, display_name")
-    .single();
+  const upserted = await upsertSelfSignupStudent(admin, {
+    userId: user.id,
+    displayName: String(first),
+    firstName: String(first),
+    grade: userMetadata.grade ? String(userMetadata.grade) : undefined,
+  });
 
-  if (insertErr) {
+  if (!upserted.ok) {
     return NextResponse.json(
       {
         ok: false,
         error:
-          insertErr.message +
+          upserted.error +
           " (If this mentions 'user_id' missing, run the SQL migration to add students.user_id and reload schema.)",
       },
       { status: 500 }
     );
   }
 
-  return NextResponse.json({ ok: true, role: "student", student: inserted }, { status: 200 });
+  return NextResponse.json(
+    {
+      ok: true,
+      role: "student",
+      student: { id: upserted.studentId, display_name: String(first) },
+    },
+    { status: 200 }
+  );
 }

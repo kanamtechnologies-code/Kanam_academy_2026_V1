@@ -69,7 +69,13 @@ export function isProtectedApi(pathname: string): boolean {
   if (!p.startsWith("/api/")) return false;
 
   // Explicit public allowlist (everything else under /api requires a session)
-  if (p === "/api/auth/signup" || p === "/api/auth/signup-parent") return false;
+  if (
+    p === "/api/auth/signup" ||
+    p === "/api/auth/signup-parent" ||
+    p === "/api/auth/request-password-reset"
+  ) {
+    return false;
+  }
   if (p === "/api/student/request-class-code") return false;
   if (p === "/api/student/validate-class-code") return false;
   // Invite-code gated (handler still verifies secret)

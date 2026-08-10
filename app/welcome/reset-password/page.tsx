@@ -69,7 +69,35 @@ export default function ResetPasswordPage() {
         return;
       }
 
-      // PKCE flow: ?code=... (must run in the same browser that requested the reset)
+      // TokenHash recovery (works across browsers/devices)
+      const tokenHash = params.get("token_hash");
+      const otpType = params.get("type");
+      if (tokenHash && otpType) {
+        const { error: otpErr } = await supabase.auth.verifyOtp({
+          type: otpType as "recovery",
+          token_hash: tokenHash,
+        });
+        if (otpErr) {
+          const raw = otpErr.message || "";
+          setError(
+            /expired|invalid/i.test(raw)
+              ? "This reset link was already used or expired. Request a new one from Welcome → Forgot password."
+              : raw
+          );
+          setReady(true);
+          return;
+        }
+        try {
+          window.history.replaceState({}, document.title, window.location.pathname);
+        } catch {
+          // ignore
+        }
+        setSessionOk(true);
+        setReady(true);
+        return;
+      }
+
+      // Legacy PKCE: ?code=... (same browser that requested the reset)
       const code = params.get("code");
       if (code) {
         const { error: exchErr } = await supabase.auth.exchangeCodeForSession(code);
@@ -77,9 +105,9 @@ export default function ResetPasswordPage() {
           const raw = exchErr.message || "";
           setError(
             /verifier|pkce|storage/i.test(raw)
-              ? "This reset link must be opened in the same browser where you clicked “Forgot password” (storage was cleared or a different browser/app opened the email). Request a new reset and open the newest email in that same browser — or ask us to switch the email template to TokenHash for cross-device resets."
+              ? "This older reset link only works in the browser where you clicked Forgot password. Request a new reset email — the new link works on any device."
               : /expired|invalid/i.test(raw)
-                ? "This reset link was already used or expired. Request a new one and open it once in your browser."
+                ? "This reset link was already used or expired. Request a new one from Welcome → Forgot password."
                 : raw
           );
           setReady(true);

@@ -55,11 +55,11 @@ As an instructor JWT (`app_metadata.role = 'instructor'`), class insert for `tea
 All solo learners share **one** class code (default `KANAM-ASYNC`) so they batch together in the database.
 
 1. Create an instructor account (or use an existing one).
-2. Copy that instructor's Auth user UUID into `.env.local` as `KANAM_ASYNC_OWNER_USER_ID`.
+2. Copy that instructor's Auth user UUID into `.env.local` **and production** as `KANAM_ASYNC_OWNER_USER_ID` (must be a user that still exists).
 3. Optionally set `KANAM_ASYNC_CLASS_CODE` / `KANAM_ASYNC_CLASS_NAME`.
 4. Re-run `supabase/schema.sql` (adds `classes.is_async` if missing).
 
-The first “Get a self-paced code” click creates the class row in Supabase and returns the code to the welcome form (no separate email provider).
+The first self-paced signup (or “Get a self-paced code”) creates the class row if missing. If `KANAM_ASYNC_OWNER_USER_ID` is unset or points at a deleted user, the app falls back to an existing class teacher or any instructor account.
 
 Then verify the app (with `npm run dev` running):
 
@@ -83,13 +83,13 @@ In Supabase → **Authentication → URL Configuration**:
    - `/welcome/reset-password`
 4. Open each reset link **once** in a real browser tab. Some email apps prefetch links and burn the one-time token (`otp_expired`).
 
-### Reset password email template (recommended — works across devices)
+### Password reset (cross-device)
 
-Default Supabase reset links use **PKCE** (`?code=…`). That only works in the **same browser** that clicked “Forgot password.” Opening Gmail on a phone, or an in-app browser, causes:
+**Preferred (app):** Forgot password calls `/api/auth/request-password-reset`, which generates a **TokenHash** recovery link and emails it with Resend (`RESEND_API_KEY` + `RESEND_FROM_EMAIL`). Those links work in any browser/device.
 
-> PKCE code verifier not found in storage
+**Fallback:** If Resend is not configured, the app uses Supabase’s built-in reset mailer. Default Supabase links use **PKCE** (`?code=…`), which only works in the **same browser** that clicked “Forgot password.” Opening Gmail on a phone often shows “PKCE code verifier not found in storage.”
 
-Fix: Supabase → **Authentication → Email Templates → Reset password**. Replace the link with a **TokenHash** URL (no PKCE verifier needed):
+Optional Supabase template fix (when not using Resend): **Authentication → Email Templates → Reset password**:
 
 ```html
 <h2>Reset password</h2>
@@ -124,6 +124,7 @@ Until custom SMTP is on, signup for `gmail.com` / school emails will fail even t
    - Sender email = a verified address (e.g. `noreply@kanamacademy.com`)
 4. Save, then try signup again with a non-team email.
 5. Raise Auth rate limits if needed: **Authentication → Rate Limits**.
+6. **Branded welcome email (app):** set `RESEND_API_KEY` and `RESEND_FROM_EMAIL` in the Next.js env (see `config/env.example`). On successful student / parent / instructor signup the app sends a separate welcome message via the Resend API (in addition to Supabase’s confirm-signup mail).
 
 **Testing without SMTP:** Supabase → **Authentication → Users** → open the user → confirm email manually (or add that address to the org Team so the default mailer is allowed).
 

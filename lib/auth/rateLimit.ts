@@ -83,6 +83,8 @@ export function enforceRateLimits(
 export const AUTH_RATE_LIMITS = {
   signupIp: { limit: 8, windowMs: 15 * 60 * 1000 },
   signupEmail: { limit: 5, windowMs: 60 * 60 * 1000 },
+  passwordResetIp: { limit: 10, windowMs: 15 * 60 * 1000 },
+  passwordResetEmail: { limit: 5, windowMs: 60 * 60 * 1000 },
   adminInviteIp: { limit: 10, windowMs: 15 * 60 * 1000 },
   classCodeIp: { limit: 30, windowMs: 10 * 60 * 1000 },
   requestClassCodeIp: { limit: 20, windowMs: 10 * 60 * 1000 },
