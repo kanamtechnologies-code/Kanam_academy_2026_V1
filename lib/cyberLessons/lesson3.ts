@@ -77,10 +77,10 @@ Today's lesson: **Malware Impact on Sensitive Data**.
         checkIn: {
           prompt: "Devon's \"free\" video converter turned out to install an unwanted toolbar and ad pop-ups. Which category best matches what likely happened?",
           choices: [
-            "Worm spreading with no user action at all” belongs to a different situation than the one in the question stem",
+            "Worm spreading with no user action at all",
             "A trojan-style trick that delivered adware-like unwanted software",
-            "Ransomware demanding payment” belongs to a different situation than the one in the question stem",
-            "A hardware failure unrelated to software” belongs to a different situation than the one in the question stem",
+            "Ransomware demanding payment",
+            "A hardware failure unrelated to software",
           ],
           correctIndex: 1,
           explanation:
@@ -121,9 +121,9 @@ Today's lesson: **Malware Impact on Sensitive Data**.
         checkIn: {
           prompt: "Which of these is the clearest example of the \"bundled junk installer\" spread path?",
           choices: [
-            "A hardware failure in a laptop's battery” belongs to a different situation than the one in the question stem",
-            "A teacher updating classroom software during a scheduled maintenance window” belongs to a different situation than the one in the question stem",
-            "A worm moving between computers on a network with no user action” belongs to a different situation than the one in the question stem",
+            "A hardware failure in a laptop's battery",
+            "A teacher updating classroom software during a scheduled maintenance window",
+            "A worm moving between computers on a network with no user action",
             "A free download that quietly installs an extra toolbar and ads alongside the tool you wanted",
           ],
           correctIndex: 3,
@@ -139,7 +139,7 @@ Today's lesson: **Malware Impact on Sensitive Data**.
         checkIn: {
           prompt: "In the worked example, why shouldn't Devon click on a pop-up offering a free \"cleaner\" tool to fix the problem?",
           choices: [
-            "“Because it would fix the problem instantly and that's boring” describes a different situation than the one in the question stem",
+            "Because it would fix the problem instantly and that's boring",
             "A common mix-up is to treat because cleaner tools never work as enough, which confuses a nearby idea with the right one",
             "Because another unverified download from an untrusted pop-up could introduce more unwanted software, repeating the same mistake",
             "It can seem like because pop-ups are illegal to view, but that reading skips the distinction this question is testing",
@@ -280,8 +280,8 @@ Early, specific reports let defenders isolate one bad download before it becomes
           choices: [
             "Pay immediately so the files are recovered quickly",
             "Isolate the device from the network before doing anything else",
-            "Ignore it — ransomware always resolves itself” belongs to a different situation than the one in the question stem",
-            "Open every link in the ransom note to learn more” belongs to a different situation than the one in the question stem",
+            "Ignore it — ransomware always resolves itself",
+            "Open every link in the ransom note to learn more",
           ],
           correctIndex: 1,
           explanation:
@@ -372,10 +372,10 @@ Early, specific reports let defenders isolate one bad download before it becomes
       id: "q5",
       question: "You receive an unexpected email attachment labeled \"invoice\" from an unknown sender. What is the best defensive response?",
       choices: [
-            "Forward it to everyone in class as a warning, attachment included” belongs to a different situation than the one in the question stem",
-            "Open it immediately to see if it's malware” belongs to a different situation than the one in the question stem",
+            "Forward it to everyone in class as a warning, attachment included",
+            "Open it immediately to see if it's malware",
             "Don't open it; verify through another channel or report it to a trusted adult/IT",
-            "Disable all future updates so nothing else changes” belongs to a different situation than the one in the question stem",
+            "Disable all future updates so nothing else changes",
           ],
       correctIndex: 2,
       explanation:
@@ -386,8 +386,8 @@ Early, specific reports let defenders isolate one bad download before it becomes
       question: "A free download tool quietly adds an extra unwanted toolbar and ads. This pattern is best described as:",
       choices: [
             "A worm spreading between computers with no user action at all",
-            "A hardware security key malfunctioning” belongs to a different situation than the one in the question stem",
-            "A firewall rule that was configured correctly” belongs to a different situation than the one in the question stem",
+            "A hardware security key malfunctioning",
+            "A firewall rule that was configured correctly",
             "A bundled junk installer, often paired with a trojan-style trick",
           ],
       correctIndex: 3,
@@ -398,9 +398,9 @@ Early, specific reports let defenders isolate one bad download before it becomes
       id: "q7",
       question: "A pop-up appears claiming your device is critically infected and offers a free \"cleaner\" download to fix it immediately. What should you do?",
       choices: [
-            "Enter your password into the pop-up to \"verify\" your identity” belongs to a different situation than the one in the question stem",
-            "Share the pop-up link with friends so they can fix their devices too” belongs to a different situation than the one in the question stem",
-            "Click the download right away since the pop-up looks urgent” belongs to a different situation than the one in the question stem",
+            "Enter your password into the pop-up to \"verify\" your identity",
+            "Share the pop-up link with friends so they can fix their devices too",
+            "Click the download right away since the pop-up looks urgent",
             "Close the pop-up without clicking inside it, and use security tools you already trust or ask for help",
           ],
       correctIndex: 3,

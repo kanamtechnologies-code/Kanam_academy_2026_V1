@@ -126,10 +126,10 @@ Today's lesson: **Build a Budget That Works**.
         checkIn: {
           prompt: "A student has almost no monthly bills but saves 60% of every paycheck toward a car. What does this most likely suggest?",
           choices: [
-            "Saving more than 20% is never allowed under any model” belongs to a different situation than the one in the question stem",
+            "Saving more than 20% is never allowed under any model",
             "Fewer needs than the guideline assumes can justify a different, still-healthy split",
             "The student is budgeting incorrectly and must switch to exactly 50/30/20",
-            "They should cut saving until needs are closer to 50% of income” belongs to a different situation than the one in the question stem",
+            "They should cut saving until needs are closer to 50% of income",
           ],
           correctIndex: 1,
           explanation:
@@ -149,9 +149,9 @@ Today's lesson: **Build a Budget That Works**.
           prompt: "In zero-based budgeting, what does the phrase \"every dollar gets a job\" actually mean?",
           choices: [
             "On paper, all income gets assigned to a category until nothing is left unplanned",
-            "You must spend your entire paycheck by the end of each period” belongs to a different situation than the one in the question stem",
-            "Buffer categories aren't allowed under this method” belongs to a different situation than the one in the question stem",
-            "You're required to keep your bank balance at exactly $0” belongs to a different situation than the one in the question stem",
+            "You must spend your entire paycheck by the end of each period",
+            "Buffer categories aren't allowed under this method",
+            "You're required to keep your bank balance at exactly $0",
           ],
           correctIndex: 0,
           explanation:
@@ -247,9 +247,9 @@ Today's lesson: **Build a Budget That Works**.
           prompt: "Using zero-based thinking, what's Deja's smartest first move with that unassigned $35 and the trip request?",
           choices: [
             "Give the unassigned $35 a job first, then see if the remaining trip gap fits without cutting needs or shrinking the laptop goal",
-            "“Skip the phone bill this period so the trip is fully covered” describes a different situation than the one in the question stem",
-            "Put the full $60 trip cost on a buy-now-pay-later plan without checking her other numbers” belongs to a different situation than the one in the question stem",
-            "Pull the $60 straight from her laptop goal since it's the biggest amount saved” belongs to a different situation than the one in the question stem",
+            "Skip the phone bill this period so the trip is fully covered",
+            "Put the full $60 trip cost on a buy-now-pay-later plan without checking her other numbers",
+            "Pull the $60 straight from her laptop goal since it's the biggest amount saved",
           ],
           correctIndex: 0,
           explanation:
@@ -316,7 +316,7 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
             "Budgeting only becomes useful once income is high enough for leftovers",
             "A flexible plan that assigns income on purpose and adjusts when life changes",
             "Zero-based budgeting means your bank account should always read zero",
-            "Everyone must follow 50/30/20 exactly to have a real budget” belongs to a different situation than the one in the question stem",
+            "Everyone must follow 50/30/20 exactly to have a real budget",
           ],
           correctIndex: 1,
           explanation:
@@ -371,7 +371,7 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
       id: "q2",
       question: "Malik has few bills but is saving hard for a car, so his savings percentage is much higher than 20%. Is his budget wrong?",
       choices: [
-            "No — any savings rate above 20% means it isn't really a budget” belongs to a different situation than the one in the question stem",
+            "No — any savings rate above 20% means it isn't really a budget",
             "Yes, unless he also raises his 'wants' spending to match the guideline",
             "Yes, because exceeding 20% savings always means something was miscalculated",
             "No — 50/30/20 is a guideline, and his goals can justify a different healthy split",
@@ -385,9 +385,9 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
       question: "In zero-based budgeting, what does \"every dollar gets a job\" mean?",
       choices: [
             "On paper, all income is assigned to categories until nothing is left unplanned",
-            "Buffer categories are not allowed under this method” belongs to a different situation than the one in the question stem",
-            "You're required to track spending using cash envelopes only” belongs to a different situation than the one in the question stem",
-            "You must end the month with literally $0 in every account” belongs to a different situation than the one in the question stem",
+            "Buffer categories are not allowed under this method",
+            "You're required to track spending using cash envelopes only",
+            "You must end the month with literally $0 in every account",
           ],
       correctIndex: 0,
       explanation:
@@ -410,10 +410,10 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
       id: "q5",
       question: "Your hours got cut and your budget no longer adds up. What's a healthy response?",
       choices: [
-            "Keep spending exactly the same and hope the numbers work out” belongs to a different situation than the one in the question stem",
+            "Keep spending exactly the same and hope the numbers work out",
             "Adjust categories, protect must-pays when possible, and revise next period",
             "Throw out the budget entirely and just wing it until hours pick back up",
-            "Switch permanently to 50/30/20 with no further changes ever” belongs to a different situation than the one in the question stem",
+            "Switch permanently to 50/30/20 with no further changes ever",
           ],
       correctIndex: 1,
       explanation:
@@ -423,10 +423,10 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
       id: "q6",
       question: "A student gets a $1.50/hour raise but, six months later, has nothing extra saved and can't explain why. What most likely happened?",
       choices: [
-            "The student's bank made a calculation error on interest” belongs to a different situation than the one in the question stem",
-            "The raise was too small to have made any real difference” belongs to a different situation than the one in the question stem",
+            "The student's bank made a calculation error on interest",
+            "The raise was too small to have made any real difference",
             "Lifestyle creep — spending quietly rose to absorb the extra income before it was assigned a goal",
-            "Switching budgeting methods caused the extra money to vanish” belongs to a different situation than the one in the question stem",
+            "Switching budgeting methods caused the extra money to vanish",
           ],
       correctIndex: 2,
       explanation:
@@ -449,10 +449,10 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
       id: "q8",
       question: "Deja has $35 left unassigned this period. Following zero-based thinking, what should she do?",
       choices: [
-            "Only assign leftover money if it adds up to more than $100” belongs to a different situation than the one in the question stem",
+            "Only assign leftover money if it adds up to more than $100",
             "Give it a specific job, such as adding it to a goal or a buffer, so it doesn't quietly disappear",
-            "Automatically move it into her fun category since that's most tempting” belongs to a different situation than the one in the question stem",
-            "Leave it unassigned since small amounts don't really matter” belongs to a different situation than the one in the question stem",
+            "Automatically move it into her fun category since that's most tempting",
+            "Leave it unassigned since small amounts don't really matter",
           ],
       correctIndex: 1,
       explanation:

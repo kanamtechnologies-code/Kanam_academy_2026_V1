@@ -68,7 +68,7 @@ Today's lesson: **Privacy, Deepfakes, and Your Footprint**.
         checkIn: {
           prompt: "Why should you avoid pasting private info into a chatbot?",
           choices: [
-            "“It uses too much data on your plan” describes a different situation than the one in the question stem",
+            "It uses too much data on your plan",
             "If the goal were something else, “Chatbots can't read text” might work; for this check, it does not",
             "Picking “It makes the AI slower” is a common mix-up that confuses a nearby idea with the right one",
             "What you share may be stored, reviewed, or used to train future models — and you can't take it back",
@@ -95,10 +95,10 @@ Today's lesson: **Privacy, Deepfakes, and Your Footprint**.
         checkIn: {
           prompt: "What is a deepfake?",
           choices: [
-            "Any video edited with normal filters or editing apps, nothing AI-specific” belongs to a different situation than the one in the question stem",
+            "Any video edited with normal filters or editing apps, nothing AI-specific",
             "AI-generated fake media that makes a real person appear to say or do things they didn't",
-            "Grainy, low-quality footage that's just hard to see clearly” belongs to a different situation than the one in the question stem",
-            "A video that's simply been slowed down or sped up” belongs to a different situation than the one in the question stem",
+            "Grainy, low-quality footage that's just hard to see clearly",
+            "A video that's simply been slowed down or sped up",
           ],
           correctIndex: 1,
           explanation:
@@ -119,8 +119,8 @@ Today's lesson: **Privacy, Deepfakes, and Your Footprint**.
           choices: [
             "Hang up and call that family member back directly to verify",
             "Send the money immediately — the voice is proof",
-            "Reply to the call with your bank password” belongs to a different situation than the one in the question stem",
-            "Post about it online to ask strangers” belongs to a different situation than the one in the question stem",
+            "Reply to the call with your bank password",
+            "Post about it online to ask strangers",
           ],
           correctIndex: 0,
           explanation:
@@ -164,9 +164,9 @@ Action: pause → never share codes → call real number / safe word → report 
           prompt: "Is it true that only celebrities and politicians need to worry about being deepfaked?",
           choices: [
             "False — ordinary teens have been targeted with fake images or audio, especially from public social media content",
-            "True — attackers only bother with celebrities and politicians” belongs to a different situation than the one in the question stem",
-            "False — but only if your account is set to private (then risk is zero)” belongs to a different situation than the one in the question stem",
-            "True — school accounts are technically impossible to spoof” belongs to a different situation than the one in the question stem",
+            "True — attackers only bother with celebrities and politicians",
+            "False — but only if your account is set to private (then risk is zero)",
+            "True — school accounts are technically impossible to spoof",
           ],
           correctIndex: 0,
           explanation:
@@ -226,7 +226,7 @@ Action: pause → never share codes → call real number / safe word → report 
         checkIn: {
           prompt: "You want AI help editing a friend's private journal entry they sent you. Best move?",
           choices: [
-            "“Paste the whole entry — they sent it to you, so it's fine” describes a different situation than the one in the question stem",
+            "Paste the whole entry — they sent it to you, so it's fine",
             "It can seem like use AI silently — they'll never know, but that reading skips the distinction this question is testing",
             "Ask your friend if they're okay with you putting their private writing into an AI tool; if not, help without uploading it",
             "A rushed pass can land on paste it but delete their name, so it's anonymous”; careful readers reject it for this problem",
@@ -254,10 +254,10 @@ Action: pause → never share codes → call real number / safe word → report 
         checkIn: {
           prompt: "You get a flawless, well-written message claiming to be your school urgently asking you to 'verify your login' through a link. What's the smartest move?",
           choices: [
-            "Click the link immediately since it looks professional” belongs to a different situation than the one in the question stem",
-            "Reply with your password to be safe” belongs to a different situation than the one in the question stem",
+            "Click the link immediately since it looks professional",
+            "Reply with your password to be safe",
             "Don't click the link — go directly to the school's real site or app to check instead",
-            "Forward it to friends so they can click it too” belongs to a different situation than the one in the question stem",
+            "Forward it to friends so they can click it too",
           ],
           correctIndex: 2,
           explanation:
@@ -324,10 +324,10 @@ Action: pause → never share codes → call real number / safe word → report 
         checkIn: {
           prompt: "What did Owen do right in this situation?",
           choices: [
-            "Assumed it must be true since it looked like a real screenshot” belongs to a different situation than the one in the question stem",
-            "Ignored it completely and did nothing” belongs to a different situation than the one in the question stem",
+            "Assumed it must be true since it looked like a real screenshot",
+            "Ignored it completely and did nothing",
             "Didn't share it further, warned the affected classmate, and reported it to a trusted adult",
-            "Forwarded it to more people so everyone could see how funny it was” belongs to a different situation than the one in the question stem",
+            "Forwarded it to more people so everyone could see how funny it was",
           ],
           correctIndex: 2,
           explanation:
@@ -344,8 +344,8 @@ Action: pause → never share codes → call real number / safe word → report 
           choices: [
             "Don't click the link or reply with credentials — contact the school directly through a known, official channel to check",
             "It can seem like click the link and see what happens, but that reading skips the distinction this question is testing",
-            "Reply with your student ID and password since it sounds official” belongs to a different situation than the one in the question stem",
-            "“Forward it to friends to warn them, including the link” describes a different situation than the one in the question stem",
+            "Reply with your student ID and password since it sounds official",
+            "Forward it to friends to warn them, including the link",
           ],
           correctIndex: 0,
           explanation:
@@ -382,7 +382,7 @@ Action: pause → never share codes → call real number / safe word → report 
       choices: [
             "Picking “It makes the AI slower” is a common mix-up that confuses a nearby idea with the right one",
             "What you share may be stored, reviewed, or used to train future models — and you can't take it back",
-            "“It uses too much data on your plan” describes a different situation than the one in the question stem",
+            "It uses too much data on your plan",
             "If the goal were something else, “Chatbots can't read text” might work; for this check, it does not",
           ],
       correctIndex: 1,
@@ -393,10 +393,10 @@ Action: pause → never share codes → call real number / safe word → report 
       id: "q2",
       question: "What is a deepfake?",
       choices: [
-            "A video that's simply been slowed down or sped up” belongs to a different situation than the one in the question stem",
-            "Grainy, low-quality footage that's just hard to see clearly” belongs to a different situation than the one in the question stem",
+            "A video that's simply been slowed down or sped up",
+            "Grainy, low-quality footage that's just hard to see clearly",
             "AI-generated fake media that makes a real person appear to say or do things they didn't",
-            "Any video edited with normal filters or editing apps, nothing AI-specific” belongs to a different situation than the one in the question stem",
+            "Any video edited with normal filters or editing apps, nothing AI-specific",
           ],
       correctIndex: 2,
       explanation:
@@ -406,9 +406,9 @@ Action: pause → never share codes → call real number / safe word → report 
       id: "q3",
       question: "You get an urgent call that sounds like a family member begging for money fast. What's the safest response?",
       choices: [
-            "Reply to the call with your bank password” belongs to a different situation than the one in the question stem",
+            "Reply to the call with your bank password",
             "Hang up and call that family member back directly to verify",
-            "Post about it online to ask strangers” belongs to a different situation than the one in the question stem",
+            "Post about it online to ask strangers",
             "Send the money immediately — the voice is proof",
           ],
       correctIndex: 1,
@@ -419,10 +419,10 @@ Action: pause → never share codes → call real number / safe word → report 
       id: "q4",
       question: "Which habit best reduces your risk in an AI world?",
       choices: [
-            "Believe every shocking video you see” belongs to a different situation than the one in the question stem",
+            "Believe every shocking video you see",
             "Share less personal data and verify sensational media before believing or sharing",
-            "Turn off your phone forever” belongs to a different situation than the one in the question stem",
-            "Share as much as possible so AI knows you well” belongs to a different situation than the one in the question stem",
+            "Turn off your phone forever",
+            "Share as much as possible so AI knows you well",
           ],
       correctIndex: 1,
       explanation:
@@ -433,9 +433,9 @@ Action: pause → never share codes → call real number / safe word → report 
       question: "Is it true that only celebrities and politicians need to worry about being deepfaked?",
       choices: [
             "False — ordinary teens have been targeted with fake images or audio, especially from public content",
-            "True — attackers only bother with celebrities and politicians” belongs to a different situation than the one in the question stem",
-            "False — but only people with huge followings face any real risk” belongs to a different situation than the one in the question stem",
-            "True — school accounts are technically impossible to spoof” belongs to a different situation than the one in the question stem",
+            "True — attackers only bother with celebrities and politicians",
+            "False — but only people with huge followings face any real risk",
+            "True — school accounts are technically impossible to spoof",
           ],
       correctIndex: 0,
       explanation:
@@ -446,9 +446,9 @@ Action: pause → never share codes → call real number / safe word → report 
       question: "You receive a flawless, urgent message asking you to 'verify your login' through a link. What's the smartest move?",
       choices: [
             "Don't click the link — go directly to the real site or app to check instead",
-            "Forward it to friends so they can click it too” belongs to a different situation than the one in the question stem",
-            "Click the link immediately since it looks professional” belongs to a different situation than the one in the question stem",
-            "Reply with your password to be safe” belongs to a different situation than the one in the question stem",
+            "Forward it to friends so they can click it too",
+            "Click the link immediately since it looks professional",
+            "Reply with your password to be safe",
           ],
       correctIndex: 0,
       explanation:
@@ -458,9 +458,9 @@ Action: pause → never share codes → call real number / safe word → report 
       id: "q7",
       question: "A classmate makes an AI-edited fake image of another student 'as a joke,' without asking them. Is this okay?",
       choices: [
-            "“Yes, as long as it was meant to be funny” describes a different situation than the one in the question stem",
-            "“It's only a problem if the person finds out” describes a different situation than the one in the question stem",
-            "Yes, but only if fewer than 10 people see it” belongs to a different situation than the one in the question stem",
+            "Yes, as long as it was meant to be funny",
+            "It's only a problem if the person finds out",
+            "Yes, but only if fewer than 10 people see it",
             "No — creating AI content of someone without their consent can cause real harm, regardless of intent",
           ],
       correctIndex: 3,
@@ -472,9 +472,9 @@ Action: pause → never share codes → call real number / safe word → report 
       question: "How does this lesson's content connect to being a responsible digital citizen?",
       choices: [
             "Managing your digital footprint, verifying media, and respecting others' consent online are core parts of responsible digital citizenship",
-            "“Digital citizenship only applies when you're using a school-issued device” describes a different situation than the one in the question stem",
+            "Digital citizenship only applies when you're using a school-issued device",
             "A rushed pass can land on digital citizenship mainly means posting politely and nothing else”; careful readers reject it for this problem",
-            "“It doesn't relate — privacy is a separate topic from digital citizenship” describes a different situation than the one in the question stem",
+            "It doesn't relate — privacy is a separate topic from digital citizenship",
           ],
       correctIndex: 0,
       explanation:

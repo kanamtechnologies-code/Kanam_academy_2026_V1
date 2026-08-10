@@ -87,9 +87,9 @@ export const daLesson4: DataLessonConfig = {
         checkIn: {
           prompt: "Two orders are priced exactly $4.00. Does WHERE price > 4 include them?",
           choices: [
-            "Yes, > includes the boundary” belongs to a different situation than the one in the question stem",
+            "Yes, > includes the boundary",
             "No, > is strictly greater, so exactly 4 is excluded",
-            "Only one of them” belongs to a different situation than the one in the question stem",
+            "Only one of them",
           ],
           correctIndex: 1,
           explanation: "The `>` operator means strictly greater than — a value exactly equal to 4 does not pass. Use `>=` to include the boundary.",
@@ -148,8 +148,8 @@ export const daLesson4: DataLessonConfig = {
           prompt: "What's wrong with `WHERE item = Salad` (no quotes)?",
           choices: [
             "SQL will think Salad is a column name, not a text value, and it will fail",
-            "It should use == instead of =” belongs to a different situation than the one in the question stem",
-            "Nothing, it works fine” belongs to a different situation than the one in the question stem",
+            "It should use == instead of =",
+            "Nothing, it works fine",
           ],
           correctIndex: 0,
           explanation: "Without quotes, SQL treats \"Salad\" as if it were a column name rather than a text value — the query breaks.",

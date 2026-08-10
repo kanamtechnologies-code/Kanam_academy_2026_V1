@@ -75,8 +75,8 @@ Today's lesson: **Systematic Troubleshooting Others Can Reuse**.
           prompt: "A form shows a red error five minutes before your deadline. Which response follows the troubleshooting mindset from this lesson?",
           choices: [
             "Pause, read exactly what the error says, and treat it as a common, likely-fixable issue rather than a disaster",
-            "Immediately close the tab and start completely over without reading the error” belongs to a different situation than the one in the question stem",
-            "“Assume the entire internet is broken and give up” describes a different situation than the one in the question stem",
+            "Immediately close the tab and start completely over without reading the error",
+            "Assume the entire internet is broken and give up",
             "A rushed pass can land on click submit rapidly ten times in a row”; careful readers reject it for this problem",
           ],
           correctIndex: 0,
@@ -117,8 +117,8 @@ Today's lesson: **Systematic Troubleshooting Others Can Reuse**.
           prompt: "During a video call, the video freezes every few minutes but audio keeps working fine. According to the process, what should you check next?",
           choices: [
             "It can seem like immediately buy a new laptop, but that reading skips the distinction this question is testing",
-            "Nothing — freezing video always means the device is permanently broken” belongs to a different situation than the one in the question stem",
-            "“Delete the app and never use video calls again” describes a different situation than the one in the question stem",
+            "Nothing — freezing video always means the device is permanently broken",
+            "Delete the app and never use video calls again",
             "What recently changed (new tabs, network switch, app update) and whether it happens on every call or just this one",
           ],
           correctIndex: 3,
@@ -193,7 +193,7 @@ Today's lesson: **Systematic Troubleshooting Others Can Reuse**.
             "Picking “Immediately create a brand new account” is a common mix-up that confuses a nearby idea with the right one",
             "Break it into small, checkable questions — can I log in? does it happen on every page? every device? every browser?",
             "Some learners answer “Call the college and demand a refund”, yet that does not match the precise idea from the lesson",
-            "“Assume the entire portal is down for everyone and give up” describes a different situation than the one in the question stem",
+            "Assume the entire portal is down for everyone and give up",
           ],
           correctIndex: 1,
           explanation:
@@ -267,7 +267,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
           choices: [
             "It can seem like give up on the scholarship entirely, but that reading skips the distinction this question is testing",
             "Keep resubmitting the exact same file repeatedly — familiar wording, wrong fit for what the prompt is actually asking",
-            "Assume the portal is broken and email an angry complaint immediately” belongs to a different situation than the one in the question stem",
+            "Assume the portal is broken and email an angry complaint immediately",
             "Compress or re-export the PDF at a smaller file size, since the error specifically names the file size as the problem",
           ],
           correctIndex: 3,
@@ -287,7 +287,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
         checkIn: {
           prompt: "You're mid-panic over a broken app and can't remember what to do first. According to this checklist, what's actually step one?",
           choices: [
-            "Assume the device is permanently broken” belongs to a different situation than the one in the question stem",
+            "Assume the device is permanently broken",
             "Immediately uninstall and reinstall everything",
             "Call every tech support number you can find at once",
             "Pause and take a breath before touching anything else",
@@ -314,9 +314,9 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
           prompt: "A site says 'upload failed' and the help text mentions a 5 MB limit. Your file is 12 MB. What's the smartest next step?",
           choices: [
             "Compress or resize the file to meet the limit, then retry",
-            "Buy a new laptop” belongs to a different situation than the one in the question stem",
-            "Keep uploading the same file until it works” belongs to a different situation than the one in the question stem",
-            "Assume the site is hacked” belongs to a different situation than the one in the question stem",
+            "Buy a new laptop",
+            "Keep uploading the same file until it works",
+            "Assume the site is hacked",
           ],
           correctIndex: 0,
           explanation:
@@ -384,7 +384,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       choices: [
             "A rushed pass can land on they should buy a new device”; careful readers reject it for this problem",
             "Troubleshooting is a learnable process, not a talent; staying calm and systematic is the real skill",
-            "They're right — some people just can't do tech” belongs to a different situation than the one in the question stem",
+            "They're right — some people just can't do tech",
             "Only experts can fix anything — familiar wording, wrong fit for what the prompt is actually asking",
           ],
       correctIndex: 1,
@@ -395,10 +395,10 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       id: "q2",
       question: "You're trying to submit a job application. Your laptop has no internet, but your phone works fine on the same Wi-Fi. What has this told you?",
       choices: [
-            "The Wi-Fi network is completely down” belongs to a different situation than the one in the question stem",
+            "The Wi-Fi network is completely down",
             "The problem is isolated to the laptop, not the network",
-            "You need a new phone” belongs to a different situation than the one in the question stem",
-            "Nothing useful” belongs to a different situation than the one in the question stem",
+            "You need a new phone",
+            "Nothing useful",
           ],
       correctIndex: 1,
       explanation:
@@ -409,9 +409,9 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       question: "A shared Google Doc for your group project is acting weird after hours of edits. Why does 'turn it off and on again' (restart the browser/device) fix so many problems?",
       choices: [
             "It clears stuck temporary states in memory and restarts from a known-good condition",
-            "“It installs new hardware” describes a different situation than the one in the question stem",
-            "It's just a joke with no real effect” belongs to a different situation than the one in the question stem",
-            "It deletes all your files and starts over” belongs to a different situation than the one in the question stem",
+            "It installs new hardware",
+            "It's just a joke with no real effect",
+            "It deletes all your files and starts over",
           ],
       correctIndex: 0,
       explanation:
@@ -422,9 +422,9 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       question: "A college portal says: 'Upload failed: File exceeds 5 MB limit.' What's the smartest move?",
       choices: [
             "Read it carefully — then compress/convert the file or search that exact wording for a fix",
-            "Assume your device is permanently broken” belongs to a different situation than the one in the question stem",
-            "Click random buttons until it goes away” belongs to a different situation than the one in the question stem",
-            "Close it instantly so you don't have to look at it” belongs to a different situation than the one in the question stem",
+            "Assume your device is permanently broken",
+            "Click random buttons until it goes away",
+            "Close it instantly so you don't have to look at it",
           ],
       correctIndex: 0,
       explanation:
@@ -450,7 +450,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
             "Buy new hardware immediately” is close in topic, but it is the wrong fit for what the prompt asks",
             "Delete the app permanently. That option sounds confident, but it leaves out the deciding constraint",
             "Make the exact problem happen again in a describable, repeatable way so it can actually be studied",
-            "“Ignore the problem and hope it goes away” describes a different situation than the one in the question stem",
+            "Ignore the problem and hope it goes away",
           ],
       correctIndex: 2,
       explanation:
@@ -463,7 +463,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
             "A rushed pass can land on call the college and demand a refund”; careful readers reject it for this problem",
             "Create a brand-new account immediately — familiar wording, wrong fit for what the prompt is actually asking",
             "Break it into small, checkable questions — can I log in? Does it happen on every page, device, and browser?",
-            "Assume the entire portal is down for everyone and give up” belongs to a different situation than the one in the question stem",
+            "Assume the entire portal is down for everyone and give up",
           ],
       correctIndex: 2,
       explanation:
@@ -474,9 +474,9 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
       question: "Five minutes before a deadline, a form shows a red error. Which response best matches the troubleshooting mindset from this lesson?",
       choices: [
             "Pause, read exactly what the error says, and treat it as a likely common, fixable issue",
-            "Close the tab immediately and start completely over from scratch” belongs to a different situation than the one in the question stem",
-            "Click submit rapidly over and over without reading anything” belongs to a different situation than the one in the question stem",
-            "Assume the whole internet is broken and give up” belongs to a different situation than the one in the question stem",
+            "Close the tab immediately and start completely over from scratch",
+            "Click submit rapidly over and over without reading anything",
+            "Assume the whole internet is broken and give up",
           ],
       correctIndex: 0,
       explanation:

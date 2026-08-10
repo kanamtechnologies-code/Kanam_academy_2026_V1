@@ -64,7 +64,7 @@ export const daLesson10: DataLessonConfig = {
           prompt: "What must be true for a pie chart to make sense?",
           choices: [
             "The slices must all be the same size",
-            "There must be at least 10 slices” belongs to a different situation than the one in the question stem",
+            "There must be at least 10 slices",
             "The slices must add up to one meaningful whole",
           ],
           correctIndex: 2,
@@ -111,8 +111,8 @@ export const daLesson10: DataLessonConfig = {
         checkIn: {
           prompt: "You have 15 nearly-equal categories to show. Is a pie chart a good choice?",
           choices: [
-            "“Yes, but only if it's 3-D” describes a different situation than the one in the question stem",
-            "Yes, more slices always means more detail” belongs to a different situation than the one in the question stem",
+            "Yes, but only if it's 3-D",
+            "Yes, more slices always means more detail",
             "No — with that many similar-sized slices, a sorted bar chart is much easier to read",
           ],
           correctIndex: 2,
@@ -221,9 +221,9 @@ export const daLesson10: DataLessonConfig = {
         checkIn: {
           prompt: "Your data is 'average temperature in 5 cities.' Is a pie chart appropriate?",
           choices: [
-            "Yes, but only if all 5 cities have the same temperature” belongs to a different situation than the one in the question stem",
+            "Yes, but only if all 5 cities have the same temperature",
             "No — temperatures don't add up to a meaningful whole, so a bar chart fits better",
-            "Yes, any 5 numbers can be a pie” belongs to a different situation than the one in the question stem",
+            "Yes, any 5 numbers can be a pie",
           ],
           correctIndex: 1,
           explanation: "Temperatures are independent measurements, not parts of one total — summing them wouldn't mean anything. A bar chart compares them honestly instead.",

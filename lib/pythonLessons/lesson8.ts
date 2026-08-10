@@ -155,8 +155,8 @@ export const lesson8: PythonLessonConfig = {
           prompt: 'Why append a variable like `choice` instead of typing `"pizza"` directly?',
           choices: [
             "Using the variable keeps append and remove in sync if the value ever changes",
-            "It makes the list bigger” belongs to a different situation than the one in the question stem",
-            "It's required by Python” belongs to a different situation than the one in the question stem",
+            "It makes the list bigger",
+            "It's required by Python",
           ],
           correctIndex: 0,
           explanation: "Using a variable means append() and remove() both reference the same value — if you update the variable, both stay consistent.",
@@ -244,9 +244,9 @@ export const lesson8: PythonLessonConfig = {
         checkIn: {
           prompt: "Your list should have 2 items after two appends, but print(choices) shows 3. What's a good first debugging step?",
           choices: [
-            "Give up and rewrite everything” belongs to a different situation than the one in the question stem",
+            "Give up and rewrite everything",
             "Print the list after EACH append to see exactly where the extra item appears",
-            "Add another append to fix it” belongs to a different situation than the one in the question stem",
+            "Add another append to fix it",
           ],
           correctIndex: 1,
           explanation: "Printing after each step isolates exactly which line introduced the unexpected item, rather than guessing.",

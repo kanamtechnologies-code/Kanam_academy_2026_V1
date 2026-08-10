@@ -68,10 +68,10 @@ Today's lesson: **Bias, Fairness, and Data**.
         checkIn: {
           prompt: "Where does AI bias usually come from?",
           choices: [
-            "Using the AI too much” belongs to a different situation than the one in the question stem",
-            "The AI deciding to be prejudiced on its own” belongs to a different situation than the one in the question stem",
+            "Using the AI too much",
+            "The AI deciding to be prejudiced on its own",
             "Patterns (often unfair ones) in the human-made training data",
-            "Slow internet” belongs to a different situation than the one in the question stem",
+            "Slow internet",
           ],
           correctIndex: 2,
           explanation:
@@ -91,8 +91,8 @@ Today's lesson: **Bias, Fairness, and Data**.
         checkIn: {
           prompt: "A face-unlock AI works great for some people but poorly for others. What's the most likely cause?",
           choices: [
-            "Those people are using it wrong” belongs to a different situation than the one in the question stem",
-            "Phones can't recognize faces at all” belongs to a different situation than the one in the question stem",
+            "Those people are using it wrong",
+            "Phones can't recognize faces at all",
             "The training photos weren't representative of everyone",
             "The AI is having an off day and needs to be restarted",
           ],
@@ -113,9 +113,9 @@ Today's lesson: **Bias, Fairness, and Data**.
         checkIn: {
           prompt: "Is the statement 'computers are neutral, so AI decisions are always objective' true?",
           choices: [
-            "True, but only for chatbots” belongs to a different situation than the one in the question stem",
-            "It depends on the brand of computer” belongs to a different situation than the one in the question stem",
-            "True — computers can't be biased” belongs to a different situation than the one in the question stem",
+            "True, but only for chatbots",
+            "It depends on the brand of computer",
+            "True — computers can't be biased",
             "False — an AI is only as fair as the data and design choices behind it",
           ],
           correctIndex: 3,
@@ -159,10 +159,10 @@ Today's lesson: **Bias, Fairness, and Data**.
         checkIn: {
           prompt: "Does AI bias require someone to have intentionally programmed unfairness?",
           choices: [
-            "“No, bias is impossible in AI systems” describes a different situation than the one in the question stem",
-            "Yes, bias only exists if it was done on purpose” belongs to a different situation than the one in the question stem",
+            "No, bias is impossible in AI systems",
+            "Yes, bias only exists if it was done on purpose",
             "No — bias usually comes from unintentional gaps in data, and the harm is real regardless of intent",
-            "Yes, and it's always the AI's own fault, not the data's” belongs to a different situation than the one in the question stem",
+            "Yes, and it's always the AI's own fault, not the data's",
           ],
           correctIndex: 2,
           explanation:
@@ -249,10 +249,10 @@ Today's lesson: **Bias, Fairness, and Data**.
         checkIn: {
           prompt: "Which of these helps REDUCE and reveal AI bias?",
           choices: [
-            "Only reporting one overall accuracy number and ignoring groups” belongs to a different situation than the one in the question stem",
-            "Removing all human review from decisions” belongs to a different situation than the one in the question stem",
+            "Only reporting one overall accuracy number and ignoring groups",
+            "Removing all human review from decisions",
             "Collecting representative data and testing performance across different groups",
-            "Using less diverse data to keep it simple” belongs to a different situation than the one in the question stem",
+            "Using less diverse data to keep it simple",
           ],
           correctIndex: 2,
           explanation:
@@ -319,7 +319,7 @@ Today's lesson: **Bias, Fairness, and Data**.
         checkIn: {
           prompt: "In the scholarship app, what role did zip code play, and why was historical training data risky here?",
           choices: [
-            "You might defend “Zip code was irrelevant and had no effect on the results” in casual talk, but it fails the definition used here",
+            "Zip code was irrelevant and had no effect on the results",
             "It can seem like the app failed only because it was too slow, but that reading skips the distinction this question is testing",
             "Some learners answer “The problem was that too many scholarships existed”, yet that does not match the precise idea from the lesson",
             "Zip code acted as a proxy for income, and historical data reflected past unequal access rather than who actually deserved matches",
@@ -337,10 +337,10 @@ Today's lesson: **Bias, Fairness, and Data**.
         checkIn: {
           prompt: "What's the most likely root cause of this medical AI's uneven performance?",
           choices: [
-            "Women and children have symptoms that are impossible for any AI to detect” belongs to a different situation than the one in the question stem",
+            "Women and children have symptoms that are impossible for any AI to detect",
             "Unrepresentative training data — the model rarely saw examples from those groups, so it learned their patterns poorly",
-            "“The AI intentionally chose to ignore certain patients” describes a different situation than the one in the question stem",
-            "“Medical AI can never be biased because it's based on science” describes a different situation than the one in the question stem",
+            "The AI intentionally chose to ignore certain patients",
+            "Medical AI can never be biased because it's based on science",
           ],
           correctIndex: 1,
           explanation:
@@ -375,10 +375,10 @@ Today's lesson: **Bias, Fairness, and Data**.
       id: "q1",
       question: "Where does AI bias usually come from?",
       choices: [
-            "The AI deciding to be prejudiced on its own” belongs to a different situation than the one in the question stem",
+            "The AI deciding to be prejudiced on its own",
             "Patterns (often unfair ones) in the human-made training data",
-            "Slow internet” belongs to a different situation than the one in the question stem",
-            "Using the AI too much” belongs to a different situation than the one in the question stem",
+            "Slow internet",
+            "Using the AI too much",
           ],
       correctIndex: 1,
       explanation:
@@ -390,8 +390,8 @@ Today's lesson: **Bias, Fairness, and Data**.
       choices: [
             "The AI is having an off day and needs to be restarted",
             "The training photos weren't representative of everyone",
-            "Those people are using it wrong” belongs to a different situation than the one in the question stem",
-            "Phones can't recognize faces at all” belongs to a different situation than the one in the question stem",
+            "Those people are using it wrong",
+            "Phones can't recognize faces at all",
           ],
       correctIndex: 1,
       explanation:
@@ -401,10 +401,10 @@ Today's lesson: **Bias, Fairness, and Data**.
       id: "q3",
       question: "Is the statement 'computers are neutral, so AI decisions are always objective' true?",
       choices: [
-            "True — computers can't be biased” belongs to a different situation than the one in the question stem",
-            "It depends on the brand of computer” belongs to a different situation than the one in the question stem",
+            "True — computers can't be biased",
+            "It depends on the brand of computer",
             "False — an AI is only as fair as the data and design choices behind it",
-            "True, but only for chatbots” belongs to a different situation than the one in the question stem",
+            "True, but only for chatbots",
           ],
       correctIndex: 2,
       explanation:
@@ -414,9 +414,9 @@ Today's lesson: **Bias, Fairness, and Data**.
       id: "q4",
       question: "Which of these helps REDUCE AI bias?",
       choices: [
-            "Removing humans from all decisions” belongs to a different situation than the one in the question stem",
-            "Only checking overall accuracy and ignoring groups” belongs to a different situation than the one in the question stem",
-            "Using less diverse data to keep it simple” belongs to a different situation than the one in the question stem",
+            "Removing humans from all decisions",
+            "Only checking overall accuracy and ignoring groups",
+            "Using less diverse data to keep it simple",
             "Collecting representative data and testing performance across different groups",
           ],
       correctIndex: 3,
@@ -427,10 +427,10 @@ Today's lesson: **Bias, Fairness, and Data**.
       id: "q5",
       question: "Does AI bias require someone to have intentionally programmed unfairness?",
       choices: [
-            "Yes, and only the AI itself is ever at fault” belongs to a different situation than the one in the question stem",
+            "Yes, and only the AI itself is ever at fault",
             "No — bias usually comes from unintentional data gaps, but the harm to real people is still real",
-            "No, because bias is impossible in software” belongs to a different situation than the one in the question stem",
-            "Yes, bias only exists if someone did it on purpose” belongs to a different situation than the one in the question stem",
+            "No, because bias is impossible in software",
+            "Yes, bias only exists if someone did it on purpose",
           ],
       correctIndex: 1,
       explanation:
@@ -440,10 +440,10 @@ Today's lesson: **Bias, Fairness, and Data**.
       id: "q6",
       question: "Why is 'overall accuracy' alone a risky way to judge whether an AI system is fair?",
       choices: [
-            "Accuracy can never be measured for AI systems” belongs to a different situation than the one in the question stem",
+            "Accuracy can never be measured for AI systems",
             "A high overall number can hide much worse performance for specific groups",
-            "Overall accuracy has nothing to do with fairness at all” belongs to a different situation than the one in the question stem",
-            "Overall accuracy is always the best and only measure needed” belongs to a different situation than the one in the question stem",
+            "Overall accuracy has nothing to do with fairness at all",
+            "Overall accuracy is always the best and only measure needed",
           ],
       correctIndex: 1,
       explanation:

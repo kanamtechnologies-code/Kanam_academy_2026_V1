@@ -75,9 +75,9 @@ Today's lesson: **Money, Goals & You**.
           prompt:
             "Two friends earn about the same from their summer jobs but spend very differently — one saves hard for a car, the other spends more on hangouts. What does this lesson say about that?",
           choices: [
-            "Whoever spends less is clearly more responsible with money” belongs to a different situation than the one in the question stem",
-            "Once someone has a budget, differences like this always go away” belongs to a different situation than the one in the question stem",
-            "This kind of income needs a strict 50/50 split to be considered normal” belongs to a different situation than the one in the question stem",
+            "Whoever spends less is clearly more responsible with money",
+            "Once someone has a budget, differences like this always go away",
+            "This kind of income needs a strict 50/50 split to be considered normal",
             "Their different values shape what feels \"worth it\" to each of them — neither is automatically wrong",
           ],
           correctIndex: 3,
@@ -128,10 +128,10 @@ Today's lesson: **Money, Goals & You**.
           prompt:
             "Sofia writes: \"I want to get better with money this year.\" A friend suggests a rewrite. Which version is most SMART-ish?",
           choices: [
-            "\"Put any extra money into savings whenever I remember.\"” belongs to a different situation than the one in the question stem",
+            "\"Put any extra money into savings whenever I remember.\"",
             "\"Save $150 for cleats by October 15 by setting aside $25 from each paycheck.\"",
-            "\"Stop spending on wants until I feel more responsible.\"” belongs to a different situation than the one in the question stem",
-            "\"Try to spend less on stuff I don't really need.\"” belongs to a different situation than the one in the question stem",
+            "\"Stop spending on wants until I feel more responsible.\"",
+            "\"Try to spend less on stuff I don't really need.\"",
           ],
           correctIndex: 1,
           explanation:
@@ -167,10 +167,10 @@ Today's lesson: **Money, Goals & You**.
           prompt:
             "A classmate's goal reads: \"I want to get better with money and maybe save up for something this year.\" Which rewrite is the strongest SMART-ish version?",
           choices: [
-            "\"Save aggressively for a few different things this year.\"” belongs to a different situation than the one in the question stem",
+            "\"Save aggressively for a few different things this year.\"",
             "\"Save $250 for a phone screen repair fund by December 1 by moving $25 from every biweekly paycheck.\"",
-            "\"Put money aside for repairs whenever there's some left over.\"” belongs to a different situation than the one in the question stem",
-            "“\"Really commit to saving more starting now.\"” describes a different situation than the one in the question stem",
+            "\"Put money aside for repairs whenever there's some left over.\"",
+            "\"Really commit to saving more starting now.\"",
           ],
           correctIndex: 1,
           explanation:
@@ -208,10 +208,10 @@ Today's lesson: **Money, Goals & You**.
           prompt:
             "Jayden sees a countdown timer saying a shoe drop ends in 20 minutes, and suddenly feels a strong urge to buy — even though he wasn't thinking about shoes an hour ago. What's going on?",
           choices: [
-            "Proof the shoes must be a smart purchase since he wants them so badly” belongs to a different situation than the one in the question stem",
+            "Proof the shoes must be a smart purchase since he wants them so badly",
             "A sign Jayden has unusually poor self-control that most people don't struggle with",
             "Present bias — a normal pull toward an immediate reward that fake urgency can amplify",
-            "A rule that means he should never buy shoes he actually wants” belongs to a different situation than the one in the question stem",
+            "A rule that means he should never buy shoes he actually wants",
           ],
           correctIndex: 2,
           explanation:
@@ -387,10 +387,10 @@ Same income, same wants — but the goal competed on payday instead of hoping fo
       id: "q5",
       question: "Which statement about present bias is most accurate?",
       choices: [
-            "It means every want you feel today is a bad purchase” belongs to a different situation than the one in the question stem",
-            "It only hits people with weak willpower, so trying harder is the main fix” belongs to a different situation than the one in the question stem",
+            "It means every want you feel today is a bad purchase",
+            "It only hits people with weak willpower, so trying harder is the main fix",
             "It's a common pull toward smaller rewards now; habits like auto-transfers reduce its pull",
-            "It only matters for long-term investing, not teen goals” belongs to a different situation than the one in the question stem",
+            "It only matters for long-term investing, not teen goals",
           ],
       correctIndex: 2,
       explanation:
@@ -402,9 +402,9 @@ Same income, same wants — but the goal competed on payday instead of hoping fo
         "A student says, \"I'll stay positive about my trip fund — I don't need a number or deadline.\" What's the main problem?",
       choices: [
             "Motivation helps, but without an amount, deadline, and funding habit the goal stays vague",
-            "Deadlines usually hurt motivation, so skipping them is the safer plan” belongs to a different situation than the one in the question stem",
+            "Deadlines usually hurt motivation, so skipping them is the safer plan",
             "A clear deadline alone is enough; the dollar amount can stay flexible forever",
-            "Numbers mainly matter for goals over $1,000; smaller ones can stay vague” belongs to a different situation than the one in the question stem",
+            "Numbers mainly matter for goals over $1,000; smaller ones can stay vague",
           ],
       correctIndex: 0,
       explanation:
@@ -415,10 +415,10 @@ Same income, same wants — but the goal competed on payday instead of hoping fo
       question:
         "Deja needs a $90 phone repair (she needs the phone for work) and wants a $70 friend outing in 6 weeks; her hours might get cut. Best sequencing?",
       choices: [
-            "Pause both until her hours are guaranteed, then start from zero” belongs to a different situation than the one in the question stem",
-            "Split every dollar 50/50 even if that delays the repair past when she needs the phone” belongs to a different situation than the one in the question stem",
+            "Pause both until her hours are guaranteed, then start from zero",
+            "Split every dollar 50/50 even if that delays the repair past when she needs the phone",
             "Prioritize the phone repair that protects her income, then schedule smaller amounts toward the outing",
-            "Fund the outing first because its deadline comes sooner” belongs to a different situation than the one in the question stem",
+            "Fund the outing first because its deadline comes sooner",
           ],
       correctIndex: 2,
       explanation:
@@ -428,9 +428,9 @@ Same income, same wants — but the goal competed on payday instead of hoping fo
       id: "q8",
       question: "When two goals compete for the same $40, what role should values play?",
       choices: [
-            "They only matter after you've funded every want on your list” belongs to a different situation than the one in the question stem",
-            "They replace any need to check the math or timeline” belongs to a different situation than the one in the question stem",
-            "They prove which option will earn you more money later” belongs to a different situation than the one in the question stem",
+            "They only matter after you've funded every want on your list",
+            "They replace any need to check the math or timeline",
+            "They prove which option will earn you more money later",
             "They help you choose which tradeoff fits what matters most to you right now",
           ],
       correctIndex: 3,

@@ -82,7 +82,7 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
             "Both activities count the same, so there's nothing to notice here — familiar wording, wrong fit for what the prompt is actually asking",
             "A common mix-up is to treat neither counts as real screen time as enough, which confuses a nearby idea with the right one",
             "The texting was more active/connecting, while the long autoplay stretch was mostly passive — a good candidate to notice and maybe trim",
-            "“The autoplay time was actually more valuable because it lasted longer” describes a different situation than the one in the question stem",
+            "The autoplay time was actually more valuable because it lasted longer",
           ],
           correctIndex: 2,
           explanation:
@@ -116,7 +116,7 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
             "A common mix-up is to treat it has no real effect on behavior as enough, which confuses a nearby idea with the right one",
             "It's a deliberate attention-grabbing nudge — the badge creates a small discomfort that motivates you to open the app and 'clear' it",
             "It can seem like it's required by law for every app to display, but that reading skips the distinction this question is testing",
-            "“It's a security feature meant to warn you about hacking attempts” describes a different situation than the one in the question stem",
+            "It's a security feature meant to warn you about hacking attempts",
           ],
           correctIndex: 1,
           explanation:
@@ -145,7 +145,7 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
         checkIn: {
           prompt: "You watch exciting, fast-paced videos right up until the moment you try to fall asleep, and then find it hard to actually fall asleep. What's the most likely explanation?",
           choices: [
-            "“It only matters what app you're using, not the content or the light” describes a different situation than the one in the question stem",
+            "It only matters what app you're using, not the content or the light",
             "It can seem like you simply need a louder alarm in the morning, but that reading skips the distinction this question is testing",
             "It can seem like videos have no effect on sleep at all, but that reading skips the distinction this question is testing",
             "Engaging content keeps your brain alert, and bright light late at night can also confuse your body's sense of when to feel sleepy",
@@ -179,8 +179,8 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
           choices: [
             "If the goal were something else, “Post something fake to feel better” might work; for this check, it does not",
             "Temporarily mute the accounts posting the most, or set specific check-in times instead of constant refreshing",
-            "Assume your own results don't matter since everyone else already got in somewhere” belongs to a different situation than the one in the question stem",
-            "Check the feed even more often to make sure you don't miss anything” belongs to a different situation than the one in the question stem",
+            "Assume your own results don't matter since everyone else already got in somewhere",
+            "Check the feed even more often to make sure you don't miss anything",
           ],
           correctIndex: 1,
           explanation:
@@ -215,9 +215,9 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
           prompt: "A feed sometimes shows you something amazing and sometimes nothing interesting at all, on an unpredictable schedule. Why does this specific pattern make it hard to stop checking?",
           choices: [
             "Unpredictable ('variable') rewards are especially habit-forming compared to a reward you'd get every single time",
-            "Variable rewards only affect video games, not social feeds” belongs to a different situation than the one in the question stem",
-            "It has no special effect compared to a predictable reward” belongs to a different situation than the one in the question stem",
-            "It's designed to be equally exciting every single time you check” belongs to a different situation than the one in the question stem",
+            "Variable rewards only affect video games, not social feeds",
+            "It has no special effect compared to a predictable reward",
+            "It's designed to be equally exciting every single time you check",
           ],
           correctIndex: 0,
           explanation:
@@ -270,10 +270,10 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
         checkIn: {
           prompt: "During finals week, you keep telling yourself 'I'll sleep once I finish studying,' and end up staying up later each night while feeling less focused. What does this lesson suggest instead?",
           choices: [
-            "“Study only right before bed for maximum retention” describes a different situation than the one in the question stem",
+            "Study only right before bed for maximum retention",
             "Pick a firm bedtime in advance and build study blocks around it, since a rested brain studies more effectively",
-            "Keep pushing sleep later — focus doesn't depend on sleep” belongs to a different situation than the one in the question stem",
-            "“Sleep has no connection to exam performance” describes a different situation than the one in the question stem",
+            "Keep pushing sleep later — focus doesn't depend on sleep",
+            "Sleep has no connection to exam performance",
           ],
           correctIndex: 1,
           explanation:
@@ -318,9 +318,9 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
         checkIn: {
           prompt: "Riley loses two hours to late-night scrolling before an exam. What's the most direct wellbeing fix to try first?",
           choices: [
-            "Drink more caffeine the next morning” belongs to a different situation than the one in the question stem",
-            "Download more apps to track productivity” belongs to a different situation than the one in the question stem",
-            "Accept that sleep doesn't affect test performance” belongs to a different situation than the one in the question stem",
+            "Drink more caffeine the next morning",
+            "Download more apps to track productivity",
+            "Accept that sleep doesn't affect test performance",
             "Move the phone out of the bedroom and set a wind-down routine before bed",
           ],
           correctIndex: 3,
@@ -388,7 +388,7 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
       question: "You're drafting a college essay for two hours, then doomscrolling for two hours. Which best explains why 'all screen time is bad' is too simple?",
       choices: [
             "Creating, learning, and connecting are very different from passive doomscrolling",
-            "Active and passive screen time affect sleep and focus the same way” belongs to a different situation than the one in the question stem",
+            "Active and passive screen time affect sleep and focus the same way",
             "Any screen use under four hours is automatically healthy by definition",
             "Time on a phone never counts if you're multitasking with homework open",
           ],
@@ -413,10 +413,10 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
       id: "q3",
       question: "You're filling out a scholarship form while texting and watching a show. What actually happens when you 'multitask' like that?",
       choices: [
-            "Your eyes get the benefit of the 20-20-20 rule” belongs to a different situation than the one in the question stem",
+            "Your eyes get the benefit of the 20-20-20 rule",
             "You task-switch rapidly, which makes you slower and more error-prone",
-            "It always saves time” belongs to a different situation than the one in the question stem",
-            "Your brain does all three at once, perfectly” belongs to a different situation than the one in the question stem",
+            "It always saves time",
+            "Your brain does all three at once, perfectly",
           ],
       correctIndex: 1,
       explanation:
@@ -427,9 +427,9 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
       question: "Decision day posts flood your feed and suddenly everyone else's life looks perfect. What's the best reason a feed can make you feel worse?",
       choices: [
             "A feed is a highlight reel, so you compare your behind-the-scenes to everyone's greatest hits",
-            "“Comparison is impossible online” describes a different situation than the one in the question stem",
+            "Comparison is impossible online",
             "Your phone is broken. That option sounds confident, but it leaves out the deciding constraint",
-            "Feeds always show the full, honest truth about people” belongs to a different situation than the one in the question stem",
+            "Feeds always show the full, honest truth about people",
           ],
       correctIndex: 0,
       explanation:
@@ -439,9 +439,9 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
       id: "q5",
       question: "You're on a laptop all afternoon for a remote internship. Which is a correct use of the 20-20-20 rule?",
       choices: [
-            "Use your phone for only 20 minutes a day” belongs to a different situation than the one in the question stem",
-            "Take a 20-minute nap after 20 videos” belongs to a different situation than the one in the question stem",
-            "Stay 20 inches from the screen at all 20 times” belongs to a different situation than the one in the question stem",
+            "Use your phone for only 20 minutes a day",
+            "Take a 20-minute nap after 20 videos",
+            "Stay 20 inches from the screen at all 20 times",
             "Every 20 minutes, look at something 20 feet away for 20 seconds",
           ],
       correctIndex: 3,
@@ -452,8 +452,8 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
       id: "q6",
       question: "An app shows you a great post sometimes and nothing interesting other times, on an unpredictable schedule. Why does this specific pattern make it especially hard to stop checking?",
       choices: [
-            "“It has no different effect than a reward you'd always receive” describes a different situation than the one in the question stem",
-            "“Predictable rewards are always more addictive than unpredictable ones” describes a different situation than the one in the question stem",
+            "It has no different effect than a reward you'd always receive",
+            "Predictable rewards are always more addictive than unpredictable ones",
             "Unpredictable ('variable') rewards are known to be especially habit-forming compared to a reward that arrives every single time",
             "It can seem like it only affects people who play video games, but that reading skips the distinction this question is testing",
           ],
@@ -466,8 +466,8 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
       question: "During college decision season, you feel worse every time you check a feed full of acceptance posts. What's a reasonable, healthy response?",
       choices: [
             "Post something misleading to feel better — familiar wording, wrong fit for what the prompt is actually asking",
-            "Conclude your own results don't matter because everyone else already got in somewhere” belongs to a different situation than the one in the question stem",
-            "“Check even more often so you don't miss anything” describes a different situation than the one in the question stem",
+            "Conclude your own results don't matter because everyone else already got in somewhere",
+            "Check even more often so you don't miss anything",
             "Temporarily mute the accounts posting the most, or set specific check-in times instead of constant refreshing",
           ],
       correctIndex: 3,
@@ -478,10 +478,10 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
       id: "q8",
       question: "During finals week, you keep saying 'I'll sleep once I finish studying' and end up staying up later each night while feeling less focused. What does this lesson recommend instead?",
       choices: [
-            "Keep pushing sleep later since focus has no connection to sleep” belongs to a different situation than the one in the question stem",
+            "Keep pushing sleep later since focus has no connection to sleep",
             "Pick a firm bedtime in advance and build study blocks around it, since a rested brain studies more effectively",
-            "“Only study right before bed for best retention” describes a different situation than the one in the question stem",
-            "You might defend “Sleep only matters during summer break” in casual talk, but it fails the definition used here",
+            "Only study right before bed for best retention",
+            "Sleep only matters during summer break",
           ],
       correctIndex: 1,
       explanation:

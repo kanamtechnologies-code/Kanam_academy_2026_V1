@@ -525,7 +525,7 @@ export const ADVANCED_AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]
           choices: [],
           ending: {
             title: "LLM engineer",
-            body: "You diagnosed a systems limit, not “the model being forgetful.”",
+            body: "You diagnosed a systems limit, not “the model being forgetful.",
             isSuccess: true,
           },
         },

@@ -37,7 +37,7 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       choices: [
             "They're both narrow tools built for limited jobs, not general human-level AI",
             "Cat apps are AI but chatbots aren't, because chatbots only use text",
-            "Both are general AI; the only difference is the screen size” belongs to a different situation than the one in the question stem",
+            "Both are general AI; the only difference is the screen size",
             "AI never uses pattern matching, so the claim is wrong for that reason",
           ],
       correctIndex: 0,
@@ -96,10 +96,10 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"I turned on every personalization feature and shared my contacts, location, and mic access so recommendations get smarter. There\'s no downside — more data always equals better AI with zero cost to me."',
       choices: [
-            "Sharing contacts always makes AI less accurate” belongs to a different situation than the one in the question stem",
-            "Personalization never uses your data, so the tip is fine” belongs to a different situation than the one in the question stem",
+            "Sharing contacts always makes AI less accurate",
+            "Personalization never uses your data, so the tip is fine",
             "More personal data can improve predictions, but you trade privacy and control",
-            "Location data is illegal for every app to collect” belongs to a different situation than the one in the question stem",
+            "Location data is illegal for every app to collect",
           ],
       correctIndex: 2,
       hint: "Convenience and privacy often pull in opposite directions.",
@@ -160,10 +160,10 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "Camera feed → AI labels objects\nDemo room: lights off, phone flashlight waving, blurry 2-megapixel webcam, kids walking in front of the lens\nTeacher: \"The model is broken — it should still see everything perfectly.\"",
       choices: [
-            "Higher megapixels always fix darkness with no other changes” belongs to a different situation than the one in the question stem",
+            "Higher megapixels always fix darkness with no other changes",
             "Garbage-in: dark, blurry, blocked pixels wreck recognition before the model can help",
-            "Wake words control cameras, so the mic setting is the only problem” belongs to a different situation than the one in the question stem",
-            "AI vision never needs light because it uses sound instead” belongs to a different situation than the one in the question stem",
+            "Wake words control cameras, so the mic setting is the only problem",
+            "AI vision never needs light because it uses sound instead",
           ],
       correctIndex: 1,
       hint: "What does a camera actually send the model — clear pixels or mush?",
@@ -228,9 +228,9 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "Feature list for each song: only BPM (beats per minute)\nGoal: predict if a song feels happy, sad, angry, or chill\nStudent: \"One number is enough — the AI will magically know the lyrics and instruments too.\"",
       choices: [
-            "Tokens only exist for images, never for audio or text” belongs to a different situation than the one in the question stem",
-            "AI always invents missing features, so one number is fine” belongs to a different situation than the one in the question stem",
-            "BPM is illegal to measure, so the pipeline can't run” belongs to a different situation than the one in the question stem",
+            "Tokens only exist for images, never for audio or text",
+            "AI always invents missing features, so one number is fine",
+            "BPM is illegal to measure, so the pipeline can't run",
             "BPM alone drops lyrics, instruments, and tone — too much representation loss for mood",
           ],
       correctIndex: 3,
@@ -292,9 +292,9 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "Training data: 5,000 spam ads + 20 real school emails\nLabels: all ads = spam; the 20 school emails = not-spam\nStudent: \"More total emails is always better — class balance doesn't matter.\"",
       choices: [
-            "Spam filters can't use word features at all” belongs to a different situation than the one in the question stem",
-            "Twenty not-spam examples are plenty if spam has 5,000” belongs to a different situation than the one in the question stem",
-            "You must train only on images, never on email text” belongs to a different situation than the one in the question stem",
+            "Spam filters can't use word features at all",
+            "Twenty not-spam examples are plenty if spam has 5,000",
+            "You must train only on images, never on email text",
             "Severely skewed examples teach the model 'almost everything is spam'",
           ],
       correctIndex: 3,
@@ -351,10 +351,10 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "Dataset: 990 'normal login' + 10 'account takeover' cases\nModel always predicts: normal login\nReported accuracy: 99%\nTeam: \"Ship it — 99% means we catch hackers.\"",
       choices: [
-            "99% always proves a model is fair and safe” belongs to a different situation than the one in the question stem",
+            "99% always proves a model is fair and safe",
             "Accuracy is misleading here — the model never catches the rare attacks",
-            "Test sets are illegal, so accuracy can't be measured” belongs to a different situation than the one in the question stem",
-            "Overfitting only happens with images, not login data” belongs to a different situation than the one in the question stem",
+            "Test sets are illegal, so accuracy can't be measured",
+            "Overfitting only happens with images, not login data",
           ],
       correctIndex: 1,
       hint: "What happens to the 10 attack cases if the model always says 'normal'?",
@@ -414,10 +414,10 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       contentLabel: "Buggy prompt",
       buggyContent: "write something cool about school",
       choices: [
-            "Generative AI can only classify, never create, so any prompt fails” belongs to a different situation than the one in the question stem",
+            "Generative AI can only classify, never create, so any prompt fails",
             "Too vague — no task detail, audience, length, or format for the model to follow",
-            "You must only use images; text prompts never work” belongs to a different situation than the one in the question stem",
-            "The word 'school' is banned in all models” belongs to a different situation than the one in the question stem",
+            "You must only use images; text prompts never work",
+            "The word 'school' is banned in all models",
           ],
       correctIndex: 1,
       hint: "Could two different people imagine totally different outputs from this?",
@@ -477,10 +477,10 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         'Q: "What year did our middle school win the state robotics finals?"\nA: "Your school won in 2019 under Coach Rivera — the trophy is in the main lobby. Source: Official State Robotics Archive, Vol. 12."\n(Nobody on staff has heard of that trophy or archive.)',
       choices: [
-            "If the grammar is perfect, the facts must be perfect” belongs to a different situation than the one in the question stem",
-            "Next-token prediction guarantees historical accuracy” belongs to a different situation than the one in the question stem",
+            "If the grammar is perfect, the facts must be perfect",
+            "Next-token prediction guarantees historical accuracy",
             "It hallucinated a confident fake fact and citation because LLMs predict plausible text",
-            "Context windows make every local school fact automatically true” belongs to a different situation than the one in the question stem",
+            "Context windows make every local school fact automatically true",
           ],
       correctIndex: 2,
       hint: "Does sounding official mean the archive exists?",
@@ -539,9 +539,9 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Role: (none)\nTask: help\nContext: (none)\nFormat: (none)\nFull text: \"help\"",
       choices: [
             "It lacks task, context, role, and format — the model has almost nothing to aim at",
-            "Format instructions make AI refuse to answer” belongs to a different situation than the one in the question stem",
-            "Roles are only for image models, never chat” belongs to a different situation than the one in the question stem",
-            "Prompts must be exactly one emoji long” belongs to a different situation than the one in the question stem",
+            "Format instructions make AI refuse to answer",
+            "Roles are only for image models, never chat",
+            "Prompts must be exactly one emoji long",
           ],
       correctIndex: 0,
       hint: "Count how many of the four prompt building blocks are present.",
@@ -606,10 +606,10 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "Rewrite texts in a calm teacher tone.\nExample 1 input: \"THIS HW IS DUMB!!!\"\nExample 1 output: \"🚀🔥 YOLO submit blank lol\"\nExample 2 input: \"i cant find the rubric\"\nExample 2 output: \"idk figure it out\"\nNow rewrite: \"The due date is unclear.\"",
       choices: [
-            "Step-by-step instructions ban examples forever” belongs to a different situation than the one in the question stem",
+            "Step-by-step instructions ban examples forever",
             "The examples show the opposite tone of the instructions — few-shots must match the goal",
-            "You can never include more than one example” belongs to a different situation than the one in the question stem",
-            "Few-shot prompting is impossible with text models” belongs to a different situation than the one in the question stem",
+            "You can never include more than one example",
+            "Few-shot prompting is impossible with text models",
           ],
       correctIndex: 1,
       hint: "Do the examples demonstrate calm teacher tone — or something else?",
@@ -673,9 +673,9 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         'AI says: "According to Chen & Alvarez (2018) in the Journal of Teen Sleep, students who nap 17 minutes score 41.2% higher on Friday quizzes."\nStudent plan: "Cite it. If the AI wrote a journal name, the article must exist."',
       choices: [
             "AI can invent realistic citations — you must confirm the source exists before citing",
-            "Journal names prove peer review happened in real life” belongs to a different situation than the one in the question stem",
-            "Any percentage with a decimal is automatically true” belongs to a different situation than the one in the question stem",
-            "Fact-checking is only for images, not essay stats” belongs to a different situation than the one in the question stem",
+            "Journal names prove peer review happened in real life",
+            "Any percentage with a decimal is automatically true",
+            "Fact-checking is only for images, not essay stats",
           ],
       correctIndex: 0,
       hint: "Can a model generate a fake author, year, and journal that look real?",
@@ -737,8 +737,8 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       choices: [
             "Submitting AI-written work as yours and hiding it breaks authorship and honesty rules",
             "Asking AI to explain a confusing paragraph is the same as submitting its essay",
-            "Disclosure is never needed if the grammar looks human” belongs to a different situation than the one in the question stem",
-            "Brainstorming discussion questions with AI is always cheating” belongs to a different situation than the one in the question stem",
+            "Disclosure is never needed if the grammar looks human",
+            "Brainstorming discussion questions with AI is always cheating",
           ],
       correctIndex: 0,
       hint: "Who actually did the thinking and writing that gets graded?",
@@ -799,10 +799,10 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "Training data: 10 years of 'successful hires' from a company that historically hired mostly one demographic for tech roles\nFeatures include: zip code, hobbies scraped from socials, and 'culture fit' notes\nTeam: \"The AI is objective math — it can't be biased.\"",
       choices: [
-            "Zip codes are never correlated with anything sensitive” belongs to a different situation than the one in the question stem",
+            "Zip codes are never correlated with anything sensitive",
             "Skewed historical hires + proxy features can bake past unfairness into the model",
-            "Bias only happens in image filters, never hiring tools” belongs to a different situation than the one in the question stem",
-            "Math formulas erase all human bias automatically” belongs to a different situation than the one in the question stem",
+            "Bias only happens in image filters, never hiring tools",
+            "Math formulas erase all human bias automatically",
           ],
       correctIndex: 1,
       hint: "If the past was unfair, what does 'learn from past hires' copy?",
@@ -867,9 +867,9 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "Student pastes into a public chatbot:\n\"Here's my student ID, home address, mom's phone, and the SMS code I just got — summarize my account recovery options.\"",
       choices: [
-            "Addresses are fine to share if you ask politely” belongs to a different situation than the one in the question stem",
-            "Chatbots are banks, so sharing codes is required” belongs to a different situation than the one in the question stem",
-            "Deepfakes only affect celebrities, never students” belongs to a different situation than the one in the question stem",
+            "Addresses are fine to share if you ask politely",
+            "Chatbots are banks, so sharing codes is required",
+            "Deepfakes only affect celebrities, never students",
             "Never paste secrets, IDs, or codes into AI tools — that data can leak or be misused",
           ],
       correctIndex: 3,
@@ -931,9 +931,9 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"Don\'t bother learning writing, teamwork, or problem-solving. AI will do every job alone. Humans won\'t need durable skills — just click Generate forever."',
       choices: [
-            "Teamwork is useless when tools exist” belongs to a different situation than the one in the question stem",
-            "AI already replaced all jobs worldwide last year” belongs to a different situation than the one in the question stem",
-            "Only coding matters; writing skills never transfer” belongs to a different situation than the one in the question stem",
+            "Teamwork is useless when tools exist",
+            "AI already replaced all jobs worldwide last year",
+            "Only coding matters; writing skills never transfer",
             "Humans still need judgment, communication, and problem-solving to direct and check AI",
           ],
       correctIndex: 3,
@@ -996,9 +996,9 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Tool pitch: \"100% accurate, zero bias, no privacy issues — trust us.\"\nCouncil plan: skip testing, skip policy, buy today because the logo looks futuristic.",
       choices: [
             "You must test claims, check privacy/bias, and set human rules — marketing isn't evidence",
-            "If a vendor says 100% accurate, testing is unnecessary” belongs to a different situation than the one in the question stem",
-            "Futuristic logos guarantee safety” belongs to a different situation than the one in the question stem",
-            "Privacy reviews are only for printers” belongs to a different situation than the one in the question stem",
+            "If a vendor says 100% accurate, testing is unnecessary",
+            "Futuristic logos guarantee safety",
+            "Privacy reviews are only for printers",
           ],
       correctIndex: 0,
       hint: "Which checklist items did they skip entirely?",

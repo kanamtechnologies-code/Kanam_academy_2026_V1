@@ -71,7 +71,7 @@ When you need a refresher, open **Help pocket** anytime for Coach, Commands, and
     },
     {
       title: "AI literacy: instructions → behavior",
-      text: "An AI system behaves according to the instructions and data it receives. If the output is wrong, clarify the instructions (your code) — don't assume the machine “understood.”",
+      text: "An AI system behaves according to the instructions and data it receives. If the output is wrong, clarify the instructions (your code) — don't assume the machine “understood.",
     },
   ],
   steps: [
@@ -292,7 +292,7 @@ print("Hi! I am " + name)
         checkIn: {
           prompt: 'What does `name = "Alex"` do?',
           choices: [
-            "Checks whether name equals Alex” belongs to a different situation than the one in the question stem",
+            "Checks whether name equals Alex",
             "Stores the text Alex in a variable called name",
             "Prints the word Alex to the screen",
           ],
@@ -341,8 +341,8 @@ print("Hi! I am " + name)
           prompt: 'Why does `"Hello! I am" + name` print `Hello! I amAlex` (no space)?',
           choices: [
             "+ never adds spaces — the space must be typed inside the quotes",
-            "The variable name is spelled wrong” belongs to a different situation than the one in the question stem",
-            "Python is broken” belongs to a different situation than the one in the question stem",
+            "The variable name is spelled wrong",
+            "Python is broken",
           ],
           correctIndex: 0,
           explanation:

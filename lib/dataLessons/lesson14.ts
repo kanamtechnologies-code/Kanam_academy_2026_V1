@@ -59,8 +59,8 @@ export const daLesson14: DataLessonConfig = {
         checkIn: {
           prompt: "What's the biggest difference between following a single-tool lesson and running a real investigation?",
           choices: [
-            "“There is no difference” describes a different situation than the one in the question stem",
-            "Real investigations never use SQL” belongs to a different situation than the one in the question stem",
+            "There is no difference",
+            "Real investigations never use SQL",
             "A real investigation requires deciding which tools to combine and in what order",
           ],
           correctIndex: 2,
@@ -84,8 +84,8 @@ export const daLesson14: DataLessonConfig = {
         checkIn: {
           prompt: "Why can't you answer \"who spent the most?\" using the orders table alone?",
           choices: [
-            "You can answer it just fine with orders alone” belongs to a different situation than the one in the question stem",
-            "“orders doesn't have a price column” describes a different situation than the one in the question stem",
+            "You can answer it just fine with orders alone",
+            "orders doesn't have a price column",
             "orders only has student_id, not the student's actual name — that lives in the students table",
           ],
           correctIndex: 2,
@@ -100,8 +100,8 @@ export const daLesson14: DataLessonConfig = {
         checkIn: {
           prompt: "Why must JOIN happen before GROUP BY in this investigation?",
           choices: [
-            "It doesn't matter — SQL runs clauses in any order” belongs to a different situation than the one in the question stem",
-            "“GROUP BY is faster if it runs first” describes a different situation than the one in the question stem",
+            "It doesn't matter — SQL runs clauses in any order",
+            "GROUP BY is faster if it runs first",
             "GROUP BY needs to bundle rows by student_name, which only exists after the JOIN attaches it",
           ],
           correctIndex: 2,
@@ -129,8 +129,8 @@ export const daLesson14: DataLessonConfig = {
         checkIn: {
           prompt: "In the final query, what does LIMIT 1 do that GROUP BY + ORDER BY alone don't?",
           choices: [
-            "It removes duplicate students” belongs to a different situation than the one in the question stem",
-            "It changes the sort order” belongs to a different situation than the one in the question stem",
+            "It removes duplicate students",
+            "It changes the sort order",
             "It keeps only the single top row instead of returning the full ranked list",
           ],
           correctIndex: 2,
@@ -145,8 +145,8 @@ export const daLesson14: DataLessonConfig = {
         checkIn: {
           prompt: "Do JOIN, GROUP BY, and ORDER BY need to be four separate queries?",
           choices: [
-            "Only GROUP BY and ORDER BY can be combined” belongs to a different situation than the one in the question stem",
-            "Yes, SQL can only do one thing per query” belongs to a different situation than the one in the question stem",
+            "Only GROUP BY and ORDER BY can be combined",
+            "Yes, SQL can only do one thing per query",
             "No — a single query can combine JOIN, GROUP BY, and ORDER BY together",
           ],
           correctIndex: 2,
@@ -284,9 +284,9 @@ export const daLesson14: DataLessonConfig = {
         checkIn: {
           prompt: "Alex ordered twice. Why does the final result show Alex once with $6.25?",
           choices: [
-            "JOIN removed duplicate students” belongs to a different situation than the one in the question stem",
+            "JOIN removed duplicate students",
             "GROUP BY bundled Alex's orders and SUM added the two prices together",
-            "LIMIT 1 merged Alex's rows automatically” belongs to a different situation than the one in the question stem",
+            "LIMIT 1 merged Alex's rows automatically",
           ],
           correctIndex: 1,
           explanation: "GROUP BY collapsed Alex's two order rows into one group, and SUM(price) added 3.50 + 2.75 = 6.25 — one row, one total.",

@@ -46,8 +46,8 @@ export const daLesson13: DataLessonConfig = {
           prompt: "If the cloud of dots tilts up and to the right, what does that mean?",
           choices: [
             "As one number goes up, the other tends to go up too — a positive relationship",
-            "The data must be wrong” belongs to a different situation than the one in the question stem",
-            "The two numbers have no relationship” belongs to a different situation than the one in the question stem",
+            "The data must be wrong",
+            "The two numbers have no relationship",
           ],
           correctIndex: 0,
           explanation: "An upward-tilting cloud means the two values tend to rise together — that's what a positive relationship looks like on a scatter plot.",
@@ -87,8 +87,8 @@ export const daLesson13: DataLessonConfig = {
           prompt: "On this scatter plot, what does each individual dot represent?",
           choices: [
             "One student, placed by both their study minutes and their score",
-            "One minute of study time” belongs to a different situation than the one in the question stem",
-            "The average score of the whole class” belongs to a different situation than the one in the question stem",
+            "One minute of study time",
+            "The average score of the whole class",
           ],
           correctIndex: 0,
           explanation: "A scatter plot needs two numbers per record. Each dot represents one student, positioned using both of their values at once.",
@@ -155,8 +155,8 @@ export const daLesson13: DataLessonConfig = {
           prompt: "Ice cream sales and drowning incidents both rise in summer, and they're correlated. What's really going on?",
           choices: [
             "A third factor (hot weather) drives both, even though neither causes the other",
-            "Drowning causes people to buy ice cream” belongs to a different situation than the one in the question stem",
-            "Ice cream causes drowning” belongs to a different situation than the one in the question stem",
+            "Drowning causes people to buy ice cream",
+            "Ice cream causes drowning",
           ],
           correctIndex: 0,
           explanation: "This is a classic example of correlation without causation — a hidden third variable (hot weather) increases both ice cream sales and swimming (and therefore drowning risk).",
@@ -171,8 +171,8 @@ export const daLesson13: DataLessonConfig = {
           prompt: "Given the trend so far, where would a student who studied 65 minutes most likely land?",
           choices: [
             "Somewhere in the upper-middle area, scoring noticeably higher than 55 but maybe just under 92",
-            "“Exactly at 92, no matter what” describes a different situation than the one in the question stem",
-            "Close to the low-score corner, near 55” belongs to a different situation than the one in the question stem",
+            "Exactly at 92, no matter what",
+            "Close to the low-score corner, near 55",
           ],
           correctIndex: 0,
           explanation: "Since the trend is positive, a study time between the two examples (65 minutes) would likely land with a score between them too — higher than the low end, but not guaranteed to hit the very top.",
@@ -193,8 +193,8 @@ export const daLesson13: DataLessonConfig = {
           prompt: "You have data on temperature and ice cream sales for each of 30 days. Which chart best shows if they're related?",
           choices: [
             "A scatter plot with temperature on one axis and sales on the other",
-            "A line chart of temperature over time” belongs to a different situation than the one in the question stem",
-            "A pie chart of total sales” belongs to a different situation than the one in the question stem",
+            "A line chart of temperature over time",
+            "A pie chart of total sales",
           ],
           correctIndex: 0,
           explanation: "To see whether two numbers (temperature and sales) are related to each other, a scatter plot — not a time-based line chart or a whole-to-parts pie chart — is the right tool.",
@@ -236,9 +236,9 @@ export const daLesson13: DataLessonConfig = {
         checkIn: {
           prompt: "A scatter plot shows a strong positive relationship between two numbers. What can you safely conclude?",
           choices: [
-            "The chart type is wrong and should be a bar chart instead” belongs to a different situation than the one in the question stem",
+            "The chart type is wrong and should be a bar chart instead",
             "The two numbers tend to move together, but that alone doesn't prove causation",
-            "One number definitely causes the other to change” belongs to a different situation than the one in the question stem",
+            "One number definitely causes the other to change",
           ],
           correctIndex: 1,
           explanation: "A scatter plot can reveal a strong tendency for two numbers to move together, but correlation alone is never enough to prove that one causes the other.",
@@ -260,8 +260,8 @@ export const daLesson13: DataLessonConfig = {
         checkIn: {
           prompt: "Dots trend upward from left to right. What does that suggest?",
           choices: [
-            "Studying definitely causes higher scores” belongs to a different situation than the one in the question stem",
-            "The chart type is wrong” belongs to a different situation than the one in the question stem",
+            "Studying definitely causes higher scores",
+            "The chart type is wrong",
             "Students who studied more tend to score higher, but causation isn't proven",
           ],
           correctIndex: 2,

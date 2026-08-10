@@ -199,7 +199,7 @@ export const lesson13: PythonLessonConfig = {
         checkIn: {
           prompt: 'A player types "HELLO there!" but your rule checks `"hello" in player_input` without `.lower()`. What happens?',
           choices: [
-            "Python raises an error” belongs to a different situation than the one in the question stem",
+            "Python raises an error",
             "It fails to match, because \"HELLO\" and \"hello\" are different text",
             "It still matches, because Python ignores case by default",
           ],
@@ -221,9 +221,9 @@ export const lesson13: PythonLessonConfig = {
         checkIn: {
           prompt: 'What does `npc_memory["name"]` do inside an NPC\'s print statement?',
           choices: [
-            "Creates a new dictionary” belongs to a different situation than the one in the question stem",
+            "Creates a new dictionary",
             "Reads the stored name value so it can be joined into the message",
-            "Deletes the name from memory” belongs to a different situation than the one in the question stem",
+            "Deletes the name from memory",
           ],
           correctIndex: 1,
           explanation: "Reading npc_memory[\"name\"] retrieves the stored value so it can be joined with + into a personalized message.",
@@ -258,9 +258,9 @@ export const lesson13: PythonLessonConfig = {
         checkIn: {
           prompt: "Which message prints?",
           choices: [
-            "That other interpretation” belongs to a different situation than the one in the question stem",
+            "That other interpretation",
             "Try saying hello or quest.",
-            "Hi, I'm Nova!” belongs to a different situation than the one in the question stem",
+            "Hi, I'm Nova!",
           ],
           correctIndex: 1,
           explanation: 'The message contains both "hello" and "help", but the if branch checking "help" runs first since it\'s checked first — top to bottom, first match wins.',
@@ -291,8 +291,8 @@ export const lesson13: PythonLessonConfig = {
         checkIn: {
           prompt: "Your NPC responds with the else fallback even though the player typed \"QUEST please\". What's the first thing to check?",
           choices: [
-            "Whether the dictionary has too many keys” belongs to a different situation than the one in the question stem",
-            "Whether Python needs reinstalling” belongs to a different situation than the one in the question stem",
+            "Whether the dictionary has too many keys",
+            "Whether Python needs reinstalling",
             "Whether the rule uses .lower() so \"QUEST\" matches the lowercase keyword \"quest\"",
           ],
           correctIndex: 2,
@@ -384,8 +384,8 @@ export const lesson13: PythonLessonConfig = {
           prompt: "Why does a good NPC design put its else branch last?",
           choices: [
             "Because else must always be the last branch in Python's if/elif/else structure",
-            "Because else runs before if” belongs to a different situation than the one in the question stem",
-            "Because else is optional and rarely needed” belongs to a different situation than the one in the question stem",
+            "Because else runs before if",
+            "Because else is optional and rarely needed",
           ],
           correctIndex: 0,
           explanation: "Python's if/elif/else structure requires else to come last — it's the fallback that only runs when no earlier condition matched.",

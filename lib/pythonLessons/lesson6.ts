@@ -181,7 +181,7 @@ export const lesson6: PythonLessonConfig = {
         checkIn: {
           prompt: 'If `message = "ping"` is placed INSIDE the loop (reset every turn), what happens to the pattern?',
           choices: [
-            "It causes an error” belongs to a different situation than the one in the question stem",
+            "It causes an error",
             "It gets stuck printing ping every single turn",
             "It alternates perfectly, same as before",
           ],
@@ -244,9 +244,9 @@ export const lesson6: PythonLessonConfig = {
         checkIn: {
           prompt: "Your ping/pong pattern prints ping every single time instead of alternating. What should you check FIRST?",
           choices: [
-            "Whether print() is spelled correctly” belongs to a different situation than the one in the question stem",
+            "Whether print() is spelled correctly",
             "Whether the message = \"pong\" flip is actually inside the if/else and properly indented",
-            "Whether range() has the right number” belongs to a different situation than the one in the question stem",
+            "Whether range() has the right number",
           ],
           correctIndex: 1,
           explanation: "If the flip line is missing, mis-indented, or outside the if/else, message never actually changes, so it prints the same value every turn.",
@@ -307,9 +307,9 @@ export const lesson6: PythonLessonConfig = {
         checkIn: {
           prompt: "Which is required for a loop-plus-rule pattern to actually alternate output?",
           choices: [
-            "The rule must be outside the loop” belongs to a different situation than the one in the question stem",
+            "The rule must be outside the loop",
             "The rule must be inside the loop AND update a value that changes what happens next turn",
-            "You only need the loop — rules are optional” belongs to a different situation than the one in the question stem",
+            "You only need the loop — rules are optional",
           ],
           correctIndex: 1,
           explanation: "The rule needs to live inside the loop (checked every turn) and also update the value it's checking, so the next turn behaves differently.",

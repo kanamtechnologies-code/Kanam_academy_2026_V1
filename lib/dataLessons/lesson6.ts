@@ -110,8 +110,8 @@ export const daLesson6: DataLessonConfig = {
           prompt: "SELECT item, COUNT(*) FROM lunch_orders GROUP BY item; — what does each result row represent?",
           choices: [
             "One unique item, with the count of orders for it",
-            "One single lunch order” belongs to a different situation than the one in the question stem",
-            "The whole table at once” belongs to a different situation than the one in the question stem",
+            "One single lunch order",
+            "The whole table at once",
           ],
           correctIndex: 0,
           explanation: "GROUP BY item bundles all orders of the same item into one row, and COUNT(*) reports how many orders landed in each bundle.",
@@ -150,7 +150,7 @@ export const daLesson6: DataLessonConfig = {
           prompt: "SELECT item, COUNT(*) FROM lunch_orders; (with NO GROUP BY) — what's the problem?",
           choices: [
             "COUNT(*) can only be used with WHERE. That option sounds confident, but it leaves out the deciding constraint",
-            "“Nothing, it works exactly like GROUP BY item” describes a different situation than the one in the question stem",
+            "Nothing, it works exactly like GROUP BY item",
             "SQL doesn't know how to pair one item label with a count of ALL rows — it needs GROUP BY to define the groups",
           ],
           correctIndex: 2,
@@ -226,8 +226,8 @@ export const daLesson6: DataLessonConfig = {
         checkIn: {
           prompt: "Which query gives the total number of orders PER ITEM, most popular first?",
           choices: [
-            "SELECT SUM(price) FROM lunch_orders GROUP BY item” belongs to a different situation than the one in the question stem",
-            "SELECT item, COUNT(*) FROM lunch_orders” belongs to a different situation than the one in the question stem",
+            "SELECT SUM(price) FROM lunch_orders GROUP BY item",
+            "SELECT item, COUNT(*) FROM lunch_orders",
             "SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item ORDER BY order_count DESC",
           ],
           correctIndex: 2,

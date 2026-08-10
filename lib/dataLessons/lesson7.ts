@@ -65,8 +65,8 @@ export const daLesson7: DataLessonConfig = {
         checkIn: {
           prompt: "Why is student info kept in a SEPARATE table from orders, instead of repeating the student's grade on every order row?",
           choices: [
-            "“SQL requires at least two tables” describes a different situation than the one in the question stem",
-            "“To make the database bigger” describes a different situation than the one in the question stem",
+            "SQL requires at least two tables",
+            "To make the database bigger",
             "So each fact (like a student's grade) is stored once, and stays consistent if it changes",
           ],
           correctIndex: 2,
@@ -99,8 +99,8 @@ export const daLesson7: DataLessonConfig = {
         checkIn: {
           prompt: "What is the job of the ON clause in a JOIN?",
           choices: [
-            "It sorts the joined result” belongs to a different situation than the one in the question stem",
-            "“It renames a column” describes a different situation than the one in the question stem",
+            "It sorts the joined result",
+            "It renames a column",
             "It defines the rule for which rows from each table should be matched together",
           ],
           correctIndex: 2,
@@ -116,7 +116,7 @@ export const daLesson7: DataLessonConfig = {
           prompt: "Both students and orders have a column called student_id. How do you tell SQL which one you mean?",
           choices: [
             "Prefix it with the table name, like orders.student_id",
-            "You can't — SQL will guess” belongs to a different situation than the one in the question stem",
+            "You can't — SQL will guess",
             "Rename one of the columns first, every time",
           ],
           correctIndex: 0,
@@ -152,8 +152,8 @@ export const daLesson7: DataLessonConfig = {
         checkIn: {
           prompt: "What happens if you write JOIN without an ON clause?",
           choices: [
-            "SQL automatically finds the shared key for you” belongs to a different situation than the one in the question stem",
-            "“It behaves exactly like WHERE” describes a different situation than the one in the question stem",
+            "SQL automatically finds the shared key for you",
+            "It behaves exactly like WHERE",
             "Every row in table A gets paired with every row in table B, creating meaningless combinations",
           ],
           correctIndex: 2,
@@ -185,9 +185,9 @@ export const daLesson7: DataLessonConfig = {
         checkIn: {
           prompt: "What's the main downside of one giant table that repeats student_name on every order?",
           choices: [
-            "It's impossible to filter” belongs to a different situation than the one in the question stem",
+            "It's impossible to filter",
             "If a student's name changes, you'd have to update it in many repeated places",
-            "It requires JOIN to query” belongs to a different situation than the one in the question stem",
+            "It requires JOIN to query",
           ],
           correctIndex: 1,
           explanation: "Repeating data means a single change (like a name correction) has to be applied everywhere it's repeated — a common source of real-world data errors.",
@@ -229,8 +229,8 @@ export const daLesson7: DataLessonConfig = {
         checkIn: {
           prompt: "Which is the correct JOIN to connect orders to students on their shared key?",
           choices: [
-            "FROM orders JOIN students” belongs to a different situation than the one in the question stem",
-            "FROM orders, students WHERE student_id” belongs to a different situation than the one in the question stem",
+            "FROM orders JOIN students",
+            "FROM orders, students WHERE student_id",
             "FROM orders JOIN students ON orders.student_id = students.student_id",
           ],
           correctIndex: 2,

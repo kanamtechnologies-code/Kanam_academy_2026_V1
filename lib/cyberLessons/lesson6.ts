@@ -98,9 +98,9 @@ Today's lesson: **Access Control & Least Privilege**.
         checkIn: {
           prompt: "A club wants \"one shared owner password\" vs \"individual logins with Poster / Officer roles.\" Which recommendation is better justified, and why?",
           choices: [
-            "“Give everyone admin so nobody waits for permissions” describes a different situation than the one in the question stem",
-            "Disable all accounts and post only from personal phones” belongs to a different situation than the one in the question stem",
-            "Shared password — RBAC never applies outside big companies” belongs to a different situation than the one in the question stem",
+            "Give everyone admin so nobody waits for permissions",
+            "Disable all accounts and post only from personal phones",
+            "Shared password — RBAC never applies outside big companies",
             "Individual accounts + RBAC — actions are attributable and you can remove one person without resetting everyone",
           ],
           correctIndex: 3,
@@ -122,9 +122,9 @@ Today's lesson: **Access Control & Least Privilege**.
         checkIn: {
           prompt: "An officer asks for permanent admin \"so we stop filing permission tickets.\" What recommendation best balances usability and risk?",
           choices: [
-            "“Remove the account's password entirely to reduce friction” describes a different situation than the one in the question stem",
-            "Grant permanent admin — tickets are never worth the security cost” belongs to a different situation than the one in the question stem",
-            "Let former members keep access indefinitely so they can help later” belongs to a different situation than the one in the question stem",
+            "Remove the account's password entirely to reduce friction",
+            "Grant permanent admin — tickets are never worth the security cost",
+            "Let former members keep access indefinitely so they can help later",
             "Keep standard accounts for daily work; grant temporary elevated access for defined tasks with a review/expiry date",
           ],
           correctIndex: 3,
@@ -198,7 +198,7 @@ Today's lesson: **Access Control & Least Privilege**.
             "Picking “Everyone gets admin so deadlines never wait on permissions” is a common mix-up that confuses a nearby idea with the right one",
             "Individual accounts with Editor/Designer/Adviser roles, plus offboarding at graduation — accountability and least privilege across years",
             "It can seem like no accounts at all — email files instead forever, but that reading skips the distinction this question is testing",
-            "“One shared admin password passed down each spring — simplest handoff” describes a different situation than the one in the question stem",
+            "One shared admin password passed down each spring — simplest handoff",
           ],
           correctIndex: 1,
           explanation:
@@ -284,9 +284,9 @@ Role creep feels efficient until something goes wrong. The fix is boring process
           prompt: "Why is a shared club password considered weaker than individual accounts with role-based permissions?",
           choices: [
             "Individual accounts make it clear who did what and allow removing one person without resetting everyone",
-            "“Shared passwords are easier to remember” describes a different situation than the one in the question stem",
-            "Shared passwords are required by most cloud tools” belongs to a different situation than the one in the question stem",
-            "“Role-based access is only for large companies” describes a different situation than the one in the question stem",
+            "Shared passwords are easier to remember",
+            "Shared passwords are required by most cloud tools",
+            "Role-based access is only for large companies",
           ],
           correctIndex: 0,
           explanation:
@@ -301,9 +301,9 @@ Role creep feels efficient until something goes wrong. The fix is boring process
         checkIn: {
           prompt: "What is the main lesson from the graduated editor's still-active admin account?",
           choices: [
-            "“Admin access should never expire once granted” describes a different situation than the one in the question stem",
-            "“The former student was likely trying to cause harm” describes a different situation than the one in the question stem",
-            "Yearbook platforms are inherently insecure and should be avoided” belongs to a different situation than the one in the question stem",
+            "Admin access should never expire once granted",
+            "The former student was likely trying to cause harm",
+            "Yearbook platforms are inherently insecure and should be avoided",
             "Offboarding and periodic access review are needed to catch access that should have been removed when a role ended",
           ],
           correctIndex: 3,
@@ -342,10 +342,10 @@ Role creep feels efficient until something goes wrong. The fix is boring process
       id: "q1",
       question: "A student can log in but cannot delete the class gradebook. What is working, and why is that a good design?",
       choices: [
-            "RBAC means everyone can delete everything by default” belongs to a different situation than the one in the question stem",
+            "RBAC means everyone can delete everything by default",
             "Authentication succeeded; authorization correctly denied the action — least privilege limiting blast radius",
-            "Only authentication failed, which is why the delete was blocked” belongs to a different situation than the one in the question stem",
-            "Least privilege always grants admin rights automatically” belongs to a different situation than the one in the question stem",
+            "Only authentication failed, which is why the delete was blocked",
+            "Least privilege always grants admin rights automatically",
           ],
       correctIndex: 1,
       explanation:
@@ -356,9 +356,9 @@ Role creep feels efficient until something goes wrong. The fix is boring process
       question: "A teammate wants permanent admin \"to avoid asking.\" Which recommendation best applies least privilege with a usability tradeoff?",
       choices: [
             "Keep standard accounts daily; grant temporary elevated access for specific tasks with an expiry/review date",
-            "“Disable authentication entirely to speed up logins” describes a different situation than the one in the question stem",
-            "Share one password across a team so permissions stay simple” belongs to a different situation than the one in the question stem",
-            "Give every user admin rights so they never have to ask again” belongs to a different situation than the one in the question stem",
+            "Disable authentication entirely to speed up logins",
+            "Share one password across a team so permissions stay simple",
+            "Give every user admin rights so they never have to ask again",
           ],
       correctIndex: 0,
       explanation:
@@ -368,10 +368,10 @@ Role creep feels efficient until something goes wrong. The fix is boring process
       id: "q3",
       question: "Comparing ad-hoc permissions vs RBAC for a school LMS with hundreds of users, why recommend RBAC?",
       choices: [
-            "“Printers and other hardware exclusively need permissions” describes a different situation than the one in the question stem",
+            "Printers and other hardware exclusively need permissions",
             "Permissions attach to roles (Teacher/Student), then people get roles — cleaner onboarding, audit, and offboarding",
-            "Whichever individual account happens to need them that day is easier to audit at scale” belongs to a different situation than the one in the question stem",
-            "“Only accounts that already have MFA enabled can use roles” describes a different situation than the one in the question stem",
+            "Whichever individual account happens to need them that day is easier to audit at scale",
+            "Only accounts that already have MFA enabled can use roles",
           ],
       correctIndex: 1,
       explanation:
@@ -381,9 +381,9 @@ Role creep feels efficient until something goes wrong. The fix is boring process
       id: "q4",
       question: "Why recommend a standard user account for everyday browsing instead of full admin?",
       choices: [
-            "Admin accounts automatically block every form of MFA” belongs to a different situation than the one in the question stem",
-            "Using admin daily improves least privilege over time” belongs to a different situation than the one in the question stem",
-            "Admin accounts cannot access the internet at all” belongs to a different situation than the one in the question stem",
+            "Admin accounts automatically block every form of MFA",
+            "Using admin daily improves least privilege over time",
+            "Admin accounts cannot access the internet at all",
             "Mistakes or malware in that session inherit powerful permissions — admin amplifies every bad day",
           ],
       correctIndex: 3,
@@ -395,9 +395,9 @@ Role creep feels efficient until something goes wrong. The fix is boring process
       question: "Which is a major risk of a shared club social-media login?",
       choices: [
             "It makes offboarding easy since one password change removes everyone at once",
-            "Shared accounts always enforce MFA better than individual accounts” belongs to a different situation than the one in the question stem",
+            "Shared accounts always enforce MFA better than individual accounts",
             "Hard to tell who did what; former members may retain access until the password changes",
-            "It guarantees perfect accountability for every action taken” belongs to a different situation than the one in the question stem",
+            "It guarantees perfect accountability for every action taken",
           ],
       correctIndex: 2,
       explanation:
@@ -407,9 +407,9 @@ Role creep feels efficient until something goes wrong. The fix is boring process
       id: "q6",
       question: "What is \"role creep,\" and why does it undermine a least-privilege recommendation over time?",
       choices: [
-            "“A fast, safe method for assigning brand-new roles” describes a different situation than the one in the question stem",
-            "A required step every organization must follow when first designing RBAC” belongs to a different situation than the one in the question stem",
-            "“A type of malware that spreads through admin accounts” describes a different situation than the one in the question stem",
+            "A fast, safe method for assigning brand-new roles",
+            "A required step every organization must follow when first designing RBAC",
+            "A type of malware that spreads through admin accounts",
             "Unnecessary access accumulates as old roles aren't removed — so real permissions drift far above \"minimum needed\"",
           ],
       correctIndex: 3,
@@ -423,7 +423,7 @@ Role creep feels efficient until something goes wrong. The fix is boring process
             "A missing offboarding step / lack of periodic access review",
             "A security feature that is working exactly as intended",
             "Proof that RBAC as a model doesn't actually work",
-            "A properly functioning least-privilege system” belongs to a different situation than the one in the question stem",
+            "A properly functioning least-privilege system",
           ],
       correctIndex: 0,
       explanation:

@@ -68,9 +68,9 @@ Today's lesson: **How Computers See and Hear**.
           prompt: "What does 'perception' mean for an AI system?",
           choices: [
             "Converting a real-world signal (light, sound, motion) into numbers a computer can process",
-            "AI storing an exact physical copy of the scene it captured” belongs to a different situation than the one in the question stem",
-            "AI forming an emotional impression of what it captures” belongs to a different situation than the one in the question stem",
-            "AI understanding the full context and meaning behind an image or sound” belongs to a different situation than the one in the question stem",
+            "AI storing an exact physical copy of the scene it captured",
+            "AI forming an emotional impression of what it captures",
+            "AI understanding the full context and meaning behind an image or sound",
           ],
           correctIndex: 0,
           explanation:
@@ -90,9 +90,9 @@ Today's lesson: **How Computers See and Hear**.
         checkIn: {
           prompt: "A 1000×1000 pixel photo contains roughly how many individual color numbers?",
           choices: [
-            "Exactly one number for the whole photo” belongs to a different situation than the one in the question stem",
-            "It depends only on the photo's file name” belongs to a different situation than the one in the question stem",
-            "About 1,000 numbers total” belongs to a different situation than the one in the question stem",
+            "Exactly one number for the whole photo",
+            "It depends only on the photo's file name",
+            "About 1,000 numbers total",
             "About 3 million numbers (a million pixels × 3 color values each)",
           ],
           correctIndex: 3,
@@ -112,10 +112,10 @@ Today's lesson: **How Computers See and Hear**.
         checkIn: {
           prompt: "What is a 'waveform' in the context of AI perception?",
           choices: [
-            "The written lyrics matched to a song's timing” belongs to a different situation than the one in the question stem",
+            "The written lyrics matched to a song's timing",
             "The visual animation a music app displays while a song plays, and nothing more",
             "Sound represented as a long series of numbers measuring air pressure over time",
-            "A single number representing the overall volume of a sound clip” belongs to a different situation than the one in the question stem",
+            "A single number representing the overall volume of a sound clip",
           ],
           correctIndex: 2,
           explanation:
@@ -145,9 +145,9 @@ Today's lesson: **How Computers See and Hear**.
         checkIn: {
           prompt: "Why might a voice assistant work great for one person and poorly for another with a different accent?",
           choices: [
-            "“Accents change the physical loudness of a person's voice” describes a different situation than the one in the question stem",
-            "The second person's phone hardware is automatically less powerful” belongs to a different situation than the one in the question stem",
-            "It's always a problem with the device's internet connection” belongs to a different situation than the one in the question stem",
+            "Accents change the physical loudness of a person's voice",
+            "The second person's phone hardware is automatically less powerful",
+            "It's always a problem with the device's internet connection",
             "The assistant's training and testing data may not have included enough examples of that accent's speech patterns",
           ],
           correctIndex: 3,
@@ -191,8 +191,8 @@ Today's lesson: **How Computers See and Hear**.
         checkIn: {
           prompt: "Based on the comparison, what determines whether an AI sensor performs fairly across different people?",
           choices: [
-            "Nothing — all AI sensors perform identically for everyone by default” belongs to a different situation than the one in the question stem",
-            "How expensive the camera or microphone hardware is” belongs to a different situation than the one in the question stem",
+            "Nothing — all AI sensors perform identically for everyone by default",
+            "How expensive the camera or microphone hardware is",
             "Whether its training and testing data included a wide, representative range of conditions and people",
             "A rushed pass can land on the brand name of the device”; careful readers reject it for this problem",
           ],
@@ -310,9 +310,9 @@ Today's lesson: **How Computers See and Hear**.
       question: "What does the Big Idea of 'Perception' mean in AI?",
       choices: [
             "Turning real-world signals (light, sound) into numbers a computer can analyze",
-            "AI forming genuine feelings about what it captures” belongs to a different situation than the one in the question stem",
+            "AI forming genuine feelings about what it captures",
             "AI understanding the deeper meaning behind an image the way a person would",
-            "AI guessing what will happen in the future” belongs to a different situation than the one in the question stem",
+            "AI guessing what will happen in the future",
           ],
       correctIndex: 0,
       explanation:
@@ -323,8 +323,8 @@ Today's lesson: **How Computers See and Hear**.
       question: "A voice assistant keeps mishearing you at a loud party. Why?",
       choices: [
             "The noisy room messes up the input numbers (the waveform), so pattern matching fails",
-            "The assistant is choosing to ignore you because of the background music” belongs to a different situation than the one in the question stem",
-            "The assistant has a limited daily quota of words it can recognize” belongs to a different situation than the one in the question stem",
+            "The assistant is choosing to ignore you because of the background music",
+            "The assistant has a limited daily quota of words it can recognize",
             "Voice assistants are designed to only work in complete silence by policy",
           ],
       correctIndex: 0,
@@ -361,9 +361,9 @@ Today's lesson: **How Computers See and Hear**.
       id: "q6",
       question: "The Gender Shades research found lower accuracy for darker-skinned faces mainly because:",
       choices: [
-            "Facial recognition cannot use pixels for darker skin tones” belongs to a different situation than the one in the question stem",
-            "Darker skin reflects too little light for any camera to ever capture” belongs to a different situation than the one in the question stem",
-            "The researchers were biased against the technology” belongs to a different situation than the one in the question stem",
+            "Facial recognition cannot use pixels for darker skin tones",
+            "Darker skin reflects too little light for any camera to ever capture",
+            "The researchers were biased against the technology",
             "The training and benchmark datasets underrepresented darker-skinned faces, especially women",
           ],
       correctIndex: 3,
@@ -374,9 +374,9 @@ Today's lesson: **How Computers See and Hear**.
       id: "q7",
       question: "What should you do when a perception system gives a high-confidence answer from clearly messy input (blurry photo, noisy audio)?",
       choices: [
-            "Confidence scores are meaningless and should always be ignored” belongs to a different situation than the one in the question stem",
-            "Assume the AI is lying on purpose” belongs to a different situation than the one in the question stem",
-            "Trust it completely because the confidence score is high” belongs to a different situation than the one in the question stem",
+            "Confidence scores are meaningless and should always be ignored",
+            "Assume the AI is lying on purpose",
+            "Trust it completely because the confidence score is high",
             "Be more skeptical, since messy input can produce a confidently wrong answer",
           ],
       correctIndex: 3,
@@ -387,10 +387,10 @@ Today's lesson: **How Computers See and Hear**.
       id: "q8",
       question: "What is the best one-sentence takeaway about fairness in AI perception?",
       choices: [
-            "“Fairness has nothing to do with training data” describes a different situation than the one in the question stem",
+            "Fairness has nothing to do with training data",
             "A perception system is only as fair as the range of people and conditions it was trained and tested on",
-            "AI perception is automatically fair to everyone because it's just math” belongs to a different situation than the one in the question stem",
-            "Perception systems always work worse for everyone equally” belongs to a different situation than the one in the question stem",
+            "AI perception is automatically fair to everyone because it's just math",
+            "Perception systems always work worse for everyone equally",
           ],
       correctIndex: 1,
       explanation:

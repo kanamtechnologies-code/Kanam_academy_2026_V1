@@ -73,10 +73,10 @@ Today's lesson: **Spending Tracking & Emergency Funds**.
         checkIn: {
           prompt: "Devon earned $180 this pay period but spent $215 once gas, food, and a concert ticket added up. What does this describe?",
           choices: [
-            "A budgeting error that means his whole plan is broken” belongs to a different situation than the one in the question stem",
+            "A budgeting error that means his whole plan is broken",
             "Negative cash flow — spending outpaced income, so he drew down savings or borrowed to cover it",
-            "Zero-based budgeting working as intended” belongs to a different situation than the one in the question stem",
-            "Positive cash flow, since he still has money in some account” belongs to a different situation than the one in the question stem",
+            "Zero-based budgeting working as intended",
+            "Positive cash flow, since he still has money in some account",
           ],
           correctIndex: 1,
           explanation:
@@ -97,9 +97,9 @@ Today's lesson: **Spending Tracking & Emergency Funds**.
         checkIn: {
           prompt: "Why does this lesson suggest tracking spending for at least 14 days before judging yourself?",
           choices: [
-            "Because tracking for a shorter time is against most banking app rules” belongs to a different situation than the one in the question stem",
-            "Because 14 days is required to unlock budgeting features in most apps” belongs to a different situation than the one in the question stem",
-            "Because one week always looks identical to the next for most people” belongs to a different situation than the one in the question stem",
+            "Because tracking for a shorter time is against most banking app rules",
+            "Because 14 days is required to unlock budgeting features in most apps",
+            "Because one week always looks identical to the next for most people",
             "To collect enough data to see real patterns instead of reacting to one unusual day",
           ],
           correctIndex: 3,
@@ -187,9 +187,9 @@ Today's lesson: **Spending Tracking & Emergency Funds**.
           prompt: "Amara's phone screen cracked on a routine drop, while her friend's car got towed unexpectedly the night before a work shift. Which of these fits an emergency fund's actual purpose?",
           choices: [
             "Neither — once you have a job, employers usually cover surprise costs like tows",
-            "Both, because any unplanned expense automatically counts as an emergency” belongs to a different situation than the one in the question stem",
+            "Both, because any unplanned expense automatically counts as an emergency",
             "The tow — necessary and unpredictable; the screen fits a budget or sinking fund better",
-            "The cracked screen, because phone repairs are always emergencies” belongs to a different situation than the one in the question stem",
+            "The cracked screen, because phone repairs are always emergencies",
           ],
           correctIndex: 2,
           explanation:
@@ -249,7 +249,7 @@ Today's lesson: **Spending Tracking & Emergency Funds**.
           choices: [
             "Use the emergency fund for the $85 repair — this is exactly the necessary, unpredictable cost it exists for — then plan to replenish it",
             "A rushed pass can land on take the payday-style loan so both savings buckets stay untouched”; careful readers reject it for this problem",
-            "“Pull the $85 from the cleats fund since it already has enough sitting in it” describes a different situation than the one in the question stem",
+            "Pull the $85 from the cleats fund since it already has enough sitting in it",
             "It can seem like skip the repair and miss his shift instead, but that reading skips the distinction this question is testing",
           ],
           correctIndex: 0,
@@ -315,8 +315,8 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
         checkIn: {
           prompt: "Which statement best captures this lesson's core idea?",
           choices: [
-            "Emergency funds and sinking funds are interchangeable and can be spent on anything” belongs to a different situation than the one in the question stem",
-            "“You should stop checking your bank balance altogether to avoid anxiety” describes a different situation than the one in the question stem",
+            "Emergency funds and sinking funds are interchangeable and can be spent on anything",
+            "You should stop checking your bank balance altogether to avoid anxiety",
             "Tracking reveals real patterns, sinking funds prepare for known costs, and a starter emergency fund protects against necessary surprises",
             "None of these savings buckets matter until you have a full-time job — familiar wording, wrong fit for what the prompt is actually asking",
           ],
@@ -411,9 +411,9 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
       question: "Marcus's car gets a flat tire that blocks him from getting to his weekend shift. What is the best use of his emergency fund here?",
       choices: [
             "This is exactly the necessary, unpredictable situation an emergency fund exists for — use it, then replenish afterward",
-            "He should use his cleats sinking fund instead, since it's not for anything specific yet” belongs to a different situation than the one in the question stem",
-            "“He should ignore the tire and figure out a ride some other way” describes a different situation than the one in the question stem",
-            "Emergency funds shouldn't be used for car repairs, only medical costs” belongs to a different situation than the one in the question stem",
+            "He should use his cleats sinking fund instead, since it's not for anything specific yet",
+            "He should ignore the tire and figure out a ride some other way",
+            "Emergency funds shouldn't be used for car repairs, only medical costs",
           ],
       correctIndex: 0,
       explanation:
@@ -423,9 +423,9 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
       id: "q6",
       question: "What is a reasonable first step for many teens building an emergency fund?",
       choices: [
-            "Combine it with your fun money so it's easier to access” belongs to a different situation than the one in the question stem",
+            "Combine it with your fun money so it's easier to access",
             "Start small (such as a few hundred dollars or one \"oh no\" expense) and keep it separate",
-            "Only start one once you have a credit card” belongs to a different situation than the one in the question stem",
+            "Only start one once you have a credit card",
             "Wait until you can save several months of adult-level expenses before starting",
           ],
       correctIndex: 1,
@@ -436,10 +436,10 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
       id: "q7",
       question: "A student keeps dipping into their emergency fund for concert tickets and sales, telling themselves \"just this once\" each time. What's happening?",
       choices: [
-            "The fund was clearly set at the wrong amount from the start” belongs to a different situation than the one in the question stem",
-            "This only matters if they do it more than ten times” belongs to a different situation than the one in the question stem",
+            "The fund was clearly set at the wrong amount from the start",
+            "This only matters if they do it more than ten times",
             "The emergency fund is quietly turning into a fun fund, leaving them exposed when a real emergency hits",
-            "Nothing concerning — occasional use for things you want is what the fund is for” belongs to a different situation than the one in the question stem",
+            "Nothing concerning — occasional use for things you want is what the fund is for",
           ],
       correctIndex: 2,
       explanation:
@@ -449,10 +449,10 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
       id: "q8",
       question: "Which pair correctly matches each bucket to its main job?",
       choices: [
-            "Sinking fund = necessary surprises; Emergency fund = known future costs” belongs to a different situation than the one in the question stem",
-            "Both buckets are meant to be spent on whatever feels urgent that day” belongs to a different situation than the one in the question stem",
+            "Sinking fund = necessary surprises; Emergency fund = known future costs",
+            "Both buckets are meant to be spent on whatever feels urgent that day",
             "Sinking fund = known future costs you can schedule toward; Emergency fund = necessary, unpredictable costs",
-            "Sinking fund = long-term goals like college; Emergency fund = daily spending money” belongs to a different situation than the one in the question stem",
+            "Sinking fund = long-term goals like college; Emergency fund = daily spending money",
           ],
       correctIndex: 2,
       explanation:

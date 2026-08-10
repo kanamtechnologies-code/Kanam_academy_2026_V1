@@ -71,10 +71,10 @@ Today's lesson: **System Hardening & Patching**.
         checkIn: {
           prompt: "A laptop paused updates six months ago and never resumed them. What's the main risk?",
           choices: [
-            "None — pausing updates has no security effect” belongs to a different situation than the one in the question stem",
+            "None — pausing updates has no security effect",
             "It has accumulated known, publicly documented vulnerabilities that attackers can target",
-            "Pausing updates automatically enables a firewall instead” belongs to a different situation than the one in the question stem",
-            "The laptop will run faster forever” belongs to a different situation than the one in the question stem",
+            "Pausing updates automatically enables a firewall instead",
+            "The laptop will run faster forever",
           ],
           correctIndex: 1,
           explanation:
@@ -99,10 +99,10 @@ Today's lesson: **System Hardening & Patching**.
         checkIn: {
           prompt: "You find a file-sharing feature enabled on a shared laptop that nobody remembers using. What should you do?",
           choices: [
-            "Enable even more sharing features to be thorough” belongs to a different situation than the one in the question stem",
+            "Enable even more sharing features to be thorough",
             "Ask whether it's needed; if not, disable it to shrink the attack surface",
-            "Leave it on in case someone needs it someday” belongs to a different situation than the one in the question stem",
-            "Delete the entire laptop's operating system” belongs to a different situation than the one in the question stem",
+            "Leave it on in case someone needs it someday",
+            "Delete the entire laptop's operating system",
           ],
           correctIndex: 1,
           explanation:
@@ -132,9 +132,9 @@ Today's lesson: **System Hardening & Patching**.
         checkIn: {
           prompt: "What is the correct order for hardening a new IoT device before it joins a sensitive network?",
           choices: [
-            "Skip firmware updates since IoT devices rarely have vulnerabilities” belongs to a different situation than the one in the question stem",
-            "Enable every remote feature so it's easy to manage from anywhere” belongs to a different situation than the one in the question stem",
-            "Join the network first, then worry about passwords later” belongs to a different situation than the one in the question stem",
+            "Skip firmware updates since IoT devices rarely have vulnerabilities",
+            "Enable every remote feature so it's easy to manage from anywhere",
+            "Join the network first, then worry about passwords later",
             "Change default password → apply firmware updates → reduce remote exposure → then join the network",
           ],
           correctIndex: 3,
@@ -160,10 +160,10 @@ Today's lesson: **System Hardening & Patching**.
         checkIn: {
           prompt: "Which approach best reflects 'secure defaults' when creating a new shared drive?",
           choices: [
-            "Never share the drive with anyone, ever” belongs to a different situation than the one in the question stem",
-            "Set sharing to 'anyone with the link can edit' and plan to fix it later” belongs to a different situation than the one in the question stem",
+            "Never share the drive with anyone, ever",
+            "Set sharing to 'anyone with the link can edit' and plan to fix it later",
             "Start with access limited to specific known people, and widen deliberately only when needed",
-            "Give admin rights to everyone by default so nobody has to ask” belongs to a different situation than the one in the question stem",
+            "Give admin rights to everyone by default so nobody has to ask",
           ],
           correctIndex: 2,
           explanation:
@@ -195,10 +195,10 @@ Today's lesson: **System Hardening & Patching**.
         checkIn: {
           prompt: "Which issue should typically be fixed first: an internet-facing service with a default password, or an internal-only tool with a moderate bug and an available patch?",
           choices: [
-            "The internal-only tool, because patches are always more urgent than passwords” belongs to a different situation than the one in the question stem",
+            "The internal-only tool, because patches are always more urgent than passwords",
             "The internet-facing service with the default password, since it's exposed and easy to fix immediately",
-            "Whichever was discovered first, regardless of exposure” belongs to a different situation than the one in the question stem",
-            "“Neither — cosmetic bugs always come first” describes a different situation than the one in the question stem",
+            "Whichever was discovered first, regardless of exposure",
+            "Neither — cosmetic bugs always come first",
           ],
           correctIndex: 1,
           explanation:
@@ -230,9 +230,9 @@ Today's lesson: **System Hardening & Patching**.
         checkIn: {
           prompt: "Ransomware encrypts a laptop's files, but a clean cloud backup from two weeks ago exists. What does the backup accomplish?",
           choices: [
-            "“It prevents the ransomware from ever running” describes a different situation than the one in the question stem",
-            "“It removes the need for any future updates” describes a different situation than the one in the question stem",
-            "“It automatically catches the attacker” describes a different situation than the one in the question stem",
+            "It prevents the ransomware from ever running",
+            "It removes the need for any future updates",
+            "It automatically catches the attacker",
             "It turns a potential crisis into a manageable inconvenience by enabling recovery without paying attackers",
           ],
           correctIndex: 3,
@@ -265,9 +265,9 @@ Today's lesson: **System Hardening & Patching**.
         checkIn: {
           prompt: "What's the main risk of disabling a service immediately, the night before an important event, without testing?",
           choices: [
-            "It will always improve performance with no downside” belongs to a different situation than the one in the question stem",
-            "There is no risk — disabling unused services is always instantly safe” belongs to a different situation than the one in the question stem",
-            "“It will automatically create a backup first” describes a different situation than the one in the question stem",
+            "It will always improve performance with no downside",
+            "There is no risk — disabling unused services is always instantly safe",
+            "It will automatically create a backup first",
             "Something unexpected might depend on it, causing a break with no time to recover and no rollback plan",
           ],
           correctIndex: 3,
@@ -376,10 +376,10 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       id: "q1",
       question: "A livestream laptop cannot reboot during a 3-hour competition, but a critical OS security update is waiting. Which recommendation best handles the uptime vs patching tradeoff?",
       choices: [
-            "“Skip the event's security needs entirely and reboot mid-stream” describes a different situation than the one in the question stem",
-            "Leave updates paused indefinitely after the event ends — security can wait forever” belongs to a different situation than the one in the question stem",
+            "Skip the event's security needs entirely and reboot mid-stream",
+            "Leave updates paused indefinitely after the event ends — security can wait forever",
             "Time-box the delay: finish the event, then patch/restart the same day and re-enable auto-update — don't leave pause on for months",
-            "Install random \"updater\" software from a pop-up so you avoid the official reboot” belongs to a different situation than the one in the question stem",
+            "Install random \"updater\" software from a pop-up so you avoid the official reboot",
           ],
       correctIndex: 2,
       explanation:
@@ -391,8 +391,8 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       choices: [
             "To free up storage space, which is the real security benefit",
             "To shrink the attack surface — fewer things that can be abused",
-            "So that automatic backups will stop running” belongs to a different situation than the one in the question stem",
-            "Because every unused app already contains malware” belongs to a different situation than the one in the question stem",
+            "So that automatic backups will stop running",
+            "Because every unused app already contains malware",
           ],
       correctIndex: 1,
       explanation:
@@ -428,10 +428,10 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       id: "q5",
       question: "Why keep a device/account inventory for a club or family?",
       choices: [
-            "Only large corporations are allowed to keep device lists” belongs to a different situation than the one in the question stem",
+            "Only large corporations are allowed to keep device lists",
             "So you know what exists to patch, lock, wipe, or revoke when people leave",
-            "So you can forget about updates entirely” belongs to a different situation than the one in the question stem",
-            "Inventories replace the need for encryption” belongs to a different situation than the one in the question stem",
+            "So you can forget about updates entirely",
+            "Inventories replace the need for encryption",
           ],
       correctIndex: 1,
       explanation:
@@ -441,10 +441,10 @@ Hardening is choosing fewer doorways, keeping them patched, and proving you can 
       id: "q6",
       question: "What is the correct order for hardening a new IoT device before connecting it to a sensitive network?",
       choices: [
-            "Skip firmware updates since IoT devices don't need them” belongs to a different situation than the one in the question stem",
-            "Join the network first, then think about passwords later” belongs to a different situation than the one in the question stem",
+            "Skip firmware updates since IoT devices don't need them",
+            "Join the network first, then think about passwords later",
             "Change default password → apply firmware updates → reduce remote exposure → then join the network",
-            "Enable every remote-access feature immediately for convenience” belongs to a different situation than the one in the question stem",
+            "Enable every remote-access feature immediately for convenience",
           ],
       correctIndex: 2,
       explanation:

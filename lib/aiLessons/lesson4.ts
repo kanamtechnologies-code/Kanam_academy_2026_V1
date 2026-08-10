@@ -67,9 +67,9 @@ Today's lesson: **Turning the World Into Data**.
         checkIn: {
           prompt: "What is the best definition of 'representation' in AI?",
           choices: [
-            "The set of rules a company writes about how its AI should behave” belongs to a different situation than the one in the question stem",
-            "A visual chart showing an AI's accuracy over time” belongs to a different situation than the one in the question stem",
-            "The amount of computing power needed to train a model” belongs to a different situation than the one in the question stem",
+            "The set of rules a company writes about how its AI should behave",
+            "A visual chart showing an AI's accuracy over time",
+            "The amount of computing power needed to train a model",
             "How a piece of the world is encoded as data so a computer can reason about it",
           ],
           correctIndex: 3,
@@ -95,7 +95,7 @@ Today's lesson: **Turning the World Into Data**.
             "It gets split into a token and converted into a number from a lookup table",
             "It gets checked against a dictionary to confirm it's spelled correctly",
             "It gets converted directly into a picture of the object it names",
-            "Nothing — computers read letters exactly like humans do” belongs to a different situation than the one in the question stem",
+            "Nothing — computers read letters exactly like humans do",
           ],
           correctIndex: 0,
           explanation:
@@ -123,8 +123,8 @@ Today's lesson: **Turning the World Into Data**.
         checkIn: {
           prompt: "In the fruit spreadsheet example, what is a 'feature vector'?",
           choices: [
-            "“The name of the AI model” describes a different situation than the one in the question stem",
-            "The entire spreadsheet of all fruits at once” belongs to a different situation than the one in the question stem",
+            "The name of the AI model",
+            "The entire spreadsheet of all fruits at once",
             "One row turned into a list of numbers — the actual input the model sees for one example",
             "A type of fruit. That option sounds confident, but it leaves out the deciding constraint",
           ],
@@ -166,10 +166,10 @@ Today's lesson: **Turning the World Into Data**.
         checkIn: {
           prompt: "Why is 'the data is just numbers, so it's objective' a misleading claim?",
           choices: [
-            "“Numbers can never be recorded incorrectly” describes a different situation than the one in the question stem",
+            "Numbers can never be recorded incorrectly",
             "A human chose which features to measure in the first place, and that choice can carry hidden bias",
-            "Objective data doesn't exist anywhere in computing” belongs to a different situation than the one in the question stem",
-            "“AI never uses numbers, only words” describes a different situation than the one in the question stem",
+            "Objective data doesn't exist anywhere in computing",
+            "AI never uses numbers, only words",
           ],
           correctIndex: 1,
           explanation:
@@ -212,9 +212,9 @@ Today's lesson: **Turning the World Into Data**.
         checkIn: {
           prompt: "What does this comparison table best illustrate?",
           choices: [
-            "Feature vectors capture every important detail about a person” belongs to a different situation than the one in the question stem",
-            "Test scores are the only thing that matters about a student” belongs to a different situation than the one in the question stem",
-            "“Home situation is always included in student data” describes a different situation than the one in the question stem",
+            "Feature vectors capture every important detail about a person",
+            "Test scores are the only thing that matters about a student",
+            "Home situation is always included in student data",
             "A feature vector is always a simplified, partial version of a real person — some things are captured, many are not",
           ],
           correctIndex: 3,
@@ -277,9 +277,9 @@ Today's lesson: **Turning the World Into Data**.
         checkIn: {
           prompt: "What made the risk-assessment tool's outcomes unequal across groups, based on the investigation?",
           choices: [
-            "“The defendants it flagged incorrectly had all committed similar past crimes” describes a different situation than the one in the question stem",
-            "“The tool's predictions were simply randomized rather than data-driven” describes a different situation than the one in the question stem",
-            "“The tool was intentionally coded to target specific groups by name” describes a different situation than the one in the question stem",
+            "The defendants it flagged incorrectly had all committed similar past crimes",
+            "The tool's predictions were simply randomized rather than data-driven",
+            "The tool was intentionally coded to target specific groups by name",
             "Its features were tied to historical arrest patterns, which reflected uneven policing — so the representation baked in that unevenness",
           ],
           correctIndex: 3,
@@ -318,9 +318,9 @@ Today's lesson: **Turning the World Into Data**.
       question: "What does 'representation' mean in AI?",
       choices: [
             "How a piece of the world is encoded as data the AI can store and reason about",
-            "The final accuracy score a model gets on a test dataset” belongs to a different situation than the one in the question stem",
-            "The physical server hardware that stores an AI model” belongs to a different situation than the one in the question stem",
-            "A human spokesperson who explains an AI product to the public” belongs to a different situation than the one in the question stem",
+            "The final accuracy score a model gets on a test dataset",
+            "The physical server hardware that stores an AI model",
+            "A human spokesperson who explains an AI product to the public",
           ],
       correctIndex: 0,
       explanation:
@@ -356,9 +356,9 @@ Today's lesson: **Turning the World Into Data**.
       id: "q4",
       question: "Why can a bad representation lead to unfair AI decisions?",
       choices: [
-            "Representations are always perfect, so this can't actually happen” belongs to a different situation than the one in the question stem",
-            "Because AI systems refuse to run unless the data is flawless” belongs to a different situation than the one in the question stem",
-            "Because numbers, once collected, can never be revised or corrected” belongs to a different situation than the one in the question stem",
+            "Representations are always perfect, so this can't actually happen",
+            "Because AI systems refuse to run unless the data is flawless",
+            "Because numbers, once collected, can never be revised or corrected",
             "Because a representation leaves things out — it may miss or mismeasure what matters",
           ],
       correctIndex: 3,
@@ -370,9 +370,9 @@ Today's lesson: **Turning the World Into Data**.
       question: "What is a 'proxy variable'?",
       choices: [
             "Picking “A synonym for 'token'” is a common mix-up that confuses a nearby idea with the right one",
-            "“A backup server used to run AI models” describes a different situation than the one in the question stem",
+            "A backup server used to run AI models",
             "A feature that seems neutral but secretly correlates with something sensitive, like race or income",
-            "“A second copy of the same training dataset” describes a different situation than the one in the question stem",
+            "A second copy of the same training dataset",
           ],
       correctIndex: 2,
       explanation:
@@ -382,9 +382,9 @@ Today's lesson: **Turning the World Into Data**.
       id: "q6",
       question: "In the real risk-assessment tool investigation, what was a key source of the unequal outcomes?",
       choices: [
-            "The defendants themselves reported false information to the tool” belongs to a different situation than the one in the question stem",
-            "The company deliberately labeled defendants by race in the training data” belongs to a different situation than the one in the question stem",
-            "The tool's predictions were later proven to be entirely accurate for everyone” belongs to a different situation than the one in the question stem",
+            "The defendants themselves reported false information to the tool",
+            "The company deliberately labeled defendants by race in the training data",
+            "The tool's predictions were later proven to be entirely accurate for everyone",
             "Features tied to historical arrest patterns carried forward uneven policing patterns into the predictions",
           ],
       correctIndex: 3,
@@ -395,10 +395,10 @@ Today's lesson: **Turning the World Into Data**.
       id: "q7",
       question: "Why is 'it's just numbers, so it's objective' a misleading claim?",
       choices: [
-            "Because computers occasionally make random arithmetic errors” belongs to a different situation than the one in the question stem",
+            "Because computers occasionally make random arithmetic errors",
             "A human decided which numbers to measure in the first place, and that decision can carry hidden bias",
-            "Because numbers are always rounded, so they're technically inaccurate” belongs to a different situation than the one in the question stem",
-            "Objective measurement is impossible in any field, including science” belongs to a different situation than the one in the question stem",
+            "Because numbers are always rounded, so they're technically inaccurate",
+            "Objective measurement is impossible in any field, including science",
           ],
       correctIndex: 1,
       explanation:
@@ -409,9 +409,9 @@ Today's lesson: **Turning the World Into Data**.
       question: "If a school wanted to represent 'how well a student is doing' using only 5 features, what's the smartest next step after choosing them?",
       choices: [
             "Ask what important things those 5 features leave out, and whether any of them act as proxy variables",
-            "Add the student's home address as a feature with no further thought” belongs to a different situation than the one in the question stem",
-            "“Delete all other information immediately” describes a different situation than the one in the question stem",
-            "Assume the 5 features capture the whole truth and stop thinking about it” belongs to a different situation than the one in the question stem",
+            "Add the student's home address as a feature with no further thought",
+            "Delete all other information immediately",
+            "Assume the 5 features capture the whole truth and stop thinking about it",
           ],
       correctIndex: 0,
       explanation:

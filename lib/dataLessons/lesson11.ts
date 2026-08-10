@@ -64,8 +64,8 @@ export const daLesson11: DataLessonConfig = {
         checkIn: {
           prompt: "What makes a line chart different from a bar chart?",
           choices: [
-            "Line charts don't need a y-axis” belongs to a different situation than the one in the question stem",
-            "Line charts can only show one data point” belongs to a different situation than the one in the question stem",
+            "Line charts don't need a y-axis",
+            "Line charts can only show one data point",
             "The connecting line reveals a trend/slope across ordered time steps",
           ],
           correctIndex: 2,
@@ -113,9 +113,9 @@ export const daLesson11: DataLessonConfig = {
         checkIn: {
           prompt: "Your data is 'sales by region' (North, South, East, West). Is a line chart appropriate?",
           choices: [
-            "Yes, but only if there are exactly 4 regions” belongs to a different situation than the one in the question stem",
+            "Yes, but only if there are exactly 4 regions",
             "No — regions aren't in time order, so a bar chart compares them more honestly",
-            "Yes, any numeric data works with a line” belongs to a different situation than the one in the question stem",
+            "Yes, any numeric data works with a line",
           ],
           correctIndex: 1,
           explanation: "Regions have no natural time order, so connecting them with a line would imply a trend that doesn't exist. A bar chart is the honest choice here.",
@@ -150,9 +150,9 @@ export const daLesson11: DataLessonConfig = {
         checkIn: {
           prompt: "If you sort daily_orders by weekday ALPHABETICALLY instead of by day_num, what happens?",
           choices: [
-            "Nothing changes — the trend still reads correctly” belongs to a different situation than the one in the question stem",
+            "Nothing changes — the trend still reads correctly",
             "Fri would appear before Mon, scrambling the real week-long trend into nonsense",
-            "The chart would refuse to render” belongs to a different situation than the one in the question stem",
+            "The chart would refuse to render",
           ],
           correctIndex: 1,
           explanation: "Alphabetical order (Fri, Mon, Sat, Sun, Thu, Tue, Wed) has nothing to do with actual time order, so the line would zig-zag meaninglessly instead of showing the real weekly trend.",
@@ -233,7 +233,7 @@ export const daLesson11: DataLessonConfig = {
         checkIn: {
           prompt: "Which is the correct way to build an honest weekly trend line from daily_orders?",
           choices: [
-            "SELECT weekday, orders FROM daily_orders” belongs to a different situation than the one in the question stem",
+            "SELECT weekday, orders FROM daily_orders",
             "SELECT weekday, orders FROM daily_orders ORDER BY day_num",
             "SELECT weekday, orders FROM daily_orders ORDER BY weekday",
           ],
@@ -290,8 +290,8 @@ export const daLesson11: DataLessonConfig = {
           prompt: "Why use ORDER BY orders DESC LIMIT 1 instead of ORDER BY day_num?",
           choices: [
             "DESC + LIMIT 1 ranks by order count and keeps the top row — day_num only sorts chronologically",
-            "day_num finds the busiest day automatically” belongs to a different situation than the one in the question stem",
-            "“LIMIT 1 always returns Monday” describes a different situation than the one in the question stem",
+            "day_num finds the busiest day automatically",
+            "LIMIT 1 always returns Monday",
           ],
           correctIndex: 0,
           explanation: "Finding the peak requires sorting by the orders column descending, not by time order. day_num is for trend lines; DESC + LIMIT is for rankings.",

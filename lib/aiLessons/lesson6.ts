@@ -67,7 +67,7 @@ Today's lesson: **Training, Testing, and Mistakes**.
         checkIn: {
           prompt: "Why do researchers hold back a hidden 'test set' that the model never trains on?",
           choices: [
-            "“Test sets don't actually matter and can be skipped” describes a different situation than the one in the question stem",
+            "Test sets don't actually matter and can be skipped",
             "If the goal were something else, “To save money on computer storage” might work; for this check, it does not",
             "To check whether the model learned a real, general pattern rather than just memorizing its training examples",
             "To make the training process run faster — familiar wording, wrong fit for what the prompt is actually asking",
@@ -90,10 +90,10 @@ Today's lesson: **Training, Testing, and Mistakes**.
         checkIn: {
           prompt: "A model scores 99% on its training data but only 52% on brand-new data. What does this most likely show?",
           choices: [
-            "This is completely normal and not a concern” belongs to a different situation than the one in the question stem",
-            "“The model needs a faster processor” describes a different situation than the one in the question stem",
+            "This is completely normal and not a concern",
+            "The model needs a faster processor",
             "Overfitting — the model memorized training quirks instead of learning a general, reusable pattern",
-            "The model is perfect and the test data must be wrong” belongs to a different situation than the one in the question stem",
+            "The model is perfect and the test data must be wrong",
           ],
           correctIndex: 2,
           explanation:
@@ -117,9 +117,9 @@ Today's lesson: **Training, Testing, and Mistakes**.
           prompt: "A model that labels every single email 'not spam' scores 99% accuracy because 99% of real emails aren't spam. Is this a good model?",
           choices: [
             "No — it catches zero spam despite the high score, showing accuracy alone can be misleading",
-            "Yes — 99% accuracy is always excellent” belongs to a different situation than the one in the question stem",
-            "There's no way to know without more information” belongs to a different situation than the one in the question stem",
-            "Yes, because accuracy is the only thing that matters” belongs to a different situation than the one in the question stem",
+            "Yes — 99% accuracy is always excellent",
+            "There's no way to know without more information",
+            "Yes, because accuracy is the only thing that matters",
           ],
           correctIndex: 0,
           explanation:
@@ -149,9 +149,9 @@ Today's lesson: **Training, Testing, and Mistakes**.
           prompt: "Why can a 95% overall accuracy score still hide a serious problem?",
           choices: [
             "Because the failures might cluster on the cases or groups that matter most, even while most easy cases look fine",
-            "“Because accuracy is always fake in AI marketing” describes a different situation than the one in the question stem",
-            "Because 95% is mathematically impossible for any real model” belongs to a different situation than the one in the question stem",
-            "“Because accuracy only applies to image models, not text” describes a different situation than the one in the question stem",
+            "Because accuracy is always fake in AI marketing",
+            "Because 95% is mathematically impossible for any real model",
+            "Because accuracy only applies to image models, not text",
           ],
           correctIndex: 0,
           explanation:
@@ -172,9 +172,9 @@ Today's lesson: **Training, Testing, and Mistakes**.
           prompt: "What follow-up question should you ask after hearing '95% accurate'?",
           choices: [
             "What kind of mistakes make up the other 5%, and how much do they matter?",
-            "Nothing — 95% is high enough to trust automatically” belongs to a different situation than the one in the question stem",
-            "How many total employees work at the company that built it?” belongs to a different situation than the one in the question stem",
-            "How long has the company existed?” belongs to a different situation than the one in the question stem",
+            "Nothing — 95% is high enough to trust automatically",
+            "How many total employees work at the company that built it?",
+            "How long has the company existed?",
           ],
           correctIndex: 0,
           explanation:
@@ -217,8 +217,8 @@ Today's lesson: **Training, Testing, and Mistakes**.
         checkIn: {
           prompt: "What is the clearest warning sign of overfitting in this comparison?",
           choices: [
-            "The model was trained on a large dataset” belongs to a different situation than the one in the question stem",
-            "The model uses a validation set at all” belongs to a different situation than the one in the question stem",
+            "The model was trained on a large dataset",
+            "The model uses a validation set at all",
             "Training accuracy and test accuracy are both moderate and similar",
             "Training accuracy is extremely high while test accuracy is much lower",
           ],
@@ -284,7 +284,7 @@ Today's lesson: **Training, Testing, and Mistakes**.
           choices: [
             "It relied heavily on a smaller set of expert-imagined scenarios rather than a large, diverse set of real, varied cases",
             "Picking “Doctors were never involved in building it” is a common mix-up that confuses a nearby idea with the right one",
-            "“It was tested on too many real, diverse patient cases” describes a different situation than the one in the question stem",
+            "It was tested on too many real, diverse patient cases",
             "It can seem like it had no training data at all, but that reading skips the distinction this question is testing",
           ],
           correctIndex: 0,
@@ -322,10 +322,10 @@ Today's lesson: **Training, Testing, and Mistakes**.
       id: "q1",
       question: "Why do we hold back a 'test set' the model never trains on?",
       choices: [
-            "Test sets aren't actually useful” belongs to a different situation than the one in the question stem",
-            "“To make training faster” describes a different situation than the one in the question stem",
+            "Test sets aren't actually useful",
+            "To make training faster",
             "To check whether the model learned the real pattern, not just memorized answers",
-            "“To save storage space” describes a different situation than the one in the question stem",
+            "To save storage space",
           ],
       correctIndex: 2,
       explanation:
@@ -348,9 +348,9 @@ Today's lesson: **Training, Testing, and Mistakes**.
       id: "q3",
       question: "99% of emails are NOT spam. A model that labels EVERY email 'not spam' is 99% accurate. Why is it still useless?",
       choices: [
-            "Accuracy can't be measured for email” belongs to a different situation than the one in the question stem",
-            "It is actually a great model” belongs to a different situation than the one in the question stem",
-            "“99% is a failing score” describes a different situation than the one in the question stem",
+            "Accuracy can't be measured for email",
+            "It is actually a great model",
+            "99% is a failing score",
             "It never actually catches any spam — high accuracy hides the mistakes that matter",
           ],
       correctIndex: 3,
@@ -376,8 +376,8 @@ Today's lesson: **Training, Testing, and Mistakes**.
       choices: [
             "The model says a sick patient is healthy, missing a real case",
             "The model correctly identifies a healthy patient as healthy",
-            "The model is 100% accurate” belongs to a different situation than the one in the question stem",
-            "The model crashes and gives no answer” belongs to a different situation than the one in the question stem",
+            "The model is 100% accurate",
+            "The model crashes and gives no answer",
           ],
       correctIndex: 0,
       explanation:
@@ -414,9 +414,9 @@ Today's lesson: **Training, Testing, and Mistakes**.
       question: "What's the smartest response to an ad that says 'our AI is 97% accurate'?",
       choices: [
             "Ask what the other 3% looks like, how it was tested, and which mistakes matter most for this use",
-            "Ignore accuracy entirely; it's meaningless” belongs to a different situation than the one in the question stem",
-            "Assume it's a lie with no further thought” belongs to a different situation than the one in the question stem",
-            "Trust it immediately — that number is high enough” belongs to a different situation than the one in the question stem",
+            "Ignore accuracy entirely; it's meaningless",
+            "Assume it's a lie with no further thought",
+            "Trust it immediately — that number is high enough",
           ],
       correctIndex: 0,
       explanation:

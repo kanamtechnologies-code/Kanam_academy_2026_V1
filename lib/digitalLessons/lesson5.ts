@@ -119,10 +119,10 @@ Today's lesson: **Digital Communication for School & Work**.
         checkIn: {
           prompt: "In your group-project chat, a teammate types \"FINE WHATEVER.\" Why might that upset people?",
           choices: [
-            "Caps lock breaks the chat app” belongs to a different situation than the one in the question stem",
+            "Caps lock breaks the chat app",
             "ALL CAPS reads as shouting, so it sounds angry",
-            "It uses too many emojis” belongs to a different situation than the one in the question stem",
-            "It's a spelling mistake” belongs to a different situation than the one in the question stem",
+            "It uses too many emojis",
+            "It's a spelling mistake",
           ],
           correctIndex: 1,
           explanation:
@@ -159,10 +159,10 @@ Today's lesson: **Digital Communication for School & Work**.
         checkIn: {
           prompt: "Which reply to a teammate sharing their finished slide sounds the warmest while staying just as quick to type?",
           choices: [
-            "k” belongs to a different situation than the one in the question stem",
+            "k",
             "Thanks, Maya! I'll finish my part tonight.",
-            "(no reply at all)” belongs to a different situation than the one in the question stem",
-            "fine” belongs to a different situation than the one in the question stem",
+            "(no reply at all)",
+            "fine",
           ],
           correctIndex: 1,
           explanation:
@@ -230,10 +230,10 @@ Today's lesson: **Digital Communication for School & Work**.
         checkIn: {
           prompt: "You're emailing a college admissions office about a missing transcript. Which subject line is strongest?",
           choices: [
-            "Question” belongs to a different situation than the one in the question stem",
+            "Question",
             "Missing transcript for Jordan Lee — application ID 48291",
-            "Hi” belongs to a different situation than the one in the question stem",
-            "(left blank)” belongs to a different situation than the one in the question stem",
+            "Hi",
+            "(left blank)",
           ],
           correctIndex: 1,
           explanation:
@@ -268,9 +268,9 @@ Today's lesson: **Digital Communication for School & Work**.
         checkIn: {
           prompt: "You're copying a parent on an email to a teacher. What's the difference between CC and BCC?",
           choices: [
-            "BCC sends the email twice” belongs to a different situation than the one in the question stem",
-            "There is no real difference” belongs to a different situation than the one in the question stem",
-            "“CC is faster than BCC” describes a different situation than the one in the question stem",
+            "BCC sends the email twice",
+            "There is no real difference",
+            "CC is faster than BCC",
             "CC'd people are visible to all; BCC'd people are hidden from other recipients",
           ],
           correctIndex: 3,
@@ -291,9 +291,9 @@ Today's lesson: **Digital Communication for School & Work**.
           prompt: "A teacher hasn't replied to your first email about a recommendation letter. Which follow-up fits this lesson?",
           choices: [
             "A polite follow-up restating the deadline, what you need, and thanking them for their time",
-            "“??? hello??? did u see this” describes a different situation than the one in the question stem",
-            "Send the same vague email five more times” belongs to a different situation than the one in the question stem",
-            "Reply-all to the whole class asking if anyone else's teacher is ignoring them” belongs to a different situation than the one in the question stem",
+            "??? hello??? did u see this",
+            "Send the same vague email five more times",
+            "Reply-all to the whole class asking if anyone else's teacher is ignoring them",
           ],
           correctIndex: 0,
           explanation:
@@ -352,10 +352,10 @@ Today's lesson: **Digital Communication for School & Work**.
       id: "q2",
       question: "In your group-project chat, a teammate types \"FINE WHATEVER.\" Why might that upset people?",
       choices: [
-            "It uses too many emojis” belongs to a different situation than the one in the question stem",
-            "It's a spelling mistake” belongs to a different situation than the one in the question stem",
+            "It uses too many emojis",
+            "It's a spelling mistake",
             "ALL CAPS reads as shouting, so it sounds angry",
-            "Caps lock breaks the chat app” belongs to a different situation than the one in the question stem",
+            "Caps lock breaks the chat app",
           ],
       correctIndex: 2,
       explanation:
@@ -365,9 +365,9 @@ Today's lesson: **Digital Communication for School & Work**.
       id: "q3",
       question: "You're emailing a college admissions office about a missing transcript. Which subject line is strongest?",
       choices: [
-            "Question” belongs to a different situation than the one in the question stem",
-            "Hi” belongs to a different situation than the one in the question stem",
-            "(left blank)” belongs to a different situation than the one in the question stem",
+            "Question",
+            "Hi",
+            "(left blank)",
             "Missing transcript for Jordan Lee — application ID 48291",
           ],
       correctIndex: 3,
@@ -378,10 +378,10 @@ Today's lesson: **Digital Communication for School & Work**.
       id: "q4",
       question: "You're copying a parent on an email to a teacher. What's the difference between CC and BCC?",
       choices: [
-            "BCC sends the email twice” belongs to a different situation than the one in the question stem",
+            "BCC sends the email twice",
             "CC'd people are visible to all; BCC'd people are hidden from other recipients",
-            "“CC is faster than BCC” describes a different situation than the one in the question stem",
-            "There is no real difference” belongs to a different situation than the one in the question stem",
+            "CC is faster than BCC",
+            "There is no real difference",
           ],
       correctIndex: 1,
       explanation:
@@ -404,9 +404,9 @@ Today's lesson: **Digital Communication for School & Work**.
       id: "q6",
       question: "A teammate replies \"k\" to your finished project section. According to this lesson, why might that feel colder than intended?",
       choices: [
-            "It means the message was never received” belongs to a different situation than the one in the question stem",
-            "\"k\" is technically a spelling error” belongs to a different situation than the one in the question stem",
-            "\"k\" is against the platform's rules” belongs to a different situation than the one in the question stem",
+            "It means the message was never received",
+            "\"k\" is technically a spelling error",
+            "\"k\" is against the platform's rules",
             "In text, short replies default to reading as cold or annoyed unless a warm signal is added",
           ],
       correctIndex: 3,
@@ -418,9 +418,9 @@ Today's lesson: **Digital Communication for School & Work**.
       question: "You meant to privately thank one teacher, but accidentally hit reply-all on a 40-person email thread. What could have prevented this?",
       choices: [
             "Glancing at the To/CC fields before sending to confirm everyone listed actually needs the reply",
-            "“Writing the email in all lowercase” describes a different situation than the one in the question stem",
-            "Nothing — reply-all mistakes cannot be prevented” belongs to a different situation than the one in the question stem",
-            "“Always using CC instead of BCC” describes a different situation than the one in the question stem",
+            "Writing the email in all lowercase",
+            "Nothing — reply-all mistakes cannot be prevented",
+            "Always using CC instead of BCC",
           ],
       correctIndex: 0,
       explanation:
@@ -433,7 +433,7 @@ Today's lesson: **Digital Communication for School & Work**.
             "Some learners answer “\"hey can i get more time lol\"”, yet that does not match the precise idea from the lesson",
             "A rushed pass can land on a meme with the request written on it”; careful readers reject it for this problem",
             "A proofread, formal email with a clear subject line, greeting, specific ask with a date, and polite sign-off",
-            "“A casual one-liner with no greeting or sign-off” describes a different situation than the one in the question stem",
+            "A casual one-liner with no greeting or sign-off",
           ],
       correctIndex: 2,
       explanation:

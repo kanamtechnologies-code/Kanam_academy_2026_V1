@@ -70,9 +70,9 @@ Today's lesson: **HTTPS, Certificates & Trust**.
           prompt: "You're on café Wi-Fi and a login page shows 'Not Secure' with an HTTP address. What should you do?",
           choices: [
             "Pause — avoid entering a password on an unencrypted HTTP page, especially on shared networks",
-            "Log in anyway since café Wi-Fi is always trustworthy” belongs to a different situation than the one in the question stem",
-            "Assume the page is a virus and delete your browser” belongs to a different situation than the one in the question stem",
-            "Turn off your phone's Wi-Fi permanently” belongs to a different situation than the one in the question stem",
+            "Log in anyway since café Wi-Fi is always trustworthy",
+            "Assume the page is a virus and delete your browser",
+            "Turn off your phone's Wi-Fi permanently",
           ],
           correctIndex: 0,
           explanation:
@@ -99,10 +99,10 @@ Today's lesson: **HTTPS, Certificates & Trust**.
         checkIn: {
           prompt: "What does a website certificate mainly prove to your browser?",
           choices: [
-            "That the website's owners are honest people” belongs to a different situation than the one in the question stem",
+            "That the website's owners are honest people",
             "That a trusted CA has vouched the public key belongs to that specific domain",
-            "That the website loads quickly” belongs to a different situation than the one in the question stem",
-            "That the website has no bugs” belongs to a different situation than the one in the question stem",
+            "That the website loads quickly",
+            "That the website has no bugs",
           ],
           correctIndex: 1,
           explanation:
@@ -134,10 +134,10 @@ Today's lesson: **HTTPS, Certificates & Trust**.
         checkIn: {
           prompt: "Your school portal shows an 'expired certificate' warning. What's the best first move?",
           choices: [
-            "Assume the school was hacked and tell everyone on social media” belongs to a different situation than the one in the question stem",
+            "Assume the school was hacked and tell everyone on social media",
             "Avoid entering credentials, and report the warning so IT can renew the certificate",
-            "Permanently stop using that portal” belongs to a different situation than the one in the question stem",
-            "Enter your password anyway to save time” belongs to a different situation than the one in the question stem",
+            "Permanently stop using that portal",
+            "Enter your password anyway to save time",
           ],
           correctIndex: 1,
           explanation:
@@ -170,7 +170,7 @@ Today's lesson: **HTTPS, Certificates & Trust**.
           prompt: "A phishing page has a valid padlock/HTTPS. What does that tell you?",
           choices: [
             "Some learners answer “The page is definitely legitimate”, yet that does not match the precise idea from the lesson",
-            "“HTTPS certificates are only given to real companies” describes a different situation than the one in the question stem",
+            "HTTPS certificates are only given to real companies",
             "Only that the connection to that specific (possibly fake) domain is encrypted — not that the site is trustworthy",
             "Treat “The page cannot ask for your password” as a distractor: close in topic, incorrect for the required answer",
           ],
@@ -197,10 +197,10 @@ Today's lesson: **HTTPS, Certificates & Trust**.
         checkIn: {
           prompt: "You need to check your bank account while traveling. Which is the safer default choice?",
           choices: [
-            "Open airport Wi-Fi with no password, since it's convenient” belongs to a different situation than the one in the question stem",
+            "Open airport Wi-Fi with no password, since it's convenient",
             "Cellular data or a trusted personal hotspot over open public Wi-Fi for sensitive logins",
-            "Any Wi-Fi is equally safe as long as the page loads” belongs to a different situation than the one in the question stem",
-            "Wait and use a friend's phone logged into their own bank account instead” belongs to a different situation than the one in the question stem",
+            "Any Wi-Fi is equally safe as long as the page loads",
+            "Wait and use a friend's phone logged into their own bank account instead",
           ],
           correctIndex: 1,
           explanation:
@@ -260,10 +260,10 @@ Today's lesson: **HTTPS, Certificates & Trust**.
         checkIn: {
           prompt: "Which combination best represents a full defensive layer around a login, beyond just HTTPS?",
           choices: [
-            "Only checking for the padlock icon before typing anything” belongs to a different situation than the one in the question stem",
-            "Disabling all browser warnings so pages load faster” belongs to a different situation than the one in the question stem",
+            "Only checking for the padlock icon before typing anything",
+            "Disabling all browser warnings so pages load faster",
             "HTTPS + URL vigilance + a strong unique password + MFA + updated, healthy devices",
-            "HTTPS alone is always sufficient by itself” belongs to a different situation than the one in the question stem",
+            "HTTPS alone is always sufficient by itself",
           ],
           correctIndex: 2,
           explanation:
@@ -316,10 +316,10 @@ HTTPS is one layer. Network choice and MFA are others — the walkthrough names 
         checkIn: {
           prompt: "HTTPS is active on a login page at a coffee shop. What additional factor should Sam still consider?",
           choices: [
-            "Whether HTTP would be faster” belongs to a different situation than the one in the question stem",
+            "Whether HTTP would be faster",
             "Whether the network environment and domain are trustworthy, plus MFA status",
-            "Whether to disable browser warnings for speed” belongs to a different situation than the one in the question stem",
-            "Nothing — padlock means completely safe” belongs to a different situation than the one in the question stem",
+            "Whether to disable browser warnings for speed",
+            "Nothing — padlock means completely safe",
           ],
           correctIndex: 1,
           explanation:
@@ -382,10 +382,10 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q2",
       question: "What does a website certificate mainly help your browser do?",
       choices: [
-            "Speed up video streaming automatically” belongs to a different situation than the one in the question stem",
-            "Delete phishing emails before they arrive” belongs to a different situation than the one in the question stem",
+            "Speed up video streaming automatically",
+            "Delete phishing emails before they arrive",
             "Check that the site's cryptographic identity matches the domain (as vouched by a CA)",
-            "Prove the website's owners are ethically perfect” belongs to a different situation than the one in the question stem",
+            "Prove the website's owners are ethically perfect",
           ],
       correctIndex: 2,
       explanation:
@@ -408,9 +408,9 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q4",
       question: "You must check a bank balance at an airport. Which recommendation best weighs path risk against convenience?",
       choices: [
-            "Use open airport Wi-Fi because the padlock makes the network irrelevant” belongs to a different situation than the one in the question stem",
-            "“Wait and log into a stranger's phone bank app instead” describes a different situation than the one in the question stem",
-            "Disable certificate warnings so pages load faster on any network” belongs to a different situation than the one in the question stem",
+            "Use open airport Wi-Fi because the padlock makes the network irrelevant",
+            "Wait and log into a stranger's phone bank app instead",
+            "Disable certificate warnings so pages load faster on any network",
             "Prefer cellular data or a personal hotspot for the sensitive login; keep HTTPS and heed any certificate warnings",
           ],
       correctIndex: 3,
@@ -423,7 +423,7 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       choices: [
             "Some learners answer “Physical locks and HTTPS are unrelated ideas with no useful analogy”, yet that does not match the precise idea from the lesson",
             "HTTPS is like a lockable door/channel; checking the domain is like confirming the street address; MFA is like needing a second factor beyond the key",
-            "If a building has a deadbolt, you never need to check the address — same as trusting any padlock page” belongs to a different situation than the one in the question stem",
+            "If a building has a deadbolt, you never need to check the address — same as trusting any padlock page",
             "It can seem like a padlock is like a vault that also proves the staff are honest, but that reading skips the distinction this question is testing",
           ],
       correctIndex: 1,
@@ -434,10 +434,10 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q6",
       question: "A certificate shows as 'expired' on a site you normally trust. What's the best first response?",
       choices: [
-            "Permanently avoid the site forever with no follow-up or report” belongs to a different situation than the one in the question stem",
+            "Permanently avoid the site forever with no follow-up or report",
             "Avoid entering credentials, try again later, and report it so it can be renewed",
-            "Enter your password anyway since you already trust the site” belongs to a different situation than the one in the question stem",
-            "Assume the entire internet is broken” belongs to a different situation than the one in the question stem",
+            "Enter your password anyway since you already trust the site",
+            "Assume the entire internet is broken",
           ],
       correctIndex: 1,
       explanation:
@@ -449,8 +449,8 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       choices: [
             "Enter the password quickly before the warning times out. That option sounds confident, but it leaves out the deciding constraint",
             "Close the tab and treat it as likely phishing; use a bookmark/official URL later — mismatch after an unexpected link is high risk",
-            "“Forward the link to classmates so they can confirm the padlock” describes a different situation than the one in the question stem",
-            "Click through Advanced → proceed — school Wi-Fi warnings are always false alarms” belongs to a different situation than the one in the question stem",
+            "Forward the link to classmates so they can confirm the padlock",
+            "Click through Advanced → proceed — school Wi-Fi warnings are always false alarms",
           ],
       correctIndex: 1,
       explanation:
@@ -460,10 +460,10 @@ Build the habit: address bar first, warnings second, network third, MFA fourth �
       id: "q8",
       question: "Which set of layers best defends a sensitive login, beyond HTTPS alone?",
       choices: [
-            "HTTPS is always sufficient entirely on its own” belongs to a different situation than the one in the question stem",
-            "Only disabling browser warnings so pages load faster” belongs to a different situation than the one in the question stem",
+            "HTTPS is always sufficient entirely on its own",
+            "Only disabling browser warnings so pages load faster",
             "URL vigilance, a strong unique password, MFA, and an updated, healthy device",
-            "Using the same password everywhere for consistency” belongs to a different situation than the one in the question stem",
+            "Using the same password everywhere for consistency",
           ],
       correctIndex: 2,
       explanation:

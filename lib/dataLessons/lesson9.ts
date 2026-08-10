@@ -63,9 +63,9 @@ export const daLesson9: DataLessonConfig = {
         checkIn: {
           prompt: "What's the main job of a bar chart?",
           choices: [
-            "To show how one number changes over time” belongs to a different situation than the one in the question stem",
+            "To show how one number changes over time",
             "To compare amounts across separate categories at a glance",
-            "To show parts of one whole” belongs to a different situation than the one in the question stem",
+            "To show parts of one whole",
           ],
           correctIndex: 1,
           explanation: "A bar chart's superpower is letting your eye instantly compare separate categories by the height of their bars.",
@@ -95,8 +95,8 @@ export const daLesson9: DataLessonConfig = {
           prompt: "In a bar chart, what does the HEIGHT of a bar represent?",
           choices: [
             "The number/value for that category",
-            "The order it appears in” belongs to a different situation than the one in the question stem",
-            "The category's name” belongs to a different situation than the one in the question stem",
+            "The order it appears in",
+            "The category's name",
           ],
           correctIndex: 0,
           explanation: "The x-axis carries the labels (categories); the height of each bar (the y-axis) carries the number being compared.",
@@ -115,9 +115,9 @@ export const daLesson9: DataLessonConfig = {
         checkIn: {
           prompt: "You want to show 'orders per day this week.' Is a bar chart the best fit?",
           choices: [
-            "No — a pie chart is required for anything with numbers” belongs to a different situation than the one in the question stem",
+            "No — a pie chart is required for anything with numbers",
             "No — since the x-axis is time in order, a line chart shows the trend better",
-            "Yes, always use bar charts” belongs to a different situation than the one in the question stem",
+            "Yes, always use bar charts",
           ],
           correctIndex: 1,
           explanation: "When the x-axis is time, a line chart reveals the trend (rising, falling) far better than separate bars — you'll learn this chart in Lesson 11.",
@@ -151,7 +151,7 @@ export const daLesson9: DataLessonConfig = {
         checkIn: {
           prompt: "Two bars have values 48 and 50, but the y-axis starts at 47 instead of 0. What happens?",
           choices: [
-            "SQL will refuse to run the query” belongs to a different situation than the one in the question stem",
+            "SQL will refuse to run the query",
             "The tiny 2-unit difference will look dramatically exaggerated",
             "The bars will look nearly identical, as they should",
           ],
@@ -198,8 +198,8 @@ export const daLesson9: DataLessonConfig = {
         checkIn: {
           prompt: "Why can't you chart the raw lunch_orders table directly?",
           choices: [
-            "“You can — any table can be charted as-is” describes a different situation than the one in the question stem",
-            "Charts only work on tables with exactly 2 rows” belongs to a different situation than the one in the question stem",
+            "You can — any table can be charted as-is",
+            "Charts only work on tables with exactly 2 rows",
             "It has one row per order, not one summarized row per category, so it needs GROUP BY + COUNT first",
           ],
           correctIndex: 2,
@@ -242,8 +242,8 @@ export const daLesson9: DataLessonConfig = {
         checkIn: {
           prompt: "Which query produces a proper chart-ready result for 'orders per item'?",
           choices: [
-            "SELECT * FROM lunch_orders” belongs to a different situation than the one in the question stem",
-            "SELECT item FROM lunch_orders ORDER BY item” belongs to a different situation than the one in the question stem",
+            "SELECT * FROM lunch_orders",
+            "SELECT item FROM lunch_orders ORDER BY item",
             "SELECT item, COUNT(*) AS order_count FROM lunch_orders GROUP BY item",
           ],
           correctIndex: 2,

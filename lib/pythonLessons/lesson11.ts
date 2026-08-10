@@ -139,8 +139,8 @@ export const lesson11: PythonLessonConfig = {
         checkIn: {
           prompt: "In `def attack(enemy):`, what is `enemy`?",
           choices: [
-            "An argument” belongs to a different situation than the one in the question stem",
-            "A print statement” belongs to a different situation than the one in the question stem",
+            "An argument",
+            "A print statement",
             "A parameter — a placeholder waiting for a value",
           ],
           correctIndex: 2,
@@ -183,8 +183,8 @@ export const lesson11: PythonLessonConfig = {
         checkIn: {
           prompt: "Why is one function with a parameter usually better than three separate functions (attack_goblin, attack_dragon, attack_boss)?",
           choices: [
-            "“It runs faster” describes a different situation than the one in the question stem",
-            "Python doesn't allow more than one function” belongs to a different situation than the one in the question stem",
+            "It runs faster",
+            "Python doesn't allow more than one function",
             "One flexible function avoids repeated near-identical code and is easier to update",
           ],
           correctIndex: 2,
@@ -249,9 +249,9 @@ export const lesson11: PythonLessonConfig = {
         checkIn: {
           prompt: "You call `attack(\"goblin\")` and `attack(\"dragon\")`, but both print the exact same message. What should you check first?",
           choices: [
-            "Whether the function has too many parameters” belongs to a different situation than the one in the question stem",
+            "Whether the function has too many parameters",
             "Whether the print statement inside the function actually uses the enemy parameter",
-            "Whether Python is installed correctly” belongs to a different situation than the one in the question stem",
+            "Whether Python is installed correctly",
           ],
           correctIndex: 1,
           explanation: "If the print statement hard-codes a value instead of using the parameter, every call will produce identical output regardless of the argument.",
@@ -326,7 +326,7 @@ export const lesson11: PythonLessonConfig = {
           prompt: "What's the difference between a parameter and an argument?",
           choices: [
             "Picking “A parameter is used only in loops” is a common mix-up that confuses a nearby idea with the right one",
-            "“There is no difference — they're the same thing” describes a different situation than the one in the question stem",
+            "There is no difference — they're the same thing",
             "A parameter is the placeholder in the function definition; an argument is the real value passed in when calling",
           ],
           correctIndex: 2,

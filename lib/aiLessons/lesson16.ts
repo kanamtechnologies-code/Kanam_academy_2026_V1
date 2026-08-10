@@ -67,10 +67,10 @@ Today's lesson: **Capstone: Be an AI-Smart Citizen**.
         checkIn: {
           prompt: "Which statement best shows true AI literacy, as this course has built it?",
           choices: [
-            "“AI is useless and should always be avoided” describes a different situation than the one in the question stem",
+            "AI is useless and should always be avoided",
             "AI is a powerful pattern tool that I can direct with good prompts, verify before trusting, and use ethically",
-            "“AI is magic that shouldn't be questioned” describes a different situation than the one in the question stem",
-            "“AI is a conscious mind that's always right” describes a different situation than the one in the question stem",
+            "AI is magic that shouldn't be questioned",
+            "AI is a conscious mind that's always right",
           ],
           correctIndex: 1,
           explanation:
@@ -92,9 +92,9 @@ Today's lesson: **Capstone: Be an AI-Smart Citizen**.
         checkIn: {
           prompt: "An AI gives you a confident statistic with a source for your project. Which checklist habit applies most directly?",
           choices: [
-            "Understand — just remember it's a pattern tool and move on” belongs to a different situation than the one in the question stem",
-            "Direct — rewrite your original prompt” belongs to a different situation than the one in the question stem",
-            "Protect — check your privacy settings” belongs to a different situation than the one in the question stem",
+            "Understand — just remember it's a pattern tool and move on",
+            "Direct — rewrite your original prompt",
+            "Protect — check your privacy settings",
             "Verify — confirm the statistic and the source actually exist before using it",
           ],
           correctIndex: 3,
@@ -114,10 +114,10 @@ Today's lesson: **Capstone: Be an AI-Smart Citizen**.
         checkIn: {
           prompt: "In the capstone adoption checklist, what should come BEFORE deciding to adopt, limit, or reject a tool?",
           choices: [
-            "Nothing — you should decide immediately based on the tool's reputation” belongs to a different situation than the one in the question stem",
+            "Nothing — you should decide immediately based on the tool's reputation",
             "Defining the job, testing on real examples, and checking accuracy/bias/privacy and human review rules",
-            "“Asking the AI itself whether it's trustworthy” describes a different situation than the one in the question stem",
-            "“Only checking how much the tool costs” describes a different situation than the one in the question stem",
+            "Asking the AI itself whether it's trustworthy",
+            "Only checking how much the tool costs",
           ],
           correctIndex: 1,
           explanation:
@@ -161,9 +161,9 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
         checkIn: {
           prompt: "What's the honest test for whether a particular use of AI crossed the line from help into problematic reliance?",
           choices: [
-            "Whether anyone else found out you used it” belongs to a different situation than the one in the question stem",
-            "Whether you used AI at all, with no other consideration” belongs to a different situation than the one in the question stem",
-            "Whether the answer sounded confident” belongs to a different situation than the one in the question stem",
+            "Whether anyone else found out you used it",
+            "Whether you used AI at all, with no other consideration",
+            "Whether the answer sounded confident",
             "Whether the AI helped you learn and think, or quietly did the thinking for you instead",
           ],
           correctIndex: 3,
@@ -224,10 +224,10 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
         checkIn: {
           prompt: "Your school is excited about a new AI grading tool. Which step should come BEFORE deciding to adopt it?",
           choices: [
-            "Announce adoption in the newsletter” belongs to a different situation than the one in the question stem",
+            "Announce adoption in the newsletter",
             "Define the job, test on real student work, and check accuracy, bias, and privacy risks",
-            "Disable all human grading immediately” belongs to a different situation than the one in the question stem",
-            "Trust the vendor's marketing video” belongs to a different situation than the one in the question stem",
+            "Disable all human grading immediately",
+            "Trust the vendor's marketing video",
           ],
           correctIndex: 1,
           explanation:
@@ -252,8 +252,8 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
         checkIn: {
           prompt: "What's the core difference illustrated in this comparison table?",
           choices: [
-            "“There's no real difference between the two approaches” describes a different situation than the one in the question stem",
-            "Naive users are always right and AI-smart citizens overthink things” belongs to a different situation than the one in the question stem",
+            "There's no real difference between the two approaches",
+            "Naive users are always right and AI-smart citizens overthink things",
             "It can seem like aI-smart citizens never use AI at all, but that reading skips the distinction this question is testing",
             "AI-smart citizens actively direct, verify, and take responsibility, instead of passively accepting whatever AI produces",
           ],
@@ -341,10 +341,10 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
         checkIn: {
           prompt: "Which combination of skills from this course did Kayla's group demonstrate?",
           choices: [
-            "“They used AI but lied to their teacher about it afterward” describes a different situation than the one in the question stem",
+            "They used AI but lied to their teacher about it afterward",
             "Some learners answer “They avoided AI entirely to be safe”, yet that does not match the precise idea from the lesson",
             "They prompted deliberately, verified facts, considered image-ethics questions, and disclosed their AI use honestly",
-            "They submitted whatever the AI produced without any changes” belongs to a different situation than the one in the question stem",
+            "They submitted whatever the AI produced without any changes",
           ],
           correctIndex: 2,
           explanation:
@@ -377,7 +377,7 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
         checkIn: {
           prompt: "A friend shows you a shocking AI-generated-looking video with a caption claiming a celebrity said something outrageous, and asks if they should repost it. What's the AI-smart citizen response?",
           choices: [
-            "“Ask the same AI tool if the video is real and trust whatever it says” describes a different situation than the one in the question stem",
+            "Ask the same AI tool if the video is real and trust whatever it says",
             "It can seem like repost immediately since it's already going viral, but that reading skips the distinction this question is testing",
             "Verify it against trusted sources first, since it could be a deepfake or hallucinated claim, before deciding whether to share it at all",
             "It can seem like assume it's true because videos can't be faked, but that reading skips the distinction this question is testing",
@@ -414,10 +414,10 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       id: "q1",
       question: "Which statement shows true AI literacy?",
       choices: [
-            "AI is a conscious mind that's always right” belongs to a different situation than the one in the question stem",
+            "AI is a conscious mind that's always right",
             "AI is a powerful pattern tool I should direct, verify, and use ethically",
-            "AI is magic I shouldn't question” belongs to a different situation than the one in the question stem",
-            "AI is useless and I should avoid it” belongs to a different situation than the one in the question stem",
+            "AI is magic I shouldn't question",
+            "AI is useless and I should avoid it",
           ],
       correctIndex: 1,
       explanation:
@@ -427,10 +427,10 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       id: "q2",
       question: "An AI gives you a confident statistic with a source for your project. The AI-smart move is to…",
       choices: [
-            "Use it right away — it sounds official” belongs to a different situation than the one in the question stem",
+            "Use it right away — it sounds official",
             "Verify the statistic and confirm the source actually exists before using it",
-            "“Delete your project” describes a different situation than the one in the question stem",
-            "Ask the AI to promise it's true” belongs to a different situation than the one in the question stem",
+            "Delete your project",
+            "Ask the AI to promise it's true",
           ],
       correctIndex: 1,
       explanation:
@@ -441,8 +441,8 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       question: "A friend shares a shocking video of a celebrity. Using this course, what should you consider first?",
       choices: [
             "It could be a deepfake or hallucinated claim — verify with trusted sources before believing or sharing",
-            "“Share it instantly to warn everyone” describes a different situation than the one in the question stem",
-            "“It must be real because it's a video” describes a different situation than the one in the question stem",
+            "Share it instantly to warn everyone",
+            "It must be real because it's a video",
             "Picking “Videos can never be faked” is a common mix-up that confuses a nearby idea with the right one",
           ],
       correctIndex: 0,
@@ -453,10 +453,10 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       id: "q4",
       question: "Which is the best example of using AI with academic integrity?",
       choices: [
-            "“Submitting an AI-written essay as your own” describes a different situation than the one in the question stem",
-            "“Using AI on a test where it's banned” describes a different situation than the one in the question stem",
+            "Submitting an AI-written essay as your own",
+            "Using AI on a test where it's banned",
             "Having AI explain feedback on a draft you wrote, then improving it yourself, and disclosing the AI use",
-            "“Copying AI answers without understanding them” describes a different situation than the one in the question stem",
+            "Copying AI answers without understanding them",
           ],
       correctIndex: 2,
       explanation:
@@ -467,9 +467,9 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       question: "What's the most future-proof role for a human in an AI world?",
       choices: [
             "Being the skilled, skeptical human who directs and checks the AI",
-            "Letting AI make every decision” belongs to a different situation than the one in the question stem",
-            "Avoiding AI entirely” belongs to a different situation than the one in the question stem",
-            "Trying to compute faster than computers” belongs to a different situation than the one in the question stem",
+            "Letting AI make every decision",
+            "Avoiding AI entirely",
+            "Trying to compute faster than computers",
           ],
       correctIndex: 0,
       explanation:
@@ -480,9 +480,9 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
       question: "In the capstone adoption checklist, what should happen BEFORE deciding to adopt, limit, or reject an AI tool?",
       choices: [
             "Define the real job, test on genuine examples, and check accuracy, bias, and privacy risks",
-            "Nothing — decide immediately based on marketing claims” belongs to a different situation than the one in the question stem",
-            "Only ask the AI tool itself whether it's trustworthy” belongs to a different situation than the one in the question stem",
-            "Skip straight to a school-wide rollout” belongs to a different situation than the one in the question stem",
+            "Nothing — decide immediately based on marketing claims",
+            "Only ask the AI tool itself whether it's trustworthy",
+            "Skip straight to a school-wide rollout",
           ],
       correctIndex: 0,
       explanation:

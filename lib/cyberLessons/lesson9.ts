@@ -70,9 +70,9 @@ Today's lesson: **Cryptography & Secure Transmission**.
           prompt: "A messaging app claims your chats are 'encrypted.' What does that claim mainly promise?",
           choices: [
             "That the content is scrambled so outsiders intercepting it can't easily read it",
-            "That the recipient is definitely a real person” belongs to a different situation than the one in the question stem",
-            "That the company will never make mistakes” belongs to a different situation than the one in the question stem",
-            "That the message can never be deleted” belongs to a different situation than the one in the question stem",
+            "That the recipient is definitely a real person",
+            "That the company will never make mistakes",
+            "That the message can never be deleted",
           ],
           correctIndex: 0,
           explanation:
@@ -99,10 +99,10 @@ Today's lesson: **Cryptography & Secure Transmission**.
         checkIn: {
           prompt: "What is the main challenge with symmetric encryption?",
           choices: [
-            "It cannot be used for text messages” belongs to a different situation than the one in the question stem",
-            "It is always too slow to use for large files” belongs to a different situation than the one in the question stem",
+            "It cannot be used for text messages",
+            "It is always too slow to use for large files",
             "Safely distributing the one shared key without it leaking",
-            "It requires a certificate authority” belongs to a different situation than the one in the question stem",
+            "It requires a certificate authority",
           ],
           correctIndex: 2,
           explanation:
@@ -162,9 +162,9 @@ Today's lesson: **Cryptography & Secure Transmission**.
         checkIn: {
           prompt: "Why do many sites store a hash of your password instead of the password itself?",
           choices: [
-            "Hashing makes your password shorter to save storage” belongs to a different situation than the one in the question stem",
-            "Hashing is required by every web browser” belongs to a different situation than the one in the question stem",
-            "Hashes make it easier for the site to read your password later” belongs to a different situation than the one in the question stem",
+            "Hashing makes your password shorter to save storage",
+            "Hashing is required by every web browser",
+            "Hashes make it easier for the site to read your password later",
             "So a stolen database doesn't instantly reveal plain-text passwords, since hashes are one-way",
           ],
           correctIndex: 3,
@@ -198,9 +198,9 @@ Today's lesson: **Cryptography & Secure Transmission**.
           prompt: "A team member with access to a shared encryption key leaves the group. What should defenders do?",
           choices: [
             "Rotate the key and update who has access, since the departed member still knows the old key",
-            "Nothing — encryption keys never need to change” belongs to a different situation than the one in the question stem",
-            "Switch from encryption to hashing instead” belongs to a different situation than the one in the question stem",
-            "Make the key public so everyone can verify it” belongs to a different situation than the one in the question stem",
+            "Nothing — encryption keys never need to change",
+            "Switch from encryption to hashing instead",
+            "Make the key public so everyone can verify it",
           ],
           correctIndex: 0,
           explanation:
@@ -234,8 +234,8 @@ Today's lesson: **Cryptography & Secure Transmission**.
           choices: [
             "Asymmetric crypto safely solves key distribution; symmetric crypto is faster for the bulk of the data afterward",
             "A rushed pass can land on symmetric crypto cannot encrypt web pages”; careful readers reject it for this problem",
-            "“Browsers are not allowed to use two types of encryption” describes a different situation than the one in the question stem",
-            "“Asymmetric crypto is illegal to use for long sessions” describes a different situation than the one in the question stem",
+            "Browsers are not allowed to use two types of encryption",
+            "Asymmetric crypto is illegal to use for long sessions",
           ],
           correctIndex: 0,
           explanation:
@@ -271,9 +271,9 @@ Today's lesson: **Cryptography & Secure Transmission**.
           prompt: "A file is properly encrypted, but malware on the device reads it right before encryption happens. What does this show?",
           choices: [
             "Crypto protects data under specific conditions — it cannot fix a device that's already compromised",
-            "Encryption is worthless and should never be used” belongs to a different situation than the one in the question stem",
-            "“Hashing would have prevented this instead” describes a different situation than the one in the question stem",
-            "The encryption algorithm must have been broken” belongs to a different situation than the one in the question stem",
+            "Encryption is worthless and should never be used",
+            "Hashing would have prevented this instead",
+            "The encryption algorithm must have been broken",
           ],
           correctIndex: 0,
           explanation:
@@ -362,9 +362,9 @@ Key leaks are process problems, not math problems. Rotation speed matters more t
       id: "q1",
       question: "What is the main goal of encryption?",
       choices: [
-            "Make websites load faster” belongs to a different situation than the one in the question stem",
-            "Delete malware automatically” belongs to a different situation than the one in the question stem",
-            "Prove a file was never created” belongs to a different situation than the one in the question stem",
+            "Make websites load faster",
+            "Delete malware automatically",
+            "Prove a file was never created",
             "Keep data confidential by scrambling it with a key",
           ],
       correctIndex: 3,
@@ -375,9 +375,9 @@ Key leaks are process problems, not math problems. Rotation speed matters more t
       id: "q2",
       question: "A club must encrypt a large video archive for two officers only, and both can meet in person once. Which recommendation best balances the tradeoffs?",
       choices: [
-            "Invent a custom cipher so outsiders won't know the algorithm” belongs to a different situation than the one in the question stem",
-            "Hash the videos instead, because hashing provides confidentiality” belongs to a different situation than the one in the question stem",
-            "Post the private key in the group chat so everyone can help verify it” belongs to a different situation than the one in the question stem",
+            "Invent a custom cipher so outsiders won't know the algorithm",
+            "Hash the videos instead, because hashing provides confidentiality",
+            "Post the private key in the group chat so everyone can help verify it",
             "Use strong symmetric encryption with an out-of-band shared passphrase, then rotate if membership changes",
           ],
       correctIndex: 3,
@@ -389,9 +389,9 @@ Key leaks are process problems, not math problems. Rotation speed matters more t
       question: "Why do defenders prefer storing password hashes instead of plain passwords?",
       choices: [
             "Hashes are one-way fingerprints, so a stolen database shouldn't instantly reveal original passwords",
-            "“Hashes remove the need for MFA forever” describes a different situation than the one in the question stem",
-            "Hashing encrypts passwords with a public key that anyone can reverse” belongs to a different situation than the one in the question stem",
-            "Hashes make passwords easier for users to remember” belongs to a different situation than the one in the question stem",
+            "Hashes remove the need for MFA forever",
+            "Hashing encrypts passwords with a public key that anyone can reverse",
+            "Hashes make passwords easier for users to remember",
           ],
       correctIndex: 0,
       explanation:
@@ -401,10 +401,10 @@ Key leaks are process problems, not math problems. Rotation speed matters more t
       id: "q4",
       question: "You need to prove a published software download was not altered, but the file itself is not secret. Which crypto tool should you recommend, and why?",
       choices: [
-            "No crypto tool applies — integrity only matters for passwords” belongs to a different situation than the one in the question stem",
-            "Symmetric encryption, because secrecy and integrity are the same job” belongs to a different situation than the one in the question stem",
+            "No crypto tool applies — integrity only matters for passwords",
+            "Symmetric encryption, because secrecy and integrity are the same job",
             "A vendor-published hash/checksum (and optionally a signature) to verify integrity without needing confidentiality",
-            "Asymmetric encryption of the whole file, because hashes cannot detect changes” belongs to a different situation than the one in the question stem",
+            "Asymmetric encryption of the whole file, because hashes cannot detect changes",
           ],
       correctIndex: 2,
       explanation:
@@ -440,10 +440,10 @@ Key leaks are process problems, not math problems. Rotation speed matters more t
       id: "q7",
       question: "Fifteen club members share one encryption passphrase in a chat archive. Three graduate. What is the best justified key-management recommendation?",
       choices: [
-            "Switch from encryption to hashing of the files, since hashing revokes access automatically” belongs to a different situation than the one in the question stem",
-            "“Publish the passphrase so remaining members can verify it” describes a different situation than the one in the question stem",
+            "Switch from encryption to hashing of the files, since hashing revokes access automatically",
+            "Publish the passphrase so remaining members can verify it",
             "Rotate to a new secret via a safer channel (or move to a managed vault), because departed members still know the old key",
-            "Keep the same passphrase — encryption strength does not depend on who knows it” belongs to a different situation than the one in the question stem",
+            "Keep the same passphrase — encryption strength does not depend on who knows it",
           ],
       correctIndex: 2,
       explanation:
@@ -454,9 +454,9 @@ Key leaks are process problems, not math problems. Rotation speed matters more t
       question: "A messaging app says chats are encrypted. Which problem can crypto alone still fail to stop, and what does that imply for recommendations?",
       choices: [
             "Someone phishing you into revealing your login code — so recommend MFA and phishing resistance alongside encryption",
-            "Using a public key to encrypt a message to you — so asymmetric crypto should be banned” belongs to a different situation than the one in the question stem",
-            "Turning plaintext into ciphertext — so hashing should replace encryption” belongs to a different situation than the one in the question stem",
-            "Eavesdroppers reading properly encrypted traffic without the keys — so encryption is useless” belongs to a different situation than the one in the question stem",
+            "Using a public key to encrypt a message to you — so asymmetric crypto should be banned",
+            "Turning plaintext into ciphertext — so hashing should replace encryption",
+            "Eavesdroppers reading properly encrypted traffic without the keys — so encryption is useless",
           ],
       correctIndex: 0,
       explanation:

@@ -102,9 +102,9 @@ Today's lesson: **Banks, Accounts & Cards**.
             "Sofia pays for lunch with her debit card, while her older brother pays for his textbooks with a credit card. What's the key difference in what's happening?",
           choices: [
             "Sofia is spending money she already has; her brother is borrowing money he'll need to repay",
-            "Her brother's purchase is automatically fee-free since it's for school” belongs to a different situation than the one in the question stem",
-            "Sofia's card lets her spend more than her balance with no consequence” belongs to a different situation than the one in the question stem",
-            "There's no real difference — both cards work exactly the same way” belongs to a different situation than the one in the question stem",
+            "Her brother's purchase is automatically fee-free since it's for school",
+            "Sofia's card lets her spend more than her balance with no consequence",
+            "There's no real difference — both cards work exactly the same way",
           ],
           correctIndex: 0,
           explanation:
@@ -168,9 +168,9 @@ Today's lesson: **Banks, Accounts & Cards**.
           prompt: "Which account fits this situation better, and why?",
           choices: [
             "Account A, because its fees are easier to avoid given irregular income and no guaranteed high balance",
-            "Account B, because automatic overdraft coverage is always the safer choice” belongs to a different situation than the one in the question stem",
-            "They're basically equivalent since both accounts can charge some fee eventually” belongs to a different situation than the one in the question stem",
-            "Account B, because a higher monthly fee usually means better account features” belongs to a different situation than the one in the question stem",
+            "Account B, because automatic overdraft coverage is always the safer choice",
+            "They're basically equivalent since both accounts can charge some fee eventually",
+            "Account B, because a higher monthly fee usually means better account features",
           ],
           correctIndex: 0,
           explanation:
@@ -208,9 +208,9 @@ Today's lesson: **Banks, Accounts & Cards**.
           prompt: "What is the \"cashless effect,\" and what's a practical way to counter it?",
           choices: [
             "A rushed pass can land on it's automatically solved by opting into overdraft coverage”; careful readers reject it for this problem",
-            "“It only affects people who use credit cards, never debit cards” describes a different situation than the one in the question stem",
+            "It only affects people who use credit cards, never debit cards",
             "Card payments can feel less painful than cash, so checking your running balance or using alerts helps replace that missing signal",
-            "“It means cards always charge higher prices than the same purchase in cash” describes a different situation than the one in the question stem",
+            "It means cards always charge higher prices than the same purchase in cash",
           ],
           correctIndex: 2,
           explanation:
@@ -302,7 +302,7 @@ Same student, same habits — fee structure alone can cost a concert ticket or t
         checkIn: {
           prompt: "You average $400 in checking and use out-of-network ATMs weekly. Which factor will likely cost you more over a year?",
           choices: [
-            "FDIC insurance premiums paid by the customer” belongs to a different situation than the one in the question stem",
+            "FDIC insurance premiums paid by the customer",
             "A debit card with a cool design but no fee schedule listed",
             "A $12/month fee you always avoid by keeping $1,500 daily",
             "A $0 monthly fee account with $3 out-of-network ATM charges",
@@ -364,9 +364,9 @@ Same student, same habits — fee structure alone can cost a concert ticket or t
       id: "q1",
       question: "Which of these is the main everyday job of a checking account?",
       choices: [
-            "Guaranteeing that your investments will grow” belongs to a different situation than the one in the question stem",
-            "Replacing the need for any kind of budget” belongs to a different situation than the one in the question stem",
-            "Automatically eliminating every possible fee” belongs to a different situation than the one in the question stem",
+            "Guaranteeing that your investments will grow",
+            "Replacing the need for any kind of budget",
+            "Automatically eliminating every possible fee",
             "Handling deposits and day-to-day spending and transactions",
           ],
       correctIndex: 3,
@@ -376,10 +376,10 @@ Same student, same habits — fee structure alone can cost a concert ticket or t
       id: "q2",
       question: "Which statement correctly describes the difference between a debit card and a credit card?",
       choices: [
-            "They function exactly the same, just with different logos” belongs to a different situation than the one in the question stem",
+            "They function exactly the same, just with different logos",
             "Credit cards can never result in owing money if you're careful",
             "Debit spends money you already have; credit borrows money you must repay",
-            "Debit always earns unlimited cash back with no rules” belongs to a different situation than the one in the question stem",
+            "Debit always earns unlimited cash back with no rules",
           ],
       correctIndex: 2,
       explanation: "Debit uses your balance; credit is borrowed money with repayment (and possible interest). Even careful credit use still creates a real balance owed until it's paid off.",
@@ -402,8 +402,8 @@ Same student, same habits — fee structure alone can cost a concert ticket or t
       id: "q4",
       question: "What does FDIC insurance (or NCUA at a credit union) primarily protect against?",
       choices: [
-            "Every possible scam text message you might receive” belongs to a different situation than the one in the question stem",
-            "The interest rate charged on a credit card balance” belongs to a different situation than the one in the question stem",
+            "Every possible scam text message you might receive",
+            "The interest rate charged on a credit card balance",
             "You losing money because a stock investment dropped in value",
             "An insured institution failing, for eligible deposits up to legal limits",
           ],
@@ -429,9 +429,9 @@ Same student, same habits — fee structure alone can cost a concert ticket or t
       question:
         "Account A has a $0 monthly fee with opt-in overdraft; Account B has a $12 fee waived only at a $1,500 balance and automatic overdraft coverage. For a student with irregular income and no $1,500 balance, which is the stronger fit?",
       choices: [
-            "Account B, because a higher monthly fee always signals better service” belongs to a different situation than the one in the question stem",
+            "Account B, because a higher monthly fee always signals better service",
             "Account A, because its fees are realistically avoidable given the student's situation",
-            "Neither — both accounts are equally risky either way” belongs to a different situation than the one in the question stem",
+            "Neither — both accounts are equally risky either way",
             "Account B, because automatic overdraft coverage is always the safer default",
           ],
       correctIndex: 1,

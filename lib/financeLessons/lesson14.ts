@@ -75,9 +75,9 @@ Today's lesson: **College Costs, Aid & Loans**.
         checkIn: {
           prompt: "Diego keeps hearing the term 'net price' while comparing two schools. What does it actually mean?",
           choices: [
-            "The total of tuition plus every one-time campus fee, before aid” belongs to a different situation than the one in the question stem",
-            "The sticker tuition number listed before any aid is applied” belongs to a different situation than the one in the question stem",
-            "The amount of loans he's required to accept in his aid package” belongs to a different situation than the one in the question stem",
+            "The total of tuition plus every one-time campus fee, before aid",
+            "The sticker tuition number listed before any aid is applied",
+            "The amount of loans he's required to accept in his aid package",
             "What he'd actually pay after subtracting grants and scholarships from the total cost",
           ],
           correctIndex: 3,
@@ -97,8 +97,8 @@ Today's lesson: **College Costs, Aid & Loans**.
         checkIn: {
           prompt: "Sofia's aid letter lists a scholarship and a loan on the same 'total award' line. How do the two generally differ?",
           choices: [
-            "Both eventually need to be repaid, just on different schedules” belongs to a different situation than the one in the question stem",
-            "Loans only cover tuition, while scholarships only cover housing” belongs to a different situation than the one in the question stem",
+            "Both eventually need to be repaid, just on different schedules",
+            "Loans only cover tuition, while scholarships only cover housing",
             "The scholarship is gift aid she likely won't repay; the loan must be repaid under its terms",
             "Whichever one is listed first on the letter is the one she actually has to pay back",
           ],
@@ -155,7 +155,7 @@ Today's lesson: **College Costs, Aid & Loans**.
             "The school offering the single biggest total award number is automatically the best deal",
             "Breaking an award letter into gift aid vs loans matters more than the total number",
             "Community college, trade programs, or transfer paths can be strong net-price options",
-            "Some schools use their own aid formulas beyond FAFSA, including merit aid” belongs to a different situation than the one in the question stem",
+            "Some schools use their own aid formulas beyond FAFSA, including merit aid",
           ],
           correctIndex: 0,
           explanation:
@@ -233,10 +233,10 @@ Today's lesson: **College Costs, Aid & Loans**.
         checkIn: {
           prompt: "What's the Aid Navigator move for Sofia, given the renewability twist?",
           choices: [
-            "Ignore renewal terms since only the first semester's cost really matters” belongs to a different situation than the one in the question stem",
-            "Automatically choose Coastal since its first-year gift aid total is larger” belongs to a different situation than the one in the question stem",
+            "Ignore renewal terms since only the first semester's cost really matters",
+            "Automatically choose Coastal since its first-year gift aid total is larger",
             "Ask each school directly about renewal requirements and project the net price for all four years before comparing further",
-            "“Automatically choose State since its sticker price is lower” describes a different situation than the one in the question stem",
+            "Automatically choose State since its sticker price is lower",
           ],
           correctIndex: 2,
           explanation:
@@ -305,9 +305,9 @@ No moral winner — but **net price over 4 years**, not sticker prestige, funds 
           prompt: "School A offers $15,000 in loans labeled 'aid.' School B offers $15,000 in grants. What's the key difference?",
           choices: [
             "Grants are gift money; loans must be repaid with interest",
-            "They're the same — aid is aid” belongs to a different situation than the one in the question stem",
+            "They're the same — aid is aid",
             "Loans are always better because you get cash faster",
-            "Grants only matter for graduate school” belongs to a different situation than the one in the question stem",
+            "Grants only matter for graduate school",
           ],
           correctIndex: 0,
           explanation:
@@ -358,9 +358,9 @@ Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo
           prompt: "A friend says: 'This school's total aid package is $40,000, way more than the other school's $22,000, so it's obviously the better deal.' What's the Aid Navigator response?",
           choices: [
             "Ask how much of each package is gift aid vs loans, and whether it renews, before comparing net cost and long-term debt",
-            "Point out that loans never really matter once the total looks impressive” belongs to a different situation than the one in the question stem",
-            "“Agree — a bigger total package always beats a smaller one” describes a different situation than the one in the question stem",
-            "Assume the smaller total package must be a mistake or a worse school” belongs to a different situation than the one in the question stem",
+            "Point out that loans never really matter once the total looks impressive",
+            "Agree — a bigger total package always beats a smaller one",
+            "Assume the smaller total package must be a mistake or a worse school",
           ],
           correctIndex: 0,
           explanation:
@@ -398,9 +398,9 @@ Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo
       question: "Which is the best plain-English meaning of 'net price'?",
       choices: [
             "What a student actually pays after gift aid like grants and scholarships is subtracted",
-            "The sticker tuition number with no aid considered at all” belongs to a different situation than the one in the question stem",
-            "The maximum amount of loans a student is required to take” belongs to a different situation than the one in the question stem",
-            "Only the cost of textbooks and other small supplies” belongs to a different situation than the one in the question stem",
+            "The sticker tuition number with no aid considered at all",
+            "The maximum amount of loans a student is required to take",
+            "Only the cost of textbooks and other small supplies",
           ],
       correctIndex: 0,
       explanation:
@@ -410,9 +410,9 @@ Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo
       id: "q2",
       question: "Two lines on an aid letter read 'Grant: $4,000' and 'Loan: $4,000.' How do they generally differ?",
       choices: [
-            "The loan is gift aid, and the grant must be repaid with interest” belongs to a different situation than the one in the question stem",
-            "They're functionally identical since both reduce the sticker price the same way” belongs to a different situation than the one in the question stem",
-            "Whichever line is listed first on the page is the one that must be repaid” belongs to a different situation than the one in the question stem",
+            "The loan is gift aid, and the grant must be repaid with interest",
+            "They're functionally identical since both reduce the sticker price the same way",
+            "Whichever line is listed first on the page is the one that must be repaid",
             "The grant is typically gift aid that doesn't need repayment; the loan must be repaid under its terms",
           ],
       correctIndex: 3,
@@ -424,7 +424,7 @@ Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo
       question: "Why does completing the FAFSA matter for many students, even if they're unsure they'll qualify for aid?",
       choices: [
             "Some learners answer “It's a paid service that ranks applicants for admission”, yet that does not match the precise idea from the lesson",
-            "“It guarantees a full-ride scholarship at any school that receives it” describes a different situation than the one in the question stem",
+            "It guarantees a full-ride scholarship at any school that receives it",
             "It's often the gateway to federal aid and may unlock other school or state aid too, and it should be done through official free channels",
             "It replaces the need to ever compare net prices between schools. That option sounds confident, but it leaves out the deciding constraint",
           ],
@@ -437,9 +437,9 @@ Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo
       question: "Which question is most important when reading an aid offer?",
       choices: [
             "How much of the award is gift aid vs loans, does it renew, and what out-of-pocket gap remains?",
-            "Which school has the flashiest brochure or campus photos?” belongs to a different situation than the one in the question stem",
-            "Can living costs be ignored if tuition looks mostly covered?” belongs to a different situation than the one in the question stem",
-            "Can the loan portion just be treated the same as a scholarship?” belongs to a different situation than the one in the question stem",
+            "Which school has the flashiest brochure or campus photos?",
+            "Can living costs be ignored if tuition looks mostly covered?",
+            "Can the loan portion just be treated the same as a scholarship?",
           ],
       correctIndex: 0,
       explanation:
@@ -449,9 +449,9 @@ Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo
       id: "q5",
       question: "What is a cautious approach to student loans?",
       choices: [
-            "Assume any remaining balance will eventually be forgiven automatically” belongs to a different situation than the one in the question stem",
-            "Borrow the maximum amount offered so nothing is left on the table” belongs to a different situation than the one in the question stem",
-            "Skip reading the loan terms since they're mostly the same everywhere” belongs to a different situation than the one in the question stem",
+            "Assume any remaining balance will eventually be forgiven automatically",
+            "Borrow the maximum amount offered so nothing is left on the table",
+            "Skip reading the loan terms since they're mostly the same everywhere",
             "Borrow only what's needed after gift aid, and understand repayment is a real future obligation",
           ],
       correctIndex: 3,
@@ -462,10 +462,10 @@ Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo
       id: "q6",
       question: "What is the purpose of a financial aid appeal letter?",
       choices: [
-            "A way to skip filing the FAFSA entirely and still receive aid” belongs to a different situation than the one in the question stem",
+            "A way to skip filing the FAFSA entirely and still receive aid",
             "A factual, documented request tied to changed circumstances or a differing offer — never guaranteed to succeed",
-            "A required step every applicant must complete before enrolling” belongs to a different situation than the one in the question stem",
-            "A guaranteed negotiating trick that always increases the aid offered” belongs to a different situation than the one in the question stem",
+            "A required step every applicant must complete before enrolling",
+            "A guaranteed negotiating trick that always increases the aid offered",
           ],
       correctIndex: 1,
       explanation:
@@ -475,10 +475,10 @@ Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo
       id: "q7",
       question: "What is the prestige-anchor trap?",
       choices: [
-            "“A myth that has no real effect on college decisions” describes a different situation than the one in the question stem",
+            "A myth that has no real effect on college decisions",
             "Letting a 'dream school' or famous name become the biased reference point that other offers get unfairly judged against",
-            "“A financial aid rule that requires picking the cheapest option” describes a different situation than the one in the question stem",
-            "“Comparing every school using the exact same net-price method” describes a different situation than the one in the question stem",
+            "A financial aid rule that requires picking the cheapest option",
+            "Comparing every school using the exact same net-price method",
           ],
       correctIndex: 1,
       explanation:
@@ -488,10 +488,10 @@ Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo
       id: "q8",
       question: "Two offers list the same total aid number, but one has more gift aid and less debt, and its aid renews for all four years. What's the Aid Navigator conclusion?",
       choices: [
-            "“Renewability never matters — only the year-one number counts” describes a different situation than the one in the question stem",
-            "The offer with more loans is automatically better since it's 'real cash now'” belongs to a different situation than the one in the question stem",
+            "Renewability never matters — only the year-one number counts",
+            "The offer with more loans is automatically better since it's 'real cash now'",
             "The offer with more gift aid, less debt, and multi-year renewal is the stronger deal despite an equal headline total",
-            "The offers are identical in value since their totals match exactly” belongs to a different situation than the one in the question stem",
+            "The offers are identical in value since their totals match exactly",
           ],
       correctIndex: 2,
       explanation:

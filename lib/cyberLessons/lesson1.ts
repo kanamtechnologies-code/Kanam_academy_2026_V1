@@ -109,10 +109,10 @@ Today's lesson: **Cybersecurity Principles & Ethics**.
         checkIn: {
           prompt: "Which statement about ethical / authorized testing roles is true?",
           choices: [
-            "They can test any system as long as their goal is educational” belongs to a different situation than the one in the question stem",
+            "They can test any system as long as their goal is educational",
             "They test defenses only with clear written permission, then report findings",
-            "They are the same thing as a SOC analyst” belongs to a different situation than the one in the question stem",
-            "They never need to tell anyone what they found” belongs to a different situation than the one in the question stem",
+            "They are the same thing as a SOC analyst",
+            "They never need to tell anyone what they found",
           ],
           correctIndex: 1,
           explanation:
@@ -178,10 +178,10 @@ Today's lesson: **Cybersecurity Principles & Ethics**.
         checkIn: {
           prompt: "Which role is defined by testing defenses only with clear written permission, then reporting findings so defenders can fix them?",
           choices: [
-            "Threat actor” belongs to a different situation than the one in the question stem",
+            "Threat actor",
             "Ethical / authorized tester",
-            "SOC team” belongs to a different situation than the one in the question stem",
-            "Security analyst” belongs to a different situation than the one in the question stem",
+            "SOC team",
+            "Security analyst",
           ],
           correctIndex: 1,
           explanation:
@@ -323,9 +323,9 @@ Reporting is not tattling. It is how organizations learn about problems early en
       id: "q4",
       question: "What does a SOC (Security Operations Center) typically do?",
       choices: [
-            "Write the school's cybersecurity policies once a year” belongs to a different situation than the one in the question stem",
-            "Replace the need for individual account passwords entirely” belongs to a different situation than the one in the question stem",
-            "Approve every software purchase before it is installed” belongs to a different situation than the one in the question stem",
+            "Write the school's cybersecurity policies once a year",
+            "Replace the need for individual account passwords entirely",
+            "Approve every software purchase before it is installed",
             "Watch for suspicious activity and help respond when something looks wrong",
           ],
       correctIndex: 3,
@@ -336,10 +336,10 @@ Reporting is not tattling. It is how organizations learn about problems early en
       id: "q5",
       question: "Why should high school students care about cybersecurity?",
       choices: [
-            "Only students planning a cybersecurity career need to learn this” belongs to a different situation than the one in the question stem",
+            "Only students planning a cybersecurity career need to learn this",
             "Their accounts, schoolwork, reputation, and future applications already depend on digital systems",
-            "Cybersecurity only becomes relevant once someone has a full-time job” belongs to a different situation than the one in the question stem",
-            "Schools handle all security automatically, so students never need to think about it” belongs to a different situation than the one in the question stem",
+            "Cybersecurity only becomes relevant once someone has a full-time job",
+            "Schools handle all security automatically, so students never need to think about it",
           ],
       correctIndex: 1,
       explanation:
@@ -349,9 +349,9 @@ Reporting is not tattling. It is how organizations learn about problems early en
       id: "q6",
       question: "Which best distinguishes an ethical/authorized tester from a security analyst?",
       choices: [
-            "Only analysts are ever allowed to notice security weaknesses” belongs to a different situation than the one in the question stem",
-            "“The tester needs no permission at all” describes a different situation than the one in the question stem",
-            "They are exactly the same job with different titles” belongs to a different situation than the one in the question stem",
+            "Only analysts are ever allowed to notice security weaknesses",
+            "The tester needs no permission at all",
+            "They are exactly the same job with different titles",
             "The tester works scoped, permission-based projects; the analyst does ongoing monitoring and investigation",
           ],
       correctIndex: 3,
@@ -363,9 +363,9 @@ Reporting is not tattling. It is how organizations learn about problems early en
       question: "A student says: \"I only looked at my friend's unlocked account because I meant well.\" What is the flaw in that reasoning?",
       choices: [
             "Good intentions explain motive but do not equal permission from the account owner",
-            "Only professionals need permission to access accounts” belongs to a different situation than the one in the question stem",
-            "There is no flaw — good intentions always make an action authorized” belongs to a different situation than the one in the question stem",
-            "It's not a flaw as long as nothing was changed” belongs to a different situation than the one in the question stem",
+            "Only professionals need permission to access accounts",
+            "There is no flaw — good intentions always make an action authorized",
+            "It's not a flaw as long as nothing was changed",
           ],
       correctIndex: 0,
       explanation:

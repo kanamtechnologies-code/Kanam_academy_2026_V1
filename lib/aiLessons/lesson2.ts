@@ -67,10 +67,10 @@ Today's lesson: **AI Is All Around You**.
         checkIn: {
           prompt: "Why is it useful to practice 'spotting' AI in ordinary apps?",
           choices: [
-            "Because ordinary apps only use AI on premium or paid versions” belongs to a different situation than the one in the question stem",
-            "Because it's only useful once you plan to build your own app” belongs to a different situation than the one in the question stem",
+            "Because ordinary apps only use AI on premium or paid versions",
+            "Because it's only useful once you plan to build your own app",
             "Because you can't think critically about something you don't even notice is there",
-            "Because spotting it disables the recommendation feature” belongs to a different situation than the one in the question stem",
+            "Because spotting it disables the recommendation feature",
           ],
           correctIndex: 2,
           explanation:
@@ -96,8 +96,8 @@ Today's lesson: **AI Is All Around You**.
           prompt: "A friend swears their phone 'must be listening' because an ad matched something they only talked about out loud. What's the more likely explanation?",
           choices: [
             "Prediction from existing data (searches, location, shared interests with similar users) can look eerily accurate without any listening at all",
-            "Phones only run the microphone when an app is actively open, so it must have caught that one conversation” belongs to a different situation than the one in the question stem",
-            "The friend's phone has different privacy settings than everyone else's, which explains the ad” belongs to a different situation than the one in the question stem",
+            "Phones only run the microphone when an app is actively open, so it must have caught that one conversation",
+            "The friend's phone has different privacy settings than everyone else's, which explains the ad",
             "It can seem like it's a total coincidence with no pattern behind it at all, but that reading skips the distinction this question is testing",
           ],
           correctIndex: 0,
@@ -150,10 +150,10 @@ Today's lesson: **AI Is All Around You**.
         checkIn: {
           prompt: "What is the clearest sign that an app's recommendation AI is optimizing for engagement rather than your wellbeing?",
           choices: [
-            "It sometimes shows the same video twice in one week” belongs to a different situation than the one in the question stem",
+            "It sometimes shows the same video twice in one week",
             "It keeps surfacing content that's hard to stop watching, even past the point you meant to close the app",
-            "It occasionally suggests a video from a creator you don't follow yet” belongs to a different situation than the one in the question stem",
-            "It lets you skip ahead in a video instead of watching it fully” belongs to a different situation than the one in the question stem",
+            "It occasionally suggests a video from a creator you don't follow yet",
+            "It lets you skip ahead in a video instead of watching it fully",
           ],
           correctIndex: 1,
           explanation:
@@ -200,9 +200,9 @@ Today's lesson: **AI Is All Around You**.
         checkIn: {
           prompt: "According to the comparison, what is usually the main optimization goal of a free, ad-supported app's recommendation AI?",
           choices: [
-            "Minimizing the amount of your personal data it needs to collect” belongs to a different situation than the one in the question stem",
-            "Making sure every user sees the exact same content in the exact same order” belongs to a different situation than the one in the question stem",
-            "Matching the experience of the paid version as closely as possible” belongs to a different situation than the one in the question stem",
+            "Minimizing the amount of your personal data it needs to collect",
+            "Making sure every user sees the exact same content in the exact same order",
+            "Matching the experience of the paid version as closely as possible",
             "Maximizing engagement and ad revenue, which usually means maximizing your time and attention",
           ],
           correctIndex: 3,
@@ -266,9 +266,9 @@ Today's lesson: **AI Is All Around You**.
           prompt: "What does the content-moderator lawsuit best illustrate about AI-powered apps?",
           choices: [
             "Behind many 'automated' feeds, human labor (often difficult and underpaid) fills the gaps AI can't confidently handle",
-            "“Only one company has ever relied on human content reviewers” describes a different situation than the one in the question stem",
-            "“Content moderation was phased out entirely once AI improved” describes a different situation than the one in the question stem",
-            "“The AI in that case had a bug that has since been fully fixed” describes a different situation than the one in the question stem",
+            "Only one company has ever relied on human content reviewers",
+            "Content moderation was phased out entirely once AI improved",
+            "The AI in that case had a bug that has since been fully fixed",
           ],
           correctIndex: 0,
           explanation:
@@ -306,8 +306,8 @@ Today's lesson: **AI Is All Around You**.
       question: "Which of these is powered by AI?",
       choices: [
             "Everyday features like video recommendations, spam filters, and face unlock",
-            "Only apps you have to pay a subscription for” belongs to a different situation than the one in the question stem",
-            "Only apps that require you to type a written prompt” belongs to a different situation than the one in the question stem",
+            "Only apps you have to pay a subscription for",
+            "Only apps that require you to type a written prompt",
             "Only apps that are explicitly branded or marketed as 'AI-powered'",
           ],
       correctIndex: 0,
@@ -344,10 +344,10 @@ Today's lesson: **AI Is All Around You**.
       id: "q4",
       question: "A popular app is free and extremely good at keeping you scrolling. What's the smartest question to ask?",
       choices: [
-            "How do I get it to recommend content faster?” belongs to a different situation than the one in the question stem",
-            "Is there a paid version with even more content?” belongs to a different situation than the one in the question stem",
+            "How do I get it to recommend content faster?",
+            "Is there a paid version with even more content?",
             "What data is it collecting, and who benefits when I use it longer?",
-            "Which of my friends spends the most time on it?” belongs to a different situation than the one in the question stem",
+            "Which of my friends spends the most time on it?",
           ],
       correctIndex: 2,
       explanation:
@@ -357,9 +357,9 @@ Today's lesson: **AI Is All Around You**.
       id: "q5",
       question: "What is a 'content moderator'?",
       choices: [
-            "An automated bot that deletes posts with zero human review” belongs to a different situation than the one in the question stem",
-            "A setting that controls how much screen time an app allows” belongs to a different situation than the one in the question stem",
-            "The engineer who originally trained the recommendation AI” belongs to a different situation than the one in the question stem",
+            "An automated bot that deletes posts with zero human review",
+            "A setting that controls how much screen time an app allows",
+            "The engineer who originally trained the recommendation AI",
             "A person who reviews flagged content that an AI system couldn't confidently decide on alone",
           ],
       correctIndex: 3,
@@ -370,10 +370,10 @@ Today's lesson: **AI Is All Around You**.
       id: "q6",
       question: "Why is it misleading to call an app's content filtering 'fully automated'?",
       choices: [
-            "Because filtering only happens after a human reports a specific post” belongs to a different situation than the one in the question stem",
-            "Because AI is actually incapable of filtering any content on its own” belongs to a different situation than the one in the question stem",
+            "Because filtering only happens after a human reports a specific post",
+            "Because AI is actually incapable of filtering any content on its own",
             "Because human moderators and labelers are often part of the pipeline, especially for edge cases",
-            "Because 'automated' is just a marketing term with no real system behind it” belongs to a different situation than the one in the question stem",
+            "Because 'automated' is just a marketing term with no real system behind it",
           ],
       correctIndex: 2,
       explanation:
@@ -383,10 +383,10 @@ Today's lesson: **AI Is All Around You**.
       id: "q7",
       question: "What does 'you pay with data' mean in the context of free apps?",
       choices: [
-            "It's just a figure of speech with no real business model behind it” belongs to a different situation than the one in the question stem",
+            "It's just a figure of speech with no real business model behind it",
             "The company profits from your attention and personal data instead of a purchase price",
-            "The app converts your usage time directly into a currency it sells” belongs to a different situation than the one in the question stem",
-            "You're billed a small amount that shows up under a disguised name” belongs to a different situation than the one in the question stem",
+            "The app converts your usage time directly into a currency it sells",
+            "You're billed a small amount that shows up under a disguised name",
           ],
       correctIndex: 1,
       explanation:
@@ -396,10 +396,10 @@ Today's lesson: **AI Is All Around You**.
       id: "q8",
       question: "What's the healthiest way to relate to a highly engaging, free recommendation app?",
       choices: [
-            "Assume the app has your best interests in mind since it feels helpful” belongs to a different situation than the one in the question stem",
+            "Assume the app has your best interests in mind since it feels helpful",
             "Recognize it's optimized for engagement, understand the data/labor trade, and decide consciously how much time it deserves",
-            "Ignore the design entirely since thinking about it won't change anything” belongs to a different situation than the one in the question stem",
-            "“Delete every free app to avoid the data trade entirely” describes a different situation than the one in the question stem",
+            "Ignore the design entirely since thinking about it won't change anything",
+            "Delete every free app to avoid the data trade entirely",
           ],
       correctIndex: 1,
       explanation:

@@ -47,7 +47,7 @@ export const lesson4: PythonLessonConfig = {
     {
       title: "elif = else if",
       text:
-        "`elif` lets your program check more than two choices. It means: “if the first rule wasn’t true, try this next rule.”",
+        "`elif` lets your program check more than two choices. It means: “if the first rule wasn’t true, try this next rule.",
     },
     {
       title: "Rule order matters",
@@ -336,8 +336,8 @@ else:
           prompt: "Why is `elif` different from writing a second, separate `if`?",
           choices: [
             "elif is only checked if the earlier rules were False; a separate if is always checked",
-            "elif can only be used with numbers” belongs to a different situation than the one in the question stem",
-            "There's no difference — they behave identically” belongs to a different situation than the one in the question stem",
+            "elif can only be used with numbers",
+            "There's no difference — they behave identically",
           ],
           correctIndex: 0,
           explanation: "elif belongs to the same chain, so it's skipped once an earlier rule matches. A separate if is checked independently, which can run extra branches by accident.",
@@ -360,8 +360,8 @@ else:
         checkIn: {
           prompt: "If a rule chain has 3 elif branches and the FIRST if matches, what happens to the rest?",
           choices: [
-            "Python runs a random one” belongs to a different situation than the one in the question stem",
-            "All of them still run” belongs to a different situation than the one in the question stem",
+            "Python runs a random one",
+            "All of them still run",
             "Python skips the rest — only the first match runs",
           ],
           correctIndex: 2,
@@ -378,9 +378,9 @@ else:
         checkIn: {
           prompt: "Where must else appear in an if / elif chain?",
           choices: [
-            "Anywhere in the middle” belongs to a different situation than the one in the question stem",
+            "Anywhere in the middle",
             "Last, after all the if/elif branches",
-            "First, before if” belongs to a different situation than the one in the question stem",
+            "First, before if",
           ],
           correctIndex: 1,
           explanation: "else is the final fallback and must come after all if/elif checks — it has no condition of its own.",
@@ -416,8 +416,8 @@ else:
           prompt: "What exact line prints for Jordan?",
           choices: [
             "Hey Jordan, good to see you!",
-            "Welcome back, Alex!” belongs to a different situation than the one in the question stem",
-            "Hello there!” belongs to a different situation than the one in the question stem",
+            "Welcome back, Alex!",
+            "Hello there!",
           ],
           correctIndex: 0,
           explanation: "The if for Alex fails, so Python checks the elif for Jordan — that matches, so its message prints and else is skipped.",
@@ -447,9 +447,9 @@ else:
         checkIn: {
           prompt: "Jordan keeps getting the Alex message instead of the Jordan message. What's the most likely cause?",
           choices: [
-            "“Python is broken” describes a different situation than the one in the question stem",
+            "Python is broken",
             "A rule above the Jordan check is too broad and matches Jordan by mistake",
-            "elif doesn't work with names” belongs to a different situation than the one in the question stem",
+            "elif doesn't work with names",
           ],
           correctIndex: 1,
           explanation: "Since the first matching rule wins, an overly broad rule placed earlier in the chain can accidentally catch inputs meant for a later rule.",
@@ -476,9 +476,9 @@ else:
         checkIn: {
           prompt: "Why should the highest grade threshold (>= 90) be checked before the lower one (>= 60)?",
           choices: [
-            "It doesn't matter — Python checks every elif anyway” belongs to a different situation than the one in the question stem",
+            "It doesn't matter — Python checks every elif anyway",
             "A score of 95 satisfies BOTH >= 60 and >= 90, so the first match wins",
-            "Python requires descending order” belongs to a different situation than the one in the question stem",
+            "Python requires descending order",
           ],
           correctIndex: 1,
           explanation: "Since 95 also satisfies >= 60, placing that rule first would always print Pass and never reach Excellent.",
@@ -514,9 +514,9 @@ else:
         checkIn: {
           prompt: "A chain has: if score >= 60 (print Pass) elif score >= 90 (print Excellent) else (print Fail). What's wrong?",
           choices: [
-            "elif needs to come before if for the chain to work” belongs to a different situation than the one in the question stem",
+            "elif needs to come before if for the chain to work",
             "The broader rule (>= 60) is placed before the more specific rule (>= 90), so Excellent never runs",
-            "It's fine — Python checks every elif even after an earlier match” belongs to a different situation than the one in the question stem",
+            "It's fine — Python checks every elif even after an earlier match",
           ],
           correctIndex: 1,
           explanation: "Since 90+ also satisfies >= 60, the first (broader) rule always wins and the more specific Excellent branch never gets a chance to run.",

@@ -68,10 +68,10 @@ Today's lesson: **Social Engineering Defense**.
         checkIn: {
           prompt: "Why does social engineering succeed even when a system's technical security is strong?",
           choices: [
-            "Because it only works on people who don't use MFA” belongs to a different situation than the one in the question stem",
+            "Because it only works on people who don't use MFA",
             "Because it targets human trust and emotion instead of breaking software directly",
-            "Because strong passwords make social engineering easier” belongs to a different situation than the one in the question stem",
-            "Because it always uses malware to force access” belongs to a different situation than the one in the question stem",
+            "Because strong passwords make social engineering easier",
+            "Because it always uses malware to force access",
           ],
           correctIndex: 1,
           explanation:
@@ -115,10 +115,10 @@ Today's lesson: **Social Engineering Defense**.
         checkIn: {
           prompt: "Which combination of red flags is the strongest \"triple\" warning sign?",
           choices: [
-            "An email that takes a few seconds to load images” belongs to a different situation than the one in the question stem",
+            "An email that takes a few seconds to load images",
             "Emotion (urgency/fear), a request for secrecy, and a request for a password or code",
-            "A message sent during business hours” belongs to a different situation than the one in the question stem",
-            "A well-known company logo and correct spelling” belongs to a different situation than the one in the question stem",
+            "A message sent during business hours",
+            "A well-known company logo and correct spelling",
           ],
           correctIndex: 1,
           explanation:
@@ -133,10 +133,10 @@ Today's lesson: **Social Engineering Defense**.
         checkIn: {
           prompt: "In the worked example, why is replying \"STOP\" to the suspicious text a bad idea?",
           choices: [
-            "It isn't a bad idea — replying always opts you out safely” belongs to a different situation than the one in the question stem",
+            "It isn't a bad idea — replying always opts you out safely",
             "It can confirm to the sender that your number is active and being read, which invites more attempts",
-            "It automatically deletes the scam permanently” belongs to a different situation than the one in the question stem",
-            "It reports the message to your school automatically” belongs to a different situation than the one in the question stem",
+            "It automatically deletes the scam permanently",
+            "It reports the message to your school automatically",
           ],
           correctIndex: 1,
           explanation:
@@ -280,9 +280,9 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
           prompt: "In the mini case, what made the caller's request particularly risky, even though they sounded professional and knew Malik's name?",
           choices: [
             "The request for remote access and a code, combined with urgency Malik didn't initiate",
-            "Nothing — professional-sounding callers are always legitimate” belongs to a different situation than the one in the question stem",
-            "The call happened during school hours” belongs to a different situation than the one in the question stem",
-            "The fact that the caller used a phone instead of email” belongs to a different situation than the one in the question stem",
+            "Nothing — professional-sounding callers are always legitimate",
+            "The call happened during school hours",
+            "The fact that the caller used a phone instead of email",
           ],
           correctIndex: 0,
           explanation:
@@ -385,10 +385,10 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
       id: "q6",
       question: "A message from a real friend's account asks you urgently for a login code \"as a favor.\" What is the safest response?",
       choices: [
-            "Send the code immediately since it's from a friend's real account” belongs to a different situation than the one in the question stem",
-            "Post the code publicly so mutual friends can confirm it's genuine” belongs to a different situation than the one in the question stem",
+            "Send the code immediately since it's from a friend's real account",
+            "Post the code publicly so mutual friends can confirm it's genuine",
             "Verify with your friend through a different channel before sending anything, since the account may be compromised",
-            "Assume a friend's account can never be compromised, so no check is needed” belongs to a different situation than the one in the question stem",
+            "Assume a friend's account can never be compromised, so no check is needed",
           ],
       correctIndex: 2,
       explanation:
@@ -406,7 +406,7 @@ Almost clicking is still useful intelligence. Defenders want to know which lures
       id: "q8",
       question: "A classmate suggests \"we should reply to the scammer to waste their time.\" Which evaluation best explains why you should not recommend that?",
       choices: [
-            "You might defend “Because reporting phishing has no real impact, so any response is fine” in casual talk, but it fails the definition used here",
+            "Because reporting phishing has no real impact, so any response is fine",
             "Engaging confirms a live number/inbox, can escalate targeting, and steps outside defensive/ethical practice — recommend report-and-block instead",
             "It can seem like because ethics only applies to malware, not phishing, but that reading skips the distinction this question is testing",
             "It can seem like because phishing is purely technical with no human element, but that reading skips the distinction this question is testing",

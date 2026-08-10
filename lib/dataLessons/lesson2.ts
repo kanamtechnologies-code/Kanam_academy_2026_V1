@@ -67,7 +67,7 @@ export const daLesson2: DataLessonConfig = {
           prompt: "You only care about student_name and price. Which SELECT is best?",
           choices: [
             "SELECT student_name, price FROM lunch_orders",
-            "SELECT * FROM lunch_orders” belongs to a different situation than the one in the question stem",
+            "SELECT * FROM lunch_orders",
             "SELECT student_name price FROM lunch_orders",
           ],
           correctIndex: 0,
@@ -139,8 +139,8 @@ export const daLesson2: DataLessonConfig = {
           prompt: "What's wrong with `SELECT student_name, item, FROM lunch_orders;`?",
           choices: [
             "There's a trailing comma after \"item\" with nothing after it",
-            "Nothing, it will run fine” belongs to a different situation than the one in the question stem",
-            "FROM should come before SELECT” belongs to a different situation than the one in the question stem",
+            "Nothing, it will run fine",
+            "FROM should come before SELECT",
           ],
           correctIndex: 0,
           explanation: "SQL expects another column name after every comma. A trailing comma with nothing after it causes an error.",
@@ -223,7 +223,7 @@ export const daLesson2: DataLessonConfig = {
         checkIn: {
           prompt: "Which query returns exactly 2 columns and at most 3 rows from an 8-row table?",
           choices: [
-            "SELECT * FROM lunch_orders LIMIT 3” belongs to a different situation than the one in the question stem",
+            "SELECT * FROM lunch_orders LIMIT 3",
             "SELECT student_name, item FROM lunch_orders LIMIT 3",
             "SELECT student_name, item, price, order_id FROM lunch_orders",
           ],
@@ -302,7 +302,7 @@ Read the results table after every Run & check. Row count and column names tell 
     },
     {
       title: "All rows vs sample",
-      text: "No LIMIT means “give me everything.” LIMIT 3 means “just show me 3 rows.”",
+      text: "No LIMIT means “give me everything.” LIMIT 3 means “just show me 3 rows.",
     },
     {
       title: "Fewer columns = clearer",

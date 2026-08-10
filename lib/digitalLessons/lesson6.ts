@@ -68,10 +68,10 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
         checkIn: {
           prompt: "Your group keeps emailing 'report_v2_final' files and nobody knows which is newest. Why is a shared document usually the stronger starting point?",
           choices: [
-            "Email files load faster” belongs to a different situation than the one in the question stem",
-            "Shared docs can't be edited” belongs to a different situation than the one in the question stem",
+            "Email files load faster",
+            "Shared docs can't be edited",
             "A shared doc keeps one true, always-current version and avoids version chaos",
-            "Email is more expensive” belongs to a different situation than the one in the question stem",
+            "Email is more expensive",
           ],
           correctIndex: 2,
           explanation:
@@ -120,10 +120,10 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
         checkIn: {
           prompt: "You disagree with a sentence a teammate wrote in the shared report. What's the best move?",
           choices: [
-            "Start a brand-new document” belongs to a different situation than the one in the question stem",
-            "Email the whole class about it” belongs to a different situation than the one in the question stem",
+            "Start a brand-new document",
+            "Email the whole class about it",
             "Leave a comment or use suggesting mode so they can respond",
-            "Delete it and type your own version” belongs to a different situation than the one in the question stem",
+            "Delete it and type your own version",
           ],
           correctIndex: 2,
           explanation:
@@ -160,9 +160,9 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
         checkIn: {
           prompt: "You're not sure whether a teammate's paragraph needs a source, and they didn't ask for edits. What's the best move?",
           choices: [
-            "Delete the paragraph to be safe” belongs to a different situation than the one in the question stem",
-            "Silently add or remove content without saying anything” belongs to a different situation than the one in the question stem",
-            "Message the whole class group chat about it” belongs to a different situation than the one in the question stem",
+            "Delete the paragraph to be safe",
+            "Silently add or remove content without saying anything",
+            "Message the whole class group chat about it",
             "Leave a comment asking about it, rather than assuming and editing it yourself",
           ],
           correctIndex: 3,
@@ -224,9 +224,9 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
         checkIn: {
           prompt: "You're on a video call for a group project (or remote first-job training). Which is good etiquette?",
           choices: [
-            "Never share your screen” belongs to a different situation than the one in the question stem",
-            "Talk over others to be heard” belongs to a different situation than the one in the question stem",
-            "Stay unmuted so people hear your room” belongs to a different situation than the one in the question stem",
+            "Never share your screen",
+            "Talk over others to be heard",
+            "Stay unmuted so people hear your room",
             "Mute when you're not talking and use the raise-hand button",
           ],
           correctIndex: 3,
@@ -262,10 +262,10 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
         checkIn: {
           prompt: "Someone accidentally deleted a whole section of your shared internship proposal. What saves you?",
           choices: [
-            "Turning the Wi-Fi off and on” belongs to a different situation than the one in the question stem",
-            "Re-typing it from memory only” belongs to a different situation than the one in the question stem",
+            "Turning the Wi-Fi off and on",
+            "Re-typing it from memory only",
             "Version history, which lets you restore an earlier version",
-            "Nothing — it's gone forever” belongs to a different situation than the one in the question stem",
+            "Nothing — it's gone forever",
           ],
           correctIndex: 2,
           explanation:
@@ -284,10 +284,10 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
         checkIn: {
           prompt: "A teammate's work vanished from a shared doc but nobody admits deleting it. What's the first tool to open?",
           choices: [
-            "Change everyone's password” belongs to a different situation than the one in the question stem",
+            "Change everyone's password",
             "Version history — to see what changed and restore an earlier version",
-            "Reply-all to the whole school” belongs to a different situation than the one in the question stem",
-            "Start a new doc from scratch” belongs to a different situation than the one in the question stem",
+            "Reply-all to the whole school",
+            "Start a new doc from scratch",
           ],
           correctIndex: 1,
           explanation:
@@ -333,9 +333,9 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
       id: "q1",
       question: "Your group keeps emailing 'report_v2_final' files and nobody knows which is newest. Why is one shared document better?",
       choices: [
-            "Email is more expensive” belongs to a different situation than the one in the question stem",
-            "Email files load faster” belongs to a different situation than the one in the question stem",
-            "Shared docs can't be edited” belongs to a different situation than the one in the question stem",
+            "Email is more expensive",
+            "Email files load faster",
+            "Shared docs can't be edited",
             "A shared doc keeps one true, always-current version and avoids version chaos",
           ],
       correctIndex: 3,
@@ -359,10 +359,10 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
       id: "q3",
       question: "You disagree with a sentence a teammate wrote in the shared report. What's the best move?",
       choices: [
-            "Email the whole class about it” belongs to a different situation than the one in the question stem",
+            "Email the whole class about it",
             "Leave a comment or use suggesting mode so they can respond",
-            "Start a brand-new document” belongs to a different situation than the one in the question stem",
-            "Delete it and type your own version” belongs to a different situation than the one in the question stem",
+            "Start a brand-new document",
+            "Delete it and type your own version",
           ],
       correctIndex: 1,
       explanation:
@@ -373,9 +373,9 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
       question: "Someone accidentally deleted a whole section of your shared internship proposal. What saves you?",
       choices: [
             "Version history, which lets you restore an earlier version",
-            "Re-typing it from memory only” belongs to a different situation than the one in the question stem",
-            "Nothing — it's gone forever” belongs to a different situation than the one in the question stem",
-            "Turning the Wi-Fi off and on” belongs to a different situation than the one in the question stem",
+            "Re-typing it from memory only",
+            "Nothing — it's gone forever",
+            "Turning the Wi-Fi off and on",
           ],
       correctIndex: 0,
       explanation:
@@ -386,9 +386,9 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
       question: "You're on a video call for a group project (or remote first-job training). Which is good etiquette?",
       choices: [
             "Mute when you're not talking and use the raise-hand button",
-            "Never share your screen” belongs to a different situation than the one in the question stem",
-            "Stay unmuted so people hear your room” belongs to a different situation than the one in the question stem",
-            "Talk over others to be heard” belongs to a different situation than the one in the question stem",
+            "Never share your screen",
+            "Stay unmuted so people hear your room",
+            "Talk over others to be heard",
           ],
       correctIndex: 0,
       explanation:
@@ -398,10 +398,10 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
       id: "q6",
       question: "A team shares all their project files as 'anyone with the link can edit' for convenience. What's the main risk?",
       choices: [
-            "There is no risk — this is always the safest setting” belongs to a different situation than the one in the question stem",
-            "“The document will load more slowly” describes a different situation than the one in the question stem",
+            "There is no risk — this is always the safest setting",
+            "The document will load more slowly",
             "The link can spread beyond the intended team, letting strangers view or even edit the document",
-            "It automatically deletes the file after a week” belongs to a different situation than the one in the question stem",
+            "It automatically deletes the file after a week",
           ],
       correctIndex: 2,
       explanation:
@@ -414,7 +414,7 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
             "More permissions for everyone — familiar wording, wrong fit for what the prompt is actually asking",
             "Real coordination and communication about roles and deadlines, which the doc alone doesn't provide",
             "A faster internet connection — familiar wording, wrong fit for what the prompt is actually asking",
-            "Nothing — the shared doc alone guarantees good teamwork” belongs to a different situation than the one in the question stem",
+            "Nothing — the shared doc alone guarantees good teamwork",
           ],
       correctIndex: 1,
       explanation:
@@ -424,10 +424,10 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
       id: "q8",
       question: "In the video call case study, what specifically turned the chaotic meeting around?",
       choices: [
-            "Everyone turning off their cameras” belongs to a different situation than the one in the question stem",
-            "Switching to text messages instead of a call” belongs to a different situation than the one in the question stem",
+            "Everyone turning off their cameras",
+            "Switching to text messages instead of a call",
             "Muting by default, using raise-hand, and sharing a visible agenda doc with assigned roles",
-            "“Ending the meeting early” describes a different situation than the one in the question stem",
+            "Ending the meeting early",
           ],
       correctIndex: 2,
       explanation:

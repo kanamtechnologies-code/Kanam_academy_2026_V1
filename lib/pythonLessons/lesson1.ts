@@ -287,7 +287,7 @@ print("Hello! I am " + name)
           choices: [
             "Stores the text Alex inside a box called name",
             "Prints the word Alex to the screen",
-            "Checks whether name equals Alex” belongs to a different situation than the one in the question stem",
+            "Checks whether name equals Alex",
           ],
           correctIndex: 0,
           explanation: "= assigns — it stores the value on the right inside the box on the left. Nothing is printed or compared yet.",
@@ -328,8 +328,8 @@ print("Hello! I am " + name)
           prompt: 'Why does `"Hello! I am" + name` print `Hello! I amAlex` (no space)?',
           choices: [
             "+ never adds spaces — the space must be typed inside the quotes",
-            "The variable name is spelled wrong” belongs to a different situation than the one in the question stem",
-            "Python is broken” belongs to a different situation than the one in the question stem",
+            "The variable name is spelled wrong",
+            "Python is broken",
           ],
           correctIndex: 0,
           explanation: "Concatenation glues text exactly as written. If you want a space, you must put it inside the quotes yourself.",
@@ -403,8 +403,8 @@ print("Hello! I am " + name)
         checkIn: {
           prompt: 'Your code has `Print("Hello! I am " + name)` and nothing runs. What\'s the bug?',
           choices: [
-            "The + sign is broken” belongs to a different situation than the one in the question stem",
-            "The variable name is too short” belongs to a different situation than the one in the question stem",
+            "The + sign is broken",
+            "The variable name is too short",
             "print must be lowercase — Print is not a valid command",
           ],
           correctIndex: 2,
@@ -434,9 +434,9 @@ print("Hello! I am " + name)
         checkIn: {
           prompt: "You're about to write your first program. What should you decide FIRST?",
           choices: [
-            "How many loops to run” belongs to a different situation than the one in the question stem",
+            "How many loops to run",
             "What text you need to store (like your name)",
-            "Which print color to use” belongs to a different situation than the one in the question stem",
+            "Which print color to use",
           ],
           correctIndex: 1,
           explanation: "Start with the data — once you know what to remember, the variable line and greeting almost write themselves.",
@@ -462,9 +462,9 @@ print("Hello! I am " + name)
         checkIn: {
           prompt: 'What is wrong with this line: `print("Hello! I am" + name)` if you want a space before the name?',
           choices: [
-            "Nothing — it will print correctly” belongs to a different situation than the one in the question stem",
+            "Nothing — it will print correctly",
             "There's no space inside the quotes after \"am\", so the output will be mashed together",
-            "You need to use == instead of +” belongs to a different situation than the one in the question stem",
+            "You need to use == instead of +",
           ],
           correctIndex: 1,
           explanation: "+ doesn't add spaces automatically. Without a space inside the quotes after \"am\", the output reads like Hello! I amAlex.",

@@ -68,9 +68,9 @@ Today's lesson: **Better Prompts, Better Answers**.
         checkIn: {
           prompt: "What's the 'pro' mindset for getting great AI answers?",
           choices: [
-            "Use the shortest prompt possible every time” belongs to a different situation than the one in the question stem",
-            "Only ask yes/no questions” belongs to a different situation than the one in the question stem",
-            "Type one perfect prompt and never change it” belongs to a different situation than the one in the question stem",
+            "Use the shortest prompt possible every time",
+            "Only ask yes/no questions",
+            "Type one perfect prompt and never change it",
             "Treat it as a conversation and refine the answer with follow-ups",
           ],
           correctIndex: 3,
@@ -110,10 +110,10 @@ Now do this one:
         checkIn: {
           prompt: "For a tricky math or logic problem, what often improves the AI's accuracy?",
           choices: [
-            "Telling it to answer in one word” belongs to a different situation than the one in the question stem",
+            "Telling it to answer in one word",
             "Asking it to work through the problem step by step and show its reasoning",
-            "Asking it to answer faster” belongs to a different situation than the one in the question stem",
-            "Typing in all capital letters” belongs to a different situation than the one in the question stem",
+            "Asking it to answer faster",
+            "Typing in all capital letters",
           ],
           correctIndex: 1,
           explanation:
@@ -158,9 +158,9 @@ Now do this one:
           prompt: "If an AI shows detailed step-by-step reasoning, does that guarantee the final answer is correct?",
           choices: [
             "No — step-by-step reasoning improves the odds but doesn't guarantee correctness",
-            "Yes, but only for essays” belongs to a different situation than the one in the question stem",
-            "No, step-by-step prompting never helps at all” belongs to a different situation than the one in the question stem",
-            "Yes, showing steps always means the answer is correct” belongs to a different situation than the one in the question stem",
+            "Yes, but only for essays",
+            "No, step-by-step prompting never helps at all",
+            "Yes, showing steps always means the answer is correct",
           ],
           correctIndex: 0,
           explanation:
@@ -221,9 +221,9 @@ Now do this one:
           prompt: "The AI gives you two different dates for the same historical event on repeated prompts. Best next step?",
           choices: [
             "Verify the date in a trusted history source, then use that verified fact going forward",
-            "Keep prompting until it picks one date confidently” belongs to a different situation than the one in the question stem",
-            "Assume the longer answer must be correct” belongs to a different situation than the one in the question stem",
-            "Average the two dates the AI gave you” belongs to a different situation than the one in the question stem",
+            "Keep prompting until it picks one date confidently",
+            "Assume the longer answer must be correct",
+            "Average the two dates the AI gave you",
           ],
           correctIndex: 0,
           explanation:
@@ -301,10 +301,10 @@ Now do this one:
         checkIn: {
           prompt: "What made Amara's iteration effective rather than just 'trial and error'?",
           choices: [
-            "She wrote a completely new unrelated prompt each time” belongs to a different situation than the one in the question stem",
-            "She asked the AI to guess what she wanted without any feedback” belongs to a different situation than the one in the question stem",
+            "She wrote a completely new unrelated prompt each time",
+            "She asked the AI to guess what she wanted without any feedback",
             "She gave specific, actionable feedback and an example each round instead of vague retries",
-            "She kept clicking regenerate until something looked okay” belongs to a different situation than the one in the question stem",
+            "She kept clicking regenerate until something looked okay",
           ],
           correctIndex: 2,
           explanation:
@@ -319,10 +319,10 @@ Now do this one:
         checkIn: {
           prompt: "Which prompting technique fits this poem situation best?",
           choices: [
-            "None of these — poems can't be prompted for” belongs to a different situation than the one in the question stem",
-            "Step-by-step — ask it to reason through the poem's logic” belongs to a different situation than the one in the question stem",
+            "None of these — poems can't be prompted for",
+            "Step-by-step — ask it to reason through the poem's logic",
             "Few-shot — paste your saved example and ask the AI to match its style",
-            "Zero-shot — just ask for 'a poem' with no example” belongs to a different situation than the one in the question stem",
+            "Zero-shot — just ask for 'a poem' with no example",
           ],
           correctIndex: 2,
           explanation:
@@ -355,10 +355,10 @@ Now do this one:
       id: "q1",
       question: "What's the 'pro' mindset for getting great AI answers?",
       choices: [
-            "Only ask yes/no questions” belongs to a different situation than the one in the question stem",
-            "Use the shortest prompt possible every time” belongs to a different situation than the one in the question stem",
+            "Only ask yes/no questions",
+            "Use the shortest prompt possible every time",
             "Treat it as a conversation and refine the answer with follow-ups",
-            "Type one perfect prompt and never change it” belongs to a different situation than the one in the question stem",
+            "Type one perfect prompt and never change it",
           ],
       correctIndex: 2,
       explanation:
@@ -376,10 +376,10 @@ Now do this one:
       id: "q3",
       question: "For a tricky math or logic problem, what often improves the AI's accuracy?",
       choices: [
-            "Typing in all capital letters” belongs to a different situation than the one in the question stem",
-            "Asking it to answer faster” belongs to a different situation than the one in the question stem",
+            "Typing in all capital letters",
+            "Asking it to answer faster",
             "Asking it to work through the problem step by step and show its reasoning",
-            "Telling it to answer in one word” belongs to a different situation than the one in the question stem",
+            "Telling it to answer in one word",
           ],
       correctIndex: 2,
       explanation:
@@ -389,9 +389,9 @@ Now do this one:
       id: "q4",
       question: "Why does showing an example work so well?",
       choices: [
-            "It guarantees the output will be factually accurate” belongs to a different situation than the one in the question stem",
+            "It guarantees the output will be factually accurate",
             "Examples make the AI switch to a more advanced version of itself",
-            "It skips the need to describe the task at all” belongs to a different situation than the one in the question stem",
+            "It skips the need to describe the task at all",
             "The AI is a strong pattern-matcher and copies the pattern you demonstrate",
           ],
       correctIndex: 3,
@@ -402,9 +402,9 @@ Now do this one:
       id: "q5",
       question: "Does step-by-step prompting GUARANTEE a correct final answer?",
       choices: [
-            "Yes — once the model shows its steps, the conclusion is reliable” belongs to a different situation than the one in the question stem",
-            "No — asking for steps usually makes the answer less accurate” belongs to a different situation than the one in the question stem",
-            "Yes for schoolwork, but not for math or science questions” belongs to a different situation than the one in the question stem",
+            "Yes — once the model shows its steps, the conclusion is reliable",
+            "No — asking for steps usually makes the answer less accurate",
+            "Yes for schoolwork, but not for math or science questions",
             "No — it improves the odds of accuracy but the final answer can still be wrong",
           ],
       correctIndex: 3,
@@ -416,9 +416,9 @@ Now do this one:
       question: "What's a smart use of an AI 'self-critique' follow-up (asking it to review its own answer)?",
       choices: [
             "It's a fast second opinion that can catch gaps — but you still verify anything factual",
-            "It always finds every mistake with certainty” belongs to a different situation than the one in the question stem",
-            "It replaces the need to ever check facts yourself” belongs to a different situation than the one in the question stem",
-            "“It should never be used” describes a different situation than the one in the question stem",
+            "It always finds every mistake with certainty",
+            "It replaces the need to ever check facts yourself",
+            "It should never be used",
           ],
       correctIndex: 0,
       explanation:
@@ -428,10 +428,10 @@ Now do this one:
       id: "q7",
       question: "What's the difference between iterating on YOUR draft versus iterating until AI hands you a finished product to submit as-is?",
       choices: [
-            "Only the first one is technically called 'iteration'” belongs to a different situation than the one in the question stem",
+            "Only the first one is technically called 'iteration'",
             "The first keeps you doing the thinking and learning; the second can quietly replace your own work",
-            "The second is always faster and therefore always fine” belongs to a different situation than the one in the question stem",
-            "There's no difference — both are exactly the same” belongs to a different situation than the one in the question stem",
+            "The second is always faster and therefore always fine",
+            "There's no difference — both are exactly the same",
           ],
       correctIndex: 1,
       explanation:
@@ -442,9 +442,9 @@ Now do this one:
       question: "How does iterating on AI answers connect to computational thinking?",
       choices: [
             "The try → evaluate → adjust loop mirrors the same process used in testing and debugging code",
-            "It doesn't relate to computer science at all” belongs to a different situation than the one in the question stem",
-            "Iteration is only a writing skill, not a CS skill” belongs to a different situation than the one in the question stem",
-            "Only writing code from scratch counts as computational thinking” belongs to a different situation than the one in the question stem",
+            "It doesn't relate to computer science at all",
+            "Iteration is only a writing skill, not a CS skill",
+            "Only writing code from scratch counts as computational thinking",
           ],
       correctIndex: 0,
       explanation:

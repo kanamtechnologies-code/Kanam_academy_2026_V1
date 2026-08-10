@@ -35,10 +35,10 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"Just \"manifest\" a big lifestyle goal with no dollar amount or deadline. If you want it badly enough, the money will appear. Tracking progress is unnecessary because vibes beat planning."',
       choices: [
-            "Deadlines always kill motivation, so never set them” belongs to a different situation than the one in the question stem",
-            "Only people with full-time jobs can set money goals” belongs to a different situation than the one in the question stem",
+            "Deadlines always kill motivation, so never set them",
+            "Only people with full-time jobs can set money goals",
             "Goals need a clear amount, timeline, and tracking — wishing alone does not create cash",
-            "Tracking progress is only for people who already failed” belongs to a different situation than the one in the question stem",
+            "Tracking progress is only for people who already failed",
           ],
       correctIndex: 2,
       hint: "Can you schedule a goal that has no number and no date?",
@@ -178,10 +178,10 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"If you really want something, it counts as a need. Needs and wants feel the same, so always buy both. Opportunity cost is only for businesses — not high schoolers."',
       choices: [
-            "Teens never face tradeoffs because parents pay everything” belongs to a different situation than the one in the question stem",
-            "Needs should always wait until wants are purchased” belongs to a different situation than the one in the question stem",
+            "Teens never face tradeoffs because parents pay everything",
+            "Needs should always wait until wants are purchased",
             "Wants are not needs; every purchase has an opportunity cost — even for teens",
-            "Opportunity cost only applies to stocks” belongs to a different situation than the one in the question stem",
+            "Opportunity cost only applies to stocks",
           ],
       correctIndex: 2,
       hint: "What do you give up when you spend the same dollars elsewhere?",
@@ -321,9 +321,9 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         '"Gross pay is what hits your debit card. Taxes on a teen paycheck are optional if you ask nicely. You can ignore withholdings because refunds always cover everything later."',
       choices: [
             "Only salaried adults have gross pay — familiar wording, wrong fit for what the prompt is actually asking",
-            "“Withholdings always mean you are being scammed” describes a different situation than the one in the question stem",
+            "Withholdings always mean you are being scammed",
             "Net pay is what you receive; required tax withholdings are not optional; refunds are not a spending plan",
-            "“Debit cards create gross pay automatically” describes a different situation than the one in the question stem",
+            "Debit cards create gross pay automatically",
           ],
       correctIndex: 2,
       hint: "Which number is \"take-home,\" and which taxes are required?",
@@ -464,9 +464,9 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         '"Debit cards are free loans from the bank. Credit cards and debit cards pull from the same \"borrow now, never repay\" bucket. Overdraft fees are rewards for shopping. Sharing your PIN with friends is fine if they pinky-promise."',
       choices: [
             "Debit spends your money; credit borrows; overdrafts cost you; never share PINs",
-            "Overdraft fees increase your credit score” belongs to a different situation than the one in the question stem",
-            "PINs are public by design” belongs to a different situation than the one in the question stem",
-            "Credit cards never need repayment if you smile at the cashier” belongs to a different situation than the one in the question stem",
+            "Overdraft fees increase your credit score",
+            "PINs are public by design",
+            "Credit cards never need repayment if you smile at the cashier",
           ],
       correctIndex: 0,
       hint: "Whose money moves first — yours or the lender's?",
@@ -537,9 +537,9 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"Budgets are only for people in debt. Use your gross pay as the limit. Never adjust mid-month — that means you failed. Fun money is irresponsible, so set it to $0."',
       choices: [
-            "Budgets are only useful after you're already in serious debt” belongs to a different situation than the one in the question stem",
-            "Gross pay is always safer than net pay for planning spending” belongs to a different situation than the one in the question stem",
-            "Changing a budget mid-month means the whole plan failed” belongs to a different situation than the one in the question stem",
+            "Budgets are only useful after you're already in serious debt",
+            "Gross pay is always safer than net pay for planning spending",
+            "Changing a budget mid-month means the whole plan failed",
             "Budgets help anyone; use net pay; adjust when life changes; small fun money improves stickiness",
           ],
       correctIndex: 3,
@@ -680,9 +680,9 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         '"Emergency funds are only for adults with houses. Tracking spending is creepy. If you need cash fast, a high-interest payday loan is basically the same as savings."',
       choices: [
             "Teens benefit from tracking and a starter emergency fund; payday-style debt is not a substitute for savings",
-            "“Tracking spending always lowers your credit score” describes a different situation than the one in the question stem",
-            "“Only homeowners can have unexpected expenses” describes a different situation than the one in the question stem",
-            "“Emergency funds must be invested in meme stocks” describes a different situation than the one in the question stem",
+            "Tracking spending always lowers your credit score",
+            "Only homeowners can have unexpected expenses",
+            "Emergency funds must be invested in meme stocks",
           ],
       correctIndex: 0,
       hint: "What is cheaper — money you already saved, or money you borrow in a panic?",
@@ -822,10 +822,10 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"Carrying a big balance forever is required to build credit. Closing every account after one purchase always helps. Credit scores are secret and teens can never see any credit information. Paying late occasionally is fine if you pay extra later."',
       choices: [
-            "Paying late is the fastest way to improve credit” belongs to a different situation than the one in the question stem",
-            "“Utilization should always stay at 100%” describes a different situation than the one in the question stem",
+            "Paying late is the fastest way to improve credit",
+            "Utilization should always stay at 100%",
             "You do not need high ongoing balances; late payments hurt; responsible use and checking reports matter",
-            "“Credit scores only exist for celebrities” describes a different situation than the one in the question stem",
+            "Credit scores only exist for celebrities",
           ],
       correctIndex: 2,
       hint: "What do lenders care about more — drama balances or on-time reliability?",
@@ -964,10 +964,10 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"If the monthly payment is low, the loan is automatically cheap. Interest only matters for big adult loans. Buy-now-pay-later never has costs or risks. Making minimum credit payments is the fastest way out of debt."',
       choices: [
-            "“Minimum payments erase interest by law” describes a different situation than the one in the question stem",
-            "Interest is illegal for people under 18 in all cases” belongs to a different situation than the one in the question stem",
+            "Minimum payments erase interest by law",
+            "Interest is illegal for people under 18 in all cases",
             "Low payments can mean long costly terms; interest matters; BNPL has risks; minimums slow payoff",
-            "“Longer loans always cost less overall” describes a different situation than the one in the question stem",
+            "Longer loans always cost less overall",
           ],
       correctIndex: 2,
       hint: "What happens to total cost when you stretch payments out?",
@@ -1031,9 +1031,9 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"Compound growth means you get rich this weekend with one deposit. Timing the market daily beats steady contributions. Withdrawals never affect growth. Only people with thousands should bother starting."',
       choices: [
-            "Compound interest is a myth taught to trick teens” belongs to a different situation than the one in the question stem",
-            "One deposit always doubles overnight by law” belongs to a different situation than the one in the question stem",
-            "“Automation makes saving illegal” describes a different situation than the one in the question stem",
+            "Compound interest is a myth taught to trick teens",
+            "One deposit always doubles overnight by law",
+            "Automation makes saving illegal",
             "Compounding needs time and consistency; small starts matter; withdrawals interrupt growth",
           ],
       correctIndex: 3,
@@ -1176,7 +1176,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
             "Higher return usually means higher risk; past ≠ future; diversification manages risk; do not borrow to chase tips",
             "Borrowing always improves investing outcomes — familiar wording, wrong fit for what the prompt is actually asking",
             "Picking “Diversification is illegal for teens” is a common mix-up that confuses a nearby idea with the right one",
-            "“Zero-risk high returns are standard for beginners” describes a different situation than the one in the question stem",
+            "Zero-risk high returns are standard for beginners",
           ],
       correctIndex: 0,
       hint: "If someone promises huge returns with no risk, what should you assume?",
@@ -1318,7 +1318,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       choices: [
             "Some learners answer “Only impossible risks are worth insuring”, yet that does not match the precise idea from the lesson",
             "Insurance transfers big financial risks; deductibles matter; rare but ruinous risks still count; know how to file a claim",
-            "“Premiums are lottery tickets with guaranteed jackpots” describes a different situation than the one in the question stem",
+            "Premiums are lottery tickets with guaranteed jackpots",
             "Some learners answer “Deductibles are always $0 by federal law”, yet that does not match the precise idea from the lesson",
           ],
       correctIndex: 1,
@@ -1532,10 +1532,10 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"Teens never pay any taxes ever. W-2 forms are optional decorations. A stranger DMing \"guaranteed $8,000 refunds\" is normal IRS service. You should share your Social Security number in random group chats for \"fast filing.\""',
       choices: [
-            "“Social Security numbers are public” describes a different situation than the one in the question stem",
-            "DM refund guarantees are how the IRS prefers to work” belongs to a different situation than the one in the question stem",
+            "Social Security numbers are public",
+            "DM refund guarantees are how the IRS prefers to work",
             "Many teens have withholdings; keep official forms; avoid refund scams; never share SSN casually",
-            "Paystubs should be deleted immediately forever” belongs to a different situation than the one in the question stem",
+            "Paystubs should be deleted immediately forever",
           ],
       correctIndex: 2,
       hint: "Who contacts you officially about taxes — and what should stay private?",
@@ -1674,10 +1674,10 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"Sticker price is always what you pay. Student loans are free money. Award letters are identical across schools so you can ignore the details. You should never ask a trusted adult to help compare offers."',
       choices: [
-            "“FAFSA deadlines never matter” describes a different situation than the one in the question stem",
-            "Grants always have to be repaid with interest” belongs to a different situation than the one in the question stem",
+            "FAFSA deadlines never matter",
+            "Grants always have to be repaid with interest",
             "Net price varies; loans must be repaid; award details differ; get help comparing offers",
-            "Work-study is the same as a credit card” belongs to a different situation than the one in the question stem",
+            "Work-study is the same as a credit card",
           ],
       correctIndex: 2,
       hint: "What is the difference between a grant and a loan on an award letter?",
@@ -1817,9 +1817,9 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"If you want it, finance the maximum amount available today. Opportunity cost is irrelevant for personal choices. Never sleep on a big purchase — urgency means it is destiny. Reviews after buying are pointless."',
       choices: [
-            "“Maximum financing is always optimal” describes a different situation than the one in the question stem",
-            "“Urgent sales never use pressure tactics” describes a different situation than the one in the question stem",
-            "Opportunity cost only applies to video games” belongs to a different situation than the one in the question stem",
+            "Maximum financing is always optimal",
+            "Urgent sales never use pressure tactics",
+            "Opportunity cost only applies to video games",
             "Borrow less not more by default; opportunity cost matters; pause on urgency; review outcomes later",
           ],
       correctIndex: 3,
@@ -1960,7 +1960,7 @@ export const FINANCE_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         '"Write the plan once in fancy fonts and never look at it again. Skip emergency savings if goals sound exciting. Use credit to fund every want so the plan feels unlimited. Check-ins are only for people who failed."',
       choices: [
-            "“Emergency funds cancel your goals permanently” describes a different situation than the one in the question stem",
+            "Emergency funds cancel your goals permanently",
             "A rushed pass can land on fancy fonts guarantee financial success”; careful readers reject it for this problem",
             "Plans need reviews; keep a buffer; credit is not unlimited fun money; monthly check-ins are healthy maintenance",
             "Monthly reviews lower your credit score. That option sounds confident, but it leaves out the deciding constraint",

@@ -76,10 +76,10 @@ Today's lesson: **Big Money Decisions**.
         checkIn: {
           prompt: "Jasmine is comparing two phone plans and is tempted to decide based only on the advertised monthly price. What should a Decision Pro add to the comparison?",
           choices: [
-            "Just whichever plan the salesperson seems most confident about” belongs to a different situation than the one in the question stem",
+            "Just whichever plan the salesperson seems most confident about",
             "Upfront costs, ongoing fees like insurance or plan add-ons, and what else that money could do",
-            "Whether her friends would be impressed by the choice” belongs to a different situation than the one in the question stem",
-            "Nothing else — the monthly number is really the only thing that matters” belongs to a different situation than the one in the question stem",
+            "Whether her friends would be impressed by the choice",
+            "Nothing else — the monthly number is really the only thing that matters",
           ],
           correctIndex: 1,
           explanation:
@@ -98,10 +98,10 @@ Today's lesson: **Big Money Decisions**.
         checkIn: {
           prompt: "When Omar is pricing out a used car, which costs belong in his total-cost analysis?",
           choices: [
-            "Only whatever number the seller chose to highlight in the listing” belongs to a different situation than the one in the question stem",
+            "Only whatever number the seller chose to highlight in the listing",
             "Insurance, fuel/maintenance, registration, loan interest, and depreciation — plus the sale price",
-            "Just the sale price, since depreciation doesn't apply to used cars” belongs to a different situation than the one in the question stem",
-            "Only the monthly loan payment listed in the ad” belongs to a different situation than the one in the question stem",
+            "Just the sale price, since depreciation doesn't apply to used cars",
+            "Only the monthly loan payment listed in the ad",
           ],
           correctIndex: 1,
           explanation:
@@ -232,10 +232,10 @@ Today's lesson: **Big Money Decisions**.
         checkIn: {
           prompt: "What's the Decision Pro move for Tyler at this point?",
           choices: [
-            "Assume insurance and maintenance costs don't apply since they weren't mentioned in the ad” belongs to a different situation than the one in the question stem",
+            "Assume insurance and maintenance costs don't apply since they weren't mentioned in the ad",
             "Compare the full total cost of the financed car against his actual income and the cash-purchase alternative, then sleep on it before deciding",
-            "“Skip the cash-purchase option, since a newer financed car is always the smarter pick” describes a different situation than the one in the question stem",
-            "“Sign the financed car deal right away since $189/month sounded manageable” describes a different situation than the one in the question stem",
+            "Skip the cash-purchase option, since a newer financed car is always the smarter pick",
+            "Sign the financed car deal right away since $189/month sounded manageable",
           ],
           correctIndex: 1,
           explanation:
@@ -301,10 +301,10 @@ Decision Pro framework: name **total cost**, **timeline**, **opportunity cost** 
         checkIn: {
           prompt: "A carrier ad highlights $0 down and $30/month for the newest phone. Best first question?",
           choices: [
-            "What color should I get?” belongs to a different situation than the one in the question stem",
+            "What color should I get?",
             "What's the total 24-month cost including plan, taxes, and fees?",
-            "Whether the phone will impress people at school” belongs to a different situation than the one in the question stem",
-            "Can I finance two phones so friends match?” belongs to a different situation than the one in the question stem",
+            "Whether the phone will impress people at school",
+            "Can I finance two phones so friends match?",
           ],
           correctIndex: 1,
           explanation:
@@ -352,9 +352,9 @@ No shame in any path — but **housing is the biggest lever** most teens will pu
         checkIn: {
           prompt: "A salesperson says: 'Don't overthink it — everyone finances this way, and it's only $150 a month.' What's the Decision Pro response?",
           choices: [
-            "Skip the cooling-off period since the salesperson seems confident and trustworthy” belongs to a different situation than the one in the question stem",
-            "Assume that 'everyone finances this way' proves it's a smart total-cost decision” belongs to a different situation than the one in the question stem",
-            "“Agree, since $150/month sounds manageable either way” describes a different situation than the one in the question stem",
+            "Skip the cooling-off period since the salesperson seems confident and trustworthy",
+            "Assume that 'everyone finances this way' proves it's a smart total-cost decision",
+            "Agree, since $150/month sounds manageable either way",
             "Ask for the loan term and total of all payments, then total ongoing costs like insurance and maintenance before deciding",
           ],
           correctIndex: 3,
@@ -392,10 +392,10 @@ No shame in any path — but **housing is the biggest lever** most teens will pu
       id: "q1",
       question: "What should a Decision Pro include beyond the monthly payment?",
       choices: [
-            "Only the brand's popularity or reputation” belongs to a different situation than the one in the question stem",
+            "Only the brand's popularity or reputation",
             "Whatever number the salesperson chooses to emphasize most",
             "Upfront costs, insurance/maintenance/fees, and opportunity cost",
-            "Whether friends would be impressed by the purchase” belongs to a different situation than the one in the question stem",
+            "Whether friends would be impressed by the purchase",
           ],
       correctIndex: 2,
       explanation:
@@ -407,7 +407,7 @@ No shame in any path — but **housing is the biggest lever** most teens will pu
       choices: [
             "The next-best thing you give up when you make a choice",
             "Money that can never be spent again for any reason",
-            "A type of car insurance add-on” belongs to a different situation than the one in the question stem",
+            "A type of car insurance add-on",
             "A fee that only phone carriers are allowed to charge",
           ],
       correctIndex: 0,
@@ -419,9 +419,9 @@ No shame in any path — but **housing is the biggest lever** most teens will pu
       question: "Which phone approach often fits a careful teen budget?",
       choices: [
             "Compare device + plan + add-ons, and consider keeping a capable phone longer instead of upgrading every year",
-            "Always finance the newest flagship on a yearly upgrade schedule” belongs to a different situation than the one in the question stem",
-            "Choose based on whichever model a favorite influencer just unboxed” belongs to a different situation than the one in the question stem",
-            "Ignore the plan cost entirely, since only the phone's price tag matters” belongs to a different situation than the one in the question stem",
+            "Always finance the newest flagship on a yearly upgrade schedule",
+            "Choose based on whichever model a favorite influencer just unboxed",
+            "Ignore the plan cost entirely, since only the phone's price tag matters",
           ],
       correctIndex: 0,
       explanation:
@@ -444,10 +444,10 @@ No shame in any path — but **housing is the biggest lever** most teens will pu
       id: "q5",
       question: "Why use a cooling-off period on big purchases?",
       choices: [
-            "To lock in the current price before it can ever change” belongs to a different situation than the one in the question stem",
+            "To lock in the current price before it can ever change",
             "To reduce impulse and sales pressure so you can recheck total cost and goals",
-            "So the budget can be temporarily set aside while deciding” belongs to a different situation than the one in the question stem",
-            "Because most stores prohibit same-day purchases” belongs to a different situation than the one in the question stem",
+            "So the budget can be temporarily set aside while deciding",
+            "Because most stores prohibit same-day purchases",
           ],
       correctIndex: 1,
       explanation:
@@ -458,9 +458,9 @@ No shame in any path — but **housing is the biggest lever** most teens will pu
       question: "A loan advertises a low monthly payment stretched over a much longer term than usual. What's the likely tradeoff?",
       choices: [
             "Total interest paid over the life of the loan is likely higher, even though the monthly number looks smaller",
-            "The item automatically depreciates more slowly because of the longer loan term” belongs to a different situation than the one in the question stem",
-            "Insurance costs are eliminated once a loan term gets long enough” belongs to a different situation than the one in the question stem",
-            "There is no tradeoff — a lower monthly payment is strictly better in every case” belongs to a different situation than the one in the question stem",
+            "The item automatically depreciates more slowly because of the longer loan term",
+            "Insurance costs are eliminated once a loan term gets long enough",
+            "There is no tradeoff — a lower monthly payment is strictly better in every case",
           ],
       correctIndex: 0,
       explanation:
@@ -471,9 +471,9 @@ No shame in any path — but **housing is the biggest lever** most teens will pu
       question: "What is the payment-size illusion?",
       choices: [
             "Judging whether something is affordable by its monthly payment size instead of its total cost",
-            "A discount some insurers offer for paying on time” belongs to a different situation than the one in the question stem",
-            "A rule that all large purchases must be paid fully in cash” belongs to a different situation than the one in the question stem",
-            "A law that caps how large a monthly payment can be” belongs to a different situation than the one in the question stem",
+            "A discount some insurers offer for paying on time",
+            "A rule that all large purchases must be paid fully in cash",
+            "A law that caps how large a monthly payment can be",
           ],
       correctIndex: 0,
       explanation:
@@ -483,10 +483,10 @@ No shame in any path — but **housing is the biggest lever** most teens will pu
       id: "q8",
       question: "Tyler's financed car totals about $6,618 in year-one costs against a $7,200 annual income, while a reliable used car he could buy in cash would cost far less overall. What's the Decision Pro move?",
       choices: [
-            "Assume insurance and maintenance don't apply since the ad never mentioned them” belongs to a different situation than the one in the question stem",
+            "Assume insurance and maintenance don't apply since the ad never mentioned them",
             "Seriously compare the full total-cost numbers against his income and the cash-purchase alternative before deciding, then sleep on it",
-            "Sign the financed deal right away since the ad's monthly number felt manageable” belongs to a different situation than the one in the question stem",
-            "“Skip the cash alternative, since financing is always the superior option” describes a different situation than the one in the question stem",
+            "Sign the financed deal right away since the ad's monthly number felt manageable",
+            "Skip the cash alternative, since financing is always the superior option",
           ],
       correctIndex: 1,
       explanation:

@@ -67,10 +67,10 @@ Today's lesson: **What Is Generative AI?**.
         checkIn: {
           prompt: "What is the core difference between a spam filter and a generative AI model?",
           choices: [
-            "There is no real difference between them” belongs to a different situation than the one in the question stem",
-            "Spam filters are faster, that's the only difference” belongs to a different situation than the one in the question stem",
+            "There is no real difference between them",
+            "Spam filters are faster, that's the only difference",
             "A spam filter classifies existing content; generative AI creates brand-new content",
-            "Generative AI can only work with numbers, never text” belongs to a different situation than the one in the question stem",
+            "Generative AI can only work with numbers, never text",
           ],
           correctIndex: 2,
           explanation:
@@ -94,10 +94,10 @@ Today's lesson: **What Is Generative AI?**.
         checkIn: {
           prompt: "At its core, how does a text-generating AI build a sentence?",
           choices: [
-            "A hidden human types the response secretly” belongs to a different situation than the one in the question stem",
+            "A hidden human types the response secretly",
             "It predicts the next word/token repeatedly, each based on everything written so far",
-            "It picks words completely at random” belongs to a different situation than the one in the question stem",
-            "It searches a database for the exact sentence and copies it” belongs to a different situation than the one in the question stem",
+            "It picks words completely at random",
+            "It searches a database for the exact sentence and copies it",
           ],
           correctIndex: 1,
           explanation:
@@ -116,9 +116,9 @@ Today's lesson: **What Is Generative AI?**.
         checkIn: {
           prompt: "Why can generative AI output reflect bias or errors?",
           choices: [
-            "Because it has personal opinions” belongs to a different situation than the one in the question stem",
-            "It can't — generated content is always neutral and correct” belongs to a different situation than the one in the question stem",
-            "Because it's connected live to the news at all times” belongs to a different situation than the one in the question stem",
+            "Because it has personal opinions",
+            "It can't — generated content is always neutral and correct",
+            "Because it's connected live to the news at all times",
             "Because it reflects patterns in its training data, which can contain bias and mistakes",
           ],
           correctIndex: 3,
@@ -162,9 +162,9 @@ Today's lesson: **What Is Generative AI?**.
           prompt: "Why is 'the AI made it, so it's fully original' a misleading claim?",
           choices: [
             "Some learners answer “Because AI never actually generates anything new”, yet that does not match the precise idea from the lesson",
-            "“Because only humans are allowed to create art, by law, everywhere” describes a different situation than the one in the question stem",
+            "Because only humans are allowed to create art, by law, everywhere",
             "Because the output is built from patterns learned from real human-made content, raising real questions about credit and consent",
-            "It isn't misleading — AI content has no relationship to any source material” belongs to a different situation than the one in the question stem",
+            "It isn't misleading — AI content has no relationship to any source material",
           ],
           correctIndex: 2,
           explanation:
@@ -224,7 +224,7 @@ Today's lesson: **What Is Generative AI?**.
           prompt: "Based on the comparison, what is a distinctive new risk that comes with generative AI (beyond sorting AI)?",
           choices: [
             "Picking “It never uses any training data” is a common mix-up that confuses a nearby idea with the right one",
-            "“It is always less accurate than sorting AI” describes a different situation than the one in the question stem",
+            "It is always less accurate than sorting AI",
             "It can seem like it has no risks at all, but that reading skips the distinction this question is testing",
             "It raises unresolved ownership and consent questions because it reproduces patterns from real creators' work",
           ],
@@ -289,9 +289,9 @@ Today's lesson: **What Is Generative AI?**.
           prompt: "What made the stock-photo company's lawsuit evidence unusually concrete?",
           choices: [
             "Generated images sometimes showed a distorted version of the company's own watermark, suggesting specific training sources",
-            "“The AI admitted to copying photos in a public statement” describes a different situation than the one in the question stem",
+            "The AI admitted to copying photos in a public statement",
             "Picking “There was no evidence at all, only speculation” is a common mix-up that confuses a nearby idea with the right one",
-            "“The stock-photo company had never published any photos” describes a different situation than the one in the question stem",
+            "The stock-photo company had never published any photos",
           ],
           correctIndex: 0,
           explanation:
@@ -328,10 +328,10 @@ Today's lesson: **What Is Generative AI?**.
       id: "q1",
       question: "What makes generative AI different from a spam filter?",
       choices: [
-            "It requires no computing power to run” belongs to a different situation than the one in the question stem",
-            "It can only process images, never text” belongs to a different situation than the one in the question stem",
+            "It requires no computing power to run",
+            "It can only process images, never text",
             "It creates brand-new content instead of only labeling existing content",
-            "It doesn't use any training data at all” belongs to a different situation than the one in the question stem",
+            "It doesn't use any training data at all",
           ],
       correctIndex: 2,
       explanation:
@@ -341,10 +341,10 @@ Today's lesson: **What Is Generative AI?**.
       id: "q2",
       question: "How does a text-generating AI build a sentence?",
       choices: [
-            "It copies a random webpage related to the topic” belongs to a different situation than the one in the question stem",
-            "A human types it secretly on the other end” belongs to a different situation than the one in the question stem",
+            "It copies a random webpage related to the topic",
+            "A human types it secretly on the other end",
             "It predicts the next word/token repeatedly, each based on what came before",
-            "It looks up the closest matching sentence in a database” belongs to a different situation than the one in the question stem",
+            "It looks up the closest matching sentence in a database",
           ],
       correctIndex: 2,
       explanation:
@@ -354,9 +354,9 @@ Today's lesson: **What Is Generative AI?**.
       id: "q3",
       question: "Why can generative AI output reflect bias or errors?",
       choices: [
-            "Because it's connected to the news” belongs to a different situation than the one in the question stem",
-            "Because it has opinions” belongs to a different situation than the one in the question stem",
-            "It can't — generated content is always neutral and correct” belongs to a different situation than the one in the question stem",
+            "Because it's connected to the news",
+            "Because it has opinions",
+            "It can't — generated content is always neutral and correct",
             "Because it reflects the training data, which can contain bias and mistakes",
           ],
       correctIndex: 3,
@@ -367,10 +367,10 @@ Today's lesson: **What Is Generative AI?**.
       id: "q4",
       question: "Which is the best way to think about generative AI's 'creativity'?",
       choices: [
-            "Magic that can't be explained” belongs to a different situation than the one in the question stem",
-            "Random noise with no structure” belongs to a different situation than the one in the question stem",
+            "Magic that can't be explained",
+            "Random noise with no structure",
             "Super-powered remixing of patterns learned from training data",
-            "True original imagination, like a human artist's” belongs to a different situation than the one in the question stem",
+            "True original imagination, like a human artist's",
           ],
       correctIndex: 2,
       explanation:
@@ -380,10 +380,10 @@ Today's lesson: **What Is Generative AI?**.
       id: "q5",
       question: "Why did several artists and authors file lawsuits against AI companies starting in 2023?",
       choices: [
-            "They objected to how much energy AI data centers consume” belongs to a different situation than the one in the question stem",
-            "They wanted their work removed from the internet entirely” belongs to a different situation than the one in the question stem",
+            "They objected to how much energy AI data centers consume",
+            "They wanted their work removed from the internet entirely",
             "They argued their copyrighted work was used to train AI models without permission or payment",
-            "They were seeking free personal access to the AI tools” belongs to a different situation than the one in the question stem",
+            "They were seeking free personal access to the AI tools",
           ],
       correctIndex: 2,
       explanation:
@@ -394,9 +394,9 @@ Today's lesson: **What Is Generative AI?**.
       question: "What made the stock-photo lawsuit's evidence unusually concrete?",
       choices: [
             "Generated images sometimes contained a distorted version of the company's own watermark",
-            "The stock-photo company had never published any images” belongs to a different situation than the one in the question stem",
-            "A public confession from the AI company” belongs to a different situation than the one in the question stem",
-            "There was no evidence presented at all” belongs to a different situation than the one in the question stem",
+            "The stock-photo company had never published any images",
+            "A public confession from the AI company",
+            "There was no evidence presented at all",
           ],
       correctIndex: 0,
       explanation:
@@ -406,9 +406,9 @@ Today's lesson: **What Is Generative AI?**.
       id: "q7",
       question: "What's the key difference between scale in human 'remixing' and generative AI 'remixing'?",
       choices: [
-            "“Humans have never referenced each other's work before” describes a different situation than the one in the question stem",
+            "Humans have never referenced each other's work before",
             "It can seem like there is no difference at all, but that reading skips the distinction this question is testing",
-            "“AI models can only learn from one source at a time” describes a different situation than the one in the question stem",
+            "AI models can only learn from one source at a time",
             "A generative model can absorb and echo millions of creators' styles at once, far beyond human-scale referencing",
           ],
       correctIndex: 3,
@@ -420,9 +420,9 @@ Today's lesson: **What Is Generative AI?**.
       question: "Which of these is a genuinely unresolved question about generative AI, according to this lesson?",
       choices: [
             "Whether generative AI exists at all — familiar wording, wrong fit for what the prompt is actually asking",
-            "“Whether text can be converted into tokens” describes a different situation than the one in the question stem",
+            "Whether text can be converted into tokens",
             "Who owns AI-generated content, and whether training on copyrighted work without permission is acceptable",
-            "“Whether prompts can include a task and format” describes a different situation than the one in the question stem",
+            "Whether prompts can include a task and format",
           ],
       correctIndex: 2,
       explanation:

@@ -69,9 +69,9 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
           prompt: "Which question best evaluates whether a digital space has an equity or access deficit?",
           choices: [
             "Who can participate fully, who is blocked, and what condition creates that barrier?",
-            "Which user posts the most often?” belongs to a different situation than the one in the question stem",
-            "How many emojis does the group chat use?” belongs to a different situation than the one in the question stem",
-            "Can every participant attend the same live meeting?” belongs to a different situation than the one in the question stem",
+            "Which user posts the most often?",
+            "How many emojis does the group chat use?",
+            "Can every participant attend the same live meeting?",
           ],
           correctIndex: 0,
           explanation:
@@ -90,10 +90,10 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
         checkIn: {
           prompt: "In a game lobby, someone types something they'd never say face-to-face. What is the 'online disinhibition effect'?",
           choices: [
-            "“A type of computer virus” describes a different situation than the one in the question stem",
+            "A type of computer virus",
             "The tendency to say crueler things online because you can't see the other person's reaction",
-            "“A rule that bans all comments” describes a different situation than the one in the question stem",
-            "A setting that speeds up your internet” belongs to a different situation than the one in the question stem",
+            "A rule that bans all comments",
+            "A setting that speeds up your internet",
           ],
           correctIndex: 1,
           explanation:
@@ -119,10 +119,10 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
         checkIn: {
           prompt: "You see someone being bullied in a class group chat. What does an UPSTANDER do?",
           choices: [
-            "Like the post so it's not awkward” belongs to a different situation than the one in the question stem",
+            "Like the post so it's not awkward",
             "Avoid piling on, support the target, save evidence, and report it",
-            "Join in so you don't become the next target” belongs to a different situation than the one in the question stem",
-            "Ignore it completely and hope it stops” belongs to a different situation than the one in the question stem",
+            "Join in so you don't become the next target",
+            "Ignore it completely and hope it stops",
           ],
           correctIndex: 1,
           explanation:
@@ -159,9 +159,9 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
         checkIn: {
           prompt: "A classmate reacts with a laughing emoji to a mean post but doesn't type anything themselves. What role does that play?",
           choices: [
-            "It's neutral and has no effect since no words were typed” belongs to a different situation than the one in the question stem",
-            "It automatically counts as reporting the post” belongs to a different situation than the one in the question stem",
-            "It cancels out the original mean post” belongs to a different situation than the one in the question stem",
+            "It's neutral and has no effect since no words were typed",
+            "It automatically counts as reporting the post",
+            "It cancels out the original mean post",
             "It still amplifies the harm, because reactions are a visible audience that fuels a pile-on",
           ],
           correctIndex: 3,
@@ -240,7 +240,7 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
           prompt: "Someone claims an anonymous account means they can harass a classmate (or coworker) with no consequences. Why is that a dangerous myth?",
           choices: [
             "A rushed pass can land on it's actually true — nothing can be traced”; careful readers reject it for this problem",
-            "You might defend “Anonymous accounts can't post anything” in casual talk, but it fails the definition used here",
+            "Anonymous accounts can't post anything",
             "Picking “Anonymity makes the internet slower” is a common mix-up that confuses a nearby idea with the right one",
             "People are less anonymous than they think, and serious harassment can be traced by platforms, schools, or police",
           ],
@@ -278,9 +278,9 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
           prompt: "Which of these is positive digital participation — in school chats or later at a first job?",
           choices: [
             "Helping others, sharing good information, and being inclusive and respectful",
-            "Reacting 😂 to mean posts” belongs to a different situation than the one in the question stem",
-            "Excluding people you don't like from chats” belongs to a different situation than the one in the question stem",
-            "Sharing rumors quickly” belongs to a different situation than the one in the question stem",
+            "Reacting 😂 to mean posts",
+            "Excluding people you don't like from chats",
+            "Sharing rumors quickly",
           ],
           correctIndex: 0,
           explanation:
@@ -300,9 +300,9 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
           prompt: "A classmate is getting roasted in a group chat for a mistake they already apologized for. What's the most digitally literate move?",
           choices: [
             "Don't pile on — either stay out of it or defend basic kindness, depending on what's safe for you",
-            "Screenshot and share it to a bigger audience” belongs to a different situation than the one in the question stem",
-            "Assume online drama doesn't affect real life” belongs to a different situation than the one in the question stem",
-            "“Add your own joke so you fit in” describes a different situation than the one in the question stem",
+            "Screenshot and share it to a bigger audience",
+            "Assume online drama doesn't affect real life",
+            "Add your own joke so you fit in",
           ],
           correctIndex: 0,
           explanation:
@@ -359,9 +359,9 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
       question: "In a game lobby, someone types something they'd never say face-to-face. What is the 'online disinhibition effect'?",
       choices: [
             "The tendency to say crueler things online because you can't see the other person's reaction",
-            "“A type of computer virus” describes a different situation than the one in the question stem",
-            "“A rule that bans all comments” describes a different situation than the one in the question stem",
-            "A setting that speeds up your internet” belongs to a different situation than the one in the question stem",
+            "A type of computer virus",
+            "A rule that bans all comments",
+            "A setting that speeds up your internet",
           ],
       correctIndex: 0,
       explanation:
@@ -371,10 +371,10 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
       id: "q2",
       question: "A classmate says posting a mean rumor about someone in the group chat was 'just a joke.' Is that a defense?",
       choices: [
-            "Yes — if it's a joke, it can't be bullying” belongs to a different situation than the one in the question stem",
+            "Yes — if it's a joke, it can't be bullying",
             "No — bullying is measured by the harm to the target, not the sender's intent",
-            "Only if other people laughed” belongs to a different situation than the one in the question stem",
-            "“Only on weekends” describes a different situation than the one in the question stem",
+            "Only if other people laughed",
+            "Only on weekends",
           ],
       correctIndex: 1,
       explanation:
@@ -384,10 +384,10 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
       id: "q3",
       question: "You see someone being bullied in a class group chat. What does an UPSTANDER do?",
       choices: [
-            "Ignore it completely and hope it stops” belongs to a different situation than the one in the question stem",
-            "Like the post so it's not awkward” belongs to a different situation than the one in the question stem",
+            "Ignore it completely and hope it stops",
+            "Like the post so it's not awkward",
             "Avoid piling on, support the target, save evidence, and report it",
-            "Join in so you don't become the next target” belongs to a different situation than the one in the question stem",
+            "Join in so you don't become the next target",
           ],
       correctIndex: 2,
       explanation:
@@ -397,7 +397,7 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
       id: "q4",
       question: "Someone claims an anonymous account means they can harass a classmate (or coworker) with no consequences. Why is that a dangerous myth?",
       choices: [
-            "You might defend “Anonymous accounts can't post anything” in casual talk, but it fails the definition used here",
+            "Anonymous accounts can't post anything",
             "Picking “Anonymity makes the internet slower” is a common mix-up that confuses a nearby idea with the right one",
             "It's actually true — nothing can be traced — familiar wording, wrong fit for what the prompt is actually asking",
             "People are less anonymous than they think, and serious harassment can be traced by platforms, schools, or police",
@@ -410,10 +410,10 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
       id: "q5",
       question: "Which of these is positive digital participation — in school chats or later at a first job?",
       choices: [
-            "Reacting 😂 to mean posts” belongs to a different situation than the one in the question stem",
-            "Sharing rumors quickly” belongs to a different situation than the one in the question stem",
+            "Reacting 😂 to mean posts",
+            "Sharing rumors quickly",
             "Helping others, sharing good information, and being inclusive and respectful",
-            "Excluding people you don't like from chats” belongs to a different situation than the one in the question stem",
+            "Excluding people you don't like from chats",
           ],
       correctIndex: 2,
       explanation:
@@ -423,9 +423,9 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
       id: "q6",
       question: "A classmate reacts with a laughing emoji to a cruel post but doesn't type any words themselves. According to this lesson, what role does that play?",
       choices: [
-            "None — reactions without words are completely neutral” belongs to a different situation than the one in the question stem",
-            "It automatically reports the post to the platform” belongs to a different situation than the one in the question stem",
-            "It only counts if the reaction is a specific emoji” belongs to a different situation than the one in the question stem",
+            "None — reactions without words are completely neutral",
+            "It automatically reports the post to the platform",
+            "It only counts if the reaction is a specific emoji",
             "It still amplifies the harm, since reactions are a visible audience that fuels a pile-on",
           ],
       correctIndex: 3,
@@ -439,7 +439,7 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
             "Picking “They're right — reporting is always a betrayal” is a common mix-up that confuses a nearby idea with the right one",
             "Reporting is a tool built into platforms specifically so communities can flag harm that breaks the rules and protect people",
             "Some learners answer “Reporting should only ever be used for spam”, yet that does not match the precise idea from the lesson",
-            "“Reporting guarantees the person will be arrested immediately” describes a different situation than the one in the question stem",
+            "Reporting guarantees the person will be arrested immediately",
           ],
       correctIndex: 1,
       explanation:
@@ -449,9 +449,9 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
       id: "q8",
       question: "In the internship Slack case study, what actually helped Maya most?",
       choices: [
-            "Maya being told to handle it entirely on her own” belongs to a different situation than the one in the question stem",
-            "Everyone staying quiet so it wouldn't escalate” belongs to a different situation than the one in the question stem",
-            "Josh reacting publicly with an angry emoji in the channel” belongs to a different situation than the one in the question stem",
+            "Maya being told to handle it entirely on her own",
+            "Everyone staying quiet so it wouldn't escalate",
+            "Josh reacting publicly with an angry emoji in the channel",
             "Josh's private check-in message, alongside screenshotting and reporting the behavior",
           ],
       correctIndex: 3,

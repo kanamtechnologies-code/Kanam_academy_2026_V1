@@ -69,10 +69,10 @@ Today's lesson: **Logging, Monitoring & Incidents**.
         checkIn: {
           prompt: "Why are logs valuable during a suspected security incident?",
           choices: [
-            "They mainly matter after you've already recovered the account” belongs to a different situation than the one in the question stem",
+            "They mainly matter after you've already recovered the account",
             "They provide a timeline of who did what and when, turning guesswork into evidence",
-            "They replace the need for strong passwords and MFA” belongs to a different situation than the one in the question stem",
-            "They automatically fix any problem they detect” belongs to a different situation than the one in the question stem",
+            "They replace the need for strong passwords and MFA",
+            "They automatically fix any problem they detect",
           ],
           correctIndex: 1,
           explanation:
@@ -97,10 +97,10 @@ Today's lesson: **Logging, Monitoring & Incidents**.
         checkIn: {
           prompt: "An account shows two successful logins from distant locations eight minutes apart. What should a defender do?",
           choices: [
-            "Assume it's fine because the password worked both times” belongs to a different situation than the one in the question stem",
+            "Assume it's fine because the password worked both times",
             "Treat it as likely account compromise, check MFA status and recent changes, and respond quickly",
-            "Immediately delete the account permanently” belongs to a different situation than the one in the question stem",
-            "Ignore it — location data on logins is always wrong” belongs to a different situation than the one in the question stem",
+            "Immediately delete the account permanently",
+            "Ignore it — location data on logins is always wrong",
           ],
           correctIndex: 1,
           explanation:
@@ -132,10 +132,10 @@ Today's lesson: **Logging, Monitoring & Incidents**.
         checkIn: {
           prompt: "Why does log retention length (how long logs are kept) matter for investigations?",
           choices: [
-            "It doesn't matter — all incidents are noticed within a day” belongs to a different situation than the one in the question stem",
+            "It doesn't matter — all incidents are noticed within a day",
             "Longer retention means you can still investigate issues discovered weeks or months after they happened",
-            "Retention only matters for video files, not text logs” belongs to a different situation than the one in the question stem",
-            "Shorter retention always makes systems more secure” belongs to a different situation than the one in the question stem",
+            "Retention only matters for video files, not text logs",
+            "Shorter retention always makes systems more secure",
           ],
           correctIndex: 1,
           explanation:
@@ -162,10 +162,10 @@ Today's lesson: **Logging, Monitoring & Incidents**.
         checkIn: {
           prompt: "Right after identifying a likely account compromise, what should typically come next?",
           choices: [
-            "Immediately delete the account permanently” belongs to a different situation than the one in the question stem",
+            "Immediately delete the account permanently",
             "Contain: change the password, revoke sessions, and confirm MFA before further cleanup",
-            "Post about it publicly right away” belongs to a different situation than the one in the question stem",
-            "Wait a few weeks to see if it resolves on its own” belongs to a different situation than the one in the question stem",
+            "Post about it publicly right away",
+            "Wait a few weeks to see if it resolves on its own",
           ],
           correctIndex: 1,
           explanation:
@@ -196,9 +196,9 @@ Today's lesson: **Logging, Monitoring & Incidents**.
           prompt: "A shared laptop starts behaving strangely. What should happen before a full factory reset, if possible?",
           choices: [
             "Screenshot the odd behavior, note the timeline, and check with IT/a trusted adult about what to preserve first",
-            "“Nothing — reset immediately without any documentation” describes a different situation than the one in the question stem",
+            "Nothing — reset immediately without any documentation",
             "Wait several weeks before doing anything — familiar wording, wrong fit for what the prompt is actually asking",
-            "Post photos of it on social media for advice from strangers” belongs to a different situation than the one in the question stem",
+            "Post photos of it on social media for advice from strangers",
           ],
           correctIndex: 0,
           explanation:
@@ -231,9 +231,9 @@ Today's lesson: **Logging, Monitoring & Incidents**.
           prompt: "What makes an incident report to IT or a trusted adult most useful?",
           choices: [
             "Including when it happened, what you observed, what you already did, and any evidence (like a screenshot)",
-            "Sending it to as many unrelated people as possible instead of the right contact” belongs to a different situation than the one in the question stem",
+            "Sending it to as many unrelated people as possible instead of the right contact",
             "Waiting a month before mentioning it — familiar wording, wrong fit for what the prompt is actually asking",
-            "Being as vague as possible so it seems less serious” belongs to a different situation than the one in the question stem",
+            "Being as vague as possible so it seems less serious",
           ],
           correctIndex: 0,
           explanation:
@@ -265,9 +265,9 @@ Today's lesson: **Logging, Monitoring & Incidents**.
         checkIn: {
           prompt: "What is a tabletop exercise in incident response?",
           choices: [
-            "You might defend “A type of malware used by professional red teams” in casual talk, but it fails the definition used here",
+            "A type of malware used by professional red teams",
             "A rushed pass can land on actually attacking a live system to test defenses”; careful readers reject it for this problem",
-            "You might defend “A physical tabletop game with no security purpose” in casual talk, but it fails the definition used here",
+            "A physical tabletop game with no security purpose",
             "A discussion-based walkthrough of a hypothetical incident to find gaps in a response plan, before a real incident happens",
           ],
           correctIndex: 3,
@@ -376,9 +376,9 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
       id: "q1",
       question: "A club can spend five minutes a week on detection. Which recommendation is most efficient and feasible?",
       choices: [
-            "“Only monitor after a breach is already confirmed on social media” describes a different situation than the one in the question stem",
+            "Only monitor after a breach is already confirmed on social media",
             "Some learners answer “Build a full custom SIEM and log every click forever”, yet that does not match the precise idea from the lesson",
-            "You might defend “Turn logging off to save space — prevention alone is enough” in casual talk, but it fails the definition used here",
+            "Turn logging off to save space — prevention alone is enough",
             "Enable login alerts and review authentication/sharing-change history weekly; keep retention long enough to investigate delayed finds",
           ],
       correctIndex: 3,
@@ -389,8 +389,8 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
       id: "q2",
       question: "How do prevention and detection differ?",
       choices: [
-            "Detection only works when a device is offline” belongs to a different situation than the one in the question stem",
-            "They are unrelated concepts in cybersecurity” belongs to a different situation than the one in the question stem",
+            "Detection only works when a device is offline",
+            "They are unrelated concepts in cybersecurity",
             "Prevention notices attacks; detection stops them beforehand",
             "Prevention tries to stop attacks; detection notices what still happens",
           ],
@@ -416,9 +416,9 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
       question: "A school club Discord is compromised. Who should you typically notify first?",
       choices: [
             "The adult sponsor / account owners and follow school rules for IT escalation if needed",
-            "“Nobody — silence is safer” describes a different situation than the one in the question stem",
-            "The attacker, to negotiate publicly” belongs to a different situation than the one in the question stem",
-            "Only strangers on the internet for advice” belongs to a different situation than the one in the question stem",
+            "Nobody — silence is safer",
+            "The attacker, to negotiate publicly",
+            "Only strangers on the internet for advice",
           ],
       correctIndex: 0,
       explanation:
@@ -428,10 +428,10 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
       id: "q5",
       question: "What belongs in the \"lessons learned\" step?",
       choices: [
-            "Disabling all logging forever” belongs to a different situation than the one in the question stem",
+            "Disabling all logging forever",
             "Identifying what failed and which controls/habits to improve next time",
-            "Sharing private passwords with the whole grade” belongs to a different situation than the one in the question stem",
-            "Pretending nothing happened” belongs to a different situation than the one in the question stem",
+            "Sharing private passwords with the whole grade",
+            "Pretending nothing happened",
           ],
       correctIndex: 1,
       explanation:
@@ -441,10 +441,10 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
       id: "q6",
       question: "A shared laptop looks infected. Why recommend screenshots/timeline before a factory reset when IT may investigate?",
       choices: [
-            "Resetting immediately is always best — evidence never matters for clubs” belongs to a different situation than the one in the question stem",
-            "“It replaces the need to tell anyone about the incident” describes a different situation than the one in the question stem",
+            "Resetting immediately is always best — evidence never matters for clubs",
+            "It replaces the need to tell anyone about the incident",
             "Preservation keeps scope/cause reconstructable; wiping first can destroy the only clues about what was accessed",
-            "“Screenshots guarantee the attacker will be arrested” describes a different situation than the one in the question stem",
+            "Screenshots guarantee the attacker will be arrested",
           ],
       correctIndex: 2,
       explanation:
@@ -455,8 +455,8 @@ Good summaries help the next officer avoid repeating the same Tuesday.`,
       question: "What is the main purpose of a tabletop exercise?",
       choices: [
             "To discuss a hypothetical incident scenario and find gaps in the response plan, calmly and in advance",
-            "“To practice actually attacking a live system” describes a different situation than the one in the question stem",
-            "“To publicly announce security weaknesses” describes a different situation than the one in the question stem",
+            "To practice actually attacking a live system",
+            "To publicly announce security weaknesses",
             "To replace the need for backups — familiar wording, wrong fit for what the prompt is actually asking",
           ],
       correctIndex: 0,

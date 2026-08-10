@@ -70,9 +70,9 @@ Today's lesson: **OSINT, Privacy & Ethics**.
           prompt: "Several separate public posts — a school tag, a sports schedule, a birthday comment, and a joke about parents being away — combine to create real risk. What does this best illustrate?",
           choices: [
             "Individually harmless details can combine into a useful profile for scams or impersonation",
-            "Public sports rosters are always private by default” belongs to a different situation than the one in the question stem",
-            "Only one dramatic post can ever create risk” belongs to a different situation than the one in the question stem",
-            "Combining information is illegal for anyone to do” belongs to a different situation than the one in the question stem",
+            "Public sports rosters are always private by default",
+            "Only one dramatic post can ever create risk",
+            "Combining information is illegal for anyone to do",
           ],
           correctIndex: 0,
           explanation:
@@ -194,9 +194,9 @@ Today's lesson: **OSINT, Privacy & Ethics**.
           prompt: "During a semester self-check, a student finds an old forum account from years ago still publicly showing their full name. What is the appropriate response?",
           choices: [
             "Log in and update the privacy setting or remove the exposed detail, since it's still publicly visible today",
-            "Report the forum to authorities for a privacy violation” belongs to a different situation than the one in the question stem",
-            "Ignore it since the account is old and probably forgotten by everyone” belongs to a different situation than the one in the question stem",
-            "Create a new fake profile to replace it without addressing the old one” belongs to a different situation than the one in the question stem",
+            "Report the forum to authorities for a privacy violation",
+            "Ignore it since the account is old and probably forgotten by everyone",
+            "Create a new fake profile to replace it without addressing the old one",
           ],
           correctIndex: 0,
           explanation:
@@ -229,8 +229,8 @@ Today's lesson: **OSINT, Privacy & Ethics**.
           prompt: "A student reviews their social account and finds posts default to \"Public,\" tagging is unrestricted, and old unused apps are still connected. What's the best response?",
           choices: [
             "Tighten audience defaults, enable tag review, and revoke unused connected apps",
-            "Delete the account entirely as the only fix” belongs to a different situation than the one in the question stem",
-            "Only fix the tagging setting since the others don't matter” belongs to a different situation than the one in the question stem",
+            "Delete the account entirely as the only fix",
+            "Only fix the tagging setting since the others don't matter",
             "Leave everything as-is since changing defaults might break the app",
           ],
           correctIndex: 0,
@@ -257,9 +257,9 @@ Today's lesson: **OSINT, Privacy & Ethics**.
           prompt: "A text claiming to be from your coach asks for money urgently, referencing real details (a real away game, a real logistics detail) that could have come from your public posts. What's the safest response?",
           choices: [
             "Verify out-of-band — call using a known number or ask in person — rather than trusting the details alone",
-            "Assume accurate details always prove a message is genuine” belongs to a different situation than the one in the question stem",
-            "Send the money immediately since the details are accurate and specific” belongs to a different situation than the one in the question stem",
-            "Reply with your account password to confirm your identity to the coach” belongs to a different situation than the one in the question stem",
+            "Assume accurate details always prove a message is genuine",
+            "Send the money immediately since the details are accurate and specific",
+            "Reply with your account password to confirm your identity to the coach",
           ],
           correctIndex: 0,
           explanation:
@@ -411,10 +411,10 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q1",
       question: "In this course, what is the appropriate use of OSINT concepts?",
       choices: [
-            "Bypassing privacy settings on other people's accounts” belongs to a different situation than the one in the question stem",
-            "Building attack recipes to dig up private data on classmates” belongs to a different situation than the one in the question stem",
+            "Bypassing privacy settings on other people's accounts",
+            "Building attack recipes to dig up private data on classmates",
             "Evaluate your own public and nonevident exposure so you can protect privacy ethically",
-            "Publishing other students' addresses” belongs to a different situation than the one in the question stem",
+            "Publishing other students' addresses",
           ],
       correctIndex: 2,
       explanation:
@@ -424,10 +424,10 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q2",
       question: "Why can several \"harmless\" posts still create risk that defenders must evaluate?",
       choices: [
-            "Because only celebrities ever build a meaningful digital footprint” belongs to a different situation than the one in the question stem",
+            "Because only celebrities ever build a meaningful digital footprint",
             "Because details combine into a richer picture useful for scams or impersonation — combination risk",
-            "Because search engines ignore public posts entirely” belongs to a different situation than the one in the question stem",
-            "Because posts automatically encrypt themselves once shared” belongs to a different situation than the one in the question stem",
+            "Because search engines ignore public posts entirely",
+            "Because posts automatically encrypt themselves once shared",
           ],
       correctIndex: 1,
       explanation:
@@ -438,9 +438,9 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       question: "Which is an ethical self-check habit?",
       choices: [
             "Searching your own public profiles and cleaning up risky exposure after evaluating what a stranger could use",
-            "Running intrusive lookups to map a classmate's private life” belongs to a different situation than the one in the question stem",
-            "“Sharing MFA codes to \"verify friendship\"” describes a different situation than the one in the question stem",
-            "“Posting your government ID for aesthetic likes” describes a different situation than the one in the question stem",
+            "Running intrusive lookups to map a classmate's private life",
+            "Sharing MFA codes to \"verify friendship\"",
+            "Posting your government ID for aesthetic likes",
           ],
       correctIndex: 0,
       explanation:
@@ -464,9 +464,9 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       question: "A scammer uses details from your public posts to sound like a friend in trouble. What's a strong defensive move?",
       choices: [
             "Verify the request out-of-band using a known contact method and reduce public details that enable impersonation",
-            "“Reply with your passwords so they can \"check\"” describes a different situation than the one in the question stem",
+            "Reply with your passwords so they can \"check\"",
             "If the goal were something else, “Send money immediately to be helpful” might work; for this check, it does not",
-            "“Ignore privacy settings because scams are rare” describes a different situation than the one in the question stem",
+            "Ignore privacy settings because scams are rare",
           ],
       correctIndex: 0,
       explanation:
@@ -490,8 +490,8 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       question: "A viral social media quiz asks for your first pet's name and mother's maiden name. Why is this a privacy concern?",
       choices: [
             "Those are common account-recovery security questions, so posting answers publicly can weaken real account protections",
-            "Quizzes are always private by default, so nobody outside your friends sees it” belongs to a different situation than the one in the question stem",
-            "It isn't a concern; the questions are unrelated to real accounts” belongs to a different situation than the one in the question stem",
+            "Quizzes are always private by default, so nobody outside your friends sees it",
+            "It isn't a concern; the questions are unrelated to real accounts",
             "Only your bank could ever be affected by this. That option sounds confident, but it leaves out the deciding constraint",
           ],
       correctIndex: 0,
@@ -515,10 +515,10 @@ Defender privacy is reducing useful crumbs and verifying urgent requests — not
       id: "q9",
       question: "What is the main benefit of a family verification phrase or agreement set up in advance?",
       choices: [
-            "“It removes the need to ever verify anything again” describes a different situation than the one in the question stem",
+            "It removes the need to ever verify anything again",
             "It removes the pressure of deciding \"is this really them?\" in the moment, since the plan was made calmly beforehand",
-            "“It guarantees scammers will never target the family” describes a different situation than the one in the question stem",
-            "“It replaces the need for privacy settings entirely” describes a different situation than the one in the question stem",
+            "It guarantees scammers will never target the family",
+            "It replaces the need for privacy settings entirely",
           ],
       correctIndex: 1,
       explanation:

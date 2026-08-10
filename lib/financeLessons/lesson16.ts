@@ -67,10 +67,10 @@ Today's lesson: **Capstone: Your First-Year Money Plan**.
         checkIn: {
           prompt: "Jordan has uneven job hours and wants a phone upgrade. What's the Earning & Spending move before signing anything?",
           choices: [
-            "Assume gross pay is what's actually available to spend on the upgrade” belongs to a different situation than the one in the question stem",
+            "Assume gross pay is what's actually available to spend on the upgrade",
             "Budget from realistic net income and total the phone's full cost (device + plan + add-ons) before deciding",
-            "Finance the newest model since the advertised monthly payment looks affordable” belongs to a different situation than the one in the question stem",
-            "Skip comparing plans since the motivation to upgrade is reason enough” belongs to a different situation than the one in the question stem",
+            "Finance the newest model since the advertised monthly payment looks affordable",
+            "Skip comparing plans since the motivation to upgrade is reason enough",
           ],
           correctIndex: 1,
           explanation:
@@ -90,7 +90,7 @@ Today's lesson: **Capstone: Your First-Year Money Plan**.
           prompt: "Jordan wants to start 'investing' with money they might need next month for rent. What's the Saving & Investing synthesis?",
           choices: [
             "Keep near-term, needed money safe and accessible; reserve investing conversations for genuinely long-horizon money after an emergency fund exists",
-            "“Move the rent money into a higher-risk account to try to grow it faster before it's due” describes a different situation than the one in the question stem",
+            "Move the rent money into a higher-risk account to try to grow it faster before it's due",
             "Picking “Invest it right away, since any amount of growth is better than none” is a common mix-up that confuses a nearby idea with the right one",
             "Skip the emergency fund entirely and put everything toward investing instead — familiar wording, wrong fit for what the prompt is actually asking",
           ],
@@ -111,10 +111,10 @@ Today's lesson: **Capstone: Your First-Year Money Plan**.
         checkIn: {
           prompt: "A text tells Jordan to pay a fee with gift cards immediately to avoid losing an account. What's the Credit & Risk Management move?",
           choices: [
-            "Share the one-time verification code first, then double-check with the bank afterward” belongs to a different situation than the one in the question stem",
-            "Reply to the number in the text asking for more details before deciding” belongs to a different situation than the one in the question stem",
+            "Share the one-time verification code first, then double-check with the bank afterward",
+            "Reply to the number in the text asking for more details before deciding",
             "Treat urgency plus gift cards as a scam red flag, verify on an official channel, and tell a trusted adult",
-            "Buy the gift cards quickly, since accounts really can get shut off that fast” belongs to a different situation than the one in the question stem",
+            "Buy the gift cards quickly, since accounts really can get shut off that fast",
           ],
           correctIndex: 2,
           explanation:
@@ -147,7 +147,7 @@ Today's lesson: **Capstone: Your First-Year Money Plan**.
             "Fundamentals like budgeting, emergency savings, and scam defense compound slowly but reliably",
             "A plan without a scheduled review date tends to be abandoned, like Jordan's spreadsheet",
             "A side hustle or investing trick can reliably replace the need for a budget and emergency fund",
-            "A workable money plan includes a real (even if small) 'wants' line” belongs to a different situation than the one in the question stem",
+            "A workable money plan includes a real (even if small) 'wants' line",
           ],
           correctIndex: 2,
           explanation:
@@ -230,10 +230,10 @@ Today's lesson: **Capstone: Your First-Year Money Plan**.
         checkIn: {
           prompt: "What's the Money Planner read on Jordan's three-month check-in?",
           choices: [
-            "Abandon the whole plan because one month had an income drop” belongs to a different situation than the one in the question stem",
-            "Raise the wants cap immediately so the friend group hangouts still fit” belongs to a different situation than the one in the question stem",
+            "Abandon the whole plan because one month had an income drop",
+            "Raise the wants cap immediately so the friend group hangouts still fit",
             "Income stress-test and emergency fund look solid; fix wants creep and treat the bank text as a scam",
-            "Everything is fine, including sending the bank text its verification code” belongs to a different situation than the one in the question stem",
+            "Everything is fine, including sending the bank text its verification code",
           ],
           correctIndex: 2,
           explanation:
@@ -293,9 +293,9 @@ Budget on **low weeks**, enjoy flexibility on high weeks — not the reverse.`,
         checkIn: {
           prompt: "Campus Jordan gets a text to 'verify aid' with a one-time bank code. Best capstone move?",
           choices: [
-            "Post screenshot on social to warn others before calling the bank” belongs to a different situation than the one in the question stem",
-            "Reply immediately — aid deadlines are urgent” belongs to a different situation than the one in the question stem",
-            "Forward code to roommate to double-check” belongs to a different situation than the one in the question stem",
+            "Post screenshot on social to warn others before calling the bank",
+            "Reply immediately — aid deadlines are urgent",
+            "Forward code to roommate to double-check",
             "Treat as scam; contact financial aid through the official portal you navigate yourself",
           ],
           correctIndex: 3,
@@ -386,9 +386,9 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
           prompt: "Which capstone habit best keeps a 12-month plan alive after graduation?",
           choices: [
             "A monthly 15-minute review that adjusts one line based on real income and spending",
-            "Only check money when something breaks” belongs to a different situation than the one in the question stem",
-            "Rebuild the color spreadsheet once and never open it again” belongs to a different situation than the one in the question stem",
-            "Assume motivation from graduation day lasts all year” belongs to a different situation than the one in the question stem",
+            "Only check money when something breaks",
+            "Rebuild the color spreadsheet once and never open it again",
+            "Assume motivation from graduation day lasts all year",
           ],
           correctIndex: 0,
           explanation:
@@ -404,9 +404,9 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
           prompt: "Which 12-month plan element best shows you pulled together earning, spending, saving, investing, credit, and risk?",
           choices: [
             "Goals with amounts, budget/auto-save rules, emergency milestones, credit/scam/decision gates, and monthly review dates that catch lifestyle creep",
-            "You might defend “Skipping the taxes/aid sections because those feel like 'later' problems” in casual talk, but it fails the definition used here",
+            "Skipping the taxes/aid sections because those feel like 'later' problems",
             "It can seem like only listing a dream income target with no supporting actions, but that reading skips the distinction this question is testing",
-            "“A plan to get ahead fast through a side hustle, skipping the emergency fund step” describes a different situation than the one in the question stem",
+            "A plan to get ahead fast through a side hustle, skipping the emergency fund step",
           ],
           correctIndex: 0,
           explanation:
@@ -443,9 +443,9 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q1",
       question: "Jordan has uneven job hours and wants a phone upgrade and an emergency fund. What should come first in a Money Planner approach?",
       choices: [
-            "Put leftover cash into a quick high-risk investment to fund both goals faster” belongs to a different situation than the one in the question stem",
-            "Skip budgeting entirely, since motivation is usually enough to make it work out” belongs to a different situation than the one in the question stem",
-            "Finance the most expensive phone right away to build confidence in the plan” belongs to a different situation than the one in the question stem",
+            "Put leftover cash into a quick high-risk investment to fund both goals faster",
+            "Skip budgeting entirely, since motivation is usually enough to make it work out",
+            "Finance the most expensive phone right away to build confidence in the plan",
             "Set a realistic budget on low-week income, automate a small save toward an emergency target, then revisit the upgrade",
           ],
       correctIndex: 3,
@@ -457,9 +457,9 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       question: "An aid letter shows a large 'award' that is mostly loans. What is the Aid Navigator reading?",
       choices: [
             "Gift aid reduces net price; loans are debt that must be repaid under their terms",
-            "FAFSA becomes irrelevant once any award shows up on a letter” belongs to a different situation than the one in the question stem",
+            "FAFSA becomes irrelevant once any award shows up on a letter",
             "Loans and grants are functionally the same once they appear on the same letter",
-            "The sticker price no longer matters once any award appears” belongs to a different situation than the one in the question stem",
+            "The sticker price no longer matters once any award appears",
           ],
       correctIndex: 0,
       explanation:
@@ -469,9 +469,9 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q3",
       question: "A text says Jordan must pay a fine with gift cards to keep an account open. What scam-defense move fits the track?",
       choices: [
-            "Reply directly to the number in the text to confirm the account issue is real” belongs to a different situation than the one in the question stem",
-            "Share a one-time code from the text once the account issue seems confirmed” belongs to a different situation than the one in the question stem",
-            "Buy the gift cards quickly, since accounts can genuinely be closed that fast” belongs to a different situation than the one in the question stem",
+            "Reply directly to the number in the text to confirm the account issue is real",
+            "Share a one-time code from the text once the account issue seems confirmed",
+            "Buy the gift cards quickly, since accounts can genuinely be closed that fast",
             "Treat urgency plus gift cards as a red flag; verify on an official channel and tell a trusted adult",
           ],
       correctIndex: 3,
@@ -482,10 +482,10 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q4",
       question: "Jordan considers a car with a manageable monthly payment but hasn't totaled insurance and maintenance. Which Decision Pro idea applies?",
       choices: [
-            "Depreciation doesn't need to be considered since the car isn't brand new” belongs to a different situation than the one in the question stem",
+            "Depreciation doesn't need to be considered since the car isn't brand new",
             "Use total cost of ownership and opportunity cost — including insurance, fuel/maintenance, and what savings would be skipped",
-            "“Cooling-off periods only matter for phone purchases, not cars” describes a different situation than the one in the question stem",
-            "The monthly payment alone is enough to define whether it's affordable” belongs to a different situation than the one in the question stem",
+            "Cooling-off periods only matter for phone purchases, not cars",
+            "The monthly payment alone is enough to define whether it's affordable",
           ],
       correctIndex: 1,
       explanation:
@@ -495,9 +495,9 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q5",
       question: "Which 12-month plan element best shows track-wide synthesis?",
       choices: [
-            "Only listing a dream income with no supporting actions attached” belongs to a different situation than the one in the question stem",
-            "A plan to get ahead fast through a side hustle, skipping the budgeting and savings steps” belongs to a different situation than the one in the question stem",
-            "Skipping the taxes/aid sections because those feel like problems for later” belongs to a different situation than the one in the question stem",
+            "Only listing a dream income with no supporting actions attached",
+            "A plan to get ahead fast through a side hustle, skipping the budgeting and savings steps",
+            "Skipping the taxes/aid sections because those feel like problems for later",
             "Goals with amounts, budget/auto-save rules, emergency milestones, credit/scam/decision gates, and monthly review dates",
           ],
       correctIndex: 3,
@@ -508,10 +508,10 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       id: "q6",
       question: "Jordan's plan loses 30% of income for one month. Per the stress-test skill, what should bend first?",
       choices: [
-            "“Needs spending, since it's the easiest category to cut quickly” describes a different situation than the one in the question stem",
+            "Needs spending, since it's the easiest category to cut quickly",
             "The wants cap first, with auto-save paused temporarily if needed, while protecting needs and existing savings as long as possible",
-            "“The emergency fund balance already saved, spent down to zero right away” describes a different situation than the one in the question stem",
-            "Nothing — the plan should stay exactly the same regardless of any income shock” belongs to a different situation than the one in the question stem",
+            "The emergency fund balance already saved, spent down to zero right away",
+            "Nothing — the plan should stay exactly the same regardless of any income shock",
           ],
       correctIndex: 1,
       explanation:
@@ -522,9 +522,9 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
       question: "What is lifestyle creep?",
       choices: [
             "Spending that gradually rises with income or social pressure without a deliberate decision to raise it",
-            "“A required annual review of a household budget” describes a different situation than the one in the question stem",
-            "A type of scam that specifically targets new apartment renters” belongs to a different situation than the one in the question stem",
-            "A rule stating that spending must never increase from one year to the next” belongs to a different situation than the one in the question stem",
+            "A required annual review of a household budget",
+            "A type of scam that specifically targets new apartment renters",
+            "A rule stating that spending must never increase from one year to the next",
           ],
       correctIndex: 0,
       explanation:

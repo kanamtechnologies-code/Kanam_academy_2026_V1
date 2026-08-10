@@ -81,9 +81,9 @@ Today's lesson: **Capstone: Defend & Justify**.
           prompt: "A club officer receives an urgent-looking email asking for Drive access approval to the sponsor list. What is the correct first step?",
           choices: [
             "Pause, verify through a known channel (not by replying to the email), and only proceed if confirmed legitimate",
-            "Approve immediately since it references a real, familiar file” belongs to a different situation than the one in the question stem",
-            "Forward the email to the entire club to get more opinions” belongs to a different situation than the one in the question stem",
-            "“Ignore MFA since the email itself seems convincing” describes a different situation than the one in the question stem",
+            "Approve immediately since it references a real, familiar file",
+            "Forward the email to the entire club to get more opinions",
+            "Ignore MFA since the email itself seems convincing",
           ],
           correctIndex: 0,
           explanation:
@@ -113,9 +113,9 @@ Today's lesson: **Capstone: Defend & Justify**.
         checkIn: {
           prompt: "During a Drive access review, the club finds a graduated member and a former task volunteer both still have Editor access they no longer need. What is the correct response?",
           choices: [
-            "Leave it alone since removing access might seem unfriendly” belongs to a different situation than the one in the question stem",
-            "Grant everyone Editor access instead to avoid future confusion” belongs to a different situation than the one in the question stem",
-            "Delete the entire Drive folder to start fresh” belongs to a different situation than the one in the question stem",
+            "Leave it alone since removing access might seem unfriendly",
+            "Grant everyone Editor access instead to avoid future confusion",
+            "Delete the entire Drive folder to start fresh",
             "Remove or downgrade the unnecessary access, document the change, and schedule the next review",
           ],
           correctIndex: 3,
@@ -142,7 +142,7 @@ Today's lesson: **Capstone: Defend & Justify**.
           prompt: "Greenwood fixes its badge-photo problem by removing current photos, adopting a review policy, and assigning someone to check future posts. Why does this full response matter more than just deleting a few photos?",
           choices: [
             "A policy and assigned reviewer prevent the same mistake from recurring with future officers who weren't around for the original incident",
-            "“It doesn't matter — deleting the photos alone fully solves the problem forever” describes a different situation than the one in the question stem",
+            "It doesn't matter — deleting the photos alone fully solves the problem forever",
             "Picking “Blurring photos is illegal, so a policy is required instead” is a common mix-up that confuses a nearby idea with the right one",
             "Treat “Only technical fixes matter; process and policy are irrelevant” as a distractor: close in topic, incorrect for the required answer",
           ],
@@ -170,9 +170,9 @@ Today's lesson: **Capstone: Defend & Justify**.
           prompt: "After containing a compromised club Gmail account (revoking sessions, changing the password), what important eradication step is easy to forget but critical to check?",
           choices: [
             "Checking for and removing any malicious forwarding rules or filters the attacker may have set up",
-            "Immediately deleting the entire email account” belongs to a different situation than the one in the question stem",
-            "Posting publicly that the account was compromised” belongs to a different situation than the one in the question stem",
-            "Nothing further is needed once the password is changed” belongs to a different situation than the one in the question stem",
+            "Immediately deleting the entire email account",
+            "Posting publicly that the account was compromised",
+            "Nothing further is needed once the password is changed",
           ],
           correctIndex: 0,
           explanation:
@@ -237,7 +237,7 @@ Today's lesson: **Capstone: Defend & Justify**.
         checkIn: {
           prompt: "A club member pushes back on new security measures as \"too much extra work.\" What makes for the strongest defense of the plan?",
           choices: [
-            "Citing abstract best practices and industry standards with no connection to the club's actual experience” belongs to a different situation than the one in the question stem",
+            "Citing abstract best practices and industry standards with no connection to the club's actual experience",
             "It can seem like insisting the plan must be followed without any explanation, but that reading skips the distinction this question is testing",
             "Referencing the club's real near-miss incident and tying each proposed control directly to that specific risk and its low cost of implementation",
             "It can seem like agreeing to drop the security measures to avoid conflict, but that reading skips the distinction this question is testing",
@@ -331,9 +331,9 @@ Capstone points are not for writing "we back up" — they are for showing a test
           prompt: "Why is a tested restore stronger evidence than saying \"we use cloud sync\"?",
           choices: [
             "Cloud sync never fails” is close in topic, but it is the wrong fit for what the prompt asks",
-            "“Backups matter only for ransomware” describes a different situation than the one in the question stem",
+            "Backups matter only for ransomware",
             "A tested restore proves recovery works before a crisis, not just that uploads usually happen",
-            "“Restores are only for IT staff” describes a different situation than the one in the question stem",
+            "Restores are only for IT staff",
           ],
           correctIndex: 2,
           explanation:
@@ -416,7 +416,7 @@ Present like a defender: specific risks, specific controls, specific owners, spe
       question: "Greenwood has no MFA on Gmail (password in chat) and a sponsor offers to buy an unused enterprise firewall. Which justified recommendation is strongest?",
       choices: [
             "A common mix-up is to treat turn off login alerts so members aren't annoyed as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
-            "“Buy the firewall before changing credentials because hardware always beats identity controls” describes a different situation than the one in the question stem",
+            "Buy the firewall before changing credentials because hardware always beats identity controls",
             "A common mix-up is to treat make Instagram fully public to confuse attackers as enough, which confuses a nearby idea with the right one when checked against the lesson definition",
             "Prioritize unique password + MFA + clear owners first — higher efficiency and feasibility than shelfware nobody will manage; document residual risk afterward",
           ],
@@ -468,7 +468,7 @@ Present like a defender: specific risks, specific controls, specific owners, spe
       question: "Instagram starts posting spam. Using IR order, what is the best immediate containment move after confirming it's unauthorized?",
       choices: [
             "Revoke other sessions, change the password, confirm MFA, and remove unknown connected apps — then clean posts and notify the sponsor",
-            "You might defend “Share the password with all 25 members to \"help investigate\"” in casual talk, but it fails the definition used here",
+            "Share the password with all 25 members to \"help investigate\"",
             "It can seem like publicly accuse a classmate with no evidence, but that reading skips the distinction this question is testing",
             "It can seem like write lessons learned before changing anything, but that reading skips the distinction this question is testing",
           ],
@@ -494,9 +494,9 @@ Present like a defender: specific risks, specific controls, specific owners, spe
       question: "After containing a compromised club Gmail account, what eradication step is important to check before considering the incident resolved?",
       choices: [
             "Check for and remove any malicious forwarding rules or filters the attacker may have added",
-            "Immediately delete the account permanently” belongs to a different situation than the one in the question stem",
-            "Nothing else is needed once the password is changed” belongs to a different situation than the one in the question stem",
-            "Post the incident details publicly on social media” belongs to a different situation than the one in the question stem",
+            "Immediately delete the account permanently",
+            "Nothing else is needed once the password is changed",
+            "Post the incident details publicly on social media",
           ],
       correctIndex: 0,
       explanation:

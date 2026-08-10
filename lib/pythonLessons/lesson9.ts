@@ -170,8 +170,8 @@ export const lesson9: PythonLessonConfig = {
         checkIn: {
           prompt: 'If you stored `profile["Name"] = "Alex"`, what happens when you read `profile["name"]`?',
           choices: [
-            "It returns an empty string” belongs to a different situation than the one in the question stem",
-            "It works fine — Python ignores capitalization” belongs to a different situation than the one in the question stem",
+            "It returns an empty string",
+            "It works fine — Python ignores capitalization",
             "It raises a KeyError, because \"Name\" and \"name\" are different keys",
           ],
           correctIndex: 2,
@@ -236,8 +236,8 @@ export const lesson9: PythonLessonConfig = {
         checkIn: {
           prompt: 'Your code crashes with `KeyError: \'Name\'` but you stored `profile["name"]`. What\'s the likely bug?',
           choices: [
-            "The dictionary is broken and needs to be recreated” belongs to a different situation than the one in the question stem",
-            "Dictionaries can only hold one key” belongs to a different situation than the one in the question stem",
+            "The dictionary is broken and needs to be recreated",
+            "Dictionaries can only hold one key",
             "A capitalization mismatch — you're reading \"Name\" but stored \"name\"",
           ],
           correctIndex: 2,
@@ -266,8 +266,8 @@ export const lesson9: PythonLessonConfig = {
         checkIn: {
           prompt: "What does `profile[\"score\"] = 100` do if `score` isn't in the dictionary yet?",
           choices: [
-            "Does nothing” belongs to a different situation than the one in the question stem",
-            "Crashes with an error” belongs to a different situation than the one in the question stem",
+            "Does nothing",
+            "Crashes with an error",
             "Adds a new key called score with value 100",
           ],
           correctIndex: 2,
@@ -312,8 +312,8 @@ export const lesson9: PythonLessonConfig = {
         checkIn: {
           prompt: "What's the key difference between a list and a dictionary?",
           choices: [
-            "There is no real difference” belongs to a different situation than the one in the question stem",
-            "Lists use `{}`, dictionaries use `[]`” belongs to a different situation than the one in the question stem",
+            "There is no real difference",
+            "Lists use `{}`, dictionaries use `[]`",
             "Lists look up items by position; dictionaries look up items by a labeled key",
           ],
           correctIndex: 2,

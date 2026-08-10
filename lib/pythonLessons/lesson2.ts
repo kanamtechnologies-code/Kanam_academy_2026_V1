@@ -267,8 +267,8 @@ print("Nice to meet you, " + name)
           prompt: "What happens if you write `input(\"What is your name? \")` with no `name =` in front?",
           choices: [
             "The question is asked, but the answer isn't saved anywhere",
-            "Python won't run at all” belongs to a different situation than the one in the question stem",
-            "The answer is automatically saved as a number” belongs to a different situation than the one in the question stem",
+            "Python won't run at all",
+            "The answer is automatically saved as a number",
           ],
           correctIndex: 0,
           explanation: "input() still asks the question, but without a variable to catch the answer, it's asked and then immediately lost.",
@@ -310,8 +310,8 @@ print("Nice to meet you, " + name)
         checkIn: {
           prompt: "Why does the SAME line of code produce different greetings for different users?",
           choices: [
-            "print() automatically detects who is using the computer” belongs to a different situation than the one in the question stem",
-            "Python randomly picks a name” belongs to a different situation than the one in the question stem",
+            "print() automatically detects who is using the computer",
+            "Python randomly picks a name",
             "The variable name holds whatever was typed, so the printed message changes each run",
           ],
           correctIndex: 2,
@@ -376,8 +376,8 @@ print("Nice to meet you, " + name)
         checkIn: {
           prompt: 'What is the bug in `name = input(What is your name? )`?',
           choices: [
-            "Nothing, it's correct” belongs to a different situation than the one in the question stem",
-            "input should be capitalized” belongs to a different situation than the one in the question stem",
+            "Nothing, it's correct",
+            "input should be capitalized",
             "The question text is missing quotes around it",
           ],
           correctIndex: 2,
@@ -405,8 +405,8 @@ print("Nice to meet you, " + name)
         checkIn: {
           prompt: "Why does `input(What is your name?)` crash?",
           choices: [
-            "You need two input() lines instead of one” belongs to a different situation than the one in the question stem",
-            "input() only works with numbers” belongs to a different situation than the one in the question stem",
+            "You need two input() lines instead of one",
+            "input() only works with numbers",
             "Python thinks What, is, your, and name are variable names that don't exist",
           ],
           correctIndex: 2,

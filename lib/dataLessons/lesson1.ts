@@ -64,9 +64,9 @@ export const daLesson1: DataLessonConfig = {
         checkIn: {
           prompt: "Which of these is the best example of a 'table' of data?",
           choices: [
-            "A song playing on the radio” belongs to a different situation than the one in the question stem",
+            "A song playing on the radio",
             "A class roster with one row per student and columns for name, grade, and homeroom",
-            "A single photo on your phone” belongs to a different situation than the one in the question stem",
+            "A single photo on your phone",
           ],
           correctIndex: 1,
           explanation: "A class roster is a table: every student gets a row, and every row shares the same columns (name, grade, homeroom).",
@@ -91,8 +91,8 @@ export const daLesson1: DataLessonConfig = {
           prompt: "In the lunch_orders table, what does one ROW represent?",
           choices: [
             "One entire lunch order placed by one student",
-            "The whole table at once” belongs to a different situation than the one in the question stem",
-            "One column, like price” belongs to a different situation than the one in the question stem",
+            "The whole table at once",
+            "One column, like price",
           ],
           correctIndex: 0,
           explanation: "A row is one complete record — here, that means one student's single lunch order, with all four fields filled in.",
@@ -155,7 +155,7 @@ export const daLesson1: DataLessonConfig = {
           prompt: "What does `SELECT *` mean?",
           choices: [
             "Show every column for the matching rows",
-            "Delete the table” belongs to a different situation than the one in the question stem",
+            "Delete the table",
             "Multiply every value in the table",
           ],
           correctIndex: 0,
@@ -196,8 +196,8 @@ export const daLesson1: DataLessonConfig = {
         checkIn: {
           prompt: "Why is data stored in tables instead of loose sentences?",
           choices: [
-            "Tables look nicer on a screen” belongs to a different situation than the one in the question stem",
-            "Sentences take up more storage space” belongs to a different situation than the one in the question stem",
+            "Tables look nicer on a screen",
+            "Sentences take up more storage space",
             "A consistent row/column shape lets a computer search, sort, and filter automatically",
           ],
           correctIndex: 2,
@@ -280,8 +280,8 @@ export const daLesson1: DataLessonConfig = {
           prompt: "This result shows rowCount: 3 and four column names. What does that tell you?",
           choices: [
             "LIMIT worked — you got 3 rows and all four columns you asked for with SELECT *",
-            "SELECT * only returns three columns when LIMIT is 3” belongs to a different situation than the one in the question stem",
-            "The query failed because 3 is less than 8” belongs to a different situation than the one in the question stem",
+            "SELECT * only returns three columns when LIMIT is 3",
+            "The query failed because 3 is less than 8",
           ],
           correctIndex: 0,
           explanation: "LIMIT 3 capped the rows at three, and SELECT * returned every column. Row count and column names together confirm the query behaved as expected.",

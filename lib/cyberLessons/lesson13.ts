@@ -69,9 +69,9 @@ Today's lesson: **Attack Patterns & Program Security**.
         checkIn: {
           prompt: "When analyzing an attack headline as a defender, what should you focus on first?",
           choices: [
-            "Assuming every attack is identical regardless of pattern” belongs to a different situation than the one in the question stem",
-            "Ignoring it because only large companies need to care” belongs to a different situation than the one in the question stem",
-            "Finding step-by-step instructions to try the attack yourself” belongs to a different situation than the one in the question stem",
+            "Assuming every attack is identical regardless of pattern",
+            "Ignoring it because only large companies need to care",
+            "Finding step-by-step instructions to try the attack yourself",
             "Identifying the CIA impact, what you'd notice, and which controls would help",
           ],
           correctIndex: 3,
@@ -133,9 +133,9 @@ Today's lesson: **Attack Patterns & Program Security**.
           prompt: "A club's website goes down right as a popular event opens registration. What's the appropriate defender response?",
           choices: [
             "Check hosting status, contact the provider, communicate with users, and consider more resilient hosting if it recurs",
-            "“Assume nothing can be done and give up on the event” describes a different situation than the one in the question stem",
-            "“Shut down the club's internet access permanently” describes a different situation than the one in the question stem",
-            "Try to trace and retaliate against whoever might be responsible” belongs to a different situation than the one in the question stem",
+            "Assume nothing can be done and give up on the event",
+            "Shut down the club's internet access permanently",
+            "Try to trace and retaliate against whoever might be responsible",
           ],
           correctIndex: 0,
           explanation:
@@ -161,9 +161,9 @@ Today's lesson: **Attack Patterns & Program Security**.
           prompt: "Someone calls claiming to be your bank, and caller ID shows the bank's real number. They ask you to read back a code just texted to you. What should you do?",
           choices: [
             "Hang up and call the number on your card/official app yourself — never read MFA codes to an unsolicited caller",
-            "Read the code, since caller ID confirms it's really the bank” belongs to a different situation than the one in the question stem",
-            "Assume it's fine since they already knew your phone number” belongs to a different situation than the one in the question stem",
-            "“Text the code back instead of saying it out loud” describes a different situation than the one in the question stem",
+            "Read the code, since caller ID confirms it's really the bank",
+            "Assume it's fine since they already knew your phone number",
+            "Text the code back instead of saying it out loud",
           ],
           correctIndex: 0,
           explanation:
@@ -198,7 +198,7 @@ Today's lesson: **Attack Patterns & Program Security**.
             "Waiting for the ransom note to expire on its own",
             "Paying the ransom immediately for guaranteed recovery",
             "Restoring from a clean, tested backup made before the attack",
-            "Sharing the ransom note publicly for sympathy” belongs to a different situation than the one in the question stem",
+            "Sharing the ransom note publicly for sympathy",
           ],
           correctIndex: 2,
           explanation:
@@ -229,9 +229,9 @@ Today's lesson: **Attack Patterns & Program Security**.
           prompt: "What is the core defensive principle behind preventing injection-style bugs?",
           choices: [
             "Treat all user-supplied input as untrusted data, and use frameworks that clearly separate data from commands",
-            "Injection bugs can only be fixed by deleting the input form entirely” belongs to a different situation than the one in the question stem",
-            "“Only allow input from users you personally know” describes a different situation than the one in the question stem",
-            "Trust all user input completely since users are always well-intentioned” belongs to a different situation than the one in the question stem",
+            "Injection bugs can only be fixed by deleting the input form entirely",
+            "Only allow input from users you personally know",
+            "Trust all user input completely since users are always well-intentioned",
           ],
           correctIndex: 0,
           explanation:
@@ -296,9 +296,9 @@ Today's lesson: **Attack Patterns & Program Security**.
         checkIn: {
           prompt: "A homepage-cleanup browser extension requests permission to read and change data on every website you visit. What should a defender-minded user do?",
           choices: [
-            "Grant every permission apps request without reviewing them” belongs to a different situation than the one in the question stem",
-            "“Install it immediately since it's popular” describes a different situation than the one in the question stem",
-            "Assume all extensions from any source are equally safe” belongs to a different situation than the one in the question stem",
+            "Grant every permission apps request without reviewing them",
+            "Install it immediately since it's popular",
+            "Assume all extensions from any source are equally safe",
             "Pause and question whether the requested permission matches the tool's actual purpose before installing",
           ],
           correctIndex: 3,
@@ -332,10 +332,10 @@ You are not solving the case from a news clip. You are practicing the analyst re
         checkIn: {
           prompt: "In the defender three-question drill, what does the second question focus on?",
           choices: [
-            "Which exploit code was used” belongs to a different situation than the one in the question stem",
+            "Which exploit code was used",
             "What signs defenders might look for or might have missed",
-            "How much the attacker earned” belongs to a different situation than the one in the question stem",
-            "Whether the company deserved it” belongs to a different situation than the one in the question stem",
+            "How much the attacker earned",
+            "Whether the company deserved it",
           ],
           correctIndex: 1,
           explanation:
@@ -437,7 +437,7 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       choices: [
             "It permanently encrypts files for ransom by definition",
             "It always steals passwords silently without any downtime",
-            "It mainly harms confidentiality, not availability” belongs to a different situation than the one in the question stem",
+            "It mainly harms confidentiality, not availability",
             "It harms availability so legitimate users can't use the service",
           ],
       correctIndex: 3,
@@ -450,8 +450,8 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       choices: [
             "Writing a lessons-learned report after an incident",
             "A lookalike email address pretending to be the school IT desk",
-            "Turning on MFA for an account” belongs to a different situation than the one in the question stem",
-            "Installing official OS updates” belongs to a different situation than the one in the question stem",
+            "Turning on MFA for an account",
+            "Installing official OS updates",
           ],
       correctIndex: 1,
       explanation:
@@ -502,7 +502,7 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       choices: [
             "Read the code, since caller ID showed a trusted name. That option sounds confident, but it leaves out the deciding constraint",
             "Hang up and independently contact the organization using a known number — never read a live MFA code to an unsolicited caller",
-            "“Assume it's safe because they already knew your phone number” describes a different situation than the one in the question stem",
+            "Assume it's safe because they already knew your phone number",
             "Picking “Text the code to a friend to double-check first” is a common mix-up that confuses a nearby idea with the right one",
           ],
       correctIndex: 1,
@@ -514,9 +514,9 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       question: "What is the single most effective defense once ransomware has already encrypted a device's files?",
       choices: [
             "Restoring from a clean, tested backup made before the attack",
-            "Waiting for the note to disappear on its own” belongs to a different situation than the one in the question stem",
+            "Waiting for the note to disappear on its own",
             "Reinstalling random software until something works",
-            "Paying the ransom for guaranteed recovery” belongs to a different situation than the one in the question stem",
+            "Paying the ransom for guaranteed recovery",
           ],
       correctIndex: 0,
       explanation:
@@ -526,10 +526,10 @@ Stay in the defender lane: analyze impact, recommend controls, justify tradeoffs
       id: "q8",
       question: "A browser extension for cleaning up a homepage requests permission to read and change data on every website visited. What does this suggest?",
       choices: [
-            "Permissions never really matter for browser extensions” belongs to a different situation than the one in the question stem",
+            "Permissions never really matter for browser extensions",
             "A possible supply-chain/permission red flag, since the request exceeds the tool's stated purpose",
-            "Nothing unusual — all extensions need this level of permission” belongs to a different situation than the one in the question stem",
-            "The extension is automatically safe because it's popular” belongs to a different situation than the one in the question stem",
+            "Nothing unusual — all extensions need this level of permission",
+            "The extension is automatically safe because it's popular",
           ],
       correctIndex: 1,
       explanation:

@@ -67,9 +67,9 @@ Today's lesson: **How AI Learns From Examples**.
         checkIn: {
           prompt: "How is machine learning different from old-style, hand-coded rules?",
           choices: [
-            "“It doesn't use a computer at all” describes a different situation than the one in the question stem",
-            "It's exactly the same thing with a fancier name” belongs to a different situation than the one in the question stem",
-            "It only works for spam filters, nothing else” belongs to a different situation than the one in the question stem",
+            "It doesn't use a computer at all",
+            "It's exactly the same thing with a fancier name",
+            "It only works for spam filters, nothing else",
             "Instead of a human writing every rule, the AI discovers patterns from many labeled examples",
           ],
           correctIndex: 3,
@@ -94,10 +94,10 @@ Today's lesson: **How AI Learns From Examples**.
         checkIn: {
           prompt: "Why is 'supervised learning' called supervised?",
           choices: [
-            "Because it requires no training data at all” belongs to a different situation than the one in the question stem",
+            "Because it requires no training data at all",
             "Because each training example includes the correct label, acting like a built-in answer key",
-            "Because the model is limited to one supervised task for its entire life” belongs to a different situation than the one in the question stem",
-            "Because a human manually approves every single prediction after training” belongs to a different situation than the one in the question stem",
+            "Because the model is limited to one supervised task for its entire life",
+            "Because a human manually approves every single prediction after training",
           ],
           correctIndex: 1,
           explanation:
@@ -117,9 +117,9 @@ Today's lesson: **How AI Learns From Examples**.
           prompt: "After training finishes, what is 'the model'?",
           choices: [
             "The trained result — tuned numbers that capture learned patterns and can make predictions on new inputs",
-            "“The person who supervised the training” describes a different situation than the one in the question stem",
+            "The person who supervised the training",
             "A physical robot sitting in a lab — familiar wording, wrong fit for what the prompt is actually asking",
-            "“The exact same thing as the training data” describes a different situation than the one in the question stem",
+            "The exact same thing as the training data",
           ],
           correctIndex: 0,
           explanation:
@@ -159,10 +159,10 @@ Today's lesson: **How AI Learns From Examples**.
         checkIn: {
           prompt: "How did the real hiring-tool example end up favoring certain resumes, even though no one told it to?",
           choices: [
-            "“It was hacked by an outside group” describes a different situation than the one in the question stem",
-            "It refused to process any resumes at all” belongs to a different situation than the one in the question stem",
+            "It was hacked by an outside group",
+            "It refused to process any resumes at all",
             "It learned patterns from ten years of past hiring data that itself reflected a skewed history",
-            "An engineer secretly typed in biased rules by hand” belongs to a different situation than the one in the question stem",
+            "An engineer secretly typed in biased rules by hand",
           ],
           correctIndex: 2,
           explanation:
@@ -206,8 +206,8 @@ Today's lesson: **How AI Learns From Examples**.
           prompt: "According to the comparison, what is the main new risk introduced by machine learning (compared to hand-written rules)?",
           choices: [
             "It always requires a human to approve every single prediction",
-            "It requires no data whatsoever” belongs to a different situation than the one in the question stem",
-            "It can never adapt to anything new” belongs to a different situation than the one in the question stem",
+            "It requires no data whatsoever",
+            "It can never adapt to anything new",
             "It inherits whatever bias, gaps, or imbalance exists in its training data",
           ],
           correctIndex: 3,
@@ -350,8 +350,8 @@ Today's lesson: **How AI Learns From Examples**.
       question: "After training, what is the 'model'?",
       choices: [
             "Picking “A physical robot” is a common mix-up that confuses a nearby idea with the right one",
-            "“The person who built the AI” describes a different situation than the one in the question stem",
-            "“A copy of all the training photos” describes a different situation than the one in the question stem",
+            "The person who built the AI",
+            "A copy of all the training photos",
             "The trained result — tuned numbers that capture the learned patterns and can make predictions",
           ],
       correctIndex: 3,
@@ -363,8 +363,8 @@ Today's lesson: **How AI Learns From Examples**.
       question: "In the real hiring-tool case, why did the model start downgrading certain resumes?",
       choices: [
             "It learned patterns from ten years of past hiring data that itself skewed toward one group",
-            "“It refused to read any resumes” describes a different situation than the one in the question stem",
-            "An engineer manually coded a rule to do so” belongs to a different situation than the one in the question stem",
+            "It refused to read any resumes",
+            "An engineer manually coded a rule to do so",
             "The model was hacked — familiar wording, wrong fit for what the prompt is actually asking",
           ],
       correctIndex: 0,
@@ -375,9 +375,9 @@ Today's lesson: **How AI Learns From Examples**.
       id: "q6",
       question: "Why is 'more training data always fixes bias' a myth?",
       choices: [
-            "Training data size has no effect on anything” belongs to a different situation than the one in the question stem",
-            "Bias only happens with small datasets, never large ones” belongs to a different situation than the one in the question stem",
-            "More data can never help a model at all” belongs to a different situation than the one in the question stem",
+            "Training data size has no effect on anything",
+            "Bias only happens with small datasets, never large ones",
+            "More data can never help a model at all",
             "A bigger dataset that is still skewed just teaches the skewed pattern with more confidence",
           ],
       correctIndex: 3,
@@ -388,10 +388,10 @@ Today's lesson: **How AI Learns From Examples**.
       id: "q7",
       question: "What is the smartest first question to ask about any new AI tool's training data?",
       choices: [
-            "How much did the company spend on marketing the tool?” belongs to a different situation than the one in the question stem",
+            "How much did the company spend on marketing the tool?",
             "Who and what is represented in the data, and does it reflect a biased history?",
-            "How many total employees does the company have?” belongs to a different situation than the one in the question stem",
-            "How recently was the app's interface redesigned?” belongs to a different situation than the one in the question stem",
+            "How many total employees does the company have?",
+            "How recently was the app's interface redesigned?",
           ],
       correctIndex: 1,
       explanation:
@@ -401,10 +401,10 @@ Today's lesson: **How AI Learns From Examples**.
       id: "q8",
       question: "What did the company that built the biased hiring tool ultimately decide to do?",
       choices: [
-            "Ship it anyway because it was mostly accurate” belongs to a different situation than the one in the question stem",
-            "Sell the tool to another company” belongs to a different situation than the one in the question stem",
+            "Ship it anyway because it was mostly accurate",
+            "Sell the tool to another company",
             "Scrap the project rather than deploy a tool they couldn't fully trust",
-            "Ignore the bias and hope no one noticed” belongs to a different situation than the one in the question stem",
+            "Ignore the bias and hope no one noticed",
           ],
       correctIndex: 2,
       explanation:

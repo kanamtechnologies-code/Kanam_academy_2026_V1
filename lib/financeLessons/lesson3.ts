@@ -122,10 +122,10 @@ Today's lesson: **Paychecks, Income & Taxes**.
         checkIn: {
           prompt: "What is a Form W-4 mainly used for?",
           choices: [
-            "Applying for a work permit as a minor” belongs to a different situation than the one in the question stem",
-            "Reporting your hours worked each week” belongs to a different situation than the one in the question stem",
+            "Applying for a work permit as a minor",
+            "Reporting your hours worked each week",
             "Helping your employer estimate how much federal income tax to withhold from your pay",
-            "Setting up direct deposit with your bank” belongs to a different situation than the one in the question stem",
+            "Setting up direct deposit with your bank",
           ],
           correctIndex: 2,
           explanation:
@@ -163,7 +163,7 @@ Today's lesson: **Paychecks, Income & Taxes**.
             "There's no way to verify deduction amounts without contacting the IRS directly",
             "Everything checks out — gross minus deductions equals net, and net matches the deposit",
             "He should immediately request a new W-4 since any deduction seems too high",
-            "Something is wrong, since $243 minus $31 shouldn't equal $212” belongs to a different situation than the one in the question stem",
+            "Something is wrong, since $243 minus $31 shouldn't equal $212",
           ],
           correctIndex: 1,
           explanation:
@@ -202,9 +202,9 @@ Today's lesson: **Paychecks, Income & Taxes**.
             "After getting a raise, Marcus's spending slowly creeps up to match his new paycheck without him really deciding to spend more. What's the best way to describe and guard against this?",
           choices: [
             "This is lifestyle creep; directing part of any raise toward a goal on purpose helps guard against it",
-            "This is completely normal and there's no reason to ever adjust for it” belongs to a different situation than the one in the question stem",
-            "This only happens to people who get pay cuts, so there's no real fix” belongs to a different situation than the one in the question stem",
-            "This means Marcus should turn down any future raises” belongs to a different situation than the one in the question stem",
+            "This is completely normal and there's no reason to ever adjust for it",
+            "This only happens to people who get pay cuts, so there's no real fix",
+            "This means Marcus should turn down any future raises",
           ],
           correctIndex: 0,
           explanation:
@@ -360,9 +360,9 @@ Educational only — not tax advice. The goal is reading paperwork calmly instea
       question: "What is a W-4 mainly used for?",
       choices: [
             "Helping your employer estimate federal income tax withholding",
-            "Opening a savings account” belongs to a different situation than the one in the question stem",
-            "Calculating class credit hours for school” belongs to a different situation than the one in the question stem",
-            "Applying for a driver's license” belongs to a different situation than the one in the question stem",
+            "Opening a savings account",
+            "Calculating class credit hours for school",
+            "Applying for a driver's license",
           ],
       correctIndex: 0,
       explanation: "The W-4 guides how much federal income tax an employer withholds from your pay — it's unrelated to licenses, bank accounts, or school credits.",
@@ -372,10 +372,10 @@ Educational only — not tax advice. The goal is reading paperwork calmly instea
       question:
         "Priya is excited that she's getting a $400 tax refund this year. What does that refund actually mean?",
       choices: [
-            "The government is giving her $400 in bonus money” belongs to a different situation than the one in the question stem",
-            "Her employer held back pay illegally and now has to return it” belongs to a different situation than the one in the question stem",
+            "The government is giving her $400 in bonus money",
+            "Her employer held back pay illegally and now has to return it",
             "She had more withheld during the year than she owed, and is getting her own money back",
-            "She must have made a mistake on her W-4 that needs fixing immediately” belongs to a different situation than the one in the question stem",
+            "She must have made a mistake on her W-4 that needs fixing immediately",
           ],
       correctIndex: 2,
       explanation:
@@ -385,9 +385,9 @@ Educational only — not tax advice. The goal is reading paperwork calmly instea
       id: "q6",
       question: "Why does human capital matter for your long-term income?",
       choices: [
-            "It mainly helps resumes look busy without changing what jobs pay” belongs to a different situation than the one in the question stem",
-            "It only affects people who already have a college degree” belongs to a different situation than the one in the question stem",
-            "It matters for promotions but barely affects starting hourly rates” belongs to a different situation than the one in the question stem",
+            "It mainly helps resumes look busy without changing what jobs pay",
+            "It only affects people who already have a college degree",
+            "It matters for promotions but barely affects starting hourly rates",
             "Growing skills, certifications, and experience drives higher gross pay over time",
           ],
       correctIndex: 3,
@@ -399,10 +399,10 @@ Educational only — not tax advice. The goal is reading paperwork calmly instea
       question:
         "Omar's hourly rate rises from $13 to $15.50 for the same hours. What is the smartest first step, according to this lesson?",
       choices: [
-            "“Assume net pay will rise by the exact same dollar amount as gross pay” describes a different situation than the one in the question stem",
+            "Assume net pay will rise by the exact same dollar amount as gross pay",
             "Check the new net pay once the raise starts, and direct part of the increase toward a goal instead of letting it all become new spending",
             "Treat “Immediately increase spending to match the full gross increase” as a distractor: close in topic, incorrect for the required answer",
-            "You might defend “Ignore the raise entirely since gross pay doesn't really matter” in casual talk, but it fails the definition used here",
+            "Ignore the raise entirely since gross pay doesn't really matter",
           ],
       correctIndex: 1,
       explanation:
@@ -413,9 +413,9 @@ Educational only — not tax advice. The goal is reading paperwork calmly instea
       question: "Your first paycheck deposit looks way smaller than you expected. What should you do first?",
       choices: [
             "Compare hours, gross pay, deductions, and net pay on the pay stub against the timesheet and bank deposit",
-            "“Ignore it until next year's taxes are filed” describes a different situation than the one in the question stem",
-            "Fill out a brand new W-4 immediately, before checking anything else” belongs to a different situation than the one in the question stem",
-            "Assume all the deductions must be a mistake with no way to check” belongs to a different situation than the one in the question stem",
+            "Ignore it until next year's taxes are filed",
+            "Fill out a brand new W-4 immediately, before checking anything else",
+            "Assume all the deductions must be a mistake with no way to check",
           ],
       correctIndex: 0,
       explanation:

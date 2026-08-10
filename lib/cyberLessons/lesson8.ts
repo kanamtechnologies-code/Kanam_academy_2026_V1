@@ -140,9 +140,9 @@ Today's lesson: **Firewalls, Ports & Secure Config**.
           prompt: "Which step in the remediation most directly addresses why the 'temporary' remote access was never removed?",
           choices: [
             "Step 5 — setting a removal reminder tied to a specific person",
-            "None of the steps address this” belongs to a different situation than the one in the question stem",
-            "Step 2 — changing the default credentials” belongs to a different situation than the one in the question stem",
-            "Step 1 — confirming what's actually needed” belongs to a different situation than the one in the question stem",
+            "None of the steps address this",
+            "Step 2 — changing the default credentials",
+            "Step 1 — confirming what's actually needed",
           ],
           correctIndex: 0,
           explanation:
@@ -317,7 +317,7 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
         checkIn: {
           prompt: "What do the robotics team's server and the family's smart camera have in common as cases in this lesson?",
           choices: [
-            "You might defend “Both cases involved malware being installed intentionally” in casual talk, but it fails the definition used here",
+            "Both cases involved malware being installed intentionally",
             "Picking “Neither case had anything to do with default settings” is a common mix-up that confuses a nearby idea with the right one",
             "Both involved a risky default (credentials or open access) combined with a 'we'll fix it later' plan that had no real owner or date",
             "Some learners answer “Both were deliberately hacked by a skilled attacker”, yet that does not match the precise idea from the lesson",
@@ -369,10 +369,10 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q2",
       question: "Compare default-deny vs default-allow for a school lab under time pressure. Which evaluation is best?",
       choices: [
-            "Default-deny blocks 100% of malicious traffic automatically, with no configuration needed” belongs to a different situation than the one in the question stem",
+            "Default-deny blocks 100% of malicious traffic automatically, with no configuration needed",
             "Default-deny fails toward restriction when rules are missing; accept documenting needed allows so demos still work without failing open",
             "Default-deny is only appropriate for home networks, never schools” is close in topic, but it is the wrong fit for what the prompt asks",
-            "“Default-allow is safer because it keeps more services reachable by default” describes a different situation than the one in the question stem",
+            "Default-allow is safer because it keeps more services reachable by default",
           ],
       correctIndex: 1,
       explanation:
@@ -382,10 +382,10 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q3",
       question: "Which of these is a classic risky default configuration?",
       choices: [
-            "Segmenting guest Wi-Fi from internal systems” belongs to a different situation than the one in the question stem",
-            "Changing factory admin credentials right after setup” belongs to a different situation than the one in the question stem",
+            "Segmenting guest Wi-Fi from internal systems",
+            "Changing factory admin credentials right after setup",
             "Leaving factory-default admin credentials unchanged on a live device",
-            "Disabling services you don't use” belongs to a different situation than the one in the question stem",
+            "Disabling services you don't use",
           ],
       correctIndex: 2,
       explanation:
@@ -408,10 +408,10 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q5",
       question: "In the robotics team's story, what was the deeper process failure behind the exposed server?",
       choices: [
-            "The team changed their default credentials before ever going live” belongs to a different situation than the one in the question stem",
+            "The team changed their default credentials before ever going live",
             "A 'temporary' shortcut (remote access + default password) had no owner or closing date, so it quietly became permanent",
-            "The server hosted public documentation, which is inherently risky by itself” belongs to a different situation than the one in the question stem",
-            "The remote access was closed immediately once the competition ended” belongs to a different situation than the one in the question stem",
+            "The server hosted public documentation, which is inherently risky by itself",
+            "The remote access was closed immediately once the competition ended",
           ],
       correctIndex: 1,
       explanation:
@@ -421,10 +421,10 @@ Most "we got lucky" incidents are really unattended exposure that nobody reviewe
       id: "q6",
       question: "Why doesn't 'we'll secure it later' work well as a plan on its own?",
       choices: [
-            "Because changing settings after launch usually breaks the system” belongs to a different situation than the one in the question stem",
-            "Because it's technically impossible to secure a system once it's already running” belongs to a different situation than the one in the question stem",
+            "Because changing settings after launch usually breaks the system",
+            "Because it's technically impossible to secure a system once it's already running",
             "Because without a specific owner and date, 'later' has no natural trigger and tends to never happen",
-            "Because security only matters during initial setup, not afterward” belongs to a different situation than the one in the question stem",
+            "Because security only matters during initial setup, not afterward",
           ],
       correctIndex: 2,
       explanation:

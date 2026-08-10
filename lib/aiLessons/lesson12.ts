@@ -71,7 +71,7 @@ Today's lesson: **AI at School: Help vs. Cheating**.
             "Does this help me learn and do the work, or replace my thinking and pass off AI work as mine?",
             "Picking “Is the AI free?” is a common mix-up that confuses a nearby idea with the right one",
             "If the goal were something else, “Will I get caught?” might work; for this check, it does not",
-            "“Is it faster than doing it myself?” describes a different situation than the one in the question stem",
+            "Is it faster than doing it myself?",
           ],
           correctIndex: 0,
           explanation:
@@ -126,9 +126,9 @@ Today's lesson: **AI at School: Help vs. Cheating**.
         checkIn: {
           prompt: "You're not sure if AI is allowed on an assignment. What's the best move?",
           choices: [
-            "Never use AI for anything ever” belongs to a different situation than the one in the question stem",
-            "Use it anyway and hope it's fine” belongs to a different situation than the one in the question stem",
-            "Use it but delete your history” belongs to a different situation than the one in the question stem",
+            "Never use AI for anything ever",
+            "Use it anyway and hope it's fine",
+            "Use it but delete your history",
             "Ask your teacher what's allowed before using it",
           ],
           correctIndex: 3,
@@ -171,9 +171,9 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         checkIn: {
           prompt: "Your syllabus doesn't mention AI at all. What should you assume?",
           choices: [
-            "That the assignment doesn't count toward your grade” belongs to a different situation than the one in the question stem",
-            "That you can never use spell-check or grammar tools either” belongs to a different situation than the one in the question stem",
-            "That any use of AI, including having it write your essay, is automatically fine” belongs to a different situation than the one in the question stem",
+            "That the assignment doesn't count toward your grade",
+            "That you can never use spell-check or grammar tools either",
+            "That any use of AI, including having it write your essay, is automatically fine",
             "That standard academic honesty rules likely still apply, and you should ask your teacher to be sure",
           ],
           correctIndex: 3,
@@ -234,10 +234,10 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         checkIn: {
           prompt: "You want AI help on an essay graded for your original analysis. Which use is most likely on the \"help\" side of the line?",
           choices: [
-            "Submitting AI output and hoping the teacher doesn't notice” belongs to a different situation than the one in the question stem",
-            "Having AI write the full essay from your one-sentence topic” belongs to a different situation than the one in the question stem",
+            "Submitting AI output and hoping the teacher doesn't notice",
+            "Having AI write the full essay from your one-sentence topic",
             "Using AI to suggest counterarguments, then writing your own analysis and disclosure note",
-            "Pasting AI paragraphs directly because they sound smarter than your draft” belongs to a different situation than the one in the question stem",
+            "Pasting AI paragraphs directly because they sound smarter than your draft",
           ],
           correctIndex: 2,
           explanation:
@@ -263,8 +263,8 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
           prompt: "Why can the SAME action (like brainstorming with AI) be fine for one assignment and risky for another?",
           choices: [
             "Because what the assignment is actually trying to measure about your skills changes what counts as help vs. cheating",
-            "“It can't — the rule is always identical for every assignment” describes a different situation than the one in the question stem",
-            "Because AI works differently depending on the day of the week” belongs to a different situation than the one in the question stem",
+            "It can't — the rule is always identical for every assignment",
+            "Because AI works differently depending on the day of the week",
             "Picking “Because only essays have rules about AI” is a common mix-up that confuses a nearby idea with the right one",
           ],
           correctIndex: 0,
@@ -316,9 +316,9 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         checkIn: {
           prompt: "What determines whether the study group's AI-summary strategy is fine or crosses into cheating?",
           choices: [
-            "It's always fine as long as it's a group activity” belongs to a different situation than the one in the question stem",
-            "“Whether they used a free or paid AI tool” describes a different situation than the one in the question stem",
-            "“How many people are in the study group” describes a different situation than the one in the question stem",
+            "It's always fine as long as it's a group activity",
+            "Whether they used a free or paid AI tool",
+            "How many people are in the study group",
             "Whether the assignment is a graded, individual writing task or a general studying/discussion activity",
           ],
           correctIndex: 3,
@@ -374,7 +374,7 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       choices: [
             "Does this help me learn and do the work, or replace my thinking and pass off AI work as mine?",
             "Picking “Is the AI free?” is a common mix-up that confuses a nearby idea with the right one",
-            "“Is it faster than doing it myself?” describes a different situation than the one in the question stem",
+            "Is it faster than doing it myself?",
             "If the goal were something else, “Will I get caught?” might work; for this check, it does not",
           ],
       correctIndex: 0,
@@ -398,10 +398,10 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q3",
       question: "You're not sure if AI is allowed on an assignment. What's the best move?",
       choices: [
-            "Use it anyway and hope it's fine” belongs to a different situation than the one in the question stem",
+            "Use it anyway and hope it's fine",
             "Ask your teacher what's allowed before using it",
-            "Never use AI for anything ever” belongs to a different situation than the one in the question stem",
-            "Use it but delete your history” belongs to a different situation than the one in the question stem",
+            "Never use AI for anything ever",
+            "Use it but delete your history",
           ],
       correctIndex: 1,
       explanation:
@@ -411,10 +411,10 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q4",
       question: "Why does cheating with AI mostly hurt YOU?",
       choices: [
-            "It only counts against you if a teacher happens to check” belongs to a different situation than the one in the question stem",
+            "It only counts against you if a teacher happens to check",
             "You skip the learning, so you can't perform when AI isn't allowed (and misuse is detectable)",
             "It doesn't hurt anyone” is close in topic, but it is the wrong fit for what the prompt asks",
-            "It slows down the AI tool for everyone else using it” belongs to a different situation than the one in the question stem",
+            "It slows down the AI tool for everyone else using it",
           ],
       correctIndex: 1,
       explanation:
@@ -424,10 +424,10 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
       id: "q5",
       question: "Your syllabus never mentions AI at all. What's the safest assumption?",
       choices: [
-            "That you must avoid all AI tools including spell-check” belongs to a different situation than the one in the question stem",
-            "That anything goes, including having AI write your whole assignment” belongs to a different situation than the one in the question stem",
+            "That you must avoid all AI tools including spell-check",
+            "That anything goes, including having AI write your whole assignment",
             "That standard academic honesty rules likely still apply, and it's worth asking your teacher to confirm",
-            "“That the assignment is automatically optional” describes a different situation than the one in the question stem",
+            "That the assignment is automatically optional",
           ],
       correctIndex: 2,
       explanation:
@@ -440,7 +440,7 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
             "Because the purpose of the assignment (what skill it's meant to measure) changes what counts as legitimate help",
             "Because AI tools change their rules daily” is close in topic, but it is the wrong fit for what the prompt asks",
             "Some learners answer “It's random and depends on luck”, yet that does not match the precise idea from the lesson",
-            "You might defend “It's never fine to brainstorm with AI” in casual talk, but it fails the definition used here",
+            "It's never fine to brainstorm with AI",
           ],
       correctIndex: 0,
       explanation:

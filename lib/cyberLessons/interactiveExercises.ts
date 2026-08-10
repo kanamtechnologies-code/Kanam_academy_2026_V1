@@ -35,10 +35,10 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"If you think a system is insecure, prove it by logging in as someone else or bypassing the login. Then post the steps publicly so everyone learns. Permission is optional if your goal is education."',
       choices: [
-            "Logging in as someone else is fine if you change the password back later” belongs to a different situation than the one in the question stem",
-            "Education goals automatically grant permission to test any system” belongs to a different situation than the one in the question stem",
+            "Logging in as someone else is fine if you change the password back later",
+            "Education goals automatically grant permission to test any system",
             "Unauthorized access and public attack steps are unethical and often illegal — report privately with permission",
-            "“Public posts are always safer than telling IT” describes a different situation than the one in the question stem",
+            "Public posts are always safer than telling IT",
           ],
       correctIndex: 2,
       hint: "Who authorized the test — and who gets hurt if it goes wrong?",
@@ -177,10 +177,10 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"Confidentiality = anyone can read the data so collaboration is easy. Integrity = the system stays online 24/7. Availability = nobody can change records. Authentication proves what you are allowed to do."',
       choices: [
-            "“Authentication and authorization are the same word” describes a different situation than the one in the question stem",
+            "Authentication and authorization are the same word",
             "C = keep data private; I = data stays accurate/unchanged; A = systems usable when needed; auth ≠ authorization",
-            "“Integrity only means antivirus is installed” describes a different situation than the one in the question stem",
-            "“Availability means encrypting every file twice” describes a different situation than the one in the question stem",
+            "Integrity only means antivirus is installed",
+            "Availability means encrypting every file twice",
           ],
       correctIndex: 1,
       hint: "Match each letter to private, trustworthy, or usable.",
@@ -252,9 +252,9 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         '"Ransomware only hits big companies. Macs never get malware. If a pop-up says your PC is infected, click the link immediately and download their cleaner. Sharing infected USB sticks is fine if you trust your friends."',
       choices: [
             "Anyone can be targeted; don't trust scareware pop-ups; USBs can spread malware across platforms",
-            "USB sticks automatically remove viruses on insert” belongs to a different situation than the one in the question stem",
-            "Scareware links are always from your school IT” belongs to a different situation than the one in the question stem",
-            "“Only Windows needs updates forever” describes a different situation than the one in the question stem",
+            "USB sticks automatically remove viruses on insert",
+            "Scareware links are always from your school IT",
+            "Only Windows needs updates forever",
           ],
       correctIndex: 0,
       hint: "Who benefits from a sudden \"download now\" scare?",
@@ -393,9 +393,9 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         'Message: "Principal needs gift cards NOW — reply with codes. Don\'t tell anyone or the surprise is ruined."\nPlan: Buy cards, text codes to the number in the email, delete the thread so IT isn\'t bothered.',
       choices: [
-            "Deleting threads always improves security” belongs to a different situation than the one in the question stem",
-            "Any email that mentions the principal is automatically real” belongs to a different situation than the one in the question stem",
-            "Gift cards are the most secure way to pay schools” belongs to a different situation than the one in the question stem",
+            "Deleting threads always improves security",
+            "Any email that mentions the principal is automatically real",
+            "Gift cards are the most secure way to pay schools",
             "Urgency + secrecy + payment request = classic SE; verify in person/known channel and report",
           ],
       correctIndex: 3,
@@ -535,10 +535,10 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"Sites should store your real password in plain text so support can email it back. Hashing is the same as encryption and can always be reversed by the website. MFA is optional if the password is \"P@ssw0rd1\". "',
       choices: [
-            "Plaintext storage helps users remember passwords better” belongs to a different situation than the one in the question stem",
-            "“MFA only works on gaming accounts” describes a different situation than the one in the question stem",
+            "Plaintext storage helps users remember passwords better",
+            "MFA only works on gaming accounts",
             "Store salted hashes, not plaintext; hashing is one-way; MFA still matters for strong passwords",
-            "Encryption and hashing are identical and always reversible” belongs to a different situation than the one in the question stem",
+            "Encryption and hashing are identical and always reversible",
           ],
       correctIndex: 2,
       hint: "Can the site \"look up\" your password — and should it?",
@@ -678,9 +678,9 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         '"Everyone gets Domain Admin so tickets close faster. Shared \"god mode\" accounts are fine. Former students keep VPN access \"just in case.\" Guest Wi-Fi uses the same password as the staff file server."',
       choices: [
             "If the goal were something else, “Domain Admin for everyone improves audit trails” might work; for this check, it does not",
-            "“Former users should keep access indefinitely for nostalgia” describes a different situation than the one in the question stem",
+            "Former users should keep access indefinitely for nostalgia",
             "Over-privileged shared accounts and leftover access expand blast radius — use unique least privilege and timely revocation",
-            "“Guest and staff systems should always share one password” describes a different situation than the one in the question stem",
+            "Guest and staff systems should always share one password",
           ],
       correctIndex: 2,
       hint: "If one account is stolen, how much can an attacker reach?",
@@ -1030,8 +1030,8 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       choices: [
             "Hashes are one-way; never share private keys; use vetted algorithms — don't invent production crypto",
             "Encryption never hides content — familiar wording, wrong fit for what the prompt is actually asking",
-            "“Homemade ciphers are required by law” describes a different situation than the one in the question stem",
-            "Private keys should be posted publicly for transparency” belongs to a different situation than the one in the question stem",
+            "Homemade ciphers are required by law",
+            "Private keys should be posted publicly for transparency",
           ],
       correctIndex: 0,
       hint: "Which operations are one-way, and what must stay secret?",
@@ -1172,7 +1172,7 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       choices: [
             "Padlock ≠ honest site; heed cert warnings; public banks use proper CA certs; phishing domains can still use HTTPS",
             "It can seem like phishing is impossible on HTTPS, but that reading skips the distinction this question is testing",
-            "“Certificate warnings should always be ignored” describes a different situation than the one in the question stem",
+            "Certificate warnings should always be ignored",
             "Picking “DNS no longer exists when HTTPS is on” is a common mix-up that confuses a nearby idea with the right one",
           ],
       correctIndex: 0,
@@ -1312,10 +1312,10 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"Critical security patches can wait six months so nothing breaks. Test environments are optional. Default admin passwords are fine on printers. Unused remote services should stay enabled \"for emergencies.\""',
       choices: [
-            "Unused services improve security by distraction” belongs to a different situation than the one in the question stem",
+            "Unused services improve security by distraction",
             "Prioritize timely testing and patching; change defaults; disable unused remote services",
-            "Six-month delays are required for all critical fixes” belongs to a different situation than the one in the question stem",
-            "“Printers never need passwords” describes a different situation than the one in the question stem",
+            "Six-month delays are required for all critical fixes",
+            "Printers never need passwords",
           ],
       correctIndex: 1,
       hint: "What do attackers automate against unpatched and default systems?",
@@ -1455,9 +1455,9 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         '"Turn logging off to save disk. Never sync clocks. Alerts go to a shared inbox nobody checks. After an incident, wipe evidence immediately so audits stay clean. Playbooks are unnecessary if you \"wing it.\""',
       choices: [
             "Keep useful logs, sync time, alert humans on-call, preserve evidence, follow playbooks",
-            "Wiping evidence first always helps investigations” belongs to a different situation than the one in the question stem",
-            "Unsynchronized clocks improve correlation” belongs to a different situation than the one in the question stem",
-            "Empty alert inboxes reduce noise perfectly” belongs to a different situation than the one in the question stem",
+            "Wiping evidence first always helps investigations",
+            "Unsynchronized clocks improve correlation",
+            "Empty alert inboxes reduce noise perfectly",
           ],
       correctIndex: 0,
       hint: "What do investigators need hours or days later?",
@@ -1597,7 +1597,7 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         '"Ship the database password in the public JavaScript bundle. Accept any file upload with no size/type checks. Never update npm packages. Leave debug mode on in production so \"fixes are faster.\" To learn more, break into random sites and share exploit steps."',
       choices: [
             "A rushed pass can land on debug mode in production improves confidentiality”; careful readers reject it for this problem",
-            "“Client-side passwords are safer than server storage” describes a different situation than the one in the question stem",
+            "Client-side passwords are safer than server storage",
             "Picking “Unauthorized intrusion is required homework” is a common mix-up that confuses a nearby idea with the right one",
             "Protect secrets server-side, validate uploads, patch dependencies, disable prod debug; practice only in authorized labs",
           ],
@@ -1882,8 +1882,8 @@ export const CYBER_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       choices: [
             "Prioritize high impact, fund feasible controls, justify usability/ethics tradeoffs, assign owners, review residual risk",
             "Some learners answer “Risk acceptance needs no documentation”, yet that does not match the precise idea from the lesson",
-            "“Stickers are a primary technical control for admin accounts” describes a different situation than the one in the question stem",
-            "“Maximum lockdown with no usability analysis is always best” describes a different situation than the one in the question stem",
+            "Stickers are a primary technical control for admin accounts",
+            "Maximum lockdown with no usability analysis is always best",
           ],
       correctIndex: 0,
       hint: "CSTA asks you to recommend measures and explain tradeoffs — not just pick the strictest option.",

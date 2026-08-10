@@ -364,9 +364,9 @@ else:
         checkIn: {
           prompt: "Can both the if block AND the else block run in the same pass through the code?",
           choices: [
-            "Yes, both always run” belongs to a different situation than the one in the question stem",
+            "Yes, both always run",
             "No — exactly one of the two ever runs",
-            "Only if the name is empty” belongs to a different situation than the one in the question stem",
+            "Only if the name is empty",
           ],
           correctIndex: 1,
           explanation: "if/else is an either/or choice. Exactly one branch runs each time — never both, never neither.",
@@ -430,8 +430,8 @@ else:
         checkIn: {
           prompt: "Your else: block's print statement isn't indented. What happens?",
           choices: [
-            "Nothing — indentation is just for looks in Python” belongs to a different situation than the one in the question stem",
-            "Python automatically indents it for you” belongs to a different situation than the one in the question stem",
+            "Nothing — indentation is just for looks in Python",
+            "Python automatically indents it for you",
             "Python raises an error or the print runs outside the else logic",
           ],
           correctIndex: 2,

@@ -66,10 +66,10 @@ Today's lesson: **Inside a Large Language Model**.
         checkIn: {
           prompt: "At its core, what does a Large Language Model do?",
           choices: [
-            "Thinks and reasons exactly like a human brain” belongs to a different situation than the one in the question stem",
-            "Searches a live database of verified facts” belongs to a different situation than the one in the question stem",
+            "Thinks and reasons exactly like a human brain",
+            "Searches a live database of verified facts",
             "Predicts the next token (word/word-part) over and over to produce text",
-            "Calls a human to write the response for it” belongs to a different situation than the one in the question stem",
+            "Calls a human to write the response for it",
           ],
           correctIndex: 2,
           explanation:
@@ -155,9 +155,9 @@ Today's lesson: **Inside a Large Language Model**.
           prompt: "Why is 'the AI sounded very confident, so it must be correct' a dangerous assumption?",
           choices: [
             "Because an LLM's tone doesn't change based on whether its answer is actually true or hallucinated",
-            "Because confidence only matters for image generators, not text” belongs to a different situation than the one in the question stem",
-            "Because LLMs never sound confident about anything” belongs to a different situation than the one in the question stem",
-            "It isn't dangerous — confidence always tracks accuracy in LLMs” belongs to a different situation than the one in the question stem",
+            "Because confidence only matters for image generators, not text",
+            "Because LLMs never sound confident about anything",
+            "It isn't dangerous — confidence always tracks accuracy in LLMs",
           ],
           correctIndex: 0,
           explanation:
@@ -281,10 +281,10 @@ Today's lesson: **Inside a Large Language Model**.
         checkIn: {
           prompt: "What happened when the lawyer asked the chatbot to confirm the cases were real?",
           choices: [
-            "The chatbot connected to a legal database to double-check” belongs to a different situation than the one in the question stem",
+            "The chatbot connected to a legal database to double-check",
             "The chatbot confidently assured him the fake cases were real, reinforcing the hallucination",
-            "The chatbot refused to answer the question at all” belongs to a different situation than the one in the question stem",
-            "The chatbot admitted immediately that it had made them up” belongs to a different situation than the one in the question stem",
+            "The chatbot refused to answer the question at all",
+            "The chatbot admitted immediately that it had made them up",
           ],
           correctIndex: 1,
           explanation:
@@ -321,9 +321,9 @@ Today's lesson: **Inside a Large Language Model**.
       question: "At its core, what does a Large Language Model do?",
       choices: [
             "Predicts the next token (word/word-part) over and over to produce text",
-            "Thinks and reasons exactly like a human” belongs to a different situation than the one in the question stem",
-            "Searches the internet live for answers” belongs to a different situation than the one in the question stem",
-            "Stores a copy of every webpage and quotes it exactly” belongs to a different situation than the one in the question stem",
+            "Thinks and reasons exactly like a human",
+            "Searches the internet live for answers",
+            "Stores a copy of every webpage and quotes it exactly",
           ],
       correctIndex: 0,
       explanation:
@@ -333,10 +333,10 @@ Today's lesson: **Inside a Large Language Model**.
       id: "q2",
       question: "What is the 'context window'?",
       choices: [
-            "The app's settings menu” belongs to a different situation than the one in the question stem",
+            "The app's settings menu",
             "The recent text the model can currently pay attention to",
-            "A window that pops up with ads” belongs to a different situation than the one in the question stem",
-            "The model's permanent memory of you forever” belongs to a different situation than the one in the question stem",
+            "A window that pops up with ads",
+            "The model's permanent memory of you forever",
           ],
       correctIndex: 1,
       explanation:
@@ -360,7 +360,7 @@ Today's lesson: **Inside a Large Language Model**.
       question: "Given how LLMs work, which task is SAFEST to rely on without double-checking?",
       choices: [
             "Rephrasing a paragraph you wrote to sound clearer",
-            "Reporting today's breaking news” belongs to a different situation than the one in the question stem",
+            "Reporting today's breaking news",
             "Getting exact historical dates and statistics",
             "Listing real research papers with page numbers",
           ],
@@ -374,7 +374,7 @@ Today's lesson: **Inside a Large Language Model**.
       choices: [
             "It immediately admitted the cases were fake",
             "It confidently reassured him the fake cases were real",
-            "It refused to respond” belongs to a different situation than the one in the question stem",
+            "It refused to respond",
             "It connected to a court database and verified them",
           ],
       correctIndex: 1,
@@ -412,7 +412,7 @@ Today's lesson: **Inside a Large Language Model**.
       question: "What is the biggest overall lesson from the courtroom hallucination case?",
       choices: [
             "If the goal were something else, “Hallucinations only happen in legal contexts” might work; for this check, it does not",
-            "You might defend “AI should never be used for any research, ever” in casual talk, but it fails the definition used here",
+            "AI should never be used for any research, ever",
             "Verification is not optional, no matter how confident or polished an AI's answer sounds, or how experienced the user is",
             "If the goal were something else, “Lawyers are uniquely bad at using technology” might work; for this check, it does not",
           ],

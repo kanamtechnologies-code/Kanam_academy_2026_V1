@@ -68,10 +68,10 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
         checkIn: {
           prompt: "A scholarship committee searches your name. What does a digital footprint include?",
           choices: [
-            "The speed of your internet connection” belongs to a different situation than the one in the question stem",
-            "“A type of password” describes a different situation than the one in the question stem",
+            "The speed of your internet connection",
+            "A type of password",
             "The trail of data you leave online through posts, likes, searches, and activity",
-            "The battery your phone uses online” belongs to a different situation than the one in the question stem",
+            "The battery your phone uses online",
           ],
           correctIndex: 2,
           explanation:
@@ -119,10 +119,10 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
         checkIn: {
           prompt: "You delete an embarrassing post an hour after sending it, before a job interview next month. Why might it still exist?",
           choices: [
-            "Deleting always works instantly and fully” belongs to a different situation than the one in the question stem",
+            "Deleting always works instantly and fully",
             "Screenshots, archives, and reshares can keep copies you can't control",
-            "Only the government can delete posts” belongs to a different situation than the one in the question stem",
-            "Posts can never be deleted by anyone” belongs to a different situation than the one in the question stem",
+            "Only the government can delete posts",
+            "Posts can never be deleted by anyone",
           ],
           correctIndex: 1,
           explanation:
@@ -159,10 +159,10 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
         checkIn: {
           prompt: "You post a photo, and your phone automatically attaches your location to it without you typing anything about location. What kind of footprint is the location tag?",
           choices: [
-            "It only counts if you mention the location in the caption” belongs to a different situation than the one in the question stem",
+            "It only counts if you mention the location in the caption",
             "Passive — it was collected and attached without you actively deciding to share it",
-            "Active — you chose to share your location” belongs to a different situation than the one in the question stem",
-            "It's not part of your footprint at all” belongs to a different situation than the one in the question stem",
+            "Active — you chose to share your location",
+            "It's not part of your footprint at all",
           ],
           correctIndex: 1,
           explanation:
@@ -223,9 +223,9 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
         checkIn: {
           prompt: "What's a smart way to build a POSITIVE digital footprint for college or a first job?",
           choices: [
-            "Post nothing ever, anywhere” belongs to a different situation than the one in the question stem",
-            "Tag yourself in as many photos as possible” belongs to a different situation than the one in the question stem",
-            "Make every account public” belongs to a different situation than the one in the question stem",
+            "Post nothing ever, anywhere",
+            "Tag yourself in as many photos as possible",
+            "Make every account public",
             "Share projects and portfolios you're proud of and post helpfully",
           ],
           correctIndex: 3,
@@ -261,10 +261,10 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
         checkIn: {
           prompt: "Before posting a joke about your workplace (or school) in a story, which is the best quick test?",
           choices: [
-            "Did I post recently?” belongs to a different situation than the one in the question stem",
-            "Is it under 280 characters?” belongs to a different situation than the one in the question stem",
+            "Did I post recently?",
+            "Is it under 280 characters?",
             "Would I be okay with a teacher, future boss, or grandparent seeing this?",
-            "Will this get a lot of likes?” belongs to a different situation than the one in the question stem",
+            "Will this get a lot of likes?",
           ],
           correctIndex: 2,
           explanation:
@@ -283,10 +283,10 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
         checkIn: {
           prompt: "You search your name and an old, unflattering public post from two years ago is the first result. What's the smartest move?",
           choices: [
-            "Ignore it — nobody checks social media” belongs to a different situation than the one in the question stem",
-            "Delete every account and never go online again” belongs to a different situation than the one in the question stem",
+            "Ignore it — nobody checks social media",
+            "Delete every account and never go online again",
             "Delete or restrict the old post, then build newer positive content that represents you now",
-            "Create a fake name and hope for the best” belongs to a different situation than the one in the question stem",
+            "Create a fake name and hope for the best",
           ],
           correctIndex: 2,
           explanation:
@@ -342,9 +342,9 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
       id: "q1",
       question: "A scholarship committee googles your name. What is a 'digital footprint'?",
       choices: [
-            "The speed of your internet connection” belongs to a different situation than the one in the question stem",
-            "The battery your phone uses online” belongs to a different situation than the one in the question stem",
-            "“A type of password” describes a different situation than the one in the question stem",
+            "The speed of your internet connection",
+            "The battery your phone uses online",
+            "A type of password",
             "The trail of data you leave online through posts, likes, searches, and activity",
           ],
       correctIndex: 3,
@@ -368,10 +368,10 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
       id: "q3",
       question: "You delete an embarrassing post an hour after sending it, before a job interview next month. Why might it still exist?",
       choices: [
-            "Posts can never be deleted by anyone” belongs to a different situation than the one in the question stem",
+            "Posts can never be deleted by anyone",
             "Screenshots, archives, and reshares can keep copies you can't control",
-            "Deleting always works instantly and fully” belongs to a different situation than the one in the question stem",
-            "Only the government can delete posts” belongs to a different situation than the one in the question stem",
+            "Deleting always works instantly and fully",
+            "Only the government can delete posts",
           ],
       correctIndex: 1,
       explanation:
@@ -381,9 +381,9 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
       id: "q4",
       question: "Before posting a joke about your workplace (or school) in a story, which is the best quick test?",
       choices: [
-            "Did I post recently?” belongs to a different situation than the one in the question stem",
-            "Is it under 280 characters?” belongs to a different situation than the one in the question stem",
-            "Will this get a lot of likes?” belongs to a different situation than the one in the question stem",
+            "Did I post recently?",
+            "Is it under 280 characters?",
+            "Will this get a lot of likes?",
             "Would I be okay with a teacher, future boss, or grandparent seeing this?",
           ],
       correctIndex: 3,
@@ -394,10 +394,10 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
       id: "q5",
       question: "What's a smart way to build a POSITIVE digital footprint for college or a first job?",
       choices: [
-            "Make every account public” belongs to a different situation than the one in the question stem",
+            "Make every account public",
             "Share projects and portfolios you're proud of and post helpfully",
-            "Tag yourself in as many photos as possible” belongs to a different situation than the one in the question stem",
-            "Post nothing ever, anywhere” belongs to a different situation than the one in the question stem",
+            "Tag yourself in as many photos as possible",
+            "Post nothing ever, anywhere",
           ],
       correctIndex: 1,
       explanation:
@@ -408,9 +408,9 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
       question: "You keep your own account private and post nothing embarrassing, but a friend tags you in an old party photo. What does this reveal?",
       choices: [
             "Others can post about you too, so your footprint isn't entirely under your own control",
-            "Private accounts are immune to being tagged” belongs to a different situation than the one in the question stem",
-            "Your footprint is fully in your control as long as you're careful” belongs to a different situation than the one in the question stem",
-            "Tags never actually attach to your name” belongs to a different situation than the one in the question stem",
+            "Private accounts are immune to being tagged",
+            "Your footprint is fully in your control as long as you're careful",
+            "Tags never actually attach to your name",
           ],
       correctIndex: 0,
       explanation:
@@ -420,9 +420,9 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
       id: "q7",
       question: "Why isn't a 'private' account setting a full guarantee of secrecy?",
       choices: [
-            "Private accounts can't be seen by anyone, ever, including yourself” belongs to a different situation than the one in the question stem",
-            "Private settings don't actually exist on most platforms” belongs to a different situation than the one in the question stem",
-            "Private accounts are always hacked eventually” belongs to a different situation than the one in the question stem",
+            "Private accounts can't be seen by anyone, ever, including yourself",
+            "Private settings don't actually exist on most platforms",
+            "Private accounts are always hacked eventually",
             "A follower or friend can screenshot content and share it beyond the private circle",
           ],
       correctIndex: 3,

@@ -73,10 +73,10 @@ Today's lesson: **Insurance: Protecting What Matters**.
         checkIn: {
           prompt: "Theo's family says paying car insurance premiums feels like 'wasting money' since nothing bad has happened yet this year. What's the flaw in that thinking?",
           choices: [
-            "Insurance mainly exists to replace the need for an emergency fund” belongs to a different situation than the one in the question stem",
+            "Insurance mainly exists to replace the need for an emergency fund",
             "Insurance transfers certain large financial risks in exchange for the premium, whether or not a claim happens that year",
-            "There isn't a flaw — insurance is pointless until you actually file a claim” belongs to a different situation than the one in the question stem",
-            "“Premiums are refunded in full if you never file a claim” describes a different situation than the one in the question stem",
+            "There isn't a flaw — insurance is pointless until you actually file a claim",
+            "Premiums are refunded in full if you never file a claim",
           ],
           correctIndex: 1,
           explanation:
@@ -97,10 +97,10 @@ Today's lesson: **Insurance: Protecting What Matters**.
         checkIn: {
           prompt: "Camille's family pays $70 a month to keep their auto policy active, and separately owes $500 out of pocket the one time they file a claim. Which number is the deductible?",
           choices: [
-            "The $70 a month, since that's the ongoing insurance cost” belongs to a different situation than the one in the question stem",
-            "Neither — deductibles only apply to health insurance, not auto” belongs to a different situation than the one in the question stem",
+            "The $70 a month, since that's the ongoing insurance cost",
+            "Neither — deductibles only apply to health insurance, not auto",
             "The $500, since that's what they pay on the covered claim before more coverage kicks in",
-            "Both numbers together count as the deductible” belongs to a different situation than the one in the question stem",
+            "Both numbers together count as the deductible",
           ],
           correctIndex: 2,
           explanation:
@@ -126,7 +126,7 @@ Today's lesson: **Insurance: Protecting What Matters**.
         checkIn: {
           prompt: "After a small kitchen fire in her apartment, Nina assumes her landlord's insurance will pay to replace her damaged laptop and gaming setup. Is that a safe assumption?",
           choices: [
-            "“Yes — landlord policies automatically cover every tenant's personal belongings too” describes a different situation than the one in the question stem",
+            "Yes — landlord policies automatically cover every tenant's personal belongings too",
             "Picking “Yes, but only if the landlord agrees to file the claim on her behalf” is a common mix-up that confuses a nearby idea with the right one",
             "Some learners answer “No — renters insurance only covers traffic tickets, not belongings”, yet that does not match the precise idea from the lesson",
             "No — a landlord's policy typically covers the building, while renters insurance is what would often help with a tenant's belongings and liability",
@@ -159,10 +159,10 @@ Today's lesson: **Insurance: Protecting What Matters**.
         checkIn: {
           prompt: "Marco picks the auto policy with the lowest monthly premium without checking the deductible. What risk is he taking on?",
           choices: [
-            "Low premiums always come bundled with a higher policy limit” belongs to a different situation than the one in the question stem",
-            "The low premium probably means the policy has no deductible at all” belongs to a different situation than the one in the question stem",
+            "Low premiums always come bundled with a higher policy limit",
+            "The low premium probably means the policy has no deductible at all",
             "The low premium might come with a deductible he can't actually afford if he ever needs to file a claim",
-            "None — the lowest premium is always the best overall deal” belongs to a different situation than the one in the question stem",
+            "None — the lowest premium is always the best overall deal",
           ],
           correctIndex: 2,
           explanation:
@@ -386,8 +386,8 @@ Low premium + high deductible is a bet you won't need the coverage. Sometimes th
       choices: [
             "A rushed pass can land on replacing the need for an emergency fund entirely”; careful readers reject it for this problem",
             "Transferring the financial risk of a possible large loss in exchange for the premium, even if it's never used that year",
-            "Guaranteeing that nothing bad will ever happen to the family's car” belongs to a different situation than the one in the question stem",
-            "Building up a refund that gets paid back at the end of every claim-free year” belongs to a different situation than the one in the question stem",
+            "Guaranteeing that nothing bad will ever happen to the family's car",
+            "Building up a refund that gets paid back at the end of every claim-free year",
           ],
       correctIndex: 1,
       explanation:
@@ -410,10 +410,10 @@ Low premium + high deductible is a bet you won't need the coverage. Sometimes th
       id: "q3",
       question: "Why might choosing a much higher deductible lower your premium — and when is that a bad idea?",
       choices: [
-            "“Raising the deductible has no real effect on the premium” describes a different situation than the one in the question stem",
-            "Insurers generally don't allow teen drivers to choose a high deductible” belongs to a different situation than the one in the question stem",
+            "Raising the deductible has no real effect on the premium",
+            "Insurers generally don't allow teen drivers to choose a high deductible",
             "It can lower the premium, but it's a bad fit if you couldn't actually afford to pay that deductible after a loss",
-            "Higher deductibles always save money with no real downside” belongs to a different situation than the one in the question stem",
+            "Higher deductibles always save money with no real downside",
           ],
       correctIndex: 2,
       explanation:
@@ -423,10 +423,10 @@ Low premium + high deductible is a bet you won't need the coverage. Sometimes th
       id: "q4",
       question: "A landlord's insurance typically covers the building. What might renters insurance help with for a tenant?",
       choices: [
-            "Unlimited cash for any loss with no deductible at all” belongs to a different situation than the one in the question stem",
-            "Only the landlord's mortgage payments” belongs to a different situation than the one in the question stem",
+            "Unlimited cash for any loss with no deductible at all",
+            "Only the landlord's mortgage payments",
             "Often the tenant's belongings and liability — depending on the policy",
-            "Traffic tickets received while driving” belongs to a different situation than the one in the question stem",
+            "Traffic tickets received while driving",
           ],
       correctIndex: 2,
       explanation:
@@ -436,8 +436,8 @@ Low premium + high deductible is a bet you won't need the coverage. Sometimes th
       id: "q5",
       question: "Before Malia gets her license, which habit fits the Coverage Checker mindset best?",
       choices: [
-            "Wait until after her first accident to learn what the family policy actually covers” belongs to a different situation than the one in the question stem",
-            "Skip asking questions since her parents handle all of that automatically” belongs to a different situation than the one in the question stem",
+            "Wait until after her first accident to learn what the family policy actually covers",
+            "Skip asking questions since her parents handle all of that automatically",
             "Ask what coverage she's on, what to do after an incident, and what the deductible and limits are",
             "Assume coverage details a friend mentioned online apply the same way to her family's policy",
           ],
@@ -449,7 +449,7 @@ Low premium + high deductible is a bet you won't need the coverage. Sometimes th
       id: "q6",
       question: "In the two-policy worked example, why did Policy B end up cheaper overall in a year with one claim, despite its higher monthly premium?",
       choices: [
-            "Because Policy B had no deductible at all” belongs to a different situation than the one in the question stem",
+            "Because Policy B had no deductible at all",
             "Because insurers always favor whichever policy costs more per month",
             "Because its lower deductible outweighed the higher premium once a claim hit",
             "Because the higher premium automatically means better coverage every year",
@@ -462,10 +462,10 @@ Low premium + high deductible is a bet you won't need the coverage. Sometimes th
       id: "q7",
       question: "When comparing insurance quotes, which set of fields should you line up side by side — not just the monthly price?",
       choices: [
-            "Only the phone number listed for filing a claim” belongs to a different situation than the one in the question stem",
+            "Only the phone number listed for filing a claim",
             "Coverage types, deductible, policy limits, exclusions, and premium",
-            "Just how quickly the sales rep responds to texts” belongs to a different situation than the one in the question stem",
-            "Only the insurer's advertising slogan and logo design” belongs to a different situation than the one in the question stem",
+            "Just how quickly the sales rep responds to texts",
+            "Only the insurer's advertising slogan and logo design",
           ],
       correctIndex: 1,
       explanation:
@@ -475,10 +475,10 @@ Low premium + high deductible is a bet you won't need the coverage. Sometimes th
       id: "q8",
       question: "In Deja's case study, why did filing a claim make sense for her fender bender?",
       choices: [
-            "Because any accident should always be reported regardless of the repair cost” belongs to a different situation than the one in the question stem",
-            "“Because her policy happened to have no deductible that year” describes a different situation than the one in the question stem",
+            "Because any accident should always be reported regardless of the repair cost",
+            "Because her policy happened to have no deductible that year",
             "Because the repair estimate was well above her deductible, so the insurer would cover a meaningful remaining amount",
-            "“Because she wanted her monthly premium to increase” describes a different situation than the one in the question stem",
+            "Because she wanted her monthly premium to increase",
           ],
       correctIndex: 2,
       explanation:

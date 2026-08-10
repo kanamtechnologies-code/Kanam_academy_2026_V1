@@ -98,9 +98,9 @@ Today's lesson: **Investing Basics & Risk**.
           prompt: "Nate hears that owning a share of stock in a sneaker company means he 'owns part of the company.' Is that accurate?",
           choices: [
             "Yes — a stock is a slice of ownership in the company, and its price can rise or fall with the company's performance",
-            "Yes, and it also guarantees him a government-backed payment every year” belongs to a different situation than the one in the question stem",
-            "Not really — a stock is actually a fixed-interest loan to the company” belongs to a different situation than the one in the question stem",
-            "No — stocks only apply to companies that sell physical products like sneakers” belongs to a different situation than the one in the question stem",
+            "Yes, and it also guarantees him a government-backed payment every year",
+            "Not really — a stock is actually a fixed-interest loan to the company",
+            "No — stocks only apply to companies that sell physical products like sneakers",
           ],
           correctIndex: 0,
           explanation:
@@ -159,10 +159,10 @@ Today's lesson: **Investing Basics & Risk**.
         checkIn: {
           prompt: "Elena's older cousin tells her that once her account is 'diversified,' it basically can't lose money. Is that right?",
           choices: [
-            "Yes — diversification means the account is protected from ever losing value” belongs to a different situation than the one in the question stem",
-            "“Yes, but only if she picks exactly one 'safe' stock to diversify into” describes a different situation than the one in the question stem",
+            "Yes — diversification means the account is protected from ever losing value",
+            "Yes, but only if she picks exactly one 'safe' stock to diversify into",
             "Not quite — diversification reduces damage from any single holding failing, but it doesn't erase risk if the overall market drops",
-            "It only applies to professional investors, so it wouldn't matter for Elena's account anyway” belongs to a different situation than the one in the question stem",
+            "It only applies to professional investors, so it wouldn't matter for Elena's account anyway",
           ],
           correctIndex: 2,
           explanation:
@@ -209,10 +209,10 @@ Today's lesson: **Investing Basics & Risk**.
         checkIn: {
           prompt: "A financial educator tells a group of teens that their 'long horizon' is a real advantage for long-term investing education. What does that mean?",
           choices: [
-            "Horizon mostly matters for bonds, not for stocks or funds” belongs to a different situation than the one in the question stem",
-            "Younger investors are guaranteed to earn higher returns than older investors” belongs to a different situation than the one in the question stem",
+            "Horizon mostly matters for bonds, not for stocks or funds",
+            "Younger investors are guaranteed to earn higher returns than older investors",
             "Having many years before the money is needed gives more time to potentially ride out ups and downs",
-            "Teens should use that advantage to trade frequently and chase short-term price swings” belongs to a different situation than the one in the question stem",
+            "Teens should use that advantage to trade frequently and chase short-term price swings",
           ],
           correctIndex: 2,
           explanation:
@@ -352,10 +352,10 @@ Missing one hype cycle doesn't end your financial life. FOMO trades have ended e
         checkIn: {
           prompt: "Which mindset fits most teens best when it comes to investing?",
           choices: [
-            "Put a portion of the emergency fund into whatever stock is trending that week” belongs to a different situation than the one in the question stem",
+            "Put a portion of the emergency fund into whatever stock is trending that week",
             "Learn concepts, protect short-term cash, and think in long horizons — not tip-driven flipping",
-            "Ignore risk, since younger investors don't really face losses the way adults do” belongs to a different situation than the one in the question stem",
-            "Day trade often, since frequent buying and selling builds good habits early” belongs to a different situation than the one in the question stem",
+            "Ignore risk, since younger investors don't really face losses the way adults do",
+            "Day trade often, since frequent buying and selling builds good habits early",
           ],
           correctIndex: 1,
           explanation:
@@ -392,9 +392,9 @@ Missing one hype cycle doesn't end your financial life. FOMO trades have ended e
       id: "q1",
       question: "Priya has $200 saved for emergencies and considers moving it into a stock fund for 'better growth.' What's the key tradeoff she should weigh?",
       choices: [
-            "There's no real tradeoff — investing and emergency savings serve the same purpose” belongs to a different situation than the one in the question stem",
-            "Moving it is risk-free, since funds are specifically designed to protect emergency cash” belongs to a different situation than the one in the question stem",
-            "She should only move it if the fund guarantees a fixed return” belongs to a different situation than the one in the question stem",
+            "There's no real tradeoff — investing and emergency savings serve the same purpose",
+            "Moving it is risk-free, since funds are specifically designed to protect emergency cash",
+            "She should only move it if the fund guarantees a fixed return",
             "Investing could grow the money more over time, but it could also lose value right when she needs it for an emergency",
           ],
       correctIndex: 3,
@@ -405,10 +405,10 @@ Missing one hype cycle doesn't end your financial life. FOMO trades have ended e
       id: "q2",
       question: "Jamal buys one share of a company through a custodial account. What does that share actually represent?",
       choices: [
-            "A voucher that guarantees free products from the company” belongs to a different situation than the one in the question stem",
+            "A voucher that guarantees free products from the company",
             "A small slice of ownership in the company, with a price that can rise or fall",
             "A loan to the company that pays a fixed interest rate no matter what",
-            "A government-backed savings certificate” belongs to a different situation than the one in the question stem",
+            "A government-backed savings certificate",
           ],
       correctIndex: 1,
       explanation:
@@ -418,8 +418,8 @@ Missing one hype cycle doesn't end your financial life. FOMO trades have ended e
       id: "q3",
       question: "Instead of buying shares in just one company, Zara buys a fund that holds shares in 50 different companies. What is she doing?",
       choices: [
-            "Avoiding all fees that regular stock purchases would normally have” belongs to a different situation than the one in the question stem",
-            "Guaranteeing that her investment will never lose value” belongs to a different situation than the one in the question stem",
+            "Avoiding all fees that regular stock purchases would normally have",
+            "Guaranteeing that her investment will never lose value",
             "Eliminating market risk completely, since no single company can hurt her portfolio",
             "Diversifying — spreading risk across many holdings so one company's failure has less impact",
           ],
@@ -432,9 +432,9 @@ Missing one hype cycle doesn't end your financial life. FOMO trades have ended e
       question: "An online ad claims an investment offers 'huge guaranteed returns with zero risk.' Based on the risk vs. return concept from the lesson, what should that raise?",
       choices: [
             "Suspicion — higher potential returns usually come with higher risk, so 'no risk, high return' is a red flag",
-            "Confidence — some investments truly have no risk once returns are high enough” belongs to a different situation than the one in the question stem",
-            "Relief — this must be a bond, since bonds never carry any risk” belongs to a different situation than the one in the question stem",
-            "Nothing — risk and return aren't actually related to each other” belongs to a different situation than the one in the question stem",
+            "Confidence — some investments truly have no risk once returns are high enough",
+            "Relief — this must be a bond, since bonds never carry any risk",
+            "Nothing — risk and return aren't actually related to each other",
           ],
       correctIndex: 0,
       explanation:
@@ -445,9 +445,9 @@ Missing one hype cycle doesn't end your financial life. FOMO trades have ended e
       question: "A friend's screenshot shows a stock that doubled in a week, and the group chat is hyped to buy in immediately. What's the safest first reaction, based on the lesson?",
       choices: [
             "Pause and ask what you'd actually be buying, and whether you'd still want it if no one else were talking about it",
-            "Assume it's fake, since real prices can never move that quickly” belongs to a different situation than the one in the question stem",
-            "Wait for an even bigger price jump so the eventual gains are guaranteed to be larger” belongs to a different situation than the one in the question stem",
-            "Buy in immediately, since a fast-rising price is proof the investment is safe” belongs to a different situation than the one in the question stem",
+            "Assume it's fake, since real prices can never move that quickly",
+            "Wait for an even bigger price jump so the eventual gains are guaranteed to be larger",
+            "Buy in immediately, since a fast-rising price is proof the investment is safe",
           ],
       correctIndex: 0,
       explanation:
@@ -470,9 +470,9 @@ Missing one hype cycle doesn't end your financial life. FOMO trades have ended e
       id: "q7",
       question: "Instead of trying to guess the perfect moment to buy, some long-term investors put in a similar amount on a regular schedule regardless of price swings. What's the main benefit of this approach?",
       choices: [
-            "“It means investing a large lump sum once and never adding money again” describes a different situation than the one in the question stem",
-            "It only works when prices are rising and fails completely in any other market” belongs to a different situation than the one in the question stem",
-            "“It guarantees a profit no matter what the market does that year” describes a different situation than the one in the question stem",
+            "It means investing a large lump sum once and never adding money again",
+            "It only works when prices are rising and fails completely in any other market",
+            "It guarantees a profit no matter what the market does that year",
             "It removes the pressure of guessing the 'perfect' moment, since reliably timing short-term prices isn't realistic for most people",
           ],
       correctIndex: 3,
@@ -483,9 +483,9 @@ Missing one hype cycle doesn't end your financial life. FOMO trades have ended e
       id: "q8",
       question: "What made the Ferreira family's approach to Noa's college fund sound, according to the case study?",
       choices: [
-            "“They avoided ever discussing the plan together as a family” describes a different situation than the one in the question stem",
-            "They left the cash in the jar permanently instead of ever considering an account” belongs to a different situation than the one in the question stem",
-            "“They chased a hot tip a relative saw trending online” describes a different situation than the one in the question stem",
+            "They avoided ever discussing the plan together as a family",
+            "They left the cash in the jar permanently instead of ever considering an account",
+            "They chased a hot tip a relative saw trending online",
             "They matched the money to a clear multi-year horizon and added to it consistently, without expecting a guaranteed return",
           ],
       correctIndex: 3,

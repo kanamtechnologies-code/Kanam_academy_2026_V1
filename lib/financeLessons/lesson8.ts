@@ -100,7 +100,7 @@ Today's lesson: **Interest, Loans & Debt Traps**.
             "Loan B must have a shorter term, since higher APR always means fewer payments",
             "They can have very different total interest costs even with similar monthly payments",
             "Higher APR just means bigger monthly payments, so the totals should still match",
-            "They'll cost exactly the same in total since the payments match” belongs to a different situation than the one in the question stem",
+            "They'll cost exactly the same in total since the payments match",
           ],
           correctIndex: 1,
           explanation:
@@ -188,10 +188,10 @@ Today's lesson: **Interest, Loans & Debt Traps**.
         checkIn: {
           prompt: "A statement's 'minimum payment warning' box shows it would take 12 years to pay off a balance at the minimum, costing far more than the original purchase. What is this warning highlighting?",
           choices: [
-            "A rare glitch that only affects a small number of accounts” belongs to a different situation than the one in the question stem",
-            "That the card issuer made an error and should be contacted immediately” belongs to a different situation than the one in the question stem",
+            "A rare glitch that only affects a small number of accounts",
+            "That the card issuer made an error and should be contacted immediately",
             "A common danger of paying only the minimum — it can keep you in debt longer and increase total interest paid",
-            "That minimum payments are actually the fastest way to pay off a card” belongs to a different situation than the one in the question stem",
+            "That minimum payments are actually the fastest way to pay off a card",
           ],
           correctIndex: 2,
           explanation:
@@ -250,9 +250,9 @@ Today's lesson: **Interest, Loans & Debt Traps**.
           prompt: "Based on this lesson, which option best helps Priya actually pay down the debt and reduce total interest?",
           choices: [
             "A rushed pass can land on option 3, since more available credit reduces how much she owes”; careful readers reject it for this problem",
-            "“Option 1, since minimums are specifically designed to clear balances quickly” describes a different situation than the one in the question stem",
+            "Option 1, since minimums are specifically designed to clear balances quickly",
             "Option 2, because extra payments on top of the minimum — combined with no new charges — shrink principal faster and cut total interest",
-            "“All three options reduce her total interest by about the same amount” describes a different situation than the one in the question stem",
+            "All three options reduce her total interest by about the same amount",
           ],
           correctIndex: 2,
           explanation:
@@ -312,9 +312,9 @@ If you can't answer those from the paperwork, pause — with a trusted adult if 
         checkIn: {
           prompt: "An $800 BNPL offer is 0% for 6 months, then 24% APR on any remaining balance. You can afford $100/month. What's the risk?",
           choices: [
-            "APR only matters for mortgages, not teen purchases” belongs to a different situation than the one in the question stem",
-            "Paying $100/month always clears any BNPL plan regardless of terms” belongs to a different situation than the one in the question stem",
-            "You'll automatically be fine because 0% means free money” belongs to a different situation than the one in the question stem",
+            "APR only matters for mortgages, not teen purchases",
+            "Paying $100/month always clears any BNPL plan regardless of terms",
+            "You'll automatically be fine because 0% means free money",
             "You may still owe principal when the promo ends, and the higher APR kicks in on what's left",
           ],
           correctIndex: 3,
@@ -332,7 +332,7 @@ If you can't answer those from the paperwork, pause — with a trusted adult if 
           choices: [
             "Principal is what you borrowed, interest is the cost of borrowing, and comparing total cost — not just the monthly payment — is how you avoid debt traps",
             "Treat “BNPL plans never count as real debt as long as there's no listed interest rate” as a distractor: close in topic, incorrect for the required answer",
-            "“Monthly payment size alone tells you everything you need to know about a loan's total cost” describes a different situation than the one in the question stem",
+            "Monthly payment size alone tells you everything you need to know about a loan's total cost",
             "Picking “Paying the minimum every month is the most efficient way to become debt-free” is a common mix-up that confuses a nearby idea with the right one",
           ],
           correctIndex: 0,
@@ -375,9 +375,9 @@ If you can't answer those from the paperwork, pause — with a trusted adult if 
       question: "Which description best fits what \"principal\" means on a loan?",
       choices: [
             "The total interest charged over the life of the loan",
-            "A fee charged for paying off a loan early” belongs to a different situation than the one in the question stem",
+            "A fee charged for paying off a loan early",
             "The amount you borrow, or the remaining balance before interest",
-            "Your credit score at the time you applied” belongs to a different situation than the one in the question stem",
+            "Your credit score at the time you applied",
           ],
       correctIndex: 2,
       explanation:
@@ -387,10 +387,10 @@ If you can't answer those from the paperwork, pause — with a trusted adult if 
       id: "q2",
       question: "You see a BNPL ad: \"4 payments of $25 — no interest!\" Why is understanding APR still useful here?",
       choices: [
-            "“It removes any need to actually repay the $100 total” describes a different situation than the one in the question stem",
+            "It removes any need to actually repay the $100 total",
             "It helps compare the yearly cost of borrowing more clearly, and missed BNPL payments can still carry real costs",
-            "“It's identical to your take-home pay for that period” describes a different situation than the one in the question stem",
-            "It guarantees the plan will always be approved instantly” belongs to a different situation than the one in the question stem",
+            "It's identical to your take-home pay for that period",
+            "It guarantees the plan will always be approved instantly",
           ],
       correctIndex: 1,
       explanation:
@@ -413,10 +413,10 @@ If you can't answer those from the paperwork, pause — with a trusted adult if 
       id: "q4",
       question: "What is a common danger of paying only the credit card minimum?",
       choices: [
-            "It removes the purchase from your credit report” belongs to a different situation than the one in the question stem",
+            "It removes the purchase from your credit report",
             "It guarantees the balance will be paid off within a year",
             "It can keep you in debt longer and increase total interest paid",
-            "It automatically raises your APR every month” belongs to a different situation than the one in the question stem",
+            "It automatically raises your APR every month",
           ],
       correctIndex: 2,
       explanation:
@@ -440,9 +440,9 @@ If you can't answer those from the paperwork, pause — with a trusted adult if 
       question: "Priya has $600 at 24% APR. Which choice most directly reduces her total interest paid?",
       choices: [
             "Paying extra above the minimum each month while not adding new charges",
-            "Waiting for the issuer to lower her APR on its own” belongs to a different situation than the one in the question stem",
+            "Waiting for the issuer to lower her APR on its own",
             "Opening a second card to split the balance across two accounts",
-            "Continuing to pay only the required minimum every month” belongs to a different situation than the one in the question stem",
+            "Continuing to pay only the required minimum every month",
           ],
       correctIndex: 0,
       explanation:
@@ -452,10 +452,10 @@ If you can't answer those from the paperwork, pause — with a trusted adult if 
       id: "q7",
       question: "Which statement about BNPL is most accurate?",
       choices: [
-            "BNPL guarantees your credit score will improve” belongs to a different situation than the one in the question stem",
+            "BNPL guarantees your credit score will improve",
             "BNPL splits purchases into installments — late or stacked plans can create fees and cash-flow stress",
-            "BNPL is only available for purchases under $20” belongs to a different situation than the one in the question stem",
-            "BNPL never has any late fees under any provider” belongs to a different situation than the one in the question stem",
+            "BNPL is only available for purchases under $20",
+            "BNPL never has any late fees under any provider",
           ],
       correctIndex: 1,
       explanation:
@@ -465,9 +465,9 @@ If you can't answer those from the paperwork, pause — with a trusted adult if 
       id: "q8",
       question: "Comparing avalanche, snowball, and minimum-only payoff strategies, which statement is most accurate?",
       choices: [
-            "Snowball always saves more total interest than avalanche” belongs to a different situation than the one in the question stem",
-            "Minimum-only saves the most money as long as you never miss a payment” belongs to a different situation than the one in the question stem",
-            "Avalanche and snowball are just two names for the same exact strategy” belongs to a different situation than the one in the question stem",
+            "Snowball always saves more total interest than avalanche",
+            "Minimum-only saves the most money as long as you never miss a payment",
+            "Avalanche and snowball are just two names for the same exact strategy",
             "Both beat minimum-only; avalanche usually cuts more interest, snowball can motivate",
           ],
       correctIndex: 3,

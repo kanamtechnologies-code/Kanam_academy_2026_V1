@@ -75,9 +75,9 @@ Today's lesson: **What Is AI, Really?**.
           prompt: "A vending machine gives you a soda after you press a button and pay the right amount. Is that AI?",
           choices: [
             "No — it just follows one fixed rule every time; it never learned a pattern from data",
-            "Yes — it 'decided' to give you the soda” belongs to a different situation than the one in the question stem",
-            "Yes — any machine that responds automatically to input counts as AI” belongs to a different situation than the one in the question stem",
-            "It depends on whether the machine tracks which sodas sell best” belongs to a different situation than the one in the question stem",
+            "Yes — it 'decided' to give you the soda",
+            "Yes — any machine that responds automatically to input counts as AI",
+            "It depends on whether the machine tracks which sodas sell best",
           ],
           correctIndex: 0,
           explanation:
@@ -157,8 +157,8 @@ Today's lesson: **What Is AI, Really?**.
           prompt: "A friend says, \"This AI wrote an amazing essay, so it must be smart enough to also perform surgery.\" What's the flaw in that claim?",
           choices: [
             "It wrongly assumes narrow-AI skill at writing transfers to a completely unrelated task like surgery",
-            "The claim is backwards — AI that's good at surgery is usually bad at writing” belongs to a different situation than the one in the question stem",
-            "It's only a problem if the essay covered a medical topic” belongs to a different situation than the one in the question stem",
+            "The claim is backwards — AI that's good at surgery is usually bad at writing",
+            "It's only a problem if the essay covered a medical topic",
             "There's no flaw — any AI that handles language well can be trusted with any complex task",
           ],
           correctIndex: 0,
@@ -209,10 +209,10 @@ Today's lesson: **What Is AI, Really?**.
         checkIn: {
           prompt: "Based on the comparison, which statement is accurate?",
           choices: [
-            "“General AI already matches narrow AI's availability, just with broader skills” describes a different situation than the one in the question stem",
+            "General AI already matches narrow AI's availability, just with broader skills",
             "Narrow AI exists today and specializes in one task; general AI is still hypothetical and would need human-like range and understanding",
-            "The main difference is that narrow AI runs on phones and general AI runs on computers” belongs to a different situation than the one in the question stem",
-            "Narrow AI will automatically turn into general AI once it's trained on enough data” belongs to a different situation than the one in the question stem",
+            "The main difference is that narrow AI runs on phones and general AI runs on computers",
+            "Narrow AI will automatically turn into general AI once it's trained on enough data",
           ],
           correctIndex: 1,
           explanation:
@@ -274,10 +274,10 @@ Today's lesson: **What Is AI, Really?**.
         checkIn: {
           prompt: "Which best explains why the quiz-show AI answered 'Toronto' for a 'U.S. Cities' clue?",
           choices: [
-            "It ran a live internet search mid-question and picked the wrong webpage” belongs to a different situation than the one in the question stem",
+            "It ran a live internet search mid-question and picked the wrong webpage",
             "It matched patterns in its data without truly understanding the category's real-world boundary",
-            "It autocorrected the city name to one it had seen more often in its training data” belongs to a different situation than the one in the question stem",
-            "It secretly knew the answer was wrong but said it anyway” belongs to a different situation than the one in the question stem",
+            "It autocorrected the city name to one it had seen more often in its training data",
+            "It secretly knew the answer was wrong but said it anyway",
           ],
           correctIndex: 1,
           explanation:
@@ -314,10 +314,10 @@ Today's lesson: **What Is AI, Really?**.
       id: "q1",
       question: "Which statement best describes what AI actually is?",
       choices: [
-            "Hardware that must include a robot body to count as AI” belongs to a different situation than the one in the question stem",
+            "Hardware that must include a robot body to count as AI",
             "Software that does tasks that usually need human intelligence by finding patterns in data",
             "Any program that follows only hard-coded if/then rules with no pattern learning",
-            "Software that copies a human brain cell-for-cell so it can feel emotions” belongs to a different situation than the one in the question stem",
+            "Software that copies a human brain cell-for-cell so it can feel emotions",
           ],
       correctIndex: 1,
       explanation:
@@ -353,10 +353,10 @@ Today's lesson: **What Is AI, Really?**.
       id: "q4",
       question: "An AI image recognizer says a photo contains a cat. What does it really 'know'?",
       choices: [
-            "Nothing — it guesses randomly” belongs to a different situation than the one in the question stem",
-            "It understands what a cat is, like you do” belongs to a different situation than the one in the question stem",
+            "Nothing — it guesses randomly",
+            "It understands what a cat is, like you do",
             "It matched visual patterns (ears, whiskers, fur) it learned from many example images",
-            "It asked another human to check” belongs to a different situation than the one in the question stem",
+            "It asked another human to check",
           ],
       correctIndex: 2,
       explanation:
@@ -366,8 +366,8 @@ Today's lesson: **What Is AI, Really?**.
       id: "q5",
       question: "Which of these is the biggest red flag that a headline is overhyping AI?",
       choices: [
-            "It says the tool 'was trained on millions of examples'” belongs to a different situation than the one in the question stem",
-            "It says the tool 'sorts spam from real email'” belongs to a different situation than the one in the question stem",
+            "It says the tool 'was trained on millions of examples'",
+            "It says the tool 'sorts spam from real email'",
             "It says the tool 'understands everything, like a human, across any topic'",
             "It says the tool 'recommends songs based on your listening history'",
           ],
@@ -379,9 +379,9 @@ Today's lesson: **What Is AI, Really?**.
       id: "q6",
       question: "In the Jeopardy mini-case, why did the AI answer 'Toronto' for a 'U.S. Cities' category?",
       choices: [
-            "It ran a live internet search and picked the wrong result” belongs to a different situation than the one in the question stem",
-            "“The question was a trick with no correct answer” describes a different situation than the one in the question stem",
-            "It autocorrected the answer to a city name it had seen more often in training” belongs to a different situation than the one in the question stem",
+            "It ran a live internet search and picked the wrong result",
+            "The question was a trick with no correct answer",
+            "It autocorrected the answer to a city name it had seen more often in training",
             "It matched data patterns loosely connected to the clue, without truly grasping the category's real boundary",
           ],
       correctIndex: 3,
@@ -405,9 +405,9 @@ Today's lesson: **What Is AI, Really?**.
       id: "q8",
       question: "Before trusting a big AI claim, the two-question hype detector asks you to consider what?",
       choices: [
-            "How many downloads the app has” belongs to a different situation than the one in the question stem",
-            "The brand name and the price only” belongs to a different situation than the one in the question stem",
-            "Whether the AI has a friendly-sounding name” belongs to a different situation than the one in the question stem",
+            "How many downloads the app has",
+            "The brand name and the price only",
+            "Whether the AI has a friendly-sounding name",
             "The specific task the AI is doing, and who benefits if you believe the hype",
           ],
       correctIndex: 3,

@@ -161,8 +161,8 @@ export const lesson12: PythonLessonConfig = {
         checkIn: {
           prompt: "Inside a function, where must the if/else statements and their print lines be placed?",
           choices: [
-            "Anywhere in the file — indentation doesn't matter” belongs to a different situation than the one in the question stem",
-            "Only after the function is called” belongs to a different situation than the one in the question stem",
+            "Anywhere in the file — indentation doesn't matter",
+            "Only after the function is called",
             "Indented inside the function, with each branch's print further indented",
           ],
           correctIndex: 2,
@@ -181,9 +181,9 @@ export const lesson12: PythonLessonConfig = {
         checkIn: {
           prompt: 'What does `enemy == "dragon"` do?',
           choices: [
-            "Stores the text \"dragon\" into enemy” belongs to a different situation than the one in the question stem",
+            "Stores the text \"dragon\" into enemy",
             "Checks whether enemy already equals \"dragon\", returning True or False",
-            "Deletes the enemy variable” belongs to a different situation than the one in the question stem",
+            "Deletes the enemy variable",
           ],
           correctIndex: 1,
           explanation: "== is a comparison, not an assignment. It checks whether the two values are equal and returns True or False.",
@@ -207,8 +207,8 @@ export const lesson12: PythonLessonConfig = {
           prompt: "In a parameterized function with if/else rules, what decides which branch runs?",
           choices: [
             "The condition, evaluated against the parameter's current value",
-            "The function randomly picks one” belongs to a different situation than the one in the question stem",
-            "Whichever branch is written first always runs” belongs to a different situation than the one in the question stem",
+            "The function randomly picks one",
+            "Whichever branch is written first always runs",
           ],
           correctIndex: 0,
           explanation: "The if condition is checked against the parameter's value for that specific call — that comparison result determines which branch executes.",
@@ -271,8 +271,8 @@ export const lesson12: PythonLessonConfig = {
         checkIn: {
           prompt: "Your function always prints the if-branch message, even when you expect the else-branch to run. What should you check first?",
           choices: [
-            "Whether the function has too many parameters” belongs to a different situation than the one in the question stem",
-            "Whether Python needs to be reinstalled” belongs to a different situation than the one in the question stem",
+            "Whether the function has too many parameters",
+            "Whether Python needs to be reinstalled",
             "Whether the condition uses == (comparison) correctly, not = (assignment) or a typo",
           ],
           correctIndex: 2,
@@ -300,9 +300,9 @@ export const lesson12: PythonLessonConfig = {
         checkIn: {
           prompt: "Why should `else` be the last branch inside a function?",
           choices: [
-            "else is optional and rarely needed” belongs to a different situation than the one in the question stem",
+            "else is optional and rarely needed",
             "else matches everything not caught above — putting it first would catch all inputs",
-            "Python requires else to be last” belongs to a different situation than the one in the question stem",
+            "Python requires else to be last",
           ],
           correctIndex: 1,
           explanation: "else is the catch-all fallback. If it came first, every input would hit it and no other branch would ever run.",
@@ -353,8 +353,8 @@ export const lesson12: PythonLessonConfig = {
         checkIn: {
           prompt: "Who decides what an if/else rule checks and does — the program or the human who wrote it?",
           choices: [
-            "The program decides on its own” belongs to a different situation than the one in the question stem",
-            "Neither — it's random” belongs to a different situation than the one in the question stem",
+            "The program decides on its own",
+            "Neither — it's random",
             "The human who wrote the code — the program just follows the rule exactly",
           ],
           correctIndex: 2,

@@ -58,10 +58,10 @@ const questions: ApCspExamQuestion[] = [
     topic: "Digital divide",
     stem: "The term \"digital divide\" most directly refers to which of the following?",
     choices: [
-            "The difference between analog and digital data” belongs to a different situation than the one in the question stem",
+            "The difference between analog and digital data",
             "Unequal access to computing devices and the Internet among different groups of people.",
-            "The distinction between lossy and lossless compression” belongs to a different situation than the one in the question stem",
-            "The gap between the binary and decimal number systems” belongs to a different situation than the one in the question stem",
+            "The distinction between lossy and lossless compression",
+            "The gap between the binary and decimal number systems",
           ],
     correctIndexes: [1],
     explanation:
@@ -73,10 +73,10 @@ const questions: ApCspExamQuestion[] = [
     topic: "Collaboration",
     stem: "Which of the following best describes a benefit of collaboration when developing a computing innovation?",
     choices: [
-            "It removes the need to test the program before release” belongs to a different situation than the one in the question stem",
-            "It guarantees the finished program will contain no logic errors” belongs to a different situation than the one in the question stem",
+            "It removes the need to test the program before release",
+            "It guarantees the finished program will contain no logic errors",
             "It brings together multiple perspectives, which can help surface problems and reduce bias in the design.",
-            "It ensures the program will run faster on every device” belongs to a different situation than the one in the question stem",
+            "It ensures the program will run faster on every device",
           ],
     correctIndexes: [2],
     explanation:
@@ -88,10 +88,10 @@ const questions: ApCspExamQuestion[] = [
     topic: "Overflow error",
     stem: "A system stores unsigned integers using 4 bits, so it can represent values from 0 to 15. A program computes 13 + 5 and tries to store the result in this 4-bit space. Which of the following best describes what happens?",
     choices: [
-            "The value 18 is stored exactly” belongs to a different situation than the one in the question stem",
-            "The bits switch to representing decimal fractions” belongs to a different situation than the one in the question stem",
+            "The value 18 is stored exactly",
+            "The bits switch to representing decimal fractions",
             "An overflow error occurs because 18 cannot be represented in 4 bits.",
-            "The value is automatically rounded to 15” belongs to a different situation than the one in the question stem",
+            "The value is automatically rounded to 15",
           ],
     correctIndexes: [2],
     explanation:
@@ -114,9 +114,9 @@ const questions: ApCspExamQuestion[] = [
     stem: "What is the primary role of the Domain Name System (DNS)?",
     choices: [
             "To translate human-readable domain names (such as example.com) into IP addresses.",
-            "To detect and correct overflow errors in stored numbers” belongs to a different situation than the one in the question stem",
-            "To encrypt the data sent between a browser and a server” belongs to a different situation than the one in the question stem",
-            "To break outgoing messages into packets” belongs to a different situation than the one in the question stem",
+            "To detect and correct overflow errors in stored numbers",
+            "To encrypt the data sent between a browser and a server",
+            "To break outgoing messages into packets",
           ],
     correctIndexes: [0],
     explanation:
@@ -128,9 +128,9 @@ const questions: ApCspExamQuestion[] = [
     topic: "Personally identifiable information (PII)",
     stem: "Which of the following is the clearest example of personally identifiable information (PII)?",
     choices: [
-            "The current outdoor temperature” belongs to a different situation than the one in the question stem",
-            "The number of pixels in a photograph” belongs to a different situation than the one in the question stem",
-            "A country's total population” belongs to a different situation than the one in the question stem",
+            "The current outdoor temperature",
+            "The number of pixels in a photograph",
+            "A country's total population",
             "A user's Social Security number combined with their home address.",
           ],
     correctIndexes: [3],
@@ -143,10 +143,10 @@ const questions: ApCspExamQuestion[] = [
     topic: "Testing does not prove correctness",
     stem: "A programmer runs her program on 20 different inputs, and each time it produces the correct output. What can she correctly conclude?",
     choices: [
-            "The program contains no logic errors of any kind” belongs to a different situation than the one in the question stem",
+            "The program contains no logic errors of any kind",
             "The program worked correctly for those 20 tested inputs, but untested inputs could still reveal errors.",
-            "Testing is now unnecessary because the program already works” belongs to a different situation than the one in the question stem",
-            "The program is guaranteed to be correct for every possible input” belongs to a different situation than the one in the question stem",
+            "Testing is now unnecessary because the program already works",
+            "The program is guaranteed to be correct for every possible input",
           ],
     correctIndexes: [1],
     explanation:
@@ -158,9 +158,9 @@ const questions: ApCspExamQuestion[] = [
     topic: "Lossless vs. lossy compression",
     stem: "A photographer needs to reduce the file size of a set of images to email them, but it is essential that each image can later be restored to be exactly identical to the original. Which type of compression should be used?",
     choices: [
-            "Neither, because compression always permanently discards data” belongs to a different situation than the one in the question stem",
-            "Lossy compression, because it always produces the smallest files” belongs to a different situation than the one in the question stem",
-            "Either type, since both fully restore the original data” belongs to a different situation than the one in the question stem",
+            "Neither, because compression always permanently discards data",
+            "Lossy compression, because it always produces the smallest files",
+            "Either type, since both fully restore the original data",
             "Lossless compression, because the original data can be perfectly reconstructed.",
           ],
     correctIndexes: [3],
@@ -184,9 +184,9 @@ const questions: ApCspExamQuestion[] = [
     stem: "A user notices that a website's address begins with \"https\" and shows a padlock icon in the browser. Which of the following is the best conclusion?",
     choices: [
             "Data exchanged with the site is encrypted, and a certificate authority has verified the site's certificate.",
-            "The website is guaranteed to be completely free of malware” belongs to a different situation than the one in the question stem",
-            "The website will always load faster than an \"http\" site” belongs to a different situation than the one in the question stem",
-            "The website is legally prohibited from collecting any personal information” belongs to a different situation than the one in the question stem",
+            "The website is guaranteed to be completely free of malware",
+            "The website will always load faster than an \"http\" site",
+            "The website is legally prohibited from collecting any personal information",
           ],
     correctIndexes: [0],
     explanation:
@@ -228,8 +228,8 @@ const questions: ApCspExamQuestion[] = [
     topic: "Intellectual property and copyright",
     stem: "A student wants to include a popular song as background music in a video they plan to post publicly. Which of the following is the most appropriate action regarding intellectual property?",
     choices: [
-            "Use the song freely, because anything found online is in the public domain” belongs to a different situation than the one in the question stem",
-            "Use the song as long as the video is under one minute long” belongs to a different situation than the one in the question stem",
+            "Use the song freely, because anything found online is in the public domain",
+            "Use the song as long as the video is under one minute long",
             "Obtain permission or use music licensed for reuse, because the song is protected by copyright.",
             "Use the song because giving credit in the description removes all copyright restrictions.",
           ],
@@ -254,9 +254,9 @@ const questions: ApCspExamQuestion[] = [
     stem: "A developer releases their program under an open-source license, and an artist releases photos under a Creative Commons license that permits reuse with attribution. What do these licenses have in common?",
     choices: [
             "They let creators grant others certain rights to use, share, or build on their work under stated conditions.",
-            "“They make the works impossible to modify” describes a different situation than the one in the question stem",
-            "They transfer ownership of the work to whoever downloads it” belongs to a different situation than the one in the question stem",
-            "They remove all responsibility to credit the original creator” belongs to a different situation than the one in the question stem",
+            "They make the works impossible to modify",
+            "They transfer ownership of the work to whoever downloads it",
+            "They remove all responsibility to credit the original creator",
           ],
     correctIndexes: [0],
     explanation:
@@ -278,9 +278,9 @@ const questions: ApCspExamQuestion[] = [
     topic: "Data collection tradeoffs",
     stem: "A free navigation app collects users' real-time location data to provide accurate traffic predictions. Which of the following best describes a tradeoff of this design?",
     choices: [
-            "It has no downsides because the app is free to use” belongs to a different situation than the one in the question stem",
-            "It eliminates the need for the app to connect to the Internet” belongs to a different situation than the one in the question stem",
-            "It guarantees that the collected data can never be misused” belongs to a different situation than the one in the question stem",
+            "It has no downsides because the app is free to use",
+            "It eliminates the need for the app to connect to the Internet",
+            "It guarantees that the collected data can never be misused",
             "It improves traffic predictions but raises privacy concerns about how location data is stored and shared.",
           ],
     correctIndexes: [3],
@@ -314,8 +314,8 @@ const questions: ApCspExamQuestion[] = [
     stem: "A sorted list contains 1,000 elements. Which statement best compares linear search and binary search on this list?",
     choices: [
             "Binary search can find a target in far fewer steps because it repeatedly halves the portion of the list still being searched.",
-            "“Both algorithms take the same number of steps in the worst case” describes a different situation than the one in the question stem",
-            "Linear search is always faster because it does not require the list to be sorted” belongs to a different situation than the one in the question stem",
+            "Both algorithms take the same number of steps in the worst case",
+            "Linear search is always faster because it does not require the list to be sorted",
             "Binary search only works correctly on unsorted lists. That option sounds confident, but it leaves out the deciding constraint",
           ],
     correctIndexes: [0],
@@ -328,9 +328,9 @@ const questions: ApCspExamQuestion[] = [
     topic: "Heuristics",
     stem: "For some problems, computing an exact optimal solution would take an unreasonable amount of time. In this context, a heuristic is best described as",
     choices: [
-            "a proof that a problem can never be solved by any algorithm” belongs to a different situation than the one in the question stem",
-            "an approach that is always guaranteed to produce the optimal solution” belongs to a different situation than the one in the question stem",
-            "“a technique for storing data using fewer bits” describes a different situation than the one in the question stem",
+            "a proof that a problem can never be solved by any algorithm",
+            "an approach that is always guaranteed to produce the optimal solution",
+            "a technique for storing data using fewer bits",
             "an approach that may produce a good-enough (but not guaranteed optimal) solution in a reasonable amount of time.",
           ],
     correctIndexes: [3],

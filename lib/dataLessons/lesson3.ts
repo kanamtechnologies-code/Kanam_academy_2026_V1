@@ -105,7 +105,7 @@ export const daLesson3: DataLessonConfig = {
           choices: [
             "2 rows — one per student",
             "1 row — the combo is identical",
-            "0 rows” belongs to a different situation than the one in the question stem",
+            "0 rows",
           ],
           correctIndex: 1,
           explanation: "DISTINCT checks the full combination of selected columns. If item AND price match exactly, it's treated as one repeated combo and shown once.",

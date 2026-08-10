@@ -92,10 +92,10 @@ Today's lesson: **CIA Triad, Auth & Tradeoffs**.
         checkIn: {
           prompt: "A student logs in successfully but sees \"Access denied\" when trying to edit the master gradebook. What just happened?",
           choices: [
-            "Authentication failed” belongs to a different situation than the one in the question stem",
+            "Authentication failed",
             "Authentication succeeded; authorization denied that specific action",
-            "The CIA Triad does not apply here” belongs to a different situation than the one in the question stem",
-            "The password was too short” belongs to a different situation than the one in the question stem",
+            "The CIA Triad does not apply here",
+            "The password was too short",
           ],
           correctIndex: 1,
           explanation:
@@ -141,9 +141,9 @@ Today's lesson: **CIA Triad, Auth & Tradeoffs**.
           prompt: "In the worked example, why can't Sam click \"delete entire event\" even after logging in successfully?",
           choices: [
             "Because Sam's role doesn't include that authorization, even though authentication succeeded",
-            "Because MFA blocks all button clicks” belongs to a different situation than the one in the question stem",
-            "“Because authentication failed” describes a different situation than the one in the question stem",
-            "Because the CIA Triad prevents all deletions everywhere” belongs to a different situation than the one in the question stem",
+            "Because MFA blocks all button clicks",
+            "Because authentication failed",
+            "Because the CIA Triad prevents all deletions everywhere",
           ],
           correctIndex: 0,
           explanation:
@@ -254,8 +254,8 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
           choices: [
             "Deny it and then review account activity through the official app or site",
             "Reply to the notification with your password to prove it's you",
-            "Ignore it completely without checking anything” belongs to a different situation than the one in the question stem",
-            "Approve it so the notifications stop” belongs to a different situation than the one in the question stem",
+            "Ignore it completely without checking anything",
+            "Approve it so the notifications stop",
           ],
           correctIndex: 0,
           explanation:
@@ -270,10 +270,10 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
         checkIn: {
           prompt: "Why is it risky to leave an account logged in (an active session) on a shared device instead of logging out?",
           choices: [
-            "Sessions automatically log out after any inactivity, so it's never a concern” belongs to a different situation than the one in the question stem",
+            "Sessions automatically log out after any inactivity, so it's never a concern",
             "Only admin accounts have sessions worth worrying about. That option sounds confident, but it leaves out the deciding constraint",
             "The next person to use the device may inherit that session's authentication and authorization without ever entering a password",
-            "“It isn't risky — sessions can't be misused by someone else” describes a different situation than the one in the question stem",
+            "It isn't risky — sessions can't be misused by someone else",
           ],
           correctIndex: 2,
           explanation:
@@ -314,7 +314,7 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
       question: "Which scenario is mainly an Availability problem?",
       choices: [
             "Someone changes numbers in a shared budget spreadsheet",
-            "You enable MFA on your email” belongs to a different situation than the one in the question stem",
+            "You enable MFA on your email",
             "The scholarship portal is down on the submission deadline",
             "A classmate reads your private essay without permission",
           ],
@@ -329,7 +329,7 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
             "Password + authenticator app codes — strong everyday protection with moderate friction; reserve hardware keys if the account controls money",
             "Push approve with a rule to always tap Approve so prompts stop faster — familiar wording, wrong fit for what the prompt is actually asking",
             "Some learners answer “SMS only forever — it is always as strong as a hardware key”, yet that does not match the precise idea from the lesson",
-            "“Password only — MFA always blocks legitimate officers from Availability” describes a different situation than the one in the question stem",
+            "Password only — MFA always blocks legitimate officers from Availability",
           ],
       correctIndex: 0,
       explanation:
@@ -379,9 +379,9 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
       question: "What is \"prompt bombing\"?",
       choices: [
             "Repeatedly sending MFA approval requests, hoping annoyance leads someone to tap Approve",
-            "A required step to make MFA stronger on purpose” belongs to a different situation than the one in the question stem",
-            "A method for generating strong, unique passwords” belongs to a different situation than the one in the question stem",
-            "A type of firewall rule that blocks suspicious logins” belongs to a different situation than the one in the question stem",
+            "A required step to make MFA stronger on purpose",
+            "A method for generating strong, unique passwords",
+            "A type of firewall rule that blocks suspicious logins",
           ],
       correctIndex: 0,
       explanation:
@@ -392,9 +392,9 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
       question: "Compared to a push approval prompt, why is a hardware security key generally considered stronger MFA?",
       choices: [
             "It requires physical possession, so it can't be approved accidentally out of annoyance",
-            "It is always free and comes built into every device” belongs to a different situation than the one in the question stem",
-            "It never needs to be plugged in or tapped to work” belongs to a different situation than the one in the question stem",
-            "It removes the need for a password entirely on every system” belongs to a different situation than the one in the question stem",
+            "It is always free and comes built into every device",
+            "It never needs to be plugged in or tapped to work",
+            "It removes the need for a password entirely on every system",
           ],
       correctIndex: 0,
       explanation:
@@ -404,10 +404,10 @@ The trap to avoid: clicking "secure your account" inside the alert itself before
       id: "q8",
       question: "Why is it more useful to compare security measures than to just list their definitions?",
       choices: [
-            "Because listing definitions is more useful than reasoning about tradeoffs” belongs to a different situation than the one in the question stem",
+            "Because listing definitions is more useful than reasoning about tradeoffs",
             "Because real security decisions involve tradeoffs between usability and protection, which requires comparison, not memorization",
-            "“Because comparisons are only relevant to professional IT staff” describes a different situation than the one in the question stem",
-            "“Because every security measure is equally strong in every situation” describes a different situation than the one in the question stem",
+            "Because comparisons are only relevant to professional IT staff",
+            "Because every security measure is equally strong in every situation",
           ],
       correctIndex: 1,
       explanation:

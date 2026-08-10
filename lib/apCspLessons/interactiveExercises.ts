@@ -33,9 +33,9 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"On a collaborative project, each person should work in isolation until the deadline, then paste everything together. Documentation is optional because the code is self-explanatory. Feedback only matters after the final version ships."',
       choices: [
-            "“Isolation is required by College Board so each student gets unique credit” describes a different situation than the one in the question stem",
+            "Isolation is required by College Board so each student gets unique credit",
             "Picking “Documentation is banned because it counts as outside help” is a common mix-up that confuses a nearby idea with the right one",
-            "“Feedback after shipping is the only feedback College Board recognizes” describes a different situation than the one in the question stem",
+            "Feedback after shipping is the only feedback College Board recognizes",
             "Effective collaboration needs shared goals, early integration, ongoing feedback, and documentation of decisions — not last-minute glue",
           ],
       correctIndex: 3,
@@ -181,10 +181,10 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         '"My program\'s purpose is that I used nested if statements and a for loop. Those constructs prove the project is complete because College Board mainly grades syntax variety."',
       choices: [
-            "“Purpose must always be written as a list of Python keywords” describes a different situation than the one in the question stem",
+            "Purpose must always be written as a list of Python keywords",
             "Purpose is the user-facing goal/problem solved; constructs are implementation — syntax variety alone does not define purpose",
             "A rushed pass can land on college Board only scores font choice in screenshots”; careful readers reject it for this problem",
-            "“Nested ifs automatically satisfy every Create PT requirement” describes a different situation than the one in the question stem",
+            "Nested ifs automatically satisfy every Create PT requirement",
           ],
       correctIndex: 1,
       hint: "Purpose answers why the program exists for a user — not which keywords you typed.",
@@ -260,7 +260,7 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         '"The binary number 1011 equals 1+0+1+1 = 3 in decimal because you add the digits. Also, 8 bits can represent exactly 8 different values."',
       choices: [
             "It can seem like binary digits are always added, so 1011 really is 3, but that reading skips the distinction this question is testing",
-            "“Decimal and binary are identical number systems, so conversion is unnecessary” describes a different situation than the one in the question stem",
+            "Decimal and binary are identical number systems, so conversion is unnecessary",
             "Binary place values are powers of 2 (1011₂ = 11₁₀), and n bits represent 2ⁿ distinct values (8 bits → 256), not 'sum the digits' or 'n values'",
             "Picking “8 bits always means exactly 8 values because each bit is one value” is a common mix-up that confuses a nearby idea with the right one",
           ],
@@ -473,9 +473,9 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         '"In AP CSP pseudocode, (true OR <anything>) is always false because OR means both sides must be true. Also, = and ≠ are the only relational operators you need because < and > are not used in programming."',
       choices: [
             "OR is true if either side is true (true OR x → true); relational operators include <, >, ≤, ≥, =, ≠",
-            "Boolean expressions can never appear in conditionals” belongs to a different situation than the one in the question stem",
-            "Relational comparisons are illegal in AP CSP” belongs to a different situation than the one in the question stem",
-            "OR really does require both sides true; that part is correct” belongs to a different situation than the one in the question stem",
+            "Boolean expressions can never appear in conditionals",
+            "Relational comparisons are illegal in AP CSP",
+            "OR really does require both sides true; that part is correct",
           ],
       correctIndex: 0,
       hint: "OR vs AND truth conditions — and which comparisons exist.",
@@ -537,10 +537,10 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "def passed(score):\n    # Spec: pass if score is 60 through 100 inclusive\n    if score > 60 and score < 100:\n        return True\n    return False\n# Fails for score = 60 and score = 100",
       choices: [
-            "Parameters are illegal inside procedures on the AP exam” belongs to a different situation than the one in the question stem",
-            "Comparison operators cannot be combined with and” belongs to a different situation than the one in the question stem",
+            "Parameters are illegal inside procedures on the AP exam",
+            "Comparison operators cannot be combined with and",
             "Boundary operators are wrong — need score >= 60 and score <= 100 (inclusive endpoints)",
-            "The function should never return False” belongs to a different situation than the one in the question stem",
+            "The function should never return False",
           ],
       correctIndex: 2,
       hint: "Inclusive ranges need ≥ and ≤, not strict inequalities.",
@@ -618,10 +618,10 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       buggyContent:
         "i ← 1\nREPEAT UNTIL (i > 5)\n{\n  DISPLAY i\n  // forgot to change i\n}",
       choices: [
-            "REPEAT UNTIL is illegal in AP CSP pseudocode” belongs to a different situation than the one in the question stem",
-            "UNTIL loops run exactly once by definition” belongs to a different situation than the one in the question stem",
+            "REPEAT UNTIL is illegal in AP CSP pseudocode",
+            "UNTIL loops run exactly once by definition",
             "The loop condition never becomes true because i is never updated toward 6",
-            "DISPLAY always resets i to 0” belongs to a different situation than the one in the question stem",
+            "DISPLAY always resets i to 0",
           ],
       correctIndex: 2,
       hint: "What must change for (i > 5) to become true?",

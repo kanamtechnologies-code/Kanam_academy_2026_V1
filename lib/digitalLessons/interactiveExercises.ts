@@ -104,9 +104,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         'Folder: Desktop\nessay_FINAL_FINAL2 (no extension showing)\nHabit: "I only hit Save, never Save As. I renamed .docx to .jpg so it looks smaller. Cloud backup? I\'ll do it the night before it\'s due."',
       choices: [
             "Wrong/missing extensions break opening; Save As helps versions; last-minute backup is risky",
-            "Cloud backups make file extensions unnecessary” belongs to a different situation than the one in the question stem",
-            "Save As deletes the original every time, so never use it” belongs to a different situation than the one in the question stem",
-            "Desktop folders can't hold documents, only images” belongs to a different situation than the one in the question stem",
+            "Cloud backups make file extensions unnecessary",
+            "Save As deletes the original every time, so never use it",
+            "Desktop folders can't hold documents, only images",
           ],
       correctIndex: 0,
       hint: "What does the extension tell the computer — and when do backups actually help?",
@@ -166,9 +166,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         'Query: best phones ever!!!! buy now cheap???\nSettings: first result only, ignore date and site filters\nRule: "If it\'s #1 on the page, it must be the most trustworthy source."',
       choices: [
-            "The #1 result is legally required to be peer-reviewed” belongs to a different situation than the one in the question stem",
-            "Search engines ban all filters, so the plan is fine” belongs to a different situation than the one in the question stem",
-            "Exclamation marks always improve academic results” belongs to a different situation than the one in the question stem",
+            "The #1 result is legally required to be peer-reviewed",
+            "Search engines ban all filters, so the plan is fine",
+            "Exclamation marks always improve academic results",
             "Vague hype keywords + trusting rank alone; use precise terms, filters, and source checks",
           ],
       correctIndex: 3,
@@ -231,10 +231,10 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         'Post: shocking health claim with a dramatic screenshot\nCheck: "The site has a logo and a Comments section, so it\'s legit. I only read that one page. If it feels true, I share it to warn people."',
       choices: [
-            "Screenshots can't be faked, so no further check is needed” belongs to a different situation than the one in the question stem",
-            "Comments sections are peer review equal to scientific journals” belongs to a different situation than the one in the question stem",
+            "Screenshots can't be faked, so no further check is needed",
+            "Comments sections are peer review equal to scientific journals",
             "Feeling + one page isn't enough — use lateral reading and source credibility checks",
-            "Sharing first always helps fact-checkers find the truth faster” belongs to a different situation than the one in the question stem",
+            "Sharing first always helps fact-checkers find the truth faster",
           ],
       correctIndex: 2,
       hint: "What do professional fact-checkers do that staying on one page doesn't?",
@@ -297,10 +297,10 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Subject: hey\n\nyo can u fix my schedule rn thx\n-sent from my phone",
       choices: [
-            "Emails to staff must be handwritten, never typed” belongs to a different situation than the one in the question stem",
+            "Emails to staff must be handwritten, never typed",
             "Missing clear subject, greeting, context, and respectful tone for a professional ask",
-            "Subject lines are illegal to customize in school systems” belongs to a different situation than the one in the question stem",
-            "Sign-offs are only allowed if you attach a résumé” belongs to a different situation than the one in the question stem",
+            "Subject lines are illegal to customize in school systems",
+            "Sign-offs are only allowed if you attach a résumé",
           ],
       correctIndex: 1,
       hint: "Would you send this to someone deciding a recommendation letter?",
@@ -360,10 +360,10 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Doc: Senior Capstone — grades & private feedback notes\nLink: Anyone with the link → Editor\nPosted the link in a public class Discord\nNo owner assigned; comments disabled; version history ignored after a wipe",
       choices: [
-            "Public edit links are required for all school assignments” belongs to a different situation than the one in the question stem",
-            "Comments always delete the document, so disabling them was correct” belongs to a different situation than the one in the question stem",
+            "Public edit links are required for all school assignments",
+            "Comments always delete the document, so disabling them was correct",
             "Over-broad edit access on sensitive content; tighten permissions and use comments/history",
-            "Shared docs can never use version history, so the wipe was unavoidable” belongs to a different situation than the one in the question stem",
+            "Shared docs can never use version history, so the wipe was unavoidable",
           ],
       correctIndex: 2,
       hint: "Who can edit — and should strangers reshape private notes?",
@@ -429,7 +429,7 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       choices: [
             "Private stories automatically wipe every copy on every device worldwide",
             "Screenshots, tags, archives, and search can preserve content beyond your feed",
-            "Employers are legally banned from ever viewing social media” belongs to a different situation than the one in the question stem",
+            "Employers are legally banned from ever viewing social media",
             "Only email addresses form a digital footprint, not photos or comments",
           ],
       correctIndex: 1,
@@ -496,7 +496,7 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       choices: [
             "Logging off permanently is the required first step for every target",
             "Platforms ban all reporting features, so the plan is the only option",
-            "Fake accounts are always harmless because names aren't real” belongs to a different situation than the one in the question stem",
+            "Fake accounts are always harmless because names aren't real",
             "Ignoring + public mockery worsens harm; support, document, and report instead",
           ],
       correctIndex: 3,
@@ -557,10 +557,10 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Title in light yellow on white\nBody: tiny decorative font in one long text box\nChart: red vs green only, no labels\nImages: generic alt text; auto-captions never checked\nCreator note: \"It works on my laptop, so the audience can adapt.\"",
       choices: [
-            "Alt text is only for printed posters, never digital slides” belongs to a different situation than the one in the question stem",
-            "Accessibility tools ban the use of any images in school work” belongs to a different situation than the one in the question stem",
+            "Alt text is only for printed posters, never digital slides",
+            "Accessibility tools ban the use of any images in school work",
             "Poor contrast, weak structure, color-only meaning, and untested alternatives create an equity deficit",
-            "Decorative fonts always improve readability for every reader” belongs to a different situation than the one in the question stem",
+            "Decorative fonts always improve readability for every reader",
           ],
       correctIndex: 2,
       hint: "Who gets left out when contrast, size, and descriptions are ignored?",
@@ -683,10 +683,10 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "From: support@micr0soft-security-alert.com\nSubject: URGENT: account locked in 1 hour!!!\nBody: Click http://bit.ly/fix-now-paypa1 to verify password and SSN or lose access.\nStudent plan: \"It looks official and scary, so I'll enter everything on the link.\"",
       choices: [
-            "Misspelled domains prove a message is extra authentic” belongs to a different situation than the one in the question stem",
-            "Bitly links are always run by the companies named in the subject” belongs to a different situation than the one in the question stem",
+            "Misspelled domains prove a message is extra authentic",
+            "Bitly links are always run by the companies named in the subject",
             "Urgency, weird domain, shortened link, and asking for password/SSN — classic phishing",
-            "Real security teams always demand your SSN by email within one hour” belongs to a different situation than the one in the question stem",
+            "Real security teams always demand your SSN by email within one hour",
           ],
       correctIndex: 2,
       hint: "Who benefits if you type your password into a rushed link?",
@@ -750,9 +750,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Wellness app: collects mood, sleep, precise location, contacts, and full browsing history forever\nPolicy: one long consent screen; data may be shared with unnamed partners\nAttitude: \"The service might help, so more data is always better.\"",
       choices: [
-            "Accepting all cookies deletes your data from advertisers” belongs to a different situation than the one in the question stem",
-            "Flashlight apps legally require contacts and always-on location” belongs to a different situation than the one in the question stem",
-            "Posting vacation dates publicly always improves home security” belongs to a different situation than the one in the question stem",
+            "Accepting all cookies deletes your data from advertisers",
+            "Flashlight apps legally require contacts and always-on location",
+            "Posting vacation dates publicly always improves home security",
             "The proposal ignores necessity, meaningful consent, retention, and risks from linking sensitive data",
           ],
       correctIndex: 3,
@@ -817,8 +817,8 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Goal: better sleep and less comparison stress\nPlan: scroll in bed until 2 a.m. \"to relax,\" keep all notifications on overnight, measure self-worth by likes, delete nothing — \"discipline alone will fix it without changing settings.\"",
       choices: [
-            "“Phone chargers in bed are required for healthy circadian rhythm” describes a different situation than the one in the question stem",
-            "“Notifications improve deep sleep by keeping the brain alert” describes a different situation than the one in the question stem",
+            "Phone chargers in bed are required for healthy circadian rhythm",
+            "Notifications improve deep sleep by keeping the brain alert",
             "Comparing likes is proven to increase REM sleep. That option sounds confident, but it leaves out the deciding constraint",
             "It treats all use as harmful and never identifies the desired benefit, context, or evidence for whether a strategy works",
           ],
@@ -880,9 +880,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
       buggyContent:
         "Symptom: one website won't load; others work; phone on same Wi-Fi loads it fine\nActions taken in 30 seconds: delete random system folders, install three \"optimizer\" apps, change every setting at once, restart nothing, write down nothing\nConclusion: \"The internet is permanently broken.\"",
       choices: [
-            "Phones and laptops can never share the same Wi-Fi network” belongs to a different situation than the one in the question stem",
-            "If one site fails, every network worldwide is offline” belongs to a different situation than the one in the question stem",
-            "Optimizer apps are always the first required step for any error” belongs to a different situation than the one in the question stem",
+            "Phones and laptops can never share the same Wi-Fi network",
+            "If one site fails, every network worldwide is offline",
+            "Optimizer apps are always the first required step for any error",
             "No isolation or one-change-at-a-time method; evidence points to a browser/device issue",
           ],
       correctIndex: 3,
@@ -944,9 +944,9 @@ export const DIGITAL_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = 
         "Internship Slack/email style: leave managers on read for days, send \"idk lol\" as status updates, join Zoom muted with no camera and a chaotic background, track hours in a messy personal note with no shared sheet\nPublic LinkedIn: party photos as banner, email is partyking2009@...",
       choices: [
             "Unprofessional presence and unreliable communication break trust on remote teams",
-            "Managers prefer unread messages as a sign of focus” belongs to a different situation than the one in the question stem",
-            "Shared spreadsheets are banned in modern workplaces” belongs to a different situation than the one in the question stem",
-            "\"idk lol\" is the standard status format in most offices” belongs to a different situation than the one in the question stem",
+            "Managers prefer unread messages as a sign of focus",
+            "Shared spreadsheets are banned in modern workplaces",
+            "\"idk lol\" is the standard status format in most offices",
           ],
       correctIndex: 0,
       hint: "What would a supervisor infer about reliability from this pattern?",

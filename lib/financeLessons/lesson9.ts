@@ -98,9 +98,9 @@ Today's lesson: **Saving & Compound Growth**.
           prompt: "Riley and Sam each save $25 a month in the same type of account, but Riley started freshman year and Sam started senior year. Why is Riley likely to end up ahead?",
           choices: [
             "Riley has more years for interest to build on both the deposits and the interest already earned",
-            "There's no real advantage as long as both deposit the same monthly amount” belongs to a different situation than the one in the question stem",
-            "Riley's deposits count double compared to Sam's” belongs to a different situation than the one in the question stem",
-            "Riley's bank gives an automatic bonus rate to younger savers” belongs to a different situation than the one in the question stem",
+            "There's no real advantage as long as both deposit the same monthly amount",
+            "Riley's deposits count double compared to Sam's",
+            "Riley's bank gives an automatic bonus rate to younger savers",
           ],
           correctIndex: 0,
           explanation:
@@ -125,7 +125,7 @@ Today's lesson: **Saving & Compound Growth**.
           prompt: "Devon gets paid every Friday and wants to build a 'pay yourself first' habit. What should Devon do?",
           choices: [
             "Make one large deposit at the end of the year and call the habit done",
-            "Save only in months when there isn't anything he wants to buy” belongs to a different situation than the one in the question stem",
+            "Save only in months when there isn't anything he wants to buy",
             "Wait to see what's left after weekend plans, then save whatever remains",
             "Move a set amount to savings automatically before spending, then live on the rest",
           ],
@@ -157,10 +157,10 @@ Today's lesson: **Saving & Compound Growth**.
         checkIn: {
           prompt: "Jayden says he'll start saving once he has '$1,000 to really make it count.' What's the flaw in that plan, based on the lesson?",
           choices: [
-            "Small deposits don't count toward compounding until they reach a minimum balance” belongs to a different situation than the one in the question stem",
+            "Small deposits don't count toward compounding until they reach a minimum balance",
             "Waiting delays the years compounding needs, so a smaller amount started now can end up ahead of a bigger start later",
-            "It's not really a flaw — the idea that you need a lot of money to start is actually true” belongs to a different situation than the one in the question stem",
-            "“Banks generally won't open an account for less than $1,000” describes a different situation than the one in the question stem",
+            "It's not really a flaw — the idea that you need a lot of money to start is actually true",
+            "Banks generally won't open an account for less than $1,000",
           ],
           correctIndex: 1,
           explanation:
@@ -314,7 +314,7 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
           choices: [
             "Put it on a high-APR card because emergencies don't count",
             "Drain the repair fund for something else and BNPL the screen",
-            "Wait until you have $500 saved before any repair” belongs to a different situation than the one in the question stem",
+            "Wait until you have $500 saved before any repair",
             "Add $25 from the next two paychecks to top up the fund, then pay cash",
           ],
           correctIndex: 3,
@@ -371,8 +371,8 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
       choices: [
             "Compound interest: each year's interest is calculated on principal plus interest already earned",
             "The bank made an error, since the interest earned should stay exactly the same each year",
-            "Interest is only calculated once, at the very start of the account” belongs to a different situation than the one in the question stem",
-            "Aaliyah's rate secretly increased between year one and year two” belongs to a different situation than the one in the question stem",
+            "Interest is only calculated once, at the very start of the account",
+            "Aaliyah's rate secretly increased between year one and year two",
           ],
       correctIndex: 0,
       explanation:
@@ -408,10 +408,10 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
       id: "q4",
       question: "Marcus is deciding whether to spend $40 now on a jacket or set it aside for six months. Which idea reflects the 'time value of money' concept from the lesson?",
       choices: [
-            "Money in the future is always worth more than money today, so waiting is always better” belongs to a different situation than the one in the question stem",
+            "Money in the future is always worth more than money today, so waiting is always better",
             "The $40 available now could be spent, saved, or grown; waiting means giving up that choice for a while",
-            "Interest rates stay fixed forever once you open an account” belongs to a different situation than the one in the question stem",
-            "Cash kept at home always outperforms any savings account over time” belongs to a different situation than the one in the question stem",
+            "Interest rates stay fixed forever once you open an account",
+            "Cash kept at home always outperforms any savings account over time",
           ],
       correctIndex: 1,
       explanation:
@@ -421,10 +421,10 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
       id: "q5",
       question: "Talia wants to build a realistic Growth Saver habit with her part-time job income. Which approach fits best?",
       choices: [
-            "Skip an emergency fund entirely since her savings account will cover anything” belongs to a different situation than the one in the question stem",
+            "Skip an emergency fund entirely since her savings account will cover anything",
             "Set up a small automatic transfer to savings and increase it when her hours (and pay) go up",
             "Hold off on saving until she can deposit at least a few hundred dollars at once",
-            "Wait for an ad promising a guaranteed high return before opening any account” belongs to a different situation than the one in the question stem",
+            "Wait for an ad promising a guaranteed high return before opening any account",
           ],
       correctIndex: 1,
       explanation:
@@ -448,8 +448,8 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
       question: "Devin tells himself, 'I'll start saving once I get a raise at work.' What's the risk in that plan, according to the lesson?",
       choices: [
             "It guarantees Devin will end up with a smaller final balance no matter what",
-            "Raises are rare, so the plan will probably never come up at all” belongs to a different situation than the one in the question stem",
-            "It's actually a strong plan, since more income always means easier saving” belongs to a different situation than the one in the question stem",
+            "Raises are rare, so the plan will probably never come up at all",
+            "It's actually a strong plan, since more income always means easier saving",
             "Spending often rises to match new income, so the 'right time' may never actually arrive",
           ],
       correctIndex: 3,
@@ -460,10 +460,10 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
       id: "q8",
       question: "In Maria's case study, what allowed her to cover a laptop repair without a high-interest loan?",
       choices: [
-            "A single large deposit she made right before the laptop broke” belongs to a different situation than the one in the question stem",
-            "Borrowing the repair cost from a friend and paying it back slowly” belongs to a different situation than the one in the question stem",
+            "A single large deposit she made right before the laptop broke",
+            "Borrowing the repair cost from a friend and paying it back slowly",
             "Consistent small weekly deposits that built a cushion over time, increased after her raise",
-            "Ignoring her account balance until the emergency showed up” belongs to a different situation than the one in the question stem",
+            "Ignoring her account balance until the emergency showed up",
           ],
       correctIndex: 2,
       explanation:

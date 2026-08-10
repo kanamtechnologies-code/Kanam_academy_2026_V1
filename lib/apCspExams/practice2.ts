@@ -15,8 +15,8 @@ const questions: ApCspExamQuestion[] = [
     choices: [
             "iterative (incremental) development, in which the program is improved through repeated cycles of feedback and revision.",
             "skipping testing in order to save development time — familiar wording, wrong fit for what the prompt is actually asking",
-            "“proving the program correct before any code is written” describes a different situation than the one in the question stem",
-            "“writing the entire program at once and never changing it” describes a different situation than the one in the question stem",
+            "proving the program correct before any code is written",
+            "writing the entire program at once and never changing it",
           ],
     correctIndexes: [0],
     explanation:
@@ -28,9 +28,9 @@ const questions: ApCspExamQuestion[] = [
     topic: "Correlation vs. causation",
     stem: "A city finds that neighborhoods with more coffee shops also tend to have higher average incomes. A reporter concludes that opening coffee shops raises residents' incomes. What is the best critique of this conclusion?",
     choices: [
-            "Higher income cannot possibly be related to the number of coffee shops” belongs to a different situation than the one in the question stem",
-            "“The data must be wrong, because coffee has nothing to do with income” describes a different situation than the one in the question stem",
-            "“The conclusion is valid because the data shows a clear pattern” describes a different situation than the one in the question stem",
+            "Higher income cannot possibly be related to the number of coffee shops",
+            "The data must be wrong, because coffee has nothing to do with income",
+            "The conclusion is valid because the data shows a clear pattern",
             "A correlation between two variables does not by itself establish that one causes the other; another factor may explain both.",
           ],
     correctIndexes: [3],
@@ -69,7 +69,7 @@ const questions: ApCspExamQuestion[] = [
     stem: "A social media platform builds detailed profiles of its users based on their activity and uses those profiles to show targeted advertisements. Which of the following best describes a concern raised by this practice?",
     choices: [
             "Targeted advertising violates the rules of binary number representation.",
-            "Targeted ads make every website load more slowly for everyone” belongs to a different situation than the one in the question stem",
+            "Targeted ads make every website load more slowly for everyone",
             "Users may not be aware of how much data is collected about them or how it is used.",
             "Collecting user data makes it technically impossible to run the platform.",
           ],
@@ -133,10 +133,10 @@ const questions: ApCspExamQuestion[] = [
     topic: "Bias in computing systems",
     stem: "A facial-recognition system is found to perform much less accurately for some demographic groups than for others. Which is the most likely explanation and the most appropriate response?",
     choices: [
-            "The problem can be solved only by displaying the images at a larger size” belongs to a different situation than the one in the question stem",
+            "The problem can be solved only by displaying the images at a larger size",
             "Computers cannot be biased, so no action is needed — familiar wording, wrong fit for what the prompt is actually asking",
             "The training data underrepresented some groups, so developers should improve the data and test the system across groups.",
-            "Facial recognition always works equally well for everyone, regardless of the data used to build it” belongs to a different situation than the one in the question stem",
+            "Facial recognition always works equally well for everyone, regardless of the data used to build it",
           ],
     correctIndexes: [2],
     explanation:
@@ -148,10 +148,10 @@ const questions: ApCspExamQuestion[] = [
     topic: "Logic vs. syntax errors",
     stem: "A program runs without crashing, but it always reports an average that is too large. The programmer discovers that she divided the total by the wrong count of items. What type of error is this?",
     choices: [
-            "A network error caused by the Internet connection” belongs to a different situation than the one in the question stem",
+            "A network error caused by the Internet connection",
             "A logic error, because the program runs but produces incorrect results due to a flaw in the algorithm.",
-            "An overflow error caused by using too many bits” belongs to a different situation than the one in the question stem",
-            "A syntax error, because otherwise the program would not run” belongs to a different situation than the one in the question stem",
+            "An overflow error caused by using too many bits",
+            "A syntax error, because otherwise the program would not run",
           ],
     correctIndexes: [1],
     explanation:
@@ -163,10 +163,10 @@ const questions: ApCspExamQuestion[] = [
     topic: "Analog to digital (sampling)",
     stem: "To store a sound (an analog signal) on a computer, the sound wave is measured at regular time intervals and each measurement is recorded as a number. This process is best described as",
     choices: [
-            "encrypting the sound so it cannot be played back” belongs to a different situation than the one in the question stem",
+            "encrypting the sound so it cannot be played back",
             "sampling, which converts a continuous analog signal into discrete digital data.",
-            "a heuristic for finding the loudest note” belongs to a different situation than the one in the question stem",
-            "lossless compression of a text file” belongs to a different situation than the one in the question stem",
+            "a heuristic for finding the loudest note",
+            "lossless compression of a text file",
           ],
     correctIndexes: [1],
     explanation:
@@ -189,9 +189,9 @@ const questions: ApCspExamQuestion[] = [
     stem: "Which of the following is an example of a negative environmental impact of computing?",
     choices: [
             "Electronic waste from discarded devices can release harmful materials if it is not recycled properly.",
-            "Programs written in pseudocode cannot be compiled” belongs to a different situation than the one in the question stem",
-            "Representing data in binary requires more electricity than representing it in decimal” belongs to a different situation than the one in the question stem",
-            "Cloud storage eliminates the need for any physical hardware” belongs to a different situation than the one in the question stem",
+            "Programs written in pseudocode cannot be compiled",
+            "Representing data in binary requires more electricity than representing it in decimal",
+            "Cloud storage eliminates the need for any physical hardware",
           ],
     correctIndexes: [0],
     explanation:
@@ -203,10 +203,10 @@ const questions: ApCspExamQuestion[] = [
     topic: "Extracting information from data",
     stem: "A store has a spreadsheet listing every transaction from the past year. The manager wants to know which single product sold the most units. Which of the following describes an appropriate use of the data?",
     choices: [
-            "Deleting rows at random until only one product's transactions remain” belongs to a different situation than the one in the question stem",
-            "Answering without examining the data, since collecting more data always reduces insight” belongs to a different situation than the one in the question stem",
+            "Deleting rows at random until only one product's transactions remain",
+            "Answering without examining the data, since collecting more data always reduces insight",
             "Filtering and aggregating the transactions to total the units sold per product, then identifying the maximum.",
-            "Converting each price to binary and adding up the individual bits” belongs to a different situation than the one in the question stem",
+            "Converting each price to binary and adding up the individual bits",
           ],
     correctIndexes: [2],
     explanation:
@@ -258,9 +258,9 @@ const questions: ApCspExamQuestion[] = [
     topic: "Plagiarism and citing sources",
     stem: "A student copies several paragraphs from a website into a report and presents them as their own writing, with no citation. This is an example of",
     choices: [
-            "“crowdsourcing” describes a different situation than the one in the question stem",
-            "“fault tolerance” describes a different situation than the one in the question stem",
-            "“lossless compression” describes a different situation than the one in the question stem",
+            "crowdsourcing",
+            "fault tolerance",
+            "lossless compression",
             "plagiarism, which is unethical and can violate academic rules and copyright.",
           ],
     correctIndexes: [3],
@@ -273,10 +273,10 @@ const questions: ApCspExamQuestion[] = [
     topic: "Undecidable problems",
     stem: "Which of the following best characterizes an undecidable problem?",
     choices: [
-            "A problem that requires more memory than any single computer currently has” belongs to a different situation than the one in the question stem",
-            "A problem that is merely slow but can always be solved given enough time” belongs to a different situation than the one in the question stem",
+            "A problem that requires more memory than any single computer currently has",
+            "A problem that is merely slow but can always be solved given enough time",
             "A problem for which no algorithm can be written that produces a correct yes-or-no answer for every possible input.",
-            "“A problem that can only be solved by using the Internet” describes a different situation than the one in the question stem",
+            "A problem that can only be solved by using the Internet",
           ],
     correctIndexes: [2],
     explanation:
@@ -288,10 +288,10 @@ const questions: ApCspExamQuestion[] = [
     topic: "Simulations",
     stem: "A scientist uses a computer program to model how a disease might spread through a population under different conditions. Which of the following is a genuine advantage of using such a simulation?",
     choices: [
-            "It removes the need to make any assumptions about the real system” belongs to a different situation than the one in the question stem",
-            "It predicts exactly what will happen in reality with perfect accuracy” belongs to a different situation than the one in the question stem",
+            "It removes the need to make any assumptions about the real system",
+            "It predicts exactly what will happen in reality with perfect accuracy",
             "It can test many scenarios quickly and safely without the cost or risk of real-world experiments.",
-            "It proves that the disease will behave identically every single time” belongs to a different situation than the one in the question stem",
+            "It proves that the disease will behave identically every single time",
           ],
     correctIndexes: [2],
     explanation:
@@ -304,9 +304,9 @@ const questions: ApCspExamQuestion[] = [
     stem: "A developer adds screen-reader support, captions for videos, and adjustable text size to an app. This is an example of designing for",
     choices: [
             "accessibility, so the app can be used by people with a wider range of abilities.",
-            "lossy compression of the app's images” belongs to a different situation than the one in the question stem",
-            "“an undecidable problem” describes a different situation than the one in the question stem",
-            "redundancy within the network” belongs to a different situation than the one in the question stem",
+            "lossy compression of the app's images",
+            "an undecidable problem",
+            "redundancy within the network",
           ],
     correctIndexes: [0],
     explanation:
@@ -328,9 +328,9 @@ const questions: ApCspExamQuestion[] = [
     topic: "Procedural abstraction",
     stem: "A programmer notices that the same block of code for calculating shipping cost appears in five different places. She moves that code into a single procedure and calls the procedure in each place. What is the primary benefit of this change?",
     choices: [
-            "“It converts the program's numbers from binary to decimal” describes a different situation than the one in the question stem",
-            "“It guarantees the program will run exactly five times faster” describes a different situation than the one in the question stem",
-            "“It removes any need to test the shipping calculation” describes a different situation than the one in the question stem",
+            "It converts the program's numbers from binary to decimal",
+            "It guarantees the program will run exactly five times faster",
+            "It removes any need to test the shipping calculation",
             "It manages complexity: the logic is written once, is easier to update, and reduces the chance of inconsistent copies.",
           ],
     correctIndexes: [3],

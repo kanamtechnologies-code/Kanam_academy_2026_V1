@@ -178,9 +178,9 @@ export const lesson10: PythonLessonConfig = {
         checkIn: {
           prompt: "You copy-pasted the same greeting print into 10 places in your code, then need to change the wording. What's the downside vs. using a function?",
           choices: [
-            "Copies run faster than functions” belongs to a different situation than the one in the question stem",
+            "Copies run faster than functions",
             "You'd have to find and edit all 10 copies, and might miss some",
-            "No downside — copies are just as easy to update” belongs to a different situation than the one in the question stem",
+            "No downside — copies are just as easy to update",
           ],
           correctIndex: 1,
           explanation: "With copy-pasted code, every copy must be updated by hand. A function centralizes the logic so you only change it once.",
@@ -244,9 +244,9 @@ export const lesson10: PythonLessonConfig = {
         checkIn: {
           prompt: "Your program runs with no errors, but nothing prints. You have a `def greet():` with a print inside. What's the most likely cause?",
           choices: [
-            "The print statement is wrong” belongs to a different situation than the one in the question stem",
+            "The print statement is wrong",
             "You forgot to call greet() after defining it",
-            "Python is broken” belongs to a different situation than the one in the question stem",
+            "Python is broken",
           ],
           correctIndex: 1,
           explanation: "Defining a function without calling it produces no output at all — this is the most common function bug for beginners.",
@@ -274,8 +274,8 @@ export const lesson10: PythonLessonConfig = {
         checkIn: {
           prompt: "You write `def say_hi():` with a print inside, then run the file. Nothing prints. Why?",
           choices: [
-            "Functions can't contain print statements” belongs to a different situation than the one in the question stem",
-            "def automatically runs the function” belongs to a different situation than the one in the question stem",
+            "Functions can't contain print statements",
+            "def automatically runs the function",
             "You defined the function but never called it with say_hi()",
           ],
           correctIndex: 2,
@@ -327,8 +327,8 @@ export const lesson10: PythonLessonConfig = {
         checkIn: {
           prompt: "What are the two separate steps every function needs?",
           choices: [
-            "Naming it, then printing it” belongs to a different situation than the one in the question stem",
-            "Calling it, then defining it” belongs to a different situation than the one in the question stem",
+            "Naming it, then printing it",
+            "Calling it, then defining it",
             "Defining it with `def`, then calling it with `name()`",
           ],
           correctIndex: 2,
