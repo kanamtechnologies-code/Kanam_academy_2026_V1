@@ -31,7 +31,7 @@ export const demoLesson: PythonLessonConfig = {
 Welcome to Kanam Academy.
 
 **Who this is for**
-High school students starting Python (and AI literacy) — plus parents or educators previewing the real classroom screen.
+You're in the right place — whether you're in high school or coming to tech later. We're here to help you learn with confidence and take real steps toward a Computer Science career. Parents and educators are welcome to preview alongside you.
 
 **Learning goal (today)**
 Write a short program that stores a name and prints a complete greeting.
@@ -251,7 +251,7 @@ print("Hi! I am " + name)
         imageAlt: "Kanam AI helper bot beside a Python name variable",
         callout: {
           label: "Who this is for",
-          text: "High school students new to coding, plus parents and educators previewing the product. Progress saves on this device — no account required for the demo.",
+          text: "You're in the right place — whether you're in high school or coming to tech later. We're here to help you learn with confidence and take real steps toward a Computer Science career. Parents and educators are welcome to preview alongside you. Progress saves on this device — no account needed for the demo.",
         },
       },
       {
