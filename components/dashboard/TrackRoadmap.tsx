@@ -389,18 +389,22 @@ function TrackRoadmapContent({
                               <Button
                                 asChild
                                 size="lg"
-                                className="h-auto min-h-11 justify-start gap-3 py-3"
+                                className="h-auto min-h-[3.75rem] justify-start gap-3 border border-white/25 bg-gradient-to-br from-[var(--brand)] to-[var(--brand-2)] px-4 py-3.5 text-white shadow-[0_10px_24px_rgba(24,161,109,0.35)] hover:-translate-y-0.5 hover:from-[#1bb078] hover:to-[var(--brand-2)] hover:shadow-[0_14px_28px_rgba(24,161,109,0.42)]"
                               >
                                 <Link
                                   href={`${lesson.href}?view=lesson`}
                                   onClick={() => setActivityLockNoticeId(null)}
                                 >
-                                  <BookOpen className="h-5 w-5 shrink-0" />
+                                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/20 shadow-inner ring-1 ring-white/30">
+                                    <BookOpen className="h-5 w-5" />
+                                  </span>
                                   <span className="flex flex-col items-start leading-tight">
-                                    <span className="text-[10px] font-bold uppercase tracking-wide text-white/80">
+                                    <span className="text-[10px] font-black uppercase tracking-[0.14em] text-white/90">
                                       Step 1 · Learn it
                                     </span>
-                                    <span className="text-sm font-black">Open the Lesson</span>
+                                    <span className="text-base font-black tracking-tight">
+                                      Open the Lesson
+                                    </span>
                                   </span>
                                 </Link>
                               </Button>
@@ -408,16 +412,17 @@ function TrackRoadmapContent({
                                 <Button
                                   asChild
                                   size="lg"
-                                  variant="outline"
-                                  className="h-auto min-h-11 justify-start gap-3 border-[var(--brand)]/40 py-3 text-[var(--brand-2)] hover:bg-[var(--brand)]/5"
+                                  className="h-auto min-h-[3.75rem] justify-start gap-3 border border-[rgb(var(--accent-rgb)/0.85)] bg-gradient-to-br from-[#f5e6b8] via-[var(--accent)] to-[#c9a84e] px-4 py-3.5 text-[var(--brand-2)] shadow-[0_10px_24px_rgba(201,168,78,0.38)] hover:-translate-y-0.5 hover:from-[#f8ecc4] hover:to-[#d4b45a] hover:shadow-[0_14px_28px_rgba(201,168,78,0.48)]"
                                 >
                                   <Link href={`${lesson.href}?view=exercises`}>
-                                    <ListChecks className="h-5 w-5 shrink-0" />
+                                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/55 shadow-inner ring-1 ring-[rgb(var(--brand-2-rgb)/0.2)]">
+                                      <ListChecks className="h-5 w-5 text-[var(--brand-2)]" />
+                                    </span>
                                     <span className="flex flex-col items-start leading-tight">
-                                      <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
+                                      <span className="text-[10px] font-black uppercase tracking-[0.14em] text-[var(--brand-2)]/80">
                                         Step 2 · Practice
                                       </span>
-                                      <span className="text-sm font-black">
+                                      <span className="text-base font-black tracking-tight text-[var(--brand-2)]">
                                         {completed ? "Review the Activity" : "Do the Activity"}
                                       </span>
                                     </span>
@@ -428,15 +433,19 @@ function TrackRoadmapContent({
                                   type="button"
                                   size="lg"
                                   variant="outline"
-                                  className="h-auto min-h-11 justify-start gap-3 border-slate-300 py-3 text-slate-600"
+                                  className="h-auto min-h-[3.75rem] justify-start gap-3 border-2 border-dashed border-slate-300 bg-slate-50/90 px-4 py-3.5 text-slate-600 shadow-sm hover:border-slate-400 hover:bg-slate-100"
                                   onClick={() => setActivityLockNoticeId(lesson.id)}
                                 >
-                                  <Lock className="h-5 w-5 shrink-0 text-slate-500" />
+                                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-slate-200/80 ring-1 ring-slate-300/80">
+                                    <Lock className="h-5 w-5 text-slate-500" />
+                                  </span>
                                   <span className="flex flex-col items-start leading-tight">
-                                    <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
+                                    <span className="text-[10px] font-black uppercase tracking-[0.14em] text-slate-500">
                                       Step 2 · Practice
                                     </span>
-                                    <span className="text-sm font-black">Do the Activity</span>
+                                    <span className="text-base font-black tracking-tight">
+                                      Do the Activity
+                                    </span>
                                   </span>
                                 </Button>
                               )}
