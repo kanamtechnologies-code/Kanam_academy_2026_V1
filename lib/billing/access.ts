@@ -8,10 +8,40 @@ export type BillingEntitlements = {
   unlockedTrackSlugs: Track["id"][];
 };
 
+/** Included at no extra charge once the learner has any paid purchase. */
+export const BUNDLED_FREE_WITH_PURCHASE_TRACK: Track["id"] = "financial-literacy";
+
 const TRACK_ID_SET = new Set<string>(TRACKS.map((t) => t.id));
 
 function isTrackId(slug: string): slug is Track["id"] {
   return TRACK_ID_SET.has(slug);
+}
+
+/**
+ * Financial Literacy unlocks automatically with any paid access:
+ * family subscription, any track purchase, or tutoring credits.
+ */
+export function withPurchaseBundles(
+  entitlements: BillingEntitlements,
+  opts?: { hasPaidPurchase?: boolean }
+): BillingEntitlements {
+  const hasPurchase =
+    Boolean(opts?.hasPaidPurchase) ||
+    entitlements.hasActiveSubscription ||
+    entitlements.unlockedTrackSlugs.length > 0;
+
+  if (!hasPurchase) return entitlements;
+  if (entitlements.unlockedTrackSlugs.includes(BUNDLED_FREE_WITH_PURCHASE_TRACK)) {
+    return entitlements;
+  }
+
+  return {
+    ...entitlements,
+    unlockedTrackSlugs: [
+      ...entitlements.unlockedTrackSlugs,
+      BUNDLED_FREE_WITH_PURCHASE_TRACK,
+    ],
+  };
 }
 
 /** Load family sub + active track purchases for a Supabase Auth user. */
@@ -19,7 +49,7 @@ export async function loadBillingEntitlements(
   admin: SupabaseClient,
   userId: string
 ): Promise<BillingEntitlements> {
-  const [{ data: subscriptions }, { data: tracks }] = await Promise.all([
+  const [{ data: subscriptions }, { data: tracks }, { data: tutoring }] = await Promise.all([
     admin
       .from("billing_subscriptions")
       .select("status, current_period_end")
@@ -30,6 +60,7 @@ export async function loadBillingEntitlements(
       .select("track_slug")
       .eq("user_id", userId)
       .eq("active", true),
+    admin.from("tutoring_credits").select("id").eq("user_id", userId).limit(1),
   ]);
 
   const now = Date.now();
@@ -51,7 +82,10 @@ export async function loadBillingEntitlements(
     )
   );
 
-  return { hasActiveSubscription, unlockedTrackSlugs };
+  return withPurchaseBundles(
+    { hasActiveSubscription, unlockedTrackSlugs },
+    { hasPaidPurchase: (tutoring ?? []).length > 0 }
+  );
 }
 
 /** All lesson ids belonging to the given track slugs. */

@@ -27,12 +27,13 @@ type BillingStatus = {
   ok?: boolean;
   error?: string;
   hasActiveSubscription?: boolean;
+  financialLiteracyBundled?: boolean;
   subscription?: {
     status?: string;
     current_period_end?: string | null;
     cancel_at_period_end?: boolean;
   } | null;
-  tracks?: Array<{ track_slug: string }>;
+  tracks?: Array<{ track_slug: string; bundled?: boolean }>;
   tutoringSessionsRemaining?: number;
 };
 
@@ -50,6 +51,8 @@ const TRACKS = [
     price: "$100",
     blurb: "Budgets, credit, investing, and money decisions for real life.",
     sessions: "16 lessons · ~8 weeks",
+    /** Shown free whenever the family has any other paid purchase. */
+    freeWithAnyPurchase: true,
     unique: [
       "Paychecks, banking, budgets, and emergency funds",
       "Credit scores, debt, interest, and consumer protection",
@@ -522,7 +525,7 @@ export default function BillingClient() {
             </h2>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
               Self-paced training in the same lesson canvas — not live class time. Expand a track to
-              see what&apos;s included.
+              see what&apos;s included. Financial Literacy is included free with any purchase.
             </p>
           </div>
 
@@ -549,13 +552,26 @@ export default function BillingClient() {
             {TRACKS.map((track) => {
               const owned = ownedTracks.has(track.slug);
               const featured = featuredTrack === track.slug;
+              const freeWithPurchase =
+                "freeWithAnyPurchase" in track && Boolean(track.freeWithAnyPurchase);
+              const bundledFree =
+                freeWithPurchase &&
+                (Boolean(status?.financialLiteracyBundled) ||
+                  (owned &&
+                    (status?.tracks ?? []).some(
+                      (t) => t.track_slug === track.slug && t.bundled
+                    )));
+              const showAsOwned = owned || Boolean(status?.hasActiveSubscription && freeWithPurchase);
               return (
                 <li key={track.slug} id={`track-${track.slug}`} className="scroll-mt-24">
                   <Card
                     className={cn(
                       "border-slate-200/90 shadow-sm transition",
                       featured &&
-                        "border-[rgb(var(--brand-rgb)/0.45)] bg-[rgb(var(--brand-rgb)/0.04)] ring-2 ring-[rgb(var(--brand-rgb)/0.18)]"
+                        "border-[rgb(var(--brand-rgb)/0.45)] bg-[rgb(var(--brand-rgb)/0.04)] ring-2 ring-[rgb(var(--brand-rgb)/0.18)]",
+                      freeWithPurchase &&
+                        !featured &&
+                        "border-[rgb(var(--accent-rgb)/0.55)] bg-[rgb(var(--accent-rgb)/0.08)]"
                     )}
                   >
                     <CardContent className="space-y-3 p-4 sm:px-5">
@@ -565,23 +581,33 @@ export default function BillingClient() {
                             <p className="font-bold text-slate-900 dark:text-slate-50">
                               {track.name}
                             </p>
+                            {freeWithPurchase ? (
+                              <Badge className="bg-[rgb(var(--accent-rgb)/0.95)] text-slate-950 hover:bg-[rgb(var(--accent-rgb)/0.95)]">
+                                Free with any purchase
+                              </Badge>
+                            ) : null}
                             {featured ? (
                               <Badge className="bg-[var(--brand)] text-white hover:bg-[var(--brand)]">
                                 <Lock className="mr-1 h-3 w-3" />
                                 From your dashboard
                               </Badge>
                             ) : null}
-                            {owned ? (
+                            {showAsOwned ? (
                               <Badge
                                 variant="secondary"
                                 className="bg-emerald-100 text-emerald-800 hover:bg-emerald-100"
                               >
-                                Owned
+                                {bundledFree || (status?.hasActiveSubscription && freeWithPurchase)
+                                  ? "Included"
+                                  : "Owned"}
                               </Badge>
                             ) : null}
                           </div>
                           <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                             {track.blurb}
+                            {freeWithPurchase
+                              ? " Included free when you buy any track, tutoring, or a family subscription."
+                              : ""}
                           </p>
                           <p className="mt-1 text-xs font-semibold text-slate-500">
                             {track.sessions}
@@ -589,7 +615,16 @@ export default function BillingClient() {
                         </div>
                         <div className="flex shrink-0 items-center gap-3">
                           <span className="text-lg font-black text-[var(--brand-2)]">
-                            {track.price}
+                            {freeWithPurchase ? (
+                              <span className="flex flex-col items-end leading-tight">
+                                <span className="text-xs font-bold uppercase tracking-wide text-slate-500 line-through">
+                                  {track.price}
+                                </span>
+                                <span>Free*</span>
+                              </span>
+                            ) : (
+                              track.price
+                            )}
                           </span>
                           {needsSignIn ? (
                             <Button asChild size="sm" variant="outline" className="rounded-xl">
@@ -607,18 +642,23 @@ export default function BillingClient() {
                               size="sm"
                               variant={featured ? "default" : "outline"}
                               className="rounded-xl"
-                              disabled={Boolean(busy) || owned}
+                              disabled={Boolean(busy) || showAsOwned}
                               onClick={() =>
                                 startCheckout({ kind: "track", trackSlug: track.slug })
                               }
                             >
-                              {owned
-                                ? "Owned"
+                              {showAsOwned
+                                ? bundledFree ||
+                                  (status?.hasActiveSubscription && freeWithPurchase)
+                                  ? "Included"
+                                  : "Owned"
                                 : busy?.includes(track.slug)
                                   ? "…"
                                   : featured
                                     ? "Unlock this path"
-                                    : "Purchase"}
+                                    : freeWithPurchase
+                                      ? "Buy standalone"
+                                      : "Purchase"}
                             </Button>
                           )}
                         </div>
@@ -669,6 +709,11 @@ export default function BillingClient() {
               );
             })}
           </ul>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            *Financial Literacy unlocks automatically with any track purchase, tutoring pack, or
+            family subscription. You can still buy it standalone if that&apos;s the only path you
+            want.
+          </p>
         </section>
 
         {/* Tutoring */}
