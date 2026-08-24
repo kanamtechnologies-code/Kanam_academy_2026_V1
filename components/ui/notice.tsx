@@ -36,8 +36,9 @@ const VARIANT: Record<
   danger: {
     icon: AlertCircle,
     shell:
-      "border-rose-200/90 bg-gradient-to-br from-white via-rose-50/90 to-orange-50/50 dark:border-rose-500/40 dark:from-slate-900 dark:via-rose-950/70 dark:to-orange-950/40",
-    iconWrap: "bg-rose-100/90 ring-rose-200 dark:bg-rose-950/80 dark:ring-rose-500/40",
+      "border-rose-200/80 bg-gradient-to-br from-white via-rose-50/95 to-[rgb(var(--accent-rgb)/0.14)] shadow-[0_10px_28px_rgba(136,19,55,0.08)] dark:border-rose-500/35 dark:from-slate-900 dark:via-rose-950/75 dark:to-[rgb(var(--accent-rgb)/0.12)] dark:shadow-[0_12px_32px_rgba(0,0,0,0.35)]",
+    iconWrap:
+      "bg-gradient-to-br from-rose-100 to-[rgb(var(--accent-rgb)/0.35)] ring-rose-200/90 shadow-sm dark:from-rose-950/90 dark:to-[rgb(var(--accent-rgb)/0.2)] dark:ring-rose-500/35",
     iconClass: "text-rose-700 dark:text-rose-300",
   },
 };
@@ -62,6 +63,10 @@ export function Notice({
 }) {
   const cfg = VARIANT[variant];
   const Icon = cfg.icon;
+  const accentBar =
+    variant === "danger"
+      ? "from-rose-400 via-[var(--accent)] to-rose-600"
+      : "from-[var(--accent)] via-[var(--brand)] to-[var(--brand-2)]";
 
   return (
     <div
@@ -75,7 +80,7 @@ export function Notice({
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-0 w-1 bg-gradient-to-b from-[var(--accent)] via-[var(--brand)] to-[var(--brand-2)]"
+        className={cn("pointer-events-none absolute inset-y-0 left-0 w-1 bg-gradient-to-b", accentBar)}
       />
       <div className={cn("flex pl-1.5", compact ? "gap-2.5" : "gap-3 sm:gap-3.5")}>
         <div
@@ -94,7 +99,7 @@ export function Notice({
           {title ? (
             <p
               className={cn(
-                "font-black tracking-tight text-slate-900",
+                "font-black tracking-tight text-slate-900 dark:text-slate-50",
                 compact ? "text-sm" : "text-sm sm:text-[0.95rem]"
               )}
             >
@@ -104,7 +109,7 @@ export function Notice({
           {children ? (
             <div
               className={cn(
-                "leading-relaxed text-slate-600",
+                "leading-relaxed text-slate-600 dark:text-slate-300",
                 compact ? "text-[13px]" : "text-sm",
                 title ? "mt-1" : null
               )}

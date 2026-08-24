@@ -85,11 +85,13 @@ In Supabase → **Authentication → URL Configuration**:
 
 ### Password reset (cross-device)
 
-**Preferred (app):** Forgot password calls `/api/auth/request-password-reset`, which generates a **TokenHash** recovery link and emails it with Resend (`RESEND_API_KEY` + `RESEND_FROM_EMAIL`). Those links work in any browser/device.
+**Required:** set `RESEND_API_KEY` and a verified `RESEND_FROM_EMAIL` on Vercel. Forgot password calls `/api/auth/request-password-reset`, generates a **TokenHash** recovery link, and emails it with Resend. Those links work in any browser/device.
 
-**Fallback:** If Resend is not configured, the app uses Supabase’s built-in reset mailer. Default Supabase links use **PKCE** (`?code=…`), which only works in the **same browser** that clicked “Forgot password.” Opening Gmail on a phone often shows “PKCE code verifier not found in storage.”
+Without Resend in production, the API returns an error instead of pretending the email was sent.
 
-Optional Supabase template fix (when not using Resend): **Authentication → Email Templates → Reset password**:
+Local/dev without Resend still opens a reset link in a new tab so you can test.
+
+Optional Supabase template (only if you also use Supabase’s built-in mailer elsewhere): **Authentication → Email Templates → Reset password**:
 
 ```html
 <h2>Reset password</h2>

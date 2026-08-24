@@ -20,6 +20,11 @@ import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
 import { NoticePresence } from "@/components/ui/notice-presence";
+import {
+  errorMessage,
+  mapSignInError,
+  type SignInErrorCopy,
+} from "@/lib/auth/signInErrors";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import {
   isInstructorRole,
@@ -35,11 +40,6 @@ type EnsureProfileResponse = {
   student?: { id?: string; display_name?: string };
 };
 
-function errorMessage(error: unknown, fallback: string) {
-  if (error instanceof Error && error.message) return error.message;
-  return fallback;
-}
-
 export default function WelcomePage() {
   const router = useRouter();
   const [returningEmail, setReturningEmail] = React.useState("");
@@ -48,7 +48,7 @@ export default function WelcomePage() {
   const [studentPath, setStudentPath] = React.useState<"solo" | "teacher">("solo");
   const [loadingNew, setLoadingNew] = React.useState(false);
   const [loadingReturning, setLoadingReturning] = React.useState(false);
-  const [returningError, setReturningError] = React.useState<string | null>(null);
+  const [returningError, setReturningError] = React.useState<SignInErrorCopy | null>(null);
   const [newError, setNewError] = React.useState<string | null>(null);
   const [forgotOpen, setForgotOpen] = React.useState(false);
   const [forgotEmail, setForgotEmail] = React.useState("");
@@ -151,11 +151,17 @@ export default function WelcomePage() {
     const pw = returningPassword;
 
     if (!em || !em.includes("@")) {
-      setReturningError("Enter your email.");
+      setReturningError({
+        title: "Email needed",
+        body: "Enter the email address you used for your Kanam account.",
+      });
       return;
     }
     if (!pw) {
-      setReturningError("Enter your password.");
+      setReturningError({
+        title: "Password needed",
+        body: "Enter your password to continue, or use Forgot password if you need a reset.",
+      });
       return;
     }
 
@@ -192,7 +198,7 @@ export default function WelcomePage() {
       }
       router.push(next || "/dashboard");
     } catch (error: unknown) {
-      setReturningError(errorMessage(error, "Sign-in failed."));
+      setReturningError(mapSignInError(errorMessage(error, "Sign-in failed.")));
     } finally {
       setLoadingReturning(false);
     }
@@ -327,7 +333,7 @@ export default function WelcomePage() {
             </Notice>
           </NoticePresence>
 
-          {/* Top row: welcome message + demo mode (side-by-side on large screens) */}
+          {/* Top row: welcome message + try-a-lesson card (side-by-side on large screens) */}
           <div className="grid min-w-0 gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
             <div className="min-w-0 max-w-full text-center lg:text-left">
               <h1 className="break-words text-[1.65rem] font-black leading-[1.08] tracking-tight text-slate-900 sm:text-4xl">
@@ -403,10 +409,7 @@ export default function WelcomePage() {
             </div>
 
             <div className="w-full rounded-[28px] border border-white/60 bg-white/70 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.04)] backdrop-blur-2xl dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)] lg:justify-self-end">
-              <p className="text-xs font-extrabold uppercase tracking-[0.22em] text-slate-600">
-                Demo mode
-              </p>
-              <p className="mt-2 text-base font-black tracking-tight text-slate-900">
+              <p className="mt-0 text-base font-black tracking-tight text-slate-900">
                 Just browsing? Try a guided lesson — no account needed.
               </p>
 
@@ -661,11 +664,16 @@ export default function WelcomePage() {
 
                 <NoticePresence
                   show={Boolean(returningError)}
-                  contentKey={returningError}
+                  contentKey={returningError?.title ?? returningError?.body}
                   className="mt-4"
                 >
-                  <Notice compact variant="danger" role="alert">
-                    {returningError}
+                  <Notice
+                    compact
+                    variant="danger"
+                    role="alert"
+                    title={returningError?.title}
+                  >
+                    {returningError?.body}
                   </Notice>
                 </NoticePresence>
 
@@ -726,9 +734,10 @@ export default function WelcomePage() {
                           </NoticePresence>
 
                           <NoticePresence show={forgotStatus === "sent"} contentKey="forgot-sent">
-                            <Notice compact variant="success" title="Check your email">
-                              Open the newest reset link once in any browser. Email apps sometimes
-                              preview links and expire them — if that happens, request another.
+                            <Notice compact variant="success" title="Reset email on the way">
+                              If an account exists for that address, you’ll get a Kanam reset link
+                              shortly. Open the newest email once in your browser (not an email
+                              preview). Check spam if nothing appears in a couple of minutes.
                             </Notice>
                           </NoticePresence>
 
@@ -773,6 +782,7 @@ export default function WelcomePage() {
                                   const json = (await res.json()) as {
                                     ok?: boolean;
                                     error?: string;
+                                    mode?: string;
                                     devResetUrl?: string;
                                   };
                                   if (!res.ok || !json.ok) {
@@ -783,14 +793,10 @@ export default function WelcomePage() {
                                   }
                                   setForgotStatus("sent");
                                 } catch (error: unknown) {
-                                  const msg = errorMessage(error, "Could not send reset email.");
-                                  if (/failed to fetch|networkerror|load failed/i.test(msg)) {
-                                    setForgotStatus("sent");
-                                    setForgotError(null);
-                                    return;
-                                  }
                                   setForgotStatus("error");
-                                  setForgotError(msg);
+                                  setForgotError(
+                                    errorMessage(error, "Could not send reset email.")
+                                  );
                                 }
                               }}
                             >

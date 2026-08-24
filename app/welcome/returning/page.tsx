@@ -22,6 +22,11 @@ import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/ui/password-input";
 import { Notice } from "@/components/ui/notice";
 import { NoticePresence } from "@/components/ui/notice-presence";
+import {
+  errorMessage,
+  mapSignInError,
+  type SignInErrorCopy,
+} from "@/lib/auth/signInErrors";
 import { createSupabaseBrowserClient } from "@/lib/supabase/browser";
 import { isInstructorRole, isParentRole, postSignInPath } from "@/lib/roles";
 
@@ -45,28 +50,12 @@ function loadUserName(): string {
   }
 }
 
-function errorMessage(error: unknown, fallback: string) {
-  if (error instanceof Error && error.message) return error.message;
-  return fallback;
-}
-
-function mapSignInError(message: string): string {
-  const m = message.toLowerCase();
-  if (m.includes("email not confirmed") || m.includes("email_not_confirmed")) {
-    return "Confirm your email first — check your inbox (and spam) for the Kanam link, then sign in.";
-  }
-  if (m.includes("invalid login") || m.includes("invalid credentials")) {
-    return "Email or password didn’t match. Try again, or use Forgot password.";
-  }
-  return message;
-}
-
 export default function WelcomeReturningPage() {
   const router = useRouter();
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
   const [animateIn, setAnimateIn] = React.useState<boolean>(false);
-  const [error, setError] = React.useState<string | null>(null);
+  const [error, setError] = React.useState<SignInErrorCopy | null>(null);
   const [loading, setLoading] = React.useState(false);
   const [asParent, setAsParent] = React.useState(false);
   const [forgotOpen, setForgotOpen] = React.useState(false);
@@ -121,9 +110,9 @@ export default function WelcomeReturningPage() {
                   </p>
                 </div>
 
-                <NoticePresence show={Boolean(error)} contentKey={error}>
-                  <Notice compact variant="danger" role="alert">
-                    {error}
+                <NoticePresence show={Boolean(error)} contentKey={error?.title ?? error?.body}>
+                  <Notice compact variant="danger" role="alert" title={error?.title}>
+                    {error?.body}
                   </Notice>
                 </NoticePresence>
 
@@ -184,9 +173,10 @@ export default function WelcomeReturningPage() {
                           </NoticePresence>
 
                           <NoticePresence show={forgotStatus === "sent"} contentKey="forgot-sent">
-                            <Notice compact variant="success" title="Check your email">
-                              Open the newest reset link once in any browser. Email apps sometimes
-                              preview links and expire them — if that happens, request another.
+                            <Notice compact variant="success" title="Reset email on the way">
+                              If an account exists for that address, you’ll get a Kanam reset link
+                              shortly. Open the newest email once in your browser (not an email
+                              preview). Check spam if nothing appears in a couple of minutes.
                             </Notice>
                           </NoticePresence>
 
@@ -241,14 +231,10 @@ export default function WelcomeReturningPage() {
                                   }
                                   setForgotStatus("sent");
                                 } catch (err: unknown) {
-                                  const msg = errorMessage(err, "Could not send reset email.");
-                                  if (/failed to fetch|networkerror|load failed/i.test(msg)) {
-                                    setForgotStatus("sent");
-                                    setForgotError(null);
-                                    return;
-                                  }
                                   setForgotStatus("error");
-                                  setForgotError(msg);
+                                  setForgotError(
+                                    errorMessage(err, "Could not send reset email.")
+                                  );
                                 }
                               }}
                             >
@@ -282,7 +268,7 @@ export default function WelcomeReturningPage() {
                         email: email.trim(),
                         password,
                       });
-                      if (signInErr) throw new Error(mapSignInError(signInErr.message));
+                      if (signInErr) throw new Error(signInErr.message);
 
                       const { data: me } = await supabase.auth.getUser();
                       const user = me.user;

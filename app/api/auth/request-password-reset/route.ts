@@ -47,9 +47,8 @@ export async function POST(req: Request) {
     });
     return NextResponse.json({
       ok: true,
-      // Hint for support/debugging only; UI can ignore.
       mode: result.mode,
-      ...(result.devResetUrl ? { devResetUrl: result.devResetUrl } : {}),
+      ...(result.mode === "dev_link" ? { devResetUrl: result.devResetUrl } : {}),
     });
   } catch (e: unknown) {
     const message =
