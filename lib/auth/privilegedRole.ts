@@ -1,5 +1,3 @@
-import { createHash, timingSafeEqual } from "crypto";
-
 import type { UserWithRole } from "@/lib/roles";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
@@ -62,13 +60,6 @@ export async function migrateLegacyPrivilegedRole(
     user
   );
   return legacy;
-}
-
-/** Constant-time compare for invite / admin secrets. */
-export function secretsEqual(provided: string, expected: string): boolean {
-  const a = createHash("sha256").update(provided).digest();
-  const b = createHash("sha256").update(expected).digest();
-  return timingSafeEqual(a, b);
 }
 
 export function userWithAppRole(user: UserWithRole, role: string): UserWithRole {

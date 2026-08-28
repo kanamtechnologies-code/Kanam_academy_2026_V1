@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { passwordLengthError } from "@/lib/auth/password";
-import { secretsEqual } from "@/lib/auth/privilegedRole";
+import { secretsEqual } from "@/lib/auth/secretsEqual";
 import {
   AUTH_RATE_LIMITS,
   clientIpFromRequest,
