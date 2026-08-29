@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.variable} min-h-dvh overflow-x-hidden bg-background text-foreground antialiased`}
+        className={`${inter.variable} min-h-dvh overflow-x-hidden bg-transparent text-foreground antialiased`}
       >
         <ThemeProvider>
           <AppChrome>{children}</AppChrome>

@@ -61,9 +61,9 @@ export function ThemeToggle() {
         // Fold cover / very narrow: compact icon. Wider phones: pill switch.
         "relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/60",
         "sm:h-11 sm:w-[4.75rem] sm:justify-start sm:rounded-full",
-        "bg-white/90 p-0.5 shadow-sm transition-colors duration-300 sm:p-1",
-        "hover:bg-white focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/25",
-        "dark:border-white/60 dark:bg-white/90 dark:hover:bg-white",
+        "bg-white p-0.5 shadow-[0_10px_22px_rgba(15,23,42,0.28),0_2px_8px_rgba(15,23,42,0.12)] transition-all duration-300 sm:p-1",
+        "hover:bg-white hover:shadow-[0_14px_28px_rgba(15,23,42,0.34)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/25",
+        "dark:border-white/60 dark:bg-white dark:hover:bg-white",
       ].join(" ")}
     >
       {/* Track icons — phone+ only */}
@@ -92,7 +92,7 @@ export function ThemeToggle() {
         className={[
           "relative z-[1] grid h-8 w-8 place-items-center rounded-full sm:h-9 sm:w-9",
           "bg-gradient-to-br from-[var(--brand-2)] via-[var(--brand)] to-[var(--brand-2)]",
-          "text-[var(--accent)] shadow-md shadow-emerald-900/25",
+          "text-[var(--accent)] shadow-[0_6px_14px_rgba(15,110,87,0.4)]",
           "transition-transform duration-300 ease-out motion-reduce:transition-none",
           isDark ? "sm:translate-x-[1.65rem]" : "translate-x-0",
         ].join(" ")}

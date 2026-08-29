@@ -72,7 +72,7 @@ export function Notice({
     <div
       role={role}
       className={cn(
-        "relative overflow-hidden rounded-2xl border shadow-sm",
+        "relative overflow-hidden rounded-2xl border shadow-[0_12px_32px_rgba(15,23,42,0.12),0_4px_12px_rgba(15,23,42,0.06)]",
         compact ? "px-3.5 py-3 sm:px-4" : "px-4 py-3.5 sm:px-5 sm:py-4",
         cfg.shell,
         className

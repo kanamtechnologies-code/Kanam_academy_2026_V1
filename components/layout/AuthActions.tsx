@@ -10,7 +10,7 @@ import { isInstructorRole, isParentRole } from "@/lib/roles";
 import { USER_NAME_KEY, isGuestMode, setGuestMode } from "@/lib/guestProgress";
 
 const chipBase =
-  "inline-flex h-10 w-10 shrink-0 items-center justify-center gap-1.5 rounded-full px-0 text-xs font-extrabold tracking-tight focus:outline-none focus-visible:ring-4 sm:h-11 sm:w-auto sm:justify-start sm:gap-2 sm:px-3.5";
+  "inline-flex h-10 w-10 shrink-0 items-center justify-center gap-1.5 rounded-full px-0 text-xs font-extrabold tracking-tight shadow-[0_10px_22px_rgba(15,23,42,0.3),0_2px_8px_rgba(0,0,0,0.18)] transition-shadow hover:shadow-[0_14px_28px_rgba(15,23,42,0.36)] focus:outline-none focus-visible:ring-4 sm:h-11 sm:w-auto sm:justify-start sm:gap-2 sm:px-3.5";
 
 function isWelcomePath(pathname: string | null) {
   if (!pathname) return false;
@@ -221,7 +221,7 @@ export function AuthActions() {
           }
           router.push("/welcome");
         }}
-        className={`${chipBase} border border-[rgb(var(--accent-rgb)/0.85)] bg-[rgb(var(--accent-rgb)/0.92)] text-slate-950 shadow-sm hover:brightness-[1.03] focus-visible:ring-[rgb(var(--accent-rgb)/0.35)]`}
+        className={`${chipBase} border border-[rgb(var(--accent-rgb)/0.85)] bg-[rgb(var(--accent-rgb)/0.92)] text-slate-950 shadow-[0_10px_24px_rgba(15,23,42,0.22),0_4px_12px_rgba(216,192,122,0.45)] hover:brightness-[1.03] hover:shadow-[0_14px_28px_rgba(15,23,42,0.28),0_6px_16px_rgba(216,192,122,0.55)] focus-visible:ring-[rgb(var(--accent-rgb)/0.35)]`}
         aria-label="Log out"
       >
         <LogOut className="h-4 w-4" />

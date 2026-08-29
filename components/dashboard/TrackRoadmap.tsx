@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import { BookOpen, CheckCircle2, ListChecks, Lock, Play, Trophy } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Notice } from "@/components/ui/notice";
@@ -46,17 +45,6 @@ export function TrackRoadmap({
   entitlementRestricted?: boolean;
   enabledLessonIds?: string[] | null;
 }) {
-  const lessonRestricted = classRestricted || entitlementRestricted;
-  const openLessonIds = React.useMemo(() => {
-    if (!lessonRestricted) return null;
-    const set = new Set(enabledLessonIds ?? []);
-    for (const id of completedIds) set.add(id);
-    return set;
-  }, [lessonRestricted, enabledLessonIds, completedIds]);
-
-  const { completedCount, totalCount, percent, totalXp, nextLesson } =
-    trackProgress(completedIds, track.lessons, { openLessonIds });
-
   if (locked) {
     return (
       <div className="space-y-6">
@@ -90,99 +78,7 @@ export function TrackRoadmap({
   }
 
   return (
-    <div className="space-y-6">
-      <section className="kanam-track-focus">
-        <div className="kanam-track-focus-overlay" aria-hidden />
-        <div className="relative z-10 grid gap-5 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-6">
-          <div className="min-w-0 space-y-4">
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div className="kanam-track-focus-copy min-w-0">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white sm:text-xs sm:tracking-[0.22em]">
-                  Current focus · {track.title}
-                </p>
-                <p className="mt-1.5 text-base font-semibold leading-snug text-white sm:text-lg">
-                  {track.subtitle}
-                </p>
-              </div>
-              <Badge className="shrink-0 border border-white/40 bg-black/25 px-3 py-1.5 font-bold text-white backdrop-blur-sm">
-                {totalXp} XP in this track
-              </Badge>
-            </div>
-
-            <div className="rounded-2xl border border-white/25 bg-black/25 p-3.5 backdrop-blur-sm sm:p-4">
-              <div className="kanam-track-focus-copy flex items-end justify-between gap-3">
-                <div>
-                  <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-white">
-                    Track progress
-                  </p>
-                  <p className="mt-1 text-sm font-semibold text-white">
-                    {completedCount} of {totalCount} lessons complete
-                  </p>
-                </div>
-                <p className="text-2xl font-black tabular-nums text-white">{percent}%</p>
-              </div>
-              <div className="mt-3 h-2.5 overflow-hidden rounded-full bg-black/35 ring-1 ring-white/20">
-                <div
-                  className="h-full rounded-full bg-[var(--accent)] transition-[width] duration-500 ease-out"
-                  style={{ width: `${Math.max(0, Math.min(100, percent))}%` }}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="min-w-0">
-            {nextLesson?.href && !nextLesson.comingSoon ? (
-              <Button
-                asChild
-                size="lg"
-                className="h-auto min-h-[4.25rem] w-full whitespace-normal border border-white/40 bg-white px-4 py-3.5 text-left text-[var(--brand-2)] shadow-[0_12px_28px_rgba(15,23,42,0.18)] hover:bg-white/95"
-              >
-                <Link href={nextLesson.href} className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[var(--brand)] text-white">
-                    <Play className="h-4 w-4" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block text-[10px] font-black uppercase tracking-[0.16em] text-[var(--brand)]">
-                      Next step
-                    </span>
-                    <span className="mt-0.5 block text-base font-extrabold leading-snug">
-                      {nextLesson.title}
-                    </span>
-                    <span className="mt-0.5 block text-xs font-semibold text-[var(--brand-2)]/75">
-                      {weekSessionLabel(nextLesson)}
-                    </span>
-                  </span>
-                </Link>
-              </Button>
-            ) : nextLesson?.comingSoon ? (
-              <Button
-                size="lg"
-                disabled
-                className="min-h-[4.25rem] w-full border border-white/25 bg-white/20 text-white"
-              >
-                Next lesson coming soon
-              </Button>
-            ) : classRestricted && totalCount === 0 ? (
-              <Button
-                size="lg"
-                disabled
-                className="min-h-[4.25rem] w-full border border-white/25 bg-white/20 text-white"
-              >
-                Nothing assigned in this path yet
-              </Button>
-            ) : (
-              <Button
-                size="lg"
-                disabled
-                className="min-h-[4.25rem] w-full border border-white/25 bg-white/20 text-white"
-              >
-                Track complete!
-              </Button>
-            )}
-          </div>
-        </div>
-      </section>
-
+    <div id="roadmap" className="space-y-6">
       <TrackRoadmapContent
         track={track}
         completedIds={completedIds}
@@ -242,7 +138,7 @@ function TrackRoadmapContent({
             const weekDone = weekLessons.every((l) => completedIds.includes(l.id));
             return (
               <div key={wk.week} className="space-y-3">
-                <div className="flex items-start gap-3 rounded-xl bg-[var(--brand-2)] px-4 py-3.5 shadow-[0_8px_22px_rgba(15,110,87,0.28)] ring-1 ring-[rgb(var(--brand-2-rgb)/0.9)]">
+                <div className="flex items-start gap-3 rounded-xl bg-[var(--brand-2)] px-4 py-3.5 shadow-[0_12px_28px_rgba(15,110,87,0.32),0_4px_12px_rgba(15,23,42,0.12)] ring-1 ring-[rgb(var(--brand-2-rgb)/0.9)]">
                   <div
                     className={[
                       "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-black",
@@ -293,11 +189,11 @@ function TrackRoadmapContent({
                     <Card
                       key={lesson.id}
                       className={[
-                        "ml-3 border shadow-sm transition-all",
+                        "ml-3 border bg-white shadow-[0_10px_28px_rgba(15,23,42,0.1),0_2px_8px_rgba(15,23,42,0.06)] transition-all",
                         completed
                           ? "border-[var(--brand)]/60 bg-[var(--brand)]/5"
                           : isActive
-                            ? "border-[var(--brand)] bg-white shadow-[0_0_0_1px_rgba(24,161,109,0.25)]"
+                            ? "border-[var(--brand)] shadow-[0_14px_34px_rgba(24,161,109,0.18),0_4px_12px_rgba(15,23,42,0.08)]"
                             : "border-slate-200",
                         lockedOut ? "opacity-80" : "",
                       ].join(" ")}
@@ -433,7 +329,7 @@ function TrackRoadmapContent({
                                   type="button"
                                   size="lg"
                                   variant="outline"
-                                  className="h-auto min-h-[3.75rem] justify-start gap-3 border-2 border-dashed border-slate-300 bg-slate-50/90 px-4 py-3.5 text-slate-600 shadow-sm hover:border-slate-400 hover:bg-slate-100"
+                                  className="h-auto min-h-[3.75rem] justify-start gap-3 border-2 border-dashed border-slate-300 bg-slate-50/90 px-4 py-3.5 text-slate-600 shadow-[0_8px_20px_rgba(15,23,42,0.08)] hover:border-slate-400 hover:bg-slate-100"
                                   onClick={() => setActivityLockNoticeId(lesson.id)}
                                 >
                                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-slate-200/80 ring-1 ring-slate-300/80">
@@ -489,8 +385,8 @@ function TrackRoadmapContent({
                   className={[
                     "border transition-shadow",
                     unlocked
-                      ? "border-[rgb(var(--accent-rgb)/0.45)] bg-gradient-to-br from-amber-50/80 to-white shadow-sm"
-                      : "border-slate-200 bg-slate-50/60 opacity-80",
+                      ? "border-[rgb(var(--accent-rgb)/0.45)] bg-gradient-to-br from-amber-50/80 to-white shadow-[0_10px_24px_rgba(15,23,42,0.1),0_2px_8px_rgba(15,23,42,0.06)]"
+                      : "border-slate-200 bg-slate-50/90 opacity-90 shadow-[0_6px_16px_rgba(15,23,42,0.08)]",
                   ].join(" ")}
                 >
                   <CardContent className="p-4">

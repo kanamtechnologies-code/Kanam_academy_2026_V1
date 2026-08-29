@@ -33,7 +33,7 @@ function errorMessage(error: unknown, fallback: string) {
 }
 
 const chipBase =
-  "inline-flex h-10 w-10 shrink-0 items-center justify-center gap-1.5 rounded-full px-0 text-xs font-extrabold tracking-tight focus:outline-none focus-visible:ring-4 sm:h-11 sm:w-auto sm:gap-2 sm:px-3.5";
+  "inline-flex h-10 w-10 shrink-0 items-center justify-center gap-1.5 rounded-full px-0 text-xs font-extrabold tracking-tight shadow-[0_10px_22px_rgba(15,23,42,0.3),0_2px_8px_rgba(0,0,0,0.18)] transition-shadow hover:shadow-[0_14px_28px_rgba(15,23,42,0.36)] focus:outline-none focus-visible:ring-4 sm:h-11 sm:w-auto sm:gap-2 sm:px-3.5";
 
 /**
  * Staff instructor entry in the header — keeps welcome/sign-up screens student/parent focused.

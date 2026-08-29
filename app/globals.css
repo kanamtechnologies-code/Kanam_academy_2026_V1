@@ -45,7 +45,7 @@ html {
 }
 
 body {
-  background: var(--background);
+  background: transparent;
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -59,6 +59,17 @@ body {
   max-width: 100%;
   /* Fold cover / ultra-narrow: never let flex/grid min-content blow the page open */
   min-width: 0;
+}
+
+html {
+  background-color: var(--background);
+}
+
+/* Welcome + dashboard: only the ambient video — no solid page fill behind it */
+html.kanam-has-ambient-video,
+html.kanam-has-ambient-video body {
+  background-color: transparent !important;
+  background-image: none !important;
 }
 
 /* Smooth light/dark theme changes — only while .theme-animating is set */
@@ -452,19 +463,29 @@ body {
   background: rgb(255 255 255 / 1);
 }
 
-/* Dashboard premium shell */
+/* Dashboard premium shell — sits on KanamAmbientBackground video */
 .kanam-dashboard-shell {
-  background:
-    radial-gradient(1100px 520px at 8% -10%, rgb(var(--brand-rgb) / 0.12), transparent 55%),
-    radial-gradient(980px 480px at 95% -20%, rgb(var(--accent-rgb) / 0.14), transparent 58%),
-    #f8fafc;
+  position: relative;
+  background: transparent;
 }
 
 .dark .kanam-dashboard-shell {
-  background:
-    radial-gradient(1100px 520px at 8% -10%, rgb(var(--brand-rgb) / 0.18), transparent 55%),
-    radial-gradient(980px 480px at 95% -20%, rgb(var(--accent-rgb) / 0.12), transparent 58%),
-    var(--background);
+  background: transparent;
+}
+
+/* Surfaces that must lift off the ambient video */
+.kanam-lift {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 12px 28px rgba(15, 23, 42, 0.1),
+    0 28px 56px rgba(15, 23, 42, 0.16);
+}
+
+html.kanam-has-ambient-video .kanam-lift-sm {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 8px 20px rgba(15, 23, 42, 0.1),
+    0 18px 40px rgba(15, 23, 42, 0.14);
 }
 
 .dark .kanam-text-pop {
@@ -482,8 +503,9 @@ body {
     radial-gradient(980px 360px at 0% -10%, rgb(255 255 255 / 0.28), transparent 52%),
     linear-gradient(130deg, #0a6f5b 0%, #0f8b73 48%, #d8c07a 100%);
   box-shadow:
-    0 1px 0 rgb(255 255 255 / 0.24) inset,
-    0 20px 50px rgb(15 23 42 / 0.2);
+    0 1px 0 rgb(255 255 255 / 0.28) inset,
+    0 16px 40px rgb(15 23 42 / 0.22),
+    0 36px 72px rgb(15 23 42 / 0.28);
 }
 
 .kanam-dashboard-hero-overlay {
@@ -497,6 +519,9 @@ body {
   border: 1px solid rgb(255 255 255 / 0.28);
   background: rgb(255 255 255 / 0.14);
   backdrop-filter: blur(6px);
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 0.2) inset,
+    0 10px 24px rgb(15 23 42 / 0.18);
 }
 
 .kanam-track-focus {
@@ -511,7 +536,8 @@ body {
     linear-gradient(135deg, #064e3f 0%, #0a6f5b 42%, #0f766e 100%);
   box-shadow:
     0 1px 0 rgb(255 255 255 / 0.18) inset,
-    0 18px 42px rgb(15 23 42 / 0.18);
+    0 16px 36px rgb(15 23 42 / 0.2),
+    0 32px 64px rgb(15 23 42 / 0.22);
 }
 
 @media (min-width: 640px) {
@@ -682,18 +708,6 @@ body {
 }
 
 /* Track carousel styles live on the component via Tailwind utilities. */
-
-/* Premium Light Glass: subtle hex pattern overlay */
-.kanam-hex-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='48' viewBox='0 0 56 48'%3E%3Cg fill='none' stroke='rgba(15,110,87,0.18)' stroke-width='1'%3E%3Cpath d='M14 1 L28 9 L28 25 L14 33 L0 25 L0 9 Z'/%3E%3Cpath d='M42 1 L56 9 L56 25 L42 33 L28 25 L28 9 Z'/%3E%3Cpath d='M28 25 L42 33 L42 47 L28 55 L14 47 L14 33 Z' transform='translate(0,-8)'/%3E%3C/g%3E%3C/svg%3E");
-  background-size: 56px 48px;
-}
-
-/* Make hex strongest in the center, fade toward edges */
-.kanam-hex-mask-center {
-  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.35) 80%, rgba(0,0,0,0) 100%);
-  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.35) 80%, rgba(0,0,0,0) 100%);
-}
 
 /* Lesson Hub rail: green glass (no texture) */
 .kanam-hub-rail,

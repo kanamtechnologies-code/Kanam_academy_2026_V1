@@ -204,16 +204,28 @@ export async function resolveStudentLessonAccess(): Promise<LessonAccessResolveR
 
   const { data: classRows, error: classErr } = await admin
     .from("classes")
-    .select("id, code, is_async")
+    .select("id, name, code, is_async")
     .in("id", classIds);
 
-  let rows: Array<{ id: string; code?: string | null; is_async?: boolean | null }> =
-    (classRows as Array<{ id: string; code?: string | null; is_async?: boolean | null }> | null) ??
-    [];
+  let rows: Array<{
+    id: string;
+    name?: string | null;
+    code?: string | null;
+    is_async?: boolean | null;
+  }> =
+    (classRows as Array<{
+      id: string;
+      name?: string | null;
+      code?: string | null;
+      is_async?: boolean | null;
+    }> | null) ?? [];
   if (classErr) {
     const msg = classErr.message.toLowerCase();
     if (msg.includes("is_async") || msg.includes("column")) {
-      const fallback = await admin.from("classes").select("id, code").in("id", classIds);
+      const fallback = await admin
+        .from("classes")
+        .select("id, name, code")
+        .in("id", classIds);
       if (fallback.error) {
         return {
           status: 500,
@@ -227,6 +239,7 @@ export async function resolveStudentLessonAccess(): Promise<LessonAccessResolveR
       }
       rows = (fallback.data ?? []).map((c) => ({
         id: c.id,
+        name: c.name,
         code: c.code,
         is_async: isAsyncClassRow({ code: c.code, is_async: false }),
       }));
@@ -243,8 +256,16 @@ export async function resolveStudentLessonAccess(): Promise<LessonAccessResolveR
     }
   }
 
-  const teacherClassIds = rows.filter((c) => !isAsyncClassRow(c)).map((c) => String(c.id));
+  const teacherRows = rows.filter((c) => !isAsyncClassRow(c));
+  const teacherClassIds = teacherRows.map((c) => String(c.id));
   const asyncClassIds = rows.filter((c) => isAsyncClassRow(c)).map((c) => String(c.id));
+  const enrolledClasses = teacherRows
+    .map((c) => ({
+      id: String(c.id),
+      name: String(c.name ?? "").trim() || "Your class",
+      code: String(c.code ?? "").trim().toUpperCase(),
+    }))
+    .filter((c) => Boolean(c.id));
 
   if (teacherClassIds.length === 0) {
     const access = await withEntitlements(admin, billingUserId, {
@@ -293,6 +314,7 @@ export async function resolveStudentLessonAccess(): Promise<LessonAccessResolveR
     entitlementRestricted: false,
     enabledLessonIds,
     classIds,
+    enrolledClasses,
     isAsyncCohort: false,
     hasActiveSubscription: entitlements.hasActiveSubscription,
     unlockedTrackSlugs: entitlements.hasActiveSubscription

@@ -24,11 +24,12 @@ export function HeaderHelpPocket() {
       className={cn(
         "relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full lg:hidden",
         "border border-white/25 bg-white/10 text-white",
+        "shadow-[0_10px_22px_rgba(15,23,42,0.3),0_2px_8px_rgba(0,0,0,0.18)]",
         "transition-all duration-200 ease-out",
-        "hover:bg-white/15 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/25",
+        "hover:bg-white/15 hover:shadow-[0_14px_28px_rgba(15,23,42,0.36)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/25",
         "active:scale-[0.96]",
         pocket.open &&
-          "bg-white text-[color:var(--brand-2)] shadow-md ring-2 ring-white/40 hover:bg-white"
+          "bg-white text-[color:var(--brand-2)] shadow-[0_12px_26px_rgba(15,23,42,0.32)] ring-2 ring-white/40 hover:bg-white"
       )}
     >
       <PocketKnife

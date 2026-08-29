@@ -8,6 +8,8 @@ export type StudentLessonAccess = {
    */
   enabledLessonIds: string[] | null;
   classIds: string[];
+  /** Teacher-led classes the learner is enrolled in (excludes async cohort). */
+  enrolledClasses?: Array<{ id: string; name: string; code: string }>;
   /** True when the student is only in the shared self-paced / async cohort. */
   isAsyncCohort?: boolean;
   /** Family $30/mo subscription currently active/trialing. */

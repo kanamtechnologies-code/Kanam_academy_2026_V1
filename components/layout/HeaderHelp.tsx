@@ -25,7 +25,7 @@ export function HeaderHelp() {
       variant="outline"
       size="icon"
       className={cn(
-        "h-10 w-10 shrink-0 rounded-full border-white/60 bg-white/90 text-[color:var(--brand-2)] hover:bg-white sm:h-11 sm:w-auto sm:rounded-xl sm:px-4 dark:border-white/60 dark:bg-white/90 dark:text-[color:var(--brand-2)] dark:hover:bg-white",
+        "h-10 w-10 shrink-0 rounded-full border-white/70 bg-white text-[color:var(--brand-2)] shadow-[0_10px_22px_rgba(15,23,42,0.28),0_2px_8px_rgba(15,23,42,0.12)] hover:bg-white hover:shadow-[0_14px_28px_rgba(15,23,42,0.34)] sm:h-11 sm:w-auto sm:rounded-xl sm:px-4 dark:border-white/70 dark:bg-white dark:text-[color:var(--brand-2)] dark:hover:bg-white",
         // Lesson phone/tablet already has Help Pocket — keep /help from lg up.
         helpPocket?.available && "hidden lg:inline-flex"
       )}

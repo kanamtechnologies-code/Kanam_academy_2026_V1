@@ -32,7 +32,7 @@ type EnsureProfileResponse = { ok?: boolean; error?: string };
 type StudentNameRow = { display_name?: string | null };
 
 const glassCard =
-  "w-full rounded-[24px] border border-white/60 bg-white/70 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.04)] backdrop-blur-2xl sm:rounded-[32px] sm:p-6 md:p-8 dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)]";
+  "w-full rounded-[24px] border border-white/70 bg-white/80 p-5 shadow-[0_16px_40px_rgba(15,23,42,0.14),0_32px_64px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:rounded-[32px] sm:p-6 md:p-8 dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)]";
 
 function saveUserName(name: string) {
   try {
@@ -333,7 +333,7 @@ export default function WelcomeReturningPage() {
               className={[
                 "h-12 w-full rounded-xl px-6 text-base font-semibold",
                 "bg-[#E9D5A3] text-[#0f513f] hover:brightness-110 dark:text-[#0f513f]",
-                "shadow-[0_20px_50px_rgba(0,0,0,0.04)]",
+                "shadow-[0_12px_28px_rgba(15,23,42,0.18),0_4px_12px_rgba(201,168,78,0.25)]",
                 "focus-visible:ring-4 focus-visible:ring-emerald-500/25",
               ].join(" ")}
               onClick={() => void signIn()}

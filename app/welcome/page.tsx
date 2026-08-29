@@ -143,7 +143,7 @@ export default function WelcomePage() {
   });
 
   const glassCardBase =
-    "w-full min-w-0 max-w-full rounded-[24px] bg-white/70 backdrop-blur-2xl border border-white/60 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out sm:rounded-[32px] dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)]";
+    "w-full min-w-0 max-w-full rounded-[24px] bg-white/80 backdrop-blur-2xl border border-white/70 shadow-[0_16px_40px_rgba(15,23,42,0.14),0_32px_64px_rgba(15,23,42,0.12)] transition-all duration-300 ease-out sm:rounded-[32px] dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)]";
 
   const signInLearner = React.useCallback(async () => {
     setReturningError(null);
@@ -408,7 +408,7 @@ export default function WelcomePage() {
               </div>
             </div>
 
-            <div className="w-full rounded-[28px] border border-white/60 bg-white/70 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.04)] backdrop-blur-2xl dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.45)] lg:justify-self-end">
+            <div className="w-full rounded-[28px] border border-white/70 bg-white/80 p-5 shadow-[0_16px_40px_rgba(15,23,42,0.14),0_32px_64px_rgba(15,23,42,0.12)] backdrop-blur-2xl dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)] lg:justify-self-end">
               <p className="mt-0 text-base font-black tracking-tight text-slate-900">
                 Just browsing? Try a guided lesson — no account needed.
               </p>
@@ -818,7 +818,7 @@ export default function WelcomePage() {
                       "transition-all duration-300 ease-out",
                       "active:scale-95",
                       "bg-[#E9D5A3] text-[#0f513f] hover:brightness-110 dark:text-[#0f513f]",
-                      "shadow-[0_20px_50px_rgba(0,0,0,0.04)]",
+                      "shadow-[0_12px_28px_rgba(15,23,42,0.18),0_4px_12px_rgba(201,168,78,0.25)]",
                       "focus-visible:ring-4 focus-visible:ring-emerald-500/25",
                     ].join(" ")}
                     onClick={signInLearner}

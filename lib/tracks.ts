@@ -37,6 +37,8 @@ export type Track = {
     | "financial-literacy";
   title: string;
   subtitle: string;
+  /** Short learner-facing promise — used to distinguish paths without color. */
+  outcome: string;
   icon: string;
   lessons: LessonRow[];
 };
@@ -398,6 +400,7 @@ export const TRACKS: Track[] = [
     id: "ai-literacy",
     title: "AI Literacy",
     subtitle: "What AI is, how it works, and how to use it wisely",
+    outcome: "Know what AI is — and use it wisely",
     icon: "",
     lessons: AI_LITERACY_LESSONS,
   },
@@ -405,6 +408,7 @@ export const TRACKS: Track[] = [
     id: "advanced-ai",
     title: "Advanced AI",
     subtitle: "Build, evaluate, and audit AI systems — beyond prompting (CSTA AI specialty)",
+    outcome: "Build and audit real AI systems",
     icon: "",
     lessons: ADVANCED_AI_LESSONS,
   },
@@ -412,6 +416,7 @@ export const TRACKS: Track[] = [
     id: "ap-csp-prep",
     title: "AP CSP Prep",
     subtitle: "College Board–aligned exam prep: Big Ideas, Create PT studio, and AP-style practice (not an official AP course)",
+    outcome: "Pass the AP CSP exam",
     icon: "",
     lessons: AP_CSP_PREP_LESSONS,
   },
@@ -419,6 +424,7 @@ export const TRACKS: Track[] = [
     id: "digital-literacy",
     title: "Digital Literacy",
     subtitle: "Evaluate systems, information, privacy, and digital citizenship — CSTA Level 3A",
+    outcome: "Judge online info and protect your identity",
     icon: "",
     lessons: DIGITAL_LITERACY_LESSONS,
   },
@@ -426,6 +432,7 @@ export const TRACKS: Track[] = [
     id: "cybersecurity",
     title: "Cybersecurity",
     subtitle: "Evaluate threats, recommend controls, and justify tradeoffs — CSTA Level 3A/3B",
+    outcome: "Protect accounts and spot threats",
     icon: "",
     lessons: CYBERSECURITY_LESSONS,
   },
@@ -433,6 +440,7 @@ export const TRACKS: Track[] = [
     id: "financial-literacy",
     title: "Financial Literacy",
     subtitle: "Budgets, credit, investing, and money decisions for real life",
+    outcome: "Budget, credit, and invest with a plan",
     icon: "",
     lessons: FINANCIAL_LITERACY_LESSONS,
   },
@@ -440,6 +448,7 @@ export const TRACKS: Track[] = [
     id: "ai-python",
     title: "AI + Python Starter Pack",
     subtitle: "Build your first AI helper with Python",
+    outcome: "Build a chatbot adventure in Python",
     icon: "",
     lessons: PYTHON_LESSONS,
   },
@@ -447,6 +456,7 @@ export const TRACKS: Track[] = [
     id: "data-analyst",
     title: "Data Analyst Track",
     subtitle: "SQL, tables, and charts for real-world questions",
+    outcome: "Turn tables into clear answers",
     icon: "",
     lessons: DATA_ANALYST_LESSONS,
   },

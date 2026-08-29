@@ -19,9 +19,10 @@ export function HeaderBrand() {
       title="Go to kanamacademy.com"
       className={[
         "group inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-[rgb(var(--accent-rgb)/0.95)] bg-white px-1.5 py-1",
+        "shadow-[0_10px_24px_rgba(15,23,42,0.28),0_2px_8px_rgba(15,23,42,0.12)]",
         "sm:gap-2 sm:rounded-2xl sm:px-3 sm:py-2",
         "transform-gpu transition-all duration-200 ease-out motion-reduce:transition-none",
-        "hover:-translate-y-[1px] hover:bg-white",
+        "hover:-translate-y-[1px] hover:bg-white hover:shadow-[0_14px_28px_rgba(15,23,42,0.34)]",
         "active:translate-y-0 active:scale-[0.98]",
         "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.25)]",
       ].join(" ")}
@@ -40,7 +41,7 @@ export function HeaderBrand() {
           "inline-flex shrink-0 items-center gap-0.5 rounded-lg",
           "bg-gradient-to-br from-[rgb(var(--accent-rgb)/0.95)] to-[#c9a84e]",
           "px-1.5 py-1 text-[10px] font-black uppercase tracking-[0.04em] text-slate-950",
-          "shadow-sm sm:px-2 sm:text-[11px] sm:tracking-[0.06em]",
+          "shadow-[0_4px_10px_rgba(201,168,78,0.45)] sm:px-2 sm:text-[11px] sm:tracking-[0.06em]",
         ].join(" ")}
       >
         <span className="sm:hidden">Site</span>

@@ -113,8 +113,8 @@ export function FinishLessonFirstHint({
             </p>
             <p className="mt-1 text-[13px] leading-relaxed text-slate-600">
               Hang on a sec — wrap up the slides, then{" "}
-              <span className="font-semibold text-slate-800">{whatUnlocks}</span> open
-              up. You&apos;re doing great.
+              <span className="font-semibold text-slate-800">{whatUnlocks}</span> will
+              open up. You&apos;re doing great.
             </p>
           </div>
         </div>
