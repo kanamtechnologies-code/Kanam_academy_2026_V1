@@ -76,7 +76,7 @@ export const daLesson12: DataLessonConfig = {
         id: "concept-2",
         kicker: "How to read it",
         title: "Numbers get sorted into bins",
-        body: `Here's the histogram you'll build from 16 quiz scores. Read it in three parts:\n\n• The x-axis is split into equal ranges called **bins** (every 10 points: 50–60, 60–70, …).\n• Each bar's **height** is **how many** scores fall in that bin.\n• The bars **touch**, because the ranges are continuous — there's no gap between 70–80 and 80–90.\n\nThe tall bars show where scores **cluster** (here, the 70s and 80s), while the short bars at the edges show the few very low and very high scores. The whole *shape* tells you the class story at a glance.`,
+        body: `Here's the histogram you'll build from 32 quiz scores. Read it in three parts:\n\n• The x-axis is split into equal ranges called **bins** (every 10 points: 50–60, 60–70, …).\n• Each bar's **height** is **how many** scores fall in that bin.\n• The bars **touch**, because the ranges are continuous — there's no gap between 70–80 and 80–90.\n\nThe tall bars show where scores **cluster** (here, the 70s and 80s), while the short bars at the edges show the few very low and very high scores. The whole *shape* tells you the class story at a glance.`,
         chart: {
           config: { type: "histogram", valueKey: "score", binSize: 10, title: "How quiz scores are spread out" },
           result: {
@@ -84,8 +84,10 @@ export const daLesson12: DataLessonConfig = {
             values: [
               [72], [85], [90], [68], [95], [88], [76], [81],
               [100], [64], [79], [92], [58], [84], [73], [89],
+              [71], [77], [83], [66], [91], [74], [69], [87],
+              [62], [96], [80], [75], [70], [93], [78], [67],
             ],
-            rowCount: 16,
+            rowCount: 32,
           },
         },
         checkIn: {
@@ -156,7 +158,7 @@ export const daLesson12: DataLessonConfig = {
         id: "try-it",
         kicker: "Try it yourself",
         title: "Predict where the class clustered",
-        body: `Before the exercises, look at the 16 quiz scores in the concept-2 chart above. Predict which 10-point bin has the MOST scores — the 70s, 80s, or 90s? Then check your prediction once you see the actual histogram in the exercises.`,
+        body: `Before the exercises, look at the 32 quiz scores in the concept-2 chart above. Predict which 10-point bin has the MOST scores — the 70s, 80s, or 90s? Then check your prediction once you see the actual histogram in the exercises.`,
       },
       {
         id: "deeper-skill",
@@ -363,9 +365,9 @@ This is the difference between *one number per category* (bar) and *the shape of
       starterSql: `SELECT score
 FROM ;`,
       hint: "Type quiz_scores after FROM, then Run & check to see the histogram.",
-      successMessage: "There's the distribution — 16 scores sorted into bins.",
+      successMessage: "There's the distribution — 32 scores sorted into bins.",
       failureMessage:
-        "Use SELECT score FROM quiz_scores. Expect 16 rows + a histogram.",
+        "Use SELECT score FROM quiz_scores. Expect 32 rows + a histogram.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
@@ -373,7 +375,7 @@ FROM ;`,
         if (!/\bfrom\s+quiz_scores\b/.test(n)) return false;
         return Boolean(
           result &&
-            result.rowCount === 16 &&
+            result.rowCount === 32 &&
             result.columns.map((c) => c.toLowerCase()).includes("score")
         );
       },
@@ -388,15 +390,15 @@ FROM ;`,
       starterSql: `SELECT COUNT(*) AS total_students
 FROM quiz_scores;`,
       hint: "The starter query is complete — Run & check.",
-      successMessage: "16 students — every score is in the histogram.",
+      successMessage: "32 students — every score is in the histogram.",
       failureMessage:
-        "Use COUNT(*) AS total_students FROM quiz_scores. Expect 1 row showing 16.",
+        "Use COUNT(*) AS total_students FROM quiz_scores. Expect 1 row showing 32.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bcount\s*\(\s*\*\s*\)\s+as\s+total_students\b/.test(n)) return false;
         if (!/\bfrom\s+quiz_scores\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 1 && firstCellNumber(result) === 16);
+        return Boolean(result && result.rowCount === 1 && firstCellNumber(result) === 32);
       },
     },
     {

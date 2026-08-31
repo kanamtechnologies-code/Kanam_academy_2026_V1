@@ -502,8 +502,11 @@ export function LessonModule({
               ) : null}
 
               {section.table ? (
-                <div className="rounded-xl border border-slate-200 bg-white p-3">
-                  <ResultTable result={section.table} />
+                <div className="min-w-0">
+                  <ResultTable
+                    result={section.table}
+                    maxHeightClassName="max-h-[min(22rem,45vh)]"
+                  />
                 </div>
               ) : null}
 

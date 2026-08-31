@@ -75,27 +75,27 @@ export const daLesson10: DataLessonConfig = {
         id: "concept-2",
         kicker: "How to read it",
         title: "Slices add up to the whole",
-        body: `This is the pie you'll build from \`lunch_orders\`. Read it in three parts:\n\n• Each **slice** is one **item** (the label).\n• The **size** of the slice is that item's **count** (the number).\n• All the slices together make **one whole** — every order appears in exactly one slice.\n\nA bigger slice means a bigger share. Here Pizza slice and Salad each take a wider wedge (2 orders out of 8 = 25% each), while the single-order items take thin slices. Your eye reads "share of the total" automatically.`,
+        body: `This is the pie you'll build from \`lunch_orders\`. Read it in three parts:\n\n• Each **slice** is one **item** (the label).\n• The **size** of the slice is that item's **count** (the number).\n• All the slices together make **one whole** — every order appears in exactly one slice.\n\nA bigger slice means a bigger share. Here Pizza slice takes the widest wedge (5 of 20 = 25%), Salad is next (4 of 20 = 20%), and smaller items take thinner slices. Your eye reads "share of the total" automatically.`,
         chart: {
           config: { type: "pie", xKey: "item", yKey: "order_count", title: "Each item's share of all orders" },
           result: {
             columns: ["item", "order_count"],
             values: [
-              ["Pizza slice", 2],
-              ["Salad", 2],
-              ["Burger", 1],
-              ["Chicken wrap", 1],
-              ["Fruit cup", 1],
-              ["Yogurt parfait", 1],
+              ["Pizza slice", 5],
+              ["Salad", 4],
+              ["Chicken wrap", 3],
+              ["Burger", 3],
+              ["Fruit cup", 3],
+              ["Yogurt parfait", 2],
             ],
             rowCount: 6,
           },
         },
         checkIn: {
-          prompt: "In the chart above, Pizza slice and Salad each have 2 orders out of 8 total. What share is that?",
+          prompt: "In the chart above, Pizza slice has 5 orders out of 20 total. What share is that?",
           choices: ["10% each", "25% each", "50% each"],
           correctIndex: 1,
-          explanation: "2 out of 8 orders is one-quarter of the total, which is 25% — that's why those two slices are noticeably wider than the single-order items.",
+          explanation: "5 out of 20 orders is one-quarter of the total, which is 25% — that's why the Pizza slice is the widest wedge.",
         },
       },
       {
@@ -233,18 +233,18 @@ export const daLesson10: DataLessonConfig = {
         id: "pie-query-walkthrough",
         kicker: "Query walkthrough",
         title: "From raw orders to pie-ready slices",
-        body: `A pie chart needs counts that represent **parts of one whole**. This query groups all eight lunch orders by item and counts each — the numbers should sum to 8 (the total orders), and each slice is one item's share.\n\nBefore charting, verify: do the counts add up? Pizza slice (2) + Salad (2) + four single orders (4) = 8. If your counts don't match the whole, the pie slices won't either.`,
+        body: `A pie chart needs counts that represent **parts of one whole**. This query groups all twenty lunch orders by item and counts each — the numbers should sum to 20 (the total orders), and each slice is one item's share.\n\nBefore charting, verify: do the counts add up? 5 + 4 + 3 + 3 + 3 + 2 = 20. If your counts don't match the whole, the pie slices won't either.`,
         code: `SELECT item,\n       COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item;`,
-        codeCaption: "Six slices, eight orders total",
+        codeCaption: "Six slices, twenty orders total",
         table: {
           columns: ["item", "order_count"],
           values: [
-            ["Pizza slice", 2],
-            ["Salad", 2],
-            ["Chicken wrap", 1],
-            ["Fruit cup", 1],
-            ["Yogurt parfait", 1],
-            ["Burger", 1],
+            ["Pizza slice", 5],
+            ["Salad", 4],
+            ["Chicken wrap", 3],
+            ["Burger", 3],
+            ["Fruit cup", 3],
+            ["Yogurt parfait", 2],
           ],
           rowCount: 6,
         },
@@ -258,7 +258,7 @@ export const daLesson10: DataLessonConfig = {
         codeCaption: "The whole you're dividing into slices",
         table: {
           columns: ["total_orders"],
-          values: [[8]],
+          values: [[20]],
           rowCount: 1,
         },
       },
@@ -278,11 +278,11 @@ export const daLesson10: DataLessonConfig = {
         id: "lunch-pie-second-example",
         kicker: "Second example",
         title: "Reading slice shares on lunch_orders",
-        body: `With 8 total orders, Pizza slice's 2 orders = 25% of the whole. Salad is also 25%. Each of the other four items is 12.5%.\n\nWhen you read a pie, translate slices into **percentages of the total**, not just "big" or "small." Two slices the same size means equal share — even if one label is longer than the other.`,
+        body: `With 20 total orders, Pizza slice's 5 orders = 25% of the whole. Salad is 20%. The remaining items share the rest.\n\nWhen you read a pie, translate slices into **percentages of the total**, not just "big" or "small." Equal slices mean equal share — even if one label is longer than the other.`,
         bullets: [
-          "Pizza slice: 2/8 = 25%",
-          "Salad: 2/8 = 25%",
-          "Each other item: 1/8 = 12.5%",
+          "Pizza slice: 5/20 = 25%",
+          "Salad: 4/20 = 20%",
+          "Smaller items: 3/20 or 2/20 each",
         ],
       },
       {
@@ -405,14 +405,14 @@ GROUP BY ;`,
       starterSql: `SELECT COUNT(*) AS total_orders
 FROM ;`,
       hint: "Type lunch_orders after FROM.",
-      successMessage: "8 orders in total — that's the whole pie.",
-      failureMessage: "Use COUNT(*) AS total_orders FROM lunch_orders. Expect 1 row showing 8.",
+      successMessage: "20 orders in total — that's the whole pie.",
+      failureMessage: "Use COUNT(*) AS total_orders FROM lunch_orders. Expect 1 row showing 20.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bcount\s*\(\s*\*\s*\)\s+as\s+total_orders\b/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 1 && firstCellNumber(result) === 8);
+        return Boolean(result && result.rowCount === 1 && firstCellNumber(result) === 20);
       },
     },
     {

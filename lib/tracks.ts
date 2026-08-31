@@ -210,8 +210,8 @@ export const DATA_ANALYST_WEEKS: WeekPlan[] = [
   { week: 4, theme: "Connecting & Sharpening", focus: "JOIN two tables, then layer WHERE + GROUP BY + HAVING." },
   { week: 5, theme: "Comparing with Charts", focus: "Bar charts (compare categories) and pie charts (parts of a whole)." },
   { week: 6, theme: "Trends & Spread", focus: "Line charts (change over time) and histograms (distributions)." },
-  { week: 7, theme: "Relationships & Planning", focus: "Scatter plots (are two numbers related?) + plan your capstone." },
-  { week: 8, theme: "Capstone: Your Data Project", focus: "Run a full investigation: explore → join → summarize → visualize → conclude." },
+  { week: 7, theme: "Relationships & Planning", focus: "Scatter plots (are two numbers related?) + plan your cafeteria briefing." },
+  { week: 8, theme: "Capstone: Cafeteria Briefing", focus: "From-scratch multi-question investigation: explore → join → summarize → chart → brief." },
 ];
 
 const PYTHON_LESSONS: LessonRow[] = [
@@ -245,7 +245,7 @@ const DATA_ANALYST_LESSONS: LessonRow[] = [
   { id: "da-11", title: "Change Over Time", href: "/learn/data/11", xp: 550, badgeName: "Trend Spotter", badgeIcon: "", week: 6, session: 1, hasLesson: true },
   { id: "da-12", title: "Distributions", href: "/learn/data/12", xp: 600, badgeName: "Distribution Detective", badgeIcon: "", week: 6, session: 2, hasLesson: true },
   { id: "da-13", title: "Relationships", href: "/learn/data/13", xp: 650, badgeName: "Relationship Finder", badgeIcon: "", week: 7, session: 1, hasLesson: true },
-  { id: "da-14", title: "Your Data Project", href: "/learn/data/14", xp: 700, badgeName: "Data Analyst", badgeIcon: "", week: 8, session: 1, hasLesson: true },
+  { id: "da-14", title: "Capstone: Cafeteria Briefing", href: "/learn/data/14", xp: 700, badgeName: "Data Analyst", badgeIcon: "", week: 8, session: 1, hasLesson: true },
 ];
 
 const AP_CSP_PREP_LESSONS: LessonRow[] = [
@@ -456,7 +456,7 @@ export const TRACKS: Track[] = [
     id: "data-analyst",
     title: "Data Analyst Track",
     subtitle: "SQL, tables, and charts for real-world questions",
-    outcome: "Turn tables into clear answers",
+    outcome: "Brief a stakeholder with SQL and charts",
     icon: "",
     lessons: DATA_ANALYST_LESSONS,
   },

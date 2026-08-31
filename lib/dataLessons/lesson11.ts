@@ -4,7 +4,7 @@ import { normSql, WEEKLY_ORDERS_SEED } from "@/lib/dataLessonHelpers";
 export const daLesson11: DataLessonConfig = {
   id: "da-11",
   title: "11. Change Over Time",
-  goal: "Use a line chart to show how a number changes over time — and read the trend, peaks, and dips across a week.",
+  goal: "Use a line chart to show how a number changes over time — and read the trend, peaks, and dips across two weeks.",
   xpReward: 550,
   badge: "Trend Spotter",
   previewTable: "daily_orders",
@@ -14,9 +14,9 @@ export const daLesson11: DataLessonConfig = {
   dashboardHref: "/dashboard",
   chartConfig: {
     type: "line",
-    xKey: "weekday",
+    xKey: "day_num",
     yKey: "orders",
-    title: "Orders per day this week",
+    title: "Orders per day (two weeks)",
   },
   lessonModule: {
     durationLabel: "~20–25 min lesson",
@@ -76,28 +76,23 @@ export const daLesson11: DataLessonConfig = {
         id: "concept-2",
         kicker: "How to read it",
         title: "Time runs left to right",
-        body: `Here's the line you'll build — one week of cafeteria orders. Read it in three parts:\n\n• The **x-axis** (bottom) is **time**: Monday → Sunday, always in order.\n• The **y-axis** shows the **number** of orders.\n• The **shape of the line** is the story: it climbs steadily to Friday's **peak** (80 orders), then **drops** hard over the weekend.\n\nFollowing the line, you instantly see the school-week build-up and the weekend slump — no number-crunching needed. That's the power of plotting time left to right.`,
+        body: `Here's the line you'll build — two weeks of cafeteria orders. Read it in three parts:\n\n• The **x-axis** (bottom) is **time**: day 1 → day 14, always in time order.\n• The **y-axis** shows the **number** of orders.\n• The **shape of the line** is the story: it climbs steadily to Friday of Week 2 peaks at **95 orders**, with weekend dips after each school week.\n\nFollowing the line, you instantly see the school-week build-up and the weekend slump — no number-crunching needed. That's the power of plotting time left to right.`,
         chart: {
-          config: { type: "line", xKey: "weekday", yKey: "orders", title: "Orders per day this week" },
+          config: { type: "line", xKey: "day_num", yKey: "orders", title: "Orders per day (two weeks)" },
           result: {
-            columns: ["weekday", "orders"],
+            columns: ["day_num", "orders"],
             values: [
-              ["Mon", 42],
-              ["Tue", 55],
-              ["Wed", 48],
-              ["Thu", 63],
-              ["Fri", 80],
-              ["Sat", 30],
-              ["Sun", 25],
+              [1, 42], [2, 55], [3, 48], [4, 63], [5, 80], [6, 30], [7, 25],
+              [8, 51], [9, 58], [10, 54], [11, 71], [12, 95], [13, 33], [14, 28],
             ],
-            rowCount: 7,
+            rowCount: 14,
           },
         },
         checkIn: {
           prompt: "Looking at the chart, which day is the peak?",
           choices: ["Monday", "Friday", "Sunday"],
           correctIndex: 1,
-          explanation: "Friday has the highest point on the line (80 orders) — that's the peak of the week's trend.",
+          explanation: "Friday of Week 2 has the highest point (95 orders) — that's the peak of the two-week trend.",
         },
       },
       {
@@ -162,13 +157,13 @@ export const daLesson11: DataLessonConfig = {
         id: "try-it",
         kicker: "Try it yourself",
         title: "Predict the shape before you chart it",
-        body: `Before the exercises, look at the Mon–Sun order numbers from the concept-2 chart above and predict: does the line rise, fall, or do both across the week? Sketch the rough shape on paper, then build the real query and compare against your sketch.`,
+        body: `Before the exercises, look at the two-week order numbers from the concept-2 chart above and predict: does the line rise, fall, or do both across the fortnight? Sketch the rough shape on paper, then build the real query and compare against your sketch.`,
       },
       {
         id: "deeper-skill",
         kicker: "Go one level deeper",
         title: "The hidden helper column: day_num",
-        body: `The **daily_orders** table has one row per day, but the real trick is the **day_num** column — a number (Mon = 1 … Sun = 7) that keeps the days in the *correct* order. This is the unsung hero: sorting by it guarantees an honest line, even though the chart only displays the **weekday** label, not the number itself.`,
+        body: `The **daily_orders** table has one row per day across **two weeks**, plus a **day_num** column (1 → 14) that keeps time in the *correct* order. Sorting by day_num guarantees an honest line. The **weekday** label (Mon, Tue, …) is useful for reading a peak day, but alphabetical weekday order would scramble the trend — always sort by the number.`,
         table: {
           columns: ["day_num", "weekday", "orders"],
           values: [
@@ -184,7 +179,7 @@ export const daLesson11: DataLessonConfig = {
         id: "comparison",
         kicker: "Compare & contrast",
         title: "Line chart vs. bar chart, same numbers",
-        body: `Imagine the exact same 7 numbers (42, 55, 48, 63, 80, 30, 25) shown two ways.`,
+        body: `Imagine the same two-week traffic numbers shown two ways.`,
         bullets: [
           "**As a bar chart** — you can compare which day was busiest, but the week's *flow* is harder to see.",
           "**As a line chart** — the climb toward Friday and the weekend crash are immediately obvious.",
@@ -233,33 +228,33 @@ export const daLesson11: DataLessonConfig = {
         checkIn: {
           prompt: "Which is the correct way to build an honest weekly trend line from daily_orders?",
           choices: [
-            "SELECT weekday, orders FROM daily_orders",
-            "SELECT weekday, orders FROM daily_orders ORDER BY day_num",
-            "SELECT weekday, orders FROM daily_orders ORDER BY weekday",
+            "SELECT day_num, orders FROM daily_orders",
+            "SELECT day_num, orders FROM daily_orders ORDER BY day_num",
+            "SELECT day_num, orders FROM daily_orders ORDER BY weekday",
           ],
           correctIndex: 1,
-          explanation: "Sorting by day_num (the numeric time order) guarantees Monday through Sunday appear in true chronological order, not alphabetical order.",
+          explanation: "Sorting by day_num (1→14) keeps both weeks in true chronological order so the line never zig-zags backward.",
         },
       },
       {
         id: "time-order-walkthrough",
         kicker: "Query walkthrough",
         title: "Sort by day_num, not weekday name",
-        body: `Alphabetical order puts Friday before Monday — which makes a trend line look like a rollercoaster instead of a week. Sorting by \`day_num\` (1 = Monday through 7 = Sunday) keeps time flowing left to right.\n\nRead the result table: orders climb from 42 on Monday to 80 on Friday, then drop on the weekend. That pattern only makes sense because the rows are in chronological order.`,
-        code: `SELECT weekday, orders\nFROM daily_orders\nORDER BY day_num;`,
+        body: `Alphabetical order puts Friday before Monday — which makes a trend line look like a rollercoaster instead of a week. Sorting by \`day_num\` (1 through 14 across two weeks) keeps time flowing left to right.\n\nRead the result table: orders climb through each school week and peak at 95 on Friday of Week 2. That pattern only makes sense because the rows are in chronological order.`,
+        code: `SELECT day_num, orders\nFROM daily_orders\nORDER BY day_num;`,
         codeCaption: "Chronological order for an honest trend",
         table: {
-          columns: ["weekday", "orders"],
+          columns: ["day_num", "orders"],
           values: [
-            ["Mon", 42],
-            ["Tue", 55],
-            ["Wed", 48],
-            ["Thu", 63],
-            ["Fri", 80],
-            ["Sat", 30],
-            ["Sun", 25],
+            [1, 42],
+            [2, 55],
+            [3, 48],
+            [4, 63],
+            [5, 80],
+            [12, 95],
+            [14, 28],
           ],
-          rowCount: 7,
+          rowCount: 14,
         },
       },
       {
@@ -272,7 +267,7 @@ export const daLesson11: DataLessonConfig = {
         id: "weekend-context-ethics",
         kicker: "Data ethics moment",
         title: "Context changes how a trend reads",
-        body: `Friday's 80 orders look impressive — until you learn the cafeteria was closed Saturday and Sunday for a holiday, making the weekend dip misleading. A line chart shows *what happened* but not *why*.\n\nResponsible analysts add context in their conclusion: "Orders peaked Friday, but weekend numbers may reflect reduced hours, not lower demand." Never let a chart speak without you.`,
+        body: `Friday's 95 orders look impressive — until you learn the cafeteria was closed Saturday and Sunday for a holiday, making the weekend dip misleading. A line chart shows *what happened* but not *why*.\n\nResponsible analysts add context in their conclusion: "Orders peaked Friday, but weekend numbers may reflect reduced hours, not lower demand." Never let a chart speak without you.`,
       },
       {
         id: "peak-day-query",
@@ -283,7 +278,7 @@ export const daLesson11: DataLessonConfig = {
         codeCaption: "Crown the busiest day",
         table: {
           columns: ["weekday", "orders"],
-          values: [["Fri", 80]],
+          values: [["Fri", 95]],
           rowCount: 1,
         },
         checkIn: {
@@ -379,23 +374,23 @@ Our table \`daily_orders\` has one row per day:
       title: "Exercise 1 — Orders in time order",
       focusCommand: "ORDER BY day_num",
       commandExplain:
-        "Show each weekday and its order count, sorted by day_num so the line runs Monday to Sunday.",
-      goal: "SELECT weekday, orders FROM daily_orders ORDER BY day_num;",
-      starterSql: `SELECT weekday, orders
+        "Show each day_num and its order count, sorted by day_num so the line runs left to right across both weeks.",
+      goal: "SELECT day_num, orders FROM daily_orders ORDER BY day_num;",
+      starterSql: `SELECT day_num, orders
 FROM daily_orders
 ORDER BY ;`,
       hint: "Type day_num after ORDER BY, then Run & check to see the line.",
-      successMessage: "There's your trend line — 7 days, left to right.",
+      successMessage: "There's your trend line — 14 days, left to right.",
       failureMessage:
-        "Use SELECT weekday, orders ... ORDER BY day_num. Expect 7 rows + a line.",
+        "Use SELECT day_num, orders ... ORDER BY day_num. Expect 14 rows + a line.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
-        if (!/\bselect\s+weekday\s*,\s*orders\b/.test(n)) return false;
+        if (!/\bselect\s+day_num\s*,\s*orders\b/.test(n)) return false;
         if (!/\border\s+by\s+day_num\b/.test(n)) return false;
         return Boolean(
           result &&
-            result.rowCount === 7 &&
+            result.rowCount === 14 &&
             result.columns.map((c) => c.toLowerCase()).includes("orders")
         );
       },
@@ -412,7 +407,7 @@ FROM daily_orders
 ORDER BY orders DESC
 LIMIT ;`,
       hint: "Type 1 after LIMIT.",
-      successMessage: "Friday is the peak at 80 orders — the top of the line.",
+      successMessage: "Friday (Week 2) is the peak at 95 orders — the top of the line.",
       failureMessage:
         "Use ORDER BY orders DESC LIMIT 1. Expect exactly 1 row.",
       validate: (sql, result) => {
@@ -428,24 +423,24 @@ LIMIT ;`,
       title: "Exercise 3 — Build the trend yourself",
       focusCommand: "SELECT + ORDER BY",
       commandExplain:
-        "Write the whole time-series query: weekday and orders, sorted by day_num so time runs left to right.",
-      goal: "Full query: weekday, orders, ordered by day_num.",
-      starterSql: `-- Show the week's order trend, in day order:
+        "Write the whole time-series query: day_num and orders, sorted so time runs left to right.",
+      goal: "Full query: day_num, orders, ordered by day_num.",
+      starterSql: `-- Show the two-week order trend, in day order:
 SELECT 
 FROM daily_orders
 ORDER BY ;`,
-      hint: "SELECT weekday, orders ... ORDER BY day_num;",
+      hint: "SELECT day_num, orders ... ORDER BY day_num;",
       successMessage: "You built a trend line from scratch — Trend Spotter!",
       failureMessage:
-        "Need SELECT weekday, orders, ORDER BY day_num. Expect 7 rows + a line.",
+        "Need SELECT day_num, orders, ORDER BY day_num. Expect 14 rows + a line.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
-        if (!/\bselect\s+weekday\s*,\s*orders\b/.test(n)) return false;
+        if (!/\bselect\s+day_num\s*,\s*orders\b/.test(n)) return false;
         if (!/\border\s+by\s+day_num\b/.test(n)) return false;
         return Boolean(
           result &&
-            result.rowCount === 7 &&
+            result.rowCount === 14 &&
             result.columns.map((c) => c.toLowerCase()).includes("orders")
         );
       },

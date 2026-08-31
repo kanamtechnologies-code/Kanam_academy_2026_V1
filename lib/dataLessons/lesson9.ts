@@ -254,18 +254,18 @@ export const daLesson9: DataLessonConfig = {
         id: "chart-shape-walkthrough",
         kicker: "Query walkthrough",
         title: "The exact query shape every bar chart needs",
-        body: `Charts don't read raw order rows — they need a **label column** and a **number column**. This query collapses eight individual orders into six item categories, each with a count.\n\nRead the result before looking at any chart: \`item\` is text (the label), \`order_count\` is a number (the height). If either column is missing or misnamed, the chart won't render or will mislead.`,
+        body: `Charts don't read raw order rows — they need a **label column** and a **number column**. This query collapses twenty individual orders into six item categories, each with a count.\n\nRead the result before looking at any chart: \`item\` is text (the label), \`order_count\` is a number (the height). If either column is missing or misnamed, the chart won't render or will mislead.`,
         code: `SELECT item,\n       COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item\nORDER BY order_count DESC;`,
         codeCaption: "Label + number, sorted for impact",
         table: {
           columns: ["item", "order_count"],
           values: [
-            ["Pizza slice", 2],
-            ["Salad", 2],
-            ["Chicken wrap", 1],
-            ["Fruit cup", 1],
-            ["Yogurt parfait", 1],
-            ["Burger", 1],
+            ["Pizza slice", 5],
+            ["Salad", 4],
+            ["Chicken wrap", 3],
+            ["Burger", 3],
+            ["Fruit cup", 3],
+            ["Yogurt parfait", 2],
           ],
           rowCount: 6,
         },
@@ -454,7 +454,7 @@ ORDER BY order_count ;`,
           .map((c) => c.toLowerCase())
           .indexOf("order_count");
         if (idx < 0) return false;
-        return Number(result.values[0][idx]) === 2;
+        return Number(result.values[0][idx]) === 5;
       },
     },
     {

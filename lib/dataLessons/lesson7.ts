@@ -77,7 +77,7 @@ export const daLesson7: DataLessonConfig = {
         id: "concept-2",
         kicker: "Stitch them",
         title: "JOIN ... ON the shared key",
-        body: `To combine the tables, name the second one after \`JOIN\`, then tell SQL **how** to match rows using \`ON\`. The \`ON\` part is the matching rule: "line up rows where the student_ids are equal."\n\nBecause both tables have a \`student_id\` column, you write \`table.column\` (like \`students.student_id\`) so SQL knows exactly which one you mean. It's like saying "Alex from Room 1" when there might be two Alexes.\n\nThe query below matches each order to the student who placed it, so you can finally show the **name** right next to the **item** — all 5 orders, now with real names attached.`,
+        body: `To combine the tables, name the second one after \`JOIN\`, then tell SQL **how** to match rows using \`ON\`. The \`ON\` part is the matching rule: "line up rows where the student_ids are equal."\n\nBecause both tables have a \`student_id\` column, you write \`table.column\` (like \`students.student_id\`) so SQL knows exactly which one you mean. It's like saying "Alex from Room 1" when there might be two Alexes.\n\nThe query below matches each order to the student who placed it, so you can finally show the **name** right next to the **item** — all 24 orders, now with real names attached.`,
         code: `SELECT students.student_name, orders.item\nFROM students\nJOIN orders\n  ON students.student_id = orders.student_id;`,
         codeCaption: "Match each order to its student",
         table: {
@@ -127,7 +127,7 @@ export const daLesson7: DataLessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Join then filter, step by step",
-        body: `Let's answer: *"What did the grade 6 students order?"* This needs both tables — the grade lives in \`students\`, the item lives in \`orders\`.\n\n**Step 1 — Pick the columns.** Name, item, and grade: \`SELECT student_name, item, grade\`.\n\n**Step 2 — Join the tables.** Start \`FROM orders\`, then \`JOIN students ON orders.student_id = students.student_id\`.\n\n**Step 3 — Filter the combined rows.** A \`WHERE\` works on the joined result too: \`WHERE students.grade = 6\`, then a semicolon.\n\nOnly Alex (grade 6) and Riley (grade 6) qualify. Alex placed two orders and Riley placed one, so we get **3** rows.`,
+        body: `Let's answer: *"What did the grade 6 students order?"* This needs both tables — the grade lives in \`students\`, the item lives in \`orders\`.\n\n**Step 1 — Pick the columns.** Name, item, and grade: \`SELECT student_name, item, grade\`.\n\n**Step 2 — Join the tables.** Start \`FROM orders\`, then \`JOIN students ON orders.student_id = students.student_id\`.\n\n**Step 3 — Filter the combined rows.** A \`WHERE\` works on the joined result too: \`WHERE students.grade = 6\`, then a semicolon.\n\nGrade 6 students are Alex, Riley, and Taylor. Across their orders we get **9** rows.`,
         code: `-- Step 1: columns -> name, item, grade\n-- Step 2: join    -> orders to students on the shared key\n-- Step 3: filter  -> keep only grade 6\nSELECT student_name, item, grade\nFROM orders\nJOIN students ON orders.student_id = students.student_id\nWHERE students.grade = 6;`,
         codeCaption: "Grade 6 students and what they ordered",
         table: {
@@ -135,9 +135,15 @@ export const daLesson7: DataLessonConfig = {
           values: [
             ["Alex", "Pizza slice", 6],
             ["Alex", "Fruit cup", 6],
-            ["Riley", "Burger", 6],
+            ["Alex", "Burger", 6],
+            ["Riley", "Fruit cup", 6],
+            ["Riley", "Pizza slice", 6],
+            ["Riley", "Salad", 6],
+            ["Taylor", "Salad", 6],
+            ["Taylor", "Burger", 6],
+            ["Taylor", "Pizza slice", 6],
           ],
-          rowCount: 3,
+          rowCount: 9,
         },
         callout: {
           label: "Pro tip",
@@ -148,7 +154,7 @@ export const daLesson7: DataLessonConfig = {
         id: "misconception",
         kicker: "Common misconception",
         title: "A JOIN without ON is a mess",
-        body: `Never forget the \`ON\` part! A \`JOIN\` *without* \`ON\` doesn't link the tables — it pairs **every** student with **every** order, creating a giant, meaningless mess (4 students × 5 orders = 20 nonsense rows). The \`ON\` rule is what keeps each order matched to its *correct* student.`,
+        body: `Never forget the \`ON\` part! A \`JOIN\` *without* \`ON\` doesn't link the tables — it pairs **every** student with **every** order, creating a giant, meaningless mess (8 students × 24 orders = 192 nonsense rows). The \`ON\` rule is what keeps each order matched to its *correct* student.`,
         checkIn: {
           prompt: "What happens if you write JOIN without an ON clause?",
           choices: [
@@ -164,7 +170,7 @@ export const daLesson7: DataLessonConfig = {
         id: "try-it",
         kicker: "Try it yourself",
         title: "Predict the joined row count",
-        body: `Before the exercises, predict: the \`orders\` table has 5 rows and the \`students\` table has 4 rows. If every order's student_id correctly matches a real student, how many rows will \`orders JOIN students ON ...\` return?\n\nOnce in the workspace, run the join and check your prediction against the actual row count.`,
+        body: `Before the exercises, predict: the \`orders\` table has 24 rows and the \`students\` table has 8 rows. If every order's student_id correctly matches a real student, how many rows will \`orders JOIN students ON ...\` return?\n\nOnce in the workspace, run the join and check your prediction against the actual row count.`,
       },
       {
         id: "deeper-skill",
@@ -249,7 +255,7 @@ export const daLesson7: DataLessonConfig = {
         id: "join-walkthrough-price",
         kicker: "Query walkthrough",
         title: "A second JOIN — names attached to prices",
-        body: `The orders table stores prices but only student IDs. The students table stores names but no prices. This JOIN attaches each name to its order's price so you can read a human-friendly receipt.\n\nAfter the join, scan the result: five rows (one per order), three columns (name, item, price). Alex appears twice because Alex placed two orders — that's correct, not a JOIN bug.`,
+        body: `The orders table stores prices but only student IDs. The students table stores names but no prices. This JOIN attaches each name to its order's price so you can read a human-friendly receipt.\n\nAfter the join, scan the result: twenty-four rows (one per order), with names attached. Students with multiple orders appear more than once — that's correct, not a JOIN bug.`,
         code: `SELECT students.student_name,\n       orders.item,\n       orders.price\nFROM orders\nJOIN students\n  ON orders.student_id = students.student_id;`,
         codeCaption: "Every order with the student's real name",
         table: {
@@ -377,7 +383,7 @@ You'll write the JOIN, then add filters and sorting on top of it.`,
       title: "Exercise 1 — Your first JOIN",
       focusCommand: "JOIN ... ON",
       commandExplain:
-        "Join orders to students where the student_id matches. Every order links to exactly one student — 5 rows.",
+        "Join orders to students where the student_id matches. Every order links to exactly one student — 24 rows.",
       goal: "Join orders and students on student_id.",
       starterSql: `SELECT *
 FROM orders
@@ -385,7 +391,7 @@ JOIN students ON orders.student_id = students.student_id;`,
       hint: "The starter query is complete — press Run & check to see the joined rows.",
       successMessage: "You joined two tables! Each order now carries its student.",
       failureMessage:
-        "Keep the JOIN ... ON orders.student_id = students.student_id. Expect 5 rows.",
+        "Keep the JOIN ... ON orders.student_id = students.student_id. Expect 24 rows.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
@@ -393,7 +399,7 @@ JOIN students ON orders.student_id = students.student_id;`,
         if (!/\bjoin\s+students\b/.test(n)) return false;
         if (!/\bon\b/.test(n) || !/student_id\s*=\s*\w+\.student_id/.test(n))
           return false;
-        return Boolean(result && result.rowCount === 5);
+        return Boolean(result && result.rowCount === 24);
       },
     },
     {
@@ -403,7 +409,7 @@ JOIN students ON orders.student_id = students.student_id;`,
       focusCommand: "JOIN … ON",
       commandExplain:
         "This JOIN is trying to show each order with the student's name, but the ON clause is wrong. Fix the match key.",
-      goal: "Repair the JOIN so names line up with items (5 rows, 2 columns).",
+      goal: "Repair the JOIN so names line up with items (24 rows, 2 columns).",
       starterSql: `SELECT student_name, item
 FROM orders
 JOIN students ON orders.student_id = students.item;`,
@@ -411,7 +417,7 @@ JOIN students ON orders.student_id = students.item;`,
       hint: "Both sides of ON should use student_id.",
       successMessage: "Fixed! Matching on student_id connects the right rows.",
       failureMessage:
-        "Use ON orders.student_id = students.student_id. Expect 5 rows with student_name and item.",
+        "Use ON orders.student_id = students.student_id. Expect 24 rows with student_name and item.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
@@ -420,7 +426,7 @@ JOIN students ON orders.student_id = students.item;`,
         if (/\bstudents\.item\b/.test(n)) return false;
         return Boolean(
           result &&
-            result.rowCount === 5 &&
+            result.rowCount === 24 &&
             result.columns.length === 2 &&
             hasColumns(result, "student_name", "item")
         );
@@ -438,31 +444,28 @@ FROM orders
 JOIN students ON orders.student_id = students.student_id
 WHERE students.grade = ;`,
       hint: "Type 6 after students.grade =.",
-      successMessage: "Nice filter! Alex (×2) and Riley are the grade 6 orders — 3 rows.",
+      successMessage: "Nice filter! Grade 6 orders from Alex, Riley, and Taylor — 9 rows.",
       failureMessage:
-        "Use WHERE students.grade = 6 on the joined query. Expect 3 rows.",
+        "Use WHERE students.grade = 6 on the joined query. Expect 9 rows.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bjoin\s+students\b/.test(n)) return false;
         if (!/\bwhere\s+\w*\.?grade\s*=\s*6\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 3);
+        return Boolean(result && result.rowCount === 9);
       },
     },
     {
       id: "ex-challenge",
+      kind: "scratch",
       title: "Exercise 4 — Priciest order + who",
-      focusCommand: "JOIN + ORDER BY + LIMIT",
+      focusCommand: "from scratch",
       commandExplain:
-        "Combine everything: join the tables, sort by price DESC, and LIMIT 1 to find the single most expensive order and who placed it.",
+        "Write it yourself: join the tables, sort by price DESC, and LIMIT 1 to find the single most expensive order and who placed it.",
       goal: "Show student_name, item, price for the most expensive order.",
-      starterSql: `-- Who placed the most expensive order?
-SELECT student_name, item, price
-FROM orders
-JOIN students ON orders.student_id = students.student_id
-ORDER BY 
-LIMIT ;`,
-      hint: "ORDER BY price DESC LIMIT 1;",
+      starterSql: `-- Who placed the most expensive order? Write the full query.
+`,
+      hint: "JOIN students ON student_id, then ORDER BY price DESC LIMIT 1;",
       successMessage: "Solved! Sam's Chicken wrap ($5.25) is the top order.",
       failureMessage:
         "Need the JOIN, ORDER BY price DESC, and LIMIT 1 — exactly 1 row.",

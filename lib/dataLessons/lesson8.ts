@@ -69,7 +69,7 @@ export const daLesson8: DataLessonConfig = {
         body: `This is the heart of the lesson, so slow down here. \`WHERE\` and \`HAVING\` both filter — but they filter at **different moments**.\n\n• \`WHERE\` runs **before** grouping — it looks at individual **rows**, one at a time.\n• \`HAVING\` runs **after** grouping — it looks at the **summary** of each group, like a count or a sum.\n\nHere's the analogy: imagine sorting your class into teams. \`WHERE\` is the rule you apply to *each student* before teams form ("only students in grade 8"). \`HAVING\` is the rule you apply to *each finished team* ("only teams with more than 5 players"). You literally cannot ask the team-size question until the teams exist.\n\nThat's why you can't put \`COUNT(*)\` in a \`WHERE\`: at that point no groups have formed yet, so the count doesn't exist. \`HAVING\` is the tool built for exactly that job.`,
         bullets: [
           "`WHERE price > 4` → keeps expensive *rows* (before grouping).",
-          "`HAVING COUNT(*) > 1` → keeps *groups* that appear more than once.",
+          "`HAVING COUNT(*) > 3` → keeps *groups* that appear more than three times.",
           "Clause order: `SELECT → FROM → WHERE → GROUP BY → HAVING → ORDER BY`.",
         ],
         checkIn: {
@@ -83,14 +83,14 @@ export const daLesson8: DataLessonConfig = {
         id: "concept-3",
         kicker: "Filter the groups",
         title: "Find items ordered more than once",
-        body: `Let's see \`HAVING\` in action on our \`lunch_orders\` table. We want the **repeat favorites** — items that more than one person ordered.\n\nThe recipe reads almost like English: group the orders by item, count each group, then keep only the groups whose count is greater than 1. \`HAVING COUNT(*) > 1\` is the line doing the group-level filtering, and \`ORDER BY\` puts the most popular on top.`,
-        code: `SELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item\nHAVING COUNT(*) > 1\nORDER BY order_count DESC;`,
-        codeCaption: "Only items ordered more than once",
+        body: `Let's see \`HAVING\` in action on our \`lunch_orders\` table. We want the **clear favorites** — items ordered more than 3 times.\n\nThe recipe reads almost like English: group the orders by item, count each group, then keep only the groups whose count is greater than 3. \`HAVING COUNT(*) > 3\` is the line doing the group-level filtering, and \`ORDER BY\` puts the most popular on top.`,
+        code: `SELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item\nHAVING COUNT(*) > 3\nORDER BY order_count DESC;`,
+        codeCaption: "Only items ordered more than 3 times",
         table: {
           columns: ["item", "order_count"],
           values: [
-            ["Pizza slice", 2],
-            ["Salad", 2],
+            ["Pizza slice", 5],
+            ["Salad", 4],
           ],
           rowCount: 2,
         },
@@ -109,14 +109,14 @@ export const daLesson8: DataLessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Build a sharp question, clause by clause",
-        body: `Let's construct a query the way an analyst really does — one station of the assembly line at a time. Our question: **"Which lunch items were ordered more than once, most popular first?"**\n\n**Step 1 — Group and count.** Start by bundling every order by its item and counting each pile. This gives one row per item with its total.\n\n**Step 2 — Filter the groups.** Now add \`HAVING COUNT(*) > 1\` to drop the items that were only ordered once. Notice this filter looks at the *count*, so it has to come after \`GROUP BY\`.\n\n**Step 3 — Sort the survivors.** Finally, \`ORDER BY order_count DESC\` ranks the repeat favorites from most to least. Reading top to bottom, the answer is now obvious.`,
-        code: `-- Step 1: count orders per item\nSELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item\n-- Step 2: keep only the repeats\nHAVING COUNT(*) > 1\n-- Step 3: rank them\nORDER BY order_count DESC;`,
+        body: `Let's construct a query the way an analyst really does — one station of the assembly line at a time. Our question: **"Which lunch items were ordered more than 3 times, most popular first?"**\n\n**Step 1 — Group and count.** Start by bundling every order by its item and counting each pile. This gives one row per item with its total.\n\n**Step 2 — Filter the groups.** Now add \`HAVING COUNT(*) > 3\` to keep only the clear favorites. Notice this filter looks at the *count*, so it has to come after \`GROUP BY\`.\n\n**Step 3 — Sort the survivors.** Finally, \`ORDER BY order_count DESC\` ranks the favorites from most to least. Reading top to bottom, the answer is now obvious.`,
+        code: `-- Step 1: count orders per item\nSELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item\n-- Step 2: keep clear favorites\nHAVING COUNT(*) > 3\n-- Step 3: rank them\nORDER BY order_count DESC;`,
         codeCaption: "The finished question, built in three steps",
         table: {
           columns: ["item", "order_count"],
           values: [
-            ["Pizza slice", 2],
-            ["Salad", 2],
+            ["Pizza slice", 5],
+            ["Salad", 4],
           ],
           rowCount: 2,
         },
@@ -145,7 +145,7 @@ export const daLesson8: DataLessonConfig = {
         id: "try-it",
         kicker: "Try it yourself",
         title: "Predict which items survive",
-        body: `Before the exercises, look back at the lunch_orders data from earlier lessons. Predict: which items would survive a filter of \`HAVING COUNT(*) >= 1\` versus \`HAVING COUNT(*) > 1\`? (Hint: one of those thresholds keeps every item, the other narrows it down.)`,
+        body: `Before the exercises, look back at the lunch_orders data from earlier lessons. Predict: which items would survive \`HAVING COUNT(*) > 1\` versus \`HAVING COUNT(*) > 3\`? (Hint: one keeps almost everything; the other keeps only the clear favorites.)`,
       },
       {
         id: "deeper-skill",
@@ -153,7 +153,7 @@ export const daLesson8: DataLessonConfig = {
         title: "HAVING works with SUM and AVG too, not just COUNT",
         body: `HAVING isn't limited to COUNT. You could write \`HAVING SUM(price) > 10\` to keep only items whose combined sales exceeded $10, or \`HAVING AVG(price) > 4\` to keep only groups whose average price is above $4. Any aggregate function can be the subject of a HAVING filter.`,
         bullets: [
-          "`HAVING COUNT(*) > 1` — groups appearing more than once.",
+          "`HAVING COUNT(*) > 3` — groups appearing more than three times.",
           "`HAVING SUM(price) > 10` — groups whose total exceeds $10.",
           "`HAVING AVG(price) > 4` — groups whose average exceeds $4.",
         ],
@@ -165,18 +165,18 @@ export const daLesson8: DataLessonConfig = {
         body: `Seeing the same query with and without HAVING side by side makes the effect crystal clear.`,
         bullets: [
           "**Without HAVING** — `GROUP BY item` alone returns ALL 6 unique items, no matter how popular.",
-          "**With HAVING COUNT(*) > 1** — only the 2 items ordered more than once survive.",
+          "**With HAVING COUNT(*) > 3** — only Pizza slice and Salad survive.",
           "HAVING never changes what the groups ARE — it only decides which finished groups make it into the final result.",
         ],
         checkIn: {
-          prompt: "If you remove HAVING COUNT(*) > 1 from the worked example query, what happens?",
+          prompt: "If you remove HAVING COUNT(*) > 3 from the worked example query, what happens?",
           choices: [
             "Nothing changes — the result is identical",
             "You get all 6 unique items instead of just the 2 repeated ones",
             "The query errors out",
           ],
           correctIndex: 1,
-          explanation: "Removing HAVING removes the group-level filter, so every group (all 6 unique items) shows up instead of just the ones with more than one order.",
+          explanation: "Removing HAVING removes the group-level filter, so every group (all 6 unique items) shows up instead of just the clear favorites.",
         },
       },
       {
@@ -223,14 +223,14 @@ export const daLesson8: DataLessonConfig = {
         id: "having-vs-where-deep",
         kicker: "Go one level deeper",
         title: "WHERE trims rows; HAVING trims groups",
-        body: `Imagine filtering a pile of lunch receipts. \`WHERE price > 4\` throws away individual receipts under $4 **before** you sort them into piles by item. \`HAVING COUNT(*) > 1\` throws away entire piles that only had one receipt **after** you've counted each pile.\n\nYou can't use \`HAVING\` to filter a single row's price — that's \`WHERE\`'s job. And you can't use \`WHERE COUNT(*) > 1\` — aggregates only work after grouping, which is \`HAVING\`'s territory.`,
-        code: `SELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nWHERE price >= 3\nGROUP BY item\nHAVING COUNT(*) > 1\nORDER BY order_count DESC;`,
+        body: `Imagine filtering a pile of lunch receipts. \`WHERE price > 4\` throws away individual receipts under $4 **before** you sort them into piles by item. \`HAVING COUNT(*) > 3\` throws away piles that aren't clear favorites **after** you've counted each pile.\n\nYou can't use \`HAVING\` to filter a single row's price — that's \`WHERE\`'s job. And you can't use \`WHERE COUNT(*) > 3\` — aggregates only work after grouping, which is \`HAVING\`'s territory.`,
+        code: `SELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nWHERE price >= 3\nGROUP BY item\nHAVING COUNT(*) > 3\nORDER BY order_count DESC;`,
         codeCaption: "Filter rows, group, filter groups, sort",
         table: {
           columns: ["item", "order_count"],
           values: [
-            ["Pizza slice", 2],
-            ["Salad", 2],
+            ["Pizza slice", 5],
+            ["Salad", 4],
           ],
           rowCount: 2,
         },
@@ -245,8 +245,8 @@ export const daLesson8: DataLessonConfig = {
         id: "clause-stack-walkthrough",
         kicker: "Query walkthrough",
         title: "Stacking four clauses on lunch_orders",
-        body: `Question: *"Which items priced $4 or more were ordered more than once, ranked by popularity?"*\n\nBreak it down: \`WHERE price >= 4\` keeps pricey orders → \`GROUP BY item\` bundles by menu item → \`HAVING COUNT(*) > 1\` drops one-off items → \`ORDER BY order_count DESC\` puts the winner first.\n\nRead the two-row result: Pizza slice and Salad each appear twice among the pricier orders. That's a complete, stacked analyst answer.`,
-        code: `SELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nWHERE price >= 4\nGROUP BY item\nHAVING COUNT(*) > 1\nORDER BY order_count DESC;`,
+        body: `Question: *"Which items priced $4 or more were ordered more than 3 times, ranked by popularity?"*\n\nBreak it down: \`WHERE price >= 4\` keeps pricey orders → \`GROUP BY item\` bundles by menu item → \`HAVING COUNT(*) > 3\` keeps clear favorites → \`ORDER BY order_count DESC\` puts the winner first.\n\nRead the result: among $4+ orders, check which items still clear the HAVING bar. That's a complete, stacked analyst answer.`,
+        code: `SELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nWHERE price >= 4\nGROUP BY item\nHAVING COUNT(*) > 3\nORDER BY order_count DESC;`,
         codeCaption: "Four clauses, one sharp question",
       },
       {
@@ -274,7 +274,7 @@ One new tool today: **HAVING**.
 - **WHERE** filters *rows* (before grouping)
 - **HAVING** filters *groups* (after aggregating)
 
-Example question: *"Which items were ordered more than once?"* You can't answer that with WHERE — you need to group, count, then HAVING COUNT(*) > 1.
+Example question: *"Which items were ordered more than 3 times?"* You can't answer that with WHERE — you need to group, count, then HAVING COUNT(*) > 3.
 
 Think about the question first, then build the query clause by clause.`,
   commandReference: [
@@ -293,7 +293,7 @@ Think about the question first, then build the query clause by clause.`,
       command: "HAVING",
       summary:
         "Filters groups after GROUP BY, using an aggregate like COUNT or SUM.",
-      example: "HAVING COUNT(*) > 1",
+      example: "HAVING COUNT(*) > 3",
     },
     {
       command: "AS (alias)",
@@ -319,7 +319,7 @@ Think about the question first, then build the query clause by clause.`,
   steps: [
     "Filter pricey items, then sort them.",
     "Count orders per item with a named column.",
-    "Keep only items ordered more than once (HAVING).",
+    "Keep only items ordered more than 3 times (HAVING).",
     "Challenge: most-repeated items, highest first.",
   ],
   cfu: [
@@ -340,7 +340,7 @@ Think about the question first, then build the query clause by clause.`,
     },
   ],
   tryThis: [
-    "Change HAVING COUNT(*) > 1 to >= 1 — what changes?",
+    "Change HAVING COUNT(*) > 3 to > 1 — what changes?",
     "Ask your own question, then build the query to answer it.",
   ],
   dataEthicsMoment:
@@ -358,15 +358,15 @@ FROM lunch_orders
 WHERE price >= 4
 ORDER BY ;`,
       hint: "Type price DESC after ORDER BY.",
-      successMessage: "Nice! Four orders, priciest first.",
+      successMessage: "Nice! Ten orders at $4+, priciest first.",
       failureMessage:
-        "Use WHERE price >= 4 and ORDER BY price DESC. Expect 4 rows.",
+        "Use WHERE price >= 4 and ORDER BY price DESC. Expect 10 rows.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bwhere\s+price\s*>=\s*4\b/.test(n)) return false;
         if (!/\border\s+by\s+price\s+desc\b/.test(n)) return false;
-        if (!result || result.rowCount !== 4) return false;
+        if (!result || result.rowCount !== 10) return false;
         const priceIdx = result.columns.findIndex(
           (c) => c.toLowerCase() === "price"
         );
@@ -405,46 +405,43 @@ GROUP BY ;`,
       title: "Exercise 3 — Filter the groups",
       focusCommand: "HAVING",
       commandExplain:
-        "HAVING filters groups after counting. Keep only items that were ordered more than once.",
-      goal: "Add HAVING COUNT(*) > 1 to the grouped query.",
+        "HAVING filters groups after counting. Keep only items ordered more than 3 times (the clear favorites).",
+      goal: "Add HAVING COUNT(*) > 3 to the grouped query.",
       starterSql: `SELECT item, COUNT(*) AS order_count
 FROM lunch_orders
 GROUP BY item
 HAVING COUNT(*) > ;`,
-      hint: "Type 1 after HAVING COUNT(*) >.",
-      successMessage: "Perfect! Only Pizza slice and Salad were ordered twice.",
+      hint: "Type 3 after HAVING COUNT(*) >.",
+      successMessage: "Perfect! Only Pizza slice (5) and Salad (4) clear the bar.",
       failureMessage:
-        "Use HAVING COUNT(*) > 1. Expect 2 rows (the repeated items).",
+        "Use HAVING COUNT(*) > 3. Expect 2 rows (Pizza slice and Salad).",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bgroup\s+by\s+item\b/.test(n)) return false;
-        if (!/\bhaving\s+count\s*\(\s*\*\s*\)\s*>\s*1\b/.test(n)) return false;
+        if (!/\bhaving\s+count\s*\(\s*\*\s*\)\s*>\s*3\b/.test(n)) return false;
         return Boolean(result && result.rowCount === 2);
       },
     },
     {
       id: "ex-challenge",
+      kind: "scratch",
       title: "Exercise 4 — Repeated items, ranked",
-      focusCommand: "GROUP BY + HAVING + ORDER BY",
+      focusCommand: "from scratch",
       commandExplain:
-        "Put it together: count per item, keep only repeats, and sort by the count so the most popular is first.",
-      goal: "Items ordered more than once, highest count first.",
-      starterSql: `-- Which items were ordered more than once? Most popular first.
-SELECT item, COUNT(*) AS order_count
-FROM lunch_orders
-GROUP BY item
-HAVING 
-ORDER BY ;`,
-      hint: "HAVING COUNT(*) > 1  ...  ORDER BY order_count DESC;",
-      successMessage: "You asked a sharp question and answered it — 2 repeated items, ranked!",
+        "Write it yourself: count per item, keep favorites with HAVING COUNT(*) > 3, and sort so the most popular is first.",
+      goal: "Items ordered more than 3 times, highest count first.",
+      starterSql: `-- Which items were ordered more than 3 times? Most popular first.
+`,
+      hint: "GROUP BY item HAVING COUNT(*) > 3 ORDER BY order_count DESC;",
+      successMessage: "You asked a sharp question and answered it — Pizza and Salad, ranked!",
       failureMessage:
-        "Need GROUP BY item, HAVING COUNT(*) > 1, and ORDER BY the count DESC. Expect 2 rows.",
+        "Need GROUP BY item, HAVING COUNT(*) > 3, and ORDER BY the count DESC. Expect 2 rows.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bgroup\s+by\s+item\b/.test(n)) return false;
-        if (!/\bhaving\s+count\s*\(\s*\*\s*\)\s*>\s*1\b/.test(n)) return false;
+        if (!/\bhaving\s+count\s*\(\s*\*\s*\)\s*>\s*3\b/.test(n)) return false;
         if (!/\border\s+by\s+(order_count|count\s*\(\s*\*\s*\))\s+desc\b/.test(n))
           return false;
         return Boolean(result && result.rowCount === 2);

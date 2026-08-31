@@ -12,7 +12,7 @@ Live product catalog vs curriculum docs (lesson rows with `kind !== "assessment"
 | Track (catalog id) | Lessons in code | Capstone / culminating | Assessments | Docs status (this review) |
 | --- | ---: | --- | --- | --- |
 | Python & AI (`ai-python`) | **14** | L13 NPC · L14 Quest Adventure Bot | — | Synced (was 13 in README / python-track header) |
-| Data Analyst (`data-analyst`) | **14** | L14 Your Data Project | — | Synced |
+| Data Analyst (`data-analyst`) | **14** | L14 Capstone: Cafeteria Briefing | — | Synced |
 | AI Literacy (`ai-literacy`) | **16** | L16 AI-Smart Citizen | — | Listed in README |
 | Advanced AI (`advanced-ai`) | **16** | L15–16 build / demo-audit | — | Synced |
 | AP CSP Prep (`ap-csp-prep`) | **16** | L15 Create PT · L16 exam readiness | **+3** practice/final exams | Synced |

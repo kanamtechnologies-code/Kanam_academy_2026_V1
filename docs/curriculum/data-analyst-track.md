@@ -49,11 +49,12 @@ against a real database, instant feedback, and an auto-rendering chart.
 
 | Dataset | Tables | Used in | Purpose |
 | --- | --- | --- | --- |
-| `lunch_orders` | 1 table, 8 rows (order_id, student_name, item, price) | W1–W3, W4 (L8), W5 | Single-table querying, aggregation, bar & pie charts |
-| School DB | `students` + `orders` (shared key `student_id`) | W4 (L7), W8 | Relationships, JOINs, capstone |
-| `daily_orders` | 1 table, 7 rows (day_num, weekday, orders) | W6 (L11) | Time-series / line charts |
-| `quiz_scores` | 1 table, 16 rows (student_name, score) | W6 (L12) | Distributions / histograms |
-| `study_log` | 1 table, 12 rows (student_name, study_minutes, score) | W7 (L13) | Bivariate relationships / scatter plots |
+| `lunch_orders` | 1 table, 20 rows (order_id, student_name, item, price, weekday) | W1–W3, W4 (L8), W5 | Single-table querying, aggregation, bar & pie charts |
+| School DB | `students` (8) + `orders` (24, with `weekday`) | W4 (L7) | Relationships / JOINs |
+| Capstone cafeteria DB | `students` (10) + `orders` (41, with `weekday`) | W8 (L14) | Multi-question from-scratch briefing |
+| `daily_orders` | 1 table, 14 rows (two weeks + week_label) | W6 (L11) | Time-series / line charts |
+| `quiz_scores` | 1 table, 32 rows (student_name, score, class_period) | W6 (L12) | Distributions / histograms |
+| `study_log` | 1 table, 24 rows (student_name, study_minutes, score, subject) | W7 (L13) | Bivariate relationships / scatter plots |
 
 Relatable, school-themed datasets keep the cognitive load on *the concept*, not the domain.
 
@@ -62,7 +63,7 @@ Relatable, school-themed datasets keep the cognitive load on *the concept*, not 
 ## 8-week scope & sequence
 
 > **Map at a glance:** W1 what data is · W2 choose & filter · W3 sort & summarize · W4 join & sharpen ·
-> W5 bar & pie · W6 line & histogram · W7 scatter + plan · W8 capstone.
+> W5 bar & pie · W6 line & histogram · W7 scatter + plan · W8 cafeteria briefing capstone (from scratch).
 
 ### Week 1 — What Data Is
 **Week goal:** Read a table (rows & columns) and write your first real queries.
@@ -198,7 +199,7 @@ Relatable, school-themed datasets keep the cognitive load on *the concept*, not 
 - **Talk-about-it / ethics:** How can choosing wide vs. narrow bins change what a distribution "looks like"?
 
 ### Week 7 — Relationships & Planning
-**Week goal:** Explore whether two numbers move together, then plan your capstone investigation.
+**Week goal:** Explore whether two numbers move together, then plan your capstone cafeteria briefing.
 **Big idea:** *A relationship in data is a clue — not proof of cause.*
 
 #### Session 1 · Lesson 13 — Relationships (scatter)
@@ -210,26 +211,26 @@ Relatable, school-themed datasets keep the cognitive load on *the concept*, not 
 
 #### Session 2 · Capstone Planning (design session — no new lesson)
 A planning session so Week 8 isn't a cliff.
-- **Plan your investigation:** Write your question ("Who spent the most?"), the steps (explore → join → summarize → rank), and which **chart** will communicate the answer.
+- **Plan your cafeteria briefing:** List the manager questions (explore counts, join receipts, filter, orders per student, total spend, top spender, popular item, big spenders via HAVING), the shared key, and which chart communicates spend.
 - **Standards:** `2-DA-09` (plan/refine analysis), CSTA Draft 3.0 `MS-DAA-27` (plan an investigation).
-- **Evidence of mastery:** A one-paragraph plan: question, steps, and chosen chart type.
+- **Evidence of mastery:** A short plan: questions, steps, chart type, and one ethics note.
 
-- **Self-paced note:** Keep your plan open next week — you'll execute it step-by-step in the capstone.
+- **Self-paced note:** Keep your plan open next week — you'll execute it step-by-step from scratch in the capstone.
 
-### Week 8 — Capstone: Your Data Project
-**Week goal:** Run a complete investigation end-to-end and communicate the answer with evidence.
-**Big idea:** *You can now ask a real question, query for the answer, and show it honestly.*
+### Week 8 — Capstone: Cafeteria Briefing
+**Week goal:** Run a complete multi-question investigation end-to-end and communicate answers with evidence.
+**Big idea:** *You can now ask real questions, query for the answers from scratch, and brief a stakeholder honestly.*
 
-#### Session 1 · Lesson 14 — Your Data Project (Capstone)
-- **Goal:** Put it all together — explore, join, summarize, and rank to answer a real question: who spent the most?
-- **Learning objectives:** Run a complete data investigation (explore → join → aggregate → rank → visualize → conclude) and communicate an evidence-based answer.
+#### Session 1 · Lesson 14 — Capstone: Cafeteria Briefing
+- **Goal:** Complete a from-scratch cafeteria briefing on a richer two-table week (6 students, 21 orders): explore, join, filter, count, total, rank, popular item, HAVING, debug, and deliver a ranked spend chart.
+- **Learning objectives:** Run a complete data investigation cycle across **multiple stakeholder questions**; write most queries without starters; communicate an evidence-based briefing with limitations.
 - **Standards:** `3A-DA-11`, `3A-DA-12`, `2-DA-09`, CSTA Draft 3.0 `MS-DAA-27` (summarize the investigation: question, methods, limitations, evidence).
-- **Evidence of mastery:** Joins + aggregates to a correct ranked result and renders the "total spent per student" chart.
-- **Vocabulary:** data investigation, evidence, conclusion.
+- **Evidence of mastery:** Completes the activity sequence (explore → join → filter → aggregates → ranks → HAVING → debug → final chart); identifies Casey as top spender ($18.75) and Pizza slice as most popular (5).
+- **Vocabulary:** data investigation, briefing, evidence, conclusion, HAVING.
 
 #### Session 2 · Showcase & Reflect (celebration — no new lesson)
-- **Present:** Share your chart and state your answer in one sentence backed by the data.
-- **Reflect (`MS-DAA-27`):** Write 2–3 sentences: your question, how you found the answer, and one limitation of the data.
+- **Present:** Share your spend chart and state 2–3 briefing findings backed by the data.
+- **Reflect (`MS-DAA-27`):** Write 2–3 sentences: your questions, how you found the answers, and one limitation of the data.
 - **Ethics check (`3A-IC-29/30`):** You analyzed spending by person — how would you protect that data in the real world?
 
 ---
@@ -282,6 +283,10 @@ The 8-week structure closes the spots where self-paced data learners most often 
 
 ## CHANGELOG
 
+- **2026-08:** Expanded every Data Analyst workbook into scrollable spreadsheet-scale sample data:
+  `lunch_orders` (20), School DB (8×24), Capstone (10×41), `daily_orders` (14 / two weeks),
+  `quiz_scores` (32), `study_log` (24). Rebuilt **Lesson 14** as **Capstone: Cafeteria Briefing** with
+  **14 from-scratch / predict / debug activities**. Week 7 planning targets a multi-question briefing.
 - **2026-06 (c):** Reformatted into an **8-week program** (two sessions/week) with explicit week themes,
   self-paced **Do-it-yourself** tasks, **With-some-help** prompts, a **mid-program checkpoint** (W4),
   a **capstone planning** session (W7), and a **showcase/reflect** session (W8). Lesson content and

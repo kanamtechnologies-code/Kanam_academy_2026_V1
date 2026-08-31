@@ -176,7 +176,7 @@ export const daLesson1: DataLessonConfig = {
         id: "deeper-skill",
         kicker: "Go one level deeper",
         title: "LIMIT doesn't have to be small",
-        body: `\`LIMIT\` isn't just for grabbing 2 or 3 rows — it works with any number. \`LIMIT 100\` on a table with only 8 rows simply returns all 8; SQL never complains that you asked for more than exists.\n\nThis matters because real tables can have millions of rows. Analysts almost always peek with a small \`LIMIT\` first (like 5 or 10) before running a query on the full table, the same way you'd read the first page of a book before committing to the whole thing.`,
+        body: `\`LIMIT\` isn't just for grabbing 2 or 3 rows — it works with any number. \`LIMIT 100\` on a table with only 20 rows simply returns all 20; SQL never complains that you asked for more than exists.\n\nThis matters because real tables can have millions of rows. Analysts almost always peek with a small \`LIMIT\` first (like 5 or 10) before running a query on the full table, the same way you'd read the first page of a book before committing to the whole thing.`,
         bullets: [
           "A `LIMIT` bigger than the table just returns every row — no error.",
           "Peeking with a small LIMIT first is a safe habit on big, unfamiliar tables.",

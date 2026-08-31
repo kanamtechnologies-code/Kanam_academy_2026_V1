@@ -184,14 +184,14 @@ export const daLesson5: DataLessonConfig = {
           "You can use both together: filter first with WHERE, then sort what's left with ORDER BY.",
         ],
         checkIn: {
-          prompt: "If a table has 8 rows and you only add ORDER BY (no WHERE), how many rows come back?",
+          prompt: "If a table has 20 rows and you only add ORDER BY (no WHERE), how many rows come back?",
           choices: [
             "Exactly 1",
-            "Still all 8, just rearranged",
+            "Still all 20, just rearranged",
             "Fewer than 8",
           ],
           correctIndex: 1,
-          explanation: "ORDER BY never removes rows — it only changes their order. All 8 rows are still there, just rearranged.",
+          explanation: "ORDER BY never removes rows — it only changes their order. All 20 rows are still there, just rearranged.",
         },
       },
       {
@@ -382,7 +382,7 @@ ORDER BY ;`,
         if (n.includes("____")) return false;
         if (!/\border\s+by\s+price\b/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        if (!result || result.rowCount !== 8) return false;
+        if (!result || result.rowCount !== 20) return false;
         const priceIdx = result.columns.findIndex(
           (c) => c.toLowerCase() === "price"
         );
@@ -409,7 +409,7 @@ ORDER BY price ;`,
         if (n.includes("____")) return false;
         if (!/\border\s+by\s+price\s+desc\b/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        if (!result || result.rowCount !== 8) return false;
+        if (!result || result.rowCount !== 20) return false;
         const priceIdx = result.columns.findIndex(
           (c) => c.toLowerCase() === "price"
         );

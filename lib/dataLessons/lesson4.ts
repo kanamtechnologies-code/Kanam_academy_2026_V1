@@ -51,7 +51,7 @@ export const daLesson4: DataLessonConfig = {
         id: "concept-1",
         kicker: "Match text",
         title: "WHERE keeps only matching rows",
-        body: `Add \`WHERE\` right after the table name, then a **condition** — a true-or-false test SQL runs on every row. Rows that pass the test stay; the rest are filtered out. Think of \`WHERE\` like a bouncer checking each row against a rule.\n\nTo match **text**, wrap the value in **single quotes** and use a single \`=\`. The quotes tell SQL "this is a text value to match," not the name of a column.\n\nThe query below keeps only the rows where \`item\` is exactly "Salad" — and out of 8 orders, just 2 make it through.`,
+        body: `Add \`WHERE\` right after the table name, then a **condition** — a true-or-false test SQL runs on every row. Rows that pass the test stay; the rest are filtered out. Think of \`WHERE\` like a bouncer checking each row against a rule.\n\nTo match **text**, wrap the value in **single quotes** and use a single \`=\`. The quotes tell SQL "this is a text value to match," not the name of a column.\n\nThe query below keeps only the rows where \`item\` is exactly "Salad" — and out of 20 orders, **4** make it through.`,
         code: `SELECT *\nFROM lunch_orders\nWHERE item = 'Salad';`,
         codeCaption: "Only the salad orders",
         table: {
@@ -59,8 +59,10 @@ export const daLesson4: DataLessonConfig = {
           values: [
             [2, "Jordan", "Salad", 4.0],
             [8, "Jamie", "Salad", 4.0],
+            [11, "Sam", "Salad", 4.0],
+            [15, "Taylor", "Salad", 4.0],
           ],
-          rowCount: 2,
+          rowCount: 4,
         },
         checkIn: {
           prompt: "Which is the correct way to filter for text matching 'Burger'?",
@@ -73,7 +75,7 @@ export const daLesson4: DataLessonConfig = {
         id: "concept-2",
         kicker: "Compare numbers",
         title: "Comparing numbers with > and >=",
-        body: `For **numbers**, you skip the quotes and can compare with \`>\` (greater than), \`<\` (less than), \`>=\` (greater than or equal), and \`<=\` (less than or equal). So \`WHERE price > 4\` keeps only the pricier orders.\n\nThe example below finds orders that cost more than $4 — exactly 2 of them.`,
+        body: `For **numbers**, you skip the quotes and can compare with \`>\` (greater than), \`<\` (less than), \`>=\` (greater than or equal), and \`<=\` (less than or equal). So \`WHERE price > 4\` keeps only the pricier orders.\n\nThe example below finds orders that cost more than $4 — **6** of them (chicken wraps and burgers).`,
         code: `SELECT *\nFROM lunch_orders\nWHERE price > 4;`,
         codeCaption: "Orders more expensive than $4",
         table: {
@@ -81,8 +83,12 @@ export const daLesson4: DataLessonConfig = {
           values: [
             [3, "Sam", "Chicken wrap", 5.25],
             [7, "Taylor", "Burger", 4.75],
+            [9, "Alex", "Chicken wrap", 5.25],
+            [12, "Riley", "Burger", 4.75],
+            [16, "Jamie", "Chicken wrap", 5.25],
+            [17, "Alex", "Burger", 4.75],
           ],
-          rowCount: 2,
+          rowCount: 6,
         },
         checkIn: {
           prompt: "Two orders are priced exactly $4.00. Does WHERE price > 4 include them?",
@@ -116,7 +122,7 @@ export const daLesson4: DataLessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Build a filter, step by step",
-        body: `Let's answer: *"Which orders cost $4.00 or more?"* — including the orders that land exactly on $4.\n\n**Step 1 — Pick the columns.** We'll keep everything: \`SELECT *\`.\n\n**Step 2 — Name the table.** \`FROM lunch_orders\`.\n\n**Step 3 — Filter the rows.** Since "$4.00 or more" includes 4 itself, we use \`>=\`, not \`>\`: \`WHERE price >= 4\`, then a semicolon.\n\nThis time the two $4.00 salads count too, so we get **4** rows instead of 2 — a great reminder that \`>=\` includes the boundary.`,
+        body: `Let's answer: *"Which orders cost $4.00 or more?"* — including the orders that land exactly on $4.\n\n**Step 1 — Pick the columns.** We'll keep everything: \`SELECT *\`.\n\n**Step 2 — Name the table.** \`FROM lunch_orders\`.\n\n**Step 3 — Filter the rows.** Since "$4.00 or more" includes 4 itself, we use \`>=\`, not \`>\`: \`WHERE price >= 4\`, then a semicolon.\n\nThis time the $4.00 salads count too, so we get **10** rows instead of the 6 from \`price > 4\` — a great reminder that \`>=\` includes the boundary.`,
         code: `-- Step 1: columns -> all of them\n-- Step 2: table   -> lunch_orders\n-- Step 3: filter  -> price 4 or more (use >=)\nSELECT *\nFROM lunch_orders\nWHERE price >= 4;`,
         codeCaption: "Every order priced $4.00 or higher",
         table: {
@@ -126,12 +132,18 @@ export const daLesson4: DataLessonConfig = {
             [3, "Sam", "Chicken wrap", 5.25],
             [7, "Taylor", "Burger", 4.75],
             [8, "Jamie", "Salad", 4.0],
+            [9, "Alex", "Chicken wrap", 5.25],
+            [11, "Sam", "Salad", 4.0],
+            [12, "Riley", "Burger", 4.75],
+            [15, "Taylor", "Salad", 4.0],
+            [16, "Jamie", "Chicken wrap", 5.25],
+            [17, "Alex", "Burger", 4.75],
           ],
-          rowCount: 4,
+          rowCount: 10,
         },
         callout: {
           label: "Pro tip",
-          text: "When you filter, predict the row count *before* you run it (\"I expect about 4 orders\"). If the real result is wildly different, your condition probably isn't saying what you meant.",
+          text: "When you filter, predict the row count *before* you run it (\"I expect about 10 orders\"). If the real result is wildly different, your condition probably isn't saying what you meant.",
         },
       },
       {
@@ -242,8 +254,12 @@ export const daLesson4: DataLessonConfig = {
             ["Jordan", "Salad", 4.0],
             ["Sam", "Chicken wrap", 5.25],
             ["Jamie", "Salad", 4.0],
+            ["Alex", "Chicken wrap", 5.25],
+            ["Sam", "Salad", 4.0],
+            ["Taylor", "Salad", 4.0],
+            ["Jamie", "Chicken wrap", 5.25],
           ],
-          rowCount: 3,
+          rowCount: 7,
         },
       },
       {
@@ -366,15 +382,15 @@ Watch the row count drop as your filter gets more specific.`,
 FROM lunch_orders
 WHERE item = ;`,
       hint: "Type 'Salad' (with single quotes) after the = sign.",
-      successMessage: "Nice! Two students ordered a Salad.",
+      successMessage: "Nice! Four students ordered a Salad.",
       failureMessage:
-        "Use WHERE item = 'Salad' (quotes matter). Expect 2 rows.",
+        "Use WHERE item = 'Salad' (quotes matter). Expect 4 Salad rows.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bwhere\s+item\s*=\s*'salad'/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 2);
+        return Boolean(result && result.rowCount === 4);
       },
     },
     {
@@ -389,13 +405,13 @@ FROM lunch_orders
 WHERE price > ;`,
       hint: "Type the number 4 after the > sign.",
       successMessage: "Correct! Only the pricier items (over $4) came back.",
-      failureMessage: "Use WHERE price > 4. Expect 2 rows (5.25 and 4.75).",
+      failureMessage: "Use WHERE price > 4. Expect 6 rows (wraps and burgers over $4).",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bwhere\s+price\s*>\s*4\b/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 2);
+        return Boolean(result && result.rowCount === 6);
       },
     },
     {
@@ -409,14 +425,14 @@ WHERE price > ;`,
 FROM lunch_orders
 WHERE price >= ;`,
       hint: "Type 4 after >=. This time the $4.00 salads count too.",
-      successMessage: "Great! >= included the $4.00 orders — 4 rows.",
-      failureMessage: "Use WHERE price >= 4. Expect 4 rows.",
+      successMessage: "Great! >= included the $4.00 orders — 10 rows.",
+      failureMessage: "Use WHERE price >= 4. Expect 10 rows.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bwhere\s+price\s*>=\s*4\b/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 4);
+        return Boolean(result && result.rowCount === 10);
       },
     },
     {
@@ -431,9 +447,9 @@ SELECT *
 FROM lunch_orders
 WHERE ;`,
       hint: "WHERE item = 'Salad' OR item = 'Burger';",
-      successMessage: "You did it! Two salads and one burger = 3 rows.",
+      successMessage: "You did it! Four salads and three burgers = 7 rows.",
       failureMessage:
-        "Need WHERE item = 'Salad' OR item = 'Burger'. Expect 3 rows.",
+        "Need WHERE item = 'Salad' OR item = 'Burger'. Expect 7 rows.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
@@ -442,7 +458,7 @@ WHERE ;`,
         if (!/\bor\b/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
         return Boolean(
-          result && result.rowCount === 3 && hasColumns(result, "item")
+          result && result.rowCount === 7 && hasColumns(result, "item")
         );
       },
     },

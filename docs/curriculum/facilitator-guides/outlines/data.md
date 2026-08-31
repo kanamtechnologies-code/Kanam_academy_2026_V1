@@ -16,7 +16,7 @@
 | 5 | Parts & Bars | Bar/pie storytelling |
 | 6 | Change & Spread | Line + distributions |
 | 7 | Relationships | Scatter + plan project |
-| 8 | Capstone | Your Data Project (`da-14`) |
+| 8 | Capstone | Capstone: Cafeteria Briefing (`da-14`) |
 
 ## Session titles (catalog)
 
@@ -35,7 +35,7 @@
 | 6·1 | da-11 | Change Over Time |
 | 6·2 | da-12 | Distributions |
 | 7·1 | da-13 | Relationships |
-| 8·1 | da-14 | Your Data Project |
+| 8·1 | da-14 | Capstone: Cafeteria Briefing |
 
 ## Facilitation tips (until full guides)
 

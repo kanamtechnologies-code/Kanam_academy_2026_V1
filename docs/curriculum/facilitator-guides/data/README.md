@@ -15,7 +15,7 @@
 | 5 | Comparing with Charts | 2 | [week-5/](week-5/) |
 | 6 | Trends & Spread | 2 | [week-6/](week-6/) |
 | 7 | Relationships & Planning | 1 | [week-7/](week-7/) |
-| 8 | Capstone: Your Data Project | 1 | [week-8/](week-8/) |
+| 8 | Capstone: Cafeteria Briefing | 1 | [week-8/](week-8/) |
 
 ## How to run
 

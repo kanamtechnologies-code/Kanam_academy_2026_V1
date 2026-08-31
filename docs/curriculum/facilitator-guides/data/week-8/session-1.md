@@ -9,20 +9,20 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `data-analyst` / `da-14` |
-| **Title** | Your Data Project |
-| **Time** | 45–60 min |
-| **Week theme** | Capstone: Your Data Project |
-| **Student goal** | Put it all together — explore, join, summarize, and rank to answer a real question: who spent the most? |
+| **Title** | Capstone: Cafeteria Briefing |
+| **Time** | 45–60 min (may spill into Session 2) |
+| **Week theme** | Capstone: Cafeteria Briefing |
+| **Student goal** | Run a from-scratch multi-question cafeteria investigation and deliver an evidence-based briefing. |
 | **Standards** | CSTA 2-DA / 3A-DA · CCSS SP (see track doc) |
 | **Materials** | Browser devices · projector · SQL workspace visible |
 | **XP / badge** | 700 · Data Analyst |
 
 **Learning objectives**
 
-1. State today’s goal in one sentence.
-2. Complete guided practice with feedback.
-3. Complete the scratch / unaided challenge (or equivalent).
-4. Pass the lesson check (exercise success and/or CFU).
+1. Explore both tables and state the shared key.
+2. Write JOINs, filters, and aggregates from scratch (14 activities).
+3. Answer multiple briefing questions (top spender, popular item, big spenders).
+4. Deliver a ranked spend chart plus a one-sentence conclusion with a limitation.
 
 ---
 
@@ -30,11 +30,11 @@
 
 - [ ] Open `/learn/data/14` on the projector (lesson loads)
 - [ ] Confirm Help / Guidance panel is reachable
-- [ ] Decide self-paced vs live cohort pacing
-- [ ] Optional: complete the first check yourself
+- [ ] Decide self-paced vs live cohort pacing (this session is activity-heavy)
+- [ ] Optional: complete Activities 1–5 yourself
 - [ ] Bookmark instructor progress for end-of-class glance
 
-**Projector tips:** Zoom ~110%; keep feedback / console / quiz results visible when demoing.
+**Projector tips:** Zoom ~110%; keep feedback / console / chart visible when demoing.
 
 ---
 
@@ -42,25 +42,15 @@
 
 | Minutes | Phase | Facilitator | Students |
 | ---: | --- | --- | --- |
-| 0–5 | **Warm-up** | Ask a real-world question the data could answer today (theme: Capstone: Your Data Project). | Think / pair share |
-| 5–15 | **Teach** | Open Lesson tab; paraphrase coach’s note / Word help | Follow along |
-| 15–40 | **Practice** | Circulate; hints before answers; celebrate first green checks | guided query → scratch query |
-| 40–50 | **Check** | result rows / chart; ask “what does this prove?” | Answer / show output |
-| 50–60 | **Close** | Exit ticket + preview next session | One-sentence reflection |
+| 0–5 | **Warm-up** | “What would a cafeteria manager need to know after one week of sales?” | Think / pair share |
+| 5–12 | **Teach** | Brief pipeline reminder only — do **not** demo the final answers | Follow along / open plan notes |
+| 12–50 | **Practice** | Circulate; hints before answers; celebrate green checks | 14 activities (mostly from scratch) |
+| 50–55 | **Check** | Ask for top spender + popular item + one limitation | Share findings |
+| 55–60 | **Close** | Ethics: named spending rankings | One-sentence briefing |
 
 ### Coach’s note (from product — paraphrase)
 
-**Coach's note**:
-This is your capstone. No single new command — instead you'll **combine everything** like a real analyst.
-
-Our two tables are back:
-- **students** (student_id, student_name, grade)
-- **orders** (order_id, student_id, item, price)
-
-Your mission across these exercises: figure out **which student spent the most money**. You'll get there step by step — explore, join, summarize, then rank.
-
-Take your time and read each result. You've earned this.
-
+This is the track capstone — a multi-question cafeteria briefing on a richer two-table dataset (6 students, 21 orders). Students should write most queries **from scratch**. Stay in coach mode: ask for predicted row counts before they run; point to the command reference; celebrate the briefing sentence.
 
 ---
 
@@ -69,33 +59,32 @@ Take your time and read each result. You've earned this.
 | ID | Capture | Filename |
 | --- | --- | --- |
 | A | Lesson hero / title + goal | `data-w8-s1-hero.png` |
-| B | Lesson / Exercises (or Quiz) tabs | `data-w8-s1-tabs.png` |
+| B | Lesson / Exercises tabs | `data-w8-s1-tabs.png` |
 | C | Help / Coach guidance open | `data-w8-s1-help.png` |
-| D | Main workspace (editor, query, or quiz) | `data-w8-s1-editor.png` |
+| D | Main workspace (blank scratch editor) | `data-w8-s1-editor.png` |
 | E | Success / check state | `data-w8-s1-run.png` |
-| F | Evidence panel (console, chart, or score) | `data-w8-s1-console.png` |
+| F | Spend bar chart | `data-w8-s1-console.png` |
 
 ![Hero placeholder](../../images/data-w8-s1-hero.png)
 
-**Capture checklist:** local unlock → `/learn/data/14` → Lesson → Practice/Quiz → success state → save under `facilitator-guides/images/`.
+**Capture checklist:** local unlock → `/learn/data/14` → Lesson → Practice → success state → save under `facilitator-guides/images/`.
 
 ---
 
-## 5. What “good” looks like
+## 5. Answer keys (facilitator only)
 
-- **Mastery signal:** Student can restate the goal and show product evidence (green check, quiz pass, or studio artifact) without reading the answer key.
-- **Common mistakes:**
-- Forgetting `FROM` / wrong table name
-- Filtering after aggregating (or vice versa) without intent
-- Reading the chart without reading the query result
-- **Differentiation:**
-  - **Needs support:** Stay on guided path; re-read Help / Word help; use hints before scratch.
-  - **Ready for more:** Try This / stretch scenario; teach-back to a peer in 60 seconds.
+| Finding | Expected |
+| --- | --- |
+| Students / orders | 6 / 21 |
+| JOIN row count | 21 |
+| Orders with `price >= 4` | 11 |
+| Top spender | Casey · $18.75 |
+| Most orders | Alex · 5 |
+| Most popular item | Pizza slice · 5 |
+| Big spenders (`HAVING SUM > 14`) | Alex & Casey |
 
 ---
 
-## 6. Exit ticket & instructor progress
+## 6. Exit ticket
 
-**Exit ticket:** *What can you do now that you couldn’t do before this session — and how do you know?*
-
-**Progress check:** Confirm lesson opened + check success (exercise / quiz / assessment). Incomplete usually means stuck on a single concept — return to Help, not a new lecture.
+One sentence: *What should the cafeteria manager do next week, and what can’t this dataset prove?*

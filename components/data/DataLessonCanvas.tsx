@@ -13,7 +13,6 @@ import {
   Loader2,
   Play,
   Sparkles,
-  Table2,
   Trophy,
   Zap,
 } from "lucide-react";
@@ -33,6 +32,7 @@ import {
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
 import { dashboardHrefForLesson } from "@/lib/billing/access";
 import { ResultTable } from "@/components/data/ResultTable";
+import { SeedSpreadsheetPreview } from "@/components/data/SeedSpreadsheetPreview";
 import { SqlTextarea } from "@/components/data/SqlTextarea";
 import { ExerciseHint } from "@/components/exercises/ExerciseHint";
 import { PremiumBadge } from "@/components/badges/PremiumBadge";
@@ -716,24 +716,12 @@ export function DataLessonCanvas({
               </Notice>
             ) : (
               <>
-                {lesson.previewTable ? (
-                  <Card className="min-w-0 max-w-full">
-                    <CardHeader className="min-w-0 max-w-full p-4 pb-2 sm:p-6 sm:pb-2">
-                      <CardTitle className="flex min-w-0 items-center gap-2 text-base">
-                        <Table2 className="h-5 w-5 shrink-0 text-[var(--brand)]" />
-                        <span className="min-w-0 break-words">Sample table: {lesson.previewTable}</span>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="min-w-0 max-w-full px-4 pb-4 sm:px-6 sm:pb-6">
-                      <ResultTable
-                        result={
-                          db
-                            ? runSelectQuery(db, `SELECT * FROM ${lesson.previewTable} LIMIT 8`)
-                            : null
-                        }
-                      />
-                    </CardContent>
-                  </Card>
+                {lesson.seedData?.length ? (
+                  <SeedSpreadsheetPreview
+                    db={db}
+                    seedData={lesson.seedData}
+                    preferredTable={lesson.previewTable}
+                  />
                 ) : null}
 
                 <Card

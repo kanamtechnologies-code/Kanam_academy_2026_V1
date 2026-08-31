@@ -80,7 +80,7 @@ export const daLesson13: DataLessonConfig = {
               [20, 65], [35, 72], [50, 80], [15, 60], [60, 85], [45, 78],
               [70, 90], [30, 70], [80, 95], [25, 68], [55, 82], [40, 75],
             ],
-            rowCount: 12,
+            rowCount: 24,
           },
         },
         checkIn: {
@@ -113,13 +113,13 @@ export const daLesson13: DataLessonConfig = {
         id: "data",
         kicker: "Your dataset",
         title: "The data you'll use: study_log",
-        body: `The **study_log** table has two numbers per student: **study_minutes** and **score** (sample rows below). There are 12 students in all.\n\nTo build the plot, you'll return **both** number columns. The first becomes the x position, the second the y position, and each student turns into one dot. No grouping or counting — the relationship is already in the raw rows.`,
+        body: `The **study_log** table has two numbers per student: **study_minutes** and **score** (sample rows below). There are 24 students in all.\n\nTo build the plot, you'll return **both** number columns. The first becomes the x position, the second the y position, and each student turns into one dot. No grouping or counting — the relationship is already in the raw rows.`,
         table: {
           columns: ["student_name", "study_minutes", "score"],
           values: [
             ["Alex", 20, 65],
             ["Casey", 60, 85],
-            ["Quinn", 80, 95],
+            ["Quinn", 90, 97],
             ["Riley", 15, 60],
           ],
           rowCount: 4,
@@ -294,10 +294,20 @@ export const daLesson13: DataLessonConfig = {
         codeCaption: "Who studied the longest?",
       },
       {
+        id: "capstone-preview",
+        kicker: "Looking ahead",
+        title: "Next up: your cafeteria briefing (from scratch)",
+        body: `Lesson 14 is the track capstone — a full **cafeteria briefing** on a richer two-table week of data. You will not get half-written queries. You'll explore, join, filter, summarize, rank, debug, and chart — answering several manager questions yourself.\n\nBefore you go, sketch a plan on paper:\n\n• What will you explore first?\n• Which shared key joins the tables?\n• Which questions need COUNT vs SUM vs HAVING?\n• What one sentence will your final briefing say?`,
+        callout: {
+          label: "Coach tip",
+          text: "Bring this plan into Lesson 14. Capstone success is less about memorizing SQL and more about running the investigation cycle without blanks filled in for you.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You now know a scatter plot reveals whether **two numbers move together**, how to read the cloud's tilt, and the most important rule in all of data: correlation is not causation.\n\nIn the exercises you'll plot the relationship, read the trend, and find who studied the most.\n\nClick **Start the exercises** when you're ready.`,
+        body: `You now know a scatter plot reveals whether **two numbers move together**, how to read the cloud's tilt, and the most important rule in all of data: correlation is not causation.\n\nIn the exercises you'll plot the relationship, read the trend, and find who studied the most — then you'll be ready for the from-scratch cafeteria briefing.\n\nClick **Start the exercises** when you're ready.`,
       },
     ],
   },
@@ -381,9 +391,9 @@ Return **both** number columns and each student becomes a dot. If the dots trend
       starterSql: `SELECT study_minutes, score
 FROM ;`,
       hint: "Type study_log after FROM, then Run & check to see the scatter plot.",
-      successMessage: "There's the relationship — 12 dots, trending up and to the right.",
+      successMessage: "There's the relationship — 24 dots, trending up and to the right.",
       failureMessage:
-        "Use SELECT study_minutes, score FROM study_log. Expect 12 rows + a scatter plot.",
+        "Use SELECT study_minutes, score FROM study_log. Expect 24 rows + a scatter plot.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
@@ -391,7 +401,7 @@ FROM ;`,
         if (!/\bfrom\s+study_log\b/.test(n)) return false;
         return Boolean(
           result &&
-            result.rowCount === 12 &&
+            result.rowCount === 24 &&
             result.columns.map((c) => c.toLowerCase()).includes("study_minutes") &&
             result.columns.map((c) => c.toLowerCase()).includes("score")
         );
@@ -410,13 +420,13 @@ ORDER BY ;`,
       hint: "Type study_minutes after ORDER BY.",
       successMessage: "Sorted by study time — the upward pattern is easy to see now.",
       failureMessage:
-        "Use ORDER BY study_minutes. Expect 12 rows.",
+        "Use ORDER BY study_minutes. Expect 24 rows.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bselect\s+study_minutes\s*,\s*score\b/.test(n)) return false;
         if (!/\border\s+by\s+study_minutes\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 12);
+        return Boolean(result && result.rowCount === 24);
       },
     },
     {
@@ -431,7 +441,7 @@ FROM study_log
 ORDER BY study_minutes DESC
 LIMIT ;`,
       hint: "Type 1 after LIMIT.",
-      successMessage: "Quinn studied 80 minutes and scored 95 — top right of the plot. Relationship Finder!",
+      successMessage: "Quinn studied 90 minutes and scored 97 — top right of the plot. Relationship Finder!",
       failureMessage:
         "Use ORDER BY study_minutes DESC LIMIT 1. Expect exactly 1 row.",
       validate: (sql, result) => {

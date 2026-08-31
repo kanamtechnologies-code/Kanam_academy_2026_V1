@@ -73,7 +73,7 @@ export const daLesson3: DataLessonConfig = {
         id: "concept-2",
         kicker: "Remove duplicates",
         title: "DISTINCT shows each value once",
-        body: `Our table has 8 orders, but some items repeat — two students ordered "Pizza slice" and two ordered "Salad." If you just \`SELECT item\`, you'd see those repeats. \`SELECT DISTINCT item\` collapses them so each item appears **only once** — basically a clean menu of what was ordered.\n\nPicture writing down every snack people bring to a party. \`DISTINCT\` is like crossing out duplicates so your shopping list shows each snack a single time, no matter how many people brought it.\n\nThat's why our 8 orders shrink to just **6** unique items below.`,
+        body: `Our table has **20** orders, but some items repeat — Pizza slice shows up five times, Salad four times, and so on. If you just \`SELECT item\`, you'd see those repeats. \`SELECT DISTINCT item\` collapses them so each item appears **only once** — basically a clean menu of what was ordered.\n\nPicture writing down every snack people bring to a party. \`DISTINCT\` is like crossing out duplicates so your shopping list shows each snack a single time, no matter how many people brought it.\n\nThat's why our 20 orders shrink to just **6** unique items below.`,
         code: `SELECT DISTINCT item\nFROM lunch_orders;`,
         codeCaption: "Unique items only",
         table: {
@@ -89,10 +89,10 @@ export const daLesson3: DataLessonConfig = {
           rowCount: 6,
         },
         checkIn: {
-          prompt: "8 orders include 2 Pizza slices and 2 Salads. How many rows does SELECT DISTINCT item return?",
-          choices: ["8", "4", "6"],
+          prompt: "20 orders include repeats of Pizza slice and Salad. How many rows does SELECT DISTINCT item return?",
+          choices: ["20", "4", "6"],
           correctIndex: 2,
-          explanation: "DISTINCT collapses the duplicate 'Pizza slice' and 'Salad' rows down to one each, so 8 orders become 6 unique items.",
+          explanation: "DISTINCT collapses every repeated item name down to one row each, so 20 orders become 6 unique menu items.",
         },
       },
       {
@@ -115,7 +115,7 @@ export const daLesson3: DataLessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Build a unique-combos query, step by step",
-        body: `Let's answer: *"What's on the menu, and what does each item cost?"* We want one clean line per item-price pair — no repeats.\n\n**Step 1 — Pick the columns.** We care about \`item\` and \`price\`, in that order: \`SELECT item, price\`.\n\n**Step 2 — Remove repeats.** Two "Pizza slice" orders would show twice, so we add \`DISTINCT\` right after \`SELECT\`.\n\n**Step 3 — Name the table.** \`FROM lunch_orders\`, then a semicolon.\n\nThe 8 orders collapse into 6 unique item-price rows — a tidy little price list.`,
+        body: `Let's answer: *"What's on the menu, and what does each item cost?"* We want one clean line per item-price pair — no repeats.\n\n**Step 1 — Pick the columns.** We care about \`item\` and \`price\`, in that order: \`SELECT item, price\`.\n\n**Step 2 — Remove repeats.** Two "Pizza slice" orders would show twice, so we add \`DISTINCT\` right after \`SELECT\`.\n\n**Step 3 — Name the table.** \`FROM lunch_orders\`, then a semicolon.\n\nThe 20 orders collapse into 6 unique item-price rows — a tidy little price list.`,
         code: `-- Step 1: columns -> item, price\n-- Step 2: no repeats -> add DISTINCT\n-- Step 3: table -> lunch_orders\nSELECT DISTINCT item, price\nFROM lunch_orders;`,
         codeCaption: "Each item + price combo, exactly once",
         table: {
@@ -151,7 +151,7 @@ export const daLesson3: DataLessonConfig = {
         id: "try-it",
         kicker: "Try it yourself",
         title: "Predict the unique count",
-        body: `Before the exercises, predict: how many unique prices are there across the 8 lunch orders? (Hint: some items share the same price, like the two $4.00 salads.)\n\nWrite your guess, then once you're in the workspace try \`SELECT DISTINCT price FROM lunch_orders;\` and check your prediction.`,
+        body: `Before the exercises, predict: how many unique prices are there across the 20 lunch orders? (Hint: every menu item has one fixed price — Pizza 3.50, Salad 4.00, wrap 5.25, fruit 2.75, parfait 3.00, burger 4.75.)\n\nWrite your guess, then once you're in the workspace try \`SELECT DISTINCT price FROM lunch_orders;\` and check your prediction.`,
       },
       {
         id: "deeper-skill",
@@ -224,7 +224,7 @@ export const daLesson3: DataLessonConfig = {
         id: "distinct-walkthrough",
         kicker: "Query walkthrough",
         title: "DISTINCT on lunch_orders — before and after",
-        body: `The full \`lunch_orders\` table has 8 rows, but only 6 unique items were ordered (Pizza slice appears twice, Salad appears twice). Without \`DISTINCT\`, a plain \`SELECT item\` returns all 8 rows including repeats. With \`DISTINCT\`, SQL collapses duplicates and hands back 6 rows — one per unique item.\n\nAlways compare the row count to what you expect. If you asked "how many different items exist?" and got 8 rows back, you probably forgot \`DISTINCT\`.`,
+        body: `The full \`lunch_orders\` table has 20 rows, but only 6 unique items were ordered (Pizza slice leads, then Salad). Without \`DISTINCT\`, a plain \`SELECT item\` returns all 20 rows including repeats. With \`DISTINCT\`, SQL collapses duplicates and hands back 6 rows — one per unique item.\n\nAlways compare the row count to what you expect. If you asked "how many different items exist?" and got 20 rows back, you probably forgot \`DISTINCT\`.`,
         code: `SELECT DISTINCT item\nFROM lunch_orders;`,
         codeCaption: "Six unique items from eight orders",
         table: {
@@ -240,7 +240,7 @@ export const daLesson3: DataLessonConfig = {
           rowCount: 6,
         },
         checkIn: {
-          prompt: "lunch_orders has 8 rows but only 6 unique items. How many rows should SELECT DISTINCT item return?",
+          prompt: "lunch_orders has 20 rows but only 6 unique items. How many rows should SELECT DISTINCT item return?",
           choices: ["8 — DISTINCT doesn't remove anything", "6 — one row per unique item", "1 — DISTINCT always returns one row"],
           correctIndex: 1,
           explanation: "DISTINCT removes duplicate values, so six different items produce six rows — even though the original table had eight orders.",
@@ -297,7 +297,7 @@ Read the column names in the results table after each Run & check.`,
     },
     {
       title: "DISTINCT = no repeats",
-      text: "Six different items were ordered, even though there are 8 orders. DISTINCT shows each item once.",
+      text: "Six different items were ordered, even though there are 20 orders. DISTINCT shows each item once.",
     },
   ],
   steps: [
@@ -342,7 +342,7 @@ FROM lunch_orders;`,
       hint: "Type student_name, item after SELECT.",
       successMessage: "Nice! You pulled exactly two columns.",
       failureMessage:
-        "Use SELECT student_name, item FROM lunch_orders; — expect 8 rows and 2 columns.",
+        "Use SELECT student_name, item FROM lunch_orders; — expect 20 rows and 2 columns.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
@@ -350,7 +350,7 @@ FROM lunch_orders;`,
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
         return Boolean(
           result &&
-            result.rowCount === 8 &&
+            result.rowCount === 20 &&
             result.columns.length === 2 &&
             hasColumns(result, "student_name", "item")
         );
@@ -376,7 +376,7 @@ FROM lunch_orders;`,
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
         return Boolean(
           result &&
-            result.rowCount === 8 &&
+            result.rowCount === 20 &&
             result.columns.length === 2 &&
             result.columns[0].toLowerCase() === "item"
         );
@@ -387,7 +387,7 @@ FROM lunch_orders;`,
       title: "Exercise 3 — Remove duplicates",
       focusCommand: "DISTINCT",
       commandExplain:
-        "DISTINCT keeps one of each value. There are 8 orders but only 6 different items.",
+        "DISTINCT keeps one of each value. There are 20 orders but only 6 different items.",
       goal: "Write SELECT DISTINCT item FROM lunch_orders;",
       starterSql: `SELECT DISTINCT 
 FROM lunch_orders;`,

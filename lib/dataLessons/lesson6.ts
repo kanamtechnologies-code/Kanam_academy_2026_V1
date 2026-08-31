@@ -62,7 +62,7 @@ export const daLesson6: DataLessonConfig = {
         codeCaption: "Summarize the whole table",
         table: {
           columns: ["orders", "total", "avg_price"],
-          values: [[8, 30.75, 3.84]],
+          values: [[20, 77.75, 3.89]],
           rowCount: 1,
         },
         checkIn: {
@@ -76,10 +76,10 @@ export const daLesson6: DataLessonConfig = {
         id: "concept-2",
         kicker: "COUNT vs SUM",
         title: "Counting records vs. totaling values",
-        body: `\`COUNT\` and \`SUM\` are not the same, even though they can produce similarly-sized numbers. \`COUNT(*)\` tells you **how many rows** (8 orders), while \`SUM(price)\` **adds up the values** inside a column ($30.75). One counts records, the other totals dollars.`,
+        body: `\`COUNT\` and \`SUM\` are not the same, even though they can produce similarly-sized numbers. \`COUNT(*)\` tells you **how many rows** (20 orders), while \`SUM(price)\` **adds up the values** inside a column ($77.75). One counts records, the other totals dollars.`,
         checkIn: {
-          prompt: "A table has 8 orders totaling $30.75. What would SUM(price) return?",
-          choices: ["8", "3.84", "30.75"],
+          prompt: "A table has 20 orders totaling $77.75. What would SUM(price) return?",
+          choices: ["20", "3.89", "77.75"],
           correctIndex: 2,
           explanation: "SUM adds up every value in the price column — the total dollar amount, not the number of rows.",
         },
@@ -121,7 +121,7 @@ export const daLesson6: DataLessonConfig = {
         id: "worked",
         kicker: "Worked example",
         title: "Rank the menu, step by step",
-        body: `Let's answer: *"Which lunch items are most popular?"* — counting orders per item and putting the favorite on top.\n\n**Step 1 — Pick the label + the summary.** \`SELECT item, COUNT(*) AS order_count\`.\n\n**Step 2 — Name the table.** \`FROM lunch_orders\`.\n\n**Step 3 — Make the groups.** One bin per item: \`GROUP BY item\`.\n\n**Step 4 — Rank them.** Most popular first: \`ORDER BY order_count DESC\`, then a semicolon.\n\nThe 8 orders collapse into 6 item groups, sorted so Pizza slice and Salad (2 orders each) lead the menu.`,
+        body: `Let's answer: *"Which lunch items are most popular?"* — counting orders per item and putting the favorite on top.\n\n**Step 1 — Pick the label + the summary.** \`SELECT item, COUNT(*) AS order_count\`.\n\n**Step 2 — Name the table.** \`FROM lunch_orders\`.\n\n**Step 3 — Make the groups.** One bin per item: \`GROUP BY item\`.\n\n**Step 4 — Rank them.** Most popular first: \`ORDER BY order_count DESC\`, then a semicolon.\n\nThe 20 orders collapse into 6 item groups, sorted so Pizza slice (5) and Salad (4) lead the menu.`,
         code: `-- Step 1: label + summary -> item, COUNT(*)\n-- Step 2: table           -> lunch_orders\n-- Step 3: one bin per item -> GROUP BY item\n-- Step 4: most popular top -> ORDER BY ... DESC\nSELECT item, COUNT(*) AS order_count\nFROM lunch_orders\nGROUP BY item\nORDER BY order_count DESC;`,
         codeCaption: "Orders per item, most popular first",
         table: {
@@ -185,7 +185,7 @@ export const daLesson6: DataLessonConfig = {
         ],
         checkIn: {
           prompt: "SELECT COUNT(*) FROM lunch_orders; (no GROUP BY) — how many rows does this return?",
-          choices: ["8 rows — one per order", "6 rows — one per item", "1 row — a single grand total"],
+          choices: ["20 rows — one per order", "6 rows — one per item", "1 row — a single grand total"],
           correctIndex: 2,
           explanation: "Without GROUP BY, the aggregate summarizes the entire table into exactly one row.",
         },
@@ -200,7 +200,7 @@ export const daLesson6: DataLessonConfig = {
         id: "habits",
         kicker: "Analyst habits",
         title: "Always report more than one summary number",
-        body: `Whenever you share an average, try to also share the count and the total (or the range with MIN/MAX). "Average price $3.84, based on 8 orders ranging from $2.75 to $5.25" tells a far more honest story than "average price $3.84" alone.`,
+        body: `Whenever you share an average, try to also share the count and the total (or the range with MIN/MAX). "Average price $3.89, based on 20 orders ranging from $2.75 to $5.25" tells a far more honest story than "average price $3.84" alone.`,
       },
       {
         id: "reflection",
@@ -365,14 +365,14 @@ One number can answer a big question. Let's go.`,
       starterSql: `SELECT 
 FROM lunch_orders;`,
       hint: "Type COUNT(*) after SELECT.",
-      successMessage: "Correct! There are 8 orders in the table.",
-      failureMessage: "Use SELECT COUNT(*) FROM lunch_orders; — the answer is 8.",
+      successMessage: "Correct! There are 20 orders in the table.",
+      failureMessage: "Use SELECT COUNT(*) FROM lunch_orders; — the answer is 20.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bselect\s+count\s*\(\s*\*\s*\)/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 1 && firstCellNumber(result) === 8);
+        return Boolean(result && result.rowCount === 1 && firstCellNumber(result) === 20);
       },
     },
     {
@@ -385,16 +385,16 @@ FROM lunch_orders;`,
       starterSql: `SELECT 
 FROM lunch_orders;`,
       hint: "Type SUM(price) after SELECT.",
-      successMessage: "Nice! The lunch orders total $30.75.",
+      successMessage: "Nice! The lunch orders total $77.75.",
       failureMessage:
-        "Use SELECT SUM(price) FROM lunch_orders; — the total is 30.75.",
+        "Use SELECT SUM(price) FROM lunch_orders; — the total is 77.75.",
       validate: (sql, result) => {
         const n = normSql(sql);
         if (n.includes("____")) return false;
         if (!/\bselect\s+sum\s*\(\s*price\s*\)/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
         return Boolean(
-          result && result.rowCount === 1 && approxEquals(firstCellNumber(result), 30.75)
+          result && result.rowCount === 1 && approxEquals(firstCellNumber(result), 77.75)
         );
       },
     },
@@ -434,7 +434,7 @@ FROM lunch_orders
 GROUP BY item
 ORDER BY ;`,
       hint: "ORDER BY order_count DESC (or ORDER BY COUNT(*) DESC).",
-      successMessage: "You ranked the menu! Pizza slice and Salad lead with 2 each.",
+      successMessage: "You ranked the menu! Pizza slice leads with 5 orders.",
       failureMessage:
         "Need GROUP BY item and ORDER BY the count DESC — expect 6 rows, highest first.",
       validate: (sql, result) => {
@@ -448,7 +448,7 @@ ORDER BY ;`,
           c.toLowerCase().includes("count") || c.toLowerCase() === "order_count"
         );
         if (countIdx < 0) return false;
-        return Number(result.values[0][countIdx]) === 2;
+        return Number(result.values[0][countIdx]) === 5;
       },
     },
   ],

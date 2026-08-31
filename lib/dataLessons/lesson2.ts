@@ -78,7 +78,7 @@ export const daLesson2: DataLessonConfig = {
         id: "concept-2",
         kicker: "Stay tidy",
         title: "LIMIT keeps big answers short",
-        body: `Real tables can have thousands — even millions — of rows. You almost never want them all dumped on screen at once. \`LIMIT\` caps how many rows come back, which is perfect for peeking at data without loading everything.\n\nThink of \`LIMIT 5\` like scrolling only the first few results instead of the entire feed. It's fast, it's tidy, and it's how analysts safely sample a giant table before running a bigger question.\n\nLeaving \`LIMIT\` off means "give me **all** the rows." Our lunch table has 8 rows, so with no \`LIMIT\` you'll get all 8. Add \`LIMIT 3\` and you'll get just the first 3.`,
+        body: `Real tables can have thousands — even millions — of rows. You almost never want them all dumped on screen at once. \`LIMIT\` caps how many rows come back, which is perfect for peeking at data without loading everything.\n\nThink of \`LIMIT 5\` like scrolling only the first few results instead of the entire feed. It's fast, it's tidy, and it's how analysts safely sample a giant table before running a bigger question.\n\nLeaving \`LIMIT\` off means "give me **all** the rows." Our lunch table has 20 rows, so with no \`LIMIT\` you'll get all 20. Add \`LIMIT 3\` and you'll get just the first 3.`,
         bullets: [
           "`SELECT *` → all columns. `SELECT a, b` → only those columns.",
           "Separate column names with **commas** (none after the last one).",
@@ -86,10 +86,10 @@ export const daLesson2: DataLessonConfig = {
           "`LIMIT 5` → at most 5 rows, even from a giant table.",
         ],
         checkIn: {
-          prompt: "If a table has 8 rows and you write a query with NO LIMIT, how many rows come back?",
-          choices: ["0", "Exactly 5", "All 8"],
+          prompt: "If a table has 20 rows and you write a query with NO LIMIT, how many rows come back?",
+          choices: ["0", "Exactly 5", "All 20"],
           correctIndex: 2,
-          explanation: "No LIMIT means \"give me everything.\" With 8 rows in the table, that's all 8.",
+          explanation: "No LIMIT means \"give me everything.\" With 20 rows in the table, that's all 20.",
         },
       },
       {
@@ -150,7 +150,7 @@ export const daLesson2: DataLessonConfig = {
         id: "try-it",
         kicker: "Try it yourself",
         title: "Guess the row count before you run",
-        body: `Before the exercises, predict the row count for this query: \`SELECT item FROM lunch_orders LIMIT 6;\` (the table has 8 rows total).\n\nThen predict this one: \`SELECT item, price FROM lunch_orders;\` with no LIMIT at all. Once you're in the workspace, run both and see if your predictions held up.`,
+        body: `Before the exercises, predict the row count for this query: \`SELECT item FROM lunch_orders LIMIT 6;\` (the table has 20 rows total).\n\nThen predict this one: \`SELECT item, price FROM lunch_orders;\` with no LIMIT at all. Once you're in the workspace, run both and see if your predictions held up.`,
         callout: {
           label: "Why this helps",
           text: "Predicting first turns every query into a mini-experiment. If your prediction is wrong, you'll remember the correct rule far better than if you'd just read it.",
@@ -221,7 +221,7 @@ export const daLesson2: DataLessonConfig = {
         title: "One more check before you dive in",
         body: `Let's confirm the two controls are locked in: SELECT for columns, LIMIT for rows.`,
         checkIn: {
-          prompt: "Which query returns exactly 2 columns and at most 3 rows from an 8-row table?",
+          prompt: "Which query returns exactly 2 columns and at most 3 rows from a 20-row table?",
           choices: [
             "SELECT * FROM lunch_orders LIMIT 3",
             "SELECT student_name, item FROM lunch_orders LIMIT 3",
@@ -286,7 +286,7 @@ Read the results table after every Run & check. Row count and column names tell 
     {
       command: "No LIMIT",
       summary:
-        "If you skip LIMIT, SQL returns every row in the table. Our lunch table has 8 rows.",
+        "If you skip LIMIT, SQL returns every row in the table. Our lunch table has 20 rows.",
       example: "SELECT * FROM lunch_orders;",
     },
     {
@@ -310,7 +310,7 @@ Read the results table after every Run & check. Row count and column names tell 
     },
   ],
   steps: [
-    "Run a query that returns ALL 8 lunch orders.",
+    "Run a query that returns ALL 20 lunch orders.",
     "Run the same data with LIMIT 3.",
     "Select only student_name and item columns.",
     "Challenge: student_name + price, limited to 4 rows.",
@@ -345,7 +345,7 @@ Read the results table after every Run & check. Row count and column names tell 
       title: "Exercise 1 — Reorder columns query",
       focusCommand: "SELECT columns",
       commandExplain: "Scrambled query that should show student_name and item for every order.",
-      goal: "Reorder into a working query (8 rows, 2 columns).",
+      goal: "Reorder into a working query (20 rows, 2 columns).",
       starterSql: "",
       parsonsLines: ["SELECT student_name, item", "FROM lunch_orders;"],
       hint: "SELECT list first, then FROM.",
@@ -355,7 +355,7 @@ Read the results table after every Run & check. Row count and column names tell 
         const n = normSql(sql);
         if (!/\bselect\s+student_name,\s*item\b/.test(n)) return false;
         if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 8 && hasColumns(result, "student_name", "item"));
+        return Boolean(result && result.rowCount === 20 && hasColumns(result, "student_name", "item"));
       },
     },
     {
