@@ -70,15 +70,14 @@ export function FinishLessonFirstHint({
       aria-live="polite"
       className={cn(
         "absolute z-30",
-        // Mobile: under the tabs (still overlay — no layout push)
-        "left-0 top-[calc(100%+0.55rem)] w-[min(100%,22rem)]",
-        // Desktop / tablet: slide out to the right of the tab bar
-        "sm:left-full sm:top-1/2 sm:ml-3 sm:w-[21rem]",
+        // Keep under the tabs until lg — sm:left-full escapes the viewport on portrait tablets
+        "left-0 right-0 top-[calc(100%+0.55rem)] w-full max-w-[min(100%,22rem)]",
+        "lg:left-full lg:right-auto lg:top-1/2 lg:ml-3 lg:w-[21rem] lg:max-w-none",
         "transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
         "will-change-transform",
         shown
-          ? "pointer-events-auto translate-x-0 opacity-100 max-sm:translate-y-0 sm:-translate-y-1/2"
-          : "pointer-events-none opacity-0 max-sm:-translate-y-2 sm:translate-x-[-0.9rem] sm:-translate-y-1/2"
+          ? "pointer-events-auto translate-x-0 opacity-100 max-lg:translate-y-0 lg:-translate-y-1/2"
+          : "pointer-events-none opacity-0 max-lg:-translate-y-2 lg:translate-x-[-0.9rem] lg:-translate-y-1/2"
       )}
     >
       <div

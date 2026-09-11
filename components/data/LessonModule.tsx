@@ -102,25 +102,25 @@ function VisualCodeCard({
   output?: string;
 }) {
   return (
-    <div className="space-y-2">
-      <div className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-sm">
+    <div className="min-w-0 max-w-full space-y-2">
+      <div className="min-w-0 max-w-full overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-sm">
         {caption ? (
-          <div className="flex items-center gap-2 border-b border-slate-700/70 bg-slate-800/80 px-4 py-2 text-xs font-bold text-slate-300">
+          <div className="flex min-w-0 items-center gap-2 border-b border-slate-700/70 bg-slate-800/80 px-4 py-2 text-xs font-bold text-slate-300">
             <BookOpen className="h-3.5 w-3.5 shrink-0" />
-            <span>{caption}</span>
+            <span className="min-w-0 break-words">{caption}</span>
           </div>
         ) : null}
-        <pre className="overflow-x-auto whitespace-pre px-4 py-3 font-mono text-[13px] leading-relaxed text-emerald-100">
+        <pre className="max-w-full overflow-x-auto whitespace-pre px-4 py-3 font-mono text-[13px] leading-relaxed text-emerald-100">
           {renderCodeLines(code)}
         </pre>
       </div>
       {output ? (
-        <div>
+        <div className="min-w-0 max-w-full">
           <p className="mb-1 flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wide text-slate-500">
             <TerminalSquare className="h-3.5 w-3.5" />
             What it prints
           </p>
-          <pre className="overflow-x-auto rounded-xl bg-slate-950 px-4 py-3 font-mono text-[13px] leading-relaxed text-sky-200">
+          <pre className="max-w-full overflow-x-auto rounded-xl bg-slate-950 px-4 py-3 font-mono text-[13px] leading-relaxed text-sky-200">
             {output}
           </pre>
         </div>
@@ -451,34 +451,42 @@ export function LessonModule({
   };
 
   return (
-    <Card className="border-slate-200 shadow-md">
-      <CardContent className="space-y-6 p-5 pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] md:p-7 md:pb-7">
-        <div ref={topRef} className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-sm font-bold text-[var(--brand-2)]">
-            <BookOpen className="h-4 w-4" />
-            Lesson
-            {module.durationLabel ? (
-              <span className="font-medium text-slate-400">· {module.durationLabel}</span>
-            ) : null}
+    <Card className="min-w-0 max-w-full overflow-x-hidden border-slate-200 shadow-md">
+      <CardContent className="min-w-0 space-y-6 p-3.5 pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] sm:p-5 md:p-7 md:pb-7">
+        <div ref={topRef} className="flex min-w-0 items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center gap-2 text-sm font-bold text-[var(--brand-2)]">
+            <BookOpen className="h-4 w-4 shrink-0" />
+            <span className="truncate">
+              Lesson
+              {module.durationLabel ? (
+                <span className="font-medium text-slate-400"> · {module.durationLabel}</span>
+              ) : null}
+            </span>
           </div>
-          <div className="flex items-center gap-1.5">
-            {sections.map((s, i) => (
-              <button
-                key={s.id}
-                type="button"
-                aria-label={`Go to section ${i + 1}`}
-                disabled={navigationLocked || i > maxReached}
-                onClick={() => goTo(i)}
-                className={cn(
-                  "h-2.5 rounded-full transition-all",
-                  i === index
-                    ? "w-6 bg-[var(--brand)]"
-                    : i <= maxReached
-                      ? "w-2.5 bg-[var(--brand)]/50"
-                      : "w-2.5 cursor-not-allowed bg-slate-200"
-                )}
-              />
-            ))}
+          {/* Phones: compact counter — full dot strip overflows portrait width with 15+ slides */}
+          <p className="shrink-0 text-xs font-semibold tabular-nums text-slate-500 sm:hidden">
+            {index + 1} / {sections.length}
+          </p>
+          <div className="hidden min-w-0 max-w-[min(100%,18rem)] overflow-x-auto sm:block md:max-w-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex w-max items-center gap-1.5">
+              {sections.map((s, i) => (
+                <button
+                  key={s.id}
+                  type="button"
+                  aria-label={`Go to section ${i + 1}`}
+                  disabled={navigationLocked || i > maxReached}
+                  onClick={() => goTo(i)}
+                  className={cn(
+                    "h-2.5 rounded-full transition-all",
+                    i === index
+                      ? "w-6 bg-[var(--brand)]"
+                      : i <= maxReached
+                        ? "w-2.5 bg-[var(--brand)]/50"
+                        : "w-2.5 cursor-not-allowed bg-slate-200"
+                  )}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
@@ -486,7 +494,7 @@ export function LessonModule({
           const media = (
             <>
               {section.image ? (
-                <div className="relative flex h-[240px] w-full items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 sm:h-[320px] lg:h-[380px]">
+                <div className="relative flex h-[240px] w-full min-w-0 max-w-full items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 sm:h-[320px] lg:h-[380px]">
                   <Image
                     src={section.image}
                     alt={section.imageAlt ?? section.title}
@@ -699,15 +707,15 @@ export function LessonModule({
               </div>
 
               {hasMedia ? (
-                <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
+                <div className="grid min-w-0 max-w-full gap-6 lg:grid-cols-2 lg:items-start">
                   {/* Mobile: media first so check-ins / Next sit above the sticky bar, not under tall images. */}
-                  <div className="order-2 space-y-5 lg:order-1">{prose}</div>
-                  <div className="order-1 space-y-4 lg:order-2 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto">
+                  <div className="order-2 min-w-0 max-w-full space-y-5 lg:order-1">{prose}</div>
+                  <div className="order-1 min-w-0 max-w-full space-y-4 overflow-hidden lg:order-2 lg:sticky lg:top-[calc(var(--kanam-header-height,4.75rem)+0.75rem)] lg:max-h-[calc(100dvh-var(--kanam-header-height,4.75rem)-1.5rem)] lg:overflow-y-auto">
                     {media}
                   </div>
                 </div>
               ) : (
-                <div className="mx-auto max-w-3xl space-y-5">{prose}</div>
+                <div className="mx-auto min-w-0 max-w-3xl space-y-5">{prose}</div>
               )}
             </div>
           );
@@ -717,7 +725,8 @@ export function LessonModule({
           ref={navRef}
           className={cn(
             "flex flex-col gap-3 border-t border-slate-200/90 bg-white/95 pt-3 backdrop-blur-md",
-            "sticky bottom-0 z-30 -mx-5 px-5 pb-[max(0.75rem,env(safe-area-inset-bottom,0px))] shadow-[0_-8px_24px_rgba(15,23,42,0.08)]",
+            "sticky bottom-0 z-30 -mx-3.5 px-3.5 pb-[max(0.75rem,env(safe-area-inset-bottom,0px))] shadow-[0_-8px_24px_rgba(15,23,42,0.08)]",
+            "sm:-mx-5 sm:px-5",
             "md:static md:mx-0 md:border-slate-100 md:bg-transparent md:px-0 md:pb-0 md:pt-4 md:shadow-none md:backdrop-blur-none"
           )}
         >

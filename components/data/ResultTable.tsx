@@ -62,7 +62,7 @@ export function ResultTable({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-xl border border-slate-300 bg-white shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]",
+        "min-w-0 max-w-full overflow-hidden rounded-xl border border-slate-300 bg-white shadow-[inset_0_1px_0_rgba(255,255,255,0.6)]",
         className
       )}
     >

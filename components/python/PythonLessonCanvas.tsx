@@ -693,14 +693,14 @@ export function PythonLessonCanvas({
           <div className="relative mb-6 w-full max-w-full">
             <div
               data-tour="lesson-tabs"
-              className="flex w-full items-center gap-1 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm sm:w-fit"
+              className="flex w-full min-w-0 max-w-full items-center gap-1 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm sm:w-fit"
             >
               <button
                 type="button"
                 data-tour="lesson-tab-lesson"
                 onClick={() => setView("lesson")}
                 className={cn(
-                  "flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl px-2.5 py-2.5 text-sm font-bold transition-colors sm:flex-none sm:justify-start sm:gap-2 sm:px-4",
+                  "flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-sm font-bold transition-colors sm:flex-none sm:justify-start sm:gap-2 sm:px-4",
                   view === "lesson"
                     ? "bg-[var(--brand)] text-white shadow-sm"
                     : "text-slate-600 hover:bg-slate-100"
@@ -729,7 +729,7 @@ export function PythonLessonCanvas({
                     : "Finish the lesson first — then this tab unlocks"
                 }
                 className={cn(
-                  "flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl px-2.5 py-2.5 text-sm font-bold transition-colors sm:flex-none sm:justify-start sm:gap-2 sm:px-4",
+                  "flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-sm font-bold transition-colors sm:flex-none sm:justify-start sm:gap-2 sm:px-4",
                   view === "exercises" && canShowExercises
                     ? "bg-[var(--brand)] text-white shadow-sm"
                     : lessonUnlocked

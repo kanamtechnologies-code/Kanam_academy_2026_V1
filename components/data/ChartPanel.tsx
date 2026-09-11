@@ -178,11 +178,16 @@ export function ChartPanel({
   }
 
   return (
-    <div className={cn("rounded-xl border border-slate-200 bg-white p-4", className)}>
+    <div
+      className={cn(
+        "min-w-0 max-w-full overflow-hidden rounded-xl border border-slate-200 bg-white p-3 sm:p-4",
+        className
+      )}
+    >
       {config.title ? (
-        <p className="mb-3 text-sm font-semibold text-slate-800">{config.title}</p>
+        <p className="mb-3 break-words text-sm font-semibold text-slate-800">{config.title}</p>
       ) : null}
-      <div className="h-64 w-full">
+      <div className="h-64 w-full min-w-0">
         <ResponsiveContainer width="100%" height="100%">
           {body as React.ReactElement}
         </ResponsiveContainer>

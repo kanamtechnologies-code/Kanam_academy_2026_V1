@@ -170,10 +170,10 @@ export function SqlTextarea({
   };
 
   return (
-    <div className="space-y-2">
+    <div className="min-w-0 max-w-full space-y-2">
       <div
         className={cn(
-          "kanam-sql-editor-wrap relative overflow-hidden rounded-xl border-2 border-slate-300 bg-white shadow-inner",
+          "kanam-sql-editor-wrap relative min-w-0 max-w-full overflow-hidden rounded-xl border-2 border-slate-300 bg-white shadow-inner",
           "focus-within:border-[var(--brand)] focus-within:ring-2 focus-within:ring-[var(--brand)]/30",
           readOnly ? "opacity-80" : "",
           className

@@ -22,7 +22,7 @@ export function HeaderHelpPocket() {
       title="Help"
       onClick={() => pocket.toggle()}
       className={cn(
-        "relative flex min-h-11 shrink-0 items-center gap-1.5 rounded-xl px-2.5 py-2.5 text-sm font-bold transition-colors sm:px-3 lg:hidden",
+        "relative flex min-h-11 w-11 shrink-0 items-center justify-center rounded-xl py-2.5 text-sm font-bold transition-colors sm:w-auto sm:gap-1.5 sm:px-3 lg:hidden",
         pocket.open
           ? "bg-[var(--brand)] text-white shadow-sm"
           : "text-slate-600 hover:bg-slate-100"
@@ -34,9 +34,9 @@ export function HeaderHelpPocket() {
           pocket.open && "rotate-45 scale-110"
         )}
       />
-      <span>Help</span>
+      <span className="hidden sm:inline">Help</span>
       {pocket.attention && !pocket.open ? (
-        <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[var(--accent)] ring-2 ring-white" />
+        <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-[var(--accent)] ring-2 ring-white" />
       ) : null}
     </button>
   );
