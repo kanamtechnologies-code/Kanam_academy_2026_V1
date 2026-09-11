@@ -166,9 +166,17 @@ After confirm, `/auth/confirm` sends parents to `/parent` (from `app_metadata.ro
    - `POST /api/stripe/webhook` — Stripe webhooks
 5. Stripe Dashboard → Developers → Webhooks → endpoint:
    - `https://learn.kanamacademy.com/api/stripe/webhook`
-   - Events: `checkout.session.completed`, `customer.subscription.created`,
-     `customer.subscription.updated`, `customer.subscription.deleted`,
-     `invoice.paid`, `invoice.payment_failed`
+   - Events: `checkout.session.completed`,
+     `checkout.session.async_payment_succeeded`,
+     `checkout.session.async_payment_failed`,
+     `customer.subscription.created`,
+     `customer.subscription.updated`,
+     `customer.subscription.deleted`,
+     `invoice.paid`, `invoice.payment_failed`,
+     `charge.refunded`, `charge.dispute.created`
+   - Handler claims each event id, releases it on failure (so Stripe retries work),
+     grants access only when Checkout `payment_status` is `paid` / `no_payment_required`,
+     and revokes one-time track/tutoring entitlements on refunds/disputes.
 6. Buy UI: `/billing` (supports marketing deep-links:
    `?plan=subscription|track|tutoring`, `?track=<slug>`, `?tutoring=trial|session|bundle4|bundle8|bundle16`)
 7. Marketing site Buy buttons → `https://learn.kanamacademy.com/billing?...`

@@ -85,6 +85,10 @@ create unique index if not exists idx_track_entitlements_user_slug_active
 create index if not exists idx_track_entitlements_user
   on public.track_entitlements (user_id);
 
+create index if not exists idx_track_entitlements_payment_intent
+  on public.track_entitlements (stripe_payment_intent_id)
+  where stripe_payment_intent_id is not null;
+
 drop trigger if exists trg_track_entitlements_updated_at on public.track_entitlements;
 create trigger trg_track_entitlements_updated_at
 before update on public.track_entitlements
@@ -115,6 +119,14 @@ create index if not exists idx_tutoring_credits_user
 create index if not exists idx_tutoring_credits_user_remaining
   on public.tutoring_credits (user_id, sessions_remaining)
   where sessions_remaining > 0;
+
+create unique index if not exists idx_tutoring_credits_checkout_session
+  on public.tutoring_credits (stripe_checkout_session_id)
+  where stripe_checkout_session_id is not null;
+
+create index if not exists idx_tutoring_credits_payment_intent
+  on public.tutoring_credits (stripe_payment_intent_id)
+  where stripe_payment_intent_id is not null;
 
 drop trigger if exists trg_tutoring_credits_updated_at on public.tutoring_credits;
 create trigger trg_tutoring_credits_updated_at
