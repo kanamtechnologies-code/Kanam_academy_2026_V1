@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ArrowRight, Hash, Loader2, Sparkles, Users, Zap } from "lucide-react";
+import { ArrowRight, Hash, Loader2, Users, Zap } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { WelcomeBackground } from "@/components/welcome/WelcomeBackground";
@@ -335,7 +335,7 @@ export default function WelcomePage() {
 
           {/* Top row: welcome message + try-a-lesson card (side-by-side on large screens) */}
           <div className="grid min-w-0 gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
-            <div className="min-w-0 max-w-full text-center lg:text-left">
+            <div className="min-w-0 max-w-full rounded-[28px] border border-white/70 bg-white/85 p-5 text-center shadow-[0_16px_40px_rgba(15,23,42,0.14),0_32px_64px_rgba(15,23,42,0.12)] backdrop-blur-2xl dark:border-white/15 dark:bg-slate-950/90 dark:shadow-[0_20px_50px_rgba(0,0,0,0.55)] lg:text-left">
               <h1 className="break-words text-[1.65rem] font-black leading-[1.08] tracking-tight text-slate-900 sm:text-4xl">
                 <span className="inline-flex max-w-full flex-wrap items-center justify-center gap-2 sm:gap-4 lg:justify-start">
                   <span className="min-w-0">Welcome to Kanam Academy</span>
@@ -346,7 +346,7 @@ export default function WelcomePage() {
                 <div className="flex flex-col gap-2 sm:gap-1.5">
                   <button
                     type="button"
-                    className="rounded-xl px-1 py-2 text-left transition hover:bg-white/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)] sm:py-1"
+                    className="rounded-xl px-1 py-2 text-left transition hover:bg-slate-900/5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)] sm:py-1"
                     onClick={() =>
                       document.getElementById("welcome-student")?.scrollIntoView({
                         behavior: "smooth",
@@ -354,7 +354,7 @@ export default function WelcomePage() {
                       })
                     }
                   >
-                    <span className="kanam-text-pop-strong font-extrabold text-[color:var(--brand)]">
+                    <span className="font-extrabold text-[color:var(--brand)]">
                       Student
                     </span>
                     {" — "}
@@ -362,7 +362,7 @@ export default function WelcomePage() {
                   </button>
                   <button
                     type="button"
-                    className="rounded-xl px-1 py-2 text-left transition hover:bg-white/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)] sm:py-1"
+                    className="rounded-xl px-1 py-2 text-left transition hover:bg-slate-900/5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)] sm:py-1"
                     onClick={() =>
                       document.getElementById("welcome-parent")?.scrollIntoView({
                         behavior: "smooth",
@@ -370,7 +370,7 @@ export default function WelcomePage() {
                       })
                     }
                   >
-                    <span className="kanam-text-pop-strong font-extrabold text-[color:var(--brand-2)]">
+                    <span className="font-extrabold text-[color:var(--brand-2)]">
                       Parent
                     </span>
                     {" — "}
@@ -378,7 +378,7 @@ export default function WelcomePage() {
                   </button>
                   <button
                     type="button"
-                    className="rounded-xl px-1 py-2 text-left transition hover:bg-white/50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)] sm:py-1"
+                    className="rounded-xl px-1 py-2 text-left transition hover:bg-slate-900/5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgb(var(--brand-rgb)/0.28)] sm:py-1"
                     onClick={() =>
                       document.getElementById("sign-in")?.scrollIntoView({
                         behavior: "smooth",
@@ -386,7 +386,7 @@ export default function WelcomePage() {
                       })
                     }
                   >
-                    <span className="kanam-text-pop-strong font-extrabold text-[color:var(--accent)]">
+                    <span className="font-extrabold text-[#8a6a1a] dark:text-[color:var(--accent)]">
                       Returning
                     </span>
                     {" — "}
@@ -426,7 +426,7 @@ export default function WelcomePage() {
                   ].join(" ")}
                   onClick={() => router.push("/demo")}
                 >
-                  Try the guided lesson <Sparkles className="h-5 w-5" />
+                  Try the guided lesson
                 </Button>
               </div>
             </div>

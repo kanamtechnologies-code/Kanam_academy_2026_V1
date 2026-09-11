@@ -3,7 +3,6 @@
 import { LessonHelpPocketProvider } from "@/components/lesson/LessonHelpPocketContext";
 import { AuthActions } from "@/components/layout/AuthActions";
 import { HeaderBrand } from "@/components/layout/HeaderBrand";
-import { HeaderExploreKanam } from "@/components/layout/HeaderExploreKanam";
 import { HeaderHelp } from "@/components/layout/HeaderHelp";
 import { HeaderInstructor } from "@/components/layout/HeaderInstructor";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
@@ -21,7 +20,6 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
         <div className="relative flex w-full min-w-0 max-w-full items-center justify-between gap-2 px-2 py-2 sm:gap-3 sm:px-4 sm:py-3 md:px-10">
           <HeaderBrand />
           <div className="flex shrink-0 items-center justify-end gap-1 sm:gap-2">
-            <HeaderExploreKanam />
             <HeaderInstructor />
             <AuthActions />
             <ThemeToggle />
