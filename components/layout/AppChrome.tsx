@@ -5,7 +5,6 @@ import { AuthActions } from "@/components/layout/AuthActions";
 import { HeaderBrand } from "@/components/layout/HeaderBrand";
 import { HeaderExploreKanam } from "@/components/layout/HeaderExploreKanam";
 import { HeaderHelp } from "@/components/layout/HeaderHelp";
-import { HeaderHelpPocket } from "@/components/layout/HeaderHelpPocket";
 import { HeaderInstructor } from "@/components/layout/HeaderInstructor";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
@@ -23,7 +22,6 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
           <HeaderBrand />
           <div className="flex shrink-0 items-center justify-end gap-1 sm:gap-2">
             <HeaderExploreKanam />
-            <HeaderHelpPocket />
             <HeaderInstructor />
             <AuthActions />
             <ThemeToggle />

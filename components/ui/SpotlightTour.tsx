@@ -17,7 +17,7 @@ export type SpotlightTourStep = {
   clickSelector?: string;
   /** Below this width (px), prefer `mobileSelector` when set. Default 1024. */
   mobileMaxWidth?: number;
-  /** Mobile-first target (e.g. header Help pocket). */
+  /** Mobile-first target (e.g. Help beside lesson tabs). */
   mobileSelector?: string;
   /** Desktop / large-screen target (e.g. side Coach panel). */
   desktopSelector?: string;
@@ -768,7 +768,7 @@ const SpotlightTourInner = React.forwardRef<
       );
     };
 
-    // Header controls (Help pocket): always point up at the nav from just below it.
+    // Help control near the lesson tabs: point from just below the header.
     if (headerTarget) {
       return {
         top: Math.min(rect.bottom + 8, cardTopBand - size - 8),

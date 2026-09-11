@@ -23,8 +23,8 @@ export type MobileLessonPocketPanel = {
 const SHEET_OUT_MS = 220;
 
 /**
- * Mobile-only lesson help sheet. Opened from the header Help Pocket button
- * (no bottom dock) so Run / console stay clear on small screens.
+ * Mobile-only lesson help sheet. Opened from Help beside
+ * Lesson / Exercises (no bottom dock) so Run / console stay clear on phones.
  */
 export function MobileLessonPocket({
   panels,

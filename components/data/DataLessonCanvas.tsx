@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   BookOpen,
@@ -11,8 +10,8 @@ import {
   Lightbulb,
   ListChecks,
   Loader2,
+  MessageSquareText,
   Play,
-  Sparkles,
   Trophy,
   Zap,
 } from "lucide-react";
@@ -30,6 +29,7 @@ import {
   type MobileLessonPocketPanel,
 } from "@/components/lesson/MobileLessonPocket";
 import { LessonAccessGate } from "@/components/lesson/LessonAccessGate";
+import { HeaderHelpPocket } from "@/components/layout/HeaderHelpPocket";
 import { dashboardHrefForLesson } from "@/lib/billing/access";
 import { ResultTable } from "@/components/data/ResultTable";
 import { SeedSpreadsheetPreview } from "@/components/data/SeedSpreadsheetPreview";
@@ -528,11 +528,7 @@ export function DataLessonCanvas({
           <div className="kanam-lesson-hero-overlay" />
           <div className="relative z-10 flex min-w-0 flex-col items-center gap-4 text-center sm:flex-row sm:flex-wrap sm:items-start sm:justify-between sm:text-left">
             <div className="min-w-0 w-full sm:flex-1">
-              <div className="flex min-w-0 items-center justify-center gap-2.5 sm:justify-start sm:gap-3.5">
-                <div className="kanam-hero-brand-tile grid h-11 w-11 shrink-0 place-items-center rounded-2xl sm:h-14 sm:w-14">
-                  <Image src="/images/Logo.png" alt="Kanam Academy" width={40} height={40} className="h-7 w-7 sm:h-10 sm:w-10" />
-                </div>
-                <div className="min-w-0 leading-tight text-center sm:text-left">
+              <div className="min-w-0 leading-tight text-center sm:text-left">
                   <p className="kanam-hero-kicker truncate text-sm font-black uppercase tracking-[0.14em] text-white sm:text-base md:text-lg">
                     Data Analyst Hub
                   </p>
@@ -540,7 +536,6 @@ export function DataLessonCanvas({
                     Kanam Academy
                   </p>
                 </div>
-              </div>
               <h1 className="kanam-hero-title mt-3 break-words text-center text-xl font-black tracking-tight text-white sm:mt-5 sm:text-left sm:text-3xl md:text-5xl">
                 {lesson.title}
               </h1>
@@ -574,20 +569,20 @@ export function DataLessonCanvas({
         </div>
 
         {lesson.lessonModule ? (
-          <div className="relative mb-6 w-fit max-w-full">
-            <div className="inline-flex items-center gap-1 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
+          <div className="relative mb-6 w-full max-w-full">
+            <div className="flex w-full items-center gap-1 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm sm:w-fit">
               <button
                 type="button"
                 onClick={() => setView("lesson")}
                 className={cn(
-                  "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
+                  "flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl px-2.5 py-2.5 text-sm font-bold transition-colors sm:flex-none sm:justify-start sm:gap-2 sm:px-4",
                   view === "lesson"
                     ? "bg-[var(--brand)] text-white shadow-sm"
                     : "text-slate-600 hover:bg-slate-100"
                 )}
               >
-                <BookOpen className="h-4 w-4" />
-                Lesson
+                <BookOpen className="h-4 w-4 shrink-0" />
+                <span className="truncate">Lesson</span>
               </button>
               <button
                 type="button"
@@ -605,7 +600,7 @@ export function DataLessonCanvas({
                     : "Finish the lesson first — then this tab unlocks"
                 }
                 className={cn(
-                  "flex min-h-11 items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold transition-colors",
+                  "flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-xl px-2.5 py-2.5 text-sm font-bold transition-colors sm:flex-none sm:justify-start sm:gap-2 sm:px-4",
                   view === "exercises" && lessonUnlocked
                     ? "bg-[var(--brand)] text-white shadow-sm"
                     : lessonUnlocked
@@ -614,16 +609,23 @@ export function DataLessonCanvas({
                   finishLessonTabClassName(nudgeActive && !lessonUnlocked)
                 )}
               >
-                <ListChecks className="h-4 w-4" />
-                Exercises
+                <ListChecks className="h-4 w-4 shrink-0" />
+                <span className="truncate">Exercises</span>
               </button>
+              <HeaderHelpPocket />
             </div>
             <FinishLessonFirstHint
               active={nudgeActive && !lessonUnlocked}
               whatUnlocks="the exercises"
             />
           </div>
-        ) : null}
+        ) : (
+          <div className="mb-6 w-fit max-w-full lg:hidden [&:not(:has(button))]:hidden">
+            <div className="inline-flex items-center gap-1 rounded-2xl border border-slate-200 bg-white p-1 shadow-sm">
+              <HeaderHelpPocket />
+            </div>
+          </div>
+        )}
 
         {lesson.lessonModule && (view === "lesson" || !lessonUnlocked) ? (
           <LessonModule module={lesson.lessonModule} onStart={openExercises} />
@@ -634,7 +636,7 @@ export function DataLessonCanvas({
               title="Coach's note"
               tone="coach"
               defaultOpen={!lesson.lessonModule}
-              icon={<Sparkles className="h-4 w-4" />}
+              icon={<MessageSquareText className="h-4 w-4" />}
             >
               {renderCoachNote(lesson.instructorScript)}
             </LessonAside>
@@ -692,14 +694,6 @@ export function DataLessonCanvas({
                 </div>
               </LessonAside>
             ) : null}
-
-            <LessonAside
-              title="Data ethics moment"
-              icon={<Sparkles className="h-5 w-5 text-sky-500" />}
-              className="border-sky-200 bg-sky-50/50"
-            >
-              <p className="text-sm text-slate-700">{lesson.dataEthicsMoment}</p>
-            </LessonAside>
           </div>
 
           <div className="order-1 min-w-0 max-w-full space-y-4 lg:order-2">
@@ -1014,7 +1008,7 @@ export function DataLessonCanvas({
                   label: "Coach",
                   title: "Coach's note",
                   tone: "coach",
-                  icon: <Sparkles className="h-4 w-4" />,
+                  icon: <MessageSquareText className="h-4 w-4" />,
                   content: renderCoachNote(lesson.instructorScript),
                 },
                 {
@@ -1088,13 +1082,6 @@ export function DataLessonCanvas({
                       } satisfies MobileLessonPocketPanel,
                     ]
                   : []),
-                {
-                  id: "ethics",
-                  label: "Ethics",
-                  title: "Data ethics moment",
-                  icon: <Sparkles className="h-4 w-4 text-sky-500" />,
-                  content: <p className="text-sm text-slate-700">{lesson.dataEthicsMoment}</p>,
-                },
               ] satisfies MobileLessonPocketPanel[]
             }
           />

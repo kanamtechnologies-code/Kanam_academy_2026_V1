@@ -1,13 +1,13 @@
 "use client";
 
-import { PocketKnife } from "lucide-react";
+import { Compass } from "lucide-react";
 
 import { useLessonHelpPocketOptional } from "@/components/lesson/LessonHelpPocketContext";
 import { cn } from "@/lib/utils";
 
 /**
- * Mobile-only header control that opens/closes the lesson Help Pocket sheet.
- * Replaces Instructor in the nav on small screens while a lesson is active.
+ * Mobile-only Help control — sits on the same row as Lesson / Exercises and
+ * opens the help pocket sheet (Coach, Commands, etc.). Not shown in the nav bar.
  */
 export function HeaderHelpPocket() {
   const pocket = useLessonHelpPocketOptional();
@@ -17,29 +17,26 @@ export function HeaderHelpPocket() {
     <button
       type="button"
       data-tour="lesson-help-pocket"
-      aria-label={pocket.open ? "Close help pocket" : "Open help pocket"}
+      aria-label={pocket.open ? "Close help" : "Open help"}
       aria-pressed={pocket.open}
-      title="Help pocket"
+      title="Help"
       onClick={() => pocket.toggle()}
       className={cn(
-        "relative inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full lg:hidden",
-        "border border-white/25 bg-white/10 text-white",
-        "shadow-[0_10px_22px_rgba(15,23,42,0.3),0_2px_8px_rgba(0,0,0,0.18)]",
-        "transition-all duration-200 ease-out",
-        "hover:bg-white/15 hover:shadow-[0_14px_28px_rgba(15,23,42,0.36)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/25",
-        "active:scale-[0.96]",
-        pocket.open &&
-          "bg-white text-[color:var(--brand-2)] shadow-[0_12px_26px_rgba(15,23,42,0.32)] ring-2 ring-white/40 hover:bg-white"
+        "relative flex min-h-11 shrink-0 items-center gap-1.5 rounded-xl px-2.5 py-2.5 text-sm font-bold transition-colors sm:px-3 lg:hidden",
+        pocket.open
+          ? "bg-[var(--brand)] text-white shadow-sm"
+          : "text-slate-600 hover:bg-slate-100"
       )}
     >
-      <PocketKnife
+      <Compass
         className={cn(
-          "h-4 w-4 transition-transform duration-300 ease-out",
-          pocket.open && "rotate-[-12deg] scale-110"
+          "h-4 w-4 shrink-0 transition-transform duration-300 ease-out",
+          pocket.open && "rotate-45 scale-110"
         )}
       />
+      <span>Help</span>
       {pocket.attention && !pocket.open ? (
-        <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-[var(--accent)] ring-2 ring-[rgb(var(--brand-2-rgb)/0.9)]" />
+        <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[var(--accent)] ring-2 ring-white" />
       ) : null}
     </button>
   );

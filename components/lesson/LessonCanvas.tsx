@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -1407,13 +1406,6 @@ export function LessonCanvas({ lesson }: { lesson: LessonConfig }) {
       {/* Top row: brand + chips + actions */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <Image
-            src="/images/Logo.png"
-            alt="Kanam Academy logo"
-            width={30}
-            height={30}
-            className="drop-shadow-sm"
-          />
           <p className="text-[11px] font-extrabold uppercase tracking-[0.24em] text-slate-600">
             Lesson Hub
           </p>

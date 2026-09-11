@@ -160,7 +160,7 @@ export function GuestLessonTour({
         },
         {
           id: "coach",
-          // Mobile: header Help pocket only. Desktop: side Coach panel.
+          // Mobile: Help beside Lesson / Exercises. Desktop: side Coach panel.
           // Do not fall back to coach content inside the sheet — that caused
           // gold highlights on words like "concatenation".
           selector: '[data-tour="lesson-help-pocket"]',
@@ -168,8 +168,8 @@ export function GuestLessonTour({
           mobileSelector: '[data-tour="lesson-help-pocket"]',
           desktopSelector: '[data-tour="lesson-coach"]',
           title: "Help when they need it",
-          body: "On a phone, **Help pocket** is in the top bar — Coach, Commands, and more. On a larger screen, use **Coach's note** beside the editor.",
-          action: "Tap **Help pocket** in the top bar.",
+          body: "On a phone, **Help** sits next to Lesson and Exercises — Coach, Commands, and more. On a larger screen, use **Coach's note** beside the editor.",
+          action: "Tap **Help** next to the lesson tabs.",
           icon: <MessageSquareText className="h-4 w-4" />,
           padding: 6,
         },
