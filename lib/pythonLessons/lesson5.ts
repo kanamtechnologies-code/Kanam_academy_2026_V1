@@ -402,41 +402,9 @@ print("KanamBot: ready!")
         run.stdout.length === 5,
     },
     {
-      id: "ex-predict-loop",
-      kind: "predict",
-      title: "Exercise 4 — Predict the loop",
-      focusCommand: "for + range",
-      commandExplain: "Read this finished loop. Predict how many lines it prints and what they say.",
-      goal: "Type your prediction, then Run & check.",
-      starterCode: `for i in range(3):
-    print("Hi")
-`,
-      solutionCode: `for i in range(3):
-    print("Hi")
-`,
-      codeReadOnly: true,
-      predictionPrompt: 'What prints? (e.g. "Hi" three times)',
-      acceptedPredictions: [
-        "Hi\nHi\nHi",
-        "Hi Hi Hi",
-        "Hi three times",
-        "3 times Hi",
-        "hi hi hi",
-      ],
-      hint: "range(3) means the indented print runs 3 times.",
-      successMessage: "Nailed it — you predicted the loop correctly.",
-      failureMessage: "Count how many times range(3) repeats the print.",
-      validate: (code, run) =>
-        !rejectsUppercasePrint(code) &&
-        noRunError(run) &&
-        /\brange\s*\(\s*3\s*\)/.test(code) &&
-        run.stdout.length === 3 &&
-        run.stdout.every((line) => line.trim() === "Hi"),
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build a loop",
+      title: "Exercise 4 — Build a loop",
       focusCommand: "from scratch",
       commandExplain: "Write a for loop that prints KanamBot: ready! exactly 5 times.",
       goal: "Write the full loop yourself.",

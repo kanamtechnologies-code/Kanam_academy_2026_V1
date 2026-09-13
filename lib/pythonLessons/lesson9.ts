@@ -438,38 +438,9 @@ print("Name: " + profile["name"])
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the profile line",
-      focusCommand: "trace key → value",
-      commandExplain:
-        "Read this finished profile. Predict the exact printed line before you see it.",
-      goal: "Type your prediction, then Run & check.",
-      starterCode: `profile = {}
-profile["name"] = "Alex"
-profile["favorite_color"] = "blue"
-print("Name: " + profile["name"])
-`,
-      solutionCode: `profile = {}
-profile["name"] = "Alex"
-profile["favorite_color"] = "blue"
-print("Name: " + profile["name"])
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What exact line prints?",
-      acceptedPredictions: ["Name: Alex", "name: alex", "Name:Alex"],
-      hint: "The print joins \"Name: \" with whatever is stored under the name key.",
-      successMessage: "You traced the key to the printed value.",
-      failureMessage: "Look at the print string and which key it reads from the profile.",
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return !run.error && run.stdout.join("\n").includes("Name: Alex");
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build a profile",
+      title: "Exercise 4 — Build a profile",
       focusCommand: "from scratch",
       commandExplain:
         "Write a dictionary profile with at least two key–value pairs and print a sentence using one value.",

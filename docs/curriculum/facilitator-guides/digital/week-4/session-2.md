@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-8` |
-| **Title** | Equity, Access & Harm Reduction Online |
+| **Title** | Who Gets Hurt — and Who Helps |
 | **Time** | 40–55 min |
-| **Week theme** | Identity, Culture & Equity |
-| **Student goal** | Complete **Equity, Access & Harm Reduction Online** and demonstrate the week focus: Reputation and footprint — then evaluate computing’s cultural impacts and equity deficits. |
+| **Week theme** | Reputation and Who Gets Hurt |
+| **Student goal** | Complete **Who Gets Hurt — and Who Helps** and demonstrate the week focus: Reputation and footprint — then evaluate computing’s cultural impacts and equity deficits. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 400 · Equity Advocate |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Identity, Culture & Equity**.  
+Week theme: **Reputation and Who Gets Hurt**.  
 Focus: Reputation and footprint — then evaluate computing’s cultural impacts and equity deficits.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

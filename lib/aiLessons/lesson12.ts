@@ -348,7 +348,7 @@ Theo: "write my essay" → submit it as mine                     →  ❌ cheati
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Students who use AI honestly — to understand faster and get feedback — pull ahead. Students who use it to skip the learning fall behind the moment AI isn't allowed, and their choices can quietly affect classmates too.\n\nNext we'll dig into how AI picks up bias from data. First, lock in today's ideas.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict).`,
+        body: `Students who use AI honestly — to understand faster and get feedback — pull ahead. Students who use it to skip the learning fall behind the moment AI isn't allowed, and their choices can quietly affect classmates too.\n\nNext we'll dig into how AI picks up bias from data. First, lock in today's ideas.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug).`,
       },
     ],
   },

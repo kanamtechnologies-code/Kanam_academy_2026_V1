@@ -291,7 +291,7 @@ Today's lesson: **Turning the World Into Data**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Lock these in: **Representation** is how the world gets encoded as data an AI can use. Text becomes **tokens**, then numbers; choices become **features** in a **feature vector** the model reads. And every representation **leaves things out** — sometimes harmlessly, sometimes in ways that cause real unfairness, especially through hidden **proxy variables**.\n\nThis is the hidden first step inside every AI you'll meet for the rest of the course.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on what numbers might miss when representing "a good student."`,
+        body: `Lock these in: **Representation** is how the world gets encoded as data an AI can use. Text becomes **tokens**, then numbers; choices become **features** in a **feature vector** the model reads. And every representation **leaves things out** — sometimes harmlessly, sometimes in ways that cause real unfairness, especially through hidden **proxy variables**.\n\nThis is the hidden first step inside every AI you'll meet for the rest of the course.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug), then reflect on what numbers might miss when representing "a good student."`,
       },
     ],
   },

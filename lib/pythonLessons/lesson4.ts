@@ -222,46 +222,9 @@ else:
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the path",
-      focusCommand: "trace elif",
-      commandExplain: "If name is Jordan, which message prints?",
-      goal: "Predict the exact output for Jordan.",
-      starterCode: `name = "Jordan"
-if name == "Alex":
-    print("Welcome back, Alex!")
-elif name == "Jordan":
-    print("Hey Jordan, good to see you!")
-else:
-    print("Hello there!")
-`,
-      solutionCode: `name = "Jordan"
-if name == "Alex":
-    print("Welcome back, Alex!")
-elif name == "Jordan":
-    print("Hey Jordan, good to see you!")
-else:
-    print("Hello there!")
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What exact line prints?",
-      acceptedPredictions: [
-        "Hey Jordan, good to see you!",
-        "hey jordan, good to see you!",
-      ],
-      hint: "Alex rule fails, then elif Jordan matches.",
-      successMessage: "You traced the elif path correctly.",
-      failureMessage: "Jordan should hit the elif message.",
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return run.stdout.join("\n").includes("Hey Jordan, good to see you!");
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build if/elif/else",
+      title: "Exercise 4 — Build if/elif/else",
       focusCommand: "from scratch",
       commandExplain: "Write the full three-path helper yourself.",
       goal: "Special messages for Alex and Jordan; fallback for everyone else.",

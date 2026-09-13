@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-12` |
-| **Title** | Privacy, Automated Collection & Ethical Tradeoffs |
+| **Title** | What Apps Collect About You |
 | **Time** | 40–55 min |
-| **Week theme** | Privacy, Security & Tradeoffs |
-| **Student goal** | Complete **Privacy, Automated Collection & Ethical Tradeoffs** and demonstrate the week focus: Everyday threats, recommend controls, and evaluate automated data collection and privacy ethics. |
+| **Week theme** | Scams and What Apps Take |
+| **Student goal** | Complete **What Apps Collect About You** and demonstrate the week focus: Everyday threats, recommend controls, and evaluate automated data collection and privacy ethics. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 600 · Privacy Evaluator |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Privacy, Security & Tradeoffs**.  
+Week theme: **Scams and What Apps Take**.  
 Focus: Everyday threats, recommend controls, and evaluate automated data collection and privacy ethics.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

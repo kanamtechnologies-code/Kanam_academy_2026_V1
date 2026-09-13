@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-4` |
-| **Title** | Evaluating Claims in a Computing Culture |
+| **Title** | Check It Before You Share |
 | **Time** | 40–55 min |
-| **Week theme** | Networks & Information Integrity |
-| **Student goal** | Complete **Evaluating Claims in a Computing Culture** and demonstrate the week focus: How networks move data, search fluently, and evaluate claims in a computing culture. |
+| **Week theme** | Getting Online and Checking Sources |
+| **Student goal** | Complete **Check It Before You Share** and demonstrate the week focus: How networks move data, search fluently, and evaluate claims in a computing culture. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 200 · Critical Evaluator |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Networks & Information Integrity**.  
+Week theme: **Getting Online and Checking Sources**.  
 Focus: How networks move data, search fluently, and evaluate claims in a computing culture.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

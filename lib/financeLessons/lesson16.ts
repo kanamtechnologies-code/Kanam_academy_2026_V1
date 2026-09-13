@@ -29,7 +29,7 @@ Today's lesson: **Capstone: Your First-Year Money Plan**.
         title: "What you'll learn today",
         image: "/images/lessons/fl-16.png",
         imageAlt: "Capstone desk: calendar for first year after high school, budget notebook, and a checklist titled Money plan",
-        body: `This is your **Financial Literacy capstone**. You'll turn the whole track into one usable plan for your **first year after high school** — not a 30-year retirement fantasy, but a Money Planner blueprint you could actually run.\n\nHere's the roadmap:\n\n• **Jordan's scenario** — the first-year situation you'll build a plan around.\n• **Earning & spending**, **saving & investing**, and **credit & risk** — the core money skills from this track, grouped into three concepts, each with a quick check.\n• A **worked example** building Jordan's actual numbers, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (stress-testing a plan against a shock), a **college-path vs work-path comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a reflection pause, a second **mini-case**, and a mixed **check yourself**.\n\nBy the end, you should sound like someone who owns their next year of money decisions.`,
+        body: `This is your **Financial Literacy capstone**. You'll turn the whole track into one usable plan for your **first year after high school** — not a 30-year retirement fantasy, but a Money Planner blueprint you could actually run.\n\nHere's the roadmap:\n\n• **Jordan's scenario** — the first-year situation you'll build a plan around.\n• **Earning & spending**, **saving & investing**, and **credit & risk** — the core money skills from this track, grouped into three concepts, each with a quick check.\n• A **worked example** building Jordan's actual numbers, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (stress-testing a plan against a shock), a **college-path vs work-path comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a pause, a second **mini-case**, and a mixed **check yourself**.\n\nBy the end, you should sound like someone who owns their next year of money decisions.`,
         callout: {
           label: "Why it matters",
           text: "Knowledge without a plan fades. A one-page plan with dates and amounts becomes a habit system — especially when life gets busier after graduation.",
@@ -417,7 +417,7 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn — build the year",
-        body: `You've walked the full money path. Capstone recap:\n\n• Synthesize **earning, spending, saving, investing, credit, and risk management** into one plan — the same six pillars, applied to your actual first year.\n• Favor a few high-impact rules with review dates, and stress-test the plan against a bad month before you need it.\n• Watch for lifestyle creep, and treat urgency-plus-money-request texts as scams by default.\n\nComplete the **Knowledge check** (it mixes ideas across the track), then write your **first-year money plan** in the reflection. You've earned the **Money Planner** finish line — go show the synthesis.`,
+        body: `You've walked the full money path. Capstone recap:\n\n• Synthesize **earning, spending, saving, investing, credit, and risk management** into one plan — the same six pillars, applied to your actual first year.\n• Favor a few high-impact rules with review dates, and stress-test the plan against a bad month before you need it.\n• Watch for lifestyle creep, and treat urgency-plus-money-request texts as scams by default.\n\nComplete the **Knowledge check** (it mixes ideas across the track), then write your **first-year money plan**. You've earned the **Money Planner** finish line — go show the synthesis.`,
       },
     ],
   },
@@ -544,10 +544,17 @@ Jordan's sticky-note plan works because it's **reviewed**, not because it's pret
         "The six-pillar structure applies to any first-year path; the line items and biggest risks shift, but the core plan does not change for either path.",
     },
   ],
-  reflection: {
+  artifact: {
+    title: "First-year money plan",
     prompt:
       "Write your first-year-after-high-school money plan (or Jordan's). Include: top goals with amounts, budget/auto-save rules, emergency fund milestones, credit/scam/decision rules, and when you'll review each month.",
     placeholder:
       "Example: Goals — $400 emergency by December; $150 activity fund by June. Auto-save $20 on each payday. Scam rule — no codes/gift cards under pressure. Car/phone — 72-hour wait + total cost sheet. Review — first Sunday…",
+    minChars: 150,
+    rubric: [
+      "Names real goals with amounts, not just “save more.”",
+      "Includes a save rule and an emergency-fund step.",
+      "Says when you will look at the plan again.",
+    ],
   },
 };

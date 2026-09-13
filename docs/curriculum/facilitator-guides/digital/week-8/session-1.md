@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-15` |
-| **Title** | Computing, Careers & Connected Workplaces |
+| **Title** | Jobs, Tools, and Showing Up Online |
 | **Time** | 40–55 min |
-| **Week theme** | Futures & Capstone |
-| **Student goal** | Complete **Computing, Careers & Connected Workplaces** and demonstrate the week focus: Connected workplaces and careers — then evaluate impacts and ship a personal action plan. |
+| **Week theme** | Work Ahead and Your Plan |
+| **Student goal** | Complete **Jobs, Tools, and Showing Up Online** and demonstrate the week focus: Connected workplaces and careers — then evaluate impacts and ship a personal action plan. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 750 · Workplace Ready |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Futures & Capstone**.  
+Week theme: **Work Ahead and Your Plan**.  
 Focus: Connected workplaces and careers — then evaluate impacts and ship a personal action plan.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

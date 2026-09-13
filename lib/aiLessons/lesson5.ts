@@ -284,7 +284,7 @@ Today's lesson: **How AI Learns From Examples**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Big ideas to keep: **machine learning** learns rules from examples instead of being hand-coded. **Training data** (labeled examples) is the fuel. And learning produces a **model** that should work on new, unseen examples.\n\nAlmost every AI you use — recommendations, translation, chatbots — learned this way from huge piles of examples, so the quality, variety, and history behind those examples shapes everything it does, for better or worse.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on what data *you'd* collect to teach an AI something.`,
+        body: `Big ideas to keep: **machine learning** learns rules from examples instead of being hand-coded. **Training data** (labeled examples) is the fuel. And learning produces a **model** that should work on new, unseen examples.\n\nAlmost every AI you use — recommendations, translation, chatbots — learned this way from huge piles of examples, so the quality, variety, and history behind those examples shapes everything it does, for better or worse.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug), then reflect on what data *you'd* collect to teach an AI something.`,
       },
     ],
   },

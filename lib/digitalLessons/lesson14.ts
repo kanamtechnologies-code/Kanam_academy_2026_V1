@@ -2,20 +2,20 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson14: AILessonConfig = {
   id: "dl-14",
-  title: "14. Systematic Troubleshooting Others Can Reuse",
-  goal: "Develop a reusable troubleshooting job-aid that isolates app, operating system, device, and network layers; compares credible sources; and documents steps others can test.",
+  title: "14. Fix It So Someone Else Can Follow",
+  goal: "Write a calm, step-by-step fix — app, operating system, device, or Wi-Fi — that a classmate or a help desk could actually run.",
   xpReward: 700,
-  badge: "Troubleshoot Designer",
+  badge: "Problem Solver",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/13",
   nextHref: "/learn/digital/15",
   instructorScript: `**Coach's note**
-Today's lesson: **Systematic Troubleshooting Others Can Reuse**.
+Today's lesson: **Fix It So Someone Else Can Follow**.
 
-**Goal:** Develop a reusable troubleshooting job-aid that isolates app, operating system, device, and network layers; compares credible sources; and documents steps others can test.
+**Goal:** Write a calm, step-by-step fix — app, operating system, device, or Wi-Fi — that a classmate or a help desk could actually run.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "What you'll learn today".
+1. Warm-up: ask "When something breaks, do you restart everything — or name the part first?"
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
@@ -358,7 +358,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got a real pro's toolkit now: stay **calm** (most problems are fixable), run the **process** (describe → what changed → isolate → simple fixes → search the exact error), know **why restarting works**, read **error messages** as clues, use **decomposition** and the **rubber duck** trick, write down what you tried, and ask for help with a clear, four-part request — backing up before anything risky. The same process fixes college portals, job sites, and shared Docs.\n\nThis isn't just for emergencies. It's a core skill in *every* tech job, and honestly in every job. Calm, logical problem-solvers are the people teams rely on.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then submit the troubleshooting job-aid.`,
+        body: `You've got a real pro's toolkit now: stay **calm** (most problems are fixable), run the **process** (describe → what changed → isolate → simple fixes → search the exact error), know **why restarting works**, read **error messages** as clues, use **decomposition** and the **rubber duck** trick, write down what you tried, and ask for help with a clear, four-part request — backing up before anything risky. The same process fixes college portals, job sites, and shared Docs.\n\nThis isn't just for emergencies. It's a core skill in *every* tech job, and honestly in every job. Calm, logical problem-solvers are the people teams rely on.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder), then submit the troubleshooting job-aid.`,
       },
     ],
   },

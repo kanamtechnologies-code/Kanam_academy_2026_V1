@@ -30,7 +30,7 @@ Today's lesson: **Big Money Decisions**.
         title: "What you'll learn today",
         image: "/images/lessons/fl-15.png",
         imageAlt: "Teen deciding between a used car listing and a transit pass on a laptop, realistic decision moment",
-        body: `Big purchases aren't just "Can I afford the monthly payment?" Decision Pros ask better questions — about total cost, risk, and what else that money could do.\n\nHere's the roadmap:\n\n• **A true-ish story** about a "great deal" that wasn't.\n• **A reusable decision framework**, **phone/car tradeoffs**, and **housing tradeoffs** — three core concepts, each with a quick check.\n• A **worked example** totaling a real car's true cost, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (estimating total cost of ownership with real math), a **buy vs alternatives comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a reflection pause, a **mini-case**, and a mixed **check yourself**.\n\nPrestige is optional. Clarity is the skill.`,
+        body: `Big purchases aren't just "Can I afford the monthly payment?" Decision Pros ask better questions — about total cost, risk, and what else that money could do.\n\nHere's the roadmap:\n\n• **A true-ish story** about a "great deal" that wasn't.\n• **A reusable decision framework**, **phone/car tradeoffs**, and **housing tradeoffs** — three core concepts, each with a quick check.\n• A **worked example** totaling a real car's true cost, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (estimating total cost of ownership with real math), a **buy vs alternatives comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a pause, a **mini-case**, and a mixed **check yourself**.\n\nPrestige is optional. Clarity is the skill.`,
         callout: {
           label: "Why it matters",
           text: "One oversized car payment or phone plan can quietly block saving, classes, or moving for a better opportunity.",
@@ -493,10 +493,4 @@ No shame in any path — but **housing is the biggest lever** most teens will pu
         "Comparing total cost against real income, seriously considering the alternative, and using a cooling-off period is the responsible Decision Pro process — not trusting the ad's framing.",
     },
   ],
-  reflection: {
-    prompt:
-      "Use the six-step Decision Pro framework on a real or hypothetical phone, car, or housing choice. Include total costs and one opportunity cost you're weighing.",
-    placeholder:
-      "Example: Job — reliable commute to my part-time job. Budget — $X upfront / $Y monthly. Options — transit vs used car. Total costs — … Opportunity cost — delaying prom fund…",
-  },
 };

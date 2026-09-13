@@ -288,7 +288,7 @@ Today's lesson: **What Is AI, Really?**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got the big picture: AI is **software** that does brain-like tasks by finding **patterns in data**. All of today's AI is **narrow AI** — a specialist at one job. And no matter how smart it sounds, it's matching patterns, not truly understanding.\n\nKnowing this — that it's a powerful pattern tool, not a magical brain — helps you use AI wisely, question it, and stay in control instead of being fooled by it.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then jot a quick reflection about an AI you used this week.`,
+        body: `You've got the big picture: AI is **software** that does brain-like tasks by finding **patterns in data**. All of today's AI is **narrow AI** — a specialist at one job. And no matter how smart it sounds, it's matching patterns, not truly understanding.\n\nKnowing this — that it's a powerful pattern tool, not a magical brain — helps you use AI wisely, question it, and stay in control instead of being fooled by it.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug), then jot a quick reflection about an AI you used this week.`,
       },
     ],
   },

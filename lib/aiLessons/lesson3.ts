@@ -270,7 +270,7 @@ Today's lesson: **How Computers See and Hear**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Here's what to carry forward: **Perception** means turning real-world signals into numbers a computer can process. **Images** become grids of pixels (red/green/blue numbers), and **sound** becomes a waveform sampled many times per second. Voice assistants use a pipeline: capture → wake-word filter → record full request → speech-to-text → run command and reply.\n\nWhenever that input gets messy, perception suffers — and when testing leaves out certain people or conditions, that suffering isn't spread evenly. That's a fairness issue, not just a technical glitch.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then use what you learned about pixels to explain why face unlock fails in the dark.`,
+        body: `Here's what to carry forward: **Perception** means turning real-world signals into numbers a computer can process. **Images** become grids of pixels (red/green/blue numbers), and **sound** becomes a waveform sampled many times per second. Voice assistants use a pipeline: capture → wake-word filter → record full request → speech-to-text → run command and reply.\n\nWhenever that input gets messy, perception suffers — and when testing leaves out certain people or conditions, that suffering isn't spread evenly. That's a fairness issue, not just a technical glitch.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug), then use what you learned about pixels to explain why face unlock fails in the dark.`,
       },
     ],
   },

@@ -472,54 +472,9 @@ print(choices)
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the memory",
-      focusCommand: "trace append / remove",
-      commandExplain:
-        "Read this finished memory bot. Predict both printed lines before you see them.",
-      goal: "Type your prediction, then Run & check.",
-      starterCode: `choices = []
-choice = "pizza"
-choices.append(choice)
-print(choices)
-choices.remove(choice)
-print(choices)
-`,
-      solutionCode: `choices = []
-choice = "pizza"
-choices.append(choice)
-print(choices)
-choices.remove(choice)
-print(choices)
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What two lines print? (list after append, then after remove)",
-      acceptedPredictions: [
-        '["pizza"]\n[]',
-        "['pizza']\n[]",
-        '["pizza"] []',
-        "['pizza'] []",
-        '["pizza"] then []',
-      ],
-      hint: "First print shows the list with pizza; after remove it is empty.",
-      successMessage: "You predicted how list memory changes.",
-      failureMessage: "Think about what the list holds after append, then after remove.",
-      validate: (code, run) => {
-        const prints = listPrintLines(run);
-        return (
-          !rejectsUppercasePrint(code) &&
-          noRunError(run) &&
-          prints.length >= 2 &&
-          prints[0] === '["pizza"]' &&
-          prints[prints.length - 1] === "[]"
-        );
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build list memory",
+      title: "Exercise 4 — Build list memory",
       focusCommand: "from scratch",
       commandExplain:
         'Write a program that uses choice = "pizza", appends it, prints, removes it, and prints again.',

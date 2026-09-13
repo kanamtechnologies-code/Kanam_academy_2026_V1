@@ -215,39 +215,9 @@ else:
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the branch",
-      focusCommand: "trace if/else",
-      commandExplain: "If name is Riley (not Alex), what will print?",
-      goal: "Predict the exact output for Riley.",
-      starterCode: `name = "Riley"
-if name == "Alex":
-    print("Welcome back, Alex!")
-else:
-    print("Hello there!")
-`,
-      solutionCode: `name = "Riley"
-if name == "Alex":
-    print("Welcome back, Alex!")
-else:
-    print("Hello there!")
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What exact line prints?",
-      acceptedPredictions: ["Hello there!", "hello there!"],
-      hint: "Riley is not Alex, so the else path runs.",
-      successMessage: "You predicted the else branch correctly.",
-      failureMessage: "Non-Alex names take the else path.",
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return run.stdout.join("\n").includes("Hello there!");
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build if/else yourself",
+      title: "Exercise 4 — Build if/else yourself",
       focusCommand: "from scratch",
       commandExplain:
         "Write a full program: ask for a name; special welcome for Alex; friendly hello for everyone else.",

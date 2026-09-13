@@ -1,4 +1,4 @@
-# Digital Literacy · Week 6 — Privacy, Security & Tradeoffs
+# Digital Literacy · Week 6 — Scams and What Apps Take
 
 **Week focus:** Everyday threats, recommend controls, and evaluate automated data collection and privacy ethics.  
 **Track:** `digital-literacy`
@@ -7,8 +7,8 @@
 
 | Session | Lesson id | Title | Guide |
 | :---: | --- | --- | --- |
-| 1 | `dl-11` | Everyday Threats & Security Recommendations | [session-1.md](session-1.md) |
-| 2 | `dl-12` | Privacy, Automated Collection & Ethical Tradeoffs | [session-2.md](session-2.md) |
+| 1 | `dl-11` | Scams, Bad Files, and What To Do | [session-1.md](session-1.md) |
+| 2 | `dl-12` | What Apps Collect About You | [session-2.md](session-2.md) |
 
 ## Materials
 

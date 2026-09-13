@@ -1,84 +1,301 @@
 import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
-const check = (prompt: string, choices: string[], correctIndex: number, explanation: string) => ({ prompt, choices, correctIndex, explanation });
-export const digitalLesson3: AILessonConfig = {
-  id: "dl-3", title: "3. Networks & Finding Information Online",
-  goal: "Describe routers, servers, and addressing at literacy depth, then search strategically and evaluate results for school, scholarships, internships, and work.",
-  xpReward: 150, badge: "Network Navigator", dashboardHref: "/dashboard", prevHref: "/learn/digital/2", nextHref: "/learn/digital/4",
-  instructorScript: `**Coach's note**
-Today's lesson: **Networks & Finding Information Online**.
 
-**Goal:** Describe routers, servers, and addressing at literacy depth, then search strategically and evaluate results for school, scholarships, internships, and work.
+const check = (prompt: string, choices: string[], correctIndex: number, explanation: string) => ({
+  prompt, choices, correctIndex, explanation,
+});
+
+export const digitalLesson3: AILessonConfig = {
+  id: "dl-3",
+  title: "3. How a Search Gets to You",
+  goal: "See how a search travels (your device, Wi-Fi, routers, a server) — then pick a result you can actually trust.",
+  xpReward: 150,
+  badge: "Search Smart",
+  dashboardHref: "/dashboard",
+  prevHref: "/learn/digital/2",
+  nextHref: "/learn/digital/4",
+  instructorScript: `**Coach's note**
+Today's lesson: **How a Search Gets to You**.
+
+**Goal:** See how a search travels (your device, Wi-Fi, routers, a server) — then pick a result you can actually trust.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "A search has a route and a strategy".
+1. Warm-up: ask "You type a search for a summer internship and tap Go. What machines do you think that request touches before results show up?" Keep it concrete. Do not start with a map of the internet.
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
-4. Close: one-sentence takeaway + how this shows up in real life.
+4. Close: one-sentence takeaway — the search has a route; the top result is not automatically true.
 
-**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
-  lessonModule: { durationLabel: "~25 min lesson", sections: [
-    { id: "start", kicker: "Start here", title: "A search has a route and a strategy", body: `Searching for an internship is not just typing keywords. Your request travels through local and wider networks to services that return ranked information. Then you must decide which results deserve attention.\n\nNetwork literacy explains the path; search fluency helps you evaluate the information that returns.`, image: "/images/lessons/dl-3.png", imageAlt: "Browser search connected through a network" },
-    { id: "network", kicker: "Network basics", title: "Networks move requests and responses", body: `A **network** connects devices so they can exchange data. Your Chromebook is often a client: it requests a page or file. A **server** is a computer or service that responds. Data moves in small packets, not as one invisible object.\n\nThe internet is a network of networks. The web is one service that uses it.` },
-    { id: "router", kicker: "Route", title: "Routers choose the next hop", body: `A **router** forwards packets toward their destination. Your home or school Wi-Fi connects a device to a local router; that is not the entire internet. Routers along the way use addressing information to forward traffic.\n\nA router does not need to understand your scholarship essay. It needs enough addressing information to send packets to the next useful location.`, checkIn: check("What does a router mainly do?", ["Ranks search results", "Writes your document", "Forwards data toward its destination using addressing information", "Stores every web page"], 2, "Routers move packets between networks; applications and servers handle the content.") },
-    { id: "address", kicker: "Addressing", title: "Names and addresses support different jobs", body: `A domain name such as \`studentaid.gov\` is a human-readable name. Network services translate names into numeric addresses that devices use to reach a destination. A URL also identifies a particular resource or path.\n\nA familiar name can be imitated. For important tasks, inspect the domain rather than relying on a logo, an ad, or a screenshot.`, image: "/images/lessons/dl-3-2.png", imageAlt: "Browser address bar showing a domain and path" },
-    { id: "server", kicker: "Servers", title: "Servers respond, but not all sources deserve trust", body: `A server can deliver a university page, a news article, a social post, or an ad. Successful delivery does not prove the claim is accurate. Network access and information quality are separate questions.\n\nThis distinction matters: a polished page can load perfectly while still being outdated, biased, or misleading.` },
-    { id: "diagnose", kicker: "Diagnose", title: "Use symptoms to locate a network issue", body: `If one site fails but other sites load, test the site or browser before blaming Wi-Fi. If all devices on one Wi-Fi fail while cellular data works, investigate the local network or its internet connection. If only one device fails, inspect that device’s settings.\n\nCompare what works before resetting anything.`, checkIn: check("Every device on school Wi-Fi cannot reach websites, but phones on cellular data can. What is the strongest hypothesis?", ["One student’s browser is broken", "The school’s local network or its connection is the likely layer to investigate", "The keyboard caused it", "Every server on the internet failed"], 1, "The pattern isolates the problem to devices using the same local network.") },
-    { id: "search", kicker: "Search strategy", title: "Turn a task into a query", body: `Search engines crawl, index, and rank material before you search. A strong query uses precise concepts, context, and constraints. For example, \`high school summer internship Chicago 2026\` is more actionable than “good jobs for teens.”\n\nSearch is iterative: form a query, inspect results, revise based on what is missing or noisy.` },
-    { id: "operators", kicker: "Precision", title: "Use operators and filters with a purpose", body: `Quotes target an exact phrase; \`site:\` narrows to a domain; \`filetype:pdf\` locates documents; date filters reduce stale results. These tools improve relevance, but they do not automatically make a source credible.\n\nFor a financial-aid question, \`site:studentaid.gov\` has a clear rationale. For a college’s deadline, use the college’s own domain.`, image: "/images/lessons/dl-3-3.png", imageAlt: "Search query using site and date filters", checkIn: check("You need the current application deadline from a specific college. Which query best fits?", ["college deadline -college", "free scholarship now", "college deadline", "\"application deadline\" site:college.edu"], 3, "A precise phrase plus the institution’s domain targets the authoritative source for that task.") },
-    { id: "ranking", kicker: "Evaluate", title: "Ranking is not a trust score", body: `Results may include sponsored placements, optimized pages, AI summaries, official sources, and personal commentary. Top placement can reflect payment, popularity, relevance signals, or freshness—not truth.\n\nBefore using a result, ask who published it, when it was updated, what evidence it gives, and whether it directly answers the question.` },
-    { id: "ai-overview", kicker: "AI in search", title: "Treat an AI overview as a draft, not a source", body: `Many search pages now show an **AI overview** or chatbot answer above the links. It can be a useful starting sketch: it restates the question, lists possible steps, and sounds finished. It is still a generated summary. It may omit dates, invent a citation, blend two organizations, or skip the official page you actually need.\n\nUse it the way you use a classmate's recap: notice the claim, then open a named source. For a deadline, aid rule, or internship, click through to the college, employer, or government domain and confirm the date and terms there. If the overview gives no source you can open, treat the answer as unverified.\n\nHow models work, and how to prompt them well, lives in the AI Literacy track. Here the skill is simpler: **an AI answer is a source type with no default citations.**`, checkIn: check("A search AI overview lists a scholarship deadline but shows no official link. What should you do next?", ["Copy the date into your application because the overview sounds complete", "Open an official aid or college domain and confirm the date there", "Ask the chatbot to rewrite the answer in a more confident tone", "Assume AI overviews are fact-checked before they appear"], 1, "A fluent summary is not a citation. High-stakes dates need an official page you can inspect.") },
-    { id: "lateral", kicker: "Cross-check", title: "Search beyond the first result", body: `For a scholarship claim, search the claim and the organization separately. For an internship, locate the employer’s own careers page and compare it with the listing. For research, seek sources with relevant expertise and trace key claims to evidence.\n\nSearching strategically means choosing what to verify, not merely collecting links.`, checkIn: check("A sponsored result promises a guaranteed scholarship for an upfront fee. What is the best response?", ["Share it immediately. That option sounds confident, but it leaves out the deciding constraint", "Assume every ad is government-run", "Pay because it ranks first", "Treat it as a claim to verify through official aid sources and the organization’s reputation"], 3, "Sponsored placement is advertising; high-stakes claims need independent verification.") },
-    { id: "case", kicker: "Case study", title: "Find an internship lead you can defend", body: `Start with a specific query and recent date filter. Scan results for employer, government, school, or established nonprofit sources. Open the organization’s official careers page, confirm eligibility and deadline, and compare contact details.\n\nThis process is slower than clicking an ad, but it reduces the chance of chasing expired, deceptive, or irrelevant listings.`, image: "/images/lessons/dl-3-4.png", imageAlt: "Search results evaluated for source and date" },
-    { id: "privacy", kicker: "Network awareness", title: "Convenience has information consequences", body: `Networks make applications, search, and collaboration possible. They also create records of requests, accounts, and sharing choices. Use official domains for sensitive forms, avoid entering personal information through random links, and understand that a secure-looking connection alone does not prove a site is legitimate.` },
-    { id: "routine", kicker: "Decision routine", title: "Route, query, evaluate, verify", body: `First, understand the path: device, local network, routers, server. Then search deliberately: precise terms, appropriate domain or date constraints, result evaluation, and cross-checking.\n\nIf the result is high-stakes—college, money, health, or work—raise the evidence standard.` },
-    { id: "ready", kicker: "Synthesize", title: "Navigate with evidence", body: `Networks deliver information through clients, routers, addresses, and servers. Search fluency decides whether returned information is useful and credible. Use both models when a task matters.`, checkIn: check("What distinguishes strategic search from merely typing keywords?", ["It always uses the longest query", "It only searches one site", "It uses task-specific constraints, evaluates sources, and verifies high-stakes claims", "It trusts the top result"], 2, "Strategic searching combines precision with evidence-based evaluation.") },
-  ] },
-  bigIdeas: ["Clients request services; **routers** forward packets; **servers** respond.", "Names, addresses, and URLs help requests reach a destination, but delivery does not prove credibility.", "Use precise queries, operators, and filters to improve relevance.", "Evaluate ranking, source, date, evidence, and independent coverage before acting.", "An **AI overview** is a generated draft — confirm high-stakes facts on an official page."],
-  keyTerms: [{ term: "Router", definition: "A network device that forwards packets toward their destination." }, { term: "Server", definition: "A computer or service that responds to requests from other devices." }, { term: "Domain", definition: "A human-readable internet name, such as a school or organization’s web address." }, { term: "URL", definition: "A web address that identifies a resource and often a path within a site." }, { term: "Search operator", definition: "Syntax such as site: or quotes that narrows search results." }, { term: "Sponsored result", definition: "A paid placement in search results, not a guarantee of quality or accuracy." }, { term: "AI overview", definition: "A generated search summary that may omit sources, dates, or official pages — useful as a draft, not as proof." }],
-  realWorld: "A college deadline search requires both network awareness—reaching the right service—and source evaluation—confirming the deadline on the college’s official site.",
-  quiz: [
-    { id: "q1", question: "What is a router’s main role?", choices: [
-            "Rank every webpage",
-            "Write documents",
-            "Create scholarship rules",
-            "Forward packets toward destinations",
-          ], correctIndex: 3, explanation: "Routers move packets between networks using addressing information." },
-    { id: "q2", question: "Why inspect a domain for a college application page?", choices: [
-            "A domain determines screen size",
-            "It guarantees a claim is true",
-            "It helps confirm which organization controls the site",
-            "It replaces a password",
-          ], correctIndex: 2, explanation: "Domains help identify the source, though claims still need evaluation." },
-    { id: "q3", question: "All school Wi-Fi devices fail while cellular devices work. What should be investigated?", choices: [
-            "Every internet server",
-            "The student’s keyboard",
-            "One app only",
-            "The local network or its wider connection",
-          ], correctIndex: 3, explanation: "The shared Wi-Fi pattern narrows the likely layer." },
-    { id: "q4", question: "Which search is strongest for a college’s current deadline?", choices: [
+**Watch for:** calling everything "the Wi-Fi" or treating the first result as the official answer. Push students to say client, router, server, domain, or a source they can open.`,
+  lessonModule: {
+    durationLabel: "~25 min lesson",
+    sections: [
+      {
+        id: "start",
+        kicker: "Start here",
+        title: "A search has a route — then you have a choice",
+        body: `You type a search for a summer internship and tap Go. It feels instant.\n\nIt is not magic. Your **device** sends a request. It hops across **Wi-Fi** and **routers** to a **server**. Results come back ranked. Then you still have to pick one you can trust.\n\nToday you follow that path — and you learn how to search so the useful page is easier to find.`,
+        image: "/images/lessons/dl-3.png",
+        imageAlt: "Browser search connected through a network",
+        callout: { label: "Two jobs", text: "The network delivers the page. You decide if the page is worth using." },
+      },
+      {
+        id: "network",
+        kicker: "The path",
+        title: "Your device asks. A server answers.",
+        body: `A **network** connects devices so they can send data back and forth.\n\nYour Chromebook is usually the **client**. It asks for a page or a file. A **server** is a computer (or a service) that answers. The data travels in small packets — not as one invisible blob.\n\nThe **internet** is a network of networks. The **web** is one thing that runs on it.`,
+      },
+      {
+        id: "router",
+        kicker: "Routers",
+        title: "A router just forwards the next hop",
+        body: `A **router** sends packets toward where they are going. School Wi-Fi hits a local router first. That router is not "the internet." Other routers pick up the packets after that.\n\nThe router does not read your scholarship essay. It only needs an address — enough to hand the packet to the next useful machine.`,
+        checkIn: check(
+          "What does a router mainly do?",
+          [
+            "Rank search results",
+            "Write your document",
+            "Forward data toward where it is going",
+            "Store every web page",
+          ],
+          2,
+          "Routers move packets. Apps and servers handle the content.",
+        ),
+      },
+      {
+        id: "address",
+        kicker: "Names and addresses",
+        title: "A domain is a name. A URL is a full address.",
+        body: `A **domain** is a name people can read, like \`studentaid.gov\`. Behind the scenes, that name gets turned into numbers so devices can find the machine.\n\nA **URL** is the full web address — the domain plus the path to a specific page.\n\nA logo, an ad, or a screenshot can fake a familiar name. For a college app or aid form, look at the domain in the address bar. Do not trust the picture of the site.`,
+        image: "/images/lessons/dl-3-2.png",
+        imageAlt: "Browser address bar showing a domain and path",
+      },
+      {
+        id: "server",
+        kicker: "Servers",
+        title: "The page loaded. That is not the same as true.",
+        body: `A server can send you a university page, a news story, a social post, or an ad. If it loads, the network did its job.\n\nThat does not mean the claim is right. A polished page can still be old, one-sided, or a scam.\n\n"Did it arrive?" and "Can I trust it?" are two different questions.`,
+      },
+      {
+        id: "diagnose",
+        kicker: "When it fails",
+        title: "Use what still works to find the break",
+        body: `One site fails, other sites load? Check that site or that browser before you blame Wi-Fi.\nEvery device on this Wi-Fi is down, but phones on cellular work? Check the local network or its connection out.\nOnly your device fails? Check your settings.\n\nCompare what works. Then change one thing.`,
+        checkIn: check(
+          "Every device on school Wi-Fi cannot load sites. Phones on cellular data can. What should you check first?",
+          [
+            "One student's browser",
+            "The school's Wi-Fi or its connection out to the internet",
+            "The keyboard",
+            "Every server on the internet",
+          ],
+          1,
+          "If everyone on the same Wi-Fi is stuck, start with that network — not the whole internet.",
+        ),
+      },
+      {
+        id: "search",
+        kicker: "Search",
+        title: "Turn the task into a better query",
+        body: `Search engines already crawled and ranked pages before you typed. Your job is to give them a sharper ask.\n\n\`high school summer internship Chicago 2026\` beats "good jobs for teens." Add the place, the year, and the kind of role.\n\nSearch is a loop. Try a query. Look at what came back. Change the words if the results are noisy or stale.`,
+      },
+      {
+        id: "operators",
+        kicker: "Sharper search",
+        title: "Quotes, site:, and filters have a job",
+        body: `Quotes hunt an exact phrase. \`site:\` stays on one domain. \`filetype:pdf\` finds documents. A date filter drops last year's deadline.\n\nThese tools help you land on the right page. They do not prove the page is honest.\n\nFor aid rules, \`site:studentaid.gov\` has a reason. For a college's deadline, use that college's own domain.`,
+        image: "/images/lessons/dl-3-3.png",
+        imageAlt: "Search query using site and date filters",
+        checkIn: check(
+          "You need this year's application deadline from one college. Which search fits best?",
+          [
             "college deadline -college",
+            "free scholarship now",
             "college deadline",
-            "deadline free money",
             "\"application deadline\" site:college.edu",
-          ], correctIndex: 3, explanation: "It targets the official source and a specific phrase." },
-    { id: "q5", question: "A result is first and labeled Sponsored. What can you conclude?", choices: [
-            "It is paid placement and should still be evaluated",
-            "It is an official source",
-            "It is false",
-            "It is fact-checked",
-          ], correctIndex: 0, explanation: "Advertising status alone neither proves nor disproves a claim." },
-    { id: "q6", question: "What should follow a promising internship result?", choices: [
-            "Confirm details on the employer’s official site and compare sources",
-            "Ignore dates",
-            "Submit personal information immediately",
-            "Trust the snippet",
-          ], correctIndex: 0, explanation: "Verification reduces risk from stale or deceptive listings." },
-    { id: "q7", question: "A search AI overview states a college deadline with no official link. What is the strongest next step?", choices: [
-            "Use the date because the overview is at the top of the page",
-            "Ask the overview to sound more certain",
-            "Open the college’s own domain and confirm the dated announcement",
-            "Assume generated summaries are reviewed by the college",
-          ], correctIndex: 2, explanation: "An AI overview is a draft. Deadlines need an official page you can inspect." },
+          ],
+          3,
+          "An exact phrase plus the college's domain aims at the page that actually sets the date.",
+        ),
+      },
+      {
+        id: "ranking",
+        kicker: "Results",
+        title: "First place is not a trust score",
+        body: `Results can be ads, official pages, old posts, personal blogs, or an AI summary. Top of the list can mean someone paid, the page is popular, or the words match — not that it is true.\n\nBefore you use a result, ask: who published this? When was it updated? What proof do they give? Does it even answer your question?`,
+      },
+      {
+        id: "ai-overview",
+        kicker: "AI in search",
+        title: "Treat an AI overview as a draft",
+        body: `Many search pages now put an **AI overview** above the links. It can restate the question and sound finished. It is still a generated summary. It may skip the date, invent a citation, mix up two schools, or miss the official page you need.\n\nUse it like a classmate's recap: notice the claim, then open a named source. For a deadline, an aid rule, or an internship, click through to the college, the employer, or a government domain. If the overview gives you nothing you can open, treat the answer as unverified.\n\nHow models work lives in the AI Literacy track. Here the skill is simpler: **an AI answer is a source with no default citations.**`,
+        checkIn: check(
+          "A search AI overview lists a scholarship deadline but shows no official link. What should you do next?",
+          [
+            "Copy the date into your application because the overview sounds complete",
+            "Open an official aid or college site and confirm the date there",
+            "Ask the chatbot to rewrite the answer in a more confident tone",
+            "Assume AI overviews are checked before they appear",
+          ],
+          1,
+          "A fluent summary is not a citation. Dates that matter need an official page you can open.",
+        ),
+      },
+      {
+        id: "lateral",
+        kicker: "Check it",
+        title: "Do not stop at the first result",
+        body: `For a scholarship claim, search the claim and the organization in two tabs. For an internship, open the employer's own careers page and compare it with the listing. For research, look for someone who actually knows the topic, then follow a key claim to a source you can open.\n\nYou are not collecting links. You are picking what to verify.`,
+        checkIn: check(
+          "A sponsored result promises a guaranteed scholarship if you pay a fee up front. What should you do?",
+          [
+            "Share it right away so friends do not miss it",
+            "Assume every ad is run by the government",
+            "Pay because it ranks first",
+            "Treat it as a claim — check official aid sites and whether the group is real",
+          ],
+          3,
+          "Sponsored means someone paid to be there. Money claims need a source you can check.",
+        ),
+      },
+      {
+        id: "case",
+        kicker: "Case study",
+        title: "Find an internship you can actually apply to",
+        body: `Start with a specific query and a recent date filter. Look for an employer, a school, a government page, or a known nonprofit. Open that group's own careers page. Check who can apply, the deadline, and the contact info.\n\nSlower than tapping an ad. A lot less likely to chase a listing that expired — or was never real.`,
+        image: "/images/lessons/dl-3-4.png",
+        imageAlt: "Search results evaluated for source and date",
+      },
+      {
+        id: "privacy",
+        kicker: "On the network",
+        title: "The path also leaves a trail",
+        body: `Networks make search, forms, and group docs possible. They also record requests, accounts, and what you share.\n\nUse official domains for anything with your name, your Social Security number, or a password. Do not type personal information into a random link. A lock icon means the connection is encrypted. It does not prove the site is the real college.`,
+      },
+      {
+        id: "routine",
+        kicker: "The routine",
+        title: "Path, query, then check",
+        body: `First, know the path: device, local network, routers, server.\nThen search on purpose: better words, a domain or a date when it helps, then look at who published the result.\n\nIf the result is about college, money, health, or a job — raise the bar. Open the official page.`,
+      },
+      {
+        id: "ready",
+        kicker: "Remember this",
+        title: "The network delivers. You pick the source.",
+        body: `Your device asks. **Routers** forward packets. A **server** answers. A **domain** and a **URL** help the request land in the right place.\n\nDelivery is not trust. Use a sharper query, then open a page you can actually check.`,
+        checkIn: check(
+          "What makes a search more than just typing a few words?",
+          [
+            "You always use the longest query",
+            "You only search one site, every time",
+            "You add useful limits, check who published it, and confirm it if the stakes are high",
+            "You trust the top result",
+          ],
+          2,
+          "Better words get you closer. A source you can open is what you use.",
+        ),
+      },
+    ],
+  },
+  bigIdeas: [
+    "Your device (**client**) asks. **Routers** forward packets. A **server** answers.",
+    "A **domain** and a **URL** help the request land — but a loaded page is not automatically true.",
+    "Use precise queries, operators, and filters to get closer to the right page.",
+    "First place can be an ad or a popular page. Check who published it, the date, and a source you can open.",
+    "An **AI overview** is a generated draft — confirm dates and rules on an official page.",
   ],
-  reflection: { prompt: "Choose a real question about school, a scholarship, an internship, or a first job. Write a strategic query, explain one network component involved in reaching a result, name how you will verify the best source, and say whether you would treat an AI overview as enough.", placeholder: "I will search \"summer internship\" [city] 2026, treat any AI overview as a draft, then confirm a lead on the employer’s careers domain…" },
+  keyTerms: [
+    { term: "Router", definition: "A device that forwards packets toward where they are going." },
+    { term: "Server", definition: "A computer or service that answers requests from other devices." },
+    { term: "Domain", definition: "A name people can read, like a school or organization's web address." },
+    { term: "URL", definition: "The full web address — usually a domain plus a path to a page." },
+    { term: "Search operator", definition: "A tool like site: or quotes that narrows results." },
+    { term: "Sponsored result", definition: "A paid spot in the results. Paid is not the same as official or true." },
+    { term: "AI overview", definition: "A generated search summary. Useful as a draft. Not proof." },
+  ],
+  realWorld: "A college deadline search has two parts: the request has to reach the right site, and you have to confirm the date on that college's own page.",
+  quiz: [
+    {
+      id: "q1",
+      question: "What is a router's main job?",
+      choices: [
+        "Rank every webpage",
+        "Write documents",
+        "Create scholarship rules",
+        "Forward packets toward where they are going",
+      ],
+      correctIndex: 3,
+      explanation: "Routers move packets using addressing. They do not rank or write the page.",
+    },
+    {
+      id: "q2",
+      question: "Why look at the domain on a college application page?",
+      choices: [
+        "The domain sets the screen size",
+        "A matching domain means every claim is true",
+        "It helps you see which organization runs the site",
+        "It replaces a password",
+      ],
+      correctIndex: 2,
+      explanation: "The domain tells you who owns the site. You still have to read the page.",
+    },
+    {
+      id: "q3",
+      question: "All school Wi-Fi devices fail. Phones on cellular work. What should you check?",
+      choices: [
+        "Every internet server",
+        "The student's keyboard",
+        "One app only",
+        "The local network or its connection out",
+      ],
+      correctIndex: 3,
+      explanation: "Everyone on the same Wi-Fi is stuck. Start there.",
+    },
+    {
+      id: "q4",
+      question: "Which search is best for a college's current deadline?",
+      choices: [
+        "college deadline -college",
+        "college deadline",
+        "deadline free money",
+        "\"application deadline\" site:college.edu",
+      ],
+      correctIndex: 3,
+      explanation: "An exact phrase plus the college's domain aims at the official page.",
+    },
+    {
+      id: "q5",
+      question: "A result is first and labeled Sponsored. What can you conclude?",
+      choices: [
+        "Someone paid for that spot — you still have to check the claim",
+        "It is an official source",
+        "It is false",
+        "It was fact-checked",
+      ],
+      correctIndex: 0,
+      explanation: "Sponsored means paid placement. It does not prove or disprove the claim.",
+    },
+    {
+      id: "q6",
+      question: "You find a promising internship listing. What should you do next?",
+      choices: [
+        "Confirm the details on the employer's official site and compare sources",
+        "Ignore the dates",
+        "Submit personal information right away",
+        "Trust the snippet under the link",
+      ],
+      correctIndex: 0,
+      explanation: "Open the employer's own page. Listings go stale — and some were never real.",
+    },
+    {
+      id: "q7",
+      question: "A search AI overview states a college deadline with no official link. What should you do next?",
+      choices: [
+        "Use the date because the overview is at the top of the page",
+        "Ask the overview to sound more certain",
+        "Open the college's own site and confirm the dated announcement",
+        "Assume the college reviewed the generated summary",
+      ],
+      correctIndex: 2,
+      explanation: "An AI overview is a draft. Deadlines need an official page you can inspect.",
+    },
+  ],
 };

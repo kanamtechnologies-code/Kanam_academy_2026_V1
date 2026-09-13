@@ -241,7 +241,7 @@ Today's lesson: **Insurance: Protecting What Matters**.
         body: `Take thirty seconds to answer honestly:\n\n**Do you know what type of coverage is on the car you ride in most, or the place you live? If not, who's the one person you could ask this week?**\n\nThere's no wrong answer — the goal is identifying the actual next step, not having every answer memorized already.`,
         callout: {
           label: "No wrong answers",
-          text: "You'll revisit a version of this question in the reflection at the end of the lesson — this is just the warm-up.",
+          text: "Just notice this now — you do not have to write it up later.",
         },
       },
       {
@@ -485,10 +485,4 @@ Low premium + high deductible is a bet you won't need the coverage. Sometimes th
         "Comparing the repair cost to the deductible showed that filing left the insurer covering a meaningful remaining amount — a reasonable use of the coverage, not a blanket rule to always report or a wish to raise premiums.",
     },
   ],
-  reflection: {
-    prompt:
-      "Pick auto, renters, or health. Write three questions you would ask a parent, guardian, or school nurse to understand premium, deductible, and what to do after a claim.",
-    placeholder:
-      "Example: Auto — Am I on the family policy? What's our deductible if I crash? Who do I call first after an accident?",
-  },
 };

@@ -356,7 +356,7 @@ Action: pause → never share codes → call real number / safe word → report 
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Three habits keep you and others safe: **share less** with AI tools, **believe less** of sensational media without checking, and **get consent** before creating AI content about someone else. Your digital footprint, your skepticism, and your respect for others are all forms of self-defense and good citizenship.\n\nNext we'll look at AI and the future of work. First, lock in today's ideas.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict).`,
+        body: `Three habits keep you and others safe: **share less** with AI tools, **believe less** of sensational media without checking, and **get consent** before creating AI content about someone else. Your digital footprint, your skepticism, and your respect for others are all forms of self-defense and good citizenship.\n\nNext we'll look at AI and the future of work. First, lock in today's ideas.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug).`,
       },
     ],
   },

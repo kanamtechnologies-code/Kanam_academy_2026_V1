@@ -1,4 +1,4 @@
-# Digital Literacy · Week 8 — Futures & Capstone
+# Digital Literacy · Week 8 — Work Ahead and Your Plan
 
 **Week focus:** Connected workplaces and careers — then evaluate impacts and ship a personal action plan.  
 **Track:** `digital-literacy`
@@ -7,8 +7,8 @@
 
 | Session | Lesson id | Title | Guide |
 | :---: | --- | --- | --- |
-| 1 | `dl-15` | Computing, Careers & Connected Workplaces | [session-1.md](session-1.md) |
-| 2 | `dl-16` | Capstone: Evaluate Impacts & Act | [session-2.md](session-2.md) |
+| 1 | `dl-15` | Jobs, Tools, and Showing Up Online | [session-1.md](session-1.md) |
+| 2 | `dl-16` | Your Plan From Here | [session-2.md](session-2.md) |
 
 ## Materials
 

@@ -459,9 +459,4 @@ Rewarding yourself is fine. Using "deserve" to bypass every category is how budg
         "Unassigned money tends to vanish into random spending. Zero-based budgeting means giving even a small leftover amount an intentional job, not skipping it because it seems minor.",
     },
   ],
-  reflection: {
-    prompt:
-      "Draft a simple one-period budget: your estimated net income and 4–6 categories with dollar amounts that add up. Which category is hardest to estimate?",
-    placeholder: "Example: $200 net — $50 gas, $40 food, $40 savings, $40 fun, $30 buffer. Food is hardest…",
-  },
 };

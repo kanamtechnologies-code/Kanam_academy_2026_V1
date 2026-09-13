@@ -2,20 +2,20 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson8: AILessonConfig = {
   id: "dl-8",
-  title: "8. Equity, Access & Harm Reduction Online",
-  goal: "Evaluate equity and access deficits and online harm; use upstanding and reporting practices to reduce bias and harm in digital spaces while refining systems and norms for broader participation.",
+  title: "8. Who Gets Hurt — and Who Helps",
+  goal: "Notice when a chat, game, or class space leaves people out or piles on — then choose a real next step: support, report, or change the rule.",
   xpReward: 400,
-  badge: "Equity Advocate",
+  badge: "Upstander",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/7",
   nextHref: "/learn/digital/9",
   instructorScript: `**Coach's note**
-Today's lesson: **Equity, Access & Harm Reduction Online**.
+Today's lesson: **Who Gets Hurt — and Who Helps**.
 
-**Goal:** Evaluate equity and access deficits and online harm; use upstanding and reporting practices to reduce bias and harm in digital spaces while refining systems and norms for broader participation.
+**Goal:** Notice when a chat, game, or class space leaves people out or piles on — then choose a real next step: support, report, or change the rule.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "Online harm is also a systems problem".
+1. Warm-up: ask "When a group chat turns mean, what do people usually do — and what actually helps?"
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
@@ -27,8 +27,8 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
       {
         id: "intro",
         kicker: "Start here",
-        title: "Online harm is also a systems problem",
-        body: `“Be nice online” is not enough. Digital spaces can exclude people through design, access requirements, language, disability barriers, recommendation systems, harassment, and rules that are enforced unevenly. Harm reduction means evaluating what is happening, protecting people in the moment, and improving the practices or systems that made harm easier.\n\nYou will identify equity and access deficits, compare responses to online harm, use reporting and upstanding strategies, and propose changes that reduce bias or broaden participation. These skills apply to a class group chat, a gaming community, a school platform, and a future workplace.`,
+        title: "\"Be nice\" is not a plan",
+        body: `A chat, a game lobby, or a school site can leave people out — bad captions, only one language, a rule that only some kids get punished for, or a pile-on that the algorithm keeps showing. “Be nice” does not stop that.\n\nToday you name what is happening, help the person in the moment, and pick a next step: support them, report it, or change how the space works. Same skill in a class chat, a game, and a future job Slack.`,
         image: "/images/lessons/dl-8.png",
         imageAlt: "Laptop and phone showing a group chat and a game lobby with people connected through messaging apps",
         callout: {
@@ -49,7 +49,7 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
       {
         id: "glossary",
         kicker: "Let's break down the words",
-        title: "Vocabulary for equity and harm reduction",
+        title: "Words for who gets left out — and who helps",
         body: `• **Equity** — fairness that accounts for different starting conditions and barriers; it is not simply giving everyone the identical option.\n• **Access deficit** — a barrier that prevents people from fully using or benefiting from a digital space, tool, or service.\n• **Bias** — a pattern that unfairly favors, excludes, or harms some people or groups.\n• **Harm reduction** — actions that lessen damage now while addressing conditions that allow harm to continue.\n• **Upstander** — a person who refuses to amplify harm and takes a safe, useful action to support a target or improve the situation.\n• **Reporting pathway** — the platform, school, workplace, or community process that can investigate and respond to harm.`,
         callout: {
           label: "Tip",
@@ -59,7 +59,7 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
       {
         id: "concept-1",
         kicker: "The big idea",
-        title: "Evaluate who can participate—and who is pushed out",
+        title: "Who can actually be here — and who gets pushed out?",
         body: `Start with evidence, not assumptions. Ask who can access the device, account, content, meeting time, language, captions, moderation help, and reporting tools. Then ask who bears more risk when a space is hostile or poorly designed.\n\nFor example, a required video meeting at one fixed time may exclude students with jobs, caregiving, weak home internet, or different time zones. A school form that works only with a mouse creates a barrier for some keyboard or screen-reader users. A group chat that mocks accents, names, or identities can make participation technically possible but socially unsafe.\n\nEquity is not a vague promise to treat everyone well. It is an evaluation of barriers and a choice to change conditions so more people can participate meaningfully.`,
         callout: {
           label: "Watch out",
@@ -253,7 +253,7 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
-        body: `Think back to Deshawn's lobby pile-on from the start of this lesson.\n\n• Have you ever typed something in a chat, comment, or lobby that came out harsher than you meant — because you couldn't see the other person's face?\n• Has there been a moment where you could have been the upstander, but stayed a bystander instead?\n\nThere's a full reflection question at the end of this lesson. For now, just notice: the disinhibition effect doesn't make someone a bad person — it makes a moment feel lower-stakes than it actually is. Naming it in advance is what lets you catch it next time.`,
+        body: `Think back to Deshawn's lobby pile-on from the start of this lesson.\n\n• Have you ever typed something in a chat, comment, or lobby that came out harsher than you meant — because you couldn't see the other person's face?\n• Has there been a moment where you could have been the upstander, but stayed a bystander instead?\n\nJust notice: the disinhibition effect doesn't make someone a bad person — it makes a moment feel lower-stakes than it actually is. Naming it in advance is what lets you catch it next time.`,
         callout: {
           label: "Reflect",
           text: "Being an upstander isn't about being fearless. It's about having a plan ready before the moment arrives, so you don't have to decide from scratch under pressure.",
@@ -333,7 +333,7 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've learned what it means to be a good **digital citizen**: remember there's a real person behind every screen, watch out for the **disinhibition effect** that makes people crueler online, recognize **cyberbullying** and its real harm, and choose to be an **upstander** — don't pile on (not even with a reaction), support the target, save evidence, report, and tell an adult. Use the escalate ladder when you're unsure how serious something is.\n\nMost of all, participate positively. Every helpful, kind, inclusive thing you do online makes the shared space better for everyone in it.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on one way you'll be a better digital citizen this week.`,
+        body: `You've learned what it means to be a good **digital citizen**: remember there's a real person behind every screen, watch out for the **disinhibition effect** that makes people crueler online, recognize **cyberbullying** and its real harm, and choose to be an **upstander** — don't pile on (not even with a reaction), support the target, save evidence, report, and tell an adult. Use the escalate ladder when you're unsure how serious something is.\n\nMost of all, participate positively. Every helpful, kind, inclusive thing you do online makes the shared space better for everyone in it.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder).`,
       },
     ],
   },
@@ -459,9 +459,4 @@ Today's lesson: **Equity, Access & Harm Reduction Online**.
         "Josh's private support message, combined with saving evidence and reporting to his manager, mirrored the same upstander steps that work in school chats — and Maya said the private check-in mattered most.",
     },
   ],
-  reflection: {
-    prompt:
-      "Identify one equity, access, or harm problem in a digital space you use. What evidence would you gather, what immediate upstanding action is safe, and what change to the system or group norm would reduce the problem?",
-    placeholder: "Example: Our club meetings only happen live after school. I would ask who is excluded, post notes and comments afterward, and create an asynchronous way to vote on decisions.",
-  },
 };

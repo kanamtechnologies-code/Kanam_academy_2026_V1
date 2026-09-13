@@ -428,31 +428,9 @@ LIMIT 5;`,
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 3 — Predict the rows",
-      focusCommand: "LIMIT",
-      commandExplain: "This query is finished. Predict how many rows it returns.",
-      goal: "Type a number prediction, then Run & check.",
-      starterSql: `SELECT *
-FROM lunch_orders
-LIMIT 2;`,
-      codeReadOnly: true,
-      predictionPrompt: "How many rows will come back?",
-      acceptedPredictions: ["2", "2 rows", "two", "two rows"],
-      hint: "Look at the LIMIT number.",
-      successMessage: "Yes — LIMIT 2 means at most two rows.",
-      failureMessage: "Read the LIMIT carefully.",
-      validate: (sql, result) => {
-        const n = normSql(sql);
-        if (!/\blimit\s+2\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 2);
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 4 — Write it yourself",
+      title: "Exercise 3 — Write it yourself",
       focusCommand: "from scratch",
       commandExplain: "No blanks. Write a full query: all columns from lunch_orders, limited to 5 rows.",
       goal: "Type the complete query in the editor.",

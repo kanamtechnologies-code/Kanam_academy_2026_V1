@@ -506,47 +506,9 @@ attack("dragon")
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the branch",
-      focusCommand: "trace if/else",
-      commandExplain: 'If we call attack("goblin"), which message prints?',
-      goal: "Predict the exact output for goblin.",
-      starterCode: `def attack(enemy):
-    if enemy == "dragon":
-        print("This enemy is too strong! Run!")
-    else:
-        print("You attack the " + enemy + "!")
-
-attack("goblin")
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What exact line prints?",
-      acceptedPredictions: [
-        "You attack the goblin!",
-        "you attack the goblin!",
-        "You attack the goblin",
-      ],
-      hint: "goblin is not dragon, so the else branch runs.",
-      successMessage: "You predicted the else path correctly.",
-      failureMessage: "Non-dragon enemies take the else message.",
-      solutionCode: `def attack(enemy):
-    if enemy == "dragon":
-        print("This enemy is too strong! Run!")
-    else:
-        print("You attack the " + enemy + "!")
-
-attack("goblin")
-`,
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
-        return run.stdout.join("\n").includes("You attack the goblin!");
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build rule-guided attack",
+      title: "Exercise 4 — Build rule-guided attack",
       focusCommand: "from scratch",
       commandExplain:
         "Write a function with if/else rules on a parameter, then call it with two different values.",

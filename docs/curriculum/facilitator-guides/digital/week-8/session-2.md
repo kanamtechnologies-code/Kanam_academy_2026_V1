@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-16` |
-| **Title** | Capstone: Evaluate Impacts & Act |
+| **Title** | Your Plan From Here |
 | **Time** | 40–55 min |
-| **Week theme** | Futures & Capstone |
-| **Student goal** | Complete **Capstone: Evaluate Impacts & Act** and demonstrate the week focus: Connected workplaces and careers — then evaluate impacts and ship a personal action plan. |
+| **Week theme** | Work Ahead and Your Plan |
+| **Student goal** | Complete **Your Plan From Here** and demonstrate the week focus: Connected workplaces and careers — then evaluate impacts and ship a personal action plan. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 800 · Impact Evaluator |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Futures & Capstone**.  
+Week theme: **Work Ahead and Your Plan**.  
 Focus: Connected workplaces and careers — then evaluate impacts and ship a personal action plan.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

@@ -1,91 +1,243 @@
 import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
-const check = (prompt: string, choices: string[], correctIndex: number, explanation: string) => ({ prompt, choices, correctIndex, explanation });
-export const digitalLesson4: AILessonConfig = {
-  id: "dl-4", title: "4. Evaluating Claims in a Computing Culture",
-  goal: "Evaluate how computing shapes personal, ethical, social, economic, and cultural information practices using lateral reading and SIFT.",
-  xpReward: 200, badge: "Critical Evaluator", dashboardHref: "/dashboard", prevHref: "/learn/digital/3", nextHref: "/learn/digital/5",
-  instructorScript: `**Coach's note**
-Today's lesson: **Evaluating Claims in a Computing Culture**.
 
-**Goal:** Evaluate how computing shapes personal, ethical, social, economic, and cultural information practices using lateral reading and SIFT.
+const check = (prompt: string, choices: string[], correctIndex: number, explanation: string) => ({
+  prompt, choices, correctIndex, explanation,
+});
+
+export const digitalLesson4: AILessonConfig = {
+  id: "dl-4",
+  title: "4. Check It Before You Share",
+  goal: "Pause on a claim in your feed. Use SIFT and a new tab to check who said it before you pass it on.",
+  xpReward: 200,
+  badge: "Claim Checker",
+  dashboardHref: "/dashboard",
+  prevHref: "/learn/digital/3",
+  nextHref: "/learn/digital/5",
+  instructorScript: `**Coach's note**
+Today's lesson: **Check It Before You Share**.
+
+**Goal:** Pause on a claim in your feed. Use SIFT and a new tab to check who said it before you pass it on.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "Claims travel through systems built by people".
+1. Warm-up: ask "What is the last thing you almost shared because it felt urgent?" Keep the claim, not the rant.
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
-4. Close: one-sentence takeaway + how this shows up in real life.
+4. Close: one-sentence takeaway — likes are not proof; open a new tab.
 5. Artifact: students must submit the SIFT writeup before they can finish. It is saved on this device for review.
 
-**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
-  lessonModule: { durationLabel: "~25 min lesson", sections: [
-    { id: "start", kicker: "Start here", title: "Claims travel through systems built by people", body: `A college rumor, a scholarship offer, and a news clip do not reach your feed by accident. Platforms rank, recommend, monetize, and make sharing easy. Those design choices influence what people notice, trust, and pass on.\n\nYour task is not to distrust everything. It is to evaluate claims and the computing systems that shape their reach.`, image: "/images/lessons/dl-4.png", imageAlt: "Multiple tabs used to evaluate a digital claim" },
-    { id: "claim", kicker: "Core concept", title: "Separate the claim from the reaction", body: `A **claim** is a statement that can be investigated. “This scholarship is guaranteed” and “this college changed its deadline” are claims. Likes, confidence, a polished logo, and a strong emotional reaction are not evidence.\n\nStart by rewriting a vague post into a checkable question: Who says this? What exactly happened? When? What evidence would confirm it?` },
-    { id: "systems", kicker: "Computing culture", title: "Platforms shape information practices", body: `Recommendation systems often reward attention, engagement, speed, and advertising value. That can amplify useful reporting, but it can also amplify outrage, stereotypes, sensationalism, and deceptive offers.\n\nEvaluate the system as well as the post: Who benefits from this design? Whose voices or access might be reduced? What behavior does it encourage?`, checkIn: check("Why can a highly shared post still be unreliable?", ["Viral posts are always official", "Algorithms remove all bias", "Sharing is a formal fact-check", "Platforms can reward engagement and emotion rather than accuracy"], 3, "Reach measures distribution, not the quality of evidence.") },
-    { id: "stakes", kicker: "Impact", title: "The stakes are personal and social", body: `A false college rumor can cause panic. A misleading internship listing can cost time or expose personal information. A distorted news narrative can affect how communities are treated.\n\nComputing affects information practices at personal, ethical, social, economic, and cultural levels. The same share button can support community knowledge or spread harmful falsehoods.` },
-    { id: "sift", kicker: "Method", title: "Use SIFT for high-stakes claims", body: `**Stop** before reacting. **Investigate the source**: who created it and what is their record? **Find better coverage**: seek independent, relevant reporting. **Trace** key claims, quotes, images, and statistics to their original context.\n\nSIFT is a routine for judgment, not a label you apply after a quick glance.`, image: "/images/lessons/dl-4-2.png", imageAlt: "Four tabs used for source investigation", checkIn: check("A screenshot claims a college canceled admissions. What should happen first?", ["Judge its font", "Share it to warn people", "Stop and investigate who created it before acting", "Trust the number of reposts"], 2, "A pause prevents an unverified claim from becoming a larger problem.") },
-    { id: "synthetic", kicker: "AI-generated claims", title: "Fluent is not the same as found", body: `Generated text and images can look finished: clean grammar, a confident tone, a realistic photo. That fluency is not evidence. An AI-written post can invent a scholarship, misquote a college, or stitch a real chart to the wrong year. A synthetic image can place a person at an event they never attended.\n\nRun the same SIFT routine. Stop before sharing. Investigate who published it and whether a named human or organization stands behind it. Find better coverage on official or independent pages. Trace the quote, number, or image to an original you can open. If you cannot find that original, say **unverified** — even when the writing sounds professional.\n\n“Too fluent, no source” is a yellow flag, not proof of a fake. The test is still evidence.`, checkIn: check("A polished post explains a new college rule in perfect paragraphs but names no office, date, or official page. What is the strongest move?", ["Share it because the writing looks professional", "Ask a chatbot to rewrite it more confidently", "Treat it as unverified until you find independent or official coverage", "Trust it if the image looks real"], 2, "Fluency is not a source. SIFT still requires a publisher and evidence you can inspect.") },
-    { id: "lateral", kicker: "Lateral reading", title: "Leave the page to evaluate the source", body: `**Lateral reading** means opening new tabs to investigate a source from outside the source’s own page. Search the organization, look for independent reporting, and locate official records or expertise.\n\nVertical reading—staying on a page and judging its design—can be useful for details, but it is weak evidence that the publisher deserves trust.`, image: "/images/lessons/dl-4-3.png", imageAlt: "Source claim compared with independent coverage" },
-    { id: "evidence", kicker: "Evidence", title: "Trace claims to context", body: `A true statistic can be used misleadingly if its population, date, method, or limitation disappears. A real image can be old or used out of context. A quote can omit the sentence that changes its meaning.\n\nTrace evidence to its original source and ask whether it actually supports the claim being made.`, checkIn: check("A post uses a real chart but gives no date or source. What is the strongest next move?", ["Trace the chart to its original source and inspect context, method, and date", "Trust it if it matches your view", "Share it with a disclaimer", "Treat the chart as proof"], 0, "Evidence needs provenance and context before it can support a conclusion.") },
-    { id: "bias", kicker: "Perspective", title: "Bias is not limited to obvious falsehoods", body: `Bias can appear through selection: which sources, examples, images, or communities are included or omitted. It can also appear through framing: what a headline emphasizes, who is portrayed as responsible, and which outcomes are treated as normal.\n\nEvaluate perspective without assuming every biased source is useless. Identify its purpose, audience, evidence, and missing context.` },
-    { id: "economics", kicker: "Economics", title: "Incentives shape what gets amplified", body: `Ads, subscriptions, creator payments, and data collection can fund useful services. They can also reward clickbait, urgency, and attention harvesting. A “guaranteed scholarship” ad may be designed to collect leads or payments, not help students find aid.\n\nAsk what the publisher or platform gains if you click, share, stay, or provide information.` },
-    { id: "case", kicker: "Case study", title: "Evaluate a scholarship claim", body: `A post promises “$10,000 guaranteed—apply before midnight.” Stop. Investigate the organizer, domain, eligibility rules, and whether it requests money or sensitive data. Find independent coverage and official financial-aid resources. Trace the offer to its published terms.\n\nA responsible conclusion may be “unverified” rather than immediately true or false. That is evidence-based judgment.`, image: "/images/lessons/dl-4-4.png", imageAlt: "Scholarship claim checked against official sources", checkIn: check("Which response best evaluates a scholarship claim that requests a fee to unlock awards?", ["Trust it because it looks polished. That option sounds confident, but it leaves out the deciding constraint", "It can seem like forward it to friends, but that reading skips the distinction this question is testing", "Check the organization, terms, official aid sources, and independent reporting before providing information", "Picking “Pay quickly before the deadline” is a common mix-up that confuses a nearby idea with the right one"], 2, "Money, deadlines, and personal information raise the evidence standard.") },
-    { id: "college", kicker: "Case study", title: "Evaluate a college rumor", body: `A group chat says a university is rejecting all out-of-state applicants. Search the university admissions site, find dated announcements, and look for independent reporting. Trace the rumor’s source rather than repeating “a friend said.”\n\nIf the claim cannot be confirmed, say so clearly. Correcting a rumor with a source is more useful than winning an argument.` },
-    { id: "work", kicker: "First jobs", title: "Evaluate opportunity claims", body: `A legitimate employer can still have a poor fit. Compare a listing with the employer’s official site, job duties, pay rules, location, and application process. Be especially cautious with unsolicited messages, requests for identity information, or pay-to-start offers.\n\nComputing systems make job discovery easier; they also make impersonation and mass targeting easier.` },
-    { id: "participate", kicker: "Participate responsibly", title: "Choose a response, not just a verdict", body: `Depending on evidence, you might share a verified source, correct a misleading post respectfully, report a scam, ask a question, or choose not to amplify an unverified claim. Consider harm: who could be affected if you are wrong?\n\nCritical evaluation is a participation skill. It changes what a community sees next.` },
-    { id: "ready", kicker: "Synthesize", title: "Trust should be earned", body: `Use SIFT and lateral reading to evaluate claims. Consider evidence, source, context, incentives, and the social impact of platform design. For college, scholarship, news, and work decisions, slow down enough to make a defensible judgment.`, checkIn: check("What is the most complete evaluation of an online claim?", ["It appears first in search", "It matches what friends believe", "Picking “It has many likes” is a common mix-up that confuses a nearby idea with the right one", "It considers source, evidence, context, incentives, independent coverage, and potential impact"], 3, "Computing culture requires evaluating both the information and the systems that distribute it.") },
-  ] },
-  bigIdeas: ["Computing systems shape what information is amplified, trusted, and shared.", "**SIFT** and **lateral reading** move evaluation beyond a page’s appearance.", "Evidence needs source, context, date, and a clear connection to the claim.", "High-stakes claims about college, scholarships, news, and jobs require stronger verification.", "AI-generated text and images can be fluent and still lack a source you can trace."],
-  keyTerms: [{ term: "Claim", definition: "A statement that can be investigated using evidence." }, { term: "Lateral reading", definition: "Leaving a source to investigate it through independent tabs and coverage." }, { term: "SIFT", definition: "Stop; Investigate the source; Find better coverage; Trace claims to original context." }, { term: "Bias", definition: "A perspective that can shape selection, framing, and interpretation." }, { term: "Incentive", definition: "A benefit that may influence a platform or publisher’s choices." }, { term: "Context", definition: "Information such as source, date, audience, method, and surrounding details needed to interpret evidence." }],
-  realWorld: "A misleading scholarship post can affect money, privacy, and opportunity. A careful evaluation protects both the individual and the people who might receive a reshare.",
+**Watch for:** "it looked official" and "everyone is sharing it." Push them to name a publisher and a source they opened.`,
+  lessonModule: {
+    durationLabel: "~25 min lesson",
+    sections: [
+      {
+        id: "start",
+        kicker: "Start here",
+        title: "Your feed is not a fact-check",
+        body: `A college rumor, a scholarship offer, and a news clip do not show up by accident. Apps rank what keeps you watching. They make sharing one tap. That is good for a real warning. It is also good for a fake deadline.\n\nYou do not have to distrust everything. You do have to **pause** before you pass it on.`,
+        image: "/images/lessons/dl-4.png",
+        imageAlt: "Multiple tabs used to check a digital claim",
+      },
+      {
+        id: "claim",
+        kicker: "The first split",
+        title: "What is the actual claim?",
+        body: `A **claim** is a sentence you can check. “This scholarship is guaranteed.” “This college changed its deadline.” Likes, ALL CAPS, a shiny logo, and that gut punch are not evidence.\n\nRewrite the post as a question: Who said this? What happened? When? What would prove it?`,
+      },
+      {
+        id: "systems",
+        kicker: "Why it spreads",
+        title: "Apps reward what you tap",
+        body: `Feeds often push what gets clicks: speed, shock, ads. That can lift good reporting. It can also lift outrage and fake offers.\n\nAsk two extra questions: Who makes money if I stay? Who gets left out if this design wins?`,
+        checkIn: check(
+          "Why can a post with a million shares still be wrong?",
+          ["Viral posts are always official", "Algorithms remove all bias", "Sharing is a fact-check", "Apps can reward emotion more than accuracy"],
+          3,
+          "Reach is how far it traveled. It is not proof.",
+        ),
+      },
+      {
+        id: "stakes",
+        kicker: "Why it matters",
+        title: "A rumor can cost real people",
+        body: `A fake college rumor can panic a class. A fake internship can steal time or a Social Security number. A twisted news clip can change how a neighborhood gets treated.\n\nThe same share button can help a friend — or spread a lie. That is why the pause is the skill.`,
+      },
+      {
+        id: "sift",
+        kicker: "The habit",
+        title: "SIFT — four moves, not a vibe",
+        body: `**Stop** before you react. **Investigate the source** — who made this, and what is their record? **Find better coverage** — open another outlet or an official page. **Trace** the quote, photo, or number back to where it first appeared.\n\nSIFT is a routine. It is not a sticker you slap on after a glance.`,
+        image: "/images/lessons/dl-4-2.png",
+        imageAlt: "Four tabs used to check a source",
+        checkIn: check(
+          "A screenshot says a college canceled admissions. What first?",
+          ["Judge the font", "Share it to warn people", "Stop and find who made it before you act", "Trust the repost count"],
+          2,
+          "A pause keeps an unchecked claim from becoming a class-wide rumor.",
+        ),
+      },
+      {
+        id: "synthetic",
+        kicker: "AI-made posts",
+        title: "Fluent is not the same as found",
+        body: `A generated post can look finished: clean grammar, a confident tone, a realistic photo. That is not evidence. It can invent a scholarship, misquote a college, or stick a real chart on the wrong year.\n\nRun the same SIFT. If you cannot find an original you can open, say **unverified** — even when it sounds professional.\n\n“Too fluent, no source” is a yellow flag. The test is still: who published it, and where is the proof?`,
+        checkIn: check(
+          "A polished post explains a new college rule but names no office, date, or official page. Best move?",
+          ["Share it because the writing looks professional", "Ask a chatbot to rewrite it more confidently", "Treat it as unverified until you find an official or independent page", "Trust it if the image looks real"],
+          2,
+          "Pretty sentences are not a publisher.",
+        ),
+      },
+      {
+        id: "lateral",
+        kicker: "New tabs",
+        title: "Leave the page",
+        body: `**Lateral reading** means you do not stay on the pretty page. Open new tabs. Search the organization. Look for independent reporting or an official record.\n\nStaying on one page and judging the design is weak proof that the publisher deserves trust.`,
+        image: "/images/lessons/dl-4-3.png",
+        imageAlt: "A claim compared with coverage in other tabs",
+      },
+      {
+        id: "evidence",
+        kicker: "The number or the photo",
+        title: "Trace it to the original",
+        body: `A real chart can still mislead if the date, the group measured, or the method is gone. A real photo can be old. A quote can drop the sentence that changes it.\n\nFind the original. Ask whether it actually supports *this* claim.`,
+        checkIn: check(
+          "A post uses a real chart but gives no date or source. What next?",
+          ["Find the original chart and check date, method, and context", "Trust it if you already agree", "Share it with a disclaimer", "Treat the chart as proof"],
+          0,
+          "A chart needs a home and a date before it proves anything.",
+        ),
+      },
+      {
+        id: "bias",
+        kicker: "Perspective",
+        title: "Bias is not only an obvious lie",
+        body: `Bias can be what gets left out: which people, which photos, which outcomes. It can be the headline that picks a villain.\n\nA biased source can still have a useful fact. Name its job, its audience, its evidence, and what is missing.`,
+      },
+      {
+        id: "economics",
+        kicker: "Who gets paid",
+        title: "Someone may want your click",
+        body: `Ads, subscriptions, creator pay, and data collection can fund useful news. They can also fund clickbait and fake “apply by midnight” scholarships.\n\nAsk what the publisher gains if you click, share, stay, or type your email.`,
+      },
+      {
+        id: "case",
+        kicker: "Try it",
+        title: "“$10,000 guaranteed — apply tonight”",
+        body: `Stop. Who is the organizer? What is the real domain? Do they want a fee or a Social Security number? Find official aid pages and independent coverage. Read the actual terms.\n\n“Unverified” is a complete answer. You do not have to call it true or false on the first pass.`,
+        image: "/images/lessons/dl-4-4.png",
+        imageAlt: "A scholarship claim checked against official sources",
+        checkIn: check(
+          "A scholarship post asks for a fee to unlock awards. What do you do?",
+          ["Trust it because it looks polished", "Forward it to friends so they do not miss out", "Check the organizer, the terms, and official aid pages before you send any information", "Pay quickly so you do not miss the deadline"],
+          2,
+          "Money, a clock, and your personal info raise the bar. Check first.",
+        ),
+      },
+      {
+        id: "college",
+        kicker: "Try it",
+        title: "The group-chat college rumor",
+        body: `A chat says a university is rejecting every out-of-state applicant. Search the admissions site. Find a dated announcement. Look for reporting that is not “a friend said.”\n\nIf you cannot confirm it, say that. A source beats winning the argument.`,
+      },
+      {
+        id: "work",
+        kicker: "First jobs",
+        title: "The too-good job text",
+        body: `A real employer can still be a bad fit. Compare the listing with the company’s own careers page: duties, pay, location, how to apply. Be extra careful with a DM you did not ask for, a request for ID, or “pay us to start.”\n\nSearch makes jobs easier to find. It also makes fake listings easy to spray.`,
+      },
+      {
+        id: "participate",
+        kicker: "What you do next",
+        title: "You do not have to share it",
+        body: `After you check, you might share a verified source, correct a post without dunking, report a scam, ask a question, or just not amplify it. Ask: who gets hurt if I am wrong?\n\nChecking is how you participate. It changes what the next person sees.`,
+      },
+      {
+        id: "ready",
+        kicker: "Remember this",
+        title: "Trust should be earned",
+        body: `Use SIFT. Open a new tab. Check source, date, context, and who gets paid. For college, money, news, and work — slow down.\n\nLikes are not a source.`,
+        checkIn: check(
+          "What is the most complete check of an online claim?",
+          ["It is first in search", "Friends already believe it", "It has a lot of likes", "You checked the source, the evidence, the context, who benefits, and another page"],
+          3,
+          "Check the claim and the machine that pushed it to you.",
+        ),
+      },
+    ],
+  },
+  bigIdeas: [
+    "Feeds push what you tap — that is not a fact-check.",
+    "**SIFT** and a **new tab** beat judging a page by how it looks.",
+    "A number or photo needs a source, a date, and a fair context.",
+    "College, money, news, and jobs need a slower check.",
+    "AI writing can sound finished and still have no source you can open.",
+  ],
+  keyTerms: [
+    { term: "Claim", definition: "A sentence you can check with evidence." },
+    { term: "Lateral reading", definition: "Leaving the page to check the publisher in new tabs." },
+    { term: "SIFT", definition: "Stop; Investigate the source; Find better coverage; Trace claims to the original." },
+    { term: "Bias", definition: "A slant in what gets included, left out, or blamed." },
+    { term: "Incentive", definition: "What a publisher or app gains if you click, stay, or share." },
+    { term: "Context", definition: "Source, date, audience, and surrounding details that make evidence make sense." },
+  ],
+  realWorld: "A fake scholarship post can cost money, privacy, and time. Checking it protects you and anyone who would have trusted your share.",
   quiz: [
-    { id: "q1", question: "Why can viral reach be a poor measure of truth?", choices: [
-            "Viral posts are official",
-            "Likes are peer review",
-            "Engagement and emotion can be rewarded independently of evidence quality",
-            "Platforms only show false content",
-          ], correctIndex: 2, explanation: "Distribution is not the same as verification." },
-    { id: "q2", question: "What is the first SIFT move for a shocking college rumor?", choices: [
-            "Read comments only",
-            "Share immediately",
-            "Trust the screenshot",
-            "Stop before reacting or amplifying it",
-          ], correctIndex: 3, explanation: "Pausing creates space to investigate rather than spread an unverified claim." },
-    { id: "q3", question: "What does lateral reading require?", choices: [
-            "Opening independent sources to investigate the publisher and claim",
-            "Studying the page design longer",
-            "Avoiding official sources",
-            "Only reading a headline",
-          ], correctIndex: 0, explanation: "The method checks a source from outside its own framing." },
-    { id: "q4", question: "A real chart has no source or date. What should you do?", choices: [
-            "Trust it if familiar",
-            "Trace it to original context and evaluate method and date",
-            "Treat it as proof",
-            "Share with an emoji",
-          ], correctIndex: 1, explanation: "Context determines whether evidence supports the claim." },
-    { id: "q5", question: "Why evaluate incentives behind a scholarship ad?", choices: [
-            "Official aid requires fees",
-            "All ads are false",
-            "Incentives replace evidence",
-            "A publisher may profit from clicks, data, fees, or urgency",
-          ], correctIndex: 3, explanation: "Incentives help explain design choices but do not alone settle truth." },
-    { id: "q6", question: "What is a responsible response to an unverified high-stakes claim?", choices: [
-            "Say it is unverified, seek official evidence, and avoid spreading it",
-            "Assume it is true",
-            "Attack the poster",
-            "Amplify it with a warning",
-          ], correctIndex: 0, explanation: "A careful response reduces harm while evidence is gathered." },
-    { id: "q7", question: "Which evaluation includes computing culture?", choices: [
-            "Picking “Ignoring who may be harmed” is a common mix-up that confuses a nearby idea with the right one",
-            "Considering how platform design, incentives, and sharing practices shape the claim’s reach and effects",
-            "It can seem like counting followers, but that reading skips the distinction this question is testing",
-            "Some learners answer “Only checking spelling”, yet that does not match the precise idea from the lesson",
-          ], correctIndex: 1, explanation: "Claims are embedded in systems that influence attention and participation." },
-    { id: "q8", question: "Why can a fluent AI-written post still fail SIFT?", choices: [
-            "Generated writing is always false",
-            "Fluency does not identify a publisher or an original you can trace",
-            "SIFT only applies to images",
-            "AI posts cannot be shared",
-          ], correctIndex: 1, explanation: "SIFT asks who published the claim and where the evidence came from — not how polished the sentences are." },
+    {
+      id: "q1",
+      question: "Why are shares a poor measure of truth?",
+      choices: ["Viral posts are official", "Likes are peer review", "Apps can reward emotion even when the claim is weak", "Feeds only show false content"],
+      correctIndex: 2,
+      explanation: "How far it traveled is not the same as whether it is true.",
+    },
+    {
+      id: "q2",
+      question: "First SIFT move for a shocking college rumor?",
+      choices: ["Read only the comments", "Share it right away", "Trust the screenshot", "Stop before you react or amplify it"],
+      correctIndex: 3,
+      explanation: "The pause is what makes the rest of SIFT possible.",
+    },
+    {
+      id: "q3",
+      question: "What does leaving the page (lateral reading) require?",
+      choices: ["Opening other sources to check the publisher and the claim", "Staring at the design longer", "Avoiding official sites", "Reading only the headline"],
+      correctIndex: 0,
+      explanation: "You check a source from outside its own story.",
+    },
+    {
+      id: "q4",
+      question: "A real chart has no source or date. What do you do?",
+      choices: ["Trust it if it feels familiar", "Find the original and check method and date", "Treat it as proof", "Share it with an emoji"],
+      correctIndex: 1,
+      explanation: "Context decides whether the chart supports the claim.",
+    },
+    {
+      id: "q5",
+      question: "Why ask who gets paid from a scholarship ad?",
+      choices: ["Official aid always costs a fee", "All ads are false", "Money replaces evidence", "A publisher may profit from clicks, data, fees, or panic"],
+      correctIndex: 3,
+      explanation: "Incentives explain the design. They do not settle the facts by themselves.",
+    },
+    {
+      id: "q6",
+      question: "Best response to an unverified high-stakes claim?",
+      choices: ["Say it is unverified, look for an official page, and do not spread it", "Assume it is true", "Attack the poster", "Share it with a warning"],
+      correctIndex: 0,
+      explanation: "You can wait. Spreading it “just in case” still spreads it.",
+    },
+    {
+      id: "q7",
+      question: "What else should you notice besides the words in the post?",
+      choices: ["Ignore who might get hurt", "How the app’s design and pay model help the claim travel", "Only the follower count", "Only the spelling"],
+      correctIndex: 1,
+      explanation: "The post rides a machine built to keep you tapping.",
+    },
+    {
+      id: "q8",
+      question: "Why can a fluent AI-written post still fail SIFT?",
+      choices: ["Generated writing is always false", "Fluency does not name a publisher or an original you can open", "SIFT only applies to images", "AI posts cannot be shared"],
+      correctIndex: 1,
+      explanation: "SIFT asks who published it and where the proof is — not how polished it sounds.",
+    },
   ],
   artifact: {
     title: "SIFT writeup",

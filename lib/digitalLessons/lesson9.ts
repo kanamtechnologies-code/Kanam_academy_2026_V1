@@ -1,103 +1,281 @@
 import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
+const check = (prompt: string, choices: string[], correctIndex: number, explanation: string) => ({
+  prompt, choices, correctIndex, explanation,
+});
+
 export const digitalLesson9: AILessonConfig = {
   id: "dl-9",
-  title: "9. Accessible Creation & Bias in Digital Artifacts",
-  goal: "Create and edit digital content, then test and refine it to reduce bias and equity deficits through alt text, contrast, captions, readable structure, and purposeful export formats.",
+  title: "9. Make It So More People Can Use It",
+  goal: "Make a flyer, slide, or post that more people can actually read — headings, contrast, alt text, captions — then test it.",
   xpReward: 450,
-  badge: "Inclusive Creator",
+  badge: "Clear Designer",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/8",
   nextHref: "/learn/digital/10",
   instructorScript: `**Coach's note**
-Today's lesson: **Accessible Creation & Bias in Digital Artifacts**.
+Today's lesson: **Make It So More People Can Use It**.
 
-**Goal:** Create and edit digital content, then test and refine it to reduce bias and equity deficits through alt text, contrast, captions, readable structure, and purposeful export formats.
+**Goal:** Make a flyer, slide, or post that more people can actually read — headings, contrast, alt text, captions — then test it.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "Creation is an access decision".
+1. Warm-up: hold up a messy flyer (or project one). Ask "Who would have a hard time using this — and why?" Keep it concrete. Do not start with access theory.
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
-4. Close: one-sentence takeaway + how this shows up in real life.
+4. Close: one-sentence takeaway — pretty is not the same as usable. Test it.
 5. Artifact: students must submit the accessible-artifact note before they can finish. It is saved on this device for review.
 
-**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
+**Watch for:** "It looks fine on my laptop." Push them to name a person who would get left out, then name the fix (heading, contrast, alt text, caption, or a real test).`,
   lessonModule: {
     durationLabel: "~25 min lesson",
     sections: [
-      { id: "intro", kicker: "Start here", title: "Creation is an access decision", body: `A polished artifact can still exclude people. A club flyer with faint text, a video without captions, or a report built from bolded paragraphs may work for its creator but fail its audience. Today you will create, test, and refine content so more people can use it.`, image: "/images/lessons/dl-9.png", imageAlt: "A cluttered flyer beside a clear accessible version", callout: { label: "Goal", text: "Good design is not just style. It removes barriers without making people ask for special treatment." } },
-      { id: "equity", kicker: "The big idea", title: "Artifacts can create equity deficits", body: `An **equity deficit** happens when a design gives some people less access, information, or choice than others. A color-only chart can hide results from a color-vision-deficient viewer. Tiny text can lock out a viewer on a phone. Auto-playing video without captions excludes people who cannot hear it and people in a quiet library.\n\nBias is not always intentional. It can enter when creators test only with people like themselves or design only for their own device, bandwidth, language, and abilities.` },
-      { id: "purpose-audience", kicker: "Plan", title: "Start with audience and context", body: `Before choosing fonts or effects, name the artifact's job and audience. A scholarship infographic viewed on phones needs different choices than a printed museum label. Consider device size, internet access, language needs, sensory access, and whether a reader will scan or study it.\n\nDesigning for a broad audience is not “lowering standards.” It is testing whether your message actually reaches the people it claims to serve.` },
-      { id: "structure", kicker: "Readable structure", title: "Make meaning easy to navigate", body: `Use real headings in order, short paragraphs, descriptive link text, lists when they fit, and a consistent visual hierarchy. A heading should tell a reader what follows; “Click here” should become “Read the internship eligibility rules.”\n\nScreen readers and keyboard users rely on structure, while everyone benefits from being able to scan a document quickly. Bold text alone is not a substitute for a heading style.`, checkIn: { prompt: "Which revision most improves a long scholarship guide for both scanning and assistive technology?", choices: [
+      {
+        id: "intro",
+        kicker: "Start here",
+        title: "Pretty is not the same as usable",
+        body: `Your flyer can look cool and still fail.\n\nFaint white text on a photo. A club video with no captions. A long page with every sentence bolded. You can read it because you made it. Other people cannot — small phone, bright hallway, a screen reader, or they just need the date in two seconds.\n\nToday you make a flyer, slide, or post that more people can actually use. Then you test it.`,
+        image: "/images/lessons/dl-9.png",
+        imageAlt: "A cluttered flyer beside a clear accessible version",
+        callout: { label: "The first question", text: "Can someone find the point without asking you? If not, the design is not done." },
+      },
+      {
+        id: "equity",
+        kicker: "The big idea",
+        title: "Who gets left out",
+        body: `A design can work great for you and still leave people out.\n\nA chart that uses only red and green. Tiny type that disappears on a phone. A video that auto-plays with no captions — in a quiet library, or for someone who cannot hear it.\n\nYou do not have to mean to leave people out. It happens when you only test with people like you, on your device, with your internet, in your language.`,
+      },
+      {
+        id: "purpose-audience",
+        kicker: "Plan",
+        title: "Who is this for, and where will they see it?",
+        body: `Before you pick a font, name the job and the people.\n\nA scholarship graphic people open on phones is not the same as a printed museum label. Ask: small screen or paper? Fast internet or not? Will they scan for one fact, or sit and read?\n\nMaking it work for more people is not "dumbing it down." It is checking whether the message actually reaches the people you said it was for.`,
+      },
+      {
+        id: "structure",
+        kicker: "Readable structure",
+        title: "Headings are not just bold",
+        body: `Use real headings, in order. Short sections. Link text that says where it goes. "Click here" should become "Read the internship rules."\n\nScreen readers and keyboard users need that structure. Everyone else can scan faster too. Bolding every sentence does not build a heading. It just shouts.`,
+        checkIn: check(
+          "Which change helps a long scholarship guide the most — for people scanning and for a screen reader?",
+          [
             "Make every sentence bold",
-            "Use color alone to separate topics",
-            "Put all details in one text box",
-            "Use descriptive heading levels and short sections",
-          ], correctIndex: 3, explanation: "Heading structure communicates organization to people and tools; styling everything bold does not." } },
-      { id: "contrast", kicker: "Visual access", title: "Contrast and color carry meaning", body: `Contrast is the difference between text and its background. Low contrast may look subtle on a large monitor but disappear on a phone, projector, or in bright sunlight. Use strong contrast and readable type sizes.\n\nNever make color the only signal. A graph can use color plus labels, patterns, or direct values. That protects people with color-vision differences and makes a grayscale printout still useful.` },
-      { id: "alt-text", kicker: "Images", title: "Write alt text for the purpose", body: `Alt text is a brief description read aloud by screen readers. Describe what matters for the artifact's purpose, not every pixel. For a chart, include the takeaway: “Graduation rates rose from 78% to 88% from 2021 to 2025.” A decorative divider can have empty alt text so it does not create noise.`, image: "/images/lessons/dl-9-2.png", imageAlt: "A meaningful image description and a vague filename compared", checkIn: { prompt: "A graph supports your claim that bus ridership increased. Which alt text is strongest?", choices: [
+            "Use color alone to split topics",
+            "Dump every detail in one text box",
+            "Use real heading levels and short sections",
+          ],
+          3,
+          "Headings tell people and tools what comes next. Bold-everything does not.",
+        ),
+      },
+      {
+        id: "contrast",
+        kicker: "Visual access",
+        title: "If you cannot read it, the style failed",
+        body: `**Contrast** is how different the text is from the background. Soft gray on a photo can look fancy on a big monitor. On a phone in sunlight, the date is gone.\n\nDo not make color the only signal. Label the bars. Add a pattern. Write the number on the chart. That helps people who see color differently — and anyone looking at a black-and-white printout.`,
+      },
+      {
+        id: "alt-text",
+        kicker: "Images",
+        title: "Alt text says what the picture is for",
+        body: `**Alt text** is a short description a screen reader reads out loud. Say what the image is doing in this piece — not every pixel.\n\nFor a chart: "Graduation rates rose from 78% to 88% from 2021 to 2025." A decorative line can have empty alt text so it does not add noise.\n\n"graph.png" is a filename. It is not alt text.`,
+        image: "/images/lessons/dl-9-2.png",
+        imageAlt: "A meaningful image description and a vague filename compared",
+        checkIn: check(
+          "A graph backs your claim that bus ridership went up. Which alt text is strongest?",
+          [
             "A colorful graph",
-            "graph.png — familiar wording, wrong fit for what the prompt is actually asking",
+            "graph.png",
             "Line graph: weekday ridership rose from 900 to 1,400 between September and May",
             "Image of a line graph",
-          ], correctIndex: 2, explanation: "The best description gives the information the image contributes to the argument." } },
-      { id: "captions", kicker: "Audio and video", title: "Captions and transcripts extend access", body: `Captions communicate spoken words and important sounds. A transcript provides a readable version of the audio. Check auto-captions: names, technical terms, speaker changes, and timing often need correction.\n\nThese tools support Deaf and hard-of-hearing audiences, multilingual learners, quiet spaces, search, and anyone reviewing a video quickly. Captions are a core content feature, not an optional add-on.` },
-      { id: "media-bias", kicker: "Representation", title: "Check whose perspective is missing", body: `Images, examples, names, and scenarios signal who belongs. A career poster that shows only one gender in technical roles or a “normal user” example that assumes fast broadband can quietly narrow who sees themselves in the work.\n\nAsk: Whose experience does this artifact assume? Who may be left out? Do not stereotype or add token images; choose accurate, relevant representation and seek feedback when you are not the intended audience.` },
-      { id: "file-formats", kicker: "Ship it well", title: "Export formats affect access", body: `Export based on the destination. A tagged PDF can preserve readable structure; a plain image of a document often cannot. A captioned MP4 works broadly for video, while a separate transcript helps readers search and review. Use editable source files for collaborators and an accessible final format for the audience.\n\nTest the actual export. A beautiful editing view is not proof that the downloaded file keeps its links, reading order, captions, or contrast.`, checkIn: { prompt: "What is the strongest final step before posting a club report as a PDF?", choices: [
-            "Assume the editor preview matches every device",
+          ],
+          2,
+          "The best description gives the fact the picture is there to prove.",
+        ),
+      },
+      {
+        id: "captions",
+        kicker: "Audio and video",
+        title: "Captions are part of the video",
+        body: `**Captions** show the spoken words and the important sounds. A **transcript** is the whole thing as readable text. Auto-captions miss names, tech words, who is talking, and timing. Check them.\n\nCaptions help Deaf and hard-of-hearing people. They also help in a quiet room, when the audio is bad, and when someone is skimming. They are not an extra. They are the content.`,
+      },
+      {
+        id: "media-bias",
+        kicker: "Representation",
+        title: "Check whose story is missing",
+        body: `Pictures, names, and "normal user" examples quietly say who belongs.\n\nA career poster that only shows one kind of person in the tech jobs. A how-to that assumes fast home Wi-Fi. Ask: whose life does this assume? Who might not see themselves here?\n\nDo not drop in a random photo to "fix" it. Pick examples that are true and useful. If you are not the audience, ask someone who is.`,
+      },
+      {
+        id: "file-formats",
+        kicker: "Ship it well",
+        title: "The download is what people actually get",
+        body: `Export for the place it will live. A tagged PDF can keep headings. A screenshot of the whole page often cannot. A captioned video plus a transcript is easier to search.\n\nKeep an editable file for your team. Send the audience a file they can actually use.\n\nOpen the export. The pretty editing view is not proof the download kept its links, reading order, captions, or contrast.`,
+        checkIn: check(
+          "What is the strongest last step before you post a club report as a PDF?",
+          [
+            "Trust that the editor preview matches every device",
             "Rename the file twice",
-            "Open the exported PDF on a phone and check headings, links, and readability",
-            "Take a screenshot of every page",
-          ], correctIndex: 2, explanation: "Testing the exported artifact catches failures that the editing view can hide." } },
-      { id: "test", kicker: "Test", title: "Run an inclusion test", body: `Test with more than your own eyes. View on a small screen, zoom to 200%, mute the video, print in grayscale, navigate with a keyboard if possible, and ask a peer to find the main point quickly. These checks reveal barriers before publication.\n\nWhen you can, invite feedback from people affected by the design decision. Listen for patterns rather than defending the first draft.` },
-      { id: "refine", kicker: "Refine", title: "Use evidence to improve the artifact", body: `Suppose a peer cannot locate the event time, a caption names the wrong speaker, and the QR code disappears in grayscale. Each result points to a revision: strengthen hierarchy, edit captions, and add a labeled URL. Refinement is not failure; it is responsible creation.\n\nDocument what you changed and why. That makes your design choices explainable in a portfolio, team review, or workplace handoff.`, image: "/images/lessons/dl-9-3.png", imageAlt: "A flyer being revised after accessibility testing" },
-      { id: "scenario", kicker: "Evaluate", title: "Which tradeoff serves the audience?", body: `Your team wants a dramatic photo background with thin white text for a fundraiser post. It looks stylish, but phone testing shows the date is hard to read. The group can preserve the mood with a dark overlay, a solid text panel, or a different photo.\n\nThe best choice weighs appearance against the artifact's purpose: if people cannot find the date, the design has failed even if it looks impressive.`, checkIn: { prompt: "Which recommendation best reduces the equity deficit without abandoning the design?", choices: [
-            "Add a high-contrast text panel and test it on phones",
+            "Open the exported PDF on a phone and check headings, links, and whether you can read it",
+            "Screenshot every page",
+          ],
+          2,
+          "The file people download can break things the editor hid.",
+        ),
+      },
+      {
+        id: "test",
+        kicker: "Test",
+        title: "Do not only use your own eyes",
+        body: `Look at it on a small screen. Zoom to 200%. Mute the video. Print it in grayscale. Tab through it if you can. Ask a classmate to find the main point in ten seconds.\n\nThose checks show barriers before you post. If you can, ask someone the design actually affects. Listen for a pattern. Do not just defend the first draft.`,
+      },
+      {
+        id: "refine",
+        kicker: "Refine",
+        title: "Fix what the test showed",
+        body: `A classmate cannot find the event time. A caption names the wrong speaker. The QR code vanishes in grayscale. Each one is a fix: clearer headings, edited captions, a labeled URL under the code.\n\nChanging it is not failure. It is how you finish the job.\n\nWrite down what you changed and why. That note helps in a portfolio, a team review, or a handoff at work.`,
+        image: "/images/lessons/dl-9-3.png",
+        imageAlt: "A flyer being revised after accessibility testing",
+      },
+      {
+        id: "scenario",
+        kicker: "A real choice",
+        title: "The stylish post nobody can read",
+        body: `Your team wants a dramatic photo with thin white text for a fundraiser. It looks great on a laptop. On phones, the date disappears.\n\nYou can keep the mood: a dark overlay, a solid text panel, or a different photo.\n\nIf people cannot find the date, the post failed — even if it looks impressive.`,
+        checkIn: check(
+          "The date is hard to read on phones. What should the team do?",
+          [
+            "Add a high-contrast text panel and check it on phones",
             "Make the background busier",
-            "Keep the faint text because the photo is attractive",
-            "Tell viewers to increase brightness",
-          ], correctIndex: 0, explanation: "The revision preserves visual intent while making essential information usable." } },
-      { id: "checklist", kicker: "Take action", title: "Inclusive creator checklist", body: `Before publishing, check: clear purpose and audience; heading structure; readable size and contrast; labels beyond color; purposeful alt text; accurate captions or transcript; representative examples; and an export that preserves access. Then test the final artifact in the conditions where people will use it.` },
-      { id: "peer-review", kicker: "Peer review", title: "Ask for feedback that reveals barriers", body: `Instead of “Do you like it?”, ask a reviewer to find the main action, explain a chart without color, and use the artifact on their own device. Specific tasks produce evidence you can use to revise.` },
-      { id: "portfolio", kicker: "Show your process", title: "Explain an inclusive design choice", body: `In a portfolio or project reflection, name the barrier you anticipated, the feature you added, and what testing changed. This shows that accessibility is part of your creative reasoning—not a last-minute checklist.` },
-      { id: "ready", kicker: "Ready", title: "Create, test, refine", body: `Inclusive creators do more than make content look finished. They anticipate barriers, test their artifact with real conditions, and refine it when evidence shows someone is excluded. Your next slide, video, report, or portfolio piece is a chance to make access part of quality.` },
+            "Keep the faint text because the photo looks good",
+            "Tell people to turn up their brightness",
+          ],
+          0,
+          "Keep the look if you want — but put the facts where people can actually read them.",
+        ),
+      },
+      {
+        id: "checklist",
+        kicker: "Take action",
+        title: "Before you post",
+        body: `Check these: who it is for; real headings; size and contrast you can read; labels, not color alone; alt text that does a job; captions or a transcript that are right; examples that do not leave people out; an export that still works.\n\nThen open the final file the way people will actually use it.`,
+      },
+      {
+        id: "peer-review",
+        kicker: "Peer review",
+        title: "Do not ask \"Do you like it?\"",
+        body: `Ask a reviewer to find the main action. Explain the chart with the color turned off. Open it on their own phone.\n\nA real task gives you something you can fix. "Looks good" does not.`,
+      },
+      {
+        id: "portfolio",
+        kicker: "Show your process",
+        title: "Say what you changed",
+        body: `In a portfolio or a project note, name the barrier you spotted, what you added, and what testing changed.\n\nThat shows access was part of how you designed — not a last-minute checkbox.`,
+      },
+      {
+        id: "ready",
+        kicker: "Remember this",
+        title: "Make it, test it, fix it",
+        body: `Finished-looking is not the goal. More people being able to use it is.\n\nHeadings. Contrast. Alt text. Captions. Then a real test on a phone, muted, or in grayscale. If someone gets left out, change the file.`,
+        checkIn: check(
+          "Which sentence gets the job right?",
+          [
+            "If it looks good on your laptop, you are done",
+            "Make the file, test it the way people will use it, then fix what the test showed",
+            "Alt text is only for extra-credit projects",
+            "Captions are optional if the video looks polished",
+          ],
+          1,
+          "The test is part of making it. Pretty is not enough.",
+        ),
+      },
     ],
   },
-  bigIdeas: ["Digital artifacts can create equity deficits when their design excludes parts of the audience.", "Readable structure, contrast, alt text, captions, and labeled visuals make meaning more available.", "Testing the exported artifact and refining from evidence is responsible creation."],
-  keyTerms: [{ term: "Equity deficit", definition: "A gap in access, information, or opportunity created when a design works better for some people than others." }, { term: "Alt text", definition: "A concise text description that communicates an image's meaningful content to screen-reader users." }, { term: "Captions", definition: "Timed text for spoken words and important sounds in media." }, { term: "Contrast", definition: "The visual difference between foreground and background that makes text or graphics distinguishable." }, { term: "Readable structure", definition: "Meaningful heading levels, lists, links, and layout that make content navigable." }, { term: "Accessible export", definition: "A final file format that preserves usable text, structure, captions, and other access features." }],
-  realWorld: "An accessible campaign, report, or portfolio communicates competence: it reaches more people and shows that you test your work rather than assuming every user experiences it as you do.",
+  bigIdeas: [
+    "A flyer, slide, or post can look finished and still leave people out.",
+    "**Headings, contrast, alt text, and captions** make the meaning available to more people.",
+    "Test the file people actually get — then fix what the test showed.",
+  ],
+  keyTerms: [
+    { term: "Alt text", definition: "A short description of what an image is doing in this piece. A screen reader reads it out loud." },
+    { term: "Captions", definition: "Timed text for spoken words and important sounds in a video." },
+    { term: "Contrast", definition: "How different the text or graphic is from the background — so you can actually see it." },
+    { term: "Readable structure", definition: "Real headings, lists, and link text that let people (and tools) find their way." },
+    { term: "Accessible export", definition: "The download still has usable text, headings, captions, and links — not just a pretty preview." },
+    { term: "Who gets left out", definition: "The people your design does not work for — small screen, no sound, color differences, or a screen reader." },
+  ],
+  realWorld: "A club flyer, a scholarship graphic, or a portfolio slide should work on a phone, in a hallway, and with captions or alt text. That is the job — not just looking finished on your laptop.",
   quiz: [
-    { id: "q1", question: "Why is a chart that uses only red and green to distinguish categories an equity concern?", choices: [
-            "It prevents export to PDF",
-            "Some viewers cannot reliably distinguish the categories",
-            "Charts should never use color",
-            "It makes the file too small",
-          ], correctIndex: 1, explanation: "Use labels, patterns, or direct values alongside color so the information remains available." },
-    { id: "q2", question: "What should useful alt text for an argumentative chart include?", choices: [
-            "The data takeaway relevant to the argument",
-            "The file extension",
-            "The phrase 'image of'",
-            "Every visual detail",
-          ], correctIndex: 0, explanation: "Alt text should communicate the image's purpose and meaningful information." },
-    { id: "q3", question: "A video has auto-captions. What is the responsible next step?", choices: [
-            "Review and correct errors, names, speakers, and timing",
-            "Add background music",
-            "Publish without checking",
-            "Delete all captions",
-          ], correctIndex: 0, explanation: "Auto-captions can contain errors that change meaning or block understanding." },
-    { id: "q4", question: "Which test best checks whether a visual works for mobile viewers?", choices: ["View the final export on a phone", "Ask the creator if it looks good", "Use more fonts", "Only view it on a projector"], correctIndex: 0, explanation: "Test in the conditions where the intended audience will actually use it." },
-    { id: "q5", question: "Why test an exported PDF instead of trusting the editor preview?", choices: [
-            "Exports always add pages",
-            "PDFs cannot contain text",
-            "Editors never have previews",
-            "Exporting can change structure, links, and readability",
-          ], correctIndex: 3, explanation: "The final format is the artifact audiences receive, so it needs its own check." },
-    { id: "q6", question: "What is the best response when testing reveals that a QR code is unreadable in grayscale?", choices: [
-            "Tell users to use color screens",
-            "Remove all information",
-            "Make the QR code smaller",
-            "Add a labeled URL and improve contrast",
-          ], correctIndex: 3, explanation: "A redundant, readable route keeps essential information available." },
+    {
+      id: "q1",
+      question: "A chart uses only red and green to tell categories apart. Why is that a problem?",
+      choices: [
+        "It cannot be saved as a PDF",
+        "Some people cannot tell the categories apart",
+        "Charts should never use color",
+        "It makes the file too small",
+      ],
+      correctIndex: 1,
+      explanation: "Add labels, patterns, or the actual numbers so the chart still works without the colors.",
+    },
+    {
+      id: "q2",
+      question: "What should useful alt text for a chart include?",
+      choices: [
+        "The takeaway the chart is there to prove",
+        "The file extension",
+        "The words \"image of\"",
+        "Every visual detail",
+      ],
+      correctIndex: 0,
+      explanation: "Alt text should give the information the picture is doing in this piece.",
+    },
+    {
+      id: "q3",
+      question: "A video has auto-captions. What should you do next?",
+      choices: [
+        "Read them and fix names, speakers, and timing",
+        "Add background music",
+        "Post without checking",
+        "Delete all captions",
+      ],
+      correctIndex: 0,
+      explanation: "Auto-captions get names and meaning wrong. Check them before you post.",
+    },
+    {
+      id: "q4",
+      question: "Which test best checks whether a graphic works on phones?",
+      choices: [
+        "Open the final file on a phone",
+        "Ask the creator if it looks good",
+        "Add more fonts",
+        "Only look at it on a projector",
+      ],
+      correctIndex: 0,
+      explanation: "Test it the way the audience will actually see it.",
+    },
+    {
+      id: "q5",
+      question: "Why open the exported PDF instead of trusting the editor preview?",
+      choices: [
+        "Exports always add extra pages",
+        "PDFs cannot hold text",
+        "Editors never have previews",
+        "Exporting can scramble headings, links, and whether you can read it",
+      ],
+      correctIndex: 3,
+      explanation: "People get the download, not your editing screen. Check that file.",
+    },
+    {
+      id: "q6",
+      question: "A QR code disappears when you print in grayscale. What should you do?",
+      choices: [
+        "Tell people they need a color screen",
+        "Delete the information",
+        "Make the QR code smaller",
+        "Add a labeled URL and make the contrast stronger",
+      ],
+      correctIndex: 3,
+      explanation: "Give people a second way to get the same fact.",
+    },
   ],
   artifact: {
     title: "Accessible artifact note",

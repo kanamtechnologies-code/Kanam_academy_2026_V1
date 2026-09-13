@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-14` |
-| **Title** | Systematic Troubleshooting Others Can Reuse |
+| **Title** | Fix It So Someone Else Can Follow |
 | **Time** | 40–55 min |
-| **Week theme** | Agency: Wellbeing & Troubleshooting |
-| **Student goal** | Complete **Systematic Troubleshooting Others Can Reuse** and demonstrate the week focus: Personal impacts of computing, plus systematic troubleshooting guidelines others can reuse. |
+| **Week theme** | How You Feel and How You Fix Things |
+| **Student goal** | Complete **Fix It So Someone Else Can Follow** and demonstrate the week focus: Personal impacts of computing, plus systematic troubleshooting guidelines others can reuse. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 700 · Troubleshoot Designer |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Agency: Wellbeing & Troubleshooting**.  
+Week theme: **How You Feel and How You Fix Things**.  
 Focus: Personal impacts of computing, plus systematic troubleshooting guidelines others can reuse.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

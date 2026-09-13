@@ -296,7 +296,7 @@ Today's lesson: **Training, Testing, and Mistakes**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Take these with you: models are judged on a **hidden test set** of unseen examples — tune on **train/validation**, then run the **final test** once without peeking. **Overfitting** is memorizing the training data instead of learning the pattern. **Accuracy** is useful but can hide what *kinds* of mistakes a model makes — including false positives and false negatives. And pattern-based AI will always make some mistakes — confidently.\n\nThat's why "95% accuracy" should make you curious, not convinced.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on what follow-up question you'd ask about that other 5%.`,
+        body: `Take these with you: models are judged on a **hidden test set** of unseen examples — tune on **train/validation**, then run the **final test** once without peeking. **Overfitting** is memorizing the training data instead of learning the pattern. **Accuracy** is useful but can hide what *kinds* of mistakes a model makes — including false positives and false negatives. And pattern-based AI will always make some mistakes — confidently.\n\nThat's why "95% accuracy" should make you curious, not convinced.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug), then reflect on what follow-up question you'd ask about that other 5%.`,
       },
     ],
   },

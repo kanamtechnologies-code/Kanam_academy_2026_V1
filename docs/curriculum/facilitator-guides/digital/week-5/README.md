@@ -1,4 +1,4 @@
-# Digital Literacy · Week 5 — Creation, Accessibility & IP
+# Digital Literacy · Week 5 — Making Things and Giving Credit
 
 **Week focus:** Build more accessible artifacts and explain IP law’s benefits and harms for innovation.  
 **Track:** `digital-literacy`
@@ -7,8 +7,8 @@
 
 | Session | Lesson id | Title | Guide |
 | :---: | --- | --- | --- |
-| 1 | `dl-9` | Accessible Creation & Bias in Digital Artifacts | [session-1.md](session-1.md) |
-| 2 | `dl-10` | Intellectual Property: Innovation Tradeoffs & Credit | [session-2.md](session-2.md) |
+| 1 | `dl-9` | Make It So More People Can Use It | [session-1.md](session-1.md) |
+| 2 | `dl-10` | Who Owns the Work | [session-2.md](session-2.md) |
 
 ## Materials
 

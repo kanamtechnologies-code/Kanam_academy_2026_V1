@@ -324,25 +324,6 @@ Mission questions: explore → join → filter $4+ → orders per student → to
       },
     },
     {
-      id: "ex-predict-join-rows",
-      kind: "predict",
-      title: "Activity 4 — Predict the JOIN row count",
-      focusCommand: "plan",
-      commandExplain:
-        "Before you run it: if students has 10 rows and orders has 41 rows, how many rows should a correct JOIN on student_id return? Predict, then Run & check.",
-      goal: "Predict the joined row count, then verify.",
-      starterSql: `SELECT student_name, item, price
-FROM orders
-JOIN students ON orders.student_id = students.student_id;`,
-      codeReadOnly: true,
-      predictionPrompt: "How many rows should this JOIN return?",
-      acceptedPredictions: ["41", "41 rows", "forty-one", "forty one"],
-      hint: "A correct JOIN keeps one row per order — same count as orders.",
-      successMessage: "Yes — 41 joined rows (one per order). If you ever see way more, the ON key is wrong.",
-      failureMessage: "A proper student_id JOIN returns 41 rows — one per order.",
-      validate: (_sql, result) => Boolean(result && result.rowCount === 41),
-    },
-    {
       id: "ex-join-scratch",
       kind: "scratch",
       title: "Activity 5 — Build the joined receipt",

@@ -475,9 +475,4 @@ If you can't answer those from the paperwork, pause — with a trusted adult if 
         "Both avalanche (highest-APR first) and snowball (smallest-balance first) beat paying only minimums; avalanche tends to minimize total interest while snowball offers motivating quick wins — they aren't identical, and minimum-only isn't the cost-saving option even without missed payments.",
     },
   ],
-  reflection: {
-    prompt:
-      "Which debt trap feels most relevant to people your age (minimum payments, BNPL stacking, or high-cost short-term loans)? What personal rule will you use to avoid it?",
-    placeholder: "Example: I won't stack BNPL plans — if I can't pay the full price soon from cash flow, I wait…",
-  },
 };

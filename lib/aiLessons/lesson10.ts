@@ -333,7 +333,7 @@ Now do this one:
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Great prompting = a clear first prompt + examples when helpful + step-by-step for reasoning + specific follow-ups to refine — while staying honest about when you're learning versus when you're just outsourcing your thinking.\n\nBut here's the catch: even a perfectly steered answer can be confidently *wrong*. Next lesson tackles how to verify AI output. First, lock in today's ideas.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict).`,
+        body: `Great prompting = a clear first prompt + examples when helpful + step-by-step for reasoning + specific follow-ups to refine — while staying honest about when you're learning versus when you're just outsourcing your thinking.\n\nBut here's the catch: even a perfectly steered answer can be confidently *wrong*. Next lesson tackles how to verify AI output. First, lock in today's ideas.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug).`,
       },
     ],
   },

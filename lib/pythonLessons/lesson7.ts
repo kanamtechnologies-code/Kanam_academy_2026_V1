@@ -468,55 +468,9 @@ for i in range(5):
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the bounce",
-      focusCommand: "trace state",
-      commandExplain:
-        "Read this finished bouncer. Predict the five output lines before you see them.",
-      goal: "Type your prediction, then Run & check.",
-      starterCode: `message = "ping"
-
-for i in range(5):
-    print(message)
-    if message == "ping":
-        message = "pong"
-    else:
-        message = "ping"
-`,
-      solutionCode: `message = "ping"
-
-for i in range(5):
-    print(message)
-    if message == "ping":
-        message = "pong"
-    else:
-        message = "ping"
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What five lines print? (one per line)",
-      acceptedPredictions: [
-        "ping\npong\nping\npong\nping",
-        "ping pong ping pong ping",
-        "Ping\nPong\nPing\nPong\nPing",
-      ],
-      hint: "Print the current value first, then flip for the next turn.",
-      successMessage: "You traced the bouncing state correctly.",
-      failureMessage: "Walk through each turn: print the current message, then flip it.",
-      validate: (code, run) =>
-        !rejectsUppercasePrint(code) &&
-        noRunError(run) &&
-        run.stdout.length === 5 &&
-        run.stdout[0] === "ping" &&
-        run.stdout[1] === "pong" &&
-        run.stdout[2] === "ping" &&
-        run.stdout[3] === "pong" &&
-        run.stdout[4] === "ping",
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build the bouncer",
+      title: "Exercise 4 — Build the bouncer",
       focusCommand: "from scratch",
       commandExplain:
         "Write a program that starts with a value, loops 5 times, prints, and flips each turn.",

@@ -308,7 +308,7 @@ Same income, same wants — but the goal competed on payday instead of hoping fo
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Quick recap:\n\n• **Money** is a **tool** for choices — not a scoreboard for your worth.\n• Goals have **horizons**: short, medium, and long term.\n• **SMART-ish** goals are specific, measurable, realistic, relevant, and timed.\n• Your **values** help you choose when you can't fund everything.\n• One clear goal you track beats ten vague wishes.\n\nWhen you're ready, switch to the **Knowledge check**, then write a short reflection about one money goal that matters to you.`,
+        body: `Quick recap:\n\n• **Money** is a **tool** for choices — not a scoreboard for your worth.\n• Goals have **horizons**: short, medium, and long term.\n• **SMART-ish** goals are specific, measurable, realistic, relevant, and timed.\n• Your **values** help you choose when you can't fund everything.\n• One clear goal you track beats ten vague wishes.\n\nWhen you're ready, switch to the **Knowledge check**.`,
       },
     ],
   },
@@ -438,9 +438,4 @@ Same income, same wants — but the goal competed on payday instead of hoping fo
         "Values don't skip the budget math — they help you pick when you can't fund everything. They aren't a promise of higher income or a reason to skip the numbers.",
     },
   ],
-  reflection: {
-    prompt:
-      "Write one SMART-ish money goal for the next 1–3 months. Include the amount (or clear result), the deadline, and one habit that will fund it.",
-    placeholder: "Example: Save $100 for homecoming by Oct 10 by putting $20 from each Friday paycheck into savings…",
-  },
 };

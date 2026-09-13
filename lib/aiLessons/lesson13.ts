@@ -351,7 +351,7 @@ Today's lesson: **Bias, Fairness, and Data**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Because AI affects real decisions about real people, fairness isn't optional — it's a core part of building and using AI responsibly. Your power as a user is to question, not just accept — and to remember that "fair" always depends on a chosen definition.\n\nNext we cover privacy and deepfakes. First, lock in today's ideas.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict).`,
+        body: `Because AI affects real decisions about real people, fairness isn't optional — it's a core part of building and using AI responsibly. Your power as a user is to question, not just accept — and to remember that "fair" always depends on a chosen definition.\n\nNext we cover privacy and deepfakes. First, lock in today's ideas.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug).`,
       },
     ],
   },

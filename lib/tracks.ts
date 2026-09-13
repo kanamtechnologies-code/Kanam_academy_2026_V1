@@ -171,14 +171,14 @@ export const AP_CSP_PREP_WEEKS: WeekPlan[] = [
 ];
 
 export const DIGITAL_LITERACY_WEEKS: WeekPlan[] = [
-  { week: 1, theme: "Computing Systems Foundations", focus: "Abstraction layers, hardware/software/OS, and data storage tradeoffs (CSTA 3A CS + DA)." },
-  { week: 2, theme: "Networks & Information Integrity", focus: "How networks move data, search fluently, and evaluate claims in a computing culture." },
-  { week: 3, theme: "Connected Communication & Work", focus: "Professional digital communication and collaboration across teams, cultures, and careers." },
-  { week: 4, theme: "Identity, Culture & Equity", focus: "Reputation and footprint — then evaluate computing’s cultural impacts and equity deficits." },
-  { week: 5, theme: "Creation, Accessibility & IP", focus: "Build more accessible artifacts and explain IP law’s benefits and harms for innovation." },
-  { week: 6, theme: "Privacy, Security & Tradeoffs", focus: "Everyday threats, recommend controls, and evaluate automated data collection and privacy ethics." },
-  { week: 7, theme: "Agency: Wellbeing & Troubleshooting", focus: "Personal impacts of computing, plus systematic troubleshooting guidelines others can reuse." },
-  { week: 8, theme: "Futures & Capstone", focus: "Connected workplaces and careers — then evaluate impacts and ship a personal action plan." },
+  { week: 1, theme: "Hardware, Software & Your Files", focus: "Hardware vs software, then apps vs the operating system — then where files should live." },
+  { week: 2, theme: "Getting Online and Checking Sources", focus: "How a search actually travels — then check a claim before you share it." },
+  { week: 3, theme: "Messages and Teamwork", focus: "Write so people can answer you, then work on one shared file without chaos." },
+  { week: 4, theme: "Reputation and Who Gets Hurt", focus: "What you leave behind online — and what to do when someone gets piled on." },
+  { week: 5, theme: "Making Things and Giving Credit", focus: "Make work more people can use, then give credit and ask before you reuse." },
+  { week: 6, theme: "Scams and What Apps Take", focus: "Spot a fake message or bad file — then see what apps collect about you." },
+  { week: 7, theme: "How You Feel and How You Fix Things", focus: "How screens treat your sleep and focus — then a fix someone else can follow." },
+  { week: 8, theme: "Work Ahead and Your Plan", focus: "Jobs, tools, and showing up online — then write a plan you can actually use." },
 ];
 
 export const CYBERSECURITY_WEEKS: WeekPlan[] = [
@@ -339,22 +339,22 @@ const AI_LITERACY_LESSONS: LessonRow[] = [
 ];
 
 const DIGITAL_LITERACY_LESSONS: LessonRow[] = [
-  { id: "dl-1", title: "Computing Systems: Layers & Abstraction", href: "/learn/digital/1", xp: 50, badgeName: "Systems Thinker", badgeIcon: "", week: 1, session: 1, hasLesson: true },
-  { id: "dl-2", title: "Data Storage Tradeoffs: Local, Cloud & Organization", href: "/learn/digital/2", xp: 100, badgeName: "Storage Strategist", badgeIcon: "", week: 1, session: 2, hasLesson: true },
-  { id: "dl-3", title: "Networks & Finding Information Online", href: "/learn/digital/3", xp: 150, badgeName: "Network Navigator", badgeIcon: "", week: 2, session: 1, hasLesson: true },
-  { id: "dl-4", title: "Evaluating Claims in a Computing Culture", href: "/learn/digital/4", xp: 200, badgeName: "Critical Evaluator", badgeIcon: "", week: 2, session: 2, hasLesson: true },
-  { id: "dl-5", title: "Digital Communication for School & Work", href: "/learn/digital/5", xp: 250, badgeName: "Pro Communicator", badgeIcon: "", week: 3, session: 1, hasLesson: true },
-  { id: "dl-6", title: "Collaboration Across Teams, Cultures & Careers", href: "/learn/digital/6", xp: 300, badgeName: "Connected Collaborator", badgeIcon: "", week: 3, session: 2, hasLesson: true },
-  { id: "dl-7", title: "Digital Identity, Reputation & Social Practice", href: "/learn/digital/7", xp: 350, badgeName: "Identity Steward", badgeIcon: "", week: 4, session: 1, hasLesson: true },
-  { id: "dl-8", title: "Equity, Access & Harm Reduction Online", href: "/learn/digital/8", xp: 400, badgeName: "Equity Advocate", badgeIcon: "", week: 4, session: 2, hasLesson: true },
-  { id: "dl-9", title: "Accessible Creation & Bias in Digital Artifacts", href: "/learn/digital/9", xp: 450, badgeName: "Inclusive Creator", badgeIcon: "", week: 5, session: 1, hasLesson: true },
-  { id: "dl-10", title: "Intellectual Property: Innovation Tradeoffs & Credit", href: "/learn/digital/10", xp: 500, badgeName: "IP Analyst", badgeIcon: "", week: 5, session: 2, hasLesson: true },
-  { id: "dl-11", title: "Everyday Threats & Security Recommendations", href: "/learn/digital/11", xp: 550, badgeName: "Security Recommender", badgeIcon: "", week: 6, session: 1, hasLesson: true },
-  { id: "dl-12", title: "Privacy, Automated Collection & Ethical Tradeoffs", href: "/learn/digital/12", xp: 600, badgeName: "Privacy Evaluator", badgeIcon: "", week: 6, session: 2, hasLesson: true },
-  { id: "dl-13", title: "Computing Impacts on Wellbeing & Personal Agency", href: "/learn/digital/13", xp: 650, badgeName: "Agency Builder", badgeIcon: "", week: 7, session: 1, hasLesson: true },
-  { id: "dl-14", title: "Systematic Troubleshooting Others Can Reuse", href: "/learn/digital/14", xp: 700, badgeName: "Troubleshoot Designer", badgeIcon: "", week: 7, session: 2, hasLesson: true },
-  { id: "dl-15", title: "Computing, Careers & Connected Workplaces", href: "/learn/digital/15", xp: 750, badgeName: "Workplace Ready", badgeIcon: "", week: 8, session: 1, hasLesson: true },
-  { id: "dl-16", title: "Capstone: Evaluate Impacts & Act", href: "/learn/digital/16", xp: 800, badgeName: "Impact Evaluator", badgeIcon: "", week: 8, session: 2, hasLesson: true },
+  { id: "dl-1", title: "Hardware vs Software", href: "/learn/digital/1", xp: 50, badgeName: "Device Smart", badgeIcon: "", week: 1, session: 1, hasLesson: true },
+  { id: "dl-2", title: "Where Your Files Live", href: "/learn/digital/2", xp: 100, badgeName: "Storage Strategist", badgeIcon: "", week: 1, session: 2, hasLesson: true },
+  { id: "dl-3", title: "How a Search Gets to You", href: "/learn/digital/3", xp: 150, badgeName: "Search Smart", badgeIcon: "", week: 2, session: 1, hasLesson: true },
+  { id: "dl-4", title: "Check It Before You Share", href: "/learn/digital/4", xp: 200, badgeName: "Claim Checker", badgeIcon: "", week: 2, session: 2, hasLesson: true },
+  { id: "dl-5", title: "Messages That Get Answered", href: "/learn/digital/5", xp: 250, badgeName: "Clear Writer", badgeIcon: "", week: 3, session: 1, hasLesson: true },
+  { id: "dl-6", title: "Working on a Shared File", href: "/learn/digital/6", xp: 300, badgeName: "Team Player", badgeIcon: "", week: 3, session: 2, hasLesson: true },
+  { id: "dl-7", title: "What You Leave Behind Online", href: "/learn/digital/7", xp: 350, badgeName: "Reputation Aware", badgeIcon: "", week: 4, session: 1, hasLesson: true },
+  { id: "dl-8", title: "Who Gets Hurt — and Who Helps", href: "/learn/digital/8", xp: 400, badgeName: "Upstander", badgeIcon: "", week: 4, session: 2, hasLesson: true },
+  { id: "dl-9", title: "Make It So More People Can Use It", href: "/learn/digital/9", xp: 450, badgeName: "Clear Designer", badgeIcon: "", week: 5, session: 1, hasLesson: true },
+  { id: "dl-10", title: "Who Owns the Work", href: "/learn/digital/10", xp: 500, badgeName: "Credit Smart", badgeIcon: "", week: 5, session: 2, hasLesson: true },
+  { id: "dl-11", title: "Scams, Bad Files, and What To Do", href: "/learn/digital/11", xp: 550, badgeName: "Safety Habits", badgeIcon: "", week: 6, session: 1, hasLesson: true },
+  { id: "dl-12", title: "What Apps Collect About You", href: "/learn/digital/12", xp: 600, badgeName: "Privacy Smart", badgeIcon: "", week: 6, session: 2, hasLesson: true },
+  { id: "dl-13", title: "How Screens Treat You", href: "/learn/digital/13", xp: 650, badgeName: "Focus Keeper", badgeIcon: "", week: 7, session: 1, hasLesson: true },
+  { id: "dl-14", title: "Fix It So Someone Else Can Follow", href: "/learn/digital/14", xp: 700, badgeName: "Problem Solver", badgeIcon: "", week: 7, session: 2, hasLesson: true },
+  { id: "dl-15", title: "Jobs, Tools, and Showing Up Online", href: "/learn/digital/15", xp: 750, badgeName: "Workplace Ready", badgeIcon: "", week: 8, session: 1, hasLesson: true },
+  { id: "dl-16", title: "Your Plan From Here", href: "/learn/digital/16", xp: 800, badgeName: "Plan Builder", badgeIcon: "", week: 8, session: 2, hasLesson: true },
 ];
 
 const CYBERSECURITY_LESSONS: LessonRow[] = [

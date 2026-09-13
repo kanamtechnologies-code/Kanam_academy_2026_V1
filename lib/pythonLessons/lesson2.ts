@@ -170,33 +170,9 @@ print("Nice to meet you, " + name)
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the greeting",
-      focusCommand: "trace variable → output",
-      commandExplain: "If name is Jordan, what will this program print?",
-      goal: "Predict the exact output, then Run & check.",
-      starterCode: `name = "Jordan"
-print("Nice to meet you, " + name)
-`,
-      solutionCode: `name = "Jordan"
-print("Nice to meet you, " + name)
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What exact line prints?",
-      acceptedPredictions: ["Nice to meet you, Jordan", "nice to meet you, jordan"],
-      hint: "The name variable is Jordan, so that word appears in the greeting.",
-      successMessage: "You traced the variable to the output correctly.",
-      failureMessage: "Use the name Jordan inside the greeting sentence.",
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return run.stdout.join("\n").includes("Nice to meet you, Jordan");
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build a listener",
+      title: "Exercise 4 — Build a listener",
       focusCommand: "from scratch",
       commandExplain: "Write a program that asks for a name and prints Nice to meet you, … using that name.",
       goal: "Write the full program yourself.",

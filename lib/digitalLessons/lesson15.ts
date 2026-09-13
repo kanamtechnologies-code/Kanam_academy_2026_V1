@@ -2,20 +2,20 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson15: AILessonConfig = {
   id: "dl-15",
-  title: "15. Computing, Careers & Connected Workplaces",
-  goal: "Evaluate how computing connectivity affects career opportunity and workplace practices, then apply professional presence, productivity tools, and remote-collaboration norms for high school-to-work transitions.",
+  title: "15. Jobs, Tools, and Showing Up Online",
+  goal: "See the digital skills most jobs already expect — a clear email, a shared doc, a simple spreadsheet — and how you show up online before anyone meets you.",
   xpReward: 750,
   badge: "Workplace Ready",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/14",
   nextHref: "/learn/digital/16",
   instructorScript: `**Coach's note**
-Today's lesson: **Computing, Careers & Connected Workplaces**.
+Today's lesson: **Jobs, Tools, and Showing Up Online**.
 
-**Goal:** Evaluate how computing connectivity affects career opportunity and workplace practices, then apply professional presence, productivity tools, and remote-collaboration norms for high school-to-work transitions.
+**Goal:** See the digital skills most jobs already expect — a clear email, a shared doc, a simple spreadsheet — and how you show up online before anyone meets you.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "Connected work changes opportunity and expectations".
+1. Warm-up: ask "What is one tool a nurse, a mechanic, or a musician already uses at work?"
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
@@ -27,7 +27,7 @@ Today's lesson: **Computing, Careers & Connected Workplaces**.
       {
         id: "intro",
         kicker: "Start here",
-        title: "Connected work changes opportunity and expectations",
+        title: "Most jobs already assume you can do this",
         body: `Whatever you end up doing — nurse, designer, engineer, mechanic, musician, business owner — you'll use digital tools every single day. The skills in this lesson are the ones employers quietly assume you already have. Today you'll get a head start on them.\n\nHere's our roadmap:\n\n• **Why digital skills matter in *every* career** — not just "tech jobs."\n• **A positive professional online presence** — your footprint and a simple portfolio.\n• **The productivity suite** — docs, slides, and especially **spreadsheets** (with real formulas).\n• **Calendars, remote collaboration, and data literacy.**\n• **Professional email** for teachers, counselors, colleges, and employers.\n• **Using AI at work honestly** and keeping a **growth mindset** as tech changes.\n\nThink of this as a sneak peek at "adulting" in a digital workplace — especially if you're aiming for college, an internship, a first job, or a career *in tech*.`,
         image: "/images/lessons/dl-15.png",
         imageAlt: "A teen at a laptop with a spreadsheet, a video-call window, and a tidy online profile",
@@ -370,7 +370,7 @@ B6 instantly becomes 66    # you re-do ZERO math by hand`,
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've leveled up for the working world: digital skills matter in **every** career, a clean **online presence** and a **portfolio** help you get hired, **professional email** gets replies from busy adults, the **productivity suite** — especially **spreadsheets** with \`=SUM()\`, \`=AVERAGE()\`, \`=COUNT()\`, and \`=IF()\` — does real work for you, and **calendars, remote tools, and data literacy** keep teams running. On top of that, use **AI honestly** and keep **upskilling**, because tech never stops changing.\n\nNone of this requires being a "computer genius." It requires being prepared and willing to learn — which, after this track, absolutely describes you.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on one career-ready skill you want to build first.`,
+        body: `You've leveled up for the working world: digital skills matter in **every** career, a clean **online presence** and a **portfolio** help you get hired, **professional email** gets replies from busy adults, the **productivity suite** — especially **spreadsheets** with \`=SUM()\`, \`=AVERAGE()\`, \`=COUNT()\`, and \`=IF()\` — does real work for you, and **calendars, remote tools, and data literacy** keep teams running. On top of that, use **AI honestly** and keep **upskilling**, because tech never stops changing.\n\nNone of this requires being a "computer genius." It requires being prepared and willing to learn — which, after this track, absolutely describes you.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder).`,
       },
     ],
   },
@@ -509,9 +509,4 @@ B6 instantly becomes 66    # you re-do ZERO math by hand`,
         "Use and verify are fine when the task allows it. Refuse when privacy, honesty, or accuracy would be broken by a paste.",
     },
   ],
-  reflection: {
-    prompt:
-      "Evaluate one connected-work practice you expect to use in a class, job, or internship. Name one benefit and one tradeoff (including access or equity), then write a professional norm — including when you would use, verify, disclose, or refuse AI.",
-    placeholder: "Practice: shared project chat. Benefit: … Tradeoff: … Norm: I will … I would refuse AI when …",
-  },
 };

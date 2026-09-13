@@ -465,9 +465,4 @@ Credit isn't a personality score — it's a **track record** landlords and lende
         "Marketing that emphasizes speed and stacking applications over actual terms is a pattern to slow down and scrutinize — mentioning bonuses, skipping a credit check, or approving instantly says nothing about being free or low-cost.",
     },
   ],
-  reflection: {
-    prompt:
-      "When you eventually use credit, which one habit will you protect first — and why? (Example: on-time payments, low utilization, reading statements.)",
-    placeholder: "Example: I'll set calendar reminders so every card is paid on time before the due date…",
-  },
 };

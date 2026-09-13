@@ -1,4 +1,4 @@
-# Digital Literacy · Week 3 — Connected Communication & Work
+# Digital Literacy · Week 3 — Messages and Teamwork
 
 **Week focus:** Professional digital communication and collaboration across teams, cultures, and careers.  
 **Track:** `digital-literacy`
@@ -7,8 +7,8 @@
 
 | Session | Lesson id | Title | Guide |
 | :---: | --- | --- | --- |
-| 1 | `dl-5` | Digital Communication for School & Work | [session-1.md](session-1.md) |
-| 2 | `dl-6` | Collaboration Across Teams, Cultures & Careers | [session-2.md](session-2.md) |
+| 1 | `dl-5` | Messages That Get Answered | [session-1.md](session-1.md) |
+| 2 | `dl-6` | Working on a Shared File | [session-2.md](session-2.md) |
 
 ## Materials
 

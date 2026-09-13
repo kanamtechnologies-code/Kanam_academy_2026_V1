@@ -246,7 +246,7 @@ Today's lesson: **Investing Basics & Risk**.
         body: `Take thirty seconds to answer honestly, in your head or in a notes app:\n\n**If a friend sent you a message right now claiming a "guaranteed" way to double your money fast, what's the first question you'd ask before reacting?**\n\nThere's no wrong answer — the goal is noticing your own default reaction to hype, before it happens in a real group chat.`,
         callout: {
           label: "No wrong answers",
-          text: "You'll revisit a version of this question in the reflection at the end of the lesson — this is just the warm-up.",
+          text: "Just notice this now — you do not have to write it up later.",
         },
       },
       {
@@ -493,10 +493,4 @@ Missing one hype cycle doesn't end your financial life. FOMO trades have ended e
         "Matching a long-term goal's timeline to an appropriate approach, learning together, and adding consistently — without promising a specific outcome — reflects sound long-horizon thinking, unlike chasing a tip or never acting at all.",
     },
   ],
-  reflection: {
-    prompt:
-      "Describe one long-term goal (5+ years) and explain how risk, diversification, and horizon would shape how you treat money for that goal — versus money for next month's expenses.",
-    placeholder:
-      "Example: Long-term — trade-school certification fund in 6 years. I'd keep next month's phone bill safe, learn about diversified funds before investing any long-term money, and ignore day-trading hype…",
-  },
 };

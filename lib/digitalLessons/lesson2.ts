@@ -1,79 +1,278 @@
 import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
-const check = (prompt: string, choices: string[], correctIndex: number, explanation: string) => ({ prompt, choices, correctIndex, explanation });
+const check = (prompt: string, choices: string[], correctIndex: number, explanation: string) => ({
+  prompt, choices, correctIndex, explanation,
+});
 
 export const digitalLesson2: AILessonConfig = {
-  id: "dl-2", title: "2. Data Storage Tradeoffs: Local, Cloud & Organization",
-  goal: "Evaluate tradeoffs—cost, speed, reliability, accessibility, privacy, and integrity—for where and how data is stored and organized.",
-  xpReward: 100, badge: "Storage Strategist", dashboardHref: "/dashboard", prevHref: "/learn/digital/1", nextHref: "/learn/digital/3",
+  id: "dl-2",
+  title: "2. Where Your Files Live",
+  goal: "Decide whether a file should live on your device, in the cloud, or both — and how to name it, share it, and keep a real backup.",
+  xpReward: 100,
+  badge: "Storage Strategist",
+  dashboardHref: "/dashboard",
+  prevHref: "/learn/digital/1",
+  nextHref: "/learn/digital/3",
   instructorScript: `**Coach's note**
-Today's lesson: **Data Storage Tradeoffs: Local, Cloud & Organization**.
+Today's lesson: **Where Your Files Live**.
 
-**Goal:** Evaluate tradeoffs—cost, speed, reliability, accessibility, privacy, and integrity—for where and how data is stored and organized.
+**Goal:** Decide whether a file should live on your device, in the cloud, or both — and how to name it, share it, and keep a real backup.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "Storage is a decision, not a default".
+1. Warm-up: ask "If your laptop died tonight, which school file would you still have?" Keep it concrete. Do not start with storage models.
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
-4. Close: one-sentence takeaway + how this shows up in real life.
+4. Close: one-sentence takeaway — on the device is fast and works offline; the cloud is easier to share; sync is not a backup.
 
-**Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
-  lessonModule: { durationLabel: "~25 min lesson", sections: [
-    { id: "start", kicker: "Start here", title: "Storage is a decision, not a default", body: `A scholarship essay, group-project video, and first-job résumé do not all need the same storage plan. Where data lives affects who can reach it, how quickly it opens, what it costs, and how recoverable it is.\n\nYour job is to evaluate those tradeoffs and recommend a plan for the stakes of the task.`, image: "/images/lessons/dl-2.png", imageAlt: "Files organized across a laptop and cloud storage" },
-    { id: "data", kicker: "Core concept", title: "Files are data with structure", body: `A file stores data; a folder or directory organizes files; a path identifies where a file is located. Names, folders, and formats are not cosmetic. They affect whether a teammate can find the correct version and whether a portal can use it.\n\nUse a clear project structure: \`Applications/State-U/essay-2026-04.pdf\`, not a Downloads folder full of “final-final.”` },
-    { id: "local", kicker: "Option 1", title: "Local storage: fast and direct", body: `**Local storage** keeps data on a device you control. It can be fast and available without internet access. It may also be inaccessible if the device is lost, damaged, uncharged, or unavailable.\n\nLocal storage is useful for large media files, offline travel, and sensitive work—but it is not automatically reliable without a separate backup.`, checkIn: check("Which is a major advantage of local storage for a student editing video on a bus?", ["It is always shared with teammates", "It can remain available without an internet connection", "It has no privacy risk", "It automatically creates a backup"], 1, "Local files can be available offline; that convenience does not guarantee sharing or recovery.") },
-    { id: "cloud", kicker: "Option 2", title: "Cloud storage: accessible, with dependencies", body: `**Cloud storage** keeps data on a provider’s remote systems and typically lets authorized people reach it from multiple devices. It supports collaboration, version history, and recovery from one lost device.\n\nIts tradeoffs include account access, network dependence, subscription limits, provider policies, and possible privacy concerns. “Cloud” does not mean cost-free, private by default, or immune to mistakes.`, image: "/images/lessons/dl-2-2.png", imageAlt: "Devices accessing shared cloud files" },
-    { id: "compare", kicker: "Compare", title: "Evaluate six storage criteria", body: `Use a consistent lens: **cost** (price and time), **speed** (opening and transfer), **reliability** (failure and recovery), **accessibility** (where and for whom it works), **privacy** (who can view it), and **integrity** (whether it stays accurate and complete).`, table: { columns: ["Criterion", "Local storage", "Cloud storage"], values: [["Speed", "Often fast on the device", "Depends on connection and sync"], ["Accessibility", "Usually one device", "Authorized devices and collaborators"], ["Reliability", "Risk if one device fails", "Risk from account/service/sync failures"], ["Privacy", "More direct physical control", "Depends on permissions and provider"]], rowCount: 4 }, checkIn: check("A group needs to edit one shared presentation from school and home. Which criterion most strongly favors cloud storage?", ["Accessibility for authorized collaborators", "No cost", "No need for permissions", "Guaranteed privacy"], 0, "Shared cloud storage can make the current file reachable to authorized collaborators from more locations.") },
-    { id: "integrity", kicker: "Integrity", title: "Organization protects the right version", body: `Data integrity means data remains accurate, complete, and usable. A chaotic folder can create an integrity problem when a team submits an outdated draft or overwrites the approved version.\n\nUse meaningful names, shared conventions, limited edit permissions, and version history. Do not rename a file extension to “convert” it; export from the application so the data actually matches the required format.` },
-    { id: "sync", kicker: "Important distinction", title: "Sync is not a backup", body: `**Sync** keeps locations matched. That includes deletions and corrupted edits. A **backup** is a separate recoverable copy. Version history can help, but its retention period and recovery rules vary.\n\nFor high-stakes work, use more than one independent copy and test that recovery works.`, checkIn: check("Why can a synced folder fail as the only backup for an internship portfolio?", ["An accidental deletion or bad edit can propagate to every synced location", "Backups must be printed", "Cloud files cannot be opened", "Sync always prevents deletion"], 0, "Sync mirrors changes; a separate backup is designed to survive them.") },
-    { id: "privacy", kicker: "Privacy", title: "Access is part of storage design", body: `A shared link is a storage decision because it determines who can read, comment, or edit. “Anyone with the link can edit” may be convenient for a club flyer and unacceptable for a résumé list containing contact information.\n\nUse the least access needed: view, comment, or edit. Review sharing before sending a link.` },
-    { id: "cost", kicker: "Cost", title: "Free can still have a price", body: `A free service may limit storage, show ads, collect usage data, or make export harder later. A fast local drive costs money and can fail. Your time is also a cost: disorganized files create deadline risk.\n\nEvaluate total cost, not just the price shown today.` },
-    { id: "case", kicker: "Case study", title: "A scholarship application packet", body: `A student needs a private draft, a PDF upload, feedback from a counselor, and a safe copy before the deadline. A strong plan might use a private cloud folder with counselor comment access, a clearly named PDF export, version history, and an independent backup.\n\nThe recommendation works because it connects each choice to a need: collaboration, format, privacy, integrity, and recovery.`, image: "/images/lessons/dl-2-3.png", imageAlt: "Application documents with version history" },
-    { id: "recommend", kicker: "Recommendation", title: "Match the plan to the risk", body: `For a temporary class handout, a simple shared link may be enough. For a group research dataset, use clear roles and a documented source of truth. For tax, medical, or identity documents, minimize sharing, use strong account security, and maintain independent backups.\n\nThere is no universal “best” location. There is a defensible plan for a particular purpose.`, checkIn: check("Which plan best protects privacy and integrity for a résumé containing personal contact details?", ["Private folder, limited sharing, clear version names, and a separate backup", "Only one unnamed file in Downloads", "Public edit link so anyone can help", "Post it in a group chat"], 0, "The plan limits unnecessary access while making the correct version recoverable.") },
-    { id: "practice", kicker: "Decision routine", title: "Ask six questions before you save", body: `Who needs access? How quickly must it open? Can work continue offline? What is the cost? What happens if the device, account, or service fails? How will you confirm the correct version is used?\n\nAnswering these questions is more useful than automatically choosing local or cloud storage.` },
-    { id: "impact", kicker: "Impact", title: "Storage choices shape opportunity", body: `A student without reliable home internet experiences cloud-only assignments differently from a student with constant access. A school or employer also has responsibilities when required tools create cost, access, or privacy barriers.\n\nEvaluating storage includes considering whose access is improved or reduced by the design.` },
-    { id: "ready", kicker: "Synthesize", title: "Make a storage recommendation", body: `Compare local and cloud storage through cost, speed, reliability, accessibility, privacy, and integrity. Organize files so the right person can find the right version, and separate syncing from true backup.`, checkIn: check("What makes a storage recommendation defensible?", ["It names the task, compares relevant tradeoffs, and explains why the plan fits", "It chooses the cheapest option only", "It ignores recovery", "It always selects cloud storage"], 0, "A recommendation needs evidence about the task’s requirements and risks.") },
-  ] },
-  bigIdeas: ["Local and cloud storage offer different tradeoffs in **cost, speed, reliability, accessibility, privacy, and integrity**.", "**Organization** and permissions help people use the correct version.", "**Sync** mirrors changes; a **backup** is an independent recoverable copy.", "Recommend storage based on task requirements and risk."],
-  keyTerms: [{ term: "Local storage", definition: "Data stored on a device you directly use or control." }, { term: "Cloud storage", definition: "Data stored on remote provider systems and accessed through an account and network." }, { term: "Data integrity", definition: "The accuracy, completeness, and usability of data over time." }, { term: "Sync", definition: "A process that keeps copies or views matched, including many changes and deletions." }, { term: "Backup", definition: "A separate recoverable copy used after loss, deletion, or corruption." }, { term: "Permission", definition: "A rule defining whether someone can view, comment on, or edit data." }],
-  realWorld: "A scholarship packet needs more than a place to save: it needs a correct format, controlled access, recovery from mistakes, and a plan for a deadline.",
-  quiz: [
-    { id: "q1", question: "Which tradeoff most favors local storage for editing a large video while traveling?", choices: [
-            "Offline availability and fast device access",
-            "Unlimited sharing",
-            "Automatic group editing",
-            "No device-failure risk",
-          ], correctIndex: 0, explanation: "Local storage can remain accessible without a connection and may handle large files quickly." },
-    { id: "q2", question: "Which tradeoff most favors cloud storage for a group project?", choices: [
-            "No need for account security",
-            "Authorized collaborators can access a current shared version from multiple devices",
-            "No dependency on service availability",
-            "Guaranteed free storage",
-          ], correctIndex: 1, explanation: "Cloud storage can improve shared access, but it still needs permissions and connectivity." },
-    { id: "q3", question: "Why is sync not enough as the only backup?", choices: [
-            "It cannot store documents",
-            "A deletion or corruption can propagate across synced copies",
-            "It only works on phones",
-            "It is always slower",
-          ], correctIndex: 1, explanation: "Mirroring changes is useful but differs from preserving an independent recovery copy." },
-    { id: "q4", question: "A portal requires a PDF. What protects data integrity?", choices: [
-            "Upload the first file found",
-            "Export a real PDF and open it to verify the result",
-            "Rename .docx to .pdf",
-            "Change the folder color",
-          ], correctIndex: 1, explanation: "Exporting creates the required format; renaming only changes the label." },
-    { id: "q5", question: "Which access setting is appropriate for a résumé with personal contact details?", choices: [
-            "Post in a public class channel",
-            "Only needed reviewers can view or comment",
-            "Public comment access",
-            "Anyone with link can edit",
-          ], correctIndex: 1, explanation: "Least-privilege sharing reduces unnecessary privacy and integrity risk." },
-    { id: "q6", question: "What makes a storage plan strong?", choices: [
-            "It stores every file in Downloads",
-            "It matches access, speed, privacy, reliability, cost, and recovery needs to the task",
-            "It uses the newest service",
-            "It relies on one copy",
-          ], correctIndex: 1, explanation: "A sound plan is an evidence-based response to the actual task." },
+**Watch for:** saying "it's in the cloud" like that means the file is safe. Push students to say local, cloud, sync, or backup.`,
+  lessonModule: {
+    durationLabel: "~25 min lesson",
+    sections: [
+      {
+        id: "start",
+        kicker: "Start here",
+        title: "On the device, or in the cloud?",
+        body: `A scholarship essay, a group-project video, and a first-job résumé do not need the same plan.\n\n**On your device** can be fast and work without Wi-Fi. **In the cloud** can be opened from another computer and shared with a counselor. Both can fail — in different ways.\n\nToday you pick a home for a real file: where it lives, who can open it, and what happens if the laptop dies.`,
+        image: "/images/lessons/dl-2.png",
+        imageAlt: "Files organized across a laptop and cloud storage",
+        callout: { label: "The first question", text: "If this laptop died tonight, would you still have the file?" },
+      },
+      {
+        id: "data",
+        kicker: "Names and folders",
+        title: "A messy folder loses the file you need",
+        body: `A **file** holds the work. A **folder** (also called a directory) groups files. A **path** is the address: which folder, then which file.\n\nNames are not decoration. A teammate — or you, at 11 p.m. — has to find the right version. A college portal has to open the right format.\n\nUse a path people can read: \`Applications/State-U/essay-2026-04.pdf\`. Do not leave the only copy as \`final-final2\` in Downloads.`,
+      },
+      {
+        id: "local",
+        kicker: "Option 1",
+        title: "On your device: fast, and it works offline",
+        body: `**Local storage** means the file sits on a device you have — the Chromebook, a phone, a drive in your backpack.\n\nThat is useful on a bus with no Wi-Fi, for a huge video, or when you just need the file to open now. It is also gone if that device is lost, cracked, dead, or left at school.\n\nLocal is not a backup by itself. One copy on one laptop is one accident away from starting over.`,
+        checkIn: check(
+          "You are editing a large video on a bus with no Wi-Fi. What is the main win of saving it on the laptop?",
+          [
+            "Teammates can always open it",
+            "You can keep working with no internet",
+            "Nobody else could ever see it",
+            "The laptop makes a backup by itself",
+          ],
+          1,
+          "Local files can open offline. That does not mean they are shared or safe if the laptop dies.",
+        ),
+      },
+      {
+        id: "cloud",
+        kicker: "Option 2",
+        title: "In the cloud: other devices, other people",
+        body: `**Cloud storage** means the file lives on a company's computers, and you reach it with an account and a network. Think Drive, OneDrive, iCloud.\n\nThat is how a counselor comments on your essay from a different computer. You get version history. If one laptop dies, the file can still be there.\n\nYou still need the account, the password, and usually Wi-Fi. "Cloud" does not mean free forever, private by default, or safe from a bad click.`,
+        image: "/images/lessons/dl-2-2.png",
+        imageAlt: "Devices accessing shared cloud files",
+      },
+      {
+        id: "compare",
+        kicker: "Compare",
+        title: "Six questions before you save",
+        body: `Ask the same six things every time.\n\n**Cost** — money and your time. **Speed** — how fast it opens. **Will it still be there** if something fails. **Who can open it. Who can see it. Is this the right version.**`,
+        table: {
+          columns: ["Compare", "On your device", "In the cloud"],
+          values: [
+            ["Speed", "Often fast on that device", "Depends on Wi-Fi and sync"],
+            ["Who can open it", "Usually just this device", "People you give access, from more places"],
+            ["If something fails", "One dead laptop can take the file", "Account, sync, or the service can fail"],
+            ["Who can see it", "Whoever can pick up the device", "Depends on the share settings"],
+          ],
+          rowCount: 4,
+        },
+        checkIn: check(
+          "Your group needs to edit one slide deck from school and from home. What is the best reason to put it in the cloud?",
+          [
+            "The people who need it can open the same file from more than one place",
+            "The cloud is always free",
+            "You do not need any share settings",
+            "Nothing in the cloud can ever be seen by the wrong person",
+          ],
+          0,
+          "A shared cloud file can be the one copy the group actually uses — if you set who can open it.",
+        ),
+      },
+      {
+        id: "integrity",
+        kicker: "The right version",
+        title: "The file can still be there — and still be wrong",
+        body: `Chaos in a folder is how a team turns in last week's draft. The file exists. It is just not the complete, current one. That is what people mean by **integrity** — the right file, still usable.\n\nName files so people can find them. Agree who can edit. Use version history. Do not rename \`.docx\` to \`.pdf\` and call it a conversion. Export a real PDF, then open it and look.`,
+      },
+      {
+        id: "sync",
+        kicker: "Important split",
+        title: "Sync is not a backup",
+        body: `**Sync** keeps two places matched. Save on the laptop, it shows up in the cloud. Delete it in one place — it can disappear in the other. A bad edit can copy itself everywhere.\n\nA **backup** is a separate copy you can get back after a mistake. Version history can help. It does not last forever, and the rules change by app.\n\nFor a scholarship packet or an internship portfolio, keep more than one independent copy. Then actually try opening the spare.`,
+        checkIn: check(
+          "Why is a synced folder a weak only backup for an internship portfolio?",
+          [
+            "A delete or a bad edit can show up in every synced copy",
+            "Backups only count if you print them",
+            "Cloud files can never be opened",
+            "Sync always blocks deletes",
+          ],
+          0,
+          "Sync copies the change — including the bad one. A backup is a spare you can still recover.",
+        ),
+      },
+      {
+        id: "privacy",
+        kicker: "Sharing",
+        title: "A share link is a storage choice",
+        body: `When you make a link, you decide who can view, comment, or edit. That is part of where the file "lives."\n\n"Anyone with the link can edit" can be fine for a club flyer. It is a bad idea for a résumé with a phone number and an email.\n\nGive the least access that still gets the job done. Check the share settings before you send.`,
+      },
+      {
+        id: "cost",
+        kicker: "Cost",
+        title: "Free can still cost you",
+        body: `A free cloud plan may cap space, show ads, keep usage data, or make export a pain later. A fast local drive costs money and can fail.\n\nYour time is a cost too. A Downloads folder full of \`final-final\` is how people miss a deadline.\n\nLook at the whole bill: money, time, and what you lose if it breaks.`,
+      },
+      {
+        id: "case",
+        kicker: "Case study",
+        title: "A scholarship packet",
+        body: `You need a private draft, a PDF the portal will take, comments from a counselor, and a spare copy before the deadline.\n\nA solid plan: a private cloud folder, counselor on **comment** only, a clearly named PDF export, version history on, plus a copy on a drive or a second account that does not sync with the first.\n\nEach piece does a job: share with one person, keep the right format, get the file back if you mess up.`,
+        image: "/images/lessons/dl-2-3.png",
+        imageAlt: "Application documents with version history",
+      },
+      {
+        id: "recommend",
+        kicker: "Pick a plan",
+        title: "Match the plan to the risk",
+        body: `A class handout you need for one day? A simple shared link can be enough.\nA group research folder? Name a source of truth and who can edit.\nTax forms, medical files, or anything with an ID number? Share as little as you can, lock the account, keep a backup that is not the same sync.\n\nThere is no one "best" place. There is a plan that fits this file.`,
+        checkIn: check(
+          "A résumé has a phone number and an email on it. Which plan is the smartest?",
+          [
+            "A private folder, only the people who need it, clear names, and a separate backup",
+            "One unnamed file sitting in Downloads",
+            "A public edit link so anyone can help",
+            "Drop it in a group chat",
+          ],
+          0,
+          "Limit who can open it, and keep a spare copy that is not the same sync.",
+        ),
+      },
+      {
+        id: "practice",
+        kicker: "Before you save",
+        title: "Ask these six things",
+        body: `Who needs this file? How fast does it have to open? Do you need it offline? What does this cost — money or time? What happens if the device, the account, or the service dies? How will you know this is the right version?\n\nAnswer those. Then pick local, cloud, or both. Do not pick from a slogan.`,
+      },
+      {
+        id: "impact",
+        kicker: "Why it matters",
+        title: "Not everyone has the same Wi-Fi",
+        body: `A cloud-only assignment is a different night for a student with spotty home internet than for a student who is always online. A school or a first job that requires one tool can shut people out — extra cost, no access, or a privacy problem.\n\nWhen you pick a home for a file, notice who can actually reach it.`,
+      },
+      {
+        id: "ready",
+        kicker: "Remember this",
+        title: "Pick a home. Keep a spare.",
+        body: `**On the device** is often faster and works offline. **The cloud** is easier to share and to open from another computer. Name the file so people can find the right version. **Sync is not a backup.**`,
+        checkIn: check(
+          "What makes a storage plan actually useful?",
+          [
+            "It names the file, who needs it, and what happens if the laptop dies",
+            "It is always the cheapest option",
+            "It skips any backup",
+            "It always uses the cloud",
+          ],
+          0,
+          "A good plan fits the file you have — not a slogan.",
+        ),
+      },
+    ],
+  },
+  bigIdeas: [
+    "**On your device** is often fast and works offline. **In the cloud** is easier to share and to open from another computer.",
+    "Name the file and set who can open it so people use the **right version**.",
+    "**Sync** copies changes — including deletes. A **backup** is a separate copy you can get back.",
+    "Pick a home based on this file: who needs it, and what happens if the laptop dies.",
   ],
-  reflection: { prompt: "Choose a real school, scholarship, internship, or group-project file. Recommend where and how it should be stored, using at least three tradeoff criteria and a recovery plan.", placeholder: "My group’s slides should use a restricted shared folder for access and version history, plus an exported backup before the deadline…" },
+  keyTerms: [
+    { term: "Local storage", definition: "The file lives on a device you have — a laptop, phone, or drive." },
+    { term: "Cloud storage", definition: "The file lives on a company's computers. You open it with an account and usually Wi-Fi." },
+    { term: "Data integrity", definition: "The file is the right one: complete, usable, and not last week's draft." },
+    { term: "Sync", definition: "Keeps copies matched. A delete or a bad edit can show up everywhere." },
+    { term: "Backup", definition: "A separate copy you can recover after loss, a delete, or a bad edit." },
+    { term: "Permission", definition: "A rule for who can view, comment, or edit." },
+  ],
+  realWorld: "A scholarship packet needs more than a place to save. It needs the right format, the right people, a way back if you mess up, and a plan before the deadline.",
+  quiz: [
+    {
+      id: "q1",
+      question: "You are editing a large video on a trip with weak Wi-Fi. Why save it on the laptop?",
+      choices: [
+        "It can stay available offline and open fast on that device",
+        "Sharing with the group is automatic",
+        "The whole group can edit it at once",
+        "A dead laptop cannot lose the file",
+      ],
+      correctIndex: 0,
+      explanation: "Local storage can work with no connection and handle a big file. It does not replace a backup.",
+    },
+    {
+      id: "q2",
+      question: "Why put a group project in the cloud?",
+      choices: [
+        "You can skip account security",
+        "The people who need it can open the current file from more than one device",
+        "The service can never go down",
+        "Cloud storage is always free",
+      ],
+      correctIndex: 1,
+      explanation: "The cloud helps a group share one file. You still need permissions and a connection.",
+    },
+    {
+      id: "q3",
+      question: "Why is sync not enough as the only backup?",
+      choices: [
+        "Sync cannot store documents",
+        "A delete or a bad edit can copy itself to every synced place",
+        "Sync only works on phones",
+        "Sync is always slower",
+      ],
+      correctIndex: 1,
+      explanation: "Sync mirrors the change. A backup is a spare that can survive the change.",
+    },
+    {
+      id: "q4",
+      question: "A portal wants a PDF. What keeps the file actually usable?",
+      choices: [
+        "Upload the first file you find",
+        "Export a real PDF and open it to check",
+        "Rename .docx to .pdf",
+        "Change the folder color",
+      ],
+      correctIndex: 1,
+      explanation: "Export makes a real PDF. Renaming only changes the label.",
+    },
+    {
+      id: "q5",
+      question: "A résumé has personal contact details. Who should be able to open it?",
+      choices: [
+        "Post it in a public class channel",
+        "Only the people who need to review it — view or comment",
+        "Anyone can comment",
+        "Anyone with the link can edit",
+      ],
+      correctIndex: 1,
+      explanation: "Give the least access that still gets the review done.",
+    },
+    {
+      id: "q6",
+      question: "What makes a storage plan strong?",
+      choices: [
+        "Every file lives in Downloads",
+        "It matches who needs the file, how fast it must open, privacy, cost, and how you get it back",
+        "It uses the newest app",
+        "It relies on one copy",
+      ],
+      correctIndex: 1,
+      explanation: "A strong plan fits this file — access, speed, privacy, and a real spare copy.",
+    },
+  ],
 };

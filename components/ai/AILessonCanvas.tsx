@@ -23,7 +23,6 @@ import { MatchOrder, type MatchPair, type OrderItem } from "@/components/exercis
 import { ScenarioTree, type ScenarioNode } from "@/components/exercises/ScenarioTree";
 import { AIDebugChallenge } from "@/components/exercises/AIDebugChallenge";
 import { AIParsonsChallenge } from "@/components/exercises/AIParsonsChallenge";
-import { AIPredictChallenge } from "@/components/exercises/AIPredictChallenge";
 import { EvalLab, type EvalLabCase } from "@/components/exercises/EvalLab";
 import { LessonModule, type LessonModuleData } from "@/components/data/LessonModule";
 import { LessonAside } from "@/components/lesson/LessonAside";
@@ -424,7 +423,12 @@ export function AILessonCanvas({
   };
 
   // Activities are attached server-side via attachInteractiveActivities before render.
-  const activities = lesson.activities ?? [];
+  const dropDebug = lesson.id.startsWith("dl-") || lesson.id.startsWith("fl-");
+  const activities = (lesson.activities ?? []).filter((activity) => {
+    if (activity.kind === "predict") return false;
+    if (dropDebug && activity.kind === "debug") return false;
+    return true;
+  });
   const allCorrect = lesson.quiz.every((q) => correctIds.has(q.id));
   const allActivitiesDone =
     activities.length === 0 || activities.every((a) => activityDoneIds.has(a.id));
@@ -643,7 +647,7 @@ export function AILessonCanvas({
                   title="Big ideas"
                   defaultOpen
                   icon={<Lightbulb className="h-5 w-5 text-[var(--accent)]" />}
-                  className="border-[rgb(var(--accent-rgb)/0.45)] bg-[rgb(var(--accent-rgb)/0.1)]"
+                  className="border-[rgb(var(--accent-rgb)/0.45)] bg-white"
                 >
                   <ul className="space-y-2">
                     {lesson.bigIdeas.map((idea, i) => (
@@ -661,7 +665,7 @@ export function AILessonCanvas({
                   title="Key terms"
                   defaultOpen
                   icon={<Brain className="h-5 w-5 text-[var(--brand)]" />}
-                  className="border-[var(--brand)]/30 bg-[var(--brand)]/5"
+                  className="border-[var(--brand)]/30 bg-white"
                 >
                   <div className="space-y-3">
                     {lesson.keyTerms.map((kt) => (
@@ -681,7 +685,7 @@ export function AILessonCanvas({
                 <LessonAside
                   title="Why this matters"
                   icon={<Sparkles className="h-5 w-5 text-violet-500" />}
-                  className="border-violet-200 bg-violet-50/50"
+                  className="border-violet-200 bg-white"
                 >
                   <p className="text-sm text-slate-700">{renderInline(lesson.realWorld)}</p>
                 </LessonAside>
@@ -835,7 +839,7 @@ export function AILessonCanvas({
               {allCorrect && activities.length > 0 ? (
                 <Card
                   ref={challengePanelRef}
-                  className="min-w-0 max-w-full scroll-mt-24 border-violet-200 bg-violet-50/40 shadow-md"
+                  className="min-w-0 max-w-full scroll-mt-24 border-violet-200 bg-white shadow-md"
                 >
                   <CardHeader className="min-w-0 max-w-full p-4 pb-2 sm:p-6 sm:pb-2">
                     <CardTitle className="flex min-w-0 items-center gap-2 text-base">
@@ -851,9 +855,7 @@ export function AILessonCanvas({
                               ? "Debug"
                               : activity.kind === "eval"
                                 ? "Eval lab"
-                                : activity.kind === "predict"
-                                  ? "Predict"
-                                  : activity.kind === "match"
+                                : activity.kind === "match"
                                     ? "Match"
                                     : activity.kind === "order"
                                       ? "Order"
@@ -879,9 +881,7 @@ export function AILessonCanvas({
                               ? "Debug"
                               : activity.kind === "eval"
                                 ? "Eval lab"
-                                : activity.kind === "predict"
-                                  ? "Predict"
-                                  : activity.kind === "match"
+                                : activity.kind === "match"
                                     ? "Match"
                                     : activity.kind === "order"
                                       ? "Order"
@@ -978,19 +978,6 @@ export function AILessonCanvas({
                             onComplete={() => markActivityDone(activeActivity.id)}
                           />
                         ) : null}
-                        {activeActivity.kind === "predict" ? (
-                          <AIPredictChallenge
-                            prompt={activeActivity.prompt}
-                            scenario={activeActivity.scenario}
-                            acceptedAnswers={activeActivity.acceptedAnswers}
-                            explanation={activeActivity.explanation}
-                            placeholder={activeActivity.placeholder}
-                            imageSrc={activeActivity.imageSrc}
-                            imageAlt={activeActivity.imageAlt}
-                            completed={activityDoneIds.has(activeActivity.id)}
-                            onComplete={() => markActivityDone(activeActivity.id)}
-                          />
-                        ) : null}
                         {activeActivity.kind === "eval" ? (
                           <EvalLab
                             title={activeActivity.title}
@@ -1031,7 +1018,7 @@ export function AILessonCanvas({
               ) : null}
 
               {practiceReady && !lessonComplete ? (
-                <Card className="border-[var(--brand)]/40 bg-[var(--brand)]/5 shadow-md">
+                <Card className="border-[var(--brand)]/40 bg-white shadow-md">
                   <CardContent className="space-y-4 py-6">
                     <div className="flex items-center gap-2">
                       <ShieldCheck className="h-5 w-5 text-[var(--brand)]" />

@@ -295,7 +295,7 @@ Today's lesson: **Inside a Large Language Model**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Carry these forward: an **LLM** generates language by predicting the next **token**, billions of times. The **context window** is its short-term memory — older text can drop out. And **hallucination** is when it confidently produces false but plausible-sounding content — sometimes with real, serious consequences, as a real lawyer learned the hard way.\n\nLLMs are brilliant at language tasks — explaining, drafting, summarizing, rephrasing, brainstorming — but unreliable as a source of truth without verification.\n\nNow that you know how they work, you're ready to *control* them. The next two lessons are all about prompting — getting great results on purpose. When you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict) first.`,
+        body: `Carry these forward: an **LLM** generates language by predicting the next **token**, billions of times. The **context window** is its short-term memory — older text can drop out. And **hallucination** is when it confidently produces false but plausible-sounding content — sometimes with real, serious consequences, as a real lawyer learned the hard way.\n\nLLMs are brilliant at language tasks — explaining, drafting, summarizing, rephrasing, brainstorming — but unreliable as a source of truth without verification.\n\nNow that you know how they work, you're ready to *control* them. The next two lessons are all about prompting — getting great results on purpose. When you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug) first.`,
       },
     ],
   },

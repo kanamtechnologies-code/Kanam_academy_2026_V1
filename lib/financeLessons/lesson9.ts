@@ -246,7 +246,7 @@ Today's lesson: **Saving & Compound Growth**.
         body: `Take thirty seconds — in your head or in a notes app — to answer honestly:\n\n**What is one thing that has stopped you from saving consistently so far, and what's one small change that could fix it?**\n\nMaybe it's "I forget," and the fix is an automatic transfer. Maybe it's "I don't have income yet," and the fix is picking a savings percentage now so it's ready when you do. There's no wrong answer here — this is just building the self-awareness that makes habits stick later.`,
         callout: {
           label: "No wrong answers",
-          text: "You'll revisit a version of this question in the reflection at the end of the lesson — this is just the warm-up.",
+          text: "Just notice this now — you do not have to write it up later.",
         },
       },
       {
@@ -470,10 +470,4 @@ The lesson isn't "never borrow." It's matching the tool to the timeline: short n
         "Maria's steady, automatic weekly deposits — bumped up after a raise instead of spent — built the cushion she used. It wasn't a single last-minute deposit or borrowed money.",
     },
   ],
-  reflection: {
-    prompt:
-      "Name one savings goal (prom, sports gear, car fund, etc.) and describe how you'll pay yourself first this month — amount or percent, when you'll move it, and how you'll protect that money from impulse spending.",
-    placeholder:
-      "Example: Goal — $150 for senior trip. I'll transfer $15 every Friday from my paycheck before weekend spending…",
-  },
 };

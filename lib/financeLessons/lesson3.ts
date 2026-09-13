@@ -422,9 +422,4 @@ Educational only — not tax advice. The goal is reading paperwork calmly instea
         "A careful stub check — hours through net vs. deposit — is the right first step before assuming an error or filing new paperwork.",
     },
   ],
-  reflection: {
-    prompt:
-      "If you have a job (or imagine one), how would using net pay instead of gross pay change a weekly spending plan? What is one skill you could build to raise your future gross pay?",
-    placeholder: "Example: I'd stop planning activities off the $240 gross and use the real deposit amount instead. I could learn basic spreadsheet skills…",
-  },
 };

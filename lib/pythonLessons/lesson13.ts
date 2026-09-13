@@ -538,57 +538,9 @@ npc(player_text)
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict which rule",
-      focusCommand: "trace if/elif/else",
-      commandExplain: 'If player_text is "hello", which exact line prints?',
-      goal: "Predict the greeting that uses npc_memory.",
-      starterCode: `npc_memory = {"name": "Alex", "class": "knight"}
-
-def npc(player_input):
-    if "hello" in player_input.lower():
-        print("Welcome, " + npc_memory["name"] + "!")
-    elif "quest" in player_input.lower():
-        print("A quest, you say? I'll remember this.")
-    else:
-        print("I do not understand, traveler.")
-
-player_text = "hello"
-npc(player_text)
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What exact line prints?",
-      acceptedPredictions: [
-        "Welcome, Alex!",
-        "welcome, alex!",
-        "Welcome, Alex",
-      ],
-      hint: '"hello" matches the if rule, and npc_memory["name"] is Alex.',
-      successMessage: "You traced which rule ran — and why.",
-      failureMessage: "The hello keyword hits the if branch and uses the stored name.",
-      solutionCode: `npc_memory = {"name": "Alex", "class": "knight"}
-
-def npc(player_input):
-    if "hello" in player_input.lower():
-        print("Welcome, " + npc_memory["name"] + "!")
-    elif "quest" in player_input.lower():
-        print("A quest, you say? I'll remember this.")
-    else:
-        print("I do not understand, traveler.")
-
-player_text = "hello"
-npc(player_text)
-`,
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
-        return run.stdout.join("\n").includes("Welcome, Alex!");
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build your AI NPC",
+      title: "Exercise 4 — Build your AI NPC",
       focusCommand: "from scratch",
       commandExplain:
         "Build a full NPC: npc_memory profile, def npc with if/elif/else, use the name in a message, test with player_text. No lists, no input().",

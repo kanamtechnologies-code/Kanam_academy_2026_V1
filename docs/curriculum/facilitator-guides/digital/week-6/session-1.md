@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-11` |
-| **Title** | Everyday Threats & Security Recommendations |
+| **Title** | Scams, Bad Files, and What To Do |
 | **Time** | 40–55 min |
-| **Week theme** | Privacy, Security & Tradeoffs |
-| **Student goal** | Complete **Everyday Threats & Security Recommendations** and demonstrate the week focus: Everyday threats, recommend controls, and evaluate automated data collection and privacy ethics. |
+| **Week theme** | Scams and What Apps Take |
+| **Student goal** | Complete **Scams, Bad Files, and What To Do** and demonstrate the week focus: Everyday threats, recommend controls, and evaluate automated data collection and privacy ethics. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 550 · Security Recommender |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Privacy, Security & Tradeoffs**.  
+Week theme: **Scams and What Apps Take**.  
 Focus: Everyday threats, recommend controls, and evaluate automated data collection and privacy ethics.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

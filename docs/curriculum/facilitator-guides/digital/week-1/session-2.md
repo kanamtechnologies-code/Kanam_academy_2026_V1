@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-2` |
-| **Title** | Data Storage Tradeoffs: Local, Cloud & Organization |
+| **Title** | Where Your Files Live |
 | **Time** | 40–55 min |
-| **Week theme** | Computing Systems Foundations |
-| **Student goal** | Complete **Data Storage Tradeoffs: Local, Cloud & Organization** and demonstrate the week focus: Abstraction layers, hardware/software/OS, and data storage tradeoffs (CSTA 3A CS + DA). |
+| **Week theme** | Hardware, Software & Your Files |
+| **Student goal** | Complete **Where Your Files Live** and pick a home for a real file: on the device, in the cloud, or both — plus a backup. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 100 · Storage Strategist |
@@ -43,15 +43,15 @@
 | Minutes | Phase | Facilitator | Students |
 | ---: | --- | --- | --- |
 | 0–5 | **Warm-up** | Ask: “Where did you evaluate something online this week?” | Pair share |
-| 5–20 | **Teach** | Walk Lesson slides; emphasize one big idea from: *Abstraction layers, hardware/software/OS, and data storage tradeoffs (CSTA 3A CS + DA).* | Follow Lesson tab |
+| 5–20 | **Teach** | Walk Lesson slides. Stay on on-device vs cloud, naming, sharing, and a real backup. | Follow Lesson tab |
 | 20–40 | **Apply** | Scenario / discussion; push for justified recommendations | Discuss + decide |
 | 40–50 | **Check** | Knowledge check / quiz; review wrong answers as teaching | Complete check |
 | 50–55 | **Close** | Exit ticket | One takeaway |
 
 ### Teaching focus
 
-Week theme: **Computing Systems Foundations**.  
-Focus: Abstraction layers, hardware/software/OS, and data storage tradeoffs (CSTA 3A CS + DA).
+Week theme: **Hardware, Software & Your Files**.  
+Focus: on the device vs in the cloud, naming, sharing, and a real backup.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).
 

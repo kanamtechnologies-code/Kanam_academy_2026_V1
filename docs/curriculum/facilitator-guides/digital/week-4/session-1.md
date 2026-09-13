@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-7` |
-| **Title** | Digital Identity, Reputation & Social Practice |
+| **Title** | What You Leave Behind Online |
 | **Time** | 40–55 min |
-| **Week theme** | Identity, Culture & Equity |
-| **Student goal** | Complete **Digital Identity, Reputation & Social Practice** and demonstrate the week focus: Reputation and footprint — then evaluate computing’s cultural impacts and equity deficits. |
+| **Week theme** | Reputation and Who Gets Hurt |
+| **Student goal** | Complete **What You Leave Behind Online** and demonstrate the week focus: Reputation and footprint — then evaluate computing’s cultural impacts and equity deficits. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 350 · Identity Steward |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Identity, Culture & Equity**.  
+Week theme: **Reputation and Who Gets Hurt**.  
 Focus: Reputation and footprint — then evaluate computing’s cultural impacts and equity deficits.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

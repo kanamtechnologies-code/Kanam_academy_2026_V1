@@ -269,19 +269,6 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       explanation:
         "AP CSP hammers place value: 1011₂ = 8+0+2+1 = 11₁₀. With n bits you get 2ⁿ patterns (0 through 2ⁿ−1 for unsigned). Digit-sum and 'n bits → n values' are high-frequency distractors.",
     },
-    {
-      id: "csp3-predict",
-      kind: "predict",
-      title: "Overflow prediction",
-      prompt:
-        "Predict the largest unsigned integer value that can be stored in 4 bits. Answer in decimal.",
-      scenario:
-        "Unsigned integers only.\nBit width: 4.\nPatterns run from 0000 to 1111.\nWhat is the maximum representable value?",
-      acceptedAnswers: ["15", "fifteen", "2^4 - 1", "2^4-1"],
-      explanation:
-        "4 bits → 2⁴ = 16 patterns (0–15). Max value is 2ⁿ − 1 = 15. A common trap is answering 16 (count of patterns) or 4 (bit count).",
-      placeholder: "Largest value?",
-    },
   ],
 
   "csp-4": [
@@ -482,19 +469,6 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       explanation:
         "AND needs both; OR needs at least one. AP CSP regularly tests compound Boolean expressions and the full relational set. Confusing OR with AND is a high-yield MCQ trap.",
     },
-    {
-      id: "csp5-predict",
-      kind: "predict",
-      title: "Trace the conditional",
-      prompt:
-        "Predict the value printed. Answer with the exact output string.",
-      scenario:
-        "x ← 4\ny ← 9\nIF (x < 5) AND (y ≥ 10)\n  DISPLAY \"A\"\nELSE\n  IF (x = 4) OR (y < 3)\n    DISPLAY \"B\"\n  ELSE\n    DISPLAY \"C\"",
-      acceptedAnswers: ["B", "b", "DISPLAY B", "\"B\""],
-      explanation:
-        "First condition: (4<5) true AND (9≥10) false → false, so ELSE. Inner: (x=4) true OR … → true → DISPLAY \"B\". Trap answers are A (forgetting AND) or C (ignoring the OR).",
-      placeholder: "A, B, or C?",
-    },
   ],
 
   "csp-6": [
@@ -627,18 +601,6 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       hint: "What must change for (i > 5) to become true?",
       explanation:
         "If the state used in the terminating condition never changes, iteration is infinite. AP questions love missing increments/updates.",
-    },
-    {
-      id: "csp7-predict",
-      kind: "predict",
-      title: "Loop trace challenge",
-      prompt: "How many times is DISPLAY executed? Answer with a number.",
-      scenario:
-        "n ← 0\nREPEAT 4 TIMES\n{\n  n ← n + 2\n  DISPLAY n\n}",
-      acceptedAnswers: ["4", "four"],
-      explanation:
-        "REPEAT 4 TIMES runs the body four times regardless of n's value. DISPLAY is inside the body → 4 outputs (2,4,6,8). Trap: answering 8 (final n) or 2 (step size).",
-      placeholder: "Times DISPLAY runs?",
     },
   ],
 
@@ -929,19 +891,6 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       hint: "Think Amdahl-style limits and data dependencies — AP CSP language.",
       explanation:
         "AP CSP contrasts sequential and parallel: parallel can reduce time when tasks are independent, but dependent steps and overhead limit speedup. Sequential solutions remain fundamental.",
-    },
-    {
-      id: "csp10-predict",
-      kind: "predict",
-      title: "Efficiency comparison",
-      prompt:
-        "Algorithm A visits each of n list elements once. Algorithm B compares every pair of elements. As n grows, which grows faster in operations — A or B? Answer A or B.",
-      scenario:
-        "A: roughly n operations (linear traversal).\nB: roughly n×(n-1)/2 comparisons (pairwise).\nQuestion: which has the steeper growth for large n?",
-      acceptedAnswers: ["B", "b", "algorithm B", "Algorithm B"],
-      explanation:
-        "Pairwise work scales much faster than a single pass. AP CSP asks you to reason qualitatively about efficiency without heavy calculus — B's operations grow much quicker.",
-      placeholder: "A or B?",
     },
   ],
 
@@ -1660,19 +1609,6 @@ export const AP_CSP_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       hint: "Every sentence is a famous distractor family — invert each one.",
       explanation:
         "This is the exam-prep gauntlet: place value, compression fidelity, parallel limits, Internet vs WWW, IP/fair use nuance, and Create PT evidence requirements. If you can untangle this cluster, you are ready.",
-    },
-    {
-      id: "csp16-predict",
-      kind: "predict",
-      title: "Final mixed trace",
-      prompt:
-        "Predict the value of result after this AP-style fragment. Answer with a single integer.",
-      scenario:
-        "nums ← [2, 5, 8, 5]\nresult ← 0\nFOR EACH n IN nums\n{\n  IF n ≥ 5\n  {\n    result ← result + 1\n  }\n}\n// What is result?",
-      acceptedAnswers: ["3", "three"],
-      explanation:
-        "Elements ≥ 5 are 5, 8, and 5 → three increments. Traps: answering 4 (counting all), 18 (summing), or 2 (forgetting the second 5). List traversal + selection + accumulator is Create PT and MCQ core.",
-      placeholder: "result = ?",
     },
   ],
 };

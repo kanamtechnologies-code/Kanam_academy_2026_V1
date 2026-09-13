@@ -381,33 +381,9 @@ LIMIT 30;`,
       },
     },
     {
-      id: "ex-predict-limit",
-      kind: "predict",
-      title: "Exercise 3 — Predict the sample",
-      focusCommand: "LIMIT",
-      commandExplain: "Predict how many rows this query returns.",
-      goal: "Type your prediction, then Run & check.",
-      starterSql: `SELECT *
-FROM lunch_orders
-LIMIT 3;`,
-      codeReadOnly: true,
-      predictionPrompt: "How many rows will this query return?",
-      acceptedPredictions: ["3", "3 rows", "three", "three rows"],
-      hint: "LIMIT 3 caps the result at three rows.",
-      successMessage: "Yes — LIMIT 3 means at most three rows.",
-      failureMessage: "Look at the LIMIT number in the query.",
-      validate: (sql, result) => {
-        const n = normSql(sql);
-        if (!/\bselect\s+\*/.test(n)) return false;
-        if (!/\bfrom\s+lunch_orders\b/.test(n)) return false;
-        if (!/\blimit\s+3\b/.test(n)) return false;
-        return Boolean(result && result.rowCount === 3);
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 4 — Build a focused query",
+      title: "Exercise 3 — Build a focused query",
       focusCommand: "from scratch",
       commandExplain: "Write a query that shows student_name and price, limited to 4 rows.",
       goal: "Write the full query yourself.",

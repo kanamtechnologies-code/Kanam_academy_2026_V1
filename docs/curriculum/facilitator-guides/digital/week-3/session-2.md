@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-6` |
-| **Title** | Collaboration Across Teams, Cultures & Careers |
+| **Title** | Working on a Shared File |
 | **Time** | 40–55 min |
-| **Week theme** | Connected Communication & Work |
-| **Student goal** | Complete **Collaboration Across Teams, Cultures & Careers** and demonstrate the week focus: Professional digital communication and collaboration across teams, cultures, and careers. |
+| **Week theme** | Messages and Teamwork |
+| **Student goal** | Complete **Working on a Shared File** and demonstrate the week focus: Professional digital communication and collaboration across teams, cultures, and careers. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 300 · Connected Collaborator |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Connected Communication & Work**.  
+Week theme: **Messages and Teamwork**.  
 Focus: Professional digital communication and collaboration across teams, cultures, and careers.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

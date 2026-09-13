@@ -2,20 +2,20 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson6: AILessonConfig = {
   id: "dl-6",
-  title: "6. Collaboration Across Teams, Cultures & Careers",
-  goal: "Compare collaboration tools and methods that increase connectivity across cultures and career fields; use comments, version history, permissions, and meetings to coordinate responsible teamwork.",
+  title: "6. Working on a Shared File",
+  goal: "Set up one shared file so the team can find it, know who can edit, leave comments instead of overwriting, and start a project without four versions of the slides.",
   xpReward: 300,
-  badge: "Connected Collaborator",
+  badge: "Team Player",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/5",
   nextHref: "/learn/digital/7",
   instructorScript: `**Coach's note**
-Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
+Today's lesson: **Working on a Shared File**.
 
-**Goal:** Compare collaboration tools and methods that increase connectivity across cultures and career fields; use comments, version history, permissions, and meetings to coordinate responsible teamwork.
+**Goal:** Set up one shared file so the team can find it, know who can edit, leave comments instead of overwriting, and start a project without four versions of the slides.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "Collaboration connects more than one room".
+1. Warm-up: ask "How many copies of the slides did your last group project have?"
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
@@ -28,8 +28,8 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
       {
         id: "intro",
         kicker: "Start here",
-        title: "Collaboration connects more than one room",
-        body: `Digital collaboration can connect a student team across class periods, a nonprofit with volunteers in several cities, or a workplace across time zones and cultures. The tool alone does not make that connection equitable or effective. Teams must compare tools, set access intentionally, document decisions, and make room for people with different schedules, languages, devices, and communication styles.\n\nYou will evaluate when to use shared documents, chat, task boards, comments, version history, and meetings. You will also practice collaboration habits that work in group projects, internships, and careers where teammates may not share the same location or background.`,
+        title: "One file. Everyone can find it.",
+        body: `A group project, a club, or a first job can put people in different rooms — even different time zones. The app does not fix that by itself. You still have to pick **one home for the file**, decide **who can edit**, and leave **comments** instead of secretly overwriting each other.\n\nToday you set that up: shared folder, permissions, comments, version history, and a short kickoff so people with different schedules and devices can still work together.`,
         image: "/images/lessons/dl-6.png",
         imageAlt: "Laptop showing a shared Google Doc with multiple named cursors editing live; phone with a video meeting thumbnail",
         callout: {
@@ -239,7 +239,7 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
-        body: `Think about your last group project.\n\n• Did you use one shared doc, or did files get emailed around?\n• Did anyone ever wonder "which version is real," or worry about permissions?\n\nThere's a full reflection question at the end of this lesson. For now, just notice how much of the "group project stress" people complain about is really a missing kickoff checklist, not a difficult topic or a lazy teammate.`,
+        body: `Think about your last group project.\n\n• Did you use one shared doc, or did files get emailed around?\n• Did anyone ever wonder "which version is real," or worry about permissions?\n\nJust notice how much of the "group project stress" people complain about is really a missing kickoff checklist, not a difficult topic or a lazy teammate.`,
         callout: {
           label: "Reflect",
           text: "The team in the opening story didn't lack effort — they lacked one shared home for the file. That's a five-minute fix, not a personality problem.",
@@ -327,7 +327,7 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've learned the modern way teams work: one **shared document** with the right **permissions**, **comments and suggestions** instead of overwriting, and **version history** to undo any mistake. Add good meeting etiquette, careful link-sharing, and a five-decision kickoff, and you can run a remote team like a pro.\n\nThese habits end the "who has the latest version?" chaos forever — and they're exactly what employers mean when they ask if you can "collaborate."\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then submit the group kickoff plan.`,
+        body: `You've learned the modern way teams work: one **shared document** with the right **permissions**, **comments and suggestions** instead of overwriting, and **version history** to undo any mistake. Add good meeting etiquette, careful link-sharing, and a five-decision kickoff, and you can run a remote team like a pro.\n\nThese habits end the "who has the latest version?" chaos forever — and they're exactly what employers mean when they ask if you can "collaborate."\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder), then submit the group kickoff plan.`,
       },
     ],
   },

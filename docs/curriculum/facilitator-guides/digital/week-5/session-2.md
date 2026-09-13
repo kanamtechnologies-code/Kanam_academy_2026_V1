@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-10` |
-| **Title** | Intellectual Property: Innovation Tradeoffs & Credit |
+| **Title** | Who Owns the Work |
 | **Time** | 40–55 min |
-| **Week theme** | Creation, Accessibility & IP |
-| **Student goal** | Complete **Intellectual Property: Innovation Tradeoffs & Credit** and demonstrate the week focus: Build more accessible artifacts and explain IP law’s benefits and harms for innovation. |
+| **Week theme** | Making Things and Giving Credit |
+| **Student goal** | Complete **Who Owns the Work** and demonstrate the week focus: Build more accessible artifacts and explain IP law’s benefits and harms for innovation. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 500 · IP Analyst |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Creation, Accessibility & IP**.  
+Week theme: **Making Things and Giving Credit**.  
 Focus: Build more accessible artifacts and explain IP law’s benefits and harms for innovation.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

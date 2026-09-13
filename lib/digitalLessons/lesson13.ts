@@ -2,20 +2,20 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson13: AILessonConfig = {
   id: "dl-13",
-  title: "13. Computing Impacts on Wellbeing & Personal Agency",
-  goal: "Evaluate how computing affects focus, sleep, attention, ergonomics, and connection; then design and refine strategies that preserve benefits while reducing avoidable harms.",
+  title: "13. How Screens Treat You",
+  goal: "Notice how apps grab your attention, sleep, and mood — then pick a plan you can keep so the screen works for you, not the other way around.",
   xpReward: 650,
-  badge: "Agency Builder",
+  badge: "Focus Keeper",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/12",
   nextHref: "/learn/digital/14",
   instructorScript: `**Coach's note**
-Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
+Today's lesson: **How Screens Treat You**.
 
-**Goal:** Evaluate how computing affects focus, sleep, attention, ergonomics, and connection; then design and refine strategies that preserve benefits while reducing avoidable harms.
+**Goal:** Notice how apps grab your attention, sleep, and mood — then pick a plan you can keep so the screen works for you, not the other way around.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "What you'll learn today".
+1. Warm-up: ask "When did you last pick up your phone for one thing and lose twenty minutes?"
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
@@ -362,7 +362,7 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got the full picture: **not all screen time is equal** (creating beats consuming), apps are **designed** to grab your attention using tricks like infinite scroll and variable rewards, so it's not your fault it's hard to stop, "multitasking" is really focus-killing **task-switching**, screens hurt **sleep**, feeds are **highlight reels** that fuel comparison and FOMO, and your **body** needs good posture, eye breaks, and movement. Protect focus blocks especially during college apps, exams, and remote work.\n\nThe goal was never to fear technology — it's to use it on purpose. Spend your attention budget where *you* want it to go.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then jot a quick reflection about one healthy-tech habit you'll start this week.`,
+        body: `You've got the full picture: **not all screen time is equal** (creating beats consuming), apps are **designed** to grab your attention using tricks like infinite scroll and variable rewards, so it's not your fault it's hard to stop, "multitasking" is really focus-killing **task-switching**, screens hurt **sleep**, feeds are **highlight reels** that fuel comparison and FOMO, and your **body** needs good posture, eye breaks, and movement. Protect focus blocks especially during college apps, exams, and remote work.\n\nThe goal was never to fear technology — it's to use it on purpose. Spend your attention budget where *you* want it to go.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder).`,
       },
     ],
   },
@@ -488,9 +488,4 @@ Today's lesson: **Computing Impacts on Wellbeing & Personal Agency**.
         "Treating sleep as a fixed anchor rather than an afterthought protects focus and memory exactly when you need them most — a tired brain studies more slowly and makes more mistakes.",
     },
   ],
-  reflection: {
-    prompt:
-      "Evaluate one computing practice in your week. What benefit does it provide, what cost do you observe (focus, sleep, attention, connection, or ergonomics), and what agency strategy will you test? State what evidence you will review after a week and how you will refine the plan.",
-    placeholder: "Practice: … Benefit: … Cost/context: … Strategy: … Evidence after one week: … Revision if needed: …",
-  },
 };

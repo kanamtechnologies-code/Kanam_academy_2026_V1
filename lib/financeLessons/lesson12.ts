@@ -236,7 +236,7 @@ Today's lesson: **Scams, Fraud & Consumer Rights**.
         body: `Take thirty seconds to answer honestly:\n\n**Has a message, call, or DM ever pressured you to act fast about money or personal info? What made it feel urgent, looking back?**\n\nThere's no wrong answer — recognizing what urgency *felt like* in the moment helps you catch it faster next time.`,
         callout: {
           label: "No wrong answers",
-          text: "You'll revisit a version of this question in the reflection at the end of the lesson — this is just the warm-up.",
+          text: "Just notice this now — you do not have to write it up later.",
         },
       },
       {
@@ -481,10 +481,4 @@ One avoided scam beats ten "side hustle" tips.`,
         "A mismatch between the offer (high pay, no interview) and normal hiring practices — plus asking the applicant to pay first — is a classic scam pattern, unrelated to the job being remote or how the message was worded.",
     },
   ],
-  reflection: {
-    prompt:
-      "Write your personal 'pause rule' for when someone asks for money, codes, or remote access. Include how you'll verify and who you'll tell.",
-    placeholder:
-      "Example: If anyone asks for a code or gift cards, I hang up, tell a parent, and check the real app/website myself…",
-  },
 };

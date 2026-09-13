@@ -2,20 +2,20 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson5: AILessonConfig = {
   id: "dl-5",
-  title: "5. Digital Communication for School & Work",
-  goal: "Evaluate the audience, channel, and tone for school, work, and public messages; use professional email and chat norms to make clear, actionable requests.",
+  title: "5. Messages That Get Answered",
+  goal: "Pick the right place to send a message, write so the other person can actually reply, and send a real email a teacher or internship can use.",
   xpReward: 250,
-  badge: "Pro Communicator",
+  badge: "Clear Writer",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/4",
   nextHref: "/learn/digital/6",
   instructorScript: `**Coach's note**
-Today's lesson: **Digital Communication for School & Work**.
+Today's lesson: **Messages That Get Answered**.
 
-**Goal:** Evaluate the audience, channel, and tone for school, work, and public messages; use professional email and chat norms to make clear, actionable requests.
+**Goal:** Pick the right place to send a message, write so the other person can actually reply, and send a real email a teacher or internship can use.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "Communication is a design decision".
+1. Warm-up: ask "Would you send the last text you wrote to a teacher or a boss?"
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
@@ -28,8 +28,8 @@ Today's lesson: **Digital Communication for School & Work**.
       {
         id: "intro",
         kicker: "Start here",
-        title: "Communication is a design decision",
-        body: `A message is not “good” just because it is polite. It has to work for a specific **audience**, **purpose**, and **channel**. A three-word chat can be perfect for a teammate who needs a quick update and a poor choice for a teacher, internship supervisor, or public audience that needs a record.\n\nIn this lesson, you will evaluate communication choices for school, work, and public posts. You will compare email, chat, meetings, and public comments; test how tone changes meaning; and build messages that make a clear request, update, or decision possible.\n\nThose choices affect more than feelings. They affect whether a group project moves forward, whether an application office can help you, and whether people trust you with responsibility.`,
+        title: "Who is this for — and where should it go?",
+        body: `A message is not “good” just because it is polite. It has to work for **who** you are writing to, **why** you are writing, and **where** you send it. A three-word chat can be perfect for a teammate and a mess for a teacher, internship supervisor, or anyone who needs a record.\n\nToday you pick email vs chat vs a meeting, watch how tone disappears in text, and write a message with a clear ask. That is how a group project moves, how an office can help you, and how people decide you are easy to work with.`,
         image: "/images/lessons/dl-5.png",
         imageAlt: "Smartphone chat thread beside a laptop open to a professional email draft in a browser",
         callout: {
@@ -245,7 +245,7 @@ Today's lesson: **Digital Communication for School & Work**.
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
-        body: `Think of a message you sent this week that could have landed better.\n\n• Was it the right channel — or should it have been a call instead of a text?\n• Did it include any warmth, or could it have read as flat or cold?\n\nThere's a full reflection question waiting at the end of this lesson. For now, just notice: the "FINE WHATEVER" moment from earlier could happen to anyone — the fix isn't perfection, it's a quick, honest read-back before you hit send.`,
+        body: `Think of a message you sent this week that could have landed better.\n\n• Was it the right channel — or should it have been a call instead of a text?\n• Did it include any warmth, or could it have read as flat or cold?\n\nJust notice: the "FINE WHATEVER" moment from earlier could happen to anyone — the fix isn't perfection, it's a quick, honest read-back before you hit send.`,
         callout: {
           label: "Reflect",
           text: "If you're ever unsure how a message will land, read it back and ask: \"If a stranger sent me exactly this, how would I take it?\"",
@@ -333,7 +333,7 @@ Today's lesson: **Digital Communication for School & Work**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got the toolkit: pick the right **channel**, follow basic **netiquette**, remember that text **strips out tone**, and write clear messages with a strong subject line and an obvious ask. For anything formal, use the professional email shape — greeting, purpose, ask, sign-off — and switch your style for teachers, colleges, and workplaces.\n\nMaster this and you'll spend less time untangling misunderstandings and more time getting things done. It's one of the most underrated skills in school *and* in any job.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then submit the professional email artifact.`,
+        body: `You've got the toolkit: pick the right **channel**, follow basic **netiquette**, remember that text **strips out tone**, and write clear messages with a strong subject line and an obvious ask. For anything formal, use the professional email shape — greeting, purpose, ask, sign-off — and switch your style for teachers, colleges, and workplaces.\n\nMaster this and you'll spend less time untangling misunderstandings and more time getting things done. It's one of the most underrated skills in school *and* in any job.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder), then submit the professional email artifact.`,
       },
     ],
   },

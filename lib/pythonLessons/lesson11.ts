@@ -446,41 +446,9 @@ attack("goblin")
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the argument",
-      focusCommand: "trace parameter",
-      commandExplain: 'If we call attack("dragon"), what exact line prints?',
-      goal: "Predict the output for this call.",
-      starterCode: `def attack(enemy):
-    print("You attack the " + enemy + "!")
-
-attack("dragon")
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What exact line prints?",
-      acceptedPredictions: [
-        "You attack the dragon!",
-        "you attack the dragon!",
-        "You attack the dragon",
-      ],
-      hint: 'enemy becomes "dragon" for this call, then gets joined into the sentence.',
-      successMessage: "You traced the argument into the message correctly.",
-      failureMessage: "Replace enemy with dragon inside the printed sentence.",
-      solutionCode: `def attack(enemy):
-    print("You attack the " + enemy + "!")
-
-attack("dragon")
-`,
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
-        return run.stdout.join("\n").includes("You attack the dragon!");
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build with a parameter",
+      title: "Exercise 4 — Build with a parameter",
       focusCommand: "from scratch",
       commandExplain:
         "Write a function with one parameter, use it in print, and call it twice with different values.",

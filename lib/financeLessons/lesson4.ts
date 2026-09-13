@@ -464,9 +464,4 @@ Same student, same habits — fee structure alone can cost a concert ticket or t
       explanation: "Overdraft or NSF fees relate specifically to payments that exceed available funds, unlike the other listed fees.",
     },
   ],
-  reflection: {
-    prompt:
-      "If you opened (or already have) accounts, how would you split money between checking and savings — and which fee would you watch most carefully?",
-    placeholder: "Example: Paycheck to checking for bills/gas; auto-move $25 to savings; watch ATM and overdraft fees…",
-  },
 };

@@ -175,34 +175,9 @@ print("Hello! I am " + name)
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the output",
-      focusCommand: "trace the code",
-      commandExplain:
-        "Read this finished program. Predict exactly what it will print — before you see the answer.",
-      goal: "Type your prediction, then Run & check.",
-      starterCode: `name = "Sam"
-print("Hello! I am " + name)
-`,
-      solutionCode: `name = "Sam"
-print("Hello! I am " + name)
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What exact line will print?",
-      acceptedPredictions: ["Hello! I am Sam", "hello! i am sam"],
-      hint: "Replace name with Sam inside the sentence.",
-      successMessage: "Great tracing — you predicted the output.",
-      failureMessage: "Look at the string and the variable value carefully.",
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code)) return false;
-        return /Hello! I am\s+Sam/.test(run.stdout.join("\n"));
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build it yourself",
+      title: "Exercise 4 — Build it yourself",
       focusCommand: "from scratch",
       commandExplain:
         "No blanks this time. Write a short program that stores a name and prints Hello! I am … using that name.",

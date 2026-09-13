@@ -459,9 +459,4 @@ Emergency funds are **ranges**, not all-or-nothing. Even $150 changes outcomes v
         "Sinking funds prepare for costs you can name and schedule; emergency funds cushion true, necessary surprises — swapping the definitions or treating either as everyday spending money misses the distinction.",
     },
   ],
-  reflection: {
-    prompt:
-      "Name one spending leak you suspect and one upcoming expense that deserves a sinking fund. How would you fund that sinking fund each payday?",
-    placeholder: "Example: Leak = daily $6 drinks. Sinking fund = $180 winter formal ÷ 3 months ≈ $60/month…",
-  },
 };

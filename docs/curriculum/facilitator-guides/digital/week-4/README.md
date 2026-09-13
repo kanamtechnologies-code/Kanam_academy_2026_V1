@@ -1,4 +1,4 @@
-# Digital Literacy · Week 4 — Identity, Culture & Equity
+# Digital Literacy · Week 4 — Reputation and Who Gets Hurt
 
 **Week focus:** Reputation and footprint — then evaluate computing’s cultural impacts and equity deficits.  
 **Track:** `digital-literacy`
@@ -7,8 +7,8 @@
 
 | Session | Lesson id | Title | Guide |
 | :---: | --- | --- | --- |
-| 1 | `dl-7` | Digital Identity, Reputation & Social Practice | [session-1.md](session-1.md) |
-| 2 | `dl-8` | Equity, Access & Harm Reduction Online | [session-2.md](session-2.md) |
+| 1 | `dl-7` | What You Leave Behind Online | [session-1.md](session-1.md) |
+| 2 | `dl-8` | Who Gets Hurt — and Who Helps | [session-2.md](session-2.md) |
 
 ## Materials
 

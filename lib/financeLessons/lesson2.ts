@@ -442,9 +442,4 @@ You can't delete scarcity pressure, but you can slow it: name the **opportunity 
         "Naming what you give up makes the tradeoff conscious — the core skill of this lesson. A sale price doesn't erase what you're giving up by spending.",
     },
   ],
-  reflection: {
-    prompt:
-      "Describe a recent purchase (or almost-purchase). Was it a need, want, or gray area? What was the opportunity cost, and was any part of the decision nudged by advertising?",
-    placeholder: "Example: I almost bought a $70 hoodie during a flash sale. It was a want. Opportunity cost was two weeks of gas money…",
-  },
 };

@@ -30,7 +30,7 @@ Today's lesson: **College Costs, Aid & Loans**.
         title: "What you'll learn today",
         image: "/images/lessons/fl-14.png",
         imageAlt: "High school senior comparing college offer letters and net price on a laptop with a family member",
-        body: `College marketing loves big campus photos. Aid Navigators look at **numbers**: what it costs *you*, what doesn't need repayment, and what becomes debt.\n\nHere's the roadmap:\n\n• **A true-ish story** about two offer letters that looked nothing alike.\n• **Sticker vs net price**, **grants vs loans**, and **FAFSA awareness** — three core concepts, each with a quick check.\n• A **worked example** reading a real offer letter, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (reading appeal letters and net-price calculators), a **grants vs loans comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a reflection pause, a **mini-case**, and a mixed **check yourself**.\n\nNo school-rank hype — just clear money thinking for senior year and beyond.`,
+        body: `College marketing loves big campus photos. Aid Navigators look at **numbers**: what it costs *you*, what doesn't need repayment, and what becomes debt.\n\nHere's the roadmap:\n\n• **A true-ish story** about two offer letters that looked nothing alike.\n• **Sticker vs net price**, **grants vs loans**, and **FAFSA awareness** — three core concepts, each with a quick check.\n• A **worked example** reading a real offer letter, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (reading appeal letters and net-price calculators), a **grants vs loans comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a pause, a **mini-case**, and a mixed **check yourself**.\n\nNo school-rank hype — just clear money thinking for senior year and beyond.`,
         callout: {
           label: "Why it matters",
           text: "Two schools with similar sticker prices can differ by thousands in net cost. Comparing offers carefully can change your debt for years.",
@@ -498,10 +498,4 @@ Choosing debt for a dream major can be rational. Choosing debt for a hoodie logo
         "Composition and renewability distinguish otherwise-equal totals — gift aid and renewal terms create the real long-term difference, not the matching headline figure.",
     },
   ],
-  reflection: {
-    prompt:
-      "Invent two college/program offers (or use real ones). Compare sticker vs gift aid vs loans vs remaining gap. Which looks cheaper after a careful Aid Navigator read — and why?",
-    placeholder:
-      "Example: Offer A has a higher sticker but more renewable grants; Offer B pushes more loans. I'd pick based on net gap + debt…",
-  },
 };

@@ -47,21 +47,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       imageSrc: "/images/lessons/ai-ex-narrow-vs-general.png",
       imageAlt: "Diagram contrasting narrow AI tools with general intelligence",
     },
-    {
-      id: "ai1-predict",
-      kind: "predict",
-      title: "What will it say?",
-      prompt:
-        "A cat/dog classifier was trained only on fluffy house cats and golden retrievers. Predict what label it will most likely give a photo of a hairless Sphynx cat.",
-      scenario:
-        "Training set: fluffy cats + golden retrievers only.\nNew photo: hairless Sphynx cat (no fur, big ears).\nThe model must pick cat or dog.",
-      acceptedAnswers: ["dog", "dog label", "probably dog", "misclassify as dog"],
-      explanation:
-        "With no hairless cats in training, fur patterns dominate — the Sphynx can look 'not cat-like' to the model and get mislabeled as dog. Narrow AI only knows what it saw.",
-      placeholder: "cat or dog?",
-      imageSrc: "/images/lessons/ai-ex-narrow-vs-general.png",
-      imageAlt: "Narrow classifier making a guess from limited training examples",
-    },
   ],
 
   "ai-2": [
@@ -105,24 +90,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       hint: "Convenience and privacy often pull in opposite directions.",
       explanation:
         "AI around you thrives on data. Smarter feeds can mean better suggestions — and a bigger profile of your habits. Smart users weigh the tradeoff, not pretend it doesn't exist.",
-    },
-    {
-      id: "ai2-predict",
-      kind: "predict",
-      title: "Next video?",
-      prompt:
-        "Predict which video type the feed will push hardest after this watch history.",
-      scenario:
-        "Last 20 watches: 18 skate clips, 1 cooking short, 1 news clip.\nYou liked every skate video and skipped the cooking one halfway.\nThe app ranks by predicted watch time.",
-      acceptedAnswers: [
-        "skate",
-        "skate clips",
-        "more skate videos",
-        "skating videos",
-      ],
-      explanation:
-        "Recommenders double down on strong signals. Heavy skate watching + likes → more skate content. That's prediction from patterns, not mind-reading.",
-      placeholder: "What kind of video?",
     },
   ],
 
@@ -172,26 +139,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       imageSrc: "/images/lessons/ai-ex-pixels.png",
       imageAlt: "Pixel grid and waveform illustrating how sensors turn the world into data",
     },
-    {
-      id: "ai3-predict",
-      kind: "predict",
-      title: "Wake or not?",
-      prompt:
-        "Predict whether the speaker will wake and start listening.",
-      scenario:
-        'Wake word: "Hey Helper"\nYou say (quietly, TV blasting): "hey... uh... helper? can you—"\nMic also picks up a commercial saying "Hey, help her find deals!"',
-      acceptedAnswers: [
-        "no",
-        "won't wake",
-        "probably not",
-        "fail / no wake",
-      ],
-      explanation:
-        "Wake-word detectors need a clear match. Mumbling + loud TV + similar-sounding ads = missed or false triggers. Sensing systems are picky about input quality.",
-      placeholder: "wake or not?",
-      imageSrc: "/images/lessons/ai-ex-pixels.png",
-      imageAlt: "Audio waveform representing a messy wake-word attempt",
-    },
   ],
 
   "ai-4": [
@@ -237,24 +184,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       hint: "What information never enters the model if you only store BPM?",
       explanation:
         "Features are a compressed map of reality. If your map is too thin, the model can't learn the task — not because it's 'dumb,' but because the data left the meaning behind.",
-    },
-    {
-      id: "ai4-predict",
-      kind: "predict",
-      title: "What's lost?",
-      prompt:
-        "Predict the main thing this representation throws away.",
-      scenario:
-        "You store each classmate only as: height (cm) + favorite subject code.\nTask later: recommend who would enjoy a weekend art club meetup.",
-      acceptedAnswers: [
-        "interests in art",
-        "art interest / hobbies",
-        "personality and art skills",
-        "whether they like art",
-      ],
-      explanation:
-        "Height and subject codes don't capture art interest, skill, or social vibe. Representation loss means the model never saw the signal it needed.",
-      placeholder: "What info is missing?",
     },
   ],
 
@@ -302,19 +231,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       explanation:
         "Models learn from the examples you give. If almost every training email is spam, 'not-spam' looks rare and school messages get crushed. Data quality and balance matter.",
     },
-    {
-      id: "ai5-predict",
-      kind: "predict",
-      title: "Spam or not?",
-      prompt:
-        "Predict the model's likely label for this new email.",
-      scenario:
-        "Training taught: messages with 'FREE $$$' + weird links → spam.\nNew email from your teacher: 'FREE tutoring after school — sign-up link on the portal.'\nNo other strong not-spam signals were in training for the word FREE.",
-      acceptedAnswers: ["spam", "likely spam", "flagged as spam", "spam label"],
-      explanation:
-        "The model matches patterns, not intent. 'FREE' + link looked like spam in training, so a legit tutoring note can get mislabeled until you add better examples.",
-      placeholder: "spam or not-spam?",
-    },
   ],
 
   "ai-6": [
@@ -360,24 +276,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       hint: "What happens to the 10 attack cases if the model always says 'normal'?",
       explanation:
         "With imbalanced data, a lazy 'always normal' model looks accurate but fails the job. Accuracy alone can hide overfitting and rare-but-critical mistakes.",
-    },
-    {
-      id: "ai6-predict",
-      kind: "predict",
-      title: "Train vs test",
-      prompt:
-        "Predict which score will drop if the model overfit the homework examples.",
-      scenario:
-        "Quiz-bot memorizes every practice question word-for-word.\nTrain accuracy: 100%.\nFriday's real quiz uses new wording on the same topics.",
-      acceptedAnswers: [
-        "test accuracy",
-        "test score",
-        "quiz / test performance",
-        "held-out test accuracy",
-      ],
-      explanation:
-        "Overfitting inflates train scores. On a true test set (new wording), performance falls — that's why we hold data out.",
-      placeholder: "Which score drops?",
     },
   ],
 
@@ -425,21 +323,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Next-token generators need steering. 'Something cool' isn't a spec — strong prompts define create-what, for-whom, and in-what-shape.",
       imageSrc: "/images/lessons/ai-ex-prompt.png",
       imageAlt: "Example of upgrading a vague prompt into a clear generative request",
-    },
-    {
-      id: "ai7-predict",
-      kind: "predict",
-      title: "Create or classify?",
-      prompt:
-        "Predict which job this prompt is asking for: create or classify.",
-      scenario:
-        'User prompt: "Invent a 4-panel comic about a phone that learns to silence itself during class. Give panel captions."',
-      acceptedAnswers: ["create", "generative / create", "create (generate)", "generation"],
-      explanation:
-        "Inventing a comic is generative (create). Classifying would be labeling an existing comic as funny/not funny. Same AI family, different job.",
-      placeholder: "create or classify?",
-      imageSrc: "/images/lessons/ai-ex-prompt.png",
-      imageAlt: "Generative prompt asking the model to invent new content",
     },
   ],
 
@@ -489,21 +372,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       imageSrc: "/images/lessons/ai-ex-hallucination.png",
       imageAlt: "Confident AI answer contrasted with a missing real source",
     },
-    {
-      id: "ai8-predict",
-      kind: "predict",
-      title: "What next?",
-      prompt:
-        "Predict the most likely next word the model will generate.",
-      scenario:
-        'Context so far: "Please pass the salt and ___"\n(Common English dinner talk; model picks the highest-probability continuation.)',
-      acceptedAnswers: ["pepper", "the pepper", "pepper please"],
-      explanation:
-        "LLMs extend patterns. After 'salt and…' in everyday English, 'pepper' is a high-probability next word — that's next-token prediction, not understanding dinner.",
-      placeholder: "Next word?",
-      imageSrc: "/images/lessons/ai-ex-hallucination.png",
-      imageAlt: "Illustration of an LLM predicting the next word in a sentence",
-    },
   ],
 
   "ai-9": [
@@ -549,26 +417,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Prompting is specifying the job. Without task/context/role/format, you get generic mush — not because AI 'won't help,' but because you didn't aim it.",
       imageSrc: "/images/lessons/ai-ex-prompt.png",
       imageAlt: "Prompt checklist showing task, context, role, and format",
-    },
-    {
-      id: "ai9-predict",
-      kind: "predict",
-      title: "Which format?",
-      prompt:
-        "Predict which format the model was told to use.",
-      scenario:
-        "Output begins:\n1. ...\n2. ...\n3. ...\nEach item is one short sentence. No paragraphs.",
-      acceptedAnswers: [
-        "numbered list",
-        "numbered list of 3",
-        "1-2-3 list",
-        "ordered list",
-      ],
-      explanation:
-        "The shape of the answer usually mirrors the format instruction. Numbered short items → the prompt almost certainly asked for a numbered list.",
-      placeholder: "What format?",
-      imageSrc: "/images/lessons/ai-ex-prompt.png",
-      imageAlt: "Structured prompt output in a numbered list format",
     },
   ],
 
@@ -618,24 +466,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       imageSrc: "/images/lessons/ai-ex-prompt.png",
       imageAlt: "Few-shot prompt examples that conflict with the written instructions",
     },
-    {
-      id: "ai10-predict",
-      kind: "predict",
-      title: "After iterate?",
-      prompt:
-        "Predict what a student should do after a still-messy AI draft.",
-      scenario:
-        "Draft 1: too long and off-topic.\nStudent adds: 'Use 4 bullets, stay on thesis, show steps.'\nDraft 2 is closer but one bullet is still vague.",
-      acceptedAnswers: [
-        "iterate again",
-        "prompt again / revise prompt",
-        "tighten the prompt and regenerate",
-        "keep iterating",
-      ],
-      explanation:
-        "Iteration is the skill: each pass adds constraints. Don't freeze on draft 1 — or draft 2 — if one more clear ask would fix it.",
-      placeholder: "Next move?",
-    },
   ],
 
   "ai-11": [
@@ -684,21 +514,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       imageSrc: "/images/lessons/ai-ex-verify.png",
       imageAlt: "Student checking whether an AI citation is real",
     },
-    {
-      id: "ai11-predict",
-      kind: "predict",
-      title: "Trust level?",
-      prompt:
-        "Predict the risk level: low or high — for trusting this AI task without checking.",
-      scenario:
-        "You paste your own paragraph and ask: \"Make this clearer, same meaning, keep my ideas.\"\nNo new facts, dates, or sources requested.",
-      acceptedAnswers: ["low", "low risk", "usually low", "safer / low"],
-      explanation:
-        "Language reshaping of text you provided is usually lower risk. Supplying new facts/stats/citations is high risk and needs verify mode.",
-      placeholder: "low or high?",
-      imageSrc: "/images/lessons/ai-ex-hallucination.png",
-      imageAlt: "Risk meter for trusting AI on language tasks vs fact tasks",
-    },
   ],
 
   "ai-12": [
@@ -744,24 +559,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       hint: "Who actually did the thinking and writing that gets graded?",
       explanation:
         "School-help AI can clarify or spark ideas when allowed. Passing off generated work — and lying about it — is cheating because the learning and authorship aren't yours.",
-    },
-    {
-      id: "ai12-predict",
-      kind: "predict",
-      title: "Allowed?",
-      prompt:
-        "Predict whether this use is generally help or cheat (assume typical school rules).",
-      scenario:
-        "You wrote a draft yourself. You ask AI: \"Point out unclear sentences and ask me questions so I can revise.\" You rewrite every line yourself.",
-      acceptedAnswers: [
-        "help",
-        "helpful / allowed help",
-        "help not cheat",
-        "academic help",
-      ],
-      explanation:
-        "Feedback that keeps you writing and thinking is help. The line is crossed when AI replaces your work or you hide required disclosure.",
-      placeholder: "help or cheat?",
     },
   ],
 
@@ -811,26 +608,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       imageSrc: "/images/lessons/ai-ex-bias.png",
       imageAlt: "Uneven training data leading to unfair model outcomes",
     },
-    {
-      id: "ai13-predict",
-      kind: "predict",
-      title: "Who gets hurt?",
-      prompt:
-        "Predict which applicants the model will unfairly down-rank most.",
-      scenario:
-        "Training: almost all 'good hire' labels came from one neighborhood's résumés.\nNew applicants from other neighborhoods use different school names and activity lists.\nModel rewards patterns that match the old 'good hire' pile.",
-      acceptedAnswers: [
-        "other neighborhoods",
-        "applicants from other areas",
-        "people outside the training neighborhood",
-        "underrepresented neighborhoods",
-      ],
-      explanation:
-        "When success labels come from a narrow slice of people, outsiders look 'unlike past successes' — even when they're qualified. That's skewed-data bias in action.",
-      placeholder: "Which group?",
-      imageSrc: "/images/lessons/ai-ex-bias.png",
-      imageAlt: "Biased hiring model favoring patterns from skewed training data",
-    },
   ],
 
   "ai-14": [
@@ -877,24 +654,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       explanation:
         "AI tools aren't private vaults. Pasting secrets trains a bad habit attackers love — especially alongside deepfake scams that impersonate people you trust.",
     },
-    {
-      id: "ai14-predict",
-      kind: "predict",
-      title: "Scam or real?",
-      prompt:
-        "Predict the safer next action.",
-      scenario:
-        "A video call 'from your principal' demands gift cards to 'fix your account,' sounds slightly off, and refuses to switch to the school office line.",
-      acceptedAnswers: [
-        "hang up and verify",
-        "call school on official number",
-        "don't buy cards / verify first",
-        "treat as likely deepfake scam",
-      ],
-      explanation:
-        "Pressure + money + refusal to verify on a known channel = classic scam pattern, with or without deepfake video. Slow down and check independently.",
-      placeholder: "What should you do?",
-    },
   ],
 
   "ai-15": [
@@ -940,24 +699,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
       hint: "Who sets goals, catches errors, and talks to clients when AI drafts something?",
       explanation:
         "The future of work is AI+human. Durable skills — clear thinking, ethics, collaboration, verification — become more valuable, not less.",
-    },
-    {
-      id: "ai15-predict",
-      kind: "predict",
-      title: "Which skill?",
-      prompt:
-        "Predict which durable skill matters most in this scenario.",
-      scenario:
-        "AI drafts three budget plans for a school club.\nNumbers look neat, but one plan forgets competition fees.\nYou must choose, fix, and explain the plan to the advisor.",
-      acceptedAnswers: [
-        "judgment",
-        "critical judgment / checking",
-        "verification and judgment",
-        "problem-solving / judgment",
-      ],
-      explanation:
-        "AI can draft; humans still judge what's missing, fix it, and explain the call. That's the durable skill edge.",
-      placeholder: "Name the skill",
     },
   ],
 
@@ -1006,26 +747,6 @@ export const AI_INTERACTIVE_BY_LESSON: Record<string, AIBonusActivity[]> = {
         "Evaluating a tool means verifying claims with your own tasks and risks. 'Trust us' is not a checklist.",
       imageSrc: "/images/lessons/ai-ex-verify.png",
       imageAlt: "Checklist for evaluating an AI tool before adopting it",
-    },
-    {
-      id: "ai16-predict",
-      kind: "predict",
-      title: "Adopt or not?",
-      prompt:
-        "Predict the responsible decision: adopt, limit, or reject.",
-      scenario:
-        "Homework helper app:\n• Leaks pastes into vendor training by default\n• No way to turn off data sharing\n• Demo accuracy looks fine on toy problems\n• School has no disclosure policy yet",
-      acceptedAnswers: [
-        "reject",
-        "reject for now",
-        "don't adopt / reject",
-        "reject until privacy fixed",
-      ],
-      explanation:
-        "Privacy red flags + no human policy = reject (or hard limit) until risks are fixed. Capstone evaluation prioritizes people over shiny demos.",
-      placeholder: "adopt, limit, or reject?",
-      imageSrc: "/images/lessons/ai-ex-verify.png",
-      imageAlt: "Evaluation outcome after a privacy-risk checklist fails",
     },
   ],
 };

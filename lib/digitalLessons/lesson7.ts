@@ -2,20 +2,20 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson7: AILessonConfig = {
   id: "dl-7",
-  title: "7. Digital Identity, Reputation & Social Practice",
-  goal: "Evaluate how a digital footprint and reputation affect personal, social, and economic practices, including college admissions, hiring, scholarships, and participation in online communities.",
+  title: "7. What You Leave Behind Online",
+  goal: "See what a search of your name can show — posts you made, tags you didn't, and data collected about you — and decide what you want a college or a job to find.",
   xpReward: 350,
-  badge: "Identity Steward",
+  badge: "Reputation Aware",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/6",
   nextHref: "/learn/digital/8",
   instructorScript: `**Coach's note**
-Today's lesson: **Digital Identity, Reputation & Social Practice**.
+Today's lesson: **What You Leave Behind Online**.
 
-**Goal:** Evaluate how a digital footprint and reputation affect personal, social, and economic practices, including college admissions, hiring, scholarships, and participation in online communities.
+**Goal:** See what a search of your name can show — posts you made, tags you didn't, and data collected about you — and decide what you want a college or a job to find.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "Your identity is shaped in systems".
+1. Warm-up: ask "If a coach or a college searched your name tonight, what would they see?"
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
@@ -27,8 +27,8 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
       {
         id: "intro",
         kicker: "Start here",
-        title: "Your identity is shaped in systems",
-        body: `Your digital identity is more than a list of posts. It includes profiles, tags, search results, data collected about your activity, and the stories people make from those traces. Those stories can influence personal relationships, social participation, and economic opportunities such as college admission, scholarships, housing, internships, and hiring.\n\nThis lesson asks you to evaluate—not panic about—those impacts. You will distinguish what you control from what others and platforms control, compare the likely effects of different identity choices, and create a realistic reputation practice that reflects your values and work.`,
+        title: "It is more than the posts you meant to make",
+        body: `What people find when they search your name is not just your profile. It is tags, old photos, comments, and data a site collected while you were logged in. A college, a scholarship reader, or a first job can see some of that.\n\nThis is not a panic lesson. You will sort what **you** put out, what **other people** put out, and what **the platform** keeps — then pick a few habits that match the person you want them to meet.`,
         image: "/images/lessons/dl-7.png",
         imageAlt: "Laptop search results for a person's name next to a smartphone profile screen showing posts and privacy settings",
         callout: {
@@ -59,7 +59,7 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
       {
         id: "concept-1",
         kicker: "The big idea",
-        title: "Evaluate identity across audiences",
+        title: "Who might see this — and what do they need?",
         body: `The same post can have different effects across audiences. A joke that makes sense to close friends can read as unprofessional to an admissions reviewer who lacks the context. A public project write-up can help a scholarship committee see your skills, while an old public argument can cause someone to question your judgment—even if it does not show your whole character.\n\nThis is not an argument that every student must build a public brand. It is an argument for evaluating visibility and likely impact. Ask: Who can reasonably see this? What context will they have? What conclusion could they draw? Does this represent the identity I want connected to this opportunity or community?`,
         callout: {
           label: "Watch out",
@@ -237,7 +237,7 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before you move on — a quick gut-check",
-        body: `Think about your own name, typed into a search engine right now.\n\n• Do you actually know what would show up?\n• Is there one thing — a post, an old account, a tag — you'd want cleaned up before someone important looks?\n\nThere's a full reflection question at the end of this lesson. For now, just notice: Sam's scholarship interview moment wasn't really about one bad post — it was about not remembering it was still out there.`,
+        body: `Think about your own name, typed into a search engine right now.\n\n• Do you actually know what would show up?\n• Is there one thing — a post, an old account, a tag — you'd want cleaned up before someone important looks?\n\nJust notice: Sam's scholarship interview moment wasn't really about one bad post — it was about not remembering it was still out there.`,
         callout: {
           label: "Reflect",
           text: "A footprint audit isn't about paranoia. It's a maintenance habit, like cleaning out an inbox — quick, occasional, and worth doing before it matters most.",
@@ -317,7 +317,7 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got the full picture: your **digital footprint** is the trail you leave, split into **active** (what you post) and **passive** (what's collected). Thanks to screenshots, archives, and reshares, **delete doesn't truly erase** — so pause before posting and remember who might be looking, and that "private" isn't a guarantee. Best of all, you can **build a positive footprint** on purpose with a simple audit-and-portfolio habit.\n\nThe goal isn't to disappear online. It's to be the author of your own reputation, so what people find reflects who you really are.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on one thing you'll change after auditing your footprint.`,
+        body: `You've got the full picture: your **digital footprint** is the trail you leave, split into **active** (what you post) and **passive** (what's collected). Thanks to screenshots, archives, and reshares, **delete doesn't truly erase** — so pause before posting and remember who might be looking, and that "private" isn't a guarantee. Best of all, you can **build a positive footprint** on purpose with a simple audit-and-portfolio habit.\n\nThe goal isn't to disappear online. It's to be the author of your own reputation, so what people find reflects who you really are.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder).`,
       },
     ],
   },
@@ -443,9 +443,4 @@ Today's lesson: **Digital Identity, Reputation & Social Practice**.
         "Both applicants were equally qualified — the difference was that one had audited their footprint and published a proud project, shaping a better first impression.",
     },
   ],
-  reflection: {
-    prompt:
-      "Evaluate one part of your digital identity through a personal, social, and economic lens. What can you change, what is outside your control, and what practice would better represent you?",
-    placeholder: "Example: I can review an old public username and add my robotics project to a portfolio; I cannot control every old tag, so I will request removal when needed.",
-  },
 };

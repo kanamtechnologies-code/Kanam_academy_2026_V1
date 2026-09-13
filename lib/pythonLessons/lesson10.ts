@@ -433,41 +433,9 @@ greet()
       },
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the calls",
-      focusCommand: "trace greet()",
-      commandExplain: "Read this finished program. Predict exactly what prints when greet() runs twice.",
-      goal: "Type your prediction, then Run & check.",
-      starterCode: `def greet():
-    print("Hi!")
-
-greet()
-greet()
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What exact output prints? (two lines)",
-      acceptedPredictions: ["Hi!\nHi!", "Hi! Hi!", "Hi!\nHi!\n", "hi!\nhi!"],
-      hint: "Each greet() call runs the print once — two calls means two lines.",
-      successMessage: "Nailed it — you predicted both calls.",
-      failureMessage: "Count how many times greet() is called.",
-      solutionCode: `def greet():
-    print("Hi!")
-
-greet()
-greet()
-`,
-      validate: (code: string, run: MiniRunResult) => {
-        if (rejectsUppercasePrint(code) || !noRunError(run)) return false;
-        return (
-          run.stdout.length === 2 && run.stdout.every((line) => line.trim() === "Hi!")
-        );
-      },
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build a skill",
+      title: "Exercise 4 — Build a skill",
       focusCommand: "from scratch",
       commandExplain:
         "Write a function with no parameters that prints a bot message, then call it at least twice.",

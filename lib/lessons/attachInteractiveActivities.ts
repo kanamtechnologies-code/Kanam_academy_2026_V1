@@ -25,6 +25,12 @@ export function attachInteractiveActivities<T extends WithActivities>(lesson: T)
     CYBER_INTERACTIVE_BY_LESSON[lesson.id] ??
     FINANCE_INTERACTIVE_BY_LESSON[lesson.id] ??
     [];
-  if (activities.length === 0) return lesson;
-  return { ...lesson, activities };
+  const dropDebug = lesson.id.startsWith("dl-") || lesson.id.startsWith("fl-");
+  const usable = activities.filter((activity) => {
+    if (activity.kind === "predict") return false;
+    if (dropDebug && activity.kind === "debug") return false;
+    return true;
+  });
+  if (usable.length === 0) return lesson;
+  return { ...lesson, activities: usable };
 }

@@ -30,7 +30,7 @@ Today's lesson: **Taxes & Your First Job**.
         title: "What you'll learn today",
         image: "/images/lessons/fl-13.png",
         imageAlt: "Teen with a W-2 form and a summer job pay stubs folder at a desk with a parent nearby",
-        body: `Your first paycheck can feel like a plot twist: the number on the hiring poster isn't the number you take home. Today's a deep dive — as a Tax Rookie, not a CPA.\n\nHere's the roadmap:\n\n• **A true-ish story** about a first paycheck surprise.\n• **Why taxes exist**, **gross vs net pay**, **W-2 vs 1099**, and **filing basics** — three core concepts, each with a quick check.\n• A **worked example** reading a real stub, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (reading a W-4 and planning for gig income), a **W-2 vs 1099 comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a reflection pause, a **mini-case**, and a mixed **check yourself**.\n\nThis is general education. Rules change and depend on your situation — trusted adults and official resources beat random videos.`,
+        body: `Your first paycheck can feel like a plot twist: the number on the hiring poster isn't the number you take home. Today's a deep dive — as a Tax Rookie, not a CPA.\n\nHere's the roadmap:\n\n• **A true-ish story** about a first paycheck surprise.\n• **Why taxes exist**, **gross vs net pay**, **W-2 vs 1099**, and **filing basics** — three core concepts, each with a quick check.\n• A **worked example** reading a real stub, a common **myth**, and a **try-it** practice round.\n• A **deeper skill** (reading a W-4 and planning for gig income), a **W-2 vs 1099 comparison**, and a **behavioral trap** to avoid.\n• **Habits**, a pause, a **mini-case**, and a mixed **check yourself**.\n\nThis is general education. Rules change and depend on your situation — trusted adults and official resources beat random videos.`,
         callout: {
           label: "Why it matters",
           text: "Understanding withholdings and forms helps you budget, avoid panic, and spot bad advice when you start earning.",
@@ -499,10 +499,4 @@ Neither choice is universal — match complexity to support.`,
         "Comparing pay fairly requires accounting for withholding differences, not just which number looks bigger today — the deposit size alone doesn't settle which job actually paid more.",
     },
   ],
-  reflection: {
-    prompt:
-      "Look at (or imagine) a first paycheck from a part-time job. What line items would you expect between gross and net, and what is one question you would ask a trusted adult or payroll contact?",
-    placeholder:
-      "Example: I'd expect federal/state withholding and other payroll lines. I'd ask how to get copies of my W-2 and whether I need to file…",
-  },
 };

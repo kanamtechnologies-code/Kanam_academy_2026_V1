@@ -1,14 +1,14 @@
-# Digital Literacy · Week 1 — Computing Systems Foundations
+# Digital Literacy · Week 1 — Hardware, Software & Your Files
 
-**Week focus:** Abstraction layers, hardware/software/OS, and data storage tradeoffs (CSTA 3A CS + DA).  
+**Week focus:** Hardware vs software, then where files should live.  
 **Track:** `digital-literacy`
 
 ## Sessions
 
 | Session | Lesson id | Title | Guide |
 | :---: | --- | --- | --- |
-| 1 | `dl-1` | Computing Systems: Layers & Abstraction | [session-1.md](session-1.md) |
-| 2 | `dl-2` | Data Storage Tradeoffs: Local, Cloud & Organization | [session-2.md](session-2.md) |
+| 1 | `dl-1` | Hardware vs Software | [session-1.md](session-1.md) |
+| 2 | `dl-2` | Where Your Files Live | [session-2.md](session-2.md) |
 
 ## Materials
 

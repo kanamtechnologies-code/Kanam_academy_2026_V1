@@ -456,57 +456,9 @@ for i in range(5):
         run.stdout.filter((line) => line === "ping" || line === "pong").length === 5,
     },
     {
-      id: "ex-predict",
-      kind: "predict",
-      title: "Exercise 4 — Predict the pattern",
-      focusCommand: "trace if/else",
-      commandExplain:
-        "Read this finished program. Predict the five output lines before you see them.",
-      goal: "Type your prediction, then Run & check.",
-      starterCode: `message = "ping"
-
-for i in range(5):
-    if message == "ping":
-        print("ping")
-        message = "pong"
-    else:
-        print("pong")
-        message = "ping"
-`,
-      solutionCode: `message = "ping"
-
-for i in range(5):
-    if message == "ping":
-        print("ping")
-        message = "pong"
-    else:
-        print("pong")
-        message = "ping"
-`,
-      codeReadOnly: true,
-      predictionPrompt: "What five lines print? (one per line)",
-      acceptedPredictions: [
-        "ping\npong\nping\npong\nping",
-        "ping pong ping pong ping",
-        "Ping\nPong\nPing\nPong\nPing",
-      ],
-      hint: "Trace each turn: print the current message, then flip it for the next turn.",
-      successMessage: "You predicted the ping/pong pattern correctly.",
-      failureMessage: "Trace each loop turn carefully — print first, then flip the message.",
-      validate: (code, run) =>
-        !rejectsUppercasePrint(code) &&
-        noRunError(run) &&
-        run.stdout.length === 5 &&
-        run.stdout[0] === "ping" &&
-        run.stdout[1] === "pong" &&
-        run.stdout[2] === "ping" &&
-        run.stdout[3] === "pong" &&
-        run.stdout[4] === "ping",
-    },
-    {
       id: "ex-scratch",
       kind: "scratch",
-      title: "Exercise 5 — Build the pattern",
+      title: "Exercise 4 — Build the pattern",
       focusCommand: "from scratch",
       commandExplain:
         "Write a for loop with if/else that prints a ping/pong pattern for 5 turns.",

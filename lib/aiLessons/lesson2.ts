@@ -279,7 +279,7 @@ Today's lesson: **AI Is All Around You**.
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `Big ideas to carry with you: AI is **embedded** in everyday apps, most of it is quietly making a **prediction**, free and convenient tools usually run on **your data**, and behind the scenes, real **human labor** — data labeling, content moderation — keeps the whole system running.\n\nFor the rest of today, try to catch AI in the act — every recommendation, autocomplete, filter, or reroute is AI making a prediction about you, built on data and human work you rarely see.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on the AI you rely on most.`,
+        body: `Big ideas to carry with you: AI is **embedded** in everyday apps, most of it is quietly making a **prediction**, free and convenient tools usually run on **your data**, and behind the scenes, real **human labor** — data labeling, content moderation — keeps the whole system running.\n\nFor the rest of today, try to catch AI in the act — every recommendation, autocomplete, filter, or reroute is AI making a prediction about you, built on data and human work you rarely see.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug), then reflect on the AI you rely on most.`,
       },
     ],
   },

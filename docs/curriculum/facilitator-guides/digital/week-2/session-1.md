@@ -9,10 +9,10 @@
 | Field | Value |
 | --- | --- |
 | **Track / lesson id** | `digital-literacy` / `dl-3` |
-| **Title** | Networks & Finding Information Online |
+| **Title** | How a Search Gets to You |
 | **Time** | 40–55 min |
-| **Week theme** | Networks & Information Integrity |
-| **Student goal** | Complete **Networks & Finding Information Online** and demonstrate the week focus: How networks move data, search fluently, and evaluate claims in a computing culture. |
+| **Week theme** | Getting Online and Checking Sources |
+| **Student goal** | Complete **How a Search Gets to You** and demonstrate the week focus: How networks move data, search fluently, and evaluate claims in a computing culture. |
 | **Standards** | CSTA 3A CS / NI / IC / DA |
 | **Materials** | Browser devices · projector · scenario discussion |
 | **XP / badge** | 150 · Network Navigator |
@@ -50,7 +50,7 @@
 
 ### Teaching focus
 
-Week theme: **Networks & Information Integrity**.  
+Week theme: **Getting Online and Checking Sources**.  
 Focus: How networks move data, search fluently, and evaluate claims in a computing culture.
 
 Keep the session on one job: students can explain today’s idea in plain language and show evidence in the product (exercise success, quiz, or studio artifact).

@@ -2,19 +2,19 @@ import type { AILessonConfig } from "@/components/ai/AILessonCanvas";
 
 export const digitalLesson16: AILessonConfig = {
   id: "dl-16",
-  title: "16. Capstone: Evaluate Impacts & Act",
-  goal: "Synthesize computing systems, data, networks, and impacts-of-computing themes to evaluate a personal or community digital practice, maximize benefits, minimize harms, and publish an evidence-based action-plan portfolio.",
+  title: "16. Your Plan From Here",
+  goal: "Look back at the whole track and write a short plan you will actually use — school, college, internship, or a first job.",
   xpReward: 800,
-  badge: "Impact Evaluator",
+  badge: "Plan Builder",
   dashboardHref: "/dashboard",
   prevHref: "/learn/digital/15",
   instructorScript: `**Coach's note**
-Today's lesson: **Capstone: Evaluate Impacts & Act**.
+Today's lesson: **Your Plan From Here**.
 
-**Goal:** Synthesize computing systems, data, networks, and impacts-of-computing themes to evaluate a personal or community digital practice, maximize benefits, minimize harms, and publish an evidence-based action-plan portfolio.
+**Goal:** Look back at the whole track and write a short plan you will actually use — school, college, internship, or a first job.
 
 **How to facilitate**
-1. Warm-up: ask students what they already think about "Build an evidence-based action portfolio".
+1. Warm-up: ask "What is one digital habit you will keep after this class?"
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
@@ -27,7 +27,7 @@ Today's lesson: **Capstone: Evaluate Impacts & Act**.
       {
         id: "intro",
         kicker: "Start here",
-        title: "Build an evidence-based action portfolio",
+        title: "Turn the course into a plan you can use",
         body: `This is it — the capstone for your entire Digital Literacy journey. You started with "how does the internet even work?" and you've arrived at something powerful: you can navigate the digital world *thoughtfully*, *safely*, and *capably*. Today you turn all of that into a toolkit you'll carry for life.\n\nHere's the plan for your capstone:\n\n• A fast recap of every area you've mastered.\n• Why real digital literacy is all those areas **working together**.\n• A **self-audit** checklist to honestly rate your habits.\n• Building your **personal digital-readiness action plan**.\n• A **next-chapter map** for younger teens *and* seniors heading to college, internships, or a first job.\n\nThis is where everything you've learned becomes a set of habits and a plan — the difference between *knowing* about digital life and *living* it well.`,
         image: "/images/lessons/dl-16.png",
         imageAlt: "A graduate holding a toolkit, surrounded by icons for safety, communication, creativity, and career",
@@ -241,7 +241,7 @@ Today's lesson: **Capstone: Evaluate Impacts & Act**.
         id: "worked",
         kicker: "Worked example",
         title: "Fill out a digital-readiness plan, step by step",
-        body: `Let's model exactly what *you'll* do in the reflection. Meet Maya, finishing this track as a junior. Watch her turn an honest audit into a tiny, real plan.\n\n**Step 1 — Audit honestly.** Maya checks herself: passwords reused across sites (not-yet), footprint mostly fine (sort-of), healthy habits weak — scrolls in bed every night (not-yet), spreadsheet skills basically none (not-yet), professional email awkward (not-yet).\n\n**Step 2 — Pick the most important gaps.** She can't fix everything at once, so she chooses three that matter most to her: security, sleep, and a work skill tied to applications.\n\n**Step 3 — Write specific, doable steps.** Not "be safer," but actual actions:`,
+        body: `Let's model the plan you'll write at the end. Meet Maya, finishing this track as a junior. Watch her turn an honest audit into a tiny, real plan.\n\n**Step 1 — Audit honestly.** Maya checks herself: passwords reused across sites (not-yet), footprint mostly fine (sort-of), healthy habits weak — scrolls in bed every night (not-yet), spreadsheet skills basically none (not-yet), professional email awkward (not-yet).\n\n**Step 2 — Pick the most important gaps.** She can't fix everything at once, so she chooses three that matter most to her: security, sleep, and a work skill tied to applications.\n\n**Step 3 — Write specific, doable steps.** Not "be safer," but actual actions:`,
         code: `MAYA'S DIGITAL-READINESS PLAN
 1. Security:  Set up a password manager + turn on 2FA for email
               and college portal.  (This weekend)
@@ -365,7 +365,7 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
         id: "reflection-prompt",
         kicker: "Pause and think",
         title: "Before the knowledge check — picture yourself in six months",
-        body: `Close your eyes for thirty seconds. It's six months from now.\n\n• What digital habit do you hope is **automatic** by then — pausing before sharing, reading error messages, running a footprint check?\n• What **not-yet** from your audit will you have turned into a yes?\n• What **new tool or risk** might have appeared that you won't have a lesson for — and how will you handle it?\n\nThe third question is the whole point of capstone thinking. You won't have a Kanam slide for every future app or scam. But you *will* have the habits to pause, verify, protect, and learn — which is exactly what **adaptive expertise** and being a **self-directed learner** mean in plain English.\n\nYou'll write your formal three-step plan in the reflection after the knowledge check. For now, just notice: you're not leaving this track as someone who memorized facts. You're leaving as someone who knows how to **keep going**.`,
+        body: `Close your eyes for thirty seconds. It's six months from now.\n\n• What digital habit do you hope is **automatic** by then — pausing before sharing, reading error messages, running a footprint check?\n• What **not-yet** from your audit will you have turned into a yes?\n• What **new tool or risk** might have appeared that you won't have a lesson for — and how will you handle it?\n\nThe third question is the whole point of capstone thinking. You won't have a Kanam slide for every future app or scam. But you *will* have the habits to pause, verify, protect, and learn — which is exactly what **adaptive expertise** and being a **self-directed learner** mean in plain English.\n\nYou'll write that plan after the knowledge check. For now, just notice: you're not leaving this track as someone who memorized facts. You're leaving as someone who knows how to **keep going**.`,
         callout: {
           label: "Reflect",
           text: "The best capstone outcome isn't a perfect score. It's catching yourself using a habit without thinking — and smiling because it worked.",
@@ -375,7 +375,7 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn — finish strong",
-        body: `This is the finish line of the entire Digital Literacy track. You can now navigate technology, judge information, communicate and create, protect yourself, stay healthy, troubleshoot calmly, and bring real skills to school, college apps, internships, and a future career — and you understand that true digital literacy is all of that working *together*, for life.\n\nTake the final knowledge check (it pulls from the whole track), then write your own **3-step digital-readiness action plan** in the reflection to earn your **Digitally Fluent** badge.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict). Congratulations — you've become exactly the kind of capable, responsible, lifelong digital learner the real world needs.`,
+        body: `This is the finish line of the entire Digital Literacy track. You can now navigate technology, judge information, communicate and create, protect yourself, stay healthy, troubleshoot calmly, and bring real skills to school, college apps, internships, and a future career — and you understand that true digital literacy is all of that working *together*, for life.\n\nTake the final knowledge check (it pulls from the whole track), then write your **digital-readiness action plan** to finish.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder). Congratulations — you've become exactly the kind of capable, responsible, lifelong digital learner the real world needs.`,
       },
     ],
   },

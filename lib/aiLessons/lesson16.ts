@@ -391,7 +391,7 @@ Adoption: define job → test real examples → check accuracy/bias/privacy
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn — finish strong",
-        body: `This is the finish line of the whole AI Literacy track. You started by asking what AI is; now you can understand it, direct it, verify it, protect yourself and others from its risks, and use it ethically. That's real AI literacy — the kind most adults don't have yet.\n\nTake the final knowledge check (it pulls from the entire course), then complete your capstone reflection to earn your **AI-Smart Citizen** badge.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict). Congratulations — you've become exactly the kind of thoughtful, AI-smart person the future needs.`,
+        body: `This is the finish line of the whole AI Literacy track. You started by asking what AI is; now you can understand it, direct it, verify it, protect yourself and others from its risks, and use it ethically. That's real AI literacy — the kind most adults don't have yet.\n\nTake the final knowledge check (it pulls from the entire course), then complete your capstone reflection to earn your **AI-Smart Citizen** badge.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug). Congratulations — you've become exactly the kind of thoughtful, AI-smart person the future needs.`,
       },
     ],
   },
