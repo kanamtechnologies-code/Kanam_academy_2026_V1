@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { requireInstructorSession } from "@/lib/auth/requireInstructor";
+import { classJoinUrl } from "@/lib/classJoin";
+import { createCustomLibraryClass, ensureLibraryPartnerClass } from "@/lib/ensureLibraryClass";
+import { findLibraryPartnerByCode, getLibraryPartner, slugifyPartnerName } from "@/lib/libraryPartners";
+import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { isMissingColumnError } from "@/lib/supabase/missingColumn";
 
 export const runtime = "nodejs";
 
@@ -14,59 +19,167 @@ function randomClassCode() {
   return `KANAM-${s}`;
 }
 
-export async function GET() {
+type ClassRow = {
+  id: string;
+  name: string;
+  code: string;
+  created_at: string;
+  kind?: string | null;
+  partner_slug?: string | null;
+  school?: { name?: string | null } | null;
+  class_enrollments?: Array<{ count?: number }> | null;
+};
+
+function toSummary(r: ClassRow, request?: Request) {
+  const count = Array.isArray(r.class_enrollments) ? r.class_enrollments[0]?.count : undefined;
+  const inferred = findLibraryPartnerByCode(r.code);
+  const partnerSlug = r.partner_slug ?? inferred?.slug ?? null;
+  const kind = r.kind === "library" || partnerSlug ? "library" : "standard";
+  return {
+    id: r.id,
+    name: r.name,
+    code: r.code,
+    createdAt: r.created_at,
+    schoolName: r.school?.name ?? null,
+    learnerCount: typeof count === "number" ? count : 0,
+    kind,
+    partnerSlug,
+    joinUrl: classJoinUrl({ code: r.code, partnerSlug }, request),
+  };
+}
+
+export async function GET(req: Request) {
   const gate = await requireInstructorSession();
   if (!gate.ok) return gate.response;
   const { supabase } = gate;
 
-  const { data: rows, error: qErr } = await supabase
+  const withPartner = await supabase
     .from("classes")
-    .select("id, name, code, created_at, school:schools(name), class_enrollments(count)")
+    .select("id, name, code, created_at, kind, partner_slug, school:schools(name), class_enrollments(count)")
     .order("created_at", { ascending: false });
 
-  if (qErr) return NextResponse.json({ ok: false, error: qErr.message }, { status: 500 });
+  let rows = withPartner.data as ClassRow[] | null;
+  if (withPartner.error) {
+    if (!isMissingColumnError(withPartner.error)) {
+      return NextResponse.json({ ok: false, error: withPartner.error.message }, { status: 500 });
+    }
+    const fallback = await supabase
+      .from("classes")
+      .select("id, name, code, created_at, school:schools(name), class_enrollments(count)")
+      .order("created_at", { ascending: false });
+    if (fallback.error) {
+      return NextResponse.json({ ok: false, error: fallback.error.message }, { status: 500 });
+    }
+    rows = fallback.data as ClassRow[] | null;
+  }
 
-  const classRows = (rows ?? []) as unknown as Array<{
-    id: string;
-    name: string;
-    code: string;
-    created_at: string;
-    school?: { name?: string | null } | null;
-    class_enrollments?: Array<{ count?: number }> | null;
-  }>;
-
-  const classes =
-    classRows.map((r) => {
-      const count = Array.isArray(r.class_enrollments) ? r.class_enrollments[0]?.count : undefined;
-      return {
-        id: r.id as string,
-        name: r.name as string,
-        code: r.code as string,
-        createdAt: r.created_at as string,
-        schoolName: r.school?.name ?? null,
-        learnerCount: typeof count === "number" ? count : 0,
-      };
-    }) ?? [];
-
+  const classes = (rows ?? []).map((r) => toSummary(r, req));
   return NextResponse.json({ ok: true, classes }, { status: 200 });
 }
 
 export async function POST(req: Request) {
   const gate = await requireInstructorSession();
   if (!gate.ok) return gate.response;
-  const { supabase, user } = gate;
+  const { user } = gate;
 
-  let body: { name?: string; schoolName?: string };
+  let body: {
+    name?: string;
+    schoolName?: string;
+    kind?: string;
+    partnerSlug?: string;
+  };
   try {
-    body = (await req.json()) as { name?: string; schoolName?: string };
+    body = (await req.json()) as typeof body;
   } catch {
     return NextResponse.json({ ok: false, error: "Invalid JSON." }, { status: 400 });
   }
 
+  const kind = body.kind === "library" ? "library" : "standard";
+  const requestedSlug = (body.partnerSlug ?? "").trim().toLowerCase();
+  const catalogPartner = requestedSlug ? getLibraryPartner(requestedSlug) : null;
   const name = (body.name ?? "").trim();
   const schoolName = (body.schoolName ?? "").trim();
+
+  if (kind === "library" && catalogPartner) {
+    try {
+      const admin = createSupabaseAdminClient();
+      const klass = await ensureLibraryPartnerClass(catalogPartner.slug, admin, {
+        ownerUserId: user.id,
+      });
+      return NextResponse.json(
+        {
+          ok: true,
+          klass: {
+            id: klass.id,
+            name: klass.name,
+            code: klass.code,
+            createdAt: new Date().toISOString(),
+            schoolName: klass.schoolName,
+            learnerCount: 0,
+            kind: "library" as const,
+            partnerSlug: klass.partnerSlug,
+            joinUrl: classJoinUrl({ code: klass.code, partnerSlug: klass.partnerSlug }, req),
+          },
+        },
+        { status: 200 }
+      );
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Could not create library class.";
+      return NextResponse.json({ ok: false, error: message }, { status: 500 });
+    }
+  }
+
+  if (kind === "library") {
+    const libraryName = schoolName || name;
+    if (!libraryName) {
+      return NextResponse.json(
+        { ok: false, error: "Library name is required." },
+        { status: 400 }
+      );
+    }
+    let lastErr: string | null = null;
+    for (let i = 0; i < 10; i++) {
+      const code = randomClassCode().toUpperCase();
+      const slugBase = requestedSlug || slugifyPartnerName(libraryName);
+      const partnerSlug = i === 0 ? slugBase : `${slugBase}-${code.slice(-3).toLowerCase()}`;
+      try {
+        const admin = createSupabaseAdminClient();
+        const klass = await createCustomLibraryClass({
+          admin,
+          ownerUserId: user.id,
+          libraryName,
+          className: name || undefined,
+          code,
+          partnerSlug,
+        });
+        return NextResponse.json(
+          {
+            ok: true,
+            klass: {
+              id: klass.id,
+              name: klass.name,
+              code: klass.code,
+              createdAt: new Date().toISOString(),
+              schoolName: klass.schoolName,
+              learnerCount: 0,
+              kind: "library" as const,
+              partnerSlug: klass.partnerSlug,
+              joinUrl: classJoinUrl({ code: klass.code, partnerSlug: klass.partnerSlug }, req),
+            },
+          },
+          { status: 200 }
+        );
+      } catch (e: unknown) {
+        lastErr = e instanceof Error ? e.message : "Could not create class.";
+        if (!String(lastErr).toLowerCase().includes("duplicate")) break;
+      }
+    }
+    return NextResponse.json({ ok: false, error: lastErr ?? "Could not create class." }, { status: 500 });
+  }
+
   if (!name) return NextResponse.json({ ok: false, error: "Class name is required." }, { status: 400 });
 
+  const supabase = gate.supabase;
   let schoolId: string | null = null;
   if (schoolName) {
     const { data: existing, error: findErr } = await supabase
@@ -91,7 +204,6 @@ export async function POST(req: Request) {
     }
   }
 
-  // Create a class with a unique code. Retry if we collide.
   let lastErr: string | null = null;
   for (let i = 0; i < 10; i++) {
     const code = randomClassCode().toUpperCase();
@@ -117,6 +229,10 @@ export async function POST(req: Request) {
             createdAt: inserted.created_at as string,
             schoolName:
               (inserted as { school?: { name?: string | null } | null } | null)?.school?.name ?? null,
+            learnerCount: 0,
+            kind: "standard" as const,
+            partnerSlug: null,
+            joinUrl: classJoinUrl({ code: inserted.code as string }, req),
           },
         },
         { status: 200 }
@@ -124,7 +240,6 @@ export async function POST(req: Request) {
     }
 
     lastErr = insErr?.message ?? "Could not create class.";
-    // If it's not a unique collision, bail early.
     if (!String(lastErr).toLowerCase().includes("duplicate")) break;
   }
 

@@ -5,6 +5,7 @@ import {
   BarChart3,
   Check,
   Clipboard,
+  Landmark,
   Loader2,
   Plus,
   Settings2,
@@ -12,9 +13,11 @@ import {
   Users,
 } from "lucide-react";
 
+import { ClassQrCard } from "@/components/class/ClassQrCard";
 import { ClassAssignmentsDialog } from "@/components/instructor/ClassAssignmentsDialog";
 import { ClassInsightsPanel } from "@/components/insights/ClassInsightsPanel";
 import { LearnerInsightsPanel } from "@/components/insights/LearnerInsightsPanel";
+import { LIBRARY_PARTNERS } from "@/lib/libraryPartners";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,6 +44,9 @@ type ClassSummary = {
   createdAt: string;
   schoolName: string | null;
   learnerCount: number;
+  kind?: "standard" | "library";
+  partnerSlug?: string | null;
+  joinUrl?: string;
 };
 
 type LearnerRow = {
@@ -89,6 +95,8 @@ export function InstructorDashboardClient() {
   const [createOpen, setCreateOpen] = React.useState(false);
   const [createName, setCreateName] = React.useState("");
   const [createSchool, setCreateSchool] = React.useState("");
+  const [createKind, setCreateKind] = React.useState<"standard" | "library">("standard");
+  const [createPartnerSlug, setCreatePartnerSlug] = React.useState("henry-county");
   const [createLoading, setCreateLoading] = React.useState(false);
   const [createError, setCreateError] = React.useState<string | null>(null);
 
@@ -162,8 +170,17 @@ export function InstructorDashboardClient() {
     setCreateError(null);
     const name = createName.trim();
     const schoolName = createSchool.trim();
-    if (!name) {
+    const catalogPartner =
+      createKind === "library" && createPartnerSlug !== "custom"
+        ? LIBRARY_PARTNERS.find((p) => p.slug === createPartnerSlug)
+        : null;
+
+    if (createKind === "standard" && !name) {
       setCreateError("Enter a class name.");
+      return;
+    }
+    if (createKind === "library" && !catalogPartner && !schoolName && !name) {
+      setCreateError("Enter the library name.");
       return;
     }
 
@@ -172,15 +189,22 @@ export function InstructorDashboardClient() {
       const res = await fetch("/api/instructor/classes", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ name, schoolName }),
+        body: JSON.stringify({
+          name: catalogPartner?.className ?? name,
+          schoolName: catalogPartner?.name ?? schoolName,
+          kind: createKind,
+          partnerSlug: createKind === "library" ? (catalogPartner?.slug ?? undefined) : undefined,
+        }),
       });
       const json = await j<{
         ok: true;
-        klass?: { id: string; name: string; code: string; createdAt: string; schoolName: string | null };
+        klass?: ClassSummary;
       }>(res);
       setCreateOpen(false);
       setCreateName("");
       setCreateSchool("");
+      setCreateKind("standard");
+      setCreatePartnerSlug("henry-county");
       await load();
       if (json.klass?.id) {
         setCreateSuccess({
@@ -189,7 +213,10 @@ export function InstructorDashboardClient() {
           code: json.klass.code,
           createdAt: json.klass.createdAt,
           schoolName: json.klass.schoolName,
-          learnerCount: 0,
+          learnerCount: json.klass.learnerCount ?? 0,
+          kind: json.klass.kind,
+          partnerSlug: json.klass.partnerSlug,
+          joinUrl: json.klass.joinUrl,
         });
       }
     } catch (e: unknown) {
@@ -308,20 +335,22 @@ export function InstructorDashboardClient() {
       <NoticePresence show={Boolean(createSuccess)} contentKey={createSuccess?.id} className="mb-4">
         <Notice
           variant="success"
-          title="Class created"
+          title={createSuccess?.kind === "library" ? "Library class ready" : "Class created"}
           action={
             createSuccess?.id ? (
               <>
-                <Button
-                  type="button"
-                  size="sm"
-                  onClick={() => {
-                    setAssignmentsClass(createSuccess);
-                    setCreateSuccess(null);
-                  }}
-                >
-                  Set assignments
-                </Button>
+                {createSuccess.kind === "library" ? null : (
+                  <Button
+                    type="button"
+                    size="sm"
+                    onClick={() => {
+                      setAssignmentsClass(createSuccess);
+                      setCreateSuccess(null);
+                    }}
+                  >
+                    Set assignments
+                  </Button>
+                )}
                 <Button
                   type="button"
                   size="sm"
@@ -334,9 +363,31 @@ export function InstructorDashboardClient() {
             ) : undefined
           }
         >
-          Share code <span className="font-semibold">{createSuccess?.code}</span> with learners,
-          then choose which lessons are open. Until you enable lessons, students may see billing
-          unlocks instead of class assignments.
+          {createSuccess?.kind === "library" ? (
+            <>
+              Digital Literacy and Financial Literacy are open for this class. Print or post the QR
+              so cardholders can join.
+            </>
+          ) : (
+            <>
+              Share the QR or code <span className="font-semibold">{createSuccess?.code}</span> with
+              learners, then choose which lessons are open. Until you enable lessons, students may
+              see billing unlocks instead of class assignments.
+            </>
+          )}
+          {createSuccess?.code ? (
+            <div className="mt-3">
+              <ClassQrCard
+                joinUrl={
+                  createSuccess.joinUrl ||
+                  `${typeof window !== "undefined" ? window.location.origin : ""}/welcome?classCode=${encodeURIComponent(createSuccess.code)}`
+                }
+                classCode={createSuccess.code}
+                downloadHref={`/api/instructor/classes/${encodeURIComponent(createSuccess.id)}/qr`}
+                compact
+              />
+            </div>
+          ) : null}
         </Notice>
       </NoticePresence>
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
@@ -385,7 +436,7 @@ export function InstructorDashboardClient() {
               <DialogHeader>
                 <DialogTitle>Create a class</DialogTitle>
                 <DialogDescription>
-                  You’ll get a class code to share with learners.
+                  You’ll get a class code and a QR learners can scan to join.
                 </DialogDescription>
               </DialogHeader>
 
@@ -396,24 +447,89 @@ export function InstructorDashboardClient() {
               ) : null}
 
               <div className="grid gap-3">
-                <div className="space-y-1.5">
-                  <p className="text-xs font-semibold text-slate-700">Class name</p>
-                  <Input
-                    value={createName}
-                    onChange={(e) => setCreateName(e.target.value)}
-                    placeholder="e.g. Week 1 — Period 3"
-                    className="h-12"
-                  />
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setCreateKind("standard")}
+                    className={[
+                      "rounded-2xl border px-3 py-3 text-left text-sm font-semibold",
+                      createKind === "standard"
+                        ? "border-emerald-600 bg-emerald-50 text-slate-900"
+                        : "border-slate-200 bg-white text-slate-700",
+                    ].join(" ")}
+                  >
+                    Standard class
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCreateKind("library")}
+                    className={[
+                      "rounded-2xl border px-3 py-3 text-left text-sm font-semibold",
+                      createKind === "library"
+                        ? "border-emerald-600 bg-emerald-50 text-slate-900"
+                        : "border-slate-200 bg-white text-slate-700",
+                    ].join(" ")}
+                  >
+                    Library partnership
+                  </button>
                 </div>
-                <div className="space-y-1.5">
-                  <p className="text-xs font-semibold text-slate-700">School (optional)</p>
-                  <Input
-                    value={createSchool}
-                    onChange={(e) => setCreateSchool(e.target.value)}
-                    placeholder="e.g. Lincoln Middle School"
-                    className="h-12"
-                  />
-                </div>
+
+                {createKind === "library" ? (
+                  <div className="space-y-1.5">
+                    <p className="text-xs font-semibold text-slate-700">Library</p>
+                    <select
+                      className="h-12 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-800"
+                      value={createPartnerSlug}
+                      onChange={(e) => setCreatePartnerSlug(e.target.value)}
+                    >
+                      {LIBRARY_PARTNERS.map((p) => (
+                        <option key={p.slug} value={p.slug}>
+                          {p.name}
+                        </option>
+                      ))}
+                      <option value="custom">Another library…</option>
+                    </select>
+                    <p className="text-xs text-slate-600">
+                      Unlocks Digital Literacy and Financial Literacy for cardholders and prints a
+                      QR to the library join page.
+                    </p>
+                  </div>
+                ) : null}
+
+                {createKind === "standard" || createPartnerSlug === "custom" ? (
+                  <>
+                    <div className="space-y-1.5">
+                      <p className="text-xs font-semibold text-slate-700">
+                        {createKind === "library" ? "Class name (optional)" : "Class name"}
+                      </p>
+                      <Input
+                        value={createName}
+                        onChange={(e) => setCreateName(e.target.value)}
+                        placeholder={
+                          createKind === "library"
+                            ? "e.g. Clayton County Library — Literacy"
+                            : "e.g. Week 1 — Period 3"
+                        }
+                        className="h-12"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <p className="text-xs font-semibold text-slate-700">
+                        {createKind === "library" ? "Library name" : "School (optional)"}
+                      </p>
+                      <Input
+                        value={createSchool}
+                        onChange={(e) => setCreateSchool(e.target.value)}
+                        placeholder={
+                          createKind === "library"
+                            ? "e.g. Clayton County Library System"
+                            : "e.g. Lincoln Middle School"
+                        }
+                        className="h-12"
+                      />
+                    </div>
+                  </>
+                ) : null}
               </div>
 
               <DialogFooter className="gap-2 sm:gap-0">
@@ -486,27 +602,40 @@ export function InstructorDashboardClient() {
                     <span>{c.schoolName ? c.schoolName : "School: (not set)"}</span>
                     <span className="text-slate-400">•</span>
                     <span>{c.learnerCount} learners</span>
+                    {c.kind === "library" ? (
+                      <>
+                        <span className="text-slate-400">•</span>
+                        <span className="inline-flex items-center gap-1 font-semibold text-emerald-800">
+                          <Landmark className="h-3.5 w-3.5" />
+                          Library
+                        </span>
+                      </>
+                    ) : null}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="pt-5">
                   <div className="flex flex-col gap-3">
-                    <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-white p-3">
-                      <div className="min-w-0">
-                        <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-slate-600">
-                          Class code
-                        </p>
-                        <p className="mt-1 truncate font-mono text-base font-black text-slate-900">
-                          {c.code}
-                        </p>
-                      </div>
+                    <ClassQrCard
+                      joinUrl={
+                        c.joinUrl ||
+                        `${typeof window !== "undefined" ? window.location.origin : ""}/welcome?classCode=${encodeURIComponent(c.code)}`
+                      }
+                      classCode={c.code}
+                      downloadHref={`/api/instructor/classes/${encodeURIComponent(c.id)}/qr`}
+                      compact
+                    />
+                    <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-slate-200 bg-slate-50 px-3 py-2">
+                      <p className="text-xs font-semibold text-slate-600">
+                        Code <span className="font-mono font-black text-slate-900">{c.code}</span>
+                      </p>
                       <Button
                         type="button"
                         variant="outline"
-                        className="h-11 min-w-11 shrink-0 rounded-xl"
+                        className="h-9 shrink-0 rounded-xl"
                         onClick={() => copy(c.code)}
                       >
                         {copiedCode === c.code ? <Check className="h-4 w-4" /> : <Clipboard className="h-4 w-4" />}
-                        {copiedCode === c.code ? "Copied" : "Copy"}
+                        {copiedCode === c.code ? "Copied" : "Copy code"}
                       </Button>
                     </div>
 

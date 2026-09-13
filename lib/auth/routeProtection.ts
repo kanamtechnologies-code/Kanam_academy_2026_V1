@@ -30,6 +30,7 @@ function startsWithPath(pathname: string, prefix: string): boolean {
 export function isPublicPage(pathname: string): boolean {
   const p = pathOnly(pathname);
   if (p === "/welcome" || startsWithPath(p, "/welcome")) return true;
+  if (p === "/library" || startsWithPath(p, "/library")) return true;
   if (p === "/demo" || startsWithPath(p, "/demo")) return true;
   if (p === "/help") return true;
   if (p === "/billing") return true; // plan browsing; checkout is gated
@@ -78,6 +79,7 @@ export function isProtectedApi(pathname: string): boolean {
   }
   if (p === "/api/student/request-class-code") return false;
   if (p === "/api/student/validate-class-code") return false;
+  if (startsWithPath(p, "/api/library")) return false;
   // Invite-code gated (handler still verifies secret)
   if (startsWithPath(p, "/api/admin")) return false;
   // Stripe signature verified in handler

@@ -132,6 +132,28 @@ create index if not exists idx_classes_teacher_user_id on public.classes (teache
 -- Existing projects: add the async flag if the table already existed without it.
 alter table public.classes add column if not exists is_async boolean not null default false;
 
+-- Library / partner classes (QR join pages live at /library/{partner_slug}).
+alter table public.classes add column if not exists kind text not null default 'standard';
+alter table public.classes add column if not exists partner_slug text;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 'classes_kind_check'
+  ) then
+    alter table public.classes
+      add constraint classes_kind_check
+      check (kind in ('standard', 'library'));
+  end if;
+end
+$$;
+
+create unique index if not exists idx_classes_partner_slug_unique
+  on public.classes (partner_slug)
+  where partner_slug is not null;
+
 create table if not exists public.class_enrollments (
   class_id uuid not null references public.classes(id) on delete cascade,
   student_id uuid not null references public.students(id) on delete cascade,

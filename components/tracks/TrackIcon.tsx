@@ -212,12 +212,17 @@ function FinancialLiteracyGlyph(props: GlyphProps) {
         strokeLinecap="round"
         opacity="0.65"
       />
-      <path
-        d="M20.2 16.9v8.6M17.45 18.7h5.5M17.45 23.85h5.5"
-        stroke="currentColor"
-        strokeWidth="1.85"
-        strokeLinecap="round"
-      />
+      <text
+        x="20.2"
+        y="24.35"
+        textAnchor="middle"
+        fill="currentColor"
+        fontSize="9.2"
+        fontWeight="800"
+        fontFamily="ui-sans-serif, system-ui, sans-serif"
+      >
+        $
+      </text>
     </Mark>
   );
 }
@@ -308,7 +313,7 @@ export function TrackIcon({
 
 /** Public path for the premium raster track mark (mint tile included). */
 export function trackIconArtSrc(trackId: Track["id"]): string {
-  return `/images/tracks/${trackId}.webp?v=2`;
+  return `/images/tracks/${trackId}.webp?v=3`;
 }
 
 /**

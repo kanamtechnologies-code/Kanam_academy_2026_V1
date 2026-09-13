@@ -90,6 +90,26 @@ const topics: Topic[] = [
     ),
   },
   {
+    icon: School,
+    title: "I have a library card",
+    body: [
+      "Henry County Library System is on Georgia’s PINES network. A PINES card (or Henry County PLAY card) unlocks Digital Literacy and Financial Literacy free.",
+      "Scan the QR at your library, or open the Henry County library page and confirm you have a PINES card.",
+      "New learners create a student account. If you already have Kanam, sign in and unlock the two courses.",
+    ],
+    tip: (
+      <>
+        Henry County:{" "}
+        <Link
+          className="font-semibold text-[color:var(--brand-2)] underline underline-offset-2"
+          href="/library/henry-county"
+        >
+          Free library courses
+        </Link>
+      </>
+    ),
+  },
+  {
     icon: BookOpen,
     title: "I’m not sure where to start",
     body: [
@@ -255,8 +275,8 @@ export default function HelpPage() {
                 ),
               },
               {
-                title: "Create a class & share the code",
-                text: "Tap Create class, copy the code, and share it with learners (or parents). Students join with that code during signup or from Welcome.",
+                title: "Create a class & share the QR",
+                text: "Tap Create class — every class gets a QR and join code. Learners scan the QR or enter the code on Welcome. For a library partnership, choose that type to unlock Digital and Financial Literacy automatically.",
               },
               {
                 title: "Set lesson assignments",

@@ -100,6 +100,17 @@ export default function WelcomePage() {
       const errorCode = params.get("error_code") || params.get("error");
       const errorDescription = params.get("error_description");
       const accountDeleted = params.get("accountDeleted") === "1";
+      const qpClass = (params.get("classCode") ?? "").trim();
+      if (qpClass) {
+        setClassCode(qpClass);
+        setStudentPath("teacher");
+        try {
+          window.localStorage.setItem("kanam.classCode", qpClass.trim().toUpperCase());
+          window.localStorage.removeItem("kanam.selfPaced");
+        } catch {
+          // ignore
+        }
+      }
 
       if (accountDeleted) {
         setAccountDeletedMsg(
@@ -196,13 +207,27 @@ export default function WelcomePage() {
       if (!ensureRes.ok || !ensureJson?.ok) {
         throw new Error(ensureJson?.error || "Signed in, but could not load your profile.");
       }
+
+      const pendingCode =
+        classCode.trim() ||
+        (typeof window !== "undefined"
+          ? (window.localStorage.getItem("kanam.classCode") ?? "").trim()
+          : "");
+      if (pendingCode) {
+        await fetch("/api/student/join-class", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ classCode: pendingCode }),
+        }).catch(() => null);
+      }
+
       router.push(next || "/dashboard");
     } catch (error: unknown) {
       setReturningError(mapSignInError(errorMessage(error, "Sign-in failed.")));
     } finally {
       setLoadingReturning(false);
     }
-  }, [returningEmail, returningPassword, router]);
+  }, [classCode, returningEmail, returningPassword, router]);
 
   const continueNewStudentSignup = React.useCallback(
     async (opts: { selfPaced?: boolean; classCode?: string }) => {

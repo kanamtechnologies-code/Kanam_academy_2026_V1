@@ -1,4 +1,5 @@
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { findLibraryPartnerByCode } from "@/lib/libraryPartners";
 import { isInstructorRole } from "@/lib/roles";
 
 type AdminClient = ReturnType<typeof createSupabaseAdminClient>;
@@ -20,12 +21,12 @@ async function userExists(admin: AdminClient, userId: string) {
 }
 
 /**
- * Resolve who owns the shared self-paced class:
+ * Resolve who owns a shared system class (self-paced or catalog library partner):
  * 1) KANAM_ASYNC_OWNER_USER_ID when that user still exists
  * 2) any existing class teacher
  * 3) any auth user with instructor/teacher app_metadata.role
  */
-async function resolveAsyncClassOwnerId(admin: AdminClient): Promise<string | null> {
+export async function resolveSharedClassOwnerId(admin: AdminClient): Promise<string | null> {
   const fromEnv = (process.env.KANAM_ASYNC_OWNER_USER_ID || "").trim();
   if (fromEnv && (await userExists(admin, fromEnv))) {
     return fromEnv;
@@ -78,7 +79,7 @@ export async function ensureAsyncClass(admin = createSupabaseAdminClient()) {
     return { id: existing.id as string, code, name: String(existing.name ?? getAsyncClassName()) };
   }
 
-  const ownerId = await resolveAsyncClassOwnerId(admin);
+  const ownerId = await resolveSharedClassOwnerId(admin);
   if (!ownerId) {
     throw new Error(
       "Self-paced class is not set up yet. Create an instructor account (or set KANAM_ASYNC_OWNER_USER_ID to a valid instructor user id), then try again."
@@ -139,6 +140,21 @@ export async function findClassByCode(
       name: ensured.name,
       isAsync: true,
     };
+  }
+
+  if (!klass.data?.id) {
+    const partner = findLibraryPartnerByCode(code);
+    if (partner) {
+      const { ensureLibraryPartnerClass } = await import("@/lib/ensureLibraryClass");
+      const ensured = await ensureLibraryPartnerClass(partner.slug, admin);
+      return {
+        ok: true as const,
+        id: ensured.id,
+        code: ensured.code,
+        name: ensured.name,
+        isAsync: false,
+      };
+    }
   }
 
   if (klass.error) return { ok: false as const, error: klass.error.message };
