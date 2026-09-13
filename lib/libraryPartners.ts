@@ -27,9 +27,9 @@ export const LIBRARY_PARTNERS: LibraryPartner[] = [
     className: "Henry County Library — Digital & Financial Literacy",
     classCode: "KANAM-HCLS",
     trackIds: [...LIBRARY_LITERACY_TRACK_IDS],
-    headline: "Welcome. Your free courses are ready.",
+    headline: "Welcome.",
     description:
-      "Digital Literacy and Financial Literacy — two full Kanam courses, unlocked with your PINES card.",
+      "We're glad you're here. You can learn digital skills and money skills — free with your PINES card.",
     cardName: "PINES card",
   },
 ];

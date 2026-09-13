@@ -239,10 +239,22 @@ Today's lesson: **Computing, Careers & Connected Workplaces**.
         id: "ai-growth",
         kicker: "Concept",
         title: "Use AI honestly — and never stop learning",
-        body: `Two final career mindsets that matter a lot, especially in tech.\n\n**Use AI tools responsibly and honestly.** AI can speed up writing, coding, and research at work — but the rules from your AI lessons still apply: verify what it produces, protect private or company data, and be honest about what you used. Passing off AI work as fully your own, or trusting it blindly on important facts, can damage your reputation fast — including with college honor codes and internship supervisors.\n\n**Keep a growth mindset (upskilling).** Tech changes constantly — the exact tools you learn today will evolve. The people who thrive aren't the ones who "finished learning"; they're the ones who keep learning. **Upskilling** means regularly picking up new tools and skills throughout your career. Treat "I don't know this yet" as a starting point, not a wall.\n\nThis is the heartbeat of working in tech: the field rewards curious people who stay adaptable. The single most valuable skill is *learning how to learn*.`,
+        body: `Two final career mindsets that matter a lot, especially in tech.\n\n**Use AI tools responsibly and honestly.** AI can speed up writing, coding, and research at work — but the rules from earlier lessons still apply: verify what it produces, protect private or company data, and be honest about what you used. Passing off AI work as fully your own, or trusting it blindly on important facts, can damage your reputation fast — including with college honor codes and internship supervisors.\n\nDecide **use / verify / disclose / refuse** before you paste:\n\n• **Use** for a first outline, a formula reminder, or a grammar pass when the task allows it.\n• **Verify** every date, name, number, and citation on a source you can open.\n• **Disclose** when a teacher, supervisor, or honor code would expect to know a tool helped.\n• **Refuse** when the file is private, the claim is high-stakes, or the assignment says the work must be yours.\n\n**Keep a growth mindset (upskilling).** Tech changes constantly — the exact tools you learn today will evolve. The people who thrive aren't the ones who "finished learning"; they're the ones who keep learning. **Upskilling** means regularly picking up new tools and skills throughout your career. Treat "I don't know this yet" as a starting point, not a wall.\n\nThis is the heartbeat of working in tech: the field rewards curious people who stay adaptable. The single most valuable skill is *learning how to learn*.`,
         callout: {
           label: "Common misconception",
           text: "\"I'll just learn all this later when I get a job.\" Employers expect you to arrive with the basics and keep growing. Starting now — and building the habit of upskilling — puts you years ahead.",
+        },
+        checkIn: {
+          prompt: "Your internship supervisor asks for a one-page summary of a policy. An AI draft looks finished. What is the honest workplace move?",
+          choices: [
+            "Send the draft as-is so you look fast",
+            "Verify facts, disclose the tool if the workplace expects it, and refuse to paste confidential source files",
+            "Paste the full confidential policy into a public chatbot to improve the draft",
+            "Delete the assignment because AI exists",
+          ],
+          correctIndex: 1,
+          explanation:
+            "Speed is not honesty. Verify, disclose when expected, and keep private files out of public tools.",
         },
       },
       {
@@ -483,10 +495,23 @@ B6 instantly becomes 66    # you re-do ZERO math by hand`,
       explanation:
         "A clear, prompt acknowledgment builds trust, and confirming file access early avoids a last-minute scramble — both are simple but highly valued remote-collaboration habits.",
     },
+    {
+      id: "q9",
+      question: "When is refusing an AI tool the stronger workplace move?",
+      choices: [
+            "Whenever a draft would save you ten minutes",
+            "When the file is confidential, the claim is high-stakes, or the assignment must be your own work",
+            "Only if you do not know how to write a prompt",
+            "Never — supervisors always want the fastest draft",
+          ],
+      correctIndex: 1,
+      explanation:
+        "Use and verify are fine when the task allows it. Refuse when privacy, honesty, or accuracy would be broken by a paste.",
+    },
   ],
   reflection: {
     prompt:
-      "Evaluate one connected-work practice you expect to use in a class, job, or internship. Name one benefit and one tradeoff (including access or equity), then write a professional norm or tool choice that makes collaboration clearer and more inclusive.",
-    placeholder: "Practice: shared project chat. Benefit: … Tradeoff: … Norm/tool choice: I will … because …",
+      "Evaluate one connected-work practice you expect to use in a class, job, or internship. Name one benefit and one tradeoff (including access or equity), then write a professional norm — including when you would use, verify, disclose, or refuse AI.",
+    placeholder: "Practice: shared project chat. Benefit: … Tradeoff: … Norm: I will … I would refuse AI when …",
   },
 };

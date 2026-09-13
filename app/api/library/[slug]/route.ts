@@ -137,8 +137,8 @@ export async function GET(
           className: row.name || libraryName,
           classCode: String(row.code).toUpperCase(),
           trackIds: ["digital-literacy", "financial-literacy"],
-          headline: "Welcome. Your free courses are ready.",
-          description: `Digital Literacy and Financial Literacy — two full Kanam courses, unlocked with your library card from ${libraryName}.`,
+          headline: "Welcome.",
+          description: "We're glad you're here. You can learn digital skills and money skills — free with your library card.",
           cardName: "library card",
         },
         req

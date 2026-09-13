@@ -203,22 +203,20 @@ export function LibraryPartnerClient({ slug }: { slug: string }) {
           </motion.div>
         ) : partner ? (
           <>
-            <motion.section {...cardEnter(0)} className="kanam-dashboard-hero rounded-[28px] p-6 sm:p-8 md:p-10">
+            <motion.section {...cardEnter(0)} className="kanam-dashboard-hero rounded-[28px] px-6 py-8 text-center sm:px-10 sm:py-12 md:py-14">
               <div className="kanam-dashboard-hero-overlay" />
-              <div className="relative z-10">
-                <p className="text-[11px] font-black uppercase tracking-[0.22em] text-white/80">
-                  {partner.name}
-                  {partner.location ? ` · ${partner.location}` : ""}
-                </p>
-                <h1 className="mt-3 max-w-3xl text-[2rem] font-black leading-[1.05] tracking-tight text-white sm:text-5xl">
-                  Welcome. Your free courses are ready.
+              <div className="relative z-10 mx-auto max-w-2xl">
+                <h1 className="text-[2.25rem] font-black leading-[1.05] tracking-tight text-white sm:text-5xl">
+                  Welcome.
                 </h1>
-                <p className="mt-4 max-w-2xl text-base font-medium leading-relaxed text-white/90 sm:text-xl">
-                  Digital Literacy and Financial Literacy — two full Kanam courses, unlocked with
-                  your {partner.cardName}.
+                <p className="mt-4 text-lg font-medium leading-relaxed text-white/92 sm:text-xl">
+                  We&apos;re glad you&apos;re here.
                 </p>
-                <p className="mt-3 text-lg font-extrabold text-[#f3e4b0] sm:text-xl">
-                  Normally $100 each. Free for you today.
+                <p className="mt-3 text-base font-medium leading-relaxed text-white/88 sm:text-lg">
+                  You can learn digital skills and money skills — free with your {partner.cardName}.
+                </p>
+                <p className="mt-4 text-lg font-extrabold text-[#f3e4b0] sm:text-xl">
+                  Normally $100 each.
                 </p>
               </div>
             </motion.section>
@@ -313,7 +311,7 @@ export function LibraryPartnerClient({ slug }: { slug: string }) {
                   {attested ? <Check className="h-3.5 w-3.5" strokeWidth={3} /> : null}
                 </span>
                 <span className="text-sm font-medium leading-relaxed text-slate-800 dark:text-slate-200">
-                  Yes — I have a {partner.cardName} from {partner.name}.
+                  Yes — I have a {partner.cardName}.
                 </span>
               </button>
               <span className="sr-only" aria-live="polite">

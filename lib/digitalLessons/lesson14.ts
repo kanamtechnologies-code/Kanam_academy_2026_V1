@@ -19,6 +19,7 @@ Today's lesson: **Systematic Troubleshooting Others Can Reuse**.
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
+5. Artifact: students must submit the troubleshooting job-aid before they can finish. It is saved on this device for review.
 
 **Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
@@ -357,7 +358,7 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got a real pro's toolkit now: stay **calm** (most problems are fixable), run the **process** (describe → what changed → isolate → simple fixes → search the exact error), know **why restarting works**, read **error messages** as clues, use **decomposition** and the **rubber duck** trick, write down what you tried, and ask for help with a clear, four-part request — backing up before anything risky. The same process fixes college portals, job sites, and shared Docs.\n\nThis isn't just for emergencies. It's a core skill in *every* tech job, and honestly in every job. Calm, logical problem-solvers are the people teams rely on.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on a tech problem you've solved — or one you'll tackle next.`,
+        body: `You've got a real pro's toolkit now: stay **calm** (most problems are fixable), run the **process** (describe → what changed → isolate → simple fixes → search the exact error), know **why restarting works**, read **error messages** as clues, use **decomposition** and the **rubber duck** trick, write down what you tried, and ask for help with a clear, four-part request — backing up before anything risky. The same process fixes college portals, job sites, and shared Docs.\n\nThis isn't just for emergencies. It's a core skill in *every* tech job, and honestly in every job. Calm, logical problem-solvers are the people teams rely on.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then submit the troubleshooting job-aid.`,
       },
     ],
   },
@@ -483,9 +484,15 @@ What I tried: Toggled Wi-Fi off/on, restarted the laptop, confirmed
         "The troubleshooting mindset starts with staying calm enough to read the error message — the exact clue that panic-clicking or restarting from scratch would otherwise destroy or skip past.",
     },
   ],
-  reflection: {
-    prompt:
-      "Create a short troubleshooting job-aid for a real issue (Wi-Fi, portal upload, shared document, or frozen app). Include: a precise symptom; tests that isolate app/OS/device/network layers; two credible sources to compare; one safe test at a time; and what a future user should document or do if it still fails.",
-    placeholder: "Symptom: … Layer tests: … Sources: official support + … Test/result log: … Escalate when: …",
+  artifact: {
+    title: "Troubleshooting job-aid",
+    prompt: "Write a **one-page job-aid** another student could follow for a real issue (Wi-Fi, portal upload, shared document, or frozen app). Include: a precise symptom; tests that isolate app / OS / device / network; two credible sources to compare; one safe test at a time; and what to document or do if it still fails.",
+    placeholder: "Symptom: … Layer tests: app / OS / device / network … Sources: official support + … Test/result log: … Escalate when: …",
+    minChars: 150,
+    rubric: [
+      "Names a precise symptom, not “it’s broken.”",
+      "Tests more than one layer (app, OS, device, or network) one step at a time.",
+      "Points to two credible sources and says when to stop and ask for help.",
+    ],
   },
 };

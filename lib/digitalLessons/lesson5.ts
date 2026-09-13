@@ -19,6 +19,7 @@ Today's lesson: **Digital Communication for School & Work**.
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
+5. Artifact: students must submit the professional email before they can finish. It is saved on this device for review.
 
 **Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
@@ -311,10 +312,28 @@ Today's lesson: **Digital Communication for School & Work**.
         },
       },
       {
+        id: "ai-draft",
+        kicker: "AI-assisted writing",
+        title: "Keep, rewrite, or refuse an AI draft",
+        body: `An AI draft can give you a greeting and a shape in ten seconds. It can also invent a class period you don't have, sound too casual for a college office, or include a fact you never checked. You still own the send button.\n\nUse a three-way decision:\n\n• **Keep** a useful structure — subject line, greeting, ask, sign-off — if it matches the audience.\n• **Rewrite** any fact, date, tone, or ask that is not yours. The message must be something you would stand behind if it were forwarded.\n• **Refuse** the draft when the task needs your voice, private details the tool should not see, or a claim you cannot verify.\n\nThen run the five-second send checklist on the version *you* approve. Prompting technique lives in AI Literacy. Here the habit is: **human-owned email, even when a tool typed first.**`,
+        checkIn: {
+          prompt: "An AI draft of a teacher email invents an extra-credit deadline you never discussed. What should you do?",
+          choices: [
+            "Send it — the draft already has a greeting and sign-off",
+            "Rewrite or delete the invented deadline, then send only facts you can stand behind",
+            "Paste the draft into the class chat so others can use it too",
+            "Add more adjectives so it sounds more professional",
+          ],
+          correctIndex: 1,
+          explanation:
+            "A clean shape is useful. An invented fact is not. You keep the structure only after you own every claim.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've got the toolkit: pick the right **channel**, follow basic **netiquette**, remember that text **strips out tone**, and write clear messages with a strong subject line and an obvious ask. For anything formal, use the professional email shape — greeting, purpose, ask, sign-off — and switch your style for teachers, colleges, and workplaces.\n\nMaster this and you'll spend less time untangling misunderstandings and more time getting things done. It's one of the most underrated skills in school *and* in any job.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then jot a quick reflection about a message you could rewrite to be clearer.`,
+        body: `You've got the toolkit: pick the right **channel**, follow basic **netiquette**, remember that text **strips out tone**, and write clear messages with a strong subject line and an obvious ask. For anything formal, use the professional email shape — greeting, purpose, ask, sign-off — and switch your style for teachers, colleges, and workplaces.\n\nMaster this and you'll spend less time untangling misunderstandings and more time getting things done. It's one of the most underrated skills in school *and* in any job.\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then submit the professional email artifact.`,
       },
     ],
   },
@@ -439,10 +458,29 @@ Today's lesson: **Digital Communication for School & Work**.
       explanation:
         "Formal, lasting audiences like a college office call for the full professional email shape — clear subject, greeting, specific ask, and sign-off — proofread and free of slang.",
     },
+    {
+      id: "q9",
+      question: "An AI draft of a supervisor email invents a meeting time you never confirmed. What should you do?",
+      choices: [
+            "Send it — the greeting and sign-off already look professional",
+            "Rewrite or remove the invented time, then send only details you can stand behind",
+            "Forward the draft so your supervisor can fix the facts",
+            "Add more polite phrases and send it unchanged",
+          ],
+      correctIndex: 1,
+      explanation:
+        "You can keep a useful email shape. You cannot send a fact you did not verify. The send button stays yours.",
+    },
   ],
-  reflection: {
-    prompt:
-      "Choose a real school, work, or public-post scenario. Which channel would you use, who is the audience, and how would you adjust tone and context so the recipient can act?",
-    placeholder: "Example: For an internship schedule question, I would email my supervisor with the date, shift, and a specific request rather than post in the team chat.",
+  artifact: {
+    title: "Professional email",
+    prompt: "Write a **complete email** (subject, greeting, purpose, ask, sign-off) for a teacher, counselor, college office, or internship supervisor. Start from a messy prompt or an imagined AI draft if you want — then **keep, rewrite, or refuse** any line that is not yours. The sent version must be something you would stand behind if it were forwarded.",
+    placeholder: "Subject: …\nHi Ms. Rivera —\nI'm writing because …\nCould you … by …?\nThank you,\nJordan Lee, Period 3",
+    minChars: 120,
+    rubric: [
+      "Includes subject, greeting, a specific ask with a time if needed, and a sign-off.",
+      "Tone fits a lasting audience (teacher, college, or supervisor — not a friend chat).",
+      "If you used an AI-style draft, say what you kept, rewrote, or refused.",
+    ],
   },
 };

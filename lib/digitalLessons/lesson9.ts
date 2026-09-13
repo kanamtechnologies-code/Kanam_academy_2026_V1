@@ -19,6 +19,7 @@ Today's lesson: **Accessible Creation & Bias in Digital Artifacts**.
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
+5. Artifact: students must submit the accessible-artifact note before they can finish. It is saved on this device for review.
 
 **Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
@@ -98,5 +99,15 @@ Today's lesson: **Accessible Creation & Bias in Digital Artifacts**.
             "Add a labeled URL and improve contrast",
           ], correctIndex: 3, explanation: "A redundant, readable route keeps essential information available." },
   ],
-  reflection: { prompt: "Choose a digital artifact you made or use often. What barrier might it create for a different audience, and what test plus revision would reduce that barrier?", placeholder: "Example: My event post uses pale text on a photo. I would test it on a phone and add a high-contrast text panel..." },
+  artifact: {
+    title: "Accessible artifact note",
+    prompt: "Describe a **short artifact** you would publish (flyer, slide, post, or one-pager). Write the **heading**, the **alt text** for one image, one **contrast or caption** choice, and one **test** you would run (phone, grayscale, screen-reader headings, or captions on). Say who that change helps.",
+    placeholder: "Artifact: club meeting flyer. Heading: Robotics Club — Tuesday 3:30, Room 12. Alt text: … Contrast: dark text on a solid panel, not on the photo. Test: I would open it on a phone and check the heading order. Helps: people scanning on a small screen and people using a screen reader.",
+    minChars: 120,
+    rubric: [
+      "Names the artifact and its audience.",
+      "Includes real heading text plus alt text (not “image of a flyer”).",
+      "Names one test and who the revision helps.",
+    ],
+  },
 };

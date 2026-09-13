@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const partner = getLibraryPartner(slug);
   const title = partner
-    ? `${partner.name} — welcome to your free courses`
+    ? `${partner.name} — Welcome`
     : "Library welcome — Kanam Academy";
   const description =
     partner?.description ??

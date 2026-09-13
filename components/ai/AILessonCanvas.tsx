@@ -7,6 +7,7 @@ import {
   Brain,
   CheckCircle2,
   ChevronRight,
+  FileText,
   Lightbulb,
   ListChecks,
   PenLine,
@@ -163,6 +164,16 @@ export type AIBonusActivity =
   | AIPredictActivity
   | AIEvalActivity;
 
+export type AILessonArtifact = {
+  title: string;
+  prompt: string;
+  placeholder?: string;
+  /** Minimum characters required to finish the lesson. Default 80. */
+  minChars?: number;
+  /** Student-facing self-check bullets — not auto-scored. */
+  rubric?: string[];
+};
+
 export type AILessonConfig = {
   id: string;
   title: string;
@@ -190,6 +201,8 @@ export type AILessonConfig = {
   activities?: AIBonusActivity[];
   /** Optional open-ended reflection shown after the quiz. */
   reflection?: { prompt: string; placeholder?: string };
+  /** Required written artifact. Blocks Finish until minChars are met. */
+  artifact?: AILessonArtifact;
   prevHref?: string;
   nextHref?: string;
   dashboardHref?: string;
@@ -267,6 +280,7 @@ export function AILessonCanvas({
   const [activityDoneIds, setActivityDoneIds] = React.useState<Set<string>>(() => new Set());
   const [activeActivityIndex, setActiveActivityIndex] = React.useState(0);
   const [reflection, setReflection] = React.useState("");
+  const [artifact, setArtifact] = React.useState("");
   const [lessonComplete, setLessonComplete] = React.useState(false);
   const [slideProgress, setSlideProgress] = React.useState({ current: 1, total: 1 });
 
@@ -318,7 +332,9 @@ export function AILessonCanvas({
   React.useEffect(() => {
     try {
       const saved = window.localStorage.getItem(`kanam.aiReflection:${lesson.id}`);
-      if (saved) setReflection(saved);
+      setReflection(saved ?? "");
+      const savedArtifact = window.localStorage.getItem(`kanam.aiArtifact:${lesson.id}`);
+      setArtifact(savedArtifact ?? "");
     } catch {
       // ignore
     }
@@ -412,7 +428,10 @@ export function AILessonCanvas({
   const allCorrect = lesson.quiz.every((q) => correctIds.has(q.id));
   const allActivitiesDone =
     activities.length === 0 || activities.every((a) => activityDoneIds.has(a.id));
-  const canFinish = allCorrect && allActivitiesDone;
+  const practiceReady = allCorrect && allActivitiesDone;
+  const artifactMin = lesson.artifact?.minChars ?? 80;
+  const artifactReady = !lesson.artifact || artifact.trim().length >= artifactMin;
+  const canFinish = practiceReady && artifactReady;
   const isLastQuestion = activeIndex === totalQuestions - 1;
   const currentCorrect = activeQuestion ? correctIds.has(activeQuestion.id) : false;
   const currentSelection = activeQuestion ? selected[activeQuestion.id] : undefined;
@@ -456,6 +475,9 @@ export function AILessonCanvas({
       if (reflection.trim()) {
         window.localStorage.setItem(`kanam.aiReflection:${lesson.id}`, reflection.trim());
       }
+      if (lesson.artifact && artifact.trim()) {
+        window.localStorage.setItem(`kanam.aiArtifact:${lesson.id}`, artifact.trim());
+      }
     } catch {
       // ignore
     }
@@ -465,6 +487,7 @@ export function AILessonCanvas({
     }
     trackProgress("lesson_success", {
       reflectionLength: reflection.trim().length,
+      artifactLength: artifact.trim().length,
       activitiesCompleted: activityDoneIds.size,
       activitiesTotal: activities.length,
     });
@@ -1007,7 +1030,7 @@ export function AILessonCanvas({
                 </Card>
               ) : null}
 
-              {canFinish && !lessonComplete ? (
+              {practiceReady && !lessonComplete ? (
                 <Card className="border-[var(--brand)]/40 bg-[var(--brand)]/5 shadow-md">
                   <CardContent className="space-y-4 py-6">
                     <div className="flex items-center gap-2">
@@ -1018,6 +1041,54 @@ export function AILessonCanvas({
                           : "You aced the knowledge check!"}
                       </p>
                     </div>
+                    {lesson.artifact ? (
+                      <div className="space-y-2">
+                        <label
+                          htmlFor={`artifact-${lesson.id}`}
+                          className="flex items-center gap-2 text-sm font-bold text-slate-800"
+                        >
+                          <FileText className="h-4 w-4 text-[var(--brand)]" />
+                          {lesson.artifact.title}
+                        </label>
+                        <p className="text-sm text-slate-600">
+                          {renderInline(lesson.artifact.prompt)}
+                        </p>
+                        {lesson.artifact.rubric && lesson.artifact.rubric.length > 0 ? (
+                          <ul className="space-y-1.5 rounded-xl border border-slate-200 bg-white/80 p-3">
+                            {lesson.artifact.rubric.map((item) => (
+                              <li key={item} className="flex items-start gap-2 text-sm text-slate-700">
+                                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[var(--brand)]" />
+                                <span>{renderInline(item)}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                        <textarea
+                          id={`artifact-${lesson.id}`}
+                          value={artifact}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            setArtifact(value);
+                            try {
+                              if (value.trim()) {
+                                window.localStorage.setItem(
+                                  `kanam.aiArtifact:${lesson.id}`,
+                                  value
+                                );
+                              }
+                            } catch {
+                              // ignore
+                            }
+                          }}
+                          placeholder={lesson.artifact.placeholder ?? "Write your artifact…"}
+                          className="min-h-[140px] w-full resize-y rounded-xl border-2 border-slate-200 bg-white p-3 text-sm text-slate-800 shadow-inner focus:border-[var(--brand)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)]/30"
+                        />
+                        <p className={cn("text-xs", artifactReady ? "text-slate-400" : "text-slate-600")}>
+                          {artifact.trim().length} / {artifactMin} characters required.
+                          Saved on this device so you can reopen it with a teacher or librarian.
+                        </p>
+                      </div>
+                    ) : null}
                     {lesson.reflection ? (
                       <div className="space-y-2">
                         <label
@@ -1042,7 +1113,13 @@ export function AILessonCanvas({
                         </p>
                       </div>
                     ) : null}
-                    <Button type="button" size="lg" className="shadow-md" onClick={finishLesson}>
+                    <Button
+                      type="button"
+                      size="lg"
+                      className="shadow-md"
+                      disabled={!canFinish}
+                      onClick={finishLesson}
+                    >
                       <Trophy className="h-4 w-4" />
                       Finish lesson
                     </Button>

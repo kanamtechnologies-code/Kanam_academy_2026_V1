@@ -19,6 +19,7 @@ Today's lesson: **Everyday Threats & Security Recommendations**.
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
+5. Artifact: students must submit the device security checklist before they can finish. It is saved on this device for review.
 
 **Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
@@ -97,5 +98,15 @@ Today's lesson: **Everyday Threats & Security Recommendations**.
             "Try to reverse-engineer it",
           ], correctIndex: 0, explanation: "Independent verification and reporting avoid spreading or escalating potential harm." },
   ],
-  reflection: { prompt: "Choose one high-stakes account or shared device. What threat is most relevant, and what security measure would you recommend after weighing effectiveness, feasibility, and ethics?", placeholder: "Example: For a shared laptop, I would recommend separate accounts, updates, backups, and a clear reporting path..." },
+  artifact: {
+    title: "Device security checklist",
+    prompt: "Open **your phone or laptop** (or describe the one you use for school). Write a checklist of what is **on** vs **not yet** for: lock screen, unique password or passcode, MFA on email or school account, app or browser permissions you would revoke, and a backup or recovery path. Recommend **one next step** that is feasible for you this week — not a perfect lab setup.",
+    placeholder: "Device: my phone. Lock screen: on. Email MFA: not yet — I will turn it on this weekend. Permissions: I would revoke always-on location for … Backup: … Next step: …",
+    minChars: 100,
+    rubric: [
+      "Names a real device and at least three controls (lock, MFA, permissions, backup, or updates).",
+      "Marks what is already true vs still open — not a generic list copied from the slides.",
+      "Ends with one feasible next step and who it protects.",
+    ],
+  },
 };

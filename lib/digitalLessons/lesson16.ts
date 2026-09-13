@@ -18,6 +18,7 @@ Today's lesson: **Capstone: Evaluate Impacts & Act**.
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
+5. Artifact: students must submit the digital-readiness action plan (with the AI use/verify/disclose/refuse line) before they can finish. It is saved on this device for review.
 
 **Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
@@ -142,13 +143,14 @@ Today's lesson: **Capstone: Evaluate Impacts & Act**.
         id: "plan",
         kicker: "Your toolkit",
         title: "Build a personal digital-readiness action plan",
-        body: `A self-audit only matters if it leads to **action**. So let's turn your "not-yet" answers into concrete next steps. A good action plan is short, specific, and *doable* — not a vague wish to "be better online."\n\nPick a few moves like these (each maps to an area you've learned):\n\n• **Security:** set up a **password manager** and turn on **2FA** for your main accounts.\n• **Footprint:** **clean up one social profile** — review old public posts, tighten privacy settings.\n• **Wellbeing:** turn on a **focus / do-not-disturb mode** and charge your phone outside your room.\n• **Work skills:** **learn one spreadsheet formula** for real (\`=SUM()\` is perfect).\n• **Career:** **start a simple portfolio** — even a single doc listing projects you've made.\n• **Senior add-ons:** write one practice **professional email**, export a résumé as **PDF**, or lock down a college/scholarship portal login.\n\nNotice these are all *specific actions with a clear finish*, not "try harder." That's what makes a plan actually happen.\n\nAnd here's the mindset behind it all: be a **lifelong digital learner**. Tools, apps, and risks keep changing, so your plan is never truly "done." You just keep choosing your next small step — and that's exactly what being job-ready and a capable digital citizen looks like.`,
+        body: `A self-audit only matters if it leads to **action**. So let's turn your "not-yet" answers into concrete next steps. A good action plan is short, specific, and *doable* — not a vague wish to "be better online."\n\nPick a few moves like these (each maps to an area you've learned):\n\n• **Security:** set up a **password manager** and turn on **2FA** for your main accounts.\n• **Footprint:** **clean up one social profile** — review old public posts, tighten privacy settings.\n• **Wellbeing:** turn on a **focus / do-not-disturb mode** and charge your phone outside your room.\n• **Work skills:** **learn one spreadsheet formula** for real (\`=SUM()\` is perfect).\n• **Career:** **start a simple portfolio** — even a single doc listing projects you've made.\n• **AI honesty:** add one line to your plan for when you will **use, verify, disclose, or refuse** a tool — especially on applications and workplace files.\n• **Senior add-ons:** write one practice **professional email**, export a résumé as **PDF**, or lock down a college/scholarship portal login.\n\nNotice these are all *specific actions with a clear finish*, not "try harder." That's what makes a plan actually happen.\n\nAnd here's the mindset behind it all: be a **lifelong digital learner**. Tools, apps, and risks keep changing, so your plan is never truly "done." You just keep choosing your next small step — and that's exactly what being job-ready and a capable digital citizen looks like.`,
         bullets: [
           "Set up a **password manager + 2FA**.",
           "Clean up **one** social profile.",
           "Turn on a **focus mode** and improve sleep habits.",
           "Learn **one spreadsheet formula** for real.",
           "Start a **simple portfolio** of your projects.",
+          "Write when you will **use, verify, disclose, or refuse** AI.",
         ],
         callout: {
           label: "Common misconception",
@@ -498,9 +500,16 @@ Mindset: this list is never "done" — I'll keep adding next steps.`,
         "Evaluating the accuracy, perspective, and usefulness of information sources before trusting or sharing them is exactly what the information-literacy lessons practiced.",
     },
   ],
-  reflection: {
-    prompt:
-      "CAPSTONE PORTFOLIO: Choose one personal or community digital practice. State your claim; identify stakeholders; use evidence from at least two course themes (CS, DA, NI, or IC); evaluate one benefit, one harm, and one access tradeoff; recommend a concrete action; and name a measure plus date to review whether it worked.",
-    placeholder: "Practice + claim: … Stakeholders: … Evidence/themes: … Benefit/harm/access tradeoff: … Action + owner: … Success measure + review date: …",
+  artifact: {
+    title: "Digital-readiness action plan",
+    prompt: "Build your **capstone action plan**. Choose one personal or community digital practice. State a claim; name stakeholders; use evidence from at least two track themes (systems, storage, networks/search, information, communication, identity, access, IP, security, privacy, wellbeing, or troubleshooting); evaluate one benefit, one harm, and one access tradeoff; recommend a concrete action with an owner; name a success measure and a review date. Include one line on how AI showed up in your plan (use, verify, disclose, or refuse).",
+    placeholder: "Practice + claim: … Stakeholders: … Evidence/themes: … Benefit/harm/access tradeoff: … Action + owner: … Success measure + review date: … AI line: I will …",
+    minChars: 200,
+    rubric: [
+      "Names a specific practice and a claim, not “be better online.”",
+      "Uses evidence from at least two lessons or themes in this track.",
+      "Includes a doable action, owner, success measure, and review date.",
+      "Says when you will use, verify, disclose, or refuse an AI tool.",
+    ],
   },
 };

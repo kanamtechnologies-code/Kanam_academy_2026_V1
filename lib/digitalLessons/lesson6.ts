@@ -19,6 +19,7 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
 2. Walk the Lesson slides — pause on check-ins; let students answer before revealing.
 3. Knowledge check: circulate; ask "why?" after each quiz item, not just the letter.
 4. Close: one-sentence takeaway + how this shows up in real life.
+5. Artifact: students must submit the group kickoff plan before they can finish. It is saved on this device for review.
 
 **Watch for:** guessing from hype or headlines without using the lesson vocabulary. Push students back to the definitions and examples on the slides.`,
   lessonModule: {
@@ -305,10 +306,28 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
         },
       },
       {
+        id: "ai-shared",
+        kicker: "AI in a shared doc",
+        title: "Generated text still needs a human owner",
+        body: `A teammate can paste an AI paragraph into the shared report in seconds. Version history will show *who pasted it*. It will not show whether anyone checked the facts, cited a source, or agrees with the wording. Comments and suggesting mode are how the team takes ownership.\n\nBefore a generated block stays in the final, someone should: name that it came from a tool, check claims against a source the group can open, and leave a comment if a line is still unverified. “Anyone with the link can edit” plus unmarked AI text is how a group submits work nobody can defend.\n\nThe collaboration skill is the same as permissions: **the file has one home, and every important paragraph has a person who will stand behind it.**`,
+        checkIn: {
+          prompt: "A teammate pastes a fluent AI paragraph into your shared report with no comment. What should the group do before it stays in the final?",
+          choices: [
+            "Leave it — version history already proves who typed it",
+            "Delete the whole document and start over in email attachments",
+            "Mark that it came from a tool, check the claims, and assign a human owner in a comment",
+            "Turn the link to 'anyone with the link can edit' so more people can improve it",
+          ],
+          correctIndex: 2,
+          explanation:
+            "History shows who pasted. Ownership means someone verified the claims and will defend the wording.",
+        },
+      },
+      {
         id: "ready",
         kicker: "Ready",
         title: "Now it's your turn",
-        body: `You've learned the modern way teams work: one **shared document** with the right **permissions**, **comments and suggestions** instead of overwriting, and **version history** to undo any mistake. Add good meeting etiquette, careful link-sharing, and a five-decision kickoff, and you can run a remote team like a pro.\n\nThese habits end the "who has the latest version?" chaos forever — and they're exactly what employers mean when they ask if you can "collaborate."\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then reflect on a group project that would've gone better with these tools.`,
+        body: `You've learned the modern way teams work: one **shared document** with the right **permissions**, **comments and suggestions** instead of overwriting, and **version history** to undo any mistake. Add good meeting etiquette, careful link-sharing, and a five-decision kickoff, and you can run a remote team like a pro.\n\nThese habits end the "who has the latest version?" chaos forever — and they're exactly what employers mean when they ask if you can "collaborate."\n\nWhen you're ready, switch to the **Knowledge check** (multiple choice, then Reorder · Debug · Predict), then submit the group kickoff plan.`,
       },
     ],
   },
@@ -433,10 +452,29 @@ Today's lesson: **Collaboration Across Teams, Cultures & Careers**.
       explanation:
         "Structural habits — mute-by-default, raise-hand instead of interrupting, and a visible shared agenda with clear roles — fixed the meeting quickly, without needing new technology.",
     },
+    {
+      id: "q9",
+      question: "A teammate pastes unmarked AI text into the shared report. What does 'one home' still require?",
+      choices: [
+            "Nothing — version history is enough credit",
+            "A human owner who marks the tool use, checks claims, and will defend the wording",
+            "Changing the file to 'anyone with the link can edit'",
+            "Emailing a new copy so the AI paragraph has its own version",
+          ],
+      correctIndex: 1,
+      explanation:
+        "A shared doc prevents version chaos. It does not automatically assign responsibility for generated text.",
+    },
   ],
-  reflection: {
-    prompt:
-      "Evaluate a group project or team activity. Which method would improve connectivity or reduce an access barrier: live editing, comments, a task board, version history, or a meeting with a decision log? Explain why.",
-    placeholder: "Example: Comments plus a written decision log would let teammates with jobs after school contribute without missing decisions made in a live call.",
+  artifact: {
+    title: "Group kickoff plan",
+    prompt: "Write a **5-minute kickoff** for a real or imagined group project: one shared home (doc or slides), who has **edit vs comment**, who is *not* 'anyone with the link,' file name, internal draft time, and real deadline. Add one line for how the group will handle AI-generated text (mark it, check it, assign an owner).",
+    placeholder: "Home: one Google Doc titled … Permissions: teammates edit, teacher comment, no public link. Roles: … Draft due: … Final due: … AI text: we mark the tool, check claims, and the section owner comments 'verified' before it stays.",
+    minChars: 120,
+    rubric: [
+      "Names one shared home and least-access permissions (not a public edit link).",
+      "Lists roles and two dates (internal draft + real deadline).",
+      "Says how unmarked AI text will be handled before it stays in the final.",
+    ],
   },
 };
